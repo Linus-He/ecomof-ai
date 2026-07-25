@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import gasRecordsData from "../../../public/data/gas_adsorption_records_v2.json"
-import { BlockFormula } from "../../shared"
+import { BlockFormula, getReadableMofLabel } from "../../shared"
 
 const GRADE_STYLE = {
   iast: { color: "#2563eb", labelZh: "IAST", labelEn: "IAST", shape: "circle" },
@@ -66,8 +66,8 @@ export function buildGasParetoRows(records = recordsFrom(gasRecordsData)) {
       const provenance = record.recordProvenance || record.provenance || {}
       return {
         id: record.id || `${record.mofId || record.displayName}-${gasPairOf(record)}`,
-        mof: record.rawName || record.displayName || record.mofId || "MOF",
-        displayName: record.displayName || record.rawName || record.mofId || "MOF",
+        mof: getReadableMofLabel(record, "en"),
+        displayName: getReadableMofLabel(record, "en"),
         gasPair: gasPairOf(record),
         selectivity,
         workingCapacity,

@@ -19,6 +19,7 @@ import {
   BasisBadge,
   Callout,
   CopyLinkButton,
+  getReadableMofLabel,
   PageHeader,
   toolbarBtn,
   useLang,
@@ -178,7 +179,7 @@ function CandidateEvidencePanel({ t, lang, dataset, registry, candidate, isNarro
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.15fr) minmax(300px, 0.85fr)" }}>
         <div style={{ background: t.surface, border: `1px solid ${isFairMof ? t.accent : t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{candidateUiName(candidate)}</strong>
+            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{candidateUiName(candidate, lang)}</strong>
             <BasisBadge tone={isFairMof ? "calc" : "proxy"}>
               {isFairMof ? tr(lang, "真实合成条件", "Real synthesis conditions") : tr(lang, "仅结构记录", "Structure record only")}
             </BasisBadge>
@@ -351,13 +352,16 @@ function readinessFieldLabel(field, lang) {
   return value ? tr(lang, value[0], value[1]) : field
 }
 
-function candidateUiName(candidate = {}) {
-  const displayName = candidate.displayName || candidate.name
-  if (displayName && !/^(core|qmof)\s+mof\s+record$/i.test(String(displayName).trim())) return displayName
-  return candidate.rawName || candidate.sourceRecordId || displayName || candidate.id || candidate.candidateId || "pending"
-}
+const candidateUiName = (candidate = {}, lang = "en") => getReadableMofLabel(candidate, lang)
 
-export function EcoLcaWorkbench({ onNavigate }) {
+export function EcoLcaWorkbench({
+  onNavigate,
+  appInputs,
+  onAppInputsChange,
+  predictionResult,
+  predicting,
+  onPredict,
+}) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -380,6 +384,7 @@ export function EcoLcaWorkbench({ onNavigate }) {
   const [candidateSourceMode, setCandidateSourceMode] = useState("all")
   const [functionalUnitId, setFunctionalUnitId] = useState("kg_mof")
   const [routeId, setRouteId] = useState("solvothermal")
+  const [lastCalculatedSignature, setLastCalculatedSignature] = useState("")
   const [parameters, setParameters] = useState(() => ({
     yieldPct: 69,
     solventRecoveryPct: 80,
@@ -419,14 +424,41 @@ export function EcoLcaWorkbench({ onNavigate }) {
     return () => { active = false }
   }, [])
 
+  const appCandidate = useMemo(() => {
+    const name = String(appInputs?.mofName || "").trim()
+    if (!name) return null
+    const metalNode = String(appInputs?.metalCenter || "").match(/[A-Z][a-z]?/)?.[0] || "pending"
+    return {
+      id: `preset:${name}`,
+      candidateId: `preset:${name}`,
+      displayName: name,
+      rawName: name,
+      metalNode,
+      metalCenter: appInputs?.metalCenter,
+      linker: appInputs?.organicLinker,
+      surfaceArea: appInputs?.betSurfaceArea,
+      poreSizeA: appInputs?.poreDiameter,
+      poreVolume: appInputs?.poreVolume,
+      sourceDatabase: "EcoMOF preset input",
+      dataStatus: "user-selected scenario",
+    }
+  }, [appInputs])
   const candidates = useMemo(
-    () => [...structureCandidates, ...(processEvidence.records || [])],
-    [structureCandidates, processEvidence],
+    () => [appCandidate, ...structureCandidates, ...(processEvidence.records || [])].filter(Boolean),
+    [appCandidate, structureCandidates, processEvidence],
   )
 
   useEffect(() => {
     if (!candidateId && candidates.length) setCandidateId(candidates[0].id || candidates[0].candidateId)
   }, [candidateId, candidates])
+
+  useEffect(() => {
+    if (!appCandidate) return
+    setCandidateId(appCandidate.id)
+    setCandidateQuery(appCandidate.displayName)
+    setCandidateSourceMode("all")
+    setLastCalculatedSignature("")
+  }, [appCandidate])
 
   const selectedCandidate = useMemo(
     () => candidates.find(row => (row.id || row.candidateId) === candidateId) || candidates[0] || {},
@@ -441,7 +473,7 @@ export function EcoLcaWorkbench({ onNavigate }) {
         : candidates
     const filtered = query
       ? sourceFiltered.filter(candidate => [
-          candidateUiName(candidate),
+          candidateUiName(candidate, lang),
           candidate.id,
           candidate.candidateId,
           candidate.rawName,
@@ -456,7 +488,7 @@ export function EcoLcaWorkbench({ onNavigate }) {
       return [selectedCandidate, ...limited.slice(0, 99)]
     }
     return limited
-  }, [candidateQuery, candidateSourceMode, candidates, processEvidence, selectedCandidate, structureCandidates])
+  }, [candidateQuery, candidateSourceMode, candidates, lang, processEvidence, selectedCandidate, structureCandidates])
   const result = useMemo(() => buildEcoLcaScenario({
     candidate: selectedCandidate,
     inventoryRows,
@@ -535,6 +567,16 @@ export function EcoLcaWorkbench({ onNavigate }) {
     gwp: Number(row.gwp.toFixed(3)),
     cost: Number((row.cost * currencyScale).toFixed(3)),
   }))
+  const calculationSignature = useMemo(() => JSON.stringify({
+    candidateId: selectedCandidate.id || selectedCandidate.candidateId,
+    routeId,
+    functionalUnitId,
+    parameters,
+  }), [functionalUnitId, parameters, routeId, selectedCandidate])
+  const calculationConfirmed = calculationSignature === lastCalculatedSignature
+  const confirmCalculation = () => {
+    setLastCalculatedSignature(calculationSignature)
+  }
   const canRenderResponsiveChart = typeof ResizeObserver !== "undefined"
 
   return (
@@ -573,6 +615,134 @@ export function EcoLcaWorkbench({ onNavigate }) {
       <Callout tone="warn">
         {tr(lang, model.boundaryZh, model.boundaryEn)}
       </Callout>
+
+      <Card
+        id="ecoscreen-material-conclusion"
+        t={t}
+        data-testid="ecoscreen-material-conclusion"
+        style={{
+          display: "grid",
+          gap: 14,
+          gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
+          <div>
+            <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              {tr(lang, "材料与计算输入", "Material and calculation input")}
+            </span>
+            <h2 style={{ color: t.textStrong, fontSize: isMobile ? 24 : 30, fontWeight: 940, letterSpacing: "-0.035em", lineHeight: 1.06, margin: "8px 0 0", overflowWrap: "anywhere" }}>
+              {candidateUiName(selectedCandidate, lang)}
+            </h2>
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, marginTop: 7 }}>
+              {selectedCandidate.metalNode || tr(lang, "金属待整理", "metal pending")} · {selectedCandidate.linker || selectedCandidate.organicLinker || tr(lang, "配体待整理", "linker pending")} · {selectedCandidate.sourceDatabase || tr(lang, "来源待整理", "source pending")}
+            </div>
+          </div>
+          <div aria-label={tr(lang, "生命周期与经济计算方程", "Life-cycle and economic calculation equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
+            <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 18 : 21, lineHeight: 1.35 }}>
+              I<sub>GWP</sub><sup>prod</sup>(m) = Σ q<sub>mk</sub> · CF<sub>k</sub>
+            </div>
+            <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 18 : 21, lineHeight: 1.35 }}>
+              C<sup>prod</sup>(m) = (Σ q<sub>mr</sub> · p<sub>r</sub> + C<sub>conv</sub>)(1 + f<sub>cont</sub>)
+            </div>
+            {functionalUnitId === "tonne_co2" ? (
+              <>
+                <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 16 : 18, lineHeight: 1.35 }}>
+                  I<sub>GWP</sub><sup>FU</sup> = s<sub>FU</sub>I<sub>GWP</sub><sup>prod</sup> + E<sub>reg</sub>CF<sub>el</sub>
+                </div>
+                <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 16 : 18, lineHeight: 1.35 }}>
+                  C<sup>FU</sup> = s<sub>FU</sub>C<sup>prod</sup> + E<sub>reg</sub>p<sub>el</sub>
+                </div>
+              </>
+            ) : null}
+            <span style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.5 }}>
+              {tr(
+                lang,
+                "q 由产率、路线倍数和溶剂回收率重算；吨 CO₂ 功能单位另用材料需求倍数 sFU 与再生电耗 Ereg 换算。环境影响与成本分别报告。",
+                "q is recalculated from yield, route multipliers, and solvent recovery. The tonne-CO2 functional unit additionally applies material scale sFU and regeneration electricity Ereg. Impact and cost remain separate.",
+              )}
+            </span>
+          </div>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+            <NumberField t={t} label={tr(lang, "产率", "Yield")} value={parameters.yieldPct} min={1} max={100} step={1} suffix="%" onChange={updateParameter("yieldPct")} />
+            <NumberField t={t} label={tr(lang, "溶剂回收率", "Solvent recovery")} value={parameters.solventRecoveryPct} min={0} max={99.9} step={1} suffix="%" onChange={updateParameter("solventRecoveryPct")} />
+          </div>
+          <button
+            type="button"
+            onClick={confirmCalculation}
+            style={{
+              ...toolbarBtn(t),
+              background: calculationConfirmed ? t.badgeInfoBg : t.accentText,
+              borderColor: t.accent,
+              color: calculationConfirmed ? t.accentText : "#fff",
+              justifyContent: "center",
+              minHeight: 40,
+            }}
+          >
+            {calculationConfirmed
+              ? tr(lang, "已按当前输入计算", "Calculated with current inputs")
+              : tr(lang, "计算当前 MOF 情景", "Calculate current MOF scenario")}
+          </button>
+        </div>
+
+        <div style={{ background: t.sectionTint || t.surface, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, minWidth: 0, padding: isMobile ? 12 : 15 }}>
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+            <div>
+              <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 850 }}>{tr(lang, "材料特异结论", "Material-specific conclusion")}</span>
+              <strong style={{ color: t.textStrong, display: "block", fontSize: 15, marginTop: 4 }}>
+                {result.readiness.comparable
+                  ? tr(lang, "达到候选级比较门槛", "Candidate-comparison gate passed")
+                  : tr(lang, "当前仅允许情景解释", "Scenario interpretation only")}
+              </strong>
+            </div>
+            <BasisBadge tone={result.readiness.comparable ? "calc" : "warn"}>
+              {tr(lang, `LCI 准备度 ${Math.round(result.readiness.score * 100)}%`, `LCI readiness ${Math.round(result.readiness.score * 100)}%`)}
+            </BasisBadge>
+          </div>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+            <Metric t={t} label={tr(lang, "GWP", "GWP")} value={`${number(result.gwp)} kg CO₂e`} note={`${number(result.gwpLow)}–${number(result.gwpHigh)}`} tone={result.readiness.comparable ? "good" : "warn"} />
+            <Metric t={t} label={tr(lang, "累计能耗", "Energy")} value={`${number(result.energyMj, 1)} MJ`} note={unitSuffix} />
+            <Metric t={t} label={tr(lang, "情景成本", "Scenario cost")} value={money(result.totalCost, currentBaseline)} note={`${currentBaseline.currency}${unitSuffix}`} tone="cost" />
+            <Metric t={t} label={tr(lang, "环境热点", "Hotspot")} value={flowLabel(result.hotspots[0]?.flow, lang)} note={`${number(result.hotspots[0]?.gwp)} kg CO₂e`} />
+          </div>
+          <div style={{ display: "grid", gap: 8 }}>
+            <div style={{ borderTop: `1px solid ${t.border}`, paddingTop: 9 }}>
+              <strong style={{ color: t.textStrong, fontSize: 11.7 }}>{tr(lang, "生命周期结果", "Life-cycle result")}</strong>
+              <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, marginTop: 4 }}>
+                {tr(
+                  lang,
+                  `${candidateUiName(selectedCandidate, lang)} 在当前 ${tr(lang, currentRoute?.labelZh, currentRoute?.labelEn)} 情景下的 GWP 区间为 ${number(result.gwpLow)}–${number(result.gwpHigh)} kg CO₂e${unitSuffix}；当前主要贡献来自${flowLabel(result.hotspots[0]?.flow, lang)}。`,
+                  `${candidateUiName(selectedCandidate, lang)} has a scenario GWP range of ${number(result.gwpLow)}–${number(result.gwpHigh)} kg CO2e${unitSuffix} for the selected route; the leading contribution is ${flowLabel(result.hotspots[0]?.flow, lang)}.`,
+                )}
+              </div>
+            </div>
+            <div>
+              <strong style={{ color: t.textStrong, fontSize: 11.7 }}>{tr(lang, "经济结果", "Economic result")}</strong>
+              <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, marginTop: 4 }}>
+                {tr(
+                  lang,
+                  `当前成本为 ${money(result.totalCost, currentBaseline)}${unitSuffix}；${result.metalPrice ? `${result.metal} 前驱体价格采用 ${result.metalPrice.source || "proxy"}。` : `${result.metal} 尚未匹配专属前驱体价格，经济结果使用通用代理。`}`,
+                  `Current cost is ${money(result.totalCost, currentBaseline)}${unitSuffix}; ${result.metalPrice ? `${result.metal} precursor pricing uses ${result.metalPrice.source || "a proxy source"}.` : `${result.metal} has no dedicated precursor-price match, so economics use a generic proxy.`}`,
+                )}
+              </div>
+            </div>
+            <div>
+              <strong style={{ color: t.textStrong, fontSize: 11.7 }}>{tr(lang, "研究与证据状态", "Research and evidence status")}</strong>
+              <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, marginTop: 4 }}>
+                {result.readiness.missingHardBlockers?.length
+                  ? tr(lang, `仍缺 ${result.readiness.missingHardBlockers.map(field => readinessFieldLabel(field, lang)).join("、")}；不得据此发布比较性 LCA 结论。`, `Still missing ${result.readiness.missingHardBlockers.map(field => readinessFieldLabel(field, lang)).join(", ")}; this cannot support a comparative LCA claim.`)
+                  : tr(lang, "硬门控字段齐全；仍需按目标范围核查清单、分配规则和第三方审查要求。", "Hard-gate fields are present; inventory, allocation, and critical-review requirements still depend on the declared goal and scope.")}
+              </div>
+            </div>
+          </div>
+          {!calculationConfirmed ? (
+            <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 10.7, lineHeight: 1.45, padding: "7px 9px" }}>
+              {tr(lang, "输入已变化；右侧为实时预览，点击“计算当前 MOF 情景”确认本次运行。", "Inputs changed; the right side is a live preview. Select “Calculate current MOF scenario” to confirm this run.")}
+            </div>
+          ) : null}
+        </div>
+      </Card>
 
       <Card id="ecoscreen-goal-scope" t={t} style={{ display: "grid", gap: 13, scrollMarginTop: 168 }} data-testid="ecoscreen-goal-scope">
         <SectionHead
@@ -687,12 +857,15 @@ export function EcoLcaWorkbench({ onNavigate }) {
           <select
             data-testid="ecoscreen-candidate-select"
             value={selectedCandidate.id || selectedCandidate.candidateId || ""}
-            onChange={event => setCandidateId(event.target.value)}
+            onChange={event => {
+              setCandidateId(event.target.value)
+              setLastCalculatedSignature("")
+            }}
             style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, maxWidth: "100%", padding: "8px 10px" }}
           >
             {candidateOptions.map(candidate => (
               <option key={candidate.id || candidate.candidateId} value={candidate.id || candidate.candidateId}>
-                {candidateUiName(candidate)} · {candidate.metalNode || "metal pending"} · {candidate.sourceDatabase || "source pending"}
+                {candidateUiName(candidate, lang)} · {candidate.metalNode || "metal pending"} · {candidate.sourceDatabase || "source pending"}
               </option>
             ))}
           </select>

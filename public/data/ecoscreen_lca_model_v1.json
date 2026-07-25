@@ -261,6 +261,24 @@
       "url": "https://doi.org/10.1016/j.jgsce.2024.205497",
       "roleZh": "把生产、使用与再生纳入 MOF-74 捕集评价，并用敏感性/不确定性分析识别产率与捕集能耗。",
       "roleEn": "Includes MOF-74 production, use, and regeneration, with sensitivity/uncertainty analysis of yield and capture energy."
+    },
+    {
+      "id": "LIT-FIROUZJAEI-2026-INDUSTRIAL-MOF-LCA",
+      "title": "Life Cycle Assessment of Silver, Copper, and Zinc-Based Metal-Organic Framework Products for Industry-Scale Production and Future Horizons",
+      "year": 2026,
+      "doi": "10.1021/acssusresmgt.5c00499",
+      "url": "https://doi.org/10.1021/acssusresmgt.5c00499",
+      "roleZh": "实验室与工业放大情景下分解金属前驱体、溶剂、闭环回收和过程强化热点；不把研究清单移植到其他候选。",
+      "roleEn": "Separates metal-precursor, solvent, closed-loop recovery, and process-intensification hotspots across laboratory and industrial-scale scenarios without transferring inventories to other candidates."
+    },
+    {
+      "id": "LIT-LAYERED-MOF-LCA-2026",
+      "title": "Life cycle assessment of a layered metal-organic framework for supercapacitor applications",
+      "year": 2026,
+      "doi": "10.1039/D6GC00912C",
+      "url": "https://doi.org/10.1039/D6GC00912C",
+      "roleZh": "用最新 Cu3(HHTP)2 案例支持把产率、洗涤溶剂和回收率保留为可编辑敏感性变量；数值不用于其他候选。",
+      "roleEn": "Uses a recent Cu3(HHTP)2 case to support editable yield, washing-solvent, and recovery sensitivity variables; its values are not reused for other candidates."
     }
   ]
 }

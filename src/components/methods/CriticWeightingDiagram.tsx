@@ -55,16 +55,16 @@ export function CriticWeightingDiagram({ t, lang = "en" }) {
         <FormulaBlock
           t={t}
           label={text(lang, "Conflict score", "Conflict score")}
-          math="\\sum_{k=1}^{m}(1-|r_{jk}|)"
-          fallback="sum_k(1 - |r_jk|)"
+          math="\\sum_{k=1}^{m}(1-r_{jk})"
+          fallback="sum_k(1 - r_jk)"
           note={text(lang, "与其他描述符越不重复，conflict score 越高。", "Less redundant descriptors receive a higher conflict score.")}
         />
         <MethodArrow t={t} direction="down" />
         <FormulaBlock
           t={t}
           label={text(lang, "Information content", "Information content")}
-          math="C_j=\\sigma_j\\times\\sum_{k=1}^{m}(1-|r_{jk}|)"
-          fallback="C_j = sigma_j x sum_k(1 - |r_jk|)"
+          math="C_j=\\sigma_j\\times\\sum_{k=1}^{m}(1-r_{jk})"
+          fallback="C_j = sigma_j x sum_k(1 - r_jk)"
           note={text(lang, "同时考虑区分度与非冗余信息。", "Combines contrast intensity and non-redundant information.")}
         />
         <MethodArrow t={t} direction="down" />

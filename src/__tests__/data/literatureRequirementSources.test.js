@@ -25,6 +25,7 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
       "platform-method",
       "ecoscreen-sustainability",
       "gassep-process",
+      "mof-library-data",
       "organic-acid-catalysis",
       "data-quality-validation",
     ])
@@ -44,10 +45,17 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
       "LIT-LEE-2009-MOF-CATALYSIS",
       "LIT-AHNEMAN-2018-REACTION-ML",
       "LIT-FAIR-2016",
+      "LIT-MYERS-PRAUSNITZ-1965-IAST",
+      "REF-NIST-ADSORPTION-DATA",
+      "LIT-CORE-MOF-2019",
+      "LIT-FAIR-MOFS-2025-PREPRINT",
+      "LIT-FIROUZJAEI-2026-INDUSTRIAL-MOF-LCA",
+      "LIT-LAYERED-MOF-LCA-2026",
       "STD-ISO-14040-14044",
       "STD-USGS-EU-CRITICAL-MATERIALS",
     ]))
     expect(literature.sources.filter(source => source.status === "validated_literature").length).toBeGreaterThanOrEqual(14)
+    expect(literature.sources.find(source => source.id === "LIT-FAIR-MOFS-2025-PREPRINT")?.status).toBe("preprint_unreviewed")
   })
 
   it("keeps requirement basis IDs connected to the literature source registry", () => {

@@ -34,6 +34,38 @@ export function looksLikeRawRecordId(value) {
   )
 }
 
+export function getReadableMofLabel(record = {}, lang = "en") {
+  const candidates = [
+    record.commonName,
+    record.mofName,
+    record.displayName,
+    record.name,
+    record.structure?.commonName,
+    record.structure?.name,
+    record.rawName,
+  ]
+  const genericRecordName = /^(core\s+mof|qmof|arc-?mof|mosaec\s+mof|open\s+mof)\s+(record|candidate)$/i
+  const readable = candidates.find(value => {
+    const text = String(value || "").trim()
+    return text && !looksLikeRawRecordId(text) && !genericRecordName.test(text)
+  })
+  if (readable) return formatKnownMofName(readable)
+
+  const metal = firstDefined(
+    record.metalNode,
+    record.metalCenter,
+    record.metal,
+    record.descriptors?.metalNode,
+    record.chemistry?.metalNode,
+  )
+  if (metal && !/^(pending|unknown|not reported)$/i.test(String(metal).trim())) {
+    const primaryMetal = String(metal).split(/[;,/]+/).map(value => value.trim()).find(Boolean)
+    if (primaryMetal) return lang === "zh" ? `${primaryMetal}-MOF 候选` : `${primaryMetal}-MOF candidate`
+  }
+
+  return lang === "zh" ? "未命名 MOF 候选" : "Unnamed MOF candidate"
+}
+
 export function formatKnownMofName(name) {
   const text = String(name || "").trim()
   if (!text) return ""

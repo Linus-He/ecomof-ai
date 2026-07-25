@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.4",
+  "currentAppVersion": "v1.0.5",
   "generatedAt": "2026-07-25",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
-    "baseAppVersion": "v1.0.3",
-    "developmentVersion": "v1.0.4",
+    "baseAppVersion": "v1.0.4",
+    "developmentVersion": "v1.0.5",
     "recordedAt": "2026-07-25",
     "status": "archived",
     "statusLabel": {
@@ -18,47 +18,187 @@
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "本次首页重构已在提交时归档为 v1.0.4；日志只记录实际完成并通过检查的开发项。",
-      "en": "This homepage rebuild is archived as v1.0.4 at submission; the log contains only completed work that passed automated checks."
+      "zh": "本次平台交互与评价方法重构在提交时归档为 v1.0.5；日志只记录实际完成并通过检查的开发项。",
+      "en": "This platform interaction and evaluation-method rebuild is archived as v1.0.5 at submission; the log contains only completed and checked work."
     },
     "releaseBoundary": {
-      "zh": "不改变候选数据、MOF 排名算法、Organic Acid 底层评分或 GasSep 原始记录；本轮只重构首页科学叙事、交互编排和视觉系统。自动测试、类型检查与生产构建已通过；浏览器截图对照因本地预览安全策略受阻，未标记为视觉验收通过。",
-      "en": "Does not change candidate data, MOF ranking algorithms, Organic Acid base scores, or raw GasSep records; this release only rebuilds homepage scientific narrative, interaction orchestration, and visual system. Automated tests, type checks, and production build passed; browser screenshot comparison was blocked by local-preview security policy and is not marked as visually approved."
+      "zh": "不改变 Organic Acid 底层评分、候选源数据或 GasSep 原始吸附记录；本轮重构材料级 LCA/经济评价、气体分离解释、MOF 候选库、导航与公式显示。EcoScreen 仍为筛选级情景模型，不构成第三方审查的比较性 LCA 声明。完整测试、类型检查、生产构建、JSON 与差异检查通过，并完成本地浏览器的深浅色、桌面和移动端交互复核。",
+      "en": "Does not change Organic Acid base scores, candidate source data, or raw GasSep adsorption records. This release rebuilds material-level LCA/economic evaluation, gas-separation interpretation, the MOF Library, navigation, and visible formulas. EcoScreen remains a screening scenario model and is not a third-party-reviewed comparative LCA claim. Full tests, type checks, production build, JSON validation, and diff checks passed, with local browser review across light/dark, desktop, and mobile states."
     },
     "modules": {
+      "ui": {
+        "label": {
+          "zh": "全局界面",
+          "en": "Global UI"
+        },
+        "summary": {
+          "zh": "将品牌、主导航和主题操作统一到同一水平层，并补齐可确认的候选检索流程。",
+          "en": "Aligns the brand, primary navigation, and theme controls on one row and completes an explicit candidate-search confirmation flow."
+        },
+        "changes": [
+          {
+            "zh": "导航栏在桌面、紧凑宽度和移动端均保持单行结构；标签间距、激活态、横向滚动与语言/主题操作统一处理。",
+            "en": "Keeps the navigation on one row across desktop, compact, and mobile widths with consistent spacing, active states, horizontal scrolling, and language/theme controls."
+          },
+          {
+            "zh": "全局 MOF 搜索新增明确的“确认”按钮，并与回车操作共用同一加载逻辑；检索后可直接进入候选输入和计算区域。",
+            "en": "Adds an explicit Confirm button to global MOF search, sharing the same loading path as Enter and routing directly to candidate inputs and calculation."
+          },
+          {
+            "zh": "浅色、深色与 390 px 移动端完成交互复核，移动端无横向页面溢出。",
+            "en": "Completes light, dark, and 390 px mobile interaction review with no page-level horizontal overflow."
+          }
+        ]
+      },
       "home": {
         "label": {
           "zh": "首页",
           "en": "Home"
         },
         "summary": {
-          "zh": "将首页整合为从数据、描述符、性能到验证与研究行动的连续科学叙事。",
-          "en": "Rebuilds the homepage as a continuous scientific narrative from data and descriptors through performance, validation, and research action."
+          "zh": "校正首页图形、结果与公式的对应关系，并保持现有科学叙事方向。",
+          "en": "Corrects the mapping between homepage visuals, results, and formulas while preserving the established scientific narrative."
         },
         "changes": [
           {
-            "zh": "首屏右侧由轨道式模块示意图改为可切换的多目标方程系统，以 Pareto 目标统一表达 LCA、LCC、任务性能与不确定度，并保留真实结构记录、气体分离点、实验标签和可信度指标。",
-            "en": "Replaces the orbit-style hero diagram with a switchable multi-objective equation system that expresses LCA, LCC, task performance, and uncertainty as a Pareto objective while retaining real structure, gas-separation, experimental-label, and credibility metrics."
+            "zh": "修正 Pareto 前沿定义为“不存在其他候选严格支配当前候选”，避免把被支配点误写成前沿成员。",
+            "en": "Corrects Pareto-front membership to require that no other candidate strictly dominates the current candidate."
           },
           {
-            "zh": "真实数据探索层改为左侧条件分布、Pearson 相关方程和动态变量解释，右侧保留金属筛选、描述符切换、统计分布、相关矩阵和摘要联动。",
-            "en": "Reframes the real-data explorer with conditional-distribution and Pearson-correlation equations plus dynamic variables on the left while retaining metal filters, descriptor switching, distributions, correlation matrix, and linked summaries on the right."
+            "zh": "直方图末区间改为包含最大值的闭区间；区间点击明确为频数检视，只有金属筛选会重算分布与相关矩阵。",
+            "en": "Closes the final histogram bin at the maximum value and states that bin clicks inspect counts while metal filters recompute distributions and correlations."
           },
           {
-            "zh": "气体分离模块改为左侧工作容量与严格非支配集合定义、右侧真实 Pareto 散点图；气对切换、证据等级、提示框、前沿线和样本统计继续由原始记录驱动。",
-            "en": "Reframes gas separation with working-capacity and strict non-dominance definitions on the left and the real Pareto scatter on the right; gas-pair switching, evidence grade, tooltips, frontier, and sample statistics remain source-record driven."
+            "zh": "三维描述符散点的点半径公式与实际 3.5 + 3.2(1−ρ*) 映射保持一致，并说明缺失密度使用中性半径。",
+            "en": "Aligns the 3D descriptor point-radius formula with the implemented 3.5 + 3.2(1−rho*) mapping and documents the neutral radius used for missing density."
           },
           {
-            "zh": "白盒验证区由静态步骤列表改为可交互验证方程链，贯通规则筛选、证据修正、敏感性、实验标签与 Benchmark，并显示当前真实标签、外部测试和可信度状态。",
-            "en": "Replaces the static validation step list with an interactive equation chain spanning rule screening, evidence correction, sensitivity, experimental labels, and Benchmark while exposing current label, external-test, and credibility status."
+            "zh": "首页气体 Pareto 图和描述符图采用可读材料名；数据库文件名仅保留在来源溯源字段。",
+            "en": "Uses readable material names in homepage gas-Pareto and descriptor visuals while retaining database filenames only in provenance fields."
+          }
+        ]
+      },
+      "ecoScreen": {
+        "label": {
+          "zh": "生态筛选",
+          "en": "EcoScreen"
+        },
+        "summary": {
+          "zh": "将 EcoScreen 改为可编辑、可确认计算且随 MOF 变化的生命周期与经济评价工作区。",
+          "en": "Turns EcoScreen into an editable, explicitly calculated life-cycle and economic evaluation workspace that changes with the selected MOF."
+        },
+        "changes": [
+          {
+            "zh": "新增材料级双栏结论区：左侧显示候选身份、产率、溶剂回收与计算公式，右侧显示 GWP、能耗、成本、热点和研究状态。",
+            "en": "Adds a material-level two-column conclusion area with identity, yield, solvent recovery, and formulas on the left and GWP, energy, cost, hotspots, and research status on the right."
           },
           {
-            "zh": "将重复的模块能力、研究场景、当前限制和快捷入口整合为一个研究路径工作台，统一 EcoScreen、GasSep、Organic Acid、MOF Library 与验证中心的输入、输出、证据边界和入口。",
-            "en": "Combines overlapping module capabilities, research scenarios, current limitations, and quick-start entries into one research-route workbench covering the inputs, outputs, evidence boundaries, and entry points for EcoScreen, GasSep, Organic Acid, MOF Library, and Validation Center."
+            "zh": "区分 1 kg MOF 生产与捕集 1 t CO₂ 两类功能单位；服务功能单位额外显示材料需求倍数和再生电耗的环境与成本分摊公式。",
+            "en": "Separates the 1 kg MOF production and 1 t CO2 capture functional units and displays service-allocation formulas for material scale and regeneration electricity."
           },
           {
-            "zh": "新增 01–05 叙事衔接，形成数据源—描述符空间—统计结构—任务性能—验证证据—研究行动的逻辑顺序；全套新界面同步适配浅色、深色、移动端和减少动画偏好。",
-            "en": "Adds 01–05 narrative transitions from source data through descriptor space, statistical structure, task performance, validation evidence, and research action; all new surfaces support light, dark, mobile, and reduced-motion modes."
+            "zh": "候选、路线、产率、溶剂回收、电网与价格输入变化时实时预览，点击计算后记录当前运行状态；不同 MOF 生成不同环境、经济和缺数结论。",
+            "en": "Provides live previews as candidate, route, yield, recovery, grid, and price inputs change, records the confirmed run on calculation, and produces material-specific environmental, economic, and data-gap conclusions."
+          },
+          {
+            "zh": "新增 2026 年 MOF LCA 文献与 FAIR-MOFs、CoRE/QMOF、NIST/ISODB 等候选级证据入口，并继续对缺少产率、能耗、回收和循环数据的候选执行比较门禁。",
+            "en": "Adds 2026 MOF LCA literature and candidate-level FAIR-MOFs, CoRE/QMOF, and NIST/ISODB evidence entries while retaining comparison gates for missing yield, energy, recovery, and cycling data."
+          }
+        ]
+      },
+      "gasSep": {
+        "label": {
+          "zh": "气体分离",
+          "en": "GasSep"
+        },
+        "summary": {
+          "zh": "新增随候选和证据类型变化的材料级分离结论与方法专属公式。",
+          "en": "Adds candidate-specific separation conclusions and evidence-method-specific formulas."
+        },
+        "changes": [
+          {
+            "zh": "新增材料与工况双栏面板，可切换 MOF，并联动显示选择性、工作容量、可再生性、Pareto 状态和验证建议。",
+            "en": "Adds a material-and-condition two-column panel with MOF selection linked to selectivity, working capacity, regenerability, Pareto status, and validation recommendations."
+          },
+          {
+            "zh": "IAST、单点吸附量比代理、模型预测和来源记录值分别使用不同公式；不再把所有选择性统一写成 IAST。",
+            "en": "Uses distinct formulas for IAST, single-point uptake-ratio proxies, model predictions, and source-reported values instead of labeling every selectivity as IAST."
+          },
+          {
+            "zh": "工作容量和可再生性根据是否由同一等温线与压力窗口推导，分别显示差分公式或来源记录定义。",
+            "en": "Shows either isotherm/pressure-window derivations or source-reported definitions for working capacity and regenerability according to provenance."
+          }
+        ]
+      },
+      "database": {
+        "label": {
+          "zh": "MOF 候选库",
+          "en": "MOF Library"
+        },
+        "summary": {
+          "zh": "重构候选库信息架构，并建立全站可读 MOF 命名规则。",
+          "en": "Rebuilds MOF Library information architecture and establishes readable MOF naming across the platform."
+        },
+        "changes": [
+          {
+            "zh": "候选库顶部整合身份解析、来源、关键描述符、数据库联通和结构/气体/电子/催化证据覆盖。",
+            "en": "Combines identity resolution, provenance, key descriptors, linked databases, and structural/gas/electronic/catalysis evidence coverage at the top of the library."
+          },
+          {
+            "zh": "大面积不等高卡片改为统一浏览器、筛选表与单一选中详情，保留结构、气体、催化和字段级来源功能。",
+            "en": "Replaces uneven oversized cards with a unified browser, filter table, and one selected-detail panel while retaining structural, gas, catalysis, and field-level provenance features."
+          },
+          {
+            "zh": "无法解析正式名称时显示“金属节点-MOF 候选”；原始 CSD/CIF/数据库编号仅保留在搜索与来源字段，不再作为页面标题或结论主语。",
+            "en": "Displays a metal-node MOF candidate label when no formal name resolves, keeping raw CSD/CIF/database identifiers only in search and provenance rather than titles or conclusion subjects."
+          },
+          {
+            "zh": "Spearman 代理验证显示 ρs = corr(rank x, rank y) 与样本量，并继续标记为指示性结构代理而非吸附预测。",
+            "en": "Shows Spearman proxy validation as rho_s = corr(rank x, rank y) with sample size while retaining its indicative, non-predictive boundary."
+          }
+        ]
+      },
+      "methodsEvidence": {
+        "label": {
+          "zh": "方法与证据",
+          "en": "Methods & Evidence"
+        },
+        "summary": {
+          "zh": "完成图形、结果、原理、公式和字段之间的全局一致性核对。",
+          "en": "Completes a cross-platform consistency audit across visuals, results, principles, formulas, and fields."
+        },
+        "changes": [
+          {
+            "zh": "CRITIC 冲突度统一为实际算法使用的 Σ(1−rjk)，移除与实现不一致的绝对相关写法。",
+            "en": "Aligns CRITIC conflict intensity with the implemented sum of (1-r_jk) and removes the inconsistent absolute-correlation form."
+          },
+          {
+            "zh": "生命周期生产公式、服务功能单位分摊、气体分离公式、Pareto 定义、直方图边界和描述符点径均与实际计算字段逐项对应。",
+            "en": "Aligns production LCA, service allocation, gas separation, Pareto membership, histogram boundaries, and descriptor point radius with their implemented fields."
+          },
+          {
+            "zh": "新增公式—实现回归检查，防止不同原理再次共用错误公式。",
+            "en": "Adds formula-to-implementation regression checks so results based on different principles cannot silently reuse the wrong formula."
+          }
+        ]
+      },
+      "projectEvolution": {
+        "label": {
+          "zh": "项目演化",
+          "en": "Project Evolution"
+        },
+        "summary": {
+          "zh": "演化图补充与实际纵轴一致的跨版本归一化公式。",
+          "en": "Adds the cross-release normalization equation used by the evolution chart."
+        },
+        "changes": [
+          {
+            "zh": "Web 发布、数据、科研、验证和体验图层统一显示 zt,j = 100·xt,j/maxτxτ,j，并将验证维度定义改为当前覆盖数量。",
+            "en": "Uses z_t,j = 100 x_t,j / max_tau x_tau,j across Web, data, research, validation, and experience lenses and defines validation by current coverage count."
+          },
+          {
+            "zh": "演化页面集中展示已完成版本、当前更新日志和跨版本指标变化。",
+            "en": "The evolution page consolidates completed releases, the current update log, and cross-release metric changes."
           }
         ]
       }
@@ -395,6 +535,117 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.5",
+      "date": "2026-07-25",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.5：材料级 LCA、气体评价、MOF 候选库与公式溯源重构。",
+        "en": "v1.0.5: material-level LCA, gas evaluation, MOF Library, and formula-traceability rebuild."
+      },
+      "summary": {
+        "zh": "完成全局导航与候选检索闭环，将 EcoScreen 和 GasSep 从静态概览改为随候选、工况与证据类型变化的评价工作区；重构 MOF 候选库与可读命名，并逐项校正页面公式和实际计算的对应关系。深浅色、桌面及移动端交互均已复核。",
+        "en": "Completes the global navigation and candidate-search flow; turns EcoScreen and GasSep from static overviews into candidate-, condition-, and evidence-sensitive evaluation workspaces; rebuilds the MOF Library and readable naming; and aligns visible formulas with implemented calculations. Light/dark, desktop, and mobile interactions were reviewed."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "统一单行导航、主题操作与候选检索确认。",
+            "en": "Unifies the one-row navigation, theme actions, and candidate-search confirmation."
+          },
+          "changes": [
+            {
+              "zh": "品牌、主导航、语言与主题操作在桌面、紧凑宽度和移动端保持同一水平层，标签间距和激活态统一。",
+              "en": "Keeps the brand, primary navigation, language, and theme controls on one horizontal level across desktop, compact, and mobile widths with consistent spacing and active states."
+            },
+            {
+              "zh": "MOF 搜索新增“确认”按钮，并与回车共用同一候选加载逻辑。",
+              "en": "Adds a Confirm button to MOF search and shares the same candidate-loading path with Enter."
+            }
+          ]
+        },
+        "ecoScreen": {
+          "summary": {
+            "zh": "建立随候选和工艺输入变化的材料级生命周期与经济评价。",
+            "en": "Establishes material-level life-cycle and economic evaluation responsive to candidate and process inputs."
+          },
+          "changes": [
+            {
+              "zh": "左侧集中呈现候选身份、产率、溶剂回收与功能单位公式，右侧联动呈现 GWP、能耗、成本、热点和研究状态。",
+              "en": "Presents candidate identity, yield, solvent recovery, and functional-unit formulas on the left, linked to GWP, energy, cost, hotspots, and research status on the right."
+            },
+            {
+              "zh": "区分 1 kg MOF 生产与捕集 1 t CO₂ 的服务分摊，输入变化可预览并通过计算按钮确认运行。",
+              "en": "Separates 1 kg MOF production from 1 t CO2 capture service allocation, with live input previews and explicit calculation confirmation."
+            },
+            {
+              "zh": "补充候选级文献与数据库证据入口；缺少产率、能耗、回收或循环数据时继续执行比较门禁。",
+              "en": "Adds candidate-level literature and database evidence entries while retaining comparison gates when yield, energy, recovery, or cycling data are missing."
+            }
+          ]
+        },
+        "gasSep": {
+          "summary": {
+            "zh": "建立随材料、工况和证据方法变化的气体分离结论。",
+            "en": "Establishes gas-separation conclusions responsive to material, conditions, and evidence method."
+          },
+          "changes": [
+            {
+              "zh": "候选切换联动选择性、工作容量、可再生性、Pareto 状态和验证建议。",
+              "en": "Links candidate selection to selectivity, working capacity, regenerability, Pareto status, and validation recommendations."
+            },
+            {
+              "zh": "IAST、单点吸附量比代理、模型预测和来源记录值分别显示对应公式与证据边界。",
+              "en": "Displays distinct formulas and evidence boundaries for IAST, single-point uptake-ratio proxies, model predictions, and source-reported values."
+            }
+          ]
+        },
+        "database": {
+          "summary": {
+            "zh": "重构 MOF 候选库的信息层级、浏览方式与材料命名。",
+            "en": "Rebuilds MOF Library hierarchy, browsing, and material naming."
+          },
+          "changes": [
+            {
+              "zh": "将不等高候选卡片整合为筛选表、单一选中详情和跨数据库证据覆盖。",
+              "en": "Consolidates uneven candidate cards into a filter table, one selected-detail panel, and cross-database evidence coverage."
+            },
+            {
+              "zh": "页面标题和结论使用正式名称或“金属节点-MOF 候选”，原始数据库编号仅用于检索与来源溯源。",
+              "en": "Uses formal names or metal-node MOF candidate labels in titles and conclusions, reserving raw database identifiers for search and provenance."
+            }
+          ]
+        },
+        "methodsEvidence": {
+          "summary": {
+            "zh": "完成图形、结果、原理、公式与实际字段的逐项核对。",
+            "en": "Completes item-by-item alignment of visuals, results, principles, formulas, and implemented fields."
+          },
+          "changes": [
+            {
+              "zh": "校正 Pareto 非支配定义、CRITIC 冲突度、直方图区间、描述符点径、LCA 服务分摊和 Spearman 代理公式。",
+              "en": "Corrects Pareto non-dominance, CRITIC conflict intensity, histogram intervals, descriptor radius, LCA service allocation, and Spearman proxy formulas."
+            },
+            {
+              "zh": "新增公式—实现回归检查，防止不同原理的结果共用同一公式。",
+              "en": "Adds formula-to-implementation regression checks so results based on different principles do not reuse one formula."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "使演化图的公式与实际跨版本纵轴归一化一致。",
+            "en": "Aligns the evolution-chart equation with its implemented cross-release axis normalization."
+          },
+          "changes": [
+            {
+              "zh": "Web 发布、数据、科研、验证和体验图层统一采用 zt,j = 100·xt,j/maxτxτ,j，并集中展示已完成版本与当前更新日志。",
+              "en": "Uses z_t,j = 100 x_t,j / max_tau x_tau,j across Web, data, research, validation, and experience lenses while consolidating completed releases and the current update log."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.4",
       "date": "2026-07-25",

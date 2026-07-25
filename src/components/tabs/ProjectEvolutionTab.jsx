@@ -241,7 +241,7 @@ function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigat
         index: "04",
         label: text(lang, "验证", "Validation"),
         title: text(lang, "证据门禁与当前覆盖", "Evidence gates and current coverage"),
-        formula: String.raw`\mathcal{V}_k=\mathbb{1}\!\left(\mathrm{source}\land\mathrm{citation}\land\mathrm{external}\land\mathrm{experiment}\right)_k`,
+        formula: String.raw`\mathcal{V}_k=N_{\mathrm{current},k}`,
         rows: validationRows,
         series: [{ key: "primaryIndex", label: text(lang, "覆盖指数", "Coverage index"), color: t.warn }],
       },
@@ -303,6 +303,12 @@ function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigat
           <BlockFormula
             math={activeLens.formula}
             fallback={activeLens.formula}
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0, marginTop: 8 }}
+          />
+          <BlockFormula
+            math={String.raw`z_{t,j}=100\,\frac{x_{t,j}}{\max_{\tau}x_{\tau,j}}`}
+            fallback="z_t,j = 100 x_t,j / max_tau(x_tau,j)"
             t={t}
             style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0, marginTop: 8 }}
           />

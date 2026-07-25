@@ -23,6 +23,7 @@ import {
   formatPercent,
   formatRiskPenalty,
   formatScore100,
+  getReadableMofLabel,
   useLang,
   useT,
   useViewport,
@@ -32,6 +33,7 @@ import {
   getScenarioWeights,
   getStabilityScore,
 } from "../../utils/gasScoring"
+import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_GAS_RANKING_METHOD,
   GAS_RANKING_METHODS,
@@ -1469,6 +1471,202 @@ function DataLinkedValidationPlanner({ ranked, selected, screening, scenario, t,
   )
 }
 
+function gasMetricFormulaBasis(record, lang) {
+  const grade = String(record?.dataGrade || record?.evidence?.dataGrade || "").toLowerCase()
+  const dataType = String(record?.dataType || record?.sourceType || record?.evidence?.dataType || "").toLowerCase()
+  const selectivitySource = String(record?.fieldSources?.selectivity?.sourceType || "").toLowerCase()
+  const hasIastValue = Number.isFinite(Number(record?.iaSTSelectivity ?? record?.metrics?.iaSTSelectivity))
+  const isIast = hasIastValue || grade.includes("iast") || dataType.includes("iast") || selectivitySource.includes("iast")
+  const isPredicted = dataType.includes("predicted") || grade.includes("predicted")
+  const isUptakeRatio = selectivitySource.includes("uptake_ratio") || selectivitySource.includes("single_component_ratio")
+  const capacityDerived = record?.capacityStatus === "isotherm-derived"
+  const regenerabilityDerived = capacityDerived && Number.isFinite(Number(record?.primaryUptake ?? record?.metrics?.primaryUptake))
+
+  let selectivity
+  if (isIast) {
+    selectivity = {
+      kind: "IAST",
+      formula: "Sᵢ/ⱼᴵᴬˢᵀ = (xᵢ/yᵢ) / (xⱼ/yⱼ)",
+      note: text(lang, "由同温纯组分等温线与气相组成求得，不等同于穿透实验选择性。", "Derived from temperature-matched pure-component isotherms and gas composition; it is not breakthrough selectivity."),
+    }
+  } else if (isUptakeRatio) {
+    selectivity = {
+      kind: text(lang, "单点吸附比代理", "single-point uptake-ratio proxy"),
+      formula: "Sᵢ/ⱼᵖʳᵒˣʸ = qᵢ / qⱼ",
+      note: text(lang, "仅在来源明确标注单点吸附量比时使用，不能写成 IAST。", "Used only when the source explicitly defines a single-point uptake ratio; it is not IAST."),
+    }
+  } else if (isPredicted) {
+    selectivity = {
+      kind: text(lang, "模型预测", "model prediction"),
+      formula: "Ŝᵢ/ⱼ = fθ(dₘ, κᵣ)",
+      note: text(lang, "数值来自模型与记录工况 κr，不伪装成热力学方程或实验测量。", "The value comes from a model under record context κr, not from a thermodynamic equation or direct measurement."),
+    }
+  } else {
+    selectivity = {
+      kind: text(lang, "来源记录值", "source-reported value"),
+      formula: "Sᵢ/ⱼ⁽ʳ⁾ = Ssource(κᵣ)",
+      note: text(lang, "沿用来源记录的定义与工况 κr；没有原始组成或等温线时不在前端重新推导。", "The source definition and operating context κr are retained; the frontend does not re-derive the value without raw composition or isotherms."),
+    }
+  }
+
+  return {
+    selectivity,
+    capacity: capacityDerived
+      ? {
+          formula: "Cw = q(Pads,T) − q(Pdes,T)",
+          note: text(lang, "由同一等温线在当前压力窗口内插得到。", "Interpolated from the same isotherm over the current pressure window."),
+        }
+      : {
+          formula: "Cw⁽ʳ⁾ = Cw,source(κᵣ)",
+          note: text(lang, "当前工作容量为来源记录值，不展示成等温线差分结果。", "Working capacity is source-reported and is not shown as an isotherm-difference result."),
+        },
+    regenerability: regenerabilityDerived
+      ? {
+          formula: "R = 100 · Cw / q(Pads,T)",
+          note: text(lang, "由当前工作容量与吸附压力下容量计算。", "Calculated from current working capacity and uptake at adsorption pressure."),
+        }
+      : {
+          formula: "R⁽ʳ⁾ = Rsource(κᵣ)",
+          note: text(lang, "当前可再生性沿用来源记录；没有同一等温线时不重新计算。", "Regenerability remains source-reported when a common isotherm is unavailable."),
+        },
+  }
+}
+
+function GasMaterialDecisionPanel({ ranked, selected, scenario, onSelect, t, lang, isMobile, isNarrow, onOpenMethod }) {
+  if (!selected) return null
+  const selectivity = valueForMetric(selected, "selectivity")
+  const workingCapacity = valueForMetric(selected, "workingCapacity")
+  const uptake = valueForMetric(selected, "primaryUptake")
+  const regenerability = valueForMetric(selected, "regenerability")
+  const source = selected.recordProvenance || {}
+  const formulaBasis = gasMetricFormulaBasis(selected, lang)
+  const evidenceLabel = selected.evidenceLevel || selected.dataGrade || selected.evidence?.dataGrade || "pending"
+  const missing = [
+    selectivity == null ? text(lang, "条件一致的选择性定义与数值", "condition-matched selectivity definition and value") : null,
+    workingCapacity == null ? text(lang, "工作容量", "working capacity") : null,
+    regenerability == null ? text(lang, "可再生性", "regenerability") : null,
+    valueForMetric(selected, "stability") == null ? text(lang, "稳定性", "stability") : null,
+  ].filter(Boolean)
+  const isPareto = Boolean(selected.gasScreening?.paretoFrontier || selected.isPareto)
+  return (
+    <section
+      data-testid="gassep-material-decision-panel"
+      style={cardStyle(t, {
+        display: "grid",
+        gap: 14,
+        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)",
+        overflow: "hidden",
+      })}
+    >
+      <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
+        <div>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            {text(lang, "材料与分离条件", "Material and separation conditions")}
+          </span>
+          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 23 : 29, fontWeight: 940, letterSpacing: "-0.035em", lineHeight: 1.08, margin: "8px 0 0", overflowWrap: "anywhere" }}>
+            <ChemicalText value={getReadableMofLabel(selected, lang)} />
+          </h2>
+          <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.55, marginTop: 7 }}>
+            <ChemicalText value={`${formatGasPairLabel(scenario.gasPair)} · ${scenario.temperatureK} K · ${scenario.adsorptionPressureBar}/${scenario.desorptionPressureBar} bar · ${scenario.mixtureRatio}`} />
+          </div>
+        </div>
+        <FormField t={t} label={text(lang, "选择当前 MOF 记录", "Select current MOF record")}>
+          <SelectControl value={selected.id} onChange={onSelect} t={t} ariaLabel={text(lang, "选择 MOF 气体分离记录", "Select MOF gas-separation record")}>
+            {ranked.slice(0, 120).map(record => (
+              <option key={record.id} value={record.id}>
+                {getReadableMofLabel(record, lang)} · {record.evidenceLevel || record.dataGrade || "pending"}
+              </option>
+            ))}
+          </SelectControl>
+        </FormField>
+        <div aria-label={text(lang, "气体分离评价方程", "Gas-separation evaluation equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
+          <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
+            {formulaBasis.selectivity.formula}
+          </div>
+          <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
+            {formulaBasis.capacity.formula}
+          </div>
+          <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
+            {formulaBasis.regenerability.formula}
+          </div>
+          <span style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.5 }}>
+            <strong style={{ color: t.textStrong }}>{formulaBasis.selectivity.kind}: </strong>
+            {formulaBasis.selectivity.note} {formulaBasis.capacity.note} {formulaBasis.regenerability.note}
+          </span>
+        </div>
+        <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+          {[
+            [text(lang, "数据类型", "Data type"), dataTypeLabel(selected.dataType || selected.sourceType, lang)],
+            [text(lang, "证据等级", "Evidence grade"), evidenceLabel],
+            [text(lang, "温度", "Temperature"), selected.temperatureK ? `${selected.temperatureK} K` : text(lang, "记录未报告", "not reported")],
+            [text(lang, "来源", "Source"), source.sourceDatabase || selected.sourceDatabase || "pending"],
+          ].map(([label, value]) => (
+            <div key={label} style={surfaceStyle(t, { padding: 9 })}>
+              <span style={{ color: t.faint, display: "block", fontSize: 9.8, fontWeight: 850 }}>{label}</span>
+              <strong style={{ color: t.textStrong, display: "block", fontSize: 11.5, lineHeight: 1.4, marginTop: 4, overflowWrap: "anywhere" }}><ChemicalText value={value} /></strong>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, minWidth: 0, padding: isMobile ? 12 : 15 }}>
+        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+          <div>
+            <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 850 }}>{text(lang, "当前材料结论", "Current material conclusion")}</span>
+            <strong style={{ color: t.textStrong, display: "block", fontSize: 15, marginTop: 4 }}>
+              {isPareto
+                ? text(lang, "位于当前多目标前沿", "On the current multi-objective frontier")
+                : missing.length
+                  ? text(lang, "数据不足，暂不进入严格排序", "Insufficient data for strict ranking")
+                  : text(lang, "可进入当前工况的条件比较", "Eligible for condition-matched comparison")}
+            </strong>
+          </div>
+          <BasisBadge tone={isPareto ? "calc" : missing.length ? "warn" : "info"}>{evidenceLabel}</BasisBadge>
+        </div>
+        <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+          {[
+            [text(lang, "吸附量", "Uptake"), uptake == null ? formatPending(lang) : `${formatNumber(uptake)} mmol/g`],
+            [text(lang, "选择性", "Selectivity"), selectivity == null ? formatPending(lang) : formatNumber(selectivity)],
+            [text(lang, "工作容量", "Working capacity"), workingCapacity == null ? formatPending(lang) : `${formatNumber(workingCapacity)} mmol/g`],
+            [text(lang, "可再生性", "Regenerability"), regenerability == null ? formatPending(lang) : `${formatNumber(regenerability)}%`],
+          ].map(([label, value]) => (
+            <div key={label} style={surfaceStyle(t, { padding: 9 })}>
+              <span style={{ color: t.faint, display: "block", fontSize: 9.8, fontWeight: 850 }}>{label}</span>
+              <strong style={{ color: t.textStrong, display: "block", fontSize: 13, lineHeight: 1.4, marginTop: 4 }}><ChemicalText value={value} /></strong>
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 9, paddingTop: 10 }}>
+          <div>
+            <strong style={{ color: t.textStrong, fontSize: 11.7 }}>{text(lang, "性能判断", "Performance assessment")}</strong>
+            <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, marginTop: 4 }}>
+              {selectivity == null
+                ? text(lang, "当前记录只有单组分或不完整吸附信息，不能把吸附量直接解释为混合物分离选择性。", "This record contains single-component or incomplete adsorption information; uptake cannot be interpreted as mixture-separation selectivity.")
+                : text(lang, `在 ${formatGasPairLabel(scenario.gasPair)} 情景下，当前选择性为 ${formatNumber(selectivity)}，工作容量为 ${workingCapacity == null ? "待补" : `${formatNumber(workingCapacity)} mmol/g`}；需要与压力窗口和循环稳定性共同判断。`, `For ${formatGasPairLabel(scenario.gasPair)}, selectivity is ${formatNumber(selectivity)} and working capacity is ${workingCapacity == null ? "pending" : `${formatNumber(workingCapacity)} mmol/g`}; the pressure window and cyclic stability remain part of the decision.`)}
+            </div>
+          </div>
+          <div>
+            <strong style={{ color: t.textStrong, fontSize: 11.7 }}>{text(lang, "研究与验证状态", "Research and validation status")}</strong>
+            <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, marginTop: 4 }}>
+              {missing.length
+                ? text(lang, `当前仍缺 ${missing.join("、")}。优先补充同温度纯组分等温线、IAST/混合物验证与循环数据，再进入工艺级判断。`, `Still missing ${missing.join(", ")}. Add temperature-matched pure-component isotherms, IAST/mixture validation, and cycling data before process-level decisions.`)
+                : text(lang, "关键性能字段已接入；下一步仍应以突破曲线、湿度影响和循环实验核查工艺可行性。", "Key performance fields are present; breakthrough, humidity, and cycling experiments are still needed for process feasibility.")}
+            </div>
+          </div>
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+            <span style={{ color: t.faint, fontSize: 10.3, lineHeight: 1.45, overflowWrap: "anywhere" }}>
+              {source.doi ? `DOI ${source.doi}` : source.sourceRecordId || text(lang, "来源标识待补", "source identifier pending")}
+            </span>
+            <button type="button" onClick={onOpenMethod} style={{ ...toolbarBtn(t), color: t.accentText, justifyContent: "center" }}>
+              {text(lang, "查看方法与文献", "Open methods and sources")}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function GasSepTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
@@ -1601,6 +1799,17 @@ export function GasSepTab({ onNavigate }) {
       {status === "empty" ? <Callout tone="warn">{text(lang, "当前场景无数据。", "No GasSep records are available.")}</Callout> : null}
       {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到演示数据，仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
+      <GasMaterialDecisionPanel
+        ranked={ranked}
+        selected={selected}
+        scenario={scenario}
+        onSelect={setSelectedMofId}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+        isNarrow={isNarrow}
+        onOpenMethod={openMethod}
+      />
       <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
       <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />

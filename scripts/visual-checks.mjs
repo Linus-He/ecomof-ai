@@ -21,7 +21,7 @@ const routes = [
   ["home", "#overview", [
     "EcoMOF-AI",
     "Current Capability",
-    "Current Limitations",
+    "Current Risk",
     "V3.9",
     "Database Scale",
     "Experimental Labels",

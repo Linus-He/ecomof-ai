@@ -8,7 +8,7 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const center = screen.getByTestId("project-evolution-app-release")
     // newest release leads; the selector still offers v1.0.0
-    expect(within(center).getAllByText(/Web v1\.0\.4/).length).toBeGreaterThan(0)
+    expect(within(center).getAllByText(/Web v1\.0\.5/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.3/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.2/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.1/).length).toBeGreaterThan(0)
@@ -42,7 +42,7 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const update = screen.getByTestId("project-evolution-current-update")
     expect(update.textContent).toMatch(/Current update/)
-    expect(update.textContent).toMatch(/v1\.0\.4/)
+    expect(update.textContent).toMatch(/v1\.0\.5/)
     expect(update.textContent).not.toMatch(/Developer Log|developer log|Next Release Preview|pending release/)
   })
 })

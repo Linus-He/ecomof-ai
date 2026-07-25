@@ -17,7 +17,7 @@ describe("dynamic overview cards", () => {
     expect(within(overview).getByText("Best Model")).toBeInTheDocument()
     expect(within(overview).getByText("Credibility")).toBeInTheDocument()
     expect(within(overview).getByText("Current Risk")).toBeInTheDocument()
-    expect(overview.textContent).toMatch(/Web v1\.0\.4/)
+    expect(overview.textContent).toMatch(/Web v1\.0\.5/)
     expect(overview.textContent).toMatch(/V3\.10\.1/)
     expect(overview.textContent).toMatch(/3462\+/)
     expect(overview.textContent).toMatch(/150/)

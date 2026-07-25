@@ -165,7 +165,8 @@ function AppShell({
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
   const navRef = useRef(null)
-  const navStacked = viewport.width < 1180
+  const compactHeader = viewport.width < 1320
+  const veryCompactHeader = viewport.width < 760
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
     setHomeComparisonOpen(true)
@@ -215,10 +216,13 @@ function AppShell({
             className="nav-shell"
             style={{
               display: "grid",
-              gridTemplateColumns: navStacked ? "1fr auto" : "minmax(220px, 1fr) minmax(680px, 760px) minmax(220px, 1fr)",
+              gridTemplateColumns: veryCompactHeader
+                ? "auto minmax(0, 1fr) auto"
+                : compactHeader
+                  ? "118px minmax(0, 1fr) 96px"
+                  : "minmax(180px, auto) minmax(0, 1fr) auto",
               alignItems: "center",
-              columnGap: navStacked ? 12 : 10,
-              rowGap: navStacked ? 6 : 0,
+              columnGap: veryCompactHeader ? 6 : 10,
               minHeight: 56,
               padding: viewport.isMobile ? "8px 0" : "8px 0",
               background: "transparent",
@@ -234,6 +238,7 @@ function AppShell({
                 markSize={viewport.isMobile ? 28 : 30}
                 radius={viewport.isMobile ? 7 : 8}
                 t={theme}
+                text={veryCompactHeader ? "" : "EcoMOF-AI"}
                 compact
               />
             </div>
@@ -242,11 +247,9 @@ function AppShell({
               data-testid="primary-nav-slot"
               style={{
                 display: "flex",
-                justifyContent: navStacked ? "flex-start" : "center",
+                justifyContent: "center",
                 minWidth: 0,
                 overflow: "hidden",
-                gridColumn: navStacked ? "1 / -1" : "auto",
-                order: navStacked ? 3 : 2,
               }}
             >
               <nav
@@ -254,13 +257,12 @@ function AppShell({
                 className="nav-capsule"
                 data-testid="primary-nav-rail"
                 style={{
-                  display: navStacked ? "flex" : "grid",
-                  gridTemplateColumns: navStacked ? undefined : `repeat(${TABS.length}, minmax(0, 1fr))`,
+                  display: "flex",
                   alignItems: "center",
-                  justifyContent: navStacked ? "flex-start" : "stretch",
-                  gap: navStacked ? 8 : 6,
+                  justifyContent: compactHeader ? "flex-start" : "center",
+                  gap: compactHeader ? 2 : 6,
                   width: "100%",
-                  maxWidth: navStacked ? "100%" : 760,
+                  maxWidth: compactHeader ? 660 : 760,
                   overflowX: "auto",
                   padding: 0,
                   background: "transparent",
@@ -287,14 +289,14 @@ function AppShell({
                         border: active ? `1px solid ${theme.border}` : "1px solid transparent",
                         color: active ? theme.accentText : theme.subtle,
                         height: 32,
-                        padding: navStacked ? "0 13px" : 0,
+                        padding: compactHeader ? "0 10px" : "0 12px",
                         borderRadius: 6,
                         cursor: "pointer",
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        flex: navStacked ? "0 0 auto" : "1 1 0",
-                        width: navStacked ? "auto" : "100%",
+                        flex: compactHeader ? "0 0 auto" : "1 1 0",
+                        minWidth: compactHeader ? "max-content" : 0,
                         fontSize: 12,
                         fontWeight: active ? 800 : 700,
                         lineHeight: 1,
@@ -311,7 +313,18 @@ function AppShell({
               </nav>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8, minWidth: 0, flex: "0 0 auto", order: navStacked ? 2 : 3 }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              gap: veryCompactHeader ? 4 : 8,
+              minWidth: 0,
+              flex: "0 0 auto",
+              width: compactHeader && !veryCompactHeader ? 96 : "auto",
+              position: "static",
+              zIndex: 2,
+              background: "transparent",
+            }}>
               <button
                 type="button"
                 onClick={() => setContactOpen(true)}
@@ -319,6 +332,7 @@ function AppShell({
                 aria-label={lang === "zh" ? "打开联系弹窗" : "Open contact dialog"}
                 style={{
                   ...headerChipBtn(theme),
+                  display: compactHeader ? "none" : "inline-flex",
                   padding: "8px 12px",
                   border: `1px solid ${theme.accent}`,
                   color: theme.accentText,
@@ -326,7 +340,9 @@ function AppShell({
                   whiteSpace: "nowrap",
                 }}
               >
-                  {viewport.isMobile && lang === "zh" ? "联系" : (lang === "zh" ? "联系 / 合作" : "Contact")}
+                  {veryCompactHeader
+                    ? (lang === "zh" ? "联系" : "Contact")
+                    : (lang === "zh" ? "联系 / 合作" : "Contact")}
               </button>
               <button
                 type="button"
@@ -864,6 +880,10 @@ export default function App() {
     setSearchOpen(false)
     setSearchStatus("loaded")
     setRouteHash("performance")
+    window.setTimeout(() => {
+      document.getElementById("ecoscreen-scenario-controls")?.scrollIntoView({ block: "start", behavior: "smooth" })
+      document.querySelector("[data-testid='ecoscreen-candidate-select']")?.focus()
+    }, 220)
     window.setTimeout(() => setSearchStatus(null), 1800)
   }, [setRouteHash])
 

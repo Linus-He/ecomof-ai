@@ -29,97 +29,123 @@ export function PresetSearchControl({
   const resultFeedback = suggestions.length
     ? (lang === "zh" ? `${suggestions.length} 个匹配候选材料` : `${suggestions.length} matching candidate${suggestions.length === 1 ? "" : "s"}`)
     : (lang === "zh" ? "未找到匹配候选材料" : "No matching candidates")
+  const confirmSearch = useCallback(() => {
+    const match = findPresetName(value)
+    if (match) {
+      applyPreset(match)
+      return
+    }
+    if (suggestions[0]) {
+      applyPreset(suggestions[0])
+      return
+    }
+    setStatus("miss")
+    setOpen(false)
+  }, [applyPreset, setOpen, setStatus, suggestions, value])
 
   return (
-    <div style={{ position: "relative", minWidth: 0, width: "100%", maxWidth: width }}>
-      <input
-        placeholder={placeholder}
-        value={value}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setTimeout(() => setOpen(false), 120)}
-        onChange={e => { setValue(e.target.value); setStatus(null); setOpen(true) }}
-        onKeyDown={e => {
-          if (e.key === "Enter") {
-            const match = findPresetName(value)
-            if (match) applyPreset(match)
-            else if (suggestions[0]) applyPreset(suggestions[0])
-            else {
-              setStatus("miss")
-              setOpen(false)
-            }
-          }
-          if (e.key === "Escape") setOpen(false)
-        }}
-        style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40, position: "relative", zIndex: 0 }}
-      />
-      <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
-        ⌕
+    <div style={{ display: "grid", gap: 7, gridTemplateColumns: "minmax(0, 1fr) auto", minWidth: 0, width: "100%", maxWidth: width }}>
+      <div style={{ position: "relative", minWidth: 0 }}>
+        <input
+          aria-label={lang === "zh" ? "检索 MOF 候选材料" : "Search MOF candidates"}
+          placeholder={placeholder}
+          value={value}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 120)}
+          onChange={e => { setValue(e.target.value); setStatus(null); setOpen(true) }}
+          onKeyDown={e => {
+            if (e.key === "Enter") confirmSearch()
+            if (e.key === "Escape") setOpen(false)
+          }}
+          style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40, position: "relative", zIndex: 0 }}
+        />
+        <div style={{ position: "absolute", right: 14, top: 19, transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
+          ⌕
+        </div>
+        {showSearchFeedback && (
+          <div style={{
+            position: "absolute",
+            top: "calc(100% + 6px)",
+            left: 2,
+            color: suggestions.length ? t.subtle : t.danger,
+            fontSize: 10,
+            fontWeight: 750,
+            lineHeight: 1.3,
+            zIndex: 121,
+            pointerEvents: "none",
+          }} aria-live="polite">
+            {resultFeedback}
+          </div>
+        )}
+        {open && suggestions.length > 0 && value && status !== "loaded" && (
+          <div style={{
+            position: "absolute",
+            top: "calc(100% + 26px)",
+            left: 0,
+            right: 0,
+            background: t.panel,
+            border: `1px solid ${t.borderStrong}`,
+            borderRadius: 8,
+            overflow: "hidden",
+            zIndex: 120,
+            boxShadow: t.shadowSm,
+          }}>
+            {suggestions.map((name, index) => (
+              <button
+                key={name}
+                type="button"
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => applyPreset(name)}
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: index === suggestions.length - 1 ? "none" : `1px solid ${t.divider}`,
+                  padding: "10px 14px",
+                  color: t.text,
+                  fontSize: 12,
+                  cursor: "pointer",
+                  fontFamily: FONT_SANS,
+                }}
+              >
+                {name}
+                <span style={{ color: t.faint, fontSize: 10 }}>
+                  {" "}· {MOF_PRESETS[name].metalCenter} · {MOF_PRESETS[name].organicLinker}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+        {status === "loaded" && (
+          <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 2, color: t.success, fontSize: 10 }} aria-live="polite">
+            ✓ {copy.header.loaded}
+          </div>
+        )}
+        {status === "miss" && (
+          <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 2, color: t.danger, fontSize: 10 }} aria-live="polite">
+            {lang === "zh" ? "未找到匹配候选材料" : "No matching candidates"}
+          </div>
+        )}
       </div>
-      {showSearchFeedback && (
-        <div style={{
-          position: "absolute",
-          top: "calc(100% + 6px)",
-          left: 2,
-          color: suggestions.length ? t.subtle : t.danger,
-          fontSize: 10,
-          fontWeight: 750,
-          lineHeight: 1.3,
-          zIndex: 121,
-          pointerEvents: "none",
-        }} aria-live="polite">
-          {resultFeedback}
-        </div>
-      )}
-      {open && suggestions.length > 0 && value && status !== "loaded" && (
-        <div style={{
-          position: "absolute",
-          top: "calc(100% + 26px)",
-          left: 0,
-          right: 0,
-          background: t.panel,
-          border: `1px solid ${t.borderStrong}`,
-          borderRadius: 8,
-          overflow: "hidden",
-          zIndex: 120,
-          boxShadow: t.shadowSm,
-        }}>
-          {suggestions.map((name, index) => (
-            <button
-              key={name}
-              type="button"
-              onMouseDown={e => e.preventDefault()}
-              onClick={() => applyPreset(name)}
-              style={{
-                width: "100%",
-                textAlign: "left",
-                background: "transparent",
-                border: "none",
-                borderBottom: index === suggestions.length - 1 ? "none" : `1px solid ${t.divider}`,
-                padding: "10px 14px",
-                color: t.text,
-                fontSize: 12,
-                cursor: "pointer",
-                fontFamily: FONT_SANS,
-              }}
-            >
-              {name}
-              <span style={{ color: t.faint, fontSize: 10 }}>
-                {" "}· {MOF_PRESETS[name].metalCenter} · {MOF_PRESETS[name].organicLinker}
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-      {status === "loaded" && (
-        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.success, fontSize: 10 }} aria-live="polite">
-          ✓ {copy.header.loaded}
-        </div>
-      )}
-      {status === "miss" && (
-        <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 14, color: t.danger, fontSize: 10 }} aria-live="polite">
-          {lang === "zh" ? "未找到匹配候选材料" : "No matching candidates"}
-        </div>
-      )}
+      <button
+        type="button"
+        onClick={confirmSearch}
+        disabled={!trimmedQuery}
+        style={{
+          ...headerChipBtn(t),
+          alignSelf: "start",
+          background: trimmedQuery ? t.accentText : t.surface,
+          borderColor: trimmedQuery ? t.accent : t.border,
+          color: trimmedQuery ? "#fff" : t.faint,
+          cursor: trimmedQuery ? "pointer" : "not-allowed",
+          minHeight: 38,
+          padding: "8px 13px",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {lang === "zh" ? "确认" : "Confirm"}
+      </button>
     </div>
   )
 }
@@ -380,7 +406,7 @@ export function ContextualHeaderBar({
           suggestions={presetSuggestions}
           applyPreset={applyPreset}
           placeholder={copy.header.searchPlaceholder}
-          width={isMobile ? "100%" : 360}
+          width={isMobile ? "100%" : 450}
         />
         <select
           value={inputs.gasSystem}

@@ -380,14 +380,14 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
         <h3>{zh ? "分布、金属筛选与描述符相关性" : "Distribution, metal filters, and descriptor correlation"}</h3>
         <p className="scientific-story-lede">
           {zh
-            ? `所有图表均由 ${allRows.length} 条具备完整结构描述符的 CoRE/QMOF 记录动态派生；金属与区间筛选直接改变分布和相关矩阵。`
-            : `All charts are dynamically derived from ${allRows.length} CoRE/QMOF records with complete structural descriptors; metal and bin filters directly update the distribution and correlation matrix.`}
+            ? `所有图表均由 ${allRows.length} 条具备完整结构描述符的 CoRE/QMOF 记录动态派生；金属筛选会重算分布和相关矩阵，区间点击仅用于查看频数。`
+            : `All charts are dynamically derived from ${allRows.length} CoRE/QMOF records with complete structural descriptors. Metal filters recompute the distribution and correlation matrix; bin clicks inspect frequencies only.`}
         </p>
         <div className="scientific-equation-block">
           <span>{zh ? "条件直方图" : "CONDITIONAL HISTOGRAM"}</span>
           <BlockFormula
-            math={String.raw`h_b(m)=\sum_{i\in\mathcal{M}_m}\mathbb{1}\!\left(e_{b-1}\le x_i<e_b\right)`}
-            fallback="h_b(m) = Σ 1(e_b−1 ≤ x_i < e_b)"
+            math={String.raw`h_b(m)=\begin{cases}\sum_{i\in\mathcal{M}_m}\mathbb{1}(e_{b-1}\le x_i<e_b),&b<B\\[2pt]\sum_{i\in\mathcal{M}_m}\mathbb{1}(e_{B-1}\le x_i\le e_B),&b=B\end{cases}`}
+            fallback="h_b(m) uses [e_b−1, e_b), with the final bin closed at e_B"
             t={t}
             style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0 }}
           />
@@ -417,13 +417,13 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
           </div>
           <div>
             <strong className="formula">n</strong>
-            <span>{zh ? "当前可计算样本" : "Current computable rows"}</span>
+            <span>{zh ? "当前筛选记录" : "Current filtered records"}</span>
             <small className="num">{model.selectedMetalCount}</small>
           </div>
         </div>
         <div className="scientific-story-source">
           <span>{zh ? "数据与交互" : "DATA & INTERACTION"}</span>
-          <p>{zh ? "点击金属、指标、直方图区间或相关单元格，右侧所有解释保持同步。" : "Click a metal, metric, histogram bin, or correlation cell; every explanation on the right stays synchronized."}</p>
+          <p>{zh ? "点击金属会联动全部图表；指标、直方图区间与相关单元格分别切换变量或检视对应结果。" : "Metal clicks update every chart; metric, histogram-bin, and correlation-cell controls switch variables or inspect their corresponding result."}</p>
         </div>
       </div>
 
@@ -438,7 +438,7 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
             <span>{zh ? "条件统计视图" : "CONDITIONAL STATISTICAL VIEW"}</span>
             <strong>{label(distributionMetric, lang)} · {activeMetal === "all" ? (zh ? "全部金属" : "All metals") : activeMetal}</strong>
           </div>
-          <small>{zh ? "筛选会联动全部图表" : "Filters update every chart"}</small>
+          <small>{zh ? "金属筛选联动全部图表" : "Metal filters update every chart"}</small>
         </header>
 
         <div className="explorer-control-group">

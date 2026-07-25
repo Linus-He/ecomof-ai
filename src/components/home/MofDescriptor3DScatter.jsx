@@ -5,6 +5,7 @@
 import { useMemo, useRef, useState } from "react"
 import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
 import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import { getReadableMofLabel } from "../../utils/mofDisplayName"
 
 const TARGET_POINT_COUNT = 240
 
@@ -101,7 +102,7 @@ export function buildDescriptorScatterPoints(target = TARGET_POINT_COUNT) {
     .sort((a, b) => String(a.mofId || a.sourceRecordId).localeCompare(String(b.mofId || b.sourceRecordId)))
   return deterministicSample(fullAxisRows, target).map((row, index) => ({
     id: row.mofId || row.sourceRecordId || `mof-${index}`,
-    name: row.displayName || row.mofId || row.sourceRecordId || `MOF ${index + 1}`,
+    name: getReadableMofLabel(row, "en"),
     source: row.sourceDatabase || row._sourceFamily || "CoRE/QMOF",
     sourceRecordId: row.sourceRecordId || "pending",
     metal: row.metalNode && row.metalNode !== "pending" ? row.metalNode : "unknown",
@@ -532,7 +533,7 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
           <div>
             <strong className="formula">r<sub>i</sub></strong>
             <span>{zh ? "点半径" : "Point radius"}</span>
-            <small className="formula">∝ 1 − ρ<sub>i</sub><sup>*</sup></small>
+            <small className="formula">r<sub>i</sub> = 3.5 + 3.2(1 − ρ<sub>i</sub><sup>*</sup>)</small>
           </div>
         </div>
         <div className="descriptor-story-source">
@@ -541,6 +542,11 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
             {zh
               ? `${allRows} 条 CoRE/QMOF 导入记录；${points.length} 条具备完整三轴字段。${qMofExcluded ? `另有 ${qMofExcluded} 条 QMOF 记录因缺少孔体积未进入此视图。` : ""}`
               : `${allRows} CoRE/QMOF imports; ${points.length} records have complete axes. ${qMofExcluded ? `${qMofExcluded} QMOF records lack pore volume and are excluded.` : ""}`}
+          </p>
+          <p>
+            {zh
+              ? "三维绘制时将 [0, 1] 坐标平移到 [−0.5, 0.5]；缺失密度的点使用中性半径 3.95，不参与密度大小推断。"
+              : "Rendering recenters [0, 1] coordinates to [−0.5, 0.5]. Points with missing density use the neutral radius 3.95 and do not imply a density-derived size."}
           </p>
         </div>
       </div>

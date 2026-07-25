@@ -252,7 +252,7 @@ function ResearchEquationHero({ t, lang, summary, gasParetoCount, isMobile, redu
       index: "02",
       label: zh ? "分离权衡" : "Separation",
       title: zh ? "选择性与工作容量同时最大化" : "Maximize selectivity and working capacity",
-      formula: String.raw`m\in\mathcal{F}\iff\nexists n\ne m:\ C_{w,n}\ge C_{w,m}\land S_n\ge S_m\land\left(C_{w,n}>C_{w,m}\lor S_n>S_m\right)`,
+      formula: String.raw`m\in\mathcal{F}\iff\neg\exists n\ne m:\ C_{w,n}\ge C_{w,m}\land S_n\ge S_m\land\left(C_{w,n}>C_{w,m}\lor S_n>S_m\right)`,
       note: zh ? "以非支配前沿保留真实性能权衡，不把单一高选择性误当成最优。" : "Preserves real trade-offs with a non-dominated frontier instead of overvaluing selectivity alone.",
     },
     {

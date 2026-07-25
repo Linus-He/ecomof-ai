@@ -1,3 +1,5 @@
+import { getReadableMofLabel } from "../mofDisplayName"
+
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value)))
 
 const hasValue = value => {
@@ -14,9 +16,7 @@ export function getEcoLcaCandidateMetal(candidate = {}) {
 }
 
 function candidateDisplayName(candidate = {}) {
-  const displayName = candidate.displayName || candidate.name
-  if (displayName && !/^(core|qmof)\s+mof\s+record$/i.test(String(displayName).trim())) return displayName
-  return candidate.rawName || candidate.sourceRecordId || displayName || candidate.id || candidate.candidateId || "pending"
+  return getReadableMofLabel(candidate, "en")
 }
 
 function getCandidateField(candidate = {}, field) {
