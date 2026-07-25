@@ -56,7 +56,7 @@ function usePrefersReducedMotion() {
 function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
   return (
     <div style={{ marginBottom: isMobile ? 14 : 18, maxWidth: 880 }}>
-      <div style={{
+      <div className="home-capability-highlights" style={{
         color: t.accentText,
         fontSize: 11,
         fontWeight: 850,
@@ -833,7 +833,7 @@ export function HomeTab({ setActiveTab }) {
     }
   }
 
-  const pageGap = isMobile ? 28 : 38
+  const pageGap = isMobile ? 18 : 24
   const sectionStyle = { background: "transparent", border: "none", borderRadius: 0 }
   const panelStyle = {
     background: t.panel,
@@ -845,11 +845,11 @@ export function HomeTab({ setActiveTab }) {
   const capabilities = useMemo(() => [
     {
       mark: "CV",
-      title: zh ? "当前 App 版本" : "Current Version",
+      title: zh ? "当前 Web 版本" : "Current Version",
       subtitle: zh ? "动态项目状态" : "Dynamic project status",
       tone: "info",
       highlights: [APP_VERSION_LABEL, `${zh ? "数据状态" : "Data state"} ${summary.currentVersion || "V3.6"}`],
-      body: zh ? "当前 App 版本来自统一版本记录；项目演化 V3.x 作为历史/数据状态保留。" : "The current App version comes from the unified release record; project-evolution V3.x remains as history/data state.",
+      body: zh ? "当前 Web 版本来自统一版本记录；项目演化 V3.x 作为历史/数据状态保留。" : "The current Web version comes from the unified release record; project-evolution V3.x remains as history/data state.",
     },
     {
       mark: "DB",
@@ -1118,7 +1118,7 @@ export function HomeTab({ setActiveTab }) {
         <SectionHeader
           eyebrow="Current Capability"
           title={zh ? "当前能力状态" : "Current capability status"}
-          subtitle={zh ? "状态卡直接读取项目状态聚合器，展示数据库、标签、Benchmark、模型、可信度与风险。" : "Cards read the project status aggregator for database, labels, benchmark, model, credibility, and risk."}
+          subtitle={zh ? "汇总数据库、实验标签、Benchmark、模型表现、可信度与当前风险。" : "A consolidated view of the database, experimental labels, benchmark status, model performance, credibility, and current risk."}
           t={t}
           isMobile={isMobile}
         />
@@ -1127,7 +1127,7 @@ export function HomeTab({ setActiveTab }) {
         </div>
       </section>
 
-      <section data-testid="home-data-foundation" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
+      <section data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}
           title={zh ? "可追踪的数据来源与质量概览" : "Traceable source and data-quality overview"}

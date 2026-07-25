@@ -58,13 +58,13 @@ describe("homepage dynamic status", () => {
 
     await waitFor(() => expect(screen.getByTestId("home-platform-capabilities")).toBeInTheDocument())
 
-    // The legacy "Recent Progress V3.4-V3.6" block was folded into the App v1.0.0
+    // The legacy "Recent Progress V3.4-V3.6" block was folded into the Web v1.0.0
     // Unified Release Center (pre-1.0 history); the homepage no longer shows it.
     expect(screen.queryByTestId("home-validation-progress")).not.toBeInTheDocument()
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
-    expect(within(capabilities).getByText("当前 App 版本")).toBeInTheDocument()
-    expect(within(capabilities).getByText("App v1.0.4")).toBeInTheDocument()
+    expect(within(capabilities).getByText("当前 Web 版本")).toBeInTheDocument()
+    expect(within(capabilities).getByText("Web v1.0.4")).toBeInTheDocument()
     expect(capabilities.textContent).toMatch(/数据状态 V3\.10\.1/)
     expect(within(capabilities).getByText("3462+ 条记录")).toBeInTheDocument()
     expect(within(capabilities).getByText("实验标签")).toBeInTheDocument()

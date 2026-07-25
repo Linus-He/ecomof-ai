@@ -1,6 +1,6 @@
-// Builds public/data/app_release_log.json — the single unified App release log.
+// Builds public/data/app_release_log.json — the single unified Web release log.
 //
-// One App version manages the whole platform; each release lists ONLY the
+// One Web version manages the whole platform; each release lists ONLY the
 // modules it changed. Historical per-module version numbers (Organic Acid
 // V3.9.x, Database V2.2, Gas v2.1, ...) are NOT renumbered — they are the
 // pre-1.0 modular-development era and are preserved verbatim, regrouped by
@@ -115,12 +115,12 @@ const V1_RELEASE = {
   date: "2026-06-29",
   stage: "unified-platform",
   headline: {
-    zh: "首个统一平台版本：把有机酸、气体分离、数据库与验证整合到单一 App 版本号下。",
-    en: "First unified platform release: organic-acid, gas separation, database, and validation now ship under one App version.",
+    zh: "首个统一平台版本：把有机酸、气体分离、数据库与验证整合到单一 Web 版本号下。",
+    en: "First unified platform release: organic-acid, gas separation, database, and validation now ship under one Web version.",
   },
   summary: {
-    zh: "整合此前各模块为成熟 App 的统一版本；此前为模块化开发期，原始版本号（有机酸 V3.9.x / 数据库 V2.2 / 气体 v2.1 等）见下方历史沿革，一律未改。自 v1.0.0 起，每次发布只列出本次有更新的模块。",
-    en: "Integrates the previously separate modules into one mature App version. Earlier work was the modular-development era; original module version numbers (Organic Acid V3.9.x, Database V2.2, Gas v2.1, ...) are preserved unchanged in the history below. From v1.0.0, each release lists only the modules it changed.",
+    zh: "整合此前各模块为成熟 Web 的统一版本；此前为模块化开发期，原始版本号（有机酸 V3.9.x / 数据库 V2.2 / 气体 v2.1 等）见下方历史沿革，一律未改。自 v1.0.0 起，每次发布只列出本次有更新的模块。",
+    en: "Integrates the previously separate modules into one mature Web version. Earlier work was the modular-development era; original module version numbers (Organic Acid V3.9.x, Database V2.2, Gas v2.1, ...) are preserved unchanged in the history below. From v1.0.0, each release lists only the modules it changed.",
   },
   modules: {
     organicAcid: {
@@ -170,11 +170,11 @@ const V1_RELEASE = {
     },
     ui: {
       summary: {
-        zh: "成熟 App 体验：统一版本、按模块讲能力、收敛的研究报告与交互可视化。",
-        en: "Mature App experience: unified versioning, module-first capabilities, focused reports, interactive visuals.",
+        zh: "成熟 Web 体验：统一版本、按模块讲能力、收敛的研究报告与交互可视化。",
+        en: "Mature Web experience: unified versioning, module-first capabilities, focused reports, interactive visuals.",
       },
       changes: [
-        { zh: "统一 App 版本号 + 二级（分模块）更新日志，历史散版收进折叠区。", en: "Single App version + secondary per-module changelog; legacy versions folded into a collapsed history." },
+        { zh: "统一 Web 版本号 + 二级（分模块）更新日志，历史散版收进折叠区。", en: "Single Web version + secondary per-module changelog; legacy versions folded into a collapsed history." },
         { zh: "首页能力区改为按模块讲能力（EcoScreen / MOF Library / Organic Acid / GasSep）。", en: "Homepage capabilities restated module-by-module (EcoScreen / MOF Library / Organic Acid / GasSep)." },
         { zh: "研究报告收敛为候选/筛选子 tab + 四块紧凑叙事。", en: "Research reports converged into candidate/round sub-tabs with a four-block compact narrative." },
         { zh: "首页新增可交互 3D MOF 描述符散点图（移动端降级为 2D）。", en: "Added an interactive 3D MOF descriptor scatter on the homepage (2D fallback on mobile)." },
@@ -204,7 +204,7 @@ const V1_0_2_RELEASE = {
       },
       changes: [
         { zh: "统一数字、版本号、指标、计数、步骤号与表格数值的显示风格；化学式继续使用独立的专业排版。", en: "Unifies the display style for numbers, versions, metrics, counts, step labels, and table values, while chemistry formulas keep dedicated scientific typography." },
-        { zh: "建立统一 App 版本来源，当前 App 徽章显示 App v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。", en: "Adds a unified App version source; current App badges show App v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history." },
+        { zh: "建立统一 Web 版本来源，当前 Web 徽章显示 Web v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。", en: "Adds a unified Web version source; current Web badges show Web v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history." },
         { zh: "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 样本，补充轴刻度、真实值悬停、金属 / 数据等级着色切换和孔径点大小图例。", en: "The homepage MOF descriptor 3D view now uses a larger CoRE/QMOF sample with axis ticks, real-value hover, metal / data-grade color modes, and pore-size point-size legend." },
         { zh: "首页新增气体分离帕累托图，基于同时具备选择性与工作容量的真实记录，按气对切换并标注 IAST/实验/计算覆盖。", en: "Added a homepage gas-separation Pareto chart from real records that have both selectivity and working capacity, with gas-pair switching and IAST/experimental/computed coverage." },
         { zh: "首页入口按钮去掉异常玻璃折射和蓝色实心态，改为中性按钮、清晰 hover 反馈和更稳定的移动端布局。", en: "Removed abnormal glass refraction and blue filled state from homepage entry buttons, replacing them with neutral buttons, clear hover feedback, and steadier mobile layout." },
@@ -248,8 +248,8 @@ const V1_0_1_RELEASE = {
     en: "Experience polish: site-wide font unification, legacy version block removed, homepage 3D scatter fixed.",
   },
   summary: {
-    zh: "纯呈现层维护，不改算法/分数/数据：统一字体 token，数字归一为同一 sans 字族并 tabular-nums 对齐；衬线仅保留给化学式；移除与 App v1.0.0 矛盾的旧版本区块；修复 3D 描述符散点的切顶、挤团与空白。",
-    en: "Presentation-only maintenance with no algorithm/score/data changes: unified font tokens with numbers on one sans family (tabular-nums), serif reserved for chemistry formulas, removal of the legacy version block that conflicted with App v1.0.0, and fixes to the 3D descriptor scatter (clipping, clustering, empty space).",
+    zh: "纯呈现层维护，不改算法/分数/数据：统一字体 token，数字归一为同一 sans 字族并 tabular-nums 对齐；衬线仅保留给化学式；移除与 Web v1.0.0 矛盾的旧版本区块；修复 3D 描述符散点的切顶、挤团与空白。",
+    en: "Presentation-only maintenance with no algorithm/score/data changes: unified font tokens with numbers on one sans family (tabular-nums), serif reserved for chemistry formulas, removal of the legacy version block that conflicted with Web v1.0.0, and fixes to the 3D descriptor scatter (clipping, clustering, empty space).",
   },
   modules: {
     ui: {
@@ -260,7 +260,7 @@ const V1_0_1_RELEASE = {
       changes: [
         { zh: "建立字体 token（--font-body / --font-formula）：所有文本与数字用同一 sans 字族，数字以 tabular-nums 对齐，不再用固定宽度数字字体。", en: "Added font tokens (--font-body / --font-formula): all text and numbers share one sans family with tabular-nums; decorative fixed-width numerals removed." },
         { zh: "衬线仅保留给化学式 / 数学公式；清除散落的旧式 sans 与 ad-hoc 固定宽度字体。", en: "Serif reserved for chemistry / math formulas only; scattered legacy sans and ad-hoc fixed-width declarations removed." },
-        { zh: "移除首页与 App v1.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。", en: "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with App v1.0.0; legacy versions stay in the collapsed pre-1.0 history." },
+        { zh: "移除首页与 Web v1.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。", en: "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with Web v1.0.0; legacy versions stay in the collapsed pre-1.0 history." },
         { zh: "修复 3D 描述符散点：标题不再切顶，按数据自适应填满视图（不再挤团/留白），新增方向指示器。", en: "Fixed the 3D descriptor scatter: title no longer clipped, data auto-fits to fill the view (no clustering/empty space), added an orientation gizmo." },
       ],
     },
@@ -268,6 +268,10 @@ const V1_0_1_RELEASE = {
 }
 
 async function main() {
+  const releaseLogPath = path.join(DATA_DIR, "app_release_log.json")
+  const existingReleaseLog = await fs.readFile(releaseLogPath, "utf8")
+    .then(content => JSON.parse(content))
+    .catch(() => null)
   const versionRecords = JSON.parse(
     await fs.readFile(path.join(DATA_DIR, "version_evolution_records.json"), "utf8"),
   )
@@ -285,20 +289,34 @@ async function main() {
     }
   }
 
-  const releases = [V1_0_2_RELEASE, V1_0_1_RELEASE, V1_RELEASE]
+  const authoredReleases = [V1_0_2_RELEASE, V1_0_1_RELEASE, V1_RELEASE]
+  const authoredVersions = new Set(authoredReleases.map(release => release.appVersion))
+  const preservedNewerReleases = (existingReleaseLog?.releases || [])
+    .filter(release => !authoredVersions.has(release.appVersion))
+  const releaseWeight = value => String(value || "")
+    .replace(/^v/i, "")
+    .split(".")
+    .reduce((sum, part) => sum * 1000 + (Number(part) || 0), 0)
+  const releases = [...preservedNewerReleases, ...authoredReleases]
+    .sort((left, right) => releaseWeight(right.appVersion) - releaseWeight(left.appVersion))
   const payload = {
     schemaVersion: "1.0",
     currentAppVersion: releases[0].appVersion,
-    generatedAt: GENERATED_AT,
+    generatedAt: existingReleaseLog?.generatedAt || GENERATED_AT,
     authority:
-      "Single unified EcoMOF-AI App release log. One App version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
+      "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
     provenance: {
       derivedFrom: "public/data/version_evolution_records.json",
       generatingScript: "scripts/build-app-release-log.mjs",
       note:
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
-    moduleCatalog: MODULE_CATALOG,
+    ...(existingReleaseLog?.developmentLog ? { developmentLog: existingReleaseLog.developmentLog } : {}),
+    ...(existingReleaseLog?.previousDevelopmentLog ? { previousDevelopmentLog: existingReleaseLog.previousDevelopmentLog } : {}),
+    moduleCatalog: {
+      ...MODULE_CATALOG,
+      ...(existingReleaseLog?.moduleCatalog || {}),
+    },
     releases,
     history: {
       label: {
@@ -315,14 +333,14 @@ async function main() {
   }
 
   await fs.writeFile(
-    path.join(DATA_DIR, "app_release_log.json"),
+    releaseLogPath,
     `${JSON.stringify(payload, null, 2)}\n`,
     "utf8",
   )
   const counts = Object.entries(historyByModule)
     .map(([key, rows]) => `${key}=${rows.length}`)
     .join(", ")
-  console.log(`Wrote app_release_log.json · v1.0.0 + history (${counts})`)
+  console.log(`Wrote app_release_log.json · ${payload.currentAppVersion} + history (${counts})`)
 }
 
 main().catch(error => {

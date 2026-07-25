@@ -157,9 +157,9 @@ export function buildHomeExplorerModel(rows = buildDescriptorScatterPoints(EXPLO
   }
 }
 
-function ChartShell({ title, subtitle, t, children, badge }) {
+function ChartShell({ title, subtitle, t, children, badge, className = "" }) {
   return (
-    <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, overflow: "hidden", padding: 14 }}>
+    <article className={`explorer-chart-shell ${className}`.trim()} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, overflow: "hidden", padding: 14 }}>
       <div style={{ alignItems: "flex-start", display: "flex", gap: 10, justifyContent: "space-between" }}>
         <div style={{ minWidth: 0 }}>
           <h3 style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.25, margin: 0 }}>{title}</h3>
@@ -252,8 +252,8 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
   const pairs = buildCorrelationPairs(model.correlations)
   const focusKey = hoverCell || activeCell || pairs[0]?.key
   const focus = pairs.find(item => item.key === focusKey) || pairs[0] || null
-  const cell = isMobile ? 54 : 62
-  const left = isMobile ? 72 : 82
+  const cell = isMobile ? 58 : 88
+  const left = isMobile ? 78 : 104
   const top = 34
   const W = left + cell * METRIC_KEYS.length + 18
   const H = top + cell * METRIC_KEYS.length + 48
@@ -266,9 +266,9 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
     model.correlations.find(row => row.rowMetric === rowMetric && row.colMetric === colMetric) || { rowMetric, colMetric, value: null, n: 0 }
   )
   return (
-    <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 185px", alignItems: "start" }}>
+    <div style={{ display: "grid", gap: isMobile ? 10 : 14, gridTemplateColumns: "minmax(0, 1fr)", alignItems: "start" }}>
       <div style={{ display: "grid", gap: 8, minWidth: 0 }}>
-        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={lang === "zh" ? "描述符 Pearson 相关矩阵" : "Descriptor Pearson correlation matrix"} data-testid="home-correlation-matrix" style={{ width: "100%", maxWidth: isMobile ? 390 : 430, height: "auto", justifySelf: "center" }}>
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={lang === "zh" ? "描述符 Pearson 相关矩阵" : "Descriptor Pearson correlation matrix"} data-testid="home-correlation-matrix" style={{ width: "100%", maxWidth: isMobile ? 410 : 520, height: "auto", justifySelf: "center" }}>
           <rect x="4" y="4" width={W - 8} height={H - 8} rx="10" fill={t.chartBg || t.surface} stroke={t.border} />
           {METRIC_KEYS.map((metric, index) => (
             <text key={`top-${metric}`} x={left + index * cell + cell / 2} y={top - 10} textAnchor="middle" fill={t.faint} fontSize="10.5" fontWeight="900">{shortLabel(metric, lang)}</text>
@@ -301,7 +301,7 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
                   {!isDiag && abs < 0.08 ? (
                     <line x1={x + 9} x2={x + cell - 14} y1={y + cell / 2 - 2.5} y2={y + cell / 2 - 2.5} stroke={t.borderStrong} strokeWidth="1.2" strokeLinecap="round" />
                   ) : null}
-                  <text className="num" x={x + (cell - 5) / 2} y={y + (cell - 5) / 2 + 4} textAnchor="middle" fill={!isDiag && abs > 0.58 ? "#fff" : t.textStrong} fontSize={isMobile ? "10.2" : "11"} fontWeight="900">
+                  <text className="num" x={x + (cell - 5) / 2} y={y + (cell - 5) / 2 + 4} textAnchor="middle" fill={!isDiag && abs > 0.58 ? "#fff" : t.textStrong} fontSize={isMobile ? "10.2" : "12.5"} fontWeight="900">
                     {value === null ? "NA" : value.toFixed(isDiag ? 0 : 2)}
                   </text>
                   <title>{`${label(rowMetric, lang)} / ${label(colMetric, lang)}: r=${value === null ? "NA" : value.toFixed(3)} · n=${item.n}`}</title>
@@ -323,8 +323,8 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
         ) : null}
       </div>
       {focus ? (
-        <div style={{ display: "grid", gap: 7, alignContent: "start", minWidth: 0 }}>
-          <strong style={{ color: t.textStrong, fontSize: 12.2, lineHeight: 1.3 }}>{lang === "zh" ? "按 |r| 排序" : "Ranked by |r|"}</strong>
+        <div style={{ display: "grid", gap: 7, alignContent: "start", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", minWidth: 0 }}>
+          <strong style={{ color: t.textStrong, fontSize: 12.2, gridColumn: "1 / -1", lineHeight: 1.3 }}>{lang === "zh" ? "按 |r| 排序" : "Ranked by |r|"}</strong>
           {pairs.slice(0, 6).map(item => {
           const active = focus?.key === item.key
           return (
@@ -360,6 +360,7 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
 
   return (
     <section
+      id="home-data-explorer"
       data-testid="home-data-explorer"
       className="scientific-story-stage explorer-story-stage"
       style={{
@@ -494,6 +495,7 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
             subtitle={zh ? "色阶表示正/负相关与强度；点击单元格查看样本数。" : "Color encodes sign and strength; click a cell for sample size."}
             badge={activeMetal === "all" ? "global" : activeMetal}
             t={t}
+            className="explorer-correlation-shell"
           >
             <CorrelationMatrix model={model} activeCell={activeCell} setActiveCell={setActiveCell} t={t} lang={lang} isMobile={isMobile} />
           </ChartShell>

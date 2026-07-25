@@ -9,5 +9,5 @@ export function getCurrentAppVersion(log = appReleaseLog) {
 }
 
 export const APP_VERSION = getCurrentAppVersion(appReleaseLog)
-export const APP_VERSION_LABEL = `App ${APP_VERSION}`
+export const APP_VERSION_LABEL = `Web ${APP_VERSION}`
 

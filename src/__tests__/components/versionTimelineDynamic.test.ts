@@ -16,7 +16,7 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toContain(`Module updates for App ${releaseLog.currentAppVersion} come from the unified release record`)
+    expect(projectUpdates.textContent).toContain(`Module updates for Web ${releaseLog.currentAppVersion} come from the unified release record`)
     for (const moduleKey of Object.keys(releaseLog.releases[0].modules)) {
       expect(projectUpdates.textContent).toContain(releaseLog.moduleCatalog[moduleKey].label.en)
     }

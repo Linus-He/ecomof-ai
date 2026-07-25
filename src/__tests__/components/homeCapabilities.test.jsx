@@ -47,8 +47,8 @@ describe("home capabilities", () => {
     renderHome()
 
     const capabilities = screen.getByTestId("home-platform-capabilities")
-    await waitFor(() => expect(within(capabilities).getByText("App v1.0.4")).toBeInTheDocument())
-    expect(within(capabilities).getByText("当前 App 版本")).toBeInTheDocument()
+    await waitFor(() => expect(within(capabilities).getByText("Web v1.0.4")).toBeInTheDocument())
+    expect(within(capabilities).getByText("当前 Web 版本")).toBeInTheDocument()
     expect(capabilities.textContent).toMatch(/数据状态 V3\.10\.1/)
     expect(within(capabilities).getByText("数据库规模")).toBeInTheDocument()
     expect(within(capabilities).getByText("3462+ 条记录")).toBeInTheDocument()

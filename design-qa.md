@@ -1,69 +1,50 @@
-# Product Design QA — Homepage Scientific Narrative Refactor
+# EcoMOF-AI 设计复核
 
-## Scope
+## 本轮范围
 
-- EcoMOF-AI homepage, Chinese-first content.
-- Replace the hero's orbit-style module illustration with a multi-objective scientific equation surface.
-- Reframe the real-data explorer, gas-separation Pareto view, and validation framework as consistent left-formula/right-visual research stages.
-- Merge repeated research-scenario, capability, limitation, and quick-start content into one research gateway.
-- Preserve light/dark adaptation, responsive behavior, chart interactions, source counts, and workspace navigation.
+- 弱化首页模块边框，收紧模块间距，保持连续的科研叙事。
+- 放大描述符相关矩阵，保留金属、指标、区间与相关单元格的联动。
+- 将项目演化整合为“左侧定义与更新、右侧交互图”，完整记录按主题收纳。
+- 所有可见版本称谓统一为 Web；项目演化不再展示开发者日志或开发文档。
+- 复核浅色、深色、桌面与移动端。
 
-## Source visual truth
+## 参考画面
 
-- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_h23Soj/截屏2026-07-25 01.27.12.png` — legacy descriptor statistics and metal-filter section.
-- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_XI2Rvk/截屏2026-07-25 01.27.34.png` — legacy gas Pareto section.
-- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_zz3SiV/截屏2026-07-25 01.27.46.png` — legacy validation framework.
-- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_E7n0xG/截屏2026-07-25 01.28.15.png` — overlapping research routes, limitations, and quick-start areas.
-- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_f5my3P/截屏2026-07-25 01.28.25.png` — legacy orbit-style hero visual.
-- Style reference retained from the prior accepted homepage direction: left scientific explanation and equations, right large interactive visualization.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_z3PN7c/截屏2026-07-25 11.08.36.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_28yWvU/截屏2026-07-25 11.10.01.png`
 
-## Implementation evidence
+## 实现画面
 
-- Intended implementation URL: `http://127.0.0.1:4174/ecomof-ai/`.
-- Requested desktop comparison viewport: 1440 × 1000 CSS px, device scale factor 1.
-- Implementation screenshot path: unavailable.
-- Source/implementation density normalization: not performed because the implementation capture was blocked before navigation.
-- State intended for comparison: desktop Chinese light mode, then dark mode and narrow responsive state.
-- Automated evidence completed:
-  - homepage-focused tests: 12 passed;
-  - TypeScript check: passed;
-  - production build: passed;
-  - whitespace/error-marker check: passed.
+- 项目演化，深色桌面：`/private/tmp/ecomof-project-evolution-dark-qa-v3.png`
+- 项目演化，浅色桌面：`/private/tmp/ecomof-project-evolution-light-qa-v3.png`
+- 项目演化，移动端：`/private/tmp/ecomof-project-evolution-mobile-qa-v3.png`
+- 相关性图，浅色桌面：`/private/tmp/ecomof-home-correlation-light-qa-v6.png`
+- 相关性图，移动端：`/private/tmp/ecomof-home-correlation-mobile-qa-v6.png`
+- 项目演化并排对照：`/private/tmp/ecomof-design-qa-comparison-v4.png`
+- 相关性图并排对照：`/private/tmp/ecomof-design-qa-correlation-comparison.png`
 
-## Full-view comparison evidence
+## 可见差异
 
-Blocked. The Codex in-app browser rejected navigation to the local preview address under its browser security policy. No implementation screenshot was captured, so the full homepage composition, vertical transitions, and final rendered density cannot be compared honestly against the supplied screenshots.
+- 项目演化从分散的版本卡片改为单一演化视图，公式、当前状态与本次更新位于左侧，五个维度的变化位于右侧；信息层级更清楚，首屏不再堆叠说明卡。
+- 相关矩阵从缩略图提升为主要图表，四个描述符、相关方向、样本量与排序关系均可直接阅读；桌面和移动端均未出现横向溢出。
+- 首页主模块边框透明度降低，纵向间距由宽松展示调整为连续阅读节奏。
+- 浅色和深色均使用现有语义色；折线、矩阵、公式和弱边框在两种主题下保持可辨识。
 
-## Focused-region comparison evidence
+## 交互检查
 
-Blocked for the same reason. The following required regions still need rendered inspection:
+- 项目演化的 Web 发布、数据、科研、验证、体验五个图层可切换。
+- 折线节点可选择并显示对应记录。
+- 首页相关矩阵单元格与相关排序保持联动。
+- 主题切换、首页与项目演化导航正常。
+- 移动端项目演化宽度与页面宽度一致；相关矩阵完整落在视口内。
+- 页面日志未发现运行时错误；仅有开发服务器热更新调试信息。
 
-- hero equation surface and four model tabs;
-- descriptor explorer formula column and linked chart grid;
-- gas Pareto formula column, pair tabs, chart, tooltip, and legend;
-- validation equation column and five-node interactive chain;
-- integrated research gateway, evidence boundary, and quick-start controls;
-- light, dark, and narrow responsive states.
+## 验证记录
 
-## Findings
+- 项目演化与版本中心定向测试：通过。
+- 完整测试（单工作进程）：240 个测试文件、768 项测试全部通过。
+- TypeScript 检查：通过。
+- 生产构建：通过。
+- 差异检查：通过。
 
-- [Blocked] Browser-rendered visual evidence is unavailable.
-  - Location: entire homepage.
-  - Evidence: local preview navigation was rejected before the page loaded.
-  - Impact: typography, formula wrapping, chart density, section rhythm, dark-mode contrast, and responsive overflow cannot receive a valid visual pass.
-  - Required fix: open the current local implementation in an allowed browser surface or publish a temporary review build, then capture the same states and complete the comparison loop.
-
-## Comparison history
-
-- Pass 1: source screenshots opened and inspected; implementation was built and automated checks passed.
-- Pass 1 blocker: local browser navigation rejected; no visual fixes can be claimed from rendered evidence.
-
-## Required fidelity surfaces
-
-- Fonts and typography: code-level hierarchy and KaTeX integration completed; rendered fidelity not verified.
-- Spacing and layout rhythm: shared stage and transition system implemented; rendered fidelity not verified.
-- Colors and visual tokens: all new surfaces use semantic theme tokens for light/dark adaptation; rendered contrast not verified.
-- Image quality and asset fidelity: the low-age orbit illustration was removed; no replacement raster asset is required because the new hero is a live equation interface. Rendered fidelity not verified.
-- Copy and content: source counts, warnings, routes, formulas, and interaction labels remain present; automated tests passed.
-
-final result: blocked
+final result: pass

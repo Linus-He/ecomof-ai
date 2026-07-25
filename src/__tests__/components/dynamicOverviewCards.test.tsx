@@ -9,7 +9,7 @@ describe("dynamic overview cards", () => {
     render(<ProjectEvolutionTab data={data} />)
 
     const overview = screen.getByTestId("project-evolution-overview")
-    expect(within(overview).getByText("Current App Version")).toBeInTheDocument()
+    expect(within(overview).getByText("Current Web Version")).toBeInTheDocument()
     expect(within(overview).getByText("Latest Module Data Version")).toBeInTheDocument()
     expect(within(overview).getByText("Database Scale")).toBeInTheDocument()
     expect(within(overview).getByText("Experimental Labels")).toBeInTheDocument()
@@ -17,7 +17,7 @@ describe("dynamic overview cards", () => {
     expect(within(overview).getByText("Best Model")).toBeInTheDocument()
     expect(within(overview).getByText("Credibility")).toBeInTheDocument()
     expect(within(overview).getByText("Current Risk")).toBeInTheDocument()
-    expect(overview.textContent).toMatch(/App v1\.0\.4/)
+    expect(overview.textContent).toMatch(/Web v1\.0\.4/)
     expect(overview.textContent).toMatch(/V3\.10\.1/)
     expect(overview.textContent).toMatch(/3462\+/)
     expect(overview.textContent).toMatch(/150/)

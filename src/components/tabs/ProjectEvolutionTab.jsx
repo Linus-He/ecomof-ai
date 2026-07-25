@@ -1,6 +1,17 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
+import {
   BasisBadge,
   CopyLinkButton,
   FieldProvenanceButton,
@@ -71,140 +82,6 @@ function MetricCard({ label, value, source, t, lang, tone = "info", fieldKey }) 
   )
 }
 
-function SectionNav({ sections, t, lang, isMobile }) {
-  const groups = [
-    {
-      id: "release",
-      index: "01",
-      label: text(lang, "发布与当前状态", "Release & current state"),
-      description: text(lang, "统一版本、状态总览、开发者日志", "Unified release, overview, and developer log"),
-      sectionIds: ["project-evolution-app-release", "project-evolution-overview", "project-evolution-developer-log"],
-    },
-    {
-      id: "history",
-      index: "02",
-      label: text(lang, "历史与里程碑", "History & milestones"),
-      description: text(lang, "模块时间线、项目更新、关键里程碑", "Module timeline, updates, and milestones"),
-      sectionIds: ["project-evolution-version-timeline", "project-evolution-release-notes", "project-evolution-milestones"],
-    },
-    {
-      id: "science",
-      index: "03",
-      label: text(lang, "科研系统演化", "Research-system evolution"),
-      description: text(lang, "能力、数据库、算法、验证与方法论", "Capability, database, algorithm, validation, and methodology"),
-      sectionIds: [
-        "project-evolution-scientific",
-        "project-evolution-database",
-        "project-evolution-algorithm",
-        "project-evolution-organic-acid-algorithm-methodology",
-        "project-evolution-validation",
-      ],
-    },
-    {
-      id: "experience",
-      index: "04",
-      label: text(lang, "体验与下一阶段", "Experience & next stage"),
-      description: text(lang, "界面、汉化与发展路线图", "Interface, localization, and roadmap"),
-      sectionIds: ["project-evolution-ui", "project-evolution-localization", "project-evolution-roadmap"],
-    },
-  ]
-  const sectionMap = new Map(sections.map(section => [section.id, section]))
-  return (
-    <nav
-      aria-label={text(lang, "项目演化章节导航", "Project evolution chapter navigation")}
-      data-testid="project-evolution-section-nav"
-      style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}
-    >
-      {groups.map(group => (
-        <section key={group.id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 8, minWidth: 0, padding: 11 }}>
-          <div style={{ alignItems: "flex-start", display: "flex", gap: 9 }}>
-            <span style={{ color: t.accentText, fontSize: 10, fontWeight: 930, marginTop: 2 }}>{group.index}</span>
-            <span style={{ minWidth: 0 }}>
-              <strong style={{ color: t.textStrong, display: "block", fontSize: 11.6 }}>{group.label}</strong>
-              <span style={{ color: t.faint, display: "block", fontSize: 9.8, lineHeight: 1.35, marginTop: 3 }}>{group.description}</span>
-            </span>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-            {group.sectionIds.map(id => sectionMap.get(id)).filter(Boolean).map(item => (
-              <a key={item.id} href={`#${item.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 9.8, fontWeight: 800, padding: "5px 7px", textDecoration: "none" }}>
-                {item.label}
-              </a>
-            ))}
-          </div>
-        </section>
-      ))}
-    </nav>
-  )
-}
-
-function EvolutionCommandCenter({ data, projectStatus, t, lang, isMobile }) {
-  const status = projectStatus || buildProjectStatusSummary({ versionEvolution: data })
-  const currentVersion = status.currentVersion || data?.overview?.currentVersion || "pending"
-  const stages = [
-    {
-      id: "release",
-      label: text(lang, "产品发布", "Product release"),
-      value: APP_VERSION_LABEL,
-      note: text(lang, "统一 App 版本", "Unified App version"),
-      href: "#project-evolution-app-release",
-    },
-    {
-      id: "data",
-      label: text(lang, "数据状态", "Data state"),
-      value: currentVersion,
-      note: text(lang, `${status.databaseScale || "pending"} 条候选`, `${status.databaseScale || "pending"} candidates`),
-      href: "#project-evolution-database",
-    },
-    {
-      id: "algorithm",
-      label: text(lang, "算法与证据", "Algorithms & evidence"),
-      value: text(lang, "白盒可追溯", "White-box traceable"),
-      note: text(lang, "版本记录与方法边界并行", "Version history and method boundaries"),
-      href: "#project-evolution-algorithm",
-    },
-    {
-      id: "validation",
-      label: text(lang, "验证状态", "Validation state"),
-      value: status.credibility || "pending",
-      note: status.currentRisk || text(lang, "风险待确认", "Risk pending"),
-      href: "#project-evolution-validation",
-    },
-    {
-      id: "roadmap",
-      label: text(lang, "下一阶段", "Next stage"),
-      value: text(lang, "实验闭环", "Experimental loop"),
-      note: text(lang, "补真实过程与外部验证", "Add real processes and external validation"),
-      href: "#project-evolution-roadmap",
-    },
-  ]
-
-  return (
-    <section data-testid="project-evolution-command-center" style={{ background: `linear-gradient(135deg, ${t.panel} 0%, ${t.sectionTint || t.surface} 100%)`, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 13, display: "grid", gap: 13, overflow: "hidden", padding: 14 }}>
-      <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
-        <div style={{ minWidth: 0 }}>
-          <span style={{ color: t.accentText, display: "block", fontSize: 9.8, fontWeight: 930, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            {text(lang, "Research Program Map", "Research Program Map")}
-          </span>
-          <h2 style={{ color: t.textStrong, fontSize: 17, lineHeight: 1.25, margin: "5px 0 0" }}>{text(lang, "从版本号追到科研证据", "Trace releases into research evidence")}</h2>
-          <p style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55, margin: "5px 0 0", maxWidth: 760 }}>
-            {text(lang, "同一条演化链同时展示产品发布、数据版本、算法变化、验证风险和下一阶段；下方保留全部原始记录与方法内容。", "One evolution chain connects product releases, data versions, algorithm changes, validation risk, and the next stage; every original record and method section remains below.")}
-          </p>
-        </div>
-        <BasisBadge tone="info">{text(lang, "全内容保留", "Full content retained")}</BasisBadge>
-      </header>
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
-        {stages.map((stage, index) => (
-          <a key={stage.id} href={stage.href} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, display: "grid", gap: 5, minWidth: 0, padding: 10, position: "relative", textDecoration: "none" }}>
-            <span style={{ color: t.faint, fontSize: 9.5, fontWeight: 850 }}>{String(index + 1).padStart(2, "0")} · {stage.label}</span>
-            <strong style={{ color: index === stages.length - 1 ? t.warn : t.textStrong, fontSize: 13, lineHeight: 1.25, overflowWrap: "anywhere" }}>{stage.value}</strong>
-            <span style={{ color: t.muted, fontSize: 9.8, lineHeight: 1.4 }}>{stage.note}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 function downloadText(fileName, content, type = "text/plain") {
   if (typeof document === "undefined") return
   const blob = new Blob([content], { type })
@@ -219,6 +96,373 @@ function downloadText(fileName, content, type = "text/plain") {
 function copyText(value) {
   if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) return
   navigator.clipboard.writeText(value)
+}
+
+function numericCount(value) {
+  if (Number.isFinite(Number(value))) return Number(value)
+  const match = String(value ?? "").match(/[\d,.]+/)
+  return match ? Number(match[0].replace(/,/g, "")) : 0
+}
+
+function indexSeries(rows, keys) {
+  const maxima = Object.fromEntries(keys.map(key => [
+    key,
+    Math.max(1, ...rows.map(row => numericCount(row[key]))),
+  ]))
+  return rows.map(row => ({
+    ...row,
+    ...Object.fromEntries(keys.map(key => [`${key}Index`, Math.round(numericCount(row[key]) / maxima[key] * 100)])),
+  }))
+}
+
+function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigate }) {
+  const status = projectStatus || buildProjectStatusSummary({ versionEvolution: data })
+  const [activeLensId, setActiveLensId] = useState("release")
+  const [selectedLabel, setSelectedLabel] = useState("")
+  const currentRelease = (log?.releases || []).find(release => release.appVersion === log?.currentAppVersion)
+    || log?.releases?.[0]
+
+  const lenses = useMemo(() => {
+    const releaseRows = indexSeries(
+      [...(log?.releases || [])].reverse().map(release => ({
+        label: release.appVersion,
+        primary: Object.values(release.modules || {}).reduce((sum, module) => sum + (module.changes || []).length, 0),
+        secondary: Object.keys(release.modules || {}).length,
+        detail: localize(release.headline, lang),
+        note: localize(release.summary, lang),
+      })),
+      ["primary", "secondary"],
+    )
+    const databaseRows = indexSeries(
+      (data.databaseEvolution || [])
+        .filter(row => String(row.version).toLowerCase() !== "future")
+        .map(row => ({
+          label: row.version,
+          primary: numericCount(row.candidateCount),
+          secondary: numericCount(row.verifiedCount),
+          tertiary: Math.round(numericCount(row.fieldProvenanceCoverage) * 100),
+          detail: text(lang, `${numericCount(row.candidateCount).toLocaleString()} 条候选`, `${numericCount(row.candidateCount).toLocaleString()} candidates`),
+          note: text(lang, `${numericCount(row.verifiedCount).toLocaleString()} 条已核验元数据`, `${numericCount(row.verifiedCount).toLocaleString()} verified metadata`),
+        })),
+      ["primary", "secondary", "tertiary"],
+    )
+    const scienceRows = indexSeries(
+      (data.scientificEvolution || [])
+        .filter(row => String(row.version).toLowerCase() !== "future")
+        .slice(-12)
+        .map(row => ({
+          label: row.version,
+          primary: numericCount(row.maturity),
+          detail: row.stage,
+          note: text(lang, `科研成熟度 ${row.maturity}/100`, `Research maturity ${row.maturity}/100`),
+        })),
+      ["primary"],
+    )
+    const validationRows = indexSeries(
+      (data.validationEvolution || []).map((row, index) => ({
+        label: text(lang, `V${index + 1}`, `V${index + 1}`),
+        primary: numericCount(row.currentCount),
+        detail: row.stage,
+        note: `${text(lang, "阻断条件", "Block")}: ${row.blockingCondition}`,
+      })),
+      ["primary"],
+    )
+    const experienceByVersion = new Map()
+    const ensureExperience = version => {
+      if (!experienceByVersion.has(version)) {
+        experienceByVersion.set(version, { label: version, primary: 0, secondary: 0, details: [] })
+      }
+      return experienceByVersion.get(version)
+    }
+    for (const row of data.uiEvolution || []) {
+      const target = ensureExperience(row.version)
+      target.primary += 1
+      target.details.push(row.area)
+    }
+    for (const row of data.localizationEvolution || []) {
+      const target = ensureExperience(row.version)
+      target.secondary += 1
+      target.details.push(row.area)
+    }
+    let uiTotal = 0
+    let languageTotal = 0
+    const experienceRows = indexSeries(
+      [...experienceByVersion.values()].map(row => {
+        uiTotal += row.primary
+        languageTotal += row.secondary
+        return {
+          ...row,
+          primary: uiTotal,
+          secondary: languageTotal,
+          detail: row.details.join(" · "),
+          note: text(lang, `累计 ${uiTotal} 项界面演化、${languageTotal} 项语言演化`, `${uiTotal} cumulative UI changes and ${languageTotal} localization changes`),
+        }
+      }),
+      ["primary", "secondary"],
+    )
+
+    return [
+      {
+        id: "release",
+        index: "01",
+        label: text(lang, "Web 发布", "Web releases"),
+        title: text(lang, "统一 Web 小版本", "Unified Web patch releases"),
+        formula: String.raw`\mathcal{R}_t=\left(n_{\mathrm{changes}},n_{\mathrm{modules}}\right)_t`,
+        rows: releaseRows,
+        series: [
+          { key: "primaryIndex", label: text(lang, "更新项指数", "Change index"), color: t.accentText },
+          { key: "secondaryIndex", label: text(lang, "模块覆盖指数", "Module index"), color: t.good || "#2e8b57" },
+        ],
+      },
+      {
+        id: "database",
+        index: "02",
+        label: text(lang, "数据", "Data"),
+        title: text(lang, "候选、核验与溯源覆盖", "Candidates, verification, and provenance"),
+        formula: String.raw`\mathcal{D}_t=\left(N_{\mathrm{MOF}},N_{\mathrm{verified}},P_{\mathrm{prov}}\right)_t`,
+        rows: databaseRows,
+        series: [
+          { key: "primaryIndex", label: text(lang, "候选指数", "Candidate index"), color: t.accentText },
+          { key: "secondaryIndex", label: text(lang, "核验指数", "Verified index"), color: t.good || "#2e8b57" },
+          { key: "tertiaryIndex", label: text(lang, "溯源指数", "Provenance index"), color: t.warn },
+        ],
+      },
+      {
+        id: "science",
+        index: "03",
+        label: text(lang, "科研", "Research"),
+        title: text(lang, "科研能力成熟度", "Research capability maturity"),
+        formula: String.raw`\mathcal{A}_t=\operatorname{maturity}\!\left(\mathrm{data},\mathrm{method},\mathrm{evidence}\right)_t`,
+        rows: scienceRows,
+        series: [{ key: "primaryIndex", label: text(lang, "成熟度指数", "Maturity index"), color: t.accentText }],
+      },
+      {
+        id: "validation",
+        index: "04",
+        label: text(lang, "验证", "Validation"),
+        title: text(lang, "证据门禁与当前覆盖", "Evidence gates and current coverage"),
+        formula: String.raw`\mathcal{V}_k=\mathbb{1}\!\left(\mathrm{source}\land\mathrm{citation}\land\mathrm{external}\land\mathrm{experiment}\right)_k`,
+        rows: validationRows,
+        series: [{ key: "primaryIndex", label: text(lang, "覆盖指数", "Coverage index"), color: t.warn }],
+      },
+      {
+        id: "experience",
+        index: "05",
+        label: text(lang, "体验", "Experience"),
+        title: text(lang, "界面与语言演化", "Interface and localization evolution"),
+        formula: String.raw`\mathcal{U}_t=\left(n_{\mathrm{interface}},n_{\mathrm{localization}}\right)_{\le t}`,
+        rows: experienceRows,
+        series: [
+          { key: "primaryIndex", label: text(lang, "界面指数", "Interface index"), color: t.accentText },
+          { key: "secondaryIndex", label: text(lang, "语言指数", "Localization index"), color: t.good || "#2e8b57" },
+        ],
+      },
+    ]
+  }, [data, lang, log, t.accentText, t.good, t.warn])
+
+  const activeLens = lenses.find(lens => lens.id === activeLensId) || lenses[0]
+  const selected = activeLens.rows.find(row => row.label === selectedLabel) || activeLens.rows.at(-1) || null
+  const tooltip = ({ active, payload, label: tooltipLabel }) => {
+    if (!active || !payload?.length) return null
+    const row = activeLens.rows.find(item => item.label === tooltipLabel)
+    return (
+      <div className="evolution-chart-tooltip" style={{ "--evolution-panel": t.panel, "--evolution-border": t.border, "--evolution-text": t.textStrong, "--evolution-muted": t.muted }}>
+        <strong>{tooltipLabel}</strong>
+        {payload.map(item => <span key={item.dataKey} style={{ color: item.color }}>{item.name}: {item.value}/100</span>)}
+        {row?.detail ? <small>{row.detail}</small> : null}
+      </div>
+    )
+  }
+
+  return (
+    <section
+      data-testid="project-evolution-atlas"
+      className="project-evolution-atlas"
+      style={{
+        "--evolution-accent": t.accentText,
+        "--evolution-border": t.border,
+        "--evolution-divider": t.divider || t.border,
+        "--evolution-faint": t.faint,
+        "--evolution-muted": t.muted,
+        "--evolution-panel": t.panel,
+        "--evolution-surface": t.surface,
+        "--evolution-text": t.textStrong,
+      }}
+    >
+      <div className="project-evolution-copy">
+        <span className="project-evolution-eyebrow">{text(lang, "项目演化函数", "Project evolution function")}</span>
+        <h2>{text(lang, "以一张图查看项目演化", "Project evolution in one view")}</h2>
+        <p>{text(lang, "左侧给出演化定义、当前状态与本次更新；右侧按 Web 发布、数据、科研、验证和界面五个维度呈现变化。", "Definitions, current status, and the latest update are shown on the left; the graph compares Web releases, data, research, validation, and interface changes.")}</p>
+        <div className="project-evolution-formula">
+          <BlockFormula
+            math={String.raw`\mathcal{E}_t=\left(\mathcal{R}_t,\mathcal{D}_t,\mathcal{A}_t,\mathcal{V}_t,\mathcal{U}_t\right)`}
+            fallback="E_t = (R_t, D_t, A_t, V_t, U_t)"
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0 }}
+          />
+          <BlockFormula
+            math={activeLens.formula}
+            fallback={activeLens.formula}
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0, marginTop: 8 }}
+          />
+          <small>{text(lang, "图中指数仅用于同一维度内的视觉归一化；原始数值保留在节点说明与完整记录中。", "Indices are visual normalizations within each lens; raw values remain in node details and the complete record.")}</small>
+        </div>
+        <div className="project-evolution-status">
+          <div><span>{text(lang, "当前 Web", "Current Web")}</span><strong>{APP_VERSION_LABEL}</strong></div>
+          <div><span>{text(lang, "数据版本", "Data version")}</span><strong>{status.currentVersion || data.overview?.currentVersion || "—"}</strong></div>
+          <div><span>{text(lang, "候选规模", "Candidates")}</span><strong className="num">{status.databaseScale || "—"}</strong></div>
+          <div>
+            <span>{text(lang, "可信度", "Credibility")}</span>
+            <strong>{status.credibilityScore != null ? `${status.credibilityScore} / ${status.credibilityGrade || "—"}` : "—"}</strong>
+          </div>
+        </div>
+        <div className="project-evolution-log" data-testid="project-evolution-current-update">
+          <header>
+            <span>{text(lang, "本次更新", "Current update")}</span>
+            <strong>{currentRelease?.appVersion || log?.currentAppVersion}</strong>
+          </header>
+          <strong className="project-evolution-update-title">{localize(currentRelease?.headline, lang)}</strong>
+          <p>{localize(currentRelease?.summary, lang)}</p>
+        </div>
+        <button type="button" onClick={() => onNavigate?.("methodology")} className="project-evolution-method-link">
+          {text(lang, "查看方法与证据", "View Methods & Evidence")}
+        </button>
+      </div>
+
+      <div className="project-evolution-visual" data-testid="project-evolution-command-center">
+        <header>
+          <div>
+            <span>{activeLens.index} / 05</span>
+            <strong>{activeLens.title}</strong>
+          </div>
+          <small>{text(lang, "选择节点查看对应记录", "Select a node to view its record")}</small>
+        </header>
+        <div className="project-evolution-lenses" role="tablist" aria-label={text(lang, "演化图层", "Evolution graph lenses")}>
+          {lenses.map(lens => (
+            <button
+              key={lens.id}
+              type="button"
+              role="tab"
+              aria-selected={lens.id === activeLens.id}
+              data-active={lens.id === activeLens.id ? "true" : "false"}
+              onClick={() => { setActiveLensId(lens.id); setSelectedLabel("") }}
+            >
+              <span>{lens.index}</span>
+              <strong>{lens.label}</strong>
+            </button>
+          ))}
+        </div>
+        <div className="project-evolution-chart">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={activeLens.rows} margin={{ top: 20, right: 18, bottom: 8, left: -8 }} onClick={state => state?.activeLabel && setSelectedLabel(state.activeLabel)}>
+              <CartesianGrid stroke={t.divider || t.border} strokeDasharray="3 7" vertical={false} />
+              <XAxis dataKey="label" stroke={t.faint} tick={{ fill: t.faint, fontSize: 9.5 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+              <YAxis domain={[0, 100]} stroke={t.faint} tick={{ fill: t.faint, fontSize: 9.5 }} axisLine={false} tickLine={false} width={36} />
+              <Tooltip content={tooltip} />
+              <Legend iconType="line" wrapperStyle={{ color: t.muted, fontSize: 10, paddingTop: 8 }} />
+              {selected ? <ReferenceLine x={selected.label} stroke={t.textStrong} strokeDasharray="2 5" strokeOpacity={0.5} /> : null}
+              {activeLens.series.map(series => (
+                <Line
+                  key={series.key}
+                  type="monotone"
+                  dataKey={series.key}
+                  name={series.label}
+                  stroke={series.color}
+                  strokeWidth={2.4}
+                  dot={{ fill: t.panel, r: 3.8, stroke: series.color, strokeWidth: 2 }}
+                  activeDot={{ fill: series.color, r: 5.5, stroke: t.panel, strokeWidth: 2 }}
+                  isAnimationActive={!isMobile}
+                />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="project-evolution-node-rail">
+          {activeLens.rows.map(row => (
+            <button key={row.label} type="button" data-active={selected?.label === row.label ? "true" : "false"} onClick={() => setSelectedLabel(row.label)}>
+              {row.label}
+            </button>
+          ))}
+        </div>
+        {selected ? (
+          <article className="project-evolution-node-detail">
+            <span>{selected.label}</span>
+            <strong>{selected.detail}</strong>
+            <p>{selected.note}</p>
+          </article>
+        ) : null}
+      </div>
+    </section>
+  )
+}
+
+function EvolutionArchive({ data, projectStatus, log, methodology, lang, t, isMobile }) {
+  const groups = [
+    {
+      id: "release",
+      index: "01",
+      title: text(lang, "发布与历史档案", "Release and history archive"),
+      summary: text(lang, "Web 发布、状态总览、模块历史与项目更新。", "Web releases, status overview, module history, and project updates."),
+      content: <>
+        <UnifiedReleaseCenter log={log} lang={lang} t={t} isMobile={isMobile} />
+        <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
+        <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
+        <ProjectUpdates log={log} lang={lang} t={t} isMobile={isMobile} />
+      </>,
+    },
+    {
+      id: "research",
+      index: "02",
+      title: text(lang, "科研系统档案", "Research-system archive"),
+      summary: text(lang, "科研成熟度、数据库、算法、有机酸方法论与验证体系。", "Research maturity, database, algorithms, Organic Acid methodology, and validation."),
+      content: <>
+        <ScientificEvolution data={data} lang={lang} t={t} />
+        <DatabaseEvolution data={data} lang={lang} t={t} />
+        <AlgorithmEvolution data={data} lang={lang} t={t} />
+        <OrganicAcidAlgorithmMethodology methodology={methodology} lang={lang} t={t} isMobile={isMobile} />
+        <ValidationEvolution data={data} lang={lang} t={t} />
+      </>,
+    },
+    {
+      id: "experience",
+      index: "03",
+      title: text(lang, "体验与里程碑档案", "Experience and milestone archive"),
+      summary: text(lang, "界面、语言与关键里程碑的完整记录。", "Complete interface, localization, and milestone records."),
+      content: <>
+        <UiEvolution data={data} lang={lang} t={t} />
+        <LocalizationEvolution data={data} lang={lang} t={t} />
+        <MilestoneCenter data={data} lang={lang} t={t} />
+      </>,
+    },
+    {
+      id: "roadmap",
+      index: "04",
+      title: text(lang, "研究路线档案", "Research-roadmap archive"),
+      summary: text(lang, "由历史版本记录派生的研究目标、数据目标与风险。", "Research, data, validation, and risk fields derived from historical records."),
+      content: <Roadmap data={data} lang={lang} t={t} />,
+    },
+  ]
+  return (
+    <section className="project-evolution-archive" data-testid="project-evolution-archive" style={{ "--archive-border": t.border, "--archive-divider": t.divider || t.border, "--archive-panel": t.panel, "--archive-surface": t.surface, "--archive-text": t.textStrong, "--archive-muted": t.muted, "--archive-accent": t.accentText }}>
+      <header>
+        <span>{text(lang, "完整记录", "Complete record")}</span>
+        <h2>{text(lang, "发布、研究与验证记录按主题归档", "Release, research, and validation records by topic")}</h2>
+      </header>
+      {groups.map(group => (
+        <details key={group.id}>
+          <summary>
+            <span>{group.index}</span>
+            <div>
+              <strong>{group.title}</strong>
+              <small>{group.summary}</small>
+            </div>
+          </summary>
+          <div>{group.content}</div>
+        </details>
+      ))}
+    </section>
+  )
 }
 
 function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
@@ -242,17 +486,17 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
     sourceDatabase: "app_release_log.json",
     sourceRecordId: "currentAppVersion",
     sourceUrl: "public/data/app_release_log.json",
-    citation: "EcoMOF-AI unified App release log.",
+    citation: "EcoMOF-AI unified Web release log.",
     license: "Project repository license context.",
     retrievedAt: "2026-07-22",
     curationStatus: "confirmed",
     confidence: 1,
     evidenceTier: "confirmed",
-    notes: "Current App release number. Module V3.x records remain historical data/module versions.",
+    notes: "Current Web release number. Module V3.x records remain historical data/module versions.",
   }
   const moduleVersionCard = buildProjectOverviewCards(resolvedStatus).find(card => card.id === "currentVersion")
   const cards = [
-    { id: "appVersion", label: text(lang, "当前 App 版本", "Current App Version"), value: APP_VERSION_LABEL, source: appVersionSource, tone: "pass" },
+    { id: "appVersion", label: text(lang, "当前 Web 版本", "Current Web Version"), value: APP_VERSION_LABEL, source: appVersionSource, tone: "pass" },
     { id: "moduleDataVersion", label: text(lang, "最新模块数据版本", "Latest Module Data Version"), value: moduleVersionCard?.value || resolvedStatus.currentVersion, source: moduleVersionCard?.source || resolvedStatus.sources?.currentVersion, tone: "info" },
     ...buildProjectOverviewCards(resolvedStatus)
       .filter(card => card.id !== "currentVersion")
@@ -372,7 +616,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
     <Card
       id="project-evolution-app-release"
       title={text(lang, "统一版本中心", "Unified Release Center")}
-      subtitle={text(lang, "一个 App 版本号管全局；每次发布只列出本次有更新的模块，点模块看二级更新要点。", "One App version governs the whole platform; each release lists only the modules it changed — open a module for its detailed updates.")}
+      subtitle={text(lang, "Web 版本统一记录每次发布范围；选择版本后，可查看对应模块的更新内容。", "Web releases use one version sequence; select a release to review the modules changed in it.")}
       t={t}
       actions={
         <label style={{ alignItems: "center", display: "inline-flex", gap: 7 }}>
@@ -380,11 +624,11 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
           <select
             value={activeVersion}
             onChange={event => setActiveVersion(event.target.value)}
-            aria-label={text(lang, "选择 App 版本", "Select App version")}
+            aria-label={text(lang, "选择 Web 版本", "Select Web version")}
             style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, fontWeight: 850, minHeight: 34, padding: "6px 9px" }}
           >
             {releases.map(row => (
-              <option key={row.appVersion} value={row.appVersion}>{`App ${row.appVersion}`}</option>
+              <option key={row.appVersion} value={row.appVersion}>{`Web ${row.appVersion}`}</option>
             ))}
           </select>
         </label>
@@ -392,9 +636,9 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
     >
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
         <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
-          App {release.appVersion}
+          Web {release.appVersion}
         </span>
-        <StatusBadge tone="info" t={t}>{isCurrentRelease ? text(lang, "当前 App 发布", "Current App Release") : text(lang, "历史 App 发布", "Historical App Release")}</StatusBadge>
+        <StatusBadge tone="info" t={t}>{isCurrentRelease ? text(lang, "当前 Web 发布", "Current Web Release") : text(lang, "历史 Web 发布", "Historical Web Release")}</StatusBadge>
       </div>
       <p style={{ color: t.textStrong, fontSize: 13.5, fontWeight: 850, lineHeight: 1.5, margin: 0 }}>{localize(release.headline, lang)}</p>
       <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.55, margin: 0 }}>{localize(release.summary, lang)}</p>
@@ -454,54 +698,6 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
   )
 }
 
-function DeveloperLog({ log, lang, t, isMobile }) {
-  const developmentLog = log?.developmentLog
-  if (!developmentLog) return null
-  const modules = Object.entries(developmentLog.modules || {})
-  return (
-    <Card
-      id="project-evolution-developer-log"
-      title={text(lang, `开发者日志 · ${developmentLog.developmentVersion}`, `Developer Log · ${developmentLog.developmentVersion}`)}
-      subtitle={text(
-        lang,
-        "只记录本次任务中已经完成的修改；截至提交时归档为一个小版本。",
-        "Records only changes completed in this task and archives them as one patch version at submission."
-      )}
-      t={t}
-    >
-      <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        {[
-          [text(lang, "基础版本", "Base version"), developmentLog.baseAppVersion],
-          [text(lang, "开发版本", "Development version"), developmentLog.developmentVersion],
-          [text(lang, "状态", "Status"), localize(developmentLog.statusLabel, lang)],
-          [text(lang, "记录日期", "Recorded"), developmentLog.recordedAt],
-        ].map(([label, value]) => (
-          <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 10 }}>
-            <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-            <strong style={{ color: t.textStrong, display: "block", fontSize: 12.2, lineHeight: 1.4, marginTop: 5, overflowWrap: "anywhere" }}>{value || "—"}</strong>
-          </div>
-        ))}
-      </div>
-      <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, color: t.muted, fontSize: 11.8, lineHeight: 1.55, padding: "9px 11px" }}>
-        {localize(developmentLog.logPolicy, lang)}
-      </div>
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-        {modules.map(([key, module]) => (
-          <article key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, minWidth: 0, padding: 12 }}>
-            <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(module.label, lang)}</strong>
-            <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}>{localize(module.summary, lang)}</span>
-            <ul style={{ display: "grid", gap: 6, margin: 0, paddingLeft: 18 }}>
-              {(module.changes || []).map((change, index) => (
-                <li key={index} style={{ color: t.textStrong, fontSize: 11.8, lineHeight: 1.5 }}>{localize(change, lang)}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </Card>
-  )
-}
-
 function VersionTimeline({ data, lang, t, isMobile }) {
   const [query, setQuery] = useState("")
   const versions = data.versions || []
@@ -518,7 +714,7 @@ function VersionTimeline({ data, lang, t, isMobile }) {
     <Card
       id="project-evolution-version-timeline"
       title={text(lang, "模块历史时间线", "Module History Timeline")}
-      subtitle={text(lang, "这里只展示 V3.x 等模块/数据历史；当前 App 发布号在统一版本中心维护，避免新旧版本混读。", "This timeline only shows V3.x module/data history; the current App release is maintained in the Unified Release Center to avoid mixing release schemes.")}
+      subtitle={text(lang, "这里只展示 V3.x 等模块/数据历史；当前 Web 发布号在统一版本中心维护，避免新旧版本混读。", "This timeline only shows V3.x module/data history; the current Web release is maintained in the Unified Release Center to avoid mixing release schemes.")}
       t={t}
       actions={<input value={query} onChange={event => setQuery(event.target.value)} placeholder={text(lang, "搜索版本", "Search versions")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, minHeight: 34, padding: "7px 9px" }} />}
     >
@@ -574,8 +770,8 @@ function ProjectUpdates({ log, lang, t, isMobile }) {
       title={text(lang, "项目更新", "Project Updates")}
       subtitle={text(
         lang,
-        `当前 App ${release.appVersion} 的模块更新由统一版本记录生成；版本记录调整后此处自动更新。`,
-        `Module updates for App ${release.appVersion} come from the unified release record and update automatically when that record changes.`
+        `当前 Web ${release.appVersion} 的模块更新由统一版本记录生成；版本记录调整后此处自动更新。`,
+        `Module updates for Web ${release.appVersion} come from the unified release record and update automatically when that record changes.`
       )}
       t={t}
     >
@@ -999,23 +1195,6 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
     return () => { active = false }
   }, [providedData])
 
-  const sections = useMemo(() => [
-    { id: "project-evolution-app-release", label: text(lang, "统一版本中心", "Unified Release") },
-    { id: "project-evolution-overview", label: text(lang, "总览", "Overview") },
-    { id: "project-evolution-developer-log", label: text(lang, "开发者日志", "Developer Log") },
-    { id: "project-evolution-version-timeline", label: text(lang, "模块历史时间线", "Module History") },
-    { id: "project-evolution-release-notes", label: text(lang, "项目更新", "Project Updates") },
-    { id: "project-evolution-scientific", label: text(lang, "科研能力演化", "Scientific Evolution") },
-    { id: "project-evolution-database", label: text(lang, "数据库演化", "Database Evolution") },
-    { id: "project-evolution-algorithm", label: text(lang, "算法演化", "Algorithm Evolution") },
-    { id: "project-evolution-organic-acid-algorithm-methodology", label: text(lang, "有机酸算法方法论", "Organic Acid Methodology") },
-    { id: "project-evolution-validation", label: text(lang, "验证体系演化", "Validation Evolution") },
-    { id: "project-evolution-ui", label: text(lang, "界面演化", "UI Evolution") },
-    { id: "project-evolution-localization", label: text(lang, "汉化演化", "Localization Evolution") },
-    { id: "project-evolution-milestones", label: text(lang, "关键里程碑", "Milestones") },
-    { id: "project-evolution-roadmap", label: text(lang, "发展路线图", "Roadmap") },
-  ], [lang])
-
   if (!data) {
     return (
       <section id="project-evolution" data-testid="project-evolution-tab" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, color: t.muted, padding: 16 }}>
@@ -1025,35 +1204,15 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   }
 
   return (
-    <div id="project-evolution" data-testid="project-evolution-tab" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+    <div id="project-evolution" data-testid="project-evolution-tab" style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 0 }}>
       <PageHeader
         title={text(lang, "项目演化", "Project Evolution Center")}
-        subtitle={text(lang, "独立展示 EcoMOF-AI 的成长过程：统一发布日志、模块历史、数据库、算法、验证、界面、汉化演化、关键里程碑与发展路线图。", "A standalone view of how EcoMOF-AI grew: unified release log, module history, database, algorithms, validation, UI, localization evolution, milestones, and roadmap.")}
+        subtitle={text(lang, "发布、数据、科研、验证和界面变化汇总在同一张图中；完整记录按主题归档。", "Web releases, data, research, validation, and interface changes are brought together in one graph, with complete records grouped by topic.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
         action={<><BasisBadge tone="info">{APP_VERSION_LABEL}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}
       />
-      <EvolutionCommandCenter data={data} projectStatus={projectStatus} t={t} lang={lang} isMobile={isMobile} />
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 10, color: t.muted, display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between", padding: 11 }}>
-        <span style={{ fontSize: 12.2, lineHeight: 1.5 }}>{text(lang, "项目演化解释项目成长历史；方法与证据只解释 EcoMOF-AI 如何工作。", "Project Evolution explains project history; Methods & Evidence explains how EcoMOF-AI works.")}</span>
-        <button type="button" onClick={() => onNavigate?.("methodology")} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent }}>
-          {text(lang, "查看方法论", "View Methods")}
-        </button>
-      </div>
-      <SectionNav sections={sections} t={t} lang={lang} isMobile={isMobile} />
-      <UnifiedReleaseCenter log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
-      <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
-      <DeveloperLog log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
-      <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
-      <ProjectUpdates log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} />
-      <ScientificEvolution data={data} lang={lang} t={t} />
-      <DatabaseEvolution data={data} lang={lang} t={t} />
-      <AlgorithmEvolution data={data} lang={lang} t={t} />
-      <OrganicAcidAlgorithmMethodology methodology={organicAcidMethodology} lang={lang} t={t} isMobile={isMobile} />
-      <ValidationEvolution data={data} lang={lang} t={t} />
-      <UiEvolution data={data} lang={lang} t={t} />
-      <LocalizationEvolution data={data} lang={lang} t={t} />
-      <MilestoneCenter data={data} lang={lang} t={t} />
-      <Roadmap data={data} lang={lang} t={t} />
+      <EvolutionAtlas data={data} projectStatus={projectStatus} log={appReleaseLog} lang={lang} t={t} isMobile={isMobile} onNavigate={onNavigate} />
+      <EvolutionArchive data={data} projectStatus={projectStatus} log={appReleaseLog} methodology={organicAcidMethodology} lang={lang} t={t} isMobile={isMobile} />
     </div>
   )
 }

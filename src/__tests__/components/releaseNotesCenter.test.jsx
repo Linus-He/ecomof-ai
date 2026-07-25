@@ -14,7 +14,7 @@ describe("Project Updates", () => {
 
     expect(updates).toBeInTheDocument()
     expect(updates.textContent).toMatch(/Project Updates/)
-    expect(updates.textContent).toContain(`App ${releaseLog.currentAppVersion}`)
+    expect(updates.textContent).toContain(`Web ${releaseLog.currentAppVersion}`)
     for (const number of moduleKeys.map((_, index) => String(index + 1).padStart(2, "0"))) {
       expect(within(updates).getByText(number)).toBeInTheDocument()
     }
@@ -28,6 +28,6 @@ describe("Project Updates", () => {
     for (const moduleKey of Object.keys(currentRelease.modules)) {
       expect(updates.textContent).toContain(releaseLog.moduleCatalog[moduleKey].label.en)
     }
-    expect(updates.textContent).toContain(`Module updates for App ${releaseLog.currentAppVersion} come from the unified release record`)
+    expect(updates.textContent).toContain(`Module updates for Web ${releaseLog.currentAppVersion} come from the unified release record`)
   })
 })

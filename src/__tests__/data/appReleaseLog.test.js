@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
-  it("defines a single current App version with v1.0.0 as the first unified release", () => {
+  it("defines a single current Web version with v1.0.0 as the first unified release", () => {
     expect(log.currentAppVersion).toBe("v1.0.4")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
