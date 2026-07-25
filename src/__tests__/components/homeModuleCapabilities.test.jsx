@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest"
-import { render, screen, within } from "@testing-library/react"
+import { fireEvent, render, screen, within } from "@testing-library/react"
 import homeSummary from "../../../public/data/home_summary.json"
 import versionEvolution from "../../../public/data/version_evolution_records.json"
 import { HomeTab } from "../../components/tabs/HomeTab"
@@ -38,8 +38,9 @@ describe("home module capabilities", () => {
     renderHome("en")
     const modules = screen.getByTestId("home-module-capabilities")
     for (const name of ["EcoScreen", "MOF Library", "Organic Acid", "GasSep"]) {
-      expect(within(modules).getByText(name)).toBeInTheDocument()
+      expect(within(modules).getAllByText(name).length).toBeGreaterThan(0)
     }
+    fireEvent.click(within(modules).getByRole("tab", { name: /GasSep/ }))
     expect(within(modules).getByText("Enter GasSep")).toBeInTheDocument()
     // user-facing, not agent-prompt tone
     expect(modules.textContent).toMatch(/What it does/)

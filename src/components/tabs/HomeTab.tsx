@@ -7,6 +7,7 @@ import {
   FONT_SANS,
   LogoMark,
   BrandMotif,
+  BlockFormula,
 } from "../../shared"
 import { BrandMotionBackground, GasParetoChart, HomeDataExplorer, MofDescriptor3DScatter, buildGasParetoRows } from "../home"
 import { toolbarBtn } from "../../utils/styles"
@@ -86,6 +87,17 @@ function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
           {subtitle}
         </p>
       )}
+    </div>
+  )
+}
+
+function StoryTransition({ index, label, t }) {
+  return (
+    <div className="home-story-transition" aria-hidden="true" style={{ "--transition-line": t.borderStrong || t.border, "--transition-text": t.faint, "--transition-accent": t.accentText }}>
+      <span className="num">{String(index).padStart(2, "0")}</span>
+      <i />
+      <strong>{label}</strong>
+      <i />
     </div>
   )
 }
@@ -217,138 +229,119 @@ function DataCard({ item, t }) {
   )
 }
 
-function AtlasMetric({ item, t, index }) {
-  return (
-    <div className="atlas-metric" style={{ "--metric-delay": `${index * 90}ms`, background: t.surface, border: `1px solid ${t.border}` }}>
-      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, letterSpacing: 0, textTransform: "uppercase" }}>{item.label}</span>
-      <strong className="num" style={{ color: t.textStrong, fontSize: 19, lineHeight: 1.15, fontWeight: 950 }}>{item.value}</strong>
-      <span className="atlas-metric-spark" aria-hidden="true" style={{ background: t.badgeInfoBg }}>
-        <span style={{ background: item.tone || t.accentText }} />
-      </span>
-    </div>
-  )
-}
-
-function ScientificAtlasHero({ t, lang, summary, gasParetoCount, isMobile, reducedMotion }) {
+function ResearchEquationHero({ t, lang, summary, gasParetoCount, isMobile, reducedMotion }) {
   const zh = lang === "zh"
+  const [activeModel, setActiveModel] = useState("lca")
   const metrics = [
-    { label: zh ? "结构记录" : "Structure records", value: numberText(summary.totalRecords, "+"), tone: t.accentText },
-    { label: "ISODB / IAST", value: numberText(gasParetoCount), tone: t.violet || t.accentText },
-    { label: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount), tone: t.warn },
-    { label: zh ? "可信度" : "Credibility", value: `${metricText(summary.credibilityScore, 1)}`, tone: t.success || t.accentText },
+    { label: zh ? "结构记录" : "Structure records", value: numberText(summary.totalRecords, "+") },
+    { label: zh ? "分离点" : "Separation points", value: numberText(gasParetoCount) },
+    { label: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount) },
+    { label: zh ? "可信度" : "Credibility", value: `${metricText(summary.credibilityScore, 1)}` },
   ]
-  const modules = [
-    { id: "EcoScreen", x: 122, y: 98, tone: t.accentText },
-    { id: "MOF Library", x: 382, y: 86, tone: t.success || t.accentText },
-    { id: "Organic Acid", x: 132, y: 260, tone: t.warn },
-    { id: "GasSep", x: 410, y: 244, tone: t.violet || t.accentText },
+  const models = [
+    {
+      id: "lca",
+      index: "01",
+      label: zh ? "生命周期" : "Life cycle",
+      title: zh ? "环境与成本共同约束" : "Joint environmental and cost constraints",
+      formula: String.raw`I_{\mathrm{LCA}}(m)=\sum_{k=1}^{K}a_{mk}\,CF_k,\qquad C_{\mathrm{LCC}}(m)=\sum_{r=1}^{R}q_{mr}p_r`,
+      note: zh ? "把材料、溶剂、能源、回收与循环数据映射到同一功能单位。" : "Maps material, solvent, energy, recovery, and cycling data to one functional unit.",
+    },
+    {
+      id: "gas",
+      index: "02",
+      label: zh ? "分离权衡" : "Separation",
+      title: zh ? "选择性与工作容量同时最大化" : "Maximize selectivity and working capacity",
+      formula: String.raw`m\in\mathcal{F}\iff\nexists n\ne m:\ C_{w,n}\ge C_{w,m}\land S_n\ge S_m\land\left(C_{w,n}>C_{w,m}\lor S_n>S_m\right)`,
+      note: zh ? "以非支配前沿保留真实性能权衡，不把单一高选择性误当成最优。" : "Preserves real trade-offs with a non-dominated frontier instead of overvaluing selectivity alone.",
+    },
+    {
+      id: "catalysis",
+      index: "03",
+      label: zh ? "催化路径" : "Catalysis",
+      title: zh ? "白盒主客体路径评分" : "White-box host–guest pathway scoring",
+      formula: String.raw`\mathrm{HGCPS}_i=\prod_{j=1}^{p}\left(x_{ij}+\varepsilon\right)^{w_j},\qquad \sum_jw_j=1`,
+      note: zh ? "乘法结构让短板保持可见，并通过误差条表达证据不确定度。" : "The multiplicative form keeps bottlenecks visible and exposes evidence uncertainty with error bars.",
+    },
+    {
+      id: "validation",
+      index: "04",
+      label: zh ? "稳健验证" : "Validation",
+      title: zh ? "参数扰动与外部证据校验" : "Parameter perturbation and external-evidence checks",
+      formula: String.raw`\Delta r_i(\delta)=r_i(\mathbf{w}+\delta)-r_i(\mathbf{w}),\qquad \mathbb{E}_{\delta}\!\left[|\Delta r_i|\right]\downarrow`,
+      note: zh ? "排名只在敏感性、证据等级与 Benchmark 条件下解释。" : "Rankings are interpreted only with sensitivity, evidence-grade, and benchmark context.",
+    },
   ]
-  const sourceLines = [
-    { d: "M72 178 C150 78 232 72 308 152", delay: "0ms" },
-    { d: "M72 178 C160 224 248 230 410 244", delay: "120ms" },
-    { d: "M308 152 C282 226 220 280 132 260", delay: "240ms" },
-    { d: "M122 98 C202 142 285 132 382 86", delay: "360ms" },
-  ]
+  const active = models.find(model => model.id === activeModel) || models[0]
 
   return (
     <aside
       data-testid="home-scientific-atlas"
-      className="home-scientific-atlas"
+      className="home-scientific-atlas home-equation-atlas"
       data-reduced-motion={reducedMotion ? "true" : "false"}
       style={{
+        "--color-accent": t.accentText,
+        "--color-border": t.border,
+        "--color-muted": t.muted,
         minWidth: 0,
         position: "relative",
-        minHeight: isMobile ? 340 : 444,
-        borderRadius: 0,
-        overflow: "visible",
+        border: `1px solid ${t.border}`,
+        background: t.panel,
+        boxShadow: t.shadowSm,
+        color: t.textStrong,
       }}
     >
-      <div className="atlas-glass-plate" style={{
-        position: "absolute",
-        inset: isMobile ? "18px 0 0" : "12px 0 0",
-        border: `1px solid ${t.border}`,
-        background: `linear-gradient(145deg, ${t.panel}E8, ${t.surface}C8 58%, ${t.badgeInfoBg}B8)`,
-        boxShadow: t.shadowSm,
-        borderRadius: 12,
-      }} />
-      <svg className="atlas-map-svg" viewBox="0 0 520 350" role="img" aria-label={zh ? "EcoMOF-AI 科研图谱：首页模块与真实数据流" : "EcoMOF-AI research atlas: homepage modules and real data flow"} style={{ position: "relative", width: "100%", minHeight: isMobile ? 270 : 318, display: "block", overflow: "visible" }}>
-        <defs>
-          <radialGradient id="atlasCoreGlow" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor={t.badgeInfoBg} stopOpacity="0.98" />
-            <stop offset="52%" stopColor={t.badgeInfoBg} stopOpacity="0.24" />
-            <stop offset="100%" stopColor={t.badgeInfoBg} stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="atlasParetoLine" x1="0%" x2="100%" y1="100%" y2="0%">
-            <stop offset="0%" stopColor={t.accentText} stopOpacity="0.35" />
-            <stop offset="58%" stopColor={t.success || t.accentText} stopOpacity="0.95" />
-            <stop offset="100%" stopColor={t.warn} stopOpacity="0.9" />
-          </linearGradient>
-          <linearGradient id="atlasScanGradient" x1="0%" x2="100%">
-            <stop offset="0%" stopColor={t.panel} stopOpacity="0" />
-            <stop offset="42%" stopColor={t.accentText} stopOpacity="0.04" />
-            <stop offset="50%" stopColor={t.accentText} stopOpacity="0.24" />
-            <stop offset="58%" stopColor={t.accentText} stopOpacity="0.04" />
-            <stop offset="100%" stopColor={t.panel} stopOpacity="0" />
-          </linearGradient>
-          <filter id="atlasPacketGlow" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="2.2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <clipPath id="atlasWindowClip">
-            <rect x="18" y="28" width="484" height="294" rx="18" />
-          </clipPath>
-        </defs>
-        <rect className="atlas-window-frame" x="18" y="28" width="484" height="294" rx="18" fill="transparent" stroke={t.border} strokeOpacity="0.38" strokeWidth="0.75" strokeDasharray="2 14" />
-        <g clipPath="url(#atlasWindowClip)">
-          {[82, 164, 246, 328, 410].map((x, index) => (
-            <line key={`v-${x}`} className="atlas-depth-line" x1={x} y1="38" x2={x} y2="312" stroke={t.border} strokeOpacity="0.58" strokeWidth="0.55" style={{ "--grid-delay": `${index * 70}ms` }} />
-          ))}
-          {[92, 160, 228, 296].map((y, index) => (
-            <line key={`h-${y}`} className="atlas-depth-line" x1="28" y1={y} x2="492" y2={y} stroke={t.border} strokeOpacity="0.58" strokeWidth="0.55" style={{ "--grid-delay": `${180 + index * 70}ms` }} />
-          ))}
-          <rect className="atlas-scan-beam" x="-92" y="34" width="92" height="284" fill="url(#atlasScanGradient)" />
-        </g>
-        <circle cx="260" cy="176" r="134" fill="url(#atlasCoreGlow)" />
-        {[70, 120, 170].map((r, index) => (
-          <ellipse key={r} className="atlas-orbit" cx="260" cy="176" rx={r + 54} ry={r} fill="none" stroke={t.border} strokeWidth="1" strokeDasharray={index === 1 ? "2 8" : "5 10"} style={{ "--orbit-delay": `${index * 220}ms` }} />
+      <div className="home-equation-objective">
+        <span>{zh ? "多目标研究函数" : "MULTI-OBJECTIVE RESEARCH FUNCTION"}</span>
+        <BlockFormula
+          math={String.raw`\operatorname*{Pareto\,min}_{m\in\mathcal{M}}\left[I_{\mathrm{LCA}}(m),\ C_{\mathrm{LCC}}(m),\ -P_{\mathrm{task}}(m),\ U(m)\right]`}
+          fallback="Pareto min [I_LCA, C_LCC, −P_task, U]"
+          t={t}
+          style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0 }}
+        />
+        <p>{zh ? "在同一证据链上平衡环境影响、成本、任务性能与不确定度。" : "Balance impact, cost, task performance, and uncertainty on one evidence chain."}</p>
+      </div>
+      <div className="home-equation-model-tabs" role="tablist" aria-label={zh ? "研究评价方程" : "Research evaluation equations"}>
+        {models.map(model => (
+          <button
+            key={model.id}
+            type="button"
+            role="tab"
+            aria-selected={activeModel === model.id}
+            data-active={activeModel === model.id ? "true" : "false"}
+            onClick={() => setActiveModel(model.id)}
+          >
+            <span>{model.index}</span>
+            <strong>{model.label}</strong>
+          </button>
         ))}
-        {sourceLines.map((line, index) => (
-          <path key={index} className="atlas-source-line" d={line.d} fill="none" stroke={t.accentText} strokeWidth="1.8" strokeLinecap="round" strokeDasharray="6 8" style={{ "--source-delay": line.delay }} />
+      </div>
+      <div className="home-equation-active" key={active.id}>
+        <span>{active.title}</span>
+        <BlockFormula
+          math={active.formula}
+          fallback={active.formula}
+          t={t}
+          style={{ background: t.surface, borderColor: t.border, marginTop: 9 }}
+        />
+        <p>{active.note}</p>
+      </div>
+      <div className="home-equation-pipeline" aria-label={zh ? "统一数据与验证流程" : "Unified data and validation flow"}>
+        <span>MOF / process</span>
+        <b>→</b>
+        <span>descriptor vector</span>
+        <b>→</b>
+        <span>white-box score</span>
+        <b>→</b>
+        <span>evidence gate</span>
+      </div>
+      <div className="home-equation-metrics">
+        {metrics.map(metric => (
+          <div key={metric.label}>
+            <span>{metric.label}</span>
+            <strong className="num">{metric.value}</strong>
+          </div>
         ))}
-        <g className="atlas-data-packets" filter="url(#atlasPacketGlow)" aria-hidden="true">
-          <circle className="atlas-data-packet atlas-data-packet-a" cx="72" cy="178" r="3.8" fill={t.accentText} />
-          <circle className="atlas-data-packet atlas-data-packet-b" cx="72" cy="178" r="3.4" fill={t.violet || t.accentText} />
-          <circle className="atlas-data-packet atlas-data-packet-c" cx="308" cy="152" r="3.2" fill={t.warn} />
-          <circle className="atlas-data-packet atlas-data-packet-d" cx="122" cy="98" r="3.5" fill={t.success || t.accentText} />
-        </g>
-        <path className="atlas-pareto-line" d="M86 288 C144 250 170 236 210 214 C252 190 300 178 342 140 C376 110 408 88 454 70" fill="none" stroke="url(#atlasParetoLine)" strokeWidth="3.4" strokeLinecap="round" />
-        {[0.12, 0.28, 0.43, 0.55, 0.68, 0.82].map((ratio, index) => {
-          const x = 82 + ratio * 376
-          const y = 294 - Math.pow(ratio, 1.55) * 226
-          return <circle key={ratio} className="atlas-pareto-point" cx={x} cy={y} r={index % 2 ? 4.8 : 6.2} fill={index % 3 === 0 ? t.warn : t.accentText} fillOpacity="0.82" stroke={t.panel} strokeWidth="1.4" style={{ "--point-delay": `${index * 90}ms` }} />
-        })}
-        <g className="atlas-core">
-          <circle className="atlas-core-halo atlas-core-halo-outer" cx="260" cy="176" r="66" fill="none" stroke={t.accentText} strokeWidth="1" />
-          <circle className="atlas-core-halo atlas-core-halo-inner" cx="260" cy="176" r="56" fill="none" stroke={t.warn} strokeWidth="0.9" />
-          <circle cx="260" cy="176" r="48" fill={t.panel} stroke={t.accentText} strokeWidth="1.8" />
-          <circle cx="260" cy="176" r="28" fill={t.badgeInfoBg} stroke={t.border} />
-          <text x="260" y="171" textAnchor="middle" fill={t.textStrong} fontSize="13" fontWeight="900">EcoMOF</text>
-          <text x="260" y="190" textAnchor="middle" fill={t.muted} fontSize="10" fontWeight="800">AI Atlas</text>
-        </g>
-        {modules.map((module, index) => (
-          <g key={module.id} className="atlas-module-node" style={{ "--module-delay": `${index * 120}ms` }}>
-            <circle className="atlas-node-pulse" cx={module.x} cy={module.y} r="31" fill="none" stroke={module.tone} strokeWidth="1" style={{ "--pulse-delay": `${index * 420}ms` }} />
-            <circle cx={module.x} cy={module.y} r="23" fill={t.panel} stroke={module.tone} strokeWidth="2" />
-            <circle cx={module.x} cy={module.y} r="7" fill={module.tone} fillOpacity="0.82" />
-            <text x={module.x} y={module.y + 39} textAnchor="middle" fill={t.textStrong} fontSize="10.5" fontWeight="850">{module.id}</text>
-          </g>
-        ))}
-      </svg>
-      <div className="atlas-metric-grid" style={{ position: "relative", display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", gap: 8, marginTop: isMobile ? -18 : -30, padding: isMobile ? "0 8px 8px" : "0 14px 12px" }}>
-        {metrics.map((metric, index) => <AtlasMetric key={metric.label} item={metric} t={t} index={index} />)}
       </div>
     </aside>
   )
@@ -406,6 +399,107 @@ function MiniBarChart({ title, rows, t, lang }) {
   )
 }
 
+function ValidationEquationStage({ t, lang, summary, items, isMobile, onNavigate }) {
+  const zh = lang === "zh"
+  const [activeId, setActiveId] = useState(items[0]?.id || "")
+  const active = items.find(item => item.id === activeId) || items[0]
+  const variables = [
+    { symbol: "xᵢⱼ*", label: zh ? "归一化描述符" : "Normalized descriptor", value: zh ? "同量纲比较" : "Comparable scale" },
+    { symbol: "wⱼ", label: zh ? "透明权重" : "Transparent weight", value: "Σwⱼ = 1" },
+    { symbol: "qᵢ", label: zh ? "证据修正系数" : "Evidence modifier", value: "0 ≤ qᵢ ≤ 1" },
+    { symbol: "Δrᵢ", label: zh ? "扰动后排名变化" : "Rank shift under perturbation", value: zh ? "越小越稳健" : "lower is steadier" },
+  ]
+
+  return (
+    <article
+      className="scientific-story-stage validation-story-stage"
+      style={{
+        "--science-accent": t.accentText,
+        "--science-border": t.border,
+        "--science-divider": t.divider || t.border,
+        "--science-faint": t.faint,
+        "--science-muted": t.muted,
+        "--science-panel": t.panel,
+        "--science-surface": t.surface,
+        "--science-text": t.textStrong,
+      }}
+    >
+      <div className="scientific-story-copy">
+        <div className="scientific-story-eyebrow">{zh ? "算法与验证 / 可审计链" : "Algorithm & validation / auditable chain"}</div>
+        <h3>{zh ? "白盒筛选与 Benchmark 验证" : "White-box screening and benchmark validation"}</h3>
+        <p className="scientific-story-lede">
+          {zh
+            ? "评分、证据修正、敏感性、实验标签与 Benchmark 不再分散成状态卡，而是构成一条可检查的验证链。"
+            : "Scoring, evidence adjustment, sensitivity, labels, and benchmark checks form one inspectable validation chain instead of scattered status cards."}
+        </p>
+        <div className="scientific-equation-block">
+          <span>{active?.title}</span>
+          <BlockFormula
+            math={active?.formula}
+            fallback={active?.formula}
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0 }}
+          />
+          <p>{active?.body}</p>
+        </div>
+        <div className="scientific-variable-list">
+          {variables.map(item => (
+            <div key={item.symbol}>
+              <strong className="formula">{item.symbol}</strong>
+              <span>{item.label}</span>
+              <small>{item.value}</small>
+            </div>
+          ))}
+        </div>
+        <div className="scientific-story-source">
+          <span>{zh ? "当前验证基线" : "CURRENT VALIDATION BASELINE"}</span>
+          <p>
+            {zh
+              ? `${numberText(summary.experimentalLabelCount)} 条实验标签 · ${numberText(summary.benchmarkEligibleCount)} 条 Benchmark eligible · 可信度 ${metricText(summary.credibilityScore, 1)}。`
+              : `${numberText(summary.experimentalLabelCount)} experimental labels · ${numberText(summary.benchmarkEligibleCount)} benchmark-eligible rows · credibility ${metricText(summary.credibilityScore, 1)}.`}
+          </p>
+        </div>
+      </div>
+      <div className="scientific-story-visual validation-network-visual">
+        <div className="scientific-story-metric">
+          <span>{zh ? "VALIDATION CHAIN" : "VALIDATION CHAIN"}</span>
+          <strong className="num">05</strong>
+          <small>{zh ? "→ 连续验证节点" : "→ linked validation nodes"}</small>
+        </div>
+        <div className="validation-network-list" role="tablist" aria-label={zh ? "验证链节点" : "Validation-chain nodes"}>
+          {items.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={active?.id === item.id}
+              data-active={active?.id === item.id ? "true" : "false"}
+              onClick={() => setActiveId(item.id)}
+            >
+              <span className="num">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <strong>{item.title}</strong>
+                <small>{item.body}</small>
+              </div>
+              <b className="num">{item.metric}</b>
+            </button>
+          ))}
+        </div>
+        <div className="validation-active-note">
+          <span>{zh ? "当前节点" : "ACTIVE NODE"}</span>
+          <strong>{active?.title}</strong>
+          <p>{active?.detail}</p>
+          {active?.id === "benchmark" ? (
+            <ActionButton t={t} hash="#methodology-algorithm-validation" onClick={() => onNavigate("methodology-algorithm-validation", "about")}>
+              {zh ? "进入验证中心" : "Enter Validation Center"}
+            </ActionButton>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  )
+}
+
 function FlowStep({ item, t, index, isLast }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "auto minmax(0, 1fr)", gap: 11, position: "relative", minWidth: 0 }}>
@@ -418,6 +512,129 @@ function FlowStep({ item, t, index, isLast }) {
         <p style={{ margin: "4px 0 0", color: t.muted, fontSize: 12, lineHeight: 1.55 }}>{item.body}</p>
       </div>
     </div>
+  )
+}
+
+function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMobile, onNavigate }) {
+  const zh = lang === "zh"
+  const routes = [
+    ...modules,
+    {
+      mark: "BV",
+      title: zh ? "验证中心" : "Validation Center",
+      tag: zh ? "Benchmark / 实验标签 / 稳健性" : "Benchmark / labels / robustness",
+      tone: "success",
+      body: zh
+        ? "做什么：集中检查 Benchmark、实验标签、敏感性与模型验证状态。"
+        : "What it does: inspect benchmark, labels, sensitivity, and model-validation status in one place.",
+      io: [
+        zh ? "输入：筛选结果 + 标签 + 外部证据" : "Input: screening results + labels + external evidence",
+        zh ? "输出：可审计验证状态 + 研究边界" : "Output: auditable validation state + research boundary",
+      ],
+      button: zh ? "进入验证中心" : "Enter Validation Center",
+      hash: "methodology-algorithm-validation",
+      target: "about",
+    },
+  ]
+  const [activeHash, setActiveHash] = useState(routes[0]?.hash || "")
+  const active = routes.find(route => route.hash === activeHash) || routes[0]
+
+  return (
+    <section
+      data-testid="home-research-gateway"
+      className="research-gateway-stage"
+      style={{
+        "--gateway-accent": t.accentText,
+        "--gateway-border": t.border,
+        "--gateway-muted": t.muted,
+        "--gateway-panel": t.panel,
+        "--gateway-surface": t.surface,
+        "--gateway-text": t.textStrong,
+        boxShadow: t.shadowSm,
+      }}
+    >
+      <header>
+        <div>
+          <span>{zh ? "研究入口 / 证据边界" : "Research routes / evidence boundary"}</span>
+          <h2>{zh ? "从问题类型进入完整工作流" : "Enter the full workflow from the research question"}</h2>
+          <p>
+            {zh
+              ? "入口、能力说明与当前限制合并到同一决策面：先选择研究问题，再查看输入、输出和不能越过的证据边界。"
+              : "Routes, capability descriptions, and current limits now share one decision surface: choose the question, then inspect inputs, outputs, and evidence boundaries."}
+          </p>
+        </div>
+        <div className="research-gateway-index">
+          <span>{zh ? "WORKSPACES" : "WORKSPACES"}</span>
+          <strong className="num">{String(routes.length).padStart(2, "0")}</strong>
+        </div>
+      </header>
+
+      <div data-testid="home-module-capabilities" className="research-gateway-layout">
+        <div data-testid="home-research-scenarios" className="research-route-tabs" role="tablist" aria-label={zh ? "研究工作区" : "Research workspaces"}>
+          {routes.map((route, index) => (
+            <button
+              key={route.hash}
+              type="button"
+              role="tab"
+              aria-selected={active?.hash === route.hash}
+              data-active={active?.hash === route.hash ? "true" : "false"}
+              onClick={() => setActiveHash(route.hash)}
+            >
+              <span className="num">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <strong>{route.title}</strong>
+                <small>{route.tag}</small>
+              </div>
+            </button>
+          ))}
+        </div>
+        <article className="research-route-detail" key={active?.hash}>
+          <div className="research-route-heading">
+            <IconBadge t={t} tone={active?.tone}>{active?.mark}</IconBadge>
+            <div>
+              <span>{active?.tag}</span>
+              <h3>{active?.title}</h3>
+            </div>
+          </div>
+          <p>{active?.body}</p>
+          <div className="research-route-io">
+            {active?.io?.map((line, index) => (
+              <div key={line}>
+                <span>{index === 0 ? (zh ? "输入" : "INPUT") : (zh ? "输出" : "OUTPUT")}</span>
+                <strong>{line.replace(/^(输入|输出|Input|Output)[:：]?\s*/i, "")}</strong>
+              </div>
+            ))}
+          </div>
+          <ActionButton t={t} primary hash={`#${active?.hash}`} onClick={() => onNavigate(active?.hash, active?.target)}>
+            {active?.button}
+          </ActionButton>
+        </article>
+      </div>
+
+      <div data-testid="home-current-limitations" className="research-boundary-strip">
+        <div>
+          <span>{zh ? "EVIDENCE BOUNDARY" : "EVIDENCE BOUNDARY"}</span>
+          <strong>{zh ? "当前限制保持显式可见" : "Current limits remain explicit"}</strong>
+        </div>
+        <ul>
+          {limitations.map(item => <LimitationItem key={item.title} item={item} t={t} lang={lang} />)}
+        </ul>
+      </div>
+
+      <div data-testid="home-quick-start" className="research-gateway-actions">
+        <div>
+          <span>{zh ? "快速开始" : "QUICK START"}</span>
+          <strong>{zh ? "选择研究入口" : "Choose a research entry point"}</strong>
+        </div>
+        <div data-testid="home-quick-start-buttons">
+          {quickStart.map(cta => (
+            <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => onNavigate(cta.hash, cta.target)}>
+              {cta.label}
+            </ActionButton>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -709,61 +926,46 @@ export function HomeTab({ setActiveTab }) {
 
   const validationFlow = useMemo(() => [
     {
+      id: "screening",
       title: zh ? "白盒筛选" : "White-box Screening",
       body: zh ? "透明规则与权重让筛选路径可检查。" : "Transparent rules and weights keep the screening path inspectable.",
-      tone: "info",
+      detail: zh ? "保留每个描述符、归一化方式、权重和候选贡献，避免黑盒分数脱离研究语境。" : "Retains every descriptor, normalization rule, weight, and candidate contribution.",
+      formula: String.raw`S_i=\sum_{j=1}^{p}w_jx_{ij}^{*},\qquad \sum_{j=1}^{p}w_j=1`,
+      metric: "RULED",
     },
     {
+      id: "evidence",
       title: zh ? "证据修正" : "Evidence Adjustment",
       body: zh ? "证据等级、来源状态和风险提示影响解释语境。" : "Evidence level, source status, and risk notes shape the explanation context.",
-      tone: "success",
+      detail: zh ? "已核验元数据、来源位置与缺失字段共同决定修正系数；缺失证据不会被默认成零风险。" : "Verified metadata, source location, and missing fields jointly determine the modifier; missing evidence is not treated as zero risk.",
+      formula: String.raw`S_i^{\prime}=S_i\,q_i,\qquad q_i=f(g_i,\ p_i,\ c_i)`,
+      metric: numberText(summary.verifiedMetadataCount),
     },
     {
+      id: "sensitivity",
       title: zh ? "敏感性分析" : "Sensitivity Analysis",
       body: zh ? "候选稳定性通过参数扰动与排序变化检查。" : "Candidate stability is checked through parameter changes and ranking movement.",
-      tone: "warn",
+      detail: zh ? "只有在权重和情景扰动下仍保持相对稳定的候选，才适合进入下一层验证。" : "Only candidates that remain relatively stable under weight and scenario perturbations proceed.",
+      formula: String.raw`\Delta r_i(\delta)=r_i(\mathbf{w}+\delta)-r_i(\mathbf{w})`,
+      metric: "ΔRANK",
     },
     {
+      id: "labels",
       title: zh ? "实验标签" : "Experimental Labels",
       body: zh ? "实验标签用于连接候选解释与模型验证。" : "Experimental labels connect candidate explanation to model validation.",
-      tone: "neutral",
+      detail: zh ? "实验标签用于估计外部误差与适用域，而不是替代来源和实验条件说明。" : "Experimental labels estimate external error and applicability domain rather than replacing provenance and conditions.",
+      formula: String.raw`\mathcal{D}_{\mathrm{exp}}=\{(\mathbf{x}_i,y_i,\sigma_i)\}_{i=1}^{n}`,
+      metric: numberText(summary.experimentalLabelCount),
     },
     {
+      id: "benchmark",
       title: zh ? "Benchmark 框架" : "Benchmark Framework",
       body: zh ? "Benchmark 已接入" : "Benchmark Available",
-      tone: "info",
+      detail: zh ? "Benchmark 框架已作为验证入口；具体模型指标、外部测试与适用域说明由验证中心承载。" : "The benchmark is available as a validation entry; model metrics, external tests, and applicability-domain details stay in the validation center.",
+      formula: String.raw`\mathcal{B}(f)=\{\mathrm{CV},\ \mathcal{D}_{\mathrm{ext}},\ \mathrm{Cal},\ \mathrm{UQ}\}`,
+      metric: numberText(summary.benchmarkEligibleCount),
     },
-  ], [zh])
-
-  const scenarios = useMemo(() => [
-    {
-      mark: "MD",
-      title: "MOF Discovery",
-      body: zh ? "面向早期材料筛选，快速查看候选、来源字段和排序解释。" : "For early material screening: inspect candidates, source fields, and ranking explanations.",
-      button: zh ? "进入 EcoScreen" : "Enter EcoScreen",
-      hash: "ecoscreen",
-      target: "ecoscreen",
-      tone: "info",
-    },
-    {
-      mark: "OA",
-      title: "Organic Acid Screening",
-      body: zh ? "围绕有机酸路径，查看反应数据、证据语境和候选决策面板。" : "For organic-acid pathways: review reaction data, evidence context, and candidate decision boards.",
-      button: zh ? "进入 Organic Acid" : "Enter Organic Acid",
-      hash: "catalysis-organic-acid",
-      target: "catalysisLab",
-      tone: "warn",
-    },
-    {
-      mark: "BV",
-      title: "Benchmark Validation",
-      body: zh ? "查看验证中心的 Benchmark 框架、实验标签层和模型验证状态。" : "Use the validation center for benchmark framework, labels, and model-validation state.",
-      button: zh ? "进入 Validation Center" : "Enter Validation Center",
-      hash: "methodology-algorithm-validation",
-      target: "about",
-      tone: "success",
-    },
-  ], [zh])
+  ], [summary, zh])
 
   const limitations = useMemo(() => [
     {
@@ -908,22 +1110,7 @@ export function HomeTab({ setActiveTab }) {
               ))}
             </div>
           </div>
-          <ScientificAtlasHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
-        </div>
-      </section>
-
-      <section data-testid="home-module-capabilities" style={sectionStyle}>
-        <SectionHeader
-          eyebrow={zh ? "平台模块" : "Platform Modules"}
-          title={zh ? "按模块看能力" : "Capabilities by module"}
-          subtitle={zh ? "每个模块解决一类问题：做什么、输入什么、输出什么，点击直达对应工作区。" : "Each module solves one kind of problem — what it does, what it takes in, what it returns. Click to enter."}
-          t={t}
-          isMobile={isMobile}
-        />
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 14 }}>
-          {moduleCapabilities.map(module => (
-            <ModuleCapabilityCard key={module.title} module={module} t={t} isMobile={isMobile} onNavigate={navigateHash} />
-          ))}
+          <ResearchEquationHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
         </div>
       </section>
 
@@ -966,84 +1153,29 @@ export function HomeTab({ setActiveTab }) {
           t={t}
           isMobile={isMobile}
         />
+        <StoryTransition index={1} label={zh ? "从数据来源到描述符空间" : "From source data to descriptor space"} t={t} />
         <MofDescriptor3DScatter t={t} lang={lang} isMobile={isMobile} />
-        <div style={{ height: isMobile ? 14 : 18 }} />
+        <StoryTransition index={2} label={zh ? "从空间位置到统计结构" : "From spatial position to statistical structure"} t={t} />
         <HomeDataExplorer t={t} lang={lang} isMobile={isMobile} />
-        <div style={{ height: isMobile ? 14 : 18 }} />
+        <StoryTransition index={3} label={zh ? "从结构分布到任务性能" : "From structural distribution to task performance"} t={t} />
         <GasParetoChart t={t} lang={lang} isMobile={isMobile} />
       </section>
 
       <section data-testid="home-algorithm-validation" style={sectionStyle}>
-        <SectionHeader
-          eyebrow={zh ? "算法与验证" : "Validation"}
-          title={zh ? "白盒筛选与 Benchmark 验证框架" : "White-box screening with benchmark validation framework"}
-          subtitle={zh ? "首页只展示验证能力与 Benchmark 可用状态，具体模型指标留在算法验证中心。" : "The homepage shows validation capabilities and Benchmark Available; detailed model metrics stay in the validation center."}
-          t={t}
-          isMobile={isMobile}
-        />
-        <div style={{ ...panelStyle, padding: isMobile ? "16px" : "22px", display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) 220px", gap: 18 }}>
-          <div style={{ display: "grid", gap: 2 }}>
-            {validationFlow.map((item, index) => (
-              <FlowStep key={item.title} item={item} t={t} index={index} isLast={index === validationFlow.length - 1} />
-            ))}
-          </div>
-        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: 15, alignSelf: "start", display: "grid", gap: 9 }}>
-            <strong style={{ color: t.textStrong, fontSize: 16, lineHeight: 1.3 }}>{zh ? "Benchmark 已接入" : "Benchmark Available"}</strong>
-            <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.6 }}>
-              {zh ? "Benchmark 框架已作为验证入口呈现，模型指标详情由验证中心承载。" : "The benchmark framework is available as the validation entry; model metric details stay in the validation center."}
-            </span>
-          </div>
-        </div>
+        <StoryTransition index={4} label={zh ? "从候选性能到验证证据" : "From candidate performance to validation evidence"} t={t} />
+        <ValidationEquationStage t={t} lang={lang} summary={summary} items={validationFlow} isMobile={isMobile} onNavigate={navigateHash} />
       </section>
 
-      <section data-testid="home-research-scenarios" style={sectionStyle}>
-        <SectionHeader
-          eyebrow={zh ? "研究场景" : "Research Scenarios"}
-          title={zh ? "三类常见研究入口" : "Three common research entry points"}
-          subtitle={zh ? "用户可以从材料发现、有机酸筛选或 Benchmark 验证直接进入对应工作区。" : "Users can enter the right workspace through discovery, organic-acid screening, or benchmark validation."}
-          t={t}
-          isMobile={isMobile}
-        />
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
-          {scenarios.map(scenario => (
-            <ScenarioCard key={scenario.title} scenario={scenario} t={t} isMobile={isMobile} onNavigate={navigateHash} />
-          ))}
-        </div>
-      </section>
-
-      <section data-testid="home-current-limitations" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.surface }}>
-        <SectionHeader
-          eyebrow={zh ? "当前边界" : "Current Limitations"}
-          title={zh ? "当前限制" : "Current limitations"}
-          subtitle={zh ? "风险区直接显示当前统计学风险、标签规模需求和非最终推荐边界。" : "The risk area directly shows statistical risk, label-scale need, and not-final recommendation boundary."}
-          t={t}
-          isMobile={isMobile}
-        />
-        <ul style={{ margin: 0, padding: 0, display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>
-          {limitations.map(item => <LimitationItem key={item.title} item={item} t={t} lang={lang} />)}
-        </ul>
-      </section>
-
-      <section data-testid="home-quick-start" style={{ ...panelStyle, padding: isMobile ? "22px 18px" : "30px 34px", display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", gap: 18, alignItems: "center", marginBottom: isMobile ? 4 : 10 }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, textTransform: "uppercase", letterSpacing: 0, marginBottom: 8 }}>
-            {zh ? "快速开始" : "Quick Start"}
-          </div>
-          <h2 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 24 : 32, lineHeight: 1.15, fontWeight: 950, letterSpacing: 0 }}>
-            {zh ? "选择研究入口" : "Choose a research entry point"}
-          </h2>
-          <p style={{ margin: "9px 0 0", color: t.muted, fontSize: 13.5, lineHeight: 1.65, maxWidth: 760 }}>
-            {zh ? "从生态筛选、气体分离、有机酸、候选库或验证中心进入完整工作流。" : "Start from EcoScreen, GasSep, Organic Acid, the MOF library, or the validation center."}
-          </p>
-        </div>
-        <div data-testid="home-quick-start-buttons" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: isNarrow ? "flex-start" : "flex-end" }}>
-          {quickStart.map(cta => (
-            <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
-              {cta.label}
-            </ActionButton>
-          ))}
-        </div>
-      </section>
+      <StoryTransition index={5} label={zh ? "从验证结论到研究行动" : "From validation evidence to research action"} t={t} />
+      <ResearchGatewayStage
+        t={t}
+        lang={lang}
+        modules={moduleCapabilities}
+        limitations={limitations}
+        quickStart={quickStart}
+        isMobile={isMobile}
+        onNavigate={navigateHash}
+      />
     </div>
   )
 }

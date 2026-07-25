@@ -8,6 +8,7 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const center = screen.getByTestId("project-evolution-app-release")
     // newest release leads; the selector still offers v1.0.0
+    expect(within(center).getAllByText(/App v1\.0\.4/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.3/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.2/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/App v1\.0\.1/).length).toBeGreaterThan(0)
@@ -40,10 +41,11 @@ describe("Unified Release Center", () => {
   it("archives the concrete patch developer log with the current App release", () => {
     render(<ProjectEvolutionTab data={data} />)
     const log = screen.getByTestId("project-evolution-developer-log")
-    expect(log.textContent).toMatch(/Developer Log · v1\.0\.3/)
-    expect(log.textContent).toMatch(/v1\.0\.2/)
+    expect(log.textContent).toMatch(/Developer Log · v1\.0\.4/)
+    expect(log.textContent).toMatch(/v1\.0\.3/)
     expect(log.textContent).toMatch(/archived/)
-    expect(log.textContent).toMatch(/Information Architecture & Navigation/)
+    expect(log.textContent).toMatch(/Home/)
+    expect(log.textContent).toMatch(/Pareto/)
     expect(log.textContent).not.toMatch(/Next Release Preview|pending release/)
   })
 })

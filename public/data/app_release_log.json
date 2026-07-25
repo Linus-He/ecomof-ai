@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.3",
+  "currentAppVersion": "v1.0.4",
   "generatedAt": "2026-07-25",
   "authority": "Single unified EcoMOF-AI App release log. One App version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
@@ -9,6 +9,62 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
+    "baseAppVersion": "v1.0.3",
+    "developmentVersion": "v1.0.4",
+    "recordedAt": "2026-07-25",
+    "status": "archived",
+    "statusLabel": {
+      "zh": "已归档",
+      "en": "archived"
+    },
+    "logPolicy": {
+      "zh": "本次首页重构已在提交时归档为 v1.0.4；日志只记录实际完成并通过检查的开发项。",
+      "en": "This homepage rebuild is archived as v1.0.4 at submission; the log contains only completed work that passed automated checks."
+    },
+    "releaseBoundary": {
+      "zh": "不改变候选数据、MOF 排名算法、Organic Acid 底层评分或 GasSep 原始记录；本轮只重构首页科学叙事、交互编排和视觉系统。自动测试、类型检查与生产构建已通过；浏览器截图对照因本地预览安全策略受阻，未标记为视觉验收通过。",
+      "en": "Does not change candidate data, MOF ranking algorithms, Organic Acid base scores, or raw GasSep records; this release only rebuilds homepage scientific narrative, interaction orchestration, and visual system. Automated tests, type checks, and production build passed; browser screenshot comparison was blocked by local-preview security policy and is not marked as visually approved."
+    },
+    "modules": {
+      "home": {
+        "label": {
+          "zh": "首页",
+          "en": "Home"
+        },
+        "summary": {
+          "zh": "将首页整合为从数据、描述符、性能到验证与研究行动的连续科学叙事。",
+          "en": "Rebuilds the homepage as a continuous scientific narrative from data and descriptors through performance, validation, and research action."
+        },
+        "changes": [
+          {
+            "zh": "首屏右侧由轨道式模块示意图改为可切换的多目标方程系统，以 Pareto 目标统一表达 LCA、LCC、任务性能与不确定度，并保留真实结构记录、气体分离点、实验标签和可信度指标。",
+            "en": "Replaces the orbit-style hero diagram with a switchable multi-objective equation system that expresses LCA, LCC, task performance, and uncertainty as a Pareto objective while retaining real structure, gas-separation, experimental-label, and credibility metrics."
+          },
+          {
+            "zh": "真实数据探索层改为左侧条件分布、Pearson 相关方程和动态变量解释，右侧保留金属筛选、描述符切换、统计分布、相关矩阵和摘要联动。",
+            "en": "Reframes the real-data explorer with conditional-distribution and Pearson-correlation equations plus dynamic variables on the left while retaining metal filters, descriptor switching, distributions, correlation matrix, and linked summaries on the right."
+          },
+          {
+            "zh": "气体分离模块改为左侧工作容量与严格非支配集合定义、右侧真实 Pareto 散点图；气对切换、证据等级、提示框、前沿线和样本统计继续由原始记录驱动。",
+            "en": "Reframes gas separation with working-capacity and strict non-dominance definitions on the left and the real Pareto scatter on the right; gas-pair switching, evidence grade, tooltips, frontier, and sample statistics remain source-record driven."
+          },
+          {
+            "zh": "白盒验证区由静态步骤列表改为可交互验证方程链，贯通规则筛选、证据修正、敏感性、实验标签与 Benchmark，并显示当前真实标签、外部测试和可信度状态。",
+            "en": "Replaces the static validation step list with an interactive equation chain spanning rule screening, evidence correction, sensitivity, experimental labels, and Benchmark while exposing current label, external-test, and credibility status."
+          },
+          {
+            "zh": "将重复的模块能力、研究场景、当前限制和快捷入口整合为一个研究路径工作台，统一 EcoScreen、GasSep、Organic Acid、MOF Library 与验证中心的输入、输出、证据边界和入口。",
+            "en": "Combines overlapping module capabilities, research scenarios, current limitations, and quick-start entries into one research-route workbench covering the inputs, outputs, evidence boundaries, and entry points for EcoScreen, GasSep, Organic Acid, MOF Library, and Validation Center."
+          },
+          {
+            "zh": "新增 01–05 叙事衔接，形成数据源—描述符空间—统计结构—任务性能—验证证据—研究行动的逻辑顺序；全套新界面同步适配浅色、深色、移动端和减少动画偏好。",
+            "en": "Adds 01–05 narrative transitions from source data through descriptor space, statistical structure, task performance, validation evidence, and research action; all new surfaces support light, dark, mobile, and reduced-motion modes."
+          }
+        ]
+      }
+    }
+  },
+  "previousDevelopmentLog": {
     "baseAppVersion": "v1.0.2",
     "developmentVersion": "v1.0.3",
     "recordedAt": "2026-07-25",
@@ -339,6 +395,49 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.4",
+      "date": "2026-07-25",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.4：首页科学叙事、方程界面与研究路径整合。",
+        "en": "v1.0.4: homepage scientific narrative, equation interface, and research-route integration."
+      },
+      "summary": {
+        "zh": "将首页重构为从真实数据、描述符与统计结构，到任务性能、白盒验证和研究行动的连续工作流；原有数据来源、筛选交互和证据边界保持不变，并完成深浅色、移动端和减少动画适配。",
+        "en": "Rebuilds the homepage as a continuous workflow from real data, descriptors, and statistical structure through task performance, white-box validation, and research action while preserving source data, screening interactions, and evidence boundaries with light/dark, mobile, and reduced-motion support."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "成熟方程主视觉、三组双栏科学展板、交互验证链与统一研究入口。",
+            "en": "A mature equation hero, three two-column scientific stages, an interactive validation chain, and a unified research entry."
+          },
+          "changes": [
+            {
+              "zh": "首屏轨道图替换为可切换的 Pareto 多目标方程系统，统一呈现 LCA、LCC、任务性能与不确定度。",
+              "en": "Replaces the hero orbit graphic with a switchable Pareto multi-objective equation system spanning LCA, LCC, task performance, and uncertainty."
+            },
+            {
+              "zh": "真实数据探索、气体分离和白盒验证统一采用左侧公式与变量、右侧大面积交互图或验证链的科研展板结构。",
+              "en": "Unifies real-data exploration, gas separation, and white-box validation as scientific stages with equations and variables on the left and large interactive visuals or validation chains on the right."
+            },
+            {
+              "zh": "Pareto 非支配集合采用包含严格改进条件的定义，避免等值点或候选自身被误判为支配关系。",
+              "en": "Uses a strict-improvement definition for Pareto non-dominance so equal points or the candidate itself cannot be misclassified as a dominating observation."
+            },
+            {
+              "zh": "模块能力、研究场景、当前限制和快捷入口合并为单一研究路径工作台，保留五个工作区的真实入口与状态。",
+              "en": "Combines module capabilities, research scenarios, current limitations, and quick-start actions into one research-route workbench while retaining real entries and states for all five workspaces."
+            },
+            {
+              "zh": "以 01–05 叙事衔接串联数据、描述符、性能、验证与研究行动，并同步适配浅色、深色、移动端和减少动画偏好。",
+              "en": "Connects data, descriptors, performance, validation, and research action with 01–05 narrative transitions and supports light, dark, mobile, and reduced-motion modes."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.3",
       "date": "2026-07-25",

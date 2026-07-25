@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { buildDescriptorScatterPoints } from "./MofDescriptor3DScatter"
+import { BlockFormula } from "../../shared"
 
 const EXPLORER_TARGET_COUNT = 2000
 
@@ -353,93 +354,163 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
   const [activeCell, setActiveCell] = useState(null)
   const model = useMemo(() => buildHomeExplorerModel(allRows, activeMetal, distributionMetric), [allRows, activeMetal, distributionMetric])
   const metalOptions = model.metalCounts.slice(0, isMobile ? 8 : 12)
+  const strongestPair = buildCorrelationPairs(model.correlations)[0]
+  const metricConfig = METRIC_CONFIG[distributionMetric]
   if (!allRows.length) return null
 
   return (
-    <section data-testid="home-data-explorer" style={{ display: "grid", gap: 12, minWidth: 0 }}>
-      <header style={{ alignItems: "end", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ color: t.accentText, fontSize: 11, fontWeight: 850, letterSpacing: 0, marginBottom: 5, textTransform: "uppercase" }}>
-            {zh ? "真实数据探索层" : "Real-data explorer"}
-          </div>
-          <h3 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, fontWeight: 900, lineHeight: 1.24, margin: 0 }}>
-            {zh ? "分布、金属筛选与描述符相关性" : "Distribution, metal filtering, and descriptor correlation"}
-          </h3>
-          <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: "7px 0 0", maxWidth: 820 }}>
-            {zh
-              ? `所有图表均由 ${allRows.length} 条具备完整结构描述符的 CoRE/QMOF 记录动态派生；点击金属或区间会联动筛选与解释。`
-              : `All charts are dynamically derived from ${allRows.length} CoRE/QMOF records with complete structural descriptors; click metals or bins to update the linked view.`}
-          </p>
+    <section
+      data-testid="home-data-explorer"
+      className="scientific-story-stage explorer-story-stage"
+      style={{
+        "--science-accent": t.accentText,
+        "--science-border": t.border,
+        "--science-divider": t.divider || t.border,
+        "--science-faint": t.faint,
+        "--science-muted": t.muted,
+        "--science-panel": t.panel,
+        "--science-surface": t.surface,
+        "--science-text": t.textStrong,
+        boxShadow: t.shadowSm,
+      }}
+    >
+      <div className="scientific-story-copy">
+        <div className="scientific-story-eyebrow">{zh ? "真实数据探索 / 条件分布" : "Real-data explorer / conditional distribution"}</div>
+        <h3>{zh ? "分布、金属筛选与描述符相关性" : "Distribution, metal filters, and descriptor correlation"}</h3>
+        <p className="scientific-story-lede">
+          {zh
+            ? `所有图表均由 ${allRows.length} 条具备完整结构描述符的 CoRE/QMOF 记录动态派生；金属与区间筛选直接改变分布和相关矩阵。`
+            : `All charts are dynamically derived from ${allRows.length} CoRE/QMOF records with complete structural descriptors; metal and bin filters directly update the distribution and correlation matrix.`}
+        </p>
+        <div className="scientific-equation-block">
+          <span>{zh ? "条件直方图" : "CONDITIONAL HISTOGRAM"}</span>
+          <BlockFormula
+            math={String.raw`h_b(m)=\sum_{i\in\mathcal{M}_m}\mathbb{1}\!\left(e_{b-1}\le x_i<e_b\right)`}
+            fallback="h_b(m) = Σ 1(e_b−1 ≤ x_i < e_b)"
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0 }}
+          />
+          <BlockFormula
+            math={String.raw`r_{jk}=\frac{\sum_i(x_{ij}-\bar{x}_j)(x_{ik}-\bar{x}_k)}{\sqrt{\sum_i(x_{ij}-\bar{x}_j)^2\sum_i(x_{ik}-\bar{x}_k)^2}}`}
+            fallback="Pearson r_jk = cov(x_j, x_k) / (σ_j σ_k)"
+            t={t}
+            style={{ background: "transparent", border: 0, borderRadius: 0, padding: 0, marginTop: 10 }}
+          />
+          <p>{zh ? "同一筛选子集同时驱动频数统计、描述符摘要与 Pearson r。" : "The same filtered subset drives counts, descriptor summaries, and Pearson r."}</p>
         </div>
-        <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 999, color: t.accentText, fontSize: 10.5, fontWeight: 850, padding: "4px 10px" }}>
-          {activeMetal === "all" ? (zh ? "全部金属" : "All metals") : `${activeMetal} · ${model.selectedMetalCount}`}
-        </span>
-      </header>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <button type="button" onClick={() => setActiveMetal("all")} style={{ background: activeMetal === "all" ? t.badgeInfoBg : t.surface, border: `1px solid ${activeMetal === "all" ? t.accent : t.border}`, borderRadius: 999, color: activeMetal === "all" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.3, fontWeight: 850, minHeight: 31, padding: "6px 10px" }}>
-          {zh ? "全部" : "All"} · {allRows.length}
-        </button>
-        {metalOptions.map(item => (
-          <button key={item.metal} type="button" onClick={() => setActiveMetal(item.metal)} style={{ background: activeMetal === item.metal ? t.badgeInfoBg : t.surface, border: `1px solid ${activeMetal === item.metal ? t.accent : t.border}`, borderRadius: 999, color: activeMetal === item.metal ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.3, fontWeight: 850, minHeight: 31, padding: "6px 10px" }}>
-            {item.metal} · {item.count}
-          </button>
-        ))}
+        <div className="scientific-variable-list">
+          <div>
+            <strong className="formula">𝓜ₘ</strong>
+            <span>{zh ? "当前金属子集" : "Active metal subset"}</span>
+            <small className="num">{activeMetal === "all" ? (zh ? "全部" : "all") : activeMetal} · {model.selectedMetalCount}</small>
+          </div>
+          <div>
+            <strong className="formula">xᵢ</strong>
+            <span>{label(distributionMetric, lang)}</span>
+            <small>{metricConfig.unit || (zh ? "无量纲" : "dimensionless")}</small>
+          </div>
+          <div>
+            <strong className="formula">rⱼₖ</strong>
+            <span>{zh ? "最强非对角相关" : "Strongest off-diagonal correlation"}</span>
+            <small className="num">{strongestPair?.value == null ? "NA" : strongestPair.value.toFixed(2)}</small>
+          </div>
+          <div>
+            <strong className="formula">n</strong>
+            <span>{zh ? "当前可计算样本" : "Current computable rows"}</span>
+            <small className="num">{model.selectedMetalCount}</small>
+          </div>
+        </div>
+        <div className="scientific-story-source">
+          <span>{zh ? "数据与交互" : "DATA & INTERACTION"}</span>
+          <p>{zh ? "点击金属、指标、直方图区间或相关单元格，右侧所有解释保持同步。" : "Click a metal, metric, histogram bin, or correlation cell; every explanation on the right stays synchronized."}</p>
+        </div>
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        {METRIC_KEYS.map(metric => {
-          const active = distributionMetric === metric
-          return (
-            <button key={metric} type="button" onClick={() => { setDistributionMetric(metric); setActiveBin(null) }} style={{ background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 999, color: active ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.3, fontWeight: 850, minHeight: 31, padding: "6px 10px" }}>
-              {label(metric, lang)}
+      <div className="scientific-story-visual explorer-story-visual">
+        <div className="scientific-story-metric">
+          <span>{activeMetal === "all" ? (zh ? "ACTIVE SET" : "ACTIVE SET") : activeMetal}</span>
+          <strong className="num">{model.selectedMetalCount}</strong>
+          <small>{zh ? `→ ${model.metalCounts.length} 个金属类别` : `→ ${model.metalCounts.length} metal classes`}</small>
+        </div>
+        <header className="explorer-visual-header">
+          <div>
+            <span>{zh ? "条件统计视图" : "CONDITIONAL STATISTICAL VIEW"}</span>
+            <strong>{label(distributionMetric, lang)} · {activeMetal === "all" ? (zh ? "全部金属" : "All metals") : activeMetal}</strong>
+          </div>
+          <small>{zh ? "筛选会联动全部图表" : "Filters update every chart"}</small>
+        </header>
+
+        <div className="explorer-control-group">
+          <span>{zh ? "金属节点" : "METAL NODE"}</span>
+          <div>
+            <button type="button" onClick={() => setActiveMetal("all")} data-active={activeMetal === "all" ? "true" : "false"} style={{ "--control-accent": t.accentText, "--control-bg": t.badgeInfoBg, "--control-border": t.border, "--control-muted": t.muted, "--control-surface": t.surface }}>
+              {zh ? "全部" : "All"} · {allRows.length}
             </button>
-          )
-        })}
-      </div>
+            {metalOptions.map(item => (
+              <button key={item.metal} type="button" onClick={() => setActiveMetal(item.metal)} data-active={activeMetal === item.metal ? "true" : "false"} style={{ "--control-accent": t.accentText, "--control-bg": t.badgeInfoBg, "--control-border": t.border, "--control-muted": t.muted, "--control-surface": t.surface }}>
+                {item.metal} · {item.count}
+              </button>
+            ))}
+          </div>
+        </div>
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1.08fr) minmax(280px, 0.92fr)" }}>
-        <ChartShell
-          title={zh ? "统计分布" : "Statistical distribution"}
-          subtitle={zh ? "按当前金属筛选后重建直方图；点击柱子锁定区间。" : "Histogram rebuilds after the current metal filter; click a bar to lock the bin."}
-          badge={`${model.selectedMetalCount} rows`}
-          t={t}
-        >
-          <HistogramChart model={model} metric={distributionMetric} activeBin={activeBin} setActiveBin={setActiveBin} t={t} lang={lang} isMobile={isMobile} />
-        </ChartShell>
+        <div className="explorer-control-group">
+          <span>{zh ? "描述符" : "DESCRIPTOR"}</span>
+          <div>
+            {METRIC_KEYS.map(metric => {
+              const active = distributionMetric === metric
+              return (
+                <button key={metric} type="button" onClick={() => { setDistributionMetric(metric); setActiveBin(null) }} data-active={active ? "true" : "false"} style={{ "--control-accent": t.accentText, "--control-bg": t.badgeInfoBg, "--control-border": t.border, "--control-muted": t.muted, "--control-surface": t.surface }}>
+                  {label(metric, lang)}
+                </button>
+              )
+            })}
+          </div>
+        </div>
 
-        <ChartShell
-          title={zh ? "金属筛选" : "Metal filter"}
-          subtitle={zh ? "柱高来自可绘制结构记录数；点击柱子切换金属子集。" : "Bar height is the plottable structure-record count; click a bar to filter the subset."}
-          badge={`${model.metalCounts.length} metals`}
-          t={t}
-        >
-          <MetalFilterChart model={model} activeMetal={activeMetal} setActiveMetal={setActiveMetal} t={t} lang={lang} isMobile={isMobile} />
-        </ChartShell>
-      </div>
+        <div className="explorer-primary-grid">
+          <ChartShell
+            title={zh ? "统计分布" : "Statistical distribution"}
+            subtitle={zh ? "点击柱子锁定区间。" : "Click a bar to lock the bin."}
+            badge={`${model.selectedMetalCount} rows`}
+            t={t}
+          >
+            <HistogramChart model={model} metric={distributionMetric} activeBin={activeBin} setActiveBin={setActiveBin} t={t} lang={lang} isMobile={isMobile} />
+          </ChartShell>
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "minmax(320px, 0.78fr) minmax(0, 1fr)" }}>
-        <ChartShell
-          title={zh ? "相关性图" : "Correlation map"}
-          subtitle={zh ? "Pearson r 基于当前筛选行实时计算；色阶表示正/负相关与强度，点击单元格查看样本数。" : "Pearson r is recomputed from the current filtered rows; color encodes sign and strength, and each cell exposes sample size."}
-          badge={activeMetal === "all" ? "global" : activeMetal}
-          t={t}
-        >
-          <CorrelationMatrix model={model} activeCell={activeCell} setActiveCell={setActiveCell} t={t} lang={lang} isMobile={isMobile} />
-        </ChartShell>
+          <ChartShell
+            title={zh ? "金属筛选" : "Metal filter"}
+            subtitle={zh ? "点击柱子切换金属子集。" : "Click a bar to switch the metal subset."}
+            badge={`${model.metalCounts.length} metals`}
+            t={t}
+          >
+            <MetalFilterChart model={model} activeMetal={activeMetal} setActiveMetal={setActiveMetal} t={t} lang={lang} isMobile={isMobile} />
+          </ChartShell>
+        </div>
 
-        <div style={{ alignContent: "start", display: "grid", gap: 8 }}>
-          {model.summaries.map(summary => {
-            const config = METRIC_CONFIG[summary.metric]
-            return (
-              <div key={summary.metric} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "150px repeat(3, minmax(0, 1fr))", minWidth: 0, padding: "9px 11px" }}>
-                <strong style={{ color: t.textStrong, fontSize: 12.2 }}>{label(summary.metric, lang)}</strong>
-                <span className="num" style={{ color: t.muted, fontSize: 11 }}>{zh ? "均值" : "mean"} {formatNumber(summary.mean, config.digits)} {config.unit}</span>
-                <span className="num" style={{ color: t.muted, fontSize: 11 }}>{zh ? "最小" : "min"} {formatNumber(summary.min, config.digits)}</span>
-                <span className="num" style={{ color: t.muted, fontSize: 11 }}>{zh ? "最大" : "max"} {formatNumber(summary.max, config.digits)}</span>
-              </div>
-            )
-          })}
+        <div className="explorer-secondary-grid">
+          <ChartShell
+            title={zh ? "相关性图" : "Correlation map"}
+            subtitle={zh ? "色阶表示正/负相关与强度；点击单元格查看样本数。" : "Color encodes sign and strength; click a cell for sample size."}
+            badge={activeMetal === "all" ? "global" : activeMetal}
+            t={t}
+          >
+            <CorrelationMatrix model={model} activeCell={activeCell} setActiveCell={setActiveCell} t={t} lang={lang} isMobile={isMobile} />
+          </ChartShell>
+
+          <div className="explorer-summary-list">
+            {model.summaries.map(summary => {
+              const config = METRIC_CONFIG[summary.metric]
+              return (
+                <div key={summary.metric} style={{ background: t.surface, borderColor: t.border }}>
+                  <strong>{label(summary.metric, lang)}</strong>
+                  <span className="num">{zh ? "均值" : "mean"} {formatNumber(summary.mean, config.digits)} {config.unit}</span>
+                  <span className="num">{zh ? "最小" : "min"} {formatNumber(summary.min, config.digits)}</span>
+                  <span className="num">{zh ? "最大" : "max"} {formatNumber(summary.max, config.digits)}</span>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

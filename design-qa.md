@@ -1,51 +1,69 @@
-# Product Design QA — Home Scientific Stage and Primary Navigation
+# Product Design QA — Homepage Scientific Narrative Refactor
 
 ## Scope
 
-- Existing EcoMOF-AI homepage, Chinese mode.
-- MOF descriptor 3D distribution redesigned from the supplied scientific-slide reference.
-- Desktop primary navigation centered independently with equal tab widths and equal gaps.
-- Light, dark, desktop, and mobile states retained without removing research content or chart interactions.
+- EcoMOF-AI homepage, Chinese-first content.
+- Replace the hero's orbit-style module illustration with a multi-objective scientific equation surface.
+- Reframe the real-data explorer, gas-separation Pareto view, and validation framework as consistent left-formula/right-visual research stages.
+- Merge repeated research-scenario, capability, limitation, and quick-start content into one research gateway.
+- Preserve light/dark adaptation, responsive behavior, chart interactions, source counts, and workspace navigation.
 
-## Visual source of truth
+## Source visual truth
 
-- Reference: `/Users/linushe/Downloads/截屏 2026-07-24 23.46.00.png`
-- Reference pixels: 2360 × 1068.
-- Intended fidelity surfaces: large scientific title, equation-led explanation, dark ink/coral visual language, left-copy/right-visual composition, and a large interactive graphic.
-- Intentional product adaptations: EcoMOF-AI typography and tokens remain intact; the reference's single theorem is replaced with the real MOF descriptor vector, normalization equation, variable definitions, real-data ranges, and the existing interactive 3D chart.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_h23Soj/截屏2026-07-25 01.27.12.png` — legacy descriptor statistics and metal-filter section.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_XI2Rvk/截屏2026-07-25 01.27.34.png` — legacy gas Pareto section.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_zz3SiV/截屏2026-07-25 01.27.46.png` — legacy validation framework.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_E7n0xG/截屏2026-07-25 01.28.15.png` — overlapping research routes, limitations, and quick-start areas.
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_f5my3P/截屏2026-07-25 01.28.25.png` — legacy orbit-style hero visual.
+- Style reference retained from the prior accepted homepage direction: left scientific explanation and equations, right large interactive visualization.
 
 ## Implementation evidence
 
-- Desktop light: `/Users/linushe/.codex/visualizations/2026/07/24/019f9454-6fcc-7bf1-ac04-57e3003c95e8/product-design-home-refresh/descriptor-light-final.png`
-- Desktop dark: `/Users/linushe/.codex/visualizations/2026/07/24/019f9454-6fcc-7bf1-ac04-57e3003c95e8/product-design-home-refresh/descriptor-dark-final.png`
-- Mobile light: `/Users/linushe/.codex/visualizations/2026/07/24/019f9454-6fcc-7bf1-ac04-57e3003c95e8/product-design-home-refresh/descriptor-light-mobile-card.png`
-- Navigation: `/Users/linushe/.codex/visualizations/2026/07/24/019f9454-6fcc-7bf1-ac04-57e3003c95e8/product-design-home-refresh/navigation-rail-after.png`
-- Combined reference/implementation comparison: `/Users/linushe/.codex/visualizations/2026/07/24/019f9454-6fcc-7bf1-ac04-57e3003c95e8/product-design-home-refresh/descriptor-reference-vs-final.png`
-- Desktop browser viewport: 1280 × 720; browser screenshot capture: 1037 × 717.
-- Mobile browser viewport: 390 × 844.
+- Intended implementation URL: `http://127.0.0.1:4174/ecomof-ai/`.
+- Requested desktop comparison viewport: 1440 × 1000 CSS px, device scale factor 1.
+- Implementation screenshot path: unavailable.
+- Source/implementation density normalization: not performed because the implementation capture was blocked before navigation.
+- State intended for comparison: desktop Chinese light mode, then dark mode and narrow responsive state.
+- Automated evidence completed:
+  - homepage-focused tests: 12 passed;
+  - TypeScript check: passed;
+  - production build: passed;
+  - whitespace/error-marker check: passed.
 
-## Comparison findings and corrections
+## Full-view comparison evidence
 
-1. The first dark-only composition did not establish an equally intentional light mode. A theme-luminance branch now adapts the full scientific stage: canvas, copy, equation, frame, axes, controls, legend, and emphasis colors.
-2. The first desktop chart inspection showed the surface-area axis title too close to the right edge. Its label offset was moved inward and the final combined comparison confirms it remains readable.
-3. The original navigation was visually shifted by unequal brand and utility areas, with inconsistent tab widths. The navigation now occupies an independent 760 px centered rail inside symmetric side constraints.
-4. Runtime geometry at a 1440 px browser width measured all seven primary tabs at approximately 103.43 px and every adjacent center distance at 109.43 px, with a consistent 6 px gap.
-5. At 390 × 844, the scientific stage stacks to one column. Body scroll width and client width both measured 384 px, so no horizontal overflow remains.
+Blocked. The Codex in-app browser rejected navigation to the local preview address under its browser security policy. No implementation screenshot was captured, so the full homepage composition, vertical transitions, and final rendered density cannot be compared honestly against the supplied screenshots.
 
-## Interaction and state checks
+## Focused-region comparison evidence
 
-- Existing chart drag/rotation, wheel or tap zoom, point hover, and coloring controls remain wired.
-- Switching from metal-node coloring to `dataGrade` visibly updates the active control.
-- Theme control switches the scientific stage between explicit light and dark color schemes.
-- The `#home-descriptor-3d` anchor resolves to the redesigned section.
-- Desktop navigation retains seven routes; below 1180 px it becomes a horizontally scrollable row and centers the active tab.
-- Browser console errors observed during the final light/dark and interaction pass: 0.
+Blocked for the same reason. The following required regions still need rendered inspection:
 
-## Severity review
+- hero equation surface and four model tabs;
+- descriptor explorer formula column and linked chart grid;
+- gas Pareto formula column, pair tabs, chart, tooltip, and legend;
+- validation equation column and five-node interactive chain;
+- integrated research gateway, evidence boundary, and quick-start controls;
+- light, dark, and narrow responsive states.
 
-- P0 blockers: none.
-- P1 major fidelity or interaction issues: none.
-- P2 visible layout or clipping issues: none after correction.
-- P3 polish notes: none remaining in the checked states.
+## Findings
 
-final result: passed
+- [Blocked] Browser-rendered visual evidence is unavailable.
+  - Location: entire homepage.
+  - Evidence: local preview navigation was rejected before the page loaded.
+  - Impact: typography, formula wrapping, chart density, section rhythm, dark-mode contrast, and responsive overflow cannot receive a valid visual pass.
+  - Required fix: open the current local implementation in an allowed browser surface or publish a temporary review build, then capture the same states and complete the comparison loop.
+
+## Comparison history
+
+- Pass 1: source screenshots opened and inspected; implementation was built and automated checks passed.
+- Pass 1 blocker: local browser navigation rejected; no visual fixes can be claimed from rendered evidence.
+
+## Required fidelity surfaces
+
+- Fonts and typography: code-level hierarchy and KaTeX integration completed; rendered fidelity not verified.
+- Spacing and layout rhythm: shared stage and transition system implemented; rendered fidelity not verified.
+- Colors and visual tokens: all new surfaces use semantic theme tokens for light/dark adaptation; rendered contrast not verified.
+- Image quality and asset fidelity: the low-age orbit illustration was removed; no replacement raster asset is required because the new hero is a live equation interface. Rendered fidelity not verified.
+- Copy and content: source counts, warnings, routes, formulas, and interaction labels remain present; automated tests passed.
+
+final result: blocked

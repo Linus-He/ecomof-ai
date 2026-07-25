@@ -3,6 +3,7 @@ import React from "react"
 import { describe, expect, it } from "vitest"
 import { render, screen, within } from "@testing-library/react"
 import data from "../../../public/data/version_evolution_records.json"
+import releaseLog from "../../../public/data/app_release_log.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
 
 describe("versionTimelineDynamic", () => {
@@ -15,11 +16,10 @@ describe("versionTimelineDynamic", () => {
 
     const projectUpdates = screen.getByTestId("project-evolution-release-notes")
     expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toMatch(/Module updates for App v1\.0\.3 come from the unified release record/)
-    expect(projectUpdates.textContent).toMatch(/UI & Experience/)
-    expect(projectUpdates.textContent).toMatch(/EcoScreen/)
-    expect(projectUpdates.textContent).toMatch(/Methods & Evidence/)
-    expect(projectUpdates.textContent).toMatch(/Project Evolution/)
+    expect(projectUpdates.textContent).toContain(`Module updates for App ${releaseLog.currentAppVersion} come from the unified release record`)
+    for (const moduleKey of Object.keys(releaseLog.releases[0].modules)) {
+      expect(projectUpdates.textContent).toContain(releaseLog.moduleCatalog[moduleKey].label.en)
+    }
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.10\.1/)

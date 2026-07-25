@@ -3,13 +3,22 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current App version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.3")
+    expect(log.currentAppVersion).toBe("v1.0.4")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.3")
+    expect(log.releases[0].appVersion).toBe("v1.0.4")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
     expect(log.authority).toMatch(/single unified/i)
+  })
+
+  it("v1.0.4 archives the homepage scientific narrative and integrated research routes", () => {
+    const release = log.releases.find(row => row.appVersion === "v1.0.4")
+    expect(Object.keys(release.modules)).toEqual(["ui"])
+    expect(JSON.stringify(release.modules.ui)).toMatch(/Pareto|多目标/)
+    expect(JSON.stringify(release.modules.ui)).toMatch(/严格改进|strict-improvement/)
+    expect(JSON.stringify(release.modules.ui)).toMatch(/研究路径|research-route/)
+    expect(JSON.stringify(release.modules.ui)).toMatch(/浅色|深色|light|dark/)
   })
 
   it("v1.0.3 archives the completed EcoScreen, Project Evolution, homepage, and navigation work", () => {
@@ -64,17 +73,14 @@ describe("app_release_log unified version source", () => {
   })
 
   it("records completed work in a concrete patch developer log without a release preview", () => {
-    expect(log.currentAppVersion).toBe("v1.0.3")
-    expect(log.developmentLog.baseAppVersion).toBe("v1.0.2")
-    expect(log.developmentLog.developmentVersion).toBe("v1.0.3")
+    expect(log.currentAppVersion).toBe("v1.0.4")
+    expect(log.developmentLog.baseAppVersion).toBe("v1.0.3")
+    expect(log.developmentLog.developmentVersion).toBe("v1.0.4")
     expect(log.developmentLog.status).toBe("archived")
     expect(log.developmentLog.logPolicy.zh).toMatch(/实际完成并通过检查/)
-    expect(Object.keys(log.developmentLog.modules)).toEqual(expect.arrayContaining(["home", "ecoscreen", "methodsEvidence", "projectEvolution", "navigation", "localization"]))
-    expect(JSON.stringify(log.developmentLog.modules.home)).toMatch(/方程|浅色模式|深色模式|移动端/)
-    expect(JSON.stringify(log.developmentLog.modules.navigation)).toMatch(/760px|等宽网格|1180px/)
-    expect(JSON.stringify(log.developmentLog.modules.ecoscreen)).toMatch(/FAIR-MOFs|4,168|地域基线/)
-    expect(JSON.stringify(log.developmentLog.modules.methodsEvidence)).toMatch(/文献灵感来源|Literature Inspiration Sources/)
-    expect(JSON.stringify(log.developmentLog.modules.localization)).toMatch(/开发者文档|developer-documentation/)
+    expect(Object.keys(log.developmentLog.modules)).toEqual(["home"])
+    expect(JSON.stringify(log.developmentLog.modules.home)).toMatch(/Pareto|方程|浅色|深色|移动端/)
+    expect(JSON.stringify(log.developmentLog.modules.home)).toMatch(/研究路径|research-route/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

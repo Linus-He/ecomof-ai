@@ -27,7 +27,7 @@ describe("ProjectEvolutionTab", () => {
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Current App Version/)
-    expect(bodyText()).toMatch(/App v1\.0\.3/)
+    expect(bodyText()).toMatch(/App v1\.0\.4/)
     expect(bodyText()).toMatch(/Latest Module Data Version/)
     expect(bodyText()).toMatch(/V3\.10\.1/)
     expect(bodyText()).toMatch(/3462\+/)
@@ -39,7 +39,7 @@ describe("ProjectEvolutionTab", () => {
     expect(bodyText()).toMatch(/78\.87/)
     expect(bodyText()).toMatch(/High Overfitting Risk/)
     expect(screen.getByTestId("project-evolution-developer-log")).toBeInTheDocument()
-    expect(bodyText()).toMatch(/Developer Log · v1\.0\.3/)
+    expect(bodyText()).toMatch(/Developer Log · v1\.0\.4/)
     expect(bodyText()).toMatch(/archives them as one patch version at submission/)
     expect(bodyText()).not.toMatch(/Next Release Preview|pending release|assigned at release time/)
     expect(screen.getByTestId("project-evolution-localization")).toBeInTheDocument()
