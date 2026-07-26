@@ -567,6 +567,10 @@ async function deriveIast(records) {
     }
     const primary = Array.isArray(updated.isotherm) ? updated.isotherm : []
     const secondary = await fetchSecondaryIsotherm(updated, cache, report)
+    if (secondary.points) {
+      updated.secondaryIsotherm = secondary.points
+      updated.secondaryIsothermTemperatureK = updated.condition?.temperatureK ?? null
+    }
     if (primary.length < 3 || !secondary.points) {
       const reason = primary.length < 3 ? "need primary and secondary isotherms" : "need both isotherms"
       updated.iastStatus = `selectivity-unavailable (${reason})`
@@ -589,6 +593,7 @@ async function deriveIast(records) {
       continue
     }
     const value = result.value
+    const alreadyComputedIast = String(updated.dataGrade || updated.evidence?.dataGrade || "").toLowerCase() === "computed-iast"
     const originalDataGrade = updated.dataGrade || updated.evidence?.dataGrade || "unknown"
     updated.baseDataGrade = updated.baseDataGrade || originalDataGrade
     updated.dataGrade = "computed-IAST"
@@ -631,7 +636,10 @@ async function deriveIast(records) {
       confidence: source.confidence,
       hasIASTValidation: true,
       hasMixtureValidation: false,
-      dataCompleteness: Number(Math.min(1, (updated.evidence?.dataCompleteness || 0) + 0.18).toFixed(2)),
+      dataCompleteness: Number(Math.min(
+        1,
+        (updated.evidence?.dataCompleteness || 0) + (alreadyComputedIast ? 0 : 0.18),
+      ).toFixed(2)),
     }
     updated.whyRecommended = mergeUnique([
       ...(updated.whyRecommended || []).filter(item => !String(item).toLowerCase().includes("iast selectivity")),

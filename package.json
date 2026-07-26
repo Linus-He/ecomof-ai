@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:run": "vitest run",
     "validate:data": "node scripts/validate-reaction-rationale-data.mjs",
-    "visual:check": "node scripts/visual-checks.mjs"
+    "visual:check": "node scripts/visual-checks.mjs",
+    "visual:check:gassep": "node scripts/visual-check-gassep.mjs"
   },
   "dependencies": {
     "katex": "^0.16.45",

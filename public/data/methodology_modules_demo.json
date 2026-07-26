@@ -666,8 +666,8 @@
     "order": 4,
     "module": "GasSep",
     "moduleZh": "气体分离",
-    "summary": "GasSep treats selectivity and uptake as condition-bound records, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
-    "summaryZh": "GasSep 将选择性和吸附量视为绑定工况的记录，并用有文献依据的 Pareto/APS、APS×R%、CRITIC 与明确标记的历史 GasScore 模式排序。",
+    "summary": "GasSep treats uptake and selectivity as condition-bound records, explains adsorption with paired pure-component isotherms, Henry affinity, scenario IAST, and isosteric heat, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
+    "summaryZh": "GasSep 将吸附量和选择性视为绑定工况的记录，使用双组分纯气等温线、Henry 亲和、情景 IAST 与等量吸附热解释吸附结果，再用有文献依据的 Pareto/APS、APS×R%、CRITIC 与明确标记的历史 GasScore 模式排序。",
     "methodWorkflow": [
       {
         "label": "Gas system classification",
@@ -686,6 +686,12 @@
         "labelZh": "气体比例感知比较",
         "description": "Warn when records mix feed ratios or methods.",
         "descriptionZh": "当记录混合不同气体比例或方法时显示警告。"
+      },
+      {
+        "label": "Thermodynamic interpretation",
+        "labelZh": "热力学解释",
+        "description": "Use temperature-matched pure-component isotherms to distinguish low-pressure affinity, finite-pressure IAST competition, and isosteric heat.",
+        "descriptionZh": "使用同温纯组分等温线，区分低压亲和、有限压力 IAST 竞争与等量吸附热。"
       },
       {
         "label": "Method-backed ranking",
@@ -714,7 +720,9 @@
       "stability",
       "evidence level",
       "data type",
-      "source location"
+      "source location",
+      "paired pure-component isotherms",
+      "heat of adsorption provenance"
     ],
     "inputsZh": [
       "气体体系",
@@ -730,7 +738,9 @@
       "稳定性",
       "证据等级",
       "数据类型",
-      "来源位置"
+      "来源位置",
+      "成对纯组分等温线",
+      "吸附热来源"
     ],
     "outputs": [
       "method-specific ranking",
@@ -741,6 +751,11 @@
       "radar profile",
       "heatmap",
       "why-this-MOF explanation",
+      "thermodynamic interpretation",
+      "paired-isotherm plot",
+      "scenario IAST status",
+      "Henry affinity ratio",
+      "isosteric heat status",
       "validation roadmap"
     ],
     "outputsZh": [
@@ -752,6 +767,11 @@
       "雷达图",
       "热力图",
       "排序解释",
+      "热力学解释",
+      "双组分等温线图",
+      "情景 IAST 状态",
+      "Henry 亲和比",
+      "等量吸附热状态",
       "验证路线"
     ],
     "visualizations": [
@@ -775,18 +795,27 @@
         "description": "Shows multi-metric candidate profiles without replacing missing values with zero.",
         "descriptionZh": "展示多指标画像，缺失值显示 pending，不用 0 冒充。",
         "chartType": "radar"
+      },
+      {
+        "title": "Paired isotherm and thermodynamic interpretation",
+        "titleZh": "双组分等温线与热力学解释",
+        "description": "Shows both pure-component curves when source points exist, binds scenario IAST to feed/temperature/pressure, and keeps Qst provenance visible.",
+        "descriptionZh": "当来源点存在时同时显示两条纯组分曲线，把情景 IAST 绑定到进料比例、温度和压力，并显示 Qst 来源。",
+        "chartType": "line"
       }
     ],
     "evidenceBoundary": [
       "Gas Adsorption Data Layer v1 records are structured seed fixtures for UI, schema, and field-provenance validation.",
       "experimental, literature, simulation, predicted, rule-based, demo, and needs validation labels must not be treated as interchangeable evidence.",
       "Legacy GasScore is a candidate-priority heuristic only; default ranking should prefer Pareto/APS, APS×R%, or CRITIC with method boundaries.",
+      "Isotherm fitting, Henry affinity, IAST, and Clausius-Clapeyron Qst are derived interpretations and must not be presented as primary mixture or breakthrough data.",
       "All ranking modes must be followed by adsorption simulation, stability checks, experiments, and process assessment."
     ],
     "evidenceBoundaryZh": [
       "Gas Adsorption Data Layer v1 记录是用于界面、schema 和字段级溯源验证的结构化种子数据。",
       "实验数据、文献数据、模拟数据、预测数据、规则推断、演示数据和待验证标签不能混作同等证据。",
       "历史 GasScore 只是候选优先级启发式；默认排序应优先使用 Pareto/APS、APS×R% 或 CRITIC，并显示方法边界。",
+      "等温线拟合、Henry 亲和、IAST 与 Clausius-Clapeyron Qst 都是派生解释，不能呈现为原始混合气或穿透数据。",
       "所有排序模式都必须接续吸附模拟、稳定性检查、实验验证和过程级评估。"
     ],
     "validationRoadmap": [
@@ -962,6 +991,42 @@
             "fallback": "Comparable = same(gasSystem, feedRatio, T, P, method)",
             "explanation": "Direct ranking is allowed only when the full condition key matches.",
             "explanationZh": "只有完整条件键一致时才允许直接排名。"
+          },
+          {
+            "id": "gassep-source-selectivity",
+            "label": "Source-reported selectivity",
+            "labelZh": "来源记录选择性",
+            "latex": "S_{A/B}^{(r)}=S_{source}(\\kappa_r)",
+            "fallback": "S_A/B^(r) = S_source(record conditions)",
+            "explanation": "The source definition and condition key are retained; the interface does not silently replace it with another selectivity principle.",
+            "explanationZh": "保留来源定义与工况键；界面不会静默换成另一种选择性原理。"
+          },
+          {
+            "id": "gassep-source-iast",
+            "label": "Source-reported IAST",
+            "labelZh": "来源记录 IAST",
+            "latex": "S_{A/B}^{IAST,(r)}=S_{source}^{IAST}(\\kappa_r)",
+            "fallback": "S_A/B^IAST,(r) = source-reported IAST at record conditions",
+            "explanation": "A source-labelled IAST value is not recomputed unless the paired raw isotherms are available.",
+            "explanationZh": "来源标记的 IAST 只有在成对原始等温线可用时才重新计算。"
+          },
+          {
+            "id": "gassep-uptake-ratio-proxy",
+            "label": "Single-point uptake-ratio proxy",
+            "labelZh": "单点吸附比代理",
+            "latex": "S_{A/B}^{proxy}=\\frac{q_A(P,T)}{q_B(P,T)}",
+            "fallback": "S_A/B^proxy = q_A(P,T) / q_B(P,T)",
+            "explanation": "This proxy is used only when the source explicitly defines a same-condition uptake ratio; it is not IAST.",
+            "explanationZh": "仅当来源明确给出同工况吸附量比时使用该代理；它不是 IAST。"
+          },
+          {
+            "id": "gassep-predicted-selectivity",
+            "label": "Model-predicted selectivity",
+            "labelZh": "模型预测选择性",
+            "latex": "\\widehat{S}_{A/B}=f_{\\theta}(d_m,\\kappa_r)",
+            "fallback": "predicted S_A/B = f_theta(material descriptors, record conditions)",
+            "explanation": "Predicted selectivity is identified as a model output and is not displayed as a thermodynamic equation or measurement.",
+            "explanationZh": "预测选择性明确标记为模型输出，不显示成热力学方程或测量值。"
           }
         ],
         "inputs": [
@@ -1004,6 +1069,195 @@
         ],
         "limitationsZh": [
           "不同气体比例、温度、压力或方法的数据不能混合作为严格排名。"
+        ]
+      },
+      {
+        "id": "gassep-thermodynamic-interpretation",
+        "title": "Adsorption thermodynamic interpretation",
+        "titleZh": "吸附热力学解释",
+        "purpose": "Explain why a selected material shows its current adsorption result without turning fitted or derived quantities into primary measurements.",
+        "purposeZh": "解释选中材料为何出现当前吸附结果，同时避免把拟合量或派生量写成原始测量。",
+        "algorithmSteps": [
+          {
+            "label": "Resolve paired pure-component isotherms",
+            "labelZh": "解析成对纯组分等温线",
+            "description": "Match the primary and secondary gas by material identity, source isotherm id, publication DOI, and temperature. Plot both curves only when source points are available.",
+            "descriptionZh": "按材料实体、来源等温线 ID、论文 DOI 与温度匹配主气和副气；只有来源点存在时才绘制两条曲线。"
+          },
+          {
+            "label": "Estimate low-pressure affinity",
+            "labelZh": "估计低压亲和",
+            "description": "Fit each pure-component isotherm and calculate the zero-pressure slope only for models with a finite Henry limit.",
+            "descriptionZh": "分别拟合纯组分等温线，并且只对具有有限 Henry 极限的模型计算零压斜率。"
+          },
+          {
+            "label": "Recalculate scenario IAST",
+            "labelZh": "重算情景 IAST",
+            "description": "Recalculate binary IAST only when both isotherms are temperature-matched, the mixture ratio is valid, the selected total pressure lies within their shared support, and the solved fictive pure-component pressures do not exceed the source-curve maxima.",
+            "descriptionZh": "仅在两条等温线同温、混合比例有效、所选总压位于共同数据范围内，且求解得到的虚拟纯组分压力不超过来源曲线最高压力时重算二元 IAST。"
+          },
+          {
+            "label": "Use source or same-publication Qst",
+            "labelZh": "使用来源或同文献 Qst",
+            "description": "Prefer a source-reported heat of adsorption. Otherwise require at least three temperatures for the same material, gas, and DOI, then regress ln(P) against 1/T at one overlapping loading.",
+            "descriptionZh": "优先使用来源报告的吸附热；否则要求同一材料、气体和 DOI 至少有三个温度，再在共同吸附量下回归 ln(P) 与 1/T。"
+          },
+          {
+            "label": "Separate equilibrium from process validation",
+            "labelZh": "区分平衡解释与过程验证",
+            "description": "Use Henry and IAST to explain equilibrium affinity and competition, but require breakthrough, humidity, and cycling data for process claims.",
+            "descriptionZh": "用 Henry 与 IAST 解释平衡亲和和竞争，但过程结论仍需要穿透、湿度和循环数据。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "gassep-henry-affinity",
+            "label": "Henry affinity",
+            "labelZh": "Henry 亲和",
+            "latex": "K_{H,i}=\\lim_{P_i\\to0}\\frac{q_i}{P_i}=\\left(\\frac{\\partial q_i}{\\partial P_i}\\right)_{T,P_i\\to0}",
+            "fallback": "K_H,i = lim(P_i→0) q_i/P_i = (∂q_i/∂P_i)_(T,P_i→0)",
+            "explanation": "The zero-pressure slope is a fitted low-pressure affinity indicator. It is not a mixture selectivity measurement.",
+            "explanationZh": "零压斜率是拟合得到的低压亲和指标，不是混合气选择性测量。"
+          },
+          {
+            "id": "gassep-henry-ratio",
+            "label": "Henry affinity ratio",
+            "labelZh": "Henry 亲和比",
+            "latex": "S_{H,A/B}=\\frac{K_{H,A}}{K_{H,B}}",
+            "fallback": "S_H,A/B = K_H,A / K_H,B",
+            "explanation": "The ratio compares zero-pressure affinity and must remain separate from finite-pressure IAST selectivity.",
+            "explanationZh": "该比值比较零压亲和，必须与有限压力 IAST 选择性分开。"
+          },
+          {
+            "id": "gassep-scenario-iast",
+            "label": "Scenario IAST selectivity",
+            "labelZh": "情景 IAST 选择性",
+            "latex": "S_{A/B}^{IAST}=\\frac{x_A/x_B}{y_A/y_B}=\\frac{x_A/y_A}{x_B/y_B}",
+            "fallback": "S_A/B^IAST = (x_A/x_B)/(y_A/y_B) = (x_A/y_A)/(x_B/y_B)",
+            "explanation": "x is the adsorbed-phase fraction and y is the gas-phase fraction at the selected total pressure and feed composition.",
+            "explanationZh": "x 为吸附相摩尔分数，y 为所选总压和进料组成下的气相摩尔分数。"
+          },
+          {
+            "id": "gassep-iast-equilibrium-constraints",
+            "label": "Binary IAST equilibrium constraints",
+            "labelZh": "二元 IAST 平衡约束",
+            "latex": "y_iP=x_iP_i^0,\\quad \\pi_A(P_A^0)=\\pi_B(P_B^0),\\quad \\sum_i x_i=1",
+            "fallback": "y_i P = x_i P_i^0; pi_A(P_A^0) = pi_B(P_B^0); sum(x_i) = 1",
+            "explanation": "The fictive pure-component pressures are solved from spreading-pressure equality. A scenario result is withheld when either solved pressure exceeds the corresponding source-curve maximum.",
+            "explanationZh": "虚拟纯组分压力由铺展压力相等条件求解；当任一求解压力超过相应来源曲线最高压力时，不输出该情景的 IAST 数值。"
+          },
+          {
+            "id": "gassep-isosteric-heat",
+            "label": "Isosteric heat from an isostere",
+            "labelZh": "由等量吸附线计算等量吸附热",
+            "latex": "Q_{st}\\approx-R\\left(\\frac{\\partial\\ln P}{\\partial(1/T)}\\right)_q",
+            "fallback": "Qst ≈ -R * d(ln P) / d(1/T) at fixed q",
+            "explanation": "The implementation uses pressure under an ideal-gas approximation and requires a common loading interval across at least three same-publication temperatures.",
+            "explanationZh": "当前实现采用理想气体近似下的压力，并要求同一文献至少三个温度在吸附量上存在共同区间。"
+          }
+        ],
+        "inputs": [
+          "selected MOF record",
+          "primary and secondary pure-component isotherms",
+          "source isotherm ids",
+          "publication DOI",
+          "feed ratio",
+          "temperature",
+          "total pressure",
+          "source-reported heat of adsorption"
+        ],
+        "inputsZh": [
+          "选中 MOF 记录",
+          "主气与副气纯组分等温线",
+          "来源等温线 ID",
+          "论文 DOI",
+          "进料比例",
+          "温度",
+          "总压",
+          "来源报告吸附热"
+        ],
+        "outputs": [
+          "paired-isotherm status",
+          "Henry affinity ratio",
+          "scenario IAST or unavailable reason",
+          "source-reported or Clausius-Clapeyron Qst",
+          "thermodynamic interpretation",
+          "validation gap"
+        ],
+        "outputsZh": [
+          "双等温线状态",
+          "Henry 亲和比",
+          "情景 IAST 或不可用原因",
+          "来源报告或 Clausius-Clapeyron Qst",
+          "热力学解释",
+          "验证缺口"
+        ],
+        "visualizations": [
+          {
+            "title": "Paired pure-component isotherms",
+            "titleZh": "成对纯组分等温线",
+            "description": "Shows both gases at the source temperature and marks the selected scenario pressure without fabricating missing curves.",
+            "descriptionZh": "在来源温度下同时显示两种气体并标记情景压力，不补造缺失曲线。",
+            "chartType": "line"
+          }
+        ],
+        "references": [
+          {
+            "id": "nist-adsorption-reporting-guidelines",
+            "label": "NIST Guidelines for Reporting of Adsorption Data",
+            "url": "https://trc.nist.gov/JournalCoop/JCED/Guidelines%20for%20Reporting%20of%20Adsorption%20Data.html",
+            "note": "Reporting guidance for isotherms, fitted models, isosteric heat, and thermodynamic quantities.",
+            "noteZh": "等温线、拟合模型、等量吸附热与热力学量的报告规范。"
+          },
+          {
+            "id": "nist-adsorption-data-resources",
+            "label": "NIST Data Resources for Adsorption",
+            "url": "https://www.nist.gov/programs-projects/nist-data-resources-adsorption",
+            "note": "Primary data infrastructure for indexed isotherms, thermodynamic conditions, fitting, and IAST workflows.",
+            "noteZh": "按材料、吸附质和热力学条件索引等温线，并支持拟合与 IAST 工作流的数据基础设施。"
+          },
+          {
+            "id": "myers-prausnitz-1965",
+            "label": "Myers & Prausnitz 1965 — IAST",
+            "url": "https://doi.org/10.1002/aic.690110125",
+            "note": "Foundational ideal adsorbed solution theory for predicting mixture adsorption from pure-component isotherms.",
+            "noteZh": "由纯组分等温线预测混合吸附的理想吸附溶液理论基础。"
+          },
+          {
+            "id": "pyiast-2016",
+            "label": "Simon, Smit & Haranczyk 2016 — pyIAST",
+            "url": "https://doi.org/10.1016/j.cpc.2015.11.016",
+            "note": "Reproducible implementation and practical model-fitting context for IAST.",
+            "noteZh": "IAST 的可复现实现与实际等温线拟合说明。"
+          },
+          {
+            "id": "fju90a-c2h2-co2",
+            "label": "Li et al. 2019 — FJU-90a C2H2/CO2",
+            "url": "https://doi.org/10.1021/jacs.9b00232",
+            "note": "Relevant to the PPT example: equimolar C2H2/CO2 at 298 K and 1 bar, with selectivity and uptake interpreted together.",
+            "noteZh": "对应 PPT 中的等摩尔 C₂H₂/CO₂ 示例：298 K、1 bar，并同时解释选择性与吸附量。"
+          },
+          {
+            "id": "trace-c2h2-c2h4-2020",
+            "label": "Nature Communications 2020 — trace C2H2/C2H4 separation",
+            "url": "https://doi.org/10.1038/s41467-020-20101-7",
+            "note": "Supports trace-feed scenarios, paired isotherms, Qst, IAST, breakthrough, and cycling as distinct evidence layers.",
+            "noteZh": "支持痕量进料情景，并将双等温线、Qst、IAST、穿透与循环作为不同证据层。"
+          }
+        ],
+        "limitations": [
+          "Fitted models and derived thermodynamic quantities are not primary adsorption data.",
+          "Henry affinity is a zero-pressure indicator and is not interchangeable with finite-pressure IAST or breakthrough selectivity.",
+          "Scenario IAST is unavailable when the second isotherm, temperature match, valid feed ratio, shared total-pressure range, or fitted pure-component pressure support is missing.",
+          "Qst is not derived from one isotherm or by mixing publications; a source value or at least three same-publication temperatures is required.",
+          "IAST assumes an ideal adsorbed solution and does not establish mass-transfer, humidity, cycling, or process performance."
+        ],
+        "limitationsZh": [
+          "拟合模型与派生热力学量不是原始吸附数据。",
+          "Henry 亲和是零压指标，不能与有限压力 IAST 或穿透选择性互换。",
+          "当缺少副气等温线、温度匹配、有效进料比例、共同总压范围，或 IAST 反算纯组分压力超出来源曲线上限时，不计算情景 IAST。",
+          "不从单条等温线推导 Qst，也不混合不同文献；必须有来源值或同一文献至少三个温度。",
+          "IAST 假设理想吸附溶液，不能证明传质、湿度、循环或过程性能。"
         ]
       },
       {
@@ -1208,19 +1462,19 @@
             "id": "gassep-working-capacity",
             "label": "Working capacity",
             "labelZh": "工作容量",
-            "latex": "C_w=q_{ads}(P_{ads})-q_{des}(P_{des})",
-            "fallback": "Cw = q_ads(P_ads) - q_des(P_des)",
-            "explanation": "Working capacity estimates useful loading swing rather than total storage capacity.",
-            "explanationZh": "工作容量估计可用装载差，而不是总储量。"
+            "latex": "C_w=q_A(P_{ads},T)-q_A(P_{des},T)",
+            "fallback": "Cw = q_A(P_ads,T) - q_A(P_des,T)",
+            "explanation": "Working capacity is the same-gas, same-temperature loading swing over the selected pressure window, not total storage capacity.",
+            "explanationZh": "工作容量是同一气体、同一温度下在所选压力窗口内的装载差，不是总储量。"
           },
           {
             "id": "gassep-regenerability-proxy",
             "label": "Regenerability proxy",
             "labelZh": "可再生性 proxy",
-            "latex": "R=\\min(1,C_w/q_{ads})\\times f(Q_{st})",
-            "fallback": "R = min(1, Cw / q_ads) * f(Qst)",
-            "explanation": "The current demo uses regenerability and heat-of-adsorption as screening signals for regeneration burden.",
-            "explanationZh": "当前 demo 使用可再生性和吸附热作为再生负担的筛选信号。"
+            "latex": "R(\\%)=100\\times\\frac{C_w}{q_A(P_{ads},T)}=100\\left[1-\\frac{q_A(P_{des},T)}{q_A(P_{ads},T)}\\right]",
+            "fallback": "R(%) = 100 × Cw / q_A(P_ads,T)",
+            "explanation": "The implementation derives regenerability from the same isotherm and pressure window. Qst is interpreted separately as an energetic burden signal and is not multiplied into R.",
+            "explanationZh": "当前实现由同一等温线和压力窗口计算可再生性；Qst 作为能量负担信号单独解释，不乘入 R。"
           },
           {
             "id": "gassep-iast-selectivity",

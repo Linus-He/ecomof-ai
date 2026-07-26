@@ -22,6 +22,32 @@ function BadgeList({ rows = [], t }) {
   )
 }
 
+function MethodReferences({ references = [], lang, t }) {
+  if (!references.length) return null
+  return (
+    <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 10 }}>
+      <strong style={{ color: t.textStrong, fontSize: 12.3 }}>{text(lang, "方法与数据依据", "Method and data sources")}</strong>
+      <div style={{ display: "grid", gap: 7 }}>
+        {references.map(reference => (
+          <div key={reference.id || reference.url || reference.label} style={{ display: "grid", gap: 3 }}>
+            <a
+              href={reference.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: t.accentText, fontSize: 11.8, fontWeight: 850, lineHeight: 1.4, overflowWrap: "anywhere", textDecoration: "none" }}
+            >
+              <ChemicalText value={reference.label || reference.title || reference.url} />
+            </a>
+            <span style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.5 }}>
+              <ChemicalText value={text(lang, reference.noteZh, reference.note)} />
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function MethodSummaryCard({ item, lang, t }) {
   const example = item.example
   return (
@@ -77,6 +103,7 @@ function MethodGroup({ group, lang, t }) {
           {visualizations.map(visualization => <MethodVisualizationCard key={visualization.title} visualization={visualization} lang={lang} t={t} />)}
         </div>
       ) : null}
+      <MethodReferences references={group.references || []} lang={lang} t={t} />
       {limits?.length ? (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
           {limits.map(limit => <div key={limit} style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}><ChemicalText value={limit} /></div>)}

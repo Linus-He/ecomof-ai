@@ -1,12 +1,24 @@
 // @ts-nocheck
 import { useCallback, useEffect, useMemo, useState } from "react"
 import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
+import {
   BasisBadge,
   Callout,
   ChemicalFormula,
   ChemicalText,
   CopyLinkButton,
   FONT_SANS,
+  InlineFormula,
   PageHeader,
   SCIENTIFIC_TOKEN_FONT,
   SectionTitle,
@@ -44,6 +56,8 @@ import {
   getGasRankingMethod,
   matchesGasScreeningGate,
 } from "../../utils/gasSeparationScreening"
+import { parseMixtureRatio } from "../../utils/gasIastSelectivity"
+import { buildThermodynamicInterpretation } from "../../utils/gasThermodynamics"
 import { buildGasSepSummary, buildGasSepExportRows } from "../../utils/summary/buildGasSepSummary"
 import { GasSepDatabaseSummaryCard } from "../data/GasSepDatabaseSummaryCard"
 import { GasMetricHeatmap } from "../gas/GasMetricHeatmap"
@@ -69,6 +83,7 @@ const SCENARIOS = [
     labelZh: "CO₂/N₂：烟气碳捕集",
     labelEn: "CO₂/N₂: flue gas carbon capture",
     defaultRatio: "15/85",
+    ratioPresets: ["15/85", "10/90", "50/50"],
     primaryGas: "CO2",
     secondaryGas: "N2",
     mechanismZh: ["四极矩驱动 CO₂ 亲和", "孔径匹配和极性位点", "湿烟气需要水稳定性", "再生能耗由 Qst 和工作容量共同约束"],
@@ -80,6 +95,7 @@ const SCENARIOS = [
     labelZh: "CO₂/CH₄：天然气净化",
     labelEn: "CO₂/CH₄: natural gas upgrading",
     defaultRatio: "50/50",
+    ratioPresets: ["50/50", "10/90"],
     primaryGas: "CO2",
     secondaryGas: "CH4",
     mechanismZh: ["CO₂ 优先吸附提升甲烷纯度", "需要控制 CH₄ 损失", "中高压下工作容量更关键", "稳定性决定循环使用窗口"],
@@ -91,6 +107,7 @@ const SCENARIOS = [
     labelZh: "H₂/CO₂：氢气纯化",
     labelEn: "H₂/CO₂: hydrogen purification",
     defaultRatio: "75/25",
+    ratioPresets: ["75/25", "50/50"],
     primaryGas: "H2",
     secondaryGas: "CO2",
     mechanismZh: ["优先滞留 CO₂ 杂质", "H₂ 回收率需要过程级评估", "压力摆动再生窗口重要", "高亲和位点可能提高再生负担"],
@@ -102,6 +119,7 @@ const SCENARIOS = [
     labelZh: "O₂/N₂：空气分离",
     labelEn: "O₂/N₂: air separation",
     defaultRatio: "21/79",
+    ratioPresets: ["21/79"],
     primaryGas: "O2",
     secondaryGas: "N2",
     mechanismZh: ["分子尺寸接近，选择性挑战大", "开放金属位点可能改变 O₂ 亲和", "安全与氧化稳定性需要验证", "低证据记录不得直接排名"],
@@ -113,6 +131,7 @@ const SCENARIOS = [
     labelZh: "VOC/N₂：挥发性有机物捕集",
     labelEn: "VOC/N₂: VOC capture",
     defaultRatio: "1/99",
+    ratioPresets: ["1/99", "0.5/99.5"],
     primaryGas: "VOC",
     secondaryGas: "N2",
     mechanismZh: ["高吸附量通常来自孔体积和疏水环境", "再生成本受吸附热控制", "湿度竞争可能改变有效容量", "材料热/水稳定性决定循环寿命"],
@@ -124,10 +143,35 @@ const SCENARIOS = [
     labelZh: "CH₄/N₂：甲烷氮气分离",
     labelEn: "CH₄/N₂: methane nitrogen rejection",
     defaultRatio: "50/50",
+    ratioPresets: ["50/50"],
     primaryGas: "CH4",
     secondaryGas: "N2",
     mechanismZh: ["CH₄/N₂ 数据作为其他气体体系覆盖", "候选优先级依赖选择性、工作容量与压力窗口", "字段级溯源用于区分推断与模拟来源", "进入工艺判断前需要穿透验证"],
     mechanismEn: ["CH₄/N₂ records cover other gas systems", "Priority depends on selectivity, working capacity, and pressure window", "Field provenance separates inferred and simulated sources", "Breakthrough validation is needed before process claims"],
+  },
+  {
+    gasPair: "C2H2/CO2",
+    applicationScenario: "acetylene purification",
+    labelZh: "C₂H₂/CO₂：乙炔纯化",
+    labelEn: "C₂H₂/CO₂: acetylene purification",
+    defaultRatio: "50/50",
+    ratioPresets: ["50/50"],
+    primaryGas: "C2H2",
+    secondaryGas: "CO2",
+    mechanismZh: ["两者动力学直径相近，需要特异性位点", "等摩尔进料用于检查真实竞争吸附", "吸附热与解吸窗口共同决定再生负担", "IAST 需由同温纯组分等温线支持"],
+    mechanismEn: ["Similar kinetic diameters require specific binding sites", "Equimolar feed probes competitive adsorption", "Adsorption heat and desorption window shape regeneration burden", "IAST needs temperature-matched pure-component isotherms"],
+  },
+  {
+    gasPair: "C2H2/C2H4",
+    applicationScenario: "trace acetylene removal",
+    labelZh: "C₂H₂/C₂H₄：痕量乙炔脱除",
+    labelEn: "C₂H₂/C₂H₄: trace acetylene removal",
+    defaultRatio: "1/99",
+    ratioPresets: ["0.5/99.5", "1/99", "1/999"],
+    primaryGas: "C2H2",
+    secondaryGas: "C2H4",
+    mechanismZh: ["痕量进料使低压亲和更关键", "0.5/99.5 与 1/99 为文献常见验证比例", "1/999 仅作为反馈提出的极低浓度探索", "最终判断需穿透曲线与循环实验"],
+    mechanismEn: ["Trace feeds make low-pressure affinity critical", "0.5/99.5 and 1/99 are literature-used validation feeds", "1/999 is retained only as a feedback-driven ultra-trace exploration", "Final claims require breakthrough and cycling tests"],
   },
 ]
 
@@ -185,6 +229,16 @@ function formatNumber(value, digits = 1) {
   const number = Number(value)
   if (!Number.isFinite(number)) return "pending"
   return Number.isInteger(number) ? String(number) : number.toFixed(digits)
+}
+
+function formatCompactNumber(value, digits = 4) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return "pending"
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: digits,
+    minimumFractionDigits: 0,
+    useGrouping: false,
+  }).format(number)
 }
 
 function formatScore(value) {
@@ -501,6 +555,8 @@ function MetricTile({ label, value, note, t }) {
 }
 
 function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow }) {
+  const activeScenario = scenarioFor(scenario.gasPair)
+  const parsedRatio = parseMixtureRatio(scenario.mixtureRatio)
   const updateGasPair = gasPair => {
     const next = scenarioFor(gasPair)
     setScenario(prev => ({
@@ -517,10 +573,14 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
         <div>
           <SectionTitle>{text(lang, "气体分离场景构建器", "Gas Separation Scenario Builder")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(lang, "切换气体体系、工况或排序方法后，候选表、图谱、漏斗和解释面板会同步更新。", "Changing gas system, conditions, or ranking method updates the table, maps, funnel, and explanations together.")}
+            {text(
+              lang,
+              "气体对与排序方法会更新全部视图；压力窗口可重算工作容量。只有存在同温双组分纯气等温线时，进料比例与总压才会触发当前材料的 IAST 情景重算。",
+              "Gas pair and ranking method update all views; the pressure window can recompute working capacity. Feed ratio and total pressure trigger selected-material IAST recalculation only when temperature-matched pure-component isotherms exist.",
+            )}
           </div>
         </div>
-        <BasisBadge tone="calc">{text(lang, "6 个可切换场景", "6 scenarios")}</BasisBadge>
+        <BasisBadge tone="calc">{text(lang, `${SCENARIOS.length} 个可切换场景`, `${SCENARIOS.length} scenarios`)}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 11 }}>
         <FormField label={text(lang, "气体对", "Gas pair")} t={t}>
@@ -553,11 +613,42 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
           <NumberControl value={scenario.desorptionPressureBar ?? 0.15} min={0.01} max={5} step={0.01} onChange={value => setScenario(prev => ({ ...prev, desorptionPressureBar: value }))} t={t} suffix="bar" />
         </FormField>
         <FormField label={text(lang, "混合比例", "Mixture ratio")} t={t}>
-          <input
-            value={scenario.mixtureRatio}
-            onChange={event => setScenario(prev => ({ ...prev, mixtureRatio: event.target.value }))}
-            style={{ minHeight: 38, width: "100%", boxSizing: "border-box", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.text, fontSize: 12, padding: "8px 10px", outline: "none" }}
-          />
+          <div style={{ display: "grid", gap: 7 }}>
+            <input
+              aria-invalid={!parsedRatio}
+              aria-label={text(lang, "混合比例", "mixture ratio")}
+              value={scenario.mixtureRatio}
+              onChange={event => setScenario(prev => ({ ...prev, mixtureRatio: event.target.value }))}
+              style={{ minHeight: 38, width: "100%", boxSizing: "border-box", background: t.surface, border: `1px solid ${parsedRatio ? t.border : t.warn}`, borderRadius: 8, color: t.text, fontSize: 12, padding: "8px 10px", outline: "none" }}
+            />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              {(activeScenario.ratioPresets || [activeScenario.defaultRatio]).map(ratio => (
+                <button
+                  key={ratio}
+                  type="button"
+                  onClick={() => setScenario(prev => ({ ...prev, mixtureRatio: ratio }))}
+                  style={{
+                    background: scenario.mixtureRatio === ratio ? t.badgeInfoBg : t.surface,
+                    border: `1px solid ${scenario.mixtureRatio === ratio ? t.accent : t.border}`,
+                    borderRadius: 999,
+                    color: scenario.mixtureRatio === ratio ? t.accentText : t.muted,
+                    cursor: "pointer",
+                    fontFamily: SCIENTIFIC_TOKEN_FONT,
+                    fontSize: 10.5,
+                    fontWeight: 820,
+                    padding: "4px 7px",
+                  }}
+                >
+                  {ratio}
+                </button>
+              ))}
+            </div>
+            {!parsedRatio ? (
+              <span style={{ color: t.warn, fontSize: 10.3, lineHeight: 1.4 }}>
+                {text(lang, "请使用 A/B 格式并保证两者均大于 0。", "Use A/B format with both values above zero.")}
+              </span>
+            ) : null}
+          </div>
         </FormField>
       </div>
     </section>
@@ -1471,23 +1562,33 @@ function DataLinkedValidationPlanner({ ranked, selected, screening, scenario, t,
   )
 }
 
-function gasMetricFormulaBasis(record, lang) {
+export function gasMetricFormulaBasis(record, lang) {
   const grade = String(record?.dataGrade || record?.evidence?.dataGrade || "").toLowerCase()
   const dataType = String(record?.dataType || record?.sourceType || record?.evidence?.dataType || "").toLowerCase()
   const selectivitySource = String(record?.fieldSources?.selectivity?.sourceType || "").toLowerCase()
+  const iastSource = String(record?.fieldSources?.iaSTSelectivity?.sourceType || "").toLowerCase()
   const hasIastValue = Number.isFinite(Number(record?.iaSTSelectivity ?? record?.metrics?.iaSTSelectivity))
-  const isIast = hasIastValue || grade.includes("iast") || dataType.includes("iast") || selectivitySource.includes("iast")
+  const isComputedIast = record?.iastStatus === "computed-IAST"
+    || selectivitySource.includes("iast_from_pure_component")
+    || iastSource.includes("iast_from_pure_component")
+  const isSourceIast = !isComputedIast && (hasIastValue || grade.includes("iast") || dataType.includes("iast") || selectivitySource.includes("iast") || iastSource.includes("iast"))
   const isPredicted = dataType.includes("predicted") || grade.includes("predicted")
   const isUptakeRatio = selectivitySource.includes("uptake_ratio") || selectivitySource.includes("single_component_ratio")
   const capacityDerived = record?.capacityStatus === "isotherm-derived"
   const regenerabilityDerived = capacityDerived && Number.isFinite(Number(record?.primaryUptake ?? record?.metrics?.primaryUptake))
 
   let selectivity
-  if (isIast) {
+  if (isComputedIast) {
     selectivity = {
-      kind: "IAST",
+      kind: text(lang, "本项目重算 IAST", "recalculated IAST"),
       formula: "Sᵢ/ⱼᴵᴬˢᵀ = (xᵢ/yᵢ) / (xⱼ/yⱼ)",
       note: text(lang, "由同温纯组分等温线与气相组成求得，不等同于穿透实验选择性。", "Derived from temperature-matched pure-component isotherms and gas composition; it is not breakthrough selectivity."),
+    }
+  } else if (isSourceIast) {
+    selectivity = {
+      kind: text(lang, "来源 IAST 值", "source-reported IAST"),
+      formula: "Sᵢ/ⱼᴵᴬˢᵀ,(ʳ) = Ssourceᴵᴬˢᵀ(κᵣ)",
+      note: text(lang, "沿用来源标记的 IAST 值与工况；没有成对原始等温线时，前端不重复推导。", "Retains the source-labelled IAST value and conditions; the frontend does not re-derive it without paired raw isotherms."),
     }
   } else if (isUptakeRatio) {
     selectivity = {
@@ -1667,6 +1768,344 @@ function GasMaterialDecisionPanel({ ranked, selected, scenario, onSelect, t, lan
   )
 }
 
+function ThermodynamicTooltip({ active, payload, label, t, lang, primaryGas, secondaryGas }) {
+  if (!active || !payload?.length) return null
+  const names = {
+    primaryUptake: primaryGas,
+    secondaryUptake: secondaryGas,
+  }
+  return (
+    <div style={{ background: t.tooltipBg, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 5, padding: "9px 11px" }}>
+      <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{text(lang, "压力", "Pressure")} {formatNumber(label, 3)} bar</strong>
+      {payload.filter(item => item.value != null).map(item => (
+        <span key={item.dataKey} style={{ color: item.color, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.2 }}>
+          <ChemicalText value={`${names[item.dataKey] || item.name}: ${formatNumber(item.value, 4)} mmol/g`} />
+        </span>
+      ))}
+    </div>
+  )
+}
+
+function thermodynamicChartRows(interpretation) {
+  const byPressure = new Map()
+  const add = (points, key) => {
+    for (const point of points || []) {
+      const pressureBar = Number(point.pressureBar)
+      if (!Number.isFinite(pressureBar)) continue
+      const id = pressureBar.toPrecision(10)
+      const row = byPressure.get(id) || { pressureBar }
+      row[key] = Number(point.uptake)
+      byPressure.set(id, row)
+    }
+  }
+  add(interpretation?.pair?.primary, "primaryUptake")
+  add(interpretation?.pair?.secondary, "secondaryUptake")
+  return [...byPressure.values()].sort((a, b) => a.pressureBar - b.pressureBar)
+}
+
+function thermodynamicFitFormula(result, lang) {
+  const fit = result?.fit
+  if (!fit || fit.status !== "fit-ok") {
+    return {
+      model: text(lang, "拟合不可用", "fit unavailable"),
+      formula: text(lang, "需要至少 3 个有效等温线点", "requires at least 3 valid isotherm points"),
+      r2: null,
+    }
+  }
+  if (fit.model === "langmuir") {
+    return {
+      model: "Langmuir",
+      math: "q(P)=\\frac{q_m bP}{1+bP}",
+      formula: "q(P) = q_m bP / (1 + bP)",
+      r2: fit.r2,
+    }
+  }
+  if (fit.model === "dual-langmuir") {
+    return {
+      model: text(lang, "双位点 Langmuir", "Dual-site Langmuir"),
+      math: "q(P)=\\sum_s\\frac{q_{m,s}b_sP}{1+b_sP}",
+      formula: "q(P) = Σ_s q_m,s b_sP / (1 + b_sP)",
+      r2: fit.r2,
+    }
+  }
+  return {
+    model: "Freundlich",
+    math: "q(P)=K_F P^a",
+    formula: "q(P) = K_F P^a",
+    r2: fit.r2,
+  }
+}
+
+function GasThermodynamicInterpretationPanel({ selected, records, scenario, t, lang, isMobile, isNarrow, onOpenMethod }) {
+  const interpretation = useMemo(
+    () => buildThermodynamicInterpretation(selected || {}, records, scenario),
+    [selected, records, scenario],
+  )
+  if (!selected) return null
+  const chartRows = thermodynamicChartRows(interpretation)
+  const pair = interpretation.pair
+  const currentScenario = scenarioFor(scenario.gasPair)
+  const primaryGas = selected.primaryGas || currentScenario.primaryGas
+  const secondaryGas = selected.secondaryGas || currentScenario.secondaryGas
+  const iastComputed = interpretation.iast?.status === "computed-IAST"
+  const qstAvailable = ["source-reported-qst", "clausius-clapeyron-qst"].includes(interpretation.qst?.status)
+  const henryAvailable = interpretation.henryRatio !== null
+  const sourceSelectivity = valueForMetric(selected, "selectivity")
+  const primaryFit = thermodynamicFitFormula(interpretation.primaryHenry, lang)
+  const secondaryFit = thermodynamicFitFormula(interpretation.secondaryHenry, lang)
+  const iastUnavailableReason = interpretation.iast?.reason === "fitted-pure-pressure-outside-source-range"
+    ? text(lang, "IAST 反算的纯组分压力超出来源曲线最高压力", "the IAST fictive pure-component pressure exceeds the source-curve maximum")
+    : pair.secondary.length < 3
+      ? text(lang, "缺少可绘制的副气等温线", "the secondary isotherm is unavailable")
+      : !interpretation.recordTempMatches
+        ? text(lang, "所选温度与等温线不一致", "the selected temperature does not match the isotherm")
+        : !interpretation.pressureSupported
+          ? text(lang, "所选总压超出两条等温线的共同范围", "the selected total pressure is outside the shared isotherm range")
+          : text(lang, "IAST 数值求解未收敛", "the IAST numerical solution did not converge")
+  const qstEvidence = interpretation.qst?.status === "source-reported-qst"
+    ? text(lang, "来源记录值", "source-reported")
+    : interpretation.qst?.status === "clausius-clapeyron-qst"
+      ? text(
+          lang,
+          `${interpretation.qst.temperatureCount} 温度 · q=${formatCompactNumber(interpretation.qst.targetLoading, 3)} mmol/g${interpretation.qst.r2 == null ? "" : ` · R²=${formatCompactNumber(interpretation.qst.r2, 4)}`}`,
+          `${interpretation.qst.temperatureCount} temperatures · q=${formatCompactNumber(interpretation.qst.targetLoading, 3)} mmol/g${interpretation.qst.r2 == null ? "" : ` · R²=${formatCompactNumber(interpretation.qst.r2, 4)}`}`,
+        )
+      : text(lang, "不可由当前记录推导", "not derivable from current record")
+
+  const conclusion = iastComputed
+    ? text(
+        lang,
+        `当前同温双等温线支持按 ${scenario.mixtureRatio}、${formatNumber(scenario.adsorptionPressureBar ?? scenario.pressureBar, 3)} bar 重算；IAST 选择性为 ${formatNumber(interpretation.iast.value, 4)}。该数值只解释平衡竞争吸附，不替代混合气穿透结果。`,
+        `The temperature-matched pair supports recalculation at ${scenario.mixtureRatio} and ${formatNumber(scenario.adsorptionPressureBar ?? scenario.pressureBar, 3)} bar; IAST selectivity is ${formatNumber(interpretation.iast.value, 4)}. This explains equilibrium competition only and does not replace mixture breakthrough data.`,
+      )
+    : sourceSelectivity != null
+      ? text(
+          lang,
+          `当前显示来源记录选择性 ${formatCompactNumber(sourceSelectivity, 4)}；由于${iastUnavailableReason}，本情景不重新计算 IAST。`,
+          `The displayed selectivity is the source-record value ${formatCompactNumber(sourceSelectivity, 4)}. Scenario IAST is not recalculated because ${iastUnavailableReason}.`,
+        )
+      : text(
+          lang,
+          "当前记录不足以建立混合吸附选择性。吸附量不能直接替代 IAST 或突破选择性；应先补齐同一材料、同一温度下的两条纯组分等温线。",
+          "The current record cannot establish mixture selectivity. Uptake cannot substitute for IAST or breakthrough selectivity; first add both pure-component isotherms for the same material and temperature.",
+        )
+
+  return (
+    <section
+      data-testid="gassep-thermodynamic-panel"
+      style={cardStyle(t, {
+        display: "grid",
+        gap: 15,
+        gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.82fr) minmax(0, 1.18fr)",
+        overflow: "hidden",
+        scrollMarginTop: isMobile ? 150 : 80,
+      })}
+    >
+      <div data-testid="gassep-thermodynamic-formulas" style={{ display: "grid", gap: 12, minWidth: 0 }}>
+        <div>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            {text(lang, "吸附结果解释层", "Adsorption-result interpretation")}
+          </span>
+          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 22 : 27, fontWeight: 940, letterSpacing: "-0.03em", lineHeight: 1.12, margin: "7px 0 0" }}>
+            {text(lang, "吸附热力学与竞争平衡", "Adsorption Thermodynamics and Competitive Equilibrium")}
+          </h2>
+          <p style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.6, margin: "7px 0 0" }}>
+            {text(
+              lang,
+              "先用低压亲和解释“谁更容易进入孔道”，再用 IAST 解释有限压力下的竞争吸附，并用等量吸附热检查结合强度与潜在再生负担。",
+              "Low-pressure affinity explains which gas enters the pores more readily, IAST addresses finite-pressure competition, and isosteric heat checks binding strength and potential regeneration burden.",
+            )}
+          </p>
+        </div>
+
+        <div aria-label={text(lang, "吸附热力学方程", "adsorption thermodynamic equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 8, padding: "12px 13px" }}>
+          {[
+            {
+              id: "henry-affinity",
+              math: "K_{H,i}=\\lim_{P_i\\to0}\\frac{q_i}{P_i}=\\left(\\frac{\\partial q_i}{\\partial P_i}\\right)_{T,P_i\\to0}",
+              fallback: "K_H,i = lim(P_i→0) q_i/P_i = (∂q_i/∂P_i)_(T,P_i→0)",
+              label: text(lang, "定温零压极限亲和", "isothermal zero-pressure affinity"),
+            },
+            {
+              id: "henry-ratio",
+              math: "S_{H,A/B}=\\frac{K_{H,A}}{K_{H,B}}",
+              fallback: "S_H,A/B = K_H,A / K_H,B",
+              label: text(lang, "低压亲和比", "low-pressure affinity ratio"),
+            },
+            {
+              id: "iast-selectivity",
+              math: "S_{A/B}^{IAST}=\\frac{x_A/x_B}{y_A/y_B}=\\frac{x_A/y_A}{x_B/y_B}",
+              fallback: "S_A/B^IAST = (x_A/x_B)/(y_A/y_B) = (x_A/y_A)/(x_B/y_B)",
+              label: text(lang, "混合吸附平衡选择性", "mixture-equilibrium selectivity"),
+            },
+            {
+              id: "iast-constraints",
+              math: "y_iP=x_iP_i^0,\\quad \\pi_A(P_A^0)=\\pi_B(P_B^0),\\quad \\sum_i x_i=1",
+              fallback: "y_i P = x_i P_i^0; π_A(P_A^0) = π_B(P_B^0); Σx_i = 1",
+              label: text(lang, "二元 IAST 平衡与归一化约束", "binary IAST equilibrium and normalization constraints"),
+            },
+            {
+              id: "isosteric-heat",
+              math: "Q_{st}\\approx-R\\left(\\frac{\\partial\\ln P}{\\partial(1/T)}\\right)_q",
+              fallback: "Q_st ≈ −R(∂lnP/∂(1/T))_q",
+              label: text(lang, "理想气体近似下的等量吸附热", "isosteric heat under the ideal-gas approximation"),
+            },
+          ].map(({ id, math, fallback, label }) => (
+            <div key={id} data-formula-id={id} aria-label={fallback} style={{ display: "grid", gap: 2 }}>
+              <strong style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 15.5 : 17.5, lineHeight: 1.3 }}>
+                <InlineFormula math={math} fallback={fallback} />
+              </strong>
+              <span style={{ color: t.faint, fontSize: 10.2 }}>{label}</span>
+            </div>
+          ))}
+          <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 6, marginTop: 2, paddingTop: 8 }}>
+            {[
+              [primaryGas, primaryFit],
+              [secondaryGas, secondaryFit],
+            ].map(([gas, fit]) => (
+              <div key={gas} style={{ display: "grid", gap: 2 }}>
+                <span style={{ color: t.textStrong, fontSize: 10.4, fontWeight: 850 }}>
+                  <ChemicalText value={`${gas} · ${fit.model}${fit.r2 == null ? "" : ` · R² ${formatNumber(fit.r2, 4)}`}`} />
+                </span>
+                <span aria-label={fit.formula} style={{ color: t.subtle, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: 12.8, lineHeight: 1.35 }}>
+                  {fit.math ? <InlineFormula math={fit.math} fallback={fit.formula} /> : fit.formula}
+                </span>
+              </div>
+            ))}
+            <span style={{ color: t.faint, fontSize: 9.8, lineHeight: 1.4 }}>
+              {text(lang, "图中为来源数据点；以上拟合仅用于 Henry 与 IAST 计算。", "The chart shows source points; these fits are used only for Henry and IAST calculations.")}
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+          {[
+            [
+              text(lang, "Henry 亲和比", "Henry affinity ratio"),
+              henryAvailable ? formatNumber(interpretation.henryRatio, 3) : formatPending(lang),
+              henryAvailable
+                ? text(lang, `${primaryGas}/${secondaryGas}；来自等温线拟合零压斜率`, `${primaryGas}/${secondaryGas}; fitted zero-pressure slopes`)
+                : text(lang, "需要两条可拟合等温线", "requires two fittable isotherms"),
+            ],
+            [
+              text(lang, "情景 IAST", "Scenario IAST"),
+              iastComputed ? formatCompactNumber(interpretation.iast.value, 4) : formatPending(lang),
+              iastComputed
+                ? `${scenario.mixtureRatio} · ${formatNumber(scenario.adsorptionPressureBar ?? scenario.pressureBar, 3)} bar`
+                : interpretation.iast?.reason === "fitted-pure-pressure-outside-source-range"
+                  ? text(lang, "纯组分反算压力越过来源上限", "fictive pure pressure exceeds source range")
+                  : text(lang, "保留来源值，不强行重算", "source value retained; no forced recalculation"),
+            ],
+            [
+              text(lang, "等量吸附热 Qst", "Isosteric heat Qst"),
+              qstAvailable ? `${formatNumber(interpretation.qst.value, 2)} ${interpretation.qst.unit}` : formatPending(lang),
+              qstEvidence,
+            ],
+            [
+              text(lang, "双等温线状态", "Paired-isotherm status"),
+              pair.status === "paired-isotherms" ? text(lang, "同温已配对", "temperature-matched") : text(lang, "未满足", "not satisfied"),
+              `${pair.primary.length} + ${pair.secondary.length} ${text(lang, "个数据点", "points")}`,
+            ],
+          ].map(([label, value, note]) => (
+            <div key={label} style={surfaceStyle(t, { padding: 9 })}>
+              <span style={{ color: t.faint, display: "block", fontSize: 9.8, fontWeight: 850 }}>{label}</span>
+              <strong style={{ color: t.textStrong, display: "block", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13, lineHeight: 1.35, marginTop: 4 }}><ChemicalText value={value} /></strong>
+              <span style={{ color: t.subtle, display: "block", fontSize: 9.8, lineHeight: 1.4, marginTop: 3 }}><ChemicalText value={note} /></span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 9, color: t.muted, display: "grid", fontSize: 11.2, gap: 6, lineHeight: 1.55, padding: 10 }}>
+          <strong style={{ color: t.textStrong }}>{text(lang, "解释结论", "Interpretation")}</strong>
+          <ChemicalText value={conclusion} />
+          <span style={{ color: t.faint, fontSize: 10.2 }}>
+            {text(
+              lang,
+              "Qst 较高不自动等于材料更优；它可能同时意味着更强亲和和更高再生负担，必须与工作容量、解吸压力和循环数据共同解释。",
+              "A higher Qst is not automatically better; it can indicate both stronger affinity and a larger regeneration burden, so it must be interpreted with working capacity, desorption pressure, and cycling data.",
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div data-testid="gassep-thermodynamic-chart" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, padding: isMobile ? 11 : 14 }}>
+        <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+          <div>
+            <strong style={{ color: t.textStrong, display: "block", fontSize: 14.5 }}>
+              <ChemicalText value={text(lang, `${primaryGas} / ${secondaryGas} 纯组分等温线`, `${primaryGas} / ${secondaryGas} pure-component isotherms`)} />
+            </strong>
+            <span style={{ color: t.faint, display: "block", fontSize: 10.5, lineHeight: 1.45, marginTop: 4 }}>
+              {pair.primaryTemperatureK ? `${pair.primaryTemperatureK} K` : text(lang, "温度待补", "temperature pending")} · {text(lang, "同一纵轴保留数量级差异；原始点连接，不补造缺失点", "one shared y-axis preserves scale differences; source points are connected without fabricating missing points")}
+            </span>
+          </div>
+          <BasisBadge tone={pair.status === "paired-isotherms" ? "calc" : "warn"}>
+            {pair.status === "paired-isotherms" ? text(lang, "双曲线已接入", "two curves available") : text(lang, "副气曲线待补", "secondary curve pending")}
+          </BasisBadge>
+        </div>
+
+        <div style={{ height: isMobile ? 285 : 360, minWidth: 0 }}>
+          {chartRows.length ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartRows} margin={{ top: 12, right: 18, bottom: 30, left: 6 }}>
+                <CartesianGrid stroke={t.border} strokeDasharray="3 4" />
+                <XAxis
+                  dataKey="pressureBar"
+                  type="number"
+                  domain={["dataMin", "dataMax"]}
+                  tick={{ fill: t.subtle, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 10.5 }}
+                  tickFormatter={value => formatCompactNumber(value, 3)}
+                  label={{ value: text(lang, "压力 / bar", "Pressure / bar"), fill: t.subtle, fontSize: 10.5, dy: 20 }}
+                />
+                <YAxis
+                  tick={{ fill: t.subtle, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 10.5 }}
+                  label={{ value: text(lang, "吸附量 / mmol·g⁻¹", "Uptake / mmol·g⁻¹"), fill: t.subtle, fontSize: 10.5, angle: -90, dx: -10 }}
+                />
+                <Tooltip content={<ThermodynamicTooltip t={t} lang={lang} primaryGas={primaryGas} secondaryGas={secondaryGas} />} />
+                <Legend
+                  align="right"
+                  height={24}
+                  verticalAlign="top"
+                  wrapperStyle={{ color: t.subtle, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 10.5 }}
+                />
+                <ReferenceLine
+                  x={Number(scenario.adsorptionPressureBar ?? scenario.pressureBar)}
+                  stroke={t.warn}
+                  strokeDasharray="5 4"
+                  label={{ value: text(lang, "情景压力", "scenario P"), fill: t.warn, fontSize: 10 }}
+                />
+                <Line dataKey="primaryUptake" name={primaryGas} type="linear" stroke={CHART_COLORS[0]} strokeWidth={2.3} dot={{ r: 3 }} connectNulls />
+                {pair.secondary.length ? (
+                  <Line dataKey="secondaryUptake" name={secondaryGas} type="linear" stroke={CHART_COLORS[1]} strokeWidth={2.3} dot={{ r: 3 }} connectNulls />
+                ) : null}
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <Callout tone="warn">{text(lang, "当前记录没有可绘制的纯组分等温线。", "The current record has no plottable pure-component isotherm.")}</Callout>
+          )}
+        </div>
+
+        {pair.secondary.length < 3 ? (
+          <Callout tone="warn">
+            {text(
+              lang,
+              "PPT 反馈要求两种气体的等温线同时出现；当前来源只保存了主气曲线或副气链接，未保存可绘制副气点，因此这里明确标记缺口，不复制或推测第二条曲线。",
+              "The PPT asks for both gas isotherms. This source stores only the primary curve or a secondary link without plottable points, so the gap is shown explicitly rather than copying or inferring a second curve.",
+            )}
+          </Callout>
+        ) : null}
+
+        <div style={{ borderTop: `1px solid ${t.border}`, color: t.faint, display: "grid", fontSize: 10.1, gap: 4, lineHeight: 1.45, paddingTop: 9 }}>
+          <span><strong style={{ color: t.textStrong }}>{text(lang, "主气来源", "Primary source")}:</strong> {pair.primarySourceId || formatPending(lang)}</span>
+          <span><strong style={{ color: t.textStrong }}>{text(lang, "副气来源", "Secondary source")}:</strong> {pair.secondarySourceId || formatPending(lang)}</span>
+          <button type="button" onClick={onOpenMethod} style={{ ...toolbarBtn(t), color: t.accentText, justifyContent: "center", marginTop: 4 }}>
+            {text(lang, "查看热力学方法与文献", "Open thermodynamic methods and sources")}
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function GasSepTab({ onNavigate }) {
   const t = useT()
   const { lang } = useLang()
@@ -1782,10 +2221,10 @@ export function GasSepTab({ onNavigate }) {
         title={text(lang, "GasSep 气体分离场景工作台", "GasSep Gas Separation Scenario Workbench")}
         subtitle={text(
           lang,
-          "从静态图表升级为工况驱动的候选筛选、排序、解释和验证路线工作台；所有数值保持证据等级、字段溯源与不确定性边界。",
-          "A condition-driven workspace for candidate screening, ranking, explanation, and validation planning; all values keep evidence level, field provenance, and uncertainty boundaries."
+          "以气体组成、温度和压力为条件，联动候选筛选、热力学解释、排序与验证路线；所有数值保持证据等级、字段溯源与不确定性边界。",
+          "A condition-driven workspace linking candidate screening, thermodynamic interpretation, ranking, and validation planning while preserving evidence level, field provenance, and uncertainty boundaries."
         )}
-        meta={text(lang, "场景构建 · 性能图谱 · 证据链", "scenario builder · performance map · evidence chain")}
+        meta={text(lang, "场景构建 · 双等温线 · 热力学解释 · 证据链", "scenario builder · paired isotherms · thermodynamic interpretation · evidence chain")}
         action={
           <>
             <BasisBadge tone="proxy">{text(lang, "保留 GasSep 路由", "existing GasSep route")}</BasisBadge>
@@ -1799,6 +2238,7 @@ export function GasSepTab({ onNavigate }) {
       {status === "empty" ? <Callout tone="warn">{text(lang, "当前场景无数据。", "No GasSep records are available.")}</Callout> : null}
       {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到演示数据，仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
+      <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <GasMaterialDecisionPanel
         ranked={ranked}
         selected={selected}
@@ -1810,9 +2250,18 @@ export function GasSepTab({ onNavigate }) {
         isNarrow={isNarrow}
         onOpenMethod={openMethod}
       />
+      <GasThermodynamicInterpretationPanel
+        selected={selected}
+        records={records}
+        scenario={scenario}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
+        isNarrow={isNarrow}
+        onOpenMethod={openMethod}
+      />
       <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
       <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
-      <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
       <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
       <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
       <RankingMethodEvidencePanel screening={screening} scenario={scenario} setScenario={setScenario} ranked={ranked} t={t} lang={lang} isMobile={isMobile} />

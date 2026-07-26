@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import gasV2 from "../../../public/data/gas_adsorption_records_v2.json"
 import gasV1 from "../../../public/data/gas_adsorption_records_v1.json"
 import gasDemo from "../../../public/data/gas_adsorption_records_demo.json"
@@ -74,6 +74,12 @@ describe("GasSep adaptation regressions", () => {
     expect(bodyText()).toMatch(/筛选漏斗/)
     expect(bodyText()).toMatch(/当前方法指标/)
     expect(bodyText()).toMatch(/历史 GasScore/)
+    expect(bodyText()).toMatch(/吸附热力学与竞争平衡/)
+    expect(document.querySelector('[data-formula-id="henry-affinity"]')?.getAttribute("aria-label"))
+      .toContain("K_H,i = lim(P_i→0)")
+    expect(document.querySelector('[data-formula-id="iast-constraints"]')?.getAttribute("aria-label"))
+      .toContain("π_A(P_A^0) = π_B(P_B^0)")
+    expect(screen.getByTestId("gassep-thermodynamic-panel")).toBeInTheDocument()
     expect(Number(screen.getByTestId("gas-performance-map").getAttribute("data-point-count"))).toBeGreaterThan(0)
   }, 10000)
 
@@ -84,7 +90,50 @@ describe("GasSep adaptation regressions", () => {
     expect(bodyText()).toMatch(/Screening Funnel/)
     expect(bodyText()).toMatch(/Method metric/)
     expect(bodyText()).toMatch(/Legacy GasScore/)
+    expect(bodyText()).toMatch(/Adsorption Thermodynamics and Competitive Equilibrium/)
+    expect(bodyText()).toMatch(/Scenario IAST/)
     expect(Number(screen.getByTestId("gas-performance-map").getAttribute("data-point-count"))).toBeGreaterThan(0)
+  }, 10000)
+
+  it("provides PPT-relevant C2 feed scenarios and validates the ratio input", async () => {
+    renderGasSep({ lang: "zh" })
+    await waitForGasSep("zh")
+
+    const gasPair = screen.getByLabelText("gas pair")
+    fireEvent.change(gasPair, { target: { value: "C2H2/C2H4" } })
+    expect(bodyText()).toMatch(/痕量乙炔脱除/)
+    expect(screen.getByRole("button", { name: "0.5/99.5" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "1/99" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "1/999" })).toBeInTheDocument()
+
+    const ratio = screen.getByLabelText("混合比例")
+    fireEvent.change(ratio, { target: { value: "bad-ratio" } })
+    expect(ratio).toHaveAttribute("aria-invalid", "true")
+    expect(bodyText()).toContain("请使用 A/B 格式")
+  }, 10000)
+
+  it("updates the thermodynamic plot context and source ids when the selected MOF changes", async () => {
+    renderGasSep({ lang: "zh" })
+    await waitForGasSep("zh")
+
+    const materialSelect = screen.getByLabelText("选择 MOF 气体分离记录")
+    const computedOptions = [...materialSelect.options].filter(option => {
+      const record = gasV2.find(row => row.id === option.value)
+      return record?.dataGrade === "computed-IAST" && record.secondaryIsotherm?.length >= 3
+    })
+    expect(computedOptions.length).toBeGreaterThan(1)
+
+    const firstRecord = gasV2.find(row => row.id === computedOptions[0].value)
+    const secondRecord = gasV2.find(row => row.id === computedOptions[1].value)
+    fireEvent.change(materialSelect, { target: { value: firstRecord.id } })
+    const panel = screen.getByTestId("gassep-thermodynamic-panel")
+    expect(within(panel).getByText(new RegExp(firstRecord.iast.sourceIsothermIds.primary, "i"))).toBeInTheDocument()
+    expect(panel.textContent).toContain(firstRecord.iast.sourceIsothermIds.secondary.toLowerCase())
+    const firstContext = panel.textContent
+
+    fireEvent.change(materialSelect, { target: { value: secondRecord.id } })
+    await waitFor(() => expect(panel.textContent).toContain(secondRecord.iast.sourceIsothermIds.secondary.toLowerCase()))
+    expect(panel.textContent).not.toBe(firstContext)
   }, 10000)
 
   it("keeps ranking method cards on theme tokens in light and dark mode", async () => {
