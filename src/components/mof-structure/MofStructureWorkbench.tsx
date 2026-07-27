@@ -27,6 +27,10 @@ import {
   downloadCsdMofCif,
   scheduleCsdMofPreload,
 } from "../../services/dataService"
+import {
+  publicMofDisplayName,
+  searchCsdMofCatalog,
+} from "../../utils/csdMofSearch.mjs"
 import "./MofStructureWorkbench.css"
 
 const METAL_ELEMENTS = new Set([
@@ -63,14 +67,15 @@ const CUTOFFS = {
   Zn: 2.8,
   Zr: 3.1,
 }
+const SIDEBAR_MIN_WIDTH = 280
+const SIDEBAR_DEFAULT_WIDTH = 336
+const SIDEBAR_MAX_WIDTH = 520
+const EMPTY_METADATA_VALUES = new Set(["", "-", "—", "n/a", "na", "none", "null", "pending", "unknown"])
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
-function normalizeSearchTerm(value) {
-  return String(value || "")
-    .normalize("NFKC")
-    .toUpperCase()
-    .replace(/[^A-Z0-9]+/g, "")
+function hasDisplayValue(value) {
+  return !EMPTY_METADATA_VALUES.has(String(value ?? "").trim().toLowerCase())
 }
 
 function normalizeElement(value) {
@@ -257,9 +262,9 @@ function formatFileSize(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-function SourceRow({ label, children }) {
+function SourceRow({ label, children, wide = false }) {
   return (
-    <div className="mof-structure-source-row">
+    <div className={`mof-structure-source-row ${wide ? "is-wide" : ""}`.trim()}>
       <span>{label}</span>
       <strong>{children}</strong>
     </div>
@@ -277,6 +282,8 @@ function CompactPill({ tone = "neutral", icon: Icon, children }) {
 
 export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, catalogStatus = "loading", lang, t, isMobile }) {
   const containerRef = useRef(null)
+  const layoutRef = useRef(null)
+  const resizeStateRef = useRef(null)
   const inputRef = useRef(null)
   const viewerRef = useRef(null)
   const modelRef = useRef(null)
@@ -296,6 +303,8 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   const [viewMode, setViewMode] = useState("cell")
   const [polyhedraMode, setPolyhedraMode] = useState("translucent")
   const [depth, setDepth] = useState(6)
+  const [sidebarWidth, setSidebarWidth] = useState(SIDEBAR_DEFAULT_WIDTH)
+  const [isResizingSidebar, setIsResizingSidebar] = useState(false)
   const [isSpinning, setIsSpinning] = useState(false)
   const [selectedAtom, setSelectedAtom] = useState(null)
   const [stats, setStats] = useState({ atomCount: 0, metalCount: 0, polyhedraCount: 0, elements: {} })
@@ -323,68 +332,26 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     publicCatalog?.summary?.literatureNamed
     ?? publicRecords.filter(record => record.displayNameKind === "verified-literature-common-name").length,
   )
-  const platformNamedCount = Math.max(0, namedRecordCount - literatureNamedCount)
+  const refcodeNamedCount = Math.max(0, namedRecordCount - literatureNamedCount)
   const publicCatalogReady = catalogStatus === "ready" && publicRecords.length > 0
   const publicCatalogMatches = useMemo(() => {
     if (!publicRecords.length) return []
-    const query = catalogQuery.trim().toUpperCase()
-    const normalizedQuery = normalizeSearchTerm(query)
-    if (!query) {
-      const featured = activeCsdRecord
-        ? [activeCsdRecord, ...publicRecords.filter(record => record.refcode !== activeCsdRecord.refcode)]
-        : publicRecords
-      return featured.slice(0, 6)
-    }
-    return [...publicRecords, ...identityRecords]
-      .filter(record => {
-        const refcode = String(record.refcode || "").toUpperCase()
-        const formula = String(record.formula || "").toUpperCase()
-        const metals = Array.isArray(record.metalElements) ? record.metalElements.join(" ").toUpperCase() : ""
-        const aliases = [
-          record.displayName,
-          record.platformName,
-          record.commonName,
-          ...(record.searchAliases || []),
-        ].filter(Boolean)
-        const identityTerms = [
-          record.mofClass,
-          record.mofFamily,
-          record.firstReportedYear,
-          record.linkerIdentity?.name,
-          record.linkerIdentity?.abbreviation,
-          record.topology,
-          record.ccdcNumber,
-          record.associatedPaper?.doi,
-        ].filter(Boolean)
-        return refcode.includes(query)
-          || formula.includes(query)
-          || metals.split(/\s+/).includes(query)
-          || aliases.some(alias => normalizeSearchTerm(alias).includes(normalizedQuery))
-          || identityTerms.some(value => normalizeSearchTerm(value).includes(normalizedQuery))
-      })
-      .sort((a, b) => {
-        const score = record => {
-          const refcode = String(record.refcode || "").toUpperCase()
-          const aliases = [
-            record.displayName,
-            record.platformName,
-            record.commonName,
-            ...(record.searchAliases || []),
-          ].filter(Boolean)
-          if (refcode === query) return -5
-          if (aliases.some(alias => normalizeSearchTerm(alias) === normalizedQuery)) {
-            if (record.recordType === "identity-only") return -4.5
-            return record.preferredAliasRefcode === record.refcode ? -4 : -3
-          }
-          return refcode.startsWith(query) ? -2 : -1
-        }
-        const aExact = score(a)
-        const bExact = score(b)
-        return aExact - bExact
-          || String(a.refcode || a.commonName).localeCompare(String(b.refcode || b.commonName))
-      })
-      .slice(0, 8)
+    return searchCsdMofCatalog(publicRecords, identityRecords, catalogQuery, {
+      activeRefcode: activeCsdRecord?.refcode,
+      limit: catalogQuery.trim() ? 10 : 6,
+    })
   }, [activeCsdRecord, catalogQuery, identityRecords, publicRecords])
+
+  const activeVariantRecords = useMemo(() => {
+    if (!activeCsdRecord?.commonName) return activeCsdRecord ? [activeCsdRecord] : []
+    return publicRecords
+      .filter(record => record.commonName === activeCsdRecord.commonName)
+      .sort((a, b) => {
+        if (a.refcode === activeCsdRecord.preferredAliasRefcode) return -1
+        if (b.refcode === activeCsdRecord.preferredAliasRefcode) return 1
+        return String(a.refcode).localeCompare(String(b.refcode))
+      })
+  }, [activeCsdRecord, publicRecords])
 
   const applyRepresentation = useCallback((mode = "cell") => {
     const viewer = viewerRef.current
@@ -767,6 +734,68 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     setDepth(current => Math.max(1, Math.min(10, current + direction)))
   }
 
+  const clampSidebarWidth = useCallback(nextWidth => {
+    const layoutWidth = layoutRef.current?.getBoundingClientRect().width || 1200
+    const responsiveMax = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, layoutWidth - 560))
+    return Math.max(SIDEBAR_MIN_WIDTH, Math.min(responsiveMax, Math.round(nextWidth)))
+  }, [])
+
+  const handleSidebarResizePointerDown = event => {
+    if (isMobile) return
+    resizeStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startWidth: sidebarWidth,
+    }
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+    setIsResizingSidebar(true)
+    event.preventDefault()
+  }
+
+  const handleSidebarResizePointerMove = event => {
+    const state = resizeStateRef.current
+    if (!state || state.pointerId !== event.pointerId) return
+    setSidebarWidth(clampSidebarWidth(state.startWidth + event.clientX - state.startX))
+  }
+
+  const handleSidebarResizePointerUp = event => {
+    const state = resizeStateRef.current
+    if (!state || state.pointerId !== event.pointerId) return
+    event.currentTarget.releasePointerCapture?.(event.pointerId)
+    resizeStateRef.current = null
+    setIsResizingSidebar(false)
+  }
+
+  const handleSidebarResizeKeyDown = event => {
+    const direction = event.key === "ArrowRight"
+      ? 1
+      : event.key === "ArrowLeft"
+        ? -1
+        : 0
+    if (event.key === "Home") {
+      event.preventDefault()
+      setSidebarWidth(SIDEBAR_MIN_WIDTH)
+      return
+    }
+    if (event.key === "End") {
+      event.preventDefault()
+      setSidebarWidth(clampSidebarWidth(SIDEBAR_MAX_WIDTH))
+      return
+    }
+    if (!direction) return
+    event.preventDefault()
+    setSidebarWidth(current => clampSidebarWidth(current + direction * 16))
+  }
+
+  useEffect(() => {
+    if (!viewerRef.current) return
+    const frame = window.requestAnimationFrame(() => {
+      viewerRef.current?.resize()
+      viewerRef.current?.render()
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [sidebarWidth])
+
   const isPublicCsdFile = fileMeta?.sourceType === "csd-public" && activeCsdRecord
   const metadataRecord = activeIdentityRecord || activeCsdRecord
   const isIdentityOnly = Boolean(activeIdentityRecord)
@@ -779,9 +808,20 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
       : pilotRecord?.sourceDatabase || "CSD MOF Collection"
   const materialLabel = isIdentityOnly
     ? metadataRecord?.commonName
-    : metadataRecord?.displayName
-      ? `${metadataRecord.displayName} · ${metadataRecord.refcode}`
-      : metadataRecord?.refcode || item?.displayName || item?.name || text(lang, "未命名 MOF", "Unnamed MOF")
+    : publicMofDisplayName(metadataRecord)
+      || item?.displayName
+      || item?.name
+      || text(lang, "未命名 MOF", "Unnamed MOF")
+  const linkerName = hasDisplayValue(metadataRecord?.linkerIdentity?.name)
+    ? metadataRecord.linkerIdentity.name
+    : !isIdentityOnly && hasDisplayValue(item?.linker)
+      ? item.linker
+      : null
+  const topology = hasDisplayValue(metadataRecord?.topology)
+    ? metadataRecord.topology
+    : !isIdentityOnly && hasDisplayValue(item?.topology)
+      ? item.topology
+      : null
   const qualityFlags = activeCsdRecord
     ? [
         activeCsdRecord.charged ? text(lang, "带电框架", "charged") : null,
@@ -789,6 +829,17 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
         activeCsdRecord.unreliableChemistry ? text(lang, "化学可靠性警告", "chemistry warning") : null,
       ].filter(Boolean)
     : []
+  const unavailableCrystalFields = activeCsdRecord
+    ? [
+        !activeCsdRecord.originalCrystalSystem ? text(lang, "晶系", "crystal system") : null,
+        !Number.isFinite(activeCsdRecord.voidPercent) ? text(lang, "孔隙率", "void space") : null,
+        !linkerName ? text(lang, "连接体", "linker") : null,
+        !topology ? text(lang, "拓扑", "topology") : null,
+      ].filter(Boolean)
+    : []
+  const activeCcdcUrl = metadataRecord?.ccdcNumber
+    ? `https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${metadataRecord.ccdcNumber}&DatabaseToSearch=Published`
+    : null
 
   return (
     <section
@@ -832,7 +883,7 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             {fileMeta?.sourceType === "user-local"
               ? text(lang, "仅本地会话", "Local session only")
               : publicCatalogReady
-                ? text(lang, `${namedRecordCount.toLocaleString()} 条已命名 CSD 结构`, `${namedRecordCount.toLocaleString()} named CSD structures`)
+                ? text(lang, `${publicRecordCount.toLocaleString()} 条 CSD 结构记录`, `${publicRecordCount.toLocaleString()} CSD structure records`)
                 : text(lang, `CSD 试点 ${readyPilotCount}/${pilotRecords.length || 10}`, `CSD pilot ${readyPilotCount}/${pilotRecords.length || 10}`)}
           </CompactPill>
           <input ref={inputRef} className="mof-structure-file-input" data-testid="mof-structure-file-input" type="file" accept=".cif,text/plain,chemical/x-cif" onChange={handleFile} />
@@ -853,10 +904,10 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             {catalogStatus === "loading"
               ? text(lang, "正在连接结构索引…", "Connecting to the structure index…")
               : publicCatalogReady
-                ? text(
+                  ? text(
                     lang,
-                    `轻量索引已就绪（${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "来自本机缓存" : "已写入本机缓存"}）；${literatureNamedCount.toLocaleString()} 条使用已核验文献名，${platformNamedCount.toLocaleString()} 条使用与 Refcode 一一绑定的平台规范名。`,
-                    `The lightweight index is ready (${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "from local cache" : "saved to local cache"}); ${literatureNamedCount.toLocaleString()} use verified literature names and ${platformNamedCount.toLocaleString()} use one-to-one platform canonical names.`,
+                    `轻量索引已就绪（${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "来自本机缓存" : "已写入本机缓存"}）；${literatureNamedCount.toLocaleString()} 条使用已核验文献名，其余 ${refcodeNamedCount.toLocaleString()} 条按专业 CSD Refcode 展示，内部 ID 不再作为材料名称。`,
+                    `The lightweight index is ready (${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "from local cache" : "saved to local cache"}); ${literatureNamedCount.toLocaleString()} use verified literature names and the remaining ${refcodeNamedCount.toLocaleString()} use professional CSD Refcodes. Internal IDs are no longer exposed as material names.`,
                   )
                 : text(lang, "公共目录暂不可用，本地 CIF 查看仍可使用。", "The public catalog is unavailable; local CIF viewing remains available.")}
           </span>
@@ -883,31 +934,45 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
         <div className="mof-structure-search-results" role="group" aria-label={text(lang, "结构检索结果", "Structure search results")}>
           {publicCatalogMatches.map(record => {
             const identityOnly = record.recordType === "identity-only"
+            const structureFamily = record.recordType === "structure-family"
+            const selectedRecord = record.preferredRecord || record
             const active = identityOnly
               ? activeIdentityRecord?.identityId === record.identityId
-              : activeCsdRecord?.refcode === record.refcode
+              : record.variants?.some(variant => activeCsdRecord?.refcode === variant.refcode)
             return (
               <button
-                className={`${active ? "is-active" : ""} ${identityOnly ? "is-identity-only" : ""}`.trim()}
-                key={record.refcode || record.identityId}
+                className={`${active ? "is-active" : ""} ${identityOnly ? "is-identity-only" : ""} ${structureFamily ? "is-structure-family" : ""}`.trim()}
+                key={record.resultKey || record.refcode || record.identityId}
                 type="button"
-                onClick={() => identityOnly ? showIdentityRecord(record) : loadPublicRecord(record)}
+                onClick={() => identityOnly ? showIdentityRecord(record) : loadPublicRecord(selectedRecord)}
                 aria-pressed={active}
               >
                 <span>
-                  <strong>{identityOnly ? record.commonName : record.displayName || record.refcode}</strong>
+                  <strong>{record.publicDisplayName || publicMofDisplayName(record)}</strong>
                   <small>
                     {identityOnly
-                      ? text(lang, "命名已收录 · CSD Refcode 待核验", "Name catalogued · CSD Refcode pending")
+                      ? record.externalCsdRefcodes?.length
+                        ? text(
+                          lang,
+                          `CSD 主库 ${record.externalCsdRefcodes.join(" / ")} · 当前公开子集未收录`,
+                          `CSD ${record.externalCsdRefcodes.join(" / ")} · absent from the current public subset`,
+                        )
+                        : text(lang, "命名已收录 · CSD 沉积待核验", "Name catalogued · CSD deposition pending")
+                      : structureFamily
+                        ? text(
+                          lang,
+                          `${record.variantCount} 个 CSD 结构变体 · ${record.variants.map(variant => variant.refcode).join(" / ")}`,
+                          `${record.variantCount} CSD structure variants · ${record.variants.map(variant => variant.refcode).join(" / ")}`,
+                        )
                       : `CSD ${record.refcode} · ${record.formula || text(lang, "分子式待整理", "formula pending")}`}
                   </small>
                   <span className="mof-structure-result-identity">
                     {[
-                      !identityOnly && record.displayNameKind === "ecomof-platform-canonical"
-                        ? text(lang, "平台规范名", "platform canonical")
-                        : !identityOnly
+                      identityOnly
+                        ? text(lang, "名称档案", "identity record")
+                        : record.commonName
                           ? text(lang, "文献常用名", "literature name")
-                          : null,
+                          : text(lang, "CSD Refcode", "CSD Refcode"),
                       record.mofClass,
                       record.mofFamily,
                       record.firstReportedYear,
@@ -916,7 +981,9 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                 </span>
                 <span>
                   {identityOnly
-                    ? text(lang, "名称档案", "identity")
+                    ? record.externalCsdRefcodes?.length
+                      ? text(lang, "主库", "CSD")
+                      : text(lang, "档案", "identity")
                     : record.metalElements?.join(" · ") || "—"}
                   {identityOnly
                     ? <Info aria-hidden="true" size={15} weight="bold" />
@@ -931,135 +998,197 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
         </div>
       </section>
 
-      <div className="mof-structure-layout">
+      <div
+        ref={layoutRef}
+        className={`mof-structure-layout ${isResizingSidebar ? "is-resizing" : ""}`}
+        style={{ "--mof-sidebar-width": `${sidebarWidth}px` }}
+      >
         <aside className="mof-structure-sidebar" aria-label={text(lang, "结构属性与来源", "Structure attributes and source")}>
           <div className="mof-structure-sidebar-title">
             <Database aria-hidden="true" size={18} weight="duotone" />
             <span>{text(lang, "属性与来源", "Attributes & source")}</span>
           </div>
-          <div className="mof-structure-material-name">{materialLabel}</div>
-          <div className="mof-structure-source-list">
-            <SourceRow label={text(lang, "结构来源", "Structure source")}>{sourceLabel}</SourceRow>
-            <SourceRow label={text(lang, "接入状态", "Ingestion status")}>
-              {isIdentityOnly
-                ? text(lang, "命名已接入 · 结构映射待核验", "name catalogued · structure mapping pending")
-                : fileMeta?.sourceType === "user-local"
-                ? text(lang, "本地已加载", "loaded locally")
-                : isPublicCsdFile
-                  ? text(lang, "公共 CIF 已加载", "public CIF loaded")
-                  : activeCsdRecord && viewerStatus === "loading"
-                    ? text(lang, "正在下载公共 CIF", "downloading public CIF")
-                : sourceStatus === "filename-only"
-                  ? text(lang, "仅有 CIF 文件名", "CIF filename only")
-                  : text(lang, "等待 CSD 文件", "awaiting CSD file")}
-            </SourceRow>
-            <SourceRow label="CSD Refcode">
-              {isIdentityOnly ? text(lang, "待证据匹配", "awaiting evidence match") : activeCsdRecord?.refcode || pilotRecord?.csdRefcode || "pending"}
-            </SourceRow>
-            {!isIdentityOnly && metadataRecord?.platformName ? (
-              <SourceRow label={text(lang, "平台规范名", "Platform canonical name")}>{metadataRecord.platformName}</SourceRow>
-            ) : null}
-            {!isIdentityOnly && metadataRecord?.displayNameKind ? (
-              <SourceRow label={text(lang, "展示名称类型", "Display name type")}>
-                {metadataRecord.displayNameKind === "verified-literature-common-name"
-                  ? text(lang, "已核验文献常用名", "verified literature common name")
-                  : text(lang, "EcoMOF 平台规范名", "EcoMOF platform canonical name")}
-              </SourceRow>
-            ) : null}
-            {metadataRecord?.commonName ? (
-              <SourceRow label={text(lang, "文献常用名", "Literature common name")}>{metadataRecord.commonName}</SourceRow>
-            ) : null}
-            {metadataRecord?.searchAliases?.length ? (
-              <SourceRow label={text(lang, "名称 / 别名", "Names / aliases")}>
-                {[...new Set(metadataRecord.searchAliases)].join(" · ")}
-              </SourceRow>
-            ) : null}
-            {activeCsdRecord?.aliasRefcodes?.length ? (
-              <SourceRow label={text(lang, "关联 CSD 变体", "Linked CSD variants")}>
-                {activeCsdRecord.aliasRefcodes.join(" · ")}
-              </SourceRow>
-            ) : null}
-            {metadataRecord?.mofClass ? (
-              <SourceRow label={text(lang, "金属类别", "Metal class")}>{metadataRecord.mofClass}</SourceRow>
-            ) : null}
-            {metadataRecord?.mofFamily ? (
-              <SourceRow label={text(lang, "配体家族", "Linker family")}>{metadataRecord.mofFamily}</SourceRow>
-            ) : null}
-            {Number.isFinite(metadataRecord?.firstReportedYear) ? (
-              <SourceRow label={text(lang, "首次报道年份", "First reported")}>{metadataRecord.firstReportedYear}</SourceRow>
-            ) : null}
-            {!isIdentityOnly ? (
-              <>
-                <SourceRow label={text(lang, "分子式", "Formula")}>{activeCsdRecord?.formula || "pending"}</SourceRow>
-                <SourceRow label={text(lang, "原始晶系", "Original crystal system")}>{activeCsdRecord?.originalCrystalSystem || "pending"}</SourceRow>
-                <SourceRow label={text(lang, "孔隙率", "Void space")}>
-                  {Number.isFinite(activeCsdRecord?.voidPercent) ? `${activeCsdRecord.voidPercent}%` : "pending"}
-                </SourceRow>
-              </>
-            ) : null}
-            <SourceRow label={text(lang, "许可证", "License")}>
-              {isIdentityOnly
-                ? text(lang, "未加载 CIF · 结构许可不适用", "no CIF loaded · structure license not applicable")
-                : fileMeta?.sourceType === "user-local"
-                  ? text(lang, "由用户自行确认", "user-confirmed")
-                  : publicCatalog?.dataset?.license?.spdx || pilotManifest?.license?.spdx || "CC-BY-NC-SA-4.0"}
-            </SourceRow>
-            {!isIdentityOnly ? (
-              <>
-                <SourceRow label={text(lang, "金属元素", "Metal elements")}>{activeCsdRecord?.metalElements?.join(", ") || item?.metalNode || item?.metal || "pending"}</SourceRow>
-                <SourceRow label={text(lang, "质量标记", "Quality flags")}>
-                  {qualityFlags.length ? qualityFlags.join(" · ") : activeCsdRecord ? text(lang, "无目录警告", "no catalog warning") : "pending"}
-                </SourceRow>
-              </>
-            ) : null}
-            <SourceRow label={text(lang, "连接体", "Linker")}>
-              {metadataRecord?.linkerIdentity?.name || (!isIdentityOnly && item?.linker) || text(lang, "登记来源暂未提供", "not yet provided by registry source")}
-            </SourceRow>
-            {metadataRecord?.linkerIdentity?.abbreviation ? (
-              <SourceRow label={text(lang, "连接体缩写", "Linker abbreviation")}>{metadataRecord.linkerIdentity.abbreviation}</SourceRow>
-            ) : null}
-            {metadataRecord?.metalCluster ? (
-              <SourceRow label={text(lang, "金属簇", "Metal cluster")}>{metadataRecord.metalCluster}</SourceRow>
-            ) : null}
-            <SourceRow label={text(lang, "拓扑", "Topology")}>
-              {metadataRecord?.topology || (!isIdentityOnly && item?.topology) || text(lang, "登记来源暂未提供", "not yet provided by registry source")}
-            </SourceRow>
-            {metadataRecord?.associatedPaper?.url ? (
-              <SourceRow label={text(lang, "关联论文", "Associated paper")}>
-                <a href={metadataRecord.associatedPaper.url} target="_blank" rel="noreferrer">
-                  DOI {metadataRecord.associatedPaper.doi}
-                </a>
-              </SourceRow>
-            ) : null}
-            {metadataRecord?.ccdcNumber ? (
-              <SourceRow label="CCDC">
-                <a href={`https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${metadataRecord.ccdcNumber}`} target="_blank" rel="noreferrer">
-                  {metadataRecord.ccdcNumber}
-                </a>
-              </SourceRow>
-            ) : null}
-            {metadataRecord?.identityStatus ? (
-              <SourceRow label={text(lang, "命名核验", "Identity verification")}>
-                {metadataRecord.identityStatus === "verified-curated"
-                  ? text(lang, "人工核验 · 有来源", "curated · sourced")
-                  : metadataRecord.identityStatus === "verified-name-structure-unmapped"
-                    ? text(lang, "名称与论文已核验 · Refcode 待核验", "name and paper verified · Refcode pending")
-                    : text(lang, "目录名称已收录 · Refcode 待核验", "catalog name captured · Refcode pending")}
-              </SourceRow>
-            ) : null}
-            {isIdentityOnly ? (
-              <SourceRow label={text(lang, "映射边界", "Mapping boundary")}>
-                {text(lang, "不以相似分子式推断结构", "no structure inferred from a similar formula")}
-              </SourceRow>
-            ) : null}
-            {fileMeta?.sourceType === "csd-public" ? (
-              <SourceRow label={text(lang, "文件读取", "File read")}>
-                {fileMeta.cacheState === "indexeddb"
-                  ? text(lang, "IndexedDB 本机缓存", "IndexedDB local cache")
-                  : text(lang, `网络下载${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} 次尝试` : ""}`, `network download${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} attempts` : ""}`)}
-              </SourceRow>
-            ) : null}
+          <div className="mof-structure-material-heading">
+            <div className="mof-structure-material-name">{materialLabel}</div>
+            <div className="mof-structure-material-meta">
+              {activeCsdRecord?.refcode ? <span>CSD {activeCsdRecord.refcode}</span> : null}
+              {isIdentityOnly && metadataRecord?.externalCsdRefcodes?.length ? (
+                <span>CSD {metadataRecord.externalCsdRefcodes.join(" / ")}</span>
+              ) : null}
+              {metadataRecord?.mofClass ? <span>{metadataRecord.mofClass}</span> : null}
+            </div>
           </div>
+
+          <section className="mof-structure-sidebar-card">
+            <h3>{text(lang, "结构身份", "Structure identity")}</h3>
+            <div className="mof-structure-source-list">
+              <SourceRow label={text(lang, "名称类型", "Name type")}>
+                {isIdentityOnly
+                  ? text(lang, "文献名称档案", "literature identity record")
+                  : metadataRecord?.commonName
+                    ? text(lang, "已核验文献常用名", "verified literature common name")
+                    : text(lang, "CSD Refcode", "CSD Refcode")}
+              </SourceRow>
+              <SourceRow label="CSD Refcode">
+                {isIdentityOnly
+                  ? metadataRecord?.externalCsdRefcodes?.join(" / ") || text(lang, "尚未定位", "not yet located")
+                  : activeCsdRecord?.refcode || pilotRecord?.csdRefcode || text(lang, "尚未定位", "not yet located")}
+              </SourceRow>
+              {metadataRecord?.commonName ? (
+                <SourceRow label={text(lang, "文献常用名", "Literature name")}>{metadataRecord.commonName}</SourceRow>
+              ) : null}
+              {metadataRecord?.searchAliases?.length ? (
+                <SourceRow label={text(lang, "检索别名", "Search aliases")} wide>
+                  {[...new Set(metadataRecord.searchAliases)]
+                    .filter(alias => alias !== metadataRecord.commonName)
+                    .join(" · ") || text(lang, "无额外别名", "no additional aliases")}
+                </SourceRow>
+              ) : null}
+              {activeVariantRecords.length > 1 ? (
+                <SourceRow label={text(lang, "结构变体", "Structure variant")} wide>
+                  <select
+                    className="mof-structure-variant-select"
+                    value={activeCsdRecord?.refcode || ""}
+                    onChange={event => {
+                      const next = activeVariantRecords.find(record => record.refcode === event.target.value)
+                      if (next) void loadPublicRecord(next)
+                    }}
+                    aria-label={text(lang, "选择 CSD 结构变体", "Choose CSD structure variant")}
+                  >
+                    {activeVariantRecords.map(record => (
+                      <option key={record.refcode} value={record.refcode}>
+                        {record.refcode}{record.refcode === record.preferredAliasRefcode ? text(lang, "（首选）", " (preferred)") : ""}
+                      </option>
+                    ))}
+                  </select>
+                </SourceRow>
+              ) : null}
+              {metadataRecord?.identityStatus ? (
+                <SourceRow label={text(lang, "名称核验", "Identity verification")} wide>
+                  {metadataRecord.identityStatus === "verified-curated"
+                    ? text(lang, "人工核验 · 有来源", "curated · sourced")
+                    : metadataRecord?.externalCsdRefcodes?.length
+                      ? text(lang, "名称、CCDC 与主库 Refcode 已核验", "name, CCDC, and primary CSD Refcode verified")
+                      : metadataRecord.identityStatus === "verified-name-structure-unmapped"
+                        ? text(lang, "名称与论文已核验 · CSD 沉积待核验", "name and paper verified · CSD deposition pending")
+                        : text(lang, "目录名称已收录 · CSD 沉积待核验", "catalog name captured · CSD deposition pending")}
+                </SourceRow>
+              ) : null}
+              {isIdentityOnly && metadataRecord?.structureMappingStatus ? (
+                <SourceRow label={text(lang, "结构边界", "Structure boundary")} wide>
+                  {lang === "zh" && metadataRecord.externalCsdRefcodes?.length
+                    ? `主 CSD 已定位为 ${metadataRecord.externalCsdRefcodes.join(" / ")}，但当前 15,906 条公开子集未收录；不以相似结构替代。`
+                    : lang === "zh"
+                      ? "论文名称已核验；当前仍无可公开接入的 CSD 结构，不以相似结构替代。"
+                      : metadataRecord.structureMappingStatus}
+                </SourceRow>
+              ) : null}
+            </div>
+          </section>
+
+          <section className="mof-structure-sidebar-card">
+            <h3>{text(lang, "组成与晶体", "Composition & crystal")}</h3>
+            <div className="mof-structure-source-list">
+              {metadataRecord?.mofClass ? (
+                <SourceRow label={text(lang, "金属类别", "Metal class")}>{metadataRecord.mofClass}</SourceRow>
+              ) : null}
+              {metadataRecord?.mofFamily ? (
+                <SourceRow label={text(lang, "配体家族", "Linker family")}>{metadataRecord.mofFamily}</SourceRow>
+              ) : null}
+              {Number.isFinite(metadataRecord?.firstReportedYear) ? (
+                <SourceRow label={text(lang, "首次报道", "First reported")}>{metadataRecord.firstReportedYear}</SourceRow>
+              ) : null}
+              {!isIdentityOnly && activeCsdRecord?.formula ? (
+                <SourceRow label={text(lang, "分子式", "Formula")} wide>{activeCsdRecord.formula}</SourceRow>
+              ) : null}
+              {!isIdentityOnly && activeCsdRecord?.originalCrystalSystem ? (
+                <SourceRow label={text(lang, "原始晶系", "Crystal system")}>{activeCsdRecord.originalCrystalSystem}</SourceRow>
+              ) : null}
+              {!isIdentityOnly && Number.isFinite(activeCsdRecord?.voidPercent) ? (
+                <SourceRow label={text(lang, "孔隙率", "Void space")}>{activeCsdRecord.voidPercent}%</SourceRow>
+              ) : null}
+              {!isIdentityOnly && (activeCsdRecord?.metalElements?.length || item?.metalNode || item?.metal) ? (
+                <SourceRow label={text(lang, "金属元素", "Metal elements")}>
+                  {activeCsdRecord?.metalElements?.join(", ") || item?.metalNode || item?.metal}
+                </SourceRow>
+              ) : null}
+              {linkerName ? (
+                <SourceRow label={text(lang, "连接体", "Linker")} wide>
+                  {linkerName}
+                </SourceRow>
+              ) : null}
+              {metadataRecord?.linkerIdentity?.abbreviation ? (
+                <SourceRow label={text(lang, "连接体缩写", "Linker abbreviation")}>{metadataRecord.linkerIdentity.abbreviation}</SourceRow>
+              ) : null}
+              {metadataRecord?.metalCluster ? (
+                <SourceRow label={text(lang, "金属簇", "Metal cluster")} wide>{metadataRecord.metalCluster}</SourceRow>
+              ) : null}
+              {topology ? (
+                <SourceRow label={text(lang, "拓扑", "Topology")}>{topology}</SourceRow>
+              ) : null}
+              {!isIdentityOnly && activeCsdRecord ? (
+                <SourceRow label={text(lang, "质量标记", "Quality flags")}>
+                  {qualityFlags.length ? qualityFlags.join(" · ") : text(lang, "无目录警告", "no catalog warning")}
+                </SourceRow>
+              ) : null}
+            </div>
+            {unavailableCrystalFields.length ? (
+              <p className="mof-structure-unavailable-note">
+                {text(lang, "当前轻量索引未提供：", "Not supplied by the current lightweight index: ")}
+                {unavailableCrystalFields.join("、")}
+              </p>
+            ) : null}
+          </section>
+
+          <section className="mof-structure-sidebar-card">
+            <h3>{text(lang, "来源与许可", "Source & license")}</h3>
+            <div className="mof-structure-source-list">
+              <SourceRow label={text(lang, "结构来源", "Structure source")} wide>{sourceLabel}</SourceRow>
+              <SourceRow label={text(lang, "接入状态", "Ingestion status")} wide>
+                {isIdentityOnly
+                  ? metadataRecord?.externalCsdRefcodes?.length
+                    ? text(lang, "主库已定位 · 公开子集缺结构", "primary CSD located · absent from public subset")
+                    : text(lang, "名称已接入 · 结构沉积待核验", "name catalogued · structure deposition pending")
+                  : fileMeta?.sourceType === "user-local"
+                    ? text(lang, "本地已加载", "loaded locally")
+                    : isPublicCsdFile
+                      ? text(lang, "公共 CIF 已加载", "public CIF loaded")
+                      : activeCsdRecord && viewerStatus === "loading"
+                        ? text(lang, "正在下载公共 CIF", "downloading public CIF")
+                        : sourceStatus === "filename-only"
+                          ? text(lang, "仅有 CIF 文件名", "CIF filename only")
+                          : text(lang, "等待 CSD 文件", "awaiting CSD file")}
+              </SourceRow>
+              <SourceRow label={text(lang, "许可证", "License")} wide>
+                {isIdentityOnly
+                  ? text(lang, "未加载 CIF · 结构许可不适用", "no CIF loaded · structure license not applicable")
+                  : fileMeta?.sourceType === "user-local"
+                    ? text(lang, "由用户自行确认", "user-confirmed")
+                    : publicCatalog?.dataset?.license?.spdx || pilotManifest?.license?.spdx || "CC-BY-NC-SA-4.0"}
+              </SourceRow>
+              {fileMeta?.sourceType === "csd-public" ? (
+                <SourceRow label={text(lang, "文件读取", "File read")}>
+                  {fileMeta.cacheState === "indexeddb"
+                    ? text(lang, "本机缓存", "local cache")
+                    : text(lang, `网络下载${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} 次尝试` : ""}`, `network download${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} attempts` : ""}`)}
+                </SourceRow>
+              ) : null}
+              {metadataRecord?.associatedPaper?.url ? (
+                <SourceRow label={text(lang, "关联论文", "Associated paper")} wide>
+                  <a href={metadataRecord.associatedPaper.url} target="_blank" rel="noreferrer">
+                    DOI {metadataRecord.associatedPaper.doi}
+                  </a>
+                </SourceRow>
+              ) : null}
+              {activeCcdcUrl ? (
+                <SourceRow label="CCDC">
+                  <a href={activeCcdcUrl} target="_blank" rel="noreferrer">
+                    {metadataRecord.ccdcNumber}
+                  </a>
+                </SourceRow>
+              ) : null}
+            </div>
+          </section>
 
           <div className="mof-structure-method-card">
             <div>
@@ -1092,6 +1221,24 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             ) : null}
           </div>
         </aside>
+
+        <div
+          className="mof-structure-sidebar-resizer"
+          role="separator"
+          aria-label={text(lang, "调整属性边栏宽度", "Resize attributes sidebar")}
+          aria-orientation="vertical"
+          aria-valuemin={SIDEBAR_MIN_WIDTH}
+          aria-valuemax={SIDEBAR_MAX_WIDTH}
+          aria-valuenow={sidebarWidth}
+          tabIndex={0}
+          onDoubleClick={() => setSidebarWidth(SIDEBAR_DEFAULT_WIDTH)}
+          onKeyDown={handleSidebarResizeKeyDown}
+          onPointerDown={handleSidebarResizePointerDown}
+          onPointerMove={handleSidebarResizePointerMove}
+          onPointerUp={handleSidebarResizePointerUp}
+          onPointerCancel={handleSidebarResizePointerUp}
+          title={text(lang, "拖动调整宽度；双击复位", "Drag to resize; double-click to reset")}
+        />
 
         <div className="mof-structure-stage">
           <div className="mof-structure-controls">
@@ -1193,15 +1340,31 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                 ) : activeIdentityRecord ? (
                   <>
                     <Info aria-hidden="true" size={42} weight="duotone" />
-                    <strong>{text(lang, "名称已接入，结构映射待核验", "Name catalogued; structure mapping pending")}</strong>
+                    <strong>
+                      {activeIdentityRecord.externalCsdRefcodes?.length
+                        ? text(lang, "CSD 主库已定位，公开子集未收录", "Located in primary CSD; absent from public subset")
+                        : text(lang, "名称已接入，结构沉积待核验", "Name catalogued; structure deposition pending")}
+                    </strong>
                     <span>
-                      {text(
-                        lang,
-                        `${activeIdentityRecord.commonName} 的命名、类别与来源已进入检索；尚未找到经证据核验的本地 CSD Refcode，因此不会载入相似分子式或替代结构。`,
-                        `${activeIdentityRecord.commonName} is searchable with its class and sources. No evidence-verified local CSD Refcode is available yet, so a similar formula or substitute structure will not be loaded.`,
-                      )}
+                      {activeIdentityRecord.externalCsdRefcodes?.length
+                        ? text(
+                          lang,
+                          `${activeIdentityRecord.commonName} 已核验为 CCDC ${activeIdentityRecord.ccdcNumber || "记录"} / CSD ${activeIdentityRecord.externalCsdRefcodes.join(" / ")}，但该结构不在当前 15,906 条可公开部署的 MOF 子集中，因此不能自动加载；不会用相似结构替代。`,
+                          `${activeIdentityRecord.commonName} is verified as CCDC ${activeIdentityRecord.ccdcNumber || "record"} / CSD ${activeIdentityRecord.externalCsdRefcodes.join(" / ")}, but it is not present in the 15,906-record MOF subset licensed for this deployment. No substitute structure is loaded.`,
+                        )
+                        : text(
+                          lang,
+                          `${activeIdentityRecord.commonName} 的名称与论文已进入检索；当前论文公开记录中尚未找到可由 CCDC 直接接入的沉积号，因此不会载入相似分子式或替代结构。`,
+                          `${activeIdentityRecord.commonName} is searchable with its paper identity. No CCDC deposition that can be ingested directly has been verified in the current public paper record, so a similar formula or substitute structure will not be loaded.`,
+                        )}
                     </span>
                     <div className="mof-structure-identity-actions">
+                      {activeIdentityRecord.ccdcNumber ? (
+                        <a href={`https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${activeIdentityRecord.ccdcNumber}&DatabaseToSearch=Published`} target="_blank" rel="noreferrer">
+                          <LinkSimple aria-hidden="true" size={16} weight="bold" />
+                          {text(lang, "在 CCDC 打开", "Open in CCDC")}
+                        </a>
+                      ) : null}
                       {activeIdentityRecord.identityPage ? (
                         <a href={activeIdentityRecord.identityPage} target="_blank" rel="noreferrer">
                           <LinkSimple aria-hidden="true" size={16} weight="bold" />
@@ -1212,6 +1375,12 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                         <a href={activeIdentityRecord.associatedPaper.url} target="_blank" rel="noreferrer">
                           <LinkSimple aria-hidden="true" size={16} weight="bold" />
                           {text(lang, "查看关联论文", "View associated paper")}
+                        </a>
+                      ) : null}
+                      {activeIdentityRecord.supplementaryMaterial?.url ? (
+                        <a href={activeIdentityRecord.supplementaryMaterial.url} target="_blank" rel="noreferrer">
+                          <LinkSimple aria-hidden="true" size={16} weight="bold" />
+                          {text(lang, "查看补充材料", "View supporting information")}
                         </a>
                       ) : null}
                       <button type="button" onClick={() => inputRef.current?.click()}>

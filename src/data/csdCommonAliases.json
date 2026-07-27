@@ -62,7 +62,7 @@
       "searchAliases": ["NTU68", "NTU 68", "NTU-68a"],
       "refcodes": [],
       "identityStatus": "verified-name-structure-unmapped",
-      "structureMappingStatus": "The paper identity is verified; no CSD Refcode in the local 15,906-record package has yet been confirmed.",
+      "structureMappingStatus": "The original ACS Supporting Information says crystal structures were supplied as separate CIF files, but the current public ACS Figshare item exposes only the PDF and the paper provides no CCDC accession number. An author- or CCDC-authorized CIF is still required.",
       "mofClass": "Cu-MOFs",
       "mofFamily": "Azolate-MOFs",
       "firstReportedYear": 2023,
@@ -75,6 +75,11 @@
       "associatedPaper": {
         "doi": "10.1021/jacs.3c10277",
         "url": "https://doi.org/10.1021/jacs.3c10277"
+      },
+      "supplementaryMaterial": {
+        "url": "https://acs.figshare.com/articles/journal_contribution/Delicate_Softness_in_a_Temperature-Responsive_Porous_Crystal_for_Accelerated_Sieving_of_Propylene_Propane/24439198",
+        "license": "CC BY-NC 4.0",
+        "availability": "PDF only in the current public record; referenced separate CIF files are not exposed"
       },
       "provenance": [
         {
@@ -153,8 +158,10 @@
     {
       "canonicalName": "DUT-68",
       "searchAliases": ["DUT68", "DUT 68"],
-      "refcodes": [],
+      "preferredRefcode": "XICYUF",
+      "refcodes": ["XICYUF"],
       "identityStatus": "verified-name-structure-unmapped",
+      "structureMappingStatus": "CCDC 902900 resolves to CSD Refcode XICYUF. XICYUF is absent from the local 15,906-record CSD MOF Collection package, so this deployment has no licensed public CIF to load automatically.",
       "mofClass": "Zr-MOFs",
       "mofFamily": "Carboxylate-MOFs",
       "firstReportedYear": 2013,
@@ -164,7 +171,10 @@
       "associatedPaper": {"doi": "10.1021/cg301691d", "url": "https://doi.org/10.1021/cg301691d"},
       "ccdcNumber": "902900",
       "identityPage": "https://mofanatomy.com/mof/dut-68/",
-      "provenance": [{"doi": "10.1021/cg301691d", "url": "https://doi.org/10.1021/cg301691d", "note": "Associated paper and MOFAnatomy identity page."}]
+      "provenance": [
+        {"doi": "10.1021/cg301691d", "url": "https://doi.org/10.1021/cg301691d", "note": "Original report and ACS supplementary CIF source."},
+        {"url": "https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=902900&DatabaseToSearch=Published", "note": "CCDC 902900 identifies CSD Refcode XICYUF for DUT-68(Zr)."}
+      ]
     },
     {
       "canonicalName": "PCN-66",

@@ -34,9 +34,9 @@ describe("CSD MOF public catalog", () => {
       file: "abadug_P1.cif",
       cifUrl: "https://example.org/ecomof-csd-mof-data/cif/ab/abadug_P1.cif",
       platformName: "EcoMOF-Zn-ABADUG",
-      displayName: "EcoMOF-Zn-ABADUG",
-      displayNameKind: "ecomof-platform-canonical",
-      nameSource: "derived-from-csd-refcode-and-metal-elements",
+      displayName: "ABADUG",
+      displayNameKind: "csd-refcode",
+      nameSource: "csd-refcode",
       mofClass: "Zn-MOFs",
       mofClassSource: "derived-from-csd-metal-elements",
       csdRefcode: "ABADUG",
@@ -101,6 +101,23 @@ describe("CSD MOF public catalog", () => {
       }),
     ]))
     expect(catalog.identityRecords.every(record => !record.cifUrl && !record.refcode)).toBe(true)
+  })
+
+  it("keeps a primary-CSD mapping visible when its Refcode is absent from the public MOF subset", () => {
+    const catalog = attachCsdPublicUrls(
+      { structures: [], summary: { total: 15906 } },
+      "https://example.org/data/",
+    )
+
+    expect(catalog.identityRecords).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        identityId: "dut-68",
+        commonName: "DUT-68",
+        externalCsdRefcodes: ["XICYUF"],
+        preferredExternalRefcode: "XICYUF",
+        ccdcNumber: "902900",
+      }),
+    ]))
   })
 
   it("retries transient network failures twice before succeeding", async () => {

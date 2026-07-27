@@ -91,9 +91,9 @@ function aliasMetadataByRefcode(registry = aliasRegistry) {
   return result
 }
 
-function identityOnlyRecords(registry = aliasRegistry) {
+function identityOnlyRecords(registry = aliasRegistry, availableRefcodes = new Set()) {
   return (registry?.aliases || [])
-    .filter(group => !Array.isArray(group.refcodes) || group.refcodes.length === 0)
+    .filter(group => !(group.refcodes || []).some(refcode => availableRefcodes.has(String(refcode).toUpperCase())))
     .map(group => ({
       recordType: "identity-only",
       identityId: normalizeIdentityId(group.canonicalName),
@@ -109,8 +109,11 @@ function identityOnlyRecords(registry = aliasRegistry) {
       associatedPaper: group.associatedPaper,
       ccdcNumber: group.ccdcNumber,
       identityPage: group.identityPage,
+      externalCsdRefcodes: group.refcodes || [],
+      preferredExternalRefcode: group.preferredRefcode,
       aliasProvenance: group.provenance || [],
       structureMappingStatus: group.structureMappingStatus || "pending-csd-refcode-verification",
+      supplementaryMaterial: group.supplementaryMaterial,
     }))
 }
 
@@ -143,7 +146,10 @@ export function attachCsdPublicUrls(catalog, baseUrl) {
     ...(catalog || {}),
     publicBaseUrl: normalizedBase,
     aliasRegistry: registry,
-    identityRecords: identityOnlyRecords(registry),
+    identityRecords: identityOnlyRecords(
+      registry,
+      new Set(structures.map(record => String(record.refcode || "").toUpperCase())),
+    ),
     structures,
   }
 }

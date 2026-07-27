@@ -91,7 +91,6 @@
 
 .mof-structure-primary-button:focus-visible,
 .mof-structure-empty-state button:focus-visible,
-.mof-structure-search-field input:focus-visible,
 .mof-structure-search-results button:focus-visible,
 .mof-structure-controls select:focus-visible,
 .mof-structure-controls input:focus-visible,
@@ -156,7 +155,7 @@
 
 .mof-structure-search-field > div:focus-within {
   border-color: var(--mof-sw-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mof-sw-accent) 13%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--mof-sw-accent) 16%, transparent);
 }
 
 .mof-structure-search-field svg {
@@ -165,16 +164,26 @@
 }
 
 .mof-structure-search-field input {
+  -webkit-appearance: none;
+  appearance: none;
   background: transparent;
   border: 0;
+  box-shadow: none;
   color: var(--mof-sw-text-strong);
   font: inherit;
   font-size: 11.5px;
   font-weight: 720;
   min-width: 0;
-  outline: 0;
+  outline: none !important;
   padding: 8px 9px;
   width: 100%;
+}
+
+.mof-structure-search-field input:focus,
+.mof-structure-search-field input:focus-visible {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .mof-structure-search-field input:disabled {
@@ -244,6 +253,7 @@
 .mof-structure-search-results button small {
   color: var(--mof-sw-faint);
   font-size: 8.7px;
+  line-height: 1.35;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -278,18 +288,19 @@
 
 .mof-structure-layout {
   display: grid;
-  grid-template-columns: minmax(245px, 0.72fr) minmax(0, 2.28fr);
+  grid-template-columns: minmax(280px, var(--mof-sidebar-width, 336px)) 9px minmax(0, 1fr);
+  height: clamp(600px, 74vh, 780px);
   min-height: 600px;
 }
 
 .mof-structure-sidebar {
   background: var(--mof-sw-surface);
-  border-right: 1px solid var(--mof-sw-border);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   min-width: 0;
-  padding: 18px;
+  overflow: auto;
+  padding: 17px 15px 18px 18px;
 }
 
 .mof-structure-sidebar-title {
@@ -303,25 +314,61 @@
 
 .mof-structure-material-name {
   color: var(--mof-sw-text-strong);
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 930;
   letter-spacing: -0.025em;
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
-.mof-structure-source-list {
-  border-bottom: 1px solid var(--mof-sw-border);
-  border-top: 1px solid var(--mof-sw-border);
+.mof-structure-material-heading {
   display: grid;
-  padding: 5px 0;
+  gap: 8px;
+}
+
+.mof-structure-material-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.mof-structure-material-meta span {
+  background: var(--mof-sw-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--mof-sw-accent) 22%, var(--mof-sw-border));
+  border-radius: 999px;
+  color: var(--mof-sw-accent-text);
+  font-size: 9px;
+  font-weight: 850;
+  line-height: 1.2;
+  padding: 4px 7px;
+}
+
+.mof-structure-sidebar-card {
+  background: color-mix(in srgb, var(--mof-sw-bg) 65%, var(--mof-sw-surface));
+  border: 1px solid var(--mof-sw-border);
+  border-radius: 10px;
+  display: grid;
+  gap: 7px;
+  padding: 10px 11px;
+}
+
+.mof-structure-sidebar-card h3 {
+  color: var(--mof-sw-text-strong);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.mof-structure-source-list {
+  display: grid;
 }
 
 .mof-structure-source-row {
   display: grid;
-  gap: 4px;
-  grid-template-columns: minmax(80px, 0.75fr) minmax(0, 1.25fr);
-  padding: 8px 0;
+  gap: 8px;
+  grid-template-columns: minmax(72px, 0.72fr) minmax(0, 1.28fr);
+  padding: 7px 0;
 }
 
 .mof-structure-source-row + .mof-structure-source-row {
@@ -330,17 +377,90 @@
 
 .mof-structure-source-row span {
   color: var(--mof-sw-faint);
-  font-size: 10.5px;
+  font-size: 9.7px;
   font-weight: 760;
 }
 
 .mof-structure-source-row strong {
   color: var(--mof-sw-text-strong);
-  font-size: 11px;
-  font-weight: 820;
+  font-size: 10.3px;
+  font-weight: 790;
   line-height: 1.42;
   overflow-wrap: anywhere;
   text-align: right;
+}
+
+.mof-structure-source-row.is-wide {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.mof-structure-source-row.is-wide strong {
+  text-align: left;
+}
+
+.mof-structure-variant-select {
+  background: var(--mof-sw-surface);
+  border: 1px solid var(--mof-sw-border-strong);
+  border-radius: 7px;
+  color: var(--mof-sw-text-strong);
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 820;
+  height: 34px;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.mof-structure-variant-select:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mof-sw-accent) 28%, transparent);
+  outline-offset: 2px;
+}
+
+.mof-structure-unavailable-note {
+  color: var(--mof-sw-muted);
+  font-size: 9.4px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mof-structure-sidebar-resizer {
+  background: color-mix(in srgb, var(--mof-sw-border) 72%, var(--mof-sw-bg));
+  cursor: col-resize;
+  min-width: 9px;
+  position: relative;
+  touch-action: none;
+}
+
+.mof-structure-sidebar-resizer::after {
+  background: var(--mof-sw-border-strong);
+  border-radius: 999px;
+  content: "";
+  height: 52px;
+  left: 3px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 150ms ease, box-shadow 150ms ease;
+  width: 3px;
+}
+
+.mof-structure-sidebar-resizer:hover::after,
+.mof-structure-sidebar-resizer:focus-visible::after,
+.mof-structure-layout.is-resizing .mof-structure-sidebar-resizer::after {
+  background: var(--mof-sw-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mof-sw-accent) 14%, transparent);
+}
+
+.mof-structure-sidebar-resizer:focus-visible {
+  outline: 2px solid var(--mof-sw-accent);
+  outline-offset: -2px;
+}
+
+.mof-structure-layout.is-resizing,
+.mof-structure-layout.is-resizing * {
+  cursor: col-resize !important;
+  user-select: none !important;
 }
 
 .mof-structure-source-row strong a {
@@ -739,6 +859,7 @@
 
   .mof-structure-layout {
     grid-template-columns: 1fr;
+    height: auto;
   }
 
   .mof-structure-sidebar {
@@ -746,11 +867,16 @@
     border-right: 0;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+    overflow: visible;
   }
 
   .mof-structure-sidebar-title,
-  .mof-structure-material-name {
+  .mof-structure-material-heading {
     grid-column: 1 / -1;
+  }
+
+  .mof-structure-sidebar-resizer {
+    display: none;
   }
 
   .mof-structure-source-link {

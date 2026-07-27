@@ -30,7 +30,7 @@ export function buildCsdNamingFields(record = {}, curated = {}) {
   const refcode = normalizedRefcode(combined.refcode)
   const commonName = String(combined.commonName || "").trim()
   const platformName = createEcoMofPlatformName(combined)
-  const displayName = commonName || platformName
+  const displayName = commonName || refcode
   const curatedClass = String(curated.mofClass || "").trim()
   const existingClass = String(record.mofClass || "").trim()
   const mofClass = curatedClass || existingClass || deriveMofMetalClass(combined.metalElements)
@@ -40,10 +40,10 @@ export function buildCsdNamingFields(record = {}, curated = {}) {
     displayName,
     displayNameKind: commonName
       ? "verified-literature-common-name"
-      : "ecomof-platform-canonical",
+      : "csd-refcode",
     nameSource: commonName
       ? "curated-identity-registry"
-      : "derived-from-csd-refcode-and-metal-elements",
+      : "csd-refcode",
     mofClass,
     mofClassSource: curatedClass
       ? "curated-identity-registry"

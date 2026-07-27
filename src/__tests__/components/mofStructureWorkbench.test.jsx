@@ -172,7 +172,7 @@ describe("MofStructureWorkbench", () => {
     vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
     render(
       <MofStructureWorkbench
-        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        item={{ id: "ntu-68", name: "NTU-68", metal: "Cu" }}
         pilotManifest={pilotManifest}
         publicCatalog={publicCatalog}
         catalogStatus="ready"
@@ -265,9 +265,40 @@ describe("MofStructureWorkbench", () => {
     const downloadCallsBeforeIdentitySelection = vi.mocked(downloadCsdMofCif).mock.calls.length
     fireEvent.click(ntuResult)
 
-    expect(await screen.findByText("名称已接入，结构映射待核验")).toBeInTheDocument()
-    expect(screen.getByText("不以相似分子式推断结构")).toBeInTheDocument()
+    expect(await screen.findByText("名称已接入，结构沉积待核验")).toBeInTheDocument()
+    expect(screen.getByText(/不会载入相似分子式或替代结构/)).toBeInTheDocument()
     expect(screen.getByRole("link", { name: "DOI 10.1021/jacs.3c10277" })).toBeInTheDocument()
     expect(vi.mocked(downloadCsdMofCif)).toHaveBeenCalledTimes(downloadCallsBeforeIdentitySelection)
+  })
+
+  it("exposes an accessible keyboard-resizable sidebar", () => {
+    render(
+      <MofStructureWorkbench
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        pilotManifest={pilotManifest}
+        publicCatalog={publicCatalog}
+        catalogStatus="ready"
+        lang="zh"
+        t={THEME_LIGHT}
+        isMobile={false}
+      />,
+    )
+
+    const separator = screen.getByRole("separator", { name: "调整属性边栏宽度" })
+    expect(separator).toHaveAttribute("aria-valuenow", "336")
+    fireEvent.keyDown(separator, { key: "ArrowRight" })
+    expect(separator).toHaveAttribute("aria-valuenow", "352")
+    fireEvent.keyDown(separator, { key: "Home" })
+    expect(separator).toHaveAttribute("aria-valuenow", "280")
+    const pointerDown = new MouseEvent("pointerdown", { bubbles: true, clientX: 280 })
+    Object.defineProperty(pointerDown, "pointerId", { value: 1 })
+    fireEvent(separator, pointerDown)
+    const pointerMove = new MouseEvent("pointermove", { bubbles: true, clientX: 392 })
+    Object.defineProperty(pointerMove, "pointerId", { value: 1 })
+    fireEvent(separator, pointerMove)
+    expect(separator).toHaveAttribute("aria-valuenow", "392")
+    const pointerUp = new MouseEvent("pointerup", { bubbles: true, clientX: 392 })
+    Object.defineProperty(pointerUp, "pointerId", { value: 1 })
+    fireEvent(separator, pointerUp)
   })
 })

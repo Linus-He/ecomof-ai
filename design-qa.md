@@ -81,3 +81,33 @@
 - P3：参考图卡片可显示家族和年份，但 CSD 原始集合并不为全部记录提供这些字段；已只在有来源的别名档案中展示，避免伪造完整度。
 
 final result: passed
+
+## CSD 索引、结构框与侧栏体验优化
+
+### 对照与验收材料
+
+- 用户问题截图：侧栏遮挡、UiO-66 重复结果、DUT-68 / NTU-68 无结构、输入框双层蓝框与 `EcoMOF-*` 公开命名。
+- 桌面最终快照：`design-qa-artifacts/csd-index-sidebar-v2/desktop-workbench.jpg`，1600 × 1100 CSS 视口。
+- 移动端最终快照：`design-qa-artifacts/csd-index-sidebar-v2/mobile-390.jpg`，390 × 844 CSS 视口。
+- 同图对照：`design-qa-artifacts/csd-index-sidebar-v2/reference-comparison.jpg`。
+
+### 已解决
+
+- P1：UiO-66 的 RUBTAK / RUBTAK01 / RUBTAK02 不再平铺为三个同名结果，而是合并为一个结构家族，并在侧栏中提供结构变体选择。
+- P1：`DUT-` 不再误命中 DAMDUT、DUTJUZ、HEFDUT、IDUTAF 等 Refcode 子串；命名系列查询只返回真实的 DUT 常用名档案。
+- P1：公开展示名称不再使用内部 `EcoMOF-*` 稳定标识；有文献常用名时显示常用名，其余显示专业 CSD Refcode。
+- P1：DUT-68 已核验到 CCDC 902900 / CSD XICYUF；因不在当前 15,906 条公开 MOF 子集中，保持真实空态并提供 CCDC、论文与本地 CIF 入口。
+- P1：NTU-68 的论文与补充材料已核验，但公开记录未暴露可自动接入的 CSD 沉积号或 CIF，因此保持名称档案与结构文件分层，不加载替代结构。
+- P2：属性侧栏支持鼠标拖动、方向键、Home / End 与双击复位；侧栏从 336 px 调至 384 px 时，结构舞台与画布同步从 1065 px 缩至 1017 px。
+- P2：侧栏改为“结构身份 / 组成与晶体 / 来源与许可”三组卡片；`pending`、`unknown` 等内部占位值不再作为科学属性显示。
+- P2：搜索输入只保留外层 `focus-within` 状态，清除了被全局样式叠加的输入框内层蓝色描边。
+- P2：390 px 移动端隐藏拖拽条并切换为单列；`scrollWidth = clientWidth`，三维画布宽度 358 px，无横向溢出。
+
+### 回归验证
+
+- CSD 搜索、命名、目录服务与结构工作台：4 个测试文件、22 项测试通过。
+- 全量 Vitest 回归通过；独立性能守卫在单工作线程下复核通过。
+- TypeScript、生产构建与 `git diff --check` 通过。
+- 脚本化视觉检查因受限环境端口 `listen EPERM` 使用 browserless fallback 并通过；应用内浏览器另行完成了桌面、移动端和真实交互验收。
+
+final result: passed

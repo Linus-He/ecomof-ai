@@ -33,15 +33,15 @@ describe("CSD MOF naming", () => {
     })
   })
 
-  it("gives an unmapped CSD structure an explicit platform-canonical display name", () => {
+  it("uses the professional CSD Refcode as the public name while retaining an internal stable ID", () => {
     expect(buildCsdNamingFields({
       refcode: "ABAVOP",
       metalElements: ["Zn"],
     })).toMatchObject({
-      displayName: "EcoMOF-Zn-ABAVOP",
+      displayName: "ABAVOP",
       platformName: "EcoMOF-Zn-ABAVOP",
-      displayNameKind: "ecomof-platform-canonical",
-      nameSource: "derived-from-csd-refcode-and-metal-elements",
+      displayNameKind: "csd-refcode",
+      nameSource: "csd-refcode",
       mofClass: "Zn-MOFs",
       mofClassSource: "derived-from-csd-metal-elements",
       csdRefcode: "ABAVOP",
