@@ -4,6 +4,7 @@ import { DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
 import { normalizeMofCandidate } from "../utils/normalizeMofCandidate"
 
 const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
+const DEFAULT_CSD_MOF_PUBLIC_BASE = "https://linus-he.github.io/ecomof-csd-mof-data/"
 
 const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
@@ -36,6 +37,7 @@ const DATA_PATHS = {
   mofIdentityRegistry: "data/mof_identity_registry.json",
   coreMofImportV2: "data/data_ingestion/core_mof_import_v2.json",
   qmofImportV2: "data/data_ingestion/qmof_import_v2.json",
+  csdStructurePilotManifest: "data/csd_structure_pilot_manifest.json",
   gasAdsorptionSourcesV1: "data/gas_adsorption_sources_v1.json",
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
   gasAdsorptionSchemaV1: "data/gas_adsorption_schema_v1.json",
@@ -47,6 +49,13 @@ const DATA_PATHS = {
 const QUALITY_FIELDS = CORE_MOF_DESCRIPTOR_KEYS
 
 export { DATA_PROVIDER }
+
+function externalBaseUrl(value) {
+  const normalized = String(value || "").trim()
+  return (normalized || DEFAULT_CSD_MOF_PUBLIC_BASE).replace(/\/?$/, "/")
+}
+
+export const CSD_MOF_PUBLIC_BASE = externalBaseUrl(import.meta.env.VITE_CSD_MOF_PUBLIC_BASE)
 
 function dataUrl(path) {
   const base = import.meta.env.BASE_URL || "/"
@@ -74,6 +83,59 @@ export async function fetchJson(path, fallback = [], options = {}) {
     console.warn("Data could not be loaded from GitHub Pages.", error)
     return fallback
   }
+}
+
+export async function fetchExternalJson(url, fallback = [], options = {}) {
+  try {
+    const response = await fetch(url, { mode: "cors" })
+    if (!response.ok) {
+      const error = new Error(`External data request failed: ${response.status}`)
+      if (options.throwOnError) throw error
+      console.warn(error.message)
+      return fallback
+    }
+    return await response.json()
+  } catch (error) {
+    if (options.throwOnError) throw error
+    console.warn("External research data could not be loaded.", error)
+    return fallback
+  }
+}
+
+export function attachCsdPublicUrls(catalog, baseUrl = CSD_MOF_PUBLIC_BASE) {
+  const normalizedBase = externalBaseUrl(baseUrl)
+  const structures = Array.isArray(catalog?.structures)
+    ? catalog.structures.map(record => ({
+        ...record,
+        cifUrl: new URL(String(record.path || "").replace(/^\/+/, ""), normalizedBase).href,
+      }))
+    : []
+  return {
+    ...(catalog || {}),
+    publicBaseUrl: normalizedBase,
+    structures,
+  }
+}
+
+export async function getCsdMofPublicCatalog({ throwOnError = false } = {}) {
+  const fallback = {
+    schemaVersion: "1.0.0",
+    dataset: {
+      name: "CSD MOF Collection (Non-Commercial)",
+      license: {
+        spdx: "CC-BY-NC-SA-4.0",
+        url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      },
+    },
+    summary: { total: 0 },
+    structures: [],
+  }
+  const catalog = await fetchExternalJson(
+    new URL("index/structures.json", CSD_MOF_PUBLIC_BASE).href,
+    fallback,
+    { throwOnError },
+  )
+  return attachCsdPublicUrls(catalog, CSD_MOF_PUBLIC_BASE)
 }
 
 export function fetchDataJson(fileName, fallback = [], options = {}) {
@@ -211,6 +273,10 @@ export function getCoreMofImportV2({ throwOnError = false } = {}) {
 
 export function getQmofImportV2({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.qmofImportV2, { records: [] }, { throwOnError })
+}
+
+export function getCsdStructurePilotManifest({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.csdStructurePilotManifest, { records: [], license: {} }, { throwOnError })
 }
 
 export function getGasAdsorptionSourcesV1({ throwOnError = false } = {}) {

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:csd-public": "node scripts/build-csd-mof-public-dataset.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -14,7 +15,10 @@
     "visual:check:gassep": "node scripts/visual-check-gassep.mjs"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "3dmol": "^2.5.5",
     "katex": "^0.16.45",
+    "quickhull3d": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-katex": "^3.1.0",

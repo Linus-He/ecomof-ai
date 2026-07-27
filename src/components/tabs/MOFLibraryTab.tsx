@@ -12,6 +12,8 @@ import {
   getMofIdentityRegistry,
   getCoreMofImportV2,
   getQmofImportV2,
+  getCsdStructurePilotManifest,
+  getCsdMofPublicCatalog,
   getReadableMofLabel,
   toolbarBtn,
   PageHeader,
@@ -31,6 +33,7 @@ import { ReactionFingerprintPanel } from "../catalysis/ReactionFingerprintPanel"
 import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
+import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
 
 const DATA_MODE = "open-mof-seed"
 const PAGE_SIZE = 24
@@ -1165,6 +1168,9 @@ export function MOFLibraryTab() {
   const [collectionReport, setCollectionReport] = useState(null)
   const [identityReport, setIdentityReport] = useState(null)
   const [proxyReport, setProxyReport] = useState(null)
+  const [csdPilotManifest, setCsdPilotManifest] = useState({ records: [], license: {} })
+  const [csdPublicCatalog, setCsdPublicCatalog] = useState({ structures: [], summary: {}, dataset: {} })
+  const [csdCatalogStatus, setCsdCatalogStatus] = useState("loading")
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -1183,8 +1189,10 @@ export function MOFLibraryTab() {
       getGasStructureProxyValidationReport({ throwOnError: false }),
       getCoreMofImportV2({ throwOnError: false }),
       getQmofImportV2({ throwOnError: false }),
+      getCsdStructurePilotManifest({ throwOnError: false }),
+      getCsdMofPublicCatalog({ throwOnError: false }),
     ])
-      .then(([data, gasData, registry, report, identityResolution, proxyValidation, coreImport, qmofImport]) => {
+      .then(([data, gasData, registry, report, identityResolution, proxyValidation, coreImport, qmofImport, csdManifest, csdCatalog]) => {
         if (!active) return
         const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
         const imports = [
@@ -1198,12 +1206,16 @@ export function MOFLibraryTab() {
         setCollectionReport(report || null)
         setIdentityReport(identityResolution || null)
         setProxyReport(proxyValidation || null)
+        setCsdPilotManifest(csdManifest || { records: [], license: {} })
+        setCsdPublicCatalog(csdCatalog || { structures: [], summary: {}, dataset: {} })
+        setCsdCatalogStatus(csdCatalog?.structures?.length ? "ready" : "unavailable")
         setStatus(normalized.length ? "loaded" : "empty")
       })
       .catch(error => {
         console.warn("Open MOF Seed data could not be loaded.", error)
         if (!active) return
         setRows([])
+        setCsdCatalogStatus("unavailable")
         setStatus("fallback")
       })
     return () => { active = false }
@@ -1270,6 +1282,16 @@ export function MOFLibraryTab() {
         </StatusPill>
         <span>{statusLine}</span>
       </div>
+
+      <MofStructureWorkbench
+        item={activeRecord}
+        pilotManifest={csdPilotManifest}
+        publicCatalog={csdPublicCatalog}
+        catalogStatus={csdCatalogStatus}
+        lang={lang}
+        t={t}
+        isMobile={isMobile}
+      />
 
       {status === "loading" && <div style={{ color: t.accentText, fontSize: 12.2, fontWeight: 800 }}>{text(lang, "正在加载 Open MOF Seed 数据…", "Loading Open MOF Seed data...")}</div>}
       {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据暂时无法读取。请刷新页面或稍后重试。", "Open MOF Seed data is temporarily unavailable. Please refresh or try again later.")}</Callout>}

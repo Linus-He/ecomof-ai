@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-27",
+  "status": "blocked-authenticated-download-required",
+  "sourceDatabase": "CSD MOF Collection (Non-Commercial)",
+  "sourceUrl": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads?Legacy=False",
+  "registrationUrl": "https://www.ccdc.cam.ac.uk/account/login/register",
+  "license": {
+    "spdx": "CC-BY-NC-SA-4.0",
+    "label": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+    "termsUrl": "https://www.ccdc.cam.ac.uk/licence-agreement/",
+    "redistributionBoundary": "Only records verified from the authenticated CSD MOF Collection package may be added. Full licensed CSD data must not be redistributed through the public build."
+  },
+  "processingPolicy": {
+    "rawCifRequired": true,
+    "preserveOriginalHash": true,
+    "derivedScenesRequireMethod": true,
+    "polyhedraAreDerived": true,
+    "publicBuildRequiresLicenseGate": true,
+    "localUploadLeavesBrowser": false
+  },
+  "notes": [
+    "Pilot names are selected from the existing EcoMOF-AI benchmark list.",
+    "CSD membership, refcodes, deposition numbers, and downloadable CIF filenames remain unconfirmed until the authenticated collection is ingested.",
+    "No CSD structure is considered renderable merely because a same-name record exists in CoRE-MOF or QMOF."
+  ],
+  "records": [
+    {
+      "canonicalId": "core_mof74_mg",
+      "displayName": "MOF-74-Mg",
+      "aliases": ["Mg-MOF-74", "CPO-27-Mg"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_hkust1",
+      "displayName": "HKUST-1",
+      "aliases": ["Cu-BTC", "MOF-199"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_uio66",
+      "displayName": "UiO-66",
+      "aliases": ["UiO66"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_uio66_nh2",
+      "displayName": "UiO-66-NH2",
+      "aliases": ["NH2-UiO-66", "UiO-66-NH₂"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_zif8",
+      "displayName": "ZIF-8",
+      "aliases": [],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_mil101_cr",
+      "displayName": "MIL-101(Cr)",
+      "aliases": ["MIL-101-Cr"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_mil53_al",
+      "displayName": "MIL-53(Al)",
+      "aliases": ["MIL-53-Al"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_irmof1",
+      "displayName": "IRMOF-1",
+      "aliases": ["MOF-5"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_mof74_co",
+      "displayName": "Co-MOF-74",
+      "aliases": ["CPO-27-Co"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    },
+    {
+      "canonicalId": "core_mof74_ni",
+      "displayName": "Ni-MOF-74",
+      "aliases": ["CPO-27-Ni"],
+      "sourceDatabase": "CSD MOF Collection",
+      "csdRefcode": null,
+      "ccdcNumber": null,
+      "cifFile": null,
+      "sourceConfirmation": "pending-authenticated-ingestion",
+      "viewerStatus": "blocked-no-cif",
+      "scenes": {}
+    }
+  ]
+}

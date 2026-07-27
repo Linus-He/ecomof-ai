@@ -19,6 +19,7 @@ The current application is not a publication-grade predictor. It is a browser-ba
 - **Adsorption Filters**: gas, temperature, pressure, minimum uptake, BET area, pore volume, gas pair, and selectivity filters update the Performance adsorption board in real time.
 - **Scoring Diagnostics**: reusable scoring utilities and the global scoring workbench show candidate rankings, descriptor weights, evidence distribution, and explanation panels.
 - **Catalysis Evidence Workspace**: CatalysisLab preserves a dedicated organic-acid sub-workspace with graph/rule-network evidence, pending queues, and validation-roadmap language.
+- **CSD Structure Atlas**: the MOF Library searches the 15,906-record non-commercial CSD MOF Collection, downloads one CIF on demand, and derives unit-cell-aware coordination polyhedra in the browser.
 
 ## 3. Data Curation Status
 
@@ -28,6 +29,14 @@ Current bundled datasets:
 - Real Seed framework candidates: 11 records in `public/data/mof_candidates_real_seed.json`.
 - Demo candidates: 6 records in `public/data/mof_candidates_demo.json`.
 - Curated adsorption seed records: 5 records in `src/data/realSeedData.ts`, all marked `DataMode: real` and all containing isotherm points.
+
+The CSD MOF CIF files are not bundled into this application repository. They
+are published separately at
+[`Linus-He/ecomof-csd-mof-data`](https://github.com/Linus-He/ecomof-csd-mof-data)
+under **CC BY-NC-SA 4.0** for open, non-commercial research. The frontend loads
+its searchable index and individual CIF files from that repository's GitHub
+Pages site. The application code and the CSD-derived data therefore keep
+separate provenance and licensing boundaries.
 
 Adsorption curation coverage in the new typed seed file is 5/5 records with at least one isotherm curve. Descriptor coverage is not complete for every scientific use case: detailed digitized source tables, full uncertainty, feed composition, fitted pure-component models, and final IAST recalculation remain known gaps. The UI labels incomplete or non-comparable conditions rather than hiding them.
 
@@ -40,6 +49,8 @@ Adsorption curation coverage in the new typed seed file is 5/5 records with at l
 - React Testing Library
 - jsdom
 - Recharts for existing legacy charts
+- 3Dmol.js for browser-side CIF rendering
+- quickhull3d for derived coordination-polyhedron surfaces
 - Pure SVG for the new isotherm chart to avoid adding another heavy chart dependency
 
 ## 5. Getting Started
@@ -49,6 +60,16 @@ npm install
 npm run dev
 npm run build
 npm test
+```
+
+To regenerate the separate CSD MOF public package from an authenticated local
+download:
+
+```bash
+npm run build:csd-public -- \
+  --source /path/to/CSD_MOF_Collection \
+  --archive /path/to/CSD_MOF_Collection.zip \
+  --output /path/to/ecomof-csd-mof-data
 ```
 
 Additional checks:

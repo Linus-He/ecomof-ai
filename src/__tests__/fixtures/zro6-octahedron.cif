@@ -1,0 +1,24 @@
+data_EcoMOF_QA_ZrO6
+_audit_creation_method 'Synthetic QA fixture; not a database record'
+_chemical_formula_sum 'Zr O6'
+_cell_length_a 20.000
+_cell_length_b 20.000
+_cell_length_c 20.000
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_symmetry_space_group_name_H-M 'P 1'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Zr1 Zr 0.500 0.500 0.500
+O1  O  0.600 0.500 0.500
+O2  O  0.400 0.500 0.500
+O3  O  0.500 0.600 0.500
+O4  O  0.500 0.400 0.500
+O5  O  0.500 0.500 0.600
+O6  O  0.500 0.500 0.400
