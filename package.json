@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:csd-public": "node scripts/build-csd-mof-public-dataset.mjs",
+    "split:csd-public-index": "node scripts/split-csd-mof-public-index.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

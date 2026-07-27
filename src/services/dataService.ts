@@ -2,6 +2,15 @@
 import { CORE_MOF_DESCRIPTOR_KEYS } from "../scoring/descriptors/descriptorRegistry"
 import { DEFAULT_CANDIDATE_DATA_MODE } from "../config/dataModes"
 import { normalizeMofCandidate } from "../utils/normalizeMofCandidate"
+import {
+  CsdMofRequestError,
+  attachCsdPublicUrls,
+  downloadCsdMofCif,
+  getCsdMofPublicCatalog as loadCsdMofPublicCatalog,
+  getCsdMofRecordDetails,
+  preloadCsdMofStructures,
+  scheduleCsdMofPreload,
+} from "./csdMofPublicService"
 
 const DATA_PROVIDER = import.meta.env.VITE_DATA_PROVIDER || "static"
 const DEFAULT_CSD_MOF_PUBLIC_BASE = "https://linus-he.github.io/ecomof-csd-mof-data/"
@@ -102,40 +111,17 @@ export async function fetchExternalJson(url, fallback = [], options = {}) {
   }
 }
 
-export function attachCsdPublicUrls(catalog, baseUrl = CSD_MOF_PUBLIC_BASE) {
-  const normalizedBase = externalBaseUrl(baseUrl)
-  const structures = Array.isArray(catalog?.structures)
-    ? catalog.structures.map(record => ({
-        ...record,
-        cifUrl: new URL(String(record.path || "").replace(/^\/+/, ""), normalizedBase).href,
-      }))
-    : []
-  return {
-    ...(catalog || {}),
-    publicBaseUrl: normalizedBase,
-    structures,
-  }
+export {
+  CsdMofRequestError,
+  attachCsdPublicUrls,
+  downloadCsdMofCif,
+  getCsdMofRecordDetails,
+  preloadCsdMofStructures,
+  scheduleCsdMofPreload,
 }
 
 export async function getCsdMofPublicCatalog({ throwOnError = false } = {}) {
-  const fallback = {
-    schemaVersion: "1.0.0",
-    dataset: {
-      name: "CSD MOF Collection (Non-Commercial)",
-      license: {
-        spdx: "CC-BY-NC-SA-4.0",
-        url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-      },
-    },
-    summary: { total: 0 },
-    structures: [],
-  }
-  const catalog = await fetchExternalJson(
-    new URL("index/structures.json", CSD_MOF_PUBLIC_BASE).href,
-    fallback,
-    { throwOnError },
-  )
-  return attachCsdPublicUrls(catalog, CSD_MOF_PUBLIC_BASE)
+  return loadCsdMofPublicCatalog(CSD_MOF_PUBLIC_BASE, { throwOnError })
 }
 
 export function fetchDataJson(fileName, fallback = [], options = {}) {

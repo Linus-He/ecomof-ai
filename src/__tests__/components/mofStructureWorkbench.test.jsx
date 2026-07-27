@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { describe, expect, it } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { beforeEach, describe, expect, it, vi } from "vitest"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { THEME_LIGHT } from "../../constants/theme"
 import pilotManifest from "../../../public/data/csd_structure_pilot_manifest.json"
 import {
@@ -9,6 +9,15 @@ import {
   parseCifCellVectors,
   summarizeStructureAtoms,
 } from "../../components/mof-structure/MofStructureWorkbench"
+import {
+  downloadCsdMofCif,
+  scheduleCsdMofPreload,
+} from "../../services/dataService"
+
+vi.mock("../../services/dataService", () => ({
+  downloadCsdMofCif: vi.fn(),
+  scheduleCsdMofPreload: vi.fn(),
+}))
 
 const octahedronAtoms = [
   { index: 0, elem: "Zr", x: 0, y: 0, z: 0 },
@@ -20,7 +29,79 @@ const octahedronAtoms = [
   { index: 6, elem: "O", x: 0, y: 0, z: -2 },
 ]
 
+const publicCatalog = {
+  publicBaseUrl: "https://example.org/data/",
+  cacheState: "network",
+  summary: { total: 15906 },
+  dataset: { name: "CSD MOF Collection (Non-Commercial)", license: { spdx: "CC-BY-NC-SA-4.0" } },
+  aliasRegistry: { aliases: new Array(12).fill({}) },
+  identityRecords: [
+    {
+      recordType: "identity-only",
+      identityId: "ntu-68",
+      commonName: "NTU-68",
+      searchAliases: ["NTU68", "NTU 68", "NTU-68a"],
+      identityStatus: "verified-name-structure-unmapped",
+      mofClass: "Cu-MOFs",
+      mofFamily: "Azolate-MOFs",
+      firstReportedYear: 2023,
+      linkerIdentity: { name: "1,4-bis(imidazol-1-yl)benzene", abbreviation: "bimb" },
+      associatedPaper: { doi: "10.1021/jacs.3c10277", url: "https://doi.org/10.1021/jacs.3c10277" },
+    },
+    {
+      recordType: "identity-only",
+      identityId: "al-l2",
+      commonName: "Al(L2)",
+      searchAliases: ["AlL2", "Al-L2", "Al L2", "Al(L₂)"],
+      identityStatus: "catalogued-name-unmapped",
+      mofClass: "Al-MOFs",
+      mofFamily: "Carboxylate-MOFs",
+      firstReportedYear: 2023,
+    },
+    {
+      recordType: "identity-only",
+      identityId: "uio-66-nh2",
+      commonName: "UiO-66-NH₂",
+      searchAliases: ["UiO-66-NH2", "UiO66NH2", "NH2-UiO-66"],
+      identityStatus: "known-name-unmapped",
+      mofClass: "Zr-MOFs",
+      mofFamily: "Carboxylate-MOFs",
+    },
+  ],
+  structures: [{
+    refcode: "RUBTAK",
+    file: "rubtak_P1_H.cif",
+    prefix: "ru",
+    formula: "(C48 H28 O32 Zr6)n",
+    metalElements: ["Zr"],
+    commonName: "UiO-66",
+    displayName: "UiO-66",
+    platformName: "EcoMOF-Zr-RUBTAK",
+    displayNameKind: "verified-literature-common-name",
+    nameSource: "curated-identity-registry",
+    searchAliases: ["UiO-66", "UiO66", "Zr-BDC"],
+    preferredAliasRefcode: "RUBTAK",
+    aliasRefcodes: ["RUBTAK", "RUBTAK01", "RUBTAK02"],
+    mofClass: "Zr-MOFs",
+    mofFamily: "Carboxylate-MOFs",
+    firstReportedYear: 2008,
+    linkerIdentity: { name: "Benzene-1,4-dicarboxylic acid", abbreviation: "1,4-BDC" },
+    metalCluster: "Zr₆(μ₃-O)₄(μ₃-OH)₄(COO)₁₂",
+    topology: "fcu",
+    associatedPaper: { doi: "10.1021/ja8057953", url: "https://doi.org/10.1021/ja8057953" },
+    ccdcNumber: "733458",
+    identityStatus: "verified-curated",
+    identityPage: "https://mofanatomy.com/mof/uio-66/",
+    cifUrl: "https://example.org/data/cif/ru/rubtak_P1_H.cif",
+  }],
+}
+
 describe("MofStructureWorkbench", () => {
+  beforeEach(() => {
+    vi.mocked(downloadCsdMofCif).mockReset()
+    vi.mocked(scheduleCsdMofPreload).mockReset()
+  })
+
   it("derives a ZrO6 octahedron from real coordinates", () => {
     const polyhedra = deriveCoordinationPolyhedra(octahedronAtoms)
     expect(polyhedra).toHaveLength(1)
@@ -85,5 +166,108 @@ describe("MofStructureWorkbench", () => {
     expect(screen.getAllByRole("button", { name: "载入本地 CIF" })).toHaveLength(2)
     expect(screen.getByRole("combobox", { name: "结构片段" })).toBeDisabled()
     expect(screen.getByRole("combobox", { name: "多面体" })).toBeDisabled()
+  })
+
+  it("distinguishes network download failure and exposes all three fallbacks", async () => {
+    vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
+    render(
+      <MofStructureWorkbench
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        pilotManifest={pilotManifest}
+        publicCatalog={publicCatalog}
+        catalogStatus="ready"
+        lang="zh"
+        t={THEME_LIGHT}
+        isMobile={false}
+      />,
+    )
+
+    expect(await screen.findByText("网络下载失败")).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "重新下载" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "复制 CIF 地址" })).toBeInTheDocument()
+    expect(screen.getAllByRole("button", { name: "载入本地 CIF" }).length).toBeGreaterThanOrEqual(2)
+  })
+
+  it("labels a downloaded invalid CIF as a parse failure", async () => {
+    vi.mocked(downloadCsdMofCif).mockResolvedValue({
+      record: publicCatalog.structures[0],
+      text: "this is not a CIF",
+      bytes: 17,
+      source: "network",
+      attempts: 1,
+    })
+    render(
+      <MofStructureWorkbench
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        pilotManifest={pilotManifest}
+        publicCatalog={publicCatalog}
+        catalogStatus="ready"
+        lang="zh"
+        t={THEME_LIGHT}
+        isMobile={false}
+      />,
+    )
+
+    expect(await screen.findByText("CIF 解析失败")).toBeInTheDocument()
+    expect(screen.getByText(/CIF 已下载，但缺少/)).toBeInTheDocument()
+    expect(screen.getAllByText("Zr-MOFs").length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText("Carboxylate-MOFs").length).toBeGreaterThanOrEqual(1)
+    expect(screen.getByText("1,4-BDC")).toBeInTheDocument()
+    expect(screen.getByRole("link", { name: "DOI 10.1021/ja8057953" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "重新下载" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "复制 CIF 地址" })).toBeInTheDocument()
+  })
+
+  it("finds UiO-66 through its cited common-name alias", async () => {
+    vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
+    render(
+      <MofStructureWorkbench
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        pilotManifest={pilotManifest}
+        publicCatalog={publicCatalog}
+        catalogStatus="ready"
+        lang="zh"
+        t={THEME_LIGHT}
+        isMobile={false}
+      />,
+    )
+
+    const search = screen.getByRole("searchbox")
+    fireEvent.change(search, { target: { value: "UiO-66" } })
+    await waitFor(() => expect(screen.getByRole("button", { name: /RUBTAK/ })).toBeInTheDocument())
+  })
+
+  it("searches punctuation and Unicode naming styles without inferring a structure", async () => {
+    vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
+    render(
+      <MofStructureWorkbench
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        pilotManifest={pilotManifest}
+        publicCatalog={publicCatalog}
+        catalogStatus="ready"
+        lang="zh"
+        t={THEME_LIGHT}
+        isMobile={false}
+      />,
+    )
+
+    expect(await screen.findByText("网络下载失败")).toBeInTheDocument()
+    const search = screen.getByRole("searchbox")
+
+    fireEvent.change(search, { target: { value: "Al L2" } })
+    expect(await screen.findByRole("button", { name: /Al\(L2\)/ })).toBeInTheDocument()
+
+    fireEvent.change(search, { target: { value: "UiO-66-NH2" } })
+    expect(await screen.findByRole("button", { name: /UiO-66-NH₂/ })).toBeInTheDocument()
+
+    fireEvent.change(search, { target: { value: "NTU68" } })
+    const ntuResult = await screen.findByRole("button", { name: /NTU-68/ })
+    const downloadCallsBeforeIdentitySelection = vi.mocked(downloadCsdMofCif).mock.calls.length
+    fireEvent.click(ntuResult)
+
+    expect(await screen.findByText("名称已接入，结构映射待核验")).toBeInTheDocument()
+    expect(screen.getByText("不以相似分子式推断结构")).toBeInTheDocument()
+    expect(screen.getByRole("link", { name: "DOI 10.1021/jacs.3c10277" })).toBeInTheDocument()
+    expect(vi.mocked(downloadCsdMofCif)).toHaveBeenCalledTimes(downloadCallsBeforeIdentitySelection)
   })
 })

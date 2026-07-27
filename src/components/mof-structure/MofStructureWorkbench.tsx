@@ -7,6 +7,7 @@ import {
   Camera,
   CheckCircle,
   CloudArrowDown,
+  CopySimple,
   Cube,
   CubeTransparent,
   Database,
@@ -22,6 +23,10 @@ import {
   UploadSimple,
   WarningCircle,
 } from "@phosphor-icons/react"
+import {
+  downloadCsdMofCif,
+  scheduleCsdMofPreload,
+} from "../../services/dataService"
 import "./MofStructureWorkbench.css"
 
 const METAL_ELEMENTS = new Set([
@@ -60,6 +65,13 @@ const CUTOFFS = {
 }
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
+
+function normalizeSearchTerm(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, "")
+}
 
 function normalizeElement(value) {
   const raw = String(value || "").replace(/[^A-Za-z]/g, "")
@@ -274,10 +286,13 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   const defaultCatalogRecordRef = useRef(false)
   const [cifText, setCifText] = useState("")
   const [viewerStatus, setViewerStatus] = useState("idle")
-  const [viewerError, setViewerError] = useState("")
+  const [viewerPhase, setViewerPhase] = useState("idle")
+  const [viewerIssue, setViewerIssue] = useState(null)
+  const [copyStatus, setCopyStatus] = useState("idle")
   const [fileMeta, setFileMeta] = useState(null)
   const [catalogQuery, setCatalogQuery] = useState("")
   const [activeCsdRecord, setActiveCsdRecord] = useState(null)
+  const [activeIdentityRecord, setActiveIdentityRecord] = useState(null)
   const [viewMode, setViewMode] = useState("cell")
   const [polyhedraMode, setPolyhedraMode] = useState("translucent")
   const [depth, setDepth] = useState(6)
@@ -301,31 +316,75 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   const readyPilotCount = pilotRecords.filter(record => record.viewerStatus === "ready").length
   const hasCuratedScenes = Boolean(pilotRecord?.scenes?.cluster || pilotRecord?.scenes?.pore1 || pilotRecord?.scenes?.topology)
   const publicRecords = Array.isArray(publicCatalog?.structures) ? publicCatalog.structures : []
+  const identityRecords = Array.isArray(publicCatalog?.identityRecords) ? publicCatalog.identityRecords : []
   const publicRecordCount = Number(publicCatalog?.summary?.total || publicRecords.length)
+  const namedRecordCount = Number(publicCatalog?.summary?.namedTotal || publicRecordCount)
+  const literatureNamedCount = Number(
+    publicCatalog?.summary?.literatureNamed
+    ?? publicRecords.filter(record => record.displayNameKind === "verified-literature-common-name").length,
+  )
+  const platformNamedCount = Math.max(0, namedRecordCount - literatureNamedCount)
   const publicCatalogReady = catalogStatus === "ready" && publicRecords.length > 0
   const publicCatalogMatches = useMemo(() => {
     if (!publicRecords.length) return []
     const query = catalogQuery.trim().toUpperCase()
+    const normalizedQuery = normalizeSearchTerm(query)
     if (!query) {
       const featured = activeCsdRecord
         ? [activeCsdRecord, ...publicRecords.filter(record => record.refcode !== activeCsdRecord.refcode)]
         : publicRecords
       return featured.slice(0, 6)
     }
-    return publicRecords
+    return [...publicRecords, ...identityRecords]
       .filter(record => {
         const refcode = String(record.refcode || "").toUpperCase()
         const formula = String(record.formula || "").toUpperCase()
         const metals = Array.isArray(record.metalElements) ? record.metalElements.join(" ").toUpperCase() : ""
-        return refcode.includes(query) || formula.includes(query) || metals.split(/\s+/).includes(query)
+        const aliases = [
+          record.displayName,
+          record.platformName,
+          record.commonName,
+          ...(record.searchAliases || []),
+        ].filter(Boolean)
+        const identityTerms = [
+          record.mofClass,
+          record.mofFamily,
+          record.firstReportedYear,
+          record.linkerIdentity?.name,
+          record.linkerIdentity?.abbreviation,
+          record.topology,
+          record.ccdcNumber,
+          record.associatedPaper?.doi,
+        ].filter(Boolean)
+        return refcode.includes(query)
+          || formula.includes(query)
+          || metals.split(/\s+/).includes(query)
+          || aliases.some(alias => normalizeSearchTerm(alias).includes(normalizedQuery))
+          || identityTerms.some(value => normalizeSearchTerm(value).includes(normalizedQuery))
       })
       .sort((a, b) => {
-        const aExact = String(a.refcode || "").toUpperCase() === query ? -2 : String(a.refcode || "").toUpperCase().startsWith(query) ? -1 : 0
-        const bExact = String(b.refcode || "").toUpperCase() === query ? -2 : String(b.refcode || "").toUpperCase().startsWith(query) ? -1 : 0
-        return aExact - bExact || String(a.refcode).localeCompare(String(b.refcode))
+        const score = record => {
+          const refcode = String(record.refcode || "").toUpperCase()
+          const aliases = [
+            record.displayName,
+            record.platformName,
+            record.commonName,
+            ...(record.searchAliases || []),
+          ].filter(Boolean)
+          if (refcode === query) return -5
+          if (aliases.some(alias => normalizeSearchTerm(alias) === normalizedQuery)) {
+            if (record.recordType === "identity-only") return -4.5
+            return record.preferredAliasRefcode === record.refcode ? -4 : -3
+          }
+          return refcode.startsWith(query) ? -2 : -1
+        }
+        const aExact = score(a)
+        const bExact = score(b)
+        return aExact - bExact
+          || String(a.refcode || a.commonName).localeCompare(String(b.refcode || b.commonName))
       })
       .slice(0, 8)
-  }, [activeCsdRecord, catalogQuery, publicRecords])
+  }, [activeCsdRecord, catalogQuery, identityRecords, publicRecords])
 
   const applyRepresentation = useCallback((mode = "cell") => {
     const viewer = viewerRef.current
@@ -377,7 +436,8 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     if (!cifText || !containerRef.current) return
     let cancelled = false
     setViewerStatus("loading")
-    setViewerError("")
+    setViewerPhase("parsing")
+    setViewerIssue(null)
 
     const load = async () => {
       try {
@@ -406,6 +466,9 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
         })
         viewer.zoomTo({ model })
         const atoms = viewer.selectedAtoms({ model })
+        if (!Array.isArray(atoms) || !atoms.length) {
+          throw new Error(text(lang, "CIF 中没有可显示的原子坐标。", "No displayable atom coordinates were found in the CIF."))
+        }
         const polyhedra = deriveCoordinationPolyhedra(atoms, {
           cellVectors: parseCifCellVectors(cifText),
         })
@@ -424,6 +487,7 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
         initialViewRef.current = viewer.getView()
         setViewMode("cell")
         setViewerStatus("ready")
+        setViewerPhase("ready")
         viewer.render()
         window.setTimeout(() => {
           if (!cancelled) renderPolyhedra(polyhedraMode)
@@ -431,14 +495,22 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
       } catch (error) {
         if (cancelled) return
         setViewerStatus("error")
-        setViewerError(error instanceof Error ? error.message : String(error))
+        setViewerPhase("parse-error")
+        setViewerIssue({
+          kind: "parse",
+          message: text(
+            lang,
+            `CIF 已下载，但三维解析失败：${error instanceof Error ? error.message : String(error)}`,
+            `The CIF was downloaded, but 3D parsing failed: ${error instanceof Error ? error.message : String(error)}`,
+          ),
+        })
       }
     }
     load()
     return () => {
       cancelled = true
     }
-  }, [cifText, t, renderPolyhedra])
+  }, [cifText, lang, t, renderPolyhedra])
 
   useEffect(() => {
     if (viewerStatus !== "ready") return
@@ -479,49 +551,110 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     viewerRef.current = null
   }, [])
 
-  const loadPublicRecord = useCallback(async record => {
+  const loadPublicRecord = useCallback(async (record, options = {}) => {
     if (!record?.cifUrl) return
     remoteRequestRef.current?.abort()
     const controller = new AbortController()
     remoteRequestRef.current = controller
+    setActiveIdentityRecord(null)
     setActiveCsdRecord(record)
     setCatalogQuery(record.refcode || "")
     setSelectedAtom(null)
     setIsSpinning(false)
     setCifText("")
     setFileMeta(null)
-    setViewerError("")
+    setViewerIssue(null)
+    setCopyStatus("idle")
     setViewerStatus("loading")
+    setViewerPhase("downloading")
     try {
-      const response = await fetch(record.cifUrl, { mode: "cors", signal: controller.signal })
-      if (!response.ok) throw new Error(`CIF request failed: ${response.status}`)
-      const source = await response.text()
+      const result = await downloadCsdMofCif(record, {
+        baseUrl: publicCatalog?.publicBaseUrl,
+        forceRefresh: Boolean(options.forceRefresh),
+        retries: 2,
+        signal: controller.signal,
+        timeoutMs: 12000,
+      })
+      const source = result.text
       if (!/(?:^|\n)\s*data_/i.test(source) || !/_atom_site_/i.test(source)) {
-        throw new Error(text(lang, "远程文件缺少 CIF data_ block 或 atom_site 坐标。", "The remote file lacks a CIF data block or atom-site coordinates."))
+        setActiveCsdRecord(result.record)
+        setFileMeta({
+          name: result.record.file,
+          size: result.bytes,
+          sourceType: "csd-public",
+          cacheState: result.source,
+          url: result.record.cifUrl,
+          loadedAt: new Date().toISOString(),
+        })
+        setViewerStatus("error")
+        setViewerPhase("parse-error")
+        setViewerIssue({
+          kind: "parse",
+          message: text(
+            lang,
+            "CIF 已下载，但缺少 data_ 数据块或 atom_site 原子坐标，无法交给三维解析器。",
+            "The CIF was downloaded, but it lacks a data_ block or atom_site coordinates required by the 3D parser.",
+          ),
+        })
+        return
       }
       if (controller.signal.aborted) return
-      const responseBytes = Number(response.headers.get("content-length"))
+      setActiveCsdRecord(result.record)
       setFileMeta({
-        name: record.file,
-        size: Number.isFinite(responseBytes) && responseBytes > 0 ? responseBytes : record.bytes,
+        name: result.record.file,
+        size: result.bytes,
         sourceType: "csd-public",
-        url: record.cifUrl,
+        cacheState: result.source,
+        attempts: result.attempts,
+        url: result.record.cifUrl,
         loadedAt: new Date().toISOString(),
       })
+      setViewerPhase("parsing")
       setCifText(source)
     } catch (error) {
-      if (controller.signal.aborted) return
+      if (controller.signal.aborted || error?.kind === "aborted") return
       setViewerStatus("error")
-      setViewerError(
-        text(
+      setViewerPhase("download-error")
+      const reason = error?.kind === "timeout"
+        ? text(lang, "请求在 12 秒内未完成，系统已自动重试 2 次。", "The request did not finish within 12 seconds and was retried twice.")
+        : error?.kind === "http"
+          ? text(lang, `数据站返回 HTTP ${error.status || "错误"}。`, `The data site returned HTTP ${error.status || "error"}.`)
+          : text(lang, "浏览器未能连接公共数据站，可能是当前网络、跨境链路或数据站暂时不可达。", "The browser could not reach the public data site; the current network, cross-border route, or data host may be unavailable.")
+      setViewerIssue({
+        kind: "download",
+        code: error?.kind || "network",
+        message: text(
           lang,
-          `无法从公共数据站加载 ${record.refcode}。请稍后重试，或载入本地 CIF。`,
-          `Could not load ${record.refcode} from the public data site. Retry later or load a local CIF.`,
+          `${record.refcode} 的 CIF 尚未下载成功。${reason}`,
+          `The CIF for ${record.refcode} could not be downloaded. ${reason}`,
         ),
-      )
+      })
       console.warn("CSD public CIF could not be loaded.", error)
     }
-  }, [lang])
+  }, [lang, publicCatalog?.publicBaseUrl])
+
+  const showIdentityRecord = useCallback(record => {
+    if (!record || record.recordType !== "identity-only") return
+    remoteRequestRef.current?.abort()
+    viewerRef.current?.spin(false)
+    viewerRef.current?.removeAllModels()
+    viewerRef.current?.removeAllShapes()
+    viewerRef.current?.render()
+    modelRef.current = null
+    polyhedraRef.current = []
+    setActiveCsdRecord(null)
+    setActiveIdentityRecord(record)
+    setCatalogQuery(record.commonName || "")
+    setCifText("")
+    setFileMeta(null)
+    setSelectedAtom(null)
+    setIsSpinning(false)
+    setViewerIssue(null)
+    setCopyStatus("idle")
+    setViewerStatus("idle")
+    setViewerPhase("identity-only")
+    setStats({ atomCount: 0, metalCount: 0, polyhedraCount: 0, elements: {} })
+  }, [])
 
   useEffect(() => {
     if (defaultCatalogRecordRef.current || !publicCatalogReady) return
@@ -531,24 +664,41 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     void loadPublicRecord(defaultRecord)
   }, [loadPublicRecord, publicCatalogReady, publicRecords])
 
+  useEffect(() => {
+    if (!publicCatalogReady) return
+    scheduleCsdMofPreload(publicCatalog)
+  }, [publicCatalog, publicCatalogReady])
+
   const handleFile = async event => {
     const file = event.target.files?.[0]
     if (!file) return
     if (file.size > 15 * 1024 * 1024) {
       setViewerStatus("error")
-      setViewerError(text(lang, "CIF 超过 15 MB，本地预览暂不加载。", "The CIF exceeds the 15 MB local-preview limit."))
+      setViewerPhase("parse-error")
+      setViewerIssue({
+        kind: "parse",
+        message: text(lang, "本地 CIF 超过 15 MB，浏览器预览暂不解析。", "The local CIF exceeds the 15 MB browser-preview limit."),
+      })
       return
     }
     const source = await file.text()
     if (!/(?:^|\n)\s*data_/i.test(source) || !/_atom_site_/i.test(source)) {
       setViewerStatus("error")
-      setViewerError(text(lang, "文件缺少 CIF data_ block 或 atom_site 坐标。", "The file does not contain a CIF data block or atom-site coordinates."))
+      setViewerPhase("parse-error")
+      setViewerIssue({
+        kind: "parse",
+        message: text(lang, "本地 CIF 缺少 data_ 数据块或 atom_site 原子坐标。", "The local CIF lacks a data_ block or atom_site coordinates."),
+      })
       return
     }
     setSelectedAtom(null)
     setIsSpinning(false)
     remoteRequestRef.current?.abort()
     setActiveCsdRecord(null)
+    setActiveIdentityRecord(null)
+    setViewerIssue(null)
+    setCopyStatus("idle")
+    setViewerPhase("parsing")
     setFileMeta({
       name: file.name,
       size: file.size,
@@ -557,6 +707,28 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
     })
     setCifText(source)
     event.target.value = ""
+  }
+
+  const copyActiveCifUrl = async () => {
+    const url = activeCsdRecord?.cifUrl || fileMeta?.url
+    if (!url) return
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url)
+      } else {
+        const input = document.createElement("textarea")
+        input.value = url
+        input.style.position = "fixed"
+        input.style.opacity = "0"
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand("copy")
+        input.remove()
+      }
+      setCopyStatus("copied")
+    } catch {
+      setCopyStatus("failed")
+    }
   }
 
   const handleReset = () => {
@@ -596,12 +768,20 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   }
 
   const isPublicCsdFile = fileMeta?.sourceType === "csd-public" && activeCsdRecord
-  const sourceLabel = fileMeta?.sourceType === "user-local"
+  const metadataRecord = activeIdentityRecord || activeCsdRecord
+  const isIdentityOnly = Boolean(activeIdentityRecord)
+  const sourceLabel = isIdentityOnly
+    ? text(lang, "MOF 常用名登记表", "MOF common-name registry")
+    : fileMeta?.sourceType === "user-local"
     ? text(lang, "本地临时 CIF", "Local temporary CIF")
     : isPublicCsdFile
       ? publicCatalog?.dataset?.name || "CSD MOF Collection (Non-Commercial)"
       : pilotRecord?.sourceDatabase || "CSD MOF Collection"
-  const materialLabel = activeCsdRecord?.refcode || item?.displayName || item?.name || text(lang, "未命名 MOF", "Unnamed MOF")
+  const materialLabel = isIdentityOnly
+    ? metadataRecord?.commonName
+    : metadataRecord?.displayName
+      ? `${metadataRecord.displayName} · ${metadataRecord.refcode}`
+      : metadataRecord?.refcode || item?.displayName || item?.name || text(lang, "未命名 MOF", "Unnamed MOF")
   const qualityFlags = activeCsdRecord
     ? [
         activeCsdRecord.charged ? text(lang, "带电框架", "charged") : null,
@@ -652,7 +832,7 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             {fileMeta?.sourceType === "user-local"
               ? text(lang, "仅本地会话", "Local session only")
               : publicCatalogReady
-                ? text(lang, `CSD 公共结构 ${publicRecordCount.toLocaleString()}`, `${publicRecordCount.toLocaleString()} public CSD structures`)
+                ? text(lang, `${namedRecordCount.toLocaleString()} 条已命名 CSD 结构`, `${namedRecordCount.toLocaleString()} named CSD structures`)
                 : text(lang, `CSD 试点 ${readyPilotCount}/${pilotRecords.length || 10}`, `CSD pilot ${readyPilotCount}/${pilotRecords.length || 10}`)}
           </CompactPill>
           <input ref={inputRef} className="mof-structure-file-input" data-testid="mof-structure-file-input" type="file" accept=".cif,text/plain,chemical/x-cif" onChange={handleFile} />
@@ -673,44 +853,80 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             {catalogStatus === "loading"
               ? text(lang, "正在连接结构索引…", "Connecting to the structure index…")
               : publicCatalogReady
-                ? text(lang, "按 Refcode、分子式或金属元素检索；仅在选中时下载一个 CIF。", "Search by Refcode, formula, or metal; one CIF is downloaded only when selected.")
+                ? text(
+                    lang,
+                    `轻量索引已就绪（${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "来自本机缓存" : "已写入本机缓存"}）；${literatureNamedCount.toLocaleString()} 条使用已核验文献名，${platformNamedCount.toLocaleString()} 条使用与 Refcode 一一绑定的平台规范名。`,
+                    `The lightweight index is ready (${publicCatalog?.cacheState === "indexeddb" || publicCatalog?.cacheState === "stale-indexeddb" ? "from local cache" : "saved to local cache"}); ${literatureNamedCount.toLocaleString()} use verified literature names and ${platformNamedCount.toLocaleString()} use one-to-one platform canonical names.`,
+                  )
                 : text(lang, "公共目录暂不可用，本地 CIF 查看仍可使用。", "The public catalog is unavailable; local CIF viewing remains available.")}
           </span>
         </div>
         <label className="mof-structure-search-field">
-          <span>{text(lang, "检索 15,906 个结构", "Search 15,906 structures")}</span>
+          <span>
+            {text(
+              lang,
+              `检索 ${namedRecordCount.toLocaleString()} 个名称与结构`,
+              `Search ${namedRecordCount.toLocaleString()} names and structures`,
+            )}
+          </span>
           <div>
             <MagnifyingGlass aria-hidden="true" size={17} weight="bold" />
             <input
               type="search"
               value={catalogQuery}
               onChange={event => setCatalogQuery(event.target.value)}
-              placeholder={text(lang, "例如 ABADUG、Zn、(C153…)", "e.g. ABADUG, Zn, (C153…)")}
+              placeholder={text(lang, "例如 UiO-66、NTU-68、Al(L2)、RUBTAK", "e.g. UiO-66, NTU-68, Al(L2), RUBTAK")}
               disabled={!publicCatalogReady}
             />
           </div>
         </label>
         <div className="mof-structure-search-results" role="group" aria-label={text(lang, "结构检索结果", "Structure search results")}>
-          {publicCatalogMatches.map(record => (
-            <button
-              className={activeCsdRecord?.refcode === record.refcode ? "is-active" : ""}
-              key={record.refcode}
-              type="button"
-              onClick={() => loadPublicRecord(record)}
-              aria-pressed={activeCsdRecord?.refcode === record.refcode}
-            >
-              <span>
-                <strong>{record.refcode}</strong>
-                <small>{record.formula || text(lang, "分子式待整理", "formula pending")}</small>
-              </span>
-              <span>
-                {record.metalElements?.join(" · ") || "—"}
-                <CloudArrowDown aria-hidden="true" size={15} weight="bold" />
-              </span>
-            </button>
-          ))}
+          {publicCatalogMatches.map(record => {
+            const identityOnly = record.recordType === "identity-only"
+            const active = identityOnly
+              ? activeIdentityRecord?.identityId === record.identityId
+              : activeCsdRecord?.refcode === record.refcode
+            return (
+              <button
+                className={`${active ? "is-active" : ""} ${identityOnly ? "is-identity-only" : ""}`.trim()}
+                key={record.refcode || record.identityId}
+                type="button"
+                onClick={() => identityOnly ? showIdentityRecord(record) : loadPublicRecord(record)}
+                aria-pressed={active}
+              >
+                <span>
+                  <strong>{identityOnly ? record.commonName : record.displayName || record.refcode}</strong>
+                  <small>
+                    {identityOnly
+                      ? text(lang, "命名已收录 · CSD Refcode 待核验", "Name catalogued · CSD Refcode pending")
+                      : `CSD ${record.refcode} · ${record.formula || text(lang, "分子式待整理", "formula pending")}`}
+                  </small>
+                  <span className="mof-structure-result-identity">
+                    {[
+                      !identityOnly && record.displayNameKind === "ecomof-platform-canonical"
+                        ? text(lang, "平台规范名", "platform canonical")
+                        : !identityOnly
+                          ? text(lang, "文献常用名", "literature name")
+                          : null,
+                      record.mofClass,
+                      record.mofFamily,
+                      record.firstReportedYear,
+                    ].filter(Boolean).join(" · ")}
+                  </span>
+                </span>
+                <span>
+                  {identityOnly
+                    ? text(lang, "名称档案", "identity")
+                    : record.metalElements?.join(" · ") || "—"}
+                  {identityOnly
+                    ? <Info aria-hidden="true" size={15} weight="bold" />
+                    : <CloudArrowDown aria-hidden="true" size={15} weight="bold" />}
+                </span>
+              </button>
+            )
+          })}
           {publicCatalogReady && catalogQuery && !publicCatalogMatches.length ? (
-            <div className="mof-structure-search-empty">{text(lang, "未找到匹配的 CSD Refcode、分子式或金属元素。", "No matching CSD Refcode, formula, or metal element.")}</div>
+            <div className="mof-structure-search-empty">{text(lang, "未找到匹配的 CSD Refcode、常用名、分子式或金属元素。", "No matching CSD Refcode, common name, formula, or metal element.")}</div>
           ) : null}
         </div>
       </section>
@@ -725,7 +941,9 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
           <div className="mof-structure-source-list">
             <SourceRow label={text(lang, "结构来源", "Structure source")}>{sourceLabel}</SourceRow>
             <SourceRow label={text(lang, "接入状态", "Ingestion status")}>
-              {fileMeta?.sourceType === "user-local"
+              {isIdentityOnly
+                ? text(lang, "命名已接入 · 结构映射待核验", "name catalogued · structure mapping pending")
+                : fileMeta?.sourceType === "user-local"
                 ? text(lang, "本地已加载", "loaded locally")
                 : isPublicCsdFile
                   ? text(lang, "公共 CIF 已加载", "public CIF loaded")
@@ -735,24 +953,112 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                   ? text(lang, "仅有 CIF 文件名", "CIF filename only")
                   : text(lang, "等待 CSD 文件", "awaiting CSD file")}
             </SourceRow>
-            <SourceRow label="CSD Refcode">{activeCsdRecord?.refcode || pilotRecord?.csdRefcode || "pending"}</SourceRow>
-            <SourceRow label={text(lang, "分子式", "Formula")}>{activeCsdRecord?.formula || "pending"}</SourceRow>
-            <SourceRow label={text(lang, "原始晶系", "Original crystal system")}>{activeCsdRecord?.originalCrystalSystem || "pending"}</SourceRow>
-            <SourceRow label={text(lang, "孔隙率", "Void space")}>
-              {Number.isFinite(activeCsdRecord?.voidPercent) ? `${activeCsdRecord.voidPercent}%` : "pending"}
+            <SourceRow label="CSD Refcode">
+              {isIdentityOnly ? text(lang, "待证据匹配", "awaiting evidence match") : activeCsdRecord?.refcode || pilotRecord?.csdRefcode || "pending"}
             </SourceRow>
+            {!isIdentityOnly && metadataRecord?.platformName ? (
+              <SourceRow label={text(lang, "平台规范名", "Platform canonical name")}>{metadataRecord.platformName}</SourceRow>
+            ) : null}
+            {!isIdentityOnly && metadataRecord?.displayNameKind ? (
+              <SourceRow label={text(lang, "展示名称类型", "Display name type")}>
+                {metadataRecord.displayNameKind === "verified-literature-common-name"
+                  ? text(lang, "已核验文献常用名", "verified literature common name")
+                  : text(lang, "EcoMOF 平台规范名", "EcoMOF platform canonical name")}
+              </SourceRow>
+            ) : null}
+            {metadataRecord?.commonName ? (
+              <SourceRow label={text(lang, "文献常用名", "Literature common name")}>{metadataRecord.commonName}</SourceRow>
+            ) : null}
+            {metadataRecord?.searchAliases?.length ? (
+              <SourceRow label={text(lang, "名称 / 别名", "Names / aliases")}>
+                {[...new Set(metadataRecord.searchAliases)].join(" · ")}
+              </SourceRow>
+            ) : null}
+            {activeCsdRecord?.aliasRefcodes?.length ? (
+              <SourceRow label={text(lang, "关联 CSD 变体", "Linked CSD variants")}>
+                {activeCsdRecord.aliasRefcodes.join(" · ")}
+              </SourceRow>
+            ) : null}
+            {metadataRecord?.mofClass ? (
+              <SourceRow label={text(lang, "金属类别", "Metal class")}>{metadataRecord.mofClass}</SourceRow>
+            ) : null}
+            {metadataRecord?.mofFamily ? (
+              <SourceRow label={text(lang, "配体家族", "Linker family")}>{metadataRecord.mofFamily}</SourceRow>
+            ) : null}
+            {Number.isFinite(metadataRecord?.firstReportedYear) ? (
+              <SourceRow label={text(lang, "首次报道年份", "First reported")}>{metadataRecord.firstReportedYear}</SourceRow>
+            ) : null}
+            {!isIdentityOnly ? (
+              <>
+                <SourceRow label={text(lang, "分子式", "Formula")}>{activeCsdRecord?.formula || "pending"}</SourceRow>
+                <SourceRow label={text(lang, "原始晶系", "Original crystal system")}>{activeCsdRecord?.originalCrystalSystem || "pending"}</SourceRow>
+                <SourceRow label={text(lang, "孔隙率", "Void space")}>
+                  {Number.isFinite(activeCsdRecord?.voidPercent) ? `${activeCsdRecord.voidPercent}%` : "pending"}
+                </SourceRow>
+              </>
+            ) : null}
             <SourceRow label={text(lang, "许可证", "License")}>
-              {fileMeta?.sourceType === "user-local"
-                ? text(lang, "由用户自行确认", "user-confirmed")
-                : publicCatalog?.dataset?.license?.spdx || pilotManifest?.license?.spdx || "CC-BY-NC-SA-4.0"}
+              {isIdentityOnly
+                ? text(lang, "未加载 CIF · 结构许可不适用", "no CIF loaded · structure license not applicable")
+                : fileMeta?.sourceType === "user-local"
+                  ? text(lang, "由用户自行确认", "user-confirmed")
+                  : publicCatalog?.dataset?.license?.spdx || pilotManifest?.license?.spdx || "CC-BY-NC-SA-4.0"}
             </SourceRow>
-            <SourceRow label={text(lang, "金属元素", "Metal elements")}>{activeCsdRecord?.metalElements?.join(", ") || item?.metalNode || item?.metal || "pending"}</SourceRow>
-            <SourceRow label={text(lang, "质量标记", "Quality flags")}>
-              {qualityFlags.length ? qualityFlags.join(" · ") : activeCsdRecord ? text(lang, "无目录警告", "no catalog warning") : "pending"}
+            {!isIdentityOnly ? (
+              <>
+                <SourceRow label={text(lang, "金属元素", "Metal elements")}>{activeCsdRecord?.metalElements?.join(", ") || item?.metalNode || item?.metal || "pending"}</SourceRow>
+                <SourceRow label={text(lang, "质量标记", "Quality flags")}>
+                  {qualityFlags.length ? qualityFlags.join(" · ") : activeCsdRecord ? text(lang, "无目录警告", "no catalog warning") : "pending"}
+                </SourceRow>
+              </>
+            ) : null}
+            <SourceRow label={text(lang, "连接体", "Linker")}>
+              {metadataRecord?.linkerIdentity?.name || (!isIdentityOnly && item?.linker) || text(lang, "登记来源暂未提供", "not yet provided by registry source")}
             </SourceRow>
-            <SourceRow label={text(lang, "拓扑 / 连接体", "Topology / linker")}>
-              {activeCsdRecord ? text(lang, "该集合未提供", "not provided by collection") : item?.topology || item?.linker || "pending"}
+            {metadataRecord?.linkerIdentity?.abbreviation ? (
+              <SourceRow label={text(lang, "连接体缩写", "Linker abbreviation")}>{metadataRecord.linkerIdentity.abbreviation}</SourceRow>
+            ) : null}
+            {metadataRecord?.metalCluster ? (
+              <SourceRow label={text(lang, "金属簇", "Metal cluster")}>{metadataRecord.metalCluster}</SourceRow>
+            ) : null}
+            <SourceRow label={text(lang, "拓扑", "Topology")}>
+              {metadataRecord?.topology || (!isIdentityOnly && item?.topology) || text(lang, "登记来源暂未提供", "not yet provided by registry source")}
             </SourceRow>
+            {metadataRecord?.associatedPaper?.url ? (
+              <SourceRow label={text(lang, "关联论文", "Associated paper")}>
+                <a href={metadataRecord.associatedPaper.url} target="_blank" rel="noreferrer">
+                  DOI {metadataRecord.associatedPaper.doi}
+                </a>
+              </SourceRow>
+            ) : null}
+            {metadataRecord?.ccdcNumber ? (
+              <SourceRow label="CCDC">
+                <a href={`https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${metadataRecord.ccdcNumber}`} target="_blank" rel="noreferrer">
+                  {metadataRecord.ccdcNumber}
+                </a>
+              </SourceRow>
+            ) : null}
+            {metadataRecord?.identityStatus ? (
+              <SourceRow label={text(lang, "命名核验", "Identity verification")}>
+                {metadataRecord.identityStatus === "verified-curated"
+                  ? text(lang, "人工核验 · 有来源", "curated · sourced")
+                  : metadataRecord.identityStatus === "verified-name-structure-unmapped"
+                    ? text(lang, "名称与论文已核验 · Refcode 待核验", "name and paper verified · Refcode pending")
+                    : text(lang, "目录名称已收录 · Refcode 待核验", "catalog name captured · Refcode pending")}
+              </SourceRow>
+            ) : null}
+            {isIdentityOnly ? (
+              <SourceRow label={text(lang, "映射边界", "Mapping boundary")}>
+                {text(lang, "不以相似分子式推断结构", "no structure inferred from a similar formula")}
+              </SourceRow>
+            ) : null}
+            {fileMeta?.sourceType === "csd-public" ? (
+              <SourceRow label={text(lang, "文件读取", "File read")}>
+                {fileMeta.cacheState === "indexeddb"
+                  ? text(lang, "IndexedDB 本机缓存", "IndexedDB local cache")
+                  : text(lang, `网络下载${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} 次尝试` : ""}`, `network download${fileMeta.attempts > 1 ? ` · ${fileMeta.attempts} attempts` : ""}`)}
+              </SourceRow>
+            ) : null}
           </div>
 
           <div className="mof-structure-method-card">
@@ -778,6 +1084,12 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
               <LinkSimple aria-hidden="true" size={16} weight="bold" />
               {text(lang, "CCDC 原始下载页", "CCDC source download")}
             </a>
+            {metadataRecord?.identityPage ? (
+              <a className="mof-structure-source-link" href={metadataRecord.identityPage} target="_blank" rel="noreferrer">
+                <LinkSimple aria-hidden="true" size={16} weight="bold" />
+                {text(lang, "命名属性参考页", "Identity attributes reference")}
+              </a>
+            ) : null}
           </div>
         </aside>
 
@@ -828,24 +1140,83 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                 {viewerStatus === "loading" ? (
                   <>
                     <ArrowsClockwise className="mof-structure-loading-icon" aria-hidden="true" size={38} weight="duotone" />
-                    <strong>{text(lang, "正在解析 CIF 与配位环境", "Parsing CIF and coordination environments")}</strong>
-                    <span>{text(lang, "原子、晶胞和多面体都在浏览器本地生成。", "Atoms, unit cell, and polyhedra are generated locally in your browser.")}</span>
+                    <strong>
+                      {viewerPhase === "downloading"
+                        ? text(lang, "正在下载 CIF（失败将自动重试）", "Downloading CIF (failures retry automatically)")
+                        : text(lang, "正在解析 CIF 与配位环境", "Parsing CIF and coordination environments")}
+                    </strong>
+                    <span>
+                      {viewerPhase === "downloading"
+                        ? text(lang, "单次等待上限 12 秒，最多进行 3 次请求；已打开的结构会缓存在本机。", "Each attempt is limited to 12 seconds, with up to 3 requests; opened structures are cached locally.")
+                        : text(lang, "原子、晶胞和多面体都在浏览器本地生成。", "Atoms, unit cell, and polyhedra are generated locally in your browser.")}
+                    </span>
                   </>
                 ) : viewerStatus === "error" ? (
                   <>
                     <WarningCircle aria-hidden="true" size={40} weight="duotone" />
-                    <strong>{text(lang, "结构无法加载", "Structure could not be loaded")}</strong>
-                    <span>{viewerError || text(lang, "请检查 CIF 格式。", "Check the CIF format.")}</span>
+                    <strong>
+                      {viewerIssue?.kind === "download"
+                        ? text(lang, "网络下载失败", "Network download failed")
+                        : text(lang, "CIF 解析失败", "CIF parsing failed")}
+                    </strong>
+                    <span>{viewerIssue?.message || text(lang, "请检查 CIF 格式。", "Check the CIF format.")}</span>
                     <div className="mof-structure-empty-actions">
                       {activeCsdRecord ? (
-                        <button type="button" onClick={() => loadPublicRecord(activeCsdRecord)}>
+                        <button type="button" onClick={() => loadPublicRecord(activeCsdRecord, { forceRefresh: true })}>
                           <CloudArrowDown aria-hidden="true" size={16} weight="bold" />
-                          {text(lang, "重试公共结构", "Retry public structure")}
+                          {text(lang, "重新下载", "Download again")}
+                        </button>
+                      ) : null}
+                      {activeCsdRecord?.cifUrl ? (
+                        <button className="mof-structure-secondary-action" type="button" onClick={copyActiveCifUrl}>
+                          <CopySimple aria-hidden="true" size={16} weight="bold" />
+                          {copyStatus === "copied"
+                            ? text(lang, "地址已复制", "URL copied")
+                            : copyStatus === "failed"
+                              ? text(lang, "复制失败", "Copy failed")
+                              : text(lang, "复制 CIF 地址", "Copy CIF URL")}
                         </button>
                       ) : null}
                       <button type="button" onClick={() => inputRef.current?.click()}>
                         <UploadSimple aria-hidden="true" size={16} weight="bold" />
-                        {text(lang, "选择其他 CIF", "Choose another CIF")}
+                        {text(lang, "载入本地 CIF", "Load local CIF")}
+                      </button>
+                    </div>
+                    {copyStatus !== "idle" ? (
+                      <span className="mof-structure-copy-status" role="status">
+                        {copyStatus === "copied"
+                          ? text(lang, "可将地址粘贴到浏览器或下载工具中。", "Paste the URL into a browser or download tool.")
+                          : text(lang, "浏览器未授予剪贴板权限，请从属性区打开公共数据链接。", "Clipboard permission was not granted; use the public-data link in the attributes panel.")}
+                      </span>
+                    ) : null}
+                  </>
+                ) : activeIdentityRecord ? (
+                  <>
+                    <Info aria-hidden="true" size={42} weight="duotone" />
+                    <strong>{text(lang, "名称已接入，结构映射待核验", "Name catalogued; structure mapping pending")}</strong>
+                    <span>
+                      {text(
+                        lang,
+                        `${activeIdentityRecord.commonName} 的命名、类别与来源已进入检索；尚未找到经证据核验的本地 CSD Refcode，因此不会载入相似分子式或替代结构。`,
+                        `${activeIdentityRecord.commonName} is searchable with its class and sources. No evidence-verified local CSD Refcode is available yet, so a similar formula or substitute structure will not be loaded.`,
+                      )}
+                    </span>
+                    <div className="mof-structure-identity-actions">
+                      {activeIdentityRecord.identityPage ? (
+                        <a href={activeIdentityRecord.identityPage} target="_blank" rel="noreferrer">
+                          <LinkSimple aria-hidden="true" size={16} weight="bold" />
+                          {text(lang, "查看命名来源", "View identity source")}
+                        </a>
+                      ) : null}
+                      {activeIdentityRecord.associatedPaper?.url ? (
+                        <a href={activeIdentityRecord.associatedPaper.url} target="_blank" rel="noreferrer">
+                          <LinkSimple aria-hidden="true" size={16} weight="bold" />
+                          {text(lang, "查看关联论文", "View associated paper")}
+                        </a>
+                      ) : null}
+                      <button type="button" onClick={() => inputRef.current?.click()}>
+                        <UploadSimple aria-hidden="true" size={16} weight="bold" />
+                        {text(lang, "载入本地 CIF", "Load local CIF")}
                       </button>
                     </div>
                   </>
@@ -904,7 +1275,9 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                   ? `${fileMeta.name} · ${formatFileSize(fileMeta.size)} · ${text(lang, "未上传", "not uploaded")}`
                   : isPublicCsdFile
                     ? `${activeCsdRecord.refcode} · ${formatFileSize(fileMeta.size)} · CSD v601 · CC BY-NC-SA 4.0`
-                    : text(lang, "公共非商业研究数据按需加载；原始 CIF 内容不作修改。", "Public non-commercial research data loads on demand; original CIF content is unchanged.")}
+                    : isIdentityOnly
+                      ? text(lang, "名称档案与结构文件分层管理；Refcode 未核验前不推断三维结构。", "Naming records and structure files are managed separately; no 3D structure is inferred before Refcode verification.")
+                      : text(lang, "公共非商业研究数据按需加载；原始 CIF 内容不作修改。", "Public non-commercial research data loads on demand; original CIF content is unchanged.")}
               </span>
             </div>
             {selectedAtom ? (

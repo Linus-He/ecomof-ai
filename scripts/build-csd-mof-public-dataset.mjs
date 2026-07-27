@@ -10,6 +10,7 @@ import {
 } from "node:fs/promises"
 import path from "node:path"
 import process from "node:process"
+import { buildCsdNamingFields } from "../src/utils/mofNaming.mjs"
 
 const DATASET_NAME = "CSD MOF Collection (Non-Commercial)"
 const DATASET_VERSION = "CSD v601"
@@ -166,6 +167,11 @@ ${LICENSE_URL}
   that the repository does not contain an excessively wide directory.
 - Machine-readable JSON indexes, checksums, and a dataset landing page are
   generated from the CCDC-provided CSV metadata and CIF headers.
+- The browser index is split into a lightweight 15,906-record search file and
+  detailed two-character Refcode-prefix files. A legacy complete index remains
+  available for backward compatibility.
+- Common-name aliases are limited to an explicit, citation-backed registry and
+  do not change or merge the source CIF records.
 - No topology, linker identity, publication metadata, or experimental
   performance is inferred by this packaging step.
 - Source CIF and CSV files retain their original line endings and trailing
@@ -185,8 +191,11 @@ Public, non-commercial delivery package for the ${DATASET_NAME}.
 ## Contents
 
 - ${recordCount.toLocaleString("en-US")} CSD-derived MOF CIF files
-- A searchable JSON index with Refcode, formula, original crystal system,
-  void-space percentage, metal elements, and source quality flags
+- A lightweight search index with Refcode, common-name aliases, formula, metal
+  elements, CIF filename, and prefix
+- Detailed indexes sharded by the first two Refcode characters, containing
+  crystal system, void-space percentage, source quality flags, bytes, and
+  SHA-256
 - Per-file SHA-256 checksums
 - The original CCDC README and CSV metadata
 
@@ -262,12 +271,13 @@ function landingHtml({ recordCount }) {
     const input=document.querySelector("#search")
     const result=document.querySelector("#result")
     let records=[]
-    fetch("index/structures.json").then(r=>r.json()).then(data=>{records=data.structures||[]})
+    fetch("index/search.json").then(r=>r.json()).then(data=>{records=data.structures||[]})
     input.addEventListener("input",()=>{
       const query=input.value.trim().toUpperCase()
       if(!query){result.innerHTML="<p>Enter a Refcode to locate its metadata and CIF.</p>";return}
-      const matches=records.filter(record=>record.refcode.startsWith(query)).slice(0,8)
-      result.innerHTML=matches.length?matches.map(record=>\`<p><strong>\${record.refcode}</strong> · \${record.formula||"formula pending"} · \${record.voidPercent}% void · <a href="\${record.path}">open CIF</a></p>\`).join(""):"<p>No matching Refcode.</p>"
+      const normalized=query.replace(/[^A-Z0-9]+/g,"")
+      const matches=records.filter(record=>record.refcode.startsWith(query)||(record.searchAliases||[]).some(alias=>alias.toUpperCase().replace(/[^A-Z0-9]+/g,"").includes(normalized))).slice(0,8)
+      result.innerHTML=matches.length?matches.map(record=>\`<p><strong>\${record.refcode}</strong>\${record.commonName?\` · \${record.commonName}\`:""} · \${record.formula||"formula pending"} · <a href="cif/\${record.prefix}/\${record.file}">open CIF</a></p>\`).join(""):"<p>No matching Refcode or common name.</p>"
     })
   </script>
 </body>
@@ -287,7 +297,24 @@ async function main() {
   const detailsPath = path.join(sourceDirectory, "Framework details.csv")
   if (!(await fileExists(detailsPath))) throw new Error(`Missing source index: ${detailsPath}`)
 
-  const csvText = await readFile(detailsPath, "utf8")
+  const [csvText, aliasRegistryText] = await Promise.all([
+    readFile(detailsPath, "utf8"),
+    readFile(new URL("../src/data/csdCommonAliases.json", import.meta.url), "utf8"),
+  ])
+  const aliasRegistry = JSON.parse(aliasRegistryText)
+  const aliasesByRefcode = new Map()
+  for (const alias of aliasRegistry.aliases || []) {
+    for (const refcode of alias.refcodes || []) {
+      aliasesByRefcode.set(String(refcode).toUpperCase(), {
+        commonName: alias.canonicalName,
+        searchAliases: [...new Set([alias.canonicalName, ...(alias.searchAliases || [])].filter(Boolean))],
+        preferredAliasRefcode: alias.preferredRefcode,
+        mofClass: alias.mofClass,
+        mofFamily: alias.mofFamily,
+        firstReportedYear: alias.firstReportedYear,
+      })
+    }
+  }
   const lines = csvText.trim().split(/\r?\n/)
   const header = parseCsvLine(lines[0])
   const expectedHeader = [
@@ -319,6 +346,7 @@ async function main() {
   await mkdir(path.join(outputDirectory, "cif"), { recursive: true })
   await mkdir(path.join(outputDirectory, "checksums"), { recursive: true })
   await mkdir(path.join(outputDirectory, "index"), { recursive: true })
+  await mkdir(path.join(outputDirectory, "index", "prefix"), { recursive: true })
   await mkdir(path.join(outputDirectory, "source-metadata"), { recursive: true })
 
   let processed = 0
@@ -392,7 +420,10 @@ async function main() {
     content: {
       cifCount: records.length,
       cifBytes: aggregate.bytes,
-      indexPath: "index/structures.json",
+      searchIndexPath: "index/search.json",
+      detailIndexPattern: "index/prefix/<two-character-refcode-prefix>.json",
+      aliasIndexPath: "index/aliases.json",
+      legacyIndexPath: "index/structures.json",
       checksumPath: "checksums/sha256.csv",
       sharding: "lowercase first two characters of CSD Refcode",
       cifContentModified: false,
@@ -421,6 +452,55 @@ async function main() {
     },
     structures: records,
   }
+  const searchCatalog = {
+    schemaVersion: "2.0.0",
+    dataset: catalog.dataset,
+    summary: {
+      ...catalog.summary,
+      namedTotal: records.length,
+      literatureNamed: records.filter(record => aliasesByRefcode.has(record.refcode)).length,
+      platformNamed: records.filter(record => !aliasesByRefcode.has(record.refcode)).length,
+    },
+    indexMode: "prefix-details",
+    structures: records.map(record => {
+      const alias = aliasesByRefcode.get(record.refcode) || {}
+      const lightweight = {
+        refcode: record.refcode,
+        file: record.file,
+        prefix: record.refcode.slice(0, 2).toLowerCase(),
+        formula: record.formula,
+        metalElements: record.metalElements,
+        ...alias,
+      }
+      const naming = buildCsdNamingFields(lightweight, alias)
+      return {
+        ...lightweight,
+        platformName: naming.platformName,
+      }
+    }),
+  }
+  const recordsByPrefix = new Map()
+  for (const record of records) {
+    const prefix = record.refcode.slice(0, 2).toLowerCase()
+    if (!recordsByPrefix.has(prefix)) recordsByPrefix.set(prefix, [])
+    recordsByPrefix.get(prefix).push(record)
+  }
+  const prefixCatalogWrites = [...recordsByPrefix.entries()].map(([prefix, prefixRecords]) => (
+    writeFile(
+      path.join(outputDirectory, "index", "prefix", `${prefix}.json`),
+      `${JSON.stringify({
+        schemaVersion: "2.0.0",
+        dataset: {
+          name: DATASET_NAME,
+          version: DATASET_VERSION,
+          generatedAt,
+        },
+        prefix,
+        summary: { total: prefixRecords.length },
+        structures: prefixRecords,
+      })}\n`,
+    )
+  ))
   const checksumLines = [
     "sha256,bytes,refcode,path",
     ...records.map(record => `${record.sha256},${record.bytes},${record.refcode},${record.path}`),
@@ -434,6 +514,8 @@ async function main() {
     writeFile(path.join(outputDirectory, "README.md"), readmeMarkdown({ recordCount: records.length, generatedAt })),
     writeFile(path.join(outputDirectory, "index.html"), landingHtml({ recordCount: records.length })),
     writeFile(path.join(outputDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`),
+    writeFile(path.join(outputDirectory, "index", "search.json"), `${JSON.stringify(searchCatalog)}\n`),
+    writeFile(path.join(outputDirectory, "index", "aliases.json"), `${JSON.stringify(aliasRegistry, null, 2)}\n`),
     writeFile(path.join(outputDirectory, "index", "structures.json"), `${JSON.stringify(catalog)}\n`),
     writeFile(path.join(outputDirectory, "index", "summary.json"), `${JSON.stringify(manifest, null, 2)}\n`),
     writeFile(path.join(outputDirectory, "checksums", "sha256.csv"), `${checksumLines.join("\n")}\n`),
@@ -444,6 +526,7 @@ async function main() {
       "Frameworks with hydrogen added.csv",
       "Suspect chemistry frameworks.csv",
     ].map(filename => copyFile(path.join(sourceDirectory, filename), path.join(outputDirectory, "source-metadata", filename))),
+    ...prefixCatalogWrites,
   ])
 
   const outputStats = await stat(outputDirectory)
@@ -451,6 +534,8 @@ async function main() {
     outputDirectory,
     outputCreated: outputStats.isDirectory(),
     records: records.length,
+    searchIndexRecords: searchCatalog.structures.length,
+    detailPrefixes: recordsByPrefix.size,
     bytes: aggregate.bytes,
     archiveSha256,
     qualityFlags: manifest.qualityFlags,

@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedBy": "EcoMOF-AI curated identity registry",
+  "scope": "Curated common-name-to-CSD-refcode mappings plus sourced identity attributes (class, family, first-reported year, linker, cluster, topology, paper, and CCDC number); no structures or performance properties are inferred.",
+  "featuredRefcodes": [
+    "ABADUG",
+    "RUBTAK",
+    "RUBTAK01",
+    "RUBTAK02"
+  ],
+  "aliases": [
+    {
+      "canonicalName": "UiO-66",
+      "searchAliases": [
+        "UiO-66",
+        "UiO66",
+        "Zr-BDC"
+      ],
+      "preferredRefcode": "RUBTAK",
+      "refcodes": [
+        "RUBTAK",
+        "RUBTAK01",
+        "RUBTAK02"
+      ],
+      "relationship": "literature-linked CSD structure family",
+      "identityStatus": "verified-curated",
+      "mofClass": "Zr-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2008,
+      "linker": {
+        "name": "Benzene-1,4-dicarboxylic acid (terephthalic acid)",
+        "abbreviation": "1,4-BDC"
+      },
+      "metalCluster": "Zr₆(μ₃-O)₄(μ₃-OH)₄(COO)₁₂",
+      "topology": "fcu",
+      "associatedPaper": {
+        "doi": "10.1021/ja8057953",
+        "url": "https://doi.org/10.1021/ja8057953"
+      },
+      "ccdcNumber": "733458",
+      "identityPage": "https://mofanatomy.com/mof/uio-66/",
+      "provenance": [
+        {
+          "doi": "10.1021/ja8057953",
+          "url": "https://doi.org/10.1021/ja8057953",
+          "note": "Original 2008 UiO-66 report; source for year, linker, cluster, and topology identity."
+        },
+        {
+          "doi": "10.1039/D1ME00085C",
+          "url": "https://doi.org/10.1039/D1ME00085C",
+          "note": "Supporting information identifies UiO-66 with CSD refcode RUBTAK."
+        },
+        {
+          "doi": "10.1039/D0SC01297A",
+          "url": "https://doi.org/10.1039/D0SC01297A",
+          "note": "Supporting information uses RUBTAK02 as a UiO-66 structure."
+        }
+      ]
+    },
+    {
+      "canonicalName": "NTU-68",
+      "searchAliases": ["NTU68", "NTU 68", "NTU-68a"],
+      "refcodes": [],
+      "identityStatus": "verified-name-structure-unmapped",
+      "structureMappingStatus": "The paper identity is verified; no CSD Refcode in the local 15,906-record package has yet been confirmed.",
+      "mofClass": "Cu-MOFs",
+      "mofFamily": "Azolate-MOFs",
+      "firstReportedYear": 2023,
+      "linker": {
+        "name": "1,4-bis(imidazol-1-yl)benzene",
+        "abbreviation": "bimb"
+      },
+      "metalCluster": "Cu²⁺ nodes with SiF₆²⁻ pillars",
+      "topology": "reported interpenetrated azolate net",
+      "associatedPaper": {
+        "doi": "10.1021/jacs.3c10277",
+        "url": "https://doi.org/10.1021/jacs.3c10277"
+      },
+      "provenance": [
+        {
+          "doi": "10.1021/jacs.3c10277",
+          "url": "https://doi.org/10.1021/jacs.3c10277",
+          "note": "Original 2023 NTU-68 report; source for name, year, composition, and linker identity."
+        }
+      ]
+    },
+    {
+      "canonicalName": "STAM-1",
+      "searchAliases": ["STAM1", "STAM 1"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Cu-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2011,
+      "linker": {
+        "name": "5-(methoxycarbonyl)isophthalic acid",
+        "abbreviation": "1,3-BDC"
+      },
+      "metalCluster": "Cu₂(H₂O)₂(COO)₄",
+      "topology": "kgm",
+      "associatedPaper": {
+        "doi": "10.1038/NCHEM.1003",
+        "url": "https://doi.org/10.1038/NCHEM.1003"
+      },
+      "ccdcNumber": "810785",
+      "identityPage": "https://mofanatomy.com/mof/stam-1/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/stam-1/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "Al(L2)",
+      "searchAliases": ["AlL2", "Al-L2", "Al L2", "Al(L₂)"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Al-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2023,
+      "linker": {
+        "name": "N1,N3,N5-tris(4-carboxyphenyl)benzene-1,3,5-tricarboxamide",
+        "abbreviation": "H₃BTCTB"
+      },
+      "metalCluster": "[Al(COO)₃]ₙ",
+      "topology": "etb",
+      "associatedPaper": {
+        "doi": "10.1021/acs.inorgchem.2c04483",
+        "url": "https://doi.org/10.1021/acs.inorgchem.2c04483"
+      },
+      "ccdcNumber": "2233936",
+      "identityPage": "https://mofanatomy.com/mof/all2/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/all2/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "DUT-60",
+      "searchAliases": ["DUT60", "DUT 60"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Zn-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2018,
+      "linker": {
+        "name": "1,4-bis-p-carboxyphenylbuta-1,3-diene; 1,3,5-tris(4′-carboxy[1,1′-biphenyl]-4-yl)benzene",
+        "abbreviation": "H₂bcpbd; H₃bbc"
+      },
+      "metalCluster": "Zn₄(μ₃-O)(COO)₆",
+      "topology": "ith-d",
+      "associatedPaper": {
+        "doi": "10.1002/anie.201808240",
+        "url": "https://doi.org/10.1002/anie.201808240"
+      },
+      "ccdcNumber": "1833143",
+      "identityPage": "https://mofanatomy.com/mof/dut-60/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/dut-60/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "DUT-68",
+      "searchAliases": ["DUT68", "DUT 68"],
+      "refcodes": [],
+      "identityStatus": "verified-name-structure-unmapped",
+      "mofClass": "Zr-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2013,
+      "linker": {"name": "2,5-Thiophenedicarboxylic acid", "abbreviation": "H₂TDA"},
+      "metalCluster": "Zr₆(μ₃-O)₄(μ₃-OH)₄(OH)₄(H₂O)₄(COO)₈",
+      "topology": "bon",
+      "associatedPaper": {"doi": "10.1021/cg301691d", "url": "https://doi.org/10.1021/cg301691d"},
+      "ccdcNumber": "902900",
+      "identityPage": "https://mofanatomy.com/mof/dut-68/",
+      "provenance": [{"doi": "10.1021/cg301691d", "url": "https://doi.org/10.1021/cg301691d", "note": "Associated paper and MOFAnatomy identity page."}]
+    },
+    {
+      "canonicalName": "PCN-66",
+      "searchAliases": ["PCN66", "PCN 66"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Cu-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2009,
+      "linker": {
+        "name": "5,5′,5′′-(4,4′,4′′-nitrilotris(benzene-4,1-diyl)tris(ethyne-2,1-diyl))triisophthalic acid",
+        "abbreviation": "H₆NTEI"
+      },
+      "metalCluster": "Cu₂(H₂O)₂(COO)₄",
+      "topology": "rht",
+      "associatedPaper": {
+        "doi": "10.1021/ja901109t",
+        "url": "https://doi.org/10.1021/ja901109t"
+      },
+      "ccdcNumber": "745529",
+      "identityPage": "https://mofanatomy.com/mof/pcn-66/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/pcn-66/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "CFA-19",
+      "searchAliases": ["CFA19", "CFA 19"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Co-MOFs",
+      "mofFamily": "Azolate-MOFs",
+      "firstReportedYear": 2022,
+      "linker": {
+        "name": "1,1′,5,5′-tetrahydro-6,6′-biimidazo[4,5-f]benzotriazole",
+        "abbreviation": "H₄bibt"
+      },
+      "metalCluster": "Co₅Cl₄(C₂N₃)₆",
+      "topology": "pcu",
+      "associatedPaper": {
+        "doi": "10.1021/acs.inorgchem.2c02394",
+        "url": "https://doi.org/10.1021/acs.inorgchem.2c02394"
+      },
+      "ccdcNumber": "2169270",
+      "identityPage": "https://mofanatomy.com/mof/cfa-19/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/cfa-19/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "MIL-140B",
+      "searchAliases": ["MIL140B", "MIL 140B"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Zr-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2012,
+      "linker": {
+        "name": "2,6-naphthalenedicarboxylic acid",
+        "abbreviation": "2,6-H₂NDC"
+      },
+      "metalCluster": "[Zr₂(μ₃-O)₂(COO)₄]ₙ",
+      "topology": "gui",
+      "associatedPaper": {
+        "doi": "10.1002/anie.201204806",
+        "url": "https://doi.org/10.1002/anie.201204806"
+      },
+      "identityPage": "https://mofanatomy.com/mof/mil-140b/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/mil-140b/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, and paper. Its CCDC field is N/A."}]
+    },
+    {
+      "canonicalName": "MOF-1212",
+      "searchAliases": ["MOF1212", "MOF 1212"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Hf-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2018,
+      "linker": {
+        "name": "Dichlorobis(2-methylisonicotinic acid)cobalt(II)",
+        "abbreviation": "H₂CoCl₂(INA)₂"
+      },
+      "metalCluster": "Hf₆(μ₃-O)₄(μ₃-OH)₄(COO)₁₂",
+      "topology": "fcu",
+      "associatedPaper": {
+        "doi": "10.1021/jacs.8b02192",
+        "url": "https://doi.org/10.1021/jacs.8b02192"
+      },
+      "ccdcNumber": "1823100",
+      "identityPage": "https://mofanatomy.com/mof/mof-1212/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/mof-1212/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "Alice-MOF-1",
+      "searchAliases": ["AliceMOF1", "Alice MOF 1", "Alice-MOF1"],
+      "refcodes": [],
+      "identityStatus": "catalogued-name-unmapped",
+      "mofClass": "Zr-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 2025,
+      "linker": {
+        "name": "dodecachloro-hexa-peri-hexabenzocoronene-hexabenzoic acid",
+        "abbreviation": "H₆HBC"
+      },
+      "metalCluster": "Zr₆(μ₃-O)₄(μ₃-OH)₄(OH)₄(H₂O)₄(COO)₈",
+      "topology": "ocu",
+      "associatedPaper": {
+        "doi": "10.1021/jacs.5c02844",
+        "url": "https://doi.org/10.1021/jacs.5c02844"
+      },
+      "ccdcNumber": "2409129",
+      "identityPage": "https://mofanatomy.com/mof/alice-mof-1/",
+      "provenance": [{"url": "https://mofanatomy.com/mof/alice-mof-1/", "note": "MOFAnatomy identity page; source for displayed class, family, year, linker, cluster, topology, paper, and CCDC number."}]
+    },
+    {
+      "canonicalName": "UiO-66-NH₂",
+      "searchAliases": ["UiO-66-NH2", "UiO66NH2", "NH2-UiO-66", "UiO 66 NH2"],
+      "refcodes": [],
+      "identityStatus": "known-name-unmapped",
+      "mofClass": "Zr-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "linker": {"name": "2-aminobenzene-1,4-dicarboxylic acid", "abbreviation": "NH₂-BDC"},
+      "topology": "fcu",
+      "structureMappingStatus": "Common name is registered; a local CSD Refcode has not yet been evidence-matched.",
+      "provenance": [{"url": "https://mofanatomy.com/", "note": "Naming-pattern coverage entry; CSD mapping intentionally pending."}]
+    },
+    {
+      "canonicalName": "IRMOF-1 (MOF-5)",
+      "searchAliases": ["IRMOF-1", "IRMOF1", "MOF-5", "MOF5"],
+      "refcodes": [],
+      "identityStatus": "known-name-unmapped",
+      "mofClass": "Zn-MOFs",
+      "mofFamily": "Carboxylate-MOFs",
+      "firstReportedYear": 1999,
+      "linker": {"name": "Benzene-1,4-dicarboxylic acid", "abbreviation": "1,4-BDC"},
+      "metalCluster": "Zn₄(μ₃-O)(COO)₆",
+      "topology": "pcu",
+      "associatedPaper": {"doi": "10.1038/46248", "url": "https://doi.org/10.1038/46248"},
+      "ccdcNumber": "256965",
+      "identityPage": "https://mofanatomy.com/mof/irmof-1-mof-5/",
+      "structureMappingStatus": "Common-name equivalence is registered; local CSD Refcode verification remains pending.",
+      "provenance": [{"doi": "10.1038/46248", "url": "https://doi.org/10.1038/46248", "note": "Original MOF-5 report and public MOFAnatomy catalog naming."}]
+    }
+  ]
+}

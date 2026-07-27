@@ -36,7 +36,7 @@
 - 通过：多面体不透明/半透明/关闭，完整晶胞/自动配位簇，景深键盘控制，旋转/暂停与重置。
 - 通过：无控制台 error 或 warning。
 - 通过：`prefers-reduced-motion` 下停止加载旋转动画。
-- 通过：249 个测试文件 / 802 项测试串行全量通过，TypeScript 与生产构建通过。
+- 通过：250 个测试文件 / 815 项测试以 4 个工作线程全量通过，TypeScript 与生产构建通过。
 
 ## 已修复问题
 
@@ -51,4 +51,33 @@
 - 公共数据仓库仅用于非商业开放研究，CIF 与派生索引遵循 CC BY-NC-SA 4.0；主程序代码与数据许可证分离。
 - 拓扑、连接体命名和论文 DOI 不在 CSD MOF Collection 当前元数据中，界面明确显示“该集合未提供”，不自动臆测。
 
-Final result: passed
+## CSD 全量命名接入
+
+### 对照输入与实现路径
+
+- 参考输入：`/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_0JgNPM/截屏2026-07-27 22.12.01.png`。
+- 实现页面：`src/components/mof-structure/MofStructureWorkbench.tsx` 与 `src/components/mof-structure/MofStructureWorkbench.css`。
+- 数据与命名层：`src/services/csdMofPublicService.js`、`src/utils/mofNaming.mjs`、`src/data/csdCommonAliases.json`。
+- 桌面快照：`design-qa-artifacts/csd-naming/desktop-full.png`，2168 × 1224 CSS 视口。
+- 移动端快照：`design-qa-artifacts/csd-naming/mobile-390.png`，390 × 844 CSS 视口。
+- 最终同图对照：`design-qa-artifacts/csd-naming/reference-comparison.png`。
+
+### 对照结论
+
+- 保留参考卡片中“名称为第一层、金属类别/家族/年份为辅助层”的阅读顺序。
+- 对 15,906 条 CSD MOF 逐条生成唯一且可复算的 `EcoMOF-<金属>-<Refcode>` 平台规范名，并与原始 Refcode、CIF 路径一一绑定。
+- 已核验的文献常用名优先显示，例如 UiO-66 对应 RUBTAK、RUBTAK01、RUBTAK02；未核验 Refcode 的 NTU-68、Al(L2) 等名称只进入名称档案，不猜测结构。
+- 搜索统一处理连字符、空格、括号和 Unicode 下标；已验证 `UiO-66`、`NTU68`、`Al L2` 三类入口。
+- 身份未映射状态明确显示“名称已接入，结构映射待核验”和“不以相似分子式推断结构”，同时保留本地 CIF 降级入口。
+- 390 px 移动端 `scrollWidth ≤ innerWidth`，名称目录、属性栏和三维结构入口无横向溢出。
+- 浏览器控制台无 error 或 warning；脚本化视觉检查因本地端口权限使用 browserless fallback，但独立的应用内浏览器交互与截图验收已通过。
+
+### 设计 QA 修订记录
+
+- P1：原方案只覆盖少量示例名，无法满足“全部现有记录都有名称”；已改为全量平台规范名，并把文献名作为有证据的覆盖层。
+- P1：相似分子式可能造成错误结构绑定；已禁止推断式映射，未核验名称进入 identity-only 状态。
+- P2：搜索未统一 Unicode 下标、括号与连字符；已使用 NFKC 归一化和标点折叠。
+- P2：原 5.86 MB 单体索引首屏过重；已拆为 2.48 MB 搜索索引与 214 个前缀详情文件。
+- P3：参考图卡片可显示家族和年份，但 CSD 原始集合并不为全部记录提供这些字段；已只在有来源的别名档案中展示，避免伪造完整度。
+
+final result: passed
