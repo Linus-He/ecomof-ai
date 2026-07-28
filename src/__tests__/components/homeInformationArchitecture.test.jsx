@@ -46,7 +46,6 @@ describe("home information architecture", () => {
 
     const sectionIds = [
       "home-hero",
-      "home-platform-capabilities",
       "home-data-foundation",
       "home-algorithm-validation",
       "home-research-scenarios",
@@ -60,6 +59,8 @@ describe("home information architecture", () => {
     expect(screen.getByRole("heading", { name: "EcoMOF-AI" })).toBeInTheDocument()
     expect(screen.getByText("数据驱动的 MOF 筛选与验证平台")).toBeInTheDocument()
     expect(screen.getByText("一个平台，四个研究工作区：EcoScreen 做可持续性筛选，GasSep 做气体分离筛选，Organic Acid 做白盒催化路线筛选，MOF Library 浏览结构、气体与催化数据全貌。")).toBeInTheDocument()
+    expect(screen.getAllByText("进入数据合规").length).toBeGreaterThan(0)
+    expect(screen.queryByTestId("home-platform-capabilities")).not.toBeInTheDocument()
     // module-first capability section and the interactive 3D descriptor visual are part of the home IA
     const atlas = screen.getByTestId("home-scientific-atlas")
     expect(atlas).toBeInTheDocument()

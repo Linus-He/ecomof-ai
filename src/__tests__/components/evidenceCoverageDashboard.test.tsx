@@ -14,7 +14,7 @@ describe("EvidenceCoverageDashboard", () => {
     render(<EvidenceCoverageDashboard coverage={coverage} lang="en" t={THEME_LIGHT} isMobile={false} />)
 
     expect(screen.getByTestId("evidence-coverage-dashboard")).toBeInTheDocument()
-    expect(screen.getByTestId("evidence-coverage-donut")).toBeInTheDocument()
+    expect(screen.getByTestId("evidence-coverage-profile")).toBeInTheDocument()
     expect(screen.getAllByText("Literature").length).toBeGreaterThan(0)
     expect(screen.getAllByText("Experimental").length).toBeGreaterThan(0)
     expect(screen.getAllByText("Expert Review").length).toBeGreaterThan(0)

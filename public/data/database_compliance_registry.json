@@ -180,7 +180,7 @@
       "allowedEn": "Copy, reuse, and adapt under CC BY 4.0 with appropriate credit, licence link, and indication of changes.",
       "prohibitedZh": "不得暗示来源方背书，不得以 FAIR-MOFs 的 CC BY 许可覆盖其关联论文全文或另有权利约束的底层晶体数据。",
       "prohibitedEn": "Do not imply source endorsement or use FAIR-MOFs CC BY terms to override rights in linked article full text or separately controlled underlying crystal data.",
-      "projectHandlingZh": "仅公开经校验的条件/DOI/物性索引与派生证据；不复制 FAIR-MOFs CIF 档案。结构映射只接受精确 Refcode，DOI 只作论文级关联。",
+      "projectHandlingZh": "仅公开经校验的条件/DOI/物性索引与派生证据；不复制 FAIR-MOFs CIF 档案。结构映射只接受精确 Refcode，DOI 只作文献层级关联。",
       "projectHandlingEn": "Publish only validated condition/DOI/property indexes and derived evidence; no FAIR-MOFs CIF archive is copied. Structure mapping requires an exact Refcode; DOI remains article-level association."
     },
     {
@@ -227,7 +227,7 @@
       "id": "literature",
       "name": "Curated literature and DOI metadata",
       "status": "active-limited",
-      "roleZh": "论文级证据、方法和来源指针",
+      "roleZh": "文献层级证据、方法和来源指针",
       "roleEn": "Article-level evidence, methods, and source pointers",
       "recordCount": null,
       "version": "Per-record curation",
@@ -239,7 +239,7 @@
       "allowedEn": "Preserve necessary bibliographic metadata, DOI, concise factual summaries, and source pointers for research provenance.",
       "prohibitedZh": "不批量复制论文全文、图表或补充材料；数据集许可不替代出版物版权。",
       "prohibitedEn": "Do not bulk-copy article full text, figures, or supplements; dataset licences do not replace publication copyright.",
-      "projectHandlingZh": "DOI 只作论文级关联，不作结构同一性的单独证据。",
+      "projectHandlingZh": "DOI 只作文献层级关联，不作结构同一性的单独证据。",
       "projectHandlingEn": "DOI is article-level association only and never sole evidence of structural identity."
     }
   ]

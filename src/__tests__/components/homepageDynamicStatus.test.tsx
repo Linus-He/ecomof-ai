@@ -53,26 +53,16 @@ afterEach(() => {
 })
 
 describe("homepage dynamic status", () => {
-  it("renders Current Capability and Current Limitations from dynamic data (no parallel V3.x progress block)", async () => {
+  it("keeps current limitations while removing the duplicated capability card wall", async () => {
     renderHome()
 
-    await waitFor(() => expect(screen.getByTestId("home-platform-capabilities")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByTestId("home-data-foundation")).toBeInTheDocument())
 
     // The legacy "Recent Progress V3.4-V3.6" block was folded into the Web v1.0.0
     // Unified Release Center (pre-1.0 history); the homepage no longer shows it.
     expect(screen.queryByTestId("home-validation-progress")).not.toBeInTheDocument()
 
-    const capabilities = screen.getByTestId("home-platform-capabilities")
-    expect(within(capabilities).getByText("当前 Web 版本")).toBeInTheDocument()
-    expect(within(capabilities).getByText("Web v1.0.5")).toBeInTheDocument()
-    expect(capabilities.textContent).toMatch(/数据状态 V3\.10\.1/)
-    expect(within(capabilities).getByText("CoRE 9835")).toBeInTheDocument()
-    expect(within(capabilities).getByText("FAIR 4168")).toBeInTheDocument()
-    expect(within(capabilities).getByText("实验标签")).toBeInTheDocument()
-    expect(within(capabilities).getByText("150")).toBeInTheDocument()
-    expect(within(capabilities).getByText("230")).toBeInTheDocument()
-    expect(within(capabilities).getByText("Random Forest")).toBeInTheDocument()
-    expect(within(capabilities).getByText("78.87 / Grade B")).toBeInTheDocument()
+    expect(screen.queryByTestId("home-platform-capabilities")).not.toBeInTheDocument()
 
     const limitations = screen.getByTestId("home-current-limitations")
     expect(within(limitations).getByText("高过拟合风险")).toBeInTheDocument()

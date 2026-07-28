@@ -12,44 +12,46 @@ function countsFromModel(model) {
   return { covered, pending: Math.max(0, total - covered), total }
 }
 
+function readinessCopy(model, lang) {
+  const raw = String(model?.readinessLevel || model?.headerNoteZh || "")
+  if (/planning-ready|not performance-validated/i.test(raw)) {
+    return text(lang, "可进入实验规划；同条件性能验证尚未完成。", "Ready for experimental planning; same-condition performance validation remains pending.")
+  }
+  return raw || text(lang, "验证状态待补充。", "Validation status pending.")
+}
+
 export function ValidationReadinessDonut({ model, lang = "zh", withTestId = true }) {
   const counts = countsFromModel(model)
   if (!counts.total) {
     return <div data-testid={withTestId ? "validation-readiness-donut" : undefined} data-row-count={0} style={cardStyle({ background: palette.bg })}><EmptyState lang={lang} /></div>
   }
-  const radius = 54
-  const circumference = 2 * Math.PI * radius
   const coveredRatio = counts.covered / counts.total
   return (
-    <div data-testid={withTestId ? "validation-readiness-donut" : undefined} data-row-count={counts.total} style={cardStyle({ background: palette.bg })}>
+    <div data-testid={withTestId ? "validation-readiness-donut" : undefined} data-row-count={counts.total} style={cardStyle({ background: palette.bg, gap: 11 })}>
       <div style={{ display: "grid", gap: 4 }}>
-        <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, "验证覆盖环图", "Validation Readiness Donut")}</strong>
-        <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, "展示最小实验矩阵中已覆盖与待补项。", "Shows covered versus pending items in the minimum validation matrix.")}</span>
+        <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, "验证覆盖概览", "Validation coverage overview")}</strong>
+        <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.5 }}>{text(lang, "汇总最小实验矩阵中已经覆盖与仍需补充的项目。", "Summarizes covered and pending items in the minimum validation matrix.")}</span>
       </div>
-      <div style={{ alignItems: "center", display: "grid", gap: 12, gridTemplateColumns: "140px minmax(0,1fr)" }}>
-        <svg viewBox="0 0 140 140" role="img" aria-label={text(lang, "验证覆盖环图", "Validation readiness donut")} style={{ width: 140, height: 140 }}>
-          <circle cx="70" cy="70" r={radius} fill="none" stroke={palette.riskSoft} strokeWidth="18" />
-          <circle
-            cx="70"
-            cy="70"
-            r={radius}
-            fill="none"
-            stroke={palette.positive}
-            strokeDasharray={`${coveredRatio * circumference} ${circumference}`}
-            strokeLinecap="round"
-            strokeWidth="18"
-            transform="rotate(-90 70 70)"
-          />
-          <text x="70" y="66" fill={palette.text} fontSize="20" fontWeight="950" textAnchor="middle">{Math.round(coveredRatio * 100)}%</text>
-          <text x="70" y="84" fill={palette.faint} fontSize="10" fontWeight="850" textAnchor="middle">{text(lang, "覆盖", "covered")}</text>
-        </svg>
-        <div style={{ display: "grid", gap: 8 }}>
-          <div style={{ color: palette.text, fontSize: 12, fontWeight: 900 }}>{text(lang, "最小实验矩阵", "Minimum experiment matrix")}</div>
-          <div style={{ color: palette.muted, fontSize: 11.5 }}>{text(lang, "已覆盖", "covered")}: {counts.covered}</div>
-          <div style={{ color: palette.risk, fontSize: 11.5 }}>{text(lang, "待补", "pending")}: {counts.pending}</div>
-          <div style={{ color: palette.faint, fontSize: 10.5 }}>{model?.readinessLevel || model?.headerNoteZh || "planning-ready / not performance-validated"}</div>
+      <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <strong style={{ color: palette.text, fontSize: 24 }}>{Math.round(coveredRatio * 100)}%</strong>
+        <span style={{ color: palette.faint, fontSize: 10.8 }}>{text(lang, "当前覆盖比例", "Current coverage")}</span>
+      </div>
+      <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 3, height: 14, overflow: "hidden" }}>
+        <span style={{ background: palette.positive, display: "block", height: "100%", width: `${coveredRatio * 100}%` }} />
+      </div>
+      <div style={{ display: "grid", gap: 0, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+        <div style={{ borderRight: `1px solid ${palette.border}`, display: "grid", gap: 3, padding: "6px 10px 6px 0" }}>
+          <span style={{ color: palette.faint, fontSize: 10.2, fontWeight: 850 }}>{text(lang, "已覆盖或已规划", "Covered or planned")}</span>
+          <strong style={{ color: palette.positive, fontSize: 17 }}>{counts.covered}</strong>
+        </div>
+        <div style={{ display: "grid", gap: 3, padding: "6px 0 6px 10px" }}>
+          <span style={{ color: palette.faint, fontSize: 10.2, fontWeight: 850 }}>{text(lang, "待补项目", "Pending items")}</span>
+          <strong style={{ color: palette.risk, fontSize: 17 }}>{counts.pending}</strong>
         </div>
       </div>
+      <p style={{ borderLeft: `3px solid ${palette.risk}`, color: palette.muted, fontSize: 10.8, lineHeight: 1.5, margin: 0, paddingLeft: 9 }}>
+        {readinessCopy(model, lang)}
+      </p>
     </div>
   )
 }

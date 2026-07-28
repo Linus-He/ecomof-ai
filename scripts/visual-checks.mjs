@@ -20,14 +20,12 @@ let usingStaticDistFallback = false
 const routes = [
   ["home", "#overview", [
     "EcoMOF-AI",
-    "Current Capability",
-    "Current Risk",
-    "V3.9",
-    "Database Scale",
-    "Experimental Labels",
-    "Benchmark Ready",
-    "Random Forest",
-    "High Overfitting Risk",
+    "数据驱动的 MOF 筛选与验证平台",
+    "数据基础",
+    "CoRE MOF 2024 CR",
+    "FAIR-MOFs",
+    "高过拟合风险",
+    "进入数据合规",
   ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
@@ -323,7 +321,7 @@ async function unlockOrganicAcidProject(page) {
   const passcode = page.locator('input[type="password"]').first()
   if (await passcode.count()) {
     await passcode.fill("acid")
-    await page.getByText(/进入项目|Enter project/).first().click()
+    await page.getByText(/进入工作区|Enter workspace/).first().click()
     await waitForApp(page)
   }
 }

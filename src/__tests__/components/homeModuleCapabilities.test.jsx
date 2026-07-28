@@ -52,5 +52,6 @@ describe("home module capabilities", () => {
     const quickStart = screen.getByTestId("home-quick-start-buttons")
     expect(within(quickStart).getByText("进入 GasSep")).toBeInTheDocument()
     expect(within(quickStart).getByText("进入 EcoScreen")).toBeInTheDocument()
+    expect(within(quickStart).getByText("进入数据合规")).toBeInTheDocument()
   })
 })

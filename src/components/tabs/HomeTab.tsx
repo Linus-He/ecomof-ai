@@ -842,57 +842,6 @@ export function HomeTab({ setActiveTab }) {
     boxShadow: t.shadowSm,
   }
 
-  const capabilities = useMemo(() => [
-    {
-      mark: "CV",
-      title: zh ? "当前 Web 版本" : "Current Version",
-      subtitle: zh ? "动态项目状态" : "Dynamic project status",
-      tone: "info",
-      highlights: [APP_VERSION_LABEL, `${zh ? "数据状态" : "Data state"} ${summary.currentVersion || "V3.6"}`],
-      body: zh ? "当前 Web 版本来自统一版本记录；项目演化 V3.x 作为历史/数据状态保留。" : "The current Web version comes from the unified release record; project-evolution V3.x remains as history/data state.",
-    },
-    {
-      mark: "DB",
-      title: zh ? "数据基础" : "Data Foundation",
-      subtitle: zh ? "当前启用来源" : "Active sources",
-      tone: "success",
-      highlights: [`CoRE ${numberText(summary.coreMofRecords)}`, `FAIR ${numberText(summary.fairMofsRecords)}`],
-      body: zh ? "结构、合成条件与物化性质按独立数据层统计，不把重叠记录相加为唯一材料数。" : "Structures, synthesis conditions, and properties are counted as separate layers rather than summed as unique materials.",
-    },
-    {
-      mark: "EL",
-      title: zh ? "实验标签" : "Experimental Labels",
-      subtitle: zh ? "平台能力" : "Platform Capabilities",
-      tone: "warn",
-      highlights: [numberText(summary.experimentalLabelCount), `${numberText(summary.externalTestCount)} ${zh ? "条外部测试" : "External Test"}`],
-      body: zh ? "实验标签与外部测试来自 V3.6 稳健性验证数据。" : "Experimental labels and external tests come from the V3.6 robustness dataset.",
-    },
-    {
-      mark: "BM",
-      title: zh ? "Benchmark 就绪" : "Benchmark Ready",
-      subtitle: zh ? "平台能力" : "Platform Capabilities",
-      tone: "neutral",
-      highlights: [numberText(summary.benchmarkEligibleCount), summary.bestModel || "Random Forest"],
-      body: zh ? "Benchmark eligible 与最佳模型由验证数据动态给出。" : "Benchmark eligible count and best model are resolved from validation artifacts.",
-    },
-    {
-      mark: "CR",
-      title: zh ? "模型可信度" : "Credibility",
-      subtitle: zh ? "模型可信度" : "Model credibility",
-      tone: "success",
-      highlights: [`${metricText(summary.credibilityScore)} / Grade ${summary.credibilityGrade}`, `ROC-AUC ${metricText(summary.rocAuc, 4)}`],
-      body: zh ? "可信度分数来自 Robustness Validation 的 credibility v2。" : "Credibility score is read from robustness validation credibility v2.",
-    },
-    {
-      mark: "RK",
-      title: zh ? "当前风险" : "Current Risk",
-      subtitle: zh ? "当前限制" : "Current limitation",
-      tone: "warn",
-      highlights: [zh ? "高过拟合风险" : (summary.currentRisk || "High Overfitting Risk"), zh ? "非最终推荐" : "Not Final Recommendation"],
-      body: zh ? "风险作为首页状态展示，不隐藏在说明文字中。" : "Risk is surfaced on the homepage instead of being hidden in explanatory copy.",
-    },
-  ], [summary, zh])
-
   const dataCards = useMemo(() => [
     { name: "CoRE MOF 2024 CR", value: numberText(summary.coreMofRecords), body: zh ? "当前 MOF库使用的逐条 CSD-modified 晶体结构记录。" : "Row-level CSD-modified crystal structures used by the current MOF Library." },
     { name: "FAIR-MOFs", value: numberText(summary.fairMofsRecords), body: zh ? "用于合成条件、DOI 与物化性质查询的开放记录。" : "Open records used for synthesis conditions, DOI links, and physicochemical property queries." },
@@ -1057,6 +1006,7 @@ export function HomeTab({ setActiveTab }) {
     { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
     { label: zh ? "进入 GasSep" : "Enter GasSep", hash: "gassep", target: "gassep" },
     { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
+    { label: zh ? "进入数据合规" : "Review Data Compliance", hash: "database-compliance", target: "dataCompliance" },
     { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
     { label: zh ? "进入验证中心" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
   ]
@@ -1106,7 +1056,7 @@ export function HomeTab({ setActiveTab }) {
                 : "One platform, four research workspaces: EcoScreen for sustainability screening, GasSep for gas separation, Organic Acid for white-box route screening, and MOF Library to browse structure, gas, and catalysis data."}
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
-              {quickStart.slice(0, 3).map(cta => (
+              {quickStart.slice(0, 4).map(cta => (
                 <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
                   {cta.label}
                 </ActionButton>
@@ -1114,19 +1064,6 @@ export function HomeTab({ setActiveTab }) {
             </div>
           </div>
           <ResearchEquationHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
-        </div>
-      </section>
-
-      <section data-testid="home-platform-capabilities" style={sectionStyle}>
-        <SectionHeader
-          eyebrow="Current Capability"
-          title={zh ? "当前能力状态" : "Current capability status"}
-          subtitle={zh ? "汇总数据库、实验标签、Benchmark、模型表现、可信度与当前风险。" : "A consolidated view of the database, experimental labels, benchmark status, model performance, credibility, and current risk."}
-          t={t}
-          isMobile={isMobile}
-        />
-        <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 14 }}>
-          {capabilities.map(item => <PlatformCapabilityCard key={item.title} item={item} t={t} />)}
         </div>
       </section>
 

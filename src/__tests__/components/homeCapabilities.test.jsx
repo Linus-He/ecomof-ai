@@ -43,28 +43,13 @@ afterEach(() => {
 })
 
 describe("home capabilities", () => {
-  it("highlights platform capabilities, data foundation, validation, and research scenarios", async () => {
+  it("keeps data foundation, validation, and research scenarios after removing the status-card module", async () => {
     renderHome()
 
-    const capabilities = screen.getByTestId("home-platform-capabilities")
-    await waitFor(() => expect(within(capabilities).getByText("Web v1.0.5")).toBeInTheDocument())
-    expect(within(capabilities).getByText("当前 Web 版本")).toBeInTheDocument()
-    expect(capabilities.textContent).toMatch(/数据状态 V3\.10\.1/)
-    expect(within(capabilities).getByText("数据基础")).toBeInTheDocument()
-    expect(within(capabilities).getByText("CoRE 9835")).toBeInTheDocument()
-    expect(within(capabilities).getByText("FAIR 4168")).toBeInTheDocument()
-    expect(within(capabilities).getByText("实验标签")).toBeInTheDocument()
-    expect(within(capabilities).getByText("150")).toBeInTheDocument()
-    expect(within(capabilities).getByText("0 条外部测试")).toBeInTheDocument()
-    expect(within(capabilities).getByText("Benchmark 就绪")).toBeInTheDocument()
-    expect(within(capabilities).getByText("230")).toBeInTheDocument()
-    expect(within(capabilities).getByText("Random Forest")).toBeInTheDocument()
-    expect(within(capabilities).getAllByText("模型可信度").length).toBeGreaterThan(0)
-    expect(within(capabilities).getByText("78.87 / Grade B")).toBeInTheDocument()
-    expect(within(capabilities).getByText("当前风险")).toBeInTheDocument()
-    expect(within(capabilities).getByText("高过拟合风险")).toBeInTheDocument()
+    expect(screen.queryByTestId("home-platform-capabilities")).not.toBeInTheDocument()
 
     const data = screen.getByTestId("home-data-foundation")
+    await waitFor(() => expect(within(data).getAllByText("CoRE MOF 2024 CR").length).toBeGreaterThan(0))
     expect(within(data).getAllByText("CoRE MOF 2024 CR").length).toBeGreaterThan(0)
     expect(within(data).getAllByText("FAIR-MOFs").length).toBeGreaterThan(0)
     expect(within(data).getAllByText("气体吸附记录").length).toBeGreaterThan(0)

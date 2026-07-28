@@ -96,39 +96,35 @@ export function LabelDiversityAudit({ audit, lang, t, isMobile }) {
   )
 }
 
-function DonutChart({ buckets, activeType, onSelect, t }) {
-  const size = 154
-  const radius = 56
-  const circumference = 2 * Math.PI * radius
-  let offset = 0
+function CoverageBars({ buckets, activeType, onSelect, t, lang }) {
+  const total = buckets.reduce((sum, row) => sum + row.count, 0)
   return (
-    <svg data-testid="evidence-coverage-donut" viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Evidence coverage donut" style={{ height: size, maxWidth: "100%", width: size }}>
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={t.surface} strokeWidth="22" />
+    <div data-testid="evidence-coverage-profile" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 10, padding: 11 }}>
+      <div style={{ alignItems: "baseline", borderBottom: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", paddingBottom: 8 }}>
+        <strong style={{ color: t.textStrong, fontSize: 20 }}>{total}</strong>
+        <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "证据记录", "evidence records")}</span>
+      </div>
       {buckets.map(bucket => {
-        const dash = Math.max(0.001, bucket.percent) * circumference
-        const strokeDasharray = `${dash} ${circumference - dash}`
-        const strokeDashoffset = -offset
-        offset += dash
+        const active = activeType === "All" || activeType === bucket.type
         return (
-          <circle
+          <button
             key={bucket.type}
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="none"
-            stroke={COLORS[bucket.type] || t.accent}
-            strokeWidth={activeType === bucket.type ? 25 : 20}
-            strokeDasharray={strokeDasharray}
-            strokeDashoffset={strokeDashoffset}
-            transform={`rotate(-90 ${size / 2} ${size / 2})`}
-            style={{ cursor: "pointer", opacity: activeType === "All" || activeType === bucket.type ? 1 : 0.3 }}
+            type="button"
+            aria-pressed={activeType === bucket.type}
             onClick={() => onSelect(bucket.type)}
-          />
+            style={{ background: "transparent", border: "none", cursor: "pointer", display: "grid", gap: 5, opacity: active ? 1 : .42, padding: 0, textAlign: "left" }}
+          >
+            <span style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
+              <strong style={{ color: COLORS[bucket.type] || t.accent, fontSize: 10.8 }}>{bucket.type}</strong>
+              <span style={{ color: t.muted, fontSize: 10.5 }}>{bucket.count} · {Math.round(bucket.percent * 100)}%</span>
+            </span>
+            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 3, display: "block", height: 10, overflow: "hidden" }}>
+              <span style={{ background: COLORS[bucket.type] || t.accent, display: "block", height: "100%", width: `${bucket.percent * 100}%` }} />
+            </span>
+          </button>
         )
       })}
-      <text x="50%" y="47%" textAnchor="middle" fill={t.textStrong} fontSize="16" fontWeight="900">{buckets.reduce((sum, row) => sum + row.count, 0)}</text>
-      <text x="50%" y="60%" textAnchor="middle" fill={t.muted} fontSize="11" fontWeight="700">records</text>
-    </svg>
+    </div>
   )
 }
 
@@ -140,23 +136,18 @@ export function EvidenceCoverageDashboard({ coverage, lang, t, isMobile }) {
       <header>
         <strong style={{ color: t.textStrong, fontSize: 15 }}>{text(lang, "Evidence Coverage Dashboard", "Evidence Coverage Dashboard")}</strong>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, margin: "4px 0 0" }}>
-          {text(lang, "Donut Chart 可点击筛选，Evidence Table 同步联动。", "The donut chart filters the linked Evidence Table.")}
+          {text(lang, "点击证据类型即可筛选，下方表格会同步显示对应记录。", "Select an evidence type to filter the linked table.")}
         </p>
       </header>
       <div style={{ alignItems: "center", display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "180px minmax(0, 1fr)" }}>
-        <DonutChart buckets={coverage.buckets} activeType={activeType} onSelect={setActiveType} t={t} />
-        <div style={{ display: "grid", gap: 8 }}>
+        <CoverageBars buckets={coverage.buckets} activeType={activeType} onSelect={setActiveType} t={t} lang={lang} />
+        <div style={{ alignContent: "start", display: "grid", gap: 10 }}>
           <button type="button" onClick={() => setActiveType("All")} style={{ background: activeType === "All" ? t.badgeInfoBg : t.surface, border: `1px solid ${activeType === "All" ? t.accent : t.border}`, borderRadius: 8, color: activeType === "All" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 900, minHeight: 30 }}>
             All Evidence
           </button>
-          <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))" }}>
-            {coverage.buckets.map(bucket => (
-              <button key={bucket.type} type="button" onClick={() => setActiveType(bucket.type)} style={{ background: activeType === bucket.type ? t.badgeInfoBg : t.surface, border: `1px solid ${activeType === bucket.type ? COLORS[bucket.type] : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 3, padding: 8, textAlign: "left" }}>
-                <span style={{ color: COLORS[bucket.type], fontSize: 11, fontWeight: 950 }}>{bucket.type}</span>
-                <span style={{ color: t.muted, fontSize: 11 }}>{bucket.count} · {Math.round(bucket.percent * 100)}%</span>
-              </button>
-            ))}
-          </div>
+          <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, margin: 0 }}>
+            {text(lang, "左侧按证据类型显示记录规模与占比。选择任一类型后，表格只保留对应记录；选择 All Evidence 恢复全部来源。", "The profile shows record volume and share by evidence type. Select a type to filter the table, or All Evidence to restore every source.")}
+          </p>
         </div>
       </div>
       <div data-testid="evidence-table" style={{ maxHeight: 260, overflow: "auto" }}>

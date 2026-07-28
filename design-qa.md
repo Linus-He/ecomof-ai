@@ -111,3 +111,57 @@ final result: passed
 - 脚本化视觉检查因受限环境端口 `listen EPERM` 使用 browserless fallback 并通过；应用内浏览器另行完成了桌面、移动端和真实交互验收。
 
 final result: passed
+
+## 数据合规、首页与有机酸体验优化
+
+### 本轮范围
+
+- 重设计数据合规整页，保留 EcoMOF-AI 既有的白底、冷灰蓝边界和低圆角设计语言。
+- 首页在 Organic Acid 后新增数据合规入口，并删除“当前能力状态”卡片区。
+- 删除有机酸旧版目标 / demo 状态模块；重排执行链边界、步骤标识、输入输出图和最终结果区。
+- 将 HGCPS 雷达 / 玫瑰图替换为可交互的横向因子贡献谱；将验证覆盖圆环替换为线性覆盖概览。
+- 审计有机酸可见文案，移除“论文级”、版本主导和开发者说明式表述。
+
+### 对照输入
+
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_uFMH5q/截屏2026-07-28 16.51.02.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_WGNbYI/截屏2026-07-28 16.52.43.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_GXelPC/截屏2026-07-28 16.53.09.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_96TSpM/截屏2026-07-28 16.53.56.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_b9zx5l/截屏2026-07-28 16.54.41.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_5RS6Bv/截屏2026-07-28 16.55.29.png`
+- `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_9y3NA5/截屏2026-07-28 16.56.40.png`
+
+### 实现快照与同图对照
+
+- 数据合规：`design-qa-assets/database-compliance-desktop.png`
+- 首页：`design-qa-assets/home-desktop.png`
+- 有机酸顶部：`design-qa-assets/organic-acid-top-desktop.png`
+- 输入输出布局：`design-qa-assets/organic-acid-objective-desktop.png`
+- HGCPS：`design-qa-assets/organic-acid-hgcps-desktop.png`
+- 最终结果响应式状态：`design-qa-assets/organic-acid-final-responsive.png`
+- 同图对照：`design-qa-assets/compare-home.png`、`compare-organic-acid-top.png`、`compare-organic-acid-objective.png`、`compare-hgcps.png`
+
+同图复核确认：首页入口顺序正确且能力卡片区已删除；有机酸不再显示旧 demo 目标区；原先单字竖排与圆形警告节点已经消失；HGCPS 完整显示双语因子名称、归一化条形、风险色和对照标记。
+
+### 视口、状态与交互
+
+- 应用内浏览器：1280 × 720。
+- 合规页：默认状态与“有限接入”筛选状态。
+- 首页：入场动画完成后四个主入口均可见。
+- 有机酸：访问已授权；检查 Step 0 与 Final Result。
+- Final Result 实测内容宽度 532 px，`clientWidth === scrollWidth`，无横向溢出。
+- 首页“进入数据合规”可跳转到 `#database-compliance`。
+- “有限接入”筛选设置 `aria-pressed="true"` 并只保留对应来源。
+- 合规联系链接为 `mailto:ecomofai@outlook.com`。
+- 当前结果视图共渲染 32 个可交互因子项；点击后会打开因子证据明细。
+- 验收流程中浏览器控制台无运行时 error。
+
+### 自动验证
+
+- 聚焦 UI：28 项通过。
+- 全量 Vitest：253 个文件、825 项通过。
+- TypeScript、生产构建与 `git diff --check` 通过。
+- 视觉脚本的静态 dist fallback 通过；由于沙箱阻止 Vite 预览端口和 Playwright 启动，该 fallback 不作为视觉通过证据，视觉结论来自上述应用内浏览器截图、测量和交互。
+
+final result: passed

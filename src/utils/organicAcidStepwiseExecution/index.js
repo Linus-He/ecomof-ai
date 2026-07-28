@@ -48,7 +48,11 @@ const STEP_LABELS = [
 ]
 
 const STEP_ZERO_EYEBROW = "Screening Objective / 筛选目标"
-const COMMON_BOUNDARIES = ["非催化性能结论", "非机器学习预测", "尚未完成性能验证"]
+const COMMON_BOUNDARIES = [
+  "路线排序仅用于确定实验验证优先级",
+  "未使用训练型预测模型",
+  "同条件性能验证尚未完成",
+]
 
 function asArray(value) {
   return Array.isArray(value) ? value : []

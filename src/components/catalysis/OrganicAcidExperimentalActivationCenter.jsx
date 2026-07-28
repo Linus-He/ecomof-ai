@@ -476,13 +476,13 @@ export function OrganicAcidExperimentalActivationCenter({
     ["export", "Export"],
   ]
   const tabProblemNotes = {
-    hosts: text(lang, "这个 tab 解决什么问题？把 Al-MOF 这个主体骨架落到具体可采购、可合成、可对照的 host family。", "What does this tab solve? It turns the Al-MOF host framework into concrete host families for synthesis and controls."),
-    mo: text(lang, "这个 tab 解决什么问题？选择 Mo 如何进入 Al-MOF，并把配位、浸出和结构损伤风险显式化。", "What does this tab solve? It chooses how Mo enters Al-MOF while making coordination, leaching, and structure-damage risks explicit."),
-    matrix: text(lang, `这个 tab 解决什么问题？${workbench.routeContext.activationScope}。`, `What does this tab solve? ${workbench.routeContext.activationScope}.`),
-    template: text(lang, "这个 tab 解决什么问题？统一同条件数据字段，避免把 pending 计划误读成实验结果。", "What does this tab solve? It standardizes same-condition fields and keeps pending plans separate from experimental results."),
-    feedback: text(lang, "这个 tab 解决什么问题？规定 supported、contradicted 和 inconclusive 结果如何影响 HGCPS 因子。", "What does this tab solve? It defines how supported, contradicted, and inconclusive results affect HGCPS factors."),
-    update: text(lang, "这个 tab 解决什么问题？只展示算法更新预览，不进行正式重排或机器学习更新。", "What does this tab solve? It previews algorithm updates without formal reranking or machine learning updates."),
-    export: text(lang, "这个 tab 解决什么问题？导出实验启用 CSV、JSON、schema 和 Markdown，用于内部规划。", "What does this tab solve? It exports activation CSV, JSON, schema, and Markdown for internal planning."),
+    hosts: text(lang, "把抽象主体骨架落实为可合成、可采购并可设置对照的具体材料家族。", "Maps the abstract host framework to specific material families suitable for synthesis, sourcing, and controls."),
+    mo: text(lang, "比较 Mo 的引入方式，并明确局域配位、浸出和结构损伤风险。", "Compares Mo introduction strategies and makes coordination, leaching, and structural-damage risks explicit."),
+    matrix: text(lang, `${workbench.routeContext.activationScope}。`, `${workbench.routeContext.activationScope}.`),
+    template: text(lang, "统一同条件数据字段，防止把待执行计划误读为实验结果。", "Standardizes same-condition fields so pending plans are not mistaken for experimental results."),
+    feedback: text(lang, "说明 supported、contradicted 和 inconclusive 结果如何更新 HGCPS 因子。", "Defines how supported, contradicted, and inconclusive outcomes update HGCPS factors."),
+    update: text(lang, "展示算法更新预览，不执行正式重排或机器学习更新。", "Previews algorithm updates without formal reranking or machine-learning updates."),
+    export: text(lang, "导出实验启用 CSV、JSON、schema 和 Markdown，供实验规划与内部复核。", "Exports activation CSV, JSON, schema, and Markdown for experimental planning and internal review."),
   }
 
   return (
@@ -500,7 +500,7 @@ export function OrganicAcidExperimentalActivationCenter({
         ))}
       </div>
       <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12.2, lineHeight: 1.5, padding: 10 }}>
-        <strong style={{ color: palette.text }}>{text(lang, "这个 tab 解决什么问题？", "What does this tab solve?")}</strong>{" "}
+        <strong style={{ color: palette.text }}>{text(lang, "本区用途：", "Purpose:")}</strong>{" "}
         {tabProblemNotes[activeTab]}
       </div>
       {activeTab === "hosts" ? <SpecificAlMofHostCandidatesPanel workbench={workbench} lang={lang} /> : null}

@@ -47,8 +47,8 @@ const validationSteps = [
 ]
 
 const limitationRows = [
-  ["演示数据边界 Demo boundary", "当前页面只使用 demo / prototype data，不含真实合作实验结果或保密数据。"],
-  ["CRITIC 小样本限制", "当前候选集较小，CRITIC 只用于方法展示，不能替代真实大样本校正。"],
+  ["数据使用边界", "当前页面仅使用公开来源、人工整理与代理字段，不含合作方保密数据；未完成同条件验证的结果只用于安排实验优先级。"],
+  ["CRITIC 样本边界", "当前候选集较小，CRITIC 仅用于比较权重敏感性，不能替代更大样本的外部校正。"],
   ["机理先验限制", "A1/A2/A3/A4/B1 权重属于可更新机理先验，应随投料实验和时间序列结果迭代。"],
   ["稳定性验证限制", "MOF 稳定性仍需要反应后 PXRD、ICP、FTIR、SEM/TEM 等实验表征支持。"],
   ["描述符缺口", <><DescriptorLabel descriptor="Eads_HCO3" />、Bader charge 与 formate desorption 仍处于 roadmap 状态。</>],
@@ -138,7 +138,7 @@ function ScoreBar({ label, value, tone = palette.accent, note }) {
         <NumericText style={{ color: palette.text, fontSize: 11.5, fontWeight: 800 }}>{fmt(value, 2)}</NumericText>
       </div>
       {note ? <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{note}</div> : null}
-      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 3, height: 8, overflow: "hidden" }}>
         <div style={{ background: tone, height: "100%", width: pct(value) }} />
       </div>
     </div>
@@ -170,20 +170,20 @@ function PrototypeGate({ lang, t, onUnlock }) {
       <div style={{ display: "grid", gap: 14, maxWidth: 760 }}>
         <div>
           <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
-            {lang === "zh" ? "前端访问入口" : "Access Gate / Frontend Passcode"}
+            {lang === "zh" ? "研究工作区访问" : "Research workspace access"}
           </div>
           <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.14, margin: "6px 0 0" }}>
             {lang === "zh" ? "有机酸路径工作台" : "Organic Acid Workspace"}
           </h1>
           <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.6, margin: "8px 0 0" }}>
             {lang === "zh"
-              ? "已启用前端访问口令，用于将实验性有机酸流程与催化总览分开展示。该口令仅为展示层访问门槛，不是真正的安全认证。"
-              : "Frontend passcode is enabled to keep this experimental workflow separate from the overview. It is a presentation gate, not secure authentication."}
+              ? "本工作区包含仍在验证中的路线筛选和实验规划内容，使用访问码与催化总览分开展示。访问码只用于页面分区，不代表数据授权或许可范围。"
+              : "This workspace contains route-screening and experimental-planning content that remains under validation. The access code separates it from the Catalysis overview and does not define data authorization or licence scope."}
           </p>
         </div>
         <form onSubmit={submit} style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 280px) auto" }}>
           <label style={{ display: "grid", gap: 5 }}>
-            <span style={{ color: palette.text, fontSize: 12, fontWeight: 700 }}>{lang === "zh" ? "前端访问码" : "Front-end access code"}</span>
+            <span style={{ color: palette.text, fontSize: 12, fontWeight: 700 }}>{lang === "zh" ? "工作区访问码" : "Workspace access code"}</span>
             <input
               type="password"
               value={draft}
@@ -205,66 +205,17 @@ function PrototypeGate({ lang, t, onUnlock }) {
             type="submit"
             style={{ ...toolbarBtn(t), background: palette.accent, border: `1px solid ${palette.accent}`, color: "#fff", justifyContent: "center", minHeight: 38, padding: "8px 14px", width: isNarrow ? "100%" : "auto" }}
           >
-            {lang === "zh" ? "进入项目" : "Enter project"}
+            {lang === "zh" ? "进入工作区" : "Enter workspace"}
           </button>
         </form>
         {error ? <div style={{ color: palette.risk, fontSize: 12, fontWeight: 700 }}>{error}</div> : null}
         <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 11.8, lineHeight: 1.55, padding: 10 }}>
           {lang === "zh"
-            ? "用途：恢复有机酸独立子工作台入口；解锁后可查看算法追踪器、路径显示图、图论网络、证据矩阵、优先级矩阵和候选物队列。"
-            : "Purpose: restore the organic-acid workspace entry. Unlock to inspect the algorithm tracker, pathway map, graph network, evidence matrix, priority matrix, and candidate queue."}
+            ? "进入后可查看算法追踪、反应路径、证据矩阵、路线优先级与候选队列。所有结果仍需结合来源等级和验证状态解读。"
+            : "After entry, you can inspect algorithm traces, reaction pathways, evidence matrices, route priorities, and candidate queues. Interpret every result together with its source grade and validation status."}
         </div>
       </div>
     </section>
-  )
-}
-
-function ProjectObjectiveSection({ topCandidate, rankedRows, isNarrow }) {
-  return (
-    <SectionShell
-      kicker="筛选目标"
-      title="有机酸筛选工作台目标"
-      note="从反应约束出发，展示 Al-MOF 骨架筛选、第二金属推荐、算法追踪与验证路线；当前不发布真实实验结论。"
-    >
-      <div style={{ display: "grid", gap: 14, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.1fr) minmax(280px, 0.9fr)" }}>
-        <div style={{ display: "grid", gap: 12 }}>
-          <div style={{ display: "grid", gap: 7 }}>
-            <h1 style={{ color: palette.text, fontSize: 24, lineHeight: 1.1, margin: 0 }}>有机酸项目</h1>
-            <p style={{ color: palette.muted, fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>
-              面向葡萄糖–<ChemFormula kind="sodiumBicarbonate" /> 协同转化为甲酸的机理导向 MOF 筛选平台。当前展示的是可追踪算法工作台，不发布真实实验结论。
-            </p>
-          </div>
-
-          <FormulaCard title="反应目标">
-            <FormulaInline size={14} weight={600} gap="4px 8px">
-              <span>Glucose</span><span>+</span><span><ChemFormula kind="sodiumBicarbonate" /></span><span>+</span><span><ChemFormula kind="water" /></span><span>+</span><span>MOF</span><span>→</span><span>formic acid / formate</span>
-            </FormulaInline>
-            <div style={{ color: palette.muted, fontSize: 12, lineHeight: 1.55 }}>
-              目标是同时提升 <VariableLabel name="Y_FA" /> 与 <VariableLabel name="S_FA_C" />，并抑制乳酸、乙酸、乙醇酸、丙酮酸和固相副产物。
-            </div>
-          </FormulaCard>
-
-          <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-            <FormulaCard title="RGFA 评分公式">
-              <FormulaInline size={13.5} weight={600}>
-                <span>RGFA Score</span><span>=</span><span>Gate</span><span>×</span><span>StepScore</span><span>×</span><span>SelectivityFactor</span>
-              </FormulaInline>
-            </FormulaCard>
-            <FormulaCard title="选择性因子">
-              <FormulaInline size={13.5} weight={600}>
-                <span><VariableLabel name="Y_FA" /></span><span>×</span><span><VariableLabel name="S_FA_C" /></span><span>/</span><span>(1 + weighted penalties)</span>
-              </FormulaInline>
-            </FormulaCard>
-          </div>
-        </div>
-
-        <div style={{ display: "grid", gap: 10 }}>
-          <StatCard label="演示候选 Demo candidates" value={<NumericText>{rankedRows.length}</NumericText>} note="独立 JSON demo dataset" />
-          <StatCard label="当前最高优先级 Current top candidate" value={topCandidate?.mof || "-"} note={topCandidate ? `RGFA ${fmt(topCandidate.rgfaScore)} · ${recommendationForClass(topCandidate.computedClass)}` : "waiting for data"} tone={palette.accent} />
-          <StatCard label="数据边界 Data boundary" value="Demo / Prototype" note="不引入真实合作数据或保密实验数据" />
-        </div>
-      </div>
-    </SectionShell>
   )
 }
 
@@ -415,8 +366,8 @@ function ValidationSection() {
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {validationSteps.map(([title, body], index) => (
-          <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, gridTemplateColumns: "28px minmax(0, 1fr)", padding: 11 }}>
-            <div style={{ alignItems: "center", background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, display: "flex", fontSize: 11.5, fontWeight: 700, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</div>
+          <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, gridTemplateColumns: "34px minmax(0, 1fr)", padding: 11 }}>
+            <div style={{ borderLeft: `3px solid ${palette.accent}`, color: palette.accent, display: "flex", fontSize: 10.5, fontWeight: 900, paddingLeft: 7 }}>{String(index + 1).padStart(2, "0")}</div>
             <div>
               <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.4 }}>{title}</div>
               <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 4 }}>{body}</div>
@@ -465,8 +416,8 @@ function ResearchValidationEntryPanel({ lang }) {
         </h2>
         <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
           {zh
-            ? "从路径网络、算法追踪和候选排序进入 V3.7/V3.8 研究验证中心；所有结果保持 demo / proxy / inferred 边界和字段级溯源。"
-            : "Move from pathway network, algorithm trace, and candidate prioritization into the V3.7/V3.8 validation center; all results keep demo / proxy / inferred boundaries and field-level provenance."}
+            ? "从路径网络、算法追踪和候选排序进入研究验证中心；证据来源、推断层级与字段级溯源会随记录保留。"
+            : "Move from pathway networks, algorithm traces, and candidate prioritization into the Research Validation Center while preserving source grade, inference level, and field-level provenance."}
         </p>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
@@ -642,12 +593,6 @@ export function OrganicAcidProject({ lang = "zh", t }) {
   return (
     <div className="organic-acid-page" style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 12, padding: isNarrow ? 12 : 16, fontFamily: ORGANIC_ACID_FONT }}>
       <div style={{ display: "grid", gap: 14, margin: "0 auto", maxWidth: 1220 }}>
-        <ProjectObjectiveSection topCandidate={topCandidate} rankedRows={rankedRows} isNarrow={isNarrow} />
-        <div style={{ background: palette.positiveSoft, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
-          {lang === "zh"
-            ? "Access Gate / Frontend Passcode：已通过前端访问入口；该入口仅用于原型页面分区，不代表真实权限控制。"
-            : "Access Gate / Frontend Passcode: frontend access gate passed; this prototype gate is for page segmentation, not real authorization."}
-        </div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
           {lang === "zh"
             ? "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。"
@@ -677,11 +622,11 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           miniPreview={
             <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, display: "grid", gap: 7, padding: 10 }}>
               <div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "20px 1fr 20px 1fr 20px", gap: 5 }}>
-                <span style={{ background: palette.positive, borderRadius: 999, height: 18, width: 18 }} />
+                <span style={{ background: palette.positive, borderRadius: 3, height: 14, width: 14 }} />
                 <span style={{ background: palette.borderStrong, height: 2 }} />
-                <span style={{ background: palette.accent, borderRadius: 999, height: 18, width: 18 }} />
+                <span style={{ background: palette.accent, borderRadius: 3, height: 14, width: 14 }} />
                 <span style={{ background: palette.borderStrong, height: 2 }} />
-                <span style={{ background: palette.mixed, borderRadius: 999, height: 18, width: 18 }} />
+                <span style={{ background: palette.mixed, borderRadius: 3, height: 14, width: 14 }} />
               </div>
               <div style={{ color: palette.faint, fontSize: 11 }}>{lang === "zh" ? "mini node-edge preview · 展开查看路径网络。" : "mini node-edge preview · expand for pathway graph."}</div>
             </div>
@@ -722,7 +667,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
               {rankedRows.slice(0, 3).map((row, index) => (
                 <div key={row.mof || index} style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "22px minmax(0, 1fr) 48px" }}>
                   <span style={{ color: palette.faint, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11 }}>{index + 1}</span>
-                  <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}><span style={{ background: palette.accent, display: "block", height: "100%", width: pct(row.rgfaScore || 0.4) }} /></span>
+                  <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 3, height: 8, overflow: "hidden" }}><span style={{ background: palette.accent, display: "block", height: "100%", width: pct(row.rgfaScore || 0.4) }} /></span>
                   <span style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, textAlign: "right" }}>{fmt(row.rgfaScore || 0, 2)}</span>
                 </div>
               ))}
@@ -851,7 +796,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           ]}
           miniPreview={
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              {["A", "B", "C", "D"].map(level => <span key={level} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 900, padding: "5px 9px" }}>Evidence {level}</span>)}
+              {["A", "B", "C", "D"].map(level => <span key={level} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 5, color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 850, padding: "5px 9px" }}>Evidence {level}</span>)}
             </div>
           }
         >
@@ -878,7 +823,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         </CollapsibleResearchSection>
         {status === "error" ? (
           <div style={{ background: palette.riskSoft, border: `1px solid ${palette.border}`, borderRadius: 12, color: palette.risk, fontSize: 12.5, fontWeight: 700, padding: 12 }}>
-            Demo dataset could not be loaded from public/data/organic_acid_project_demo.json.
+            {lang === "zh" ? "当前候选数据未能载入，请刷新页面或稍后重试。" : "Candidate data could not be loaded. Refresh the page or try again later."}
           </div>
         ) : (
           <CollapsibleResearchSection

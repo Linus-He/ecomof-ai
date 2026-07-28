@@ -41,12 +41,12 @@ afterEach(() => {
 })
 
 describe("home no version focus", () => {
-  it("shows dynamic current capability without becoming a release-summary page", () => {
+  it("keeps version and release-summary language out of the homepage", () => {
     renderHome()
     const body = document.body.textContent || ""
 
-    expect(body).toMatch(/当前 Web 版本/)
-    expect(body).toMatch(/V3\.6/)
+    expect(body).not.toMatch(/当前 Web 版本/)
+    expect(body).not.toMatch(/当前能力状态/)
     expect(body).not.toMatch(/Release Notes/i)
     expect(body).not.toMatch(/Version Timeline/i)
     expect(body).not.toMatch(/Version Growth/i)

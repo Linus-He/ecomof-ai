@@ -85,10 +85,18 @@ function Pill({ children, tone = "info" }) {
         ? [palette.bg, palette.borderStrong, palette.faint]
         : [palette.accentSoft, palette.accent, palette.accent]
   return (
-    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderRadius: 999, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderLeftWidth: 3, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
       {children}
     </span>
   )
+}
+
+function readinessCopy(value, lang) {
+  const raw = String(value || "")
+  if (/planning-ready|not performance-validated/i.test(raw)) {
+    return text(lang, "可进入实验规划；同条件性能验证待补", "Ready for experimental planning; same-condition validation pending")
+  }
+  return raw || text(lang, "验证状态待补充", "Validation status pending")
 }
 
 function SectionTitle({ kicker, title, note }) {
@@ -112,7 +120,7 @@ function ChartTitle({ model, lang }) {
 
 function Bar({ value, tone = palette.accent }) {
   return (
-    <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+    <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 3, height: 8, overflow: "hidden" }}>
       <span style={{ background: tone, display: "block", height: "100%", width: pct(value) }} />
     </div>
   )
@@ -123,7 +131,7 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
   return (
     <div data-testid={withTestId ? "objective-input-output-chart" : undefined} style={cardStyle({ background: palette.bg })}>
       <ChartTitle model={model} lang={lang} />
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         <div style={cardStyle({ background: palette.surfaceStrong })}>
           <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "输入数据", "Inputs")}</strong>
           {rows.map(row => (
@@ -136,7 +144,9 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
         <div style={cardStyle({ alignContent: "center", background: palette.accentSoft, textAlign: "center" })}>
           <strong style={{ color: palette.accent, fontSize: 13.5 }}>{text(lang, model.algorithmLabelZh, model.algorithmLabelEn)}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5 }}>{text(lang, "目标产物", "Target product")}: {model.targetProduct}</span>
-          <Pill tone="muted">{model.readinessLevel}</Pill>
+          <div style={{ borderLeft: `3px solid ${palette.borderStrong}`, color: palette.muted, fontSize: 11.2, lineHeight: 1.45, paddingLeft: 9 }}>
+            {readinessCopy(model.readinessLevel, lang)}
+          </div>
         </div>
         <div style={cardStyle({ background: palette.surfaceStrong })}>
           <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "输出实验路线", "Output route")}</strong>
@@ -293,7 +303,7 @@ export function ValidationMatrixCoverageChart({ model, lang = "zh", withTestId =
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         <Pill tone="good">{text(lang, "实验项", "experiments")}: {model.experimentCount}</Pill>
         <Pill>{text(lang, "必填字段", "required fields")}: {model.requiredFieldCount}</Pill>
-        <Pill tone="risk">{model.readinessLevel}</Pill>
+            <Pill tone="risk">{readinessCopy(model.readinessLevel, lang)}</Pill>
       </div>
     </div>
   )
@@ -319,8 +329,8 @@ export function StepMiniMap({ miniMap, lang = "zh", onSelectStep }) {
       </div>
       <div style={{ display: "grid", gap: 6 }}>
         {asArray(miniMap.nodes).map(node => (
-          <button key={node.id} type="button" onClick={() => onSelectStep?.(node.id)} style={{ ...buttonStyle(node.active), alignItems: "center", display: "grid", gridTemplateColumns: "22px minmax(0, 1fr)" }}>
-            <span style={{ background: node.active ? palette.accent : palette.surface, border: `1px solid ${node.active ? palette.accent : palette.borderStrong}`, borderRadius: 999, color: node.active ? "#fff" : palette.faint, display: "inline-flex", fontSize: 10.5, fontWeight: 950, height: 20, justifyContent: "center", alignItems: "center" }}>{node.id.replace("step-", "")}</span>
+          <button key={node.id} type="button" onClick={() => onSelectStep?.(node.id)} style={{ ...buttonStyle(node.active), alignItems: "center", display: "grid", gridTemplateColumns: "38px minmax(0, 1fr)" }}>
+            <span style={{ borderLeft: `3px solid ${node.active ? palette.accent : palette.borderStrong}`, color: node.active ? palette.accent : palette.faint, display: "inline-flex", fontSize: 10, fontWeight: 950, paddingLeft: 6 }}>{`S${node.id.replace("step-", "")}`}</span>
             <span>{node.label}</span>
           </button>
         ))}
@@ -856,9 +866,9 @@ export function OrganicAcidStepwiseExecutionChain({
         title={text(lang, chain.titleZh, chain.titleEn)}
         note={text(lang, chain.subtitleZh, chain.subtitleEn)}
       />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+      <div style={{ borderLeft: `3px solid ${palette.risk}`, display: "grid", gap: 5, paddingLeft: 10 }}>
         {chain.boundaries.map(boundary => <Pill key={boundary} tone="risk">{boundary}</Pill>)}
-        <Pill tone="good">{text(lang, "实验规划可启用", "Planning-ready")}</Pill>
+        <span style={{ color: palette.positive, fontSize: 11.5, fontWeight: 900 }}>{text(lang, "当前输出可用于安排验证实验", "The current output can be used to plan validation experiments")}</span>
       </div>
       {(() => {
         const objective = chain.steps.find(step => step.id === "step-0")?.dynamicChartModel || {}

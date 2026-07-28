@@ -11,7 +11,7 @@ function Pill({ children, tone = "info" }) {
       ? [palette.positiveSoft, palette.positive, palette.positive]
       : [palette.accentSoft, palette.accent, palette.accent]
   return (
-    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderRadius: 999, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderLeftWidth: 3, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
       {children}
     </span>
   )
@@ -39,13 +39,13 @@ function TopRouteHgcpsComparisonChart({ model, lang = "zh", onViewHostStructure 
               <strong style={{ color: palette.text, fontSize: 11.7, minWidth: 0 }}>{row.label}</strong>
               <NumericText style={{ color: index === 0 ? palette.positive : palette.accent, fontSize: 12, fontWeight: 950, textAlign: "right" }}>{fmt(row.finalHGCPS, 3)}</NumericText>
             </div>
-            <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 10, overflow: "hidden" }}>
+            <div style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 3, height: 10, overflow: "hidden" }}>
               <span style={{ background: index === 0 ? palette.positive : palette.accent, display: "block", height: "100%", width: `${Math.max(3, Math.min(100, (Number(row.finalHGCPS) || 0) / maxValue * 100))}%` }} />
             </div>
             <div style={{ display: "grid", gap: 4, gridTemplateColumns: "repeat(auto-fit, minmax(78px, 1fr))" }}>
               {asArray(row.factors).map(factor => (
                 <span key={`${row.routeId}-${factor.factorKey}`} title={`${text(lang, factor.labelZh, factor.labelEn)} ${fmt(factor.value, 2)}`} style={{ alignItems: "center", color: palette.faint, display: "inline-flex", fontSize: 9.6, fontWeight: 800, gap: 4, minWidth: 0 }}>
-                  <span style={{ background: factor.factorKey === "riskRetentionFactor" ? palette.risk : palette.borderStrong, borderRadius: 999, height: 6, width: 6 }} />
+                  <span style={{ background: factor.factorKey === "riskRetentionFactor" ? palette.risk : palette.borderStrong, height: 7, width: 2 }} />
                   {text(lang, factor.labelZh, factor.labelEn)} {fmt(factor.value, 2)}
                 </span>
               ))}
@@ -67,8 +67,8 @@ export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter,
         <h2 style={{ color: palette.text, fontSize: 20, lineHeight: 1.2, margin: 0 }}>{text(lang, model.titleZh, model.titleEn)}</h2>
         <p style={{ color: palette.muted, fontSize: 12.3, lineHeight: 1.55, margin: 0 }}>{text(lang, model.noteZh, model.noteEn)}</p>
       </div>
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
-        <div style={cardStyle({ background: palette.bg })}>
+      <div style={{ alignItems: "start", display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+        <div style={cardStyle({ alignSelf: "start", background: palette.bg })}>
           <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900 }}>{text(lang, "选中路线", "Selected route")}</span>
           <strong style={{ color: palette.text, fontSize: 18 }}>{model.routeLabel}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5 }}>{model.recommendationTier}</span>
@@ -80,8 +80,12 @@ export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter,
         </div>
         <HgcpsFactorRose model={model.factorRoseModel} lang={lang} mini />
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        {asArray(model.boundaries).map(boundary => <Pill key={boundary.id} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
+      <div style={{ borderLeft: `3px solid ${palette.risk}`, display: "grid", gap: 5, paddingLeft: 10 }}>
+        {asArray(model.boundaries).map(boundary => (
+          <span key={boundary.id} style={{ color: palette.risk, fontSize: 11.2, fontWeight: 800, lineHeight: 1.45 }}>
+            {text(lang, boundary.zh, boundary.en)}
+          </span>
+        ))}
       </div>
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
         <div style={cardStyle({ background: palette.bg })}>
@@ -99,10 +103,10 @@ export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter,
       </div>
       <section data-testid="final-paper-comparison-section" style={cardStyle({ background: palette.bg })}>
         <div style={{ display: "grid", gap: 4 }}>
-          <strong style={{ color: palette.text, fontSize: 14 }}>{text(lang, "论文级对比与解读", "Paper-style comparison and interpretation")}</strong>
-          <Caption>{text(lang, "图为主、图注式解读；所有数值来自当前路线评分与验证矩阵。", "Figure-first reading with caption-style interpretation; all values come from the current route scoring and validation matrix.")}</Caption>
+          <strong style={{ color: palette.text, fontSize: 14 }}>{text(lang, "路线对比与证据解读", "Route comparison and evidence interpretation")}</strong>
+          <Caption>{text(lang, "对比路线评分、八因子构成和验证覆盖；所有数值均来自当前评分记录与验证矩阵，不外推为实验性能。", "Compares route scores, eight-factor composition, and validation coverage. Values come from the current scoring record and validation matrix and are not extrapolated as experimental performance.")}</Caption>
         </div>
-        <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+        <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))" }}>
           <TopRouteHgcpsComparisonChart model={model.routeComparisonModel} lang={lang} onViewHostStructure={onViewHostStructure} />
           <div style={{ display: "grid", gap: 7 }}>
             <HgcpsFactorRose

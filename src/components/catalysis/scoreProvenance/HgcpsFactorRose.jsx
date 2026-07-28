@@ -18,12 +18,12 @@ export function HgcpsFactorRose({ model, overlayRoute, lang = "zh", mini = false
     <FactorRoseChart
       rows={rows}
       outlineRows={outlineRows}
-      titleZh={mini ? "HGCPS 八因子玫瑰" : "HGCPS 八因子风玫瑰图"}
-      titleEn={mini ? "HGCPS Factor Rose" : "HGCPS Eight-Factor Rose"}
-      subtitleZh="半径按八个 HGCPS 因子值缩放；风险保留因子使用风险色，表示压缩而非实验否定。"
-      subtitleEn="Radius is scaled by the eight HGCPS factors; risk retention uses the risk tone and means compression, not experimental rejection."
-      captionZh="主体、路径、客体、证据、风险、可合成性与经济性共同决定当前路线 HGCPS；虚线轮廓为对照路线。"
-      captionEn="Host, pathway, guest, evidence, risk, synthesizability, and economics jointly shape the current route HGCPS; the dashed outline is the comparison route."
+      titleZh={mini ? "HGCPS 因子贡献谱" : "HGCPS 八因子贡献谱"}
+      titleEn={mini ? "HGCPS factor profile" : "HGCPS eight-factor profile"}
+      subtitleZh="逐项比较八个数据派生因子；风险保留使用风险色，对照路线以竖线标出。"
+      subtitleEn="Compares the eight data-derived factors; risk retention uses the risk tone and the comparison route is marked by a vertical line."
+      captionZh="HGCPS 由主体稳定性、路径支持、客体补偿、主客体互补、证据、风险、合成条件可及性与经济性共同计算。条形长度表示归一化因子值，不代表实验测得的性能。"
+      captionEn="HGCPS combines host stability, pathway support, guest compensation, host-guest complementarity, evidence, risk, synthesis-condition accessibility, and economics. Bar length is a normalized factor value, not experimentally measured performance."
       centerLabel="HGCPS"
       centerValue={fmt(model?.finalValue ?? model?.finalHGCPS, 3)}
       lang={lang}

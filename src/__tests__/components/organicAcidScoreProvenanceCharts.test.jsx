@@ -118,7 +118,7 @@ describe("organic acid score provenance charts", () => {
     const routeRose = screen.getByTestId("hgcps-factor-rose")
     expect(routeRose).toHaveAttribute("data-row-count", "8")
     expect(routeRose.querySelectorAll('[data-testid="factor-rose-node"]')).toHaveLength(8)
-    expect(routeRose.querySelector('[data-testid="factor-rose-polygon"]')).toBeInTheDocument()
+    expect(routeRose.querySelector('[data-testid="factor-profile-bars"]')).toBeInTheDocument()
     expect(routeRose.textContent).toContain(routeModel.finalValue.toFixed(3))
 
     rerender(<HgcpsFactorRose model={buildRouteHgcpsScoreProvenance(alteredWorkbench)} lang="zh" />)
@@ -202,7 +202,7 @@ describe("organic acid score provenance charts", () => {
     expect(summary.textContent).toMatch(/最高优先级实验验证路线/)
     expect(within(summary).getByTestId("final-paper-comparison-section")).toBeInTheDocument()
     expect(within(summary).getByTestId("final-route-comparison-chart")).toHaveAttribute("data-row-count", String(model.routeComparisonModel.rows.length))
-    expect(summary.textContent).toMatch(/论文级对比与解读/)
+    expect(summary.textContent).toMatch(/路线对比与证据解读/)
   })
 
   it("renders a collapsible score source table that can expand", () => {
