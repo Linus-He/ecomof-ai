@@ -2218,7 +2218,7 @@ export function GasSepTab({ onNavigate }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
-        title={text(lang, "GasSep 气体分离场景工作台", "GasSep Gas Separation Scenario Workbench")}
+        title={text(lang, "气体分离", "GasSep")}
         subtitle={text(
           lang,
           "以气体组成、温度和压力为条件，联动候选筛选、热力学解释、排序与验证路线；所有数值保持证据等级、字段溯源与不确定性边界。",

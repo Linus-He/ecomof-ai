@@ -22,7 +22,7 @@ import { buildDescriptorAblation } from "../organicAcidDataDerivation/descriptor
  * @typedef {{ routeScores?: HostGuestRoute[], topRoute?: HostGuestRoute }} ComplementarityResult
  */
 
-export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.8"
+export const ORGANIC_ACID_HOST_GUEST_VERSION = "V3.9.10"
 export const HOST_GUEST_ALGORITHM_NAME = "Host-Guest Complementary Pathway Screening Algorithm"
 export const HGCPS_FORMULA_TEXT = "HGCPS = weighted geometric mean(Host Stability, Host Pathway Support, Guest Activity Compensation, Host-Guest Complementarity, Evidence Confidence, Risk Retention, Synthesizability, Economics)"
 
@@ -107,6 +107,7 @@ function hasDerivationDatasets(input = {}) {
     input.gasAdsorptionRecords,
     input.literatureDataset,
     input.goldDataset,
+    input.fairMofsFamilyEvidence,
   ].some(dataset => Array.isArray(dataset) ? dataset.length : Array.isArray(dataset?.records) && dataset.records.length)
 }
 
@@ -118,6 +119,7 @@ function derivationDatasets(input = {}) {
     gasAdsorptionRecords: input.gasAdsorptionRecords,
     literatureDataset: input.literatureDataset,
     goldDataset: input.goldDataset,
+    fairMofsFamilyEvidence: input.fairMofsFamilyEvidence,
   }
 }
 
@@ -237,7 +239,7 @@ export function buildHostMofSelection(hostCandidates = [], datasets = {}) {
       selectedHost,
       hostScoreBreakdown: selectedHost?.hostScoreBreakdown || {},
       hostRoleExplanation: selectedHost
-        ? `${selectedHost.displayName} is selected as the current host-only structural leader by the locked spec-v2 descriptor score used in V3.9.8. It is not automatically the final route recommendation.`
+        ? `${selectedHost.displayName} is selected as the current host-only structural leader by the abundance-neutral locked spec-v3 descriptor score used in V3.9.10. It is not automatically the final route recommendation.`
         : "No host selected.",
       hostLimitation: selectedHost?.limitation || "Host limitation pending.",
       evidenceRefs: asArray(selectedHost?.evidenceRefs),
@@ -294,7 +296,7 @@ export function buildGuestMetalSelection(guestMetalCandidates = [], selectedHost
       selectedGuestMetal,
       guestScoreBreakdown: selectedGuestMetal?.guestScoreBreakdown || {},
       guestRoleExplanation: selectedGuestMetal
-        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the locked spec-v2 data-derived or fallback score used in V3.9.8. It complements the host instead of replacing it.`
+        ? `${selectedGuestMetal.guestMetal} is selected as the current guest / dopant / activity compensation metal for ${selectedHost?.displayName || "the selected host"} by the locked spec-v3 data-derived or fallback score used in V3.9.10. It complements the host instead of replacing it.`
         : "No guest metal selected.",
       compatibilityWithSelectedHost: selectedGuestMetal?.guestScoreBreakdown?.compatibilityWithSelectedHost || 0,
       mainRisk: selectedGuestMetal?.mainRisk || "Guest-metal risk pending.",
@@ -411,6 +413,15 @@ export function buildHostGuestRouteExplanation(route, context = {}) {
     provenanceTrace: asArray(selectedRoute?.provenance),
     routeFactorProvenance: selectedRoute?.routeFactorProvenance || {},
     derivationSummary: selectedRoute?.derivationSummary || {},
+    computationCohort: selectedRoute?.computationCohort || null,
+    participatingMofCount: safeNumber(selectedRoute?.participatingMofCount, 0),
+    participatingMofs: asArray(selectedRoute?.participatingMofs),
+    structureAvailability: selectedRoute?.structureAvailability || {
+      route3dAvailable: false,
+      status: "hypothesis-no-experimental-modified-cif",
+      labelZh: "假设路线，无对应 3D 晶体结构",
+      labelEn: "Hypothetical route; no corresponding 3D crystal structure",
+    },
     missingEvidence: evidenceSources.filter(record => record.evidenceType === "missing" || record.curationStatus === "missing").map(record => record.limitation),
     nextValidationExperiment: validationExperiments[0]?.recommendedExperiment || selectedRoute?.nextExperiment || "validation experiment pending",
     validationExperiments,
@@ -423,6 +434,8 @@ export function buildHostGuestRouteExplanation(route, context = {}) {
       guestMetal: selectedRoute?.guestMetal || "guest pending",
       routeType: selectedRoute?.routeType || "route type pending",
       scoreBreakdown: selectedRoute?.scoreBreakdown || {},
+      computationCohort: selectedRoute?.computationCohort || null,
+      structureAvailability: selectedRoute?.structureAvailability || null,
       evidenceSources,
       riskReasons: selectedRoute?.riskPenaltyBreakdown || riskBreakdown(selectedRoute, context.evidenceRecords),
       provenance: asArray(selectedRoute?.provenance),
@@ -1093,6 +1106,7 @@ function workbenchCacheKey(input = {}) {
     input.gasAdsorptionRecords,
     input.literatureDataset,
     input.goldDataset,
+    input.fairMofsFamilyEvidence,
   ])
 }
 

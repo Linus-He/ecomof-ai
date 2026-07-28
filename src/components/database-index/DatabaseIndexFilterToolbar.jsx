@@ -7,12 +7,11 @@ import { DATABASE_INDEX_DESCRIPTOR_FILTERS } from "../../utils/databaseIndex/dat
 const SOURCE_OPTIONS = [
   ["all", "all", "全部"],
   ["core", "CoRE", "CoRE"],
-  ["qmof", "QMOF", "QMOF"],
 ]
 
 const QUALITY_OPTIONS = [
   ["all", "all", "全部"],
-  ["ready-for-scoring", "ready-for-scoring", "ready-for-scoring"],
+  ["ready-for-structural-screening", "structural fields ready", "结构字段就绪"],
   ["needs-review", "needs-review", "needs-review"],
   ["rejected", "rejected", "rejected"],
 ]
@@ -70,8 +69,8 @@ export function DatabaseIndexFilterToolbar({ filters, onChange, lang, t }) {
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             <ChemicalText value={text(
               lang,
-              "筛选只作用于已加载的 Top-N 预览或当前选定索引分片，不会触发全量分片加载。",
-              "Filters apply only to the loaded Top-N preview or the selected index part; they do not fetch all index parts."
+              "筛选只作用于当前结构审阅样本或选定索引分片，不会一次性加载 9,835 条详情。",
+              "Filters apply only to the current structural-review sample or selected index part; they do not load all 9,835 detail records at once."
             )} />
           </span>
         </div>

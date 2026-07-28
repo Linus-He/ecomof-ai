@@ -11,6 +11,7 @@ import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
+import { fetchDataJson } from "./services/dataService"
 import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
@@ -45,6 +46,7 @@ const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"),
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab"), "MethodsLimitationsTab")
 const ProjectEvolutionTab = lazyNamed(() => import("./components/tabs/ProjectEvolutionTab"), "ProjectEvolutionTab")
+const DatabaseComplianceTab = lazyNamed(() => import("./components/tabs/DatabaseComplianceTab"), "DatabaseComplianceTab")
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -262,7 +264,7 @@ function AppShell({
                   justifyContent: compactHeader ? "flex-start" : "center",
                   gap: compactHeader ? 2 : 6,
                   width: "100%",
-                  maxWidth: compactHeader ? 660 : 760,
+                  maxWidth: compactHeader ? 760 : 880,
                   overflowX: "auto",
                   padding: 0,
                   background: "transparent",
@@ -474,6 +476,7 @@ function AppShell({
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
             {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
+            {activeTab === "dataCompliance" && <DatabaseComplianceTab />}
           </div>
         </Suspense>
       </main>
@@ -516,7 +519,7 @@ function AppShell({
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              {lang === "zh" ? "方法与证据" : "Methods & Evidence"}
+              {lang === "zh" ? "方法论" : "Methodology"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
@@ -529,6 +532,18 @@ function AppShell({
               }}
             >
               {lang === "zh" ? "数据质量" : "Data Quality"}
+            </button>
+            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
+            <button
+              type="button"
+              onClick={() => navigateTab("dataCompliance")}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: theme.subtle, fontSize: 12, fontWeight: 600,
+                cursor: "pointer", fontFamily: FONT_SANS,
+              }}
+            >
+              {lang === "zh" ? "数据合规" : "Data Compliance"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button
@@ -611,6 +626,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("")
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchStatus, setSearchStatus] = useState(null)
+  const [databaseSearchRows, setDatabaseSearchRows] = useState([])
   const [savedOpen, setSavedOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [acknowledgementsOpen, setAcknowledgementsOpen] = useState(false)
@@ -866,16 +882,127 @@ export default function App() {
     }
   }, [lang, apiStatus.checked])
 
-  const presetSuggestions = useMemo(() => getPresetSuggestionNames(searchQuery), [searchQuery])
+  useEffect(() => {
+    if (
+      !["ecoscreen", "performance"].includes(activeTab)
+      || databaseSearchRows.length
+      || (!searchOpen && !String(searchQuery || "").trim())
+    ) return
+    let active = true
+    Promise.all([
+      fetchDataJson("core_mof_2024/cr_search_index.json", []),
+      fetchDataJson("fair_mofs_property_index_v1.json", { records: [] }),
+    ]).then(([coreRows, fairIndex]) => {
+      if (!active) return
+      const exactFairByCoreId = new Map()
+      for (const record of fairIndex?.records || []) {
+        if (record.match?.structureIdentityLevel !== "exact-refcode") continue
+        for (const coreId of record.match?.matchedCoreRecordIds || []) {
+          if (!exactFairByCoreId.has(coreId)) exactFairByCoreId.set(coreId, record)
+        }
+      }
+      const coreSearchRows = (Array.isArray(coreRows) ? coreRows : []).map(record => ({
+        ...record,
+        databaseCandidateId: record.id,
+        fairMofsRecord: exactFairByCoreId.get(record.id) || null,
+        searchSource: exactFairByCoreId.has(record.id)
+          ? "CoRE structure + FAIR-MOFs exact Refcode"
+          : "CoRE MOF 2024 structure",
+      }))
+      const standaloneFairRows = (fairIndex?.records || [])
+        .filter(record => record.match?.structureIdentityLevel !== "exact-refcode")
+        .map(record => ({
+          id: record.id,
+          databaseCandidateId: record.id,
+          displayName: record.csdRefcode,
+          csdRefcode: record.csdRefcode,
+          aliases: record.aliases,
+          sourceRecordId: record.csdRefcode,
+          sourceDatabase: "FAIR-MOFs",
+          doi: record.doi,
+          family: record.family,
+          metalNode: record.inferredMetals?.join(", ") || "pending",
+          topology: record.physicalProperties?.topology,
+          fairMofsRecord: record,
+          searchSource: record.match?.structureIdentityLevel === "base-refcode-variant"
+            ? "FAIR-MOFs base-Refcode variant evidence"
+            : "Standalone FAIR-MOFs evidence",
+        }))
+      setDatabaseSearchRows([...coreSearchRows, ...standaloneFairRows])
+    }).catch(() => {
+      if (active) setDatabaseSearchRows([])
+    })
+    return () => {
+      active = false
+    }
+  }, [activeTab, databaseSearchRows.length, searchOpen, searchQuery])
+
+  const presetSuggestions = useMemo(() => {
+    const presetRows = getPresetSuggestionNames(searchQuery)
+    const query = String(searchQuery || "").trim().toLowerCase()
+    if (!query) return presetRows
+    const databaseRows = databaseSearchRows
+      .filter(record => [
+        record.commonName,
+        record.displayName,
+        record.csdRefcode,
+        record.coreId,
+        record.sourceRecordId,
+        record.id,
+        record.doi,
+        record.family,
+        record.metalNode,
+        record.topology,
+        ...(record.aliases || []),
+      ].filter(Boolean).join(" ").toLowerCase().includes(query))
+      .slice(0, Math.max(0, 8 - presetRows.length))
+      .map(record => ({
+        value: `database:${record.databaseCandidateId}`,
+        label: record.commonName
+          ? `${record.commonName} · CSD ${record.csdRefcode || record.sourceRecordId}`
+          : `CSD ${record.csdRefcode || record.sourceRecordId}`,
+        meta: `${record.metalNode || "metal pending"} · ${record.searchSource}`,
+      }))
+    return [...presetRows, ...databaseRows]
+  }, [databaseSearchRows, searchQuery])
 
   const applyPreset = useCallback((name) => {
+    if (String(name || "").startsWith("database:")) {
+      const databaseCandidateId = String(name).slice("database:".length)
+      const record = databaseSearchRows.find(row => row.databaseCandidateId === databaseCandidateId)
+      if (!record) {
+        setSearchStatus("miss")
+        return
+      }
+      const displayName = record.commonName || record.csdRefcode || record.displayName || record.sourceRecordId
+      setInputs(prev => ({
+        ...prev,
+        databaseCandidateId,
+        mofName: displayName,
+        ...(Number.isFinite(Number(record.surfaceArea)) ? { betSurfaceArea: Number(record.surfaceArea) } : {}),
+        ...(Number.isFinite(Number(record.poreSizeA)) ? { poreDiameter: Number(record.poreSizeA) } : {}),
+        ...(Number.isFinite(Number(record.poreVolume)) ? { poreVolume: Number(record.poreVolume) } : {}),
+      }))
+      setSearchQuery(displayName)
+      setSearchOpen(false)
+      setSearchStatus("loaded")
+      setRouteHash("ecoscreen")
+      window.setTimeout(() => {
+        document.getElementById("ecoscreen-scenario-controls")?.scrollIntoView({ block: "start", behavior: "smooth" })
+      }, 220)
+      window.setTimeout(() => setSearchStatus(null), 1800)
+      return
+    }
     const presetName = findPresetName(name)
     const preset = presetName ? MOF_PRESETS[presetName] : null
     if (!preset) {
       setSearchStatus("miss")
       return
     }
-    setInputs(prev => ({ ...prev, ...preset, mofName: presetName }))
+    setInputs(prev => {
+      const { databaseCandidateId: _databaseCandidateId, ...rest } = prev
+      return { ...rest, ...preset, mofName: presetName }
+    })
     setSearchQuery(presetName)
     setSearchOpen(false)
     setSearchStatus("loaded")
@@ -885,7 +1012,7 @@ export default function App() {
       document.querySelector("[data-testid='ecoscreen-candidate-select']")?.focus()
     }, 220)
     window.setTimeout(() => setSearchStatus(null), 1800)
-  }, [setRouteHash])
+  }, [databaseSearchRows, setRouteHash])
 
   const navigateTab = useCallback((target) => {
     const go = (hash) => setRouteHash(hash)

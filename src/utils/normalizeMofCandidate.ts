@@ -20,7 +20,7 @@ function makeFieldSource(candidate, key, value, unit = "") {
     return { sourceType: "pending", value, unit, curationStatus: status, status: "missing", scoringEligible: false, blocksVerifiedMetadata: true }
   }
   return {
-    sourceType: "open-mof-seed",
+    sourceType: "core-mof-2024-cr",
     sourceName: candidate.sourceDatabase,
     sourceDatabase: candidate.sourceDatabase,
     database: candidate.sourceDatabase,

@@ -31,9 +31,11 @@ describe("First Real Benchmark Dashboard + Data Audit Center", () => {
   it("renders the Data Audit Center dashboard with the six audits", () => {
     renderCenter()
     const dashboard = screen.getByTestId("audit-dashboard")
-    for (const title of ["Gold Dataset Audit", "Label Audit", "Benchmark Eligibility Audit", "Reaction Audit", "Provenance Audit", "Data Leakage Audit"]) {
+    for (const title of ["Label Audit", "Benchmark Eligibility Audit", "Provenance Audit", "Data Leakage Audit"]) {
       expect(within(dashboard).getByText(title)).toBeInTheDocument()
     }
+    expect(within(dashboard).queryByText("Gold Dataset Audit")).not.toBeInTheDocument()
+    expect(within(dashboard).queryByText("Reaction Audit")).not.toBeInTheDocument()
   })
 
   it("renders the First Real Benchmark Dashboard with Accuracy/ROC Pending and no fabricated metrics", () => {

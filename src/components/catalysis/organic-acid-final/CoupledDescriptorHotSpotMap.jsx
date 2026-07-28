@@ -42,8 +42,8 @@ export function CoupledDescriptorHotSpotMap({ result, curatedRealResult, lang, t
             <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.muted, fontSize: 12.1, fontWeight: 820, lineHeight: 1.45, padding: 9 }}>
               <ChemicalText value={text(
                 lang,
-                `Curated real examples：${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected；不是全量 CoRE/QMOF 筛选。`,
-                `Curated real examples: ${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected; not full CoRE/QMOF screening.`
+                `历史 V1.6 映射样例：${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected；仅用于验证热区图，不代表当前 9,835 条 CoRE 结构路线计算。`,
+                `Historical V1.6 mapping sample: ${curatedRealResult.mappingReport.readyForScoring} ready / ${curatedRealResult.mappingReport.needsReview} needs-review / ${curatedRealResult.mappingReport.rejected} rejected; used only to validate this map, not the active 9,835-record CoRE route calculation.`
               )} />
             </div>
           ) : null}

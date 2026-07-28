@@ -25,7 +25,7 @@ export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMo
           <span style={{ color: t?.accentText || "#1A6DB5", fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Global Database Summary</span>
           <h3 style={{ color: t?.textStrong || "#0A1628", fontSize: 17, lineHeight: 1.2, margin: 0 }}>{zh ? "全局数据库摘要" : "Global Database Summary"}</h3>
           <p style={{ color: t?.muted || "#475569", fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>
-            {zh ? `由数据源 registry 派生（${summary.dataVersion}）。数据卡片随数据源变化自动更新。` : `Derived from the data-source registry (${summary.dataVersion}). Cards update automatically as sources change.`}
+            {zh ? `仅汇总当前参与检索、计算或验证的数据层（${summary.dataVersion}）；同一材料可能出现在多个数据层。` : `Only layers used for search, calculation, or validation are summarized (${summary.dataVersion}); one material can appear in multiple layers.`}
           </p>
         </div>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "flex-end" }}>
@@ -39,7 +39,7 @@ export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMo
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
         <DataMetricCard label={zh ? "数据源" : "Data Sources"} value={summary.totalSources} type="count" tone="pass" t={t} />
         <DataMetricCard label={zh ? "已加载" : "Loaded"} value={summary.loadedSources} type="count" t={t} />
-        <DataMetricCard label={zh ? "总记录数" : "Total Records"} value={summary.totalRecords} type="count" t={t} />
+        <DataMetricCard label={zh ? "记录层合计" : "Layer Records"} value={summary.totalRecords} type="count" t={t} />
         <DataMetricCard label={zh ? "溯源覆盖" : "Provenance Coverage"} value={summary.provenanceShare} type="ratio" tone="pass" t={t} />
       </div>
 

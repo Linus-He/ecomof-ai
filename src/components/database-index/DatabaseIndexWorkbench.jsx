@@ -1,11 +1,10 @@
 // @ts-nocheck
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
 import { Panel, StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { loadDatabaseIndexOverview } from "../../utils/databaseIndex/databaseIndexLoaders"
-import { fetchJson } from "../../services/dataService"
-import { dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
-import { normalizeComparableCandidate, normalizeTopCandidates } from "../../utils/databaseIndex/databaseIndexFormatters"
+import { dbStatusLabel } from "../../utils/databaseIndex/databaseIndexCopy"
+import { normalizeComparableCandidate } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { CandidateComparePanel } from "./CandidateComparePanel"
 import { DatabaseIndexBoundaryNotice } from "./DatabaseIndexBoundaryNotice"
 import { DatabaseIndexFilterToolbar } from "./DatabaseIndexFilterToolbar"
@@ -14,21 +13,9 @@ import { DatabaseIndexSummaryCards } from "./DatabaseIndexSummaryCards"
 import { DatabaseManifestPanel } from "./DatabaseManifestPanel"
 import { DatabaseDetailDrawer } from "./DatabaseDetailDrawer"
 import { DescriptorAvailabilityPanel } from "./DescriptorAvailabilityPanel"
-import { AlgorithmImprovementTracePanel } from "./AlgorithmImprovementTracePanel"
-import { CollapsibleSection } from "./CollapsibleSection"
-import { ScreeningRunConsole } from "./ScreeningRunConsole"
-import { DescriptorRedundancyPanel } from "./DescriptorRedundancyPanel"
-import { FeatureAblationAuditPanel } from "./FeatureAblationAuditPanel"
 import { IndexPartBrowser } from "./IndexPartBrowser"
-import { MetadataVerificationPanel } from "./MetadataVerificationPanel"
-import { ManualMetadataCurationPanel } from "./ManualMetadataCurationPanel"
-import { EvidenceBackfillPanel } from "./EvidenceBackfillPanel"
-import { VerifiedCandidateReportPanel } from "./VerifiedCandidateReportPanel"
-import { MetadataVerificationQueuePanel } from "./MetadataVerificationQueuePanel"
 import { PrecomputedTopCandidatesPanel } from "./PrecomputedTopCandidatesPanel"
-import { SensitivityAuditPanel } from "./SensitivityAuditPanel"
 import { ProvenanceCoveragePanel } from "./ProvenanceCoveragePanel"
-import { WorkerScoringBoundaryPreview } from "./WorkerScoringBoundaryPreview"
 
 const DEFAULT_FILTERS = {
   sourceDatabase: "all",
@@ -44,23 +31,6 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
   const [detailRequest, setDetailRequest] = useState(null)
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [compareItems, setCompareItems] = useState([])
-  const [selectedPartSnapshot, setSelectedPartSnapshot] = useState({ records: [], filteredRecords: [], path: "" })
-  const [curationRecords, setCurationRecords] = useState(null)
-  const [evidenceBackfillRecords, setEvidenceBackfillRecords] = useState(null)
-
-  useEffect(() => {
-    let active = true
-    // Lazy-load the small V2.0-I curation + V2.0-K evidence backfill files (not the full database).
-    fetchJson("data/database_precompute/v2_0_i/manual_metadata_curation.json", null)
-      .then(payload => { if (active) setCurationRecords(Array.isArray(payload?.curation) ? payload.curation : []) })
-      .catch(() => { if (active) setCurationRecords([]) })
-    // Prefer the V2.0-L enriched records (manual source curation); fall back to V2.0-K.
-    fetchJson("data/database_precompute/v2_0_l/evidence_backfill_records_enriched.json", null)
-      .then(payload => (Array.isArray(payload?.records) && payload.records.length) ? payload : fetchJson("data/database_precompute/v2_0_k/evidence_backfill_records.json", null))
-      .then(payload => { if (active) setEvidenceBackfillRecords(Array.isArray(payload?.records) ? payload.records : []) })
-      .catch(() => { if (active) setEvidenceBackfillRecords([]) })
-    return () => { active = false }
-  }, [])
 
   useEffect(() => {
     let active = true
@@ -88,37 +58,23 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
     })
   }
 
-  const handleSelectedPartRecordsChange = useCallback(snapshot => {
-    setSelectedPartSnapshot(snapshot || { records: [], filteredRecords: [], path: "" })
-  }, [])
-
   if (status === "loading") return <DatabaseIndexSkeleton lang={lang} t={t} />
 
   return (
     <Panel
       id="organic-acid-database-index-workbench"
-      eyebrow={text(lang, "V2.0-H · 小样本验证与敏感性审计", "V2.0-H · Small-Sample Validation and Sensitivity Audit")}
-      title={text(lang, "Database Index Preview · 数据库索引预览", "Database Index Preview")}
+      eyebrow={text(lang, "CoRE MOF 2024 · 真实记录索引", "CoRE MOF 2024 · Real Record Index")}
+      title={text(lang, "CoRE 2024 CR 数据库索引与结构审阅", "CoRE 2024 CR Database Index & Structural Review")}
       t={t}
       actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusPill>}
     >
       <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "面向大规模 CoRE/QMOF-like 数据接入的轻量索引摘要与按需详情预览。",
-          "Lightweight index summaries and on-demand details for large-scale CoRE/QMOF-like database integration."
+          "基于 9,835 条真实 CoRE MOF 2024 CSD-modified CR 记录的全量轻量索引。页面按分片和按需详情审阅结构；结构审阅样本不是催化性能排名。",
+          "A complete lightweight index of 9,835 real CoRE MOF 2024 CSD-modified CR records. Structure records load by part or on demand; the structural-review sample is not a catalytic-performance ranking."
         )} />
       </p>
-      <ScreeningRunConsole
-        lang={lang}
-        t={t}
-        isMobile={isMobile}
-        onViewCurationQueue={() => {
-          if (typeof document !== "undefined") {
-            document.getElementById("db-evidence-curation")?.scrollIntoView({ behavior: "smooth", block: "start" })
-          }
-        }}
-      />
       <DatabaseIndexBoundaryNotice lang={lang} t={t} />
       {overview?.errors?.length ? (
         <section style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", fontSize: 12, gap: 5, lineHeight: 1.45, padding: 10 }}>
@@ -136,26 +92,8 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
           <DatabaseIndexFilterToolbar filters={filters} onChange={setFilters} lang={lang} t={t} />
           <PrecomputedTopCandidatesPanel topCandidates={overview.topCandidates} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} />
           <CandidateComparePanel candidates={compareItems} onRemove={id => setCompareItems(items => items.filter(item => item.id !== id))} lang={lang} t={t} isMobile={isMobile} />
-          <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} onSelectedPartRecordsChange={handleSelectedPartRecordsChange} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
-
-          <div id="db-evidence-curation" style={{ scrollMarginTop: 90 }}>
-            <CollapsibleSection title="Evidence and curation" titleZh="证据整理" subtitle="Metadata verification, queue, and manual curation" subtitleZh="metadata 核验、队列与人工整理" defaultOpen={false} lang={lang} t={t}>
-              <MetadataVerificationPanel topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidate={detailRequest || compareItems[0] || normalizeTopCandidates(overview.topCandidates)[0] || null} lang={lang} t={t} isMobile={isMobile} />
-              <MetadataVerificationQueuePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
-              <ManualMetadataCurationPanel curationRecords={curationRecords} lang={lang} t={t} isMobile={isMobile} />
-          <EvidenceBackfillPanel records={evidenceBackfillRecords} lang={lang} t={t} isMobile={isMobile} />
-          <VerifiedCandidateReportPanel lang={lang} t={t} isMobile={isMobile} />
-            </CollapsibleSection>
-          </div>
-
-          <CollapsibleSection title="Advanced audits" titleZh="高级审计" subtitle="Redundancy, sensitivity, ablation, and the improvement trace" subtitleZh="冗余、敏感性、消融与算法改进追踪" defaultOpen={false} lang={lang} t={t}>
-            <DescriptorRedundancyPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
-            <SensitivityAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} isMobile={isMobile} />
-            <FeatureAblationAuditPanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} lang={lang} t={t} />
-            <AlgorithmImprovementTracePanel records={selectedPartSnapshot.records.length ? selectedPartSnapshot.records : normalizeTopCandidates(overview.topCandidates)} topNCount={normalizeTopCandidates(overview.topCandidates).length} lang={lang} t={t} />
-            <WorkerScoringBoundaryPreview topCandidates={normalizeTopCandidates(overview.topCandidates)} selectedPartRecords={selectedPartSnapshot.records} selectedCandidates={compareItems} lang={lang} t={t} isMobile={isMobile} />
-          </CollapsibleSection>
-          <DatabaseDetailDrawer request={detailRequest} curationRecords={curationRecords} evidenceBackfillRecords={evidenceBackfillRecords} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
+          <IndexPartBrowser manifest={overview.manifest} filters={filters} onOpenDetail={setDetailRequest} onAddCompare={handleAddCompare} compareCount={compareItems.length} lang={lang} t={t} isMobile={isMobile} />
+          <DatabaseDetailDrawer request={detailRequest} onClose={() => setDetailRequest(null)} lang={lang} t={t} />
         </>
       ) : (
         <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>

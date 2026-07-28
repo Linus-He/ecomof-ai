@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00002",
+  "frameworkId": "coremof2024-csdm-00002",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2016[Mn][tbo]3[ASR]1",
+  "displayName": "ABAYIO",
+  "commonName": "ABAYIO",
+  "csdRefcode": "ABAYIO",
+  "coreId": "2016[Mn][tbo]3[ASR]1",
+  "metals": [
+    "Mn"
+  ],
+  "hasAlNode": false,
+  "topology": "tbo",
+  "surfaceArea": 1493.89,
+  "pldA": 4.31824,
+  "lcdA": 11.38842,
+  "poreVolume": 0.694539,
+  "density": 0.949119,
+  "voidFraction": 0.6592,
+  "waterStability": 0.6025,
+  "thermalStability": 428.7,
+  "sourceDoi": "10.1021/acs.cgd.6b00776",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2016[Mn][tbo]3[ASR]1; DOI 10.1021/acs.cgd.6b00776.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00002.json",
+  "descriptors": {
+    "surfaceArea": 1493.89,
+    "pldA": 4.31824,
+    "lcdA": 11.38842,
+    "poreVolume": 0.694539,
+    "density": 0.949119,
+    "voidFraction": 0.6592,
+    "waterStability": 0.6025,
+    "thermalStability": 428.7
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

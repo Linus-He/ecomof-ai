@@ -9,8 +9,6 @@ import {
   derivationLabel,
   familyForHostName,
   groupByFamily,
-  isAcceptedValidation,
-  isAqueousSolvent,
   mean,
   median,
   normalizeValue,
@@ -27,6 +25,7 @@ import { deriveSynthesizabilityFactors } from "./synthesizabilityFactors.js"
 
 const HOST_FACTOR_KEYS = ORGANIC_ACID_SCORING_SPEC.hostScoreWeights.map(([key]) => key)
 const FALLBACK_THRESHOLD = ORGANIC_ACID_SCORING_SPEC.algorithm?.fallbackThreshold?.minimumRecords ?? 5
+const STABILITY_SHRINKAGE_K = ORGANIC_ACID_SCORING_SPEC.stability?.shrinkageK ?? 20
 const HOST_FACTOR_CACHE = new Map()
 const HOST_FACTOR_CACHE_STATS = { computations: 0, hits: 0 }
 
@@ -73,7 +72,9 @@ function buildPoreScores(families, rows) {
     return [family, {
       value: roundScore(value),
       tuple: provenanceTuple({
-        sourceDataset: "CoRE+QMOF",
+        sourceDataset: rows.qmof.length
+          ? "CoRE MOF 2024 CR + QMOF"
+          : "CoRE MOF 2024 CSD-modified CR",
         nRecords,
         rawAggregate: {
           medianSurfaceArea: roundScore(surface?.rawValue, 4),
@@ -120,7 +121,9 @@ function buildCo2Scores(families, rows, poreScores) {
     return [family, {
       value: roundScore(value),
       tuple: provenanceTuple({
-        sourceDataset: directUsable ? "gas_adsorption_records_v1" : "CoRE+QMOF structural proxy",
+        sourceDataset: directUsable
+          ? "gas_adsorption_records_v1"
+          : "CoRE MOF 2024 CSD-modified CR structural proxy",
         nRecords: directUsable ? directRecords.length : proxyRecords,
         rawAggregate: directUsable
           ? { meanGasAdsorptionComposite: roundScore(direct.rawValue, 4) }
@@ -167,125 +170,155 @@ function combineCo2AndLigandScores(families, baseCo2Scores, ligandScores) {
   }))
 }
 
-function acceptedReactionRows(records) {
-  return asArray(records).filter(record => safeNumber(record.yield, 0) > 0 && isAcceptedValidation(record.validationStatus || record.validation?.validationStatus))
+function buildShrunkCoreDescriptorScores(
+  families,
+  rows,
+  {
+    field,
+    sourceLabel,
+    normalization,
+    rawLabel,
+    transform = value => value,
+  },
+) {
+  const groups = groupByFamily(rows.core)
+  const uniqueEvidence = records => {
+    const seen = new Set()
+    return records.filter(record => {
+      const value = safeNumber(record[field], NaN)
+      if (!Number.isFinite(value)) return false
+      const refcode = String(record.csdRefcode || "").toUpperCase().match(/^[A-Z]{6}/)?.[0]
+      const sourceIdentity = refcode || record.sourceRecordId || record.coreId || record.id || record.mofId
+      const key = `${sourceIdentity || "unresolved"}|${String(record.doi || "").toLowerCase()}|${field}|${value}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  }
+  const globalEvidence = uniqueEvidence(rows.core)
+  const globalValues = globalEvidence
+    .map(record => transform(safeNumber(record[field], NaN)))
+    .filter(Number.isFinite)
+  const globalPrior = median(globalValues) ?? 0.5
+  return Object.fromEntries(families.map(family => {
+    const records = groups[family] || []
+    const evidenceRecords = uniqueEvidence(records)
+    const sourceValues = evidenceRecords
+      .map(record => transform(safeNumber(record[field], NaN)))
+      .filter(Number.isFinite)
+    const observedMedian = median(sourceValues)
+    const nRecords = sourceValues.length
+    const reliability = nRecords / (nRecords + STABILITY_SHRINKAGE_K)
+    const value = observedMedian === null
+      ? globalPrior
+      : reliability * observedMedian + (1 - reliability) * globalPrior
+    const evidenceConfidence = reliability * (evidenceRecords.length ? nRecords / evidenceRecords.length : 0)
+    return [family, {
+      rawValue: observedMedian,
+      value: roundScore(value),
+      evidenceConfidence: roundScore(evidenceConfidence),
+      tuple: provenanceTuple({
+        sourceDataset: "CoRE MOF 2024 CSD-modified CR",
+        nRecords,
+        rawAggregate: {
+          [rawLabel]: roundScore(observedMedian, 4),
+          globalPrior: roundScore(globalPrior, 4),
+          shrinkageK: STABILITY_SHRINKAGE_K,
+          reliability: roundScore(reliability, 4),
+          evidenceConfidence: roundScore(evidenceConfidence, 4),
+          sourceFamilyRecordCount: records.length,
+          uniqueEvidenceIdentityCount: evidenceRecords.length,
+          abundanceUsedAsScore: false,
+        },
+        normalization,
+        value,
+        derivationLevel: nRecords
+          ? `data-derived ${sourceLabel} with empirical-Bayes shrinkage`
+          : "neutral-prior",
+        recordRefs: sampleRefs(evidenceRecords),
+        citations: citationRefs(evidenceRecords),
+        fallbackReason: nRecords ? "" : `No numeric ${field} record; global descriptor prior used.`,
+      }),
+    }]
+  }))
 }
 
 function buildAqueousScores(families, rows) {
-  const groups = groupByFamily(rows.reaction)
-  const rawRows = families.map(family => {
-    const records = groups[family] || []
-    const accepted = acceptedReactionRows(records)
-    const aqueous = accepted.filter(record => isAqueousSolvent(record.solvent))
-    return {
-      family,
-      records,
-      accepted,
-      rawValue: accepted.length ? aqueous.length / accepted.length : null,
-      nRecords: records.length,
-    }
+  return buildShrunkCoreDescriptorScores(families, rows, {
+    field: "waterStabilityProbability",
+    sourceLabel: "source-property proxy",
+    normalization: "native 0-1 probability; family median shrunk to the global median",
+    rawLabel: "familyMedianWaterStabilityProbability",
   })
-  const normalizedRows = normalizeFamilyRows(rawRows, "rawValue")
-  return Object.fromEntries(normalizedRows.map(row => {
-    const value = row.nRecords >= FALLBACK_THRESHOLD ? row.normalized : 0
-    return [row.family, {
-      rawValue: row.rawValue,
-      value: roundScore(value),
-      tuple: provenanceTuple({
-        sourceDataset: "organic_acid_reaction_dataset_v1",
-        nRecords: row.nRecords,
-        rawAggregate: {
-          acceptedRows: row.accepted.length,
-          aqueousAcceptedRows: row.accepted.filter(record => isAqueousSolvent(record.solvent)).length,
-          aqueousShare: roundScore(row.rawValue, 4),
-        },
-        normalization: "cross-family min-max accepted aqueous share",
-        value,
-        derivationLevel: row.nRecords >= FALLBACK_THRESHOLD ? "data-derived" : "curated-fallback",
-        recordRefs: sampleRefs(row.records),
-        citations: citationRefs(row.records),
-        fallbackReason: row.nRecords >= FALLBACK_THRESHOLD ? "" : `reaction records below threshold ${FALLBACK_THRESHOLD}`,
-      }),
-    }]
-  }))
+}
+
+function buildSolventScores(families, rows) {
+  return buildShrunkCoreDescriptorScores(families, rows, {
+    field: "solventStabilityProbability",
+    sourceLabel: "source-property proxy",
+    normalization: "native 0-1 probability; family median shrunk to the global median",
+    rawLabel: "familyMedianSolventStabilityProbability",
+  })
 }
 
 function buildThermalScores(families, rows) {
-  const groups = groupByFamily(rows.reaction)
-  const rawRows = families.map(family => {
-    const records = groups[family] || []
-    const accepted = acceptedReactionRows(records)
-    return {
-      family,
-      records,
-      accepted,
-      rawValue: median(accepted.map(record => record.temperature)),
-      nRecords: records.length,
-    }
+  const [lowerC, upperC] = ORGANIC_ACID_SCORING_SPEC.stability?.thermalBoundsC || [150, 450]
+  return buildShrunkCoreDescriptorScores(families, rows, {
+    field: "thermalStabilityC",
+    sourceLabel: "source-property proxy",
+    normalization: `fixed ${lowerC}-${upperC} C bounds; family median shrunk to the global median`,
+    rawLabel: "familyMedianNormalizedThermalStability",
+    transform: value => clampScore((value - lowerC) / (upperC - lowerC)),
   })
-  const normalizedRows = normalizeFamilyRows(rawRows, "rawValue")
-  return Object.fromEntries(normalizedRows.map(row => {
-    const value = row.nRecords >= FALLBACK_THRESHOLD ? row.normalized : 0
-    return [row.family, {
-      value: roundScore(value),
-      tuple: provenanceTuple({
-        sourceDataset: "organic_acid_reaction_dataset_v1",
-        nRecords: row.nRecords,
-        rawAggregate: {
-          acceptedRows: row.accepted.length,
-          medianTemperature: roundScore(row.rawValue, 4),
-        },
-        normalization: "cross-family min-max accepted median temperature",
-        value,
-        derivationLevel: row.nRecords >= FALLBACK_THRESHOLD ? "data-derived" : "curated-fallback",
-        recordRefs: sampleRefs(row.records),
-        citations: citationRefs(row.records),
-        fallbackReason: row.nRecords >= FALLBACK_THRESHOLD ? "" : `reaction records below threshold ${FALLBACK_THRESHOLD}`,
-      }),
-    }]
-  }))
 }
 
-function buildStabilityScores(families, rows, aqueousScores) {
+function buildStabilityScores(families, rows, aqueousScores, solventScores, thermalScores) {
   const coreGroups = groupByFamily(rows.core)
-  const coreCounts = families.map(family => ({ family, count: (coreGroups[family] || []).length }))
-  const countValues = coreCounts.map(row => row.count)
-  const rawRows = families.map(family => {
-    const coreCount = coreCounts.find(row => row.family === family)?.count || 0
-    const coreRepresentation = normalizeValue(coreCount, countValues)
+  const weights = ORGANIC_ACID_SCORING_SPEC.stability?.componentWeights || {
+    waterStabilityProbability: 0.55,
+    solventStabilityProbability: 0.3,
+    thermalStabilityScore: 0.15,
+  }
+  return Object.fromEntries(families.map(family => {
+    const records = coreGroups[family] || []
     const aqueous = aqueousScores[family]
-    const rawValue = 0.7 * safeNumber(aqueous?.rawValue, 0) + 0.3 * coreRepresentation
-    const reactionRecords = safeNumber(aqueous?.tuple?.nRecords, 0)
-    return {
-      family,
-      rawValue,
-      coreCount,
-      coreRepresentation,
-      reactionRecords,
-      records: [...(coreGroups[family] || [])],
-    }
-  })
-  const normalizedRows = normalizeFamilyRows(rawRows, "rawValue")
-  return Object.fromEntries(normalizedRows.map(row => {
-    const nRecords = row.coreCount + row.reactionRecords
-    const value = nRecords >= FALLBACK_THRESHOLD ? row.normalized : 0
-    return [row.family, {
+    const solvent = solventScores[family]
+    const thermal = thermalScores[family]
+    const value = (
+      safeNumber(weights.waterStabilityProbability, 0) * safeNumber(aqueous?.value, 0.5)
+      + safeNumber(weights.solventStabilityProbability, 0) * safeNumber(solvent?.value, 0.5)
+      + safeNumber(weights.thermalStabilityScore, 0) * safeNumber(thermal?.value, 0.5)
+    )
+    const nRecords = Math.max(
+      safeNumber(aqueous?.tuple?.nRecords, 0),
+      safeNumber(solvent?.tuple?.nRecords, 0),
+      safeNumber(thermal?.tuple?.nRecords, 0),
+    )
+    const evidenceConfidence = mean([
+      aqueous?.evidenceConfidence,
+      solvent?.evidenceConfidence,
+      thermal?.evidenceConfidence,
+    ]) ?? 0
+    return [family, {
       value: roundScore(value),
+      evidenceConfidence: roundScore(evidenceConfidence),
       tuple: provenanceTuple({
-        sourceDataset: "organic_acid_reaction_dataset_v1+CoRE",
+        sourceDataset: "CoRE MOF 2024 CSD-modified CR stability properties",
         nRecords,
         rawAggregate: {
-          aqueousShare: roundScore(aqueousScores[row.family]?.rawValue, 4),
-          coreCount: row.coreCount,
-          normalizedCoreRepresentation: roundScore(row.coreRepresentation, 4),
-          indirectStabilityRaw: roundScore(row.rawValue, 4),
+          shrunkWaterStabilityProbability: aqueous?.value,
+          shrunkSolventStabilityProbability: solvent?.value,
+          shrunkThermalStabilityScore: thermal?.value,
+          weights,
+          evidenceConfidence: roundScore(evidenceConfidence, 4),
+          abundanceUsedAsScore: false,
         },
-        normalization: "cross-family min-max indirect aqueous survival proxy",
+        normalization: "fixed weighted combination of empirical-Bayes-shrunk source properties; no family-frequency score",
         value,
-        derivationLevel: nRecords >= FALLBACK_THRESHOLD ? "data-derived indirect-proxy" : "curated-fallback",
-        recordRefs: sampleRefs(row.records),
-        citations: citationRefs(row.records),
-        fallbackReason: nRecords >= FALLBACK_THRESHOLD ? "" : `combined reaction/core records below threshold ${FALLBACK_THRESHOLD}`,
+        derivationLevel: nRecords ? "data-derived source-property proxy" : "neutral-prior",
+        recordRefs: sampleRefs(records),
+        citations: citationRefs(records),
+        fallbackReason: nRecords ? "" : "No numeric CoRE stability property; global component priors used.",
       }),
     }]
   }))
@@ -361,6 +394,7 @@ export function deriveHostFactors(hostCandidates = [], datasets = {}) {
     datasets.gasAdsorptionRecords,
     datasets.literatureDataset,
     datasets.goldDataset,
+    datasets.fairMofsFamilyEvidence,
   ])
   if (HOST_FACTOR_CACHE.has(cacheKey)) {
     HOST_FACTOR_CACHE_STATS.hits += 1
@@ -375,8 +409,9 @@ export function deriveHostFactors(hostCandidates = [], datasets = {}) {
   const co2Scores = combineCo2AndLigandScores(families, baseCo2Scores, ligandScores)
   const synthesizabilityScores = deriveSynthesizabilityFactors(hostCandidates, datasets)
   const aqueousScores = buildAqueousScores(families, rows)
+  const solventScores = buildSolventScores(families, rows)
   const thermalScores = buildThermalScores(families, rows)
-  const stabilityScores = buildStabilityScores(families, rows, aqueousScores)
+  const stabilityScores = buildStabilityScores(families, rows, aqueousScores, solventScores, thermalScores)
   const provenanceScores = buildProvenanceScores(families, rows)
 
   const rankedHosts = asArray(hostCandidates).map(host => {

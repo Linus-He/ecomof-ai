@@ -794,6 +794,7 @@ export function OrganicAcidStepwiseExecutionChain({
   onOpenMethodology,
   onOpenActivationCenter,
   onOpenAdvancedTab,
+  onViewHostStructure,
 }) {
   const [selectedComparison, setSelectedComparison] = useState(null)
   const [isRunning, setIsRunning] = useState(false)
@@ -927,7 +928,7 @@ export function OrganicAcidStepwiseExecutionChain({
             </div>
           ))}
           <div id="organic-acid-final-result-summary" style={{ scrollMarginTop: 118 }}>
-            <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
+            <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} onViewHostStructure={onViewHostStructure} />
           </div>
         </div>
         {!isNarrow && selectedStepId !== "final-result" ? (
@@ -942,7 +943,7 @@ export function OrganicAcidStepwiseExecutionChain({
             onSelectComparison={setSelectedComparison}
           />
         ) : !isNarrow ? (
-          <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} withTestId={false} />
+          <FinalResultSummary model={chain.finalResultSummary} lang={lang} onOpenActivationCenter={onOpenActivationCenter} onViewHostStructure={onViewHostStructure} withTestId={false} />
         ) : null}
       </div>
     </section>

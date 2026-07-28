@@ -1,0 +1,2177 @@
+{
+  "version": "V3.9.10",
+  "generatedAt": "2026-07-28T07:12:54.186Z",
+  "proxyValidity": {
+    "auditId": "organic-acid-proxy-validity-v3.10.0",
+    "method": "family-level Spearman rank correlation between CoRE MOF 2024 CSD-modified CR structural medians and reaction-dataset median yield/selectivity/conversion",
+    "statisticalPowerNote": "Family-level n is 10 (~6-8). Spearman power is very low at this n; all results are indicative, not confirmatory, and a single family can flip a correlation. Do not read these as proof or disproof of a descriptor.",
+    "descriptorCount": 8,
+    "descriptors": [
+      {
+        "descriptor": "surfaceArea",
+        "sampleSize": 10,
+        "n": 10,
+        "spearmanRho": 0.2727,
+        "validity": "positive-tracking-signal",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "Indicative only: the family-level structural proxy shows a positive rank relationship with median reaction performance."
+      },
+      {
+        "descriptor": "poreVolume",
+        "sampleSize": 10,
+        "n": 10,
+        "spearmanRho": 0.2727,
+        "validity": "positive-tracking-signal",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "Indicative only: the family-level structural proxy shows a positive rank relationship with median reaction performance."
+      },
+      {
+        "descriptor": "voidFraction",
+        "sampleSize": 10,
+        "n": 10,
+        "spearmanRho": 0.3697,
+        "validity": "positive-tracking-signal",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "Indicative only: the family-level structural proxy shows a positive rank relationship with median reaction performance."
+      },
+      {
+        "descriptor": "density",
+        "sampleSize": 10,
+        "n": 10,
+        "spearmanRho": -0.3091,
+        "validity": "low-validity-for-this-reaction",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "Indicative only: the family-level structural proxy does not show a reliable positive rank relationship with median reaction performance."
+      },
+      {
+        "descriptor": "bandGap",
+        "sampleSize": 0,
+        "n": 0,
+        "spearmanRho": null,
+        "validity": "insufficient-n",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "Only 0 families have both a descriptor median and reaction performance; too few to compute a Spearman correlation."
+      },
+      {
+        "descriptor": "guestActivityCompensation",
+        "sampleSize": 0,
+        "n": 0,
+        "spearmanRho": null,
+        "validity": "insufficient-n",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "route-level factor derived from guest-metal scores; no per-family structural median exists to correlate."
+      },
+      {
+        "descriptor": "hostGuestComplementarity",
+        "sampleSize": 0,
+        "n": 0,
+        "spearmanRho": null,
+        "validity": "insufficient-n",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "route-level pairing factor; no per-family structural median exists to correlate."
+      },
+      {
+        "descriptor": "riskRetention",
+        "sampleSize": 0,
+        "n": 0,
+        "spearmanRho": null,
+        "validity": "insufficient-n",
+        "indicative": true,
+        "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)",
+        "interpretation": "0-1 risk-retention coefficient from evidence/risk records; no per-family structural median exists to correlate."
+      }
+    ],
+    "composite": {
+      "descriptor": "median(surfaceArea, poreVolume, voidFraction, density, bandGap family medians)",
+      "sampleSize": 10,
+      "n": 10,
+      "spearmanRho": 0.2,
+      "validity": "positive-tracking-signal",
+      "indicative": true,
+      "powerCaveat": "indicative, not confirmatory (family-level n is small; one family can flip the sign)"
+    },
+    "familyRows": [
+      {
+        "family": "Al-MOF",
+        "structuralRecords": 84,
+        "reactionRecords": 21,
+        "descriptorMedians": {
+          "surfaceArea": 1589.5,
+          "poreVolume": 0.565176,
+          "voidFraction": 0.5968,
+          "density": 1.05704,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 64.3333,
+        "medianYield": 56,
+        "medianSelectivity": 70
+      },
+      {
+        "family": "Zr-MOF",
+        "structuralRecords": 70,
+        "reactionRecords": 19,
+        "descriptorMedians": {
+          "surfaceArea": 2119.04,
+          "poreVolume": 0.818082,
+          "voidFraction": 0.736,
+          "density": 0.9029495000000001,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 66.3333,
+        "medianYield": 44,
+        "medianSelectivity": 69
+      },
+      {
+        "family": "Ti-MOF",
+        "structuralRecords": 11,
+        "reactionRecords": 12,
+        "descriptorMedians": {
+          "surfaceArea": 1399.71,
+          "poreVolume": 0.491419,
+          "voidFraction": 0.5462,
+          "density": 1.13438,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 63,
+        "medianYield": 49,
+        "medianSelectivity": 66.5
+      },
+      {
+        "family": "Fe-MOF",
+        "structuralRecords": 243,
+        "reactionRecords": 16,
+        "descriptorMedians": {
+          "surfaceArea": 844.604,
+          "poreVolume": 0.382287,
+          "voidFraction": 0.529,
+          "density": 1.3991,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 57.1667,
+        "medianYield": 34.5,
+        "medianSelectivity": 70.5
+      },
+      {
+        "family": "Cr-MOF",
+        "structuralRecords": 34,
+        "reactionRecords": 0,
+        "descriptorMedians": {
+          "surfaceArea": 1406.15,
+          "poreVolume": 0.517027,
+          "voidFraction": 0.5874,
+          "density": 1.13611,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 0,
+        "medianYield": 0,
+        "medianSelectivity": 0
+      },
+      {
+        "family": "Cu-MOF",
+        "structuralRecords": 1300,
+        "reactionRecords": 23,
+        "descriptorMedians": {
+          "surfaceArea": 875.601,
+          "poreVolume": 0.4223605,
+          "voidFraction": 0.5367,
+          "density": 1.26119,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 65.3333,
+        "medianYield": 62,
+        "medianSelectivity": 72
+      },
+      {
+        "family": "Zn-MOF",
+        "structuralRecords": 2307,
+        "reactionRecords": 19,
+        "descriptorMedians": {
+          "surfaceArea": 893.731,
+          "poreVolume": 0.451654,
+          "voidFraction": 0.5326,
+          "density": 1.22262,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 63.6667,
+        "medianYield": 41,
+        "medianSelectivity": 70
+      },
+      {
+        "family": "UiO-type host",
+        "structuralRecords": 4,
+        "reactionRecords": 4,
+        "descriptorMedians": {
+          "surfaceArea": 1706.605,
+          "poreVolume": 0.740602,
+          "voidFraction": 0.6638999999999999,
+          "density": 0.9671865000000001,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 60,
+        "medianYield": 43.5,
+        "medianSelectivity": 70.5
+      },
+      {
+        "family": "MIL-type host",
+        "structuralRecords": 96,
+        "reactionRecords": 2,
+        "descriptorMedians": {
+          "surfaceArea": 1020.1099999999999,
+          "poreVolume": 0.465218,
+          "voidFraction": 0.566,
+          "density": 1.15817,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 73.1667,
+        "medianYield": 69,
+        "medianSelectivity": 74
+      },
+      {
+        "family": "MOF-808-like host",
+        "structuralRecords": 1,
+        "reactionRecords": 1,
+        "descriptorMedians": {
+          "surfaceArea": 3200.7,
+          "poreVolume": 3.83066,
+          "voidFraction": 0.9206,
+          "density": 0.240324,
+          "bandGap": null
+        },
+        "reactionPerformanceMedian": 67.6667,
+        "medianYield": 65,
+        "medianSelectivity": 68
+      }
+    ],
+    "lowValidityDescriptors": [
+      "density"
+    ],
+    "insufficientNDescriptors": [
+      "bandGap",
+      "guestActivityCompensation",
+      "hostGuestComplementarity",
+      "riskRetention"
+    ],
+    "weightChangeApplied": false,
+    "policy": "Audit only. No scoring weight is changed silently."
+  },
+  "familyFairness": {
+    "auditId": "organic-acid-family-fairness-v3.9.8",
+    "method": "family record counts, median/IQR fences, outlier share, and high-influence structural records",
+    "minimumRecords": 5,
+    "familyReports": [
+      {
+        "family": "Al-MOF",
+        "nRecords": {
+          "core": 84,
+          "qmof": 0,
+          "reaction": 21,
+          "literature": 48,
+          "gold": 21
+        },
+        "structuralRecordCount": 84,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 84,
+            "median": 1589.5,
+            "q1": 1475.43,
+            "q3": 1654.62,
+            "iqr": 179.19,
+            "lowerFence": 1206.645,
+            "upperFence": 1923.405,
+            "outlierCount": 23,
+            "outlierRefs": [
+              "coremof2024-csdm-00424",
+              "coremof2024-csdm-00479",
+              "coremof2024-csdm-00480",
+              "coremof2024-csdm-00761",
+              "coremof2024-csdm-01709",
+              "coremof2024-csdm-01950",
+              "coremof2024-csdm-01966",
+              "coremof2024-csdm-03075"
+            ]
+          },
+          "poreVolume": {
+            "nRecords": 84,
+            "median": 0.5652,
+            "q1": 0.5318,
+            "q3": 0.5776,
+            "iqr": 0.0458,
+            "lowerFence": 0.4631,
+            "upperFence": 0.6462,
+            "outlierCount": 22,
+            "outlierRefs": [
+              "coremof2024-csdm-00479",
+              "coremof2024-csdm-00480",
+              "coremof2024-csdm-00761",
+              "coremof2024-csdm-01540",
+              "coremof2024-csdm-01709",
+              "coremof2024-csdm-01950",
+              "coremof2024-csdm-01966",
+              "coremof2024-csdm-03163"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 84,
+            "median": 0.5968,
+            "q1": 0.5702,
+            "q3": 0.609,
+            "iqr": 0.0388,
+            "lowerFence": 0.512,
+            "upperFence": 0.6672,
+            "outlierCount": 16,
+            "outlierRefs": [
+              "coremof2024-csdm-00479",
+              "coremof2024-csdm-01709",
+              "coremof2024-csdm-01950",
+              "coremof2024-csdm-01966",
+              "coremof2024-csdm-03163",
+              "coremof2024-csdm-03207",
+              "coremof2024-csdm-03646",
+              "coremof2024-csdm-03746"
+            ]
+          }
+        },
+        "outlierShare": 0.2421,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-01950",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 1,
+            "values": {
+              "surfaceArea": 4819.68,
+              "poreVolume": 1.78133,
+              "voidFraction": 0.799
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03746",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.778,
+            "values": {
+              "surfaceArea": 3668.2,
+              "poreVolume": 1.30327,
+              "voidFraction": 0.7428
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-08167",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.778,
+            "values": {
+              "surfaceArea": 3668.2,
+              "poreVolume": 1.30327,
+              "voidFraction": 0.7428
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03163",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7571,
+            "values": {
+              "surfaceArea": 3475.25,
+              "poreVolume": 1.26913,
+              "voidFraction": 0.7422
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-01966",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7143,
+            "values": {
+              "surfaceArea": 3429.57,
+              "poreVolume": 1.0919,
+              "voidFraction": 0.7388
+            }
+          }
+        ],
+        "confidence": "low-confidence-family",
+        "confidenceReasons": [
+          "structural summary has >=15% IQR outlier measurements"
+        ]
+      },
+      {
+        "family": "Zr-MOF",
+        "nRecords": {
+          "core": 70,
+          "qmof": 0,
+          "reaction": 19,
+          "literature": 42,
+          "gold": 19
+        },
+        "structuralRecordCount": 70,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 70,
+            "median": 2119.04,
+            "q1": 1479.0575,
+            "q3": 3354.05,
+            "iqr": 1874.9925,
+            "lowerFence": -1333.4312,
+            "upperFence": 6166.5388,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "poreVolume": {
+            "nRecords": 70,
+            "median": 0.8181,
+            "q1": 0.5448,
+            "q3": 1.2378,
+            "iqr": 0.693,
+            "lowerFence": -0.4946,
+            "upperFence": 2.2772,
+            "outlierCount": 2,
+            "outlierRefs": [
+              "coremof2024-csdm-00382",
+              "coremof2024-csdm-05078"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 70,
+            "median": 0.736,
+            "q1": 0.585,
+            "q3": 0.7749,
+            "iqr": 0.1899,
+            "lowerFence": 0.3001,
+            "upperFence": 1.0598,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0.0095,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-00382",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9802,
+            "values": {
+              "surfaceArea": 4292.45,
+              "poreVolume": 2.65335,
+              "voidFraction": 0.8776
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-05078",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9525,
+            "values": {
+              "surfaceArea": 4563.75,
+              "poreVolume": 2.39061,
+              "voidFraction": 0.8614
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-00955",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8631,
+            "values": {
+              "surfaceArea": 3739.73,
+              "poreVolume": 2.22824,
+              "voidFraction": 0.8516
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-02723",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8616,
+            "values": {
+              "surfaceArea": 4408.3,
+              "poreVolume": 1.95293,
+              "voidFraction": 0.8338
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-00050",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8369,
+            "values": {
+              "surfaceArea": 3584.73,
+              "poreVolume": 2.1274,
+              "voidFraction": 0.85
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "Ti-MOF",
+        "nRecords": {
+          "core": 11,
+          "qmof": 0,
+          "reaction": 12,
+          "literature": 33,
+          "gold": 12
+        },
+        "structuralRecordCount": 11,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 11,
+            "median": 1399.71,
+            "q1": 0,
+            "q3": 1501.885,
+            "iqr": 1501.885,
+            "lowerFence": -2252.8275,
+            "upperFence": 3754.7125,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "poreVolume": {
+            "nRecords": 11,
+            "median": 0.4914,
+            "q1": 0.2696,
+            "q3": 0.5043,
+            "iqr": 0.2347,
+            "lowerFence": -0.0824,
+            "upperFence": 0.8563,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "voidFraction": {
+            "nRecords": 11,
+            "median": 0.5462,
+            "q1": 0.4306,
+            "q3": 0.5563,
+            "iqr": 0.1257,
+            "lowerFence": 0.242,
+            "upperFence": 0.7449,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-04647",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 1,
+            "values": {
+              "surfaceArea": 1836.25,
+              "poreVolume": 0.644238,
+              "voidFraction": 0.6246
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-06965",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7151,
+            "values": {
+              "surfaceArea": 1518.18,
+              "poreVolume": 0.506967,
+              "voidFraction": 0.562
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04646",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7043,
+            "values": {
+              "surfaceArea": 1419.7,
+              "poreVolume": 0.501597,
+              "voidFraction": 0.569
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-06966",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.6846,
+            "values": {
+              "surfaceArea": 1529.4,
+              "poreVolume": 0.494677,
+              "voidFraction": 0.5492
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-06963",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.6761,
+            "values": {
+              "surfaceArea": 1485.59,
+              "poreVolume": 0.491419,
+              "voidFraction": 0.5506
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "Fe-MOF",
+        "nRecords": {
+          "core": 243,
+          "qmof": 0,
+          "reaction": 16,
+          "literature": 48,
+          "gold": 16
+        },
+        "structuralRecordCount": 243,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 243,
+            "median": 844.604,
+            "q1": 326.5225,
+            "q3": 1762.925,
+            "iqr": 1436.4025,
+            "lowerFence": -1828.0812,
+            "upperFence": 3917.5287,
+            "outlierCount": 5,
+            "outlierRefs": [
+              "coremof2024-csdm-03573",
+              "coremof2024-csdm-03574",
+              "coremof2024-csdm-04225",
+              "coremof2024-csdm-04226",
+              "coremof2024-csdm-04227"
+            ]
+          },
+          "poreVolume": {
+            "nRecords": 243,
+            "median": 0.3823,
+            "q1": 0.2628,
+            "q3": 0.6197,
+            "iqr": 0.3569,
+            "lowerFence": -0.2726,
+            "upperFence": 1.1551,
+            "outlierCount": 9,
+            "outlierRefs": [
+              "coremof2024-csdm-00285",
+              "coremof2024-csdm-03487",
+              "coremof2024-csdm-03573",
+              "coremof2024-csdm-03574",
+              "coremof2024-csdm-04225",
+              "coremof2024-csdm-04226",
+              "coremof2024-csdm-04227",
+              "coremof2024-csdm-04228"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 243,
+            "median": 0.529,
+            "q1": 0.4444,
+            "q3": 0.6304,
+            "iqr": 0.186,
+            "lowerFence": 0.1654,
+            "upperFence": 0.9094,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0.0192,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-03574",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9983,
+            "values": {
+              "surfaceArea": 5097.9,
+              "poreVolume": 2.68098,
+              "voidFraction": 0.8676
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03573",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9977,
+            "values": {
+              "surfaceArea": 5098.88,
+              "poreVolume": 2.69303,
+              "voidFraction": 0.8638
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04225",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8791,
+            "values": {
+              "surfaceArea": 4746.8,
+              "poreVolume": 2.09469,
+              "voidFraction": 0.837
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04226",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8151,
+            "values": {
+              "surfaceArea": 4515.18,
+              "poreVolume": 1.81311,
+              "voidFraction": 0.818
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04227",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7626,
+            "values": {
+              "surfaceArea": 4655.54,
+              "poreVolume": 1.53842,
+              "voidFraction": 0.7766
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "Cr-MOF",
+        "nRecords": {
+          "core": 34,
+          "qmof": 0,
+          "reaction": 0,
+          "literature": 0,
+          "gold": 0
+        },
+        "structuralRecordCount": 34,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 34,
+            "median": 1406.15,
+            "q1": 555.486,
+            "q3": 2602.23,
+            "iqr": 2046.744,
+            "lowerFence": -2514.63,
+            "upperFence": 5672.346,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "poreVolume": {
+            "nRecords": 34,
+            "median": 0.517,
+            "q1": 0.4036,
+            "q3": 0.8927,
+            "iqr": 0.4892,
+            "lowerFence": -0.3302,
+            "upperFence": 1.6265,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "voidFraction": {
+            "nRecords": 34,
+            "median": 0.5874,
+            "q1": 0.5045,
+            "q3": 0.7091,
+            "iqr": 0.2046,
+            "lowerFence": 0.1977,
+            "upperFence": 1.0159,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-03806",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9359,
+            "values": {
+              "surfaceArea": 3713.48,
+              "poreVolume": 1.28944,
+              "voidFraction": 0.8014
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-02264",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9309,
+            "values": {
+              "surfaceArea": 2944.03,
+              "poreVolume": 1.48427,
+              "voidFraction": 0.8174
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-01936",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9232,
+            "values": {
+              "surfaceArea": 3343.7,
+              "poreVolume": 1.42862,
+              "voidFraction": 0.7792
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-01935",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9169,
+            "values": {
+              "surfaceArea": 3428.97,
+              "poreVolume": 1.36967,
+              "voidFraction": 0.7816
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-08211",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9014,
+            "values": {
+              "surfaceArea": 3670.28,
+              "poreVolume": 1.21544,
+              "voidFraction": 0.787
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "Cu-MOF",
+        "nRecords": {
+          "core": 1300,
+          "qmof": 0,
+          "reaction": 23,
+          "literature": 65,
+          "gold": 23
+        },
+        "structuralRecordCount": 1300,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 1300,
+            "median": 875.601,
+            "q1": 206.866,
+            "q3": 2341.85,
+            "iqr": 2134.984,
+            "lowerFence": -2995.61,
+            "upperFence": 5544.326,
+            "outlierCount": 6,
+            "outlierRefs": [
+              "coremof2024-csdm-00028",
+              "coremof2024-csdm-00192",
+              "coremof2024-csdm-01340",
+              "coremof2024-csdm-01495",
+              "coremof2024-csdm-01534",
+              "coremof2024-csdm-05002"
+            ]
+          },
+          "poreVolume": {
+            "nRecords": 1300,
+            "median": 0.4224,
+            "q1": 0.298,
+            "q3": 0.7263,
+            "iqr": 0.4283,
+            "lowerFence": -0.3444,
+            "upperFence": 1.3688,
+            "outlierCount": 76,
+            "outlierRefs": [
+              "coremof2024-csdm-00028",
+              "coremof2024-csdm-00029",
+              "coremof2024-csdm-00192",
+              "coremof2024-csdm-00280",
+              "coremof2024-csdm-00327",
+              "coremof2024-csdm-00332",
+              "coremof2024-csdm-00446",
+              "coremof2024-csdm-00745"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 1300,
+            "median": 0.5367,
+            "q1": 0.4488,
+            "q3": 0.6769,
+            "iqr": 0.2281,
+            "lowerFence": 0.1065,
+            "upperFence": 1.0191,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0.021,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-00192",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9944,
+            "values": {
+              "surfaceArea": 6105.69,
+              "poreVolume": 5.64722,
+              "voidFraction": 0.9268
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-05002",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9852,
+            "values": {
+              "surfaceArea": 6121.37,
+              "poreVolume": 5.45576,
+              "voidFraction": 0.9298
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-00028",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.868,
+            "values": {
+              "surfaceArea": 6181.1,
+              "poreVolume": 3.75246,
+              "voidFraction": 0.896
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-02857",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.848,
+            "values": {
+              "surfaceArea": 5311.56,
+              "poreVolume": 4.0737,
+              "voidFraction": 0.9102
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-01534",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7857,
+            "values": {
+              "surfaceArea": 5689.82,
+              "poreVolume": 3.01881,
+              "voidFraction": 0.8738
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "Zn-MOF",
+        "nRecords": {
+          "core": 2307,
+          "qmof": 0,
+          "reaction": 19,
+          "literature": 55,
+          "gold": 19
+        },
+        "structuralRecordCount": 2307,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 2307,
+            "median": 893.731,
+            "q1": 188.177,
+            "q3": 1677.25,
+            "iqr": 1489.073,
+            "lowerFence": -2045.4325,
+            "upperFence": 3910.8595,
+            "outlierCount": 37,
+            "outlierRefs": [
+              "coremof2024-csdm-00346",
+              "coremof2024-csdm-00583",
+              "coremof2024-csdm-00751",
+              "coremof2024-csdm-00801",
+              "coremof2024-csdm-00891",
+              "coremof2024-csdm-00892",
+              "coremof2024-csdm-01073",
+              "coremof2024-csdm-01132"
+            ]
+          },
+          "poreVolume": {
+            "nRecords": 2307,
+            "median": 0.4517,
+            "q1": 0.3283,
+            "q3": 0.5837,
+            "iqr": 0.2555,
+            "lowerFence": -0.0549,
+            "upperFence": 0.9669,
+            "outlierCount": 125,
+            "outlierRefs": [
+              "coremof2024-csdm-00027",
+              "coremof2024-csdm-00046",
+              "coremof2024-csdm-00092",
+              "coremof2024-csdm-00317",
+              "coremof2024-csdm-00328",
+              "coremof2024-csdm-00346",
+              "coremof2024-csdm-00571",
+              "coremof2024-csdm-00580"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 2307,
+            "median": 0.5326,
+            "q1": 0.462,
+            "q3": 0.6396,
+            "iqr": 0.1776,
+            "lowerFence": 0.1956,
+            "upperFence": 0.906,
+            "outlierCount": 1,
+            "outlierRefs": [
+              "coremof2024-csdm-00892"
+            ]
+          }
+        },
+        "outlierShare": 0.0236,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-00892",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9875,
+            "values": {
+              "surfaceArea": 5964.14,
+              "poreVolume": 4.48918,
+              "voidFraction": 0.9212
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04521",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7548,
+            "values": {
+              "surfaceArea": 5149.41,
+              "poreVolume": 2.43428,
+              "voidFraction": 0.8574
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-05486",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7494,
+            "values": {
+              "surfaceArea": 4956.68,
+              "poreVolume": 2.40763,
+              "voidFraction": 0.8714
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04994",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7479,
+            "values": {
+              "surfaceArea": 5174.96,
+              "poreVolume": 2.36583,
+              "voidFraction": 0.8514
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-04520",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7453,
+            "values": {
+              "surfaceArea": 5174.36,
+              "poreVolume": 2.33377,
+              "voidFraction": 0.8512
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "UiO-type host",
+        "nRecords": {
+          "core": 4,
+          "qmof": 0,
+          "reaction": 4,
+          "literature": 12,
+          "gold": 4
+        },
+        "structuralRecordCount": 4,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 4,
+            "median": 1706.605,
+            "q1": 1419.7275,
+            "q3": 2240.84,
+            "iqr": 821.1125,
+            "lowerFence": 188.0587,
+            "upperFence": 3472.5088,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "poreVolume": {
+            "nRecords": 4,
+            "median": 0.7406,
+            "q1": 0.491,
+            "q3": 1.0556,
+            "iqr": 0.5646,
+            "lowerFence": -0.3558,
+            "upperFence": 1.9024,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "voidFraction": {
+            "nRecords": 4,
+            "median": 0.6639,
+            "q1": 0.6,
+            "q3": 0.7327,
+            "iqr": 0.1327,
+            "lowerFence": 0.4009,
+            "upperFence": 0.9317,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-04883",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.8222,
+            "values": {
+              "surfaceArea": 3074.6,
+              "poreVolume": 0.988866,
+              "voidFraction": 0.725
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03200",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7878,
+            "values": {
+              "surfaceArea": 1962.92,
+              "poreVolume": 1.25567,
+              "voidFraction": 0.7556
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03797",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.0256,
+            "values": {
+              "surfaceArea": 1450.29,
+              "poreVolume": 0.492338,
+              "voidFraction": 0.5914
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03798",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.0231,
+            "values": {
+              "surfaceArea": 1328.04,
+              "poreVolume": 0.487,
+              "voidFraction": 0.6028
+            }
+          }
+        ],
+        "confidence": "low-confidence-family",
+        "confidenceReasons": [
+          "structural records below threshold 5"
+        ]
+      },
+      {
+        "family": "MIL-type host",
+        "nRecords": {
+          "core": 96,
+          "qmof": 0,
+          "reaction": 2,
+          "literature": 6,
+          "gold": 2
+        },
+        "structuralRecordCount": 96,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 96,
+            "median": 1020.11,
+            "q1": 204.3375,
+            "q3": 1550.61,
+            "iqr": 1346.2725,
+            "lowerFence": -1815.0712,
+            "upperFence": 3570.0188,
+            "outlierCount": 2,
+            "outlierRefs": [
+              "coremof2024-csdm-03169",
+              "coremof2024-csdm-07764"
+            ]
+          },
+          "poreVolume": {
+            "nRecords": 96,
+            "median": 0.4652,
+            "q1": 0.2857,
+            "q3": 0.5899,
+            "iqr": 0.3042,
+            "lowerFence": -0.1706,
+            "upperFence": 1.0462,
+            "outlierCount": 1,
+            "outlierRefs": [
+              "coremof2024-csdm-03033"
+            ]
+          },
+          "voidFraction": {
+            "nRecords": 96,
+            "median": 0.566,
+            "q1": 0.4761,
+            "q3": 0.6141,
+            "iqr": 0.138,
+            "lowerFence": 0.269,
+            "upperFence": 0.8212,
+            "outlierCount": 1,
+            "outlierRefs": [
+              "coremof2024-csdm-03033"
+            ]
+          }
+        },
+        "outlierShare": 0.0139,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-03033",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.9,
+            "values": {
+              "surfaceArea": 3328.53,
+              "poreVolume": 1.95735,
+              "voidFraction": 0.8368
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-03169",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7503,
+            "values": {
+              "surfaceArea": 4755.94,
+              "poreVolume": 0.981748,
+              "voidFraction": 0.7352
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-07764",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.7503,
+            "values": {
+              "surfaceArea": 4755.94,
+              "poreVolume": 0.981748,
+              "voidFraction": 0.7352
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-02325",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.6474,
+            "values": {
+              "surfaceArea": 3187.12,
+              "poreVolume": 1.02008,
+              "voidFraction": 0.7352
+            }
+          },
+          {
+            "recordRef": "coremof2024-csdm-02631",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0.6229,
+            "values": {
+              "surfaceArea": 3070.98,
+              "poreVolume": 1.00305,
+              "voidFraction": 0.716
+            }
+          }
+        ],
+        "confidence": "adequate-family-support",
+        "confidenceReasons": []
+      },
+      {
+        "family": "MOF-808-like host",
+        "nRecords": {
+          "core": 1,
+          "qmof": 0,
+          "reaction": 1,
+          "literature": 3,
+          "gold": 1
+        },
+        "structuralRecordCount": 1,
+        "descriptors": {
+          "surfaceArea": {
+            "nRecords": 1,
+            "median": 3200.7,
+            "q1": 3200.7,
+            "q3": 3200.7,
+            "iqr": 0,
+            "lowerFence": 3200.7,
+            "upperFence": 3200.7,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "poreVolume": {
+            "nRecords": 1,
+            "median": 3.8307,
+            "q1": 3.8307,
+            "q3": 3.8307,
+            "iqr": 0,
+            "lowerFence": 3.8307,
+            "upperFence": 3.8307,
+            "outlierCount": 0,
+            "outlierRefs": []
+          },
+          "voidFraction": {
+            "nRecords": 1,
+            "median": 0.9206,
+            "q1": 0.9206,
+            "q3": 0.9206,
+            "iqr": 0,
+            "lowerFence": 0.9206,
+            "upperFence": 0.9206,
+            "outlierCount": 0,
+            "outlierRefs": []
+          }
+        },
+        "outlierShare": 0,
+        "dominantRecords": [
+          {
+            "recordRef": "coremof2024-csdm-01255",
+            "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+            "influenceScore": 0,
+            "values": {
+              "surfaceArea": 3200.7,
+              "poreVolume": 3.83066,
+              "voidFraction": 0.9206
+            }
+          }
+        ],
+        "confidence": "low-confidence-family",
+        "confidenceReasons": [
+          "structural records below threshold 5"
+        ]
+      }
+    ],
+    "lowConfidenceFamilies": [
+      "Al-MOF",
+      "UiO-type host",
+      "MOF-808-like host"
+    ],
+    "policy": "Families are reported separately; MIL-type membership is not pooled into Al/Fe/Cr single-metal families."
+  },
+  "scoringMutation": {
+    "applied": true,
+    "preregistered": true,
+    "note": "Spec v3 kept route weights fixed, removed direct family-frequency scoring, changed stability aggregation to abundance-neutral shrunk source properties, and replaced synthesis frequency with FAIR-MOFs condition accessibility."
+  },
+  "rankingSensitivity": {
+    "baselineRanking": [
+      {
+        "routeId": "route-zn-mof-mo",
+        "routeName": "Zn-MOF + Mo doping",
+        "ranking": 1,
+        "finalHGCPS": 0.683
+      },
+      {
+        "routeId": "route-al-mof-mo",
+        "routeName": "Al-MOF + Mo doping / post-modification / bimetallic construction",
+        "ranking": 2,
+        "finalHGCPS": 0.679
+      },
+      {
+        "routeId": "route-cu-mof-mo",
+        "routeName": "Cu-MOF + Mo post-modification",
+        "ranking": 3,
+        "finalHGCPS": 0.678
+      },
+      {
+        "routeId": "route-al-mof-v",
+        "routeName": "Al-MOF + V doping / post-modification",
+        "ranking": 4,
+        "finalHGCPS": 0.676
+      },
+      {
+        "routeId": "route-al-mof-w",
+        "routeName": "Al-MOF + W post-modification / bimetallic construction",
+        "ranking": 5,
+        "finalHGCPS": 0.674
+      },
+      {
+        "routeId": "route-fe-mof-mo",
+        "routeName": "Fe-MOF + Mo bimetallic construction",
+        "ranking": 6,
+        "finalHGCPS": 0.672
+      },
+      {
+        "routeId": "route-al-mof-cu",
+        "routeName": "Al-MOF + Cu doping",
+        "ranking": 7,
+        "finalHGCPS": 0.662
+      },
+      {
+        "routeId": "route-al-mof-ni",
+        "routeName": "Al-MOF + Ni doping",
+        "ranking": 8,
+        "finalHGCPS": 0.661
+      },
+      {
+        "routeId": "route-al-mof-ti",
+        "routeName": "Al-MOF + Ti post-modification",
+        "ranking": 9,
+        "finalHGCPS": 0.66
+      },
+      {
+        "routeId": "route-al-mof-mn",
+        "routeName": "Al-MOF + Mn doping",
+        "ranking": 10,
+        "finalHGCPS": 0.659
+      },
+      {
+        "routeId": "route-al-mof-zn",
+        "routeName": "Al-MOF + Zn doping",
+        "ranking": 11,
+        "finalHGCPS": 0.657
+      },
+      {
+        "routeId": "route-al-mof-fe",
+        "routeName": "Al-MOF + Fe doping",
+        "ranking": 12,
+        "finalHGCPS": 0.654
+      },
+      {
+        "routeId": "route-ti-mof-mo",
+        "routeName": "Ti-MOF + Mo bimetallic construction",
+        "ranking": 13,
+        "finalHGCPS": 0.648
+      },
+      {
+        "routeId": "route-zr-mof-fe",
+        "routeName": "Zr-MOF + Fe doping",
+        "ranking": 14,
+        "finalHGCPS": 0.648
+      },
+      {
+        "routeId": "route-al-mof-co",
+        "routeName": "Al-MOF + Co doping",
+        "ranking": 15,
+        "finalHGCPS": 0.642
+      },
+      {
+        "routeId": "route-uio-type-host-mo",
+        "routeName": "UiO-type host + Mo post-modification",
+        "ranking": 16,
+        "finalHGCPS": 0.639
+      },
+      {
+        "routeId": "route-zr-mof-w",
+        "routeName": "Zr-MOF + W post-modification",
+        "ranking": 17,
+        "finalHGCPS": 0.631
+      },
+      {
+        "routeId": "route-al-mof-pristine",
+        "routeName": "Al-MOF + none / pristine pristine host",
+        "ranking": 18,
+        "finalHGCPS": 0.615
+      },
+      {
+        "routeId": "route-mil-type-host-mo",
+        "routeName": "MIL-type host + Mo doping / post-modification",
+        "ranking": 19,
+        "finalHGCPS": 0.582
+      },
+      {
+        "routeId": "route-zr-mof-pristine",
+        "routeName": "Zr-MOF + none / pristine pristine host",
+        "ranking": 20,
+        "finalHGCPS": 0.578
+      },
+      {
+        "routeId": "route-cr-mof-mo",
+        "routeName": "Cr-MOF + Mo post-modification",
+        "ranking": 21,
+        "finalHGCPS": 0.576
+      },
+      {
+        "routeId": "route-ti-mof-pristine",
+        "routeName": "Ti-MOF + none / pristine pristine host",
+        "ranking": 22,
+        "finalHGCPS": 0.564
+      },
+      {
+        "routeId": "route-uio-type-host-pristine",
+        "routeName": "UiO-type host + none / pristine pristine host",
+        "ranking": 23,
+        "finalHGCPS": 0.56
+      },
+      {
+        "routeId": "route-zr-mof-mo",
+        "routeName": "Zr-MOF + Mo post-modification",
+        "ranking": 24,
+        "finalHGCPS": 0.468
+      },
+      {
+        "routeId": "route-mof-808-like-host-mo",
+        "routeName": "MOF-808-like host + Mo post-modification",
+        "ranking": 25,
+        "finalHGCPS": 0.41
+      }
+    ],
+    "scenarios": [
+      {
+        "scenarioId": "hostStabilityScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostStabilityScore",
+        "factorLabel": "host stability factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.683,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.683,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0,
+        "warning": ""
+      },
+      {
+        "scenarioId": "hostStabilityScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostStabilityScore",
+        "factorLabel": "host stability factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.682,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.682,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.001,
+        "warning": ""
+      },
+      {
+        "scenarioId": "hostPathwaySupportScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostPathwaySupportScore",
+        "factorLabel": "host pathway support factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.692,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.692,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.009,
+        "warning": ""
+      },
+      {
+        "scenarioId": "hostPathwaySupportScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostPathwaySupportScore",
+        "factorLabel": "host pathway support factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.674,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.674,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.009,
+        "warning": ""
+      },
+      {
+        "scenarioId": "guestActivityCompensationScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "guestActivityCompensationScore",
+        "factorLabel": "guest activity compensation factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.677,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.677,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.006,
+        "warning": ""
+      },
+      {
+        "scenarioId": "guestActivityCompensationScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "guestActivityCompensationScore",
+        "factorLabel": "guest activity compensation factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.688,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.688,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.005,
+        "warning": ""
+      },
+      {
+        "scenarioId": "hostGuestComplementarityScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostGuestComplementarityScore",
+        "factorLabel": "host-guest complementarity factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.681,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.681,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.002,
+        "warning": ""
+      },
+      {
+        "scenarioId": "hostGuestComplementarityScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "hostGuestComplementarityScore",
+        "factorLabel": "host-guest complementarity factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.684,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.684,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.001,
+        "warning": ""
+      },
+      {
+        "scenarioId": "evidenceConfidenceScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "evidenceConfidenceScore",
+        "factorLabel": "evidence confidence factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.678,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.678,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.005,
+        "warning": ""
+      },
+      {
+        "scenarioId": "evidenceConfidenceScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "evidenceConfidenceScore",
+        "factorLabel": "evidence confidence factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.687,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.687,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.004,
+        "warning": ""
+      },
+      {
+        "scenarioId": "riskPenalty-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "riskPenalty",
+        "factorLabel": "risk retention factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.68,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.68,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.003,
+        "warning": ""
+      },
+      {
+        "scenarioId": "riskPenalty-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "riskPenalty",
+        "factorLabel": "risk retention factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.685,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.685,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.002,
+        "warning": ""
+      },
+      {
+        "scenarioId": "synthesizabilityScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "synthesizabilityScore",
+        "factorLabel": "synthesizability factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.686,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.686,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.003,
+        "warning": ""
+      },
+      {
+        "scenarioId": "synthesizabilityScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "synthesizabilityScore",
+        "factorLabel": "synthesizability factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.679,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.679,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.004,
+        "warning": ""
+      },
+      {
+        "scenarioId": "economicScore-down",
+        "scenarioType": "weight-exponent",
+        "factorKey": "economicScore",
+        "factorLabel": "economic LCC factor",
+        "perturbation": "weight exponent -20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.684,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.684,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.001,
+        "warning": ""
+      },
+      {
+        "scenarioId": "economicScore-up",
+        "scenarioType": "weight-exponent",
+        "factorKey": "economicScore",
+        "factorLabel": "economic LCC factor",
+        "perturbation": "weight exponent +20%",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.681,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.681,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.002,
+        "warning": ""
+      },
+      {
+        "scenarioId": "normalization-compressed",
+        "scenarioType": "normalization-power",
+        "factorKey": "all-route-factors",
+        "factorLabel": "normalization curvature",
+        "perturbation": "power 0.75 (compressed)",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.751,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.751,
+        "topRouteRemainsTop": true,
+        "scoreChange": 0.068,
+        "warning": ""
+      },
+      {
+        "scenarioId": "normalization-expanded",
+        "scenarioType": "normalization-power",
+        "factorKey": "all-route-factors",
+        "factorLabel": "normalization curvature",
+        "perturbation": "power 1.25 (expanded)",
+        "baselineTopRoute": "route-zn-mof-mo",
+        "baselineScore": 0.683,
+        "adjustedTopRoute": "route-zn-mof-mo",
+        "adjustedTopScore": 0.62,
+        "adjustedOriginalTopRank": 1,
+        "adjustedOriginalTopScore": 0.62,
+        "topRouteRemainsTop": true,
+        "scoreChange": -0.063,
+        "warning": ""
+      }
+    ],
+    "summary": {
+      "scenarioCount": 18,
+      "stableCount": 18,
+      "rankStability": 1,
+      "topRouteFlipFrequency": 0,
+      "topRouteRemainsTop": true,
+      "mostSensitiveFactor": "normalization curvature",
+      "mostSensitiveScenarioId": "normalization-compressed",
+      "maxScoreChange": 0.068,
+      "fragility": "robust-within-audited-perturbations",
+      "warning": ""
+    },
+    "candidateRankDistributions": [
+      {
+        "hostMof": "Al-MOF",
+        "minRank": 2,
+        "medianRank": 2,
+        "maxRank": 3,
+        "topRankFrequency": 0,
+        "ranks": [
+          {
+            "scenarioId": "baseline",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "hostStabilityScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "hostStabilityScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 3
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 3
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-down",
+            "routeId": "route-al-mof-v",
+            "rank": 2
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 3
+          },
+          {
+            "scenarioId": "riskPenalty-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "riskPenalty-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "synthesizabilityScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "synthesizabilityScore-up",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "economicScore-down",
+            "routeId": "route-al-mof-mo",
+            "rank": 3
+          },
+          {
+            "scenarioId": "economicScore-up",
+            "routeId": "route-al-mof-v",
+            "rank": 2
+          },
+          {
+            "scenarioId": "normalization-compressed",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          },
+          {
+            "scenarioId": "normalization-expanded",
+            "routeId": "route-al-mof-mo",
+            "rank": 2
+          }
+        ]
+      },
+      {
+        "hostMof": "Ti-MOF",
+        "minRank": 12,
+        "medianRank": 13,
+        "maxRank": 15,
+        "topRankFrequency": 0,
+        "ranks": [
+          {
+            "scenarioId": "baseline",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "hostStabilityScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "hostStabilityScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 15
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 12
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "riskPenalty-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "riskPenalty-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "synthesizabilityScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "synthesizabilityScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          },
+          {
+            "scenarioId": "economicScore-down",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "economicScore-up",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "normalization-compressed",
+            "routeId": "route-ti-mof-mo",
+            "rank": 13
+          },
+          {
+            "scenarioId": "normalization-expanded",
+            "routeId": "route-ti-mof-mo",
+            "rank": 14
+          }
+        ]
+      },
+      {
+        "hostMof": "MIL-type host",
+        "minRank": 19,
+        "medianRank": 19,
+        "maxRank": 20,
+        "topRankFrequency": 0,
+        "ranks": [
+          {
+            "scenarioId": "baseline",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "hostStabilityScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "hostStabilityScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 20
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "hostPathwaySupportScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 20
+          },
+          {
+            "scenarioId": "guestActivityCompensationScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 20
+          },
+          {
+            "scenarioId": "hostGuestComplementarityScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "evidenceConfidenceScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 20
+          },
+          {
+            "scenarioId": "riskPenalty-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "riskPenalty-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "synthesizabilityScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "synthesizabilityScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "economicScore-down",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 20
+          },
+          {
+            "scenarioId": "economicScore-up",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "normalization-compressed",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          },
+          {
+            "scenarioId": "normalization-expanded",
+            "routeId": "route-mil-type-host-mo",
+            "rank": 19
+          }
+        ]
+      }
+    ]
+  },
+  "abundanceBiasAudit": {
+    "rawFamilyFrequencyUsedAsPointScore": false,
+    "duplicateCorePointInvariant": true,
+    "maxDuplicatePointDelta": 0,
+    "duplicateDeltas": [
+      {
+        "hostMof": "Zr-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "MOF-808-like host",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "UiO-type host",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Ti-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Al-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Fe-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Cr-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Zn-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "MIL-type host",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      },
+      {
+        "hostMof": "Cu-MOF",
+        "stabilityDelta": 0,
+        "synthesizabilityDelta": 0
+      }
+    ],
+    "countUses": [
+      "empirical-Bayes shrinkage",
+      "evidence confidence",
+      "uncertainty reporting",
+      "coverage display"
+    ],
+    "note": "Duplicate test covers the stability and synthesis-condition accessibility point factors. Evidence confidence may change only when genuinely distinct evidence identities are added."
+  },
+  "sourceVersions": {
+    "scoringSpec": "V3.9.10",
+    "fairMofs": "V3.9.10",
+    "coreMof": "CoRE MOF 2024 v1.1 · CSD-modified · 2025-02-27",
+    "priceTable": "V3.9.8",
+    "rerun": "V3.9.10"
+  }
+}

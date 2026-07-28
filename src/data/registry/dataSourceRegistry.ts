@@ -9,10 +9,10 @@ import { DATA_MODES, DATASET_TYPES } from "./datasetTypes"
 
 export const DATA_SOURCE_REGISTRY: DataSourceEntry[] = [
   // --- MOF records ---
-  { id: "open-mof-seed", name: "Open MOF Seed", category: "MOF", datasetType: "mof_records", dataMode: "seed", path: "data/open_mof_seed_candidates.json", recordKey: "", hasProvenance: true, participatesIn: ["home", "projectStatus", "researchReports", "mofLibrary", "benchmark", "export"], updatedAt: "2026-05-20" },
-  { id: "mof-real-seed", name: "Curated MOF sample", category: "MOF", datasetType: "mof_records", dataMode: "curated", path: "data/mof_candidates_real_seed.json", recordKey: "", hasProvenance: true, participatesIn: ["home", "projectStatus", "mofLibrary", "export"], updatedAt: "2026-05-20" },
-  { id: "core-mof", name: "CoRE MOF 2019 (curated subset)", category: "MOF", datasetType: "mof_records", dataMode: "curated", path: "data/data_ingestion/core_mof_import_v2.json", recordKey: "records", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "benchmark"], updatedAt: "2026-06-18" },
-  { id: "qmof", name: "QMOF (curated subset)", category: "MOF", datasetType: "mof_records", dataMode: "curated", path: "data/data_ingestion/qmof_import_v2.json", recordKey: "records", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "benchmark"], updatedAt: "2026-06-18" },
+  { id: "core-mof", name: "CoRE MOF 2024 · CSD-modified CR", category: "MOF", datasetType: "mof_records", dataMode: "curated", path: "data/core_mof_2024/summary.json", recordKey: "", hasProvenance: true, participatesIn: ["home", "projectStatus", "researchReports", "mofLibrary", "benchmark", "export"], updatedAt: "2026-07-28" },
+  { id: "fair-mofs", name: "FAIR-MOFs v1", category: "MOF", datasetType: "mof_records", dataMode: "literature", path: "data/data_ingestion/fair_mofs_import_v1.json", recordKey: "records", hasProvenance: true, participatesIn: ["home", "projectStatus", "researchReports", "organicAcid", "ecoScreen", "export"], updatedAt: "2026-07-28" },
+  { id: "fair-mofs-properties", name: "FAIR-MOFs physicochemical property index", category: "MOF", datasetType: "provenance_records", dataMode: "mixed", path: "data/fair_mofs_property_index_v1.json", recordKey: "records", hasProvenance: true, participatesIn: ["ecoScreen", "researchReports", "export"], updatedAt: "2026-07-28" },
+  { id: "fair-mofs-quality", name: "FAIR-MOFs data quality and identity audit", category: "Research", datasetType: "research_report_records", dataMode: "curated", path: "data/fair_mofs_quality_report.json", recordKey: "", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "organicAcid", "ecoScreen", "export"], updatedAt: "2026-07-28" },
   { id: "mof-aliases", name: "MOF name aliases", category: "MOF", datasetType: "provenance_records", dataMode: "curated", path: "data/mof_name_aliases.json", recordKey: "", hasProvenance: true, participatesIn: ["mofLibrary"], updatedAt: "2026-05-21" },
 
   // --- Gas separation records ---
@@ -39,9 +39,9 @@ export const DATA_SOURCE_REGISTRY: DataSourceEntry[] = [
   { id: "benchmark-eligible", name: "Benchmark-eligible dataset", category: "Benchmark", datasetType: "benchmark_records", dataMode: "curated", path: "data/benchmark_dataset_v3_6.json", recordKey: "records", hasProvenance: true, participatesIn: ["projectStatus", "researchReports", "benchmark", "export"], updatedAt: "2026-06-19" },
 
   // --- Version records ---
-  { id: "version-evolution", name: "Version evolution records", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/version_evolution_records.json", recordKey: "versions", hasProvenance: false, participatesIn: ["home", "projectStatus"], updatedAt: "2026-06-29" },
-  { id: "version-docs", name: "Version docs", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/organic_acid_final_screening/version_docs.json", recordKey: "versions", hasProvenance: false, participatesIn: ["projectStatus"], updatedAt: "2026-06-21" },
-  { id: "home-summary", name: "Home summary", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/home_summary.json", recordKey: "", hasProvenance: false, participatesIn: ["home"], updatedAt: "2026-06-29" },
+  { id: "version-evolution", name: "Version evolution records", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/version_evolution_records.json", recordKey: "versions", hasProvenance: false, participatesIn: ["home", "projectStatus"], updatedAt: "2026-07-28" },
+  { id: "version-docs", name: "Version docs", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/organic_acid_final_screening/version_docs.json", recordKey: "versions", hasProvenance: false, participatesIn: ["projectStatus"], updatedAt: "2026-07-28" },
+  { id: "home-summary", name: "Home summary", category: "Version", datasetType: "version_records", dataMode: "curated", path: "data/home_summary.json", recordKey: "", hasProvenance: false, participatesIn: ["home"], updatedAt: "2026-07-28" },
 
   // --- Research report records ---
   { id: "ingestion-summary", name: "Data ingestion summary", category: "Research", datasetType: "research_report_records", dataMode: "mixed", path: "data/data_ingestion/data_ingestion_summary_v3.json", recordKey: "", hasProvenance: false, participatesIn: ["home", "projectStatus", "researchReports"], updatedAt: "2026-06-18" },
@@ -81,8 +81,9 @@ export function enrichRegistry(loaded: Record<string, any> = {}): Array<DataSour
 }
 
 // A compact registry-level summary used by the global database summary.
-export function summarizeRegistry(loaded: Record<string, any> = {}) {
-  const enriched = enrichRegistry(loaded)
+export function summarizeRegistry(loaded: Record<string, any> = {}, sourceIds: string[] | null = null) {
+  const allowed = Array.isArray(sourceIds) && sourceIds.length ? new Set(sourceIds) : null
+  const enriched = enrichRegistry(loaded).filter(source => !allowed || allowed.has(source.id))
   const byCategory: Record<string, number> = {}
   const byMode: Record<string, number> = {}
   const byType: Record<string, number> = {}

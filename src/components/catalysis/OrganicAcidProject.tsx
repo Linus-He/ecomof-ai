@@ -650,8 +650,8 @@ export function OrganicAcidProject({ lang = "zh", t }) {
         </div>
         <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
           {lang === "zh"
-            ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
-            : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
+            ? "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。"
+            : "Organic acid conversion is a prioritized sub-workspace within Catalysis, not the full scope of the module."}
         </div>
         <OrganicAcidHostGuestWorkbench lang={lang} isNarrow={isNarrow} />
         <ResearchValidationEntryPanel lang={lang} />
@@ -827,24 +827,24 @@ export function OrganicAcidProject({ lang = "zh", t }) {
             ? `${candidateRows.length} 条候选记录 · ${candidateStatus === "loaded" ? "已载入" : candidateStatus === "empty" ? "待填充" : candidateStatus}`
             : `${candidateRows.length} candidate records · ${candidateStatus === "loaded" ? "loaded" : candidateStatus === "empty" ? "pending population" : candidateStatus}`}
           options={[
-            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "CoRE 2024 CR 真实结构库" : "CoRE 2024 CR real corpus" },
           ]}
         />
         <CollapsibleResearchSection
           id="organic-acid-evidence-matrix"
           title="Evidence Matrix"
           titleZh="证据矩阵"
-          description="Track seed records, experiment feedback, missing citations, and evidence-review status before using data as labels."
-          descriptionZh="在把数据作为标签前，跟踪种子记录、实验反馈、缺失引用和证据复核状态。"
+          description="Track CoRE source records, experiment feedback, missing citations, and evidence-review status before using data as task labels."
+          descriptionZh="在把数据作为任务标签前，跟踪 CoRE 来源记录、实验反馈、缺失引用和证据复核状态。"
           defaultState="compact"
           lowPriority
           layoutCommand={layoutCommand}
           statusBadges={[
-            { label: lang === "zh" ? "演示数据" : "Demo data", tone: "proxy" },
+            { label: lang === "zh" ? "真实结构记录" : "Real structure records", tone: "source" },
             { label: lang === "zh" ? "需要复核" : "needs review", tone: "warn" },
           ]}
           summaryItems={[
-            { label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed", value: summaryData.openSeed.length },
+            { label: lang === "zh" ? "CoRE 2024 CR" : "CoRE 2024 CR", value: summaryData.openSeed.length },
             { label: lang === "zh" ? "实验记录" : "Experiment records", value: summaryData.experiments.length },
             { label: lang === "zh" ? "推断 / pending" : "Inferred / pending", value: candidateRows.length },
             { label: lang === "zh" ? "缺失引用" : "Missing citations", value: lang === "zh" ? "待复核" : "needs review" },
@@ -856,7 +856,9 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           }
         >
           <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 10, color: palette.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
-            当前全局候选数据源：Open MOF Seed · 已加载记录：{candidateRows.length} 条 · 已接入模块：MOF Library / EcoScreen / Organic Acid Project。当前有机酸路径相关性在没有文献、DFT 或实验支持前仍保持 pending。
+            {lang === "zh"
+              ? `当前全局结构候选：CoRE MOF 2024 CSD-modified CR · 已加载 ${candidateRows.length} 条真实记录 · 已接入 MOF Library / EcoScreen / Organic Acid Project。结构真实性不等于有机酸催化性能；缺少文献、DFT 或实验支持时，路径相关性保持 pending。`
+              : `Active structural candidates: CoRE MOF 2024 CSD-modified CR · ${candidateRows.length} real records loaded across MOF Library / EcoScreen / Organic Acid Project. A real structure is not evidence of organic-acid catalytic performance; pathway relevance stays pending without literature, DFT, or experimental support.`}
           </div>
           <DataStatusSummary
             seedRecords={summaryData.openSeed}

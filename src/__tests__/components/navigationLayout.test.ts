@@ -23,7 +23,7 @@ describe("top navigation layout", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
 
     expect(source).toContain('justifyContent: compactHeader ? "flex-start" : "center"')
-    expect(source).toContain('maxWidth: compactHeader ? 660 : 760')
+    expect(source).toContain('maxWidth: compactHeader ? 760 : 880')
     expect(source).toContain('flex: compactHeader ? "0 0 auto" : "1 1 0"')
     expect(source).toContain('minWidth: compactHeader ? "max-content" : 0')
   })

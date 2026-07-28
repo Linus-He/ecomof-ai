@@ -23,6 +23,7 @@ import {
 } from "./OrganicAcidAlgorithmFlowNetwork"
 import { OrganicAcidExperimentalActivationCenter } from "./OrganicAcidExperimentalActivationCenter"
 import { OrganicAcidStepwiseExecutionChain } from "./stepwiseExecution"
+import { RouteHostStructureModal, RouteStructureEvidence } from "./RouteStructureEvidence"
 
 const DATA_FILES = {
   pathwaySteps: "organic_acid_host_guest/pathway_steps.json",
@@ -38,6 +39,7 @@ const DATA_FILES = {
   gasAdsorptionRecords: "gas_adsorption_records_v1.json",
   literatureDataset: "organic_acid_literature_dataset_v2.json",
   goldDataset: "organic_acid_gold_dataset_v2.json",
+  fairMofsFamilyEvidence: "fair_mofs_family_synthesis_evidence.json",
   specificAlMofHosts: "organic_acid_experimental_activation/specific_al_mof_hosts.json",
   moIntroductionStrategies: "organic_acid_experimental_activation/mo_introduction_strategies.json",
   minimumExperimentalMatrix: "organic_acid_experimental_activation/minimum_experimental_matrix.json",
@@ -314,7 +316,7 @@ function SelectionSection({ workbench, lang, isNarrow }) {
       <SectionTitle
         kicker="Host and guest selection"
         title={text(lang, "主体 MOF 与客体金属筛选", "Host MOF and Guest Metal Selection")}
-        note={text(lang, "主体与客体均由 V3.9.8 使用的锁定 spec v2 规则计算；配体、可合成性与经济性按 data-derived / curated / fallback 分级。", "Host and guest are computed with the locked spec-v2 rules used in V3.9.8; ligand, synthesizability, and economics are graded as data-derived, curated, or fallback.")}
+        note={text(lang, "主体与客体均由 V3.9.10 锁定 spec v3 计算；可合成性已改为 FAIR-MOFs 合成条件可及性，记录数只用于收缩与置信度，不再直接奖励数据库中的高频家族。", "Host and guest are computed with the locked V3.9.10 spec v3. Synthesizability is now FAIR-MOFs synthesis-condition accessibility; record count controls shrinkage and confidence but never directly rewards frequent database families.")}
       />
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) minmax(0, 1fr)" }}>
         <div style={cardStyle()}>
@@ -361,7 +363,7 @@ function SelectionSection({ workbench, lang, isNarrow }) {
   )
 }
 
-function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, selectedExplanation, lang, isNarrow, onOpenActivationCenter }) {
+function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, selectedExplanation, lang, isNarrow, onOpenActivationCenter, onViewHostStructure }) {
   const routeGroups = [
     [text(lang, "最高优先级路线", "Top Priority Route"), workbench.priorityQueue.topPriority],
     [text(lang, "有条件推进路线", "Conditional Routes"), workbench.priorityQueue.conditionalRoutes],
@@ -380,27 +382,30 @@ function PriorityQueueSection({ workbench, selectedRouteId, setSelectedRouteId, 
             <div key={title} style={{ display: "grid", gap: 8 }}>
               <strong style={{ color: palette.text, fontSize: 13 }}>{title}</strong>
               {rows.map(route => (
-                <button key={route.routeId} type="button" onClick={() => setSelectedRouteId(route.routeId)} style={{ ...buttonStyle(selectedRouteId === route.routeId), display: "grid", gap: 8 }}>
-                  <div style={{ alignItems: "baseline", display: "flex", gap: 10, justifyContent: "space-between" }}>
-                    <span>{route.ranking}. {route.hostMof} + {route.guestMetal} · {route.routeType}</span>
-                    <NumericText style={{ color: palette.accent, fontSize: 12, fontWeight: 900 }}>{fmt(route.finalHGCPS, 3)}</NumericText>
-                  </div>
-                  <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4 }}>
-                    confidence {route.confidenceLevel} · evidence {route.evidenceConfidence >= 0.75 ? "A/B proxy" : "needs validation"} · {route.mainRisk}
-                  </span>
-                  <span style={{ color: palette.faint, fontSize: 11.5, lineHeight: 1.4 }}>{route.nextExperiment}</span>
-                </button>
+                <div key={route.routeId} style={{ ...buttonStyle(selectedRouteId === route.routeId), display: "grid", gap: 8 }}>
+                  <button type="button" onClick={() => setSelectedRouteId(route.routeId)} style={{ background: "transparent", border: 0, cursor: "pointer", display: "grid", gap: 8, padding: 0, textAlign: "left" }}>
+                    <div style={{ alignItems: "baseline", display: "flex", gap: 10, justifyContent: "space-between" }}>
+                      <span>{route.ranking}. {route.hostMof} + {route.guestMetal} · {route.routeType}</span>
+                      <NumericText style={{ color: palette.accent, fontSize: 12, fontWeight: 900 }}>{fmt(route.finalHGCPS, 3)}</NumericText>
+                    </div>
+                    <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.4 }}>
+                      confidence {route.confidenceLevel} · evidence {route.evidenceConfidence >= 0.75 ? "A/B proxy" : "needs validation"} · {route.mainRisk}
+                    </span>
+                    <span style={{ color: palette.faint, fontSize: 11.5, lineHeight: 1.4 }}>{route.nextExperiment}</span>
+                  </button>
+                  <RouteStructureEvidence route={route} lang={lang} compact onViewHostStructure={onViewHostStructure} />
+                </div>
               ))}
             </div>
           ))}
         </div>
-        <RouteExplanationPanel explanation={selectedExplanation} lang={lang} onOpenActivationCenter={onOpenActivationCenter} />
+        <RouteExplanationPanel explanation={selectedExplanation} lang={lang} onOpenActivationCenter={onOpenActivationCenter} onViewHostStructure={onViewHostStructure} />
       </div>
     </section>
   )
 }
 
-function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter }) {
+function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter, onViewHostStructure }) {
   return (
     <aside data-testid="host-guest-route-explanation" style={{ ...cardStyle({ alignSelf: "start", background: palette.surfaceStrong, position: "sticky", top: 96 }) }}>
       <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Route Explanation Panel</div>
@@ -433,6 +438,7 @@ function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter }) {
         )}
       </div>
       <FactorSourceRows provenance={explanation.routeFactorProvenance} lang={lang} maxRows={8} />
+      <RouteStructureEvidence route={explanation} lang={lang} onViewHostStructure={onViewHostStructure} />
       <div style={{ display: "grid", gap: 6 }}>
         <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "证据来源与风险原因", "Evidence sources and risk reasons")}</strong>
         {explanation.riskPenaltyBreakdown.slice(0, 4).map(row => (
@@ -726,7 +732,7 @@ function ScoringAuditSection({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="V3.9.8 Scoring Audit"
+        kicker="V3.9.10 Scoring Audit"
         title={text(lang, "评分审计", "Scoring Audit")}
         note={text(lang, "审计只报告代理有效性、家族公平性与排名稳健性；不静默改权重。", "The audit reports proxy validity, family fairness, and ranking robustness; it does not silently change weights.")}
       />
@@ -826,7 +832,7 @@ function BoundaryPanel({ workbench, lang, onOpenActivationCenter }) {
       <SectionTitle
         kicker="Organic Acid Algorithm Boundary Panel"
         title={text(lang, "算法边界", "Algorithm Boundary")}
-        note={text(lang, "该面板固定列出 V3.9.8 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.8 must not overstate.")}
+        note={text(lang, "该面板固定列出 V3.9.10 不允许越界表达的结论边界。", "This panel fixes the conclusion boundaries that V3.9.10 must not overstate.")}
       />
       <div style={{ display: "grid", gap: 8 }}>
         {boundaries.map(([label, value]) => (
@@ -974,6 +980,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   const [activationOpen, setActivationOpen] = useState(false)
   const [advancedOpen, setAdvancedOpen] = useState(false)
   const [advancedTab, setAdvancedTab] = useState("risk")
+  const [structureSelection, setStructureSelection] = useState(null)
   const traceTimersRef = useRef([])
 
   useEffect(() => {
@@ -994,6 +1001,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       fetchDataJson(DATA_FILES.gasAdsorptionRecords, []),
       fetchDataJson(DATA_FILES.literatureDataset, {}),
       fetchDataJson(DATA_FILES.goldDataset, {}),
+      fetchDataJson(DATA_FILES.fairMofsFamilyEvidence, {}),
       fetchDataJson(DATA_FILES.specificAlMofHosts, {}),
       fetchDataJson(DATA_FILES.moIntroductionStrategies, {}),
       fetchDataJson(DATA_FILES.minimumExperimentalMatrix, {}),
@@ -1015,6 +1023,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
       gasAdsorptionRecords,
       literatureDataset,
       goldDataset,
+      fairMofsFamilyEvidence,
       specificAlMofHosts,
       moIntroductionStrategies,
       minimumExperimentalMatrix,
@@ -1038,6 +1047,7 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
         gasAdsorptionRecords,
         literatureDataset,
         goldDataset,
+        fairMofsFamilyEvidence,
         specificAlMofHosts,
         moIntroductionStrategies,
         minimumExperimentalMatrix,
@@ -1188,6 +1198,31 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
           </p>
         </div>
       </section>
+      <aside
+        data-testid="fair-mofs-synthesis-boundary"
+        style={{
+          background: palette.accentSoft,
+          border: `1px solid ${palette.accent}`,
+          borderRadius: 9,
+          color: palette.muted,
+          display: "grid",
+          fontSize: 12.2,
+          gap: 5,
+          lineHeight: 1.55,
+          padding: "11px 13px",
+        }}
+      >
+        <strong style={{ color: palette.text }}>
+          {text(lang, "FAIR-MOFs 接入边界：合成条件可及性，不是合成成功率", "FAIR-MOFs boundary: synthesis-condition accessibility, not synthesis success probability")}
+        </strong>
+        <span>
+          {text(
+            lang,
+            "温度与反应时间经固定边界归一化，并按“DOI + 条件指纹”去重；样本量只控制经验贝叶斯收缩、置信度与不确定性。FAIR-MOFs 不含统一失败集或收率，因此本因子不能被解释为成功概率。",
+            "Temperature and reaction time use fixed bounds and are deduplicated by DOI plus condition fingerprint. Sample size controls empirical-Bayes shrinkage, confidence, and uncertainty only. FAIR-MOFs has no harmonized failure set or yield, so this factor must not be interpreted as success probability."
+          )}
+        </span>
+      </aside>
       <OrganicAcidStepwiseExecutionChain
         chain={stepwiseChain}
         lang={lang}
@@ -1198,7 +1233,15 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
         onOpenActivationCenter={openActivationEntry}
         onOpenMethodology={openAlgorithmMethodology}
         onOpenAdvancedTab={openAdvancedTab}
+        onViewHostStructure={(structure, route) => setStructureSelection({ structure, route })}
       />
+      {structureSelection ? (
+        <RouteHostStructureModal
+          selection={structureSelection}
+          lang={lang}
+          onClose={() => setStructureSelection(null)}
+        />
+      ) : null}
       <details
         id="organic-acid-experimental-activation-entry"
         open={activationOpen}

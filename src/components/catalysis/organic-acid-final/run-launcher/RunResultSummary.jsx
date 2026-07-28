@@ -29,17 +29,16 @@ export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-            <StatusPill tone="warn" t={t}>database_index_preview / not full database</StatusPill>
+            <StatusPill tone="pass" t={t}>real CoRE CR index / structural audit</StatusPill>
             <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
           </div>
         </div>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
           <MiniMetric label="datasetMode" value={summary.datasetMode} t={t} />
           <MiniMetric label={text(lang, "索引记录", "Index records")} value={summary.totalRecords} t={t} />
-          <MiniMetric label="CoRE-like" value={summary.coreRecords} t={t} />
-          <MiniMetric label="QMOF-like" value={summary.qmofRecords} t={t} />
-          <MiniMetric label={text(lang, "Top-N 预览", "Top-N preview")} value={summary.topCandidateCount} t={t} />
-          <MiniMetric label={text(lang, "可评分 / 需复核 / 拒绝", "Ready / review / rejected")} value={`${summary.readyForScoring} / ${summary.needsReview} / ${summary.rejected}`} t={t} tone="warn" />
+          <MiniMetric label="CoRE 2024 CR" value={summary.coreRecords} t={t} />
+          <MiniMetric label={text(lang, "结构审阅样本", "Structural review sample")} value={summary.topCandidateCount} t={t} />
+          <MiniMetric label={text(lang, "结构字段就绪 / 需复核 / 拒绝", "Structural ready / review / rejected")} value={`${summary.readyForScoring} / ${summary.needsReview} / ${summary.rejected}`} t={t} tone="warn" />
           <MiniMetric label={text(lang, "描述符覆盖项", "Descriptor coverage rows")} value={summary.descriptorCoverage} t={t} />
           <MiniMetric label="DOI coverage" value={`${summary.doiCoveragePercent ?? 0}%`} t={t} tone="warn" />
         </div>
@@ -68,7 +67,6 @@ export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
           <MiniMetric label={text(lang, "硬阈值拒绝", "Rejected")} value={summary.rejected} t={t} tone="warn" />
           <MiniMetric label={text(lang, "DOI 覆盖率", "DOI coverage")} value={`${Math.round((summary.doiCoverage || 0) * 100)}%`} t={t} tone="warn" />
           <MiniMetric label={text(lang, "字段来源覆盖", "Field provenance")} value={`${Math.round((summary.fieldProvenanceCoverage || 0) * 100)}%`} t={t} />
-          <MiniMetric label={text(lang, "未匹配 QMOF", "Unmatched QMOF")} value={summary.unmatchedQmofDescriptorRecords} t={t} tone="warn" />
           <MiniMetric label={text(lang, "热区投影", "Hot spot projection")} value={summary.hotSpotProjectionStatus} t={t} />
         </div>
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.muted, fontSize: 12.2, fontWeight: 850, lineHeight: 1.5, padding: 9 }}>

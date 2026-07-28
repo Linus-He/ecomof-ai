@@ -105,8 +105,8 @@ export function CandidateRuleMatchPanel({
         <div style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, maxWidth: 900 }}>
           {text(
             lang,
-            "这里只显示已经被明确挂接到 ruleId 或 pathway node 的候选物角色；pending Open MOF Seed 不会被自动分配路径作用。",
-            "Only candidate roles explicitly attached to a ruleId or pathway node are shown here; pending Open MOF Seed records are not automatically assigned pathway roles."
+            "这里只显示已经被明确挂接到 ruleId 或 pathway node 的候选物角色；尚无任务证据的 CoRE 结构记录不会被自动分配路径作用。",
+            "Only candidate roles explicitly attached to a ruleId or pathway node are shown here; CoRE structure records without task evidence are not automatically assigned pathway roles."
           )}
         </div>
       </div>

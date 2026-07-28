@@ -24,6 +24,8 @@ export function DataSourcesTab() {
     identityResolutionReport: null,
     proxyValidationReport: null,
     duplicateReport: null,
+    fairMofs: null,
+    fairMofsQuality: null,
     manifest: null,
     status: "loading",
   })
@@ -40,9 +42,11 @@ export function DataSourcesTab() {
       fetchDataJson("mof_identity_resolution_report.json", {}),
       fetchDataJson("gas_structure_proxy_validation_report.json", {}),
       fetchDataJson("gas_adsorption_duplicate_report_v2_1.json", {}),
+      fetchDataJson("data_ingestion/fair_mofs_import_v1.json", {}),
+      fetchDataJson("fair_mofs_quality_report.json", {}),
       fetchDataJson("training_manifest.json"),
-    ]).then(([structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, manifest]) => {
-      if (active) setDatasets({ structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, manifest, status: "loaded" })
+    ]).then(([structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, fairMofs, fairMofsQuality, manifest]) => {
+      if (active) setDatasets({ structures, labels, inventory, isotherms, gasV2, gasV2Report, gasV21IastReport, identityResolutionReport, proxyValidationReport, duplicateReport, fairMofs, fairMofsQuality, manifest, status: "loaded" })
     }).catch(() => { if (active) setDatasets(prev => ({ ...prev, status: "fallback" })) })
     return () => { active = false }
   }, [])
@@ -53,6 +57,9 @@ export function DataSourcesTab() {
   const v21IdentityTotalCount = datasets.identityResolutionReport?.summary?.gasRecordCount ?? datasets.gasV2.length
   const v21ProxyPairCount = datasets.proxyValidationReport?.summary?.candidatePairCount ?? 0
   const v21ProxyStatus = datasets.proxyValidationReport?.summary?.status || "pending"
+  const fairMofsCount = datasets.fairMofsQuality?.summary?.sourceRecordCount ?? datasets.fairMofs?.records?.length ?? 0
+  const fairExactCount = datasets.fairMofsQuality?.summary?.exactRefcodeMatchedFairRecords ?? 0
+  const fairPropertyCount = datasets.fairMofsQuality?.summary?.fieldCoverage?.asaM2Cm3?.count ?? 0
   const v21DerivedReportCount = [v21IastCount, v21IdentityLinkedCount, v21ProxyPairCount]
     .filter(value => Number.isFinite(Number(value)))
     .reduce((sum, value) => sum + Number(value), 0)
@@ -70,23 +77,23 @@ export function DataSourcesTab() {
     ["Audit trail", "source_type, source_ref, price_source, assumption, replacement fields", "DOI / database record / supplier quote attachment and revision history", "Scaffolded"],
   ]
   const datasetCards = lang === "zh" ? [
-    ["MOF structures", "MOF 结构库", datasets.structures.length, "public/data/mof_structures.json", "结构、拓扑、PLD/LCD、BET、孔体积、密度、OMS、CIF/source 元数据。", "结构库提供材料描述符，不直接等于吸附标签。", "Stage 1 screening", "benchmark-backed"],
+    ["MOF structures", "气体模块结构链接样本", datasets.structures.length, "public/data/mof_structures.json", "供气体吸附实体解析使用的历史小型结构链接层；全局真实结构主库为 9,835 条 CoRE MOF 2024 CSD-modified CR。", "本文件不是当前全局结构主库，也不直接等于吸附标签。", "Stage 1 gas linkage", "legacy linked sample"],
     ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。", "Stage 1 screening", "benchmark-backed"],
     ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是入围候选比较代理层，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
     ["Gas adsorption v2", "气体吸附 v2.1", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB 等温线 JSON 采集，保留 experimental/computed/seed/computed-IAST dataGrade、isotherm、字段级 provenance。", `v2.1：IAST ${v21IastCount} 条；结构链接 ${v21IdentityLinkedCount} 条；代理验证 ${v21ProxyStatus}。`, "Stage 1 screening", "source-backed"],
     ["Gas v2.1 reports", "气体 v2.1 派生报告", v21DerivedReportCount, "public/data/gas_adsorption_v2_1_iast_report.json + identity/proxy reports", "IAST 选择性、实体解析、结构代理 Spearman 和重复记录审计均为可追溯派生结果。", `重复审计：精确重复 ${datasets.duplicateReport?.exactDuplicateCount ?? 0} 条；同 MOF/温度重复多因气对/条件/来源不同而保留。`, "Stage 1 validation", "computed / audit"],
-    ["Detailed engineering inventory", "详细工程清单", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "正式工艺路线、供应商价格、区域电网和放大经济性。", "当前尚未实现。", "Future Stage 4", "future engineering-grade"],
+    ["FAIR-MOFs", "FAIR-MOFs 合成条件与物化性质", fairMofsCount, "public/data/data_ingestion/fair_mofs_import_v1.json + fair_mofs_property_index_v1.json", `4,168 条报道合成条件与 DOI 上下文；当前精确 Refcode 结构匹配 ${fairExactCount} 条，含孔隙字段 ${fairPropertyCount} 条。`, "文本挖掘字段需要回查原文；基础 Refcode 变体和同 DOI 只作关联，不证明精确结构同一；未复制 CIF 归档。", "Stage 1 evidence", "source-backed / text-mined"],
   ] : [
-    ["MOF structures", "MOF structures", datasets.structures.length, "public/data/mof_structures.json", "Identity, topology, PLD/LCD, BET, pore volume, density, OMS, CIF/source metadata.", "Structure libraries provide descriptors; they are not adsorption labels.", "Stage 1 screening", "benchmark-backed"],
+    ["MOF structures", "Gas-module structure-link sample", datasets.structures.length, "public/data/mof_structures.json", "A legacy small structure-link layer used for gas-adsorption entity resolution; the active global structure source is 9,835 real CoRE MOF 2024 CSD-modified CR records.", "This file is not the active global structure corpus and is not an adsorption-label library.", "Stage 1 gas linkage", "legacy linked sample"],
     ["Adsorption labels", "Adsorption labels", datasets.labels.length, "public/data/adsorption_labels.json", "Gas pair, temperature, pressure, loading, Henry constants, selectivity, method, DOI/source.", "Adsorption training depends on this layer and should be replaced with verified NIST/GCMC/literature labels.", "Stage 1 screening", "benchmark-backed"],
     ["Linker cost band / availability", "Linker cost band / availability", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "Prices are stored as USD seed values; the UI supports static display conversion across major currencies.", "Not live market pricing and not supplier quotations.", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "Proxy LCA inventory", datasets.inventory.length, "public/data/lca_inventory.json", "Material, solvent, energy, water, waste, price, unit, uncertainty, and replacement pathway.", "Current values are shortlist-comparison proxies, not a full ecoinvent/openLCA industrial inventory.", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "Isotherm points", datasets.isotherms.length, "public/data/isotherms.json", "Multi-temperature pressure-loading points for Langmuir fitting, Henry, IAST/Qst workflow scaffolding.", "Research-grade Qst still requires real experimental or GCMC multi-temperature pure-component isotherms.", "Stage 1 interpretation", "comparative"],
     ["Gas adsorption v2", "Gas adsorption v2.1", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB isotherm ingestion with experimental/computed/seed/computed-IAST dataGrade, isotherm arrays, and field-level provenance.", `v2.1: ${v21IastCount} IAST values; ${v21IdentityLinkedCount} gas records linked to structures; proxy validation ${v21ProxyStatus}.`, "Stage 1 screening", "source-backed"],
     ["Gas v2.1 reports", "Gas v2.1 derived reports", v21DerivedReportCount, "public/data/gas_adsorption_v2_1_iast_report.json + identity/proxy reports", "Traceable derived outputs for IAST selectivity, identity resolution, structure-proxy Spearman, and duplicate auditing.", `Duplicate audit: ${datasets.duplicateReport?.exactDuplicateCount ?? 0} exact duplicates; same-MOF/temperature repeats are retained when gas pair, condition, or source differs.`, "Stage 1 validation", "computed / audit"],
-    ["Detailed engineering inventory", "Detailed engineering inventory", datasets.manifest?.rows ?? "—", "future openLCA / ecoinvent mapping", "Formal process routes, supplier prices, regional grids, and scale-up economics.", "Not implemented in the current prototype.", "Future Stage 4", "future engineering-grade"],
+    ["FAIR-MOFs", "FAIR-MOFs conditions & properties", fairMofsCount, "public/data/data_ingestion/fair_mofs_import_v1.json + fair_mofs_property_index_v1.json", `4,168 reported synthesis-condition records with DOI context; ${fairExactCount} exact Refcode structure matches and ${fairPropertyCount} records with pore fields are currently available.`, "Text-mined fields require source-paper review; base-Refcode variants and shared DOI are associations, not exact structure identity; no CIF archive is copied.", "Stage 1 evidence", "source-backed / text-mined"],
   ]
 
   return (
@@ -146,19 +153,21 @@ export function DataSourcesTab() {
               </thead>
               <tbody>
                 {(lang === "zh" ? [
-                  ["结构", `${datasets.structures.length || "种子"} 条`, "0-1 级", "导入 CoRE 2019/2024 CIF，统一 Zeo++ 描述符。"],
+                  ["结构主库", "9,835 条", "真实来源记录", "CoRE MOF 2024 CSD-modified CR 已接入；NCR 与旧伪数据已隔离。"],
+                  ["FAIR-MOFs", `${fairMofsCount} 条`, "1 级 / 文本挖掘", `精确 Refcode ${fairExactCount} 条；EcoScreen 可查物化性质，论文级关联不冒充结构同一。`],
                   ["吸附标签", `${datasets.labels.length || "种子"} 条`, "0-1 级", "收集 NIST/文献/GCMC 等温线、Henry 和 IAST 标签。"],
                   ["IAST 选择性", `${v21IastCount} 条`, "2 级", "继续补真实混合/突破曲线验证，避免把 IAST 当实验选择性。"],
-                  ["实体解析", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "种子"} 条`, "1-2 级", "人工复核 matched-by-composition 候选，补 CoRE/QMOF 原始 ID。"],
+                  ["实体解析", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "种子"} 条`, "1-2 级", "把气体模块记录映射到真实 CoRE CSD refcode / CoRE ID。"],
                   ["结构代理验证", `${v21ProxyPairCount} 对`, v21ProxyStatus, "仅作为 Spearman 指示性审计，不作为吸附预测。"],
                   ["LCA 清单", `${datasets.inventory.length || "种子"} 条`, "0 级", "替换为 ecoinvent/openLCA 或论文可追溯清单。"],
                   ["LCC 价格", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "种子"} 条`, "0 级", "替换为供应商报价、价格数据库或明确日期的市场价。"],
                   ["验证", `${datasets.manifest?.rows ?? "种子"} 行`, "0-1 级", "建立冻结外部测试集和版本化指标。"],
                 ] : [
-                  ["Structures", `${datasets.structures.length || "seed"} records`, "Level 0-1", "Import CoRE 2019/2024 CIFs and unified Zeo++ descriptors."],
+                  ["Structure corpus", "9,835 records", "Real source rows", "CoRE MOF 2024 CSD-modified CR is active; NCR and legacy placeholders are quarantined."],
+                  ["FAIR-MOFs", `${fairMofsCount} records`, "Level 1 / text-mined", `${fairExactCount} exact Refcode matches; EcoScreen exposes properties without treating article-level association as exact structure identity.`],
                   ["Adsorption labels", `${datasets.labels.length || "seed"} records`, "Level 0-1", "Collect NIST/literature/GCMC isotherms, Henry constants, and IAST labels."],
                   ["IAST selectivity", `${v21IastCount} records`, "Level 2", "Add real mixture/breakthrough validation and keep IAST separate from experimental selectivity."],
-                  ["Identity resolution", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "seed"} records`, "Level 1-2", "Manually review matched-by-composition candidates and add original CoRE/QMOF IDs."],
+                  ["Identity resolution", `${v21IdentityLinkedCount}/${v21IdentityTotalCount || "seed"} records`, "Level 1-2", "Map gas-module records to real CoRE CSD refcodes / CoRE IDs."],
                   ["Structure proxy validation", `${v21ProxyPairCount} pairs`, v21ProxyStatus, "Spearman audit only; not an adsorption prediction layer."],
                   ["LCA inventory", `${datasets.inventory.length || "seed"} records`, "Level 0", "Replace with ecoinvent/openLCA or literature-traceable LCI."],
                   ["LCC prices", `${datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length || "seed"} records`, "Level 0", "Replace with supplier quotations, price databases, or date-stamped market prices."],
@@ -216,7 +225,7 @@ export function DataSourcesTab() {
         </div>
         <div style={cardStyle}>
           <SectionTitle>{lang === "zh" ? "当前覆盖与限制" : "Coverage & Limitations"}</SectionTitle>
-          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>{lang === "zh" ? "当前公开 JSON 是小型 seed 数据，用于演示工作流、UI 连接和 schema。它能支持可追溯展示，但还不能支撑严格模型泛化结论。下一步应导入 CoRE/QMOF CIF，计算描述符，收集或生成气体吸附标签，并按气体体系分别训练。" : "Current public JSON files are small seed datasets for workflow, UI connection, and schema demonstration. They support traceable display, but not strict model-generalization claims."}</div>
+          <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.7 }}>{lang === "zh" ? "结构主库现为 9,835 条真实 CoRE MOF 2024 CSD-modified CR 记录，并已用于候选检索、结构索引和路线家族统计。气体吸附标签、LCA/LCC、实验验证等任务层仍是独立数据层，其中部分仍为 seed、代理或有限样本，不能因结构库扩充而自动视为模型已验证。" : "The active structure corpus contains 9,835 real CoRE MOF 2024 CSD-modified CR records used by candidate search, the structure index, and route-family statistics. Gas labels, LCA/LCC, and experimental validation remain separate task layers; some are still seed, proxy, or limited-sample data and are not automatically validated by the larger structure corpus."}</div>
         </div>
       </div>
     </div>

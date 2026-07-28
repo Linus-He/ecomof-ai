@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import { HASH_TO_TAB, getHashMeta, normalizeHash } from "../../utils/deepLinks"
 
 describe("deep links", () => {
-  it("routes V2.8 Algorithm Validation Center figure anchors to Methods & Evidence", () => {
+  it("routes V2.8 Algorithm Validation Center figure anchors to Methodology", () => {
     const algorithmValidationHashes = [
       "methodology-algorithm-validation",
       "algval-figure",
@@ -36,7 +36,7 @@ describe("deep links", () => {
     expect(HASH_TO_TAB["project-evolution"]).toBe("projectEvolution")
     expect(HASH_TO_TAB["project-evolution-version-timeline"]).toBe("projectEvolution")
     expect(normalizeHash("#project-evolution")).toBe("project-evolution")
-    expect(getHashMeta("project-evolution").title).toMatch(/Project Evolution/i)
+    expect(getHashMeta("project-evolution").title).toMatch(/项目演化/i)
   })
 
   it("retires Research Reports as a first-level tab", () => {

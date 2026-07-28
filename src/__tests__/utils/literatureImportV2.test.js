@@ -4,9 +4,10 @@ import literature from "../../../public/data/organic_acid_literature_dataset_v3.
 import { importOrganicAcidLiterature, mapLiteratureRow } from "../../utils/dataIngestion/importOrganicAcidLiteratureV2"
 
 describe("Organic Acid literature import (V2)", () => {
-  it("ingests at least 500 literature-curated records", () => {
-    expect(literature.total).toBeGreaterThanOrEqual(500)
-    expect(literature.records.every(r => r.datasetOrigin === "literature_curated")).toBe(true)
+  it("quarantines the legacy generated V3.3 literature rows", () => {
+    expect(literature.total).toBe(0)
+    expect(literature.records).toEqual([])
+    expect(literature.status).toBe("quarantined")
   })
 
   it("keeps records with a real DOI + all critical fields Gold-eligible", () => {

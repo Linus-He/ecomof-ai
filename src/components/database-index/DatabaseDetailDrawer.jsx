@@ -284,8 +284,8 @@ export function DatabaseDetailDrawer({ request, curationRecords = null, evidence
         <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.48, margin: 0 }}>
           <ChemicalText value={text(
             lang,
-            "该详情来自 database_index_preview 的按需记录。缺失 DOI、citation 或 license 时显示证据待核验，不伪造来源；本块不是经完整验证的全量数据库筛选结论。",
-            "This detail comes from an on-demand database_index_preview record. Missing DOI, citation, or license remains evidence pending; no source is fabricated. This block is not a full verified database screening result."
+            "该详情来自真实 CoRE MOF 2024 CR 索引的按需记录。缺失 DOI、citation 或 license 时显示证据待核验，不伪造来源；结构记录真实并不等于催化性能已经验证。",
+            "This on-demand detail comes from the real CoRE MOF 2024 CR index. Missing DOI, citation, or license remains evidence pending and is never fabricated; a real structure record does not mean catalytic performance is validated."
           )} />
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>

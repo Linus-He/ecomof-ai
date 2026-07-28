@@ -10,19 +10,16 @@ import { GlobalDatabaseSummaryCard } from "./GlobalDatabaseSummaryCard"
 
 // Registry id -> data path for the lighter, high-signal sources.
 const FETCH_MAP: Array<[string, string]> = [
+  ["core-mof", "core_mof_2024/summary.json"],
+  ["fair-mofs", "data_ingestion/fair_mofs_import_v1.json"],
+  ["gas-adsorption-v2", "gas_adsorption_records_v2.json"],
   ["experimental-labels", "experimental_labels/experimental_labels_v2.json"],
-  ["external-test", "external_test_dataset_v2.json"],
   ["benchmark-eligible", "benchmark_dataset_v3_6.json"],
-  ["source-registry", "data_ingestion/source_registry.json"],
-  ["version-evolution", "version_evolution_records.json"],
-  ["version-docs", "organic_acid_final_screening/version_docs.json"],
-  ["oa-graph", "organic_acid_pathway_graph.json"],
-  ["oa-evidence", "organic_acid_evidence_items.json"],
-  ["gas-sources", "gas_adsorption_sources_v1.json"],
 ]
+const ACTIVE_SOURCE_IDS = FETCH_MAP.map(([id]) => id)
 
 export function GlobalDatabaseSummarySection({ lang = "en", t, isMobile = false, dataVersion = "V3.9.1" }: any) {
-  const [summary, setSummary] = useState(() => buildGlobalDatabaseSummary({ loaded: {}, dataVersion }))
+  const [summary, setSummary] = useState(() => buildGlobalDatabaseSummary({ loaded: {}, activeSourceIds: ACTIVE_SOURCE_IDS, dataVersion }))
 
   useEffect(() => {
     let active = true
@@ -31,9 +28,9 @@ export function GlobalDatabaseSummarySection({ lang = "en", t, isMobile = false,
         if (!active) return
         const loaded: Record<string, any> = {}
         FETCH_MAP.forEach(([id], i) => { if (results[i] != null) loaded[id] = results[i] })
-        setSummary(buildGlobalDatabaseSummary({ loaded, dataVersion }))
+        setSummary(buildGlobalDatabaseSummary({ loaded, activeSourceIds: ACTIVE_SOURCE_IDS, dataVersion }))
       })
-      .catch(() => { if (active) setSummary(buildGlobalDatabaseSummary({ loaded: {}, dataVersion })) })
+      .catch(() => { if (active) setSummary(buildGlobalDatabaseSummary({ loaded: {}, activeSourceIds: ACTIVE_SOURCE_IDS, dataVersion })) })
     return () => { active = false }
   }, [dataVersion])
 

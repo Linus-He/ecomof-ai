@@ -17,9 +17,9 @@ const descriptorStates = [
 function SourceFlow({ lang, compact }) {
   const items = [
     ["CoRE", "CoRE"],
-    ["QMOF", "QMOF"],
+    ["FAIR-MOFs", "FAIR-MOFs"],
     ["CIF", "CIF"],
-    [text(lang, "文献", "Literature"), "Literature"],
+    [text(lang, "气体吸附", "Gas adsorption"), "Gas adsorption"],
   ]
   return (
     <div className="workflow-source-flow" data-compact={compact ? "true" : "false"}>

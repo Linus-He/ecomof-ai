@@ -1,12 +1,12 @@
 {
-  "totalRecords": 500,
-  "withSourceDatabase": 500,
-  "withSourceRecordId": 500,
-  "withSourceDoi": 0,
-  "withCitation": 0,
-  "withLicense": 0,
-  "fieldSourceCoveragePercent": 42,
-  "doiCoveragePercent": 0,
-  "evidenceIdsCoveragePercent": 2.4,
-  "warning": "DOI coverage is low in index preview. Missing DOI is evidence pending, not schema failure."
+  "totalRecords": 9835,
+  "withSourceDatabase": 9835,
+  "withSourceRecordId": 9835,
+  "withSourceDoi": 9835,
+  "withCitation": 9835,
+  "withLicense": 9835,
+  "fieldSourceCoveragePercent": 100,
+  "doiCoveragePercent": 100,
+  "evidenceIdsCoveragePercent": 0,
+  "warning": "Source identity is complete; catalytic evidence and route-modified CIFs remain separate and are not inferred."
 }

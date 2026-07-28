@@ -13,7 +13,7 @@ export const UI_COPY = {
     plan: { zh: "规划", en: "Plan" },
     viewValidation: { zh: "查看验证", en: "View validation" },
     readMethodology: { zh: "阅读方法论", en: "Read methodology" },
-    viewMethodEvidence: { zh: "查看方法与证据说明", en: "View methods and evidence notes" },
+    viewMethodEvidence: { zh: "查看方法论", en: "View methodology" },
     enterComparator: { zh: "进入对比器", en: "Enter comparator" },
     collaborationContact: { zh: "合作联系", en: "Collaboration contact" },
     enterGasSep: { zh: "进入 GasSep", en: "Enter GasSep" },

@@ -17,8 +17,8 @@ export function CatalysisCurationLayer({ lang, t }) {
         <Card title={lang === "zh" ? "案例研究：生物质辅助 CO₂ / HCO₃⁻ 转化" : "Case study: biomass-assisted CO₂ / HCO₃⁻ conversion"} t={t} accent>
           <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {lang === "zh"
-              ? "该案例用于测试有机酸路径的字段整理、条件语境和可比性判断。甲酸、乳酸、乙酸和乙醇酸是产物家族（product family）示例，不是整个 CatalysisLab 的唯一主线。"
-              : "This case tests field curation, condition context, and comparability for organic-acid pathways. Formic, lactic, acetic, and glycolic acids are product-family examples, not the whole Catalysis Lab scope."}
+              ? "该案例用于测试有机酸路径的字段整理、条件语境和可比性判断。甲酸、乳酸、乙酸和乙醇酸是产物家族（product family）示例，不是整个催化模块的唯一主线。"
+              : "This case tests field curation, condition context, and comparability for organic-acid pathways. Formic, lactic, acetic, and glycolic acids are product-family examples, not the whole Catalysis scope."}
           </div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
             {(lang === "zh"

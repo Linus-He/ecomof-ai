@@ -102,12 +102,14 @@ function ProvenanceChip({ field, label, source, lang, t }) {
 function DatabaseLayer({ summary, readiness, dataFoundation, dataIngestion, lang, t, isMobile }) {
   const provenance = Number(summary.fieldProvenanceCoverage ?? summary.provenanceCoverage ?? readiness.fieldProvenanceCoverage ?? 1)
   const fields = ["totalCandidates", "verifiedMetadataCount", "provenanceCoverage", "previewStatus"]
+  const activeCandidateCount = dataIngestion?.coreCount ?? summary.totalCandidates ?? readiness.datasetSize ?? 0
+  const activeVerifiedMetadataCount = dataIngestion?.verifiedMetadataCount ?? summary.verifiedMetadataCount ?? readiness.verifiedMetadataCount ?? 0
   const originCells = dataIngestion ? [
-    ["External Database", dataIngestion.externalDatabaseCount, dataIngestion.targets.coreMof + dataIngestion.targets.qmof],
-    ["Literature", dataIngestion.literatureCount, dataIngestion.targets.literature],
-    ["Experimental", dataIngestion.experimentalCount, 0],
-    ["Derived", dataIngestion.derivedCount, dataIngestion.targets.reactionDataset],
-  ] : []
+    ["External Database", dataIngestion.externalDatabaseCount, dataIngestion.targets.coreMof, "active"],
+    ["Literature", dataIngestion.literatureCount, dataIngestion.targets.literature, dataIngestion.availability?.literature?.status],
+    ["Experimental", dataIngestion.experimentalCount, 0, "separate-layer"],
+    ["Derived", dataIngestion.derivedCount, dataIngestion.targets.reactionDataset, dataIngestion.availability?.reactionDataset?.status],
+  ].filter(([, current]) => Number(current) > 0) : []
   return (
     <LayerCard
       id="algval-database"
@@ -118,28 +120,31 @@ function DatabaseLayer({ summary, readiness, dataFoundation, dataIngestion, lang
       t={t}
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <Metric label={text(lang, "候选总数", "Candidates")} value={summary.totalCandidates ?? readiness.datasetSize ?? 0} t={t} />
-        <Metric label={text(lang, "已核验元数据", "Verified Metadata")} value={summary.verifiedMetadataCount ?? readiness.verifiedMetadataCount ?? 0} t={t} tone="pass" />
+        <Metric label={text(lang, "候选总数", "Candidates")} value={activeCandidateCount} t={t} />
+        <Metric label={text(lang, "已核验结构元数据", "Verified Structural Metadata")} value={activeVerifiedMetadataCount} t={t} tone="pass" />
         <Metric label={text(lang, "来源覆盖率", "Provenance Coverage")} value={pct(provenance)} t={t} tone="pass" />
-        <Metric label={text(lang, "预览状态", "Preview Status")} value={text(lang, "数据库预览", "Database Preview")} t={t} tone="warn" />
+        <Metric label={text(lang, "结构来源", "Structure Source")} value={text(lang, "真实 CoRE 2024 CR", "Real CoRE 2024 CR")} t={t} tone="pass" />
       </div>
       {dataFoundation ? (
-        <div data-testid="algval-data-foundation" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
-          <Metric label={text(lang, "Gold 数据集", "Gold Dataset")} value={`${dataFoundation.goldCount}${dataFoundation.goldSufficient ? "" : text(lang, " · 不足", " · insufficient")}`} t={t} tone={dataFoundation.goldSufficient ? "pass" : "warn"} />
-          <Metric label={text(lang, "文献数据集", "Literature Dataset")} value={dataFoundation.literatureCount} t={t} />
-          <Metric label={text(lang, "反应数据数", "Reaction Dataset Count")} value={dataFoundation.reactionDatasetCount || 0} t={t} tone={dataFoundation.reactionDatasetCount >= dataFoundation.targets?.reactionDataset ? "pass" : "warn"} />
-          <Metric label={text(lang, "Benchmark 数据集", "Benchmark Dataset")} value={dataFoundation.benchmarkCount} t={t} />
-          <Metric label={text(lang, "标签数量", "Label Count")} value={dataFoundation.labelCount} t={t} tone={dataFoundation.labelCount > 0 ? "pass" : "warn"} />
-          <Metric label={text(lang, "Benchmark 就绪", "Benchmark Eligible")} value={dataFoundation.benchmarkEligibleCount} t={t} tone={dataFoundation.benchmarkEligibleCount > 0 ? "pass" : "warn"} />
-          <Metric label={text(lang, "当前 / 目标 / 缺口", "Current / Target / Gap")} value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} />
+        <div data-testid="algval-data-foundation" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
+          {Number(dataFoundation.benchmarkCount) > 0 ? <Metric label={text(lang, "Benchmark 数据集", "Benchmark Dataset")} value={dataFoundation.benchmarkCount} t={t} /> : null}
+          {Number(dataFoundation.labelCount) > 0 ? <Metric label={text(lang, "标签数量", "Label Count")} value={dataFoundation.labelCount} t={t} tone="pass" /> : null}
+          {Number(dataFoundation.benchmarkEligibleCount) > 0 ? <Metric label={text(lang, "Benchmark 就绪", "Benchmark Eligible")} value={dataFoundation.benchmarkEligibleCount} t={t} tone="pass" /> : null}
+          {Number(dataFoundation.labelCount) > 0 ? <Metric label={text(lang, "当前 / 目标 / 缺口", "Current / Target / Gap")} value={`${dataFoundation.labelCount} / ${dataFoundation.targets?.labelCount || 30} / ${dataFoundation.gaps?.labelCount || 0}`} t={t} tone={dataFoundation.gaps?.labelCount ? "warn" : "pass"} /> : null}
         </div>
       ) : null}
       {dataIngestion ? (
         <div data-testid="algval-data-source-stats" style={{ display: "grid", gap: 8 }}>
           <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "数据来源（Current / Target / Gap）", "Data Source (Current / Target / Gap)")}</strong>
           <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-            {originCells.map(([label, current, target]) => (
-              <Metric key={label} label={label} value={`${current} / ${target} / ${Math.max(0, target - current)}`} t={t} tone={current >= target ? "pass" : "warn"} />
+            {originCells.map(([label, current, target, status]) => (
+              <Metric
+                key={label}
+                label={label}
+                value={status === "quarantined" ? `${current} · quarantined` : `${current} / ${target} / ${Math.max(0, target - current)}`}
+                t={t}
+                tone={status === "quarantined" ? "warn" : current >= target ? "pass" : "warn"}
+              />
             ))}
           </div>
           <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.45 }}>
@@ -450,10 +455,8 @@ function DataAuditCenter({ dataAudit, lang, t, isMobile }) {
   if (!dataAudit) return null
   const a = dataAudit.audits
   const cards = [
-    { title: text(lang, "Gold Dataset Audit", "Gold Dataset Audit"), status: a.gold.status, lines: [`Pass rate ${Math.round(a.gold.auditPassRate * 100)}% / ${a.gold.sampleSize} sampled`, `Fail ${a.gold.failCount}`] },
     { title: text(lang, "Label Audit", "Label Audit"), status: a.label.status, lines: [`Experimental ${a.label.realExperimentalLabelCount} · Dataset-derived ${a.label.datasetDerivedCount}`, `Invalid ground truth ${a.label.invalidGroundTruthCount}`] },
     { title: text(lang, "Benchmark Eligibility Audit", "Benchmark Eligibility Audit"), status: a.benchmarkEligibility.status, lines: [`Confirmed ${a.benchmarkEligibility.eligibleConfirmed}`, `Rejected ${a.benchmarkEligibility.eligibleRejected} · Warnings ${a.benchmarkEligibility.eligibleWarnings}`] },
-    { title: text(lang, "Reaction Audit", "Reaction Audit"), status: a.reaction.status, lines: [`Comparable ${a.reaction.comparabilityDistribution.Comparable}`, `Partial ${a.reaction.comparabilityDistribution.PartiallyComparable} · Not ${a.reaction.comparabilityDistribution.NotComparable}`] },
     { title: text(lang, "Provenance Audit", "Provenance Audit"), status: a.provenance.status, lines: [`Coverage ${Math.round(a.provenance.provenanceCoverageScore * 100)}%`, `DOI ${Math.round(a.provenance.doiCoverage * 100)}% · Citation ${Math.round(a.provenance.citationCoverage * 100)}%`] },
     { title: text(lang, "Data Leakage Audit", "Data Leakage Audit"), status: a.leakage.status, lines: [`Leak count ${a.leakage.leakCount} · severity ${a.leakage.leakSeverity}`, `Shared-DOI warnings ${a.leakage.sharedDoiWarnings?.length || 0}`] },
   ]
@@ -463,7 +466,7 @@ function DataAuditCenter({ dataAudit, lang, t, isMobile }) {
       status={dataAudit.overallStatus}
       eyebrow="Data Audit Center"
       title={text(lang, "数据审计中心", "Data Audit Center")}
-      subtitle={text(lang, "审计 Gold / Label / Benchmark / Reaction / Provenance / Leakage，输出 Pass / Warning / Fail。", "Audits Gold / Label / Benchmark / Reaction / Provenance / Leakage and outputs Pass / Warning / Fail.")}
+      subtitle={text(lang, "审计当前可用的 Label / Benchmark / Provenance / Leakage，输出 Pass / Warning / Fail。", "Audits the active Label / Benchmark / Provenance / Leakage layers and outputs Pass / Warning / Fail.")}
       t={t}
     >
       <div data-testid="audit-dashboard" style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
@@ -520,7 +523,6 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
   const algorithm = organicAcidResult?.organicAcidAlgorithm || organicAcidResult || {}
   const safeSummary = summary && typeof summary === "object" ? summary : {}
   const readiness = useMemo(() => buildBenchmarkReadiness({ summary: safeSummary, algorithm }), [safeSummary, algorithm])
-  const goldInsufficient = dataFoundation && !dataFoundation.goldSufficient
 
   return (
     <section
@@ -534,17 +536,11 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
         <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.6, margin: 0, maxWidth: 980 }}>
           {text(
             lang,
-            "V3.1 接入反应数据、Gold v2、Label v2 与 Benchmark v2；方法论主图继续保持交互式科研图，同时显示 Current / Target / Gap 和 Accuracy / ROC-AUC Pending 边界。",
-            "V3.1 connects reaction data, Gold v2, Label v2, and Benchmark v2; the methodology figure remains interactive while showing Current / Target / Gap and the Accuracy / ROC-AUC Pending boundary."
+            "当前结构层使用 9,835 条真实 CoRE MOF 2024 CSD-modified CR；FAIR-MOFs 补充合成条件、DOI 与部分物化性质。实验标签与 Benchmark 是独立验证层，不会因结构库扩充而自动变成实验验证结果。",
+            "The active structural layer uses 9,835 real CoRE MOF 2024 CSD-modified CR records, with FAIR-MOFs adding synthesis conditions, DOI links, and selected physicochemical properties. Experimental labels and Benchmark remain independent validation layers."
           )}
         </p>
       </header>
-
-      {goldInsufficient ? (
-        <div data-testid="algval-gold-insufficient" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.warn, fontSize: 12.3, fontWeight: 800, lineHeight: 1.5, padding: 11 }}>
-          {text(lang, `Gold Dataset Insufficient · 高质量数据不足（Gold ${dataFoundation.goldCount} / 阈值 ${dataFoundation.goldThreshold}）。Organic Acid 算法优先读取 Gold Dataset 做 Sanity Check / Weight Calibration / Candidate Review / Sensitivity Analysis。`, `Gold Dataset Insufficient (Gold ${dataFoundation.goldCount} / threshold ${dataFoundation.goldThreshold}). The Organic Acid algorithm prefers the Gold Dataset for sanity check, weight calibration, candidate review, and sensitivity analysis.`)}
-        </div>
-      ) : null}
 
       <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} dataAudit={dataAudit} firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
 

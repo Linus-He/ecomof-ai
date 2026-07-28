@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00008",
+  "frameworkId": "coremof2024-csdm-00008",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2011[Ce][nan]3[ASR]1",
+  "displayName": "ABEXIQ",
+  "commonName": "ABEXIQ",
+  "csdRefcode": "ABEXIQ",
+  "coreId": "2011[Ce][nan]3[ASR]1",
+  "metals": [
+    "Ce"
+  ],
+  "hasAlNode": false,
+  "topology": "unnamed",
+  "surfaceArea": 522.926,
+  "pldA": 4.0755,
+  "lcdA": 4.79918,
+  "poreVolume": 0.273775,
+  "density": 1.7876,
+  "voidFraction": 0.4894,
+  "waterStability": 0.83962963,
+  "thermalStability": 334.4,
+  "sourceDoi": "10.1021/ic201013v",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2011[Ce][nan]3[ASR]1; DOI 10.1021/ic201013v.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00008.json",
+  "descriptors": {
+    "surfaceArea": 522.926,
+    "pldA": 4.0755,
+    "lcdA": 4.79918,
+    "poreVolume": 0.273775,
+    "density": 1.7876,
+    "voidFraction": 0.4894,
+    "waterStability": 0.83962963,
+    "thermalStability": 334.4
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

@@ -36,7 +36,7 @@ export function PresetSearchControl({
       return
     }
     if (suggestions[0]) {
-      applyPreset(suggestions[0])
+      applyPreset(typeof suggestions[0] === "object" ? suggestions[0].value : suggestions[0])
       return
     }
     setStatus("miss")
@@ -90,12 +90,17 @@ export function PresetSearchControl({
             zIndex: 120,
             boxShadow: t.shadowSm,
           }}>
-            {suggestions.map((name, index) => (
+            {suggestions.map((suggestion, index) => {
+              const value = typeof suggestion === "object" ? suggestion.value : suggestion
+              const label = typeof suggestion === "object" ? suggestion.label : suggestion
+              const meta = typeof suggestion === "object" ? suggestion.meta : null
+              const preset = MOF_PRESETS[value]
+              return (
               <button
-                key={name}
+                key={value}
                 type="button"
                 onMouseDown={e => e.preventDefault()}
-                onClick={() => applyPreset(name)}
+                onClick={() => applyPreset(value)}
                 style={{
                   width: "100%",
                   textAlign: "left",
@@ -109,12 +114,13 @@ export function PresetSearchControl({
                   fontFamily: FONT_SANS,
                 }}
               >
-                {name}
-                <span style={{ color: t.faint, fontSize: 10 }}>
-                  {" "}· {MOF_PRESETS[name].metalCenter} · {MOF_PRESETS[name].organicLinker}
-                </span>
+                {label}
+                {(meta || preset) ? <span style={{ color: t.faint, fontSize: 10 }}>
+                  {" "}· {meta || `${preset.metalCenter} · ${preset.organicLinker}`}
+                </span> : null}
               </button>
-            ))}
+              )
+            })}
           </div>
         )}
         {status === "loaded" && (
@@ -369,7 +375,7 @@ export function ContextualHeaderBar({
   const resourceSubtabs = [
     { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
     { id: "literature", label: lang === "zh" ? "数据库" : "Database" },
-    { id: "methods", label: lang === "zh" ? "方法与证据" : "Methods & Evidence" },
+    { id: "methods", label: lang === "zh" ? "方法论" : "Methodology" },
   ]
   const selectedComparison = comparisonCandidates.find(item => item.id === comparisonFocusId)
 
@@ -387,7 +393,7 @@ export function ContextualHeaderBar({
           {lang === "zh" ? "EcoScreen 候选评分" : "EcoScreen"}
         </button>
         <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
-          {lang === "zh" ? "MOF 候选库" : "MOF Library"}
+          {lang === "zh" ? "MOF库" : "MOF Library"}
         </button>
       </div>
     )
@@ -457,7 +463,7 @@ export function ContextualHeaderBar({
     return (
       <div style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "催化实验室当前以演示记录展示催化任务和证据整理流程。" : "CatalysisLab is in demonstration mode with placeholder records for task and evidence exploration."}
+          {lang === "zh" ? "催化模块用于比较反应路径证据、条件可比性与待验证候选；演示记录会明确标注证据边界。" : "Catalysis compares pathway evidence, condition comparability, and candidates awaiting validation; demonstration records keep their evidence boundaries visible."}
         </div>
         <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
           {lang === "zh" ? "阅读方法论" : "Read methodology"}

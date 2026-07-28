@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00018",
+  "frameworkId": "coremof2024-csdm-00018",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2006[Co][dia]3[ASR]1",
+  "displayName": "MOF-CJ5",
+  "commonName": "MOF-CJ5",
+  "csdRefcode": "ACIBIY",
+  "coreId": "2006[Co][dia]3[ASR]1",
+  "metals": [
+    "Co"
+  ],
+  "hasAlNode": false,
+  "topology": "dia",
+  "surfaceArea": 532.984,
+  "pldA": 3.72883,
+  "lcdA": 5.1113,
+  "poreVolume": 0.267988,
+  "density": 1.73515,
+  "voidFraction": 0.465,
+  "waterStability": 0.622428571,
+  "thermalStability": 363,
+  "sourceDoi": "10.1016/j.micromeso.2005.11.049",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2006[Co][dia]3[ASR]1; DOI 10.1016/j.micromeso.2005.11.049.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00018.json",
+  "descriptors": {
+    "surfaceArea": 532.984,
+    "pldA": 3.72883,
+    "lcdA": 5.1113,
+    "poreVolume": 0.267988,
+    "density": 1.73515,
+    "voidFraction": 0.465,
+    "waterStability": 0.622428571,
+    "thermalStability": 363
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

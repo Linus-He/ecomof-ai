@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "database-compliance-registry-v1",
+  "version": "V1.0",
+  "termsCheckedAt": "2026-07-28",
+  "operatingMode": {
+    "zh": "EcoMOF-AI 当前按非商业开放研究网站运行。",
+    "en": "EcoMOF-AI currently operates as a non-commercial open research website."
+  },
+  "statusStatement": {
+    "zh": "截至 2026-07-28，当前公开接入的数据均已通过本项目的来源、许可、署名、变更说明与再分发边界检查。本结论仅针对下列版本和当前使用方式，不是法律意见、官方认证或永久性保证；条款或使用场景变化时必须重新复核。",
+    "en": "As of 2026-07-28, every currently published ingestion has passed this project's checks for source, licence, attribution, change notices, and redistribution boundaries. This statement is limited to the versions and uses listed below; it is not legal advice, official certification, or a permanent guarantee. Terms and changed use cases must be reviewed again."
+  },
+  "accessBoundary": {
+    "zh": "访问本网站不等于获得任何数据库的商业许可、再许可或超出原许可的权利。每个数据对象继续受其来源许可、合同条款、论文版权及其他适用权利约束。",
+    "en": "Access to this website does not grant a commercial licence, sublicence, or any right beyond the source terms. Each data object remains subject to its source licence, contractual terms, article copyright, and other applicable rights."
+  },
+  "notLegalAdvice": {
+    "zh": "本页是项目级合规说明与使用提示，不替代律师意见、机构许可审查或 CCDC/数据发布方的书面确认。",
+    "en": "This page is a project compliance statement and use notice. It does not replace legal advice, institutional licence review, or written confirmation from CCDC or another data publisher."
+  },
+  "platformCommitments": [
+    {
+      "id": "scope",
+      "zh": "只在已记录的来源、版本、许可和用途范围内接入数据；不把“可以访问”解释为“可以任意再分发或商用”。",
+      "en": "Ingest data only within the recorded source, version, licence, and use scope; never treat access as permission for unrestricted redistribution or commercial use."
+    },
+    {
+      "id": "attribution",
+      "zh": "在数据页、来源登记和导出说明中保留数据库名称、发布者、URL/DOI、许可链接与必要署名。",
+      "en": "Preserve database name, publisher, URL/DOI, licence link, and required attribution in data views, source registries, and export notices."
+    },
+    {
+      "id": "changes",
+      "zh": "明确区分原始下载文件、重组索引、字段标准化、派生分数与算法输出，并说明发生过的修改。",
+      "en": "Distinguish original downloads, reorganized indexes, normalized fields, derived scores, and algorithm outputs, and disclose modifications."
+    },
+    {
+      "id": "noncommercial",
+      "zh": "对带 NC 条款的 CSD MOF Collection 与 CoRE-MOF CSD-modified 数据仅作非商业研究用途；商业用途在取得适当书面许可前保持禁用。",
+      "en": "Use NC-licensed CSD MOF Collection and CoRE-MOF CSD-modified data only for non-commercial research; keep commercial use disabled until appropriate written permission is obtained."
+    },
+    {
+      "id": "restricted-csd",
+      "zh": "不公开再分发完整付费 CSD 的原始批量 CIF，也不公开 CoRE-MOF unmodified CSD CIF；这些内容只有在适用 CSD 许可明确允许时才能由许可持有人使用。",
+      "en": "Do not publicly redistribute original bulk CIFs from the full paid CSD or CoRE-MOF unmodified CSD CIFs. Licence holders may use them only where their applicable CSD agreement permits."
+    },
+    {
+      "id": "isolation",
+      "zh": "许可、身份或来源未确认的记录进入隔离区，不参加公开结构浏览、排名或对外导出。",
+      "en": "Quarantine records with unresolved licence, identity, or provenance; exclude them from public structure browsing, ranking, and export."
+    },
+    {
+      "id": "review",
+      "zh": "来源条款、数据版本、运营模式或商业化计划发生变化时重新审查；收到权利人异议时先暂停相关数据并核验。",
+      "en": "Review again when source terms, dataset versions, operating mode, or commercialization plans change; suspend affected data first when a rights-holder concern is received."
+    }
+  ],
+  "userObligations": [
+    {
+      "id": "identify",
+      "level": "required",
+      "zh": "在下载、复制、改编、训练模型、发布结果或再分发前，先确认具体记录来自哪个数据库，并阅读该数据库的当前许可与附加条款。",
+      "en": "Before downloading, copying, adapting, training a model, publishing results, or redistributing, identify the source database for the specific record and read its current licence and additional terms."
+    },
+    {
+      "id": "preserve-notices",
+      "level": "required",
+      "zh": "保留来源名称、发布者、数据集 DOI/URL、许可链接、版权/NOTICE 信息及修改说明；不得移除或弱化原有权利声明。",
+      "en": "Preserve source name, publisher, dataset DOI/URL, licence link, copyright/NOTICE information, and change notices; do not remove or weaken existing rights statements."
+    },
+    {
+      "id": "nc",
+      "level": "required",
+      "zh": "对 CSD MOF Collection 与 CoRE-MOF CSD-modified 数据，不得用于主要意图或目的在于商业利益或金钱补偿的活动；如用途可能涉及商业机构、收费产品、客户交付或商业模型，应先向 CCDC/权利人取得书面确认或适当许可。",
+      "en": "Do not use CSD MOF Collection or CoRE-MOF CSD-modified data for activities primarily intended for commercial advantage or monetary compensation. If use may involve a commercial entity, paid product, client delivery, or commercial model, obtain written confirmation or an appropriate licence from CCDC/rightsholders first."
+    },
+    {
+      "id": "sharealike",
+      "level": "required",
+      "zh": "分发基于 CC BY-NC-SA 4.0 数据制作的适应性材料时，应在许可要求适用的范围内使用同一许可，并保留署名、许可链接和修改说明；不得附加会限制接收者行使许可权利的法律或技术措施。",
+      "en": "When distributing adapted material based on CC BY-NC-SA 4.0 data, apply the same licence where the licence requires it, preserve attribution/licence/change notices, and do not impose legal or technical measures that restrict licensed rights."
+    },
+    {
+      "id": "fair-by",
+      "level": "required",
+      "zh": "再利用 FAIR-MOFs 时应按照 CC BY 4.0 给出适当署名、提供许可链接并注明是否修改；不得暗示作者、Zenodo 或 CCDC 对你的使用、结果或产品背书。",
+      "en": "When reusing FAIR-MOFs under CC BY 4.0, give appropriate credit, link the licence, and indicate changes; do not imply endorsement by the authors, Zenodo, or CCDC."
+    },
+    {
+      "id": "no-rights-expansion",
+      "level": "required",
+      "zh": "不得把 EcoMOF-AI 的索引、界面或导出文件视为对第三方原始数据的重新许可；也不得在冲突许可下重新上传、出售、打包或转授权。",
+      "en": "Do not treat an EcoMOF-AI index, interface, or export as a relicence of third-party source data, and do not re-upload, sell, bundle, or sublicense it under conflicting terms."
+    },
+    {
+      "id": "no-bulk-csd",
+      "level": "required",
+      "zh": "不得通过本网站规避 CSD 许可、批量抓取不允许再分发的 CSD 原始数据，或向无权访问者提供受限的 unmodified/付费 CSD CIF。",
+      "en": "Do not use this site to bypass CSD licensing, bulk-extract CSD source data that may not be redistributed, or provide restricted unmodified/paid-CSD CIFs to unauthorized users."
+    },
+    {
+      "id": "articles",
+      "level": "required",
+      "zh": "DOI、书目信息和数据集许可不自动授予论文全文、图片、补充材料、商标、专利或隐私相关权利；这些权利需单独核验。",
+      "en": "A DOI, bibliographic metadata, or dataset licence does not automatically grant rights to article full text, figures, supplements, trademarks, patents, or privacy-controlled material; review those rights separately."
+    },
+    {
+      "id": "science",
+      "level": "required",
+      "zh": "在科研或工程使用前核验来源论文、实验条件、身份映射和派生方法；数据库记录、文本挖掘字段及算法分数均不构成适用性、安全性或性能保证。",
+      "en": "Before scientific or engineering use, verify the source paper, experimental conditions, identity mapping, and derivation method. Database records, text-mined fields, and algorithm scores are not guarantees of fitness, safety, or performance."
+    },
+    {
+      "id": "responsibility",
+      "level": "notice",
+      "zh": "你对自己的使用场景、机构政策、适用法律和所需许可承担独立判断责任。若不确定，应停止再利用并咨询所属机构、权利人或专业法律顾问。",
+      "en": "You remain responsible for evaluating your use case, institutional policy, applicable law, and required permissions. If uncertain, stop reuse and consult your institution, the rightsholder, or qualified legal counsel."
+    }
+  ],
+  "datasets": [
+    {
+      "id": "csd-mof-collection",
+      "name": "CSD MOF Collection (Non-Commercial)",
+      "status": "active",
+      "roleZh": "公共 3D 结构浏览与名称/Refcode 索引",
+      "roleEn": "Public 3D structure browsing and name/Refcode index",
+      "recordCount": 15906,
+      "version": "CSD v601 public MOF collection snapshot",
+      "licence": "CC BY-NC-SA 4.0 plus the download page's referenced CCDC standard terms",
+      "sourceUrl": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads",
+      "licenceUrls": [
+        "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en",
+        "https://www.ccdc.cam.ac.uk/licence-agreement/"
+      ],
+      "publisher": "Cambridge Crystallographic Data Centre (CCDC)",
+      "allowedZh": "非商业研究中的访问、分析与依许可分享；发布结果时保留 CCDC/数据集署名。",
+      "allowedEn": "Access, analysis, and licence-compliant sharing for non-commercial research, with CCDC/dataset attribution in published results.",
+      "prohibitedZh": "不得把该集合用于商业目的；不得把 CSD MOF Collection 的开放许可扩大解释为完整付费 CSD 的批量再分发许可。",
+      "prohibitedEn": "No commercial use; do not extend the collection's open terms into permission to bulk-redistribute the full paid CSD.",
+      "projectHandlingZh": "公开仓库保留来源、NOTICE、数据许可和变更说明；CIF 内容保持来源字节，目录与索引重组已披露。",
+      "projectHandlingEn": "The public repository preserves source, NOTICE, data licence, and change notices. CIF bytes remain source-identical, while directory/index reorganization is disclosed."
+    },
+    {
+      "id": "core-mof-2024-csd-modified",
+      "name": "CoRE MOF 2024 · CSD-modified CR",
+      "status": "active",
+      "roleZh": "当前结构/描述符计算主库",
+      "roleEn": "Active structure and descriptor computation corpus",
+      "recordCount": 9835,
+      "version": "CoRE MOF 2024 v1.1 · CSD-modified · CR subset",
+      "licence": "CC BY-NC-SA 4.0 plus the download page's referenced CCDC standard terms",
+      "sourceUrl": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads",
+      "licenceUrls": [
+        "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en",
+        "https://www.ccdc.cam.ac.uk/licence-agreement/"
+      ],
+      "publisher": "CoRE-MOF authors / CCDC distribution page",
+      "allowedZh": "在非商业研究边界内用于结构显示、描述符聚合和派生分析，并保留来源、许可和修改说明。",
+      "allowedEn": "Use for structure display, descriptor aggregation, and derived analysis within the non-commercial research boundary, preserving source, licence, and change notices.",
+      "prohibitedZh": "不接入、不发布 CoRE-MOF unmodified CSD CIF；不把 CSD-modified 的许可解释为付费 CSD 原始数据的开放授权。",
+      "prohibitedEn": "Do not ingest or publish CoRE-MOF unmodified CSD CIFs, and do not treat CSD-modified terms as an open grant for original paid-CSD data.",
+      "projectHandlingZh": "只接入 CCDC 下载页标明的 modified CIF 数据；unmodified 数据明确排除。",
+      "projectHandlingEn": "Only the modified-CIF dataset identified on the CCDC download page is ingested; unmodified data is explicitly excluded."
+    },
+    {
+      "id": "fair-mofs",
+      "name": "FAIR-MOFs",
+      "status": "active",
+      "roleZh": "合成条件、DOI 与派生物化性质证据层",
+      "roleEn": "Synthesis conditions, DOI, and derived physicochemical evidence layer",
+      "recordCount": 4168,
+      "version": "Zenodo record 13254307 · v1 files",
+      "licence": "CC BY 4.0",
+      "sourceUrl": "https://zenodo.org/records/13254307",
+      "licenceUrls": [
+        "https://creativecommons.org/licenses/by/4.0/legalcode.en"
+      ],
+      "publisher": "FAIR-MOFs authors / Zenodo",
+      "allowedZh": "依 CC BY 4.0 复制、再利用与改编数据，同时给出适当署名、许可链接和修改说明。",
+      "allowedEn": "Copy, reuse, and adapt under CC BY 4.0 with appropriate credit, licence link, and indication of changes.",
+      "prohibitedZh": "不得暗示来源方背书，不得以 FAIR-MOFs 的 CC BY 许可覆盖其关联论文全文或另有权利约束的底层晶体数据。",
+      "prohibitedEn": "Do not imply source endorsement or use FAIR-MOFs CC BY terms to override rights in linked article full text or separately controlled underlying crystal data.",
+      "projectHandlingZh": "仅公开经校验的条件/DOI/物性索引与派生证据；不复制 FAIR-MOFs CIF 档案。结构映射只接受精确 Refcode，DOI 只作论文级关联。",
+      "projectHandlingEn": "Publish only validated condition/DOI/property indexes and derived evidence; no FAIR-MOFs CIF archive is copied. Structure mapping requires an exact Refcode; DOI remains article-level association."
+    },
+    {
+      "id": "nist-isodb",
+      "name": "NIST/ARPA-E ISODB and linked adsorption sources",
+      "status": "active-limited",
+      "roleZh": "气体吸附等温线与字段级来源",
+      "roleEn": "Gas adsorption isotherms and field-level provenance",
+      "recordCount": 442,
+      "version": "EcoMOF-AI gas adsorption v2.1 source snapshot",
+      "licence": "Per-record/source terms; no blanket relicence asserted",
+      "sourceUrl": "https://adsorption.nist.gov/isodb/",
+      "licenceUrls": [],
+      "publisher": "NIST/ARPA-E ISODB and linked source publishers",
+      "allowedZh": "当前仅按字段级来源用于可追溯的吸附分析和计算性 IAST；具体再利用条件必须回到每条记录的来源。",
+      "allowedEn": "Current use is limited to source-traceable adsorption analysis and computed IAST. Reuse terms must be checked at each record's source.",
+      "prohibitedZh": "不主张整库统一开放许可，不把链接论文或第三方记录重新许可给用户。",
+      "prohibitedEn": "No blanket open licence is asserted for the corpus, and linked articles or third-party records are not relicensed to users.",
+      "projectHandlingZh": "保留字段级来源、数据等级与计算/实验区分；不发布来源未确认的批量原始档案。",
+      "projectHandlingEn": "Preserve field-level provenance and computed/experimental grades; do not publish bulk raw archives with unresolved source rights."
+    },
+    {
+      "id": "qmof",
+      "name": "QMOF",
+      "status": "quarantined",
+      "roleZh": "历史占位数据已清退",
+      "roleEn": "Historical placeholder rows removed",
+      "recordCount": 0,
+      "version": "No active public ingestion",
+      "licence": "Not relied on for active rows",
+      "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+      "licenceUrls": [
+        "https://creativecommons.org/licenses/by/4.0/legalcode.en"
+      ],
+      "publisher": "QMOF authors / Figshare",
+      "allowedZh": "未来只有在记录身份、文件校验、许可和字段来源全部通过后才能重新接入。",
+      "allowedEn": "Future ingestion is allowed only after record identity, file validation, licence, and field provenance all pass review.",
+      "prohibitedZh": "当前不得把历史伪造/占位行当作 QMOF 真实记录、物性或催化证据。",
+      "prohibitedEn": "Historical fabricated/placeholder rows must not be presented as real QMOF records, properties, or catalysis evidence.",
+      "projectHandlingZh": "活动记录数为 0；旧占位明细已从计算和公开索引排除。",
+      "projectHandlingEn": "Active record count is zero; legacy placeholder details are excluded from computation and public indexes."
+    },
+    {
+      "id": "literature",
+      "name": "Curated literature and DOI metadata",
+      "status": "active-limited",
+      "roleZh": "论文级证据、方法和来源指针",
+      "roleEn": "Article-level evidence, methods, and source pointers",
+      "recordCount": null,
+      "version": "Per-record curation",
+      "licence": "Bibliographic facts and per-source permissions; no article-full-text relicence",
+      "sourceUrl": "",
+      "licenceUrls": [],
+      "publisher": "Individual publishers and authors",
+      "allowedZh": "保留必要的书目信息、DOI、短摘要式事实和来源指针，用于科研溯源。",
+      "allowedEn": "Preserve necessary bibliographic metadata, DOI, concise factual summaries, and source pointers for research provenance.",
+      "prohibitedZh": "不批量复制论文全文、图表或补充材料；数据集许可不替代出版物版权。",
+      "prohibitedEn": "Do not bulk-copy article full text, figures, or supplements; dataset licences do not replace publication copyright.",
+      "projectHandlingZh": "DOI 只作论文级关联，不作结构同一性的单独证据。",
+      "projectHandlingEn": "DOI is article-level association only and never sole evidence of structural identity."
+    }
+  ]
+}

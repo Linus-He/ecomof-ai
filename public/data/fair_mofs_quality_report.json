@@ -1,0 +1,222 @@
+{
+  "schemaVersion": "fair-mofs-quality-report-v1",
+  "generatedAt": "2026-07-28T06:57:00.296Z",
+  "source": {
+    "id": "FAIR-MOFS-2025",
+    "title": "FAIR-MOFs: A Comprehensive Database for Accelerating the Discovery and Synthesis of Metal-Organic Frameworks",
+    "datasetDoi": "10.5281/zenodo.13254307",
+    "sourceUrl": "https://zenodo.org/records/13254307",
+    "license": "CC BY 4.0",
+    "publicationDate": "2025-10-31",
+    "retrievedAt": "2026-07-28",
+    "recordVersion": 13254307,
+    "inputFiles": {
+      "completeExperimentalSyntheticConditions": {
+        "name": "complete_experimental_synthetic_conditions.json",
+        "md5": "e0fc5c0f07117b1d70f71c879231a3b7"
+      },
+      "doiRefcode": {
+        "name": "doi_refcode.json",
+        "md5": "90b9caec641c12012f554b4938eef903"
+      },
+      "finalCombinedDataForAnalysis": {
+        "name": "final_combined_data_for_analysis.json",
+        "md5": "0e6a1e46f7bb99e38323c66cfdf5b53c"
+      },
+      "experimentalSyntheticConditionsForGnn": {
+        "name": "experimental_synthetic_conditions_used_for_gnn.json",
+        "md5": "469e477838d1d748ef09f6b9d80977b4"
+      }
+    }
+  },
+  "checksumValidation": {
+    "completeExperimentalSyntheticConditions": {
+      "expected": "e0fc5c0f07117b1d70f71c879231a3b7",
+      "actual": "e0fc5c0f07117b1d70f71c879231a3b7",
+      "passed": true
+    },
+    "doiRefcode": {
+      "expected": "90b9caec641c12012f554b4938eef903",
+      "actual": "90b9caec641c12012f554b4938eef903",
+      "passed": true
+    },
+    "finalCombinedDataForAnalysis": {
+      "expected": "0e6a1e46f7bb99e38323c66cfdf5b53c",
+      "actual": "0e6a1e46f7bb99e38323c66cfdf5b53c",
+      "passed": true
+    },
+    "experimentalSyntheticConditionsForGnn": {
+      "expected": "469e477838d1d748ef09f6b9d80977b4",
+      "actual": "469e477838d1d748ef09f6b9d80977b4",
+      "passed": true
+    }
+  },
+  "grain": "One FAIR-MOFs synthesis-condition record per CSD refcode.",
+  "identityRules": {
+    "structureIdentity": "Exact CSD Refcode first; six-letter base Refcode is accepted only as a variant-level match.",
+    "doiAssociation": "A shared DOI is article-level association only and never establishes structure identity.",
+    "familyAssignment": "Matched CoRE family when Refcode identity is available; otherwise a single metal inferred from precursor text; multiple/unknown metals remain ambiguous or unclassified."
+  },
+  "summary": {
+    "sourceRecordCount": 4168,
+    "exactRefcodeMatchedFairRecords": 180,
+    "baseRefcodeMatchedFairRecords": 9,
+    "structureMatchedFairRecords": 189,
+    "matchedCoreRecordCount": 318,
+    "articleOnlyFairRecords": 262,
+    "recordsWithDoi": 4168,
+    "recordsWithAccessibilityScore": 2798,
+    "assignmentCounts": {
+      "metal-precursor-inferred": 1580,
+      "unclassified": 2395,
+      "core-refcode-exact": 78,
+      "ambiguous-metal-precursors": 111,
+      "core-refcode-base": 4
+    },
+    "familyCounts": {
+      "Cu-MOF": 870,
+      "unclassified": 2506,
+      "Zn-MOF": 718,
+      "Fe-MOF": 45,
+      "Zr-MOF": 12,
+      "Al-MOF": 4,
+      "Ti-MOF": 4,
+      "MIL-type host": 4,
+      "Cr-MOF": 5
+    },
+    "fieldCoverage": {
+      "reactionTemperature": {
+        "count": 2550,
+        "rate": 0.6118
+      },
+      "reactionTime": {
+        "count": 2271,
+        "rate": 0.5449
+      },
+      "metalPrecursors": {
+        "count": 4168,
+        "rate": 1
+      },
+      "organicLinkers": {
+        "count": 4137,
+        "rate": 0.9926
+      },
+      "solvents": {
+        "count": 3210,
+        "rate": 0.7702
+      },
+      "methods": {
+        "count": 3838,
+        "rate": 0.9208
+      },
+      "doi": {
+        "count": 4168,
+        "rate": 1
+      },
+      "asaM2Cm3": {
+        "count": 787,
+        "rate": 0.1888
+      },
+      "bdeKjMol": {
+        "count": 1121,
+        "rate": 0.269
+      },
+      "lcdA": {
+        "count": 787,
+        "rate": 0.1888
+      },
+      "pldA": {
+        "count": 787,
+        "rate": 0.1888
+      },
+      "voidFraction": {
+        "count": 787,
+        "rate": 0.1888
+      },
+      "openMetalSite": {
+        "count": 1160,
+        "rate": 0.2783
+      },
+      "topology": {
+        "count": 665,
+        "rate": 0.1595
+      }
+    },
+    "targetFamilyEvidence": {
+      "Al-MOF": {
+        "nEffective": 3,
+        "value": 0.565,
+        "evidenceConfidence": 0.1217,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Zr-MOF": {
+        "nEffective": 1,
+        "value": 0.5524,
+        "evidenceConfidence": 0.0476,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Ti-MOF": {
+        "nEffective": 1,
+        "value": 0.5343,
+        "evidenceConfidence": 0.0381,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Fe-MOF": {
+        "nEffective": 20,
+        "value": 0.5568,
+        "evidenceConfidence": 0.485,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Cr-MOF": {
+        "nEffective": 4,
+        "value": 0.5634,
+        "evidenceConfidence": 0.1667,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Cu-MOF": {
+        "nEffective": 466,
+        "value": 0.5953,
+        "evidenceConfidence": 0.886,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "Zn-MOF": {
+        "nEffective": 444,
+        "value": 0.4886,
+        "evidenceConfidence": 0.9082,
+        "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage"
+      },
+      "UiO-type host": {
+        "nEffective": 0,
+        "value": 0.5524,
+        "evidenceConfidence": 0.0214,
+        "derivationLevel": "proxy-transferred from parent metal family"
+      },
+      "MIL-type host": {
+        "nEffective": 0,
+        "value": 0.5488,
+        "evidenceConfidence": 0,
+        "derivationLevel": "neutral-prior"
+      },
+      "MOF-808-like host": {
+        "nEffective": 0,
+        "value": 0.5524,
+        "evidenceConfidence": 0.0214,
+        "derivationLevel": "proxy-transferred from parent metal family"
+      }
+    }
+  },
+  "checks": {
+    "recordCountMatchesSource": true,
+    "uniqueIds": true,
+    "checksumPassed": true,
+    "familyScoreUsesRawFrequency": false,
+    "doiPromotedToStructureIdentity": false
+  },
+  "knownLimitations": [
+    "FAIR-MOFs synthesis fields are text-mined and require source-paper review for experimental use.",
+    "No harmonized synthesis yield or failure set is available, so synthesis success probability cannot be estimated.",
+    "FAIR-MOFs and CoRE MOF 2024 have limited exact Refcode overlap; unmatched FAIR records remain a separate evidence layer.",
+    "UiO-type and MOF-808-like families use an explicitly low-confidence Zr-family transfer when no direct FAIR record is classified."
+  ],
+  "status": "passed"
+}

@@ -30,12 +30,12 @@ const acknowledgementCards = [
     en: {
       name: "Li Xinjian",
       role: "Xinjiang University · Organic acid catalysis feedback",
-      text: "Thank you for your suggestions from the perspective of organic acid catalysis experiments. Your feedback helped Catalysis Lab better reflect real experimental records, data fields, and comparability assessment.",
+      text: "Thank you for your suggestions from the perspective of organic acid catalysis experiments. Your feedback helped Catalysis better reflect real experimental records, data fields, and comparability assessment.",
     },
     zh: {
       name: "李新建",
       role: "新疆大学 · 有机酸催化方向建议",
-      text: "感谢你从有机酸催化实验的角度提出建议，帮助 Catalysis Lab 更好地理解真实实验记录、数据字段与可比性判断。",
+      text: "感谢你从有机酸催化实验的角度提出建议，帮助催化模块更好地理解真实实验记录、数据字段与可比性判断。",
     },
   },
 ]

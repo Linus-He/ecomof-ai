@@ -1,93 +1,94 @@
 {
-  "version": "V3.3",
-  "totalRecords": 3020,
-  "totalRealRecords": 3020,
-  "externalDatabaseCount": 2480,
-  "coreCount": 1240,
-  "qmofCount": 1240,
-  "literatureCount": 540,
+  "version": "CoRE-MOF-2024-current",
+  "generatedAt": "2026-07-28T04:30:32.104Z",
+  "totalRecords": 9835,
+  "totalRealRecords": 9835,
+  "externalDatabaseCount": 9835,
+  "coreCount": 9835,
+  "qmofCount": 0,
+  "literatureCount": 0,
   "experimentalCount": 0,
-  "derivedCount": 520,
-  "verifiedMetadataCount": 2480,
-  "goldCount": 320,
-  "reactionCount": 520,
-  "benchmarkCount": 520,
+  "derivedCount": 0,
+  "verifiedMetadataCount": 9835,
+  "goldCount": 0,
+  "reactionCount": 0,
+  "benchmarkCount": 0,
   "originAudit": {
-    "auditId": "dataset-origin-audit",
-    "total": 3540,
+    "auditId": "coremof-2024-current-origin-audit",
+    "total": 9835,
     "counts": {
-      "external_database": 2480,
-      "literature_curated": 540,
+      "external_database": 9835,
+      "literature_curated": 0,
       "experimental": 0,
       "expert_review": 0,
-      "derived_dataset": 520,
+      "derived_dataset": 0,
       "synthetic_fixture": 0
     },
-    "externalDatabase": 2480,
-    "literature": 540,
+    "externalDatabase": 9835,
+    "literature": 0,
     "experimental": 0,
     "expert": 0,
-    "derived": 520,
+    "derived": 0,
     "synthetic": 0,
-    "realData": 3020,
-    "realDataShare": 0.853,
-    "derivedShare": 0.147,
+    "realData": 9835,
+    "realDataShare": 1,
+    "derivedShare": 0,
     "experimentalShare": 0,
     "missingOrigin": 0,
     "derivedIsolated": true,
     "status": "Pass"
   },
   "breakdown": {
-    "externalDatabase": 0.821,
-    "literature": 0.179,
+    "externalDatabase": 1,
+    "literature": 0,
     "experimental": 0,
-    "derived": 0.172
+    "derived": 0
   },
   "targets": {
-    "total": 3000,
-    "totalMin": 2000,
-    "coreMof": 1200,
-    "qmof": 1200,
-    "literature": 500,
-    "verifiedMetadata": 500,
-    "goldDataset": 300,
-    "reactionDataset": 500,
-    "benchmarkDataset": 500
+    "total": 9835,
+    "totalMin": 9835,
+    "coreMof": 9835,
+    "qmof": 0,
+    "literature": 0,
+    "verifiedMetadata": 9835,
+    "goldDataset": 0,
+    "reactionDataset": 0,
+    "benchmarkDataset": 0
   },
   "stats": {
     "total": {
-      "current": 3020,
-      "target": 3000,
+      "current": 9835,
+      "target": 9835,
       "gap": 0
     },
     "coreMof": {
-      "current": 1240,
-      "target": 1200,
+      "current": 9835,
+      "target": 9835,
       "gap": 0
     },
     "qmof": {
-      "current": 1240,
-      "target": 1200,
+      "current": 0,
+      "target": 0,
       "gap": 0
     },
     "literature": {
-      "current": 540,
-      "target": 500,
+      "current": 0,
+      "target": 0,
       "gap": 0
     },
     "verifiedMetadata": {
-      "current": 2480,
-      "target": 500,
+      "current": 9835,
+      "target": 9835,
       "gap": 0
     },
     "goldDataset": {
-      "current": 320,
-      "target": 300,
+      "current": 0,
+      "target": 0,
       "gap": 0
     },
     "reactionDataset": {
-      "current": 520,
-      "target": 500,
+      "current": 0,
+      "target": 0,
       "gap": 0
     }
   },
@@ -95,51 +96,41 @@
     "totalMin": true,
     "total": true,
     "coreMof": true,
-    "qmof": true,
-    "literature": true,
+    "qmof": false,
+    "literature": false,
     "verifiedMetadata": true,
-    "goldDataset": true,
-    "reactionDataset": true
+    "goldDataset": false,
+    "reactionDataset": false
   },
-  "growth": {
-    "version": "v3.3",
-    "generatedAt": "2026-06-18",
-    "metrics": [
-      "records",
-      "gold",
-      "verified",
-      "reaction",
-      "labels"
-    ],
-    "series": {
-      "V3.0": {
-        "records": 122,
-        "gold": 50,
-        "verified": 30,
-        "reaction": 0,
-        "labels": 0
-      },
-      "V3.1": {
-        "records": 320,
-        "gold": 120,
-        "verified": 120,
-        "reaction": 120,
-        "labels": 120
-      },
-      "V3.2": {
-        "records": 320,
-        "gold": 120,
-        "verified": 120,
-        "reaction": 120,
-        "labels": 120
-      },
-      "V3.3": {
-        "records": 3020,
-        "gold": 320,
-        "verified": 2480,
-        "reaction": 520,
-        "labels": 1060
-      }
+  "availability": {
+    "coreMof": {
+      "status": "active",
+      "count": 9835
+    },
+    "qmof": {
+      "status": "quarantined",
+      "count": 0,
+      "reason": "The previous 1,240 rows were RNG-generated placeholders without row-level QMOF identity."
+    },
+    "literature": {
+      "status": "quarantined",
+      "count": 0,
+      "reason": "Legacy RNG-generated V3.3 literature rows had no confirmed DOI mapping."
+    },
+    "goldDataset": {
+      "status": "quarantined",
+      "count": 0,
+      "reason": "Legacy Gold rows inherited placeholder CoRE/QMOF identities."
+    },
+    "reactionDataset": {
+      "status": "quarantined",
+      "count": 0,
+      "reason": "Legacy reaction rows were derived from placeholder candidates, not experiments."
+    },
+    "benchmarkDataset": {
+      "status": "quarantined",
+      "count": 0,
+      "reason": "Legacy V3.3 derived benchmark is not the independent V3.6 benchmark dataset."
     }
   }
 }

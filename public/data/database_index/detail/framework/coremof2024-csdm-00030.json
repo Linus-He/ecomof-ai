@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00030",
+  "frameworkId": "coremof2024-csdm-00030",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2012[Ag][srs]3[ASR]1",
+  "displayName": "ADATOQ",
+  "commonName": "ADATOQ",
+  "csdRefcode": "ADATOQ",
+  "coreId": "2012[Ag][srs]3[ASR]1",
+  "metals": [
+    "Ag"
+  ],
+  "hasAlNode": false,
+  "topology": "srs",
+  "surfaceArea": 3644.24,
+  "pldA": 9.08022,
+  "lcdA": 10.54733,
+  "poreVolume": 1.15494,
+  "density": 0.63207,
+  "voidFraction": 0.73,
+  "waterStability": 0.67,
+  "thermalStability": 343,
+  "sourceDoi": "10.1002/anie.201204530",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2012[Ag][srs]3[ASR]1; DOI 10.1002/anie.201204530.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00030.json",
+  "descriptors": {
+    "surfaceArea": 3644.24,
+    "pldA": 9.08022,
+    "lcdA": 10.54733,
+    "poreVolume": 1.15494,
+    "density": 0.63207,
+    "voidFraction": 0.73,
+    "waterStability": 0.67,
+    "thermalStability": 343
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

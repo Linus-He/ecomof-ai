@@ -82,8 +82,6 @@ export function DataStatusAndProvenancePanel({ coverage, curatedRealResult, lang
             <MiniMetric label={text(lang, "可评分", "Ready")} value={curatedReport.readyForScoring} t={t} tone="info" />
             <MiniMetric label={text(lang, "需复核", "Needs review")} value={curatedReport.needsReview} t={t} tone="warn" />
             <MiniMetric label={text(lang, "拒绝", "Rejected")} value={curatedReport.rejected} t={t} tone="warn" />
-            <MiniMetric label={text(lang, "QMOF 描述符", "QMOF descriptors")} value={curatedReport.qmofDescriptorRecords} t={t} />
-            <MiniMetric label={text(lang, "未匹配 QMOF", "Unmatched QMOF")} value={curatedReport.unmatchedQmofDescriptorRecords} t={t} tone="warn" />
             <MiniMetric label={text(lang, "DOI 覆盖率", "DOI coverage")} value={formatPercent(curatedReport.doiCoverage)} t={t} tone="warn" />
             <MiniMetric label={text(lang, "字段来源", "Field provenance")} value={formatPercent(curatedReport.fieldProvenanceCoverage)} t={t} />
           </div>

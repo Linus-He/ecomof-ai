@@ -4,11 +4,11 @@ import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
 import { importQmof, QMOF_PROVENANCE } from "../../utils/dataIngestion/importQmofV2"
 
 describe("QMOF import (V2)", () => {
-  it("ingests at least 1200 QMOF records with real dataset provenance", () => {
-    expect(qmofImport.count).toBeGreaterThanOrEqual(1200)
-    expect(qmofImport.records.every(r => r.datasetOrigin === "external_database")).toBe(true)
-    expect(qmofImport.records.every(r => r.doi === QMOF_PROVENANCE.doi)).toBe(true)
-    expect(qmofImport.records.every(r => r.sourceDatabase === "QMOF")).toBe(true)
+  it("quarantines the legacy placeholder QMOF rows from live calculation", () => {
+    expect(qmofImport.count).toBe(0)
+    expect(qmofImport.records).toEqual([])
+    expect(qmofImport.summary.status).toBe("quarantined")
+    expect(qmofImport.summary.reason).toMatch(/placeholders/i)
   })
 
   it("carries the QMOF electronic descriptor (band gap)", () => {

@@ -20,7 +20,7 @@ export function AlgorithmShowcaseSection({ model, lang = "zh", t }) {
   return (
     <section id="methodology-oafs-algorithm-showcase" data-testid="algorithm-showcase-section" style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 14, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 5 }}>
-        <span style={{ color: palette.accent, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Methods · V3.9.8</span>
+        <span style={{ color: palette.accent, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Methods · V3.9.10</span>
         <h3 style={{ color: palette.text, fontSize: 22, lineHeight: 1.16, margin: 0 }}>{text(lang, model.titleZh, model.titleEn)}</h3>
         <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>{text(lang, model.modelChange.reasonZh, model.modelChange.reasonEn)}</p>
       </header>

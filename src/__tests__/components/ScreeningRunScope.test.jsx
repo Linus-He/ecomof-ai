@@ -14,7 +14,10 @@ describe("Screening Run Scope (final-screening UX cleanup)", () => {
 
     expect(screen.getByText(/Screening Run Scope/)).toBeTruthy()
     expect(screen.getByText(/Current demo workflow/)).toBeTruthy()
-    expect(screen.getAllByText(/Preview only/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/preview only/i).length).toBeGreaterThan(0)
+    expect(screen.getByText(/CoRE structural-index audit/)).toBeTruthy()
+    expect(screen.getByText(/Real source index/)).toBeTruthy()
+    expect(screen.getByText(/does not infer catalytic performance/i)).toBeTruthy()
     expect(screen.getAllByText(/does not run full database scoring/i).length).toBeGreaterThan(0)
 
     // No developer-style panel headings.
@@ -34,6 +37,9 @@ describe("Screening Run Scope (final-screening UX cleanup)", () => {
 
     expect(screen.getByText(/筛选运行范围/)).toBeTruthy()
     expect(screen.getAllByText(/仅限预览/).length).toBeGreaterThan(0)
+    expect(screen.getByText(/CoRE 结构索引审计/)).toBeTruthy()
+    expect(screen.getAllByText(/真实来源索引/).length).toBeGreaterThan(0)
+    expect(screen.getByText(/不推断催化性能/)).toBeTruthy()
     expect(document.body.textContent).toContain("不执行全量数据库评分")
     expect(document.body.textContent).not.toContain("DATA MODE")
   })

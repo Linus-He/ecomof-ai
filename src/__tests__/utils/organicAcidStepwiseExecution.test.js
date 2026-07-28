@@ -59,7 +59,7 @@ describe("organic acid stepwise execution builders", () => {
     const activationWorkbench = activationFixture(workbench)
     const chain = buildStepwiseExecutionChain(workbench, source, { lang: "zh", activationWorkbench })
 
-    expect(chain.version).toBe("V3.9.8")
+    expect(chain.version).toBe("V3.9.10")
     expect(chain.steps.map(step => step.id)).toEqual(["step-0", "step-1", "step-2", "step-3", "step-4", "step-5", "step-6"])
     expect(chain.steps.map(step => step.nameZh)).toEqual([
       "筛选目标设定",

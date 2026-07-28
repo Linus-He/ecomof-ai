@@ -1,14 +1,27 @@
 // @ts-nocheck
 import { describe, expect, it } from "vitest"
 import coreImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
+import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
+import qualityReport from "../../../public/data/core_mof_2024/quality_report.json"
 import { importCoreMof, CORE_MOF_PROVENANCE } from "../../utils/dataIngestion/importCoreMofV2"
 
-describe("CoRE MOF import (V2)", () => {
-  it("ingests at least 1200 CoRE MOF records with real dataset provenance", () => {
-    expect(coreImport.count).toBeGreaterThanOrEqual(1200)
+describe("CoRE MOF 2024 CSD-modified import", () => {
+  it("ingests the 9,835 computation-ready source records at row-level grain", () => {
+    expect(coreImport.count).toBe(9835)
     expect(coreImport.records.every(r => r.datasetOrigin === "external_database")).toBe(true)
-    expect(coreImport.records.every(r => r.doi === CORE_MOF_PROVENANCE.doi)).toBe(true)
-    expect(coreImport.records.every(r => r.sourceDatabase === "CoRE MOF")).toBe(true)
+    expect(coreImport.records.every(r => r.doi && r.sourceRecordId && r.csdRefcode)).toBe(true)
+    expect(coreImport.records.every(r => r.sourceDatabase === "CoRE MOF 2024 · CSD-modified")).toBe(true)
+    expect(new Set(coreImport.records.map(r => r.sourceRecordId)).size).toBe(9835)
+    expect(coreImport.records.some(r => r.displayName === "UiO-66" && r.csdRefcode.startsWith("RUBTAK"))).toBe(true)
+    expect(coreImport.records.some(r => /^CoRE-MOF-\d+$/i.test(r.displayName))).toBe(false)
+    expect(qualityReport.status).toBe("passed")
+    expect(qualityReport.checks.cifMissing).toBe(0)
+  })
+
+  it("quarantines the old RNG-generated QMOF placeholder import", () => {
+    expect(qmofImport.count).toBe(0)
+    expect(qmofImport.records).toEqual([])
+    expect(qmofImport.summary.status).toBe("quarantined")
   })
 
   it("normalizes descriptors and attaches dataset origin + provenance on import", () => {

@@ -5,13 +5,12 @@ import { formatCount, summarizeDatabaseOverview } from "../../utils/databaseInde
 export function DatabaseIndexSummaryCards({ overview = {}, lang, t, isMobile }) {
   const summary = summarizeDatabaseOverview(overview)
   const rows = [
-    [text(lang, "CoRE-like 索引记录", "CoRE-like index records"), summary.coreRecords],
-    [text(lang, "QMOF-like 索引记录", "QMOF-like index records"), summary.qmofRecords],
+    [text(lang, "CoRE 2024 CR 索引记录", "CoRE 2024 CR index records"), summary.coreRecords],
     [text(lang, "含 Al 记录", "Al-containing records"), summary.alContaining],
-    [text(lang, "可评分记录", "Ready for scoring"), summary.readyForScoring],
+    [text(lang, "结构描述符就绪", "Structural descriptors ready"), summary.readyForScoring],
     [text(lang, "需要复核", "Needs review"), summary.needsReview, "warn"],
     [text(lang, "已拒绝", "Rejected"), summary.rejected, "warn"],
-    [text(lang, "Top 候选预览", "Top candidates preview"), summary.topCandidateCount],
+    [text(lang, "结构审阅样本", "Structural review sample"), summary.topCandidateCount],
     [text(lang, "详情记录", "Detail records"), summary.detailCount],
   ]
   return (

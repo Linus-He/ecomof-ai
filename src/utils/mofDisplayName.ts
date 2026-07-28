@@ -82,7 +82,7 @@ function databaseFallback(record) {
   if (database.includes("QMOF")) return "QMOF record"
   if (database.includes("ARC")) return "ARC-MOF record"
   if (database.includes("MOSAEC")) return "MOSAEC MOF record"
-  return "Open MOF record"
+  return "MOF source record"
 }
 
 function matchAlias(record, aliasDictionary = []) {

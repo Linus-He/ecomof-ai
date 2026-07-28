@@ -1,32 +1,40 @@
 {
-  "version": "v3.3",
-  "generatedAt": "2026-06-18",
-  "generator": "scripts/build-v3-3-real-data-ingestion.mjs",
-  "note": "External-database records carry real CoRE/QMOF dataset DOIs + citations; descriptor values are database-distribution-attributed (valueBasis) pending exact per-structure CSV verification. Synthetic fixtures are excluded from all totals.",
+  "version": "CoRE-MOF-2024-current",
+  "generatedAt": "2026-07-28T04:30:32.104Z",
+  "generator": "scripts/build-core-mof-2024-csd-modified.mjs",
+  "note": "Only row-level source records are active. Placeholder-generated datasets are quarantined.",
   "sources": [
     {
-      "sourceId": "SRC-CORE-MOF-2019",
-      "category": "CoRE MOF",
-      "target": 1200,
-      "imported": 1240,
+      "sourceId": "SRC-CORE-MOF-2024-CSD-MODIFIED-CR",
+      "category": "CoRE MOF 2024 · CSD-modified CR",
+      "target": 9835,
+      "imported": 9835,
+      "status": "active",
       "datasetOrigin": "external_database",
-      "doi": "10.5281/zenodo.14132134"
+      "doi": "10.5281/zenodo.15055758",
+      "sourceUrl": "https://zenodo.org/records/15055758",
+      "license": "CC-BY-NC-SA-4.0"
+    },
+    {
+      "sourceId": "SRC-FAIR-MOFS-V1",
+      "category": "FAIR-MOFs",
+      "target": 4168,
+      "imported": 4168,
+      "status": "active",
+      "datasetOrigin": "external_database",
+      "doi": "10.5281/zenodo.13254307",
+      "sourceUrl": "https://zenodo.org/records/13254307",
+      "license": "CC-BY-4.0",
+      "role": "Reported synthesis conditions, physicochemical descriptors, DOI context, and conservative identity mapping; no CIF archive is copied."
     },
     {
       "sourceId": "SRC-QMOF",
       "category": "QMOF",
-      "target": 1200,
-      "imported": 1240,
+      "target": 0,
+      "imported": 0,
+      "status": "quarantined",
       "datasetOrigin": "external_database",
-      "doi": "10.1016/j.matt.2021.02.015"
-    },
-    {
-      "sourceId": "SRC-OA-LITERATURE",
-      "category": "Organic Acid Literature",
-      "target": 500,
-      "imported": 540,
-      "datasetOrigin": "literature_curated",
-      "doi": "pending"
+      "reason": "The previous 1,240 rows were RNG-generated placeholders without row-level QMOF identity."
     }
   ]
 }

@@ -83,8 +83,8 @@ export const workflowSteps = [
       en: "Turn heterogeneous MOF sources into traceable candidate records.",
     },
     input: {
-      zh: "CoRE MOF 记录、QMOF 记录、CIF 文件、文献记录、人工整理条目",
-      en: "CoRE MOF records, QMOF records, CIF files, literature records, manual curated entries",
+      zh: "CoRE MOF 结构、FAIR-MOFs 合成与性质记录、CIF 文件、气体吸附记录",
+      en: "CoRE MOF structures, FAIR-MOFs synthesis/property records, CIF files, and gas adsorption records",
     },
     process: {
       zh: "统一 MOF 标识、来源字段、引用信息、许可信息和数据状态。",
@@ -95,7 +95,7 @@ export const workflowSteps = [
       en: "A source-aware MOF candidate record.",
     },
     visual: "source-flow",
-    shortcut: { zh: "浏览 MOF 候选库", en: "Browse MOF Library", target: "mofLibrary" },
+    shortcut: { zh: "浏览 MOF库", en: "Browse MOF Library", target: "mofLibrary" },
   },
   {
     id: "descriptor-curation",
@@ -143,7 +143,7 @@ export const workflowSteps = [
     visual: "scenario-chips",
     shortcuts: [
       { zh: "进入 GasSep", en: "Enter GasSep", target: "gassep" },
-      { zh: "进入 Catalysis Lab", en: "Enter Catalysis Lab", target: "catalysisLab" },
+      { zh: "进入催化", en: "Enter Catalysis", target: "catalysisLab" },
       { zh: "进入 EcoScreen", en: "Enter EcoScreen", target: "ecoScreen" },
     ],
   },

@@ -1524,7 +1524,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
           : "Global descriptor scoring, CRITIC / Hybrid weighting, explanation diagnostics, and evidence boundaries"}
         action={
           <>
-            <BasisBadge tone="proxy">{text(lang, "Open MOF Seed · 全局候选源", "Open MOF Seed / global source")}</BasisBadge>
+            <BasisBadge tone="source">{text(lang, "CoRE 2024 CR · 真实全局结构源", "CoRE 2024 CR / real global structure source")}</BasisBadge>
             <CopyLinkButton hash="ecoscreen" ariaLabel={lang === "zh" ? "复制 EcoScreen 链接" : "Copy EcoScreen link"} />
           </>
         }
@@ -1544,8 +1544,8 @@ function LegacyEcoScreenTab({ onNavigate }) {
         <span style={{ color: t.faint }}>·</span>
         <span>
           {lang === "zh"
-            ? `Open MOF Seed · 已加载 ${generalRows.length} 条 · 当前筛选 ${filteredGeneralRows.length} 条`
-            : `Open MOF Seed · ${generalRows.length} loaded · ${filteredGeneralRows.length} filtered`}
+            ? `CoRE 2024 CR · 已加载 ${generalRows.length} 条真实结构记录 · 当前筛选 ${filteredGeneralRows.length} 条`
+            : `CoRE 2024 CR · ${generalRows.length} real structure rows loaded · ${filteredGeneralRows.length} filtered`}
         </span>
         <span style={{ color: t.faint }}>·</span>
         <span>

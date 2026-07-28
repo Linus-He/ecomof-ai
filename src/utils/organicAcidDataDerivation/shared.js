@@ -1,8 +1,9 @@
-import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v2.json"
+import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v3.json"
 
 export const ORGANIC_ACID_SCORING_SPEC = scoringSpec
 
 const OBJECT_IDS = new WeakMap()
+const DATASET_CONTENT_IDS = new WeakMap()
 let nextObjectId = 1
 
 export function asArray(value) {
@@ -103,10 +104,41 @@ export function contentSignature(value) {
   return hashText(JSON.stringify(value))
 }
 
+function declaredDatasetContentSignature(dataset, records) {
+  if (DATASET_CONTENT_IDS.has(dataset)) return DATASET_CONTENT_IDS.get(dataset)
+  let hash = 2166136261
+  const fields = [
+    "id", "mofId", "sourceRecordId", "family", "metalNode", "topology",
+    "surfaceArea", "poreVolume", "voidFraction", "density", "pldA", "lcdA",
+    "thermalStabilityC", "solventStabilityProbability", "waterStabilityProbability",
+    "bandGap", "formationEnergy",
+  ]
+  for (const record of records) {
+    for (const field of fields) {
+      const value = record?.[field]
+      if (value === undefined || value === null) continue
+      const text = String(value)
+      for (let index = 0; index < text.length; index += 1) {
+        hash ^= text.charCodeAt(index)
+        hash = Math.imul(hash, 16777619)
+      }
+      hash ^= 31
+      hash = Math.imul(hash, 16777619)
+    }
+  }
+  const signature = (hash >>> 0).toString(36)
+  DATASET_CONTENT_IDS.set(dataset, signature)
+  return signature
+}
+
 export function datasetIdentity(dataset) {
   if (!dataset) return "missing"
   const records = datasetRecords(dataset)
   const version = dataset?.version || dataset?.datasetVersion || dataset?.generatedAt || "unversioned"
+  const declaredSignature = dataset?.datasetSignature || dataset?.summary?.datasetSignature
+  if (declaredSignature) {
+    return `${version}:${records.length}:${declaredSignature}:${declaredDatasetContentSignature(dataset, records)}`
+  }
   return `${version}:${records.length}:${contentSignature(dataset)}`
 }
 
@@ -121,6 +153,10 @@ export function derivationCacheKey(values = []) {
 function recordText(record = {}) {
   return [
     record.displayName,
+    record.commonName,
+    record.coreId,
+    record.mofidV1,
+    record.mofidV2,
     record.mofName,
     record.rawName,
     record.linker,
@@ -145,6 +181,21 @@ function hasAnyText(record, needles = []) {
 }
 
 export function assignFamily(record = {}) {
+  const declaredFamily = String(record.family || "").trim()
+  if ([
+    "Al-MOF",
+    "Zr-MOF",
+    "Ti-MOF",
+    "Fe-MOF",
+    "Cr-MOF",
+    "Cu-MOF",
+    "Zn-MOF",
+    "UiO-type host",
+    "MIL-type host",
+    "MOF-808-like host",
+    "ambiguous",
+    "unclassified",
+  ].includes(declaredFamily)) return declaredFamily
   const metal = primaryMetal(record)
   const metalKey = metal.toLowerCase()
   const text = recordText(record)

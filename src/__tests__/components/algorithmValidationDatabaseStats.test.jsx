@@ -31,29 +31,30 @@ function renderCenter() {
 }
 
 describe("Algorithm Validation Center database stats (V3.3)", () => {
-  it("shows External Database / Literature / Experimental / Derived counts", () => {
+  it("shows only current non-zero data-source counts", () => {
     renderCenter()
     const stats = screen.getByTestId("algval-data-source-stats")
     expect(within(stats).getByText(/^External Database$/)).toBeInTheDocument()
-    expect(within(stats).getByText(/^Literature$/)).toBeInTheDocument()
-    expect(within(stats).getByText(/^Experimental$/)).toBeInTheDocument()
-    expect(within(stats).getByText(/^Derived$/)).toBeInTheDocument()
+    expect(within(stats).queryByText(/^Literature$/)).not.toBeInTheDocument()
+    expect(within(stats).queryByText(/^Experimental$/)).not.toBeInTheDocument()
+    expect(within(stats).queryByText(/^Derived$/)).not.toBeInTheDocument()
   })
 
-  it("meets the V3.3 acceptance criteria (total >= 2000, CoRE/QMOF >= 1200, etc.)", () => {
-    expect(dataIngestion.totalRecords).toBeGreaterThanOrEqual(2000)
+  it("uses the real CoRE 2024 CR source and quarantines unsupported current layers", () => {
+    expect(dataIngestion.totalRecords).toBe(9835)
     expect(dataIngestion.acceptance.coreMof).toBe(true)
-    expect(dataIngestion.acceptance.qmof).toBe(true)
-    expect(dataIngestion.acceptance.literature).toBe(true)
+    expect(dataIngestion.acceptance.qmof).toBe(false)
+    expect(dataIngestion.acceptance.literature).toBe(false)
     expect(dataIngestion.acceptance.verifiedMetadata).toBe(true)
-    expect(dataIngestion.acceptance.goldDataset).toBe(true)
-    expect(dataIngestion.acceptance.reactionDataset).toBe(true)
+    expect(dataIngestion.acceptance.goldDataset).toBe(false)
+    expect(dataIngestion.acceptance.reactionDataset).toBe(false)
+    expect(dataIngestion.availability.qmof.status).toBe("quarantined")
   })
 
   it("never counts derived data as experimental labels", () => {
     renderCenter()
     expect(dataIngestion.experimentalCount).toBe(0)
-    expect(dataIngestion.derivedCount).toBeGreaterThan(0)
+    expect(dataIngestion.derivedCount).toBe(0)
     expect(screen.getByTestId("algval-data-source-stats").textContent).toMatch(/Experimental Labels = 0/)
   })
 })

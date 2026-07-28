@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, formatScore, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchIndexPart } from "../../utils/databaseIndex/databaseIndexClient"
 import { dbFallback, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import {
@@ -11,7 +11,6 @@ import {
   formatPercentValue,
   matchesDatabaseIndexFilters,
   normalizeIndexParts,
-  previewScore,
   provenanceCompletenessPercent,
   qualityTone,
   sortDatabaseIndexRecords,
@@ -21,7 +20,6 @@ import {
 const PAGE_SIZE = 20
 
 const SORT_OPTIONS = [
-  ["previewScore", "preview score", "preview score"],
   ["descriptorCompleteness", "descriptor completeness", "descriptor completeness"],
   ["provenanceCompleteness", "provenance completeness", "provenance completeness"],
   ["qualityStatus", "quality status", "quality status"],
@@ -56,7 +54,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
   const [partCache, setPartCache] = useState({})
   const [loadingPath, setLoadingPath] = useState("")
   const [searchText, setSearchText] = useState("")
-  const [sortKey, setSortKey] = useState("previewScore")
+  const [sortKey, setSortKey] = useState("descriptorCompleteness")
   const [page, setPage] = useState(0)
   const selectedPart = selectedPath ? partCache[selectedPath]?.data : null
   const selectedError = selectedPath ? partCache[selectedPath]?.error : null
@@ -151,7 +149,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
               </div>
               <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{dbStatusLabel(row.dataQualityStatus, lang)}</StatusPill>
               <span style={{ color: row.hasAlNode || extractMetals(row).includes("Al") ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{extractMetals(row).length ? extractMetals(row).join(", ") : text(lang, "金属待核验", "metal pending")}</span>
-              <span style={{ color: t.muted, fontSize: 11.7, fontWeight: 850 }}>{`${formatScore(previewScore(row))} · D ${formatPercentValue(descriptorCompletenessPercent(row))} · P ${formatPercentValue(provenanceCompletenessPercent(row))}`}</span>
+              <span style={{ color: t.muted, fontSize: 11.7, fontWeight: 850 }}>{`D ${formatPercentValue(descriptorCompletenessPercent(row))} · P ${formatPercentValue(provenanceCompletenessPercent(row))}`}</span>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>
                 <button type="button" onClick={() => onAddCompare?.(row)} disabled={compareCount >= 3} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: compareCount >= 3 ? t.faint : t.accentText, cursor: compareCount >= 3 ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>
                   {text(lang, "对比", "Compare")}

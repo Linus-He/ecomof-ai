@@ -15,6 +15,7 @@ import reactionDataset from "../../../public/data/data_ingestion/organic_acid_re
 import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
 import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
+import fairMofsFamilyEvidence from "../../../public/data/fair_mofs_family_synthesis_evidence.json"
 import specificAlMofHosts from "../../../public/data/organic_acid_experimental_activation/specific_al_mof_hosts.json"
 import moIntroductionStrategies from "../../../public/data/organic_acid_experimental_activation/mo_introduction_strategies.json"
 import minimumExperimentalMatrix from "../../../public/data/organic_acid_experimental_activation/minimum_experimental_matrix.json"
@@ -41,6 +42,7 @@ function sourceFixture() {
     gasAdsorptionRecords,
     literatureDataset,
     goldDataset,
+    fairMofsFamilyEvidence,
   }
 }
 
@@ -74,7 +76,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     vi.useRealTimers()
   })
 
-  it("renders the V3.9.8 stepwise execution chain from Step 0 before any route-output emphasis", () => {
+  it("renders the V3.9.10 stepwise execution chain from Step 0 before any route-output emphasis", () => {
     renderWorkbench()
     const text = bodyText()
 
@@ -84,7 +86,8 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(screen.getByTestId("organic-acid-step-mini-map")).toBeInTheDocument()
     expect(screen.getByTestId("organic-acid-step-why-panel")).toBeInTheDocument()
 
-    expect(text).toMatch(/EcoMOF-AI V3\.9\.8/)
+    expect(text).toMatch(/EcoMOF-AI V3\.9\.10/)
+    expect(text).toMatch(/合成条件可及性，不是合成成功率/)
     expect(text).toMatch(/筛选目标设定/)
     expect(text).toMatch(/Screening Objective \/ 筛选目标/)
     expect(text).toMatch(/有机酸分步算法执行链/)
@@ -105,6 +108,9 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(text).toMatch(/非机器学习预测/)
     expect(text).toMatch(/实验规划可启用/)
     expect(text).toMatch(/尚未完成性能验证/)
+    expect(text).toMatch(/实际计算结构/)
+    expect(text).toMatch(/假设路线，无对应 3D 晶体结构/)
+    expect(screen.getAllByRole("button", { name: "查看主体 3D" }).length).toBeGreaterThan(0)
     expect(text.indexOf("筛选目标设定")).toBeLessThan(text.indexOf("最终结果总结"))
     expect(text).not.toMatch(/Current algorithm recommendation:/)
     expect(text).not.toMatch(/Cat Playground/)

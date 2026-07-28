@@ -18,7 +18,7 @@ const DEFAULT_CSD_MOF_PUBLIC_BASE = "https://linus-he.github.io/ecomof-csd-mof-d
 const DATA_PATHS = {
   mofCandidatesDemo: "data/mof_candidates_demo.json",
   mofCandidatesRealSeed: "data/mof_candidates_real_seed.json",
-  openMofSeedCandidates: "data/open_mof_seed_candidates.json",
+  coreMof2024SearchIndex: "data/core_mof_2024/cr_search_index.json",
   mofNameAliases: "data/mof_name_aliases.json",
   organicAcidExperimentRecords: "data/organic_acid_experiment_records.json",
   catalysisTasks: "data/catalysis_tasks.json",
@@ -46,6 +46,9 @@ const DATA_PATHS = {
   mofIdentityRegistry: "data/mof_identity_registry.json",
   coreMofImportV2: "data/data_ingestion/core_mof_import_v2.json",
   qmofImportV2: "data/data_ingestion/qmof_import_v2.json",
+  fairMofsImportV1: "data/data_ingestion/fair_mofs_import_v1.json",
+  fairMofsFamilySynthesisEvidence: "data/fair_mofs_family_synthesis_evidence.json",
+  fairMofsPropertyIndex: "data/fair_mofs_property_index_v1.json",
   csdStructurePilotManifest: "data/csd_structure_pilot_manifest.json",
   gasAdsorptionSourcesV1: "data/gas_adsorption_sources_v1.json",
   gasAdsorptionFieldSourcesV1: "data/gas_adsorption_field_sources_v1.json",
@@ -72,6 +75,25 @@ function dataUrl(path) {
   return `${baseWithSlash}${String(path || "").replace(/^\/+/, "")}`
 }
 
+const staticJsonPromiseCache = new Map()
+
+function loadStaticJson(path) {
+  const url = dataUrl(path)
+  if (!staticJsonPromiseCache.has(url)) {
+    const request = fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error(`Data request failed: ${response.status}`)
+        return response.json()
+      })
+      .catch(error => {
+        staticJsonPromiseCache.delete(url)
+        throw error
+      })
+    staticJsonPromiseCache.set(url, request)
+  }
+  return staticJsonPromiseCache.get(url)
+}
+
 export async function fetchJson(path, fallback = [], options = {}) {
   if (DATA_PROVIDER !== "static") {
     // Future adapters can branch here. The current prototype intentionally
@@ -79,14 +101,7 @@ export async function fetchJson(path, fallback = [], options = {}) {
   }
 
   try {
-    const response = await fetch(dataUrl(path))
-    if (!response.ok) {
-      const error = new Error(`Data request failed: ${response.status}`)
-      if (options.throwOnError) throw error
-      console.warn(error.message)
-      return fallback
-    }
-    return await response.json()
+    return await loadStaticJson(path)
   } catch (error) {
     if (options.throwOnError) throw error
     console.warn("Data could not be loaded from GitHub Pages.", error)
@@ -130,13 +145,9 @@ export function fetchDataJson(fileName, fallback = [], options = {}) {
 
 export async function getMofCandidates({ mode = DEFAULT_CANDIDATE_DATA_MODE, throwOnError = false } = {}) {
   if (mode !== DEFAULT_CANDIDATE_DATA_MODE) {
-    console.warn(`Ignoring legacy MOF candidate mode "${mode}"; using Open MOF Seed as the single candidate route.`)
+    console.warn(`Ignoring legacy MOF candidate mode "${mode}"; using the real CoRE MOF 2024 CR index.`)
   }
-  const scalablePreview = await fetchJson(DATA_PATHS.scalableDatabasePreviewV22, null, { throwOnError: false })
-  if (Array.isArray(scalablePreview) && scalablePreview.length) return scalablePreview
-  const mediumPreview = await fetchJson(DATA_PATHS.mediumDatabasePreviewV21, null, { throwOnError: false })
-  if (Array.isArray(mediumPreview) && mediumPreview.length) return mediumPreview
-  return fetchJson(DATA_PATHS.openMofSeedCandidates, [], { throwOnError })
+  return fetchJson(DATA_PATHS.coreMof2024SearchIndex, [], { throwOnError })
 }
 
 export async function getIsolatedMofExampleCandidates({ dataset = "demo", throwOnError = false } = {}) {
@@ -259,6 +270,18 @@ export function getCoreMofImportV2({ throwOnError = false } = {}) {
 
 export function getQmofImportV2({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.qmofImportV2, { records: [] }, { throwOnError })
+}
+
+export function getFairMofsImportV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.fairMofsImportV1, { records: [] }, { throwOnError })
+}
+
+export function getFairMofsFamilySynthesisEvidence({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.fairMofsFamilySynthesisEvidence, { families: [] }, { throwOnError })
+}
+
+export function getFairMofsPropertyIndex({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.fairMofsPropertyIndex, { records: [] }, { throwOnError })
 }
 
 export function getCsdStructurePilotManifest({ throwOnError = false } = {}) {

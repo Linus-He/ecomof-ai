@@ -1186,7 +1186,7 @@ export function safeVal(value, lang, fallback) {
 export function DataModeToggle({ value, onChange, lang, options: customOptions }) {
   const t = useT()
   const options = customOptions || [
-    { id: "open-mof-seed", label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+    { id: "core-mof-2024-cr", label: lang === "zh" ? "CoRE 2024 CR 真实结构库" : "CoRE 2024 CR real corpus" },
   ]
   return (
     <div style={{ display: "inline-flex", gap: 4, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 4 }}>
@@ -1317,10 +1317,10 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
           </div>
         ) : null}
         <div style={{ marginTop: 12, color: t.faint, fontSize: 10, lineHeight: 1.5, borderTop: `1px solid ${t.divider || t.border}`, paddingTop: 10 }}>
-          {source?.sourceType === "open-mof-seed"
+          {source?.sourceType === "core-mof-2024-cr"
             ? (lang === "zh"
-              ? "Open MOF Seed 是 EcoMOF-AI 的多源数据层，不是原始数据库名称。该字段的原始来源见上方来源数据库。"
-              : "Open MOF Seed is EcoMOF-AI's multi-source data layer, not the original database name. The original source is shown above as source database.")
+              ? "该字段来自 CoRE MOF 2024 CSD-modified CR 真实来源记录；结构元数据已核验，但不等于目标任务性能已得到实验验证。"
+              : "This field comes from a real CoRE MOF 2024 CSD-modified CR source row. Structural metadata is verified; target-task performance is not thereby experimentally validated.")
             : (lang === "zh"
               ? "字段级数据溯源说明数据框架，不替代手动数据核实和实验验证。"
               : "Field-level provenance describes the data framework and does not replace manual data verification.")}
@@ -1448,12 +1448,12 @@ export function DemoModeBanner({ lang }) {
 export function DataModeNote({ lang }) {
   const t = useT()
   const items = lang === "zh" ? [
-    "Open MOF Seed 是主候选数据路线",
+    "CoRE MOF 2024 CSD-modified CR 是当前主候选结构路线",
     "可信度通过字段级来源、证据等级和整理状态表达",
     "待补充字段仍在复核中，后续可能更新",
     "示例数据只保留在隔离的演示页面",
   ] : [
-    "Open MOF Seed is the main candidate data route",
+    "CoRE MOF 2024 CSD-modified CR is the active candidate structure route",
     "Trust is expressed by field provenance, evidence level, and curation status",
     "Pending fields are under review and may change",
     "Example data stays in isolated demo surfaces",

@@ -10,8 +10,6 @@ import {
   getMofIdentityResolutionReport,
   getGasStructureProxyValidationReport,
   getMofIdentityRegistry,
-  getCoreMofImportV2,
-  getQmofImportV2,
   getCsdStructurePilotManifest,
   getCsdMofPublicCatalog,
   getReadableMofLabel,
@@ -35,7 +33,7 @@ import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
 
-const DATA_MODE = "open-mof-seed"
+const DATA_MODE = "core-mof-2024-cr"
 const PAGE_SIZE = 24
 
 const COMPLETENESS_FIELDS = [
@@ -178,7 +176,7 @@ function getDisplayName(record) {
   const database = getDatabaseName(record)
   if (database.includes("CoRE")) return "CoRE MOF record"
   if (database.includes("QMOF")) return "QMOF record"
-  return "Open MOF record"
+  return "MOF source record"
 }
 
 function descriptorValue(item, key) {
@@ -188,7 +186,7 @@ function descriptorValue(item, key) {
 
 function makeFieldSource(item, key, value, unit) {
   return {
-    sourceType: "open-mof-seed",
+    sourceType: "core-mof-2024-cr",
     sourceName: getDatabaseName(item),
     sourceDatabase: getDatabaseName(item),
     database: getDatabaseName(item),
@@ -244,7 +242,7 @@ function normalizeOpenMofRecord(item) {
       reason: "Name curation status pending.",
     },
     dataMode: DATA_MODE,
-    dataStatus: item.dataStatus || "open-mof-seed",
+    dataStatus: item.dataStatus || "core-mof-2024-cr",
     sourceDatabase,
     sourceRecordId,
     sourceVersion,
@@ -384,13 +382,13 @@ function OpenMofSeedQualitySummary({ records, lang, t, isMobile }) {
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <div>
           <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 900 }}>
-            {text(lang, "Open MOF Seed 数据质量摘要", "Open MOF Seed Data Quality Summary")}
+            {text(lang, "CoRE 2024 CR 数据质量摘要", "CoRE 2024 CR Data Quality Summary")}
           </div>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 3 }}>
-            {text(lang, "统计结果来自当前加载的种子数据。", "Statistics are computed from the loaded seed records.")}
+            {text(lang, "统计结果来自当前加载的 9,835 条真实 CSD-modified CR 记录。", "Statistics are computed from the 9,835 active real CSD-modified CR records.")}
           </div>
         </div>
-        <StatusPill t={t} tone="source">open_mof_seed_candidates.json</StatusPill>
+        <StatusPill t={t} tone="source">core_mof_2024/cr_search_index.json</StatusPill>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 10 }}>
         <div style={groupCardStyle}>
@@ -683,11 +681,11 @@ function LibraryIdentityOverview({ record, stats, structuralCount, gasCount, ide
         <div>
           <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 850 }}>{text(lang, "数据库联通状态", "Linked-database status")}</span>
           <strong style={{ color: t.textStrong, display: "block", fontSize: 15, marginTop: 4 }}>
-            {text(lang, `${stats.total} 条种子记录，按字段证据展示`, `${stats.total} seed records with field-level evidence`)}
+            {text(lang, `${stats.total} 条真实结构记录，按字段证据展示`, `${stats.total} real structure records with field-level evidence`)}
           </strong>
         </div>
         <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))" }}>
-          <MetricMini label={text(lang, "结构", "Structure")} value={structuralCount} note="CoRE / QMOF" t={t} />
+          <MetricMini label={text(lang, "结构", "Structure")} value={structuralCount} note="CoRE 2024 CR" t={t} />
           <MetricMini label={text(lang, "气体记录", "Gas records")} value={gasCount} note="NIST / ISODB" t={t} />
           <MetricMini label={text(lang, "身份映射", "Identity links")} value={identityCount} note={text(lang, "不强行合并", "no forced merge")} t={t} />
         </div>
@@ -971,7 +969,7 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
         )}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))", gap: 8 }}>
-        <MetricMini label={text(lang, "结构", "Structure")} value={summary.withStructure} note="CoRE/QMOF" t={t} />
+        <MetricMini label={text(lang, "结构", "Structure")} value={summary.withStructure} note="CoRE 2024 CR" t={t} />
         <MetricMini label={text(lang, "气体数据", "Gas data")} value={summary.withGas} note={`${collectionReport?.summary?.computedIastSelectivityCount || 0} IAST`} t={t} />
         <MetricMini label={text(lang, "催化关联", "Catalysis links")} value={summary.withCatalysis} note="Organic Acid" t={t} />
         <MetricMini label={text(lang, "实体解析", "Identity links")} value={reportedIdentity.linkedGasRecordCount ?? collectionReport?.summary?.gasRecordsWithStructuralLinks ?? "n/a"} note={`${Math.round((reportedIdentity.gasStructureResolutionRate ?? collectionReport?.summary?.gasStructureResolutionRate ?? 0) * 100)}%`} t={t} />
@@ -1187,20 +1185,14 @@ export function MOFLibraryTab() {
       getGasAdsorptionV2CollectionReport({ throwOnError: false }),
       getMofIdentityResolutionReport({ throwOnError: false }),
       getGasStructureProxyValidationReport({ throwOnError: false }),
-      getCoreMofImportV2({ throwOnError: false }),
-      getQmofImportV2({ throwOnError: false }),
       getCsdStructurePilotManifest({ throwOnError: false }),
       getCsdMofPublicCatalog({ throwOnError: false }),
     ])
-      .then(([data, gasData, registry, report, identityResolution, proxyValidation, coreImport, qmofImport, csdManifest, csdCatalog]) => {
+      .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog]) => {
         if (!active) return
         const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
-        const imports = [
-          ...((coreImport?.records || []).map(row => ({ ...row, sourceDatabase: row.sourceDatabase || "CoRE MOF" }))),
-          ...((qmofImport?.records || []).map(row => ({ ...row, sourceDatabase: row.sourceDatabase || "QMOF" }))),
-        ]
         setRows(normalized)
-        setStructuralRows(imports.length ? imports : normalized)
+        setStructuralRows(normalized)
         setGasRows(Array.isArray(gasData) ? gasData : [])
         setIdentityRegistry(registry || { records: [], summary: {} })
         setCollectionReport(report || null)
@@ -1212,7 +1204,7 @@ export function MOFLibraryTab() {
         setStatus(normalized.length ? "loaded" : "empty")
       })
       .catch(error => {
-        console.warn("Open MOF Seed data could not be loaded.", error)
+        console.warn("CoRE MOF 2024 CR data could not be loaded.", error)
         if (!active) return
         setRows([])
         setCsdCatalogStatus("unavailable")
@@ -1248,14 +1240,14 @@ export function MOFLibraryTab() {
 
   const statusLine = text(
     lang,
-    `${stats.total} 条 Open MOF Seed 记录 · CoRE ${sourceCounts["CoRE MOF DB"] || 0} 条 · QMOF ${sourceCounts["QMOF Database"] || 0} 条。有机酸路径关联需文献、DFT 或实验支持后才标记为有效。`,
-    `${stats.total} Open MOF Seed records · ${sourceCounts["CoRE MOF DB"] || 0} CoRE records · ${sourceCounts["QMOF Database"] || 0} QMOF records. Organic-acid pathway relevance is marked only when supported by literature, DFT, or experiment.`
+    `${stats.total} 条真实 CoRE MOF 2024 CSD-modified CR 记录；不符合当前结构条件的记录不会进入候选和评分入口。有机酸路线仍需文献、DFT 或实验支持。`,
+    `${stats.total} real CoRE MOF 2024 CSD-modified CR records; rows outside the active structural criteria do not enter candidate or scoring surfaces. Organic-acid routes still require literature, DFT, or experimental support.`
   )
 
   return (
     <div id="library" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
-        title={text(lang, "统一 MOF 浏览器", "Unified MOF Browser")}
+        title={text(lang, "MOF库", "MOF Library")}
         subtitle={text(
           lang,
           "基于身份层浏览/检索任意 MOF 的打通全貌：结构属性 + 气体吸附（含等温线）+ 有机酸催化关联，附统一来源溯源。",
@@ -1276,7 +1268,7 @@ export function MOFLibraryTab() {
       />
 
       <div data-testid="mof-library-status-strip" style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, color: t.subtle, fontSize: 12.2, lineHeight: 1.55 }}>
-        <strong style={{ color: t.textStrong }}>{text(lang, "Open MOF Seed（CoRE / QMOF）", "Open MOF Seed (CoRE / QMOF)")}</strong>
+        <strong style={{ color: t.textStrong }}>{text(lang, "CoRE MOF 2024 · CSD-modified · CR", "CoRE MOF 2024 · CSD-modified · CR")}</strong>
         <StatusPill t={t} tone={status === "loaded" ? "good" : status === "loading" ? "neutral" : "warn"}>
           {status === "loading" ? text(lang, "加载中", "loading") : text(lang, `${stats.total} 条`, `${stats.total} records`)}
         </StatusPill>
@@ -1293,9 +1285,9 @@ export function MOFLibraryTab() {
         isMobile={isMobile}
       />
 
-      {status === "loading" && <div style={{ color: t.accentText, fontSize: 12.2, fontWeight: 800 }}>{text(lang, "正在加载 Open MOF Seed 数据…", "Loading Open MOF Seed data...")}</div>}
-      {status === "fallback" && <Callout tone="warn">{text(lang, "Open MOF Seed 数据暂时无法读取。请刷新页面或稍后重试。", "Open MOF Seed data is temporarily unavailable. Please refresh or try again later.")}</Callout>}
-      {status === "empty" && <Callout tone="warn">{text(lang, "当前 Open MOF Seed 文件暂无记录。", "The current Open MOF Seed file has no records.")}</Callout>}
+      {status === "loading" && <div style={{ color: t.accentText, fontSize: 12.2, fontWeight: 800 }}>{text(lang, "正在加载 CoRE MOF 2024 CR 索引…", "Loading the CoRE MOF 2024 CR index...")}</div>}
+      {status === "fallback" && <Callout tone="warn">{text(lang, "CoRE MOF 2024 CR 索引暂时无法读取。请刷新页面或稍后重试。", "The CoRE MOF 2024 CR index is temporarily unavailable. Please refresh or try again later.")}</Callout>}
+      {status === "empty" && <Callout tone="warn">{text(lang, "当前 CoRE MOF 2024 CR 索引暂无记录。", "The current CoRE MOF 2024 CR index contains no records.")}</Callout>}
 
       <section style={{ display: "grid", gap: 10, padding: "4px 0" }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
@@ -1340,7 +1332,7 @@ export function MOFLibraryTab() {
 
           <ResultLayer
             number="01"
-            title={text(lang, "Open MOF Seed 记录", "Open MOF Seed Records")}
+            title={text(lang, "CoRE 2024 CR 真实结构记录", "CoRE 2024 CR Real Structure Records")}
             subtitle={text(
               lang,
               `${filteredRecords.length} / ${rows.length} 条记录匹配当前筛选。默认显示 ${PAGE_SIZE} 条，点击加载更多继续浏览。`,

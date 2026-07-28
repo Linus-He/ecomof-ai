@@ -309,7 +309,7 @@ const QUEUE_REASON_TEXT = {
 }
 
 function queueNextActions(verification) {
-  const actions = ["Locate original CoRE/QMOF source record"]
+  const actions = ["Verify the original CoRE source row; require a real QMOF record before using QMOF"]
   if (verification.doiStatus !== "verified") actions.push("Attach source URL or DOI if available")
   if (verification.licenseStatus !== "verified") actions.push("Confirm license and citation")
   if (verification.descriptorProvenanceStatus !== "complete") actions.push("Document descriptor provenance")

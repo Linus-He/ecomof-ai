@@ -6,7 +6,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_ALGORITHM_FLOW_VERSION = "V3.9.8"
+export const ORGANIC_ACID_ALGORITHM_FLOW_VERSION = "V3.9.10"
 export const ORGANIC_ACID_ALGORITHM_FLOW_NAME = "Organic Acid Algorithm Flow Network"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"

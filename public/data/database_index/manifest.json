@@ -1,28 +1,28 @@
 {
-  "version": "V2.0-A",
-  "datasetMode": "database_index_preview",
-  "description": "Large-scale database index architecture preview. Not full verified database screening.",
-  "buildDate": "2026-06-07",
+  "version": "CoRE-MOF-2024-current",
+  "datasetMode": "real_core_mof_cr_index",
+  "description": "Record-level CoRE MOF 2024 CSD-modified CR index. Structural screening only; no catalytic outcome is inferred.",
+  "buildDate": "2026-07-28",
   "sourceDatabases": [
     {
-      "name": "CoRE MOF",
-      "status": "index_preview",
-      "recordCount": 500,
+      "name": "CoRE MOF 2024 · CSD-modified CR",
+      "status": "active_source_record_index",
+      "recordCount": 9835,
       "detailCount": 30,
-      "license": null,
-      "citation": null,
-      "sourceUrl": null,
-      "notes": "Preview index generated for architecture validation."
+      "license": "CC-BY-NC-SA-4.0",
+      "citation": "CoRE MOF 2024 v1.1",
+      "sourceUrl": "https://zenodo.org/records/15055758",
+      "notes": "All 9,835 CR records are real source rows with corresponding processed CIFs."
     },
     {
       "name": "QMOF",
-      "status": "index_preview",
-      "recordCount": 200,
-      "detailCount": 20,
+      "status": "quarantined",
+      "recordCount": 0,
+      "detailCount": 0,
       "license": null,
       "citation": null,
       "sourceUrl": null,
-      "notes": "Preview descriptor index generated for architecture validation."
+      "notes": "Legacy placeholder rows are excluded until a row-level QMOF export is supplied."
     }
   ],
   "files": {
@@ -37,11 +37,17 @@
   "indexParts": {
     "coreMof": [
       "core_mof_index_parts/core_mof_index_part_001.json",
-      "core_mof_index_parts/core_mof_index_part_002.json"
+      "core_mof_index_parts/core_mof_index_part_002.json",
+      "core_mof_index_parts/core_mof_index_part_003.json",
+      "core_mof_index_parts/core_mof_index_part_004.json",
+      "core_mof_index_parts/core_mof_index_part_005.json",
+      "core_mof_index_parts/core_mof_index_part_006.json",
+      "core_mof_index_parts/core_mof_index_part_007.json",
+      "core_mof_index_parts/core_mof_index_part_008.json",
+      "core_mof_index_parts/core_mof_index_part_009.json",
+      "core_mof_index_parts/core_mof_index_part_010.json"
     ],
-    "qmof": [
-      "qmof_index_parts/qmof_index_part_001.json"
-    ]
+    "qmof": []
   },
   "detailBasePaths": {
     "framework": "detail/framework/",
@@ -49,7 +55,7 @@
     "evidence": "detail/evidence/"
   },
   "warnings": [
-    "This is an index architecture preview, not full database screening.",
-    "Do not interpret precomputed candidates as experimentally verified materials."
+    "Structural screening readiness does not mean catalytic performance or hydrothermal validation.",
+    "QMOF is quarantined and contributes zero active records."
   ]
 }

@@ -915,7 +915,7 @@ export function CandidateComparisonModal({
               )}
               {loadStatus !== "loading" && normalizedAll.length === 0 && (
                 <EmptyCandidateState t={t}>
-                  {zh ? "暂无候选材料记录。可尝试打开 MOF 候选库或刷新页面。" : "No candidate records are available. Try opening MOF Library or refreshing the page."}
+                  {zh ? "暂无候选材料记录。可尝试打开 MOF库或刷新页面。" : "No candidate records are available. Try opening MOF Library or refreshing the page."}
                 </EmptyCandidateState>
               )}
               {loadStatus !== "loading" && normalizedAll.length > 0 && filteredCandidates.length === 0 && (

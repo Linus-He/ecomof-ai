@@ -23,6 +23,7 @@ export const HASH_TO_TAB = {
   "project-evolution-ui": "projectEvolution",
   "project-evolution-milestones": "projectEvolution",
   "project-evolution-roadmap": "projectEvolution",
+  "database-compliance": "dataCompliance",
   methodology: "about",
   "methodology-algorithm-validation": "about",
   "algval-figure": "about",
@@ -52,6 +53,7 @@ export const TAB_TO_HASH = {
   catalysis: "catalysis",
   library: "library",
   projectEvolution: "project-evolution",
+  dataCompliance: "database-compliance",
   about: "methodology",
 }
 
@@ -65,23 +67,23 @@ export const HASH_META = {
     description: "EcoMOF-AI 是面向 MOF 候选筛选、可持续性评价、描述符整理、催化探索和字段级数据来源追踪的早期研究原型。",
   },
   ecoscreen: {
-    title: "EcoScreen | MOF 候选可持续性筛选",
+    title: "生态筛选 | EcoMOF-AI",
     description: "查看可持续性导向的 MOF 候选优先级、透明假设、候选评分和使用限制。",
   },
   performance: {
-    title: "性能优先级 | MOF 候选排序",
+    title: "性能优先级 | EcoMOF-AI",
     description: "查看基于规则的 MOF 候选优先级、描述符整理状态和字段级来源信息。",
   },
   gassep: {
-    title: "GasSep | 条件语境气体分离记录",
+    title: "气体分离 | EcoMOF-AI",
     description: "查看 MOF 候选的气体吸附与分离记录，包括气体比例、温度、压力、方法、来源状态和等温线状态。",
   },
   "gas-separation": {
-    title: "GasSep | 条件语境气体分离记录",
+    title: "气体分离 | EcoMOF-AI",
     description: "查看 MOF 候选的气体吸附与分离记录，包括气体比例、温度、压力、方法、来源状态和等温线状态。",
   },
   catalysis: {
-    title: "CatalysisLab | 催化导向 MOF 探索",
+    title: "催化 | EcoMOF-AI",
     description: "以早期研究原型方式查看催化导向 MOF 候选优先级，不作为最终催化性能预测。",
   },
   "catalysis-organic-acid": {
@@ -97,11 +99,11 @@ export const HASH_META = {
     description: "查看 glucose / HCO₃⁻ 到 formic acid 和竞争有机酸路径的图论演示器，以及可能的 MOF influence hypothesis。",
   },
   library: {
-    title: "MOF 候选库 | 描述符整理与来源追踪",
+    title: "MOF库 | EcoMOF-AI",
     description: "查看 MOF 描述符、整理状态、来源记录和数据质量与来源摘要。",
   },
   "project-evolution": {
-    title: "Project Evolution | EcoMOF-AI",
+    title: "项目演化 | EcoMOF-AI",
     description: "查看 EcoMOF-AI 的版本时间线、Release Notes、数据库成长、算法演化、验证体系、里程碑和路线图。",
   },
   "project-evolution-overview": {
@@ -144,8 +146,12 @@ export const HASH_META = {
     title: "Roadmap | EcoMOF-AI",
     description: "查看 EcoMOF-AI V2.4 到 V3.0 的规划、目标和风险边界。",
   },
+  "database-compliance": {
+    title: "数据合规 | EcoMOF-AI",
+    description: "逐库查看 EcoMOF-AI 的数据来源、许可、非商业边界、平台承诺、用户再利用责任与官方条款链接。",
+  },
   methodology: {
-    title: "方法与证据 | EcoMOF-AI",
+    title: "方法论 | EcoMOF-AI",
     description: "了解 EcoMOF-AI 的评分方法、证据等级、数据来源、基准语境、验证状态、引用边界和使用限制。",
   },
   "methodology-algorithm-validation": {

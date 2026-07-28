@@ -332,7 +332,7 @@ function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigat
           <p>{localize(currentRelease?.summary, lang)}</p>
         </div>
         <button type="button" onClick={() => onNavigate?.("methodology")} className="project-evolution-method-link">
-          {text(lang, "查看方法与证据", "View Methods & Evidence")}
+          {text(lang, "查看方法论", "View Methodology")}
         </button>
       </div>
 
@@ -522,7 +522,6 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
           <MetricCard key={card.id} fieldKey={card.id} label={card.label} value={card.value} source={card.source} t={t} lang={lang} tone={card.tone} />
         ))}
         <MetricCard fieldKey="verifiedMetadata" label={text(lang, "已核验元数据", "Verified Metadata")} value={resolvedStatus.verifiedMetadata} source={resolvedStatus.sources?.verifiedMetadata} t={t} lang={lang} tone="pass" />
-        <MetricCard fieldKey="goldDataset" label={text(lang, "Gold 数据集", "Gold Dataset")} value={resolvedStatus.goldDataset} source={resolvedStatus.sources?.goldDataset} t={t} lang={lang} />
         <MetricCard fieldKey="externalTest" label={text(lang, "外部测试", "External Test")} value={resolvedStatus.externalTest} source={resolvedStatus.sources?.externalTest} t={t} lang={lang} />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -992,7 +991,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
     <Card
       id={methodology.id}
       title={text(lang, methodology.titleZh, methodology.title)}
-      subtitle={text(lang, "V3.9.8 独立算法方法论模块：展示八因子加权几何 HGCPS、描述符消融、真实价格、预注册纪律与审计结论；不预设最终赢家。", "A standalone V3.9.8 methodology module covering the eight-factor weighted-geometric HGCPS, descriptor ablation, real prices, preregistration discipline, and audit conclusions; no final winner is preset.")}
+      subtitle={text(lang, "V3.9.10 独立算法方法论模块：展示八因子加权几何 HGCPS、去丰度偏置、FAIR-MOFs 合成条件证据、描述符消融与审计结论；不预设最终赢家。", "A standalone V3.9.10 methodology module covering the eight-factor weighted-geometric HGCPS, abundance-bias correction, FAIR-MOFs synthesis-condition evidence, descriptor ablation, and audit conclusions; no final winner is preset.")}
       t={t}
       actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
     >
@@ -1081,7 +1080,7 @@ function ValidationEvolution({ data, lang, t }) {
 
 function UiEvolution({ data, lang, t }) {
   return (
-    <Card id="project-evolution-ui" title={text(lang, "界面演化", "UI Evolution")} subtitle={text(lang, "记录首页、EcoScreen、GasSep、催化实验室、MOF 候选库、数据质量审计与项目演化的界面演化；旧版科研输出页只保留为历史记录。", "Tracks UI evolution for Home, EcoScreen, GasSep, CatalysisLab, MOF Library, Data Quality Audit, and Project Evolution; legacy research-output pages remain historical only.")} t={t}>
+    <Card id="project-evolution-ui" title={text(lang, "界面演化", "UI Evolution")} subtitle={text(lang, "记录首页、生态筛选、气体分离、催化、MOF库、数据合规与项目演化的界面变化；历史版本名称保留在对应发布记录中。", "Tracks UI evolution for Home, EcoScreen, GasSep, Catalysis, MOF Library, Data Compliance, and Project Evolution; historical names remain in their release records.")} t={t}>
       <div style={{ display: "grid", gap: 8 }}>
         {(data.uiEvolution || []).map(row => (
           <article key={`${row.version}-${row.area}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, gridTemplateColumns: "minmax(110px, 0.35fr) minmax(0, 0.65fr)", padding: 9 }}>
@@ -1212,7 +1211,7 @@ export function ProjectEvolutionTab({ onNavigate, data: providedData = null }) {
   return (
     <div id="project-evolution" data-testid="project-evolution-tab" style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 0 }}>
       <PageHeader
-        title={text(lang, "项目演化", "Project Evolution Center")}
+        title={text(lang, "项目演化", "Project Evolution")}
         subtitle={text(lang, "发布、数据、科研、验证和界面变化汇总在同一张图中；完整记录按主题归档。", "Web releases, data, research, validation, and interface changes are brought together in one graph, with complete records grouped by topic.")}
         meta={text(lang, "EcoMOF-AI 项目变化记录", "What Changed In EcoMOF-AI")}
         action={<><BasisBadge tone="info">{APP_VERSION_LABEL}</BasisBadge><CopyLinkButton hash="project-evolution" ariaLabel={text(lang, "复制项目演化链接", "Copy Project Evolution link")} /></>}

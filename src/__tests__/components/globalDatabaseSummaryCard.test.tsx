@@ -16,7 +16,7 @@ describe("GlobalDatabaseSummaryCard", () => {
     expect(screen.getByTestId("global-database-summary")).toBeInTheDocument()
     expect(body()).toMatch(/Global Database Summary/)
     expect(body()).toMatch(/Web v1\.0\.5/)
-    expect(body()).toMatch(/Total Records/)
+    expect(body()).toMatch(/Layer Records/)
     for (const bad of FORBIDDEN) expect(body()).not.toContain(bad)
   })
 

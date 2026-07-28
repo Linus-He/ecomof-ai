@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00017",
+  "frameworkId": "coremof2024-csdm-00017",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2012[Cu][rob]3[ASR]2",
+  "displayName": "ACAJOF",
+  "commonName": "ACAJOF",
+  "csdRefcode": "ACAJOF",
+  "coreId": "2012[Cu][rob]3[ASR]2",
+  "metals": [
+    "Cu"
+  ],
+  "hasAlNode": false,
+  "topology": "rob",
+  "surfaceArea": 923.925,
+  "pldA": 6.10482,
+  "lcdA": 6.86398,
+  "poreVolume": 0.420936,
+  "density": 1.21871,
+  "voidFraction": 0.513,
+  "waterStability": 0.59022964,
+  "thermalStability": 252.9,
+  "sourceDoi": "10.1039/c2dt31427d",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2012[Cu][rob]3[ASR]2; DOI 10.1039/c2dt31427d.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00017.json",
+  "descriptors": {
+    "surfaceArea": 923.925,
+    "pldA": 6.10482,
+    "lcdA": 6.86398,
+    "poreVolume": 0.420936,
+    "density": 1.21871,
+    "voidFraction": 0.513,
+    "waterStability": 0.59022964,
+    "thermalStability": 252.9
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

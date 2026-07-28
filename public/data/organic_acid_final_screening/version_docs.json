@@ -1,8 +1,8 @@
 {
   "scope": "Organic Acid Final Screening",
   "updatedAt": "2026-06-25",
-  "currentVersion": "V3.9.9",
-  "completedRange": "V1.0-V3.9.9",
+  "currentVersion": "V3.9.10",
+  "completedRange": "V1.0-V3.9.10",
   "evidenceBoundary": "Knowledge Base records version history, literature inspirations, method adaptation boundaries, and evidence status. It does not claim that EcoMOF-AI reproduces the original papers' models or experimental results.",
   "evidenceBoundaryZh": "知识库记录版本演进、文献灵感、方法迁移边界与证据状态；不表示 EcoMOF-AI 已复现原论文模型或实验结果。",
   "versions": [
@@ -3807,7 +3807,7 @@
       "title": "Methodology Unification, De-Whitespace, De-Static",
       "titleZh": "方法论统一、去空白、去静态",
       "date": "2026-06",
-      "status": "current",
+      "status": "completed",
       "theme": "Methodology unification",
       "themeZh": "方法论统一",
       "summary": "Organic Acid methodology unification, de-whitespace, de-static (presentation/copy/layout only; no algorithm or score change). Unified the methodology to the current HGCPS weighted-geometric-mean 8-descriptor data-derived algorithm and retired the contradictory OACS/DMRS two-stage / multiplicative / demo-proxy / Al-centric cards; fixed large-whitespace layouts in the algorithm chain and research reports; surfaced a prominent Run control and a current-algorithm-status card so the chain reads as computing on real data; kept the ranking-evolution bump chart driven by the evolution log.",
@@ -3874,6 +3874,90 @@
         ],
         "adaptationBoundary": "Presentation/terminology/layout unification only; no algorithm, score, or final catalyst-performance claim.",
         "adaptationBoundaryZh": "仅呈现/术语/布局统一；无算法、分数或最终催化性能主张。"
+      },
+      "relatedSection": "methodology-oafs-algorithm-showcase"
+    },
+    {
+      "version": "V3.9.10",
+      "title": "Abundance-Neutral Scoring and FAIR-MOFs Evidence",
+      "titleZh": "去丰度偏置评分与 FAIR-MOFs 证据接入",
+      "date": "2026-07",
+      "status": "current",
+      "theme": "Data-fair algorithm correction",
+      "themeZh": "数据公平性算法修正",
+      "summary": "Replaced same-family record frequency as a synthesizability score with FAIR-MOFs reported-condition accessibility, deduplicated evidence identities, and moved sample size to empirical-Bayes shrinkage, evidence confidence, uncertainty, and coverage only. The locked spec-v3 rerun changed route scores and ranks without post-hoc tuning.",
+      "summaryZh": "以 FAIR-MOFs 报道合成条件的可及性替代同家族记录频率型可合成性评分；按证据身份去重，并将样本量严格限制为经验贝叶斯收缩、证据置信度、不确定性和覆盖率用途。锁定的 spec-v3 重跑在不做事后调参的前提下重新计算路线分数与排名。",
+      "keyUpdates": [
+        "Ingested 4,168 FAIR-MOFs records with exact Refcode, base-variant, and article-only identity boundaries.",
+        "Derived CoRE stability from source water, solvent, and thermal properties rather than raw family abundance.",
+        "Replaced synthesis-frequency scoring with FAIR-MOFs condition-accessibility evidence.",
+        "Added a duplicate-record point-invariance audit; maximum point-score delta is zero.",
+        "Published V3.9.10 rerun, audit, methodology-showcase, derived-cache, and ranking-evolution artifacts."
+      ],
+      "keyUpdatesZh": [
+        "接入 4,168 条 FAIR-MOFs 记录，并区分精确 Refcode、基础变体关联与仅论文级关联。",
+        "主体稳定性改由 CoRE 的水、溶剂与热稳定源属性推导，不再由家族原始数量决定。",
+        "用 FAIR-MOFs 合成条件可及性证据替代频率型可合成性评分。",
+        "新增重复记录点分不变性审计；最大点分变化为 0。",
+        "发布 V3.9.10 重跑、审计、方法展示、派生缓存与排名演化产物。"
+      ],
+      "algorithmChanges": [
+        "Corpus abundance cannot directly increase the point score.",
+        "Distinct evidence count controls shrinkage and confidence only.",
+        "Condition accessibility describes reported temperature/time severity and completeness; it is not a synthesis-success probability.",
+        "The locked eight-factor weighted-geometric HGCPS remains a route-priority hypothesis model."
+      ],
+      "algorithmChangesZh": [
+        "数据库收录数量不能直接提高点分。",
+        "独立证据数量只控制收缩与置信度。",
+        "条件可及性描述已报道温度/时间条件的严苛度与完整性，不是合成成功概率。",
+        "锁定的八因子加权几何 HGCPS 仍是路线优先级假设模型。"
+      ],
+      "uiChanges": [
+        "Added FAIR-MOFs identity and condition-accessibility boundaries to the Organic Acid workbench.",
+        "Added unified CoRE/FAIR-MOFs search and physicochemical-property exploration to EcoScreen.",
+        "Added source-specific compliance status and user-obligation surfaces."
+      ],
+      "uiChangesZh": [
+        "在有机酸工作台新增 FAIR-MOFs 身份边界与条件可及性说明。",
+        "在 EcoScreen 新增 CoRE/FAIR-MOFs 统一搜索与物化性质查询。",
+        "新增按来源分类的合规状态与用户义务界面。"
+      ],
+      "methodologyChanges": [
+        "Preregistered spec v3 before rerun and persisted the no-post-hoc-tuning boundary.",
+        "Separated point estimate from evidence maturity and made duplicate-record invariance auditable.",
+        "Defined exact Refcode as structure identity while keeping base variants and shared DOI as weaker associations."
+      ],
+      "methodologyChangesZh": [
+        "在重跑前锁定 spec v3，并持久化不得事后调参的边界。",
+        "将点估计与证据成熟度分离，使重复记录不变量可以审计。",
+        "将精确 Refcode 定义为结构同一；基础变体与同 DOI 只保留为较弱关联。"
+      ],
+      "evidenceBoundary": "FAIR-MOFs synthesis records are text-mined reported conditions and require source-paper verification. DOI-only joins transfer article context, not exact structure identity. Results remain screening hypotheses, not experimental catalytic proof or formal ML prediction.",
+      "evidenceBoundaryZh": "FAIR-MOFs 合成记录来自文本挖掘的报道条件，仍需回查原文；仅 DOI 关联只传递论文上下文，不证明结构同一。结果仍是筛选假设，不是实验催化证明或正式机器学习预测。",
+      "limitations": [
+        "Only 189 FAIR-MOFs records currently have structure-level Refcode matches; article-only joins are not used as exact structure evidence.",
+        "Sparse families remain strongly shrunk and carry low evidence confidence.",
+        "Guest/dopant activity and several linker descriptors remain fallback.",
+        "Same-condition catalytic validation remains pending."
+      ],
+      "limitationsZh": [
+        "当前只有 189 条 FAIR-MOFs 记录获得结构级 Refcode 匹配；仅论文级关联不作为精确结构证据。",
+        "稀疏家族会被强收缩并显示较低证据置信度。",
+        "客体/掺杂活性与若干连接体描述符仍为 fallback。",
+        "同条件催化验证仍待完成。"
+      ],
+      "knowledgeBaseLinks": {
+        "knowledgeTags": [
+          "abundance-bias",
+          "FAIR-MOFs",
+          "identity-resolution",
+          "empirical-bayes",
+          "condition-accessibility",
+          "audit"
+        ],
+        "adaptationBoundary": "White-box route-priority scoring only; no success-probability, catalyst-performance, or formal-ML claim.",
+        "adaptationBoundaryZh": "仅用于白盒路线优先级评分；不主张合成成功概率、催化性能或正式机器学习结论。"
       },
       "relatedSection": "methodology-oafs-algorithm-showcase"
     }

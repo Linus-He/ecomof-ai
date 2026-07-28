@@ -58,7 +58,7 @@ function safeNumber(value, fallback = 0) {
 }
 
 function candidateName(candidate) {
-  return candidate?.displayName || candidate?.commonName || candidate?.name || candidate?.mofName || candidate?.id || "Open MOF record"
+  return candidate?.displayName || candidate?.commonName || candidate?.name || candidate?.mofName || candidate?.id || "MOF source record"
 }
 
 function roles(candidate) {

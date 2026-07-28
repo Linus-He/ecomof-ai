@@ -473,7 +473,7 @@ export function generateResearchReport({
     sections.push({
       title: "Data Source Breakdown",
       subtitle: "数据来源构成",
-      body: `Total Records ${dataIngestion.totalRecords}（CoRE ${dataIngestion.coreCount} + QMOF ${dataIngestion.qmofCount} + Literature ${dataIngestion.literatureCount}）。External Database ${Math.round(b.externalDatabase * 100)}% · Literature ${Math.round(b.literature * 100)}% · Experimental ${Math.round(b.experimental * 100)}% · Derived ${Math.round(b.derived * 100)}%。Verified Metadata ${dataIngestion.verifiedMetadataCount}，Gold ${dataIngestion.goldCount}，Reaction ${dataIngestion.reactionCount}。Derived 与 Experimental 严格隔离：Derived Dataset 不计入 Experimental Labels（Experimental = ${dataIngestion.experimentalCount}）。`,
+      body: `Total Records ${dataIngestion.totalRecords}（CoRE MOF 2024 CSD-modified CR ${dataIngestion.coreCount} + QMOF ${dataIngestion.qmofCount} + Literature ${dataIngestion.literatureCount}）。External Database ${Math.round(b.externalDatabase * 100)}% · Literature ${Math.round(b.literature * 100)}% · Experimental ${Math.round(b.experimental * 100)}% · Derived ${Math.round(b.derived * 100)}%。Verified Metadata ${dataIngestion.verifiedMetadataCount}，Gold ${dataIngestion.goldCount}，Reaction ${dataIngestion.reactionCount}。QMOF 与旧 V3.3 派生数据若标记 quarantined，则不参与当前统计或计算；Derived 与 Experimental 严格隔离（Experimental = ${dataIngestion.experimentalCount}）。`,
     })
   }
   if (firstBenchmark?.experimentalLabelAudit) {

@@ -151,7 +151,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
               onClick={onBack}
               style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 11px" }}
             >
-              {text(lang, "返回 Catalysis Lab", "Back to Catalysis Lab")}
+              {text(lang, "返回催化", "Back to Catalysis")}
             </button>
           </div>
         }
@@ -163,8 +163,8 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         </strong>
         <ChemicalText value={text(
           lang,
-          "页面展示反应约束 -> Al-MOF 骨架筛选 -> 第二金属推荐 -> Why Mo -> 稳健性 -> 盲测基线 -> EXAFS 可证伪预测 -> 实验验证路线。完整方法论与证据层已同步到 Methods & Evidence。",
-          "The page shows reaction constraints -> Al-MOF framework mining -> dopant recommendation -> Why Mo -> robustness -> blind baselines -> EXAFS falsification -> experimental validation roadmap. Methodology and evidence layer updated in Methods & Evidence."
+          "页面展示反应约束 -> Al-MOF 骨架筛选 -> 第二金属推荐 -> Why Mo -> 稳健性 -> 盲测基线 -> EXAFS 可证伪预测 -> 实验验证路线。完整方法与证据边界已同步到方法论。",
+          "The page shows reaction constraints -> Al-MOF framework mining -> dopant recommendation -> Why Mo -> robustness -> blind baselines -> EXAFS falsification -> experimental validation roadmap. Methods and evidence boundaries are synchronized with Methodology."
         )} />
       </section>
 

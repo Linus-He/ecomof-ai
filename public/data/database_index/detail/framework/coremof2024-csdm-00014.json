@@ -1,0 +1,55 @@
+{
+  "id": "coremof2024-csdm-00014",
+  "frameworkId": "coremof2024-csdm-00014",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2021[Zn][pts]3[ASR]1",
+  "displayName": "JOU-34",
+  "commonName": "JOU-34",
+  "csdRefcode": "ABINIM",
+  "coreId": "2021[Zn][pts]3[ASR]1",
+  "metals": [
+    "Zn"
+  ],
+  "hasAlNode": false,
+  "topology": "pts",
+  "surfaceArea": 1567.43,
+  "pldA": 6.67134,
+  "lcdA": 7.25417,
+  "poreVolume": 0.605746,
+  "density": 0.98391,
+  "voidFraction": 0.596,
+  "waterStability": 0.31,
+  "thermalStability": 349.1,
+  "sourceDoi": "10.1016/j.poly.2021.115439",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2021[Zn][pts]3[ASR]1; DOI 10.1016/j.poly.2021.115439.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00014.cif",
+  "detailRef": "detail/framework/coremof2024-csdm-00014.json",
+  "descriptors": {
+    "surfaceArea": 1567.43,
+    "pldA": 6.67134,
+    "lcdA": 7.25417,
+    "poreVolume": 0.605746,
+    "density": 0.98391,
+    "voidFraction": 0.596,
+    "waterStability": 0.31,
+    "thermalStability": 349.1
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

@@ -10,7 +10,7 @@ export function ResourcesTab({ activeSub, setActiveSub, results, inputs }) {
   const items = [
     { id: "dataSources", label: lang === "zh" ? "数据来源" : "Data Sources" },
     { id: "literature", label: lang === "zh" ? "数据库 / 基准" : "Database / Benchmarks" },
-    { id: "methods", label: lang === "zh" ? "方法与证据" : "Methods & Evidence" },
+    { id: "methods", label: lang === "zh" ? "方法论" : "Methodology" },
   ]
   const safeActiveSub = items.some(item => item.id === activeSub) ? activeSub : "dataSources"
 

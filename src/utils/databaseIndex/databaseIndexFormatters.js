@@ -139,7 +139,7 @@ export function matchesDatabaseIndexFilters(row = {}, filters = {}) {
   const quality = filters.qualityStatus || "all"
   if (quality !== "all") {
     const status = normalizeQualityStatus(row.dataQualityStatus || row.qualityStatus)
-    if (quality === "ready-for-scoring" && !status.includes("ready")) return false
+    if (["ready-for-scoring", "ready-for-structural-screening"].includes(quality) && !status.includes("ready")) return false
     if (quality === "needs-review" && !status.includes("review")) return false
     if (quality === "rejected" && !status.includes("reject")) return false
   }

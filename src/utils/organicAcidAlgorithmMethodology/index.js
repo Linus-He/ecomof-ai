@@ -9,7 +9,7 @@ import {
 } from "../organicAcidExperimentalActivation/index.js"
 
 export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_ID = "project-evolution-organic-acid-algorithm-methodology"
-export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.8"
+export const ORGANIC_ACID_ALGORITHM_METHODOLOGY_VERSION = "V3.9.10"
 
 const SOURCE_LABELS = {
   hostGuestRoutes: "public/data/organic_acid_host_guest/host_guest_routes.json",
@@ -19,11 +19,12 @@ const SOURCE_LABELS = {
   activationReadiness: "public/data/organic_acid_experimental_activation/activation_readiness_summary.json",
   hostGuestBuilder: "buildOrganicAcidHostGuestWorkbench",
   activationReadinessBuilder: "buildActivationReadinessSummary",
-  scoringSpec: "public/data/organic_acid_scoring_spec_v2.json",
+  scoringSpec: "public/data/organic_acid_scoring_spec_v3.json",
+  fairMofsSynthesisEvidence: "public/data/fair_mofs_family_synthesis_evidence.json",
   linkerDescriptors: "public/data/linker_descriptor_table.json",
   precursorCosts: "public/data/metal_precursor_cost_table.json",
-  scoringAudit: "public/data/organic_acid_audit_v3_9_7.json",
-  rerunArtifact: "public/data/organic_acid_rerun_v3_9_7.json",
+  scoringAudit: "public/data/organic_acid_audit_v3_9_10.json",
+  rerunArtifact: "public/data/organic_acid_rerun_v3_9_10.json",
 }
 
 function asArray(value) {
@@ -97,7 +98,7 @@ export function buildAlgorithmShowcaseModel({
   const family = showcaseArtifact.audit?.familyFairness || {}
   const sensitivity = showcaseArtifact.audit?.rankingSensitivity?.summary || showcaseArtifact.audit?.rankingSensitivity || {}
   return {
-    version: "V3.9.8",
+    version: "V3.9.10",
     titleZh: "算法展示：八因子 HGCPS",
     titleEn: "Algorithm Showcase: Eight-factor HGCPS",
     formula: {
@@ -126,6 +127,13 @@ export function buildAlgorithmShowcaseModel({
         commit: "339041e",
         policy: scoringSpecV2.policy || "new descriptors fixed before re-run",
       },
+      {
+        specId: "organic-acid-host-guest-scoring-spec-v3",
+        version: "V3.9.10",
+        lockedAt: "2026-07-28T06:41:01Z",
+        commit: "pending-current",
+        policy: "abundance-neutral stability and FAIR-MOFs condition-accessibility rules fixed before the rerun",
+      },
     ],
     currentRun: {
       routeName: safeText(topRoute.routeName, "pending"),
@@ -148,8 +156,8 @@ export function buildAlgorithmShowcaseModel({
       conclusionZh: `复合孔代理 Spearman ρ=${safeNumber(proxy.composite?.spearmanRho, 0)}，单项低有效性描述符为 ${asArray(proxy.lowValidityDescriptors).join("、") || "无"}；低置信家族为 ${asArray(family.lowConfidenceFamilies).join("、") || "无"}。审计不静默改权重。`,
       conclusionEn: `Composite pore-proxy Spearman rho is ${safeNumber(proxy.composite?.spearmanRho, 0)}; low-validity standalone descriptors are ${asArray(proxy.lowValidityDescriptors).join(", ") || "none"}; low-confidence families are ${asArray(family.lowConfidenceFamilies).join(", ") || "none"}. The audit does not silently change weights.`,
     },
-    disciplineZh: "规则先于排名：spec v1 / v2 的锁定时间与提交记录先于对应重跑。V3.9.8 只更新价格数据，未改变权重、描述符定义或归一化规则。",
-    disciplineEn: "Rules precede rankings: spec v1/v2 lock timestamps and commits precede their reruns. V3.9.8 updates price data only; weights, descriptor definitions, and normalization rules are unchanged.",
+    disciplineZh: "规则先于排名：spec v1 / v2 / v3 的锁定时间先于对应重跑。V3.9.10 保持八因子权重不变，移除家族记录数量的直接加分，并把可合成性改为 FAIR-MOFs 合成条件可及性；样本量只影响收缩、置信度与不确定性。",
+    disciplineEn: "Rules precede rankings: spec v1/v2/v3 were locked before their reruns. V3.9.10 keeps the eight-factor weights fixed, removes direct family-frequency scoring, and replaces synthesizability with FAIR-MOFs synthesis-condition accessibility; sample size affects shrinkage, confidence, and uncertainty only.",
   }
 }
 

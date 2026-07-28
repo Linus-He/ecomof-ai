@@ -1,16 +1,15 @@
 {
-  "dataset": "CoRE MOF index preview",
-  "recordCount": 500,
-  "alContainingCount": 120,
-  "hasAlNodeCount": 75,
-  "readyForScoring": 12,
-  "needsReview": 63,
+  "dataset": "CoRE MOF 2024 · CSD-modified CR",
+  "recordCount": 9835,
+  "alContainingCount": 102,
+  "hasAlNodeCount": 102,
+  "readyForScoring": 9835,
+  "needsReview": 0,
   "rejected": 0,
+  "finalRecommendationEligible": 0,
   "topMissingFields": [
-    "hydrothermal stability",
-    "sourceDoi",
-    "bandGap",
-    "post-treatment PXRD"
+    "waterStability",
+    "thermalStability"
   ],
-  "notes": "Preview summary for V2.0-A index architecture."
+  "notes": "readyForScoring means ready for structural-factor screening only; reaction performance still requires independent evidence."
 }

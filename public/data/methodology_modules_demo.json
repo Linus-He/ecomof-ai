@@ -1653,10 +1653,10 @@
   {
     "id": "catalysis-lab",
     "order": 5,
-    "module": "Catalysis Lab",
-    "moduleZh": "催化实验室",
-    "summary": "Catalysis Lab organizes catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation needs while keeping hypotheses separate from proof.",
-    "summaryZh": "Catalysis Lab 整理催化路径证据、反应指纹、MOF 依据和验证需求，同时区分假设与证明。",
+    "module": "Catalysis",
+    "moduleZh": "催化",
+    "summary": "Catalysis organizes catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation needs while keeping hypotheses separate from proof.",
+    "summaryZh": "催化模块整理催化路径证据、反应指纹、MOF 依据和验证需求，同时区分假设与证明。",
     "methodWorkflow": [
       {
         "label": "Pathway evidence map",
@@ -1717,11 +1717,11 @@
       }
     ],
     "evidenceBoundary": [
-      "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis.",
+      "Organic acid conversion is a prioritized sub-workspace within Catalysis, not the full scope of the module.",
       "Pathway evidence maps organize hypotheses and literature signals; they do not establish mechanism by themselves."
     ],
     "evidenceBoundaryZh": [
-      "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。",
+      "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。",
       "路径证据图组织假设和文献信号，本身不证明机理。"
     ],
     "validationRoadmap": [
@@ -1807,8 +1807,8 @@
     "order": 6,
     "module": "Organic Acid Workspace",
     "moduleZh": "有机酸工作台",
-    "parentModule": "Catalysis Lab",
-    "parentModuleZh": "催化实验室",
+    "parentModule": "Catalysis",
+    "parentModuleZh": "催化",
     "summary": "Organic Acid Workspace links a three-pathway reaction network, reaction rules, candidate priority matrix, motif-level rationale, and Algorithm Trace Explorer.",
     "summaryZh": "有机酸工作台连接三路径反应网络、反应规则、候选优先级矩阵、motif-level rationale 和 Algorithm Trace Explorer。",
     "methodWorkflow": [
@@ -2265,9 +2265,9 @@
     "id": "mof-library",
     "order": 7,
     "module": "MOF Library",
-    "moduleZh": "MOF 候选库",
+    "moduleZh": "MOF库",
     "summary": "MOF Library provides descriptor curation status, name resolution, source-linked data records, and field-level provenance.",
-    "summaryZh": "MOF 候选库提供描述符整理状态、名称解析、来源关联数据记录和字段级来源。",
+    "summaryZh": "MOF库提供描述符整理状态、名称解析、来源关联数据记录和字段级来源。",
     "methodWorkflow": [
       {
         "label": "Name resolution",

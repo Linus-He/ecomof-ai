@@ -3,9 +3,10 @@ import { describe, expect, it } from "vitest"
 import benchmark from "../../../public/data/benchmark_dataset_v3.json"
 
 describe("Benchmark Dataset V3", () => {
-  it("provides at least 500 benchmark records", () => {
-    expect(benchmark.total).toBeGreaterThanOrEqual(500)
+  it("quarantines the legacy derived V3.3 benchmark records", () => {
+    expect(benchmark.total).toBe(0)
     expect(benchmark.records.length).toBe(benchmark.total)
+    expect(benchmark.status).toBe("quarantined")
   })
 
   it("records labelSource, datasetOrigin, and benchmarkEligible on every record", () => {
@@ -17,8 +18,7 @@ describe("Benchmark Dataset V3", () => {
   })
 
   it("keeps derived labels from being treated as experimental or eligible-ready", () => {
-    expect(benchmark.records.every(r => r.datasetOrigin === "derived_dataset")).toBe(true)
-    expect(benchmark.records.every(r => !/experiment/i.test(String(r.labelSource)))).toBe(true)
+    expect(benchmark.excludedFromCurrentStatistics).toBe(true)
     expect(benchmark.summary.benchmarkEligibleCount).toBe(0)
   })
 })

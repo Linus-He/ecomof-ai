@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00005",
+  "frameworkId": "coremof2024-csdm-00005",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2016[Cu][ubo]3[ASR]1",
+  "displayName": "ABETIN",
+  "commonName": "ABETIN",
+  "csdRefcode": "ABETIN",
+  "coreId": "2016[Cu][ubo]3[ASR]1",
+  "metals": [
+    "Cu"
+  ],
+  "hasAlNode": false,
+  "topology": "ubo",
+  "surfaceArea": 3818.36,
+  "pldA": 7.85749,
+  "lcdA": 9.52206,
+  "poreVolume": 1.23569,
+  "density": 0.597236,
+  "voidFraction": 0.738,
+  "waterStability": 0.826666667,
+  "thermalStability": 436.2,
+  "sourceDoi": "10.1039/C6RA10422C",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2016[Cu][ubo]3[ASR]1; DOI 10.1039/C6RA10422C.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00005.json",
+  "descriptors": {
+    "surfaceArea": 3818.36,
+    "pldA": 7.85749,
+    "lcdA": 9.52206,
+    "poreVolume": 1.23569,
+    "density": 0.597236,
+    "voidFraction": 0.738,
+    "waterStability": 0.826666667,
+    "thermalStability": 436.2
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

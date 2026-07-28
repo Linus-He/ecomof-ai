@@ -12,7 +12,7 @@
 import { buildOrganicAcidHostGuestWorkbench, safeNumber } from "../organicAcidHostGuest/index.js"
 import { deriveDataGrade } from "../organicAcidScoreProvenance/index.js"
 
-export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.8"
+export const ORGANIC_ACID_EXPLANATION_CLOSURE_VERSION = "V3.9.10"
 
 export const PATHWAY_BOUNDARY_ZH = "路径与描述符来自 seed / proxy / curated 证据，不等于完整机理证明。"
 export const PATHWAY_BOUNDARY_EN = "Pathways and descriptors come from seed / proxy / curated evidence, not a complete mechanistic proof."
@@ -336,7 +336,7 @@ export function buildOrganicAcidVisualQaChecklist() {
     noteZh: "真实浏览器点击验收项；自动沙箱不可截图时如实标注未完成。",
     noteEn: "Real-browser click-through checks; mark as not done when the sandbox cannot screenshot.",
     items: [
-      item("open-live", "打开 live site 并进入 Catalysis Lab", "Open live site and enter Catalysis Lab"),
+      item("open-live", "打开网站并进入催化", "Open the site and enter Catalysis"),
       item("acid-gate", "输入 acid 进入 Organic Acid Workbench", "Enter the acid passcode to open the Organic Acid Workbench"),
       item("step5-waterfall", "Step 5 HGCPS 因子压缩瀑布图可见", "Step 5 HGCPS factor compression waterfall is visible"),
       item("score-source", "HGCPS 数字 / 查看得分来源可展开 Score Source Table", "Score source table expands from the HGCPS score"),

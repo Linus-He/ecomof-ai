@@ -1,0 +1,484 @@
+{
+  "Al-MOF": {
+    "family": "Al-MOF",
+    "computationRecordCount": 84,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00413",
+      "coremof2024-csdm-00414",
+      "coremof2024-csdm-00415"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00413",
+        "displayName": "MOF-303",
+        "commonName": "MOF-303",
+        "csdRefcode": "CAMTOD",
+        "coreId": "2021[Al][nan]3[ASR]3",
+        "structureVariant": "ASR",
+        "metalNode": "Al",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00413.cif",
+        "bundledCifSha256": "0104eee013fd3a554b0a58633946e9d23b4464dd915505de5f4c111aba038384",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00414",
+        "displayName": "MOF-303",
+        "commonName": "MOF-303",
+        "csdRefcode": "CAMTOD01",
+        "coreId": "2021[Al][nan]3[ASR]4",
+        "structureVariant": "ASR",
+        "metalNode": "Al",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00414.cif",
+        "bundledCifSha256": "50791a4ba1416cb8d46b031be90d3bf29199c9267be7392800105977e381f54e",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00415",
+        "displayName": "MOF-303",
+        "commonName": "MOF-303",
+        "csdRefcode": "CAMTOD02",
+        "coreId": "2021[Al][nan]3[ASR]5",
+        "structureVariant": "ASR",
+        "metalNode": "Al",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00415.cif",
+        "bundledCifSha256": "2ebc3223e2117702a40325b92b5b83f52715c737391ebec273b210e3144efed7",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Zr-MOF": {
+    "family": "Zr-MOF",
+    "computationRecordCount": 70,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00025",
+      "coremof2024-csdm-00050",
+      "coremof2024-csdm-00304"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00025",
+        "displayName": "Spirof-MOF",
+        "commonName": "Spirof-MOF",
+        "csdRefcode": "ADAQAA",
+        "coreId": "2017[Zr][scu]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "scu",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00025.cif",
+        "bundledCifSha256": "549fce8049782de4e3084648186a11374f6319a085d5c9e2bffa22fb024799b7",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00050",
+        "displayName": "BCN-348",
+        "commonName": "BCN-348",
+        "csdRefcode": "AFIBEA",
+        "coreId": "2023[Zr][nbo]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "nbo",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00050.cif",
+        "bundledCifSha256": "8d91dfcd0f1d1ae3d277c244afdf65fe0abe5e62bd91ef07cdeef4d734ada014",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00304",
+        "displayName": "NU-1900",
+        "commonName": "NU-1900",
+        "csdRefcode": "BERZAD",
+        "coreId": "0000[Zr][bcu]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "bcu",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00304.cif",
+        "bundledCifSha256": "578972851b14eef675917684211cbfaedce5245c142683f9931353f1f595778c",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Ti-MOF": {
+    "family": "Ti-MOF",
+    "computationRecordCount": 11,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-04646",
+      "coremof2024-csdm-04647",
+      "coremof2024-csdm-02573"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-04646",
+        "displayName": "FIR-131",
+        "commonName": "FIR-131",
+        "csdRefcode": "VIJJUX",
+        "coreId": "2023[Ti][nan]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Ti",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-04646.cif",
+        "bundledCifSha256": "adba91278cbff55cd3ff24387b5f5cbdf66c2a803d47a597fb976b3b927786ac",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-04647",
+        "displayName": "FIR-132",
+        "commonName": "FIR-132",
+        "csdRefcode": "VIJKEI",
+        "coreId": "2023[Ti][hcb]2[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Ti",
+        "topology": "hcb",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-04647.cif",
+        "bundledCifSha256": "ad88cf329ddcbb1029cfb8938bebbe0bba7bb79d5c8d28bce570d3a0e33d2a17",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-02573",
+        "displayName": "MAPFIS",
+        "commonName": "MAPFIS",
+        "csdRefcode": "MAPFIS",
+        "coreId": "1999[Ti][hex]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Ti",
+        "topology": "hex",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-02573.cif",
+        "bundledCifSha256": "9d8f3f38e0abd9fc75061376ec123c202998e470d29f6ae063339798beb16a4a",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Fe-MOF": {
+    "family": "Fe-MOF",
+    "computationRecordCount": 243,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00566",
+      "coremof2024-csdm-01385",
+      "coremof2024-csdm-02297"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00566",
+        "displayName": "ANT-1(Fe)",
+        "commonName": "ANT-1(Fe)",
+        "csdRefcode": "CIWKAY",
+        "coreId": "2023[Fe][ant]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Fe",
+        "topology": "ant",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00566.cif",
+        "bundledCifSha256": "f172ab6234d4e9d789a7e5eef7d6e536d495d5d99bd10ea8737de85b2a325fda",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-01385",
+        "displayName": "DNL-9(Fe)",
+        "commonName": "DNL-9(Fe)",
+        "csdRefcode": "GEYHOL",
+        "coreId": "2023[Fe][nan]3[ASR]2",
+        "structureVariant": "ASR",
+        "metalNode": "Fe",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-01385.cif",
+        "bundledCifSha256": "4ce641947beff123720062ebfebc980b5aa94254d6c8b12b2f1d8b378605fa0e",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-02297",
+        "displayName": "Fe-MPOF",
+        "commonName": "Fe-MPOF",
+        "csdRefcode": "KUFTAI",
+        "coreId": "2014[FeMn][nan]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Fe,Mn",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-02297.cif",
+        "bundledCifSha256": "7f759736d76f587c6eeb34335acec3d60f301030ad5a232fbaf88f876e980ae8",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Cr-MOF": {
+    "family": "Cr-MOF",
+    "computationRecordCount": 34,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00727",
+      "coremof2024-csdm-02264",
+      "coremof2024-csdm-00728"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00727",
+        "displayName": "MFM-300(Cr)",
+        "commonName": "MFM-300(Cr)",
+        "csdRefcode": "DEKVIC",
+        "coreId": "2022[Cr][nan]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Cr",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00727.cif",
+        "bundledCifSha256": "fd6f2f7d91ab795ab02810464ee7f8cf37a5da5dc6fac6b30390c6becad296b8",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-02264",
+        "displayName": "Cr-SIM-NU-1000",
+        "commonName": "Cr-SIM-NU-1000",
+        "csdRefcode": "KOKRIO",
+        "coreId": "2019[CrZr][csq]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Cr,Zr",
+        "topology": "csq",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-02264.cif",
+        "bundledCifSha256": "f2c31ffcffcced0080f81d8331b71dd3512e76cf1648c9e4676df47b87292c11",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00728",
+        "displayName": "DEKVOI",
+        "commonName": "DEKVOI",
+        "csdRefcode": "DEKVOI",
+        "coreId": "2022[Cr][nan]3[ASR]2",
+        "structureVariant": "ASR",
+        "metalNode": "Cr",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00728.cif",
+        "bundledCifSha256": "13af0a3f241036dfb37cd6b6b4d2a44b721e3b733a08778dd354d49e10d602bb",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Cu-MOF": {
+    "family": "Cu-MOF",
+    "computationRecordCount": 1300,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00043",
+      "coremof2024-csdm-00091",
+      "coremof2024-csdm-00131"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00043",
+        "displayName": "MFF-4",
+        "commonName": "MFF-4",
+        "csdRefcode": "ADOWAU",
+        "coreId": "2017[Cu][kgd]2[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Cu",
+        "topology": "kgd",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00043.cif",
+        "bundledCifSha256": "225157f59d32218ef7356f8af5774976919cd20d6301f4765e6837b41a717c8b",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00091",
+        "displayName": "URMOF-1",
+        "commonName": "URMOF-1",
+        "csdRefcode": "ALEJEI",
+        "coreId": "2016[Cu][nts]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Cu",
+        "topology": "nts",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00091.cif",
+        "bundledCifSha256": "32fd984b78fad5d95c0c7e820c95b6fbfdc0a3e537dd336ed2cdd22b62ad69cd",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00131",
+        "displayName": "UMCM-153",
+        "commonName": "UMCM-153",
+        "csdRefcode": "ANUGOG",
+        "coreId": "2010[Cu][nan]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Cu",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00131.cif",
+        "bundledCifSha256": "3b427abf74367b6250184fb246726587f1a0c6095f26e3925b0c5f5d262d127e",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "Zn-MOF": {
+    "family": "Zn-MOF",
+    "computationRecordCount": 2307,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00014",
+      "coremof2024-csdm-00046",
+      "coremof2024-csdm-00092"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00014",
+        "displayName": "JOU-34",
+        "commonName": "JOU-34",
+        "csdRefcode": "ABINIM",
+        "coreId": "2021[Zn][pts]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zn",
+        "topology": "pts",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00014.cif",
+        "bundledCifSha256": "ccc32f9c585c86587c933af1d8a4ce23cbdf468db44d9174f3d4205a53cd7e90",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00046",
+        "displayName": "NJU-Bai9",
+        "commonName": "NJU-Bai9",
+        "csdRefcode": "ADUROI",
+        "coreId": "2013[Zn][pbz]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zn",
+        "topology": "pbz",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00046.cif",
+        "bundledCifSha256": "a03b57b6cdf739104dc5e2dc9d9796a79864fa9a4710f41a1eaaee3e9cf21dc0",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00092",
+        "displayName": "URMOF-2",
+        "commonName": "URMOF-2",
+        "csdRefcode": "ALEJIM",
+        "coreId": "2016[Zn][nts]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zn",
+        "topology": "nts",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00092.cif",
+        "bundledCifSha256": "13e3c0b3a4060dd2b9530f68343c70d217e6c69bdc7571eb48b3bbcf319335f0",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "UiO-type host": {
+    "family": "UiO-type host",
+    "computationRecordCount": 4,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-03200",
+      "coremof2024-csdm-03797",
+      "coremof2024-csdm-03798"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-03200",
+        "displayName": "PIZOF-1",
+        "commonName": "PIZOF-1",
+        "csdRefcode": "OXOLAP",
+        "coreId": "2011[Zr][fcu]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "fcu",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-03200.cif",
+        "bundledCifSha256": "50bd0adcf323112378882f94bf38d588a5f78af7895d18ebf26499979adc32d5",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-03797",
+        "displayName": "UiO-66",
+        "commonName": "UiO-66",
+        "csdRefcode": "RUBTAK01",
+        "coreId": "2010[Zr][fcu]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "fcu",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-03797.cif",
+        "bundledCifSha256": "44daa1b0a3cc019895baec617cefe38a256789530707d4590f951848bad7019b",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-03798",
+        "displayName": "UiO-66",
+        "commonName": "UiO-66",
+        "csdRefcode": "RUBTAK03",
+        "coreId": "2014[Zr][fcu]3[ASR]3",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "fcu",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-03798.cif",
+        "bundledCifSha256": "44a1e23cffabc660713183c5bb27b8f59ec9cd871ef07e2a348047f072e91fa7",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "MIL-type host": {
+    "family": "MIL-type host",
+    "computationRecordCount": 96,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-00393",
+      "coremof2024-csdm-00602",
+      "coremof2024-csdm-00794"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-00393",
+        "displayName": "MIL-120",
+        "commonName": "MIL-120",
+        "csdRefcode": "BUSQIQ",
+        "coreId": "2009[Al][nan]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Al",
+        "topology": "unnamed",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00393.cif",
+        "bundledCifSha256": "18ca1734253e6ba4096bff5294bd02d785fbc38fe3a5b47eacf92a5169ba3240",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00602",
+        "displayName": "MIL-53",
+        "commonName": "MIL-53",
+        "csdRefcode": "COMDOY",
+        "coreId": "2008[Ga][bpq]3[ASR]3",
+        "structureVariant": "ASR",
+        "metalNode": "Ga",
+        "topology": "bpq",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00602.cif",
+        "bundledCifSha256": "02939b94542fe9430997af9ddeafc2725785ac3fb1c86cd5a96f83315128df91",
+        "structureStatus": "experimental-host-cif"
+      },
+      {
+        "id": "coremof2024-csdm-00794",
+        "displayName": "MIL-53",
+        "commonName": "MIL-53",
+        "csdRefcode": "DONNAW",
+        "coreId": "2008[Ga][bpq]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Ga",
+        "topology": "bpq",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00794.cif",
+        "bundledCifSha256": "c0a9a6a3aea5f7bf073838115780ffb3fe1aec0e998af3e19ac319e12b22201b",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  },
+  "MOF-808-like host": {
+    "family": "MOF-808-like host",
+    "computationRecordCount": 1,
+    "calculationRule": "All computation-ready CoRE MOF 2024 CSD-modified records assigned to this host family contribute to family-level structural aggregates.",
+    "displayedStructureIds": [
+      "coremof2024-csdm-01255"
+    ],
+    "displayedStructures": [
+      {
+        "id": "coremof2024-csdm-01255",
+        "displayName": "PCN-777",
+        "commonName": "PCN-777",
+        "csdRefcode": "FOTNIN",
+        "coreId": "2015[Zr][spn]3[ASR]1",
+        "structureVariant": "ASR",
+        "metalNode": "Zr",
+        "topology": "spn",
+        "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-01255.cif",
+        "bundledCifSha256": "ecd4f8d7863e6694942fe6f4f2710e700d4a097cd4987f4d0a0e91912f2d572e",
+        "structureStatus": "experimental-host-cif"
+      }
+    ]
+  }
+}

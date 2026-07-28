@@ -190,12 +190,12 @@ export function buildDescriptorAblation(routeScores = [], options = {}) {
     }]
   }))
   return {
-    version: "V3.9.8",
+    version: "V3.9.10",
     scoringSpecId: ORGANIC_ACID_SCORING_SPEC.specId,
     fixedWeights: Object.fromEntries(ORGANIC_ACID_SCORING_SPEC.routeScoreWeights),
     layers,
     candidates: Object.values(byRoute),
     impactSummary: impactSummary(layers, options.costTable || metalPrecursorCostTable),
-    boundary: "Descriptor ablation uses the locked spec-v2 weights. Inactive descriptor groups are neutral factors; no rank or score is hardcoded.",
+    boundary: "Descriptor ablation uses the locked spec-v3 weights. Inactive descriptor groups are neutral factors; no rank or score is hardcoded. FAIR-MOFs record count is not a point-score input.",
   }
 }

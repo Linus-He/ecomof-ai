@@ -146,7 +146,7 @@ function RobustnessAuditMethod({ result, lang, t }) {
 function SmallRealDatasetMethod({ mappingReport, lang, t }) {
   const report = mappingReport || {}
   const rows = [
-    [text(lang, "样例边界", "Sample boundary"), text(lang, "只接入小规模人工整理真实样例，不接入全量 CoRE/QMOF。", "Only a small curated real-example sample is integrated; full CoRE/QMOF is not loaded.")],
+    [text(lang, "历史边界", "Historical boundary"), text(lang, "本节只复盘 V1.6 的小规模映射样例；当前候选与路线计算已经切换到 9,835 条 CoRE MOF 2024 CSD-modified CR 记录，QMOF 保持隔离。", "This section only documents the small V1.6 mapping sample. Current candidate and route calculations use 9,835 CoRE MOF 2024 CSD-modified CR records, while QMOF remains quarantined.")],
     [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 HGCPS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate HGCPS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
     [text(lang, "字段来源", "Field provenance"), text(lang, "缺失来源显示 Pending provenance，不伪造 DOI、citation 或 license。", "Missing sources are shown as Pending provenance; DOI, citation, and license are not fabricated.")],
     [text(lang, "热区投影", "Hot spot projection"), text(lang, "Curated 点用于验证 mapper、quality gate 和 hot spot role display，不证明催化性能。", "Curated points validate mapper, quality gate, and hot spot role display; they do not prove catalytic performance.")],
@@ -155,21 +155,20 @@ function SmallRealDatasetMethod({ mappingReport, lang, t }) {
   return (
     <section id="methodology-oafs-small-real-dataset" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Small Real Dataset Integration</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Historical V1.6 Mapping Sample</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "小规模真实样例接入", "Small Real Dataset Integration")}
+          {text(lang, "历史 V1.6 小规模映射样例", "Historical V1.6 Mapping Sample")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V1.6 引入小规模人工整理真实样例，用于验证数据映射、schema validation、quality gate、fieldSources、筛选入口与 Hot Spot Map 是否能承接真实数据形状；V1.7 保持该边界并增加可审计 trace。",
-          "V1.6 introduced curated real examples to validate data mapping, schema validation, quality gate, fieldSources, the screening entry, and Hot Spot Map real-data shapes. V1.7 preserves that boundary and adds auditable trace records."
+          "V1.6 曾用小规模人工整理真实样例验证数据映射、schema validation、quality gate、fieldSources、筛选入口与 Hot Spot Map。本节保留该历史审计证据，但它不再代表当前候选数据库；当前路线计算以 CoRE MOF 2024 CSD-modified CR 全量结构索引为准。",
+          "V1.6 used a small curated sample to validate data mapping, schema validation, quality gates, fieldSources, screening entry points, and the Hot Spot Map. This section preserves that historical audit evidence, but no longer represents the active candidate database; current route calculations use the full CoRE MOF 2024 CSD-modified CR structure index."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
         <MetricCard label={text(lang, "骨架样例", "Framework records")} value={report.frameworkRecords ?? "Pending"} t={t} />
-        <MetricCard label="QMOF descriptors" value={report.qmofDescriptorRecords ?? "Pending"} t={t} />
         <MetricCard label={text(lang, "证据记录", "Evidence records")} value={report.evidenceRecords ?? "Pending"} t={t} />
         <MetricCard label={text(lang, "可评分 / 需复核 / 拒绝", "Ready / review / rejected")} value={`${report.readyForScoring ?? "?"} / ${report.needsReview ?? "?"} / ${report.rejected ?? "?"}`} t={t} tone="warn" />
       </div>
@@ -296,7 +295,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       text(lang, "为什么不直接给出全库最终排序", "Why the full database is not ranked as a final result"),
-      text(lang, "CoRE/QMOF 级别数据库规模较大，全库最终排序需要完整来源核验、描述符复算、方法审计和实验/文献验证；当前界面只提供可审阅的候选预览。", "CoRE/QMOF-scale databases are large, and final full-database ranking requires source verification, descriptor recomputation, method audit, and experimental/literature validation; the current interface provides reviewable candidate previews only."),
+      text(lang, "9,835 条 CoRE 2024 CR 真实记录已经进入全量结构索引，但全库催化最终排序仍需要描述符复算、方法审计和实验/文献验证；当前界面只把结构审阅样本与路线家族聚合作为可审计输入。QMOF 当前为 0 条并已隔离。", "All 9,835 real CoRE 2024 CR records are present in the full structural index, but final catalytic ranking still requires descriptor recomputation, method audit, and experimental/literature validation. The current interface exposes structural review samples and route-family aggregates as auditable inputs; QMOF contributes zero active rows."),
     ],
     [
       text(lang, "已加载范围试算", "Loaded-scope trial scoring"),
@@ -304,7 +303,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
     ],
     [
       text(lang, "数据摘要", "Data summaries"),
-      text(lang, "界面展示数据摘要、CoRE/QMOF 统计、描述符可用性与来源覆盖率。", "The interface shows data summaries, CoRE/QMOF statistics, descriptor availability, and provenance coverage."),
+      text(lang, "界面展示真实 CoRE 2024 CR、已隔离 QMOF 状态、描述符可用性与来源覆盖率。", "The interface shows real CoRE 2024 CR records, quarantined QMOF status, descriptor availability, and provenance coverage."),
     ],
     [
       "Top-N preview",
@@ -338,16 +337,16 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
   return (
     <section id="methodology-oafs-database-index-preview" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Database Index Preview</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>CoRE Index Migration & Historical Audit</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "数据库索引预览：V2.0-L 第一批候选的人工来源核验", "Database Index Preview: V2.0-L Manual Source Curation for First Verified Candidates")}
+          {text(lang, "CoRE 真实索引迁移与历史 V2.0-L 审计", "Real CoRE Index Migration & Historical V2.0-L Audit")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.0-L 在 V2.0-K 之上对最接近 verified metadata 的 5 个候选做人工来源核验，并合并回证据回填，输出 enriched 记录/汇总与第一批候选核验报告。浏览器仍只加载 manifest 摘要、预计算候选预览、选定索引分片和按需详情记录；离线核验使 DOI/license 保持待补，引用为材料层级，每条保留 ambiguity 警告，verified_metadata 仍为 0；系统首次出现 source_confirmed / citation_ready 候选；不扩数据库、不训练模型。",
-          "V2.0-L performs manual source verification of the 5 candidates nearest to verified metadata on top of V2.0-K and merges them into the evidence backfill as enriched records/summary and a first verified candidate report. The browser still loads only manifest summaries, precomputed candidate previews, selected index parts, and detail records on demand; offline curation keeps DOI/license pending, citations are material-level, every record keeps an ambiguity warning, and verified_metadata is still 0; the system now has its first source_confirmed / citation_ready candidates; no database expansion and no model trained."
+          "当前数据库索引已经迁移到 9,835 条 CoRE MOF 2024 CSD-modified CR 真实来源记录：全部记录进入 10 个轻量分片，30 条详情和 28 条路线代表 CIF 随站点内置，QMOF 与旧随机占位记录被隔离。下方折叠区仅保留 V2.0-L 小样本阶段的历史审计原文，不代表当前数据状态。",
+          "The active database index now uses 9,835 real CoRE MOF 2024 CSD-modified CR source records: all rows are split across ten lightweight parts, 30 details and 28 route-representative CIFs are bundled, and QMOF plus legacy generated placeholders are quarantined. The collapsed section below preserves the historical V2.0-L sample audit only and does not represent the current data state."
         )} />
       </p>
       <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "10px 12px" }}>
@@ -554,8 +553,8 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
       fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", [], { throwOnError: true }),
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
       fetchDataJson("organic_acid_scoring_spec_v1.json", {}, { throwOnError: true }),
-      fetchDataJson("organic_acid_scoring_spec_v2.json", {}, { throwOnError: true }),
-      fetchDataJson("organic_acid_methodology_showcase_v3_9_8.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_scoring_spec_v3.json", {}, { throwOnError: true }),
+      fetchDataJson("organic_acid_methodology_showcase_v3_9_10.json", {}, { throwOnError: true }),
       fetchDataJson("metal_precursor_cost_table.json", {}, { throwOnError: true }),
     ]).then(([frameworkRows, metalRows, ruleConfig, evidenceRows, mappingReport, scoringSpecV1, scoringSpecV2, methodologyShowcase, priceTable]) => {
       if (!active) return
@@ -624,11 +623,11 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
             <DataMappingSchemaValidationPanel lang={lang} t={t} />
           </Suspense>
         </LazyMethodologyDetails>
-        <LazyMethodologyDetails id="methodology-oafs-small-real-dataset" title="Small Real Dataset Integration" titleZh="小规模真实样例接入" summary="Small curated sample, quality gate, field provenance, and hot spot projection." summaryZh="小规模样例、质量门、字段来源与热区投影。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-small-real-dataset" title="Historical V1.6 Mapping Sample" titleZh="历史 V1.6 小规模映射样例" summary="Historical mapping sample, quality gate, field provenance, and hot spot projection; not the active candidate corpus." summaryZh="历史映射样例、质量门、字段来源与热区投影；不代表当前候选数据库。" lang={lang} t={t}>
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />
-        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="Database Index Preview" titleZh="数据库索引预览" summary="V2.0-L reviews the 5 candidates nearest to verified metadata and marks the first source_confirmed / citation_ready candidates; DOI/license gaps and ambiguity warnings still block verified metadata." summaryZh="V2.0-L 对最接近 verified metadata 的 5 个候选做人工来源核验，首次产生 source_confirmed / citation_ready 候选；DOI/license 缺口和 ambiguity 警告仍会阻断 verified metadata。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-database-index-preview" title="CoRE Index Migration & Historical Audit" titleZh="CoRE 索引迁移与历史审计" summary="The active 9,835-record CoRE CR index replaces the historical V2.0-L sample; the old audit remains collapsed for version traceability." summaryZh="当前 9,835 条 CoRE CR 索引已替代历史 V2.0-L 小样本；旧审计折叠保留以供版本追溯。" lang={lang} t={t}>
           <DatabaseIndexPreviewMethod lang={lang} t={t} />
         </LazyMethodologyDetails>
         <MechanismPathMethodCard lang={lang} t={t} />

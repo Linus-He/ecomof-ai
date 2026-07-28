@@ -118,7 +118,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
           style={{ background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", cursor: runStatus === "running" ? "wait" : "pointer", fontSize: 12.5, fontWeight: 930, minHeight: 38, padding: "8px 13px" }}
         >
           {dataMode === "database_index_preview"
-            ? text(lang, "运行数据库索引预览", "Run database index preview")
+            ? text(lang, "运行 CoRE 结构索引审计", "Run CoRE structural-index audit")
             : dataMode === "curated_real_examples"
             ? text(lang, "运行 Curated 小样例", "Run curated sample")
             : text(lang, "运行演示筛选", "Run demo screening")}
@@ -135,13 +135,13 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
 
       {dataMode === "database_index_preview" ? (
         <section style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", fontSize: 12.2, gap: 5, lineHeight: 1.48, padding: 10 }}>
-          <strong style={{ color: t.warn }}>{text(lang, "数据库索引预览边界", "Database index preview boundary")}</strong>
+          <strong style={{ color: t.warn }}>{text(lang, "CoRE 结构索引审计边界", "CoRE structural-index audit boundary")}</strong>
           <ChemicalText value={text(
             lang,
-            "数据库索引预览仅展示预计算候选与已选择分片，不在浏览器中执行全量数据库评分。追踪只覆盖当前预览子集，不覆盖全量数据库。",
-            "Database index preview shows precomputed candidates and the selected part only; it does not run full database scoring in the browser. Trace is limited to the current preview subset, not the full database."
+            "来源索引覆盖全部 9,835 条真实 CR 记录；浏览器当前只展开结构审阅样本与已选择分片，不把结构完整度当作催化性能评分。追踪覆盖来源清单和当前展开范围。",
+            "The source index covers all 9,835 real CR records. The browser expands only the structural-review sample and selected part, and never treats structural completeness as catalytic-performance scoring. Trace covers the source manifest and current expanded scope."
           )} />
-          <StatusPill tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{text(lang, "仅限预览", "Preview only")}</StatusPill>
+          <StatusPill tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{text(lang, "真实结构索引", "Real structure index")}</StatusPill>
         </section>
       ) : null}
 

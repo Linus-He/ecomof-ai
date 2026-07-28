@@ -7,8 +7,8 @@
 import { summarizeRegistry } from "../../data/registry/dataSourceRegistry"
 import { safeNumber } from "../fallback/safeNumber"
 
-export function buildGlobalDatabaseSummary({ loaded = {}, dataVersion = "V3.9.1", generatedAt = "" } = {}) {
-  const registry = summarizeRegistry(loaded)
+export function buildGlobalDatabaseSummary({ loaded = {}, activeSourceIds = null, dataVersion = "V3.9.1", generatedAt = "" } = {}) {
+  const registry = summarizeRegistry(loaded, activeSourceIds)
   const ts = generatedAt || new Date().toISOString()
 
   const categories = Object.entries(registry.byCategory).map(([category, records]) => ({

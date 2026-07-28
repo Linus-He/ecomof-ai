@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "fair-mofs-family-synthesis-evidence-v1",
+  "version": "V3.9.10",
+  "generatedAt": "2026-07-28T06:57:00.296Z",
+  "source": {
+    "id": "FAIR-MOFS-2025",
+    "title": "FAIR-MOFs: A Comprehensive Database for Accelerating the Discovery and Synthesis of Metal-Organic Frameworks",
+    "datasetDoi": "10.5281/zenodo.13254307",
+    "sourceUrl": "https://zenodo.org/records/13254307",
+    "license": "CC BY 4.0",
+    "publicationDate": "2025-10-31",
+    "retrievedAt": "2026-07-28",
+    "recordVersion": 13254307,
+    "inputFiles": {
+      "completeExperimentalSyntheticConditions": {
+        "name": "complete_experimental_synthetic_conditions.json",
+        "md5": "e0fc5c0f07117b1d70f71c879231a3b7"
+      },
+      "doiRefcode": {
+        "name": "doi_refcode.json",
+        "md5": "90b9caec641c12012f554b4938eef903"
+      },
+      "finalCombinedDataForAnalysis": {
+        "name": "final_combined_data_for_analysis.json",
+        "md5": "0e6a1e46f7bb99e38323c66cfdf5b53c"
+      },
+      "experimentalSyntheticConditionsForGnn": {
+        "name": "experimental_synthetic_conditions_used_for_gnn.json",
+        "md5": "469e477838d1d748ef09f6b9d80977b4"
+      }
+    }
+  },
+  "scoringPolicy": {
+    "name": "FAIR-MOFs synthesis-condition accessibility",
+    "formula": "record = mean(temperature accessibility, log-time accessibility); family = empirical-Bayes shrinkage of the unique-condition median toward the global prior",
+    "temperatureBoundsK": [
+      298.15,
+      523.15
+    ],
+    "timeBoundsHours": [
+      1,
+      168
+    ],
+    "shrinkageK": 20,
+    "duplicateRule": "One effective observation per normalized DOI plus condition fingerprint.",
+    "abundanceBoundary": "Raw family frequency is never normalized into a score. Sample size affects only shrinkage strength and evidence confidence.",
+    "outcomeBoundary": "The score describes severity of reported successful synthesis conditions, not probability of synthesis success."
+  },
+  "globalPrior": 0.5488,
+  "families": [
+    {
+      "family": "Al-MOF",
+      "value": 0.565,
+      "observedConditionAccessibility": 0.6728,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 4,
+      "nEffective": 3,
+      "uniqueDoiCount": 3,
+      "reliability": 0.1304,
+      "evidenceConfidence": 0.1217,
+      "temperatureCoverage": 1,
+      "timeCoverage": 0.6667,
+      "medianReactionTemperatureK": 397.15,
+      "medianReactionTimeHours": 2,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_BOHJAK",
+        "FAIR_MOF_VAQTUF",
+        "FAIR_MOF_WAKHAU"
+      ],
+      "citations": [
+        "10.1016/j.poly.2008.06.029",
+        "10.1016/j.micromeso.2017.04.054",
+        "10.1002/zaac.201300357"
+      ]
+    },
+    {
+      "family": "Zr-MOF",
+      "value": 0.5524,
+      "observedConditionAccessibility": 0.6244,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 12,
+      "nEffective": 1,
+      "uniqueDoiCount": 1,
+      "reliability": 0.0476,
+      "evidenceConfidence": 0.0476,
+      "temperatureCoverage": 1,
+      "timeCoverage": 1,
+      "medianReactionTemperatureK": 357.15,
+      "medianReactionTimeHours": 12.25,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_BIKMEQ"
+      ],
+      "citations": [
+        "10.1016/j.chempr.2018.05.017"
+      ]
+    },
+    {
+      "family": "Ti-MOF",
+      "value": 0.5343,
+      "observedConditionAccessibility": 0.2445,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 4,
+      "nEffective": 1,
+      "uniqueDoiCount": 1,
+      "reliability": 0.0476,
+      "evidenceConfidence": 0.0381,
+      "temperatureCoverage": 0,
+      "timeCoverage": 1,
+      "medianReactionTemperatureK": null,
+      "medianReactionTimeHours": 48,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_TIFBIV"
+      ],
+      "citations": [
+        "10.1039/c2dt11737a"
+      ]
+    },
+    {
+      "family": "Fe-MOF",
+      "value": 0.5568,
+      "observedConditionAccessibility": 0.5647,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 45,
+      "nEffective": 20,
+      "uniqueDoiCount": 18,
+      "reliability": 0.5,
+      "evidenceConfidence": 0.485,
+      "temperatureCoverage": 1,
+      "timeCoverage": 0.85,
+      "medianReactionTemperatureK": 363.4,
+      "medianReactionTimeHours": 72,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_CEBMAY",
+        "FAIR_MOF_ELAWIY",
+        "FAIR_MOF_FESVIJ",
+        "FAIR_MOF_FETBIQ",
+        "FAIR_MOF_GOTZEW",
+        "FAIR_MOF_IGEWOH",
+        "FAIR_MOF_IWAVAE",
+        "FAIR_MOF_KIQJID"
+      ],
+      "citations": [
+        "10.1016/j.poly.2004.09.034",
+        "10.1016/j.ica.2010.10.015",
+        "10.1016/j.ica.2004.09.001",
+        "10.1016/j.jssc.2004.10.047",
+        "10.1016/j.ica.2014.10.016"
+      ]
+    },
+    {
+      "family": "Cr-MOF",
+      "value": 0.5634,
+      "observedConditionAccessibility": 0.6362,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 5,
+      "nEffective": 4,
+      "uniqueDoiCount": 4,
+      "reliability": 0.1667,
+      "evidenceConfidence": 0.1667,
+      "temperatureCoverage": 1,
+      "timeCoverage": 1,
+      "medianReactionTemperatureK": 332.15,
+      "medianReactionTimeHours": 61.5,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_KEJDEJ",
+        "FAIR_MOF_KEJDEJ01",
+        "FAIR_MOF_KEJDEJ02",
+        "FAIR_MOF_VEHBIU"
+      ],
+      "citations": [
+        "10.1016/j.ica.2006.04.026",
+        "10.1016/j.poly.2007.10.005",
+        "10.1016/j.inoche.2009.07.009",
+        "10.1016/j.inoche.2006.01.020"
+      ]
+    },
+    {
+      "family": "Cu-MOF",
+      "value": 0.5953,
+      "observedConditionAccessibility": 0.5973,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 870,
+      "nEffective": 466,
+      "uniqueDoiCount": 329,
+      "reliability": 0.9588,
+      "evidenceConfidence": 0.886,
+      "temperatureCoverage": 0.8348,
+      "timeCoverage": 0.7854,
+      "medianReactionTemperatureK": 357.15,
+      "medianReactionTimeHours": 24,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_ABAFUH",
+        "FAIR_MOF_ABAWOT",
+        "FAIR_MOF_ABIWOY",
+        "FAIR_MOF_ABOSET",
+        "FAIR_MOF_ABOSIX",
+        "FAIR_MOF_ABOSOD",
+        "FAIR_MOF_ABOSUJ",
+        "FAIR_MOF_ACEPED"
+      ],
+      "citations": [
+        "10.1016/j.poly.2016.09.043",
+        "10.1016/j.poly.2021.115441",
+        "10.1016/j.poly.2004.06.014",
+        "10.1016/j.inoche.2021.108864",
+        "10.1016/j.inoche.2021.108864"
+      ]
+    },
+    {
+      "family": "Zn-MOF",
+      "value": 0.4886,
+      "observedConditionAccessibility": 0.4859,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 718,
+      "nEffective": 444,
+      "uniqueDoiCount": 291,
+      "reliability": 0.9569,
+      "evidenceConfidence": 0.9082,
+      "temperatureCoverage": 0.9189,
+      "timeCoverage": 0.8266,
+      "medianReactionTemperatureK": 369.65,
+      "medianReactionTimeHours": 72,
+      "derivationLevel": "data-derived FAIR-MOFs synthesis-condition accessibility with empirical-Bayes shrinkage",
+      "evidenceTransfer": null,
+      "recordRefs": [
+        "FAIR_MOF_ABINIK",
+        "FAIR_MOF_ABINIM",
+        "FAIR_MOF_ACIBOE",
+        "FAIR_MOF_ACIJON",
+        "FAIR_MOF_ACOGUV",
+        "FAIR_MOF_ADIZUJ",
+        "FAIR_MOF_AFOSOE01",
+        "FAIR_MOF_AFOXEB"
+      ],
+      "citations": [
+        "10.1021/ic2004003",
+        "10.1016/j.poly.2021.115439",
+        "10.1016/j.micromeso.2005.11.049",
+        "10.1016/j.poly.2012.07.102",
+        "10.1016/j.molstruc.2005.10.037"
+      ]
+    },
+    {
+      "family": "UiO-type host",
+      "value": 0.5524,
+      "observedConditionAccessibility": null,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 0,
+      "nEffective": 0,
+      "uniqueDoiCount": 0,
+      "reliability": 0,
+      "evidenceConfidence": 0.0214,
+      "temperatureCoverage": 0,
+      "timeCoverage": 0,
+      "medianReactionTemperatureK": null,
+      "medianReactionTimeHours": null,
+      "derivationLevel": "proxy-transferred from parent metal family",
+      "evidenceTransfer": {
+        "fromFamily": "Zr-MOF",
+        "reason": "No directly classified FAIR-MOFs synthesis-condition rows were available for UiO-type host.",
+        "confidenceMultiplier": 0.45
+      },
+      "recordRefs": [],
+      "citations": [
+        "10.1016/j.chempr.2018.05.017"
+      ]
+    },
+    {
+      "family": "MIL-type host",
+      "value": 0.5488,
+      "observedConditionAccessibility": null,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 4,
+      "nEffective": 0,
+      "uniqueDoiCount": 0,
+      "reliability": 0,
+      "evidenceConfidence": 0,
+      "temperatureCoverage": 0,
+      "timeCoverage": 0,
+      "medianReactionTemperatureK": null,
+      "medianReactionTimeHours": null,
+      "derivationLevel": "neutral-prior",
+      "evidenceTransfer": null,
+      "recordRefs": [],
+      "citations": []
+    },
+    {
+      "family": "MOF-808-like host",
+      "value": 0.5524,
+      "observedConditionAccessibility": null,
+      "globalPrior": 0.5488,
+      "nSourceRecords": 0,
+      "nEffective": 0,
+      "uniqueDoiCount": 0,
+      "reliability": 0,
+      "evidenceConfidence": 0.0214,
+      "temperatureCoverage": 0,
+      "timeCoverage": 0,
+      "medianReactionTemperatureK": null,
+      "medianReactionTimeHours": null,
+      "derivationLevel": "proxy-transferred from parent metal family",
+      "evidenceTransfer": {
+        "fromFamily": "Zr-MOF",
+        "reason": "No directly classified FAIR-MOFs synthesis-condition rows were available for MOF-808-like host.",
+        "confidenceMultiplier": 0.45
+      },
+      "recordRefs": [],
+      "citations": [
+        "10.1016/j.chempr.2018.05.017"
+      ]
+    }
+  ],
+  "boundaryZh": "FAIR-MOFs 在此只提供成功合成文献中的温度、时间、DOI 与派生物化性质证据。分数表示已报道条件的温和程度，不是合成成功率；样本量只影响收缩与置信度，不直接加分。",
+  "boundaryEn": "FAIR-MOFs contributes reported successful-synthesis temperatures, times, DOIs, and derived properties. The score measures reported condition severity, not synthesis-success probability; sample size affects shrinkage and confidence only."
+}

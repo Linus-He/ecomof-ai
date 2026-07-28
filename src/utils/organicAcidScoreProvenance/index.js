@@ -1,5 +1,5 @@
 /**
- * Organic Acid Score Provenance builders (V3.9.8).
+ * Organic Acid Score Provenance builders (V3.9.10).
  *
  * Turns the Step Why Panel into a real score explainer: raw / proxy fields ->
  * normalized value -> weight or factor -> sub-contribution -> weighted-sum or
@@ -18,7 +18,7 @@ import {
   safeNumber,
 } from "../organicAcidHostGuest/index.js"
 
-export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.8"
+export const ORGANIC_ACID_SCORE_PROVENANCE_VERSION = "V3.9.10"
 
 const HOST_DATA_FILE = "organic_acid_host_guest/host_mof_candidates.json"
 const GUEST_DATA_FILE = "organic_acid_host_guest/guest_metal_candidates.json"
@@ -45,7 +45,7 @@ const HOST_FACTOR_LABELS = {
   ligandPathwaySupport: ["配体路径支持", "Ligand pathway support"],
   postModificationFeasibility: ["后修饰可行性", "Post-modification feasibility"],
   guestHostingFeasibility: ["客体承载可行性", "Guest hosting feasibility"],
-  synthesizabilityScore: ["可合成性", "Synthesizability"],
+  synthesizabilityScore: ["合成条件可及性", "Synthesis-condition accessibility"],
   provenanceQuality: ["溯源质量", "Provenance quality"],
 }
 
@@ -66,7 +66,7 @@ const ROUTE_FACTOR_LABELS = {
   complementarity: ["主客体互补", "Host-guest complementarity"],
   evidence: ["证据置信", "Evidence confidence"],
   riskRetentionFactor: ["风险保留", "Risk retention"],
-  synthesizability: ["可合成性", "Synthesizability"],
+  synthesizability: ["合成条件可及性", "Synthesis-condition accessibility"],
   economics: ["经济性 LCC", "Economic LCC"],
 }
 
@@ -101,7 +101,7 @@ const FACTOR_EVIDENCE_KEYWORDS = {
   bimetallicConstructionFeasibility: ["bimetallic", "construction", "coordination", "guest"],
   hostStability: ["stability", "aqueous", "hydrothermal", "170c", "pxrd", "leaching", "bond"],
   hostPathwaySupport: ["pathway", "co2 enrichment", "pore", "lewis", "descriptor", "diffusion"],
-  synthesizability: ["synthesis", "frequency", "maturity", "difficulty", "feasibility"],
+  synthesizability: ["synthesis", "temperature", "time", "condition", "accessibility", "feasibility"],
   economics: ["economic", "cost", "price", "precursor", "lcc"],
   guestActivityCompensation: ["guest", "co2 activation", "hcoo", "formate", "electron", "redox", "doping", "bimetallic"],
   complementarity: ["complementarity", "compatibility", "host-guest", "coordination", "post-modification", "bimetallic"],
@@ -929,7 +929,28 @@ export function buildFinalResultSummaryModel(workbench, options = {}) {
     id: `validation-${index + 1}`,
     status: index < validationCounts.coveredCount ? "covered" : "pending",
   }))
-  const routeComparisonRows = comparisonProvenances.map(routeModel => ({
+  const emptyCohort = route => ({
+    family: safeText(route?.hostMof, "host family pending"),
+    computationRecordCount: 0,
+    calculationRule: "No computation-ready CoRE host record was supplied for this result.",
+    displayedStructureIds: [],
+    displayedStructures: [],
+  })
+  const unavailableStructure = {
+    route3dAvailable: false,
+    status: "hypothesis-no-experimental-modified-cif",
+    labelZh: "假设路线，无对应 3D 晶体结构",
+    labelEn: "Hypothetical route; no corresponding 3D crystal structure",
+    hostStructureDisclosureZh: "未映射实验改性 CIF；主体 CIF 不得冒充改性产物。",
+    hostStructureDisclosureEn: "No experimental modified CIF is mapped; a host CIF must not represent the modified product.",
+  }
+  const routeComparisonRows = comparisonProvenances.map(routeModel => {
+    const sourceRoute = routes.find(route => route.routeId === routeModel.routeId) || {}
+    return {
+      computationCohort: sourceRoute.computationCohort || emptyCohort(sourceRoute),
+      participatingMofCount: safeNumber(sourceRoute.participatingMofCount, 0),
+      participatingMofs: asArray(sourceRoute.participatingMofs),
+      structureAvailability: sourceRoute.structureAvailability || unavailableStructure,
     routeId: routeModel.routeId,
     label: routeModel.candidateLabel,
     rank: routeModel.rank,
@@ -940,7 +961,8 @@ export function buildFinalResultSummaryModel(workbench, options = {}) {
       labelEn: row.labelEn,
       value: row.normalizedValue,
     })),
-  }))
+    }
+  })
   const factorAdvantages = deltaTable
     .filter(row => row.deltaSecond > 0)
     .sort((a, b) => b.deltaSecond - a.deltaSecond)
@@ -950,6 +972,10 @@ export function buildFinalResultSummaryModel(workbench, options = {}) {
     titleEn: "Final Result Summary",
     routeId: safeText(topRoute.routeId, "route-pending"),
     routeLabel: defaultGetName(topRoute),
+    computationCohort: topRoute.computationCohort || emptyCohort(topRoute),
+    participatingMofCount: safeNumber(topRoute.participatingMofCount, 0),
+    participatingMofs: asArray(topRoute.participatingMofs),
+    structureAvailability: topRoute.structureAvailability || unavailableStructure,
     recommendationTier: safeText(topRoute.recommendationTier, "research hypothesis"),
     finalHGCPS: round(safeNumber(topRoute.finalHGCPS, provenance.finalValue), 3),
     ranking: Math.round(safeNumber(topRoute.ranking, provenance.rank)),

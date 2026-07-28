@@ -1,23 +1,15 @@
 {
-  "datasetMode": "database_index_preview",
-  "totalRecords": 500,
-  "readyForScoring": 12,
-  "needsReview": 63,
+  "datasetMode": "real_core_mof_cr_index",
+  "totalRecords": 9835,
+  "readyForScoring": 9835,
+  "needsReview": 0,
   "rejected": 0,
   "finalRecommendationEligible": 0,
   "blockedReasonSummary": [
     {
-      "reason": "Missing hydrothermal stability evidence",
-      "count": 63
-    },
-    {
-      "reason": "Hydrothermal hard gate failed",
-      "count": 0
-    },
-    {
-      "reason": "Outside organic-acid Al-node preview subset",
-      "count": 380
+      "reason": "Independent catalytic evidence required for final recommendation",
+      "count": 9835
     }
   ],
-  "warning": "Needs-review and rejected records remain visible in index preview but cannot enter final recommendation."
+  "warning": "Structural screening readiness is not catalytic validation."
 }

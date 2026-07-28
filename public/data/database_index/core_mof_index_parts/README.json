@@ -1,26 +1,18 @@
 {
-  "version": "V2.0-A",
-  "datasetMode": "database_index_preview",
-  "sourceDatabase": "CoRE MOF",
-  "partSize": 250,
-  "partCount": 2,
-  "recordCount": 500,
-  "note": "Lightweight index parts only. Detail records are loaded on demand through detailRef.",
-  "warning": "Do not interpret this preview index as full verified database screening.",
-  "parts": [
-    {
-      "partId": "core_mof_index_part_001",
-      "path": "core_mof_index_parts/core_mof_index_part_001.json",
-      "recordCount": 250,
-      "firstId": "COREMOF_000001",
-      "lastId": "COREMOF_000250"
-    },
-    {
-      "partId": "core_mof_index_part_002",
-      "path": "core_mof_index_parts/core_mof_index_part_002.json",
-      "recordCount": 250,
-      "firstId": "COREMOF_000251",
-      "lastId": "COREMOF_000500"
-    }
+  "dataset": "CoRE MOF 2024 · CSD-modified CR",
+  "totalRecords": 9835,
+  "totalParts": 10,
+  "partSize": 1000,
+  "files": [
+    "core_mof_index_parts/core_mof_index_part_001.json",
+    "core_mof_index_parts/core_mof_index_part_002.json",
+    "core_mof_index_parts/core_mof_index_part_003.json",
+    "core_mof_index_parts/core_mof_index_part_004.json",
+    "core_mof_index_parts/core_mof_index_part_005.json",
+    "core_mof_index_parts/core_mof_index_part_006.json",
+    "core_mof_index_parts/core_mof_index_part_007.json",
+    "core_mof_index_parts/core_mof_index_part_008.json",
+    "core_mof_index_parts/core_mof_index_part_009.json",
+    "core_mof_index_parts/core_mof_index_part_010.json"
   ]
 }

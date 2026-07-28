@@ -68,7 +68,7 @@ describe("organic acid descriptor ablation", () => {
     expect(changed.layers[3].candidates.map(row => row.routeId)).not.toEqual(baseline.layers[3].candidates.map(row => row.routeId))
   })
 
-  it("records the real-price rerun honestly even when the previous leader remains first", () => {
+  it("records the real-price and real-corpus rerun honestly when the previous leader changes", () => {
     const oldById = new Map(oldRerun.routeRanking.map(row => [row.routeId, row]))
     const changedRankRoutes = currentRerun.routeRanking.filter(row => oldById.get(row.routeId)?.ranking !== row.ranking)
     const oldLeader = oldRerun.routeRanking[0]
@@ -76,7 +76,8 @@ describe("organic acid descriptor ablation", () => {
     const realPriceStage = rankingLog.stages.find(stage => stage.version === "V3.9.8")
 
     expect(changedRankRoutes.length).toBeGreaterThan(0)
-    expect(currentLeader.ranking).toBe(1)
+    expect(currentLeader.ranking).toBeGreaterThan(1)
+    expect(currentRerun.routeRanking[0].routeId).not.toBe(oldLeader.routeId)
     expect(currentLeader.scoreBreakdown.economics).toBeLessThan(oldLeader.scoreBreakdown.economics)
     expect(currentLeader.finalHGCPS).toBeLessThan(oldLeader.finalHGCPS)
     expect(realPriceStage.top5Routes[0].routeId).toBe(currentRerun.routeRanking[0].routeId)

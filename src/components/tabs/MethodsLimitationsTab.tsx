@@ -497,7 +497,14 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
       .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData, robustnessReport, literatureInspirationData]) => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
-        setModelValidationSummary(previewSummary && typeof previewSummary === "object" ? previewSummary : null)
+        setModelValidationSummary({
+          ...(previewSummary && typeof previewSummary === "object" ? previewSummary : {}),
+          totalCandidates: ingestionSummaryV3?.coreCount ?? ingestionSummaryV3?.stats?.coreMof?.current ?? 0,
+          verifiedMetadataCount: ingestionSummaryV3?.verifiedMetadataCount ?? ingestionSummaryV3?.stats?.verifiedMetadata?.current ?? 0,
+          databaseVersion: ingestionSummaryV3?.version || "CoRE-MOF-2024-current",
+          structureSource: "CoRE MOF 2024 · CSD-modified CR",
+          qmofStatus: ingestionSummaryV3?.availability?.qmof?.status || "quarantined",
+        })
         setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
         setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
         setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
@@ -607,7 +614,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
-        title={text(lang, "方法与证据", "Methods & Evidence")}
+        title={text(lang, "方法论", "Methodology")}
         subtitle={text(
           lang,
           "按网站菜单顺序组织全站方法论：模块目的、方法流程、算法公式、输入输出、可视化、证据边界、限制和验证路线。",

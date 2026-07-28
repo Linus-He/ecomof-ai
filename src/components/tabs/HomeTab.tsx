@@ -853,11 +853,11 @@ export function HomeTab({ setActiveTab }) {
     },
     {
       mark: "DB",
-      title: zh ? "数据库规模" : "Database Scale",
-      subtitle: zh ? "真实数据规模" : "Real data scale",
+      title: zh ? "数据基础" : "Data Foundation",
+      subtitle: zh ? "当前启用来源" : "Active sources",
       tone: "success",
-      highlights: [`${numberText(summary.totalRecords, "+")} ${zh ? "条记录" : "Records"}`, `${numberText(summary.verifiedMetadataCount)} ${zh ? "条已核验元数据" : "Verified Metadata"}`],
-      body: zh ? "数据库规模与已核验元数据来自 ingestion summary。" : "Database scale and verified metadata come from the ingestion summary.",
+      highlights: [`CoRE ${numberText(summary.coreMofRecords)}`, `FAIR ${numberText(summary.fairMofsRecords)}`],
+      body: zh ? "结构、合成条件与物化性质按独立数据层统计，不把重叠记录相加为唯一材料数。" : "Structures, synthesis conditions, and properties are counted as separate layers rather than summed as unique materials.",
     },
     {
       mark: "EL",
@@ -894,35 +894,38 @@ export function HomeTab({ setActiveTab }) {
   ], [summary, zh])
 
   const dataCards = useMemo(() => [
-    { name: "CoRE MOF", value: numberText(summary.coreMofRecords), body: zh ? "外部数据库来源材料记录。" : "External database material records." },
-    { name: "QMOF", value: numberText(summary.qmofRecords), body: zh ? "量子化学数据来源材料记录。" : "Quantum chemistry source records." },
-    { name: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), body: zh ? "有机酸路径文献整理记录。" : "Literature-curated organic-acid pathway records." },
-    { name: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), body: zh ? "反应证据与可比性数据层。" : "Reaction evidence and comparability layer." },
-    { name: "Gold Dataset", value: numberText(summary.goldDatasetCount), body: zh ? "用于质量审计的高质量整理集合。" : "High-quality curation set for quality audit." },
+    { name: "CoRE MOF 2024 CR", value: numberText(summary.coreMofRecords), body: zh ? "当前 MOF库使用的逐条 CSD-modified 晶体结构记录。" : "Row-level CSD-modified crystal structures used by the current MOF Library." },
+    { name: "FAIR-MOFs", value: numberText(summary.fairMofsRecords), body: zh ? "用于合成条件、DOI 与物化性质查询的开放记录。" : "Open records used for synthesis conditions, DOI links, and physicochemical property queries." },
+    { name: zh ? "气体吸附记录" : "Gas adsorption records", value: numberText(summary.gasAdsorptionRecords), body: zh ? "GasSep 使用的真实等温线与条件化吸附记录。" : "Real isotherm and condition-aware adsorption records used by GasSep." },
+    { name: zh ? "实验标签" : "Experimental labels", value: numberText(summary.experimentalLabelCount), body: zh ? "用于模型验证的实验与独立验证标签。" : "Experimental and independent-validation labels used for model validation." },
+    { name: "Benchmark", value: numberText(summary.benchmarkEligibleCount), body: zh ? "满足当前基准比较字段要求的记录。" : "Records meeting the current benchmark comparison requirements." },
   ], [summary, zh])
 
   const chartRows = useMemo(() => {
-    const structuralRecords = Number(summary.coreMofRecords || 0) + Number(summary.qmofRecords || 0)
-    const sourceTotal = structuralRecords + Number(summary.organicAcidLiteratureRecords || 0) + Number(summary.reactionDatasetCount || 0)
-    const qualityDenominator = Math.max(sourceTotal, Number(summary.totalRecords || 0), 1)
+    const coreRecords = Number(summary.coreMofRecords || 0)
+    const fairRecords = Number(summary.fairMofsRecords || 0)
+    const gasRecords = Number(summary.gasAdsorptionRecords || 0)
+    const sourceTotal = Math.max(coreRecords + fairRecords + gasRecords, 1)
+    const fairDoiRecords = Number(summary.fairMofsDoiRecords || 0)
+    const fairPorePropertyRecords = Number(summary.fairMofsPorePropertyRecords || 0)
     return {
       coverage: [
-        { label: "CoRE MOF", value: numberText(summary.coreMofRecords), percent: sharePercent(summary.coreMofRecords, sourceTotal), detail: `${numberText(summary.coreMofRecords)} / ${numberText(sourceTotal)} source rows`, color: t.accentText },
-        { label: "QMOF", value: numberText(summary.qmofRecords), percent: sharePercent(summary.qmofRecords, sourceTotal), detail: `${numberText(summary.qmofRecords)} / ${numberText(sourceTotal)} source rows`, color: t.success || t.accentText },
-        { label: "Organic Acid Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: sharePercent(summary.organicAcidLiteratureRecords, sourceTotal), detail: `${numberText(summary.organicAcidLiteratureRecords)} / ${numberText(sourceTotal)} source rows`, color: t.warn },
+        { label: "CoRE MOF 2024 CR", value: numberText(coreRecords), percent: sharePercent(coreRecords, sourceTotal), detail: zh ? `${numberText(coreRecords)} 条结构记录` : `${numberText(coreRecords)} structure records`, color: t.accentText },
+        { label: "FAIR-MOFs", value: numberText(fairRecords), percent: sharePercent(fairRecords, sourceTotal), detail: zh ? `${numberText(fairRecords)} 条合成与性质记录` : `${numberText(fairRecords)} synthesis/property records`, color: t.success || t.accentText },
+        { label: zh ? "气体吸附" : "Gas adsorption", value: numberText(gasRecords), percent: sharePercent(gasRecords, sourceTotal), detail: zh ? `${numberText(gasRecords)} 条等温线记录` : `${numberText(gasRecords)} isotherm records`, color: t.warn },
       ],
       quality: [
-        { label: "Verified Metadata", value: numberText(summary.verifiedMetadataCount), percent: sharePercent(summary.verifiedMetadataCount, qualityDenominator), detail: `${numberText(summary.verifiedMetadataCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.accentText },
-        { label: "Gold Dataset", value: numberText(summary.goldDatasetCount), percent: sharePercent(summary.goldDatasetCount, qualityDenominator), detail: `${numberText(summary.goldDatasetCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.warn },
-        { label: "Reaction Dataset", value: numberText(summary.reactionDatasetCount), percent: sharePercent(summary.reactionDatasetCount, qualityDenominator), detail: `${numberText(summary.reactionDatasetCount)} / ${numberText(qualityDenominator)} tracked rows`, color: t.success || t.accentText },
+        { label: zh ? "CoRE 结构元数据" : "CoRE structural metadata", value: numberText(summary.verifiedMetadataCount), percent: sharePercent(summary.verifiedMetadataCount, Math.max(coreRecords, 1)), detail: `${numberText(summary.verifiedMetadataCount)} / ${numberText(coreRecords)}`, color: t.accentText },
+        { label: zh ? "FAIR DOI 关联" : "FAIR DOI links", value: numberText(fairDoiRecords), percent: sharePercent(fairDoiRecords, Math.max(fairRecords, 1)), detail: `${numberText(fairDoiRecords)} / ${numberText(fairRecords)}`, color: t.success || t.accentText },
+        { label: zh ? "FAIR 孔道性质" : "FAIR pore properties", value: numberText(fairPorePropertyRecords), percent: sharePercent(fairPorePropertyRecords, Math.max(fairRecords, 1)), detail: `${numberText(fairPorePropertyRecords)} / ${numberText(fairRecords)}`, color: t.warn },
       ],
       source: [
-        { label: "Database", value: numberText(structuralRecords), percent: sharePercent(structuralRecords, sourceTotal), detail: `${numberText(structuralRecords)} / ${numberText(sourceTotal)} source rows`, color: t.accentText },
-        { label: "Literature", value: numberText(summary.organicAcidLiteratureRecords), percent: sharePercent(summary.organicAcidLiteratureRecords, sourceTotal), detail: `${numberText(summary.organicAcidLiteratureRecords)} / ${numberText(sourceTotal)} source rows`, color: t.warn },
-        { label: "Derived Research Layer", value: numberText(summary.reactionDatasetCount), percent: sharePercent(summary.reactionDatasetCount, sourceTotal), detail: `${numberText(summary.reactionDatasetCount)} / ${numberText(sourceTotal)} source rows`, color: t.success || t.accentText },
+        { label: "CoRE / CCDC", value: numberText(coreRecords), percent: sharePercent(coreRecords, sourceTotal), detail: zh ? "晶体结构层" : "Crystal-structure layer", color: t.accentText },
+        { label: "FAIR-MOFs", value: numberText(fairRecords), percent: sharePercent(fairRecords, sourceTotal), detail: zh ? "合成与物化性质层" : "Synthesis and property layer", color: t.success || t.accentText },
+        { label: "ISODB / NIST", value: numberText(gasRecords), percent: sharePercent(gasRecords, sourceTotal), detail: zh ? "气体吸附层" : "Gas-adsorption layer", color: t.warn },
       ],
     }
-  }, [summary, t])
+  }, [summary, t, zh])
 
   const validationFlow = useMemo(() => [
     {
@@ -1035,7 +1038,7 @@ export function HomeTab({ setActiveTab }) {
     {
       mark: "ML",
       title: "MOF Library",
-      tag: zh ? "统一 MOF 浏览器" : "Unified MOF browser",
+      tag: zh ? "MOF库" : "MOF Library",
       tone: "neutral",
       body: zh
         ? "做什么：查任意 MOF 的结构、气体与催化全貌，含字段级溯源。"
@@ -1130,8 +1133,8 @@ export function HomeTab({ setActiveTab }) {
       <section data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}
-          title={zh ? "可追踪的数据来源与质量概览" : "Traceable source and data-quality overview"}
-          subtitle={zh ? "展示数据库、文献、反应与 Gold 数据集，不展示版本增长曲线。" : "Shows database, literature, reaction, and Gold datasets without a version-growth chart."}
+          title={zh ? "当前启用的数据与证据层" : "Active data and evidence layers"}
+          subtitle={zh ? "仅展示当前参与检索、计算或验证的数据。不同数据层可能指向同一材料，因此记录数不等同于去重后的 MOF 总数。" : "Only data currently used for search, calculation, or validation are shown. Layers can refer to the same material, so record counts are not a deduplicated MOF total."}
           t={t}
           isMobile={isMobile}
         />
@@ -1139,9 +1142,9 @@ export function HomeTab({ setActiveTab }) {
           {dataCards.map(item => <DataCard key={item.name} item={item} t={t} />)}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-          <MiniBarChart title="Data Coverage" rows={chartRows.coverage} t={t} lang={lang} />
-          <MiniBarChart title="Data Quality" rows={chartRows.quality} t={t} lang={lang} />
-          <MiniBarChart title="Source Distribution" rows={chartRows.source} t={t} lang={lang} />
+          <MiniBarChart title={zh ? "数据层规模" : "Data layer scale"} rows={chartRows.coverage} t={t} lang={lang} />
+          <MiniBarChart title={zh ? "字段覆盖" : "Field coverage"} rows={chartRows.quality} t={t} lang={lang} />
+          <MiniBarChart title={zh ? "来源构成" : "Source composition"} rows={chartRows.source} t={t} lang={lang} />
         </div>
       </section>
 
@@ -1149,7 +1152,7 @@ export function HomeTab({ setActiveTab }) {
         <SectionHeader
           eyebrow={zh ? "交互可视化" : "Interactive Visual"}
           title={zh ? "数据库描述符空间" : "Descriptor space explorer"}
-          subtitle={zh ? "用真实 CoRE/QMOF 数据展示 MOF 描述符三维分布、统计分布、金属筛选与相关性，可旋转、筛选和悬停查看。" : "Explore real CoRE/QMOF descriptor data through 3D distribution, statistical distribution, metal filtering, and correlation views."}
+          subtitle={zh ? "用真实 CoRE MOF 2024 CSD-modified CR 数据展示描述符三维分布、统计分布、金属筛选与相关性。" : "Explore descriptor distributions, metal filters, and correlations from real CoRE MOF 2024 CSD-modified CR records."}
           t={t}
           isMobile={isMobile}
         />

@@ -37,13 +37,13 @@ const RUN_SCOPES = [
   },
   {
     id: "database_index_preview",
-    label: "Database index preview",
-    labelZh: "数据库索引预览",
-    statusLabel: "Preview only",
-    statusLabelZh: "仅限预览",
-    statusTone: "proxy",
-    note: "Reads the manifest, Top-N preview, and the selected part only; it does not run full scoring.",
-    noteZh: "只读取 manifest、Top-N 预览与已选择分片；不执行全量评分。",
+    label: "CoRE structural-index audit",
+    labelZh: "CoRE 结构索引审计",
+    statusLabel: "Real source index",
+    statusLabelZh: "真实来源索引",
+    statusTone: "pass",
+    note: "Reads the real 9,835-record manifest, structural-review sample, and selected part; it does not infer catalytic performance.",
+    noteZh: "读取真实 9,835 条来源 manifest、结构审阅样本与已选择分片；不推断催化性能。",
   },
 ]
 
@@ -94,8 +94,8 @@ export function RunConfigurationPanel({ dataMode, setDataMode, lang, t, isMobile
       <p style={{ color: t.muted, fontSize: 11.6, fontWeight: 700, lineHeight: 1.45, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "所有来源的结果都是预览，不参与最终推荐。浏览器不执行全量数据库评分。",
-          "All sources produce preview results that are not final recommendations. The browser does not run full database scoring."
+          "演示与历史样例不参与当前推荐；CoRE 模式审计真实来源索引，但浏览器不会把结构字段转换成催化性能结论。",
+          "Demo and historical sample modes do not participate in current recommendations. CoRE mode audits the real source index, but the browser does not convert structural fields into catalytic-performance claims."
         )} />
       </p>
 

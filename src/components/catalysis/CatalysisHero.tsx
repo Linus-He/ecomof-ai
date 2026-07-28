@@ -5,12 +5,12 @@ export function CatalysisHero({ lang, stats, t }) {
   return (
     <div style={{ display: "grid", gap: 12 }}>
       <PageHeader
-        title={lang === "zh" ? "催化实验室" : "Catalysis Lab"}
+        title={lang === "zh" ? "催化" : "Catalysis"}
         subtitle={lang === "zh"
           ? "用坐标轴图、筛选器和任务表组织 MOF 相关催化任务、指标体系、条件语境和可比性边界。"
           : "A chart-first workspace for organizing MOF-related catalytic tasks, metric systems, condition context, and comparability boundaries."}
         meta={lang === "zh" ? "总览 · 坐标轴图 · 可比性评估 · 数据整理" : "overview · axis charts · comparability assessment · data curation"}
-        action={<CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化实验室链接" : "Copy Catalysis Lab link"} />}
+        action={<CopyLinkButton hash="catalysis" ariaLabel={lang === "zh" ? "复制催化链接" : "Copy Catalysis link"} />}
       />
       <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
         {(lang === "zh"

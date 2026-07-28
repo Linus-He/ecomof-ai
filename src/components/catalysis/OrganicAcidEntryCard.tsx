@@ -21,8 +21,8 @@ export function OrganicAcidEntryCard({ lang, t, isMobile, onOpen }) {
       <div style={{ alignItems: "center", display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto" }}>
         <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5 }}>
           {zh
-            ? "该专题仍属于 Catalysis Lab，但拥有独立内容区，不再压缩为总览中的小面板。"
-            : "This topic remains inside Catalysis Lab, but opens as its own workspace rather than a collapsed summary panel."}
+            ? "该专题仍属于催化模块，但拥有独立内容区，不再压缩为总览中的小面板。"
+            : "This topic remains inside Catalysis, but opens as its own workspace rather than a collapsed summary panel."}
         </div>
         <button
           type="button"

@@ -1,0 +1,55 @@
+{
+  "id": "coremof2024-csdm-00025",
+  "frameworkId": "coremof2024-csdm-00025",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2017[Zr][scu]3[ASR]1",
+  "displayName": "Spirof-MOF",
+  "commonName": "Spirof-MOF",
+  "csdRefcode": "ADAQAA",
+  "coreId": "2017[Zr][scu]3[ASR]1",
+  "metals": [
+    "Zr"
+  ],
+  "hasAlNode": false,
+  "topology": "scu",
+  "surfaceArea": 3109.55,
+  "pldA": 8.1897,
+  "lcdA": 11.13547,
+  "poreVolume": 1.13777,
+  "density": 0.659714,
+  "voidFraction": 0.7506,
+  "waterStability": 0.9,
+  "thermalStability": 415.9,
+  "sourceDoi": "10.1021/acs.inorgchem.7b02022",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2017[Zr][scu]3[ASR]1; DOI 10.1021/acs.inorgchem.7b02022.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "bundledCifPath": "data/core_mof_2024/route_structures/coremof2024-csdm-00025.cif",
+  "detailRef": "detail/framework/coremof2024-csdm-00025.json",
+  "descriptors": {
+    "surfaceArea": 3109.55,
+    "pldA": 8.1897,
+    "lcdA": 11.13547,
+    "poreVolume": 1.13777,
+    "density": 0.659714,
+    "voidFraction": 0.7506,
+    "waterStability": 0.9,
+    "thermalStability": 415.9
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

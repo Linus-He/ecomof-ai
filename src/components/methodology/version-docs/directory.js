@@ -13,7 +13,7 @@ export const VERSION_DOCS_DIRECTORY = {
     { id: "methodology-literature-library", label: "Literature Library", labelZh: "文献库" },
     { id: "methodology-inspiration-map", label: "Inspiration Map", labelZh: "灵感映射" },
     { id: "methodology-version-source-map", label: "Version ↔ Literature ↔ Module Matrix", labelZh: "版本 ↔ 文献 ↔ 模块矩阵" },
-    { id: "methodology-oafs-database-index-preview", label: "Database Index Preview", labelZh: "数据库索引预览" },
+    { id: "methodology-oafs-database-index-preview", label: "CoRE Index Migration & Historical Audit", labelZh: "CoRE 索引迁移与历史审计" },
     { id: "methodology-evidence-boundary-legend", label: "Evidence Boundary Legend", labelZh: "证据边界图例" },
     { id: "methodology-version-roadmap", label: "Future Knowledge Gaps", labelZh: "后续知识缺口" },
   ],

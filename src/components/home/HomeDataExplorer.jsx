@@ -380,8 +380,8 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
         <h3>{zh ? "分布、金属筛选与描述符相关性" : "Distribution, metal filters, and descriptor correlation"}</h3>
         <p className="scientific-story-lede">
           {zh
-            ? `所有图表均由 ${allRows.length} 条具备完整结构描述符的 CoRE/QMOF 记录动态派生；金属筛选会重算分布和相关矩阵，区间点击仅用于查看频数。`
-            : `All charts are dynamically derived from ${allRows.length} CoRE/QMOF records with complete structural descriptors. Metal filters recompute the distribution and correlation matrix; bin clicks inspect frequencies only.`}
+            ? `所有图表均由真实 CoRE MOF 2024 CSD-modified CR 中 ${allRows.length} 条确定性展示样本动态派生；金属筛选会重算分布和相关矩阵，区间点击仅用于查看频数。`
+            : `All charts are dynamically derived from a deterministic ${allRows.length}-record sample of the real CoRE MOF 2024 CSD-modified CR source. Metal filters recompute the distribution and correlation matrix.`}
         </p>
         <div className="scientific-equation-block">
           <span>{zh ? "条件直方图" : "CONDITIONAL HISTOGRAM"}</span>

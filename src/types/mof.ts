@@ -20,7 +20,7 @@ export type EvidenceLevel =
   | 'needs-validation';
 
 export type CurationStatus = 'curated' | 'pending' | 'missing' | 'needs-review' | 'demo' | 'raw-import';
-export type DataRoute = 'open-mof-seed';
+export type DataRoute = 'core-mof-2024-cr' | 'open-mof-seed';
 export type DataMode = DataRoute | 'real' | 'demo';
 
 export interface DescriptorSource {

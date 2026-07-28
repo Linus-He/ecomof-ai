@@ -22,7 +22,7 @@ function isPendingCandidate(candidate) {
 }
 
 function candidateName(candidate) {
-  return candidate?.displayName || candidate?.commonName || candidate?.name || candidate?.id || "Open MOF record"
+  return candidate?.displayName || candidate?.commonName || candidate?.name || candidate?.id || "MOF source record"
 }
 
 function sourceDatabase(candidate) {

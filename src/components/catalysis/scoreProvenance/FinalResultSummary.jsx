@@ -2,6 +2,7 @@ import { NumericText } from "../FormulaInline"
 import { asArray, cardStyle, fmt, palette, text } from "./shared"
 import { HgcpsFactorRose } from "./HgcpsFactorRose"
 import { ValidationReadinessDonut } from "./ValidationReadinessDonut"
+import { RouteStructureEvidence } from "../RouteStructureEvidence"
 
 function Pill({ children, tone = "info" }) {
   const colors = tone === "risk"
@@ -20,7 +21,7 @@ function Caption({ children }) {
   return <span style={{ color: palette.muted, fontSize: 11.3, lineHeight: 1.5 }}>{children}</span>
 }
 
-function TopRouteHgcpsComparisonChart({ model, lang = "zh" }) {
+function TopRouteHgcpsComparisonChart({ model, lang = "zh", onViewHostStructure }) {
   const rows = asArray(model?.rows)
   const maxValue = Math.max(0.01, Number(model?.maxValue) || Math.max(...rows.map(row => Number(row.finalHGCPS) || 0), 0.01))
   if (!rows.length) return null
@@ -49,6 +50,7 @@ function TopRouteHgcpsComparisonChart({ model, lang = "zh" }) {
                 </span>
               ))}
             </div>
+            <RouteStructureEvidence route={row} lang={lang} compact onViewHostStructure={onViewHostStructure} />
           </div>
         ))}
       </div>
@@ -56,7 +58,7 @@ function TopRouteHgcpsComparisonChart({ model, lang = "zh" }) {
   )
 }
 
-export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter, withTestId = true }) {
+export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter, onViewHostStructure, withTestId = true }) {
   if (!model) return null
   return (
     <section data-testid={withTestId ? "final-result-summary" : undefined} style={cardStyle({ background: palette.surfaceStrong, border: `1px solid ${palette.accent}`, padding: 14 })}>
@@ -101,7 +103,7 @@ export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter,
           <Caption>{text(lang, "图为主、图注式解读；所有数值来自当前路线评分与验证矩阵。", "Figure-first reading with caption-style interpretation; all values come from the current route scoring and validation matrix.")}</Caption>
         </div>
         <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
-          <TopRouteHgcpsComparisonChart model={model.routeComparisonModel} lang={lang} />
+          <TopRouteHgcpsComparisonChart model={model.routeComparisonModel} lang={lang} onViewHostStructure={onViewHostStructure} />
           <div style={{ display: "grid", gap: 7 }}>
             <HgcpsFactorRose
               model={model.factorOverlayModel?.top || model.factorRoseModel}

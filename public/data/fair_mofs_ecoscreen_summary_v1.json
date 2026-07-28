@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "fair-mofs-ecoscreen-summary-v1",
+  "generatedAt": "2026-07-28T06:57:00.296Z",
+  "source": {
+    "dataset": "FAIR-MOFs",
+    "doi": "10.5281/zenodo.13254307",
+    "license": "CC BY 4.0"
+  },
+  "processSummary": {
+    "sourceRecordCount": 4168,
+    "emittedRecordCount": 4168,
+    "recordsWithDoi": 4168,
+    "recordsWithAtLeastFiveProcessFields": 3782,
+    "fieldCoverage": {
+      "metalPrecursor": { "count": 4168, "rate": 1 },
+      "organicLinker": { "count": 4137, "rate": 0.9926 },
+      "reactionQuantities": { "count": 4168, "rate": 1 },
+      "synthesisRoute": { "count": 3838, "rate": 0.9208 },
+      "synthesisSolvent": { "count": 3210, "rate": 0.7702 },
+      "synthesisTemperature": { "count": 2550, "rate": 0.6118 },
+      "synthesisTime": { "count": 2271, "rate": 0.5449 },
+      "dryingTemperature": { "count": 297, "rate": 0.0713 }
+    },
+    "hardBlockerCoverage": {
+      "yield": 0,
+      "massBalance": 0,
+      "measuredSynthesisEnergy": 0,
+      "solventRecovery": 0,
+      "workingCapacity": 0,
+      "cycleStability": 0,
+      "regenerationEnergy": 0
+    }
+  },
+  "propertySummary": {
+    "recordCount": 4168,
+    "exactStructureMatches": 180,
+    "variantAssociations": 9,
+    "articleOnlyAssociations": 262,
+    "fieldCoverage": {
+      "reactionTemperature": { "count": 2550, "rate": 0.6118 },
+      "reactionTime": { "count": 2271, "rate": 0.5449 },
+      "metalPrecursors": { "count": 4168, "rate": 1 },
+      "organicLinkers": { "count": 4137, "rate": 0.9926 },
+      "solvents": { "count": 3210, "rate": 0.7702 },
+      "methods": { "count": 3838, "rate": 0.9208 },
+      "doi": { "count": 4168, "rate": 1 },
+      "asaM2Cm3": { "count": 787, "rate": 0.1888 },
+      "bdeKjMol": { "count": 1121, "rate": 0.269 },
+      "lcdA": { "count": 787, "rate": 0.1888 },
+      "pldA": { "count": 787, "rate": 0.1888 },
+      "voidFraction": { "count": 787, "rate": 0.1888 },
+      "openMetalSite": { "count": 1160, "rate": 0.2783 },
+      "topology": { "count": 665, "rate": 0.1595 }
+    }
+  }
+}

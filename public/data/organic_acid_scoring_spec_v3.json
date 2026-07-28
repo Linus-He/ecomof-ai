@@ -1,0 +1,383 @@
+{
+  "specId": "organic-acid-host-guest-scoring-spec-v3",
+  "version": "V3.9.10",
+  "lockedAt": "2026-07-28T06:41:01Z",
+  "policy": "Rules were fixed before the V3.9.10 rerun. Corpus abundance is evidence maturity only and cannot directly increase a material score.",
+  "basedOn": "V3.9.8 abundance-bias audit plus FAIR-MOFs v1 synthesis-condition evidence",
+  "extends": "organic-acid-host-guest-scoring-spec-v2",
+  "algorithm": {
+    "name": "Host-Guest Complementary Pathway Screening Algorithm",
+    "mode": "white-box deterministic scoring",
+    "mlPolicy": "No model training or inference is used in this rerun. Source fields and curated tables are aggregated by fixed rules.",
+    "fallbackThreshold": {
+      "minimumRecords": 5,
+      "label": "fallback"
+    },
+    "routeAggregation": "weighted geometric mean",
+    "zeroFloor": 0.001,
+    "abundanceBiasCorrection": {
+      "status": "active",
+      "forbiddenScoreInputs": [
+        "raw family record count",
+        "log1p family record count",
+        "cross-family normalized family frequency"
+      ],
+      "allowedCountUses": [
+        "empirical-Bayes shrinkage strength",
+        "evidence confidence",
+        "uncertainty reporting",
+        "source coverage display"
+      ],
+      "invarianceRequirement": "Duplicating otherwise identical CoRE or FAIR-MOFs rows must not improve the material point score."
+    }
+  },
+  "dataReality": {
+    "stability": "CoRE MOF 2024 CSD-modified supplies record-level water-stability probability, solvent-stability probability, and thermal-stability temperature. Family medians are shrunk toward global priors; record count is not a benefit term.",
+    "synthesizability": "FAIR-MOFs has successful-synthesis condition records but no harmonized failure set or yield. The factor is therefore a synthesis-condition accessibility proxy, not a synthesis-success probability.",
+    "fairMofsIdentity": "Exact or base CSD Refcode establishes structure-level association. Shared DOI is article-level association only and never establishes structure identity.",
+    "economics": "Economics remains a transparent screening-level precursor/LCC proxy and is not a supplier quotation or full process cost model."
+  },
+  "targetFamilies": [
+    "Al-MOF",
+    "Zr-MOF",
+    "Ti-MOF",
+    "Fe-MOF",
+    "Cr-MOF",
+    "Cu-MOF",
+    "Zn-MOF",
+    "UiO-type host",
+    "MIL-type host",
+    "MOF-808-like host"
+  ],
+  "normalization": {
+    "default": "fixed physical bounds or empirical-Bayes shrinkage; cross-family min-max only where explicitly retained",
+    "zeroVariance": 0.5,
+    "clamp": [
+      0,
+      1
+    ],
+    "roundDigits": 3,
+    "curatedTierValues": {
+      "low": 0.25,
+      "medium": 0.6,
+      "high": 0.9
+    }
+  },
+  "hostScoreWeights": [
+    [
+      "stabilityProxy",
+      0.18
+    ],
+    [
+      "aqueousStabilityEvidence",
+      0.15
+    ],
+    [
+      "thermalStabilityEvidence",
+      0.08
+    ],
+    [
+      "poreEnvironmentScore",
+      0.06
+    ],
+    [
+      "co2EnrichmentSupport",
+      0.07
+    ],
+    [
+      "ligandPathwaySupport",
+      0.12
+    ],
+    [
+      "postModificationFeasibility",
+      0.08
+    ],
+    [
+      "guestHostingFeasibility",
+      0.08
+    ],
+    [
+      "synthesizabilityScore",
+      0.1
+    ],
+    [
+      "provenanceQuality",
+      0.08
+    ]
+  ],
+  "guestScoreWeights": [
+    [
+      "co2ActivationScore",
+      0.22
+    ],
+    [
+      "formateStabilizationScore",
+      0.22
+    ],
+    [
+      "electronTransferSupport",
+      0.16
+    ],
+    [
+      "compatibilityWithAlMof",
+      0.16
+    ],
+    [
+      "dopingFeasibility",
+      0.08
+    ],
+    [
+      "postModificationFeasibility",
+      0.08
+    ],
+    [
+      "bimetallicConstructionFeasibility",
+      0.08
+    ]
+  ],
+  "routeScoreKeys": [
+    "hostStabilityScore",
+    "hostPathwaySupportScore",
+    "guestActivityCompensationScore",
+    "hostGuestComplementarityScore",
+    "evidenceConfidenceScore",
+    "riskPenalty",
+    "synthesizabilityScore",
+    "economicScore"
+  ],
+  "routeScoreWeights": [
+    [
+      "hostStabilityScore",
+      0.16
+    ],
+    [
+      "hostPathwaySupportScore",
+      0.15
+    ],
+    [
+      "guestActivityCompensationScore",
+      0.15
+    ],
+    [
+      "hostGuestComplementarityScore",
+      0.15
+    ],
+    [
+      "evidenceConfidenceScore",
+      0.12
+    ],
+    [
+      "riskPenalty",
+      0.12
+    ],
+    [
+      "synthesizabilityScore",
+      0.08
+    ],
+    [
+      "economicScore",
+      0.07
+    ]
+  ],
+  "hgcpsFormula": "finalHGCPS = product(max(factor, 0.001) ^ routeWeight); route weights sum to 1",
+  "hostPathwaySupportFormula": {
+    "poreEnvironmentScore": 0.35,
+    "co2EnrichmentSupport": 0.3,
+    "ligandPathwaySupport": 0.35
+  },
+  "stability": {
+    "source": "CoRE MOF 2024 CSD-modified CR",
+    "shrinkageK": 20,
+    "familyAggregate": "median",
+    "prior": "global record-level median for the same descriptor",
+    "componentWeights": {
+      "waterStabilityProbability": 0.55,
+      "solventStabilityProbability": 0.3,
+      "thermalStabilityScore": 0.15
+    },
+    "thermalBoundsC": [
+      150,
+      450
+    ],
+    "formula": "component = reliability * familyMedian + (1 - reliability) * globalMedian; reliability = n / (n + 20); stabilityProxy = 0.55*water + 0.30*solvent + 0.15*thermal",
+    "abundanceBoundary": "n affects shrinkage and confidence only; no family-frequency term is present."
+  },
+  "synthesizability": {
+    "factorLabel": "synthesis-condition accessibility",
+    "source": "FAIR-MOFs v1",
+    "sourceFile": "fair_mofs_family_synthesis_evidence.json",
+    "temperatureBoundsK": [
+      298.15,
+      523.15
+    ],
+    "timeBoundsHours": [
+      1,
+      168
+    ],
+    "shrinkageK": 20,
+    "duplicateRule": "one effective observation per normalized DOI plus condition fingerprint",
+    "recordFormula": "mean(clamp((523.15 - T)/(523.15 - 298.15)), clamp(1 - ln(max(time,1))/ln(168))) using available components",
+    "familyFormula": "n/(n+20) * unique-condition median + 20/(n+20) * global prior",
+    "missingPolicy": "global neutral empirical prior with zero direct-evidence confidence",
+    "transferPolicy": "UiO-type and MOF-808-like may use the Zr-family point estimate only when direct evidence is absent; confidence is multiplied by 0.45 and the transfer is visibly labeled.",
+    "abundanceBoundary": "Raw record frequency and log-frequency are excluded from the point score. n controls shrinkage and confidence only.",
+    "outcomeBoundary": "This is not synthesis-success probability because FAIR-MOFs does not provide a harmonized failure set or yield."
+  },
+  "hostFactorMappings": {
+    "poreEnvironmentScore": {
+      "descriptor": "surface area, pore volume, and void fraction structural support",
+      "datasets": [
+        "coreMof",
+        "qmof"
+      ],
+      "aggregate": "family median for each numeric field; mean of normalized field medians",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived"
+    },
+    "co2EnrichmentSupport": {
+      "descriptor": "CO2 adsorption support combined with ligand chemistry",
+      "datasets": [
+        "gasAdsorption",
+        "coreMof",
+        "linkerDescriptorTable"
+      ],
+      "aggregate": "0.65 * direct-or-structural CO2 support + 0.35 * ligandPathwaySupport",
+      "normalization": "cross-family min-max before fixed combination",
+      "derivationLevel": "data-derived + curated-ligand-descriptor"
+    },
+    "ligandPathwaySupport": {
+      "descriptor": "frequency-weighted ligand chemistry support",
+      "datasets": [
+        "coreMof",
+        "linkerDescriptorTable"
+      ],
+      "aggregate": "fixed descriptor formula from spec v2",
+      "normalization": "descriptor bounds and preregistered tier values",
+      "derivationLevel": "curated-ligand-descriptor"
+    },
+    "stabilityProxy": {
+      "descriptor": "abundance-neutral CoRE water/solvent/thermal stability composite",
+      "datasets": [
+        "coreMof"
+      ],
+      "aggregate": "empirical-Bayes-shrunk family medians under fixed component weights",
+      "normalization": "native 0-1 probabilities plus fixed 150-450 C thermal bounds; no cross-family frequency normalization",
+      "derivationLevel": "data-derived source-property proxy"
+    },
+    "aqueousStabilityEvidence": {
+      "descriptor": "CoRE water-stability probability",
+      "datasets": [
+        "coreMof"
+      ],
+      "aggregate": "empirical-Bayes-shrunk family median",
+      "normalization": "native 0-1 probability",
+      "derivationLevel": "data-derived source-property proxy"
+    },
+    "thermalStabilityEvidence": {
+      "descriptor": "CoRE thermal-stability temperature",
+      "datasets": [
+        "coreMof"
+      ],
+      "aggregate": "empirical-Bayes-shrunk family median",
+      "normalization": "fixed 150-450 C bounds",
+      "derivationLevel": "data-derived source-property proxy"
+    },
+    "postModificationFeasibility": {
+      "descriptor": "post-modification feasibility",
+      "datasets": [
+        "host_mof_candidates"
+      ],
+      "aggregate": "curated fallback; no imported direct descriptor",
+      "normalization": "none",
+      "derivationLevel": "fallback"
+    },
+    "guestHostingFeasibility": {
+      "descriptor": "guest metal hosting feasibility",
+      "datasets": [
+        "host_mof_candidates"
+      ],
+      "aggregate": "curated fallback; no imported direct descriptor",
+      "normalization": "none",
+      "derivationLevel": "fallback"
+    },
+    "synthesizabilityScore": {
+      "descriptor": "FAIR-MOFs synthesis-condition accessibility",
+      "datasets": [
+        "fairMofsFamilyEvidence"
+      ],
+      "aggregate": "unique-condition median with empirical-Bayes shrinkage",
+      "normalization": "fixed temperature/log-time bounds; no cross-family frequency normalization",
+      "derivationLevel": "data-derived FAIR-MOFs condition proxy or explicitly transferred proxy"
+    },
+    "provenanceQuality": {
+      "descriptor": "record-level provenance coverage",
+      "datasets": [
+        "coreMof",
+        "qmof",
+        "reaction",
+        "literature",
+        "gold"
+      ],
+      "aggregate": "mean available provenance coverage",
+      "normalization": "cross-family min-max",
+      "derivationLevel": "data-derived evidence-quality signal"
+    }
+  },
+  "guestFactorMappings": {
+    "dataDerivedPolicy": "Only derive a guest factor from reaction/literature/gold records when the guest metal appears as a primary metalNode with nRecords >= threshold. Otherwise use the existing literature prior and label fallback.",
+    "performanceAggregate": "mean of normalized yield, selectivity, and conversion across eligible records",
+    "fallbackLabel": "fallback",
+    "fallbackReason": "No dedicated dopant or guest-metal dataset field is present in the imported data."
+  },
+  "routeFactorMappings": {
+    "hostStabilityScore": {
+      "source": "abundance-neutral derived host stabilityProxy",
+      "derivationLevel": "data-derived source-property proxy"
+    },
+    "hostPathwaySupportScore": {
+      "source": "derived host poreEnvironmentScore + co2EnrichmentSupport + ligandPathwaySupport",
+      "aggregate": "0.35 * poreEnvironmentScore + 0.30 * co2EnrichmentSupport + 0.35 * ligandPathwaySupport",
+      "derivationLevel": "mixed data-derived and curated-ligand-descriptor"
+    },
+    "guestActivityCompensationScore": {
+      "source": "derived guest activity factors",
+      "aggregate": "mean(co2ActivationScore, formateStabilizationScore, electronTransferSupport)",
+      "derivationLevel": "data-derived or fallback"
+    },
+    "hostGuestComplementarityScore": {
+      "source": "rule-derived from host stability, host pathway support, and guest activity",
+      "aggregate": "0.50 * guestActivityCompensationScore + 0.25 * hostPathwaySupportScore + 0.25 * (1 - abs(hostStabilityScore - guestActivityCompensationScore))",
+      "derivationLevel": "rule-derived"
+    },
+    "evidenceConfidenceScore": {
+      "source": "literature and gold evidence density",
+      "derivationLevel": "data-derived evidence-quality signal"
+    },
+    "riskPenalty": {
+      "source": "evidence density and same-condition coverage",
+      "derivationLevel": "data-derived evidence-quality signal"
+    },
+    "synthesizabilityScore": {
+      "source": "FAIR-MOFs family synthesis-condition accessibility",
+      "derivationLevel": "data-derived condition proxy; confidence reported separately"
+    },
+    "economicScore": {
+      "source": "curated metal precursor price table + LCC proxy",
+      "aggregate": "estimatedCost = 0.65 * hostMetalUSDkg + 0.20 * guestMetalUSDkg + 0.10 * ligandCostTierUSDkg + 0.05 * synthesisEnergyIndexUSDkg; economicScore = inverse min-max estimatedCost across routes",
+      "derivationLevel": "curated-economic",
+      "boundary": "Screening inputs are not supplier quotations or measured process costs."
+    }
+  },
+  "economics": {
+    "method": "screening-level life-cycle-cost proxy",
+    "currency": "USD/kg precursor-equivalent",
+    "costWeights": {
+      "hostMetalPrecursor": 0.65,
+      "guestMetalPrecursor": 0.2,
+      "ligandCostTier": 0.1,
+      "synthesisEnergyIndex": 0.05
+    },
+    "normalization": "inverse cross-route min-max estimated cost",
+    "boundary": "Curated screening inputs support transparent relative screening only; they are not supplier quotations or a full process LCC."
+  }
+}

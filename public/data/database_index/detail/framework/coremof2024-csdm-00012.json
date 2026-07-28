@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00012",
+  "frameworkId": "coremof2024-csdm-00012",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2011[Eu][nan]3[ASR]1",
+  "displayName": "ABEYEN",
+  "commonName": "ABEYEN",
+  "csdRefcode": "ABEYEN",
+  "coreId": "2011[Eu][nan]3[ASR]1",
+  "metals": [
+    "Eu"
+  ],
+  "hasAlNode": false,
+  "topology": "unnamed",
+  "surfaceArea": 461.055,
+  "pldA": 3.94396,
+  "lcdA": 4.70716,
+  "poreVolume": 0.251698,
+  "density": 1.9293,
+  "voidFraction": 0.4856,
+  "waterStability": 0.83962963,
+  "thermalStability": 320.4,
+  "sourceDoi": "10.1021/ic201013v",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2011[Eu][nan]3[ASR]1; DOI 10.1021/ic201013v.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00012.json",
+  "descriptors": {
+    "surfaceArea": 461.055,
+    "pldA": 3.94396,
+    "lcdA": 4.70716,
+    "poreVolume": 0.251698,
+    "density": 1.9293,
+    "voidFraction": 0.4856,
+    "waterStability": 0.83962963,
+    "thermalStability": 320.4
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

@@ -13,7 +13,8 @@ import reactionDataset from "../../../public/data/data_ingestion/organic_acid_re
 import gasAdsorptionRecords from "../../../public/data/gas_adsorption_records_v1.json"
 import literatureDataset from "../../../public/data/organic_acid_literature_dataset_v2.json"
 import goldDataset from "../../../public/data/organic_acid_gold_dataset_v2.json"
-import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v2.json"
+import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v3.json"
+import fairMofsFamilyEvidence from "../../../public/data/fair_mofs_family_synthesis_evidence.json"
 import {
   buildAlgorithmTraceJson,
   buildAblationAnalysisJson,
@@ -47,13 +48,14 @@ const input = {
   gasAdsorptionRecords,
   literatureDataset,
   goldDataset,
+  fairMofsFamilyEvidence,
 }
 
 describe("organic acid host-guest pathway screening", () => {
-  it("builds the V3.9.8 pathway pipeline from the locked descriptor expansion", () => {
+  it("builds the V3.9.10 abundance-neutral pathway pipeline from locked spec v3", () => {
     const workbench = buildOrganicAcidHostGuestWorkbench(input)
 
-    expect(workbench.version).toBe("V3.9.8")
+    expect(workbench.version).toBe("V3.9.10")
     expect(workbench.scoringSpec.specId).toBe(scoringSpec.specId)
     expect(workbench.pipelineSteps).toHaveLength(6)
     expect(hostMofCandidates.length).toBeGreaterThanOrEqual(8)
@@ -78,9 +80,11 @@ describe("organic acid host-guest pathway screening", () => {
     expect(workbench.guestSelection.guestRoleExplanation).toMatch(/complements the host instead of replacing it/)
     expect(hostMofCandidates.some(row => Object.hasOwn(row, "hostScore"))).toBe(false)
     expect(guestMetalCandidates.some(row => Object.hasOwn(row, "guestScore"))).toBe(false)
-    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.poreEnvironmentScore.sourceDataset).toMatch(/CoRE\+QMOF/)
+    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.poreEnvironmentScore.sourceDataset).toMatch(/CoRE MOF 2024 CSD-modified CR/)
     expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Al-MOF").factorProvenance.ligandPathwaySupport.derivationLevel).toMatch(/curated-ligand-descriptor|fallback/)
-    expect(workbench.hostSelection.rankedHosts.find(row => row.displayName === "Ti-MOF").factorProvenance.synthesizabilityScore.derivationLevel).toMatch(/frequency proxy/)
+    const tiSynthesis = workbench.hostSelection.rankedHosts.find(row => row.displayName === "Ti-MOF").factorProvenance.synthesizabilityScore
+    expect(tiSynthesis.derivationLevel).toMatch(/FAIR-MOFs synthesis-condition accessibility/)
+    expect(tiSynthesis.rawAggregate.abundanceUsedAsScore).toBe(false)
     expect(workbench.guestSelection.selectedGuestMetal.factorProvenance.co2ActivationScore.derivationLevel).toMatch(/data-derived|fallback/)
   })
 
@@ -113,6 +117,21 @@ describe("organic acid host-guest pathway screening", () => {
     expect(top.scoreBreakdown.riskPenalty).toBeUndefined()
     expect(top.riskPenaltyBreakdown.length).toBeGreaterThan(0)
     expect(top.riskPenaltyBreakdown.every(row => row.reason && row.riskType)).toBe(true)
+    expect(top.participatingMofCount).toBeGreaterThan(0)
+    expect(top.participatingMofs.length).toBeGreaterThan(0)
+    expect(top.participatingMofs.every(row => row.csdRefcode && row.coreId && row.bundledCifPath)).toBe(true)
+    expect(top.structureAvailability).toMatchObject({
+      route3dAvailable: false,
+      status: "hypothesis-no-experimental-modified-cif",
+      labelZh: "假设路线，无对应 3D 晶体结构",
+    })
+    const pristineControl = complementarity.routeScores.find(row => row.routeId === "route-al-mof-pristine")
+    expect(pristineControl.structureAvailability).toMatchObject({
+      route3dAvailable: true,
+      status: "experimental-pristine-host-cif",
+      labelZh: "未改性主体 CIF 可查看",
+    })
+    expect(pristineControl.structureAvailability.pristineStructure.bundledCifPath).toMatch(/\.cif$/)
     expect(Object.keys(top.routeFactorProvenance)).toEqual(scoringSpec.routeScoreKeys)
     expect(Object.values(top.routeFactorProvenance).every(tuple => tuple.sourceDataset && Number.isFinite(tuple.nRecords) && tuple.rawAggregate && tuple.normalization)).toBe(true)
     expect(complementarity.whyTopRanked).toMatch(/weighted-geometric HGCPS/)
@@ -177,13 +196,13 @@ describe("organic acid host-guest pathway screening", () => {
     expect(buildMissingEvidenceRiskMatrixCsv(workbench.missingEvidenceRiskMatrix)).toMatch(/Mo introduction feasibility needs validation/)
     expect(buildPathwayDescriptorMapCsv(workbench.descriptorMap)).toMatch(/CO2 activation/)
     expect(buildHostGuestRouteExplanationJson(workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.8",
+      version: "V3.9.10",
       targetProduct: "formic acid / organic acid",
       hostMof: workbench.complementarity.topRoute.hostMof,
       guestMetal: workbench.complementarity.topRoute.guestMetal,
     }))
     expect(buildOrganicAcidRouteReportJson(workbench, workbench.selectedRouteExplanation)).toEqual(expect.objectContaining({
-      version: "V3.9.8",
+      version: "V3.9.10",
       hgcpsFormula: HGCPS_FORMULA_TEXT,
       limitationStatement: "This is a high-priority experimental route, not final catalytic performance proof.",
     }))

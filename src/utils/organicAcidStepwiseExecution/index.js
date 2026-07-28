@@ -22,7 +22,7 @@ import {
   buildValidationCoverageSummary,
 } from "../organicAcidExplanationClosure/index.js"
 
-export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.8"
+export const ORGANIC_ACID_STEPWISE_EXECUTION_VERSION = "V3.9.10"
 export const ORGANIC_ACID_STEPWISE_EXECUTION_NAME = "Organic Acid Stepwise Algorithm Execution Chain"
 
 const METHODOLOGY_BASE = "project-evolution-organic-acid-algorithm-methodology"
@@ -546,7 +546,7 @@ function buildStepFields(stepId, context) {
     },
     "step-5": {
       input: [`${arrays.routes.length} 条主客体路线`, "host stability、ligand-aware pathway、guest compensation、complementarity、evidence、risk、synthesizability、economics"],
-      logic: "使用 HGCPS 八因子加权几何评分，权重与因子键只从 spec v2 读取。",
+      logic: "使用 HGCPS 八因子加权几何评分，权重与因子键只从 spec v3 读取；数据库家族记录数量不直接加分。",
       formula: HGCPS_FORMULA_TEXT,
       competition: buildCandidateRowsFromRoutes(workbench),
       result: `${topRouteLabel} 是当前最高优先级验证路线。`,

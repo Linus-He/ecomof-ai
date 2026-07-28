@@ -91,7 +91,7 @@ export function buildScreeningTrace(options = {}) {
   const steps = [
     step("candidate_pool", "Candidate Pool Loaded", "候选池已加载", "completed", totalCandidates, totalCandidates, 0,
       `${totalCandidates} candidates loaded (database preview, not verified screening).`, `已加载 ${totalCandidates} 个候选（数据库预览，不是经核验筛选）。`,
-      "Source: Open MOF Seed / curated sample.", "来源：Open MOF Seed / 人工样本。", "screening-funnel-panel"),
+      "Source: real CoRE MOF 2024 CSD-modified CR records.", "来源：真实 CoRE MOF 2024 CSD-modified CR 记录。", "screening-funnel-panel"),
     step("descriptor_availability", "Descriptor Availability Check", "描述符可用性检查", descriptorAvailable > 0 ? "completed" : "warning", totalCandidates, descriptorAvailable, totalCandidates - descriptorAvailable,
       `${completeOver70} candidates have descriptor completeness > 70%.`, `${completeOver70} 个候选描述符完整度 > 70%。`,
       "Records missing core descriptors are down-weighted.", "缺少核心描述符的记录会被降权。", "screening-data-gap"),

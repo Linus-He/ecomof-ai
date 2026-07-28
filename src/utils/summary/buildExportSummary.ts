@@ -6,7 +6,7 @@ import { getSourcesByParticipation } from "../../data/registry/dataSourceRegistr
 import { safeNumber } from "../fallback/safeNumber"
 
 export const EXPORT_TARGETS = [
-  { id: "mof-library-csv", label: "MOF Library (current filter) CSV", format: "csv", sourceId: "open-mof-seed" },
+  { id: "mof-library-csv", label: "MOF Library (current filter) CSV", format: "csv", sourceId: "core-mof" },
   { id: "global-database-json", label: "Global Database Summary JSON", format: "json", sourceId: null },
   { id: "project-status-json", label: "Project Status Summary JSON", format: "json", sourceId: null },
   { id: "research-report-md", label: "Research Reports Snapshot JSON/Markdown", format: "json", sourceId: null },

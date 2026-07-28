@@ -37,6 +37,35 @@ vi.mock("../../services/dataService", async importOriginal => {
       processEvidence: { availableProcessFields: 8 },
     }],
   }
+  const propertyIndex = {
+    propertyBoundaryZh: "缺失值不是 0；文本挖掘物性需回查来源。",
+    propertyBoundaryEn: "Missing is not zero; text-mined properties require source review.",
+    summary: { recordCount: 1, exactStructureMatches: 1 },
+    records: [{
+      id: "FAIR_MOF_TEST01",
+      csdRefcode: "TEST01",
+      aliases: ["TEST-MOF"],
+      doi: "10.1000/test01",
+      family: "Cu-MOF",
+      inferredMetals: ["Cu"],
+      match: {
+        structureIdentityLevel: "exact-refcode",
+        matchedCoreRecordIds: ["OPEN_MOF_SEED_0001"],
+      },
+      conditionAccessibility: { value: 0.61 },
+      physicalProperties: {
+        asaM2Cm3: 1234,
+        bdeKjMol: -404,
+        lcdA: 8.2,
+        pldA: 5.1,
+        voidFraction: 0.42,
+        hasOpenMetalSite: true,
+        numberOfChannels: 2,
+        topology: "tbo",
+      },
+      evidenceQuality: { evidenceGrade: "text-mined-experimental-needs-paper-review" },
+    }],
+  }
   return {
     ...actual,
     getGlobalMofCandidates: vi.fn(async () => candidates),
@@ -45,6 +74,12 @@ vi.mock("../../services/dataService", async importOriginal => {
       if (fileName === "metal_precursor_cost_table.json") return costs
       if (fileName === "ecoscreen_lca_model_v1.json") return model
       if (fileName === "ecoscreen_candidate_process_evidence_v1.json") return evidence
+      if (fileName === "fair_mofs_property_index_v1.json") return propertyIndex
+      if (fileName === "fair_mofs_ecoscreen_summary_v1.json") return {
+        processSummary: evidence.summary,
+        propertySummary: propertyIndex.summary,
+      }
+      if (fileName === "database_index/core_mof_index_summary.json") return { recordCount: candidates.length }
       if (fileName === "ecoscreen_regional_baselines_v1.json") return baselines
       if (fileName === "ecoscreen_evidence_source_registry_v1.json") return registry
       return null
@@ -109,10 +144,23 @@ describe("EcoScreen LCA-first workbench", () => {
   it("switches to a FAIR-MOFs candidate and exposes real process evidence without passing the LCA gate", async () => {
     renderWorkbench()
     const workbench = await screen.findByTestId("ecoscreen-lca-workbench")
-    fireEvent.click(within(workbench).getByRole("button", { name: "合成证据库 1" }))
+    fireEvent.click(within(workbench).getByRole("button", { name: /FAIR 证据映射/ }))
     await waitFor(() => expect(within(workbench).getByTestId("ecoscreen-candidate-evidence")).toHaveTextContent("TEST01"))
     expect(within(workbench).getByTestId("ecoscreen-candidate-evidence")).toHaveTextContent("真实合成条件")
     expect(within(workbench).getByTestId("ecoscreen-method-readiness")).toHaveTextContent("产率")
     expect(within(workbench).getByTestId("ecoscreen-method-readiness")).toHaveTextContent("合成能耗缺失")
+  })
+
+  it("maps FAIR-MOFs physicochemical properties to an exact CoRE identity and supports field filtering", async () => {
+    renderWorkbench()
+    const workbench = await screen.findByTestId("ecoscreen-lca-workbench")
+    fireEvent.click(within(workbench).getByRole("button", { name: /FAIR 证据映射/ }))
+    const properties = within(workbench).getByTestId("ecoscreen-fair-properties")
+    await waitFor(() => expect(properties).toHaveTextContent("精确 Refcode → CoRE 结构"))
+    expect(properties).toHaveTextContent("1,234.0000 m²/cm³")
+    expect(properties).toHaveTextContent("tbo")
+    expect(properties).toHaveTextContent("不是合成成功率")
+    fireEvent.click(within(properties).getByRole("button", { name: "BDE" }))
+    expect(within(properties).getByText("显示 1 条")).toBeInTheDocument()
   })
 })

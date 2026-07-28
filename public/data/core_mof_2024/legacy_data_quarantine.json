@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-28T04:30:32.104Z",
+  "status": "active",
+  "liveAlgorithmExclusions": [
+    {
+      "dataset": "Legacy RNG-generated CoRE MOF import",
+      "previousPath": "data/data_ingestion/core_mof_import_v2.json",
+      "previousRecords": 1240,
+      "reason": "Record identities and descriptors were generated placeholders rather than row-level source records.",
+      "replacement": "CoRE MOF 2024 CSD-modified CR import"
+    },
+    {
+      "dataset": "Legacy RNG-generated QMOF import",
+      "previousPath": "data/data_ingestion/qmof_import_v2.json",
+      "previousRecords": 1240,
+      "reason": "No row-level QMOF source mapping was present.",
+      "replacement": "No replacement yet; records are excluded until a real QMOF export is supplied."
+    },
+    {
+      "dataset": "Legacy scalable/medium database preview",
+      "previousPath": "data/database_precompute/v2_2 and v2_1",
+      "reason": "Preview records are not eligible to override the real CoRE candidate index.",
+      "replacement": "data/core_mof_2024/cr_search_index.json"
+    }
+  ]
+}

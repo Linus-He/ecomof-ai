@@ -4,13 +4,54 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { THEME_LIGHT } from "../../constants/theme"
 import { DatabaseIndexWorkbench } from "../../components/database-index/DatabaseIndexWorkbench"
 
+const sourceRow = (id, displayName, metal, overrides = {}) => ({
+  id,
+  frameworkId: id,
+  sourceDatabase: "CoRE MOF 2024 · CSD-modified",
+  sourceRecordId: `2024[${metal}][test]3[ASR]1`,
+  displayName,
+  commonName: displayName,
+  csdRefcode: displayName,
+  coreId: `2024[${metal}][test]3[ASR]1`,
+  metals: [metal],
+  surfaceArea: 1200,
+  pldA: 7.1,
+  lcdA: 9.2,
+  poreVolume: 0.9,
+  density: 1.2,
+  voidFraction: 0.54,
+  waterStability: 0.72,
+  thermalStability: 350,
+  sourceDoi: "10.1000/test",
+  sourceUrl: "https://zenodo.org/records/15055758",
+  citation: "CoRE MOF 2024 v1.1 test record.",
+  license: "CC-BY-NC-SA-4.0",
+  retrievedAt: "2026-07-28",
+  dataQualityStatus: "ready_for_structural_screening",
+  descriptorCompleteness: { available: 6, total: 6, percent: 100 },
+  descriptorCompletenessPercent: 100,
+  provenanceCompletenessPercent: 100,
+  provenanceStatus: "source_record_confirmed",
+  detailRef: `detail/framework/${id}.json`,
+  evidenceBoundary: "Real CoRE CR structure record selected for deterministic structural review; not a catalytic-performance ranking.",
+  notFinalRecommendation: true,
+  ...overrides,
+})
+
+const reviewRows = [
+  sourceRow("coremof2024-csdm-00001", "ABAVIJ", "Co"),
+  sourceRow("coremof2024-csdm-00002", "ABAVOP", "Zn"),
+  sourceRow("coremof2024-csdm-00003", "ABAYIO", "Al"),
+  sourceRow("coremof2024-csdm-00004", "ABEFOF", "Cu"),
+]
+
 const manifest = {
-  version: "V2.0-A",
-  datasetMode: "database_index_preview",
-  buildDate: "2026-06-07",
+  version: "CoRE-MOF-2024-current",
+  datasetMode: "real_core_mof_cr_index",
+  buildDate: "2026-07-28",
   sourceDatabases: [
-    { name: "CoRE MOF", recordCount: 500, detailCount: 30 },
-    { name: "QMOF", recordCount: 200, detailCount: 20 },
+    { name: "CoRE MOF 2024 · CSD-modified CR", status: "active_source_record_index", recordCount: 9835, detailCount: 30, license: "CC-BY-NC-SA-4.0", citation: "CoRE MOF 2024 v1.1", sourceUrl: "https://zenodo.org/records/15055758" },
+    { name: "QMOF", status: "quarantined", recordCount: 0, detailCount: 0 },
   ],
   files: {
     coreSummary: "core_mof_index_summary.json",
@@ -23,36 +64,28 @@ const manifest = {
     qmof: [],
   },
   detailBasePaths: { framework: "detail/framework/" },
-  warnings: ["not full database screening"],
+  warnings: ["Structural screening readiness does not mean catalytic performance."],
 }
 
 function responseFor(url) {
   const path = String(url)
   if (path.endsWith("manifest.json")) return manifest
-  if (path.endsWith("core_mof_index_summary.json")) return { recordCount: 500, alContainingCount: 120, readyForScoring: 12, needsReview: 63, rejected: 0 }
-  if (path.endsWith("qmof_index_summary.json")) return { recordCount: 200 }
+  if (path.endsWith("core_mof_index_summary.json")) return { recordCount: 9835, alContainingCount: 102, readyForScoring: 9835, needsReview: 0, rejected: 0 }
+  if (path.endsWith("qmof_index_summary.json")) return { recordCount: 0, status: "quarantined" }
   if (path.endsWith("organic_acid_descriptor_availability.json")) {
-    return { descriptorCoverage: [{ descriptor: "hydrothermalStability", available: 12, percent: 2.4 }], interpretation: "Hydrothermal sparse" }
+    return { totalRecords: 9835, descriptorCoverage: [{ descriptor: "surfaceArea", available: 9835, percent: 100 }], interpretation: "Real CoRE CR structural descriptors." }
   }
   if (path.endsWith("provenance_coverage_summary.json")) {
-    return { totalRecords: 500, withSourceDatabase: 500, withSourceRecordId: 500, withSourceDoi: 0, withCitation: 0, withLicense: 0, fieldSourceCoveragePercent: 42, doiCoveragePercent: 0, evidenceIdsCoveragePercent: 2.4 }
+    return { totalRecords: 9835, withSourceDatabase: 9835, withSourceRecordId: 9835, withSourceDoi: 9835, withCitation: 9835, withLicense: 9835, fieldSourceCoveragePercent: 100, doiCoveragePercent: 100 }
   }
   if (path.endsWith("organic_acid_precomputed_top_candidates.json")) {
-    return { topCandidates: [
-      { rank: 1, frameworkId: "COREMOF_000001", displayName: "MIL-53(Al) preview", oacsPreview: 0.89, dataQualityStatus: "ready_for_scoring", evidenceBoundary: "preview only", detailRef: "detail/framework/COREMOF_000001.json", notFinalRecommendation: true },
-      { rank: 2, frameworkId: "COREMOF_000002", displayName: "CAU-10(Al) preview", oacsPreview: 0.82, dataQualityStatus: "ready_for_scoring", evidenceBoundary: "preview only", detailRef: "detail/framework/COREMOF_000002.json", notFinalRecommendation: true },
-      { rank: 3, frameworkId: "COREMOF_000003", displayName: "MIL-100(Al) preview", oacsPreview: 0.8, dataQualityStatus: "ready_for_scoring", evidenceBoundary: "preview only", detailRef: "detail/framework/COREMOF_000003.json", notFinalRecommendation: true },
-      { rank: 4, frameworkId: "COREMOF_000004", displayName: "MIL-101(Al) preview", oacsPreview: 0.75, dataQualityStatus: "ready_for_scoring", evidenceBoundary: "preview only", detailRef: "detail/framework/COREMOF_000004.json", notFinalRecommendation: true },
-    ] }
+    return { datasetMode: "real_core_mof_cr_index", topCandidates: reviewRows }
   }
   if (path.endsWith("core_mof_index_parts/core_mof_index_part_001.json")) {
-    return { recordCount: 2, records: [
-      { id: "COREMOF_000001", sourceDatabase: "CoRE MOF", sourceRecordId: "COREMOF_000001", displayName: "MIL-53(Al) preview", metals: ["Al"], hasAlNode: true, surfaceArea: 1200, pldA: 7.1, poreVolume: 0.9, bandGap: 3.2, hydrothermalEvidenceStatus: "indexed_proxy", dataQualityStatus: "ready_for_scoring", descriptorCompleteness: { available: 5, total: 6, percent: 83.3 }, provenanceStatus: "partial", detailRef: "detail/framework/COREMOF_000001.json" },
-      { id: "COREMOF_000099", sourceDatabase: "CoRE MOF", sourceRecordId: "COREMOF_000099", displayName: "Zr review preview", metals: ["Zr"], hasAlNode: false, dataQualityStatus: "needs_review", descriptorCompleteness: { available: 2, total: 6, percent: 33.3 }, provenanceStatus: "pending", detailRef: "detail/framework/COREMOF_000099.json" },
-    ] }
+    return { dataset: "CoRE MOF 2024 · CSD-modified CR", part: 1, totalParts: 10, records: reviewRows.slice(0, 2) }
   }
-  if (path.endsWith("detail/framework/COREMOF_000001.json")) {
-    return { id: "COREMOF_000001", displayName: "MIL-53(Al) preview", sourceDatabase: "CoRE MOF", sourceRecordId: "COREMOF_000001", sourceDoi: null, citation: null, license: null, descriptors: { surfaceArea: 1200 }, dataQualityGate: { status: "ready_for_scoring" }, dataStatus: { level: "database_index_preview" } }
+  if (path.endsWith("detail/framework/coremof2024-csdm-00001.json")) {
+    return { ...reviewRows[0], descriptors: { surfaceArea: 1200, poreVolume: 0.9 }, dataQualityGate: { status: "ready_for_structural_screening", boundary: "Structural screening only." }, dataStatus: { level: "real_core_mof_cr_index" } }
   }
   return { recordCount: 0 }
 }
@@ -63,138 +96,73 @@ describe("DatabaseIndexWorkbench", () => {
     return global.fetch
   }
 
-  it("loads overview first, then index part and detail on demand", async () => {
+  it("loads the real CoRE overview without loading index parts or legacy precompute files", async () => {
     mockFetch()
-
     const onOverviewLoaded = vi.fn()
     const { container } = render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} onOverviewLoaded={onOverviewLoaded} />)
 
-    await screen.findAllByText(/Database Index Preview/)
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
+    await screen.findByText(/CoRE 2024 CR Database Index & Structural Review/)
+    await screen.findByText("ABAVIJ")
 
-    let fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
+    const fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
     expect(fetchedUrls.some(url => url.includes("core_mof_index_parts"))).toBe(false)
     expect(fetchedUrls.some(url => url.includes("detail/framework"))).toBe(false)
+    expect(fetchedUrls.some(url => url.includes("database_precompute"))).toBe(false)
     expect(onOverviewLoaded).toHaveBeenCalled()
+    expect(container.textContent).toContain("9,835")
+    expect(container.textContent).not.toMatch(/small-scale records|COREMOF_000|QMOF_000/)
+  })
 
+  it("loads one real index part and one detail record on demand", async () => {
+    mockFetch()
+    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
+
+    await screen.findByText("ABAVIJ")
     fireEvent.click(screen.getByRole("button", { name: /CoRE part 1/i }))
     await waitFor(() => expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("core_mof_index_parts/core_mof_index_part_001.json"))).toBe(true))
 
     fireEvent.click(screen.getAllByRole("button", { name: /Detail/i })[0])
-    await screen.findByRole("dialog", { name: /Database detail drawer/i })
-    await waitFor(() => expect(screen.getAllByText(/evidence pending/i).length).toBeGreaterThan(0))
-    expect(screen.getByText(/Source Boundary Block/i)).toBeTruthy()
-    expect(screen.getByText(/Missing Evidence Warning/i)).toBeTruthy()
-
-    fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
-    expect(fetchedUrls.some(url => url.includes("detail/framework/COREMOF_000001.json"))).toBe(true)
-    expect(container.textContent).not.toMatch(/\bundefined\b|\bnull\b|\bNaN\b/)
+    expect(await screen.findByRole("dialog", { name: /Database detail drawer/i })).toBeTruthy()
+    await waitFor(() => expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("detail/framework/coremof2024-csdm-00001.json"))).toBe(true))
   })
 
-  it("filters loaded preview records without fetching all index parts", async () => {
+  it("filters the current structural-review sample without fetching all parts", async () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findAllByText(/Expanded Database Screening UI/)
-    fireEvent.change(screen.getByLabelText(/Source database filter/i), { target: { value: "qmof" } })
-    fireEvent.change(screen.getByLabelText(/Quality status filter/i), { target: { value: "ready-for-scoring" } })
+    await screen.findByText("ABAVIJ")
+    fireEvent.change(screen.getByLabelText(/Metal node filter/i), { target: { value: "Al" } })
 
-    const fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
-    expect(fetchedUrls.some(url => url.includes("core_mof_index_parts"))).toBe(false)
-    expect(fetchedUrls.some(url => url.includes("qmof_index_parts"))).toBe(false)
-    expect(screen.getByText(/Filter scope: Top-N preview only/i)).toBeTruthy()
+    expect(screen.getByText("ABAYIO")).toBeTruthy()
+    expect(screen.queryByText("ABAVIJ")).toBeNull()
+    expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("core_mof_index_parts"))).toBe(false)
+    expect(screen.getAllByText(/structural-review sample/i).length).toBeGreaterThan(0)
   })
 
-  it("shows the Top Candidates explanation panel", async () => {
+  it("compares at most three real structure records", async () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
-    fireEvent.click(screen.getAllByRole("button", { name: /Why in preview/i })[0])
-
-    expect(await screen.findByText(/This is a precomputed index preview/i)).toBeTruthy()
-    expect(screen.getByText(/Main positive factors/i)).toBeTruthy()
-    expect(screen.getAllByText(/Descriptor availability/i).length).toBeGreaterThan(0)
-  })
-
-  it("limits Candidate Compare to three loaded candidates", async () => {
-    mockFetch()
-    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
-
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
-    fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[0])
-    fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[1])
-    fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[2])
+    await screen.findByText("ABAVIJ")
+    const buttons = screen.getAllByRole("button", { name: /^Compare$/i })
+    fireEvent.click(buttons[0])
+    fireEvent.click(buttons[1])
+    fireEvent.click(buttons[2])
 
     await waitFor(() => expect(screen.getAllByText((_, node) => node?.textContent === "3 / 3").length).toBeGreaterThan(0))
-    expect(screen.getAllByRole("button", { name: /^Compare$/i })[3].disabled).toBe(true)
-    expect(screen.getByText(/comparison is based on currently loaded preview\/index data only/i)).toBeTruthy()
+    expect(buttons[3]).toBeDisabled()
+    expect(document.body.textContent).toMatch(/does not infer catalytic performance/i)
   })
 
-  it("runs selected-part trial scoring without fetching all parts or details", async () => {
-    mockFetch()
-    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
-
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
-    fireEvent.click(screen.getByRole("button", { name: /CoRE part 1/i }))
-    await waitFor(() => expect(global.fetch.mock.calls.map(call => String(call[0])).some(url => url.includes("core_mof_index_parts/core_mof_index_part_001.json"))).toBe(true))
-
-    fireEvent.click(screen.getByRole("button", { name: /Run loaded-scope trial/i }))
-    expect(await screen.findByText(/Trial-scoring result/i)).toBeTruthy()
-    expect(screen.getByText(/non-final boundary active/i)).toBeTruthy()
-
-    const fetchedUrls = global.fetch.mock.calls.map(call => String(call[0]))
-    expect(fetchedUrls.filter(url => url.includes("core_mof_index_parts")).length).toBe(1)
-    expect(fetchedUrls.some(url => url.includes("qmof_index_parts"))).toBe(false)
-    expect(fetchedUrls.some(url => url.includes("detail/framework"))).toBe(false)
-  })
-
-  it("renders the Metadata Verification Gate panel with preview-only gating", async () => {
-    mockFetch()
-    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
-
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
-    expect((await screen.findAllByText(/Metadata Verification Gate/i)).length).toBeGreaterThan(0)
-    // Top-N candidates here lack DOI/source/license, so they cannot be verified recommendations.
-    expect(screen.getAllByText(/Preview only/i).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/cannot yet support a final recommendation/i).length).toBeGreaterThan(0)
-  })
-
-  it("shows the metadata gate inside Candidate Compare", async () => {
-    mockFetch()
-    render(<DatabaseIndexWorkbench lang="en" t={THEME_LIGHT} isMobile={false} />)
-
-    await screen.findAllByText(/MIL-53\(Al\) preview/)
-    fireEvent.click(screen.getAllByRole("button", { name: /^Compare$/i })[0])
-    await waitFor(() => expect(screen.getAllByText(/missing key metadata and is available for index preview only/i).length).toBeGreaterThan(0))
-  })
-
-  it("renders Chinese metadata verification copy", async () => {
+  it("renders the current Chinese structural-index copy", async () => {
     mockFetch()
     render(<DatabaseIndexWorkbench lang="zh" t={THEME_LIGHT} isMobile={false} />)
 
-    await screen.findAllByText(/数据库索引预览/)
-    expect(screen.getAllByText(/metadata 核验门控/).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/仅限预览/).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/该候选目前不能作为最终推荐依据/).length).toBeGreaterThan(0)
-    expect(document.body.textContent).not.toMatch(/\bundefined\b|\bNaN\b/)
-  })
-
-  it("renders Chinese screening labels", async () => {
-    mockFetch()
-    render(<DatabaseIndexWorkbench lang="zh" t={THEME_LIGHT} isMobile={false} />)
-
-    await screen.findAllByText(/数据库索引预览/)
+    await screen.findByText(/CoRE 2024 CR 数据库索引与结构审阅/)
     expect(screen.getByText("来源数据库")).toBeTruthy()
     expect(screen.getByText("质量状态")).toBeTruthy()
-    expect(screen.getAllByText(/数据库索引预览/).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/大规模评分边界预览/).length).toBeGreaterThan(0)
-
-    const bodyText = document.body.textContent
-    expect(bodyText).not.toContain("comparison is based on currently loaded preview/index data only")
-    expect(bodyText).not.toContain("not final recommendation")
-    expect(bodyText).not.toContain("not final verified recommendation")
-    expect(bodyText).not.toContain("evidence pending")
-    expect(bodyText).not.toContain("full verified database screening")
+    expect(screen.getByText(/真实结构记录筛选器/)).toBeTruthy()
+    expect(screen.getAllByText(/结构审阅样本/).length).toBeGreaterThan(0)
+    expect(document.body.textContent).not.toMatch(/小规模样本|数据库索引预览|COREMOF_000|QMOF_000|NaN|undefined/)
   })
 })

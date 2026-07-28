@@ -70,7 +70,7 @@ describe("GasSep adaptation regressions", () => {
   it("renders the method, funnel, and ranking copy in Chinese", async () => {
     renderGasSep({ lang: "zh" })
     await waitForGasSep("zh")
-    expect(bodyText()).toMatch(/GasSep 气体分离场景工作台/)
+    expect(screen.getByRole("heading", { level: 1, name: "气体分离" })).toBeInTheDocument()
     expect(bodyText()).toMatch(/筛选漏斗/)
     expect(bodyText()).toMatch(/当前方法指标/)
     expect(bodyText()).toMatch(/历史 GasScore/)
@@ -86,7 +86,7 @@ describe("GasSep adaptation regressions", () => {
   it("renders the method, funnel, and ranking copy in English", async () => {
     renderGasSep({ lang: "en" })
     await waitForGasSep("en")
-    expect(bodyText()).toMatch(/GasSep Gas Separation Scenario Workbench/)
+    expect(screen.getByRole("heading", { level: 1, name: "GasSep" })).toBeInTheDocument()
     expect(bodyText()).toMatch(/Screening Funnel/)
     expect(bodyText()).toMatch(/Method metric/)
     expect(bodyText()).toMatch(/Legacy GasScore/)

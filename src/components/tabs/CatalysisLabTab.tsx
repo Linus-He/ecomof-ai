@@ -287,11 +287,11 @@ export function CatalysisLabTab() {
   return (
     <div ref={workspaceRef} style={workspaceShellStyle}>
       <ModulePageHeader
-        title={zh ? "催化实验室" : "Catalysis Lab"}
+        title={zh ? "催化" : "Catalysis"}
         subtitle={zh
           ? "查看催化路径证据、反应数据可比性，以及 CO₂ 转化等方向的早期验证优先级。"
           : "Explore catalyst-pathway evidence, reaction-data comparability, and early validation priorities for CO₂ conversion routes."}
-        action={<CopyLinkButton hash="catalysis" ariaLabel={zh ? "复制催化实验室链接" : "Copy Catalysis Lab link"} />}
+        action={<CopyLinkButton hash="catalysis" ariaLabel={zh ? "复制催化链接" : "Copy Catalysis link"} />}
       />
 
       <BoundaryStrip t={t} lang={lang} />
@@ -305,8 +305,8 @@ export function CatalysisLabTab() {
         <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</h3>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
           {zh
-            ? "催化实验室聚焦有机酸路径研究：从有机酸项目入口、反应路径证据网络、候选优先级，到研究验证中心、证据矩阵、知识图谱与验证路线图，并链接到 Methods & Evidence。所有统计均由底层数据派生。"
-            : "The Catalysis Lab focuses on organic-acid pathway research: organic-acid project entry, pathway evidence network, candidate prioritization, the research validation center, evidence matrix, knowledge graph, and validation roadmap, linked to Methods & Evidence. All statistics are derived from the underlying data."}
+            ? "催化模块聚焦有机酸路径研究：从项目入口、反应路径证据网络、候选优先级，到研究验证中心、证据矩阵、知识图谱与验证路线图，并链接到方法论。所有统计均由底层数据派生。"
+            : "Catalysis focuses on organic-acid pathway research: project entry, pathway evidence network, candidate prioritization, the research validation center, evidence matrix, knowledge graph, and validation roadmap, linked to Methodology. All statistics are derived from the underlying data."}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {["Organic Acid Project Entry", "Pathway Evidence Network", "Candidate Prioritization", "Research Validation Center", "Evidence Matrix", "Knowledge Graph", "Validation Roadmap"].map(label => (
@@ -364,8 +364,8 @@ export function CatalysisLabTab() {
               {zh ? "有机酸子工作台边界：" : "Organic Acid workspace boundary: "}
             </strong>
             {zh
-              ? "有机酸转化是 Catalysis Lab 中优先展示的子工作台，但不是催化模块的全部范围。"
-              : "Organic acid conversion is a prioritized sub-workspace within Catalysis Lab, not the full scope of catalysis."}
+              ? "有机酸转化是催化模块中优先展示的子工作台，但不是催化模块的全部范围。"
+              : "Organic acid conversion is a prioritized sub-workspace within Catalysis, not the full scope of the module."}
           </section>
 
           <CollapsibleResearchSection

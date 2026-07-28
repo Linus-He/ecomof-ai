@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-28T04:30:32.104Z",
+  "dataset": "CoRE MOF 2024 v1.1 · CSD-modified · 2025-02-27",
+  "intendedGrain": "One computation-ready processed CoRE structure variant per coreid.",
+  "primaryKey": "coreId",
+  "checks": {
+    "csvRows": 9835,
+    "generatedRecords": 9835,
+    "uniqueIds": 9835,
+    "duplicateIds": [],
+    "uniqueCoreIds": 9835,
+    "duplicateCoreIds": [],
+    "cifExpected": 9835,
+    "cifPresent": 9835,
+    "cifMissing": 0,
+    "requiredRefcodeMissing": 0,
+    "requiredDoiMissing": 0,
+    "commonNameAvailable": 972,
+    "commonNameMissing": 8863,
+    "routeFamiliesWithNoRecords": []
+  },
+  "counts": {
+    "totalCR": 9835,
+    "extension": {
+      "ASR": 5591,
+      "FSR": 3786,
+      "ION": 458
+    },
+    "family": {
+      "Al-MOF": 84,
+      "Zr-MOF": 70,
+      "Ti-MOF": 11,
+      "Fe-MOF": 243,
+      "Cr-MOF": 34,
+      "Cu-MOF": 1300,
+      "Zn-MOF": 2307,
+      "UiO-type host": 4,
+      "MIL-type host": 96,
+      "MOF-808-like host": 1,
+      "unclassified": 5195
+    },
+    "bundledRouteStructures": 28
+  },
+  "eligibility": {
+    "included": "CR records only",
+    "excluded": "All NCR records; all legacy RNG-generated CoRE and QMOF placeholders",
+    "modifiedRouteCifPolicy": "A host CIF cannot be presented as a guest-metal-modified route CIF. A route-level 3D button requires an explicitly mapped experimental modified CIF."
+  },
+  "status": "passed"
+}

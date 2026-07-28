@@ -22,4 +22,5 @@ export const TABS = [
   { id: "library",       copyKey: "mofLibrary" },
   { id: "about",         copyKey: "methodology" },
   { id: "projectEvolution", copyKey: "projectEvolution" },
+  { id: "dataCompliance", copyKey: "dataCompliance" },
 ]

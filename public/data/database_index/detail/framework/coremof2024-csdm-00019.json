@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00019",
+  "frameworkId": "coremof2024-csdm-00019",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2012[Tb][nan]3[ASR]1",
+  "displayName": "ACODON",
+  "commonName": "ACODON",
+  "csdRefcode": "ACODON",
+  "coreId": "2012[Tb][nan]3[ASR]1",
+  "metals": [
+    "Tb"
+  ],
+  "hasAlNode": false,
+  "topology": "unnamed",
+  "surfaceArea": 1509.32,
+  "pldA": 4.65567,
+  "lcdA": 7.13982,
+  "poreVolume": 0.522957,
+  "density": 1.14923,
+  "voidFraction": 0.601,
+  "waterStability": 0.72,
+  "thermalStability": 256.4,
+  "sourceDoi": "10.1039/c2cc35526d",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2012[Tb][nan]3[ASR]1; DOI 10.1039/c2cc35526d.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00019.json",
+  "descriptors": {
+    "surfaceArea": 1509.32,
+    "pldA": 4.65567,
+    "lcdA": 7.13982,
+    "poreVolume": 0.522957,
+    "density": 1.14923,
+    "voidFraction": 0.601,
+    "waterStability": 0.72,
+    "thermalStability": 256.4
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

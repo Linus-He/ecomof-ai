@@ -23,9 +23,9 @@ describe("projectStatusSummary", () => {
 
     expect(summary).toMatchObject({
       currentVersion: "V3.10.1",
-      databaseScale: 3462,
-      verifiedMetadata: 2480,
-      goldDataset: 320,
+      databaseScale: 10277,
+      verifiedMetadata: 9835,
+      goldDataset: 0,
       experimentalLabels: 150,
       externalTest: 80,
       benchmarkEligible: 230,
@@ -50,7 +50,7 @@ describe("projectStatusSummary", () => {
     const text = cards.map(card => `${card.label}:${card.value}`).join(" | ")
 
     expect(text).toContain("Current Version:V3.10.1")
-    expect(text).toContain("Database Scale:3462+")
+    expect(text).toContain("Database Scale:10277+")
     expect(text).toContain("Experimental Labels:150")
     expect(text).toContain("Benchmark Ready:230")
     expect(text).toContain("Best Model:Random Forest")

@@ -19,7 +19,7 @@ describe("EcoScreen Data Quality integration", () => {
   it("renders the Data Quality Summary with tier counts and provenance", () => {
     renderSummary()
     const panel = screen.getByTestId("data-quality-summary")
-    expect(within(panel).getByText(/Total Records/i)).toBeInTheDocument()
+    expect(within(panel).getByText(/Total reviewed records/i)).toBeInTheDocument()
     expect(within(panel).getByText(/^Gold$/)).toBeInTheDocument()
     expect(within(panel).getByText(/^Silver$/)).toBeInTheDocument()
     expect(within(panel).getByText(/^Bronze$/)).toBeInTheDocument()
@@ -37,8 +37,12 @@ describe("EcoScreen Data Quality integration", () => {
     expect(screen.getByText(`${summary.qualityDistribution.Gold} records in view`)).toBeInTheDocument()
   })
 
-  it("reports the honest Gold sufficiency status", () => {
+  it("omits unavailable current layers instead of displaying zero-value status cards", () => {
     renderSummary()
-    expect(screen.getByTestId("data-quality-summary")).toHaveTextContent(/Sufficient|Insufficient/)
+    const panel = screen.getByTestId("data-quality-summary")
+    expect(panel).not.toHaveTextContent("Gold Status")
+    expect(panel).not.toHaveTextContent("Reaction Dataset")
+    expect(panel).not.toHaveTextContent("Label Count")
+    expect(within(panel).queryByText("Benchmark Eligible")).not.toBeInTheDocument()
   })
 })

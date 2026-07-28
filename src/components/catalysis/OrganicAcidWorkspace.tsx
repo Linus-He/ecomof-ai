@@ -31,7 +31,7 @@ export function OrganicAcidWorkspace({ lang, t, isMobile, onBack }) {
             onClick={onBack}
             style={{ ...toolbarBtn(t), justifyContent: "center", minHeight: 36, padding: "8px 11px", width: isMobile ? "100%" : "auto" }}
           >
-            {zh ? "返回催化实验室总览" : "Back to Catalysis Lab"}
+            {zh ? "返回催化总览" : "Back to Catalysis"}
           </button>
           <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
             <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, letterSpacing: 0.18, textTransform: "uppercase" }}>

@@ -31,12 +31,9 @@ describe("Algorithm Validation Center data layer (V3.0)", () => {
   it("shows the Data Foundation dataset counts in the Database layer", () => {
     renderCenter()
     const layer = screen.getByTestId("algval-data-foundation")
-    expect(within(layer).getByText(/Gold Dataset/i)).toBeInTheDocument()
-    expect(within(layer).getByText(/Literature Dataset/i)).toBeInTheDocument()
     expect(within(layer).getByText(/Benchmark Dataset/i)).toBeInTheDocument()
-    expect(within(layer).getByText(/Label Count/i)).toBeInTheDocument()
-    expect(within(layer).getByText(/Benchmark Eligible/i)).toBeInTheDocument()
-    expect(within(layer).getByText(String(dataFoundation.goldCount))).toBeInTheDocument()
+    expect(within(layer).queryByText(/Gold Dataset|Literature Dataset|Label Count|Benchmark Eligible/i)).not.toBeInTheDocument()
+    expect(within(layer).getByText(String(dataFoundation.benchmarkCount))).toBeInTheDocument()
   })
 
   it("surfaces the data status inside the interactive figure database node", () => {

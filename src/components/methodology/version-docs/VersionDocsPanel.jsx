@@ -172,7 +172,7 @@ export function VersionDocsPanel({ lang, t, isMobile }) {
     return (
       <section id="methodology-knowledge-base" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, color: t.muted, display: "grid", gap: 8, padding: 14, scrollMarginTop: 118 }}>
         <strong style={{ color: t.warn }}>{text(lang, "知识库数据加载失败", "Knowledge Base data failed to load")}</strong>
-        <span>{text(lang, "请稍后重试；页面其他方法论内容不受影响。", "Please retry later; the rest of Methods & Evidence remains available.")}</span>
+        <span>{text(lang, "请稍后重试；页面其他方法论内容不受影响。", "Please retry later; the rest of Methodology remains available.")}</span>
       </section>
     )
   }

@@ -459,7 +459,7 @@ export function PerformanceTab({
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <ModulePageHeader
-          title={lang === "zh" ? "高级筛选工作台" : "Advanced Screening Workbench"}
+          title={lang === "zh" ? "性能优先级" : "Performance"}
           subtitle={lang === "zh"
             ? "用于结构输入、描述符设置、权重配置和早期筛选结果解释。"
             : "Use structure input, descriptor settings, weighting configuration, and early-screening result explanations."}
@@ -483,7 +483,7 @@ export function PerformanceTab({
           infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
           onInfo={() => setPerformanceView("assumptions")}
           options={[
-            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+            { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "CoRE 2024 CR 真实结构库" : "CoRE 2024 CR real corpus" },
           ]}
         />
 
@@ -579,7 +579,7 @@ export function PerformanceTab({
         infoLabel={lang === "zh" ? "数据说明 ⓘ" : "Data notes ⓘ"}
         onInfo={() => setPerformanceView("assumptions")}
         options={[
-          { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "Open MOF Seed" : "Open MOF Seed" },
+          { id: DEFAULT_CANDIDATE_DATA_MODE, label: lang === "zh" ? "CoRE 2024 CR 真实结构库" : "CoRE 2024 CR real corpus" },
         ]}
       />
 
@@ -599,8 +599,8 @@ export function PerformanceTab({
         number="00"
         title={lang === "zh" ? "真实气体吸附数据" : "Curated Gas Adsorption Data"}
         subtitle={lang === "zh"
-          ? `${realSeedDataSummary.records} 条吸附参考记录，${realSeedDataSummary.recordsWithIsotherms} 条包含等温线点；主候选筛选仍统一使用 Open MOF Seed。`
-          : `${realSeedDataSummary.records} adsorption reference records, ${realSeedDataSummary.recordsWithIsotherms} with isotherm points; candidate screening still uses Open MOF Seed.`}
+          ? `${realSeedDataSummary.records} 条吸附参考记录，${realSeedDataSummary.recordsWithIsotherms} 条包含等温线点；结构候选统一来自 CoRE 2024 CR，吸附标签保持独立。`
+          : `${realSeedDataSummary.records} adsorption reference records, ${realSeedDataSummary.recordsWithIsotherms} with isotherm points; structure candidates come from CoRE 2024 CR while adsorption labels remain a separate layer.`}
       >
         <div style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
@@ -845,14 +845,14 @@ export function PerformanceTab({
             number="01"
             title={lang === "zh" ? "数据路线与假设边界" : "Data Route and Assumption Boundary"}
             subtitle={lang === "zh"
-              ? "集中查看 Open MOF Seed 主路线、字段整理状态，以及缺失值处理假设。"
-              : "Review the Open MOF Seed route, field curation status, and the missing-value handling assumption."}
+              ? "集中查看 CoRE 2024 CR 主候选路线、字段整理状态，以及缺失值处理假设。"
+              : "Review the CoRE 2024 CR candidate route, field curation status, and the missing-value handling assumption."}
           >
             <div style={{ display: "grid", gap: 10 }}>
               <Callout tone="warn">
                 {lang === "zh"
-                  ? "当前全局候选数据源为 Open MOF Seed。部分记录缺少 CO₂ 吸附量、水稳定性或毒性字段，筛选结果仅作为临时优先级参考。"
-                  : "Current global candidate source: Open MOF Seed. Some records lack CO₂ uptake, water-stability, or toxicity fields, so screening results are provisional prioritization cues only."}
+                  ? "当前全局结构候选为 9,835 条 CoRE 2024 CR 真实记录。CO₂ 吸附量、水稳定性、毒性和任务标签属于独立证据层；缺失时筛选只能作为临时优先级参考。"
+                  : "The active global structural candidates are 9,835 real CoRE 2024 CR records. CO₂ uptake, water stability, toxicity, and task labels are separate evidence layers; missing fields limit results to provisional prioritization."}
               </Callout>
               {dataStatus === "loading" && (
                 <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>

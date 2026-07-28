@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-28T04:30:32.104Z",
+  "count": 9835,
+  "dataset": {
+    "name": "CoRE MOF 2024 · CSD-modified",
+    "version": "CoRE MOF 2024 v1.1 · CSD-modified · 2025-02-27",
+    "sourceUrl": "https://zenodo.org/records/15055758",
+    "downloadUrl": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads/",
+    "license": "CC-BY-NC-SA-4.0"
+  },
+  "counts": {
+    "totalCR": 9835,
+    "totalNCRQuarantined": 10441,
+    "extension": {
+      "ASR": 5591,
+      "FSR": 3786,
+      "ION": 458
+    },
+    "commonNameAvailable": 972,
+    "commonNameMissing": 8863,
+    "family": {
+      "Al-MOF": 84,
+      "Zr-MOF": 70,
+      "Ti-MOF": 11,
+      "Fe-MOF": 243,
+      "Cr-MOF": 34,
+      "Cu-MOF": 1300,
+      "Zn-MOF": 2307,
+      "UiO-type host": 4,
+      "MIL-type host": 96,
+      "MOF-808-like host": 1,
+      "unclassified": 5195
+    },
+    "bundledRouteStructures": 28
+  },
+  "useBoundary": {
+    "algorithm": "CR record-level descriptors may participate in family-level host structural factors.",
+    "viewer": "Bundled route structures are pristine/processed host structures only.",
+    "route3d": "Modified-route 3D is unavailable unless an exact experimental modified CIF is mapped.",
+    "ncr": "NCR records are retained outside the scoring dataset and never participate in ranking."
+  }
+}

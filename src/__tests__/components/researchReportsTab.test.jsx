@@ -14,6 +14,7 @@ describe("ResearchReportsTab", () => {
       "library",
       "about",
       "projectEvolution",
+      "dataCompliance",
     ])
     expect(HASH_TO_TAB["research-reports"]).toBeUndefined()
     expect(fs.existsSync(path.join(process.cwd(), "src/components/tabs/ResearchReportsTab.jsx"))).toBe(false)

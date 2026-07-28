@@ -27,11 +27,9 @@ const organicAcidResult = {
 }
 
 describe("Algorithm Validation Center V3.1 reaction layer", () => {
-  it("shows reaction counts, Current / Target / Gap, and pending ML metric reasons", () => {
+  it("omits the retired reaction-dataset counter while retaining pending ML boundaries", () => {
     render(<AlgorithmValidationCenter summary={summary} organicAcidResult={organicAcidResult} dataFoundation={dataFoundation} lang="en" t={THEME_LIGHT} isMobile={false} />)
-    expect(screen.getByText(/Reaction Dataset Count/i)).toBeInTheDocument()
-    expect(screen.getAllByText(String(dataFoundation.reactionDatasetCount)).length).toBeGreaterThan(0)
-    expect(document.body.textContent).toMatch(/Current \/ Target \/ Gap/)
+    expect(screen.queryByText(/Reaction Dataset Count/i)).not.toBeInTheDocument()
     expect(screen.getByTestId("future-metric-pending-reason")).toHaveTextContent(/Experimental labels required/)
     expect(document.body.textContent).toMatch(/Accuracy \/ ROC-AUC/)
   })

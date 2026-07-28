@@ -55,6 +55,74 @@ function routeName(route) {
   return `${route?.hostMof || "Host"} + ${route?.guestMetal || "guest"} ${route?.routeType || "route"}`
 }
 
+function routeComputationCohort(route, family, datasets = {}) {
+  const declared = datasets.coreMofImport?.routeCohorts?.[family]
+  if (declared) return declared
+  const familyRecords = recordsWithFamily(datasets.coreMofImport)
+    .filter(record => assignFamily(record) === family)
+  return {
+    family,
+    computationRecordCount: familyRecords.length,
+    calculationRule: "All computation-ready source records assigned to this host family contribute to family-level structural aggregates.",
+    displayedStructureIds: familyRecords.filter(record => record.bundledCifPath).slice(0, 3).map(record => record.mofId || record.id),
+    displayedStructures: familyRecords
+      .filter(record => record.bundledCifPath)
+      .slice(0, 3)
+      .map(record => ({
+        id: record.mofId || record.id,
+        displayName: record.displayName || record.csdRefcode || record.coreId,
+        commonName: record.commonName || record.displayName || record.csdRefcode || record.coreId,
+        csdRefcode: record.csdRefcode || undefined,
+        coreId: record.coreId || record.sourceRecordId,
+        structureVariant: record.structureVariant || undefined,
+        metalNode: record.metalNode || undefined,
+        topology: record.topology || undefined,
+        bundledCifPath: record.bundledCifPath,
+        structureStatus: record.structureStatus || "experimental-host-cif",
+      })),
+  }
+}
+
+function routeStructureAvailability(route = {}, computationCohort = {}) {
+  const isPristineHost = /pristine/i.test(String(route.routeType || ""))
+    || /pristine/i.test(String(route.guestMetal || ""))
+  const pristineStructure = isPristineHost
+    ? asArray(computationCohort.displayedStructures).find(structure => structure?.bundledCifPath) || null
+    : null
+  const modifiedStructure = route.experimentalModifiedStructure || null
+  const exactModifiedStructureAvailable = Boolean(
+    modifiedStructure?.cifPath
+    && modifiedStructure?.identityStatus === "exact-experimental-structure",
+  )
+  const route3dAvailable = Boolean(pristineStructure || exactModifiedStructureAvailable)
+  if (pristineStructure) {
+    return {
+      route3dAvailable: true,
+      status: "experimental-pristine-host-cif",
+      pristineStructure,
+      labelZh: "未改性主体 CIF 可查看",
+      labelEn: "Experimental pristine-host CIF available",
+      hostStructureDisclosureZh: "该路线是未改性主体对照；下列 CoRE CIF 是参与结构因子计算的真实主体结构，不代表任何客体金属改性产物。",
+      hostStructureDisclosureEn: "This route is a pristine-host control. The CoRE CIFs below are real host structures used for structural-factor calculation and do not represent a guest-metal-modified product.",
+    }
+  }
+  return {
+    route3dAvailable,
+    status: exactModifiedStructureAvailable
+      ? "exact-experimental-modified-cif"
+      : "hypothesis-no-experimental-modified-cif",
+    ...(exactModifiedStructureAvailable ? { modifiedStructure } : {}),
+    labelZh: exactModifiedStructureAvailable
+      ? "已映射实验改性 CIF"
+      : "假设路线，无对应 3D 晶体结构",
+    labelEn: exactModifiedStructureAvailable
+      ? "Exact experimental modified CIF mapped"
+      : "Hypothetical route; no corresponding 3D crystal structure",
+    hostStructureDisclosureZh: "下列 3D 仅为参与结构因子计算的未改性 CoRE 主体 CIF，不代表该客体金属改性产物。",
+    hostStructureDisclosureEn: "The host CIFs below are unmodified CoRE structures used for structural-factor calculation; they do not represent the guest-metal-modified product.",
+  }
+}
+
 function scoreRouteFactors(route, context, evidenceStats, economicScores) {
   const host = context.hostsByName.get(route.hostMof)
   const guest = context.guestsByMetal.get(route.guestMetal)
@@ -176,7 +244,7 @@ function routeTuple(route, key, derived, context) {
   }
   if (key === "hostGuestComplementarityScore") {
     return provenanceTuple({
-      sourceDataset: "organic_acid_scoring_spec_v2",
+      sourceDataset: "organic_acid_scoring_spec_v3",
       nRecords: 0,
       rawAggregate: {
         hostStabilityScore: derived.factors.hostStabilityScore,
@@ -238,8 +306,11 @@ function routeTuple(route, key, derived, context) {
 export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSelection = {}, guestSelection = {}) {
   const cacheKey = derivationCacheKey([
     hostGuestRoutes,
+    datasets.coreMofImport,
+    datasets.qmofImport,
     datasets.literatureDataset,
     datasets.goldDataset,
+    datasets.fairMofsFamilyEvidence,
     hostSelection.rankedHosts,
     guestSelection.rankedGuestMetals,
   ])
@@ -255,6 +326,8 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
   const economicScores = deriveEconomicFactors(hostGuestRoutes, hostSelection, guestSelection)
   const routeScores = asArray(hostGuestRoutes).map(route => {
     const derived = scoreRouteFactors(route, context, evidenceStats, economicScores)
+    const computationCohort = routeComputationCohort(route, derived.family, datasets)
+    const structureAvailability = routeStructureAvailability(route, computationCohort)
     const routeFactorProvenance = Object.fromEntries(ROUTE_KEYS.map(key => [key, routeTuple(route, key, derived, context)]))
     const finalHGCPS = weightedGeometricScore(derived.factors, ORGANIC_ACID_SCORING_SPEC.routeScoreWeights)
     const provenanceRows = Object.values(routeFactorProvenance)
@@ -264,6 +337,10 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
     return {
       ...route,
       ...derived.factors,
+      computationCohort,
+      participatingMofCount: safeNumber(computationCohort.computationRecordCount, 0),
+      participatingMofs: asArray(computationCohort.displayedStructures),
+      structureAvailability,
       finalHGCPS,
       scoreBreakdown: {
         hostStability: derived.factors.hostStabilityScore,
@@ -284,7 +361,7 @@ export function deriveRouteFactors(hostGuestRoutes = [], datasets = {}, hostSele
         summaryLabel: `${dataDerivedCount} route factors data/rule-derived; ${curatedCount} curated; ${fallbackCount} fallback`,
       },
       routeName: routeName(route),
-      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.8 using the locked spec-v2 weighted-geometric HGCPS factors, including ligand chemistry, synthesizability, and updated economic screening.`,
+      mainReason: `${route.hostMof} + ${route.guestMetal} is ranked by V3.9.10 using the abundance-neutral locked spec-v3 weighted-geometric HGCPS factors, including ligand chemistry, FAIR-MOFs synthesis-condition accessibility, and updated economic screening.`,
       provenanceStatus: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`).join(" / "),
       provenance: Object.entries(routeFactorProvenance).map(([key, tuple]) => `${key}: ${derivationLabel(tuple)}`),
       evidenceSources: derived.stats.records,

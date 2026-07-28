@@ -15,6 +15,7 @@ import metalCostFallback from "../../../public/data/metal_precursor_cost_table.j
 import lcaModelFallback from "../../../public/data/ecoscreen_lca_model_v1.json"
 import regionalBaselinesFallback from "../../../public/data/ecoscreen_regional_baselines_v1.json"
 import evidenceSourceRegistryFallback from "../../../public/data/ecoscreen_evidence_source_registry_v1.json"
+import fairMofsEcoscreenSummaryFallback from "../../../public/data/fair_mofs_ecoscreen_summary_v1.json"
 import {
   BasisBadge,
   Callout,
@@ -81,6 +82,7 @@ function WorkbenchNav({ t, lang }) {
     ["ecoscreen-goal-scope", "01", tr(lang, "边界与基准", "Scope & baseline")],
     ["ecoscreen-scenario-controls", "02", tr(lang, "候选与工艺", "Candidate & process")],
     ["ecoscreen-candidate-evidence", "02B", tr(lang, "证据层", "Evidence layer")],
+    ["ecoscreen-fair-properties", "02C", tr(lang, "物化性质", "Properties")],
     ["ecoscreen-lca-results", "03", tr(lang, "结果", "Results")],
     ["ecoscreen-hotspots", "04", tr(lang, "热点", "Hotspots")],
     ["ecoscreen-route-comparison", "05", tr(lang, "路线敏感性", "Route sensitivity")],
@@ -149,11 +151,12 @@ function CandidateEvidencePanel({ t, lang, dataset, registry, candidate, isNarro
   const hardBlockerCoverage = summary.hardBlockerCoverage || {}
   const hardBlockerCount = Object.keys(hardBlockerCoverage).length
   const availableHardBlockerCount = Object.values(hardBlockerCoverage).filter(value => Number(value) > 0).length
-  const process = candidate?.processEvidence
-  const quantities = candidate?.reactionQuantities && typeof candidate.reactionQuantities === "object"
-    ? Object.entries(candidate.reactionQuantities).slice(0, 5)
+  const fairProcess = candidate?.fairProcessEvidence || (candidate?.sourceDatabase === "FAIR-MOFs synthesis conditions" ? candidate : null)
+  const process = fairProcess?.processEvidence
+  const quantities = fairProcess?.reactionQuantities && typeof fairProcess.reactionQuantities === "object"
+    ? Object.entries(fairProcess.reactionQuantities).slice(0, 5)
     : []
-  const isFairMof = candidate?.sourceDatabase === "FAIR-MOFs synthesis conditions"
+  const isFairMof = Boolean(candidate?.fairMofsRecord || fairProcess)
   const sourceRows = registry?.sources || []
 
   return (
@@ -179,7 +182,14 @@ function CandidateEvidencePanel({ t, lang, dataset, registry, candidate, isNarro
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.15fr) minmax(300px, 0.85fr)" }}>
         <div style={{ background: t.surface, border: `1px solid ${isFairMof ? t.accent : t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{candidateUiName(candidate, lang)}</strong>
+            <span style={{ minWidth: 0 }}>
+              <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5 }}>{candidateUiName(candidate, lang)}</strong>
+              {candidate?.fairMofsRecord?.csdRefcode ? (
+                <span style={{ color: t.accentText, display: "block", fontSize: 10.2, marginTop: 3 }}>
+                  FAIR-MOFs · CSD {candidate.fairMofsRecord.csdRefcode} · {candidate.fairMofsRecord.match?.structureIdentityLevel || "unmatched"}
+                </span>
+              ) : null}
+            </span>
             <BasisBadge tone={isFairMof ? "calc" : "proxy"}>
               {isFairMof ? tr(lang, "真实合成条件", "Real synthesis conditions") : tr(lang, "仅结构记录", "Structure record only")}
             </BasisBadge>
@@ -188,12 +198,12 @@ function CandidateEvidencePanel({ t, lang, dataset, registry, candidate, isNarro
             <>
               <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
                 {[
-                  [tr(lang, "路线", "Route"), candidate.synthesisRoute || "missing"],
-                  [tr(lang, "溶剂", "Solvent"), candidate.synthesisSolvent || "missing"],
-                  [tr(lang, "温度", "Temperature"), candidate.synthesisTemperatureC == null ? "missing" : `${candidate.synthesisTemperatureC} °C`],
-                  [tr(lang, "时间", "Time"), candidate.synthesisTimeHours == null ? "missing" : `${candidate.synthesisTimeHours} h`],
-                  [tr(lang, "金属前驱体", "Metal precursor"), (candidate.metalPrecursor || []).join(" + ") || "missing"],
-                  [tr(lang, "连接体", "Linker"), candidate.linker || "missing"],
+                  [tr(lang, "路线", "Route"), fairProcess?.synthesisRoute || "missing"],
+                  [tr(lang, "溶剂", "Solvent"), fairProcess?.synthesisSolvent || "missing"],
+                  [tr(lang, "温度", "Temperature"), fairProcess?.synthesisTemperatureC == null ? "missing" : `${fairProcess.synthesisTemperatureC} °C`],
+                  [tr(lang, "时间", "Time"), fairProcess?.synthesisTimeHours == null ? "missing" : `${fairProcess.synthesisTimeHours} h`],
+                  [tr(lang, "金属前驱体", "Metal precursor"), (fairProcess?.metalPrecursor || []).join(" + ") || "missing"],
+                  [tr(lang, "连接体", "Linker"), fairProcess?.linker || "missing"],
                 ].map(([label, value]) => (
                   <div key={label} style={{ minWidth: 0 }}>
                     <span style={{ color: t.faint, display: "block", fontSize: 9.6, fontWeight: 850 }}>{label}</span>
@@ -216,13 +226,13 @@ function CandidateEvidencePanel({ t, lang, dataset, registry, candidate, isNarro
                   </div>
                 </details>
               ) : null}
-              <a href={`https://doi.org/${candidate.doi}`} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.5, overflowWrap: "anywhere", textDecoration: "none" }}>
-                DOI {candidate.doi}
-              </a>
+              {fairProcess?.doi ? <a href={`https://doi.org/${fairProcess.doi}`} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.5, overflowWrap: "anywhere", textDecoration: "none" }}>
+                DOI {fairProcess.doi}
+              </a> : null}
             </>
           ) : (
             <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.55 }}>
-              {tr(lang, "该结构记录尚未与 FAIR-MOFs 的 CSD refcode 建立精确映射。可切换到“合成证据库”检索带配方记录的候选。", "This structure record does not yet have an exact FAIR-MOFs CSD-refcode match. Switch to the synthesis-evidence library to search candidates with recipe records.")}
+              {tr(lang, "该结构记录尚未与 FAIR-MOFs 的 CSD Refcode 建立精确映射。可切换到“FAIR 证据映射”检索带配方记录的候选。", "This structure record does not yet have an exact FAIR-MOFs CSD Refcode match. Switch to FAIR evidence mapping to search candidates with recipe records.")}
             </div>
           )}
           <div style={{ color: t.warn, fontSize: 10.4, lineHeight: 1.5 }}>
@@ -353,6 +363,230 @@ function readinessFieldLabel(field, lang) {
 }
 
 const candidateUiName = (candidate = {}, lang = "en") => getReadableMofLabel(candidate, lang)
+const candidateOptionLabel = (candidate = {}, lang = "en") => {
+  const refcode = candidate.csdRefcode || candidate.fairMofsRecord?.csdRefcode || candidate.sourceRecordId
+  const commonName = candidate.commonName
+  if (commonName && refcode) return `${commonName} · CSD ${refcode}`
+  if (refcode) return `CSD ${refcode}`
+  return candidateUiName(candidate, lang)
+}
+
+const hasFairProperty = value => value !== null && value !== undefined && value !== ""
+
+const FAIR_PROPERTY_FIELDS = [
+  { key: "asaM2Cm3", zh: "可接触表面积", en: "Accessible surface area", unit: "m²/cm³" },
+  { key: "bdeKjMol", zh: "键解离能", en: "Bond dissociation energy", unit: "kJ/mol" },
+  { key: "lcdA", zh: "最大孔腔直径", en: "Largest cavity diameter", unit: "Å" },
+  { key: "pldA", zh: "孔限直径", en: "Pore-limiting diameter", unit: "Å" },
+  { key: "voidFraction", zh: "孔隙率", en: "Void fraction", unit: "" },
+  { key: "hasOpenMetalSite", zh: "开放金属位", en: "Open metal site", unit: "" },
+  { key: "numberOfChannels", zh: "通道数量", en: "Number of channels", unit: "" },
+  { key: "topology", zh: "拓扑", en: "Topology", unit: "" },
+]
+
+function fairPropertyValue(value, unit, lang) {
+  if (!hasFairProperty(value)) return tr(lang, "不可用", "unavailable")
+  if (typeof value === "boolean") return value ? tr(lang, "是", "yes") : tr(lang, "否", "no")
+  if (typeof value === "number") return `${number(value, 4)}${unit ? ` ${unit}` : ""}`
+  return String(value)
+}
+
+function FairMofsPropertyExplorer({
+  t,
+  lang,
+  dataset,
+  dataStatus,
+  selectedCandidate,
+  candidateIdByFairId,
+  onRequestData,
+  onSelectCandidate,
+  isNarrow,
+}) {
+  const [query, setQuery] = useState("")
+  const [filter, setFilter] = useState("all")
+  const records = dataset?.records || []
+  const selectedFair = selectedCandidate?.fairMofsRecord || null
+  const results = useMemo(() => {
+    const normalized = query.trim().toLowerCase()
+    return records.filter(record => {
+      const props = record.physicalProperties || {}
+      if (filter === "exact" && record.match?.structureIdentityLevel !== "exact-refcode") return false
+      if (filter === "pore" && ![props.asaM2Cm3, props.lcdA, props.pldA, props.voidFraction].some(hasFairProperty)) return false
+      if (filter === "bde" && !hasFairProperty(props.bdeKjMol)) return false
+      if (filter === "oms" && !hasFairProperty(props.hasOpenMetalSite)) return false
+      if (!normalized) return true
+      return [
+        record.id,
+        record.csdRefcode,
+        ...(record.aliases || []),
+        record.doi,
+        record.family,
+        ...(record.inferredMetals || []),
+        props.topology,
+      ].filter(Boolean).join(" ").toLowerCase().includes(normalized)
+    }).slice(0, 80)
+  }, [filter, query, records])
+
+  return (
+    <Card id="ecoscreen-fair-properties" t={t} style={{ display: "grid", gap: 13, scrollMarginTop: 168 }} data-testid="ecoscreen-fair-properties">
+      <SectionHead
+        t={t}
+        title={tr(lang, "02C · FAIR-MOFs 物化性质查询", "02C · FAIR-MOFs physicochemical property query")}
+        subtitle={tr(
+          lang,
+          "按 CSD Refcode、DOI、家族、金属与拓扑检索。精确 Refcode 才会映射到 CoRE 结构；基码变体和论文级关联不会被合并成同一结构。",
+          "Search by CSD Refcode, DOI, family, metal, and topology. Only exact Refcode matches map to a CoRE structure; base-Refcode variants and article associations are never merged as the same structure.",
+        )}
+        action={
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
+            <BasisBadge tone="calc">FAIR-MOFs · CC BY 4.0</BasisBadge>
+            {dataStatus !== "loaded" ? (
+              <button type="button" onClick={onRequestData} style={{ ...toolbarBtn(t), color: t.accentText }}>
+                {dataStatus === "loading"
+                  ? tr(lang, "正在载入逐条索引…", "Loading record index…")
+                  : tr(lang, "载入逐条性质索引", "Load property records")}
+              </button>
+            ) : null}
+          </div>
+        }
+      />
+      <div style={{ display: "grid", gap: 9, gridTemplateColumns: isNarrow ? "1fr" : "minmax(240px, 0.7fr) minmax(0, 1.3fr)" }}>
+        <label style={{ display: "grid", gap: 6 }}>
+          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>
+            {tr(lang, `检索 ${number(dataset?.summary?.recordCount || 0, 0)} 条 FAIR-MOFs 记录`, `Search ${number(dataset?.summary?.recordCount || 0, 0)} FAIR-MOFs records`)}
+          </span>
+          <input
+            type="search"
+            value={query}
+            onFocus={onRequestData}
+            onChange={event => setQuery(event.target.value)}
+            placeholder={tr(lang, "Refcode、DOI、金属、家族或拓扑…", "Refcode, DOI, metal, family, or topology…")}
+            style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, padding: "8px 10px" }}
+          />
+        </label>
+        <div style={{ alignItems: "end", display: "flex", flexWrap: "wrap", gap: 7 }}>
+          {[
+            ["all", tr(lang, "全部字段", "All records")],
+            ["exact", tr(lang, "精确结构映射", "Exact structure match")],
+            ["pore", tr(lang, "孔结构性质", "Pore properties")],
+            ["bde", "BDE"],
+            ["oms", tr(lang, "开放金属位", "Open metal site")],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={filter === id}
+              onClick={() => setFilter(id)}
+              style={{
+                ...toolbarBtn(t),
+                background: filter === id ? t.accentText : t.surface,
+                borderColor: filter === id ? t.accent : t.border,
+                color: filter === id ? "#fff" : t.muted,
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(280px, 0.75fr) minmax(0, 1.25fr)" }}>
+        <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, maxHeight: 340, overflow: "auto", padding: 6 }}>
+          <div style={{ color: t.faint, fontSize: 10.2, fontWeight: 850, padding: "5px 6px 8px" }}>
+            {tr(lang, `显示 ${results.length} 条`, `Showing ${results.length}`)}
+          </div>
+          {!records.length ? (
+            <div style={{ color: t.muted, display: "grid", fontSize: 10.8, gap: 8, lineHeight: 1.55, padding: "14px 8px" }}>
+              <span>
+                {dataStatus === "loading"
+                  ? tr(lang, "正在按需读取 FAIR-MOFs 逐条物化性质与 DOI；摘要和覆盖率已可用。", "Loading FAIR-MOFs record-level properties and DOIs on demand; summary coverage is already available.")
+                  : tr(lang, "逐条索引按需加载，避免首次进入页面时同时下载全部结构、性质和实验条件。", "The record index loads on demand so the first visit does not download every structure, property, and experimental-condition record at once.")}
+              </span>
+              <button type="button" onClick={onRequestData} disabled={dataStatus === "loading"} style={{ ...toolbarBtn(t), color: t.accentText, justifyContent: "center" }}>
+                {dataStatus === "loading" ? tr(lang, "载入中…", "Loading…") : tr(lang, "开始载入", "Load records")}
+              </button>
+            </div>
+          ) : results.map(record => {
+            const active = selectedFair?.id === record.id
+            const mappedCandidateId = candidateIdByFairId.get(record.id)
+            const identityLevel = record.match?.structureIdentityLevel || "unmatched"
+            return (
+              <button
+                key={record.id}
+                type="button"
+                onClick={() => mappedCandidateId && onSelectCandidate(mappedCandidateId)}
+                disabled={!mappedCandidateId}
+                style={{
+                  background: active ? t.badgeInfoBg : "transparent",
+                  border: "none",
+                  borderBottom: `1px solid ${t.border}`,
+                  color: t.textStrong,
+                  cursor: mappedCandidateId ? "pointer" : "default",
+                  display: "grid",
+                  gap: 3,
+                  padding: "9px 7px",
+                  textAlign: "left",
+                  width: "100%",
+                }}
+              >
+                <strong style={{ fontSize: 11.5 }}>{record.csdRefcode}</strong>
+                <span style={{ color: t.muted, fontSize: 10.2 }}>{record.family} · {record.doi || "DOI unavailable"}</span>
+                <span style={{ color: identityLevel === "exact-refcode" ? t.success : identityLevel === "base-refcode-variant" ? t.warn : t.faint, fontSize: 9.8 }}>
+                  {identityLevel === "exact-refcode"
+                    ? tr(lang, "精确 Refcode → CoRE 结构", "Exact Refcode → CoRE structure")
+                    : identityLevel === "base-refcode-variant"
+                      ? tr(lang, "仅基码变体关联", "Base-Refcode variant only")
+                      : tr(lang, "独立 FAIR-MOFs 证据", "Standalone FAIR-MOFs evidence")}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+        <div style={{ background: t.surface, border: `1px solid ${selectedFair ? t.accent : t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
+          {selectedFair ? (
+            <>
+              <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+                <div>
+                  <strong style={{ color: t.textStrong, fontSize: 14 }}>CSD {selectedFair.csdRefcode}</strong>
+                  <div style={{ color: t.muted, fontSize: 10.8, marginTop: 4 }}>{selectedFair.family} · {selectedFair.match?.structureIdentityLevel || "unmatched"}</div>
+                </div>
+                <BasisBadge tone={selectedFair.match?.structureIdentityLevel === "exact-refcode" ? "calc" : "proxy"}>
+                  {selectedFair.evidenceQuality?.evidenceGrade || "evidence pending"}
+                </BasisBadge>
+              </div>
+              <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+                {FAIR_PROPERTY_FIELDS.map(field => (
+                  <div key={field.key} style={{ minWidth: 0 }}>
+                    <span style={{ color: t.faint, display: "block", fontSize: 9.6, fontWeight: 850 }}>{tr(lang, field.zh, field.en)}</span>
+                    <strong style={{ color: hasFairProperty(selectedFair.physicalProperties?.[field.key]) ? t.textStrong : t.warn, display: "block", fontSize: 11.2, marginTop: 3, overflowWrap: "anywhere" }}>
+                      {fairPropertyValue(selectedFair.physicalProperties?.[field.key], field.unit, lang)}
+                    </strong>
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 4, padding: 9 }}>
+                <span style={{ color: t.faint, fontSize: 9.6, fontWeight: 850 }}>{tr(lang, "合成条件可及性", "Synthesis-condition accessibility")}</span>
+                <strong style={{ color: t.accentText, fontSize: 12 }}>
+                  {hasFairProperty(selectedFair.conditionAccessibility?.value) ? number(selectedFair.conditionAccessibility.value, 4) : tr(lang, "不可用", "unavailable")}
+                </strong>
+                <span style={{ color: t.muted, fontSize: 10.2, lineHeight: 1.45 }}>
+                  {tr(lang, "固定温度/时间边界的条件温和度代理，不是合成成功率。", "A fixed-bound proxy for reported condition severity, not synthesis-success probability.")}
+                </span>
+              </div>
+              {selectedFair.doi ? <a href={`https://doi.org/${selectedFair.doi}`} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.5, textDecoration: "none" }}>DOI {selectedFair.doi}</a> : null}
+            </>
+          ) : (
+            <div style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.6 }}>
+              {tr(lang, "当前候选没有可核验的 FAIR-MOFs 记录。可从左侧选择记录；未匹配记录会作为独立证据显示，不会冒充 CoRE 结构。", "The current candidate has no verifiable FAIR-MOFs record. Select a record on the left; unmatched evidence remains separate and never impersonates a CoRE structure.")}
+            </div>
+          )}
+          <div style={{ color: t.warn, fontSize: 10.2, lineHeight: 1.5 }}>
+            {tr(lang, dataset?.propertyBoundaryZh, dataset?.propertyBoundaryEn)}
+          </div>
+        </div>
+      </div>
+    </Card>
+  )
+}
 
 export function EcoLcaWorkbench({
   onNavigate,
@@ -365,16 +599,24 @@ export function EcoLcaWorkbench({
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
-  const { candidates: structureCandidates, status } = useMofCandidates(DEFAULT_CANDIDATE_DATA_MODE)
+  const [databaseDataRequested, setDatabaseDataRequested] = useState(() => Boolean(appInputs?.databaseCandidateId))
+  const [fairDataRequested, setFairDataRequested] = useState(() => Boolean(appInputs?.databaseCandidateId))
+  const [fairDataStatus, setFairDataStatus] = useState("idle")
+  const [coreIndexSummary, setCoreIndexSummary] = useState({ recordCount: 9835 })
+  const { candidates: structureCandidates, status } = useMofCandidates(
+    DEFAULT_CANDIDATE_DATA_MODE,
+    { enabled: databaseDataRequested },
+  )
   const [inventoryRows, setInventoryRows] = useState(lcaInventoryFallback)
   const [metalCostRows, setMetalCostRows] = useState(metalCostFallback.records || [])
   const [model, setModel] = useState(lcaModelFallback)
   const [processEvidence, setProcessEvidence] = useState({
     records: [],
-    summary: {
-      emittedRecordCount: 0,
-      fieldCoverage: {},
-    },
+    summary: fairMofsEcoscreenSummaryFallback.processSummary,
+  })
+  const [fairPropertyIndex, setFairPropertyIndex] = useState({
+    records: [],
+    summary: fairMofsEcoscreenSummaryFallback.propertySummary,
   })
   const [regionalBaselines, setRegionalBaselines] = useState(regionalBaselinesFallback)
   const [evidenceRegistry, setEvidenceRegistry] = useState(evidenceSourceRegistryFallback)
@@ -401,15 +643,18 @@ export function EcoLcaWorkbench({
       fetchDataJson("lca_inventory.json", lcaInventoryFallback),
       fetchDataJson("metal_precursor_cost_table.json", metalCostFallback),
       fetchDataJson("ecoscreen_lca_model_v1.json", lcaModelFallback),
-      fetchDataJson("ecoscreen_candidate_process_evidence_v1.json", null),
+      fetchDataJson("fair_mofs_ecoscreen_summary_v1.json", fairMofsEcoscreenSummaryFallback),
+      fetchDataJson("database_index/core_mof_index_summary.json", null),
       fetchDataJson("ecoscreen_regional_baselines_v1.json", regionalBaselinesFallback),
       fetchDataJson("ecoscreen_evidence_source_registry_v1.json", evidenceSourceRegistryFallback),
-    ]).then(([inventory, costs, nextModel, evidence, baselines, registry]) => {
+    ]).then(([inventory, costs, nextModel, fairSummary, nextCoreSummary, baselines, registry]) => {
       if (!active) return
       setInventoryRows(Array.isArray(inventory) && inventory.length ? inventory : lcaInventoryFallback)
       setMetalCostRows(Array.isArray(costs?.records) && costs.records.length ? costs.records : metalCostFallback.records || [])
       setModel(nextModel?.routeScenarios?.length ? nextModel : lcaModelFallback)
-      setProcessEvidence(evidence?.records?.length ? evidence : { records: [], summary: { emittedRecordCount: 0, fieldCoverage: {} } })
+      setProcessEvidence(current => current.records?.length ? current : { records: [], summary: fairSummary?.processSummary || {} })
+      setFairPropertyIndex(current => current.records?.length ? current : { records: [], summary: fairSummary?.propertySummary || {} })
+      setCoreIndexSummary(nextCoreSummary?.recordCount ? nextCoreSummary : { recordCount: 9835 })
       setRegionalBaselines(baselines?.profiles?.length ? baselines : regionalBaselinesFallback)
       setEvidenceRegistry(registry?.sources?.length ? registry : evidenceSourceRegistryFallback)
     }).catch(() => {
@@ -417,14 +662,78 @@ export function EcoLcaWorkbench({
       setInventoryRows(lcaInventoryFallback)
       setMetalCostRows(metalCostFallback.records || [])
       setModel(lcaModelFallback)
-      setProcessEvidence({ records: [], summary: { emittedRecordCount: 0, fieldCoverage: {} } })
       setRegionalBaselines(regionalBaselinesFallback)
       setEvidenceRegistry(evidenceSourceRegistryFallback)
     })
     return () => { active = false }
   }, [])
 
+  useEffect(() => {
+    if (!fairDataRequested) return
+    let active = true
+    setFairDataStatus("loading")
+    Promise.all([
+      fetchDataJson("ecoscreen_candidate_process_evidence_v1.json", null, { throwOnError: true }),
+      fetchDataJson("fair_mofs_property_index_v1.json", null, { throwOnError: true }),
+    ]).then(([evidence, propertyIndex]) => {
+      if (!active) return
+      setProcessEvidence(evidence?.records?.length ? evidence : current => current)
+      setFairPropertyIndex(propertyIndex?.records?.length ? propertyIndex : current => current)
+      setFairDataStatus("loaded")
+    }).catch(() => {
+      if (active) setFairDataStatus("error")
+    })
+    return () => { active = false }
+  }, [fairDataRequested])
+
+  const databaseCandidates = useMemo(() => {
+    const propertyById = new Map((fairPropertyIndex.records || []).map(record => [record.id, record]))
+    const processById = new Map((processEvidence.records || []).map(record => [record.id || record.candidateId, record]))
+    const exactFairByCoreId = new Map()
+    for (const record of fairPropertyIndex.records || []) {
+      if (record.match?.structureIdentityLevel !== "exact-refcode") continue
+      for (const coreId of record.match?.matchedCoreRecordIds || []) {
+        if (!exactFairByCoreId.has(coreId)) exactFairByCoreId.set(coreId, record)
+      }
+    }
+    const enrichedStructures = structureCandidates.map(candidate => {
+      const fairRecord = exactFairByCoreId.get(candidate.id)
+      const fairProcessEvidence = fairRecord ? processById.get(fairRecord.id) : null
+      return {
+        ...candidate,
+        ...(fairProcessEvidence ? {
+          fairMofsRecord: fairRecord,
+          fairProcessEvidence,
+          identitySources: ["CoRE MOF 2024 exact structure", "FAIR-MOFs exact Refcode evidence"],
+        } : {}),
+      }
+    })
+    const exactMatchedFairIds = new Set([...exactFairByCoreId.values()].map(record => record.id))
+    const standaloneFair = (processEvidence.records || []).map(processRecord => {
+      const fairRecord = propertyById.get(processRecord.id || processRecord.candidateId)
+      if (!fairRecord || exactMatchedFairIds.has(fairRecord.id)) return null
+      return {
+        ...processRecord,
+        csdRefcode: fairRecord.csdRefcode,
+        aliases: fairRecord.aliases,
+        family: fairRecord.family,
+        topology: fairRecord.physicalProperties?.topology,
+        fairMofsRecord: fairRecord,
+        fairProcessEvidence: processRecord,
+        identitySources: [fairRecord.match?.structureIdentityLevel === "base-refcode-variant"
+          ? "FAIR-MOFs base-Refcode variant association"
+          : "Standalone FAIR-MOFs evidence"],
+      }
+    }).filter(Boolean)
+    return [...enrichedStructures, ...standaloneFair]
+  }, [fairPropertyIndex, processEvidence, structureCandidates])
+
   const appCandidate = useMemo(() => {
+    const databaseCandidateId = String(appInputs?.databaseCandidateId || "").trim()
+    if (databaseCandidateId) {
+      const mapped = databaseCandidates.find(candidate => (candidate.id || candidate.candidateId) === databaseCandidateId)
+      if (mapped) return mapped
+    }
     const name = String(appInputs?.mofName || "").trim()
     if (!name) return null
     const metalNode = String(appInputs?.metalCenter || "").match(/[A-Z][a-z]?/)?.[0] || "pending"
@@ -442,11 +751,36 @@ export function EcoLcaWorkbench({
       sourceDatabase: "EcoMOF preset input",
       dataStatus: "user-selected scenario",
     }
-  }, [appInputs])
+  }, [appInputs, databaseCandidates])
   const candidates = useMemo(
-    () => [appCandidate, ...structureCandidates, ...(processEvidence.records || [])].filter(Boolean),
-    [appCandidate, structureCandidates, processEvidence],
+    () => {
+      const appId = appCandidate?.id || appCandidate?.candidateId
+      return [
+        ...(appCandidate && !databaseCandidates.some(candidate => (candidate.id || candidate.candidateId) === appId) ? [appCandidate] : []),
+        ...databaseCandidates,
+      ]
+    },
+    [appCandidate, databaseCandidates],
   )
+  const processCandidates = useMemo(
+    () => databaseCandidates.filter(candidate => candidate.fairMofsRecord),
+    [databaseCandidates],
+  )
+  const candidateIdByFairId = useMemo(() => {
+    const map = new Map()
+    for (const candidate of processCandidates) {
+      const fairId = candidate.fairMofsRecord?.id
+      if (fairId && !map.has(fairId)) map.set(fairId, candidate.id || candidate.candidateId)
+    }
+    return map
+  }, [processCandidates])
+
+  useEffect(() => {
+    if (appInputs?.databaseCandidateId) {
+      setDatabaseDataRequested(true)
+      setFairDataRequested(true)
+    }
+  }, [appInputs?.databaseCandidateId])
 
   useEffect(() => {
     if (!candidateId && candidates.length) setCandidateId(candidates[0].id || candidates[0].candidateId)
@@ -464,12 +798,25 @@ export function EcoLcaWorkbench({
     () => candidates.find(row => (row.id || row.candidateId) === candidateId) || candidates[0] || {},
     [candidateId, candidates],
   )
+  useEffect(() => {
+    const rows = candidateSourceMode === "structure"
+      ? structureCandidates
+      : candidateSourceMode === "process"
+        ? processCandidates
+        : []
+    if (!rows.length || candidateSourceMode === "all") return
+    const selectedKey = selectedCandidate.id || selectedCandidate.candidateId
+    if (!rows.some(row => (row.id || row.candidateId) === selectedKey)) {
+      setCandidateId(rows[0].id || rows[0].candidateId)
+    }
+  }, [candidateSourceMode, processCandidates, selectedCandidate, structureCandidates])
+
   const candidateOptions = useMemo(() => {
     const query = candidateQuery.trim().toLowerCase()
     const sourceFiltered = candidateSourceMode === "structure"
       ? structureCandidates
       : candidateSourceMode === "process"
-        ? processEvidence.records || []
+        ? processCandidates
         : candidates
     const filtered = query
       ? sourceFiltered.filter(candidate => [
@@ -477,9 +824,16 @@ export function EcoLcaWorkbench({
           candidate.id,
           candidate.candidateId,
           candidate.rawName,
+          candidate.commonName,
+          ...(candidate.aliases || []),
+          candidate.csdRefcode,
+          candidate.coreId,
           candidate.sourceRecordId,
           candidate.metalNode,
           candidate.sourceDatabase,
+          candidate.fairMofsRecord?.doi,
+          candidate.fairMofsRecord?.family,
+          candidate.fairMofsRecord?.physicalProperties?.topology,
         ].filter(Boolean).join(" ").toLowerCase().includes(query))
       : sourceFiltered
     const limited = filtered.slice(0, 100)
@@ -488,7 +842,7 @@ export function EcoLcaWorkbench({
       return [selectedCandidate, ...limited.slice(0, 99)]
     }
     return limited
-  }, [candidateQuery, candidateSourceMode, candidates, lang, processEvidence, selectedCandidate, structureCandidates])
+  }, [candidateQuery, candidateSourceMode, candidates, lang, processCandidates, selectedCandidate, structureCandidates])
   const result = useMemo(() => buildEcoLcaScenario({
     candidate: selectedCandidate,
     inventoryRows,
@@ -538,11 +892,13 @@ export function EcoLcaWorkbench({
     }))
   }
   const selectCandidateSource = mode => {
+    setDatabaseDataRequested(true)
+    if (mode === "all" || mode === "process") setFairDataRequested(true)
     setCandidateSourceMode(mode)
     const rows = mode === "structure"
       ? structureCandidates
       : mode === "process"
-        ? processEvidence.records || []
+        ? processCandidates
         : candidates
     const first = rows[0]
     if (first) setCandidateId(first.id || first.candidateId)
@@ -582,7 +938,7 @@ export function EcoLcaWorkbench({
   return (
     <div id="candidate-scoring-lab" data-testid="ecoscreen-lca-workbench" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={tr(lang, "EcoScreen 生命周期与经济评价", "EcoScreen Life-cycle & Economic Evaluation")}
+        title={tr(lang, "生态筛选", "EcoScreen")}
         subtitle={tr(
           lang,
           "以功能单位和系统边界为起点，用清单、影响、成本和不确定性评价 MOF；不再把通用描述符综合分当作生态结论。",
@@ -605,7 +961,7 @@ export function EcoLcaWorkbench({
           {result.readiness.comparable ? tr(lang, "候选可比较", "Candidate-comparable") : tr(lang, "情景估算", "Scenario estimate")}
         </BasisBadge>
         <span>·</span>
-        <span>{tr(lang, `结构 ${structureCandidates.length} · 合成证据 ${number(processEvidence.summary?.emittedRecordCount, 0)}`, `${structureCandidates.length} structures · ${number(processEvidence.summary?.emittedRecordCount, 0)} synthesis records`)}</span>
+        <span>{tr(lang, `结构 ${number(coreIndexSummary.recordCount, 0)} · 合成证据 ${number(processEvidence.summary?.emittedRecordCount, 0)}`, `${number(coreIndexSummary.recordCount, 0)} structures · ${number(processEvidence.summary?.emittedRecordCount, 0)} synthesis records`)}</span>
         <span>·</span>
         <span>{tr(lang, `候选级 LCI 准备度 ${Math.round(result.readiness.score * 100)}%`, `Candidate-level LCI readiness ${Math.round(result.readiness.score * 100)}%`)}</span>
         <span>·</span>
@@ -818,8 +1174,8 @@ export function EcoLcaWorkbench({
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
           {[
             ["all", tr(lang, `全部 ${candidates.length}`, `All ${candidates.length}`)],
-            ["structure", tr(lang, `结构库 ${structureCandidates.length}`, `Structures ${structureCandidates.length}`)],
-            ["process", tr(lang, `合成证据库 ${processEvidence.records?.length || 0}`, `Synthesis evidence ${processEvidence.records?.length || 0}`)],
+            ["structure", tr(lang, `结构库 ${number(coreIndexSummary.recordCount, 0)}`, `Structures ${number(coreIndexSummary.recordCount, 0)}`)],
+            ["process", tr(lang, `FAIR 证据映射 ${number(fairPropertyIndex.summary?.recordCount, 0)}`, `FAIR evidence map ${number(fairPropertyIndex.summary?.recordCount, 0)}`)],
           ].map(([id, label]) => {
             const active = candidateSourceMode === id
             return (
@@ -845,6 +1201,7 @@ export function EcoLcaWorkbench({
           <input
             type="search"
             value={candidateQuery}
+            onFocus={() => setDatabaseDataRequested(true)}
             onChange={event => setCandidateQuery(event.target.value)}
             placeholder={tr(lang, "输入名称、记录 ID、金属或来源…", "Name, record ID, metal, or source…")}
             style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, maxWidth: "100%", padding: "8px 10px" }}
@@ -852,7 +1209,7 @@ export function EcoLcaWorkbench({
         </label>
         <label style={{ display: "grid", gap: 6 }}>
           <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>
-            {tr(lang, `MOF 候选 · 显示 ${candidateOptions.length}/${candidateSourceMode === "structure" ? structureCandidates.length : candidateSourceMode === "process" ? processEvidence.records?.length || 0 : candidates.length}`, `MOF candidate · showing ${candidateOptions.length}/${candidateSourceMode === "structure" ? structureCandidates.length : candidateSourceMode === "process" ? processEvidence.records?.length || 0 : candidates.length}`)}
+            {tr(lang, `MOF 候选 · 显示 ${candidateOptions.length}/${candidateSourceMode === "structure" ? structureCandidates.length : candidateSourceMode === "process" ? processCandidates.length : candidates.length}`, `MOF candidate · showing ${candidateOptions.length}/${candidateSourceMode === "structure" ? structureCandidates.length : candidateSourceMode === "process" ? processCandidates.length : candidates.length}`)}
           </span>
           <select
             data-testid="ecoscreen-candidate-select"
@@ -865,11 +1222,15 @@ export function EcoLcaWorkbench({
           >
             {candidateOptions.map(candidate => (
               <option key={candidate.id || candidate.candidateId} value={candidate.id || candidate.candidateId}>
-                {candidateUiName(candidate, lang)} · {candidate.metalNode || "metal pending"} · {candidate.sourceDatabase || "source pending"}
+                {candidateOptionLabel(candidate, lang)} · {candidate.metalNode || "metal pending"} · {candidate.fairMofsRecord ? "FAIR mapped" : candidate.sourceDatabase || "source pending"}
               </option>
             ))}
           </select>
-          {status !== "loaded" ? <span style={{ color: t.faint, fontSize: 10.5 }}>{tr(lang, "候选数据正在加载或为空。", "Candidate data is loading or empty.")}</span> : null}
+          {status === "idle" ? (
+            <span style={{ color: t.faint, fontSize: 10.5 }}>{tr(lang, "结构索引将在检索或切换来源时按需载入。", "The structure index loads on demand when you search or switch source.")}</span>
+          ) : status !== "loaded" ? (
+            <span style={{ color: t.faint, fontSize: 10.5 }}>{tr(lang, "候选数据正在加载或为空。", "Candidate data is loading or empty.")}</span>
+          ) : null}
         </label>
         <div style={{ display: "grid", gap: 7 }}>
           <span style={{ color: t.faint, fontSize: 10.8, fontWeight: 850 }}>{tr(lang, "合成路线情景", "Synthesis-route scenario")}</span>
@@ -903,6 +1264,24 @@ export function EcoLcaWorkbench({
         dataset={processEvidence}
         registry={evidenceRegistry}
         candidate={selectedCandidate}
+        isNarrow={isNarrow}
+      />
+
+      <FairMofsPropertyExplorer
+        t={t}
+        lang={lang}
+        dataset={fairPropertyIndex}
+        dataStatus={fairDataStatus}
+        selectedCandidate={selectedCandidate}
+        candidateIdByFairId={candidateIdByFairId}
+        onRequestData={() => {
+          setDatabaseDataRequested(true)
+          setFairDataRequested(true)
+        }}
+        onSelectCandidate={nextId => {
+          setCandidateId(nextId)
+          setLastCalculatedSignature("")
+        }}
         isNarrow={isNarrow}
       />
 
@@ -1119,7 +1498,7 @@ export function EcoLcaWorkbench({
           subtitle={tr(lang, "每条来源只支持其对应的方法选择；不把不同 MOF、不同路线的数值直接移植为候选实测值。", "Each source supports only its stated method choice; values from different MOFs and routes are not transplanted as candidate measurements.")}
           action={
             <button type="button" onClick={() => onNavigate?.("methodology-literature-inspiration-ecoscreen-sustainability")} style={{ ...toolbarBtn(t), color: t.accentText }}>
-              {tr(lang, "打开方法与证据", "Open methods & evidence")}
+              {tr(lang, "打开方法论", "Open methodology")}
             </button>
           }
         />

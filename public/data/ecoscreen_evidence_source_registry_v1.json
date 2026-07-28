@@ -1,6 +1,6 @@
 {
   "schemaVersion": "ecoscreen-evidence-source-registry-v1",
-  "updatedAt": "2026-07-24",
+  "updatedAt": "2026-07-28",
   "sources": [
     {
       "id": "FAIR-MOFS-2025",
@@ -18,18 +18,19 @@
       "hardLimitsEn": "Text-mined results require source-paper review; yield, energy per product, solvent recovery, and cycling performance are not harmonized."
     },
     {
-      "id": "CORE-QMOF-STRUCTURE",
-      "name": "CoRE MOF + QMOF",
+      "id": "CORE-MOF-2024-CSD-MODIFIED-CR",
+      "name": "CoRE MOF 2024 · CSD-modified CR",
       "status": "connected",
-      "roleZh": "结构、孔隙、组成和量子化学描述符。",
-      "roleEn": "Structure, porosity, composition, and quantum-chemical descriptors.",
-      "recordCount": 2480,
-      "joinKey": "source record id / normalized refcode",
-      "url": "https://zenodo.org/records/14132134",
-      "license": "Source-specific open-data terms",
+      "roleZh": "9,835 条结构、组成、孔隙与稳定性源属性；QMOF 伪占位记录已隔离，不参与当前结果。",
+      "roleEn": "9,835 source-backed structures with composition, porosity, and stability properties; placeholder QMOF rows are quarantined and excluded.",
+      "recordCount": 9835,
+      "joinKey": "CSD Refcode / CoRE record id",
+      "url": "https://zenodo.org/records/15055758",
+      "doi": "10.5281/zenodo.15055758",
+      "license": "CC BY-NC-SA 4.0 plus source-specific CCDC terms",
       "confidence": "high",
-      "hardLimitsZh": "不是合成清单或循环性能数据库。",
-      "hardLimitsEn": "Not a synthesis-inventory or cycling-performance database."
+      "hardLimitsZh": "仅接入 CSD-modified CR；未公开 CSD unmodified CIF。结构库不是合成清单、吸附标签或循环性能数据库。",
+      "hardLimitsEn": "Only CSD-modified CR is ingested; unmodified CSD CIFs are not published. A structure corpus is not a synthesis inventory, adsorption-label set, or cycling-performance database."
     },
     {
       "id": "NIST-ISODB",

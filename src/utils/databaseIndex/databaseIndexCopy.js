@@ -2,8 +2,8 @@
 
 export const DATABASE_INDEX_COPY = {
   expandedScreeningUi: {
-    en: "Expanded Database Screening UI",
-    zh: "扩展数据库筛选界面",
+    en: "Real Structure Record Explorer",
+    zh: "真实结构记录筛选器",
   },
   workerScoringBoundaryPreview: {
     en: "Large-Scale Scoring Boundary Preview",
@@ -18,12 +18,12 @@ export const DATABASE_INDEX_COPY = {
     zh: "索引分片浏览器",
   },
   whyInPreview: {
-    en: "Why in preview?",
-    zh: "为什么进入预览？",
+    en: "Why selected?",
+    zh: "为什么被选作审阅样本？",
   },
   topNPreviewOnly: {
-    en: "Top-N preview only",
-    zh: "仅 Top-N 预览",
+    en: "structural-review sample",
+    zh: "结构审阅样本",
   },
   selectedIndexPartOnly: {
     en: "selected index part only",
@@ -135,7 +135,14 @@ export function dbScopeLabel(scope, lang) {
 
 export function dbStatusLabel(value, lang) {
   const status = String(value || "").toLowerCase().replace(/-/g, "_").replace(/\s+/g, "_")
-  if (status.includes("ready")) return lang === "zh" ? "可进入预览评分" : "ready for scoring"
+  if (status === "real_core_mof_cr_index") return lang === "zh" ? "真实 CoRE 2024 CR 全量索引" : "real CoRE 2024 CR full index"
+  if (status === "active_source_record_index") return lang === "zh" ? "真实来源记录已接入" : "real source records active"
+  if (status === "quarantined") return lang === "zh" ? "已隔离" : "quarantined"
+  if (status === "offline_preprocessed") return lang === "zh" ? "离线预处理" : "offline preprocessed"
+  if (status === "detail_on_demand") return lang === "zh" ? "详情按需加载" : "detail on demand"
+  if (status === "raw_cif_on_demand") return lang === "zh" ? "原始 CIF 按需加载" : "raw CIF on demand"
+  if (status === "structural_screening_only") return lang === "zh" ? "仅结构筛选" : "structural screening only"
+  if (status.includes("ready")) return lang === "zh" ? "结构筛选字段就绪" : "structural fields ready"
   if (status.includes("review")) return lang === "zh" ? "需要复核" : "needs review"
   if (status.includes("reject")) return lang === "zh" ? "已拒绝" : "rejected"
   if (status === "loaded") return lang === "zh" ? "已加载" : "loaded"

@@ -9,6 +9,11 @@ export function useMofCandidates(mode = DEFAULT_CANDIDATE_DATA_MODE, options = {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (options.enabled === false) {
+      setStatus("idle")
+      setError(null)
+      return undefined
+    }
     let active = true
     setStatus("loading")
     setError(null)
@@ -29,7 +34,7 @@ export function useMofCandidates(mode = DEFAULT_CANDIDATE_DATA_MODE, options = {
     return () => {
       active = false
     }
-  }, [options.throwOnError])
+  }, [options.enabled, options.throwOnError])
 
   return { candidates, loading: status === "loading", status, error, mode: DEFAULT_CANDIDATE_DATA_MODE }
 }

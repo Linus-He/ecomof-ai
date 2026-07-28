@@ -16,9 +16,9 @@ export const PROJECT_STATUS_ENDPOINTS = Object.freeze({
 
 export const DEFAULT_PROJECT_STATUS_SUMMARY = Object.freeze({
   currentVersion: "V3.8",
-  databaseScale: 3020,
-  verifiedMetadata: 2480,
-  goldDataset: 320,
+  databaseScale: 10277,
+  verifiedMetadata: 9835,
+  goldDataset: 0,
   experimentalLabels: 150,
   externalTest: 80,
   benchmarkEligible: 230,

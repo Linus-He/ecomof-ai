@@ -8,7 +8,8 @@ import {
   safeNumber,
 } from "../organicAcidDataDerivation/shared.js"
 
-// Structural descriptors that have real family-level medians in CoRE/QMOF.
+// Structural descriptors that have real family-level medians in the active
+// CoRE MOF 2024 CSD-modified CR source.
 const STRUCTURAL_DESCRIPTORS = ["surfaceArea", "poreVolume", "voidFraction", "density", "bandGap"]
 // Route-level HGCPS factors that have no family-level structural proxy to
 // correlate against; reported honestly as insufficient-n rather than faked.
@@ -133,7 +134,7 @@ export function buildProxyValidityAudit(datasets = {}, options = {}) {
   const familyCount = rows.filter(row => Number.isFinite(row.reactionPerformanceMedian)).length
   return {
     auditId: "organic-acid-proxy-validity-v3.10.0",
-    method: "family-level Spearman rank correlation between CoRE/QMOF structural medians and reaction-dataset median yield/selectivity/conversion",
+    method: "family-level Spearman rank correlation between CoRE MOF 2024 CSD-modified CR structural medians and reaction-dataset median yield/selectivity/conversion",
     statisticalPowerNote: `Family-level n is ${familyCount} (~6-8). Spearman power is very low at this n; all results are indicative, not confirmatory, and a single family can flip a correlation. Do not read these as proof or disproof of a descriptor.`,
     descriptorCount: descriptors.length,
     descriptors,

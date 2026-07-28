@@ -34,7 +34,7 @@ describe("EcoScreen candidate evidence and regional baselines", () => {
   it("registers complementary structure, recipe, adsorption, computed, and background-LCI layers", () => {
     expect(registry.sources.map(source => source.id)).toEqual(expect.arrayContaining([
       "FAIR-MOFS-2025",
-      "CORE-QMOF-STRUCTURE",
+      "CORE-MOF-2024-CSD-MODIFIED-CR",
       "NIST-ISODB",
       "MOFX-DB",
       "FEDERAL-LCA-COMMONS",

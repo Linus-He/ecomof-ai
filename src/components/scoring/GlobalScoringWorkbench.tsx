@@ -35,15 +35,15 @@ function statusMessage(status, lang, candidateCount, dataMode) {
   if (status === "loading") return text(lang, "正在加载 MOF 描述符数据；评分工作台会在数据返回后更新。", "Loading MOF descriptor data; the workbench updates after the dataset returns.")
   if (status === "error") return text(lang, "MOF 描述符数据加载失败；工作台保留空模型和 fallback 诊断，不会白屏。", "MOF descriptor data failed to load; the workbench keeps an empty model with fallback diagnostics instead of blanking.")
   if (!candidateCount) return text(lang, "当前没有候选记录；仍可管理描述符集并查看评分模型元数据。", "No candidate records are available; descriptor management and model metadata remain visible.")
-  const label = dataMode === "open-mof-seed"
-    ? text(lang, "Open MOF Seed 全局候选源", "Open MOF Seed global candidate source")
+  const label = dataMode === "core-mof-2024-cr"
+    ? text(lang, "CoRE 2024 CR 真实全局候选源", "CoRE 2024 CR real global candidate source")
     : text(lang, "字段级来源数据", "field-level provenance data")
   return text(lang, `${label} · ${candidateCount} 条候选记录。`, `${label} · ${candidateCount} candidate records.`)
 }
 
 export function GlobalScoringWorkbench({
   candidates = [],
-  dataMode = "open-mof-seed",
+  dataMode = "core-mof-2024-cr",
   lang,
   t,
   isMobile,

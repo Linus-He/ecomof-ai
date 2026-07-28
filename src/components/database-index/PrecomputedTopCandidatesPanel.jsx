@@ -1,29 +1,9 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, formatScore, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { buildCandidateExplanation, formatPercentValue, matchesDatabaseIndexFilters, normalizeTopCandidates, qualityTone } from "../../utils/databaseIndex/databaseIndexFormatters"
-import { buildMetadataVerificationSummary, getMetadataVerificationLevel, metadataLevelLabel, metadataLevelTone } from "../../utils/databaseIndex/metadataVerification"
-
-function MetadataGateRow({ row, lang, t }) {
-  const summary = buildMetadataVerificationSummary(row, lang)
-  return (
-    <div style={{ display: "grid", gap: 5 }}>
-      <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "metadataVerification")}</span>
-      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
-        <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
-        <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusPill>
-        {summary.blockingReasons.map(reason => <StatusPill key={reason} tone="warn" t={t}>{reason}</StatusPill>)}
-      </div>
-      {!summary.eligible ? (
-        <span style={{ color: t.warn, fontSize: 11.7, fontWeight: 850, lineHeight: 1.42 }}>
-          <ChemicalText value={dbText(lang, "missingKeyMetadata")} />
-        </span>
-      ) : null}
-    </div>
-  )
-}
 
 function ExplanationPanel({ row, lang, t }) {
   const explanation = buildCandidateExplanation(row)
@@ -31,19 +11,18 @@ function ExplanationPanel({ row, lang, t }) {
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 10 }}>
       <strong style={{ color: t.textStrong, fontSize: 12.6 }}>{dbText(lang, "whyInPreview")}</strong>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(155px, 1fr))" }}>
-        <span style={{ color: t.muted, fontSize: 11.8 }}><b style={{ color: t.textStrong }}>Rank:</b> #{displayValue(explanation.rank)}</span>
-        <span style={{ color: t.muted, fontSize: 11.8 }}><b style={{ color: t.textStrong }}>preview score:</b> {formatScore(explanation.previewScore)}</span>
+        <span style={{ color: t.muted, fontSize: 11.8 }}><b style={{ color: t.textStrong }}>{text(lang, "审阅序号：", "Review order:")}</b> #{displayValue(explanation.rank)}</span>
         <span style={{ color: t.muted, fontSize: 11.8 }}><b style={{ color: t.textStrong }}>descriptor:</b> {formatPercentValue(explanation.descriptorCompleteness)}</span>
         <span style={{ color: t.muted, fontSize: 11.8 }}><b style={{ color: t.textStrong }}>provenance:</b> {formatPercentValue(explanation.provenanceCompleteness)}</span>
       </div>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
         <div style={{ display: "grid", gap: 4 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "主要正向因素", "Main positive factors")}</span>
-          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={lang === "zh" ? "预览分数、质量门、金属节点和按需详情可用性共同支持进入预览。" : (explanation.positiveFactors.length ? explanation.positiveFactors.join("; ") : "preview score only")} /></span>
+          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={lang === "zh" ? "结构描述符完整度、来源记录、金属节点和按需详情共同决定该审阅样本。" : (explanation.positiveFactors.length ? explanation.positiveFactors.join("; ") : "deterministic structural review sample")} /></span>
         </div>
         <div style={{ display: "grid", gap: 4 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "主要缺失字段", "Main missing fields")}</span>
-          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={explanation.missingFields.length ? explanation.missingFields.join(", ") : text(lang, "已加载预览记录中未发现缺失项", "none in loaded preview record")} /></span>
+          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={explanation.missingFields.length ? explanation.missingFields.join(", ") : text(lang, "当前结构审阅字段完整", "current structural-review fields complete")} /></span>
         </div>
       </div>
       <div style={{ display: "grid", gap: 5 }}>
@@ -56,14 +35,13 @@ function ExplanationPanel({ row, lang, t }) {
       </div>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
         <StatusPill tone={qualityTone(explanation.qualityStatus)} t={t}>{dbStatusLabel(explanation.qualityStatus, lang)}</StatusPill>
-        <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+        <StatusPill tone="pass" t={t}>{text(lang, "来源元数据已接入", "source metadata available")}</StatusPill>
       </div>
-      <MetadataGateRow row={row} lang={lang} t={t} />
       <p style={{ color: t.warn, fontSize: 12, fontWeight: 900, lineHeight: 1.45, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "这是预计算索引预览，不是最终验证推荐。",
-          "This is a precomputed index preview, not a final verified recommendation."
+          "该序号只用于结构记录审阅，不是有机酸催化性能排名。",
+          "This order is for structural-record review only, not an organic-acid catalytic-performance ranking."
         )} />
       </p>
     </section>
@@ -77,16 +55,16 @@ export function PrecomputedTopCandidatesPanel({ topCandidates = {}, filters = {}
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 3 }}>
-          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "预计算 Top-N 候选", "Precomputed Top Candidates")}</strong>
-          <span style={{ color: t.muted, fontSize: 11.8 }}>{text(lang, `筛选范围：${dbText(lang, "topNPreviewOnly")}`, `Filter scope: ${dbText(lang, "topNPreviewOnly")}`)}</span>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "结构完整度审阅样本", "Descriptor-completeness Review Sample")}</strong>
+          <span style={{ color: t.muted, fontSize: 11.8 }}>{text(lang, "用于检查记录、描述符和按需详情；不是 OACS 或催化性能排序。", "Used to inspect records, descriptors, and on-demand details; not an OACS or catalytic-performance ranking.")}</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           <StatusPill tone="proxy" t={t}>{text(lang, `显示 ${rows.length} 个`, `${rows.length} shown`)}</StatusPill>
-          <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+          <StatusPill tone="warn" t={t}>{text(lang, "非催化性能排名", "not catalytic-performance ranking")}</StatusPill>
         </div>
       </header>
       <p style={{ color: t.warn, fontSize: 12, fontWeight: 850, lineHeight: 1.45, margin: 0 }}>
-        <ChemicalText value={text(lang, "Top candidates 为预览候选，不是最终验证推荐。", "Top candidates are preview candidates, not final verified recommendations.")} />
+        <ChemicalText value={text(lang, "这些记录按结构描述符完整度确定性选取，仅作为审阅入口，不代表它们是有机酸路线的最优 MOF。", "These records are selected deterministically by structural descriptor completeness as review entries; they are not the best MOFs for an organic-acid route.")} />
       </p>
       <div style={{ display: "grid", gap: 7 }}>
         {rows.map(row => (
@@ -101,8 +79,8 @@ export function PrecomputedTopCandidatesPanel({ topCandidates = {}, filters = {}
               </div>
               <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
                 <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-                  <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{formatScore(row.oacsPreview)}</span>
-                  <StatusPill tone={metadataLevelTone(getMetadataVerificationLevel(row))} t={t}>{metadataLevelLabel(getMetadataVerificationLevel(row), lang)}</StatusPill>
+                  <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{formatPercentValue(row.descriptorCompletenessPercent)}</span>
+                  <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{dbStatusLabel(row.dataQualityStatus, lang)}</StatusPill>
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>
                   <button type="button" onClick={() => setExpandedId(expandedId === row.frameworkId ? "" : row.frameworkId)} style={{ background: expandedId === row.frameworkId ? t.badgeInfoBg : t.surface, border: `1px solid ${expandedId === row.frameworkId ? t.accentText : t.border}`, borderRadius: 8, color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 32, padding: "6px 9px" }}>

@@ -6,10 +6,11 @@ const PENDING = ["pending", "unknown", "", "missing", "null"]
 const isReal = v => v != null && !PENDING.includes(String(v).toLowerCase())
 
 describe("Gold Dataset expansion (V3.3)", () => {
-  it("expands Gold to at least 300 records", () => {
-    expect(gold.goldCount).toBeGreaterThanOrEqual(300)
-    expect(gold.sufficient).toBe(true)
+  it("quarantines Gold rows inherited from placeholder identities", () => {
+    expect(gold.goldCount).toBe(0)
+    expect(gold.sufficient).toBe(false)
     expect(gold.records.length).toBe(gold.goldCount)
+    expect(gold.status).toBe("quarantined")
   })
 
   it("requires real source + DOI + citation on every Gold record", () => {

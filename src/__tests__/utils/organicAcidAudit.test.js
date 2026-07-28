@@ -104,7 +104,7 @@ describe("organic acid V3.9.7 audits", () => {
       goldDataset,
     })
 
-    expect(audit.version).toBe("V3.9.8")
+    expect(audit.version).toBe("V3.9.10")
     // B1 (V3.10.0): validity extended to 8 descriptors (5 structural + 3 route-level), each with n + indicative caveat.
     expect(audit.proxyValidity.descriptors).toHaveLength(8)
     for (const descriptor of audit.proxyValidity.descriptors) {
@@ -145,8 +145,9 @@ describe("organic acid V3.9.7 audits", () => {
   it("persists V3.9.8 audit conclusions and the locked-spec real-price rerun", () => {
     expect(currentAuditArtifact.version).toBe("V3.9.8")
     expect(currentAuditArtifact.proxyValidity.composite.spearmanRho).toBeGreaterThan(0.1)
-    expect(currentAuditArtifact.proxyValidity.lowValidityDescriptors).toContain("voidFraction")
-    expect(currentAuditArtifact.familyFairness.lowConfidenceFamilies).toContain("MIL-type host")
+    expect(currentAuditArtifact.proxyValidity.lowValidityDescriptors).toContain("density")
+    expect(currentAuditArtifact.familyFairness.lowConfidenceFamilies).toContain("UiO-type host")
+    expect(currentAuditArtifact.familyFairness.lowConfidenceFamilies).not.toContain("MIL-type host")
     expect(currentAuditArtifact.scoringMutation).toEqual(expect.objectContaining({
       applied: false,
       note: expect.stringMatching(/price data only|weights/i),

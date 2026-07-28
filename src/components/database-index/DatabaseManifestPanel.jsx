@@ -18,8 +18,8 @@ export function DatabaseManifestPanel({ manifest = {}, lang, t, isMobile }) {
       <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "Manifest 概览", "Manifest Panel")}</strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <DatabaseIndexStatusBadge status={manifest.datasetMode || "database_index_preview"} t={t} />
-          <DatabaseIndexStatusBadge status="offline_preprocessed" t={t} />
+          <DatabaseIndexStatusBadge status={manifest.datasetMode || "database_index_preview"} lang={lang} t={t} />
+          <DatabaseIndexStatusBadge status="offline_preprocessed" lang={lang} t={t} />
         </div>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(145px, 1fr))" }}>
@@ -35,8 +35,13 @@ export function DatabaseManifestPanel({ manifest = {}, lang, t, isMobile }) {
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>sourceDatabases</span>
           {sourceDatabases.map(row => (
             <div key={row.name} style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, display: "grid", fontSize: 12, gap: 3, paddingTop: 6 }}>
-              <strong style={{ color: t.textStrong }}><ChemicalText value={displayValue(row.name)} /></strong>
-              <span>{text(lang, `${formatCount(row.recordCount)} 条记录 · ${formatCount(row.detailCount)} 条详情 · DOI/citation/license 待核验`, `${formatCount(row.recordCount)} records · ${formatCount(row.detailCount)} details · DOI/citation/license pending`)}</span>
+              <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "space-between" }}>
+                <strong style={{ color: t.textStrong }}><ChemicalText value={displayValue(row.name)} /></strong>
+                <DatabaseIndexStatusBadge status={row.status} lang={lang} t={t} />
+              </div>
+              <span>{text(lang, `${formatCount(row.recordCount)} 条索引记录 · ${formatCount(row.detailCount)} 条浏览器内置详情`, `${formatCount(row.recordCount)} index records · ${formatCount(row.detailCount)} browser-bundled details`)}</span>
+              {row.citation || row.license ? <span>{[row.citation, row.license].filter(Boolean).join(" · ")}</span> : null}
+              {row.notes ? <span><ChemicalText value={dbRenderText(row.notes, lang)} /></span> : null}
             </div>
           ))}
         </article>

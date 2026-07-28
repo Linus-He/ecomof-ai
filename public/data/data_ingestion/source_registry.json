@@ -1,7 +1,7 @@
 {
   "schemaVersion": "v3.0",
   "registryId": "ecomof-ai-source-registry-v3.0",
-  "generatedAt": "2026-06-18",
+  "generatedAt": "2026-07-28",
   "description": "V3.0 Data Foundation Program — single registry for every data source feeding EcoMOF-AI ingestion, validation, standardization, and benchmark readiness. Missing fields stay pending/unknown/ambiguous/restricted and are never fabricated.",
   "uncertaintyVocabulary": ["pending", "unknown", "ambiguous", "restricted"],
   "sourceTypes": [
@@ -14,16 +14,16 @@
   ],
   "sources": [
     {
-      "sourceId": "SRC-CORE-MOF-2019",
-      "sourceName": "CoRE MOF 2019 (Computation-Ready, Experimental MOF database)",
+      "sourceId": "SRC-CORE-MOF-2024-CSD-MODIFIED-CR",
+      "sourceName": "CoRE MOF 2024 · CSD-modified CR",
       "sourceType": "MOF Database",
-      "sourceUrl": "https://zenodo.org/record/14132134",
-      "citation": "Chung et al., Computation-Ready Experimental Metal-Organic Frameworks (CoRE MOF) 2019.",
-      "license": "CC-BY-4.0",
-      "retrievedAt": "2026-06-17",
-      "accessMethod": "offline curated subset",
-      "uncertainty": "pending",
-      "notes": "Backs the V2.2 verified-metadata preview records (DOI 10.5281/zenodo.14132134). Only a curated subset is ingested; full database is not loaded."
+      "sourceUrl": "https://zenodo.org/records/15055758",
+      "citation": "CoRE MOF 2024 v1.1, CSD-modified computation-ready subset; DOI 10.5281/zenodo.15055758.",
+      "license": "CC-BY-NC-SA-4.0 plus source-specific CCDC terms",
+      "retrievedAt": "2026-07-28",
+      "accessMethod": "CCDC-distributed CSD-modified CR download",
+      "uncertainty": "restricted",
+      "notes": "9,835 row-level records are active. Unmodified CSD CIFs are excluded from the public repository. Use is non-commercial and attribution/share-alike obligations apply; see database_compliance_registry.json."
     },
     {
       "sourceId": "SRC-QMOF",
@@ -33,9 +33,21 @@
       "citation": "Rosen et al., Quantum-Chemical Insights from Deep Learning over the QMOF Database.",
       "license": "CC-BY-4.0",
       "retrievedAt": "2026-06-17",
-      "accessMethod": "offline curated subset",
+      "accessMethod": "quarantined",
+      "uncertainty": "restricted",
+      "notes": "0 active records. The former 1,240 rows were RNG-generated placeholders without row-level QMOF identity and are excluded from all current statistics, scoring, and search."
+    },
+    {
+      "sourceId": "SRC-FAIR-MOFS-V1",
+      "sourceName": "FAIR-MOFs",
+      "sourceType": "MOF Database",
+      "sourceUrl": "https://zenodo.org/records/13254307",
+      "citation": "FAIR-MOFs dataset; DOI 10.5281/zenodo.13254307.",
+      "license": "CC-BY-4.0",
+      "retrievedAt": "2026-07-28",
+      "accessMethod": "Zenodo JSON files with checksum verification",
       "uncertainty": "pending",
-      "notes": "Provides computed descriptors (band gap, void fraction) for a small curated subset. DFT-labelled reaction performance is not included."
+      "notes": "4,168 records provide text-mined reported synthesis conditions, DOI context, and selected physicochemical descriptors. Exact Refcode, base-variant, and article-only links are kept separate; no FAIR CIF archive is copied."
     },
     {
       "sourceId": "SRC-REAL-SEED",

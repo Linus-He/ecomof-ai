@@ -1,18 +1,18 @@
 {
-  "version": "V2.0-A",
-  "datasetMode": "database_index_preview",
+  "version": "CoRE-MOF-2024-current",
+  "datasetMode": "real_core_mof_cr_index",
   "dryRun": false,
-  "buildDate": "2026-06-07",
+  "buildDate": "2026-07-28T04:30:32.104Z",
   "sourceInputs": [
-    "organic_acid_final_screening/curated_real_examples/real_al_mof_framework_examples.json",
-    "organic_acid_final_screening/mapping_fixtures/core_mof_mapping_examples.json"
+    "CR_data_CSD_modified_20250227.csv",
+    "9,835 processed CR CIFs"
   ],
   "generatedRecordCounts": {
-    "coreMofIndexRecords": 500,
-    "qmofIndexRecords": 200,
+    "coreMofIndexRecords": 9835,
+    "qmofIndexRecords": 0,
     "frameworkDetailRecords": 30,
-    "qmofDetailRecords": 20
+    "qmofDetailRecords": 0
   },
-  "mapperBoundary": "Generated from V1.6 curated examples and mapper-compatible fixtures for architecture validation only.",
-  "warning": "V2.0-A does not perform full database screening and does not create verified final recommendations."
+  "mapperBoundary": "Built directly from CoRE MOF 2024 CSD-modified CR source rows.",
+  "warning": "Does not create catalytic-performance labels or modified-route CIFs."
 }

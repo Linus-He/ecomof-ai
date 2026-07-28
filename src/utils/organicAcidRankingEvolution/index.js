@@ -65,6 +65,7 @@ export function buildDescriptorEvolutionReport(log = {}, audit = {}, priceTable 
   if (!stages.length) return null
   const currentStage = stages.at(-1) || {}
   const v397 = stageByVersion(stages, "V3.9.7")
+  const v398 = stageByVersion(stages, "V3.9.8")
   const topGuests = stages.map(topGuest)
   const stableGuest = topGuests.every(value => value === topGuests[0]) ? topGuests[0] : null
   const winningHosts = Array.from(new Set(stages.map(topHost)))
@@ -73,7 +74,9 @@ export function buildDescriptorEvolutionReport(log = {}, audit = {}, priceTable 
     .filter(row => safeNumber(row.rank, 999) < safeNumber(al397?.rank, 999))
     .map(row => row.route)
   const placeholderLeader = asArray(v397.routeRankings)[0]
-  const realPriceSameRoute = routeAt(currentStage, placeholderLeader?.routeId)
+  const realPriceSameRoute = routeAt(v398, placeholderLeader?.routeId)
+  const previousCurrentLeader = asArray(v398.routeRankings)[0]
+  const abundanceNeutralSameRoute = routeAt(currentStage, previousCurrentLeader?.routeId)
   const priceRows = asArray(priceTable.records)
   const confidenceCounts = priceRows.reduce((acc, row) => {
     const key = row.confidence || "unknown"
@@ -105,6 +108,13 @@ export function buildDescriptorEvolutionReport(log = {}, audit = {}, priceTable 
       bodyEn: `${stages.length} stages produce ${winningHosts.length} distinct winning hosts (${winningHosts.join(", ")}); host rank is highly sensitive to data source, descriptor set, and aggregation model.`,
     },
     {
+      id: "fairness",
+      titleZh: "去丰度偏置效应",
+      titleEn: "Abundance-bias correction",
+      bodyZh: `V3.9.8 榜首路线 ${previousCurrentLeader?.route || "pending"} 在去丰度偏置与 FAIR-MOFs 条件证据接入后由 #${previousCurrentLeader?.rank ?? "?"} 变为 #${abundanceNeutralSameRoute?.rank ?? "?"}，HGCPS ${previousCurrentLeader?.score ?? "?"} → ${abundanceNeutralSameRoute?.score ?? "?"}。原始家族数量不再直接进入点分；重复记录不变量最大点分变化为 ${audit.abundanceBiasAudit?.maxDuplicatePointDelta ?? "pending"}。`,
+      bodyEn: `The V3.9.8 leader ${previousCurrentLeader?.route || "pending"} moves from #${previousCurrentLeader?.rank ?? "?"} to #${abundanceNeutralSameRoute?.rank ?? "?"} after abundance-neutral scoring and FAIR-MOFs condition evidence, with HGCPS ${previousCurrentLeader?.score ?? "?"} -> ${abundanceNeutralSameRoute?.score ?? "?"}. Raw family count no longer enters the point estimate; the duplicate-record invariance audit reports a maximum point delta of ${audit.abundanceBiasAudit?.maxDuplicatePointDelta ?? "pending"}.`,
+    },
+    {
       id: "economics",
       titleZh: "经济性效应",
       titleEn: "Economic effect",
@@ -127,7 +137,7 @@ export function buildDescriptorEvolutionReport(log = {}, audit = {}, priceTable 
     },
   ]
   return {
-    version: log.version || currentStage.version || "V3.9.8",
+    version: log.version || currentStage.version || "V3.9.10",
     stages,
     currentStage,
     routeSeries: buildRouteSeries(stages),

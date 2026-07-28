@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00024",
+  "frameworkId": "coremof2024-csdm-00024",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2012[Cu][tfw]3[ASR]2",
+  "displayName": "ADABUE",
+  "commonName": "ADABUE",
+  "csdRefcode": "ADABUE",
+  "coreId": "2012[Cu][tfw]3[ASR]2",
+  "metals": [
+    "Cu"
+  ],
+  "hasAlNode": false,
+  "topology": "tfw",
+  "surfaceArea": 292.207,
+  "pldA": 3.3151,
+  "lcdA": 4.54951,
+  "poreVolume": 0.31344,
+  "density": 1.46631,
+  "voidFraction": 0.4596,
+  "waterStability": 0.86952381,
+  "thermalStability": 287.4,
+  "sourceDoi": "10.1002/anie.201202992",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2012[Cu][tfw]3[ASR]2; DOI 10.1002/anie.201202992.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00024.json",
+  "descriptors": {
+    "surfaceArea": 292.207,
+    "pldA": 3.3151,
+    "lcdA": 4.54951,
+    "poreVolume": 0.31344,
+    "density": 1.46631,
+    "voidFraction": 0.4596,
+    "waterStability": 0.86952381,
+    "thermalStability": 287.4
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

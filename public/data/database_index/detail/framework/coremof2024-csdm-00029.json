@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00029",
+  "frameworkId": "coremof2024-csdm-00029",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2012[Cu][ntt]3[ASR]1",
+  "displayName": "ADATIK",
+  "commonName": "ADATIK",
+  "csdRefcode": "ADATIK",
+  "coreId": "2012[Cu][ntt]3[ASR]1",
+  "metals": [
+    "Cu"
+  ],
+  "hasAlNode": false,
+  "topology": "ntt",
+  "surfaceArea": 4539.97,
+  "pldA": 12.17423,
+  "lcdA": 24.53938,
+  "poreVolume": 2.30152,
+  "density": 0.377576,
+  "voidFraction": 0.869,
+  "waterStability": 0.45,
+  "thermalStability": 286.9,
+  "sourceDoi": "10.1002/anie.201201202",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2012[Cu][ntt]3[ASR]1; DOI 10.1002/anie.201201202.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00029.json",
+  "descriptors": {
+    "surfaceArea": 4539.97,
+    "pldA": 12.17423,
+    "lcdA": 24.53938,
+    "poreVolume": 2.30152,
+    "density": 0.377576,
+    "voidFraction": 0.869,
+    "waterStability": 0.45,
+    "thermalStability": 286.9
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

@@ -2,15 +2,15 @@
 import { auditDatasetOrigin } from "./datasetOriginAudit.js"
 
 export const V3_3_TARGETS = {
-  total: 3000,
-  totalMin: 2000,
-  coreMof: 1200,
-  qmof: 1200,
-  literature: 500,
-  verifiedMetadata: 500,
-  goldDataset: 300,
-  reactionDataset: 500,
-  benchmarkDataset: 500,
+  total: 9835,
+  totalMin: 9835,
+  coreMof: 9835,
+  qmof: 0,
+  literature: 0,
+  verifiedMetadata: 9835,
+  goldDataset: 0,
+  reactionDataset: 0,
+  benchmarkDataset: 0,
 }
 
 const len = dataset => {
@@ -56,9 +56,40 @@ export function dataIngestionSummary({ core, qmof, literature, gold, verified, r
     experimental: totalRecords ? Number((experimentalCount / totalRecords).toFixed(3)) : 0,
     derived: totalRecords ? Number((derivedCount / totalRecords).toFixed(3)) : 0,
   }
+  const availability = {
+    coreMof: {
+      status: coreCount > 0 ? "active" : "missing",
+      count: coreCount,
+    },
+    qmof: {
+      status: qmof?.summary?.status || qmof?.status || (qmofCount > 0 ? "active" : "missing"),
+      count: qmofCount,
+      reason: qmof?.summary?.reason || qmof?.reason || "",
+    },
+    literature: {
+      status: literature?.status || (literatureCount > 0 ? "active" : "missing"),
+      count: literatureCount,
+      reason: literature?.reason || "",
+    },
+    goldDataset: {
+      status: gold?.status || (goldCount > 0 ? "active" : "missing"),
+      count: goldCount,
+      reason: gold?.reason || "",
+    },
+    reactionDataset: {
+      status: reaction?.status || (reactionCount > 0 ? "active" : "missing"),
+      count: reactionCount,
+      reason: reaction?.reason || "",
+    },
+    benchmarkDataset: {
+      status: benchmark?.status || (benchmarkCount > 0 ? "active" : "missing"),
+      count: benchmarkCount,
+      reason: benchmark?.reason || "",
+    },
+  }
 
   return {
-    version: "V3.3",
+    version: "CoRE-MOF-2024-current",
     totalRecords,
     totalRealRecords,
     externalDatabaseCount,
@@ -73,6 +104,7 @@ export function dataIngestionSummary({ core, qmof, literature, gold, verified, r
     benchmarkCount,
     originAudit,
     breakdown,
+    availability,
     targets: V3_3_TARGETS,
     stats: {
       total: cell(totalRecords, V3_3_TARGETS.total),
@@ -87,11 +119,11 @@ export function dataIngestionSummary({ core, qmof, literature, gold, verified, r
       totalMin: totalRecords >= V3_3_TARGETS.totalMin,
       total: totalRecords >= V3_3_TARGETS.total,
       coreMof: coreCount >= V3_3_TARGETS.coreMof,
-      qmof: qmofCount >= V3_3_TARGETS.qmof,
-      literature: literatureCount >= V3_3_TARGETS.literature,
+      qmof: availability.qmof.status === "active" && qmofCount > 0,
+      literature: availability.literature.status === "active" && literatureCount > 0,
       verifiedMetadata: verifiedCount >= V3_3_TARGETS.verifiedMetadata,
-      goldDataset: goldCount >= V3_3_TARGETS.goldDataset,
-      reactionDataset: reactionCount >= V3_3_TARGETS.reactionDataset,
+      goldDataset: availability.goldDataset.status === "active" && goldCount > 0,
+      reactionDataset: availability.reactionDataset.status === "active" && reactionCount > 0,
     },
     growth: growth || null,
   }

@@ -155,6 +155,10 @@ try {
       guestMetal: route.guestMetal,
       finalHGCPS: route.finalHGCPS,
       scoreBreakdown: route.scoreBreakdown,
+      computationCohort: route.computationCohort,
+      participatingMofCount: route.participatingMofCount,
+      participatingMofs: route.participatingMofs,
+      structureAvailability: route.structureAvailability,
       routeFactorProvenance: compactProvenance(route),
       derivationSummary: route.derivationSummary,
       factorDerivationLevels: Object.fromEntries(Object.entries(route.routeFactorProvenance).map(([key, tuple]) => [

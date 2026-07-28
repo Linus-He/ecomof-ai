@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest"
 import linkerDescriptorTable from "../../../public/data/linker_descriptor_table.json"
 import metalPrecursorCostTable from "../../../public/data/metal_precursor_cost_table.json"
-import scoringSpec from "../../../public/data/organic_acid_scoring_spec_v2.json"
+import fairMofsFamilyEvidence from "../../../public/data/fair_mofs_family_synthesis_evidence.json"
 import { deriveEconomicFactors } from "../../utils/organicAcidDataDerivation/economicFactors"
 import { deriveLigandFactors } from "../../utils/organicAcidDataDerivation/ligandFactors"
 import { deriveSynthesizabilityFactors } from "../../utils/organicAcidDataDerivation/synthesizabilityFactors"
@@ -21,7 +21,7 @@ function records(metalNode, linker, count) {
   }))
 }
 
-describe("organic acid V3.9.8 descriptor expansion and real prices", () => {
+describe("organic acid V3.9.10 descriptor expansion and real prices", () => {
   it("covers every linker label present in CoRE and changes ligand support when linker data change", () => {
     expect(linkerDescriptorTable.derivationLevel).toBe("curated-ligand-descriptor")
     expect(linkerDescriptorTable.records).toHaveLength(10)
@@ -48,8 +48,9 @@ describe("organic acid V3.9.8 descriptor expansion and real prices", () => {
     expect(factors["Al-MOF"].tuple.fallbackReason).toMatch(/pending/)
   })
 
-  it("derives synthesizability from family frequency and decreases when records are removed", () => {
+  it("derives synthesizability from FAIR conditions and is invariant to duplicate CoRE family records", () => {
     const baseline = deriveSynthesizabilityFactors(hosts, {
+      fairMofsFamilyEvidence,
       coreMofImport: {
         records: [
           ...records("Al", "BDC", 12),
@@ -60,6 +61,7 @@ describe("organic acid V3.9.8 descriptor expansion and real prices", () => {
       literatureDataset: { records: [] },
     })
     const reduced = deriveSynthesizabilityFactors(hosts, {
+      fairMofsFamilyEvidence,
       coreMofImport: {
         records: [
           ...records("Al", "BDC", 3),
@@ -70,9 +72,10 @@ describe("organic acid V3.9.8 descriptor expansion and real prices", () => {
       literatureDataset: { records: [] },
     })
 
-    expect(reduced["Al-MOF"].value).toBeLessThan(baseline["Al-MOF"].value)
-    expect(baseline["Ti-MOF"].tuple.derivationLevel).toMatch(/curated-synthesis-difficulty/)
-    expect(baseline["Ti-MOF"].tuple.rawAggregate.difficultyMultiplier).toBe(scoringSpec.synthesizability.difficultyOverrides["Ti-MOF"].multiplier)
+    expect(reduced["Al-MOF"].value).toBe(baseline["Al-MOF"].value)
+    expect(baseline["Al-MOF"].tuple.sourceDataset).toMatch(/FAIR-MOFs/)
+    expect(baseline["Al-MOF"].tuple.rawAggregate.abundanceUsedAsScore).toBe(false)
+    expect(baseline["Ti-MOF"].tuple.derivationLevel).toMatch(/FAIR|condition|prior|transfer/i)
   })
 
   it("computes transparent route economics from curated precursor costs", () => {

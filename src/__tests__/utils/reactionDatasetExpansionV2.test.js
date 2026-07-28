@@ -5,9 +5,10 @@ import reaction from "../../../public/data/organic_acid_reaction_dataset_v3.json
 const REQUIRED = ["temperature", "pressure", "solvent", "reactionTime", "yield", "selectivity"]
 
 describe("Reaction Dataset expansion (V3.3)", () => {
-  it("expands the reaction dataset to at least 500 records", () => {
-    expect(reaction.total).toBeGreaterThanOrEqual(500)
+  it("quarantines reaction rows derived from placeholder candidates", () => {
+    expect(reaction.total).toBe(0)
     expect(reaction.records.length).toBe(reaction.total)
+    expect(reaction.status).toBe("quarantined")
   })
 
   it("includes every required reaction condition + outcome field", () => {
@@ -16,8 +17,8 @@ describe("Reaction Dataset expansion (V3.3)", () => {
     }
   })
 
-  it("is labelled as a derived dataset (never experimental)", () => {
-    expect(reaction.datasetOrigin).toBe("derived_dataset")
-    expect(reaction.records.every(r => r.datasetOrigin === "derived_dataset")).toBe(true)
+  it("is explicitly labelled as quarantined derived data (never experimental)", () => {
+    expect(reaction.datasetOrigin).toBe("quarantined_derived_dataset")
+    expect(reaction.excludedFromCurrentStatistics).toBe(true)
   })
 })

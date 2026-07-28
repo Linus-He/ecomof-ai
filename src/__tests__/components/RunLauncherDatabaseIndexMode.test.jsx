@@ -6,15 +6,15 @@ import { AlgorithmRunLauncher } from "../../components/catalysis/organic-acid-fi
 
 const databaseIndexOverview = {
   manifest: {
-    datasetMode: "database_index_preview",
-    sourceDatabases: [{ name: "CoRE MOF", recordCount: 500, detailCount: 30 }],
+    datasetMode: "real_core_mof_cr_index",
+    sourceDatabases: [{ name: "CoRE MOF 2024 · CSD-modified CR", recordCount: 9835, detailCount: 30 }],
   },
-  coreSummary: { recordCount: 500, readyForScoring: 12, needsReview: 63, rejected: 0 },
-  qmofSummary: { recordCount: 200 },
-  descriptorAvailability: { descriptorCoverage: [{ descriptor: "hydrothermalStability", available: 12, percent: 2.4 }] },
-  provenanceCoverage: { doiCoveragePercent: 0, fieldSourceCoveragePercent: 42 },
+  coreSummary: { recordCount: 9835, readyForScoring: 9835, needsReview: 0, rejected: 0 },
+  qmofSummary: { recordCount: 0, status: "quarantined" },
+  descriptorAvailability: { descriptorCoverage: [{ descriptor: "surfaceArea", available: 9835, percent: 100 }] },
+  provenanceCoverage: { doiCoveragePercent: 100, fieldSourceCoveragePercent: 100 },
   topCandidates: {
-    topCandidates: [{ rank: 1, frameworkId: "COREMOF_000001", displayName: "MIL-53(Al) preview", oacsPreview: 0.89, dataQualityStatus: "ready_for_scoring", detailRef: "detail/framework/COREMOF_000001.json" }],
+    topCandidates: [{ rank: 1, frameworkId: "coremof2024-csdm-00001", displayName: "ABAVIJ", descriptorCompletenessPercent: 100, dataQualityStatus: "ready_for_structural_screening", detailRef: "detail/framework/coremof2024-csdm-00001.json" }],
   },
 }
 
@@ -23,7 +23,7 @@ afterEach(() => {
 })
 
 describe("Run Launcher database index mode", () => {
-  it("runs database index preview without full screening claims", async () => {
+  it("runs the real CoRE structural-index audit without catalytic-performance claims", async () => {
     vi.useFakeTimers()
     const onTraceReady = vi.fn()
     render(
@@ -41,12 +41,12 @@ describe("Run Launcher database index mode", () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole("button", { name: /Database index preview/i }))
+    fireEvent.click(screen.getByRole("button", { name: /CoRE structural-index audit/i }))
 
-    expect(screen.getAllByText(/does not run full database scoring in the browser/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/does not infer catalytic performance/i).length).toBeGreaterThan(0)
     expect(screen.queryByText(/Run full CoRE\/QMOF screening/i)).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole("button", { name: /Run database index preview/i }))
+    fireEvent.click(screen.getByRole("button", { name: /Run CoRE structural-index audit/i }))
     await act(async () => {
       vi.runAllTimers()
     })
@@ -55,6 +55,6 @@ describe("Run Launcher database index mode", () => {
     const trace = onTraceReady.mock.calls[0][0]
     expect(trace.dataMode).toBe("database_index_preview")
     expect(trace.boundaries[0].label).toMatch(/Index-level trace boundary/)
-    expect(trace.warnings.join(" ")).toMatch(/not full verified database screening/)
+    expect(trace.warnings.join(" ")).toMatch(/does not by itself validate catalytic performance/)
   })
 })

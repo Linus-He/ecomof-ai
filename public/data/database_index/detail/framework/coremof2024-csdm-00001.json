@@ -1,0 +1,54 @@
+{
+  "id": "coremof2024-csdm-00001",
+  "frameworkId": "coremof2024-csdm-00001",
+  "sourceDatabase": "CoRE MOF 2024 · CSD-modified",
+  "sourceRecordId": "2004[Co][rtl]3[ASR]1",
+  "displayName": "ABAVIJ",
+  "commonName": "ABAVIJ",
+  "csdRefcode": "ABAVIJ",
+  "coreId": "2004[Co][rtl]3[ASR]1",
+  "metals": [
+    "Co"
+  ],
+  "hasAlNode": false,
+  "topology": "rtl",
+  "surfaceArea": 0,
+  "pldA": 2.50113,
+  "lcdA": 4.439,
+  "poreVolume": 0.256931,
+  "density": 1.52492,
+  "voidFraction": 0.3918,
+  "waterStability": 0.458928571,
+  "thermalStability": 333.7,
+  "sourceDoi": "10.1039/b404485a",
+  "citation": "CoRE MOF 2024 v1.1; CSD-modified record 2004[Co][rtl]3[ASR]1; DOI 10.1039/b404485a.",
+  "license": "CC-BY-NC-SA-4.0",
+  "dataQualityStatus": "ready_for_structural_screening",
+  "descriptorCompleteness": {
+    "available": 6,
+    "total": 6,
+    "percent": 100
+  },
+  "provenanceStatus": "source_record_confirmed",
+  "detailAvailable": true,
+  "finalRecommendationEligible": false,
+  "structureVariant": "ASR",
+  "detailRef": "detail/framework/coremof2024-csdm-00001.json",
+  "descriptors": {
+    "surfaceArea": 0,
+    "pldA": 2.50113,
+    "lcdA": 4.439,
+    "poreVolume": 0.256931,
+    "density": 1.52492,
+    "voidFraction": 0.3918,
+    "waterStability": 0.458928571,
+    "thermalStability": 333.7
+  },
+  "dataQualityGate": {
+    "status": "ready_for_structural_screening",
+    "boundary": "Structural screening only; no catalytic performance or modified-route structure is inferred."
+  },
+  "dataStatus": {
+    "level": "real_core_mof_cr_index"
+  }
+}

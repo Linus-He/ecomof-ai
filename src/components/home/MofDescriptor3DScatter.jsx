@@ -1,10 +1,10 @@
 // @ts-nocheck
-// Self-contained interactive descriptor scatter from bundled CoRE/QMOF imports.
+// Self-contained interactive descriptor scatter from the active CoRE MOF 2024
+// CSD-modified CR import.
 // Desktop: drag to rotate, wheel to zoom, hover for details.
 // Mobile: keeps the same interactive 3D projection with a tighter viewport.
 import { useMemo, useRef, useState } from "react"
 import coreMofImport from "../../../public/data/data_ingestion/core_mof_import_v2.json"
-import qmofImport from "../../../public/data/data_ingestion/qmof_import_v2.json"
 import { getReadableMofLabel } from "../../utils/mofDisplayName"
 
 const TARGET_POINT_COUNT = 240
@@ -93,17 +93,14 @@ function isDarkTheme(theme) {
 }
 
 export function buildDescriptorScatterPoints(target = TARGET_POINT_COUNT) {
-  const sourceRows = [
-    ...rowsFrom(coreMofImport).map(row => ({ ...row, _sourceFamily: "CoRE MOF" })),
-    ...rowsFrom(qmofImport).map(row => ({ ...row, _sourceFamily: "QMOF" })),
-  ]
+  const sourceRows = rowsFrom(coreMofImport).map(row => ({ ...row, _sourceFamily: "CoRE MOF" }))
   const fullAxisRows = sourceRows
     .filter(row => hasNum(row.surfaceArea) && hasNum(row.poreVolume) && hasNum(row.voidFraction))
     .sort((a, b) => String(a.mofId || a.sourceRecordId).localeCompare(String(b.mofId || b.sourceRecordId)))
   return deterministicSample(fullAxisRows, target).map((row, index) => ({
     id: row.mofId || row.sourceRecordId || `mof-${index}`,
     name: getReadableMofLabel(row, "en"),
-    source: row.sourceDatabase || row._sourceFamily || "CoRE/QMOF",
+    source: row.sourceDatabase || row._sourceFamily || "CoRE MOF 2024 CR",
     sourceRecordId: row.sourceRecordId || "pending",
     metal: row.metalNode && row.metalNode !== "pending" ? row.metalNode : "unknown",
     topology: row.topology || "pending",
@@ -413,8 +410,7 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
   const points = useMemo(() => buildDescriptorScatterPoints(), [])
   if (!points.length) return null
   const zh = lang === "zh"
-  const allRows = rowsFrom(coreMofImport).length + rowsFrom(qmofImport).length
-  const qMofExcluded = rowsFrom(qmofImport).filter(row => !hasNum(row.poreVolume)).length
+  const allRows = rowsFrom(coreMofImport).length
   const darkStage = isDarkTheme(t)
   const stageExtents = {
     surfaceArea: axisExtent(points.map(point => point.surfaceArea)),
@@ -540,8 +536,8 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
           <span>{zh ? "数据来源" : "Source"}</span>
           <p>
             {zh
-              ? `${allRows} 条 CoRE/QMOF 导入记录；${points.length} 条具备完整三轴字段。${qMofExcluded ? `另有 ${qMofExcluded} 条 QMOF 记录因缺少孔体积未进入此视图。` : ""}`
-              : `${allRows} CoRE/QMOF imports; ${points.length} records have complete axes. ${qMofExcluded ? `${qMofExcluded} QMOF records lack pore volume and are excluded.` : ""}`}
+              ? `${allRows} 条真实 CoRE MOF 2024 CSD-modified CR 记录；此处使用 ${points.length} 条确定性可视化样本，且全部具备三轴字段。`
+              : `${allRows} real CoRE MOF 2024 CSD-modified CR records; this view uses a deterministic ${points.length}-record visualization sample with complete axes.`}
           </p>
           <p>
             {zh
