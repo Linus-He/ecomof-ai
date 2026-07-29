@@ -20,17 +20,42 @@ function renderTab(lang = "zh") {
 }
 
 describe("DatabaseComplianceTab", () => {
-  it("states the time-bounded compliance position, acknowledgement, and mandatory user obligations", () => {
+  it("states the evidence boundary, acknowledgement, and mandatory user obligations without self-certification", () => {
     renderTab()
     const page = screen.getByTestId("database-compliance-tab")
     expect(page).toHaveTextContent("使用与责任确认")
     expect(page).toHaveTextContent("已经阅读并理解本页所述的来源归属、许可边界与再利用责任")
     expect(page).toHaveTextContent("ecomofai@outlook.com")
-    expect(page).toHaveTextContent("不是法律意见、官方认证或永久性保证")
+    expect(page).toHaveTextContent("本页列示规则与证据，不作全面合规自我认证")
+    expect(page).toHaveTextContent("控制说明 · 非授权证书")
     expect(page).toHaveTextContent("访问本网站不等于获得任何数据库的商业许可")
     expect(page).toHaveTextContent("下载、分析、发布与再分发前必须完成的核验")
     expect(within(page).getAllByText("必须遵守")).toHaveLength(9)
     expect(page).toHaveTextContent("不得通过本网站规避 CSD 许可")
+    expect(screen.getByTestId("compliance-document-control")).toHaveTextContent("ECOMOF-DCP-001")
+    expect(screen.getByTestId("compliance-control-workflow")).toHaveTextContent("任何下载、训练、发布或再分发都必须经过六步核验")
+    expect(screen.getByTestId("compliance-ccdc-boundaries")).toHaveTextContent("CoRE-MOF unmodified CIFs / 完整付费 CSD")
+    expect(screen.getByTestId("compliance-primary-documents")).toHaveTextContent("CSD 数据能否再分发？")
+    expect(screen.getByTestId("compliance-incident-response")).toHaveTextContent("权利声明和来源争议的五步响应程序")
+    expect(page).not.toHaveTextContent(/截至\s*\d{4}/)
+  })
+
+  it("lists all applicable clauses and every authorization evidence category", () => {
+    renderTab()
+    const clauses = screen.getByTestId("compliance-applicable-clauses")
+    const credentials = screen.getByTestId("compliance-authorization-credentials")
+
+    expect(clauses).toHaveTextContent("43 条条文逐项列示")
+    expect(clauses).toHaveTextContent("CCDC-10")
+    expect(clauses).toHaveTextContent("BYNCSA-12")
+    expect(clauses).toHaveTextContent("BY-10")
+    expect(clauses).toHaveTextContent("REC-06")
+    expect(clauses).toHaveTextContent("PROJ-05")
+    expect(credentials).toHaveTextContent("公开许可凭证")
+    expect(credentials).toHaveTextContent("逐记录核验")
+    expect(credentials).toHaveTextContent("缺少覆盖性凭证 / 阻断")
+    expect(credentials).toHaveTextContent("Open MOF seed candidates")
+    expect(credentials).toHaveTextContent("项目 NOTICE")
   })
 
   it("keeps CSD, CoRE, FAIR-MOFs, and quarantined QMOF boundaries distinct", () => {
@@ -42,8 +67,9 @@ describe("DatabaseComplianceTab", () => {
     expect(page).toHaveTextContent("QMOF")
 
     fireEvent.click(within(page).getByRole("button", { name: "未公开接入" }))
-    expect(page).toHaveTextContent("QMOF")
-    expect(page).not.toHaveTextContent("CSD MOF Collection (Non-Commercial)")
+    const datasetList = screen.getByTestId("compliance-dataset-list")
+    expect(datasetList).toHaveTextContent("QMOF")
+    expect(datasetList).not.toHaveTextContent("CSD MOF Collection (Non-Commercial)")
   })
 
   it("persists the legally material source constraints in the registry", () => {
@@ -55,6 +81,10 @@ describe("DatabaseComplianceTab", () => {
     expect(core.prohibitedEn).toMatch(/unmodified CSD CIF/)
     expect(fair.licence).toBe("CC BY 4.0")
     expect(fair.projectHandlingEn).toMatch(/exact Refcode/)
-    expect(complianceRegistry.statusStatement.en).toMatch(/not legal advice|not.*permanent guarantee/i)
+    expect(complianceRegistry.statusStatement.en).toMatch(/does not self-certify/i)
+    expect(complianceRegistry.applicableClauseGroups.flatMap(group => group.clauses)).toHaveLength(43)
+    expect(complianceRegistry.authorizationCredentials).toHaveLength(10)
+    expect(complianceRegistry.authorizationCredentials.find(row => row.id === "cred-open-seed").status).toBe("blocked-no-credential")
+    expect(JSON.stringify(complianceRegistry)).not.toMatch(/termsCheckedAt|effectiveDate|截至\s*\d{4}/)
   })
 })

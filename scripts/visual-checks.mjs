@@ -25,7 +25,22 @@ const routes = [
     "CoRE MOF 2024 CR",
     "FAIR-MOFs",
     "高过拟合风险",
-    "进入数据合规",
+    "数据合规承诺",
+    "联系我们",
+  ]],
+  ["ecoscreen", "#ecoscreen", [
+    "生态筛选",
+    "01 · 目标与范围",
+    "03 · 环境与经济结果",
+    "补充工具：旧版描述符评分",
+  ]],
+  ["database-compliance", "#database-compliance", [
+    "数据合规承诺与再利用治理",
+    "ECOMOF-DCP-001",
+    "任何下载、训练、发布或再分发都必须经过六步核验",
+    "CCDC 数据必须按对象和用途分别判断",
+    "逐数据库许可与处理矩阵",
+    "ecomofai@outlook.com",
   ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",

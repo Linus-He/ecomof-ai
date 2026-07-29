@@ -50,8 +50,9 @@ describe("home module capabilities", () => {
   it("offers a GasSep quick-start entry peer to the other modules", () => {
     renderHome("zh")
     const quickStart = screen.getByTestId("home-quick-start-buttons")
-    expect(within(quickStart).getByText("进入 GasSep")).toBeInTheDocument()
-    expect(within(quickStart).getByText("进入 EcoScreen")).toBeInTheDocument()
-    expect(within(quickStart).getByText("进入数据合规")).toBeInTheDocument()
+    expect(within(quickStart).getByText("气体分离")).toBeInTheDocument()
+    expect(within(quickStart).getByText("生态筛选")).toBeInTheDocument()
+    expect(within(quickStart).getByText("数据合规承诺")).toBeInTheDocument()
+    expect(within(quickStart).getByText("联系我们")).toBeInTheDocument()
   })
 })

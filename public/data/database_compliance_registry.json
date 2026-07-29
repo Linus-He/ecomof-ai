@@ -1,14 +1,23 @@
 {
   "schemaVersion": "database-compliance-registry-v1",
-  "version": "V1.0",
-  "termsCheckedAt": "2026-07-28",
+  "version": "V1.2",
+  "documentControl": {
+    "documentId": "ECOMOF-DCP-001",
+    "natureZh": "项目级数据治理控制说明；不是 CCDC、Creative Commons、NIST、Zenodo、Figshare 或其他发布方颁发的授权证书",
+    "natureEn": "Project-level data-governance control statement; not an authorization certificate issued by CCDC, Creative Commons, NIST, Zenodo, Figshare, or another publisher",
+    "ownerZh": "EcoMOF-AI 数据治理与来源登记",
+    "ownerEn": "EcoMOF-AI data governance and source registry",
+    "reviewCycleZh": "至少每 6 个月复核一次；条款、数据版本、用途或运营模式变化时立即复核",
+    "reviewCycleEn": "Review at least every six months and immediately after changes to terms, dataset versions, intended use, or operating mode",
+    "contact": "ecomofai@outlook.com"
+  },
   "operatingMode": {
-    "zh": "EcoMOF-AI 当前按非商业开放研究网站运行。",
-    "en": "EcoMOF-AI currently operates as a non-commercial open research website."
+    "zh": "EcoMOF-AI 的公开数据使用范围限定为非商业研究；任何超出来源许可的用途均不因访问本网站而获得授权。",
+    "en": "EcoMOF-AI limits public data use to non-commercial research; access to this website does not authorize any use beyond the source terms."
   },
   "statusStatement": {
-    "zh": "截至 2026-07-28，当前公开接入的数据均已通过本项目的来源、许可、署名、变更说明与再分发边界检查。本结论仅针对下列版本和当前使用方式，不是法律意见、官方认证或永久性保证；条款或使用场景变化时必须重新复核。",
-    "en": "As of 2026-07-28, every currently published ingestion has passed this project's checks for source, licence, attribution, change notices, and redistribution boundaries. This statement is limited to the versions and uses listed below; it is not legal advice, official certification, or a permanent guarantee. Terms and changed use cases must be reviewed again."
+    "zh": "本文件只登记适用条文、凭证、缺口与停止条件，不作“已经全面合规”或“已获统一授权”的自我认证。公开许可只覆盖其明确指定的数据对象和使用范围；逐记录许可未知、机构协议缺失或商业用途未获书面许可时，相关使用必须停止。",
+    "en": "This document records applicable clauses, evidence, gaps, and stop conditions; it does not self-certify comprehensive compliance or blanket authorization. A public licence covers only the identified material and stated scope. Use must stop when record-level terms are unknown, an institutional agreement is missing, or commercial use lacks written permission."
   },
   "accessBoundary": {
     "zh": "访问本网站不等于获得任何数据库的商业许可、再许可或超出原许可的权利。每个数据对象继续受其来源许可、合同条款、论文版权及其他适用权利约束。",
@@ -18,6 +27,998 @@
     "zh": "本页是项目级合规说明与使用提示，不替代律师意见、机构许可审查或 CCDC/数据发布方的书面确认。",
     "en": "This page is a project compliance statement and use notice. It does not replace legal advice, institutional licence review, or written confirmation from CCDC or another data publisher."
   },
+  "controlWorkflow": [
+    {
+      "id": "identify-source",
+      "titleZh": "识别来源对象",
+      "titleEn": "Identify the source object",
+      "bodyZh": "确认具体记录、字段、CIF、等温线或文献事实来自哪个数据库，并保留数据库名、记录标识、版本和原始链接。",
+      "bodyEn": "Identify the database behind the specific record, field, CIF, isotherm, or literature fact, preserving database name, record identifier, version, and original link."
+    },
+    {
+      "id": "classify-use",
+      "titleZh": "界定拟议用途",
+      "titleEn": "Classify the intended use",
+      "bodyZh": "区分站内浏览、非商业研究、论文发表、模型训练、再分发、客户交付、收费产品和学术—商业联合项目；用途不同，授权边界可能不同。",
+      "bodyEn": "Distinguish site browsing, non-commercial research, publication, model training, redistribution, client delivery, paid products, and academic-commercial joint projects; permission boundaries can differ by use."
+    },
+    {
+      "id": "read-terms",
+      "titleZh": "阅读原始条款",
+      "titleEn": "Read the source terms",
+      "bodyZh": "同时核对数据集页面、许可正文、附加下载条款、机构协议和记录级来源；不得只依据 EcoMOF-AI 的摘要作判断。",
+      "bodyEn": "Check the dataset page, licence text, additional download terms, institutional agreement, and record-level source together; do not rely on the EcoMOF-AI summary alone."
+    },
+    {
+      "id": "apply-controls",
+      "titleZh": "执行限制与署名",
+      "titleEn": "Apply restrictions and attribution",
+      "bodyZh": "落实非商业、相同方式共享、禁止规避许可、禁止误示背书、署名、许可链接和修改说明等要求。",
+      "bodyEn": "Apply non-commercial, share-alike, no-circumvention, no-endorsement, attribution, licence-link, and change-notice requirements."
+    },
+    {
+      "id": "approve-release",
+      "titleZh": "发布与导出前复核",
+      "titleEn": "Review before release or export",
+      "bodyZh": "在公开下载、批量导出、对外共享、模型发布或商业使用前，确认是否需要 CCDC、数据发布方、所属机构或其他权利人的书面许可。",
+      "bodyEn": "Before public download, bulk export, external sharing, model release, or commercial use, determine whether written permission is required from CCDC, the publisher, the institution, or another rightsholder."
+    },
+    {
+      "id": "retain-record",
+      "titleZh": "保留审计记录",
+      "titleEn": "Retain an audit record",
+      "bodyZh": "记录核验日期、适用版本、使用目的、责任人、原文链接、修改说明和最终决定；条款或用途变化后重新进入核验流程。",
+      "bodyEn": "Record review date, applicable version, purpose, responsible person, original links, changes, and final decision; restart review when terms or use change."
+    }
+  ],
+  "ccdcDecisionRules": [
+    {
+      "id": "mof-public",
+      "objectZh": "CSD MOF Collection（非商业版）",
+      "objectEn": "CSD MOF Collection (Non-Commercial)",
+      "ruleZh": "CCDC 下载页将其标为 CC BY-NC-SA 4.0；仅在许可允许的非商业范围内使用，保留署名、许可链接和修改说明。商业公司或商业用途需要另行取得许可。",
+      "ruleEn": "The CCDC download page identifies it as CC BY-NC-SA 4.0. Use only within the licence's non-commercial scope and preserve attribution, the licence link, and change notices. Commercial companies or uses require separate licensing.",
+      "decisionZh": "当前站点：允许非商业研究接入；商业输出保持阻断。",
+      "decisionEn": "Current site decision: ingest for non-commercial research; block commercial outputs."
+    },
+    {
+      "id": "core-modified",
+      "objectZh": "CoRE-MOF modified CIFs",
+      "objectEn": "CoRE-MOF modified CIFs",
+      "ruleZh": "CCDC 下载页将 modified CIFs 标为 CC BY-NC-SA 4.0，并要求下载者同时接受 CCDC 标准许可协议；不得把该开放范围扩张为完整 CSD 的开放许可。",
+      "ruleEn": "The CCDC download page identifies modified CIFs as CC BY-NC-SA 4.0 and also requires acceptance of the CCDC standard licence agreement. Do not extend this scope into an open licence for the full CSD.",
+      "decisionZh": "当前站点：仅接入 CSD-modified CR 子集，并披露索引与派生处理。",
+      "decisionEn": "Current site decision: ingest only the CSD-modified CR subset and disclose indexing and derivation."
+    },
+    {
+      "id": "core-unmodified",
+      "objectZh": "CoRE-MOF unmodified CIFs / 完整付费 CSD",
+      "objectEn": "CoRE-MOF unmodified CIFs / full paid CSD",
+      "ruleZh": "CCDC 明确要求有效 CSD 许可；其再分发 FAQ 说明付费 CSD 原始数据不得向组织外批量共享，派生数据或模型的外部共享可能需要另行确认。",
+      "ruleEn": "CCDC expressly requires a valid CSD licence. Its redistribution FAQ states that original paid-CSD data must not be shared in bulk outside the organisation, and external sharing of derived data or models may require separate confirmation.",
+      "decisionZh": "当前站点：不接入、不发布、不提供下载，也不帮助用户规避 CSD 许可。",
+      "decisionEn": "Current site decision: do not ingest, publish, or offer downloads, and do not facilitate licence circumvention."
+    },
+    {
+      "id": "joint-commercial",
+      "objectZh": "学术—商业联合项目与商业化计划",
+      "objectEn": "Academic-commercial joint projects and commercialization",
+      "ruleZh": "CCDC Conditions of Use 提示：涉及 CSD Portfolio 的派生软件/数据对外分发，以及学术机构与营利机构联合使用，可能需要 CCDC 事先书面批准；应以实际机构协议和 CCDC 书面答复为准。",
+      "ruleEn": "CCDC Conditions of Use indicate that distribution of software/data derived from the CSD Portfolio and joint academic-for-profit use may require prior written CCDC approval. The actual institutional agreement and written CCDC response control.",
+      "decisionZh": "当前站点：用途一旦涉及客户、收费、商业公司或产品化，先停止相关再利用并取得书面确认。",
+      "decisionEn": "Current site decision: when a use involves clients, fees, commercial entities, or productization, stop the affected reuse and obtain written confirmation first."
+    }
+  ],
+  "applicableClauseGroups": [
+    {
+      "id": "ccdc-object-and-contract",
+      "titleZh": "CCDC：数据对象、机构协议与再分发边界",
+      "titleEn": "CCDC: data objects, institutional agreements, and redistribution",
+      "scopeZh": "适用于 CSD MOF Collection、CoRE-MOF modified/unmodified CIF、完整付费 CSD，以及利用 CSD Portfolio 形成的派生软件、数据或模型。",
+      "scopeEn": "Applies to the CSD MOF Collection, CoRE-MOF modified/unmodified CIFs, the full paid CSD, and software, data, or models derived using the CSD Portfolio.",
+      "clauses": [
+        {
+          "id": "CCDC-01",
+          "section": "CCDC Downloads · CSD MOF Collection",
+          "titleZh": "公开非商业集合的授权对象",
+          "titleEn": "Licensed object for the public non-commercial collection",
+          "bodyZh": "CCDC 下载页仅将 CSD MOF Collection（Non-Commercial）这一特定集合标为 CC BY-NC-SA 4.0；不得据此推断完整 CSD、商业版集合或其他 CCDC 数据也采用同一开放许可。",
+          "bodyEn": "The CCDC downloads page applies CC BY-NC-SA 4.0 to the specific CSD MOF Collection (Non-Commercial). This does not place the full CSD, commercial collection, or other CCDC data under the same public licence.",
+          "sourceDocumentId": "ccdc-downloads"
+        },
+        {
+          "id": "CCDC-02",
+          "section": "CCDC Downloads · CoRE-MOF modified CIFs",
+          "titleZh": "modified CIF 的独立许可边界",
+          "titleEn": "Separate licence boundary for modified CIFs",
+          "bodyZh": "CoRE-MOF modified CIFs 在 CCDC 下载页被单独标为 CC BY-NC-SA 4.0，并同时指向 CCDC 标准许可协议；授权只覆盖下载项明确指定的 modified CIF。",
+          "bodyEn": "CCDC lists CoRE-MOF modified CIFs separately under CC BY-NC-SA 4.0 and also points to its standard licence agreement. The grant covers only the modified CIF download item identified there.",
+          "sourceDocumentId": "ccdc-downloads"
+        },
+        {
+          "id": "CCDC-03",
+          "section": "CCDC Downloads · CoRE-MOF unmodified CIFs",
+          "titleZh": "unmodified CIF 需要有效 CSD 许可",
+          "titleEn": "Unmodified CIFs require a valid CSD licence",
+          "bodyZh": "CoRE-MOF unmodified CIFs 不是公开许可数据；下载需要有效 CSD 许可及 CCDC 提供的访问凭据，项目不得以 modified 数据的许可替代该要求。",
+          "bodyEn": "CoRE-MOF unmodified CIFs are not public-licence data. Download requires a valid CSD licence and CCDC access credentials; the licence for modified data cannot substitute for that requirement.",
+          "sourceDocumentId": "ccdc-downloads"
+        },
+        {
+          "id": "CCDC-04",
+          "section": "Redistribution FAQ",
+          "titleZh": "付费 CSD 原始数据不得向组织外批量共享",
+          "titleEn": "No external bulk sharing of original paid-CSD data",
+          "bodyZh": "付费 CSD 许可可支持搜索、查看、计算和模型训练，但不允许向组织外提供原始 CSD 数据的批量副本，例如公开批量 CIF。",
+          "bodyEn": "A paid CSD licence can support search, viewing, calculations, and model training, but does not permit bulk copies of original CSD data, such as bulk CIFs, to be shared outside the organisation.",
+          "sourceDocumentId": "ccdc-redistribution"
+        },
+        {
+          "id": "CCDC-05",
+          "section": "Redistribution FAQ",
+          "titleZh": "派生数据或模型对外共享需要另行确认",
+          "titleEn": "External sharing of derived data or models requires confirmation",
+          "bodyZh": "拟对外共享由付费 CSD 形成的派生数据或模型时，不能自行认定允许；应向 CCDC 确认现有机构协议是否覆盖，或是否需要单独协议。",
+          "bodyEn": "External sharing of data or models derived from the paid CSD must not be assumed permitted. CCDC should confirm whether the institutional agreement covers the use or a separate agreement is required.",
+          "sourceDocumentId": "ccdc-redistribution"
+        },
+        {
+          "id": "CCDC-06",
+          "section": "Conditions of Use",
+          "titleZh": "指定机构、地点与期限",
+          "titleEn": "Specified organisation, location, and term",
+          "bodyZh": "CSD Portfolio 组件受机构协议约束，通常限于指定组织、指定地点和许可期限；个人访问权限不能当然转移给其他组织或公共网站。",
+          "bodyEn": "CSD Portfolio components are governed by institutional agreements and are generally limited to a specified organisation, location, and licence term. Individual access cannot automatically be transferred to another organisation or public website.",
+          "sourceDocumentId": "ccdc-conditions"
+        },
+        {
+          "id": "CCDC-07",
+          "section": "Conditions of Use",
+          "titleZh": "保密与第三方再分发限制",
+          "titleEn": "Confidentiality and third-party redistribution",
+          "bodyZh": "属于 CSD Portfolio 的组件应按适用协议保密，不得以全部或部分形式向第三方披露或再分发；单独供应且另有许可的组件以其专门许可为准。",
+          "bodyEn": "Components within the CSD Portfolio are confidential under the applicable agreement and must not be disclosed or redistributed, in whole or part, to third parties. A separately supplied component is controlled by its separate licence.",
+          "sourceDocumentId": "ccdc-conditions"
+        },
+        {
+          "id": "CCDC-08",
+          "section": "Conditions of Use",
+          "titleZh": "派生软件或数据分发的事先书面批准",
+          "titleEn": "Prior written approval for distributing derived software or data",
+          "bodyZh": "利用 CSD Portfolio 开发或派生的软件、数据如需分发，应先取得 CCDC 书面批准；项目内部的技术处理记录不是该批准的替代物。",
+          "bodyEn": "Software or data developed from or derived using the CSD Portfolio requires prior written CCDC approval before distribution. An internal project processing record is not a substitute for that approval.",
+          "sourceDocumentId": "ccdc-conditions"
+        },
+        {
+          "id": "CCDC-09",
+          "section": "Conditions of Use",
+          "titleZh": "学术—营利联合项目的事先批准",
+          "titleEn": "Prior approval for academic-for-profit joint projects",
+          "bodyZh": "学术机构与营利机构联合使用 CSD Portfolio 时，需要按 CCDC Conditions of Use 取得事先书面批准，并核对双方机构协议。",
+          "bodyEn": "Joint academic-for-profit use of the CSD Portfolio requires prior written approval under the CCDC Conditions of Use and review of both organisations' agreements.",
+          "sourceDocumentId": "ccdc-conditions"
+        },
+        {
+          "id": "CCDC-10",
+          "section": "Conditions of Use",
+          "titleZh": "科研发表、引用与免责声明",
+          "titleEn": "Scientific publication, citation, and disclaimer",
+          "bodyZh": "在机构协议允许的科研范围内可以发表结果，但须按协议附表和 CCDC 网站作适当引用；CCDC 对组件不作保证并在法律允许范围内限制责任。",
+          "bodyEn": "Scientific results may be published where the institutional agreement permits, with the citation required by the agreement schedule and CCDC website. CCDC provides no warranties and limits liability to the extent permitted by law.",
+          "sourceDocumentId": "ccdc-conditions"
+        }
+      ]
+    },
+    {
+      "id": "cc-by-nc-sa-4",
+      "titleZh": "CC BY-NC-SA 4.0：全部适用控制条文",
+      "titleEn": "CC BY-NC-SA 4.0: all applicable control clauses",
+      "scopeZh": "适用于 CSD MOF Collection（Non-Commercial）和 CCDC 分发的 CoRE-MOF modified CIFs；以下为控制性释义，法律文本原文优先。",
+      "scopeEn": "Applies to the CSD MOF Collection (Non-Commercial) and CCDC-distributed CoRE-MOF modified CIFs. These are control-oriented summaries; the legal code prevails.",
+      "clauses": [
+        {
+          "id": "BYNCSA-01",
+          "section": "Section 2(a)(1)",
+          "titleZh": "授权范围与非商业目的",
+          "titleEn": "Licence grant and NonCommercial purpose",
+          "bodyZh": "在遵守许可条件的前提下，可以在全球范围、免版税、非独占且不可再许可地复制、分享和制作改编材料，但只能用于非商业目的。",
+          "bodyEn": "Subject to the licence conditions, the material may be reproduced, shared, and adapted worldwide, royalty-free, non-exclusively, and without sublicensing, but only for NonCommercial purposes.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-02",
+          "section": "Section 2(a)(2)-(4)",
+          "titleZh": "例外、期限、媒介与必要技术修改",
+          "titleEn": "Exceptions, term, media, and necessary technical modifications",
+          "bodyZh": "适用法定例外时无需依赖许可；许可期限受第 6 节约束；可在各种媒介和格式中使用并作行使许可所必要的技术修改，单纯技术修改不当然构成改编材料。",
+          "bodyEn": "Statutory exceptions do not require reliance on the licence. The term is governed by Section 6. Use in all media and formats and necessary technical modifications are allowed, and technical modifications alone do not necessarily create Adapted Material.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-03",
+          "section": "Section 2(a)(5)",
+          "titleZh": "下游接收者自动获得许可要约",
+          "titleEn": "Automatic downstream licence offer",
+          "bodyZh": "每名接收者直接从许可人获得按本许可使用原材料的要约；改编材料的接收者同时获得按适用改编许可使用贡献部分的要约。",
+          "bodyEn": "Each recipient automatically receives the licensor's offer to use the original material under this licence, and recipients of Adapted Material receive the applicable offer for the adapter's contributions.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-04",
+          "section": "Section 2(a)(5)(C)",
+          "titleZh": "不得附加限制或技术措施",
+          "titleEn": "No additional restrictions or technological measures",
+          "bodyZh": "不得向下游施加会限制其行使许可权利的额外或不同条款，也不得施加产生同等限制的有效技术措施。",
+          "bodyEn": "No additional or different terms, or effective technological measures, may be imposed where they restrict downstream exercise of the licensed rights.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-05",
+          "section": "Section 2(a)(6)",
+          "titleZh": "不得暗示背书或官方地位",
+          "titleEn": "No endorsement or official-status implication",
+          "bodyZh": "许可不允许声称或暗示使用者、使用行为或项目与许可人有关联、获得赞助、获得背书或被授予官方地位。",
+          "bodyEn": "The licence does not permit claims or implications that the user, use, or project is connected with, sponsored by, endorsed by, or granted official status by the licensor.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-06",
+          "section": "Section 2(b)",
+          "titleZh": "未授予的其他权利",
+          "titleEn": "Other rights not granted",
+          "bodyZh": "人格权、隐私权、公开权、专利权和商标权不因 CC 许可而当然授予；许可只覆盖许可人有权授予的版权及类似权利。",
+          "bodyEn": "Moral, privacy, publicity, patent, and trademark rights are not automatically granted. The licence covers only copyright and similar rights the licensor has authority to license.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-07",
+          "section": "Section 3(a)",
+          "titleZh": "完整署名与权利声明",
+          "titleEn": "Complete attribution and rights notices",
+          "bodyZh": "分享时应在发布方提供的范围内保留创作者及指定署名主体、版权声明、许可声明、免责声明提示和来源 URI/超链接，并以媒介和场景下合理的方式呈现。",
+          "bodyEn": "When sharing, retain supplied creator and designated attribution information, copyright notice, licence notice, warranty disclaimer notice, and source URI or hyperlink in a manner reasonable for the medium and context.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-08",
+          "section": "Section 3(a)",
+          "titleZh": "修改说明、既有修改与署名移除请求",
+          "titleEn": "Change indications, prior modifications, and attribution removal",
+          "bodyZh": "必须说明是否修改并保留先前修改标记；许可链接或全文必须可得；许可人提出合理请求时，应在可行范围内移除指定署名信息。",
+          "bodyEn": "Indicate modifications and retain prior modification notices; provide the licence text or link; and, when reasonably requested by the licensor, remove designated attribution information where practicable.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-09",
+          "section": "Section 3(b)",
+          "titleZh": "改编材料必须相同方式共享",
+          "titleEn": "Adapted Material must be ShareAlike",
+          "bodyZh": "公开分享改编材料时，贡献部分必须采用本许可、其后续版本或 Creative Commons 认可的兼容许可；不得选择阻止接收者遵守原许可的改编许可。",
+          "bodyEn": "When Adapted Material is shared, the adapter's contributions must use this licence, a later version, or a Creative Commons compatible licence, and the adapter's licence must not prevent compliance with the original licence.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-10",
+          "section": "Section 4",
+          "titleZh": "数据库权利与实质性内容",
+          "titleEn": "Database rights and substantial contents",
+          "bodyZh": "许可覆盖适用的特殊数据库权利；抽取、再利用或分享全部或实质性部分时仍需履行署名等条件；将实质性内容置入新数据库可能使新数据库本身构成改编材料。",
+          "bodyEn": "Where sui generis database rights apply, extraction, reuse, or sharing of all or a substantial portion remains subject to attribution conditions, and a new database containing substantial contents may itself be Adapted Material.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-11",
+          "section": "Section 5",
+          "titleZh": "按现状提供、无保证与责任限制",
+          "titleEn": "As-is provision, no warranties, and liability limits",
+          "bodyZh": "许可材料原则上按现状和可用状态提供，不保证权属、适销性、特定用途适用性、不侵权、准确性或无错误；责任在适用法允许范围内受到限制。",
+          "bodyEn": "Licensed material is generally provided as-is and as-available, without warranties of title, merchantability, fitness, non-infringement, accuracy, or absence of errors, with liability limited to the extent allowed by law.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        },
+        {
+          "id": "BYNCSA-12",
+          "section": "Sections 6-8",
+          "titleZh": "期限、自动终止、恢复与其他条款",
+          "titleEn": "Term, automatic termination, reinstatement, and other terms",
+          "bodyZh": "许可在相关权利期限内有效，但违反条件会自动终止；发现违反后 30 日内补救可自动恢复，或由许可人明确恢复。额外协议独立存在，条款不可默示放弃，可分割解释。",
+          "bodyEn": "The licence lasts for the relevant rights term but terminates automatically upon breach. Rights can reinstate automatically if cured within 30 days of discovery or expressly by the licensor. Separate agreements remain independent; waiver is not implied and provisions are interpreted severably.",
+          "sourceDocumentId": "cc-by-nc-sa"
+        }
+      ]
+    },
+    {
+      "id": "cc-by-4",
+      "titleZh": "CC BY 4.0：全部适用控制条文",
+      "titleEn": "CC BY 4.0: all applicable control clauses",
+      "scopeZh": "适用于 FAIR-MOFs 与 QMOF 发布页明确标注为 CC BY 4.0 的材料；只覆盖发布者有权许可的权利。",
+      "scopeEn": "Applies to materials identified as CC BY 4.0 on the FAIR-MOFs and QMOF publication pages, and only to rights the publisher has authority to license.",
+      "clauses": [
+        {
+          "id": "BY-01",
+          "section": "Section 2(a)(1)",
+          "titleZh": "复制、分享与改编授权",
+          "titleEn": "Permission to reproduce, share, and adapt",
+          "bodyZh": "在遵守许可条件的前提下，可在全球范围、免版税、非独占且不可再许可地复制、分享和制作改编材料；CC BY 4.0 本身不附带 NC 或 SA 条件。",
+          "bodyEn": "Subject to the licence conditions, material may be reproduced, shared, and adapted worldwide, royalty-free, non-exclusively, and without sublicensing. CC BY 4.0 itself does not impose NC or SA conditions.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-02",
+          "section": "Section 2(a)(2)-(4)",
+          "titleZh": "例外、期限、媒介与技术修改",
+          "titleEn": "Exceptions, term, media, and technical modifications",
+          "bodyZh": "法定例外不受许可约束；许可期限受第 6 节约束；可在各种媒介中使用并作行使许可所必要的技术修改，单纯技术修改不当然构成改编。",
+          "bodyEn": "Statutory exceptions are outside the licence; the term is governed by Section 6; use in all media and necessary technical modifications are allowed, and technical changes alone do not necessarily create an adaptation.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-03",
+          "section": "Section 2(a)(5)",
+          "titleZh": "下游许可要约与禁止附加限制",
+          "titleEn": "Downstream offer and no additional restrictions",
+          "bodyZh": "下游接收者直接获得原许可要约；不得施加限制许可权利的额外条款或有效技术措施。",
+          "bodyEn": "Downstream recipients receive the original licence offer directly, and no additional terms or effective technological measures may restrict the licensed rights.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-04",
+          "section": "Section 2(a)(6)",
+          "titleZh": "不得暗示背书",
+          "titleEn": "No endorsement",
+          "bodyZh": "不得声称或暗示许可人、创作者或署名主体与使用者存在关联，或对使用行为给予赞助、背书或官方地位。",
+          "bodyEn": "Do not claim or imply connection, sponsorship, endorsement, or official status from the licensor, creator, or attribution parties.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-05",
+          "section": "Section 2(b)",
+          "titleZh": "其他权利保留",
+          "titleEn": "Reservation of other rights",
+          "bodyZh": "人格、隐私、公开、专利和商标权并未当然授予；第三方内容、论文图表、商标或个人信息仍需单独核验。",
+          "bodyEn": "Moral, privacy, publicity, patent, and trademark rights are not automatically granted. Third-party content, article figures, trademarks, or personal information still require separate review.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-06",
+          "section": "Section 3(a)",
+          "titleZh": "署名要素与许可链接",
+          "titleEn": "Attribution elements and licence link",
+          "bodyZh": "分享时须保留发布方提供的创作者与指定署名、版权声明、许可和免责声明提示、来源 URI，并附许可全文或链接。",
+          "bodyEn": "When sharing, retain supplied creator and designated attribution, copyright notice, licence and disclaimer notices, source URI, and the licence text or link.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-07",
+          "section": "Section 3(a)",
+          "titleZh": "修改标记与署名移除",
+          "titleEn": "Modification notices and attribution removal",
+          "bodyZh": "说明是否修改并保留既有修改记录；发布方合理要求移除指定署名信息时，应在可行范围内处理；改编许可不得阻止接收者遵守 CC BY。",
+          "bodyEn": "Indicate modifications and retain prior change notices; honor reasonable requests to remove designated attribution where practicable; and do not apply an adapter's licence that prevents CC BY compliance.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-08",
+          "section": "Section 4",
+          "titleZh": "特殊数据库权利",
+          "titleEn": "Sui generis database rights",
+          "bodyZh": "在适用特殊数据库权利的地区，可抽取和分享全部或实质性内容，但分享实质性内容时仍须履行署名等条件；新数据库本身可能构成改编材料。",
+          "bodyEn": "Where sui generis database rights apply, all or a substantial portion may be extracted and shared subject to attribution, and a new database containing substantial contents may itself be Adapted Material.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-09",
+          "section": "Section 5",
+          "titleZh": "无保证与责任限制",
+          "titleEn": "No warranties and limitation of liability",
+          "bodyZh": "材料按现状和可用状态提供，准确性、完整性、适用性和不侵权等不获保证；损失责任在法律允许范围内受限。",
+          "bodyEn": "Material is provided as-is and as-available without warranties of accuracy, completeness, fitness, or non-infringement, and liability is limited to the extent permitted by law.",
+          "sourceDocumentId": "cc-by"
+        },
+        {
+          "id": "BY-10",
+          "section": "Sections 6-8",
+          "titleZh": "终止、恢复、独立协议与解释",
+          "titleEn": "Termination, reinstatement, separate agreements, and interpretation",
+          "bodyZh": "违反条件会自动终止；发现后 30 日内补救可自动恢复，或由许可人明确恢复。另行约定独立存在，不因沉默而放弃条款，部分无效不影响其他条款。",
+          "bodyEn": "Breach causes automatic termination; cure within 30 days of discovery can reinstate rights, or the licensor may expressly reinstate them. Separate arrangements remain independent, waiver is not implied, and severability applies.",
+          "sourceDocumentId": "cc-by"
+        }
+      ]
+    },
+    {
+      "id": "record-publication-and-nist",
+      "titleZh": "NIST、文献与逐记录权利边界",
+      "titleEn": "NIST, literature, and record-level rights boundaries",
+      "scopeZh": "适用于 NIST/ARPA-E ISODB 记录、关联论文、DOI、人工整理事实以及没有覆盖性数据集许可的来源。",
+      "scopeEn": "Applies to NIST/ARPA-E ISODB records, linked articles, DOIs, manually curated facts, and sources without a blanket dataset licence.",
+      "clauses": [
+        {
+          "id": "REC-01",
+          "section": "NIST database notice",
+          "titleZh": "NIST 数据库声明不是覆盖性再许可",
+          "titleEn": "The NIST database notice is not a blanket relicence",
+          "bodyZh": "NIST 页面说明数据库由其汇编并提供免责声明，但未在页面上向本项目授予覆盖所有记录、论文内容和再分发行为的统一开放许可；因此按记录保留来源并限制为事实性字段。",
+          "bodyEn": "NIST states that it compiled the database and provides disclaimers, but the page does not grant this project a blanket open licence covering every record, article content, and redistribution use. Keep per-record sources and limit use to factual fields.",
+          "sourceDocumentId": "nist-isodb"
+        },
+        {
+          "id": "REC-02",
+          "section": "NIST database notice",
+          "titleZh": "质量、错误与不背书声明",
+          "titleEn": "Quality, error, and no-endorsement notice",
+          "bodyZh": "NIST 尽力提供高质量副本，但不保证无错误或遗漏；页面提及商业设备、材料或链接不表示 NIST 推荐或背书。",
+          "bodyEn": "NIST uses best efforts to provide a high-quality copy but does not warrant absence of errors or omissions. References to commercial equipment, materials, or links do not imply NIST recommendation or endorsement.",
+          "sourceDocumentId": "nist-isodb"
+        },
+        {
+          "id": "REC-03",
+          "section": "Record-level provenance control",
+          "titleZh": "数据库记录与关联论文分开核验",
+          "titleEn": "Review database records and linked articles separately",
+          "bodyZh": "数据库中的数值、元数据和论文链接不意味着论文正文、图表、补充材料或出版商版本可被复制；需要逐项识别事实字段与受版权保护表达。",
+          "bodyEn": "Values, metadata, and article links in a database do not make article text, figures, supplements, or publisher versions freely copyable. Factual fields and protected expression must be distinguished record by record.",
+          "sourceDocumentId": "nist-isodb"
+        },
+        {
+          "id": "REC-04",
+          "section": "Citation and DOI control",
+          "titleZh": "DOI 和引用不是授权凭证",
+          "titleEn": "A DOI or citation is not authorization evidence",
+          "bodyZh": "DOI、文献引用和可公开访问状态只证明来源定位，不自动证明复制、全文挖掘、再分发、模型训练或商业使用获得许可。",
+          "bodyEn": "A DOI, citation, or public accessibility establishes source location but does not automatically authorize copying, full-text mining, redistribution, model training, or commercial use.",
+          "sourceDocumentId": "nist-isodb"
+        },
+        {
+          "id": "REC-05",
+          "section": "Missing-terms control",
+          "titleZh": "许可未知或 pending 时停止公开复用",
+          "titleEn": "Stop public reuse when terms are unknown or pending",
+          "bodyZh": "来源登记为 unknown、pending、restricted 或缺少逐记录凭证时，不得将其作为已授权开放数据对外导出、再分发或用于权利敏感的训练与商业用途。",
+          "bodyEn": "When the registry says unknown, pending, restricted, or lacks per-record evidence, do not present the material as authorized open data or use it for public export, redistribution, rights-sensitive training, or commercial purposes.",
+          "sourceDocumentId": "nist-isodb"
+        },
+        {
+          "id": "REC-06",
+          "section": "Publisher and institutional controls",
+          "titleZh": "出版商、机构和第三方权利继续适用",
+          "titleEn": "Publisher, institutional, and third-party rights continue to apply",
+          "bodyZh": "出版商条款、机构订阅协议、第三方版权、数据库权、专利、商标、隐私和保密义务不因录入来源登记而消失；冲突时应停止并取得权利人或机构确认。",
+          "bodyEn": "Publisher terms, institutional subscriptions, third-party copyright, database rights, patents, trademarks, privacy, and confidentiality obligations are not displaced by a source-registry entry. Stop and obtain rightsholder or institutional confirmation when conflicts arise.",
+          "sourceDocumentId": "nist-isodb"
+        }
+      ]
+    },
+    {
+      "id": "project-software-and-evidence",
+      "titleZh": "项目软件、派生结果与凭证真实性",
+      "titleEn": "Project software, derived outputs, and evidence authenticity",
+      "scopeZh": "用于防止把 EcoMOF-AI 的软件许可、来源登记、NOTICE 或内部审核记录误认为第三方数据授权。",
+      "scopeEn": "Prevents the EcoMOF-AI software licence, source registry, NOTICE files, or internal reviews from being mistaken for third-party data authorization.",
+      "clauses": [
+        {
+          "id": "PROJ-01",
+          "section": "Repository LICENSE",
+          "titleZh": "MIT 只许可项目软件",
+          "titleEn": "MIT licenses project software only",
+          "bodyZh": "仓库根目录 MIT License 适用于项目自有软件代码，不会把 CCDC、NIST、Zenodo、Figshare、论文出版商或其他第三方数据重新许可为 MIT。",
+          "bodyEn": "The repository's MIT License applies to project-owned software code and does not relicence CCDC, NIST, Zenodo, Figshare, publisher, or other third-party data under MIT.",
+          "sourceDocumentId": "project-mit"
+        },
+        {
+          "id": "PROJ-02",
+          "section": "Source registry",
+          "titleZh": "来源登记是审计记录，不是授权书",
+          "titleEn": "The source registry is an audit record, not a licence grant",
+          "bodyZh": "登记来源、许可标签、DOI、哈希和处理方式只证明项目记录了这些信息；它不代表发布方认可项目判断，也不产生原许可之外的权利。",
+          "bodyEn": "Recording source, licence labels, DOI, hashes, and handling shows what the project documented. It does not mean the publisher approved the project's interpretation or grant rights beyond the source terms.",
+          "sourceDocumentId": "project-mit"
+        },
+        {
+          "id": "PROJ-03",
+          "section": "Generated NOTICE and LICENSE-DATA",
+          "titleZh": "项目生成的 NOTICE 不是 CCDC 凭证",
+          "titleEn": "Project-generated NOTICE files are not CCDC credentials",
+          "bodyZh": "构建脚本生成的 NOTICE.md、LICENSE-DATA.md 和数据包 README 用于向下游传递来源与许可信息，属于项目制作的合规工件，不是 CCDC 出具的证书、批文或个别授权。",
+          "bodyEn": "NOTICE.md, LICENSE-DATA.md, and dataset README files produced by build scripts pass source and licence information downstream. They are project-generated compliance artifacts, not CCDC-issued certificates, approvals, or individual permissions.",
+          "sourceDocumentId": "ccdc-downloads"
+        },
+        {
+          "id": "PROJ-04",
+          "section": "Derived-output control",
+          "titleZh": "派生分数不当然脱离来源权利",
+          "titleEn": "Derived scores do not automatically escape source rights",
+          "bodyZh": "规范化字段、匹配结果、评分、排名、模型参数和可视化即使由项目计算，也可能继续受到来源合同、数据库权或再分发边界影响，必须按输入来源和拟议用途核验。",
+          "bodyEn": "Normalized fields, matches, scores, rankings, model parameters, and visualizations may remain affected by source contracts, database rights, or redistribution limits even when project-computed. Review the inputs and intended use.",
+          "sourceDocumentId": "ccdc-redistribution"
+        },
+        {
+          "id": "PROJ-05",
+          "section": "Authorization-evidence control",
+          "titleZh": "只有发布方或权利人材料可作为外部授权凭证",
+          "titleEn": "Only publisher or rightsholder materials are external authorization evidence",
+          "bodyZh": "公开许可页面、法律文本、机构协议、发布方书面答复或权利人出具的许可才可证明外部授权。项目自述、测试通过、文件日期、提交记录或界面标签均不能替代这些凭证。",
+          "bodyEn": "External authorization can be evidenced by a public licence page, legal code, institutional agreement, publisher's written response, or rightsholder permission. Project statements, passing tests, document dates, commits, or UI labels cannot substitute for that evidence.",
+          "sourceDocumentId": "ccdc-standard-agreement"
+        }
+      ]
+    }
+  ],
+  "authorizationCredentials": [
+    {
+      "id": "cred-csd-mof-public",
+      "sourceZh": "CSD MOF Collection（Non-Commercial）",
+      "sourceEn": "CSD MOF Collection (Non-Commercial)",
+      "status": "public-licence",
+      "statusZh": "公开许可凭证存在",
+      "statusEn": "Public-licence evidence available",
+      "authorizationZh": "CCDC 官方下载页将该特定集合标为 CC BY-NC-SA 4.0；只支持许可定义下的非商业使用，不构成商业许可。",
+      "authorizationEn": "The official CCDC downloads page identifies this specific collection as CC BY-NC-SA 4.0. It supports only NonCommercial use within that licence and is not a commercial licence.",
+      "limitationZh": "没有发现 CCDC 向 EcoMOF-AI 出具的个别授权证书；所依据的是面向公众的下载条款。15,906 条索引/CIF 在独立数据仓库中与应用代码分发；本仓库试点 manifest 仍标记需认证下载，不能把同名 CoRE/QMOF 结构冒充该集合成员。",
+      "limitationEn": "No individual CCDC authorization certificate issued to EcoMOF-AI is recorded; the evidence is the public download terms. The 15,906-entry index/CIF package is distributed separately from the app code. This repository's pilot manifest still requires authenticated download and does not permit same-name CoRE/QMOF structures to be presented as collection members.",
+      "evidence": [
+        {
+          "kindZh": "发布方许可页面",
+          "kindEn": "Publisher licence page",
+          "label": "CCDC Downloads · CSD MOF Collection (Non-Commercial)",
+          "url": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads?Legacy=False"
+        },
+        {
+          "kindZh": "许可法律文本",
+          "kindEn": "Licence legal code",
+          "label": "CC BY-NC-SA 4.0",
+          "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en"
+        },
+        {
+          "kindZh": "独立数据仓库",
+          "kindEn": "Separate data repository",
+          "label": "Linus-He/ecomof-csd-mof-data",
+          "url": "https://github.com/Linus-He/ecomof-csd-mof-data"
+        },
+        {
+          "kindZh": "仓库内分发边界说明",
+          "kindEn": "Repository distribution boundary",
+          "label": "README.md · CSD Structure Atlas",
+          "localPath": "README.md"
+        },
+        {
+          "kindZh": "项目生成凭证逻辑",
+          "kindEn": "Project-generated notice logic",
+          "label": "scripts/build-csd-mof-public-dataset.mjs · NOTICE.md / LICENSE-DATA.md",
+          "localPath": "scripts/build-csd-mof-public-dataset.mjs"
+        },
+        {
+          "kindZh": "仓库内状态证据",
+          "kindEn": "Repository status evidence",
+          "label": "public/data/csd_structure_pilot_manifest.json",
+          "localPath": "public/data/csd_structure_pilot_manifest.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-core-modified",
+      "sourceZh": "CoRE MOF 2024 · CSD-modified CR",
+      "sourceEn": "CoRE MOF 2024 · CSD-modified CR",
+      "status": "public-licence",
+      "statusZh": "公开许可与来源凭证存在",
+      "statusEn": "Public licence and source evidence available",
+      "authorizationZh": "CCDC 下载项把 modified CIF 标为 CC BY-NC-SA 4.0；项目仅登记并接入 9,835 条 CSD-modified CR 记录。",
+      "authorizationEn": "CCDC lists the modified CIF download under CC BY-NC-SA 4.0. The project registers and ingests only the 9,835 CSD-modified CR records.",
+      "limitationZh": "该凭证不覆盖 unmodified CIF、完整付费 CSD 或商业用途；CCDC 下载项还引用标准许可协议，实际机构协议优先。",
+      "limitationEn": "This evidence does not cover unmodified CIFs, the full paid CSD, or commercial use. The CCDC download item also references the standard agreement, and the actual institutional agreement prevails.",
+      "evidence": [
+        {
+          "kindZh": "发布方许可页面",
+          "kindEn": "Publisher licence page",
+          "label": "CCDC Downloads · CoRE-MOF modified CIFs",
+          "url": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads?Legacy=False"
+        },
+        {
+          "kindZh": "数据集记录",
+          "kindEn": "Dataset record",
+          "label": "Zenodo 10.5281/zenodo.15055758",
+          "url": "https://zenodo.org/records/15055758"
+        },
+        {
+          "kindZh": "仓库内来源登记",
+          "kindEn": "Repository source registry",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-CORE-MOF-2024-CSD-MODIFIED-CR",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        },
+        {
+          "kindZh": "仓库内数据清单",
+          "kindEn": "Repository dataset manifest",
+          "label": "public/data/database_index/manifest.json",
+          "localPath": "public/data/database_index/manifest.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-csd-restricted",
+      "sourceZh": "CoRE-MOF unmodified CIF / 完整付费 CSD",
+      "sourceEn": "CoRE-MOF unmodified CIFs / full paid CSD",
+      "status": "blocked-no-credential",
+      "statusZh": "本项目无覆盖性授权凭证，保持阻断",
+      "statusEn": "No project-wide authorization evidence; blocked",
+      "authorizationZh": "CCDC 要求有效 CSD 机构许可；当前仓库没有可证明 EcoMOF-AI 有权公开再分发这些原始数据的机构协议或 CCDC 个别书面批准。",
+      "authorizationEn": "CCDC requires a valid institutional CSD licence. This repository contains no agreement or individual written CCDC approval showing that EcoMOF-AI may publicly redistribute this original data.",
+      "limitationZh": "不得接入公开数据层、公开批量 CIF、对外打包或以 modified 集合的 CC 许可替代。派生数据/模型外发与学术—商业联合项目也需另行确认。",
+      "limitationEn": "Do not ingest into the public layer, publish bulk CIFs, package externally, or substitute the modified collection's CC licence. External derived-data/model sharing and academic-commercial projects also require separate confirmation.",
+      "evidence": [
+        {
+          "kindZh": "限制原文",
+          "kindEn": "Restriction source",
+          "label": "CCDC Downloads · CoRE-MOF unmodified CIFs",
+          "url": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads?Legacy=False"
+        },
+        {
+          "kindZh": "再分发规则",
+          "kindEn": "Redistribution rule",
+          "label": "CCDC · Can I redistribute data from the CSD?",
+          "url": "https://support.ccdc.cam.ac.uk/support/solutions/articles/103000339607-can-i-redistribute-data-from-the-csd-"
+        }
+      ]
+    },
+    {
+      "id": "cred-fair-mofs",
+      "sourceZh": "FAIR-MOFs",
+      "sourceEn": "FAIR-MOFs",
+      "status": "public-licence",
+      "statusZh": "公开许可与文件校验凭证存在",
+      "statusEn": "Public licence and file-verification evidence available",
+      "authorizationZh": "Zenodo 数据集记录将 FAIR-MOFs 标为 CC BY 4.0，并公布 DOI、文件清单与校验值；项目接入选择的 JSON 事实字段。",
+      "authorizationEn": "The Zenodo dataset record identifies FAIR-MOFs as CC BY 4.0 and publishes its DOI, file list, and checksums. The project ingests selected factual JSON fields.",
+      "limitationZh": "项目未复制 FAIR CIF 归档；精确 Refcode、base variant 和 article-only 映射分开处理。CC BY 不覆盖发布者无权许可的第三方权利。",
+      "limitationEn": "The project does not copy the FAIR CIF archives, and keeps exact Refcode, base-variant, and article-only mappings separate. CC BY does not cover third-party rights the publisher lacks authority to license.",
+      "evidence": [
+        {
+          "kindZh": "数据集与许可记录",
+          "kindEn": "Dataset and licence record",
+          "label": "Zenodo 10.5281/zenodo.13254307 · CC BY 4.0",
+          "url": "https://zenodo.org/records/13254307"
+        },
+        {
+          "kindZh": "许可法律文本",
+          "kindEn": "Licence legal code",
+          "label": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/legalcode.en"
+        },
+        {
+          "kindZh": "仓库内来源登记",
+          "kindEn": "Repository source registry",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-FAIR-MOFS-V1",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-qmof",
+      "sourceZh": "QMOF",
+      "sourceEn": "QMOF",
+      "status": "documented-quarantined",
+      "statusZh": "公开许可凭证存在，但数据保持隔离",
+      "statusEn": "Public licence evidence available, but data remains quarantined",
+      "authorizationZh": "Figshare QMOF 数据集记录标注 CC BY 4.0。",
+      "authorizationEn": "The Figshare QMOF dataset record is marked CC BY 4.0.",
+      "limitationZh": "原有 1,240 条记录是缺少逐行 QMOF 身份的随机占位符，已排除；授权标签不能修复数据身份与溯源缺陷，因此公开有效记录为 0。",
+      "limitationEn": "The former 1,240 rows were random placeholders without row-level QMOF identity and are excluded. A licence label cannot cure identity and provenance defects, so the active public count is zero.",
+      "evidence": [
+        {
+          "kindZh": "数据集与许可记录",
+          "kindEn": "Dataset and licence record",
+          "label": "Figshare QMOF Database · CC BY 4.0",
+          "url": "https://figshare.com/articles/dataset/QMOF_Database/13147324"
+        },
+        {
+          "kindZh": "仓库内隔离记录",
+          "kindEn": "Repository quarantine record",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-QMOF",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        },
+        {
+          "kindZh": "仓库内数据清单",
+          "kindEn": "Repository dataset manifest",
+          "label": "public/data/database_index/manifest.json · active 0",
+          "localPath": "public/data/database_index/manifest.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-nist-isodb",
+      "sourceZh": "NIST/ARPA-E ISODB 与逐记录吸附来源",
+      "sourceEn": "NIST/ARPA-E ISODB and record-level adsorption sources",
+      "status": "record-level",
+      "statusZh": "无覆盖性开放许可，逐记录核验",
+      "statusEn": "No blanket open licence; record-level review",
+      "authorizationZh": "NIST 官方页面可证明数据库发布方、数据库用途说明和免责声明；每条等温线还保留 sourceDatabase、sourceUrl、license/citation 等来源字段。",
+      "authorizationEn": "The official NIST page evidences the database publisher, purpose, and disclaimer. Each isotherm also retains sourceDatabase, sourceUrl, licence/citation, and other provenance fields.",
+      "limitationZh": "NIST 页面未向本项目提供覆盖关联论文、全部记录和再分发的统一开放许可。不存在逐记录许可证据时，只能保留事实性来源登记，不得复制论文表达或宣称统一授权。",
+      "limitationEn": "The NIST page does not grant this project a blanket open licence covering linked articles, every record, and redistribution. Without per-record licence evidence, retain factual provenance only and do not copy article expression or claim blanket authorization.",
+      "evidence": [
+        {
+          "kindZh": "发布方数据库声明",
+          "kindEn": "Publisher database notice",
+          "label": "NIST Data Resources for Adsorption Science and Technology",
+          "url": "https://adsorption.nist.gov/"
+        },
+        {
+          "kindZh": "仓库内逐字段来源",
+          "kindEn": "Repository field-level provenance",
+          "label": "public/data/gas_adsorption_field_sources_v1.json",
+          "localPath": "public/data/gas_adsorption_field_sources_v1.json"
+        },
+        {
+          "kindZh": "仓库内记录",
+          "kindEn": "Repository records",
+          "label": "public/data/gas_adsorption_records_v2.json",
+          "localPath": "public/data/gas_adsorption_records_v2.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-real-seed-literature",
+      "sourceZh": "真实种子与文献 DOI 记录",
+      "sourceEn": "Real-seed and literature DOI records",
+      "status": "record-level",
+      "statusZh": "仅有逐记录来源线索，不是覆盖性授权",
+      "statusEn": "Record-level source leads only; no blanket authorization",
+      "authorizationZh": "11 条真实种子保留逐记录 DOI；这可以证明来源定位，但不能替代出版商许可。",
+      "authorizationEn": "Eleven real-seed records retain per-record DOIs. This supports source identification but does not replace publisher permission.",
+      "limitationZh": "不得把 DOI、题录或公开摘要解释为论文全文、图表、补充材料、实验标签或商业使用的授权凭证。",
+      "limitationEn": "Do not interpret a DOI, citation, or public abstract as permission for article full text, figures, supplements, experimental labels, or commercial use.",
+      "evidence": [
+        {
+          "kindZh": "仓库内逐记录来源",
+          "kindEn": "Repository record-level provenance",
+          "label": "public/data/mof_candidates_real_seed.json",
+          "localPath": "public/data/mof_candidates_real_seed.json"
+        },
+        {
+          "kindZh": "仓库内来源登记",
+          "kindEn": "Repository source registry",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-REAL-SEED",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-open-seed",
+      "sourceZh": "Open MOF seed candidates",
+      "sourceEn": "Open MOF seed candidates",
+      "status": "blocked-no-credential",
+      "statusZh": "许可 unknown，缺口未解决",
+      "statusEn": "Licence unknown; unresolved gap",
+      "authorizationZh": "当前来源登记没有可证明 50 条结构种子统一授权范围的许可凭证。",
+      "authorizationEn": "The current source registry contains no licence evidence establishing a common authorization scope for the 50 structural seed records.",
+      "limitationZh": "不得把名称中的 Open 解释为开放许可；逐记录 DOI/许可确认前，阻断对外导出、再分发、权利敏感训练与商业用途。",
+      "limitationEn": "The word Open in the name is not an open licence. Block external export, redistribution, rights-sensitive training, and commercial use until per-record DOI/licence review is complete.",
+      "evidence": [
+        {
+          "kindZh": "仓库内缺口记录",
+          "kindEn": "Repository gap record",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-OPEN-SEED · license unknown",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-organic-acid",
+      "sourceZh": "Organic Acid 文献、证据与实验记录",
+      "sourceEn": "Organic Acid literature, evidence, and experiment records",
+      "status": "blocked-no-credential",
+      "statusZh": "许可 pending，按演示/证据线索处理",
+      "statusEn": "Licence pending; handled as demonstration/evidence leads",
+      "authorizationZh": "来源登记保留记录文件、证据等级和已知来源，但没有覆盖这些记录的统一许可凭证。",
+      "authorizationEn": "The source registry preserves record files, evidence tiers, and known sources, but has no blanket licence evidence covering these records.",
+      "limitationZh": "缺少 DOI 或许可确认的记录不得冒充已核验实验标签或开放数据；不能复制受版权保护的论文表达、图表或补充材料。",
+      "limitationEn": "Records without confirmed DOI or licence evidence must not be presented as verified experimental labels or open data, and protected article expression, figures, or supplements must not be copied.",
+      "evidence": [
+        {
+          "kindZh": "仓库内缺口记录",
+          "kindEn": "Repository gap record",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-OA-LITERATURE / SRC-OA-EVIDENCE / SRC-OA-EXPERIMENT",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        }
+      ]
+    },
+    {
+      "id": "cred-project-generated",
+      "sourceZh": "项目自有软件、专家记录与合成演示数据",
+      "sourceEn": "Project-owned software, expert notes, and synthetic demonstration data",
+      "status": "project-origin",
+      "statusZh": "项目来源证据存在，必须与第三方数据分开",
+      "statusEn": "Project-origin evidence available; keep separate from third-party data",
+      "authorizationZh": "软件代码受仓库 MIT License 约束；专家评审和 syntheticFixture 由项目内部生成并在来源登记中标记。",
+      "authorizationEn": "Software code is governed by the repository MIT License. Expert review and syntheticFixture records are project-generated and labelled in the source registry.",
+      "limitationZh": "MIT 不重新许可第三方数据；专家意见不是实验测量，合成夹具不是 ground truth，也不能用项目 NOTICE 冒充发布方授权。",
+      "limitationEn": "MIT does not relicence third-party data. Expert opinion is not an experimental measurement, synthetic fixtures are not ground truth, and project NOTICE files are not publisher authorization.",
+      "evidence": [
+        {
+          "kindZh": "软件许可",
+          "kindEn": "Software licence",
+          "label": "LICENSE · MIT",
+          "localPath": "LICENSE"
+        },
+        {
+          "kindZh": "项目引用元数据",
+          "kindEn": "Project citation metadata",
+          "label": "CITATION.cff",
+          "localPath": "CITATION.cff"
+        },
+        {
+          "kindZh": "来源与合成标记",
+          "kindEn": "Source and synthetic labels",
+          "label": "public/data/data_ingestion/source_registry.json · SRC-EXPERT-REVIEW / SRC-SYNTHETIC-FIXTURE",
+          "localPath": "public/data/data_ingestion/source_registry.json"
+        }
+      ]
+    }
+  ],
+  "officialDocuments": [
+    {
+      "id": "ccdc-redistribution",
+      "publisher": "CCDC",
+      "titleZh": "CSD 数据能否再分发？",
+      "titleEn": "Can I redistribute CSD data?",
+      "url": "https://support.ccdc.cam.ac.uk/support/solutions/articles/103000339607-can-i-redistribute-data-from-the-csd-",
+      "scopeZh": "原始 CSD 数据、派生数据/模型、CSD MOF Collection 与商业使用边界",
+      "scopeEn": "Original CSD data, derived data/models, CSD MOF Collection, and commercial-use boundaries"
+    },
+    {
+      "id": "ccdc-downloads",
+      "publisher": "CCDC",
+      "titleZh": "CCDC 官方下载与逐项附加条款",
+      "titleEn": "CCDC downloads and item-specific additional terms",
+      "url": "https://www.ccdc.cam.ac.uk/support-and-resources/downloads",
+      "scopeZh": "CSD MOF Collection、CoRE-MOF modified/unmodified CIF 的许可与访问条件",
+      "scopeEn": "Licence and access conditions for the CSD MOF Collection and CoRE-MOF modified/unmodified CIFs"
+    },
+    {
+      "id": "ccdc-standard-agreement",
+      "publisher": "CCDC",
+      "titleZh": "CCDC 标准许可协议",
+      "titleEn": "CCDC standard licence agreement",
+      "url": "https://www.ccdc.cam.ac.uk/licence-agreement/",
+      "scopeZh": "CCDC 下载页引用的标准协议入口；实际机构协议可能具有优先效力",
+      "scopeEn": "Standard agreement referenced by CCDC downloads; the actual institutional agreement may prevail"
+    },
+    {
+      "id": "ccdc-conditions",
+      "publisher": "CCDC",
+      "titleZh": "CSD Portfolio Conditions of Use",
+      "titleEn": "CSD Portfolio Conditions of Use",
+      "url": "https://downloads.ccdc.cam.ac.uk/documentation/API/conditions_of_use.html",
+      "scopeZh": "许可地点/期限、保密、再分发、派生软件或数据、联合项目、引用与免责声明",
+      "scopeEn": "Licence location/term, confidentiality, redistribution, derived software or data, joint projects, citation, and disclaimers"
+    },
+    {
+      "id": "cc-by-nc-sa",
+      "publisher": "Creative Commons",
+      "titleZh": "CC BY-NC-SA 4.0 法律文本",
+      "titleEn": "CC BY-NC-SA 4.0 legal code",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en",
+      "scopeZh": "署名、非商业、相同方式共享、不得附加限制及其他许可条件",
+      "scopeEn": "Attribution, non-commercial use, share alike, no additional restrictions, and other licence conditions"
+    },
+    {
+      "id": "cc-by",
+      "publisher": "Creative Commons",
+      "titleZh": "CC BY 4.0 法律文本",
+      "titleEn": "CC BY 4.0 legal code",
+      "url": "https://creativecommons.org/licenses/by/4.0/legalcode.en",
+      "scopeZh": "FAIR-MOFs/QMOF 等来源适用的署名、许可链接、修改说明与不得误示背书",
+      "scopeEn": "Attribution, licence link, change indication, and no-endorsement terms relevant to sources such as FAIR-MOFs/QMOF"
+    },
+    {
+      "id": "fair-mofs-record",
+      "publisher": "Zenodo",
+      "titleZh": "FAIR-MOFs 原始数据集记录",
+      "titleEn": "FAIR-MOFs source dataset record",
+      "url": "https://zenodo.org/records/13254307",
+      "scopeZh": "发布者、文件、版本、DOI 与数据集许可",
+      "scopeEn": "Publisher, files, version, DOI, and dataset licence"
+    },
+    {
+      "id": "core-mof-record",
+      "publisher": "Zenodo",
+      "titleZh": "CoRE MOF 2024 数据集记录",
+      "titleEn": "CoRE MOF 2024 dataset record",
+      "url": "https://zenodo.org/records/15055758",
+      "scopeZh": "数据集版本、DOI、作者与 CSD-modified 数据来源定位",
+      "scopeEn": "Dataset version, DOI, authors, and source location for CSD-modified data"
+    },
+    {
+      "id": "qmof-record",
+      "publisher": "Figshare",
+      "titleZh": "QMOF 数据集记录",
+      "titleEn": "QMOF dataset record",
+      "url": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
+      "scopeZh": "数据集版本、作者、引用与 CC BY 4.0 许可标记",
+      "scopeEn": "Dataset version, author, citation, and CC BY 4.0 licence label"
+    },
+    {
+      "id": "nist-isodb",
+      "publisher": "NIST",
+      "titleZh": "NIST/ARPA-E 吸附等温线数据库",
+      "titleEn": "NIST/ARPA-E Database of Novel and Emerging Adsorbent Materials",
+      "url": "https://adsorption.nist.gov/isodb/",
+      "scopeZh": "吸附等温线数据库入口；具体记录仍需核对其关联来源与条款",
+      "scopeEn": "Adsorption-isotherm database entry point; each linked record and source still requires review"
+    },
+    {
+      "id": "project-mit",
+      "publisher": "EcoMOF-AI",
+      "titleZh": "项目软件 MIT License",
+      "titleEn": "Project software MIT License",
+      "url": "https://opensource.org/license/mit",
+      "scopeZh": "仅说明项目自有软件代码许可；不重新许可第三方数据库或论文内容",
+      "scopeEn": "Covers project-owned software code only; it does not relicence third-party databases or article content"
+    }
+  ],
+  "incidentResponse": [
+    {
+      "id": "receive",
+      "zh": "接收权利声明、错误报告或移除请求，并记录提交人、受影响记录、来源链接和问题类型。",
+      "en": "Receive the rights notice, error report, or removal request and record the reporter, affected record, source link, and issue type."
+    },
+    {
+      "id": "contain",
+      "zh": "对存在合理争议的记录先暂停展示、计算、下载和对外导出，防止问题继续扩散。",
+      "en": "Temporarily suspend display, computation, download, and external export for reasonably disputed records to contain the issue."
+    },
+    {
+      "id": "verify",
+      "zh": "核对来源文件、许可版本、字段级溯源、身份映射、修改记录与实际使用方式；必要时联系发布方或专业顾问。",
+      "en": "Verify source files, licence version, field provenance, identity mapping, change history, and actual use; contact the publisher or qualified adviser where needed."
+    },
+    {
+      "id": "decide",
+      "zh": "形成恢复、更正、限制、替换或永久移除决定，并记录理由、证据、责任人与日期。",
+      "en": "Decide whether to restore, correct, restrict, replace, or permanently remove the record, documenting reasons, evidence, owner, and date."
+    },
+    {
+      "id": "notify",
+      "zh": "在联系方式可用且适当时向请求方反馈处理结果；同步更新来源登记、条款复核记录和相关导出说明。",
+      "en": "Where contact details are available and appropriate, notify the requester of the outcome and update the source registry, terms-review record, and affected export notices."
+    }
+  ],
+  "definitions": [
+    {
+      "termZh": "原始数据",
+      "termEn": "Source data",
+      "definitionZh": "由第三方发布方提供的 CIF、表格、等温线、文本、元数据或其他数据对象。",
+      "definitionEn": "CIFs, tables, isotherms, text, metadata, or other data objects supplied by a third-party publisher."
+    },
+    {
+      "termZh": "重组索引",
+      "termEn": "Reorganized index",
+      "definitionZh": "为检索、映射或分页而重新组织的记录清单；不等于获得原始数据的再许可。",
+      "definitionEn": "A record list reorganized for search, mapping, or pagination; it does not relicence source data."
+    },
+    {
+      "termZh": "派生结果",
+      "termEn": "Derived result",
+      "definitionZh": "由规范化、聚合、计算、文本挖掘、匹配或模型产生的值；仍可能受到来源权利与合同边界影响。",
+      "definitionEn": "A value produced through normalization, aggregation, calculation, text mining, matching, or modelling; source rights and contractual boundaries may still apply."
+    },
+    {
+      "termZh": "再分发",
+      "termEn": "Redistribution",
+      "definitionZh": "向第三方提供数据副本、批量导出、档案、镜像、打包数据或其他可替代原始访问的内容。",
+      "definitionEn": "Providing third parties with copies, bulk exports, archives, mirrors, packaged datasets, or other material that can substitute for source access."
+    },
+    {
+      "termZh": "商业用途",
+      "termEn": "Commercial use",
+      "definitionZh": "是否构成商业用途应以适用许可、机构协议和权利人解释为准；客户交付、收费产品、商业模型或营利机构联合项目均必须触发额外审查。",
+      "definitionEn": "Commercial-use status is controlled by the applicable licence, institutional agreement, and rightsholder interpretation. Client delivery, paid products, commercial models, and for-profit joint projects all trigger additional review."
+    },
+    {
+      "termZh": "来源登记",
+      "termEn": "Source registry",
+      "definitionZh": "记录来源、版本、许可、允许范围、限制、本站处理方式、链接和复核日期的审计表。",
+      "definitionEn": "An audit record of source, version, licence, permitted scope, restrictions, site handling, links, and review date."
+    }
+  ],
   "platformCommitments": [
     {
       "id": "scope",

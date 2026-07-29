@@ -11,17 +11,17 @@ function response(data) {
   return { ok: true, json: async () => data }
 }
 
-function renderHome(setActiveTab = vi.fn()) {
+function renderHome(setActiveTab = vi.fn(), onContactOpen = vi.fn()) {
   render(
     <ThemeCtx.Provider value={THEME_LIGHT}>
       <LangCtx.Provider value={{ lang: "zh", copy: COPY.zh, setLang: vi.fn() }}>
         <ViewportCtx.Provider value={{ isMobile: false, isNarrow: false }}>
-          <HomeTab setActiveTab={setActiveTab} />
+          <HomeTab setActiveTab={setActiveTab} onContactOpen={onContactOpen} />
         </ViewportCtx.Provider>
       </LangCtx.Provider>
     </ThemeCtx.Provider>,
   )
-  return setActiveTab
+  return { setActiveTab, onContactOpen }
 }
 
 beforeEach(() => {
@@ -44,15 +44,14 @@ afterEach(() => {
 
 describe("home quick start", () => {
   it("offers direct entry points to the expected workspaces", () => {
-    const setActiveTab = renderHome()
+    const { setActiveTab, onContactOpen } = renderHome()
     const buttons = screen.getByTestId("home-quick-start-buttons")
 
     const expected = [
-      ["进入 EcoScreen", "#ecoscreen", "ecoscreen"],
-      ["进入 GasSep", "#gassep", "gassep"],
-      ["进入 Organic Acid", "#catalysis-organic-acid", "catalysisLab"],
-      ["进入 MOF Library", "#library", "mofLibrary"],
-      ["进入验证中心", "#methodology-algorithm-validation", "about"],
+      ["生态筛选", "#ecoscreen", "ecoscreen"],
+      ["气体分离", "#gassep", "gassep"],
+      ["催化", "#catalysis", "catalysisLab"],
+      ["数据合规承诺", "#database-compliance", "dataCompliance"],
     ]
 
     for (const [label, hash, target] of expected) {
@@ -62,5 +61,24 @@ describe("home quick start", () => {
       expect(setActiveTab).toHaveBeenLastCalledWith(target)
       expect(window.location.hash).toBe(hash)
     }
+
+    const contact = within(buttons).getByRole("button", { name: "联系我们" })
+    expect(contact).toHaveAttribute("data-hash", "#contact")
+    fireEvent.click(contact)
+    expect(onContactOpen).toHaveBeenCalledWith(true)
+    expect(setActiveTab).toHaveBeenCalledTimes(expected.length)
+  })
+
+  it("keeps the primary entry group in the requested three-over-two order", () => {
+    renderHome()
+    const entryGrid = screen.getByTestId("home-primary-entry-grid")
+    expect(entryGrid).toHaveClass("home-primary-entry-grid")
+    expect(within(entryGrid).getAllByRole("button").map(button => button.textContent)).toEqual([
+      "生态筛选",
+      "气体分离",
+      "催化",
+      "数据合规承诺",
+      "联系我们",
+    ])
   })
 })

@@ -22,6 +22,7 @@ function methodLabel(id) {
 function buildMethodComparison({ candidates, matrixResult, descriptors, manualWeights, hybridAlpha, missingValueStrategy, evidenceMode, options, performancePriorityMode }) {
   const algorithms = ["manual", "equal", "critic", "hybrid"]
   const rankingsByAlgorithm = {}
+  const rankingLookupByAlgorithm = {}
   const warnings = []
   algorithms.forEach(algorithm => {
     try {
@@ -51,16 +52,19 @@ function buildMethodComparison({ candidates, matrixResult, descriptors, manualWe
       warnings.push(`${methodLabel(algorithm)} comparison failed; rank column was omitted.`)
       rankingsByAlgorithm[algorithm] = []
     }
+    rankingLookupByAlgorithm[algorithm] = new Map(
+      rankingsByAlgorithm[algorithm].map(row => [row.id, row]),
+    )
   })
   const idSet = new Set()
   Object.values(rankingsByAlgorithm).forEach(rows => rows.forEach(row => idSet.add(row.id)))
   const rows = Array.from(idSet).map(id => {
     const ranks = Object.fromEntries(algorithms.map(algorithm => {
-      const row = rankingsByAlgorithm[algorithm].find(item => item.id === id)
+      const row = rankingLookupByAlgorithm[algorithm].get(id)
       return [algorithm, row?.rank || null]
     }))
     const numericRanks = Object.values(ranks).filter(Number.isFinite)
-    const base = rankingsByAlgorithm.hybrid.find(item => item.id === id) || rankingsByAlgorithm.critic.find(item => item.id === id)
+    const base = rankingLookupByAlgorithm.hybrid.get(id) || rankingLookupByAlgorithm.critic.get(id)
     return {
       id,
       name: base?.name || id,
@@ -78,6 +82,7 @@ function buildMethodComparison({ candidates, matrixResult, descriptors, manualWe
 
 function buildPriorityModeComparison({ candidates, matrixResult, descriptors, weights, missingValueStrategy, evidenceMode }) {
   const rankingsByMode = {}
+  const rankingLookupByMode = {}
   PERFORMANCE_PRIORITY_MODES.forEach(mode => {
     const priorityWeights = applyPerformancePriorityToWeights(weights, descriptors, mode.id)
     const scored = scoreCandidates({
@@ -90,15 +95,16 @@ function buildPriorityModeComparison({ candidates, matrixResult, descriptors, we
       performancePriorityMode: mode.id,
     })
     rankingsByMode[mode.id] = rankCandidates(scored)
+    rankingLookupByMode[mode.id] = new Map(rankingsByMode[mode.id].map(row => [row.id, row]))
   })
   const ids = new Set()
   Object.values(rankingsByMode).forEach(rows => rows.forEach(row => ids.add(row.id)))
   const rows = Array.from(ids).map(id => {
     const ranks = Object.fromEntries(PERFORMANCE_PRIORITY_MODES.map(mode => {
-      const row = rankingsByMode[mode.id].find(item => item.id === id)
+      const row = rankingLookupByMode[mode.id].get(id)
       return [mode.id, row?.rank || null]
     }))
-    const base = rankingsByMode.balanced.find(item => item.id === id) || rankingsByMode.performance_first.find(item => item.id === id)
+    const base = rankingLookupByMode.balanced.get(id) || rankingLookupByMode.performance_first.get(id)
     const numericRanks = Object.values(ranks).filter(Number.isFinite)
     return {
       id,

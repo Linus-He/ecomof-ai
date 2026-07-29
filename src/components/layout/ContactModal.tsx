@@ -5,7 +5,7 @@ import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
 
 const ENDPOINT = "https://formspree.io/f/mnjwnojy"
-const FALLBACK_EMAIL = "square.hwh@gmail.com"
+const FALLBACK_EMAIL = "ecomofai@outlook.com"
 const DATA_INTAKE_TEMPLATE = `{
   "recordId": "",
   "sourceStatus": "public-literature | collaborator-private | anonymized-demo | pending-review | schema-only",

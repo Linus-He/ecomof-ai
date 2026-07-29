@@ -60,8 +60,19 @@ function renderEcoScreen(lang = "en") {
 }
 
 describe("EcoScreen V3.1 reaction filters", () => {
+  it("does not mount the calculation-heavy legacy workbench until it is requested", async () => {
+    renderEcoScreen()
+    expect(screen.queryByTestId("ecoscreen-reaction-filter")).not.toBeInTheDocument()
+    expect(screen.getByTestId("ecoscreen-legacy-tools")).not.toHaveAttribute("open")
+
+    fireEvent.click(screen.getByText(/Supplement: legacy descriptor scoring/))
+    await waitFor(() => expect(screen.getByTestId("ecoscreen-reaction-filter")).toBeInTheDocument())
+    expect(screen.getByTestId("ecoscreen-legacy-tools")).toHaveAttribute("open")
+  })
+
   it("renders reaction filter controls and filters to reaction-backed candidates", async () => {
     renderEcoScreen()
+    fireEvent.click(screen.getByText(/Supplement: legacy descriptor scoring/))
     await waitFor(() => expect(screen.getByTestId("ecoscreen-reaction-filter")).toBeInTheDocument())
     expect(screen.getByTestId("reaction-filter-hasYield")).toBeInTheDocument()
     expect(screen.getByTestId("reaction-filter-hasSelectivity")).toBeInTheDocument()
@@ -78,6 +89,7 @@ describe("EcoScreen V3.1 reaction filters", () => {
 
   it("shows the literature-bounded EcoScreen workbench in natural Chinese", async () => {
     renderEcoScreen("zh")
+    fireEvent.click(screen.getByText(/补充工具：旧版描述符评分/))
     await waitFor(() => expect(screen.getByTestId("ecoscreen-literature-workbench")).toBeInTheDocument())
     const text = document.body.textContent || ""
     expect(text).toMatch(/研究任务与证据覆盖/)

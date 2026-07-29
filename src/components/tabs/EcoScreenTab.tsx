@@ -67,6 +67,12 @@ function buildTraceModelFromScoringModel(scoringModel) {
   }
 }
 
+function deterministicCompatibilitySample(rows = [], limit = 96) {
+  if (!Array.isArray(rows) || rows.length <= limit) return Array.isArray(rows) ? rows : []
+  const step = (rows.length - 1) / (limit - 1)
+  return Array.from({ length: limit }, (_, index) => rows[Math.round(index * step)])
+}
+
 function labelStatus(status, lang) {
   if (!status) return "—"
   return lang === "zh" ? status.zh : status.label
@@ -1416,6 +1422,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
     status: generalStatus,
     mode: globalCandidateMode,
   } = useMofCandidates(DEFAULT_CANDIDATE_DATA_MODE)
+  const compatibilityRows = useMemo(() => deterministicCompatibilitySample(generalRows), [generalRows])
   useEffect(() => {
     let active = true
     Promise.all([
@@ -1452,8 +1459,8 @@ function LegacyEcoScreenTab({ onNavigate }) {
     return () => { active = false }
   }, [])
   const filteredGeneralRows = useMemo(
-    () => applyReactionFilters(generalRows, reactionRows, benchmarkRows, reactionFilters, { experimental: experimentalLabelRows, externalTest: externalTestRows, verified: experimentalLabelRows }),
-    [generalRows, reactionRows, benchmarkRows, reactionFilters, experimentalLabelRows, externalTestRows],
+    () => applyReactionFilters(compatibilityRows, reactionRows, benchmarkRows, reactionFilters, { experimental: experimentalLabelRows, externalTest: externalTestRows, verified: experimentalLabelRows }),
+    [compatibilityRows, reactionRows, benchmarkRows, reactionFilters, experimentalLabelRows, externalTestRows],
   )
   const model = useMemo(
     () => buildCriticScoringModel(filteredGeneralRows, weightingMode),
@@ -1471,13 +1478,13 @@ function LegacyEcoScreenTab({ onNavigate }) {
   }), [filteredGeneralRows, performancePriorityMode])
   const generalTraceModel = useMemo(() => buildTraceModelFromScoringModel(generalScoringModel), [generalScoringModel])
   const ecoScreenEvidence = useMemo(() => buildEcoScreenEvidenceModel({
-    candidates: generalRows,
+    candidates: compatibilityRows,
     filteredCandidates: filteredGeneralRows,
     reactionRows,
     benchmarkRows,
     experimentalLabelRows,
     metalCostRows,
-  }), [generalRows, filteredGeneralRows, reactionRows, benchmarkRows, experimentalLabelRows, metalCostRows])
+  }), [compatibilityRows, filteredGeneralRows, reactionRows, benchmarkRows, experimentalLabelRows, metalCostRows])
   const ecoRequirementModel = useMemo(() => buildEcoScreenRequirementModel({
     requirementsData: ecoRequirements,
     filteredCandidates: filteredGeneralRows,
@@ -1544,8 +1551,8 @@ function LegacyEcoScreenTab({ onNavigate }) {
         <span style={{ color: t.faint }}>·</span>
         <span>
           {lang === "zh"
-            ? `CoRE 2024 CR · 已加载 ${generalRows.length} 条真实结构记录 · 当前筛选 ${filteredGeneralRows.length} 条`
-            : `CoRE 2024 CR · ${generalRows.length} real structure rows loaded · ${filteredGeneralRows.length} filtered`}
+            ? `CoRE 2024 CR · 主库 ${generalRows.length} 条 · 兼容视图采用 ${compatibilityRows.length} 条确定性样本 · 当前筛选 ${filteredGeneralRows.length} 条`
+            : `CoRE 2024 CR · ${generalRows.length} source rows · ${compatibilityRows.length} deterministic compatibility sample · ${filteredGeneralRows.length} filtered`}
         </span>
         <span style={{ color: t.faint }}>·</span>
         <span>
@@ -1555,7 +1562,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
         </span>
       </div>
 
-      <DataQualityAuditPanel records={generalRows} lang={lang} t={t} isMobile={isMobile} />
+      <DataQualityAuditPanel records={compatibilityRows} lang={lang} t={t} isMobile={isMobile} />
 
       <DataQualitySummary lang={lang} t={t} isMobile={isMobile} />
 
@@ -1581,7 +1588,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
         filters={reactionFilters}
         onChange={(key, checked) => setReactionFilters(current => ({ ...current, [key]: checked }))}
         count={filteredGeneralRows.length}
-        total={generalRows.length}
+        total={compatibilityRows.length}
         lang={lang}
         t={t}
         isMobile={isMobile}
@@ -1680,7 +1687,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
       {scoringMode === "general" && (
         <>
           <GlobalScoringWorkbench
-            candidates={generalRows}
+            candidates={compatibilityRows}
             dataMode={globalCandidateMode}
             lang={lang}
             t={t}
@@ -1801,6 +1808,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
 export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
   const t = useT()
   const { lang } = useLang()
+  const [legacyToolsOpen, setLegacyToolsOpen] = useState(false)
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <EcoLcaWorkbench
@@ -1813,6 +1821,8 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
       />
       <details
         data-testid="ecoscreen-legacy-tools"
+        open={legacyToolsOpen}
+        onToggle={event => setLegacyToolsOpen(event.currentTarget.open)}
         style={{
           background: t.panel,
           border: `1px solid ${t.border}`,
@@ -1827,9 +1837,11 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
             "Supplement: legacy descriptor scoring, reaction filters, and literature field coverage (not an LCA conclusion)",
           )}
         </summary>
-        <div style={{ borderTop: `1px solid ${t.border}`, marginTop: 12, paddingTop: 14 }}>
-          <LegacyEcoScreenTab onNavigate={onNavigate} />
-        </div>
+        {legacyToolsOpen ? (
+          <div style={{ borderTop: `1px solid ${t.border}`, marginTop: 12, paddingTop: 14 }}>
+            <LegacyEcoScreenTab onNavigate={onNavigate} />
+          </div>
+        ) : null}
       </details>
     </div>
   )

@@ -678,19 +678,25 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
         </article>
       ) : null}
 
-      <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}>
+      <details
+        open
+        data-testid="project-evolution-pre-v1-history"
+        style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}
+      >
         <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
           {localize(log?.history?.label, lang) || text(lang, "历史沿革（pre-1.0）", "History (pre-1.0)")}
+          {` · ${log?.history?.versionCount || 0} ${text(lang, "个原始版本", "original versions")}`}
         </summary>
         <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5, margin: "9px 0 0" }}>{localize(log?.history?.note, lang)}</p>
         <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", marginTop: 10 }}>
-          {Object.entries(historyByModule).map(([key, rows]) => (
+          {Object.entries(historyByModule).filter(([, rows]) => rows.length).map(([key, rows]) => (
             <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
               <strong style={{ color: t.textStrong, fontSize: 12 }}>{localize(catalog[key]?.label, lang) || key} · {rows.length}</strong>
               <div style={{ display: "grid", gap: 4 }}>
                 {rows.slice(-6).reverse().map(row => (
                   <div key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4 }}>
                     <span style={{ color: t.accentText, fontFamily: FONT_SANS, fontWeight: 850 }}>{row.version}</span>
+                    {row.date ? <span style={{ color: t.faint }}> · {row.date}</span> : null}
                     <span> · {publicHistoryNote(row.note, lang)}</span>
                   </div>
                 ))}

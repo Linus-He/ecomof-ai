@@ -543,7 +543,7 @@ function AppShell({
                 cursor: "pointer", fontFamily: FONT_SANS,
               }}
             >
-              {lang === "zh" ? "数据合规" : "Data Compliance"}
+              {lang === "zh" ? "数据合规承诺" : "Data Compliance Pledge"}
             </button>
             <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
             <button

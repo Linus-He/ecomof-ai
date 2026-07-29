@@ -82,6 +82,50 @@
 
 final result: passed
 
+## v1.0.9 生态筛选、首页、数据合规与项目沿革修复
+
+### 设计依据与同图对照
+
+- 首页入口参考：`/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_CEdUA6/截屏2026-07-29 12.55.28.png`，1186 × 354。
+- 首页文案参考：`/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_ufybV2/截屏2026-07-29 13.29.20.png`，1170 × 196。
+- 历史沿革缺陷参考：`/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_YgQqON/截屏2026-07-29 13.43.32.png`，2094 × 1090。
+- 实现快照：`/private/tmp/ecomof-home-final.png`、`/private/tmp/ecomof-ecoscreen-final.png`、`/private/tmp/ecomof-compliance-final-top.png`、`/private/tmp/ecomof-compliance-final-credentials.png`、`/private/tmp/ecomof-project-evolution-final.png`，均为应用内浏览器 1037 × 717 输出。
+- 同图对照：`/private/tmp/ecomof-home-design-comparison.png`、`/private/tmp/ecomof-history-design-comparison.png`；参考与实现统一归一到 1186 px 宽度后检查。
+- 桌面 CSS 视口为 1274 × 720；窄屏另以 390 × 844 验证。浏览器快照像素密度由应用内浏览器缩放决定，尺寸差异不作为布局缺陷。
+
+### 参考差异与有意调整
+
+- 入口按钮保留参考图的冷灰蓝边界、轻阴影、低圆角和中性文字层级；根据用户明确要求，从参考图四个同排改为上三下二，并将按钮改为纯中文名称。
+- 旧版中英混合三行总述按用户要求改为纯中文；桌面端实测一行，390 px 窄屏实测两行。
+- 历史沿革参考图中的窄列逐字换行和大片空白属于明确缺陷；实现将档案样式限制到直接子级，并默认展开历史内容，不追求该错误状态的像素一致。
+
+### 桌面布局与交互
+
+- 首页五个入口实测为：上排 210 / 210 / 210 px，下排 320 / 320 px；标签顺序为生态筛选、气体分离、催化、数据合规承诺、联系我们。
+- 首页正文不直接出现邮箱；点击“联系我们”后弹出 `role="dialog"`，邮箱只在弹窗内显示，关闭按钮可用。
+- 生态筛选初始不挂载旧版兼容工作台；展开耗时约 259 ms，随后反应筛选面板和 9 个筛选控件均可操作。
+- 数据合规页实测渲染 43 条控制条文、10 项授权凭证或缺口；来源登记仍存在，不含“截至某年已全面合规”的自我认证句式。
+- 项目沿革统一版本中心可选择 v1.0.0 至 v1.0.9；逐项切换 v1.0.6、v1.0.7、v1.0.8、v1.0.9 后，对应模块页签和本轮关键内容均正确显示。
+- 历史沿革默认展开，显示 38 个原始版本和 5 个模块分组；V3.10.1、日期与历史说明可见。
+
+### 响应式、可访问性与视觉检查
+
+- 390 px 首页仍保持上三下二：上排按钮各 113 px，下排各 175 px；总述为两行，页面 `scrollWidth === clientWidth`。
+- 390 px 数据合规页继续显示全部 43 条条文和 10 项凭证，页面无横向溢出。
+- 390 px 项目沿革页历史面板保持展开，5 个模块卡片改为单列，页面无横向溢出。
+- 入口与历史折叠均使用原生 button / details / summary；联系弹窗带 dialog 语义和可访问关闭名称。
+- 最终应用内浏览器控制台无 warning 或 error。
+
+### 已修复问题
+
+- P0：EcoScreen 旧版全量评分在 9,835 条记录上产生高成本重复查找并冻结渲染器；改为默认不挂载、96 条确定性兼容样本和映射索引。
+- P1：首页入口未满足上三下二、名称不统一、联系方式直接暴露风险；改为精确五入口和按需联系方式弹窗。
+- P1：数据合规页存在概括性、自我认证式表达；改为 43 条控制、10 项凭证或缺口、原文链接和明确停止条件。
+- P1：`.project-evolution-archive summary` 等后代选择器误伤嵌套历史面板；改为直接子级选择器，恢复完整历史内容。
+- P2：近期 v1.0.6–v1.0.8 发布范围缺失；补录四轮详细模块日志，并使当前版本统一为 v1.0.9。
+
+final result: passed
+
 ## CSD 索引、结构框与侧栏体验优化
 
 ### 对照与验收材料

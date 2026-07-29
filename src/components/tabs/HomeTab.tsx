@@ -515,7 +515,7 @@ function FlowStep({ item, t, index, isLast }) {
   )
 }
 
-function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMobile, onNavigate }) {
+function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMobile, onNavigate, onContactOpen }) {
   const zh = lang === "zh"
   const routes = [
     ...modules,
@@ -628,7 +628,14 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
         </div>
         <div data-testid="home-quick-start-buttons">
           {quickStart.map(cta => (
-            <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => onNavigate(cta.hash, cta.target)}>
+            <ActionButton
+              key={cta.hash}
+              t={t}
+              primary={cta.primary}
+              wide={isMobile}
+              hash={`#${cta.hash}`}
+              onClick={() => cta.action === "contact" ? onContactOpen?.(true) : onNavigate(cta.hash, cta.target)}
+            >
               {cta.label}
             </ActionButton>
           ))}
@@ -802,7 +809,7 @@ function HeroVisual({ t, lang, summary }) {
   )
 }
 
-export function HomeTab({ setActiveTab }) {
+export function HomeTab({ setActiveTab, onContactOpen }) {
   const t = useT()
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
@@ -1003,12 +1010,11 @@ export function HomeTab({ setActiveTab }) {
   ], [zh])
 
   const quickStart = [
-    { label: zh ? "进入 EcoScreen" : "Enter EcoScreen", hash: "ecoscreen", target: "ecoscreen", primary: true },
-    { label: zh ? "进入 GasSep" : "Enter GasSep", hash: "gassep", target: "gassep" },
-    { label: zh ? "进入 Organic Acid" : "Enter Organic Acid", hash: "catalysis-organic-acid", target: "catalysisLab" },
-    { label: zh ? "进入数据合规" : "Review Data Compliance", hash: "database-compliance", target: "dataCompliance" },
-    { label: zh ? "进入 MOF Library" : "Enter MOF Library", hash: "library", target: "mofLibrary" },
-    { label: zh ? "进入验证中心" : "Enter Validation Center", hash: "methodology-algorithm-validation", target: "about" },
+    { label: zh ? "生态筛选" : "Eco Screening", hash: "ecoscreen", target: "ecoscreen", primary: true },
+    { label: zh ? "气体分离" : "Gas Separation", hash: "gassep", target: "gassep" },
+    { label: zh ? "催化" : "Catalysis", hash: "catalysis", target: "catalysisLab" },
+    { label: zh ? "数据合规承诺" : "Data Compliance Pledge", hash: "database-compliance", target: "dataCompliance" },
+    { label: zh ? "联系我们" : "Contact Us", hash: "contact", action: "contact" },
   ]
 
   return (
@@ -1052,12 +1058,18 @@ export function HomeTab({ setActiveTab }) {
             </p>
             <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh
-                ? "一个平台，四个研究工作区：EcoScreen 做可持续性筛选，GasSep 做气体分离筛选，Organic Acid 做白盒催化路线筛选，MOF Library 浏览结构、气体与催化数据全貌。"
+                ? "四个研究工作区覆盖可持续性筛选、气体分离、白盒催化路线与材料数据库浏览。"
                 : "One platform, four research workspaces: EcoScreen for sustainability screening, GasSep for gas separation, Organic Acid for white-box route screening, and MOF Library to browse structure, gas, and catalysis data."}
             </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18 }} className="home-hero-cta">
-              {quickStart.slice(0, 4).map(cta => (
-                <ActionButton key={cta.hash} t={t} primary={cta.primary} wide={isMobile} hash={`#${cta.hash}`} onClick={() => navigateHash(cta.hash, cta.target)}>
+            <div style={{ marginTop: 18 }} className="home-hero-cta home-primary-entry-grid" data-testid="home-primary-entry-grid">
+              {quickStart.map(cta => (
+                <ActionButton
+                  key={cta.hash}
+                  t={t}
+                  primary={cta.primary}
+                  hash={`#${cta.hash}`}
+                  onClick={() => cta.action === "contact" ? onContactOpen?.(true) : navigateHash(cta.hash, cta.target)}
+                >
                   {cta.label}
                 </ActionButton>
               ))}
@@ -1115,6 +1127,7 @@ export function HomeTab({ setActiveTab }) {
         quickStart={quickStart}
         isMobile={isMobile}
         onNavigate={navigateHash}
+        onContactOpen={onContactOpen}
       />
     </div>
   )

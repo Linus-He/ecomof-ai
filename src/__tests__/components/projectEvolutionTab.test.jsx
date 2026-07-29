@@ -32,7 +32,7 @@ describe("ProjectEvolutionTab", () => {
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Current Web Version/)
-    expect(bodyText()).toMatch(/Web v1\.0\.5/)
+    expect(bodyText()).toMatch(/Web v1\.0\.9/)
     expect(bodyText()).toMatch(/Latest Module Data Version/)
     expect(bodyText()).toMatch(/V3\.10\.1/)
     expect(bodyText()).toMatch(/10277\+/)

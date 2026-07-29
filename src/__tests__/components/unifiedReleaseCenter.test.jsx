@@ -8,7 +8,10 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const center = screen.getByTestId("project-evolution-app-release")
     // newest release leads; the selector still offers v1.0.0
-    expect(within(center).getAllByText(/Web v1\.0\.5/).length).toBeGreaterThan(0)
+    expect(within(center).getAllByText(/Web v1\.0\.9/).length).toBeGreaterThan(0)
+    expect(within(center).getAllByText(/Web v1\.0\.8/).length).toBeGreaterThan(0)
+    expect(within(center).getAllByText(/Web v1\.0\.7/).length).toBeGreaterThan(0)
+    expect(within(center).getAllByText(/Web v1\.0\.6/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.3/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.2/).length).toBeGreaterThan(0)
     expect(within(center).getAllByText(/Web v1\.0\.1/).length).toBeGreaterThan(0)
@@ -31,10 +34,14 @@ describe("Unified Release Center", () => {
     expect(panel.querySelectorAll("li").length).toBeGreaterThan(0)
   })
 
-  it("folds pre-1.0 module history into a collapsed section", () => {
+  it("shows pre-1.0 module history expanded with counts, dates, and original versions", () => {
     render(<ProjectEvolutionTab data={data} />)
     const center = screen.getByTestId("project-evolution-app-release")
+    const history = within(center).getByTestId("project-evolution-pre-v1-history")
+    expect(history).toHaveAttribute("open")
     expect(center.textContent).toMatch(/History \(pre-1\.0/)
+    expect(history.textContent).toMatch(/38 original versions/)
+    expect(history.textContent).toMatch(/2026-/)
     expect(center.textContent).toMatch(/V3\.10\.1/)
   })
 
@@ -42,7 +49,7 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const update = screen.getByTestId("project-evolution-current-update")
     expect(update.textContent).toMatch(/Current update/)
-    expect(update.textContent).toMatch(/v1\.0\.5/)
+    expect(update.textContent).toMatch(/v1\.0\.9/)
     expect(update.textContent).not.toMatch(/Developer Log|developer log|Next Release Preview|pending release/)
   })
 })

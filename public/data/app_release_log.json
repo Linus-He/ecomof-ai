@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.5",
-  "generatedAt": "2026-07-25",
+  "currentAppVersion": "v1.0.9",
+  "generatedAt": "2026-07-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
@@ -9,6 +9,126 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
+    "baseAppVersion": "v1.0.8",
+    "developmentVersion": "v1.0.9",
+    "recordedAt": "2026-07-29",
+    "status": "archived",
+    "statusLabel": {
+      "zh": "已归档",
+      "en": "archived"
+    },
+    "logPolicy": {
+      "zh": "v1.0.9 只记录本轮实际完成并通过检查的修复与重构，不把计划项写成已完成。",
+      "en": "v1.0.9 records only fixes and rebuilds completed and checked in this release; planned work is not presented as complete."
+    },
+    "releaseBoundary": {
+      "zh": "本轮集中修复会阻断使用的交互缺陷，并把合规声明改造成可审计的控制文件：生态筛选主工作区不再因旧版全量评分而卡死；首页入口按三上二下排列，联系方式仅在弹窗中显示；合规页逐项列出 43 条控制条文和 10 项授权凭证或缺口；项目演化页恢复历史沿革，并补录 v1.0.6 至 v1.0.9 的真实发布范围。",
+      "en": "This release fixes blocking interaction failures and turns compliance into an auditable control document: EcoScreen no longer freezes on full legacy scoring; homepage entries use a three-plus-two layout and contact details appear only in a dialog; the compliance page itemizes 43 control clauses and 10 authorization-evidence or gap records; Project Evolution restores its history and records the actual v1.0.6-v1.0.9 release scope."
+    },
+    "modules": {
+      "ui": {
+        "summary": {
+          "zh": "首页入口、联系方式与中文总述按明确的信息架构重新收敛。",
+          "en": "Homepage entries, contact access, and the Chinese overview are tightened into a clear information architecture."
+        },
+        "changes": [
+          {
+            "zh": "首页五个入口固定为“生态筛选、气体分离、催化、数据合规承诺、联系我们”，桌面端按上三下二等宽排列。",
+            "en": "Fixes the five homepage entries to EcoScreen, Gas Separation, Catalysis, Data Compliance, and Contact, using an equal-width three-plus-two desktop grid."
+          },
+          {
+            "zh": "联系邮箱不再直接显示在首页；仅点击“联系我们”后在可关闭弹窗中出现。",
+            "en": "Removes the email address from the homepage and reveals it only inside the dismissible Contact dialog."
+          },
+          {
+            "zh": "首页工作区总述改为纯中文短句，桌面端保持一行、窄屏不超过两行。",
+            "en": "Rewrites the workspace overview as concise Chinese-only copy that stays on one desktop line and no more than two lines at compact widths."
+          },
+          {
+            "zh": "统一主导航和页脚中的“数据合规承诺”命名，避免同一入口出现不同名称。",
+            "en": "Standardizes the Data Compliance label across primary navigation and the footer."
+          }
+        ]
+      },
+      "ecoScreen": {
+        "summary": {
+          "zh": "解除旧版全量评分对主界面的阻塞，同时保留可追溯的兼容工具。",
+          "en": "Removes legacy full-dataset scoring from the critical render path while retaining traceable compatibility tools."
+        },
+        "changes": [
+          {
+            "zh": "旧版描述符评分、反应筛选与文献覆盖工具改为按需挂载，默认不参与生态筛选主工作区初始化。",
+            "en": "Mounts legacy descriptor scoring, reaction filters, and literature coverage only on demand so they do not initialize with the main EcoScreen workspace."
+          },
+          {
+            "zh": "兼容视图使用 96 条等距确定性样本；主工作区仍保留 9,835 条 CoRE 2024 CR 结构记录和 4,168 条合成证据的完整统计。",
+            "en": "Uses a deterministic 96-record compatibility sample while the main workspace retains complete statistics for 9,835 CoRE 2024 CR structures and 4,168 synthesis-evidence records."
+          },
+          {
+            "zh": "评分模型的候选与证据关联由重复线性查找改为映射索引，避免记录规模增长时出现平方级渲染成本。",
+            "en": "Replaces repeated linear candidate/evidence lookups with indexed maps to avoid quadratic render cost as record volume grows."
+          },
+          {
+            "zh": "兼容工具展开后继续提供反应筛选、数据质量审计和评分解释，不改变 LCA 主结论的证据门槛。",
+            "en": "Keeps reaction filtering, data-quality audit, and score explanation available after expansion without changing the evidence gates for LCA conclusions."
+          }
+        ]
+      },
+      "dataCompliance": {
+        "summary": {
+          "zh": "把概括性承诺重构为逐条控制、逐来源凭证和明确停止条件。",
+          "en": "Rebuilds a general pledge into clause-level controls, source-level evidence, and explicit stop conditions."
+        },
+        "changes": [
+          {
+            "zh": "按 CCDC、CC BY-NC-SA 4.0、CC BY 4.0、NIST/文献逐记录边界和项目自有材料分组列出 43 条适用控制条文。",
+            "en": "Itemizes 43 applicable controls grouped by CCDC, CC BY-NC-SA 4.0, CC BY 4.0, NIST/literature record-level boundaries, and project-origin materials."
+          },
+          {
+            "zh": "登记 10 项授权凭证或缺口，逐项说明授权主体、覆盖对象、原始凭证、限制条件和是否阻断。",
+            "en": "Registers 10 authorization-evidence or gap records, each stating the grantor, covered object, original evidence, limitations, and blocking status."
+          },
+          {
+            "zh": "删除“截至某日已完成合规”等自我认证表述，明确本页是项目控制说明，不是 CCDC 或其他权利人出具的授权证书。",
+            "en": "Removes dated self-certification language and states that the page is a project control statement, not a certificate issued by CCDC or another rightsholder."
+          },
+          {
+            "zh": "保留来源登记、哈希、NOTICE、数据隔离和事件响应功能，并明确这些内部证据不能替代发布方许可。",
+            "en": "Retains source registration, hashes, NOTICE files, data quarantine, and incident response while stating that internal evidence cannot replace publisher authorization."
+          },
+          {
+            "zh": "每组条文和凭证均链接发布方原文；未取得覆盖性凭证的付费 CSD、开放种子未知许可和待确认数据继续阻断。",
+            "en": "Links each clause group and evidence record to publisher originals and keeps paid CSD, unknown-licence seed data, and pending sources blocked where blanket evidence is absent."
+          }
+        ]
+      },
+      "projectEvolution": {
+        "summary": {
+          "zh": "修复历史沿革空白，并将近期真实发布记录补回统一版本中心。",
+          "en": "Fixes the blank history area and restores recent actual releases to the unified release center."
+        },
+        "changes": [
+          {
+            "zh": "将档案页样式限制到直接子级，避免内嵌历史折叠面板被 34 像素档案索引列挤成逐字换行。",
+            "en": "Scopes archive styles to direct children so the nested history panel is no longer squeezed into the 34-pixel archive index column."
+          },
+          {
+            "zh": "历史沿革默认展开，显示原始版本总数、模块条目数、版本日期和最近六条原始记录。",
+            "en": "Opens history by default and shows the original-version count, module counts, dates, and six most recent original records."
+          },
+          {
+            "zh": "补录 v1.0.6 至 v1.0.9，并保持 pre-1.0 模块版本号原样不重编号。",
+            "en": "Adds v1.0.6 through v1.0.9 while preserving pre-1.0 module version labels without renumbering."
+          },
+          {
+            "zh": "统一版本选择器、模块页签和当前更新区继续由同一发布日志生成。",
+            "en": "Keeps the version selector, module tabs, and current-update area generated from the same release log."
+          }
+        ]
+      }
+    }
+  },
+  "previousDevelopmentLog": {
     "baseAppVersion": "v1.0.4",
     "developmentVersion": "v1.0.5",
     "recordedAt": "2026-07-25",
@@ -204,238 +324,6 @@
       }
     }
   },
-  "previousDevelopmentLog": {
-    "baseAppVersion": "v1.0.2",
-    "developmentVersion": "v1.0.3",
-    "recordedAt": "2026-07-25",
-    "status": "archived",
-    "statusLabel": {
-      "zh": "已归档",
-      "en": "archived"
-    },
-    "logPolicy": {
-      "zh": "本次任务已在提交时归档为 v1.0.3；日志只记录实际完成并通过检查的开发项。",
-      "en": "This task is archived as v1.0.3 at submission; the log contains only completed and checked development changes."
-    },
-    "releaseBoundary": {
-      "zh": "不改变 Organic Acid 排名算法或底层评分；本轮新增 EcoScreen LCA/经济情景算法、地域基线与候选级合成证据，并继续将缺失关键实测字段标记为比较门禁。",
-      "en": "Does not change Organic Acid ranking algorithms or base scores; this work adds EcoScreen LCA/economic scenarios, regional baselines, and candidate-level synthesis evidence while retaining strict comparison gates for missing measured fields."
-    },
-    "modules": {
-      "home": {
-        "label": {
-          "zh": "首页",
-          "en": "Home"
-        },
-        "summary": {
-          "zh": "以双栏科学叙事强化真实数据图表，并完成深浅色与移动端适配。",
-          "en": "Strengthens real-data charts through a two-column scientific narrative with light/dark and mobile adaptation."
-        },
-        "changes": [
-          {
-            "zh": "相关性图从大留白网络改为紧凑 Pearson 相关矩阵；色阶表示正/负相关与强度，点击单元格联动样本数和强度解释。",
-            "en": "Replaces the whitespace-heavy correlation network with a compact Pearson matrix; color encodes sign/strength and clicked cells expose sample size and interpretation."
-          },
-          {
-            "zh": "首页当前限制、验证能力卡和能力概览中的普通英文说明改为自然中文；保留 Benchmark、CRITIC、ROC-AUC 等必要术语。",
-            "en": "Rewrites ordinary English copy in current limitations, validation cards, and capability overview into natural Chinese while preserving necessary terms such as Benchmark, CRITIC, and ROC-AUC."
-          },
-          {
-            "zh": "MOF 描述符三维分布改为左侧科研命题、方程与变量定义，右侧大面积交互图的双栏科学展板；保留原有旋转、缩放、悬停和着色切换。",
-            "en": "Reframes the MOF descriptor 3D distribution as a two-column scientific stage with the research proposition, equations, and variable definitions on the left and a large interactive chart on the right, while preserving rotation, zoom, hover, and color switching."
-          },
-          {
-            "zh": "方程明确展示三维描述符向量、极差归一化与点半径映射；变量范围、样本数和缺失孔体积排除数量继续由真实 CoRE/QMOF 数据动态生成。",
-            "en": "Makes the 3D descriptor vector, min-max normalization, and point-radius mapping explicit; variable ranges, sample count, and pore-volume exclusions remain dynamically derived from real CoRE/QMOF data."
-          },
-          {
-            "zh": "浅色模式使用浅雾白科学画布与高对比深色文字，深色模式使用深墨画布与珊瑚强调；图框、坐标轴、按钮、图例和方程同步适配。",
-            "en": "Uses a mist-white scientific canvas with high-contrast dark text in light mode and a deep-ink canvas with coral accents in dark mode; plot frame, axes, controls, legend, and equations adapt together."
-          },
-          {
-            "zh": "桌面端采用约 38/62 的文字—图形比例，窄屏和移动端自动改为单列顺序，不删除任何原有研究内容或交互。",
-            "en": "Uses an approximately 38/62 text-to-visual ratio on desktop and automatically stacks into one column on narrow and mobile screens without removing existing research content or interactions."
-          }
-        ]
-      },
-      "ecoscreen": {
-        "label": {
-          "zh": "生态筛选",
-          "en": "EcoScreen"
-        },
-        "summary": {
-          "zh": "把生态筛选整理为文献约束下的研究工作台。",
-          "en": "Reframes EcoScreen as a literature-bounded research workbench."
-        },
-        "changes": [
-          {
-            "zh": "新增研究任务与证据覆盖面板，汇总当前候选、反应记录、Benchmark 数据、实验标签和金属成本假设，显示覆盖率与缺口。",
-            "en": "Adds a research-task and evidence-coverage panel that summarizes current candidates, reaction records, benchmark data, experimental labels, and metal-cost assumptions to show coverage and gaps."
-          },
-          {
-            "zh": "引入吸附筛选、水稳定性、LCA/LCC 边界、CRITIC 客观赋权和关键金属复核的文献依据；缺失 LCA/成本/关键金属信息只进入复核任务，不直接改变评分。",
-            "en": "Adds literature basis for adsorption screening, water stability, LCA/LCC boundaries, CRITIC objective weighting, and critical-metal review; missing LCA/cost/critical-metal information becomes review work, not a direct score change."
-          },
-          {
-            "zh": "反应筛选、评分模式、四象限图、方法入口和缺失值策略等高频控件改为中文优先表达。",
-            "en": "Makes high-traffic controls Chinese-first, including reaction filters, scoring modes, quadrant labels, method links, and missing-value strategy labels."
-          },
-          {
-            "zh": "新增文献需求可用性矩阵，把吸附过程指标、再生与能耗、水/运行稳定、绿色合成/LCA、金属供应毒性、来源溯源和有机酸路径扩展拆成可检查字段；覆盖率随当前筛选候选和已接入数据实时变化。",
-            "en": "Adds a literature requirement usability matrix that separates adsorption metrics, regeneration and energy burden, water/operational stability, green synthesis/LCA, metal supply and toxicity, provenance, and Organic Acid pathway readiness into inspectable fields; coverage updates from current filters and connected data."
-          },
-          {
-            "zh": "关键金属、LCA、绿色合成和再生能耗继续作为复核与接入需求，不写入 Organic Acid 排名算法或底层评分。",
-            "en": "Critical-metal, LCA, green-synthesis, and regeneration-energy signals remain review and ingestion requirements and are not written into the Organic Acid ranking algorithm or base scores."
-          },
-          {
-            "zh": "新增中国与国际两套可随时切换的地域基线：中国采用生态环境部 2023 年全国电力平均排放因子，国际采用 IEA 2025 年全球发电碳强度；电价、汇率和转化成本继续作为可编辑情景参数。",
-            "en": "Adds switchable China and international baselines: China uses the Ministry of Ecology and Environment's 2023 national average electricity factor, while the international profile uses IEA's 2025 global generation intensity; electricity price, exchange rate, and conversion cost remain editable scenario inputs."
-          },
-          {
-            "zh": "接入 FAIR-MOFs 的 4,168 条候选级文献合成条件和 DOI，其中 3,782 条至少覆盖五项过程字段；产率、实测单位产品能耗、溶剂回收率、循环稳定性和再生能耗继续作为硬门控。",
-            "en": "Connects 4,168 candidate-level literature synthesis records and DOIs from FAIR-MOFs, including 3,782 records with at least five process fields; yield, measured energy per product, solvent recovery, cycle stability, and regeneration energy remain hard gates."
-          },
-          {
-            "zh": "生态筛选重构为目标与范围、地域基线、候选证据、清单情景、影响结果、经济分析、数据门禁和来源边界的连续工作流；缺少硬门控字段时只输出筛选情景。",
-            "en": "Rebuilds EcoScreen as a continuous workflow spanning goal and scope, regional baseline, candidate evidence, inventory scenarios, impact results, economics, data gates, and source boundaries; candidates missing hard-gate fields remain scenario-only."
-          }
-        ]
-      },
-      "methodsEvidence": {
-        "label": {
-          "zh": "方法与证据",
-          "en": "Methods & Evidence"
-        },
-        "summary": {
-          "zh": "恢复并置顶文献灵感来源，按模块分类展示采用方式和证据边界。",
-          "en": "Restores and pins literature inspiration sources at the top, grouped by module with adoption use and evidence boundaries."
-        },
-        "changes": [
-          {
-            "zh": "恢复原有有机酸/催化文献灵感来源，并与本轮新增 EcoScreen、GasSep、CRITIC、LCA、绿色合成和关键原料来源合并为统一文献来源库。",
-            "en": "Restores the original Organic Acid / Catalysis literature inspiration sources and merges them with this round's EcoScreen, GasSep, CRITIC, LCA, green-synthesis, and critical-material sources into a unified literature source registry."
-          },
-          {
-            "zh": "方法目录最上方新增“文献灵感来源”，分为平台方法与数据结构、EcoScreen 可持续筛选、GasSep 吸附与过程指标、有机酸与催化解释、数据质量/验证/报告边界五个版块。",
-            "en": "Adds Literature Inspiration Sources as the first Methods directory entry, grouped into platform method/data structure, EcoScreen sustainability screening, GasSep adsorption/process metrics, Organic Acid and catalysis interpretation, and data-quality/validation/reporting boundary sections."
-          },
-          {
-            "zh": "每条来源显示 DOI 或官方来源、采用方式、证据角色和不应误读的边界，避免把方法灵感当成候选材料性能证明。",
-            "en": "Each source shows DOI or official source, adoption use, evidence role, and interpretation boundary so method inspiration is not mistaken for material-performance proof."
-          },
-          {
-            "zh": "补充 CoRE MOF、QMOF、MOF 领域综述、CO₂ 捕集综述、湿烟气 CO₂ 捕集、MOF 催化、反应机器学习和 FAIR 数据原则等文献来源；上传文献待补元数据会单独标记，不再表现为来源缺失。",
-            "en": "Adds CoRE MOF, QMOF, MOF domain review, CO2-capture review, wet flue-gas CO2 capture, MOF catalysis, reaction-ML, and FAIR data-principle sources; uploaded sources with pending metadata are marked separately instead of appearing as missing sources."
-          },
-          {
-            "zh": "文献分类按钮增加明确选中态、来源数量和状态摘要，选中分类会有可见着色提示。",
-            "en": "Literature category buttons now show a clear active state, source counts, and status summary so the selected section is visibly highlighted."
-          }
-        ]
-      },
-      "projectEvolution": {
-        "label": {
-          "zh": "项目演化",
-          "en": "Project Evolution"
-        },
-        "summary": {
-          "zh": "按研究程序重组项目演化，并以实际完成项维护开发者日志。",
-          "en": "Reorganizes Project Evolution around the research program and records only completed work in the developer log."
-        },
-        "changes": [
-          {
-            "zh": "项目状态总览将当前 Web 版本 Web v1.0.3 与最新模块数据版本 V3.10.1 分列展示，避免新旧版本号混读。",
-            "en": "Project status overview shows current Web version Web v1.0.3 and latest module data version V3.10.1 as separate cards to avoid mixing release schemes."
-          },
-          {
-            "zh": "模块历史时间线只展示 V3.x 等历史/数据演化；Web 发布继续由统一版本中心管理。",
-            "en": "The module history timeline now only shows V3.x-style historical/data evolution; Web releases remain in the Unified Release Center."
-          },
-          {
-            "zh": "本次任务固定记为 v1.0.3 开发者日志，仅记录实际完成项，并在提交时归档。",
-            "en": "Records this task as the v1.0.3 developer log, containing only completed work and archived at submission."
-          },
-          {
-            "zh": "项目更新区改为由统一版本记录生成，当前发布号和模块更新会随版本记录自然更新。",
-            "en": "Project Updates are now generated from the unified release record, so the current release number and module updates change with the version record."
-          },
-          {
-            "zh": "将原有长导航重组为发布状态、历史里程碑、研究系统和体验路线四章，并新增从发布、数据、算法、验证到下一研究阶段的项目地图；全部原有内容和锚点保留。",
-            "en": "Regroups the long navigation into release state, history, research system, and experience roadmap chapters, and adds a program map from release through data, algorithms, validation, and the next research stage while preserving all existing content and anchors."
-          },
-          {
-            "zh": "数据库演化新增 EcoScreen 合成证据层，公开 4,168 条 FAIR-MOFs 记录、字段覆盖率和七项比较性 LCA 硬缺口。",
-            "en": "Adds the EcoScreen synthesis-evidence layer to Database Evolution, exposing 4,168 FAIR-MOFs records, field coverage, and seven hard gaps for comparative LCA."
-          }
-        ]
-      },
-      "navigation": {
-        "label": {
-          "zh": "信息架构与导航",
-          "en": "Information Architecture & Navigation"
-        },
-        "summary": {
-          "zh": "修复英文导航显示，移除研究报告一级模块，并调整 MOF 候选库位置。",
-          "en": "Fixes English navigation display, removes the Research Reports top-level module, and moves the MOF Library entry."
-        },
-        "changes": [
-          {
-            "zh": "顶部导航从固定三列宽度改为左右自适应、中间可滚动，英文长标签不再被 Contact / 语言 / 主题按钮遮挡。",
-            "en": "Changes the top nav from fixed three-column widths to adaptive left/right controls with a scrollable middle rail, preventing long English labels from being covered by Contact / language / theme buttons."
-          },
-          {
-            "zh": "研究报告从一级导航、首页快捷入口与公开访问入口中移除；旧研究报告相关记录只保留在历史版本日志中。",
-            "en": "Removes Research Reports from the top-level navigation, homepage quick-start entries, and public access points; legacy research-report references remain only in historical release records."
-          },
-          {
-            "zh": "一级菜单顺序调整为首页、EcoScreen、GasSep、CatalysisLab、MOF Library、方法与证据、项目演化，使 MOF 候选库位于催化实验室之后。",
-            "en": "Reorders the primary menu to Home, EcoScreen, GasSep, CatalysisLab, MOF Library, Methods & Evidence, and Project Evolution so MOF Library follows CatalysisLab."
-          },
-          {
-            "zh": "中文标签按钮统一使用水平/垂直居中布局，中文模式下 tab 文案不再贴边或偏移。",
-            "en": "Centers tab labels horizontally and vertically so Chinese navigation text no longer hugs an edge or appears offset."
-          },
-          {
-            "zh": "桌面端导航使用独立的 760px 中心轨道和左右对称约束，不再由品牌区或右侧工具宽度影响视觉中心。",
-            "en": "Places desktop navigation on an independent 760px center rail with symmetric side constraints so brand and utility widths no longer shift its visual center."
-          },
-          {
-            "zh": "七个一级标签采用等宽网格和统一 6px 间距，所有文字与选中背景处于同一中心线；实测相邻标签中心距一致。",
-            "en": "Uses an equal-width seven-column grid with a consistent 6px gap so labels and active backgrounds share one centerline; measured neighboring center distances are identical."
-          },
-          {
-            "zh": "1180px 以下切换为独立横向导航行，保留统一间距与活动标签自动居中，避免在窄屏强行压缩。",
-            "en": "Below 1180px, switches to a dedicated horizontally scrollable navigation row with consistent spacing and active-tab centering instead of forced compression."
-          }
-        ]
-      },
-      "localization": {
-        "label": {
-          "zh": "全局文案",
-          "en": "Global Copy"
-        },
-        "summary": {
-          "zh": "清理用户可见界面中的开发者文档式说明。",
-          "en": "Removes developer-documentation-style copy from user-facing interfaces."
-        },
-        "changes": [
-          {
-            "zh": "MOF 候选库、项目演化、EcoScreen、数据质量审计、筛选追踪与有机酸方法论中的实现细节说明改为研究状态、证据边界或操作提示。",
-            "en": "Rewrites implementation-detail notes in MOF Library, Project Evolution, EcoScreen, Data Quality Audit, Screening Trace, and Organic Acid methodology into research status, evidence boundaries, or user actions."
-          },
-          {
-            "zh": "历史版本记录保留原始版本号和能力变化；前台不展开实现细节。",
-            "en": "Historical version records retain original version numbers and capability changes while omitting implementation details from the public view."
-          },
-          {
-            "zh": "删除首页和 MOF 候选库顶部的纯说明抬头，让页面直接进入主体内容。",
-            "en": "Removes pure intro strips above Home and MOF Library so those pages open directly into the main content."
-          }
-        ]
-      }
-    }
-  },
   "moduleCatalog": {
     "organicAcid": {
       "label": {
@@ -497,6 +385,18 @@
       "target": "home",
       "hash": "overview"
     },
+    "dataCompliance": {
+      "label": {
+        "zh": "数据合规承诺",
+        "en": "Data Compliance"
+      },
+      "blurb": {
+        "zh": "逐来源许可、授权凭证、责任边界与停止条件。",
+        "en": "Source-specific licences, authorization evidence, responsibilities, and stop conditions."
+      },
+      "target": "dataCompliance",
+      "hash": "database-compliance"
+    },
     "ecoScreen": {
       "label": {
         "zh": "生态筛选",
@@ -535,6 +435,382 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.9",
+      "date": "2026-07-29",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.9：恢复生态筛选响应，重构数据合规承诺，并补齐首页与项目沿革。",
+        "en": "v1.0.9: restores EcoScreen responsiveness, rebuilds data compliance, and completes the homepage and project history."
+      },
+      "summary": {
+        "zh": "本轮集中修复会阻断使用的交互缺陷，并把合规声明改造成可审计的控制文件：生态筛选主工作区不再因旧版全量评分而卡死；首页入口按三上二下排列，联系方式仅在弹窗中显示；合规页逐项列出 43 条控制条文和 10 项授权凭证或缺口；项目演化页恢复历史沿革，并补录 v1.0.6 至 v1.0.9 的真实发布范围。",
+        "en": "This release fixes blocking interaction failures and turns compliance into an auditable control document: EcoScreen no longer freezes on full legacy scoring; homepage entries use a three-plus-two layout and contact details appear only in a dialog; the compliance page itemizes 43 control clauses and 10 authorization-evidence or gap records; Project Evolution restores its history and records the actual v1.0.6-v1.0.9 release scope."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "首页入口、联系方式与中文总述按明确的信息架构重新收敛。",
+            "en": "Homepage entries, contact access, and the Chinese overview are tightened into a clear information architecture."
+          },
+          "changes": [
+            {
+              "zh": "首页五个入口固定为“生态筛选、气体分离、催化、数据合规承诺、联系我们”，桌面端按上三下二等宽排列。",
+              "en": "Fixes the five homepage entries to EcoScreen, Gas Separation, Catalysis, Data Compliance, and Contact, using an equal-width three-plus-two desktop grid."
+            },
+            {
+              "zh": "联系邮箱不再直接显示在首页；仅点击“联系我们”后在可关闭弹窗中出现。",
+              "en": "Removes the email address from the homepage and reveals it only inside the dismissible Contact dialog."
+            },
+            {
+              "zh": "首页工作区总述改为纯中文短句，桌面端保持一行、窄屏不超过两行。",
+              "en": "Rewrites the workspace overview as concise Chinese-only copy that stays on one desktop line and no more than two lines at compact widths."
+            },
+            {
+              "zh": "统一主导航和页脚中的“数据合规承诺”命名，避免同一入口出现不同名称。",
+              "en": "Standardizes the Data Compliance label across primary navigation and the footer."
+            }
+          ]
+        },
+        "ecoScreen": {
+          "summary": {
+            "zh": "解除旧版全量评分对主界面的阻塞，同时保留可追溯的兼容工具。",
+            "en": "Removes legacy full-dataset scoring from the critical render path while retaining traceable compatibility tools."
+          },
+          "changes": [
+            {
+              "zh": "旧版描述符评分、反应筛选与文献覆盖工具改为按需挂载，默认不参与生态筛选主工作区初始化。",
+              "en": "Mounts legacy descriptor scoring, reaction filters, and literature coverage only on demand so they do not initialize with the main EcoScreen workspace."
+            },
+            {
+              "zh": "兼容视图使用 96 条等距确定性样本；主工作区仍保留 9,835 条 CoRE 2024 CR 结构记录和 4,168 条合成证据的完整统计。",
+              "en": "Uses a deterministic 96-record compatibility sample while the main workspace retains complete statistics for 9,835 CoRE 2024 CR structures and 4,168 synthesis-evidence records."
+            },
+            {
+              "zh": "评分模型的候选与证据关联由重复线性查找改为映射索引，避免记录规模增长时出现平方级渲染成本。",
+              "en": "Replaces repeated linear candidate/evidence lookups with indexed maps to avoid quadratic render cost as record volume grows."
+            },
+            {
+              "zh": "兼容工具展开后继续提供反应筛选、数据质量审计和评分解释，不改变 LCA 主结论的证据门槛。",
+              "en": "Keeps reaction filtering, data-quality audit, and score explanation available after expansion without changing the evidence gates for LCA conclusions."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "把概括性承诺重构为逐条控制、逐来源凭证和明确停止条件。",
+            "en": "Rebuilds a general pledge into clause-level controls, source-level evidence, and explicit stop conditions."
+          },
+          "changes": [
+            {
+              "zh": "按 CCDC、CC BY-NC-SA 4.0、CC BY 4.0、NIST/文献逐记录边界和项目自有材料分组列出 43 条适用控制条文。",
+              "en": "Itemizes 43 applicable controls grouped by CCDC, CC BY-NC-SA 4.0, CC BY 4.0, NIST/literature record-level boundaries, and project-origin materials."
+            },
+            {
+              "zh": "登记 10 项授权凭证或缺口，逐项说明授权主体、覆盖对象、原始凭证、限制条件和是否阻断。",
+              "en": "Registers 10 authorization-evidence or gap records, each stating the grantor, covered object, original evidence, limitations, and blocking status."
+            },
+            {
+              "zh": "删除“截至某日已完成合规”等自我认证表述，明确本页是项目控制说明，不是 CCDC 或其他权利人出具的授权证书。",
+              "en": "Removes dated self-certification language and states that the page is a project control statement, not a certificate issued by CCDC or another rightsholder."
+            },
+            {
+              "zh": "保留来源登记、哈希、NOTICE、数据隔离和事件响应功能，并明确这些内部证据不能替代发布方许可。",
+              "en": "Retains source registration, hashes, NOTICE files, data quarantine, and incident response while stating that internal evidence cannot replace publisher authorization."
+            },
+            {
+              "zh": "每组条文和凭证均链接发布方原文；未取得覆盖性凭证的付费 CSD、开放种子未知许可和待确认数据继续阻断。",
+              "en": "Links each clause group and evidence record to publisher originals and keeps paid CSD, unknown-licence seed data, and pending sources blocked where blanket evidence is absent."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "修复历史沿革空白，并将近期真实发布记录补回统一版本中心。",
+            "en": "Fixes the blank history area and restores recent actual releases to the unified release center."
+          },
+          "changes": [
+            {
+              "zh": "将档案页样式限制到直接子级，避免内嵌历史折叠面板被 34 像素档案索引列挤成逐字换行。",
+              "en": "Scopes archive styles to direct children so the nested history panel is no longer squeezed into the 34-pixel archive index column."
+            },
+            {
+              "zh": "历史沿革默认展开，显示原始版本总数、模块条目数、版本日期和最近六条原始记录。",
+              "en": "Opens history by default and shows the original-version count, module counts, dates, and six most recent original records."
+            },
+            {
+              "zh": "补录 v1.0.6 至 v1.0.9，并保持 pre-1.0 模块版本号原样不重编号。",
+              "en": "Adds v1.0.6 through v1.0.9 while preserving pre-1.0 module version labels without renumbering."
+            },
+            {
+              "zh": "统一版本选择器、模块页签和当前更新区继续由同一发布日志生成。",
+              "en": "Keeps the version selector, module tabs, and current-update area generated from the same release log."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v1.0.8",
+      "date": "2026-07-28",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.8：数据合规与有机酸研究工作区的严肃化重构。",
+        "en": "v1.0.8: a more rigorous data-compliance and Organic Acid research-workspace redesign."
+      },
+      "summary": {
+        "zh": "重做数据合规页面和有机酸研究界面的信息层级，收敛首页入口与专业图形；保留原评分、证据和来源登记，不把视觉重构误写为新实验结论。",
+        "en": "Reworks the information hierarchy of Data Compliance and the Organic Acid research workspace and tightens homepage entries and scientific charts, while preserving scoring, evidence, and source registration without presenting visual changes as new experimental conclusions."
+      },
+      "modules": {
+        "organicAcid": {
+          "summary": {
+            "zh": "重排研究目标、逐步执行、分数溯源和验证就绪度，提升白盒阅读性。",
+            "en": "Reorganizes research objectives, stepwise execution, score provenance, and validation readiness for clearer white-box review."
+          },
+          "changes": [
+            {
+              "zh": "有机酸工作区按研究问题、候选筛选、主客体路线和验证边界重新组织。",
+              "en": "Reorganizes the Organic Acid workspace around the research question, candidate screening, host-guest routes, and validation boundaries."
+            },
+            {
+              "zh": "统一 HGCPS 因子玫瑰图、宿主因子图和验证就绪度图的刻度、标签与解释顺序。",
+              "en": "Aligns scales, labels, and explanation order across HGCPS, host-factor, and validation-readiness charts."
+            },
+            {
+              "zh": "逐步执行链和最终结果摘要继续从同一评分与溯源构建器派生。",
+              "en": "Keeps the stepwise execution chain and final summary derived from the same scoring and provenance builders."
+            },
+            {
+              "zh": "明确高优先级实验假设与已验证结论的边界，不因界面改版提升证据等级。",
+              "en": "Keeps high-priority experimental hypotheses distinct from validated conclusions and does not raise evidence levels through interface redesign."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "建立更完整的数据合规页面骨架和来源状态说明。",
+            "en": "Establishes a fuller compliance-page structure and source-status explanation."
+          },
+          "changes": [
+            {
+              "zh": "将许可摘要、用户责任、平台责任、来源登记和限制条件集中到独立合规页面。",
+              "en": "Consolidates licence summaries, user responsibilities, platform responsibilities, source registration, and limitations into a dedicated compliance page."
+            },
+            {
+              "zh": "公开区分开放许可、需要机构许可、逐记录核验和待确认来源。",
+              "en": "Separates openly licensed, institution-licensed, record-reviewed, and pending sources."
+            },
+            {
+              "zh": "保留来源登记表和外部原文入口，为后续逐条控制重构建立基础。",
+              "en": "Retains the source registry and publisher links as the basis for later clause-level controls."
+            }
+          ]
+        },
+        "ui": {
+          "summary": {
+            "zh": "首页和研究入口减少冗余，保持现有设计语言与响应式布局。",
+            "en": "Reduces redundancy in homepage and research entries while retaining the design language and responsive layout."
+          },
+          "changes": [
+            {
+              "zh": "首页工作区入口改为更紧凑的研究导航，不复制模块内部的大段说明。",
+              "en": "Makes homepage workspace entries more compact instead of duplicating long module explanations."
+            },
+            {
+              "zh": "合规与有机酸页面沿用全站颜色、边框、圆角和排版层级。",
+              "en": "Keeps compliance and Organic Acid pages aligned with site-wide colors, borders, radii, and typography."
+            },
+            {
+              "zh": "完成桌面和响应式截图对照，修正过密卡片与图表信息层级。",
+              "en": "Completes desktop and responsive comparisons and corrects overly dense cards and chart hierarchy."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v1.0.7",
+      "date": "2026-07-28",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.7：CSD 结构图谱、CoRE 2024 CR、FAIR-MOFs 与有机酸数据层接入。",
+        "en": "v1.0.7: integrates the CSD structure atlas, CoRE 2024 CR, FAIR-MOFs, and Organic Acid data layers."
+      },
+      "summary": {
+        "zh": "以可追溯来源替换旧种子数据，建立可搜索、可调整的三维结构工作台，并把 CoRE 2024 CR、FAIR-MOFs 和有机酸重跑结果接入统一数据层；无法确认许可或身份的记录继续隔离。",
+        "en": "Replaces legacy seed data with traceable sources, builds a searchable and resizable 3D structure workbench, and integrates CoRE 2024 CR, FAIR-MOFs, and Organic Acid rerun outputs into the shared data layer while quarantining records with unresolved licence or identity."
+      },
+      "modules": {
+        "database": {
+          "summary": {
+            "zh": "建立真实结构索引、规范名称和可交互三维结构浏览。",
+            "en": "Establishes real structure indexing, canonical naming, and interactive 3D structure browsing."
+          },
+          "changes": [
+            {
+              "zh": "新增 CSD MOF 公共结构图谱和可调整大小的三维结构工作台，支持索引搜索、结构详情与来源信息。",
+              "en": "Adds a public CSD MOF structure atlas and resizable 3D workbench with indexed search, structural details, and provenance."
+            },
+            {
+              "zh": "补充常用名称、别名和规范显示名；原始结构编号继续用于精确搜索和溯源。",
+              "en": "Adds common names, aliases, and canonical display names while preserving raw structure identifiers for exact search and provenance."
+            },
+            {
+              "zh": "接入 9,835 条 CoRE 2024 CR 结构索引、路线族结构样本和质量报告。",
+              "en": "Integrates a 9,835-record CoRE 2024 CR structure index, route-family structure samples, and quality reports."
+            },
+            {
+              "zh": "接入 FAIR-MOFs 性质索引、质量报告和家族合成证据，保持来源与派生字段分离。",
+              "en": "Integrates FAIR-MOFs property indexes, quality reports, and family synthesis evidence while separating source and derived fields."
+            },
+            {
+              "zh": "旧 CoRE/QMOF 种子条目进入隔离清单，不再冒充已核验真实记录。",
+              "en": "Moves legacy CoRE/QMOF seed entries into quarantine rather than presenting them as verified real records."
+            }
+          ]
+        },
+        "ecoScreen": {
+          "summary": {
+            "zh": "生态筛选接入真实结构与合成证据，但仍执行候选级 LCI 门禁。",
+            "en": "Connects EcoScreen to real structural and synthesis evidence while retaining candidate-level LCI gates."
+          },
+          "changes": [
+            {
+              "zh": "CoRE 2024 CR 和 FAIR-MOFs 进入候选结构、合成路线与字段覆盖层。",
+              "en": "Adds CoRE 2024 CR and FAIR-MOFs to candidate structure, synthesis-route, and field-coverage layers."
+            },
+            {
+              "zh": "来源证据、家族代理和项目计算结果分层显示，不把家族级证据当作候选级实测清单。",
+              "en": "Separates source evidence, family proxies, and project calculations so family evidence is not treated as candidate-level measured inventory."
+            },
+            {
+              "zh": "缺少产率、能耗、回收率或循环数据时继续阻断比较性 LCA 结论。",
+              "en": "Continues to block comparative LCA conclusions when yield, energy, recovery, or cycling data are missing."
+            }
+          ]
+        },
+        "organicAcid": {
+          "summary": {
+            "zh": "完成 V3.9.10 可复跑数据、评分规范和方法展示产物。",
+            "en": "Completes rerunnable V3.9.10 data, scoring specifications, and methodology artifacts."
+          },
+          "changes": [
+            {
+              "zh": "生成 V3.9.10 重跑、审计、评分规范和排名演化记录，保留原始与派生字段边界。",
+              "en": "Generates V3.9.10 rerun, audit, scoring-specification, and ranking-evolution records with source/derived boundaries."
+            },
+            {
+              "zh": "有机酸数据层统一文献、金标、反应记录和描述符派生缓存。",
+              "en": "Unifies literature, gold, reaction, and descriptor-derived cache layers for Organic Acid."
+            },
+            {
+              "zh": "路线结构证据接入可视化工作台，身份与许可无法确认的记录不参与正式结果。",
+              "en": "Adds route-structure evidence to the visual workbench and excludes records with unresolved identity or licence from formal outputs."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "为新增数据源建立首版许可与隔离登记。",
+            "en": "Establishes the first licence and quarantine registry for the new data sources."
+          },
+          "changes": [
+            {
+              "zh": "新增数据库合规登记，记录 CCDC、CoRE、FAIR-MOFs、QMOF、NIST/ISODB 和文献来源。",
+              "en": "Adds a database-compliance registry covering CCDC, CoRE, FAIR-MOFs, QMOF, NIST/ISODB, and literature sources."
+            },
+            {
+              "zh": "未确认许可、认证下载和仅限机构许可的数据不进入公开应用数据包。",
+              "en": "Keeps unresolved-licence, authenticated-download, and institution-only data out of the public app bundle."
+            },
+            {
+              "zh": "数据质量报告、隔离清单和来源登记与应用展示同步。",
+              "en": "Keeps quality reports, quarantine lists, and source registration synchronized with app presentation."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v1.0.6",
+      "date": "2026-07-26",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.6：气体分离热力学解释、配对等温线和适用性门禁。",
+        "en": "v1.0.6: thermodynamic interpretation, paired isotherms, and eligibility gates for gas separation."
+      },
+      "summary": {
+        "zh": "将气体分离从单一排序扩展为有条件边界的热力学解释：配对真实单组分等温线、IAST、亨利亲和、等量吸附热和工作容量分别说明来源、公式、适用条件与不可计算原因。",
+        "en": "Extends gas separation from a single ranking into bounded thermodynamic interpretation: paired real pure-component isotherms, IAST, Henry affinity, isosteric heat, and working capacity each state provenance, formulas, eligibility, and reasons for withholding."
+      },
+      "modules": {
+        "gasSep": {
+          "summary": {
+            "zh": "建立来源值、项目计算值和代理指标分离的热力学解释层。",
+            "en": "Adds a thermodynamic interpretation layer that separates source values, project computations, and proxies."
+          },
+          "changes": [
+            {
+              "zh": "为同一材料和温度配对真实单组分等温线，双曲线同步显示压力、吸附量和数据来源。",
+              "en": "Pairs real pure-component isotherms for the same material and temperature and shows pressure, uptake, and provenance on synchronized curves."
+            },
+            {
+              "zh": "只有数据配对、拟合和工况满足条件时才计算 IAST；否则明确列出阻断原因。",
+              "en": "Computes IAST only when pairing, fitting, and operating conditions are eligible, otherwise listing the blocking reasons."
+            },
+            {
+              "zh": "区分来源报告选择性、项目计算 IAST、单点吸附量比和结构代理，避免混为一个指标。",
+              "en": "Separates source-reported selectivity, project-computed IAST, single-point uptake ratios, and structural proxies."
+            },
+            {
+              "zh": "补充亨利亲和、工作容量、再生性和等量吸附热解释；缺少多温度或低压数据时不输出伪精确结果。",
+              "en": "Adds Henry affinity, working capacity, regenerability, and isosteric-heat interpretation and withholds false precision when multi-temperature or low-pressure data are absent."
+            }
+          ]
+        },
+        "methodsEvidence": {
+          "summary": {
+            "zh": "公开热力学公式、假设、单位和不可计算边界。",
+            "en": "Publishes thermodynamic formulas, assumptions, units, and non-computable boundaries."
+          },
+          "changes": [
+            {
+              "zh": "方法论页面补充 IAST、亨利区、Clausius-Clapeyron 等量吸附热和工作容量公式。",
+              "en": "Adds IAST, Henry-region, Clausius-Clapeyron isosteric-heat, and working-capacity formulas to methodology."
+            },
+            {
+              "zh": "每个公式与实际字段和数据资格检查绑定，不以通用公式替代缺失数据。",
+              "en": "Binds each formula to implemented fields and eligibility checks instead of substituting a generic formula for missing data."
+            },
+            {
+              "zh": "新增公式一致性、真实数据审计和 GasSep 专项视觉检查。",
+              "en": "Adds formula-alignment, real-data-audit, and GasSep-specific visual checks."
+            }
+          ]
+        },
+        "validation": {
+          "summary": {
+            "zh": "新增热力学数据资格和真实性回归检查。",
+            "en": "Adds thermodynamic data-eligibility and authenticity regression checks."
+          },
+          "changes": [
+            {
+              "zh": "测试真实配对等温线、IAST 资格、等量吸附热资格和来源字段完整性。",
+              "en": "Tests real paired isotherms, IAST eligibility, isosteric-heat eligibility, and provenance-field completeness."
+            },
+            {
+              "zh": "保留已计算 IAST 标记，重复运行数据构建器不会重复计数或抬高完整度。",
+              "en": "Preserves the already-computed IAST marker so reruns do not double-count or inflate completeness."
+            },
+            {
+              "zh": "移动端和双曲线布局纳入专项视觉回归。",
+              "en": "Adds mobile and paired-curve layouts to focused visual regression."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.5",
       "date": "2026-07-25",
@@ -786,7 +1062,7 @@
     },
     {
       "appVersion": "v1.0.2",
-      "date": "2026-07-21",
+      "date": "2026-07-29",
       "stage": "unified-platform",
       "headline": {
         "zh": "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 浏览体验与全局汉化审查。",
@@ -1051,7 +1327,7 @@
       "zh": "v1.0.0 之前 EcoMOF-AI 按模块分别迭代，原始版本号与真实 commit 绑定，全部原样保留并按模块归类展示。",
       "en": "Before v1.0.0, EcoMOF-AI iterated module by module. Original version numbers are bound to real commits and are kept verbatim, regrouped here by module."
     },
-    "versionCount": 37,
+    "versionCount": 38,
     "byModule": {
       "organicAcid": [
         {
@@ -1193,6 +1469,11 @@
           "version": "V3.9.9",
           "date": "2026-06-25",
           "note": "No algorithm change in V3.9.9. Algorithm/closure module versions stay V3.9.8; only methodology UI copy, terminology (OACS/DMRS/OAFS -> HGCPS), layout density, and run/status visibility changed."
+        },
+        {
+          "version": "V3.9.10",
+          "date": "2026-07-28",
+          "note": "Keeps the eight-factor weighted-geometric HGCPS form but changes stability and synthesizability derivations under locked spec v3. Sample size is used only for empirical-Bayes shrinkage, confidence, uncertainty, and coverage. Duplicate source rows produce zero point-score change."
         },
         {
           "version": "V3.10.1",
@@ -1369,6 +1650,11 @@
           "note": "No data or schema change; presentation, terminology, and layout only."
         },
         {
+          "version": "V3.9.10",
+          "date": "2026-07-28",
+          "note": "Adds 4,168 FAIR-MOFs records, a property index, family synthesis-condition evidence, a quality report, and conservative Refcode/base-variant/article-only identity layers. QMOF placeholder records remain quarantined."
+        },
+        {
           "version": "V3.10.1",
           "date": "2026-06-29",
           "note": "Gas v2.1 keeps 442 gas records, computes 69 IAST selectivity values, and links 79 gas records to structural candidates under explicit confidence labels."
@@ -1541,6 +1827,11 @@
           "note": "No validation logic change; boundaries (not-final-proof, not-formal-ML, seed/proxy/curated) preserved and now consistently worded."
         },
         {
+          "version": "V3.9.10",
+          "date": "2026-07-28",
+          "note": "Adds checksum and schema validation for FAIR-MOFs, exact/base/article identity audits, a duplicate-record point-invariance test, and persisted V3.9.10 rerun/audit/evolution artifacts."
+        },
+        {
           "version": "V3.10.1",
           "date": "2026-06-29",
           "note": "Adds provenance and anti-fabrication tests plus a structure-proxy Spearman report marked low-validity-indicative."
@@ -1655,12 +1946,12 @@
         {
           "version": "V3.9",
           "date": "2026-06-21",
-          "note": "删除旧催化演示视图，Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。"
+          "note": "删除 Catalysis 小猫游乐场（CatalysisEnergyBarrierDemo + CatalystCatSprite + cat energy 组件/数据/测试），Catalysis Lab 回归科研结构（Catalysis Research Overview + 有机酸研究链路）；版本记录信息架构清理（Current Release 优先，历史折叠/归档）。"
         },
         {
           "version": "V3.9.1",
           "date": "2026-06-21",
-          "note": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的旧演示 CSS（保留共享 .formula 与通用 keyframes）。"
+          "note": "GasSep 新增数据摘要卡片与 provenance CSV 导出；彻底清理孤立的 cat-playground / energy-playground CSS（保留共享 .formula 与通用 keyframes）。"
         },
         {
           "version": "V3.9.2",
@@ -1726,6 +2017,11 @@
           "version": "V3.9.9",
           "date": "2026-06-25",
           "note": "Retired OACS/DMRS formula cards from the methodology render; unified copy to HGCPS / weighted geometric mean / 8 data-derived factors; down-sank the V2.0 changelog into a collapsed historical block; replaced whitespace-stretching auto-fit grids (stepwise Step 0 fixed 3-column, research reports auto-fill); added a prominent Run control + current-algorithm-status card on the chain first screen."
+        },
+        {
+          "version": "V3.9.10",
+          "date": "2026-07-28",
+          "note": "Adds FAIR-MOFs evidence boundaries to the Organic Acid workbench, a unified EcoScreen structure/property search, FAIR physicochemical property filters, and a top-level database compliance page with source-specific user obligations."
         },
         {
           "version": "V3.10.1",

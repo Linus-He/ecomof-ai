@@ -1531,6 +1531,27 @@ details[open].motion-surface {
   animation: cta-soft-in 520ms cubic-bezier(0.22, 1, 0.36, 1) 520ms both;
 }
 
+.home-primary-entry-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: 720px;
+  width: 100%;
+}
+
+.home-primary-entry-grid > .home-action-button:nth-child(-n + 3) {
+  grid-column: span 2;
+}
+
+.home-primary-entry-grid > .home-action-button:nth-child(n + 4) {
+  grid-column: span 3;
+}
+
+.home-primary-entry-grid > .home-action-button {
+  min-width: 0;
+  width: 100% !important;
+}
+
 .screening-preview-panel {
   animation: hero-preview-in 760ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
 }
@@ -4170,11 +4191,11 @@ input[type="submit"] {
   margin: 7px 0 0;
 }
 
-.project-evolution-archive details {
+.project-evolution-archive > details {
   border-bottom: 1px solid var(--archive-divider);
 }
 
-.project-evolution-archive summary {
+.project-evolution-archive > details > summary {
   align-items: center;
   cursor: pointer;
   display: grid;
@@ -4184,34 +4205,34 @@ input[type="submit"] {
   padding: 18px 2px;
 }
 
-.project-evolution-archive summary::-webkit-details-marker {
+.project-evolution-archive > details > summary::-webkit-details-marker {
   display: none;
 }
 
-.project-evolution-archive summary > span {
+.project-evolution-archive > details > summary > span {
   color: var(--archive-accent);
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 900;
 }
 
-.project-evolution-archive summary > div {
+.project-evolution-archive > details > summary > div {
   display: grid;
   gap: 4px;
 }
 
-.project-evolution-archive summary strong {
+.project-evolution-archive > details > summary strong {
   color: var(--archive-text);
   font-size: 13px;
 }
 
-.project-evolution-archive summary small {
+.project-evolution-archive > details > summary small {
   color: var(--archive-muted);
   font-size: 10.5px;
   line-height: 1.45;
 }
 
-.project-evolution-archive details > div {
+.project-evolution-archive > details > div {
   display: grid;
   gap: 12px;
   padding: 0 0 18px 48px;
@@ -4255,7 +4276,7 @@ input[type="submit"] {
     flex-direction: column;
   }
 
-  .project-evolution-archive details > div {
+  .project-evolution-archive > details > div {
     padding-left: 0;
   }
 

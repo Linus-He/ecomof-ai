@@ -3,13 +3,31 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current Web version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.5")
+    expect(log.currentAppVersion).toBe("v1.0.9")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.5")
+    expect(log.releases[0].appVersion).toBe("v1.0.9")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
     expect(log.authority).toMatch(/single unified/i)
+  })
+
+  it("records the four previously missing recent releases with concrete module changes", () => {
+    const recent = ["v1.0.9", "v1.0.8", "v1.0.7", "v1.0.6"]
+      .map(version => log.releases.find(row => row.appVersion === version))
+    expect(recent.every(Boolean)).toBe(true)
+    for (const release of recent) {
+      expect(Object.keys(release.modules).length).toBeGreaterThanOrEqual(3)
+      for (const module of Object.values(release.modules)) {
+        expect(module.summary.zh).toBeTruthy()
+        expect(module.summary.en).toBeTruthy()
+        expect(module.changes.length).toBeGreaterThanOrEqual(3)
+      }
+    }
+    expect(JSON.stringify(recent[0])).toMatch(/43|10|96/)
+    expect(JSON.stringify(recent[1])).toMatch(/HGCPS|合规/)
+    expect(JSON.stringify(recent[2])).toMatch(/9,835|FAIR-MOFs|CSD/)
+    expect(JSON.stringify(recent[3])).toMatch(/IAST|等量吸附热|isosteric/)
   })
 
   it("v1.0.5 archives material-level evaluation, readable MOF names, and formula alignment", () => {
@@ -91,25 +109,21 @@ describe("app_release_log unified version source", () => {
   })
 
   it("records completed work in the current concrete patch developer log", () => {
-    expect(log.currentAppVersion).toBe("v1.0.5")
-    expect(log.developmentLog.baseAppVersion).toBe("v1.0.4")
-    expect(log.developmentLog.developmentVersion).toBe("v1.0.5")
+    expect(log.currentAppVersion).toBe("v1.0.9")
+    expect(log.developmentLog.baseAppVersion).toBe("v1.0.8")
+    expect(log.developmentLog.developmentVersion).toBe("v1.0.9")
     expect(log.developmentLog.status).toBe("archived")
     expect(log.developmentLog.logPolicy.zh).toMatch(/实际完成并通过检查/)
     expect(Object.keys(log.developmentLog.modules)).toEqual([
       "ui",
-      "home",
       "ecoScreen",
-      "gasSep",
-      "database",
-      "methodsEvidence",
+      "dataCompliance",
       "projectEvolution",
     ])
-    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/确认|Confirm|深色|dark/)
-    expect(JSON.stringify(log.developmentLog.modules.ecoScreen)).toMatch(/LCA|经济|1 t CO2|1 t CO₂/)
-    expect(JSON.stringify(log.developmentLog.modules.gasSep)).toMatch(/IAST|single-point|单点/)
-    expect(JSON.stringify(log.developmentLog.modules.database)).toMatch(/原始 CSD|raw CSD/)
-    expect(JSON.stringify(log.developmentLog.modules.methodsEvidence)).toMatch(/CRITIC|公式/)
+    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/三上二下|three-plus-two|联系我们/)
+    expect(JSON.stringify(log.developmentLog.modules.ecoScreen)).toMatch(/96|9,835|平方级|quadratic/)
+    expect(JSON.stringify(log.developmentLog.modules.dataCompliance)).toMatch(/43|10|非授权证书|certificate/)
+    expect(JSON.stringify(log.developmentLog.modules.projectEvolution)).toMatch(/历史沿革|34 像素|34-pixel/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

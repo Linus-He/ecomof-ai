@@ -176,8 +176,8 @@ export function AmbiguityRiskPanel({ audit, lang = "en", t: rawTheme, isMobile =
         <Metric label={text(lang, "记录质量", "Record quality")} value={pct(summary.recordQualityScore)} t={t} />
       </div>
       <div style={{ display: "grid", gap: 6 }}>
-        {topRisks.map(row => (
-          <div key={row.candidateId} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "grid", gap: 3, padding: 8 }}>
+        {topRisks.map((row, index) => (
+          <div key={`${row.candidateId || row.id || row.displayName || "risk"}-${index}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, display: "grid", gap: 3, padding: 8 }}>
             <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{row.displayName || row.candidateId}</strong>
             <span style={{ fontSize: 10.8, lineHeight: 1.4 }}>{(row.blockers || []).slice(0, 4).join("; ") || "pending"}</span>
           </div>
