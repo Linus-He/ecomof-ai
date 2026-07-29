@@ -4,6 +4,7 @@ import { ChemicalText, formatPercent } from "../../shared"
 import { AnchoredFieldProvenancePanel } from "../common/FieldProvenanceButton"
 import { getFieldSource, getRecordProvenance } from "./gasDataSchema"
 import { metricLabel, text } from "./gasViewUtils"
+import { X } from "@phosphor-icons/react"
 
 function display(value, fallback = "pending") {
   if (value === null || value === undefined || value === "") return fallback
@@ -96,9 +97,9 @@ export function GasFieldProvenanceButton({ record, field, currentValue, unit, la
             padding: 12,
           }}
         >
-          <div style={{ alignItems: "start", display: "flex", gap: 10, justifyContent: "space-between", marginBottom: 8 }}>
+          <div style={{ alignItems: "center", background: t.tooltipBg || t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", gap: 10, justifyContent: "space-between", margin: "-12px -12px 8px", padding: "11px 12px 9px", position: "sticky", top: -12, zIndex: 2 }}>
             <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "字段级溯源", "Field-level provenance")}</strong>
-            <button type="button" onClick={() => setOpen(false)} aria-label={text(lang, "关闭字段级溯源", "Close field-level provenance")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", minHeight: 32, padding: "4px 8px" }}>Esc</button>
+            <button type="button" onClick={() => setOpen(false)} aria-label={text(lang, "关闭字段级溯源", "Close field-level provenance")} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", display: "inline-flex", height: 32, justifyContent: "center", padding: 0, width: 32 }}><X aria-hidden="true" size={16} weight="bold" /></button>
           </div>
           <div style={{ display: "grid", gap: 7 }}>
             {rows.map(([name, value]) => (

@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
+import { X } from "@phosphor-icons/react"
 
 const XJU_EMBLEM_SRC = `${import.meta.env.BASE_URL || "/"}assets/xju-emblem.jpg`
 
@@ -311,7 +312,7 @@ export function AcknowledgementsModal({ open, onClose }) {
           width: isMobile ? "calc(100vw - 20px)" : "min(1000px, 96vw)",
         }}
       >
-        <header style={{ alignItems: "flex-start", display: "flex", gap: 18, justifyContent: "space-between", margin: "0 auto 26px", maxWidth: 920 }}>
+        <header style={{ alignItems: "flex-start", background: t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", gap: 18, justifyContent: "space-between", margin: isMobile ? "-22px -16px 26px" : "-36px -38px 26px", padding: isMobile ? "22px 16px 18px" : "30px 38px 22px", position: "sticky", top: isMobile ? -22 : -36, zIndex: 3 }}>
           <div style={{ minWidth: 0 }}>
             <h2 style={{ color: t.textStrong, fontSize: isMobile ? 30 : 36, fontWeight: 900, letterSpacing: -0.6, lineHeight: 1.08, margin: 0 }}>
               {copy.title}
@@ -336,7 +337,6 @@ export function AcknowledgementsModal({ open, onClose }) {
               cursor: "pointer",
               display: "inline-flex",
               flexShrink: 0,
-              fontSize: 28,
               height: 46,
               justifyContent: "center",
               lineHeight: 1,
@@ -344,7 +344,7 @@ export function AcknowledgementsModal({ open, onClose }) {
               width: 46,
             }}
           >
-            ×
+            <X aria-hidden="true" size={21} weight="bold" />
           </button>
         </header>
 

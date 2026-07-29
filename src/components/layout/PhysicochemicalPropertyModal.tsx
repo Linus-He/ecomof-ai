@@ -103,11 +103,15 @@ export function PhysicochemicalPropertyModal({ open, onClose, record }) {
       >
         <header style={{
           alignItems: "flex-start",
+          background: t.panel,
           borderBottom: `1px solid ${t.border}`,
           display: "flex",
           gap: 18,
           justifyContent: "space-between",
           padding: isMobile ? 16 : "20px 22px",
+          position: "sticky",
+          top: 0,
+          zIndex: 3,
         }}>
           <div style={{ display: "grid", gap: 7, minWidth: 0 }}>
             <span style={{ alignItems: "center", color: t.accentText, display: "flex", fontSize: 10.5, fontWeight: 900, gap: 7, letterSpacing: ".06em" }}>

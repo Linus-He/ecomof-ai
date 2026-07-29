@@ -495,175 +495,8 @@
     ]
   },
   {
-    "id": "performance",
-    "order": 3,
-    "module": "Performance",
-    "moduleZh": "性能优先级",
-    "summary": "Performance organizes benchmark comparison, normalization, tiering, and robustness checks for candidate performance signals.",
-    "summaryZh": "Performance 组织基准比较、归一化、分层和稳健性检查，用于解释候选性能信号。",
-    "methodWorkflow": [
-      {
-        "label": "Benchmark comparison",
-        "labelZh": "基准比较",
-        "description": "Compare candidates against task-relevant benchmark ranges.",
-        "descriptionZh": "将候选物与任务相关基准范围比较。"
-      },
-      {
-        "label": "Normalization",
-        "labelZh": "归一化",
-        "description": "Transform heterogeneous performance metrics to comparable scales.",
-        "descriptionZh": "将异构性能指标转换为可比较尺度。"
-      },
-      {
-        "label": "Ranking / tiering",
-        "labelZh": "排序 / 分层",
-        "description": "Report tiers with data-quality context rather than absolute claims.",
-        "descriptionZh": "结合数据质量语境报告分层，而不是绝对结论。"
-      },
-      {
-        "label": "Sensitivity / robustness",
-        "labelZh": "敏感性 / 稳健性",
-        "description": "Check whether tier assignment depends on uncertain inputs.",
-        "descriptionZh": "检查分层是否依赖不确定输入。"
-      }
-    ],
-    "inputs": [
-      "uptake",
-      "selectivity",
-      "stability",
-      "descriptor completeness",
-      "evidence status"
-    ],
-    "inputsZh": [
-      "吸附量",
-      "选择性",
-      "稳定性",
-      "描述符完整度",
-      "证据状态"
-    ],
-    "outputs": [
-      "benchmark-relative tier",
-      "score contribution",
-      "data-quality-aware comparison"
-    ],
-    "outputsZh": [
-      "相对基准分层",
-      "评分贡献",
-      "数据质量感知比较"
-    ],
-    "visualizations": [
-      {
-        "title": "Benchmark comparison panel",
-        "titleZh": "基准比较面板",
-        "description": "Shows candidate performance against task-specific reference bands.",
-        "descriptionZh": "展示候选物相对任务基准区间的性能。",
-        "chartType": "bar"
-      },
-      {
-        "title": "Robustness diagnostics",
-        "titleZh": "稳健性诊断",
-        "description": "Shows whether score ordering changes when uncertain weights or evidence confidence change.",
-        "descriptionZh": "展示不确定权重或证据置信度变化时评分顺序是否改变。",
-        "chartType": "line"
-      }
-    ],
-    "evidenceBoundary": [
-      "Performance tiers reuse EcoScreen-style formulas when descriptors are weighted, but they remain decision-support labels.",
-      "Benchmark-relative comparison is not a replacement for measured isotherms or validation experiments."
-    ],
-    "evidenceBoundaryZh": [
-      "当描述符加权时，性能分层复用 EcoScreen 公式思路，但仍是决策支持标签。",
-      "相对基准比较不能替代实测等温线或验证实验。"
-    ],
-    "validationRoadmap": [
-      "Add benchmark datasets",
-      "separate measured and estimated performance fields",
-      "connect score changes to provenance"
-    ],
-    "validationRoadmapZh": [
-      "接入基准数据集",
-      "区分实测与估计性能字段",
-      "将评分变化连接到来源信息"
-    ],
-    "methodGroups": [
-      {
-        "id": "performance-tiering",
-        "title": "Data-quality-aware ranking / tiering",
-        "titleZh": "数据质量感知排序 / 分层",
-        "purpose": "Use normalized performance indicators together with evidence confidence and descriptor completeness.",
-        "purposeZh": "结合归一化性能指标、证据置信度和描述符完整度进行分层。",
-        "algorithmSteps": [
-          {
-            "label": "Normalize benchmark metrics",
-            "labelZh": "归一化基准指标",
-            "description": "Convert each metric to a task-consistent scale.",
-            "descriptionZh": "将每个指标转换为任务一致尺度。"
-          },
-          {
-            "label": "Apply score logic",
-            "labelZh": "应用评分逻辑",
-            "description": "Reuse weighted-score ideas from EcoScreen when multiple descriptors are combined.",
-            "descriptionZh": "当组合多个描述符时复用 EcoScreen 的加权评分思路。"
-          },
-          {
-            "label": "Attach quality warning",
-            "labelZh": "附加质量警告",
-            "description": "Show missing, pending, estimated, or weak-evidence fields near the tier.",
-            "descriptionZh": "在分层旁显示 missing、pending、estimated 或弱证据字段。"
-          }
-        ],
-        "formulas": [
-          {
-            "id": "evidence-confidence",
-            "label": "Evidence-corrected score relation",
-            "labelZh": "证据修正评分关系",
-            "latex": "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q",
-            "fallback": "D_expected = D_raw × Q",
-            "explanation": "Performance uses the same evidence-confidence idea when score estimates depend on curated fields.",
-            "explanationZh": "当评分估计依赖整理字段时，Performance 使用相同的证据置信度思想。"
-          }
-        ],
-        "inputs": [
-          "benchmark metrics",
-          "descriptor completeness",
-          "evidence confidence Q"
-        ],
-        "inputsZh": [
-          "基准指标",
-          "描述符完整度",
-          "证据置信度 Q"
-        ],
-        "outputs": [
-          "tier",
-          "score contribution",
-          "quality warning"
-        ],
-        "outputsZh": [
-          "分层",
-          "评分贡献",
-          "质量警告"
-        ],
-        "visualizations": [
-          {
-            "title": "Ranking and tier plot",
-            "titleZh": "排序与分层图",
-            "description": "Shows score contribution and confidence together.",
-            "descriptionZh": "同时展示评分贡献和置信度。",
-            "chartType": "bar"
-          }
-        ],
-        "limitations": [
-          "Performance labels depend on data coverage and task definition."
-        ],
-        "limitationsZh": [
-          "性能标签依赖数据覆盖度和任务定义。"
-        ]
-      }
-    ]
-  },
-  {
     "id": "gassep",
-    "order": 4,
+    "order": 3,
     "module": "GasSep",
     "moduleZh": "气体分离",
     "summary": "GasSep treats uptake and selectivity as condition-bound records, explains adsorption with paired pure-component isotherms, Henry affinity, scenario IAST, and isosteric heat, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
@@ -1652,7 +1485,7 @@
   },
   {
     "id": "catalysis-lab",
-    "order": 5,
+    "order": 4,
     "module": "Catalysis",
     "moduleZh": "催化",
     "summary": "Catalysis organizes catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation needs while keeping hypotheses separate from proof.",
@@ -1804,466 +1637,421 @@
   },
   {
     "id": "organic-acid",
-    "order": 6,
-    "module": "Organic Acid Workspace",
-    "moduleZh": "有机酸工作台",
+    "order": 5,
+    "module": "Organic Acid Screening",
+    "moduleZh": "有机酸筛选",
     "parentModule": "Catalysis",
     "parentModuleZh": "催化",
-    "summary": "Organic Acid Workspace links a three-pathway reaction network, reaction rules, candidate priority matrix, motif-level rationale, and Algorithm Trace Explorer.",
-    "summaryZh": "有机酸工作台连接三路径反应网络、反应规则、候选优先级矩阵、motif-level rationale 和 Algorithm Trace Explorer。",
+    "summary": "The current V3.9.10 method is a deterministic, abundance-neutral host–guest pathway screen with eight locked factors, explicit provenance, audit artifacts, and validation boundaries.",
+    "summaryZh": "当前 V3.9.10 方法是丰度中性的主客体路径白盒筛选：八因子与权重预先锁定，来源、审计产物和验证边界全部显式展示。",
+    "specialNote": "Only the current preregistered V3.9.10 terms are shown. Earlier composite-tier terminology and superseded proxy formulas are excluded.",
+    "specialNoteZh": "本页只展示当前预登记的 V3.9.10 术语；早期综合分层称谓和已被替换的代理公式不再显示。",
     "methodWorkflow": [
       {
-        "label": "Three-pathway dynamic reaction network",
-        "labelZh": "三路径动态反应网络",
-        "description": "Interactively select formaldehyde, glyceraldehyde, or pyruvaldehyde routes.",
-        "descriptionZh": "交互选择甲醛、甘油醛或丙酮醛路径。"
+        "label": "Load governed source layers",
+        "labelZh": "读取受治理的数据层",
+        "description": "Load CoRE structural/stability fields, FAIR-MOFs synthesis conditions, literature and gold evidence, and transparent economics inputs.",
+        "descriptionZh": "读取 CoRE 结构与稳定性字段、FAIR‑MOFs 合成条件、文献与金标准证据，以及透明经济性输入。"
       },
       {
-        "label": "Reaction rules and evidence graph",
-        "labelZh": "反应规则与证据图",
-        "description": "Filter and inspect pathway rules, evidence items, candidate nodes, and pending sources.",
-        "descriptionZh": "筛选并查看路径规则、证据条目、候选节点和 pending 来源。"
+        "label": "Resolve identity and conditions",
+        "labelZh": "核验身份与条件",
+        "description": "Link structures only by exact or base CSD Refcodes and keep same-DOI records separate unless a structure identifier also matches.",
+        "descriptionZh": "结构连接只接受精确或基础 CSD Refcode；仅 DOI 相同而结构标识不一致的记录保持独立。"
       },
       {
-        "label": "Candidate priority matrix",
-        "labelZh": "候选物优先级矩阵",
-        "description": "Explain candidate tiers using pathway fit, motif/rule matches, evidence, risk, and validation gaps.",
-        "descriptionZh": "用路径适配、motif/rule 匹配、证据、风险和验证缺口解释候选分层。"
+        "label": "Apply abundance-neutral derivation",
+        "labelZh": "执行丰度中性派生",
+        "description": "Use counts for empirical-Bayes shrinkage and confidence only; never reward a family simply because it has more rows.",
+        "descriptionZh": "记录数量只用于经验贝叶斯收缩和置信度，不因某家族条目更多而提高材料得分。"
       },
       {
-        "label": "Algorithm Trace Explorer",
-        "labelZh": "Algorithm Trace Explorer",
-        "description": "Summarize rule and evidence contributions through a compact step timeline.",
-        "descriptionZh": "通过紧凑步骤时间线总结规则和证据贡献。"
+        "label": "Compute eight-factor HGCPS",
+        "labelZh": "计算八因子 HGCPS",
+        "description": "Aggregate fixed 0–1 factors with preregistered weights and a weighted geometric mean.",
+        "descriptionZh": "以预先登记的固定权重，将八个 0–1 因子按加权几何平均聚合。"
+      },
+      {
+        "label": "Audit and expose gaps",
+        "labelZh": "审计并暴露缺口",
+        "description": "Run invariance, mutation, ablation, sensitivity, and small-sample audits and retain fallback/missing reasons.",
+        "descriptionZh": "执行不变性、规则变更、消融、敏感性和小样本审计，并保留 fallback／缺失原因。"
       }
     ],
     "inputs": [
-      "pathway fit",
-      "motif / rule match",
-      "evidence support",
-      "risk penalty",
-      "validation gap",
+      "CoRE stability and structural descriptors",
+      "FAIR-MOFs synthesis-condition evidence",
+      "host and guest factor tables",
+      "literature and gold evidence",
+      "risk and economics records",
       "field-level provenance"
     ],
     "inputsZh": [
-      "路径适配",
-      "motif / 规则匹配",
-      "证据支持",
-      "风险惩罚",
-      "验证缺口",
+      "CoRE 稳定性与结构描述符",
+      "FAIR‑MOFs 合成条件证据",
+      "主体与客体因子表",
+      "文献与金标准证据",
+      "风险与经济性记录",
       "字段级来源"
     ],
     "outputs": [
-      "priority tier",
-      "rule-based contribution",
-      "evidence-weighted priority",
-      "trace explanation"
+      "eight route factors",
+      "final HGCPS",
+      "factor-level derivation and citations",
+      "fallback and missing reasons",
+      "sensitivity and abundance-bias audits",
+      "validation queue"
     ],
     "outputsZh": [
-      "优先级层级",
-      "规则贡献",
-      "证据加权优先级",
-      "追踪解释"
+      "八个路径因子",
+      "最终 HGCPS",
+      "逐因子派生层级与引用",
+      "fallback 与缺失原因",
+      "敏感性与丰度偏差审计",
+      "验证队列"
     ],
     "visualizations": [
       {
-        "title": "Three-pathway network",
-        "titleZh": "三路径网络",
-        "description": "Interactive pathway graph with node and edge selection.",
-        "descriptionZh": "支持节点和边选择的交互路径图。",
-        "chartType": "flow"
+        "title": "Eight-factor method profile",
+        "titleZh": "八因子方法档案",
+        "description": "Artifact-derived factors, locked weights, source roles, and fallback states.",
+        "descriptionZh": "从生成产物读取因子、锁定权重、来源职责和 fallback 状态。",
+        "chartType": "score"
       },
       {
-        "title": "Candidate priority matrix",
-        "titleZh": "候选优先级矩阵",
-        "description": "Tiered matrix for candidates, evidence, risk, and validation gaps.",
-        "descriptionZh": "展示候选物、证据、风险和验证缺口的分层矩阵。",
-        "chartType": "score"
+        "title": "Interactive sensitivity explanation",
+        "titleZh": "交互敏感性解释",
+        "description": "A non-persistent explanatory control shows how a factor direction changes the geometric aggregate.",
+        "descriptionZh": "不写回正式结果的演示控件，用于理解单因子方向如何影响几何聚合。",
+        "chartType": "line"
       }
     ],
     "evidenceBoundary": [
-      "Priority matrix is a decision-support view, not an experimentally validated ranking.",
-      "Algorithm Trace Explorer explains rule and evidence contributions. It does not prove mechanistic causality.",
-      "Motif rationale is not a trained MACCS/SHAP model."
+      "HGCPS prioritizes validation; it is not measured catalytic yield, selectivity, conversion, or lifetime.",
+      "FAIR-MOFs condition accessibility is not a synthesis-success probability.",
+      "Family-level correlation audits are indicative because sample size and statistical power remain low.",
+      "Fallback factors stay visible and cannot be presented as source-measured properties."
     ],
     "evidenceBoundaryZh": [
-      "优先级矩阵是决策支持视图，不是已经实验验证的真实排名。",
-      "Algorithm Trace Explorer 用于解释规则和证据贡献，不证明真实机理因果关系。",
-      "motif rationale 不是已训练的 MACCS/SHAP 模型。"
+      "HGCPS 用于安排验证优先级，不是实测产率、选择性、转化率或寿命。",
+      "FAIR‑MOFs 条件可达性不是合成成功概率。",
+      "家族级相关性审计样本量与统计功效较低，只能作为提示。",
+      "fallback 因子必须保持可见，不能表述为来源实测性质。"
     ],
     "validationRoadmap": [
-      "Run feeding tests for pathway branches",
-      "add isotope tracing and carbon balance",
-      "curate DFT descriptors for bicarbonate and formate binding"
+      "Add route-specific synthesis failures and yields",
+      "collect condition-matched catalytic controls",
+      "verify guest-metal factors experimentally or by dedicated DFT",
+      "rerun locked scoring and publish audit deltas"
     ],
     "validationRoadmapZh": [
-      "开展路径分支投料实验",
-      "加入同位素示踪和碳平衡",
-      "整理 HCO₃⁻ 与甲酸盐结合的 DFT 描述符"
+      "补充路线特异的合成失败记录与产率",
+      "收集条件匹配的催化对照",
+      "用专门实验或 DFT 核验客体金属因子",
+      "按锁定规则重跑并公开审计差异"
     ],
-    "specialNote": "Inspired by molecular fingerprint mining, the Organic Acid Workspace uses a motif-level rationale layer to connect ligand fragments, metal-site environments, and pore features with pathway rules, candidate priority, and validation gaps.",
-    "specialNoteZh": "受分子指纹挖掘思路启发，有机酸工作台使用 motif-level rationale layer，将配体片段、金属位点环境和孔结构特征连接到路径规则、候选物优先级和验证缺口。",
+    "implementationLogic": [
+      {
+        "function": "Identity resolution",
+        "trigger": "MOF name, CSD Refcode, DOI",
+        "process": "Exact/base Refcode match; DOI remains article-level only",
+        "output": "structure link or explicit unmapped state",
+        "guard": "No fuzzy-name or DOI-only structure merge"
+      },
+      {
+        "function": "Abundance correction",
+        "trigger": "family source rows",
+        "process": "empirical-Bayes shrinkage toward descriptor-specific global prior",
+        "output": "shrunk factor plus confidence",
+        "guard": "duplicating identical rows cannot improve the point score"
+      },
+      {
+        "function": "HGCPS calculation",
+        "trigger": "eight normalized factors",
+        "process": "locked weighted geometric mean with 0.001 numerical floor",
+        "output": "final HGCPS and factor trace",
+        "guard": "weights sum to one; scoring spec mutation fails audit"
+      },
+      {
+        "function": "Result explanation",
+        "trigger": "selected route",
+        "process": "read generated artifact provenance and audit state",
+        "output": "factor values, sources, n, citations, fallback reasons",
+        "guard": "never label the result as measured catalytic performance"
+      }
+    ],
     "methodGroups": [
       {
-        "id": "graph-theoretic-reaction-network",
-        "title": "Graph-theoretic reaction network model",
-        "titleZh": "图论反应网络模型",
-        "purpose": "Represent organic-acid carbon flow as a weighted network of species, intermediates, products, competing branches, and regulation factors.",
-        "purposeZh": "将有机酸碳流表示为由物种、中间体、产物、竞争分支和调控因子组成的加权网络。",
+        "id": "organic-data-governance-current",
+        "title": "Identity, source, and condition governance",
+        "titleZh": "身份、来源与条件治理",
+        "purpose": "Prevent cross-material contamination before any factor is derived.",
+        "purposeZh": "在派生任何因子前阻止跨材料污染。",
         "algorithmSteps": [
           {
-            "label": "Define nodes",
-            "labelZh": "定义节点",
-            "description": "Nodes represent chemical species, intermediates, products, environment factors, or MOF regulation factors.",
-            "descriptionZh": "节点代表化学物种、中间体、产物、环境因素或 MOF 调控因子。"
+            "label": "Read source registry",
+            "labelZh": "读取来源登记",
+            "description": "Load source version, licence, record ids, checksums, and retrieval date.",
+            "descriptionZh": "读取来源版本、许可、记录 ID、校验和与检索日期。"
           },
           {
-            "label": "Define edges",
-            "labelZh": "定义边",
-            "description": "Edges represent candidate transformations, competing branches, or regulation effects.",
-            "descriptionZh": "边代表候选转化步骤、竞争分支或调控作用。"
+            "label": "Resolve structure identity",
+            "labelZh": "解析结构身份",
+            "description": "Use exact/base CSD Refcode; keep DOI associations at article level.",
+            "descriptionZh": "使用精确／基础 CSD Refcode；DOI 关联只停留在文章层。"
           },
           {
-            "label": "Weight edges",
-            "labelZh": "边权重赋值",
-            "description": "Combine evidence score, chemical plausibility, MOF regulation contribution, and validation support.",
-            "descriptionZh": "综合证据分数、化学合理性、MOF 调控贡献和验证支持度。"
+            "label": "Preserve conditions",
+            "labelZh": "保留实验条件",
+            "description": "Retain temperature, time, solvent, adsorbate, and measurement context.",
+            "descriptionZh": "保留温度、时间、溶剂、吸附质和测量语境。"
           },
           {
-            "label": "Score pathways",
-            "labelZh": "路径评分",
-            "description": "Aggregate edge weights along a selected pathway to identify likely routes and bottleneck steps.",
-            "descriptionZh": "沿选定路径聚合边权重，用于识别候选主路径和瓶颈步骤。"
-          }
-        ],
-        "formulas": [
-          {
-            "id": "organic-edge-weight",
-            "label": "Edge weight",
-            "labelZh": "边权重",
-            "latex": "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}",
-            "fallback": "w_ij = E_ij × P_ij × M_ij × V_ij",
-            "explanation": "Edge weight combines evidence, chemical plausibility, MOF regulation, and validation support.",
-            "explanationZh": "边权重综合证据、化学合理性、MOF 调控和验证支持度。"
-          },
-          {
-            "id": "organic-path-score",
-            "label": "Pathway score",
-            "labelZh": "路径评分",
-            "latex": "S_p=\\prod_{(i,j)\\in p}w_{ij}",
-            "fallback": "S_p = Π w_ij",
-            "explanation": "The current pathway score uses multiplicative aggregation so that weak steps remain visible.",
-            "explanationZh": "当前路径评分采用乘积聚合，使低证据步骤能够作为瓶颈被保留。"
-          }
-        ],
-        "inputs": [
-          "reaction nodes",
-          "candidate reaction edges",
-          "evidence score",
-          "chemical plausibility",
-          "MOF regulation factors",
-          "validation support"
-        ],
-        "inputsZh": [
-          "反应节点",
-          "候选反应边",
-          "证据分数",
-          "化学合理性",
-          "MOF 调控因子",
-          "验证支持度"
-        ],
-        "outputs": [
-          "edge weights",
-          "pathway score",
-          "bottleneck edge",
-          "competing branch warning"
-        ],
-        "outputsZh": [
-          "边权重",
-          "路径评分",
-          "瓶颈边",
-          "竞争分支提示"
-        ],
-        "visualizations": [
-          {
-            "title": "Carbon-flow graph",
-            "titleZh": "碳流图",
-            "description": "Clickable nodes, edges, pathway filters, graph metrics, and MOF regulation highlights.",
-            "descriptionZh": "可点击节点、边、路径筛选器、图论指标和 MOF 调控高亮。",
-            "chartType": "flow"
-          }
-        ],
-        "limitations": [
-          "Current edge weights are hypothesis-guided and require isotope tracing, intermediate feeding, time-series monitoring, and by-product distribution validation."
-        ],
-        "limitationsZh": [
-          "当前边权重属于假设驱动，需要同位素示踪、中间体投料、时间序列监测和副产物分布验证。"
-        ]
-      },
-      {
-        "id": "candidate-prioritization-method",
-        "title": "Candidate prioritization method",
-        "titleZh": "候选物优先级方法",
-        "purpose": "Connect rule matches, curation status, priority matrix position, and recommended validation actions.",
-        "purposeZh": "连接规则命中、整理状态、优先级矩阵位置和推荐验证动作。",
-        "algorithmSteps": [
-          {
-            "label": "Rule matching",
-            "labelZh": "规则匹配",
-            "description": "Match candidates to water stability, open metal site, pore accessibility, functional group, bicarbonate activation, and side-path suppression rules.",
-            "descriptionZh": "将候选物匹配到水相稳定性、开放金属位点、孔道可达性、官能团、碳酸氢根活化和副路径抑制规则。"
-          },
-          {
-            "label": "Curation queue",
-            "labelZh": "整理队列",
-            "description": "Mark missing descriptors, provenance gaps, and reaction-mapping gaps before priority interpretation.",
-            "descriptionZh": "在解释优先级前标记缺失描述符、来源缺口和反应路径关联缺口。"
-          },
-          {
-            "label": "Priority matrix",
-            "labelZh": "优先级矩阵",
-            "description": "Place candidates by pathway relevance and evidence readiness, with point size representing MOF feasibility.",
-            "descriptionZh": "按路径相关性和证据就绪度定位候选物，点大小表示 MOF 可行性。"
-          },
-          {
-            "label": "Next action",
-            "labelZh": "下一步动作",
-            "description": "Assign candidates to priority validation, priority data completion, control candidate, or defer zones.",
-            "descriptionZh": "将候选物分配到优先验证、优先补数据、对照候选或暂缓区域。"
-          }
-        ],
-        "formulas": [
-          {
-            "id": "candidate-priority-score",
-            "label": "Candidate priority score",
-            "labelZh": "候选物优先级评分",
-            "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c",
-            "fallback": "P_c = R_c × E_c × F_c × V_c",
-            "explanation": "Candidate priority combines pathway relevance, evidence readiness, MOF feasibility, and validation value.",
-            "explanationZh": "候选物优先级综合路径相关性、证据就绪度、MOF 可行性和验证价值。"
-          }
-        ],
-        "inputs": [
-          "rule matches",
-          "curation status",
-          "pathway relevance",
-          "evidence readiness",
-          "MOF feasibility",
-          "validation value"
-        ],
-        "inputsZh": [
-          "规则命中",
-          "整理状态",
-          "路径相关性",
-          "证据就绪度",
-          "MOF 可行性",
-          "验证价值"
-        ],
-        "outputs": [
-          "matrix quadrant",
-          "priority tier",
-          "missing-field list",
-          "recommended next action"
-        ],
-        "outputsZh": [
-          "矩阵象限",
-          "优先级层级",
-          "缺失字段列表",
-          "推荐下一步动作"
-        ],
-        "visualizations": [
-          {
-            "title": "Candidate prioritization workspace",
-            "titleZh": "候选物优先级工作台",
-            "description": "Rule cards, curation queue, priority matrix, and candidate detail panel are linked to the carbon-flow graph.",
-            "descriptionZh": "规则卡、整理队列、优先级矩阵和候选详情面板与碳流图联动。",
-            "chartType": "score"
-          }
-        ],
-        "limitations": [
-          "Priority is a decision-support label for validation planning, not an experimentally validated performance ranking."
-        ],
-        "limitationsZh": [
-          "优先级是用于验证规划的决策支持标签，不是实验验证的真实性能排名。"
-        ]
-      },
-      {
-        "id": "organic-priority-logic",
-        "title": "Evidence-weighted priority logic",
-        "titleZh": "证据加权优先级逻辑",
-        "purpose": "Assign priority tiers from pathway fit, motif/rule matching, evidence support, risk penalty, and validation gaps.",
-        "purposeZh": "根据路径适配、motif/rule 匹配、证据支持、风险惩罚和验证缺口生成优先级层级。",
-        "algorithmSteps": [
-          {
-            "label": "Pathway fit",
-            "labelZh": "路径适配",
-            "description": "Estimate whether a candidate supports the selected organic-acid route.",
-            "descriptionZh": "估计候选物是否支持所选有机酸路径。"
-          },
-          {
-            "label": "Motif / rule match",
-            "labelZh": "motif / 规则匹配",
-            "description": "Connect ligand fragments, metal-site environments, and pore features to pathway rules.",
-            "descriptionZh": "将配体片段、金属位点环境和孔结构特征连接到路径规则。"
-          },
-          {
-            "label": "Evidence support",
-            "labelZh": "证据支持",
-            "description": "Weight curated, pending, DFT-roadmap, and experiment-roadmap evidence differently.",
-            "descriptionZh": "区分整理证据、pending、DFT 路线和实验路线证据。"
-          },
-          {
-            "label": "Risk penalty",
-            "labelZh": "风险惩罚",
-            "description": "Penalize byproduct, stability, toxicity, and sustainability concerns.",
-            "descriptionZh": "惩罚副产物、稳定性、毒性和可持续性风险。"
-          },
-          {
-            "label": "Validation gap",
-            "labelZh": "验证缺口",
-            "description": "Keep missing experiments visible in the final tier explanation.",
-            "descriptionZh": "在最终分层解释中保留缺失实验。"
-          }
-        ],
-        "formulas": [
-          {
-            "id": "candidate-priority-score",
-            "label": "Candidate priority score",
-            "labelZh": "候选物优先级评分",
-            "latex": "P_c=R_c\\times E_c\\times F_c\\times V_c",
-            "fallback": "P_c = R_c × E_c × F_c × V_c",
-            "explanation": "The priority score supports validation planning from rule and evidence context.",
-            "explanationZh": "该优先级评分用于从规则和证据语境支持验证规划。"
-          }
-        ],
-        "inputs": [
-          "pathway fit",
-          "motif/rule match",
-          "evidence support",
-          "risk penalty",
-          "validation gap"
-        ],
-        "inputsZh": [
-          "路径适配",
-          "motif/rule 匹配",
-          "证据支持",
-          "风险惩罚",
-          "验证缺口"
-        ],
-        "outputs": [
-          "Tier A-D",
-          "driver explanation",
-          "missing-field warning",
-          "trace summary"
-        ],
-        "outputsZh": [
-          "Tier A-D",
-          "驱动解释",
-          "缺失字段警告",
-          "追踪摘要"
-        ],
-        "visualizations": [
-          {
-            "title": "Priority matrix",
-            "titleZh": "优先级矩阵",
-            "description": "Candidate rows with clickable metric cells and evidence/risk explanation.",
-            "descriptionZh": "候选行包含可点击指标单元格和证据/风险解释。",
-            "chartType": "score"
-          }
-        ],
-        "limitations": [
-          "Priority tiers are not validated experimental rankings.",
-          "Motif rationale is a curation layer, not a trained MACCS/SHAP model."
-        ],
-        "limitationsZh": [
-          "优先级层级不是实验验证排名。",
-          "motif rationale 是整理层，不是已训练的 MACCS/SHAP 模型。"
-        ]
-      },
-      {
-        "id": "algorithm-trace",
-        "title": "Algorithm Trace Explorer",
-        "titleZh": "Algorithm Trace Explorer",
-        "purpose": "Expose how descriptors, rule matches, evidence weights, risk penalties, and tier assignment contribute to a candidate explanation.",
-        "purposeZh": "展示描述符、规则匹配、证据权重、风险惩罚和分层如何贡献到候选解释。",
-        "algorithmSteps": [
-          {
-            "label": "Descriptor availability",
-            "labelZh": "描述符可用性",
-            "description": "Check field coverage before interpretation.",
-            "descriptionZh": "解释前检查字段覆盖度。"
-          },
-          {
-            "label": "Rule matching",
-            "labelZh": "规则匹配",
-            "description": "Match candidate roles to reaction rules.",
-            "descriptionZh": "将候选角色匹配到反应规则。"
-          },
-          {
-            "label": "Evidence weighting",
-            "labelZh": "证据加权",
-            "description": "Scale contribution by evidence status.",
-            "descriptionZh": "按证据状态缩放贡献。"
-          },
-          {
-            "label": "Risk penalty",
-            "labelZh": "风险惩罚",
-            "description": "Show penalties and missing fields.",
-            "descriptionZh": "显示惩罚项和缺失字段。"
-          },
-          {
-            "label": "Tier assignment",
-            "labelZh": "层级分配",
-            "description": "Summarize final decision-support tier.",
-            "descriptionZh": "总结最终决策支持层级。"
+            "label": "Mark gaps",
+            "labelZh": "标记缺失",
+            "description": "Record null, fallback, unmapped, or insufficient-n rather than filling a proxy silently.",
+            "descriptionZh": "以 null、fallback、未映射或样本不足明确记录，不静默补代理值。"
           }
         ],
         "formulas": [],
         "inputs": [
-          "selected candidate",
-          "selected pathway",
-          "matched rules",
-          "evidence sources",
-          "penalty reasons"
+          "source registry",
+          "CSD identifiers",
+          "DOI",
+          "condition records"
         ],
         "inputsZh": [
-          "选中候选物",
-          "选中路径",
-          "匹配规则",
-          "证据来源",
-          "惩罚原因"
+          "来源登记",
+          "CSD 标识符",
+          "DOI",
+          "条件记录"
         ],
         "outputs": [
-          "compact summary",
-          "step timeline",
-          "copyable trace summary"
+          "governed joins",
+          "condition-aware fields",
+          "missing reasons"
         ],
         "outputsZh": [
-          "紧凑摘要",
-          "步骤时间线",
-          "可复制追踪摘要"
-        ],
-        "visualizations": [
-          {
-            "title": "Trace timeline",
-            "titleZh": "追踪时间线",
-            "description": "Five-step timeline with only the active step expanded.",
-            "descriptionZh": "五步时间线，仅展开当前步骤。",
-            "chartType": "flow"
-          }
+          "受治理连接",
+          "条件感知字段",
+          "缺失原因"
         ],
         "limitations": [
-          "Trace explanation does not prove mechanistic causality."
+          "A source association does not prove that records describe the same structure or experimental condition."
         ],
         "limitationsZh": [
-          "追踪解释不证明真实机理因果关系。"
+          "来源关联不等于记录描述同一结构或同一实验条件。"
+        ]
+      },
+      {
+        "id": "organic-abundance-neutral-current",
+        "title": "Abundance-neutral factor derivation",
+        "titleZh": "丰度中性因子派生",
+        "purpose": "Separate evidence maturity from the material point score.",
+        "purposeZh": "将证据成熟度与材料点估计得分严格分离。",
+        "algorithmSteps": [
+          {
+            "label": "Aggregate source properties",
+            "labelZh": "聚合来源性质",
+            "description": "Use family medians for relevant source fields.",
+            "descriptionZh": "对相关来源字段使用家族中位数。"
+          },
+          {
+            "label": "Shrink to prior",
+            "labelZh": "向先验收缩",
+            "description": "Apply descriptor-specific empirical-Bayes shrinkage.",
+            "descriptionZh": "按描述符执行经验贝叶斯收缩。"
+          },
+          {
+            "label": "Report confidence",
+            "labelZh": "报告置信度",
+            "description": "Counts affect confidence and uncertainty only.",
+            "descriptionZh": "记录数量只影响置信度和不确定性。"
+          },
+          {
+            "label": "Test invariance",
+            "labelZh": "检验不变性",
+            "description": "Duplicate identical rows and require no score improvement.",
+            "descriptionZh": "复制相同行并要求得分不得提高。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "organic-shrinkage-current",
+            "label": "Empirical-Bayes shrinkage",
+            "labelZh": "经验贝叶斯收缩",
+            "latex": "\\tilde{x}=\\lambda\\,\\operatorname{median}(x)+(1-\\lambda)\\mu_0,\\quad \\lambda=\\frac{n_{\\mathrm{eff}}}{n_{\\mathrm{eff}}+k}",
+            "fallback": "x_tilde = λ median(x) + (1-λ) μ0; λ = n_eff/(n_eff+k)",
+            "explanation": "Counts control shrinkage strength, never a direct score bonus.",
+            "explanationZh": "记录数量只控制收缩强度，不直接奖励得分。"
+          }
+        ],
+        "inputs": [
+          "family property medians",
+          "global priors",
+          "effective unique conditions"
+        ],
+        "inputsZh": [
+          "家族性质中位数",
+          "全局先验",
+          "有效唯一条件"
+        ],
+        "outputs": [
+          "shrunk property factor",
+          "confidence",
+          "uncertainty"
+        ],
+        "outputsZh": [
+          "收缩后性质因子",
+          "置信度",
+          "不确定性"
+        ],
+        "limitations": [
+          "Sparse families remain close to the prior and must not be read as precisely characterized."
+        ],
+        "limitationsZh": [
+          "稀疏家族会保持接近先验，不能解读为已被精确表征。"
+        ]
+      },
+      {
+        "id": "organic-hgcps-current",
+        "title": "Locked eight-factor HGCPS",
+        "titleZh": "锁定的八因子 HGCPS",
+        "purpose": "Combine complementary host, guest, evidence, risk, synthesis, and economics factors without hiding bottlenecks.",
+        "purposeZh": "组合主体、客体、证据、风险、合成与经济性因子，同时保留瓶颈。",
+        "algorithmSteps": [
+          {
+            "label": "Normalize factors",
+            "labelZh": "归一化因子",
+            "description": "Use fixed physical bounds, shrinkage, or explicitly declared curated tiers.",
+            "descriptionZh": "使用固定物理边界、收缩或明确登记的整理档位。"
+          },
+          {
+            "label": "Apply locked weights",
+            "labelZh": "应用锁定权重",
+            "description": "Read all eight weights from scoring spec v3.",
+            "descriptionZh": "从评分规范 v3 读取八个锁定权重。"
+          },
+          {
+            "label": "Geometric aggregation",
+            "labelZh": "几何聚合",
+            "description": "Apply a 0.001 numerical floor and weighted product.",
+            "descriptionZh": "应用 0.001 数值下限并计算加权乘积。"
+          },
+          {
+            "label": "Emit trace",
+            "labelZh": "输出追踪",
+            "description": "Store factor value, derivation level, n, refs, citations, and fallback reason.",
+            "descriptionZh": "保存因子值、派生层级、n、记录、引用和 fallback 原因。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "organic-hgcps-v3-current",
+            "label": "Final HGCPS",
+            "labelZh": "最终 HGCPS",
+            "latex": "\\mathrm{HGCPS}=\\prod_{k=1}^{8}\\max(f_k,0.001)^{w_k},\\quad \\sum w_k=1",
+            "fallback": "HGCPS = Π max(f_k,0.001)^w_k; Σw_k=1",
+            "explanation": "The weighted geometric mean keeps a weak factor visible as a bottleneck.",
+            "explanationZh": "加权几何平均使弱因子持续作为瓶颈可见。"
+          }
+        ],
+        "inputs": [
+          "eight normalized factors",
+          "locked route weights",
+          "zero floor"
+        ],
+        "inputsZh": [
+          "八个归一化因子",
+          "锁定路径权重",
+          "数值下限"
+        ],
+        "outputs": [
+          "final HGCPS",
+          "factor trace",
+          "route ordering"
+        ],
+        "outputsZh": [
+          "最终 HGCPS",
+          "逐因子追踪",
+          "路线排序"
+        ],
+        "limitations": [
+          "The route ordering is a validation-planning output, not a measured catalytic ranking."
+        ],
+        "limitationsZh": [
+          "路线排序是验证规划输出，不是实测催化排名。"
+        ]
+      },
+      {
+        "id": "organic-audit-current",
+        "title": "Audit, sensitivity, and falsification",
+        "titleZh": "审计、敏感性与证伪",
+        "purpose": "Show where the current result is stable, fragile, fallback-driven, or statistically underpowered.",
+        "purposeZh": "展示当前结果在哪些方面稳定、脆弱、由 fallback 驱动或统计功效不足。",
+        "algorithmSteps": [
+          {
+            "label": "Rule mutation audit",
+            "labelZh": "规则变更审计",
+            "description": "Compare the runtime scoring spec to the locked artifact.",
+            "descriptionZh": "对比运行时评分规范与锁定产物。"
+          },
+          {
+            "label": "Descriptor ablation",
+            "labelZh": "描述符消融",
+            "description": "Remove one factor at a time and recompute route movement.",
+            "descriptionZh": "每次移除一个因子并重算路线变化。"
+          },
+          {
+            "label": "Ranking sensitivity",
+            "labelZh": "排名敏感性",
+            "description": "Perturb eligible parameters within declared bounds.",
+            "descriptionZh": "在声明边界内扰动合格参数。"
+          },
+          {
+            "label": "Validation queue",
+            "labelZh": "验证队列",
+            "description": "Prioritize missing fields and experiments that could change decisions.",
+            "descriptionZh": "优先补充可能改变决策的缺失字段与实验。"
+          }
+        ],
+        "formulas": [],
+        "inputs": [
+          "locked spec",
+          "rerun artifact",
+          "audit artifact",
+          "ablation artifact"
+        ],
+        "inputsZh": [
+          "锁定规范",
+          "重跑产物",
+          "审计产物",
+          "消融产物"
+        ],
+        "outputs": [
+          "pass/fail audits",
+          "rank movement",
+          "fragile factors",
+          "next experiments"
+        ],
+        "outputsZh": [
+          "审计通过／失败",
+          "名次变化",
+          "脆弱因子",
+          "下一步实验"
+        ],
+        "limitations": [
+          "Passing software audits does not validate chemical causality or experimental reproducibility."
+        ],
+        "limitationsZh": [
+          "软件审计通过不等于化学因果或实验可重复性已验证。"
         ]
       }
     ]
   },
   {
     "id": "mof-library",
-    "order": 7,
+    "order": 6,
     "module": "MOF Library",
     "moduleZh": "MOF库",
     "summary": "MOF Library provides descriptor curation status, name resolution, source-linked data records, and field-level provenance.",
@@ -2415,7 +2203,7 @@
   },
   {
     "id": "shared-evidence",
-    "order": 8,
+    "order": 7,
     "module": "Shared Evidence / Provenance",
     "moduleZh": "共享证据 / 来源",
     "summary": "Shared evidence methods define field-level provenance, evidence levels, curation status, source location, and comparison warnings across modules.",
@@ -2569,7 +2357,7 @@
   },
   {
     "id": "limitations-validation",
-    "order": 9,
+    "order": 8,
     "module": "Limitations & Validation Roadmap",
     "moduleZh": "限制与验证路线",
     "summary": "Limitations make demonstration, seed, curated literature, and reviewed evidence boundaries explicit across the platform.",

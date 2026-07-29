@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   BasisBadge,
   BlockFormula,
@@ -15,20 +15,11 @@ import {
   useViewport,
 } from "../../shared"
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
-import { MethodologySectionSkeleton } from "../methodology/MethodologySkeleton"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
-import { AlgorithmValidationCenter, ALGORITHM_VALIDATION_DIRECTORY } from "../methodology/algorithm-validation/AlgorithmValidationCenter"
-import { ReactionEvidenceGraph } from "../methodology/model-credibility/ReactionEvidenceGraph"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
-import { runOrganicAcidFinalScreening } from "../../utils/organicAcidFinalScreening"
-import { summarizeDataFoundation } from "../../utils/dataFoundation"
-import { runDataAudit } from "../../utils/dataAudit/index.js"
-import { dataIngestionSummary } from "../../utils/dataIngestion/index.js"
-
-const OrganicAcidFinalMethodology = lazy(() =>
-  import("../methodology/OrganicAcidFinalMethodology").then(module => ({ default: module.OrganicAcidFinalMethodology })),
-)
+import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
+import { ArrowsOutLineHorizontal, GithubLogo } from "@phosphor-icons/react"
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -37,7 +28,6 @@ const MODULE_ORDER = [
   "gassep",
   "catalysis-lab",
   "organic-acid",
-  "performance",
   "shared-evidence",
   "limitations-validation",
 ]
@@ -67,52 +57,6 @@ function buildDirectory(modules, lang) {
       })),
       display: text(lang, module.moduleZh, module.module),
     }))
-}
-
-function LazyMethodologyGate({ ids = [], fallback, children }) {
-  const ref = useRef(null)
-  const [loaded, setLoaded] = useState(() => {
-    if (typeof window === "undefined") return false
-    const hash = String(window.location.hash || "").replace(/^#/, "")
-    return ids.includes(hash)
-  })
-
-  useEffect(() => {
-    if (loaded) return undefined
-    const onHash = () => {
-      const hash = String(window.location.hash || "").replace(/^#/, "")
-      if (ids.includes(hash)) setLoaded(true)
-    }
-    onHash()
-    window.addEventListener("hashchange", onHash)
-    return () => window.removeEventListener("hashchange", onHash)
-  }, [ids, loaded])
-
-  useEffect(() => {
-    if (loaded || typeof IntersectionObserver === "undefined") return undefined
-    const node = ref.current
-    if (!node) return undefined
-    const observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) setLoaded(true)
-    }, { rootMargin: "560px 0px 560px 0px", threshold: 0.01 })
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [loaded])
-
-  useEffect(() => {
-    if (!loaded || typeof window === "undefined") return undefined
-    const hash = String(window.location.hash || "").replace(/^#/, "")
-    if (!ids.includes(hash)) return undefined
-    const timers = [80, 240, 520].map(delay => window.setTimeout(() => {
-      document.getElementById(hash)?.scrollIntoView({ behavior: delay === 80 ? "smooth" : "auto", block: "start" })
-    }, delay))
-    return () => timers.forEach(timer => window.clearTimeout(timer))
-  }, [ids, loaded])
-
-  if (!loaded) {
-    return <div ref={ref} id={ids[0]} style={{ scrollMarginTop: 118 }}>{fallback}</div>
-  }
-  return <Suspense fallback={fallback}>{children}</Suspense>
 }
 
 function PlatformFlowCard({ lang, t, isMobile }) {
@@ -159,8 +103,6 @@ function FormulaIndex({ lang, t }) {
     { id: "critic-weight", label: "CRITIC weight", labelZh: "CRITIC 权重", latex: "w_j=\\frac{C_j}{\\sum_{j=1}^{m}C_j}", fallback: "w_j = C_j / ΣC_j" },
     { id: "candidate-raw", label: "Candidate score", labelZh: "候选综合评分", latex: "D_{\\mathrm{raw}}=G\\times\\prod_{j=1}^{m}d_j^{w_j}", fallback: "D_raw = G × Π d_j^w_j" },
     { id: "evidence-confidence", label: "Evidence confidence correction", labelZh: "证据置信度修正", latex: "D_{\\mathrm{expected}}=D_{\\mathrm{raw}}\\times Q", fallback: "D_expected = D_raw × Q" },
-    { id: "organic-edge-weight", label: "Organic Acid edge weight", labelZh: "有机酸边权重", latex: "w_{ij}=E_{ij}\\times P_{ij}\\times M_{ij}\\times V_{ij}", fallback: "w_ij = E_ij × P_ij × M_ij × V_ij" },
-    { id: "candidate-priority-score", label: "Candidate priority score", labelZh: "候选物优先级评分", latex: "P_c=R_c\\times E_c\\times F_c\\times V_c", fallback: "P_c = R_c × E_c × F_c × V_c" },
   ]
   return (
     <section id="methodology-formula-index" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
@@ -453,82 +395,24 @@ function ProjectEvolutionShortcutCard({ lang, t, onNavigate }) {
   )
 }
 
-export function MethodsLimitationsTab({ onNavigate } = {}) {
+export function MethodsLimitationsTab() {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow, isMobile } = useViewport()
+  const { width, isNarrow, isMobile } = useViewport()
+  const compactMethods = isNarrow || width < 1120
   const [modules, setModules] = useState([])
-  const [modelValidationSummary, setModelValidationSummary] = useState(null)
-  const [organicAcidResult, setOrganicAcidResult] = useState(null)
-  const [dataFoundation, setDataFoundation] = useState(null)
-  const [dataAudit, setDataAudit] = useState(null)
-  const [dataIngestion, setDataIngestion] = useState(null)
-  const [firstBenchmark, setFirstBenchmark] = useState(null)
-  const [credibility, setCredibility] = useState(null)
-  const [reactionGraph, setReactionGraph] = useState(null)
-  const [robustness, setRobustness] = useState(null)
-  const [literatureInspiration, setLiteratureInspiration] = useState(null)
-  const [activeId, setActiveId] = useState("methodology-literature-inspiration")
+  const [activeId, setActiveId] = useState("methodology-platform-overview")
+  const [sidebarWidth, setSidebarWidth] = useState(276)
 
   useEffect(() => {
     let active = true
-    Promise.all([
-      fetchDataJson("methodology_modules_demo.json", []),
-      fetchDataJson("database_precompute/v2_2/scalable_database_preview_summary.json", null),
-      fetchDataJson("organic_acid_final_screening/al_mof_framework_candidates.json", []),
-      fetchDataJson("organic_acid_final_screening/dopant_metal_property_matrix.json", []),
-      fetchDataJson("organic_acid_final_screening/organic_acid_screening_rules.json", {}),
-      fetchDataJson("organic_acid_final_screening/organic_acid_evidence_records.json", []),
-      fetchDataJson("organic_acid_gold_dataset_v2.json", null),
-      fetchDataJson("organic_acid_literature_dataset_v2.json", null),
-      fetchDataJson("benchmark_dataset_v2.json", null),
-      fetchDataJson("organic_acid_labels_v2.json", null),
-      fetchDataJson("data_ingestion/organic_acid_reaction_dataset_v1.json", null),
-      fetchDataJson("data_ingestion/verified_metadata_expansion_report.json", null),
-      fetchDataJson("data_ingestion/reaction_data_expansion_summary_v3_1.json", null),
-      fetchDataJson("data_ingestion/source_registry.json", null),
-      fetchDataJson("data_ingestion/data_ingestion_summary_v3.json", null),
-      fetchDataJson("first_real_benchmark_report_v1.json", null),
-      fetchDataJson("model_credibility_report_v1.json", null),
-      fetchDataJson("reaction_evidence_graph_v1.json", null),
-      fetchDataJson("model_robustness_report_v1.json", null),
-      fetchDataJson("methodology_literature_inspiration_records.json", null),
-    ])
-      .then(([rows, previewSummary, organicFrameworks, organicMetals, organicRules, organicEvidence, gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry, ingestionSummaryV3, firstBenchmarkReport, credibilityReport, reactionGraphData, robustnessReport, literatureInspirationData]) => {
+    fetchDataJson("methodology_modules_demo.json", [])
+      .then(rows => {
         if (!active) return
         setModules(Array.isArray(rows) ? rows : [])
-        setModelValidationSummary({
-          ...(previewSummary && typeof previewSummary === "object" ? previewSummary : {}),
-          totalCandidates: ingestionSummaryV3?.coreCount ?? ingestionSummaryV3?.stats?.coreMof?.current ?? 0,
-          verifiedMetadataCount: ingestionSummaryV3?.verifiedMetadataCount ?? ingestionSummaryV3?.stats?.verifiedMetadata?.current ?? 0,
-          databaseVersion: ingestionSummaryV3?.version || "CoRE-MOF-2024-current",
-          structureSource: "CoRE MOF 2024 · CSD-modified CR",
-          qmofStatus: ingestionSummaryV3?.availability?.qmof?.status || "quarantined",
-        })
-        setOrganicAcidResult(runOrganicAcidFinalScreening(organicFrameworks || [], organicMetals || [], organicRules || {}, organicEvidence || [], { reactionDataset: reaction, goldDataset: gold, labelDataset: labels }))
-        setDataFoundation(summarizeDataFoundation({ gold, literature, benchmark, labels, reaction, verifiedMetadataReport, growthSummary, sourceRegistry }))
-        setDataAudit(runDataAudit({ gold, labels, benchmark, reaction, sampleSize: 100 }))
-        setDataIngestion(ingestionSummaryV3 && typeof ingestionSummaryV3 === "object" ? ingestionSummaryV3 : null)
-        setFirstBenchmark(firstBenchmarkReport && typeof firstBenchmarkReport === "object" ? firstBenchmarkReport : null)
-        setCredibility(credibilityReport && typeof credibilityReport === "object" ? credibilityReport : null)
-        setReactionGraph(reactionGraphData && typeof reactionGraphData === "object" ? reactionGraphData : null)
-        setRobustness(robustnessReport && typeof robustnessReport === "object" ? robustnessReport : null)
-        setLiteratureInspiration(literatureInspirationData && typeof literatureInspirationData === "object" ? literatureInspirationData : null)
       })
       .catch(() => {
-        if (active) {
-          setModules([])
-          setModelValidationSummary(null)
-          setOrganicAcidResult(null)
-          setDataFoundation(null)
-          setDataAudit(null)
-          setDataIngestion(null)
-          setFirstBenchmark(null)
-          setCredibility(null)
-          setReactionGraph(null)
-          setRobustness(null)
-          setLiteratureInspiration(null)
-        }
+        if (active) setModules([])
       })
     return () => { active = false }
   }, [])
@@ -549,38 +433,16 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         display: text(lang, child.labelZh, child.label),
       })),
     }
-    const algorithmValidationItem = {
-      ...ALGORITHM_VALIDATION_DIRECTORY,
-      display: text(lang, ALGORITHM_VALIDATION_DIRECTORY.labelZh, ALGORITHM_VALIDATION_DIRECTORY.label),
-      children: (ALGORITHM_VALIDATION_DIRECTORY.children || []).map(child => ({
-        ...child,
-        display: text(lang, child.labelZh, child.label),
-      })),
-    }
-    const literatureItem = {
-      id: "methodology-literature-inspiration",
-      label: "Literature Inspiration Sources",
-      labelZh: "文献灵感来源",
-      display: text(lang, "文献灵感来源", "Literature Inspiration Sources"),
-      children: (literatureInspiration?.categories || []).map(category => ({
-        id: `methodology-literature-inspiration-${category.id}`,
-        label: category.titleEn,
-        labelZh: category.titleZh,
-        display: text(lang, category.titleZh, category.titleEn),
-      })),
-    }
-    const itemsWithValidation = [algorithmValidationItem, ...items]
-    const adjustedInsertIndex = itemsWithValidation.findIndex(item => item.id === "methodology-organic-acid")
+    const adjustedInsertIndex = items.findIndex(item => item.id === "methodology-organic-acid")
     if (insertIndex >= 0) {
       return [
-        literatureItem,
-        ...itemsWithValidation.slice(0, adjustedInsertIndex + 1),
+        ...items.slice(0, adjustedInsertIndex + 1),
         finalItem,
-        ...itemsWithValidation.slice(adjustedInsertIndex + 1),
+        ...items.slice(adjustedInsertIndex + 1),
       ]
     }
-    return [literatureItem, ...itemsWithValidation, finalItem]
-  }, [orderedModules, lang, literatureInspiration])
+    return [...items, finalItem]
+  }, [orderedModules, lang])
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
@@ -629,34 +491,59 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
         }
       />
 
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "270px minmax(0, 1fr)", alignItems: "start" }}>
+      <section style={{ alignItems: "flex-start", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 10, display: "flex", gap: 11, padding: "13px 15px" }}>
+        <GithubLogo aria-hidden="true" color={t.accentText} size={24} style={{ flex: "0 0 auto" }} weight="duotone" />
+        <div style={{ display: "grid", gap: 5 }}>
+          <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "开放方法，接受复核", "Open methods, open to review")}</strong>
+          <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
+            {text(
+              lang,
+              "我相信可复核的方法比不可见的结论更有价值。秉承互联网开放协作与 GitHub 开源精神，EcoMOF‑AI 公开展示数据来源、公式、实现逻辑、参数边界与验证路线，便于学习、复现、质疑和共同改进；开放不等于放弃来源许可、数据责任或科研验证。",
+              "Reviewable methods are more valuable than invisible conclusions. In the open, collaborative spirit of the internet and GitHub, EcoMOF-AI exposes sources, formulas, implementation logic, parameter boundaries, and validation routes for learning, reproduction, critique, and improvement; openness never removes licensing, data-governance, or scientific-validation responsibilities.",
+            )}
+          </span>
+          <a href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 11.2, fontWeight: 850 }}>
+            {text(lang, "查看 GitHub 仓库与实现", "Open the GitHub repository and implementation")}
+          </a>
+        </div>
+      </section>
+
+      <div style={{ alignItems: "start", display: "grid", gap: compactMethods ? 16 : 0, gridTemplateColumns: compactMethods ? "1fr" : `${sidebarWidth}px 14px minmax(0, 1fr)` }}>
         <MethodologySidebar
           items={directoryItems}
           activeId={activeId}
           onJump={scrollToSection}
           lang={lang}
           t={t}
-          isMobile={isMobile || isNarrow}
+          isMobile={isMobile || compactMethods}
         />
+        {!compactMethods ? (
+          <button
+            type="button"
+            aria-label={text(lang, "拖动调整方法目录宽度", "Drag to resize the methods directory")}
+            title={text(lang, "拖动调整目录宽度", "Drag to resize directory")}
+            onPointerDown={event => {
+              event.currentTarget.setPointerCapture(event.pointerId)
+              const startX = event.clientX
+              const startWidth = sidebarWidth
+              const onMove = moveEvent => setSidebarWidth(Math.min(440, Math.max(220, startWidth + moveEvent.clientX - startX)))
+              const onUp = upEvent => {
+                event.currentTarget.releasePointerCapture?.(upEvent.pointerId)
+                window.removeEventListener("pointermove", onMove)
+                window.removeEventListener("pointerup", onUp)
+              }
+              window.addEventListener("pointermove", onMove)
+              window.addEventListener("pointerup", onUp)
+            }}
+            style={{ alignItems: "center", alignSelf: "stretch", background: "transparent", border: 0, color: t.faint, cursor: "col-resize", display: "inline-flex", justifyContent: "center", minHeight: 240, padding: 0, touchAction: "none", width: 14 }}
+          >
+            <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, display: "inline-flex", height: 42, justifyContent: "center", position: "sticky", top: 118, width: 12 }}>
+              <ArrowsOutLineHorizontal aria-hidden="true" size={11} weight="bold" />
+            </span>
+          </button>
+        ) : null}
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
-          <LiteratureInspirationSection records={literatureInspiration} lang={lang} t={t} isMobile={isMobile || isNarrow} />
-          <ProjectEvolutionShortcutCard lang={lang} t={t} onNavigate={onNavigate} />
-          <AlgorithmValidationCenter
-            summary={modelValidationSummary || {}}
-            organicAcidResult={organicAcidResult}
-            dataFoundation={dataFoundation}
-            dataAudit={dataAudit}
-            dataIngestion={dataIngestion}
-            firstBenchmark={firstBenchmark}
-            credibility={credibility}
-            robustness={robustness}
-            lang={lang}
-            t={t}
-            isMobile={isMobile || isNarrow}
-          />
-          {reactionGraph ? <ReactionEvidenceGraph graph={reactionGraph} lang={lang} t={t} isMobile={isMobile || isNarrow} /> : null}
-
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
             <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
             <FormulaIndex lang={lang} t={t} />
@@ -683,12 +570,7 @@ export function MethodsLimitationsTab({ onNavigate } = {}) {
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
                 <MethodModuleSection item={item} lang={lang} t={t} />
                 {item.id === "organic-acid" ? (
-                  <LazyMethodologyGate
-                    ids={[ORGANIC_ACID_FINAL_DIRECTORY.id, ...ORGANIC_ACID_FINAL_DIRECTORY.children.map(child => child.id)]}
-                    fallback={<MethodologySectionSkeleton lang={lang} t={t} title="Organic Acid Final Screening Methodology" titleZh="有机酸最终筛选方法论" />}
-                  >
-                    <OrganicAcidFinalMethodology lang={lang} t={t} />
-                  </LazyMethodologyGate>
+                  <CurrentOrganicAcidMethodology lang={lang} t={t} />
                 ) : null}
               </div>
             )

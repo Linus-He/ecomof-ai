@@ -278,6 +278,76 @@ const V1_0_1_RELEASE = {
 
 const RECENT_RELEASES = [
   {
+    appVersion: "v1.0.11",
+    date: "2026-07-29",
+    stage: "unified-platform",
+    headline: {
+      zh: "v1.0.11：扩展 MOF 身份检索，固定弹窗操作区，并以现行 V3.9.10 重构方法论。",
+      en: "v1.0.11: expands MOF identity search, fixes modal controls in place, and rebuilds methodology around current V3.9.10 rules.",
+    },
+    summary: {
+      zh: "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
+      en: "This release extends the MOF Library from a CoRE-only property index to two-layer property plus name/literature identity search. It registers 185 factual MOF Anatomy identities under a conservative rights boundary and shows DOI, CCDC number, and explicit gap reasons where no licensed structure or property is available. Long-content dialogs keep their close controls fixed at the top. Methodology removes the obsolete module and is rebuilt with a resizable directory, formula-plus-interactive sensitivity layouts, per-function implementation logic, and the current abundance-neutral V3.9.10 HGCPS.",
+    },
+    modules: {
+      database: {
+        summary: {
+          zh: "名称与文献身份覆盖扩展到 MOF Anatomy 目录，同时保持物化性质严格标识符连接。",
+          en: "Name and literature identity coverage now includes the MOF Anatomy directory while physicochemical values retain exact-identifier linking.",
+        },
+        changes: [
+          { zh: "生成 185 条 MOF Anatomy 事实性身份索引，其中 185 条含原论文入口、175 条含 CCDC 号；不复制图片、XYZ 或整理后结构。", en: "Builds a 185-record factual MOF Anatomy identity index with 185 source-paper links and 175 CCDC numbers, without copying images, XYZ, or cleaned structures." },
+          { zh: "物化性质搜索新增确认按钮，可按名称、别名、CSD Refcode、CCDC 号和 DOI 查询，并消除系统蓝色焦点外框。", en: "Adds explicit property-search confirmation across names, aliases, CSD Refcodes, CCDC numbers, and DOIs, while removing the browser-blue focus frame." },
+          { zh: "DUT‑68 等仅有身份映射的材料显示论文、CCDC 与缺失原因；NTU‑68 等独立整理条目继续进入同一回退逻辑，不按相似名称猜测数值。", en: "Identity-only materials such as DUT-68 show paper, CCDC, and gap reasons; independently curated entries such as NTU-68 use the same fallback without similarity-based value inference." },
+        ],
+      },
+      validation: {
+        summary: {
+          zh: "方法论以当前数据产物和锁定规则为唯一事实源，并补齐交互解释与逐功能执行链。",
+          en: "Methodology now uses current artifacts and locked rules as its sole truth source, with interactive explanations and per-function execution chains.",
+        },
+        changes: [
+          { zh: "删除废止的方法模块和旧版有机酸叙述，改为 V3.9.10 八因子加权几何 HGCPS、丰度中性收缩与审计边界。", en: "Removes the obsolete method module and superseded Organic Acid narrative in favor of V3.9.10 eight-factor weighted-geometric HGCPS, abundance-neutral shrinkage, and audit boundaries." },
+          { zh: "所有含公式的方法组采用左公式、右可调敏感性图，下方继续展示算法步骤、输入输出、来源、限制和实现逻辑。", en: "Formula-bearing method groups now pair formulas on the left with adjustable sensitivity plots on the right, followed by steps, inputs/outputs, sources, limits, and implementation logic." },
+          { zh: "有机酸因子、示例路线、派生层级和记录数直接读取 V3.9.10 生成产物，不硬编码排名结论。", en: "Organic Acid factors, example route, derivation levels, and record counts are read from V3.9.10 artifacts rather than hardcoded ranking claims." },
+        ],
+      },
+      ui: {
+        summary: {
+          zh: "长弹窗操作区和方法目录交互更稳定。",
+          en: "Long-dialog controls and methodology navigation are more stable.",
+        },
+        changes: [
+          { zh: "字段来源、物化性质、声明、联系、致谢和有机酸抽屉的关闭按钮固定在容器顶部，内容下滑时保持可见。", en: "Keeps close controls fixed at the top of provenance, properties, disclaimer, contact, acknowledgements, and Organic Acid drawers while their content scrolls." },
+          { zh: "方法目录支持桌面端拖动调整 220–440 px 宽度，窄屏保持单列目录。", en: "Makes the desktop methods directory resizable from 220–440 px while retaining the compact single-column mobile layout." },
+          { zh: "方法论顶部新增开放协作说明，明确开源展示不取消来源许可、数据责任和科研验证义务。", en: "Adds an open-collaboration statement clarifying that open implementation does not remove licensing, data-governance, or scientific-validation duties." },
+        ],
+      },
+      dataCompliance: {
+        summary: {
+          zh: "新增 MOF Anatomy 的限制性来源登记、授权缺口与禁止复制边界。",
+          en: "Adds a restricted MOF Anatomy source record, authorization gap, and no-copy boundary.",
+        },
+        changes: [
+          { zh: "合规页新增 MOF Anatomy 授权凭证／缺口、官方说明入口和数据集处理记录，明确未发现站点统一再利用许可。", en: "Adds a MOF Anatomy authorization/gap record, official project link, and dataset handling record, explicitly noting that no site-wide reuse licence was located." },
+          { zh: "只使用名称、年份、分类、DOI 与 CCDC 号等事实性元数据；站点图片、结构文件、页面文案和视觉设计不进入仓库。", en: "Uses factual metadata such as name, year, class, DOI, and CCDC number only; site images, structure files, page prose, and visual design do not enter the repository." },
+          { zh: "搜索缺失回退与来源登记共用同一约束：未经独立许可和精确标识符，不把目录身份记录转写为结构或物化性质。", en: "Search fallback and source registration share one guard: without independent permission and an exact identifier, directory identities are not converted into structures or physicochemical properties." },
+        ],
+      },
+      projectEvolution: {
+        summary: {
+          zh: "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
+          en: "The unified release center adds v1.0.11 with the actual completed scope.",
+        },
+        changes: [
+          { zh: "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。", en: "The version selector, current badge, module updates, and development log now read v1.0.11." },
+          { zh: "本轮只创建本地提交，不推送或宣称公开部署。", en: "This release is committed locally only, without push or public-deployment claims." },
+          { zh: "pre‑1.0 历史沿革继续按原始模块版本展示，既有 38 条历史记录保持可读且不重编号。", en: "The pre-1.0 history remains grouped by original module versions; all 38 existing history records stay readable and unrenumbered." },
+        ],
+      },
+    },
+  },
+  {
     appVersion: "v1.0.10",
     date: "2026-07-29",
     stage: "unified-platform",
@@ -620,14 +690,14 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     developmentLog: {
-      baseAppVersion: "v1.0.9",
-      developmentVersion: "v1.0.10",
+      baseAppVersion: "v1.0.10",
+      developmentVersion: "v1.0.11",
       recordedAt: GENERATED_AT,
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.10 只记录本轮实际完成并通过检查的修复、数据接入与重构，不把计划项写成已完成。",
-        en: "v1.0.10 records only fixes, data integration, and rebuilds completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.11 只记录本轮实际完成并通过检查的检索扩展、合规登记、弹窗修复与方法论重构，不把计划项写成已完成。",
+        en: "v1.0.11 records only search expansion, compliance registration, modal fixes, and methodology work completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,

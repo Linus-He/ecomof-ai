@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.10",
+  "currentAppVersion": "v1.0.11",
   "generatedAt": "2026-07-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
-    "baseAppVersion": "v1.0.9",
-    "developmentVersion": "v1.0.10",
+    "baseAppVersion": "v1.0.10",
+    "developmentVersion": "v1.0.11",
     "recordedAt": "2026-07-29",
     "status": "archived",
     "statusLabel": {
@@ -18,131 +18,119 @@
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v1.0.10 只记录本轮实际完成并通过检查的修复、数据接入与重构，不把计划项写成已完成。",
-      "en": "v1.0.10 records only fixes, data integration, and rebuilds completed and checked in this release; planned work is not presented as complete."
+      "zh": "v1.0.11 只记录本轮实际完成并通过检查的检索扩展、合规登记、弹窗修复与方法论重构，不把计划项写成已完成。",
+      "en": "v1.0.11 records only search expansion, compliance registration, modal fixes, and methodology work completed and checked in this release; planned work is not presented as complete."
     },
     "releaseBoundary": {
-      "zh": "本轮按非商业研究边界接入 CoRE MOF 2024 CR 主性质层，并以 FAIR‑MOFs 的 CSD Refcode 完全一致记录作独立交叉证据；首页改为上三下三六入口，语言、主题和联系方式收纳到设置菜单；生态筛选只在确认材料后显示计算内容；MOF 库同步提供性质查询和结构侧栏；合规页删除非授权控制卡和 QMOF 展示，以 43 条条文、9 项授权凭证、来源登记和发布方原文链接构成正式说明。",
-      "en": "Under a non-commercial research boundary, this release adds the CoRE MOF 2024 CR primary property layer with exact CSD-Refcode FAIR-MOFs records as independent cross-evidence; changes the homepage to a six-entry three-by-two grid; collects language, theme, and contact controls in one settings menu; reveals EcoScreen calculations only after material confirmation; exposes property search in the MOF Library and structure sidebar; and replaces the non-authorizing control card and QMOF display with a formal compliance statement containing 43 clauses, 9 authorization records, source registration, and publisher-original links."
+      "zh": "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
+      "en": "This release extends the MOF Library from a CoRE-only property index to two-layer property plus name/literature identity search. It registers 185 factual MOF Anatomy identities under a conservative rights boundary and shows DOI, CCDC number, and explicit gap reasons where no licensed structure or property is available. Long-content dialogs keep their close controls fixed at the top. Methodology removes the obsolete module and is rebuilt with a resizable directory, formula-plus-interactive sensitivity layouts, per-function implementation logic, and the current abundance-neutral V3.9.10 HGCPS."
     },
     "modules": {
-      "ui": {
-        "summary": {
-          "zh": "首页、主导航和全局设置按统一的实体控件与中文居中规则重排。",
-          "en": "Reorganizes the homepage, primary navigation, and global settings with consistent solid controls and centered Chinese labels."
-        },
-        "changes": [
-          {
-            "zh": "首页六个实体入口固定为“生态筛选、气体分离、催化、MOF库、数据合规承诺、联系我们”，桌面端上三下三排列。",
-            "en": "Fixes six solid homepage entries—EcoScreen, Gas Separation, Catalysis, MOF Library, Data Compliance, and Contact—in a desktop three-by-two grid."
-          },
-          {
-            "zh": "语言切换、深浅色模式和联系我们合并到单一齿轮设置菜单；邮箱只在联系弹窗中显示。",
-            "en": "Collects language, light/dark appearance, and Contact Us inside one gear settings menu; the email remains visible only in the contact dialog."
-          },
-          {
-            "zh": "桌面导航改为左右等宽轨道和固定中央栏，解决中文模式下导航整体偏移。",
-            "en": "Uses equal outer tracks and a fixed central rail to remove the Chinese-mode navigation offset."
-          },
-          {
-            "zh": "数据基础段落减弱上边框并补充过渡留白，保持与现有冷蓝研究界面的设计语言一致。",
-            "en": "Softens the data-foundation top border and adds transition space while retaining the existing cool-blue research design language."
-          }
-        ]
-      },
-      "ecoScreen": {
-        "summary": {
-          "zh": "材料确认成为计算结果出现的明确前置条件，并新增同一材料的物化性质弹窗。",
-          "en": "Makes material confirmation an explicit prerequisite for calculations and adds a physicochemical-property dialog for the same material."
-        },
-        "changes": [
-          {
-            "zh": "移除默认 UiO‑66 已计算假象；搜索框未确认时只显示待确认空状态，不预先渲染材料、公式或结论。",
-            "en": "Removes the precomputed UiO-66 illusion; before search confirmation, only an awaiting-confirmation state is shown, without material, formula, or conclusion content."
-          },
-          {
-            "zh": "在搜索确认区新增“查看物化性质”，只有确认有效 MOF 后才能打开，并提供显式关闭、Esc 和背景关闭。",
-            "en": "Adds View Physicochemical Properties to the confirmation bar, enabled only for a confirmed MOF, with explicit close, Escape, and backdrop dismissal."
-          },
-          {
-            "zh": "确认后的材料选择、物化档案与生态筛选计算共享同一条记录，修改输入会清除旧确认状态。",
-            "en": "The confirmed material, property record, and EcoScreen calculation share one record; editing the query clears the previous confirmation."
-          }
-        ]
-      },
       "database": {
         "summary": {
-          "zh": "以 CoRE 主值和 FAIR 严格交叉层扩展 MOF 物化性质覆盖，并同步到 MOF 库。",
-          "en": "Expands MOF physicochemical-property coverage with CoRE primary values and a strict FAIR cross-layer, surfaced throughout the MOF Library."
+          "zh": "名称与文献身份覆盖扩展到 MOF Anatomy 目录，同时保持物化性质严格标识符连接。",
+          "en": "Name and literature identity coverage now includes the MOF Anatomy directory while physicochemical values retain exact-identifier linking."
         },
         "changes": [
           {
-            "zh": "建立 9,835 条 CoRE MOF 2024 CSD‑modified CR 物化索引，提供比表面积、孔体积、PLD、LCD、密度和空隙率。",
-            "en": "Builds a 9,835-record CoRE MOF 2024 CSD-modified CR physicochemical index with surface area, pore volume, PLD, LCD, density, and void fraction."
+            "zh": "生成 185 条 MOF Anatomy 事实性身份索引，其中 185 条含原论文入口、175 条含 CCDC 号；不复制图片、XYZ 或整理后结构。",
+            "en": "Builds a 185-record factual MOF Anatomy identity index with 185 source-paper links and 175 CCDC numbers, without copying images, XYZ, or cleaned structures."
           },
           {
-            "zh": "审计 FAIR‑MOFs 37,452 条孔隙记录，仅保留 3,451 条与当前 CoRE 结构 CSD Refcode 完全一致的交叉记录，不进行模糊合并。",
-            "en": "Audits 37,452 FAIR-MOFs porosity records and retains only 3,451 exact CSD-Refcode cross-records against the current CoRE corpus, with no fuzzy merge."
+            "zh": "物化性质搜索新增确认按钮，可按名称、别名、CSD Refcode、CCDC 号和 DOI 查询，并消除系统蓝色焦点外框。",
+            "en": "Adds explicit property-search confirmation across names, aliases, CSD Refcodes, CCDC numbers, and DOIs, while removing the browser-blue focus frame."
           },
           {
-            "zh": "MOF 库结构工作台上方新增物化性质搜索，结构侧栏同步显示当前材料的六项 CoRE 主值和 FAIR 精确匹配状态。",
-            "en": "Adds physicochemical-property search above the MOF Library structure workbench and shows six CoRE primary values plus exact FAIR match status in the structure sidebar."
+            "zh": "DUT‑68 等仅有身份映射的材料显示论文、CCDC 与缺失原因；NTU‑68 等独立整理条目继续进入同一回退逻辑，不按相似名称猜测数值。",
+            "en": "Identity-only materials such as DUT-68 show paper, CCDC, and gap reasons; independently curated entries such as NTU-68 use the same fallback without similarity-based value inference."
+          }
+        ]
+      },
+      "validation": {
+        "summary": {
+          "zh": "方法论以当前数据产物和锁定规则为唯一事实源，并补齐交互解释与逐功能执行链。",
+          "en": "Methodology now uses current artifacts and locked rules as its sole truth source, with interactive explanations and per-function execution chains."
+        },
+        "changes": [
+          {
+            "zh": "删除废止的方法模块和旧版有机酸叙述，改为 V3.9.10 八因子加权几何 HGCPS、丰度中性收缩与审计边界。",
+            "en": "Removes the obsolete method module and superseded Organic Acid narrative in favor of V3.9.10 eight-factor weighted-geometric HGCPS, abundance-neutral shrinkage, and audit boundaries."
           },
           {
-            "zh": "删除“身份层与材料档案 / 数据库联通状态”展示模块，避免把覆盖统计包装成材料性质结论。",
-            "en": "Removes the Identity Layer / Database Linkage presentation block so coverage statistics are not presented as material-property conclusions."
+            "zh": "所有含公式的方法组采用左公式、右可调敏感性图，下方继续展示算法步骤、输入输出、来源、限制和实现逻辑。",
+            "en": "Formula-bearing method groups now pair formulas on the left with adjustable sensitivity plots on the right, followed by steps, inputs/outputs, sources, limits, and implementation logic."
+          },
+          {
+            "zh": "有机酸因子、示例路线、派生层级和记录数直接读取 V3.9.10 生成产物，不硬编码排名结论。",
+            "en": "Organic Acid factors, example route, derivation levels, and record counts are read from V3.9.10 artifacts rather than hardcoded ranking claims."
+          }
+        ]
+      },
+      "ui": {
+        "summary": {
+          "zh": "长弹窗操作区和方法目录交互更稳定。",
+          "en": "Long-dialog controls and methodology navigation are more stable."
+        },
+        "changes": [
+          {
+            "zh": "字段来源、物化性质、声明、联系、致谢和有机酸抽屉的关闭按钮固定在容器顶部，内容下滑时保持可见。",
+            "en": "Keeps close controls fixed at the top of provenance, properties, disclaimer, contact, acknowledgements, and Organic Acid drawers while their content scrolls."
+          },
+          {
+            "zh": "方法目录支持桌面端拖动调整 220–440 px 宽度，窄屏保持单列目录。",
+            "en": "Makes the desktop methods directory resizable from 220–440 px while retaining the compact single-column mobile layout."
+          },
+          {
+            "zh": "方法论顶部新增开放协作说明，明确开源展示不取消来源许可、数据责任和科研验证义务。",
+            "en": "Adds an open-collaboration statement clarifying that open implementation does not remove licensing, data-governance, or scientific-validation duties."
           }
         ]
       },
       "dataCompliance": {
         "summary": {
-          "zh": "以非商业用途、逐来源许可和可核验原文为中心重新组织责任页面。",
-          "en": "Reorganizes the responsibility page around non-commercial use, source-specific licences, and verifiable primary terms."
+          "zh": "新增 MOF Anatomy 的限制性来源登记、授权缺口与禁止复制边界。",
+          "en": "Adds a restricted MOF Anatomy source record, authorization gap, and no-copy boundary."
         },
         "changes": [
           {
-            "zh": "保留并逐项列示 43 条适用条文、9 项授权凭证或缺口、六步使用核验、来源登记和争议响应程序。",
-            "en": "Retains and itemizes 43 applicable clauses, 9 authorization records or gaps, the six-step use review, source registration, and dispute-response procedure."
+            "zh": "合规页新增 MOF Anatomy 授权凭证／缺口、官方说明入口和数据集处理记录，明确未发现站点统一再利用许可。",
+            "en": "Adds a MOF Anatomy authorization/gap record, official project link, and dataset handling record, explicitly noting that no site-wide reuse licence was located."
           },
           {
-            "zh": "删除 ECOMOF‑DCP‑001 非授权控制卡和 QMOF 展示，不以内部编号模拟权利人授权文件。",
-            "en": "Removes the ECOMOF-DCP-001 non-authorizing control card and QMOF display so an internal identifier cannot resemble a rightsholder authorization."
+            "zh": "只使用名称、年份、分类、DOI 与 CCDC 号等事实性元数据；站点图片、结构文件、页面文案和视觉设计不进入仓库。",
+            "en": "Uses factual metadata such as name, year, class, DOI, and CCDC number only; site images, structure files, page prose, and visual design do not enter the repository."
           },
           {
-            "zh": "登记 CoRE 9,835 条主性质记录和 FAIR 37,452 条原始孔隙记录 / 3,451 条精确交叉记录，并明确两层许可与数值优先级。",
-            "en": "Registers the 9,835 CoRE primary-property records and 37,452 FAIR source porosity records / 3,451 exact cross-records, with explicit licence and value-precedence boundaries."
-          },
-          {
-            "zh": "删除“截至某日已完成”等时点式自我认证；所有外部条款以发布方原文为准，商业用途必须另行取得授权。",
-            "en": "Removes dated self-certification language; publisher originals govern all external terms, and commercial use requires separate authorization."
+            "zh": "搜索缺失回退与来源登记共用同一约束：未经独立许可和精确标识符，不把目录身份记录转写为结构或物化性质。",
+            "en": "Search fallback and source registration share one guard: without independent permission and an exact identifier, directory identities are not converted into structures or physicochemical properties."
           }
         ]
       },
       "projectEvolution": {
         "summary": {
-          "zh": "统一版本中心完整记录本轮已完成范围，历史沿革继续保留原始模块版本。",
-          "en": "The unified release center records the completed scope while preserving original module versions in project history."
+          "zh": "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
+          "en": "The unified release center adds v1.0.11 with the actual completed scope."
         },
         "changes": [
           {
-            "zh": "新增 v1.0.10 的界面、生态筛选、数据库和合规变更明细。",
-            "en": "Adds detailed v1.0.10 UI, EcoScreen, database, and compliance changes."
+            "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。",
+            "en": "The version selector, current badge, module updates, and development log now read v1.0.11."
           },
           {
-            "zh": "当前版本徽章、版本选择器、模块更新区和开发日志继续读取同一发布记录。",
-            "en": "Keeps the current-version badge, selector, module update area, and development log on the same release record."
+            "zh": "本轮只创建本地提交，不推送或宣称公开部署。",
+            "en": "This release is committed locally only, without push or public-deployment claims."
           },
           {
-            "zh": "pre‑1.0 历史沿革继续按原始版本号和模块归类展示，不重编号、不留空白。",
-            "en": "Continues to show pre-1.0 history by original version and module without renumbering or blank content."
+            "zh": "pre‑1.0 历史沿革继续按原始模块版本展示，既有 38 条历史记录保持可读且不重编号。",
+            "en": "The pre-1.0 history remains grouped by original module versions; all 38 existing history records stay readable and unrenumbered."
           }
         ]
       }
     }
   },
   "previousDevelopmentLog": {
-    "baseAppVersion": "v1.0.8",
-    "developmentVersion": "v1.0.9",
+    "baseAppVersion": "v1.0.10",
+    "developmentVersion": "v1.0.11",
     "recordedAt": "2026-07-29",
     "status": "archived",
     "statusLabel": {
@@ -150,111 +138,103 @@
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v1.0.9 只记录本轮实际完成并通过检查的修复与重构，不把计划项写成已完成。",
-      "en": "v1.0.9 records only fixes and rebuilds completed and checked in this release; planned work is not presented as complete."
+      "zh": "v1.0.11 只记录本轮实际完成并通过检查的检索扩展、合规登记、弹窗修复与方法论重构，不把计划项写成已完成。",
+      "en": "v1.0.11 records only search expansion, compliance registration, modal fixes, and methodology work completed and checked in this release; planned work is not presented as complete."
     },
     "releaseBoundary": {
-      "zh": "本轮集中修复会阻断使用的交互缺陷，并把合规声明改造成可审计的控制文件：生态筛选主工作区不再因旧版全量评分而卡死；首页入口按三上二下排列，联系方式仅在弹窗中显示；合规页逐项列出 43 条控制条文和 10 项授权凭证或缺口；项目演化页恢复历史沿革，并补录 v1.0.6 至 v1.0.9 的真实发布范围。",
-      "en": "This release fixes blocking interaction failures and turns compliance into an auditable control document: EcoScreen no longer freezes on full legacy scoring; homepage entries use a three-plus-two layout and contact details appear only in a dialog; the compliance page itemizes 43 control clauses and 10 authorization-evidence or gap records; Project Evolution restores its history and records the actual v1.0.6-v1.0.9 release scope."
+      "zh": "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
+      "en": "This release extends the MOF Library from a CoRE-only property index to two-layer property plus name/literature identity search. It registers 185 factual MOF Anatomy identities under a conservative rights boundary and shows DOI, CCDC number, and explicit gap reasons where no licensed structure or property is available. Long-content dialogs keep their close controls fixed at the top. Methodology removes the obsolete module and is rebuilt with a resizable directory, formula-plus-interactive sensitivity layouts, per-function implementation logic, and the current abundance-neutral V3.9.10 HGCPS."
     },
     "modules": {
-      "ui": {
+      "database": {
         "summary": {
-          "zh": "首页入口、联系方式与中文总述按明确的信息架构重新收敛。",
-          "en": "Homepage entries, contact access, and the Chinese overview are tightened into a clear information architecture."
+          "zh": "名称与文献身份覆盖扩展到 MOF Anatomy 目录，同时保持物化性质严格标识符连接。",
+          "en": "Name and literature identity coverage now includes the MOF Anatomy directory while physicochemical values retain exact-identifier linking."
         },
         "changes": [
           {
-            "zh": "首页五个入口固定为“生态筛选、气体分离、催化、数据合规承诺、联系我们”，桌面端按上三下二等宽排列。",
-            "en": "Fixes the five homepage entries to EcoScreen, Gas Separation, Catalysis, Data Compliance, and Contact, using an equal-width three-plus-two desktop grid."
+            "zh": "生成 185 条 MOF Anatomy 事实性身份索引，其中 185 条含原论文入口、175 条含 CCDC 号；不复制图片、XYZ 或整理后结构。",
+            "en": "Builds a 185-record factual MOF Anatomy identity index with 185 source-paper links and 175 CCDC numbers, without copying images, XYZ, or cleaned structures."
           },
           {
-            "zh": "联系邮箱不再直接显示在首页；仅点击“联系我们”后在可关闭弹窗中出现。",
-            "en": "Removes the email address from the homepage and reveals it only inside the dismissible Contact dialog."
+            "zh": "物化性质搜索新增确认按钮，可按名称、别名、CSD Refcode、CCDC 号和 DOI 查询，并消除系统蓝色焦点外框。",
+            "en": "Adds explicit property-search confirmation across names, aliases, CSD Refcodes, CCDC numbers, and DOIs, while removing the browser-blue focus frame."
           },
           {
-            "zh": "首页工作区总述改为纯中文短句，桌面端保持一行、窄屏不超过两行。",
-            "en": "Rewrites the workspace overview as concise Chinese-only copy that stays on one desktop line and no more than two lines at compact widths."
-          },
-          {
-            "zh": "统一主导航和页脚中的“数据合规承诺”命名，避免同一入口出现不同名称。",
-            "en": "Standardizes the Data Compliance label across primary navigation and the footer."
+            "zh": "DUT‑68 等仅有身份映射的材料显示论文、CCDC 与缺失原因；NTU‑68 等独立整理条目继续进入同一回退逻辑，不按相似名称猜测数值。",
+            "en": "Identity-only materials such as DUT-68 show paper, CCDC, and gap reasons; independently curated entries such as NTU-68 use the same fallback without similarity-based value inference."
           }
         ]
       },
-      "ecoScreen": {
+      "validation": {
         "summary": {
-          "zh": "解除旧版全量评分对主界面的阻塞，同时保留可追溯的兼容工具。",
-          "en": "Removes legacy full-dataset scoring from the critical render path while retaining traceable compatibility tools."
+          "zh": "方法论以当前数据产物和锁定规则为唯一事实源，并补齐交互解释与逐功能执行链。",
+          "en": "Methodology now uses current artifacts and locked rules as its sole truth source, with interactive explanations and per-function execution chains."
         },
         "changes": [
           {
-            "zh": "旧版描述符评分、反应筛选与文献覆盖工具改为按需挂载，默认不参与生态筛选主工作区初始化。",
-            "en": "Mounts legacy descriptor scoring, reaction filters, and literature coverage only on demand so they do not initialize with the main EcoScreen workspace."
+            "zh": "删除废止的方法模块和旧版有机酸叙述，改为 V3.9.10 八因子加权几何 HGCPS、丰度中性收缩与审计边界。",
+            "en": "Removes the obsolete method module and superseded Organic Acid narrative in favor of V3.9.10 eight-factor weighted-geometric HGCPS, abundance-neutral shrinkage, and audit boundaries."
           },
           {
-            "zh": "兼容视图使用 96 条等距确定性样本；主工作区仍保留 9,835 条 CoRE 2024 CR 结构记录和 4,168 条合成证据的完整统计。",
-            "en": "Uses a deterministic 96-record compatibility sample while the main workspace retains complete statistics for 9,835 CoRE 2024 CR structures and 4,168 synthesis-evidence records."
+            "zh": "所有含公式的方法组采用左公式、右可调敏感性图，下方继续展示算法步骤、输入输出、来源、限制和实现逻辑。",
+            "en": "Formula-bearing method groups now pair formulas on the left with adjustable sensitivity plots on the right, followed by steps, inputs/outputs, sources, limits, and implementation logic."
           },
           {
-            "zh": "评分模型的候选与证据关联由重复线性查找改为映射索引，避免记录规模增长时出现平方级渲染成本。",
-            "en": "Replaces repeated linear candidate/evidence lookups with indexed maps to avoid quadratic render cost as record volume grows."
+            "zh": "有机酸因子、示例路线、派生层级和记录数直接读取 V3.9.10 生成产物，不硬编码排名结论。",
+            "en": "Organic Acid factors, example route, derivation levels, and record counts are read from V3.9.10 artifacts rather than hardcoded ranking claims."
+          }
+        ]
+      },
+      "ui": {
+        "summary": {
+          "zh": "长弹窗操作区和方法目录交互更稳定。",
+          "en": "Long-dialog controls and methodology navigation are more stable."
+        },
+        "changes": [
+          {
+            "zh": "字段来源、物化性质、声明、联系、致谢和有机酸抽屉的关闭按钮固定在容器顶部，内容下滑时保持可见。",
+            "en": "Keeps close controls fixed at the top of provenance, properties, disclaimer, contact, acknowledgements, and Organic Acid drawers while their content scrolls."
           },
           {
-            "zh": "兼容工具展开后继续提供反应筛选、数据质量审计和评分解释，不改变 LCA 主结论的证据门槛。",
-            "en": "Keeps reaction filtering, data-quality audit, and score explanation available after expansion without changing the evidence gates for LCA conclusions."
+            "zh": "方法目录支持桌面端拖动调整 220–440 px 宽度，窄屏保持单列目录。",
+            "en": "Makes the desktop methods directory resizable from 220–440 px while retaining the compact single-column mobile layout."
+          },
+          {
+            "zh": "方法论顶部新增开放协作说明，明确开源展示不取消来源许可、数据责任和科研验证义务。",
+            "en": "Adds an open-collaboration statement clarifying that open implementation does not remove licensing, data-governance, or scientific-validation duties."
           }
         ]
       },
       "dataCompliance": {
         "summary": {
-          "zh": "把概括性承诺重构为逐条控制、逐来源凭证和明确停止条件。",
-          "en": "Rebuilds a general pledge into clause-level controls, source-level evidence, and explicit stop conditions."
+          "zh": "新增 MOF Anatomy 的限制性来源登记、授权缺口与禁止复制边界。",
+          "en": "Adds a restricted MOF Anatomy source record, authorization gap, and no-copy boundary."
         },
         "changes": [
           {
-            "zh": "按 CCDC、CC BY-NC-SA 4.0、CC BY 4.0、NIST/文献逐记录边界和项目自有材料分组列出 43 条适用控制条文。",
-            "en": "Itemizes 43 applicable controls grouped by CCDC, CC BY-NC-SA 4.0, CC BY 4.0, NIST/literature record-level boundaries, and project-origin materials."
+            "zh": "合规页新增 MOF Anatomy 授权凭证／缺口、官方说明入口和数据集处理记录，明确未发现站点统一再利用许可。",
+            "en": "Adds a MOF Anatomy authorization/gap record, official project link, and dataset handling record, explicitly noting that no site-wide reuse licence was located."
           },
           {
-            "zh": "登记 10 项授权凭证或缺口，逐项说明授权主体、覆盖对象、原始凭证、限制条件和是否阻断。",
-            "en": "Registers 10 authorization-evidence or gap records, each stating the grantor, covered object, original evidence, limitations, and blocking status."
-          },
-          {
-            "zh": "删除“截至某日已完成合规”等自我认证表述，明确本页是项目控制说明，不是 CCDC 或其他权利人出具的授权证书。",
-            "en": "Removes dated self-certification language and states that the page is a project control statement, not a certificate issued by CCDC or another rightsholder."
-          },
-          {
-            "zh": "保留来源登记、哈希、NOTICE、数据隔离和事件响应功能，并明确这些内部证据不能替代发布方许可。",
-            "en": "Retains source registration, hashes, NOTICE files, data quarantine, and incident response while stating that internal evidence cannot replace publisher authorization."
-          },
-          {
-            "zh": "每组条文和凭证均链接发布方原文；未取得覆盖性凭证的付费 CSD、开放种子未知许可和待确认数据继续阻断。",
-            "en": "Links each clause group and evidence record to publisher originals and keeps paid CSD, unknown-licence seed data, and pending sources blocked where blanket evidence is absent."
+            "zh": "只使用名称、年份、分类、DOI 与 CCDC 号等事实性元数据；站点图片、结构文件、页面文案和视觉设计不进入仓库。",
+            "en": "Uses factual metadata such as name, year, class, DOI, and CCDC number only; site images, structure files, page prose, and visual design do not enter the repository."
           }
         ]
       },
       "projectEvolution": {
         "summary": {
-          "zh": "修复历史沿革空白，并将近期真实发布记录补回统一版本中心。",
-          "en": "Fixes the blank history area and restores recent actual releases to the unified release center."
+          "zh": "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
+          "en": "The unified release center adds v1.0.11 with the actual completed scope."
         },
         "changes": [
           {
-            "zh": "将档案页样式限制到直接子级，避免内嵌历史折叠面板被 34 像素档案索引列挤成逐字换行。",
-            "en": "Scopes archive styles to direct children so the nested history panel is no longer squeezed into the 34-pixel archive index column."
+            "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。",
+            "en": "The version selector, current badge, module updates, and development log now read v1.0.11."
           },
           {
-            "zh": "历史沿革默认展开，显示原始版本总数、模块条目数、版本日期和最近六条原始记录。",
-            "en": "Opens history by default and shows the original-version count, module counts, dates, and six most recent original records."
-          },
-          {
-            "zh": "补录 v1.0.6 至 v1.0.9，并保持 pre-1.0 模块版本号原样不重编号。",
-            "en": "Adds v1.0.6 through v1.0.9 while preserving pre-1.0 module version labels without renumbering."
-          },
-          {
-            "zh": "统一版本选择器、模块页签和当前更新区继续由同一发布日志生成。",
-            "en": "Keeps the version selector, module tabs, and current-update area generated from the same release log."
+            "zh": "本轮只创建本地提交，不推送或宣称公开部署。",
+            "en": "This release is committed locally only, without push or public-deployment claims."
           }
         ]
       }
@@ -371,6 +351,121 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.11",
+      "date": "2026-07-29",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.11：扩展 MOF 身份检索，固定弹窗操作区，并以现行 V3.9.10 重构方法论。",
+        "en": "v1.0.11: expands MOF identity search, fixes modal controls in place, and rebuilds methodology around current V3.9.10 rules."
+      },
+      "summary": {
+        "zh": "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
+        "en": "This release extends the MOF Library from a CoRE-only property index to two-layer property plus name/literature identity search. It registers 185 factual MOF Anatomy identities under a conservative rights boundary and shows DOI, CCDC number, and explicit gap reasons where no licensed structure or property is available. Long-content dialogs keep their close controls fixed at the top. Methodology removes the obsolete module and is rebuilt with a resizable directory, formula-plus-interactive sensitivity layouts, per-function implementation logic, and the current abundance-neutral V3.9.10 HGCPS."
+      },
+      "modules": {
+        "database": {
+          "summary": {
+            "zh": "名称与文献身份覆盖扩展到 MOF Anatomy 目录，同时保持物化性质严格标识符连接。",
+            "en": "Name and literature identity coverage now includes the MOF Anatomy directory while physicochemical values retain exact-identifier linking."
+          },
+          "changes": [
+            {
+              "zh": "生成 185 条 MOF Anatomy 事实性身份索引，其中 185 条含原论文入口、175 条含 CCDC 号；不复制图片、XYZ 或整理后结构。",
+              "en": "Builds a 185-record factual MOF Anatomy identity index with 185 source-paper links and 175 CCDC numbers, without copying images, XYZ, or cleaned structures."
+            },
+            {
+              "zh": "物化性质搜索新增确认按钮，可按名称、别名、CSD Refcode、CCDC 号和 DOI 查询，并消除系统蓝色焦点外框。",
+              "en": "Adds explicit property-search confirmation across names, aliases, CSD Refcodes, CCDC numbers, and DOIs, while removing the browser-blue focus frame."
+            },
+            {
+              "zh": "DUT‑68 等仅有身份映射的材料显示论文、CCDC 与缺失原因；NTU‑68 等独立整理条目继续进入同一回退逻辑，不按相似名称猜测数值。",
+              "en": "Identity-only materials such as DUT-68 show paper, CCDC, and gap reasons; independently curated entries such as NTU-68 use the same fallback without similarity-based value inference."
+            }
+          ]
+        },
+        "validation": {
+          "summary": {
+            "zh": "方法论以当前数据产物和锁定规则为唯一事实源，并补齐交互解释与逐功能执行链。",
+            "en": "Methodology now uses current artifacts and locked rules as its sole truth source, with interactive explanations and per-function execution chains."
+          },
+          "changes": [
+            {
+              "zh": "删除废止的方法模块和旧版有机酸叙述，改为 V3.9.10 八因子加权几何 HGCPS、丰度中性收缩与审计边界。",
+              "en": "Removes the obsolete method module and superseded Organic Acid narrative in favor of V3.9.10 eight-factor weighted-geometric HGCPS, abundance-neutral shrinkage, and audit boundaries."
+            },
+            {
+              "zh": "所有含公式的方法组采用左公式、右可调敏感性图，下方继续展示算法步骤、输入输出、来源、限制和实现逻辑。",
+              "en": "Formula-bearing method groups now pair formulas on the left with adjustable sensitivity plots on the right, followed by steps, inputs/outputs, sources, limits, and implementation logic."
+            },
+            {
+              "zh": "有机酸因子、示例路线、派生层级和记录数直接读取 V3.9.10 生成产物，不硬编码排名结论。",
+              "en": "Organic Acid factors, example route, derivation levels, and record counts are read from V3.9.10 artifacts rather than hardcoded ranking claims."
+            }
+          ]
+        },
+        "ui": {
+          "summary": {
+            "zh": "长弹窗操作区和方法目录交互更稳定。",
+            "en": "Long-dialog controls and methodology navigation are more stable."
+          },
+          "changes": [
+            {
+              "zh": "字段来源、物化性质、声明、联系、致谢和有机酸抽屉的关闭按钮固定在容器顶部，内容下滑时保持可见。",
+              "en": "Keeps close controls fixed at the top of provenance, properties, disclaimer, contact, acknowledgements, and Organic Acid drawers while their content scrolls."
+            },
+            {
+              "zh": "方法目录支持桌面端拖动调整 220–440 px 宽度，窄屏保持单列目录。",
+              "en": "Makes the desktop methods directory resizable from 220–440 px while retaining the compact single-column mobile layout."
+            },
+            {
+              "zh": "方法论顶部新增开放协作说明，明确开源展示不取消来源许可、数据责任和科研验证义务。",
+              "en": "Adds an open-collaboration statement clarifying that open implementation does not remove licensing, data-governance, or scientific-validation duties."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "新增 MOF Anatomy 的限制性来源登记、授权缺口与禁止复制边界。",
+            "en": "Adds a restricted MOF Anatomy source record, authorization gap, and no-copy boundary."
+          },
+          "changes": [
+            {
+              "zh": "合规页新增 MOF Anatomy 授权凭证／缺口、官方说明入口和数据集处理记录，明确未发现站点统一再利用许可。",
+              "en": "Adds a MOF Anatomy authorization/gap record, official project link, and dataset handling record, explicitly noting that no site-wide reuse licence was located."
+            },
+            {
+              "zh": "只使用名称、年份、分类、DOI 与 CCDC 号等事实性元数据；站点图片、结构文件、页面文案和视觉设计不进入仓库。",
+              "en": "Uses factual metadata such as name, year, class, DOI, and CCDC number only; site images, structure files, page prose, and visual design do not enter the repository."
+            },
+            {
+              "zh": "搜索缺失回退与来源登记共用同一约束：未经独立许可和精确标识符，不把目录身份记录转写为结构或物化性质。",
+              "en": "Search fallback and source registration share one guard: without independent permission and an exact identifier, directory identities are not converted into structures or physicochemical properties."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
+            "en": "The unified release center adds v1.0.11 with the actual completed scope."
+          },
+          "changes": [
+            {
+              "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。",
+              "en": "The version selector, current badge, module updates, and development log now read v1.0.11."
+            },
+            {
+              "zh": "本轮只创建本地提交，不推送或宣称公开部署。",
+              "en": "This release is committed locally only, without push or public-deployment claims."
+            },
+            {
+              "zh": "pre‑1.0 历史沿革继续按原始模块版本展示，既有 38 条历史记录保持可读且不重编号。",
+              "en": "The pre-1.0 history remains grouped by original module versions; all 38 existing history records stay readable and unrenumbered."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.10",
       "date": "2026-07-29",

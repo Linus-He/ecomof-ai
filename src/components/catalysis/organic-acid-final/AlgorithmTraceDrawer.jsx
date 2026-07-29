@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { StatusPill, text } from "./FinalScreeningShared"
+import { X } from "@phosphor-icons/react"
 
 export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false }) {
   const [open, setOpen] = useState(false)
@@ -56,7 +57,7 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
               width: "min(94vw, 520px)",
             }}
           >
-            <header style={{ alignItems: "start", display: "flex", gap: 10, justifyContent: "space-between" }}>
+            <header style={{ alignItems: "start", background: t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", gap: 10, justifyContent: "space-between", margin: "-16px -16px 0", padding: "16px 16px 12px", position: "sticky", top: -16, zIndex: 3 }}>
               <div style={{ display: "grid", gap: 4 }}>
                 <strong style={{ color: t.textStrong, fontSize: 18 }}>
                   {text(lang, "算法追踪抽屉", "Algorithm Trace Drawer")}
@@ -72,9 +73,10 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", minHeight: 32, padding: "5px 9px" }}
+                aria-label={text(lang, "关闭算法追踪", "Close algorithm trace")}
+                style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "inline-flex", height: 34, justifyContent: "center", padding: 0, width: 34 }}
               >
-                Esc
+                <X aria-hidden="true" size={17} weight="bold" />
               </button>
             </header>
             <StatusPill tone="warn" t={t}>{text(lang, "演示/代理追踪", "demo/proxy trace")}</StatusPill>

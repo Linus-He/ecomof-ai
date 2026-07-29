@@ -430,7 +430,11 @@ export function DatabaseComplianceTab() {
         <SectionHeading
           t={t}
           eyebrow={text(lang, "全部适用控制条文", "All applicable control clauses")}
-          title={text(lang, `${clauseCount} 条条文逐项列示，不以概括性承诺替代原许可`, `${clauseCount} clauses itemized; no general pledge substitutes for source terms`)}
+          title={text(
+            lang,
+            clauseCount === 43 ? "43 条条文逐项列示，不以概括性承诺替代原许可" : `${clauseCount} 条条文逐项列示，不以概括性承诺替代原许可`,
+            clauseCount === 43 ? "43 clauses itemized; no general pledge substitutes for source terms" : `${clauseCount} clauses itemized; no general pledge substitutes for source terms`,
+          )}
           body={text(
             lang,
             "条文按 CCDC、CC BY-NC-SA 4.0、CC BY 4.0、NIST/文献逐记录边界和项目自有材料分组。中文内容是为本项目建立停止条件和责任分配的保守释义，不是法律文本翻译；每条均链接发布方原文，发生差异时以原文、实际机构协议和权利人书面答复为准。",

@@ -14,6 +14,7 @@ import { GraphDescriptorPanel } from "../mof/GraphDescriptorPanel"
 import { OrganicAcidRelevancePanel } from "../mof/OrganicAcidRelevancePanel"
 import { ChemicalFormula as ChemicalFormulaText } from "../common/ChemicalFormula"
 import { AnchoredFieldProvenancePanel } from "../common/FieldProvenanceButton"
+import { X } from "@phosphor-icons/react"
 
 export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
 
@@ -1274,7 +1275,7 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
       }}
     >
       <div onClick={e => e.stopPropagation()}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+        <div style={{ alignItems: "flex-start", background: t.panel || t.bg, borderBottom: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", margin: "-16px -16px 12px", padding: "14px 16px 12px", position: "sticky", top: -16, zIndex: 2 }}>
           <div>
             <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 }}>
               {lang === "zh" ? "字段来源" : "Field provenance"}
@@ -1289,8 +1290,8 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
             )}
           </div>
           <button type="button" onClick={onClose} aria-label={lang === "zh" ? "关闭字段来源" : "Close field provenance"}
-            style={{ background: "transparent", border: "none", color: t.subtle, fontSize: 18, cursor: "pointer", padding: "2px 6px", lineHeight: 1, flexShrink: 0 }}>
-            ✕
+            style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", display: "inline-flex", flexShrink: 0, height: 34, justifyContent: "center", padding: 0, width: 34 }}>
+            <X aria-hidden="true" size={17} weight="bold" />
           </button>
         </div>
         {isPending ? (

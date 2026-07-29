@@ -2,6 +2,7 @@
 import { useRef, useState } from "react"
 import { AnchoredFieldProvenancePanel } from "../../common/FieldProvenanceButton"
 import { ChemicalText } from "../../../shared"
+import { X } from "@phosphor-icons/react"
 
 export const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -131,9 +132,9 @@ export function ProvenanceButton({ record, field, label, value, lang = "en", t, 
           maxHeight={420}
           style={{ background: t.tooltipBg || t.panel, border: `1px solid ${t.borderStrong || t.border}`, boxShadow: t.shadowLg || t.shadowMd, color: t.muted, padding: 12 }}
         >
-          <div style={{ alignItems: "start", display: "flex", gap: 10, justifyContent: "space-between", marginBottom: 8 }}>
+          <div style={{ alignItems: "center", background: t.tooltipBg || t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", gap: 10, justifyContent: "space-between", margin: "-12px -12px 8px", padding: "11px 12px 9px", position: "sticky", top: -12, zIndex: 2 }}>
             <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "字段级溯源", "Field-level provenance")}</strong>
-            <button type="button" onClick={() => setOpen(false)} aria-label={text(lang, "关闭", "Close")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", minHeight: 32, padding: "4px 8px" }}>Esc</button>
+            <button type="button" onClick={() => setOpen(false)} aria-label={text(lang, "关闭", "Close")} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.subtle, cursor: "pointer", display: "inline-flex", height: 32, justifyContent: "center", padding: 0, width: 32 }}><X aria-hidden="true" size={16} weight="bold" /></button>
           </div>
           <div style={{ display: "grid", gap: 7 }}>
             {rows.map(([name, rowValue]) => (

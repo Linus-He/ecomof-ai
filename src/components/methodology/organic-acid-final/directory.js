@@ -1,26 +1,15 @@
 // @ts-nocheck
 
 export const ORGANIC_ACID_FINAL_DIRECTORY = {
-  id: "methodology-organic-acid-final-screening",
-  label: "Organic Acid Final Screening Methodology",
-  labelZh: "有机酸最终筛选方法论",
+  id: "methodology-organic-acid-final",
+  label: "Current Organic Acid Method",
+  labelZh: "当前有机酸方法",
   level: 1,
   display: "有机酸最终筛选方法论",
   children: [
-    { id: "methodology-oafs-overview", label: "Method Overview", labelZh: "方法总览" },
-    { id: "methodology-oafs-flow", label: "HGCPS Algorithm Flow", labelZh: "HGCPS 算法流程" },
-    { id: "methodology-oafs-algorithm-showcase", label: "HGCPS Algorithm Showcase", labelZh: "HGCPS 算法展示" },
-    { id: "methodology-oafs-algorithm-closure", label: "Organic Acid Algorithm Closure", labelZh: "有机酸算法闭环" },
-    { id: "methodology-oafs-data-mapping", label: "Data Mapping and Schema Validation", labelZh: "数据映射与 Schema Validation" },
-    { id: "methodology-oafs-small-real-dataset", label: "Historical V1.6 Mapping Sample", labelZh: "历史 V1.6 映射样例" },
-    { id: "methodology-oafs-trace-workbench", label: "Algorithm Trace Workbench", labelZh: "算法追踪工作台" },
-    { id: "methodology-oafs-database-index-preview", label: "CoRE Index Migration & Historical Audit", labelZh: "CoRE 索引迁移与历史审计" },
-    { id: "methodology-oafs-hot-spot", label: "Coupled Descriptor Hot Spot Map", labelZh: "耦合描述符热区图" },
-    { id: "methodology-oafs-knowledge-base", label: "Knowledge Base Link", labelZh: "知识库跳转" },
-    { id: "methodology-oafs-robustness", label: "Robustness Audit", labelZh: "稳健性审计" },
-    { id: "methodology-oafs-evidence-matrix", label: "Evidence Strength Matrix", labelZh: "证据强度矩阵" },
-    { id: "methodology-oafs-exafs", label: "EXAFS-Guided Falsification", labelZh: "EXAFS 引导证伪" },
-    { id: "methodology-oafs-validation-loop", label: "Experimental Control Loop", labelZh: "实验控制闭环" },
-    { id: "methodology-oafs-limitations", label: "Limitations & Reproducibility", labelZh: "限制与复现" },
+    { id: "methodology-oafs-current-formula", label: "Locked HGCPS Formula", labelZh: "锁定的 HGCPS 公式" },
+    { id: "methodology-oafs-current-factors", label: "Eight Factors and Provenance", labelZh: "八因子与来源职责" },
+    { id: "methodology-oafs-current-implementation", label: "Implementation Logic", labelZh: "实现逻辑" },
+    { id: "methodology-oafs-current-limitations", label: "Limits and Validation", labelZh: "限制与验证责任" },
   ],
 }

@@ -7,6 +7,7 @@ import { MethodEvidenceBoundary } from "./MethodEvidenceBoundary"
 import { MethodFormulaCard } from "./MethodFormulaCard"
 import { MethodIOPanel } from "./MethodIOPanel"
 import { MethodVisualizationCard } from "./MethodVisualizationCard"
+import { MethodInteractiveWorkbench } from "./MethodInteractiveWorkbench"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -93,8 +94,11 @@ function MethodGroup({ group, lang, t }) {
       </header>
       <MethodAlgorithmStepper steps={group.algorithmSteps} lang={lang} t={t} />
       {formulas.length ? (
-        <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-          {formulas.map(formula => <MethodFormulaCard key={formula.id} formula={formula} lang={lang} t={t} />)}
+        <div style={{ alignItems: "stretch", display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+          <div style={{ display: "grid", gap: 10 }}>
+            {formulas.map(formula => <MethodFormulaCard key={formula.id} formula={formula} lang={lang} t={t} />)}
+          </div>
+          <MethodInteractiveWorkbench groupId={group.id} lang={lang} t={t} />
         </div>
       ) : null}
       <MethodIOPanel inputs={group.inputs} inputsZh={group.inputsZh} outputs={group.outputs} outputsZh={group.outputsZh} lang={lang} t={t} />
@@ -110,6 +114,48 @@ function MethodGroup({ group, lang, t }) {
         </div>
       ) : null}
     </article>
+  )
+}
+
+function ImplementationLogic({ item, lang, t }) {
+  const rows = item.implementationLogic || (item.methodGroups || []).map(group => ({
+    function: text(lang, group.titleZh, group.title),
+    trigger: text(lang, group.inputsZh?.slice(0, 2).join("、"), group.inputs?.slice(0, 2).join(", ")),
+    process: text(lang, group.algorithmSteps?.map(step => step.labelZh).filter(Boolean).join(" → "), group.algorithmSteps?.map(step => step.label).filter(Boolean).join(" → ")),
+    output: text(lang, group.outputsZh?.slice(0, 2).join("、"), group.outputs?.slice(0, 2).join(", ")),
+    guard: text(lang, group.limitationsZh?.[0], group.limitations?.[0]),
+  }))
+  if (!rows.length) return null
+  return (
+    <section id={`methodology-${item.id}-implementation`} style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 11, display: "grid", gap: 11, padding: 13, scrollMarginTop: 118 }}>
+      <header style={{ display: "grid", gap: 4 }}>
+        <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "功能实现逻辑", "Implementation logic")}</div>
+        <h3 style={{ color: t.textStrong, fontSize: 17, margin: 0 }}>{text(lang, "从操作到结果的完整执行链", "Complete execution chain from action to result")}</h3>
+        <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55, margin: 0 }}>{text(lang, "每一项都说明触发条件、处理过程、输出与阻断边界；缺失数据不会被静默补齐。", "Each function states its trigger, processing, output, and guard; missing data are never silently filled.")}</p>
+      </header>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
+          <thead>
+            <tr>
+              {[text(lang, "功能", "Function"), text(lang, "触发／输入", "Trigger / input"), text(lang, "执行过程", "Processing"), text(lang, "输出", "Output"), text(lang, "阻断与责任边界", "Guard / boundary")].map(label => (
+                <th key={label} style={{ borderBottom: `1px solid ${t.borderStrong || t.border}`, color: t.faint, fontSize: 10.3, padding: "8px 9px", textAlign: "left" }}>{label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={`${row.function}-${index}`}>
+                {[row.function, row.trigger, row.process, row.output, row.guard].map((value, cellIndex) => (
+                  <td key={cellIndex} style={{ borderBottom: `1px solid ${t.border}`, color: cellIndex === 0 ? t.textStrong : t.muted, fontSize: 11.2, fontWeight: cellIndex === 0 ? 850 : 500, lineHeight: 1.5, padding: "9px", verticalAlign: "top" }}>
+                    <ChemicalText value={value || text(lang, "按字段来源状态决定", "Determined by field provenance status")} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   )
 }
 
@@ -139,6 +185,7 @@ export function MethodModuleSection({ item, lang, t }) {
         </div>
       ) : null}
       {(item.methodGroups || []).map(group => <MethodGroup key={group.id} group={group} lang={lang} t={t} />)}
+      <ImplementationLogic item={item} lang={lang} t={t} />
       <MethodEvidenceBoundary item={item} lang={lang} t={t} />
     </section>
   )

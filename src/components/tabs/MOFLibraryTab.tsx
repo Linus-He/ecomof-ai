@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react"
+import { ArrowSquareOut, MagnifyingGlass, ShieldCheck, WarningCircle } from "@phosphor-icons/react"
 import {
   useT, useLang, useViewport,
   FONT_SANS,
@@ -34,6 +34,7 @@ import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
 import { fetchDataJson } from "../../services/dataService"
+import csdCommonAliases from "../../data/csdCommonAliases.json"
 
 const DATA_MODE = "core-mof-2024-cr"
 const PAGE_SIZE = 24
@@ -353,79 +354,251 @@ function StatusPill({ children, tone = "neutral", t }) {
   )
 }
 
-function PhysicochemicalSearchPanel({ rows, query, setQuery, selected, onSelect, lang, t, isMobile }) {
-  const normalizedQuery = query.trim().toLowerCase()
-  const selectedQuery = String(selected?.commonName || selected?.displayName || selected?.csdRefcode || selected?.sourceRecordId || "").trim().toLowerCase()
-  const matches = useMemo(() => {
-    if (!normalizedQuery) return []
-    return rows.filter(item => [
+function normalizeMofSearch(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .replace(/[‐‑‒–—−]/g, "-")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "")
+}
+
+function identitySearchText(identity) {
+  return [
+    identity.canonicalName,
+    ...(identity.searchAliases || []),
+    identity.ccdcNumber,
+    identity.associatedPaper?.doi,
+    identity.mofClass,
+    identity.mofFamily,
+    identity.linker?.name,
+    identity.linker?.abbreviation,
+    identity.metalCluster,
+    identity.topology,
+  ].filter(Boolean).join(" ")
+}
+
+function buildPropertySearchEntries(rows, anatomyRecords) {
+  const localEntries = rows.map(item => ({
+    id: `property:${item.id}`,
+    kind: "property",
+    label: [item.commonName, item.displayName]
+      .find(name => name && !/^(CoRE MOF record|MOF source record)$/i.test(String(name)))
+      || item.csdRefcode
+      || item.sourceRecordId,
+    searchText: [
       item.commonName,
       item.displayName,
       item.name,
       item.csdRefcode,
       item.sourceRecordId,
       ...(item.aliases || []),
-    ].filter(Boolean).join(" ").toLowerCase().includes(normalizedQuery)).slice(0, 8)
-  }, [normalizedQuery, rows])
-  const propertyRows = selected ? [
-    [text(lang, "比表面积", "Surface area"), formatValue(selected.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang), "surfaceArea"],
-    [text(lang, "孔体积", "Pore volume"), formatValue(selected.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang), "poreVolume"],
-    ["PLD", formatValue(selected.pldA || selected.poreSizeA, ` ${normalizeUnitLabel("A")}`, lang), "pldA"],
-    ["LCD", formatValue(selected.lcdA, ` ${normalizeUnitLabel("A")}`, lang), "lcdA"],
-    [text(lang, "密度", "Density"), formatValue(selected.density, ` ${normalizeUnitLabel("g/cm3")}`, lang), "density"],
-    [text(lang, "空隙率", "Void fraction"), formatValue(selected.voidFraction, "", lang), "voidFraction"],
+      ...(item.aliasNames || []),
+    ].filter(Boolean).join(" "),
+    localRecord: item,
+    identity: null,
+  }))
+  const localByRefcode = new Map()
+  const localByName = new Map()
+  rows.forEach(item => {
+    const refcode = normalizeMofSearch(item.csdRefcode || item.sourceRecordId)
+    if (refcode) localByRefcode.set(refcode, item)
+    ;[
+      item.commonName,
+      item.displayName,
+      item.name,
+      ...(item.aliases || []),
+      ...(item.aliasNames || []),
+    ].forEach(name => {
+      const normalized = normalizeMofSearch(name)
+      if (normalized && !localByName.has(normalized)) localByName.set(normalized, item)
+    })
+  })
+  const curatedByName = new Map(
+    (csdCommonAliases.aliases || []).flatMap(entry => [entry.canonicalName, ...(entry.searchAliases || [])]
+      .map(name => [normalizeMofSearch(name), entry])),
+  )
+  const identityRecords = [...(anatomyRecords || [])]
+  ;(csdCommonAliases.aliases || []).forEach(curated => {
+    if (!identityRecords.some(item => normalizeMofSearch(item.canonicalName) === normalizeMofSearch(curated.canonicalName))) {
+      identityRecords.push(curated)
+    }
+  })
+  const identityEntries = identityRecords.map(identity => {
+    const curated = curatedByName.get(normalizeMofSearch(identity.canonicalName))
+    const mergedIdentity = curated ? {
+      ...identity,
+      ...curated,
+      identityPage: curated.identityPage || identity.identityPage,
+      associatedPaper: curated.associatedPaper || identity.associatedPaper,
+      ccdcNumber: curated.ccdcNumber || identity.ccdcNumber,
+      searchAliases: [...new Set([...(identity.searchAliases || []), ...(curated.searchAliases || [])])],
+    } : identity
+    const refcodes = [
+      mergedIdentity.preferredRefcode,
+      ...(mergedIdentity.refcodes || []),
+    ].map(normalizeMofSearch).filter(Boolean)
+    const names = [
+      mergedIdentity.canonicalName,
+      ...(mergedIdentity.searchAliases || []),
+    ].map(normalizeMofSearch).filter(Boolean)
+    const localRecord = refcodes.map(code => localByRefcode.get(code)).find(Boolean)
+      || names.map(name => localByName.get(name)).find(Boolean)
+      || null
+    return {
+      id: `identity:${mergedIdentity.id || mergedIdentity.slug || mergedIdentity.canonicalName}`,
+      kind: localRecord ? "identity-linked" : "identity-only",
+      label: mergedIdentity.canonicalName,
+      searchText: identitySearchText(mergedIdentity),
+      localRecord,
+      identity: mergedIdentity,
+    }
+  })
+  return [...identityEntries, ...localEntries]
+}
+
+function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, submittedQuery, setSubmittedQuery, selected, onSelect, lang, t, isMobile }) {
+  const searchEntries = useMemo(() => buildPropertySearchEntries(rows, anatomyRecords), [anatomyRecords, rows])
+  const normalizedQuery = normalizeMofSearch(submittedQuery)
+  const matches = useMemo(() => {
+    if (!normalizedQuery) return []
+    return searchEntries
+      .filter(entry => normalizeMofSearch(entry.searchText).includes(normalizedQuery))
+      .sort((a, b) => {
+        const exactA = normalizeMofSearch(a.label) === normalizedQuery ? 1 : 0
+        const exactB = normalizeMofSearch(b.label) === normalizedQuery ? 1 : 0
+        if (exactA !== exactB) return exactB - exactA
+        if (a.kind !== b.kind) return a.kind === "property" || a.kind === "identity-linked" ? -1 : 1
+        return String(a.label).localeCompare(String(b.label), lang === "zh" ? "zh-CN" : "en")
+      })
+      .filter((entry, index, all) => all.findIndex(candidate => (
+        normalizeMofSearch(candidate.label) === normalizeMofSearch(entry.label)
+        && normalizeMofSearch(candidate.localRecord?.csdRefcode || candidate.localRecord?.sourceRecordId)
+          === normalizeMofSearch(entry.localRecord?.csdRefcode || entry.localRecord?.sourceRecordId)
+      )) === index)
+      .slice(0, 12)
+  }, [lang, normalizedQuery, searchEntries])
+  const record = selected?.localRecord || null
+  const identity = selected?.identity || null
+  const propertyRows = record ? [
+    [text(lang, "比表面积", "Surface area"), formatValue(record.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang), "surfaceArea"],
+    [text(lang, "孔体积", "Pore volume"), formatValue(record.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang), "poreVolume"],
+    ["PLD", formatValue(record.pldA || record.poreSizeA, ` ${normalizeUnitLabel("A")}`, lang), "pldA"],
+    ["LCD", formatValue(record.lcdA, ` ${normalizeUnitLabel("A")}`, lang), "lcdA"],
+    [text(lang, "密度", "Density"), formatValue(record.density, ` ${normalizeUnitLabel("g/cm3")}`, lang), "density"],
+    [text(lang, "空隙率", "Void fraction"), formatValue(record.voidFraction, "", lang), "voidFraction"],
   ] : []
+  const submit = event => {
+    event?.preventDefault?.()
+    const trimmed = query.trim()
+    setSubmittedQuery(trimmed)
+    if (!trimmed) onSelect(null)
+  }
 
   return (
     <section data-testid="mof-physicochemical-search" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `2px solid ${t.accent}`, display: "grid", gap: 13, padding: isMobile ? "15px 0" : "17px 0" }}>
-      <div style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto" }}>
-        <label style={{ display: "grid", gap: 6, minWidth: 0, position: "relative" }}>
-          <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "物化性质查询", "Physicochemical property search")}</span>
-          <div style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, display: "flex", gap: 8, minWidth: 0, padding: "0 10px" }}>
+      <form onSubmit={submit} style={{ display: "grid", gap: 10 }}>
+        <label style={{ display: "grid", gap: 6, maxWidth: 980, minWidth: 0, width: "100%" }}>
+          <span style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+            <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "物化性质查询", "Physicochemical property search")}</span>
+            <StatusPill t={t} tone="source">{rows.length.toLocaleString()} {text(lang, "条性质记录", "property records")} · {anatomyRecords.length.toLocaleString()} {text(lang, "条身份文献", "identity records")}</StatusPill>
+          </span>
+          <div data-testid="mof-property-search-field" style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, boxShadow: "none", display: "flex", gap: 8, minWidth: 0, padding: "0 10px" }}>
             <MagnifyingGlass aria-hidden="true" color={t.faint} size={17} weight="bold" />
             <input
               type="search"
               value={query}
-              onChange={event => setQuery(event.target.value)}
-              placeholder={text(lang, "输入 MOF 名称、CSD Refcode 或结构记录 ID", "MOF name, CSD Refcode, or structure record ID")}
-              style={{ background: "transparent", border: 0, color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, height: 40, minWidth: 0, outline: "none", width: "100%" }}
+              onChange={event => {
+                setQuery(event.target.value)
+                setSubmittedQuery("")
+                onSelect(null)
+              }}
+              placeholder={text(lang, "输入 MOF 名称、CSD Refcode、CCDC 号或 DOI", "MOF name, CSD Refcode, CCDC number, or DOI")}
+              style={{ appearance: "none", background: "transparent", border: 0, boxShadow: "none", color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, height: 40, minWidth: 0, outline: "none", WebkitAppearance: "none", width: "100%" }}
             />
+            <button type="submit" style={{ alignItems: "center", alignSelf: "stretch", background: t.accent, border: 0, borderRadius: 6, color: "#fff", cursor: "pointer", display: "inline-flex", flex: "0 0 auto", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 900, gap: 7, justifyContent: "center", margin: 4, padding: "0 16px" }}>
+              <MagnifyingGlass aria-hidden="true" size={16} weight="bold" />
+              {text(lang, "确认查询", "Search")}
+            </button>
           </div>
-          {matches.length && normalizedQuery !== selectedQuery ? (
-            <div style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, boxShadow: t.shadowSm, display: "grid", left: 0, overflow: "hidden", position: "absolute", right: 0, top: "calc(100% + 4px)", zIndex: 12 }}>
-              {matches.map(item => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => {
-                    onSelect(item.id)
-                    setQuery(item.commonName || item.displayName || item.csdRefcode || item.sourceRecordId)
-                  }}
-                  style={{ background: item.id === selected?.id ? t.badgeInfoBg : t.panel, border: 0, borderBottom: `1px solid ${t.border}`, color: t.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, gap: 3, padding: "9px 11px", textAlign: "left" }}
-                >
-                  <strong style={{ fontSize: 11.8 }}>{getReadableMofLabel(item, lang)}</strong>
-                  <span style={{ color: t.faint, fontSize: 10.2 }}>CSD {item.csdRefcode || item.sourceRecordId} · {item.metalNode || "—"} · {item.topology || "—"}</span>
-                </button>
-              ))}
-            </div>
-          ) : null}
         </label>
-        <StatusPill t={t} tone="source">{rows.length.toLocaleString()} {text(lang, "条可查询", "searchable")}</StatusPill>
-      </div>
+      </form>
+      {submittedQuery ? (
+        <div data-testid="mof-property-search-results" style={{ border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", overflow: "hidden" }}>
+          {matches.length ? matches.map(entry => (
+            <button
+              key={entry.id}
+              type="button"
+              onClick={() => {
+                onSelect(entry)
+                setQuery(entry.label)
+              }}
+              style={{ alignItems: "center", background: entry.id === selected?.id ? t.badgeInfoBg : t.panel, border: 0, borderBottom: `1px solid ${t.border}`, color: t.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, gap: 3, gridTemplateColumns: "minmax(0, 1fr) auto", padding: "10px 12px", textAlign: "left" }}
+            >
+              <span style={{ display: "grid", gap: 3, minWidth: 0 }}>
+                <strong style={{ fontSize: 12.2 }}>{entry.label}</strong>
+                <span style={{ color: t.faint, fontSize: 10.4, overflowWrap: "anywhere" }}>
+                  {entry.localRecord
+                    ? `CSD ${entry.localRecord.csdRefcode || entry.localRecord.sourceRecordId} · ${entry.localRecord.metalNode || entry.identity?.mofClass || "—"} · ${entry.localRecord.topology || entry.identity?.topology || "—"}`
+                    : `${entry.identity?.mofClass || "MOF"} · DOI ${entry.identity?.associatedPaper?.doi || text(lang, "待登记", "pending")}`}
+                </span>
+              </span>
+              <StatusPill t={t} tone={entry.localRecord ? "good" : "warn"}>
+                {entry.localRecord ? text(lang, "有本地性质记录", "Local properties") : text(lang, "仅身份与文献", "Identity + paper only")}
+              </StatusPill>
+            </button>
+          )) : (
+            <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.65, padding: "12px 14px" }}>
+              {text(lang, "当前身份目录与本地性质库均未找到该名称。请尝试 DOI、CCDC 号或其他命名；系统不会用近似名称补写性质。", "No match was found in the identity catalog or local property index. Try a DOI, CCDC number, or alternate name; properties are never filled from a similar name.")}
+            </div>
+          )}
+        </div>
+      ) : null}
       {selected ? (
         <div style={{ display: "grid", gap: 10 }}>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
-            <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{getReadableMofLabel(selected, lang)}</strong>
-            <StatusPill t={t} tone={selected.fairMofsCrossValidation ? "good" : "neutral"}>
+            <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{selected.label}</strong>
+            <StatusPill t={t} tone={record?.fairMofsCrossValidation ? "good" : record ? "neutral" : "warn"}>
               <ShieldCheck aria-hidden="true" size={13} weight="bold" />
-              {selected.fairMofsCrossValidation ? text(lang, "FAIR‑MOFs 精确交叉记录", "Exact FAIR-MOFs cross-record") : text(lang, "CoRE 主性质层", "CoRE primary layer")}
+              {record?.fairMofsCrossValidation ? text(lang, "FAIR‑MOFs 精确交叉记录", "Exact FAIR-MOFs cross-record") : record ? text(lang, "CoRE 主性质层", "CoRE primary layer") : text(lang, "无可授权本地性质记录", "No licensed local property record")}
             </StatusPill>
           </div>
-          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))" }}>
-            {propertyRows.map(([label, value, fieldKey]) => (
-              <DescriptorLine key={label} label={label} value={value} fieldKey={fieldKey} fieldSources={selected.fieldSources} lang={lang} t={t} compact />
-            ))}
-          </div>
+          {record ? (
+            <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))" }}>
+              {propertyRows.map(([label, value, fieldKey]) => (
+                <DescriptorLine key={label} label={label} value={value} fieldKey={fieldKey} fieldSources={record.fieldSources} lang={lang} t={t} compact />
+              ))}
+            </div>
+          ) : (
+            <div style={{ background: t.warnSoft || t.surface, border: `1px solid ${t.warn || t.border}`, borderLeft: `3px solid ${t.warn}`, borderRadius: 8, display: "grid", gap: 10, padding: "12px 14px" }}>
+              <div style={{ alignItems: "flex-start", display: "flex", gap: 8 }}>
+                <WarningCircle aria-hidden="true" color={t.warn} size={18} weight="duotone" />
+                <span style={{ color: t.textStrong, fontSize: 11.4, lineHeight: 1.65 }}>
+                  {text(
+                    lang,
+                    "名称与原始文献身份已登记，但本站没有能够通过精确标识符连接、且许可允许本地使用的结构／物化性质记录。不会从同系列材料、同一论文或近似名称推断数值。",
+                    "The name and source-paper identity are registered, but this deployment has no structure or physicochemical record that can be linked by an exact identifier under an applicable licence. Values are not inferred from a related material, shared paper, or similar name.",
+                  )}
+                </span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {identity?.associatedPaper?.url ? (
+                  <a href={identity.associatedPaper.url} target="_blank" rel="noreferrer" style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 5 }}>
+                    {text(lang, "查看原始论文", "Open source paper")} <ArrowSquareOut aria-hidden="true" size={14} weight="bold" />
+                  </a>
+                ) : null}
+                {identity?.identityPage ? (
+                  <a href={identity.identityPage} target="_blank" rel="noreferrer" style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 5 }}>
+                    MOF Anatomy <ArrowSquareOut aria-hidden="true" size={14} weight="bold" />
+                  </a>
+                ) : null}
+                {identity?.ccdcUrl || identity?.ccdcNumber ? (
+                  <a href={identity.ccdcUrl || `https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${identity.ccdcNumber}`} target="_blank" rel="noreferrer" style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 5 }}>
+                    CCDC {identity.ccdcNumber} <ArrowSquareOut aria-hidden="true" size={14} weight="bold" />
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <span style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55 }}>{text(lang, "检索并选择记录后显示对应物化性质；未选择时不预填示例材料。", "Select a search result to show its physicochemical properties; no example material is prefilled.")}</span>
@@ -1163,13 +1336,15 @@ export function MOFLibraryTab() {
   const [csdPilotManifest, setCsdPilotManifest] = useState({ records: [], license: {} })
   const [csdPublicCatalog, setCsdPublicCatalog] = useState({ structures: [], summary: {}, dataset: {} })
   const [physicochemicalSummary, setPhysicochemicalSummary] = useState({})
+  const [mofAnatomyRecords, setMofAnatomyRecords] = useState([])
   const [csdCatalogStatus, setCsdCatalogStatus] = useState("loading")
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [expandedId, setExpandedId] = useState(null)
   const [propertyQuery, setPropertyQuery] = useState("")
-  const [propertySelectedId, setPropertySelectedId] = useState(null)
+  const [propertySubmittedQuery, setPropertySubmittedQuery] = useState("")
+  const [propertySelectedResult, setPropertySelectedResult] = useState(null)
   const [unifiedBrowserOpen, setUnifiedBrowserOpen] = useState(false)
 
   useEffect(() => {
@@ -1185,8 +1360,9 @@ export function MOFLibraryTab() {
       getCsdStructurePilotManifest({ throwOnError: false }),
       getCsdMofPublicCatalog({ throwOnError: false }),
       fetchDataJson("mof_physicochemical_index_v1.json", { records: [], summary: {} }),
+      fetchDataJson("mof_anatomy_identity_index_v1.json", { records: [], summary: {} }),
     ])
-      .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog, physicochemicalIndex]) => {
+      .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog, physicochemicalIndex, mofAnatomyIndex]) => {
         if (!active) return
         const fairCrossValidationByCoreId = new Map(
           (physicochemicalIndex?.records || []).map(record => [record.coreRecordId, record.fairMofsCrossValidation]),
@@ -1207,6 +1383,7 @@ export function MOFLibraryTab() {
         setCsdPilotManifest(csdManifest || { records: [], license: {} })
         setCsdPublicCatalog(csdCatalog || { structures: [], summary: {}, dataset: {} })
         setPhysicochemicalSummary(physicochemicalIndex?.summary || {})
+        setMofAnatomyRecords(mofAnatomyIndex?.records || [])
         setCsdCatalogStatus(csdCatalog?.structures?.length ? "ready" : "unavailable")
         setStatus(normalized.length ? "loaded" : "empty")
       })
@@ -1236,12 +1413,10 @@ export function MOFLibraryTab() {
   const visibleRecords = useMemo(() => filteredRecords.slice(0, visibleCount), [filteredRecords, visibleCount])
   const stats = useMemo(() => summarizeRecords(rows), [rows])
   const activeRecord = useMemo(
-    () => rows.find(item => item.id === expandedId) || filteredRecords[0] || rows[0] || null,
-    [expandedId, filteredRecords, rows],
-  )
-  const propertySelectedRecord = useMemo(
-    () => rows.find(item => item.id === propertySelectedId) || null,
-    [propertySelectedId, rows],
+    () => rows.find(item => item.id === expandedId)
+      || propertySelectedResult?.localRecord
+      || null,
+    [expandedId, propertySelectedResult, rows],
   )
   const unifiedRows = useMemo(() => (
     unifiedBrowserOpen
@@ -1269,12 +1444,15 @@ export function MOFLibraryTab() {
 
       <PhysicochemicalSearchPanel
         rows={rows}
+        anatomyRecords={mofAnatomyRecords}
         query={propertyQuery}
         setQuery={setPropertyQuery}
-        selected={propertySelectedRecord}
-        onSelect={id => {
-          setPropertySelectedId(id)
-          setExpandedId(id)
+        submittedQuery={propertySubmittedQuery}
+        setSubmittedQuery={setPropertySubmittedQuery}
+        selected={propertySelectedResult}
+        onSelect={result => {
+          setPropertySelectedResult(result)
+          setExpandedId(result?.localRecord?.id || null)
         }}
         lang={lang}
         t={t}

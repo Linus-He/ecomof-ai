@@ -80,17 +80,15 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
     }
   })
 
-  it("renders the literature source directory first and connects the EcoScreen matrix", () => {
+  it("keeps the current methods directory free of retired validation surfaces and connects the EcoScreen matrix", () => {
     const methodsSource = readRepoFile("src/components/tabs/MethodsLimitationsTab.tsx")
     const ecoSource = readRepoFile("src/components/tabs/EcoScreenTab.tsx")
 
-    expect(methodsSource.indexOf("const literatureItem")).toBeLessThan(methodsSource.indexOf("const itemsWithValidation"))
-    expect(methodsSource).toContain("return [\n        literatureItem,")
-    expect(methodsSource).toContain('fetchDataJson("methodology_literature_inspiration_records.json", null)')
-    expect(methodsSource).toContain("relatedUrls")
-    expect(methodsSource).toContain("aria-pressed={active}")
-    expect(methodsSource).toContain('data-active={active ? "true" : "false"}')
-    expect(methodsSource).toContain("background: active ? t.accentText : t.panel")
+    expect(methodsSource).not.toContain("const literatureItem")
+    expect(methodsSource).not.toContain("ALGORITHM_VALIDATION_DIRECTORY")
+    expect(methodsSource).not.toContain("<AlgorithmValidationCenter")
+    expect(methodsSource).toContain("ORGANIC_ACID_FINAL_DIRECTORY")
+    expect(methodsSource).toContain("<CurrentOrganicAcidMethodology")
     expect(ecoSource).toContain('fetchDataJson("ecoscreen_literature_requirements.json", null)')
     expect(ecoSource).toContain('data-testid="ecoscreen-requirement-matrix"')
     expect(ecoSource).toContain("buildEcoScreenRequirementModel")

@@ -1,9 +1,14 @@
 {
   "schemaVersion": "v3.0",
   "registryId": "ecomof-ai-source-registry-v3.0",
-  "generatedAt": "2026-07-28",
+  "generatedAt": "2026-07-29",
   "description": "V3.0 Data Foundation Program — single registry for every data source feeding EcoMOF-AI ingestion, validation, standardization, and benchmark readiness. Missing fields stay pending/unknown/ambiguous/restricted and are never fabricated.",
-  "uncertaintyVocabulary": ["pending", "unknown", "ambiguous", "restricted"],
+  "uncertaintyVocabulary": [
+    "pending",
+    "unknown",
+    "ambiguous",
+    "restricted"
+  ],
   "sourceTypes": [
     "MOF Database",
     "Computed Property Database",
@@ -132,6 +137,18 @@
       "accessMethod": "synthetic generation",
       "uncertainty": "restricted",
       "notes": "Synthetic fixtures (950 of 1000 preview records). Explicitly flagged syntheticFixture=true and never eligible for the Gold tier or as ground-truth labels."
+    },
+    {
+      "sourceId": "SRC-MOF-ANATOMY-IDENTITY",
+      "sourceName": "MOF Anatomy factual identity catalog",
+      "sourceType": "Literature Dataset",
+      "sourceUrl": "https://mofanatomy.com/",
+      "citation": "MOF Anatomy, MOF identity pages and associated source-paper / CCDC pointers; accessed 2026-07-29.",
+      "license": "No explicit site-wide reuse licence located; factual metadata and outbound pointers only",
+      "retrievedAt": "2026-07-29",
+      "accessMethod": "Public WordPress REST directory plus public MOF identity pages",
+      "uncertainty": "restricted",
+      "notes": "185 factual identity records. EcoMOF-AI does not copy MOF Anatomy images, XYZ files, cleaned structures, or page prose. Physicochemical properties are linked only to separately licensed local records by exact identifiers."
     }
   ]
 }

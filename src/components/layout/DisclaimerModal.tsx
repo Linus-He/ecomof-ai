@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { BrandMark } from "../ui"
+import { X } from "@phosphor-icons/react"
 
 const DISCLAIMER_SECTIONS = [
   {
@@ -149,7 +150,7 @@ export function DisclaimerModal({ open, onClose }) {
           boxShadow: t.shadowLg,
         }}
       >
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 16 }}>
+        <div style={{ alignItems: "flex-start", background: t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", gap: 12, margin: isMobile ? "-20px -16px 16px" : "-26px -30px 16px", padding: isMobile ? "18px 16px 14px" : "22px 30px 16px", position: "sticky", top: isMobile ? -20 : -26, zIndex: 3 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
             <BrandMark size={isMobile ? 28 : 32} radius={8} style={{ boxShadow: t.shadowSm, flexShrink: 0 }} />
             <div>
@@ -169,17 +170,21 @@ export function DisclaimerModal({ open, onClose }) {
             onClick={onClose}
             aria-label={zh ? "关闭声明弹窗" : "Close disclaimer dialog"}
             style={{
-              background: "none",
-              border: "none",
+              alignItems: "center",
+              background: t.surface,
+              border: `1px solid ${t.border}`,
+              borderRadius: 8,
               color: t.subtle,
-              fontSize: 22,
               cursor: "pointer",
-              lineHeight: 1,
-              padding: 4,
+              display: "inline-flex",
+              height: 36,
+              justifyContent: "center",
+              padding: 0,
               flexShrink: 0,
+              width: 36,
             }}
           >
-            ×
+            <X aria-hidden="true" size={18} weight="bold" />
           </button>
         </div>
 

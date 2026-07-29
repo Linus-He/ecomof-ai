@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS } from "../../constants/theme"
 import { toolbarBtn } from "../../utils/styles"
+import { X } from "@phosphor-icons/react"
 
 const ENDPOINT = "https://formspree.io/f/mnjwnojy"
 const FALLBACK_EMAIL = "ecomofai@outlook.com"
@@ -386,12 +387,14 @@ export function ContactModal({ open, onClose }) {
           background: t.panel,
           border: `1px solid ${t.border}`,
           borderRadius: 12,
+          maxHeight: "calc(100dvh - 96px)",
+          overflowY: "auto",
           padding: isMobile ? "20px 16px" : "28px 32px",
           fontFamily: FONT_SANS,
         }}
       >
         {/* ── Header ── */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+        <div style={{ alignItems: "flex-start", background: t.panel, borderBottom: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", margin: isMobile ? "-20px -16px 12px" : "-28px -32px 12px", padding: isMobile ? "18px 16px 13px" : "22px 32px 15px", position: "sticky", top: isMobile ? -20 : -28, zIndex: 3 }}>
           <div style={{ color: t.accentText, fontSize: 20, fontWeight: 850, lineHeight: 1.15 }}>
             {zh ? "联系与合作 / Contact" : "Contact / Collaboration"}
           </div>
@@ -401,12 +404,12 @@ export function ContactModal({ open, onClose }) {
             onClick={handleClose}
             aria-label={zh ? "关闭联系弹窗" : "Close contact dialog"}
             style={{
-              background: "none", border: "none",
-              color: t.subtle, fontSize: 22, cursor: "pointer",
-              lineHeight: 1, padding: 4, marginLeft: 12, flexShrink: 0,
+              alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8,
+              color: t.subtle, cursor: "pointer", display: "inline-flex", height: 36,
+              justifyContent: "center", padding: 0, marginLeft: 12, flexShrink: 0, width: 36,
             }}
           >
-            ×
+            <X aria-hidden="true" size={18} weight="bold" />
           </button>
         </div>
 

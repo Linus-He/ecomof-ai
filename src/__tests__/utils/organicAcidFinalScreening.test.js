@@ -513,23 +513,15 @@ describe("organic acid final screening", () => {
     expect(methodologySource).toMatch(/Manual source curation boundary/)
   })
 
-  it("exposes the V2.0-D database index preview in the Organic Acid methodology directory", () => {
+  it("exposes only the current V3.9.10 Organic Acid methodology directory", () => {
     const children = ORGANIC_ACID_FINAL_DIRECTORY.children
-    const traceIndex = children.findIndex(row => row.id === "methodology-oafs-trace-workbench")
-    const databaseIndex = children.findIndex(row => row.id === "methodology-oafs-database-index-preview")
-    const hotSpotIndex = children.findIndex(row => row.id === "methodology-oafs-hot-spot")
-    const item = children[databaseIndex]
-
-    expect(traceIndex).toBeGreaterThanOrEqual(0)
-    expect(databaseIndex).toBe(traceIndex + 1)
-    // V3.9.9: retired OACS/DMRS stage entries; database-index-preview is now followed by the hot-spot map.
-    expect(hotSpotIndex).toBe(databaseIndex + 1)
-    expect(children.some(row => row.id === "methodology-oafs-oacs" || row.id === "methodology-oafs-dmrs")).toBe(false)
-    expect(item).toEqual({
-      id: "methodology-oafs-database-index-preview",
-      label: "CoRE Index Migration & Historical Audit",
-      labelZh: "CoRE 索引迁移与历史审计",
-    })
+    expect(children.map(row => row.id)).toEqual([
+      "methodology-oafs-current-formula",
+      "methodology-oafs-current-factors",
+      "methodology-oafs-current-implementation",
+      "methodology-oafs-current-limitations",
+    ])
+    expect(JSON.stringify(children)).not.toMatch(/oacs|dmrs|database-index-preview|historical/i)
   })
 
   it("documents the V2.0-D Large-Scale Scoring Boundary Design in methodology", () => {
