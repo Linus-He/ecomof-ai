@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useRef } from "react"
+import { Flask, MagnifyingGlass } from "@phosphor-icons/react"
 import { useT, useLang, useViewport } from "../../contexts"
 import { FONT_SANS, THEME_DARK } from "../../constants/theme"
 import { GAS_SYSTEMS, MOF_PRESETS } from "../../constants/catalogs"
@@ -59,8 +60,8 @@ export function PresetSearchControl({
           }}
           style={{ ...headerInputStyle(t, borderColor), width: "100%", paddingRight: 40, position: "relative", zIndex: 0 }}
         />
-        <div style={{ position: "absolute", right: 14, top: 19, transform: "translateY(-50%)", color: t.faint, fontSize: 13, pointerEvents: "none" }}>
-          ⌕
+        <div style={{ alignItems: "center", display: "flex", position: "absolute", right: 13, top: 19, transform: "translateY(-50%)", color: t.faint, pointerEvents: "none" }}>
+          <MagnifyingGlass aria-hidden="true" size={15} weight="bold" />
         </div>
         {showSearchFeedback && (
           <div style={{
@@ -337,6 +338,8 @@ export function ContextualHeaderBar({
   setActiveTab,
   onLoadBenchmark,
   results,
+  propertyRecord,
+  onOpenProperties,
 }) {
   const t = useT()
   const { lang, copy } = useLang()
@@ -414,6 +417,30 @@ export function ContextualHeaderBar({
           placeholder={copy.header.searchPlaceholder}
           width={isMobile ? "100%" : 450}
         />
+        <button
+          type="button"
+          onClick={onOpenProperties}
+          disabled={!propertyRecord}
+          title={!propertyRecord
+            ? (lang === "zh" ? "请先在上方输入并确认一个 MOF。" : "Enter and confirm a MOF first.")
+            : (lang === "zh" ? "查看已确认 MOF 的物化性质" : "View physicochemical properties for the confirmed MOF")}
+          style={{
+            ...headerChipBtn(t, Boolean(propertyRecord)),
+            alignItems: "center",
+            background: propertyRecord ? t.badgeInfoBg : t.surface,
+            borderColor: propertyRecord ? t.accent : t.border,
+            color: propertyRecord ? t.accentText : t.faint,
+            display: "inline-flex",
+            gap: 6,
+            minHeight: 38,
+            opacity: propertyRecord ? 1 : 0.56,
+            padding: "8px 11px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <Flask aria-hidden="true" size={16} weight="duotone" />
+          {lang === "zh" ? "查看物化性质" : "View properties"}
+        </button>
         <select
           value={inputs.gasSystem}
           onChange={e => setInputs(prev => ({ ...prev, gasSystem: e.target.value }))}
@@ -494,3 +521,4 @@ export function InternalNav({ items, active, onChange }) {
 export { ContactModal } from "./ContactModal"
 export { AcknowledgementsModal } from "./AcknowledgementsModal"
 export { DisclaimerModal } from "./DisclaimerModal"
+export { PhysicochemicalPropertyModal } from "./PhysicochemicalPropertyModal"

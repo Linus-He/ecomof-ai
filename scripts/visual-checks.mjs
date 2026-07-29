@@ -26,6 +26,7 @@ const routes = [
     "FAIR-MOFs",
     "高过拟合风险",
     "数据合规承诺",
+    "MOF库",
     "联系我们",
   ]],
   ["ecoscreen", "#ecoscreen", [
@@ -35,12 +36,12 @@ const routes = [
     "补充工具：旧版描述符评分",
   ]],
   ["database-compliance", "#database-compliance", [
-    "数据合规承诺与再利用治理",
-    "ECOMOF-DCP-001",
+    "数据使用、许可与责任",
+    "开始使用前必须阅读",
     "任何下载、训练、发布或再分发都必须经过六步核验",
     "CCDC 数据必须按对象和用途分别判断",
     "逐数据库许可与处理矩阵",
-    "ecomofai@outlook.com",
+    "43 条条文逐项列示",
   ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
@@ -324,11 +325,11 @@ async function waitForApp(page) {
 }
 
 async function setDarkMode(page, dark) {
-  const bodyText = await page.locator("body").innerText()
-  const hasMoon = bodyText.includes("☾")
-  const hasSun = bodyText.includes("☀")
-  if (dark && hasMoon) await page.getByText("☾").first().click()
-  if (!dark && hasSun) await page.getByText("☀").first().click()
+  const settings = page.getByRole("button", { name: /打开设置|Open settings/ }).first()
+  await settings.click()
+  await page.getByRole("menuitem", { name: /外观|Appearance/ }).click()
+  await page.getByRole("button", { name: dark ? /深色模式|Dark mode/ : /浅色模式|Light mode/ }).click()
+  await page.keyboard.press("Escape")
   await page.waitForTimeout(250)
 }
 

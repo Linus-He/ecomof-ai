@@ -35,9 +35,9 @@ function Surface({ t, children, style = {}, ...props }) {
       style={{
         background: t.panel,
         border: `1px solid ${t.border}`,
-        borderRadius: 12,
+        borderRadius: 0,
         minWidth: 0,
-        padding: 18,
+        padding: 20,
         ...style,
       }}
     >
@@ -48,9 +48,9 @@ function Surface({ t, children, style = {}, ...props }) {
 
 function SectionHeading({ t, eyebrow, title, body }) {
   return (
-    <header style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 6, paddingBottom: 14 }}>
+    <header style={{ borderBottom: `2px solid ${t.accent}`, display: "grid", gap: 7, paddingBottom: 15 }}>
       <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{eyebrow}</span>
-      <h2 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.25, margin: 0 }}>{title}</h2>
+      <h2 style={{ color: t.textStrong, fontSize: 20, fontWeight: 900, lineHeight: 1.25, margin: 0 }}>{title}</h2>
       {body ? <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: 0, maxWidth: 900 }}>{body}</p> : null}
     </header>
   )
@@ -82,15 +82,17 @@ function DocumentLink({ item, lang, t }) {
       target="_blank"
       rel="noreferrer"
       style={{
-        background: t.surface,
-        border: `1px solid ${t.border}`,
-        borderRadius: 8,
+        background: "transparent",
+        borderBottom: `1px solid ${t.border}`,
+        borderRadius: 0,
         color: "inherit",
         display: "grid",
         gap: 7,
         minWidth: 0,
-        padding: 13,
-        textDecoration: "none",
+        padding: "13px 2px",
+        textDecorationColor: t.accent,
+        textDecorationThickness: "1px",
+        textUnderlineOffset: 4,
       }}
     >
       <span style={{ color: t.accentText, fontSize: 9.8, fontWeight: 900, letterSpacing: ".05em", textTransform: "uppercase" }}>{item.publisher} · {text(lang, "官方原文", "Primary source")}</span>
@@ -115,7 +117,7 @@ function WorkflowStep({ item, index, lang, t, isNarrow }) {
 
 function ClauseGroup({ group, lang, t }) {
   return (
-    <article style={{ border: `1px solid ${t.border}`, borderRadius: 10, minWidth: 0, overflow: "hidden" }}>
+    <article style={{ border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, minWidth: 0, overflow: "hidden" }}>
       <header style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, display: "grid", gap: 7, padding: 15 }}>
         <span style={{ color: t.accentText, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 9.8, fontWeight: 900 }}>
           {group.id.toUpperCase()} · {group.clauses.length} {text(lang, "条", "clauses")}
@@ -164,7 +166,7 @@ function credentialStatusMeta(status, t, lang) {
 function CredentialCard({ credential, lang, t }) {
   const meta = credentialStatusMeta(credential.status, t, lang)
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", minWidth: 0, overflow: "hidden" }}>
+    <article style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, display: "grid", minWidth: 0, overflow: "hidden" }}>
       <header style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 8, padding: 14 }}>
         <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 13.2, lineHeight: 1.4 }}>{text(lang, credential.sourceZh, credential.sourceEn)}</strong>
@@ -212,7 +214,7 @@ function DatasetRow({ dataset, lang, t }) {
     [text(lang, "许可与边界", "Licence and boundary"), dataset.licence],
   ]
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, minWidth: 0, overflow: "hidden" }}>
+    <article style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, minWidth: 0, overflow: "hidden" }}>
       <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", padding: 14 }}>
         <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
           <span style={{ borderLeft: `3px solid ${status.color}`, color: status.color, fontSize: 10.5, fontWeight: 900, paddingLeft: 8 }}>{status.label}</span>
@@ -283,42 +285,17 @@ export function DatabaseComplianceTab() {
   return (
     <div id="database-compliance" data-testid="database-compliance-tab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={text(lang, "数据合规承诺与再利用治理", "Data Compliance Pledge and Reuse Governance")}
+        title={text(lang, "数据使用、许可与责任", "Data Use, Licensing, and Responsibilities")}
         subtitle={text(
           lang,
-          "以受控文件形式说明 EcoMOF-AI 使用了哪些数据、依据什么条款处理、哪些用途必须停止并取得额外许可，以及平台与用户在访问、分析、发布、模型训练和再分发中的责任。",
-          "A controlled statement of the data used by EcoMOF-AI, governing terms, uses that must stop pending additional permission, and platform/user responsibilities for access, analysis, publication, model training, and redistribution.",
+          "逐项说明 EcoMOF-AI 使用的数据对象、授权依据、非商业边界、停止条件以及平台与用户在访问、分析、发布、模型训练和再分发中的责任。",
+          "An itemized account of EcoMOF-AI data objects, authorization basis, non-commercial boundaries, stop conditions, and platform/user responsibilities for access, analysis, publication, model training, and redistribution.",
         )}
-        meta={`${complianceRegistry.documentControl.documentId} · ${complianceRegistry.version} · ${text(lang, "非商业开放研究", "Non-commercial open research")}`}
+        meta={text(lang, "非商业研究 · 逐来源核验 · 原文优先", "Non-commercial research · source-by-source review · primary terms prevail")}
         action={<CopyLinkButton hash="database-compliance" ariaLabel={text(lang, "复制合规说明链接", "Copy compliance link")} />}
       />
 
-      <Surface data-testid="compliance-document-control" t={t} style={{ borderTop: `4px solid ${t.accentText}`, display: "grid", gap: 14, padding: isMobile ? 16 : 20 }}>
-        <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
-          <div style={{ display: "grid", gap: 5 }}>
-            <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{text(lang, "受控文件", "Controlled document")}</span>
-            <strong style={{ color: t.textStrong, fontSize: 16 }}>{complianceRegistry.documentControl.documentId} · {complianceRegistry.version}</strong>
-          </div>
-          <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 999, color: t.warn, fontSize: 10.5, fontWeight: 900, padding: "5px 9px" }}>
-            {text(lang, "控制说明 · 非授权证书", "Control statement · not an authorization certificate")}
-          </span>
-        </div>
-        <div style={{ display: "grid", gap: 0, gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
-          {[
-            [text(lang, "文件属性", "Document nature"), text(lang, complianceRegistry.documentControl.natureZh, complianceRegistry.documentControl.natureEn)],
-            [text(lang, "责任主体", "Document owner"), text(lang, complianceRegistry.documentControl.ownerZh, complianceRegistry.documentControl.ownerEn)],
-            [text(lang, "复核周期", "Review cycle"), text(lang, complianceRegistry.documentControl.reviewCycleZh, complianceRegistry.documentControl.reviewCycleEn)],
-            [text(lang, "联系渠道", "Contact"), complianceRegistry.documentControl.contact],
-          ].map(([label, value], index) => (
-            <div key={label} style={{ borderLeft: index > 0 && !isNarrow ? `1px solid ${t.border}` : "none", borderTop: index > 0 && isNarrow ? `1px solid ${t.border}` : "none", display: "grid", gap: 5, padding: "10px 12px" }}>
-              <span style={{ color: t.faint, fontSize: 9.8, fontWeight: 850 }}>{label}</span>
-              <strong style={{ color: t.textStrong, fontSize: 10.9, lineHeight: 1.5, overflowWrap: "anywhere" }}>{value}</strong>
-            </div>
-          ))}
-        </div>
-      </Surface>
-
-      <nav aria-label={text(lang, "合规页面目录", "Compliance page index")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "flex", flexWrap: "wrap", gap: 7, padding: 10 }}>
+      <nav aria-label={text(lang, "合规页面目录", "Compliance page index")} style={{ background: "transparent", borderBottom: `1px solid ${t.borderStrong || t.border}`, borderTop: `1px solid ${t.borderStrong || t.border}`, display: "flex", flexWrap: "wrap", gap: "8px 18px", padding: "12px 2px" }}>
         {[
           ["compliance-position", text(lang, "适用范围", "Position")],
           ["compliance-controls", text(lang, "核验流程", "Control workflow")],
@@ -330,16 +307,16 @@ export function DatabaseComplianceTab() {
           ["compliance-source-registry", text(lang, "来源登记", "Source registry")],
           ["compliance-response", text(lang, "异议与移除", "Disputes and removal")],
         ].map(([id, label], index) => (
-          <a key={id} href={`#${id}`} style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850, textDecoration: "none" }}>
+          <a key={id} href={`#${id}`} style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850, textDecorationThickness: "1px", textUnderlineOffset: 3 }}>
             {String(index + 1).padStart(2, "0")} · {label}
           </a>
         ))}
       </nav>
 
-      <Surface t={t} style={{ background: t.badgeInfoBg, borderColor: t.accent, display: "grid", gap: 14, padding: isMobile ? 16 : 22 }}>
+      <Surface data-testid="compliance-use-notice" t={t} style={{ borderLeft: `5px solid ${t.accent}`, display: "grid", gap: 15, padding: isMobile ? 18 : 24 }}>
         <div style={{ display: "grid", gap: 7 }}>
-          <span style={{ color: t.accentText, fontSize: 10.8, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{text(lang, "使用与责任确认", "Use and responsibility acknowledgement")}</span>
-          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, margin: 0 }}>
+          <span style={{ color: t.accentText, fontSize: 10.8, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{text(lang, "开始使用前必须阅读", "Read before use")}</span>
+          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 22 : 28, fontWeight: 920, lineHeight: 1.2, margin: 0 }}>
             {text(lang, complianceRegistry.operatingMode.zh, complianceRegistry.operatingMode.en)}
           </h2>
           <p style={{ color: t.textStrong, fontSize: 12.3, lineHeight: 1.75, margin: 0, maxWidth: 980 }}>
@@ -354,8 +331,8 @@ export function DatabaseComplianceTab() {
               "If you have questions about source attribution, licence scope, data removal, or permission for commercial use, contact us before continuing to use the affected data.",
             )}
           </p>
-          <a href="mailto:ecomofai@outlook.com" style={{ color: t.accentText, fontSize: 12, fontWeight: 900, justifySelf: isNarrow ? "start" : "end", textDecoration: "none" }}>
-            ecomofai@outlook.com
+          <a href="#contact" style={{ color: t.accentText, fontSize: 12, fontWeight: 900, justifySelf: isNarrow ? "start" : "end", textDecorationThickness: "1px", textUnderlineOffset: 3 }}>
+            {text(lang, "联系我们", "Contact Us")}
           </a>
         </div>
       </Surface>
@@ -650,7 +627,7 @@ export function DatabaseComplianceTab() {
         </Surface>
       </div>
 
-      <Surface t={t} style={{ background: t.badgeInfoBg, borderColor: t.accent, display: "grid", gap: 8 }}>
+      <Surface t={t} style={{ borderLeft: `4px solid ${t.accent}`, display: "grid", gap: 8 }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "疑问、权利声明或数据移除请求", "Questions, rights notices, or data removal requests")}</strong>
         <p style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.65, margin: 0 }}>
           {text(
@@ -659,7 +636,7 @@ export function DatabaseComplianceTab() {
             "If you are a publisher, rightsholder, or site user with questions about attribution, licence scope, record identity, incorrect content, or removal, include the record name, source link, and a description of the issue. We will suspend reasonably disputed content before reviewing provenance and terms.",
           )}
         </p>
-        <a href="mailto:ecomofai@outlook.com" style={{ color: t.accentText, fontSize: 12.5, fontWeight: 900, justifySelf: "start", textDecoration: "none" }}>ecomofai@outlook.com</a>
+        <a href="#contact" style={{ color: t.accentText, fontSize: 12.5, fontWeight: 900, justifySelf: "start", textDecorationThickness: "1px", textUnderlineOffset: 3 }}>{text(lang, "联系我们", "Contact Us")}</a>
       </Surface>
     </div>
   )

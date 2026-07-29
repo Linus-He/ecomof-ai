@@ -1805,7 +1805,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
   )
 }
 
-export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, onNavigate }) {
+export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, onNavigate, materialConfirmed = false }) {
   const t = useT()
   const { lang } = useLang()
   const [legacyToolsOpen, setLegacyToolsOpen] = useState(false)
@@ -1818,6 +1818,7 @@ export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, o
         predictionResult={results}
         predicting={loading}
         onPredict={onPredict}
+        materialConfirmed={materialConfirmed}
       />
       <details
         data-testid="ecoscreen-legacy-tools"

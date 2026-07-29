@@ -280,7 +280,7 @@ function CompactPill({ tone = "neutral", icon: Icon, children }) {
   )
 }
 
-export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, catalogStatus = "loading", lang, t, isMobile }) {
+export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, catalogStatus = "loading", physicochemicalRecords = [], physicochemicalSummary = {}, lang, t, isMobile }) {
   const containerRef = useRef(null)
   const layoutRef = useRef(null)
   const resizeStateRef = useRef(null)
@@ -625,11 +625,23 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
 
   useEffect(() => {
     if (defaultCatalogRecordRef.current || !publicCatalogReady) return
-    const defaultRecord = publicRecords.find(record => record.refcode === "ABADUG") || publicRecords[0]
+    const requestedRefcode = String(item?.csdRefcode || "").trim().toUpperCase()
+    const defaultRecord = publicRecords.find(record => String(record.refcode || "").trim().toUpperCase() === requestedRefcode)
+      || publicRecords.find(record => record.refcode === "ABADUG")
+      || publicRecords[0]
     if (!defaultRecord) return
     defaultCatalogRecordRef.current = true
     void loadPublicRecord(defaultRecord)
-  }, [loadPublicRecord, publicCatalogReady, publicRecords])
+  }, [item?.csdRefcode, loadPublicRecord, publicCatalogReady, publicRecords])
+
+  useEffect(() => {
+    if (!publicCatalogReady || !item?.csdRefcode) return
+    const requestedRefcode = String(item.csdRefcode).trim().toUpperCase()
+    if (String(activeCsdRecord?.refcode || "").trim().toUpperCase() === requestedRefcode) return
+    const requestedRecord = publicRecords.find(record => String(record.refcode || "").trim().toUpperCase() === requestedRefcode)
+    if (!requestedRecord) return
+    void loadPublicRecord(requestedRecord)
+  }, [activeCsdRecord?.refcode, item?.csdRefcode, loadPublicRecord, publicCatalogReady, publicRecords])
 
   useEffect(() => {
     if (!publicCatalogReady) return
@@ -840,6 +852,28 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   const activeCcdcUrl = metadataRecord?.ccdcNumber
     ? `https://www.ccdc.cam.ac.uk/structures/Search?Ccdcid=${metadataRecord.ccdcNumber}&DatabaseToSearch=Published`
     : null
+  const propertyRecord = useMemo(() => {
+    const normalize = value => String(value || "").trim().toUpperCase()
+    const refcode = normalize(activeCsdRecord?.refcode || item?.csdRefcode)
+    if (refcode) {
+      const exact = physicochemicalRecords.find(record => normalize(record.csdRefcode) === refcode)
+      if (exact) return exact
+    }
+    return item || null
+  }, [activeCsdRecord?.refcode, item, physicochemicalRecords])
+  const fairCrossValidation = propertyRecord?.fairMofsCrossValidation || null
+  const primaryProperties = [
+    [text(lang, "比表面积", "Surface area"), propertyRecord?.surfaceArea, "m²/g"],
+    [text(lang, "孔体积", "Pore volume"), propertyRecord?.poreVolume, "cm³/g"],
+    ["PLD", propertyRecord?.pldA || propertyRecord?.poreSizeA, "Å"],
+    ["LCD", propertyRecord?.lcdA, "Å"],
+    [text(lang, "密度", "Density"), propertyRecord?.density, "g/cm³"],
+    [text(lang, "空隙率", "Void fraction"), propertyRecord?.voidFraction, ""],
+  ]
+  const displayProperty = (value, unit) => {
+    if (value === null || value === undefined || value === "" || !Number.isFinite(Number(value))) return text(lang, "不可用", "unavailable")
+    return `${Number(value).toLocaleString(undefined, { maximumFractionDigits: 4 })}${unit ? ` ${unit}` : ""}`
+  }
 
   return (
     <section
@@ -1138,6 +1172,41 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
                 {unavailableCrystalFields.join("、")}
               </p>
             ) : null}
+          </section>
+
+          <section className="mof-structure-sidebar-card" data-testid="mof-structure-physicochemical-properties">
+            <h3>{text(lang, "物化性质", "Physicochemical properties")}</h3>
+            {propertyRecord ? (
+              <>
+                <div className="mof-structure-source-list">
+                  {primaryProperties.map(([label, value, unit]) => (
+                    <SourceRow key={label} label={label}>{displayProperty(value, unit)}</SourceRow>
+                  ))}
+                  <SourceRow label={text(lang, "主性质来源", "Primary source")} wide>
+                    CoRE MOF 2024 · CSD-modified CR
+                  </SourceRow>
+                  <SourceRow label={text(lang, "FAIR‑MOFs 交叉记录", "FAIR-MOFs cross-record")} wide>
+                    {fairCrossValidation
+                      ? text(lang, `精确 Refcode · ${fairCrossValidation.fairRecordId}`, `Exact Refcode · ${fairCrossValidation.fairRecordId}`)
+                      : text(lang, "无精确 Refcode 交叉记录", "No exact Refcode cross-record")}
+                  </SourceRow>
+                </div>
+                {fairCrossValidation ? (
+                  <a href={fairCrossValidation.sourceUrl} target="_blank" rel="noreferrer" className="mof-structure-property-source-link">
+                    {text(lang, "FAIR‑MOFs 官方来源与 CC BY 4.0 许可", "FAIR-MOFs primary source and CC BY 4.0 licence")}
+                  </a>
+                ) : null}
+                <p className="mof-structure-unavailable-note">
+                  {text(
+                    lang,
+                    `${Number(physicochemicalSummary.corePropertyRecordCount || physicochemicalRecords.length).toLocaleString()} 条 CoRE 结构具备主性质字段；FAIR‑MOFs 仅在 Refcode 完全一致时作为独立复核，不覆盖主值。`,
+                    `${Number(physicochemicalSummary.corePropertyRecordCount || physicochemicalRecords.length).toLocaleString()} CoRE structures carry primary property fields. FAIR-MOFs supports independent review only for an identical Refcode and never overwrites the primary value.`,
+                  )}
+                </p>
+              </>
+            ) : (
+              <p className="mof-structure-unavailable-note">{text(lang, "当前结构未匹配到 CoRE 主性质记录。", "No CoRE primary property record matches the current structure.")}</p>
+            )}
           </section>
 
           <section className="mof-structure-sidebar-card">

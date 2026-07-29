@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.9",
+  "currentAppVersion": "v1.0.10",
   "generatedAt": "2026-07-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
@@ -9,6 +9,138 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
+    "baseAppVersion": "v1.0.9",
+    "developmentVersion": "v1.0.10",
+    "recordedAt": "2026-07-29",
+    "status": "archived",
+    "statusLabel": {
+      "zh": "已归档",
+      "en": "archived"
+    },
+    "logPolicy": {
+      "zh": "v1.0.10 只记录本轮实际完成并通过检查的修复、数据接入与重构，不把计划项写成已完成。",
+      "en": "v1.0.10 records only fixes, data integration, and rebuilds completed and checked in this release; planned work is not presented as complete."
+    },
+    "releaseBoundary": {
+      "zh": "本轮按非商业研究边界接入 CoRE MOF 2024 CR 主性质层，并以 FAIR‑MOFs 的 CSD Refcode 完全一致记录作独立交叉证据；首页改为上三下三六入口，语言、主题和联系方式收纳到设置菜单；生态筛选只在确认材料后显示计算内容；MOF 库同步提供性质查询和结构侧栏；合规页删除非授权控制卡和 QMOF 展示，以 43 条条文、9 项授权凭证、来源登记和发布方原文链接构成正式说明。",
+      "en": "Under a non-commercial research boundary, this release adds the CoRE MOF 2024 CR primary property layer with exact CSD-Refcode FAIR-MOFs records as independent cross-evidence; changes the homepage to a six-entry three-by-two grid; collects language, theme, and contact controls in one settings menu; reveals EcoScreen calculations only after material confirmation; exposes property search in the MOF Library and structure sidebar; and replaces the non-authorizing control card and QMOF display with a formal compliance statement containing 43 clauses, 9 authorization records, source registration, and publisher-original links."
+    },
+    "modules": {
+      "ui": {
+        "summary": {
+          "zh": "首页、主导航和全局设置按统一的实体控件与中文居中规则重排。",
+          "en": "Reorganizes the homepage, primary navigation, and global settings with consistent solid controls and centered Chinese labels."
+        },
+        "changes": [
+          {
+            "zh": "首页六个实体入口固定为“生态筛选、气体分离、催化、MOF库、数据合规承诺、联系我们”，桌面端上三下三排列。",
+            "en": "Fixes six solid homepage entries—EcoScreen, Gas Separation, Catalysis, MOF Library, Data Compliance, and Contact—in a desktop three-by-two grid."
+          },
+          {
+            "zh": "语言切换、深浅色模式和联系我们合并到单一齿轮设置菜单；邮箱只在联系弹窗中显示。",
+            "en": "Collects language, light/dark appearance, and Contact Us inside one gear settings menu; the email remains visible only in the contact dialog."
+          },
+          {
+            "zh": "桌面导航改为左右等宽轨道和固定中央栏，解决中文模式下导航整体偏移。",
+            "en": "Uses equal outer tracks and a fixed central rail to remove the Chinese-mode navigation offset."
+          },
+          {
+            "zh": "数据基础段落减弱上边框并补充过渡留白，保持与现有冷蓝研究界面的设计语言一致。",
+            "en": "Softens the data-foundation top border and adds transition space while retaining the existing cool-blue research design language."
+          }
+        ]
+      },
+      "ecoScreen": {
+        "summary": {
+          "zh": "材料确认成为计算结果出现的明确前置条件，并新增同一材料的物化性质弹窗。",
+          "en": "Makes material confirmation an explicit prerequisite for calculations and adds a physicochemical-property dialog for the same material."
+        },
+        "changes": [
+          {
+            "zh": "移除默认 UiO‑66 已计算假象；搜索框未确认时只显示待确认空状态，不预先渲染材料、公式或结论。",
+            "en": "Removes the precomputed UiO-66 illusion; before search confirmation, only an awaiting-confirmation state is shown, without material, formula, or conclusion content."
+          },
+          {
+            "zh": "在搜索确认区新增“查看物化性质”，只有确认有效 MOF 后才能打开，并提供显式关闭、Esc 和背景关闭。",
+            "en": "Adds View Physicochemical Properties to the confirmation bar, enabled only for a confirmed MOF, with explicit close, Escape, and backdrop dismissal."
+          },
+          {
+            "zh": "确认后的材料选择、物化档案与生态筛选计算共享同一条记录，修改输入会清除旧确认状态。",
+            "en": "The confirmed material, property record, and EcoScreen calculation share one record; editing the query clears the previous confirmation."
+          }
+        ]
+      },
+      "database": {
+        "summary": {
+          "zh": "以 CoRE 主值和 FAIR 严格交叉层扩展 MOF 物化性质覆盖，并同步到 MOF 库。",
+          "en": "Expands MOF physicochemical-property coverage with CoRE primary values and a strict FAIR cross-layer, surfaced throughout the MOF Library."
+        },
+        "changes": [
+          {
+            "zh": "建立 9,835 条 CoRE MOF 2024 CSD‑modified CR 物化索引，提供比表面积、孔体积、PLD、LCD、密度和空隙率。",
+            "en": "Builds a 9,835-record CoRE MOF 2024 CSD-modified CR physicochemical index with surface area, pore volume, PLD, LCD, density, and void fraction."
+          },
+          {
+            "zh": "审计 FAIR‑MOFs 37,452 条孔隙记录，仅保留 3,451 条与当前 CoRE 结构 CSD Refcode 完全一致的交叉记录，不进行模糊合并。",
+            "en": "Audits 37,452 FAIR-MOFs porosity records and retains only 3,451 exact CSD-Refcode cross-records against the current CoRE corpus, with no fuzzy merge."
+          },
+          {
+            "zh": "MOF 库结构工作台上方新增物化性质搜索，结构侧栏同步显示当前材料的六项 CoRE 主值和 FAIR 精确匹配状态。",
+            "en": "Adds physicochemical-property search above the MOF Library structure workbench and shows six CoRE primary values plus exact FAIR match status in the structure sidebar."
+          },
+          {
+            "zh": "删除“身份层与材料档案 / 数据库联通状态”展示模块，避免把覆盖统计包装成材料性质结论。",
+            "en": "Removes the Identity Layer / Database Linkage presentation block so coverage statistics are not presented as material-property conclusions."
+          }
+        ]
+      },
+      "dataCompliance": {
+        "summary": {
+          "zh": "以非商业用途、逐来源许可和可核验原文为中心重新组织责任页面。",
+          "en": "Reorganizes the responsibility page around non-commercial use, source-specific licences, and verifiable primary terms."
+        },
+        "changes": [
+          {
+            "zh": "保留并逐项列示 43 条适用条文、9 项授权凭证或缺口、六步使用核验、来源登记和争议响应程序。",
+            "en": "Retains and itemizes 43 applicable clauses, 9 authorization records or gaps, the six-step use review, source registration, and dispute-response procedure."
+          },
+          {
+            "zh": "删除 ECOMOF‑DCP‑001 非授权控制卡和 QMOF 展示，不以内部编号模拟权利人授权文件。",
+            "en": "Removes the ECOMOF-DCP-001 non-authorizing control card and QMOF display so an internal identifier cannot resemble a rightsholder authorization."
+          },
+          {
+            "zh": "登记 CoRE 9,835 条主性质记录和 FAIR 37,452 条原始孔隙记录 / 3,451 条精确交叉记录，并明确两层许可与数值优先级。",
+            "en": "Registers the 9,835 CoRE primary-property records and 37,452 FAIR source porosity records / 3,451 exact cross-records, with explicit licence and value-precedence boundaries."
+          },
+          {
+            "zh": "删除“截至某日已完成”等时点式自我认证；所有外部条款以发布方原文为准，商业用途必须另行取得授权。",
+            "en": "Removes dated self-certification language; publisher originals govern all external terms, and commercial use requires separate authorization."
+          }
+        ]
+      },
+      "projectEvolution": {
+        "summary": {
+          "zh": "统一版本中心完整记录本轮已完成范围，历史沿革继续保留原始模块版本。",
+          "en": "The unified release center records the completed scope while preserving original module versions in project history."
+        },
+        "changes": [
+          {
+            "zh": "新增 v1.0.10 的界面、生态筛选、数据库和合规变更明细。",
+            "en": "Adds detailed v1.0.10 UI, EcoScreen, database, and compliance changes."
+          },
+          {
+            "zh": "当前版本徽章、版本选择器、模块更新区和开发日志继续读取同一发布记录。",
+            "en": "Keeps the current-version badge, selector, module update area, and development log on the same release record."
+          },
+          {
+            "zh": "pre‑1.0 历史沿革继续按原始版本号和模块归类展示，不重编号、不留空白。",
+            "en": "Continues to show pre-1.0 history by original version and module without renumbering or blank content."
+          }
+        ]
+      }
+    }
+  },
+  "previousDevelopmentLog": {
     "baseAppVersion": "v1.0.8",
     "developmentVersion": "v1.0.9",
     "recordedAt": "2026-07-29",
@@ -128,202 +260,6 @@
       }
     }
   },
-  "previousDevelopmentLog": {
-    "baseAppVersion": "v1.0.4",
-    "developmentVersion": "v1.0.5",
-    "recordedAt": "2026-07-25",
-    "status": "archived",
-    "statusLabel": {
-      "zh": "已归档",
-      "en": "archived"
-    },
-    "logPolicy": {
-      "zh": "本次平台交互与评价方法重构在提交时归档为 v1.0.5；日志只记录实际完成并通过检查的开发项。",
-      "en": "This platform interaction and evaluation-method rebuild is archived as v1.0.5 at submission; the log contains only completed and checked work."
-    },
-    "releaseBoundary": {
-      "zh": "不改变 Organic Acid 底层评分、候选源数据或 GasSep 原始吸附记录；本轮重构材料级 LCA/经济评价、气体分离解释、MOF 候选库、导航与公式显示。EcoScreen 仍为筛选级情景模型，不构成第三方审查的比较性 LCA 声明。完整测试、类型检查、生产构建、JSON 与差异检查通过，并完成本地浏览器的深浅色、桌面和移动端交互复核。",
-      "en": "Does not change Organic Acid base scores, candidate source data, or raw GasSep adsorption records. This release rebuilds material-level LCA/economic evaluation, gas-separation interpretation, the MOF Library, navigation, and visible formulas. EcoScreen remains a screening scenario model and is not a third-party-reviewed comparative LCA claim. Full tests, type checks, production build, JSON validation, and diff checks passed, with local browser review across light/dark, desktop, and mobile states."
-    },
-    "modules": {
-      "ui": {
-        "label": {
-          "zh": "全局界面",
-          "en": "Global UI"
-        },
-        "summary": {
-          "zh": "将品牌、主导航和主题操作统一到同一水平层，并补齐可确认的候选检索流程。",
-          "en": "Aligns the brand, primary navigation, and theme controls on one row and completes an explicit candidate-search confirmation flow."
-        },
-        "changes": [
-          {
-            "zh": "导航栏在桌面、紧凑宽度和移动端均保持单行结构；标签间距、激活态、横向滚动与语言/主题操作统一处理。",
-            "en": "Keeps the navigation on one row across desktop, compact, and mobile widths with consistent spacing, active states, horizontal scrolling, and language/theme controls."
-          },
-          {
-            "zh": "全局 MOF 搜索新增明确的“确认”按钮，并与回车操作共用同一加载逻辑；检索后可直接进入候选输入和计算区域。",
-            "en": "Adds an explicit Confirm button to global MOF search, sharing the same loading path as Enter and routing directly to candidate inputs and calculation."
-          },
-          {
-            "zh": "浅色、深色与 390 px 移动端完成交互复核，移动端无横向页面溢出。",
-            "en": "Completes light, dark, and 390 px mobile interaction review with no page-level horizontal overflow."
-          }
-        ]
-      },
-      "home": {
-        "label": {
-          "zh": "首页",
-          "en": "Home"
-        },
-        "summary": {
-          "zh": "校正首页图形、结果与公式的对应关系，并保持现有科学叙事方向。",
-          "en": "Corrects the mapping between homepage visuals, results, and formulas while preserving the established scientific narrative."
-        },
-        "changes": [
-          {
-            "zh": "修正 Pareto 前沿定义为“不存在其他候选严格支配当前候选”，避免把被支配点误写成前沿成员。",
-            "en": "Corrects Pareto-front membership to require that no other candidate strictly dominates the current candidate."
-          },
-          {
-            "zh": "直方图末区间改为包含最大值的闭区间；区间点击明确为频数检视，只有金属筛选会重算分布与相关矩阵。",
-            "en": "Closes the final histogram bin at the maximum value and states that bin clicks inspect counts while metal filters recompute distributions and correlations."
-          },
-          {
-            "zh": "三维描述符散点的点半径公式与实际 3.5 + 3.2(1−ρ*) 映射保持一致，并说明缺失密度使用中性半径。",
-            "en": "Aligns the 3D descriptor point-radius formula with the implemented 3.5 + 3.2(1−rho*) mapping and documents the neutral radius used for missing density."
-          },
-          {
-            "zh": "首页气体 Pareto 图和描述符图采用可读材料名；数据库文件名仅保留在来源溯源字段。",
-            "en": "Uses readable material names in homepage gas-Pareto and descriptor visuals while retaining database filenames only in provenance fields."
-          }
-        ]
-      },
-      "ecoScreen": {
-        "label": {
-          "zh": "生态筛选",
-          "en": "EcoScreen"
-        },
-        "summary": {
-          "zh": "将 EcoScreen 改为可编辑、可确认计算且随 MOF 变化的生命周期与经济评价工作区。",
-          "en": "Turns EcoScreen into an editable, explicitly calculated life-cycle and economic evaluation workspace that changes with the selected MOF."
-        },
-        "changes": [
-          {
-            "zh": "新增材料级双栏结论区：左侧显示候选身份、产率、溶剂回收与计算公式，右侧显示 GWP、能耗、成本、热点和研究状态。",
-            "en": "Adds a material-level two-column conclusion area with identity, yield, solvent recovery, and formulas on the left and GWP, energy, cost, hotspots, and research status on the right."
-          },
-          {
-            "zh": "区分 1 kg MOF 生产与捕集 1 t CO₂ 两类功能单位；服务功能单位额外显示材料需求倍数和再生电耗的环境与成本分摊公式。",
-            "en": "Separates the 1 kg MOF production and 1 t CO2 capture functional units and displays service-allocation formulas for material scale and regeneration electricity."
-          },
-          {
-            "zh": "候选、路线、产率、溶剂回收、电网与价格输入变化时实时预览，点击计算后记录当前运行状态；不同 MOF 生成不同环境、经济和缺数结论。",
-            "en": "Provides live previews as candidate, route, yield, recovery, grid, and price inputs change, records the confirmed run on calculation, and produces material-specific environmental, economic, and data-gap conclusions."
-          },
-          {
-            "zh": "新增 2026 年 MOF LCA 文献与 FAIR-MOFs、CoRE/QMOF、NIST/ISODB 等候选级证据入口，并继续对缺少产率、能耗、回收和循环数据的候选执行比较门禁。",
-            "en": "Adds 2026 MOF LCA literature and candidate-level FAIR-MOFs, CoRE/QMOF, and NIST/ISODB evidence entries while retaining comparison gates for missing yield, energy, recovery, and cycling data."
-          }
-        ]
-      },
-      "gasSep": {
-        "label": {
-          "zh": "气体分离",
-          "en": "GasSep"
-        },
-        "summary": {
-          "zh": "新增随候选和证据类型变化的材料级分离结论与方法专属公式。",
-          "en": "Adds candidate-specific separation conclusions and evidence-method-specific formulas."
-        },
-        "changes": [
-          {
-            "zh": "新增材料与工况双栏面板，可切换 MOF，并联动显示选择性、工作容量、可再生性、Pareto 状态和验证建议。",
-            "en": "Adds a material-and-condition two-column panel with MOF selection linked to selectivity, working capacity, regenerability, Pareto status, and validation recommendations."
-          },
-          {
-            "zh": "IAST、单点吸附量比代理、模型预测和来源记录值分别使用不同公式；不再把所有选择性统一写成 IAST。",
-            "en": "Uses distinct formulas for IAST, single-point uptake-ratio proxies, model predictions, and source-reported values instead of labeling every selectivity as IAST."
-          },
-          {
-            "zh": "工作容量和可再生性根据是否由同一等温线与压力窗口推导，分别显示差分公式或来源记录定义。",
-            "en": "Shows either isotherm/pressure-window derivations or source-reported definitions for working capacity and regenerability according to provenance."
-          }
-        ]
-      },
-      "database": {
-        "label": {
-          "zh": "MOF 候选库",
-          "en": "MOF Library"
-        },
-        "summary": {
-          "zh": "重构候选库信息架构，并建立全站可读 MOF 命名规则。",
-          "en": "Rebuilds MOF Library information architecture and establishes readable MOF naming across the platform."
-        },
-        "changes": [
-          {
-            "zh": "候选库顶部整合身份解析、来源、关键描述符、数据库联通和结构/气体/电子/催化证据覆盖。",
-            "en": "Combines identity resolution, provenance, key descriptors, linked databases, and structural/gas/electronic/catalysis evidence coverage at the top of the library."
-          },
-          {
-            "zh": "大面积不等高卡片改为统一浏览器、筛选表与单一选中详情，保留结构、气体、催化和字段级来源功能。",
-            "en": "Replaces uneven oversized cards with a unified browser, filter table, and one selected-detail panel while retaining structural, gas, catalysis, and field-level provenance features."
-          },
-          {
-            "zh": "无法解析正式名称时显示“金属节点-MOF 候选”；原始 CSD/CIF/数据库编号仅保留在搜索与来源字段，不再作为页面标题或结论主语。",
-            "en": "Displays a metal-node MOF candidate label when no formal name resolves, keeping raw CSD/CIF/database identifiers only in search and provenance rather than titles or conclusion subjects."
-          },
-          {
-            "zh": "Spearman 代理验证显示 ρs = corr(rank x, rank y) 与样本量，并继续标记为指示性结构代理而非吸附预测。",
-            "en": "Shows Spearman proxy validation as rho_s = corr(rank x, rank y) with sample size while retaining its indicative, non-predictive boundary."
-          }
-        ]
-      },
-      "methodsEvidence": {
-        "label": {
-          "zh": "方法与证据",
-          "en": "Methods & Evidence"
-        },
-        "summary": {
-          "zh": "完成图形、结果、原理、公式和字段之间的全局一致性核对。",
-          "en": "Completes a cross-platform consistency audit across visuals, results, principles, formulas, and fields."
-        },
-        "changes": [
-          {
-            "zh": "CRITIC 冲突度统一为实际算法使用的 Σ(1−rjk)，移除与实现不一致的绝对相关写法。",
-            "en": "Aligns CRITIC conflict intensity with the implemented sum of (1-r_jk) and removes the inconsistent absolute-correlation form."
-          },
-          {
-            "zh": "生命周期生产公式、服务功能单位分摊、气体分离公式、Pareto 定义、直方图边界和描述符点径均与实际计算字段逐项对应。",
-            "en": "Aligns production LCA, service allocation, gas separation, Pareto membership, histogram boundaries, and descriptor point radius with their implemented fields."
-          },
-          {
-            "zh": "新增公式—实现回归检查，防止不同原理再次共用错误公式。",
-            "en": "Adds formula-to-implementation regression checks so results based on different principles cannot silently reuse the wrong formula."
-          }
-        ]
-      },
-      "projectEvolution": {
-        "label": {
-          "zh": "项目演化",
-          "en": "Project Evolution"
-        },
-        "summary": {
-          "zh": "演化图补充与实际纵轴一致的跨版本归一化公式。",
-          "en": "Adds the cross-release normalization equation used by the evolution chart."
-        },
-        "changes": [
-          {
-            "zh": "Web 发布、数据、科研、验证和体验图层统一显示 zt,j = 100·xt,j/maxτxτ,j，并将验证维度定义改为当前覆盖数量。",
-            "en": "Uses z_t,j = 100 x_t,j / max_tau x_tau,j across Web, data, research, validation, and experience lenses and defines validation by current coverage count."
-          },
-          {
-            "zh": "演化页面集中展示已完成版本、当前更新日志和跨版本指标变化。",
-            "en": "The evolution page consolidates completed releases, the current update log, and cross-release metric changes."
-          }
-        ]
-      }
-    }
-  },
   "moduleCatalog": {
     "organicAcid": {
       "label": {
@@ -435,6 +371,133 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.10",
+      "date": "2026-07-29",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.10：接入 MOF 物化性质检索，重构导航、生态筛选确认逻辑与数据合规页面。",
+        "en": "v1.0.10: adds MOF physicochemical-property search and rebuilds navigation, EcoScreen confirmation logic, and data compliance."
+      },
+      "summary": {
+        "zh": "本轮按非商业研究边界接入 CoRE MOF 2024 CR 主性质层，并以 FAIR‑MOFs 的 CSD Refcode 完全一致记录作独立交叉证据；首页改为上三下三六入口，语言、主题和联系方式收纳到设置菜单；生态筛选只在确认材料后显示计算内容；MOF 库同步提供性质查询和结构侧栏；合规页删除非授权控制卡和 QMOF 展示，以 43 条条文、9 项授权凭证、来源登记和发布方原文链接构成正式说明。",
+        "en": "Under a non-commercial research boundary, this release adds the CoRE MOF 2024 CR primary property layer with exact CSD-Refcode FAIR-MOFs records as independent cross-evidence; changes the homepage to a six-entry three-by-two grid; collects language, theme, and contact controls in one settings menu; reveals EcoScreen calculations only after material confirmation; exposes property search in the MOF Library and structure sidebar; and replaces the non-authorizing control card and QMOF display with a formal compliance statement containing 43 clauses, 9 authorization records, source registration, and publisher-original links."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "首页、主导航和全局设置按统一的实体控件与中文居中规则重排。",
+            "en": "Reorganizes the homepage, primary navigation, and global settings with consistent solid controls and centered Chinese labels."
+          },
+          "changes": [
+            {
+              "zh": "首页六个实体入口固定为“生态筛选、气体分离、催化、MOF库、数据合规承诺、联系我们”，桌面端上三下三排列。",
+              "en": "Fixes six solid homepage entries—EcoScreen, Gas Separation, Catalysis, MOF Library, Data Compliance, and Contact—in a desktop three-by-two grid."
+            },
+            {
+              "zh": "语言切换、深浅色模式和联系我们合并到单一齿轮设置菜单；邮箱只在联系弹窗中显示。",
+              "en": "Collects language, light/dark appearance, and Contact Us inside one gear settings menu; the email remains visible only in the contact dialog."
+            },
+            {
+              "zh": "桌面导航改为左右等宽轨道和固定中央栏，解决中文模式下导航整体偏移。",
+              "en": "Uses equal outer tracks and a fixed central rail to remove the Chinese-mode navigation offset."
+            },
+            {
+              "zh": "数据基础段落减弱上边框并补充过渡留白，保持与现有冷蓝研究界面的设计语言一致。",
+              "en": "Softens the data-foundation top border and adds transition space while retaining the existing cool-blue research design language."
+            }
+          ]
+        },
+        "ecoScreen": {
+          "summary": {
+            "zh": "材料确认成为计算结果出现的明确前置条件，并新增同一材料的物化性质弹窗。",
+            "en": "Makes material confirmation an explicit prerequisite for calculations and adds a physicochemical-property dialog for the same material."
+          },
+          "changes": [
+            {
+              "zh": "移除默认 UiO‑66 已计算假象；搜索框未确认时只显示待确认空状态，不预先渲染材料、公式或结论。",
+              "en": "Removes the precomputed UiO-66 illusion; before search confirmation, only an awaiting-confirmation state is shown, without material, formula, or conclusion content."
+            },
+            {
+              "zh": "在搜索确认区新增“查看物化性质”，只有确认有效 MOF 后才能打开，并提供显式关闭、Esc 和背景关闭。",
+              "en": "Adds View Physicochemical Properties to the confirmation bar, enabled only for a confirmed MOF, with explicit close, Escape, and backdrop dismissal."
+            },
+            {
+              "zh": "确认后的材料选择、物化档案与生态筛选计算共享同一条记录，修改输入会清除旧确认状态。",
+              "en": "The confirmed material, property record, and EcoScreen calculation share one record; editing the query clears the previous confirmation."
+            }
+          ]
+        },
+        "database": {
+          "summary": {
+            "zh": "以 CoRE 主值和 FAIR 严格交叉层扩展 MOF 物化性质覆盖，并同步到 MOF 库。",
+            "en": "Expands MOF physicochemical-property coverage with CoRE primary values and a strict FAIR cross-layer, surfaced throughout the MOF Library."
+          },
+          "changes": [
+            {
+              "zh": "建立 9,835 条 CoRE MOF 2024 CSD‑modified CR 物化索引，提供比表面积、孔体积、PLD、LCD、密度和空隙率。",
+              "en": "Builds a 9,835-record CoRE MOF 2024 CSD-modified CR physicochemical index with surface area, pore volume, PLD, LCD, density, and void fraction."
+            },
+            {
+              "zh": "审计 FAIR‑MOFs 37,452 条孔隙记录，仅保留 3,451 条与当前 CoRE 结构 CSD Refcode 完全一致的交叉记录，不进行模糊合并。",
+              "en": "Audits 37,452 FAIR-MOFs porosity records and retains only 3,451 exact CSD-Refcode cross-records against the current CoRE corpus, with no fuzzy merge."
+            },
+            {
+              "zh": "MOF 库结构工作台上方新增物化性质搜索，结构侧栏同步显示当前材料的六项 CoRE 主值和 FAIR 精确匹配状态。",
+              "en": "Adds physicochemical-property search above the MOF Library structure workbench and shows six CoRE primary values plus exact FAIR match status in the structure sidebar."
+            },
+            {
+              "zh": "删除“身份层与材料档案 / 数据库联通状态”展示模块，避免把覆盖统计包装成材料性质结论。",
+              "en": "Removes the Identity Layer / Database Linkage presentation block so coverage statistics are not presented as material-property conclusions."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "以非商业用途、逐来源许可和可核验原文为中心重新组织责任页面。",
+            "en": "Reorganizes the responsibility page around non-commercial use, source-specific licences, and verifiable primary terms."
+          },
+          "changes": [
+            {
+              "zh": "保留并逐项列示 43 条适用条文、9 项授权凭证或缺口、六步使用核验、来源登记和争议响应程序。",
+              "en": "Retains and itemizes 43 applicable clauses, 9 authorization records or gaps, the six-step use review, source registration, and dispute-response procedure."
+            },
+            {
+              "zh": "删除 ECOMOF‑DCP‑001 非授权控制卡和 QMOF 展示，不以内部编号模拟权利人授权文件。",
+              "en": "Removes the ECOMOF-DCP-001 non-authorizing control card and QMOF display so an internal identifier cannot resemble a rightsholder authorization."
+            },
+            {
+              "zh": "登记 CoRE 9,835 条主性质记录和 FAIR 37,452 条原始孔隙记录 / 3,451 条精确交叉记录，并明确两层许可与数值优先级。",
+              "en": "Registers the 9,835 CoRE primary-property records and 37,452 FAIR source porosity records / 3,451 exact cross-records, with explicit licence and value-precedence boundaries."
+            },
+            {
+              "zh": "删除“截至某日已完成”等时点式自我认证；所有外部条款以发布方原文为准，商业用途必须另行取得授权。",
+              "en": "Removes dated self-certification language; publisher originals govern all external terms, and commercial use requires separate authorization."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "统一版本中心完整记录本轮已完成范围，历史沿革继续保留原始模块版本。",
+            "en": "The unified release center records the completed scope while preserving original module versions in project history."
+          },
+          "changes": [
+            {
+              "zh": "新增 v1.0.10 的界面、生态筛选、数据库和合规变更明细。",
+              "en": "Adds detailed v1.0.10 UI, EcoScreen, database, and compliance changes."
+            },
+            {
+              "zh": "当前版本徽章、版本选择器、模块更新区和开发日志继续读取同一发布记录。",
+              "en": "Keeps the current-version badge, selector, module update area, and development log on the same release record."
+            },
+            {
+              "zh": "pre‑1.0 历史沿革继续按原始版本号和模块归类展示，不重编号、不留空白。",
+              "en": "Continues to show pre-1.0 history by original version and module without renumbering or blank content."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.9",
       "date": "2026-07-29",

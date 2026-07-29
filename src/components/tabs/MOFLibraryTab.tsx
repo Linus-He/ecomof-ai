@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
+import { MagnifyingGlass, ShieldCheck } from "@phosphor-icons/react"
 import {
   useT, useLang, useViewport,
   FONT_SANS,
@@ -32,6 +33,7 @@ import { ReactionReadinessTags } from "../catalysis/ReactionReadinessTags"
 import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
+import { fetchDataJson } from "../../services/dataService"
 
 const DATA_MODE = "core-mof-2024-cr"
 const PAGE_SIZE = 24
@@ -341,12 +343,94 @@ function StatusPill({ children, tone = "neutral", t }) {
       display: "inline-flex",
       fontSize: 10.5,
       fontWeight: 850,
+      gap: 5,
       lineHeight: 1.2,
       padding: "4px 8px",
       whiteSpace: "nowrap",
     }}>
       {children}
     </span>
+  )
+}
+
+function PhysicochemicalSearchPanel({ rows, query, setQuery, selected, onSelect, lang, t, isMobile }) {
+  const normalizedQuery = query.trim().toLowerCase()
+  const selectedQuery = String(selected?.commonName || selected?.displayName || selected?.csdRefcode || selected?.sourceRecordId || "").trim().toLowerCase()
+  const matches = useMemo(() => {
+    if (!normalizedQuery) return []
+    return rows.filter(item => [
+      item.commonName,
+      item.displayName,
+      item.name,
+      item.csdRefcode,
+      item.sourceRecordId,
+      ...(item.aliases || []),
+    ].filter(Boolean).join(" ").toLowerCase().includes(normalizedQuery)).slice(0, 8)
+  }, [normalizedQuery, rows])
+  const propertyRows = selected ? [
+    [text(lang, "比表面积", "Surface area"), formatValue(selected.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang), "surfaceArea"],
+    [text(lang, "孔体积", "Pore volume"), formatValue(selected.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang), "poreVolume"],
+    ["PLD", formatValue(selected.pldA || selected.poreSizeA, ` ${normalizeUnitLabel("A")}`, lang), "pldA"],
+    ["LCD", formatValue(selected.lcdA, ` ${normalizeUnitLabel("A")}`, lang), "lcdA"],
+    [text(lang, "密度", "Density"), formatValue(selected.density, ` ${normalizeUnitLabel("g/cm3")}`, lang), "density"],
+    [text(lang, "空隙率", "Void fraction"), formatValue(selected.voidFraction, "", lang), "voidFraction"],
+  ] : []
+
+  return (
+    <section data-testid="mof-physicochemical-search" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `2px solid ${t.accent}`, display: "grid", gap: 13, padding: isMobile ? "15px 0" : "17px 0" }}>
+      <div style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto" }}>
+        <label style={{ display: "grid", gap: 6, minWidth: 0, position: "relative" }}>
+          <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "物化性质查询", "Physicochemical property search")}</span>
+          <div style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, display: "flex", gap: 8, minWidth: 0, padding: "0 10px" }}>
+            <MagnifyingGlass aria-hidden="true" color={t.faint} size={17} weight="bold" />
+            <input
+              type="search"
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              placeholder={text(lang, "输入 MOF 名称、CSD Refcode 或结构记录 ID", "MOF name, CSD Refcode, or structure record ID")}
+              style={{ background: "transparent", border: 0, color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, height: 40, minWidth: 0, outline: "none", width: "100%" }}
+            />
+          </div>
+          {matches.length && normalizedQuery !== selectedQuery ? (
+            <div style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, boxShadow: t.shadowSm, display: "grid", left: 0, overflow: "hidden", position: "absolute", right: 0, top: "calc(100% + 4px)", zIndex: 12 }}>
+              {matches.map(item => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    onSelect(item.id)
+                    setQuery(item.commonName || item.displayName || item.csdRefcode || item.sourceRecordId)
+                  }}
+                  style={{ background: item.id === selected?.id ? t.badgeInfoBg : t.panel, border: 0, borderBottom: `1px solid ${t.border}`, color: t.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, gap: 3, padding: "9px 11px", textAlign: "left" }}
+                >
+                  <strong style={{ fontSize: 11.8 }}>{getReadableMofLabel(item, lang)}</strong>
+                  <span style={{ color: t.faint, fontSize: 10.2 }}>CSD {item.csdRefcode || item.sourceRecordId} · {item.metalNode || "—"} · {item.topology || "—"}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </label>
+        <StatusPill t={t} tone="source">{rows.length.toLocaleString()} {text(lang, "条可查询", "searchable")}</StatusPill>
+      </div>
+      {selected ? (
+        <div style={{ display: "grid", gap: 10 }}>
+          <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{getReadableMofLabel(selected, lang)}</strong>
+            <StatusPill t={t} tone={selected.fairMofsCrossValidation ? "good" : "neutral"}>
+              <ShieldCheck aria-hidden="true" size={13} weight="bold" />
+              {selected.fairMofsCrossValidation ? text(lang, "FAIR‑MOFs 精确交叉记录", "Exact FAIR-MOFs cross-record") : text(lang, "CoRE 主性质层", "CoRE primary layer")}
+            </StatusPill>
+          </div>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))" }}>
+            {propertyRows.map(([label, value, fieldKey]) => (
+              <DescriptorLine key={label} label={label} value={value} fieldKey={fieldKey} fieldSources={selected.fieldSources} lang={lang} t={t} compact />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <span style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.55 }}>{text(lang, "检索并选择记录后显示对应物化性质；未选择时不预填示例材料。", "Select a search result to show its physicochemical properties; no example material is prefilled.")}</span>
+      )}
+    </section>
   )
 }
 
@@ -621,96 +705,6 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
         {expanded ? text(lang, "当前档案", "Selected profile") : text(lang, "查看完整档案", "View full profile")}
       </button>
     </article>
-  )
-}
-
-function LibraryIdentityOverview({ record, stats, structuralCount, gasCount, identityCount, lang, t, isMobile }) {
-  if (!record) return null
-  const completeness = getCoreDescriptorCompleteness(record)
-  const coverageRows = [
-    [text(lang, "结构描述符", "Structure descriptors"), completeness.curatedCount, completeness.descriptorCount || 1],
-    [text(lang, "气体吸附关联", "Gas adsorption links"), hasValue(record.co2Uptake) ? 1 : 0, 1],
-    [text(lang, "电子性质", "Electronic properties"), hasValue(record.bandGap) ? 1 : 0, 1],
-    [text(lang, "催化证据", "Catalysis evidence"), String(record.organicAcidRelevance?.scoreStatus || "").toLowerCase().includes("pending") ? 0 : 1, 1],
-  ]
-  return (
-    <section
-      data-testid="mof-library-identity-overview"
-      style={{
-        background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 10,
-        display: "grid",
-        gap: 14,
-        gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)",
-        overflow: "hidden",
-        padding: isMobile ? 13 : 16,
-      }}
-    >
-      <div style={{ display: "grid", gap: 12, minWidth: 0 }}>
-        <div>
-          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-            {text(lang, "身份层与材料档案", "Identity layer and material profile")}
-          </span>
-          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 23 : 29, fontWeight: 940, letterSpacing: "-0.035em", lineHeight: 1.08, margin: "8px 0 0", overflowWrap: "anywhere" }}>
-            {getReadableMofLabel(record, lang)}
-          </h2>
-          <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.55, marginTop: 7, overflowWrap: "anywhere" }}>
-            {record.sourceRecordId} · {record.sourceDatabase} · {record.metalNode || text(lang, "金属待整理", "metal pending")}
-          </div>
-        </div>
-        <div aria-label={text(lang, "MOF 身份解析规则与证据覆盖向量", "MOF identity resolution rule and evidence-coverage vector")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
-          <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
-            m<sub>canonical</sub> = R(m<sub>source</sub>, DOI, CIF, composition)
-          </div>
-          <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
-            c(m) = [c<sub>structure</sub>, c<sub>gas</sub>, c<sub>electronic</sub>, c<sub>catalysis</sub>]
-          </div>
-          <span style={{ color: t.faint, fontSize: 10.5, lineHeight: 1.5 }}>
-            {text(lang, "R 是身份解析规则，不是性能预测方程；c 与右侧四条覆盖率一一对应，只表示证据完整度。无法确认的记录保持独立。", "R is an identity-resolution rule, not a performance model. c maps one-to-one to the four coverage bars and expresses evidence completeness only. Unresolved records remain separate.")}
-          </span>
-        </div>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
-          <DescriptorLine label={text(lang, "比表面积", "Surface area")} value={formatValue(record.surfaceArea, ` ${normalizeUnitLabel("m2/g")}`, lang)} fieldKey="surfaceArea" fieldSources={record.fieldSources} lang={lang} t={t} compact />
-          <DescriptorLine label={text(lang, "孔体积", "Pore volume")} value={formatValue(record.poreVolume, ` ${normalizeUnitLabel("cm3/g")}`, lang)} fieldKey="poreVolume" fieldSources={record.fieldSources} lang={lang} t={t} compact />
-          <DescriptorLine label="PLD" value={formatValue(record.pldA, ` ${normalizeUnitLabel("A")}`, lang)} fieldKey="pldA" fieldSources={record.fieldSources} lang={lang} t={t} compact />
-          <DescriptorLine label="LCD" value={formatValue(record.lcdA, ` ${normalizeUnitLabel("A")}`, lang)} fieldKey="lcdA" fieldSources={record.fieldSources} lang={lang} t={t} compact />
-        </div>
-      </div>
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, minWidth: 0, padding: isMobile ? 12 : 15 }}>
-        <div>
-          <span style={{ color: t.faint, display: "block", fontSize: 10.5, fontWeight: 850 }}>{text(lang, "数据库联通状态", "Linked-database status")}</span>
-          <strong style={{ color: t.textStrong, display: "block", fontSize: 15, marginTop: 4 }}>
-            {text(lang, `${stats.total} 条真实结构记录，按字段证据展示`, `${stats.total} real structure records with field-level evidence`)}
-          </strong>
-        </div>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, minmax(0, 1fr))" }}>
-          <MetricMini label={text(lang, "结构", "Structure")} value={structuralCount} note="CoRE 2024 CR" t={t} />
-          <MetricMini label={text(lang, "气体记录", "Gas records")} value={gasCount} note="NIST / ISODB" t={t} />
-          <MetricMini label={text(lang, "身份映射", "Identity links")} value={identityCount} note={text(lang, "不强行合并", "no forced merge")} t={t} />
-        </div>
-        <div style={{ display: "grid", gap: 9 }}>
-          {coverageRows.map(([label, available, total]) => {
-            const pct = Math.round((Number(available) / Math.max(1, Number(total))) * 100)
-            return (
-              <div key={label} style={{ display: "grid", gap: 5 }}>
-                <div style={{ alignItems: "baseline", display: "flex", gap: 12, justifyContent: "space-between" }}>
-                  <span style={{ color: t.muted, fontSize: 11.2 }}>{label}</span>
-                  <strong style={{ color: pct === 100 ? t.success : t.warn, fontSize: 11 }}>{available}/{total}</strong>
-                </div>
-                <div style={{ background: t.panel, borderRadius: 999, height: 6, overflow: "hidden" }}>
-                  <div style={{ background: pct === 100 ? t.success : t.accent, height: "100%", width: `${pct}%` }} />
-                </div>
-              </div>
-            )
-          })}
-        </div>
-        <div style={{ borderTop: `1px solid ${t.border}`, color: t.muted, fontSize: 11.2, lineHeight: 1.55, paddingTop: 9 }}>
-          <strong style={{ color: t.textStrong }}>{text(lang, "使用边界：", "Use boundary: ")}</strong>
-          {text(lang, "结构描述符适合检索与筛选；气体、合成和催化结论必须回到对应实验、模拟或文献记录，不能从结构卡片直接推断。", "Structure descriptors support retrieval and screening; gas, synthesis, and catalysis conclusions must trace to their experimental, simulated, or literature records rather than being inferred from a structure card.")}
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -1168,11 +1162,14 @@ export function MOFLibraryTab() {
   const [proxyReport, setProxyReport] = useState(null)
   const [csdPilotManifest, setCsdPilotManifest] = useState({ records: [], license: {} })
   const [csdPublicCatalog, setCsdPublicCatalog] = useState({ structures: [], summary: {}, dataset: {} })
+  const [physicochemicalSummary, setPhysicochemicalSummary] = useState({})
   const [csdCatalogStatus, setCsdCatalogStatus] = useState("loading")
   const [status, setStatus] = useState("loading")
   const [filters, setFilters] = useState({ query: "", source: "all", metal: "all", organicStatus: "all", availability: {} })
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [expandedId, setExpandedId] = useState(null)
+  const [propertyQuery, setPropertyQuery] = useState("")
+  const [propertySelectedId, setPropertySelectedId] = useState(null)
   const [unifiedBrowserOpen, setUnifiedBrowserOpen] = useState(false)
 
   useEffect(() => {
@@ -1187,10 +1184,19 @@ export function MOFLibraryTab() {
       getGasStructureProxyValidationReport({ throwOnError: false }),
       getCsdStructurePilotManifest({ throwOnError: false }),
       getCsdMofPublicCatalog({ throwOnError: false }),
+      fetchDataJson("mof_physicochemical_index_v1.json", { records: [], summary: {} }),
     ])
-      .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog]) => {
+      .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog, physicochemicalIndex]) => {
         if (!active) return
-        const normalized = Array.isArray(data) ? data.map(normalizeOpenMofRecord) : []
+        const fairCrossValidationByCoreId = new Map(
+          (physicochemicalIndex?.records || []).map(record => [record.coreRecordId, record.fairMofsCrossValidation]),
+        )
+        const normalized = Array.isArray(data)
+          ? data.map(normalizeOpenMofRecord).map(record => ({
+            ...record,
+            fairMofsCrossValidation: fairCrossValidationByCoreId.get(record.id) || null,
+          }))
+          : []
         setRows(normalized)
         setStructuralRows(normalized)
         setGasRows(Array.isArray(gasData) ? gasData : [])
@@ -1200,6 +1206,7 @@ export function MOFLibraryTab() {
         setProxyReport(proxyValidation || null)
         setCsdPilotManifest(csdManifest || { records: [], license: {} })
         setCsdPublicCatalog(csdCatalog || { structures: [], summary: {}, dataset: {} })
+        setPhysicochemicalSummary(physicochemicalIndex?.summary || {})
         setCsdCatalogStatus(csdCatalog?.structures?.length ? "ready" : "unavailable")
         setStatus(normalized.length ? "loaded" : "empty")
       })
@@ -1232,6 +1239,10 @@ export function MOFLibraryTab() {
     () => rows.find(item => item.id === expandedId) || filteredRecords[0] || rows[0] || null,
     [expandedId, filteredRecords, rows],
   )
+  const propertySelectedRecord = useMemo(
+    () => rows.find(item => item.id === propertySelectedId) || null,
+    [propertySelectedId, rows],
+  )
   const unifiedRows = useMemo(() => (
     unifiedBrowserOpen
       ? buildUnifiedMofRows({ structures: structuralRows.length ? structuralRows : rows, gasRecords: gasRows, registry: identityRegistry })
@@ -1256,12 +1267,15 @@ export function MOFLibraryTab() {
         action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF Library 链接", "Copy MOF Library link")} />}
       />
 
-      <LibraryIdentityOverview
-        record={activeRecord}
-        stats={stats}
-        structuralCount={structuralRows.length || rows.length}
-        gasCount={gasRows.length}
-        identityCount={identityRegistry?.records?.length || 0}
+      <PhysicochemicalSearchPanel
+        rows={rows}
+        query={propertyQuery}
+        setQuery={setPropertyQuery}
+        selected={propertySelectedRecord}
+        onSelect={id => {
+          setPropertySelectedId(id)
+          setExpandedId(id)
+        }}
         lang={lang}
         t={t}
         isMobile={isMobile}
@@ -1280,6 +1294,8 @@ export function MOFLibraryTab() {
         pilotManifest={csdPilotManifest}
         publicCatalog={csdPublicCatalog}
         catalogStatus={csdCatalogStatus}
+        physicochemicalRecords={rows}
+        physicochemicalSummary={physicochemicalSummary}
         lang={lang}
         t={t}
         isMobile={isMobile}

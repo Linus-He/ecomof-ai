@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
+import { Check, EnvelopeSimple, GearSix, Moon, Sun, Translate } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -12,7 +13,7 @@ import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
 import { headerChipBtn } from "./utils/styles"
 import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
 import { fetchDataJson } from "./services/dataService"
-import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal } from "./components/layout"
+import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
 import { HomeTab } from "./components/tabs/HomeTab"
@@ -163,10 +164,15 @@ function AppShell({
   closeContactModal,
   closeAcknowledgementsModal,
   closeDisclaimerModal,
+  confirmedMofSelection,
 }) {
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [settingsSection, setSettingsSection] = useState("language")
+  const [propertyOpen, setPropertyOpen] = useState(false)
   const navRef = useRef(null)
+  const settingsRef = useRef(null)
   const compactHeader = viewport.width < 1320
   const veryCompactHeader = viewport.width < 760
   const openComparisonBuilder = useCallback((context = null) => {
@@ -177,6 +183,24 @@ function AppShell({
     setHomeComparisonOpen(false)
     setComparisonBuilderContext(null)
   }, [])
+  useEffect(() => {
+    if (!settingsOpen) return undefined
+    const close = event => {
+      if (event.key === "Escape") {
+        setSettingsOpen(false)
+        return
+      }
+      if (event.type === "pointerdown" && !settingsRef.current?.contains(event.target)) {
+        setSettingsOpen(false)
+      }
+    }
+    window.addEventListener("keydown", close)
+    window.addEventListener("pointerdown", close)
+    return () => {
+      window.removeEventListener("keydown", close)
+      window.removeEventListener("pointerdown", close)
+    }
+  }, [settingsOpen])
   useEffect(() => {
     const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
     const nav = navRef.current
@@ -221,8 +245,8 @@ function AppShell({
               gridTemplateColumns: veryCompactHeader
                 ? "auto minmax(0, 1fr) auto"
                 : compactHeader
-                  ? "118px minmax(0, 1fr) 96px"
-                  : "minmax(180px, auto) minmax(0, 1fr) auto",
+                  ? "96px minmax(0, 1fr) 96px"
+                  : "minmax(180px, 1fr) minmax(0, 880px) minmax(180px, 1fr)",
               alignItems: "center",
               columnGap: veryCompactHeader ? 6 : 10,
               minHeight: 56,
@@ -315,7 +339,7 @@ function AppShell({
               </nav>
             </div>
 
-            <div style={{
+            <div ref={settingsRef} style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -329,41 +353,74 @@ function AppShell({
             }}>
               <button
                 type="button"
-                onClick={() => setContactOpen(true)}
-                title={lang === "zh" ? "联系 / 合作" : "Contact / Collaboration"}
-                aria-label={lang === "zh" ? "打开联系弹窗" : "Open contact dialog"}
+                aria-expanded={settingsOpen}
+                aria-haspopup="menu"
+                onClick={() => setSettingsOpen(open => !open)}
+                title={lang === "zh" ? "打开设置" : "Open settings"}
+                aria-label={lang === "zh" ? "打开设置" : "Open settings"}
                 style={{
                   ...headerChipBtn(theme),
-                  display: compactHeader ? "none" : "inline-flex",
-                  padding: "8px 12px",
-                  border: `1px solid ${theme.accent}`,
-                  color: theme.accentText,
-                  fontWeight: 750,
-                  whiteSpace: "nowrap",
+                  alignItems: "center",
+                  border: `1px solid ${settingsOpen ? theme.accent : theme.border}`,
+                  color: settingsOpen ? theme.accentText : theme.textStrong,
+                  display: "inline-flex",
+                  height: 38,
+                  justifyContent: "center",
+                  minWidth: 40,
+                  padding: "8px 10px",
                 }}
               >
-                  {veryCompactHeader
-                    ? (lang === "zh" ? "联系" : "Contact")
-                    : (lang === "zh" ? "联系 / 合作" : "Contact")}
+                <GearSix aria-hidden="true" size={19} weight={settingsOpen ? "fill" : "bold"} />
               </button>
-              <button
-                type="button"
-                onClick={() => setLang(current => (current === "en" ? "zh" : "en"))}
-                title={lang === "en" ? "切换到中文" : "Switch to English"}
-                aria-label={lang === "en" ? "切换到中文" : "Switch to English"}
-                style={{ ...headerChipBtn(theme), minWidth: 48, padding: "8px 10px" }}
-              >
-                {copy.header.language}
-              </button>
-              <button
-                type="button"
-                onClick={() => setDarkMode(current => !current)}
-                title={darkMode ? copy.header.light : copy.header.dark}
-                aria-label={darkMode ? (lang === "zh" ? "切换为浅色模式" : "Switch to light mode") : (lang === "zh" ? "切换为深色模式" : "Switch to dark mode")}
-                style={{ ...headerChipBtn(theme), minWidth: 40, padding: "8px 10px" }}
-              >
-                {darkMode ? "☀" : "☾"}
-              </button>
+              {settingsOpen ? (
+                <div
+                  role="menu"
+                  aria-label={lang === "zh" ? "设置菜单" : "Settings menu"}
+                  style={{
+                    background: theme.panel,
+                    border: `1px solid ${theme.borderStrong || theme.border}`,
+                    borderRadius: 9,
+                    boxShadow: "0 18px 48px rgba(15, 23, 42, 0.18)",
+                    display: "grid",
+                    minWidth: 246,
+                    overflow: "hidden",
+                    position: "absolute",
+                    right: 0,
+                    top: "calc(100% - 2px)",
+                    zIndex: 180,
+                  }}
+                >
+                  <button type="button" role="menuitem" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: "transparent", border: 0, borderBottom: `1px solid ${theme.border}`, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, justifyContent: "space-between", padding: "12px 14px", textAlign: "left" }}>
+                    <span style={{ alignItems: "center", display: "flex", gap: 9 }}><Translate aria-hidden="true" size={17} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
+                    <span style={{ color: theme.faint }}>{lang === "zh" ? "简体中文" : "English"}</span>
+                  </button>
+                  {settingsSection === "language" ? (
+                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, display: "grid", padding: 6 }}>
+                      {[["zh", "简体中文"], ["en", "English"]].map(([id, label]) => (
+                        <button key={id} type="button" onClick={() => setLang(id)} style={{ alignItems: "center", background: lang === id ? theme.badgeInfoBg : "transparent", border: 0, borderRadius: 6, color: lang === id ? theme.accentText : theme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: lang === id ? 850 : 700, justifyContent: "space-between", padding: "8px 9px", textAlign: "left" }}>
+                          {label}{lang === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                  <button type="button" role="menuitem" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: "transparent", border: 0, borderBottom: `1px solid ${theme.border}`, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, justifyContent: "space-between", padding: "12px 14px", textAlign: "left" }}>
+                    <span style={{ alignItems: "center", display: "flex", gap: 9 }}>{darkMode ? <Moon aria-hidden="true" size={17} weight="bold" /> : <Sun aria-hidden="true" size={17} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
+                    <span style={{ color: theme.faint }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
+                  </button>
+                  {settingsSection === "theme" ? (
+                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, display: "grid", padding: 6 }}>
+                      {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
+                        <button key={String(value)} type="button" onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? theme.badgeInfoBg : "transparent", border: 0, borderRadius: 6, color: darkMode === value ? theme.accentText : theme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "space-between", padding: "8px 9px", textAlign: "left" }}>
+                          {label}{darkMode === value ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                  <button type="button" role="menuitem" onClick={() => { setSettingsOpen(false); setContactOpen(true) }} style={{ alignItems: "center", background: "transparent", border: 0, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, padding: "12px 14px", textAlign: "left" }}>
+                    <EnvelopeSimple aria-hidden="true" size={17} weight="bold" />{lang === "zh" ? "联系我们" : "Contact Us"}
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
           <ContextualHeaderBar
@@ -392,6 +449,8 @@ function AppShell({
             setActiveTab={navigateTab}
             onLoadBenchmark={loadBenchmarkExample}
             results={results}
+            propertyRecord={confirmedMofSelection?.record || null}
+            onOpenProperties={() => setPropertyOpen(true)}
           />
         </div>
       </header>
@@ -408,6 +467,7 @@ function AppShell({
                 loading={loading}
                 onPredict={handlePredict}
                 onNavigate={navigateTab}
+                materialConfirmed={Boolean(confirmedMofSelection)}
               />
             )}
             {activeTab === "performance" && (
@@ -588,6 +648,7 @@ function AppShell({
       <ContactModal open={contactOpen} onClose={closeContactModal} />
       <AcknowledgementsModal open={acknowledgementsOpen} onClose={closeAcknowledgementsModal} />
       <DisclaimerModal open={disclaimerOpen} onClose={closeDisclaimerModal} />
+      <PhysicochemicalPropertyModal open={propertyOpen} onClose={() => setPropertyOpen(false)} record={confirmedMofSelection?.record || null} />
       <CandidateComparisonModal
         open={homeComparisonOpen}
         candidates={[]}
@@ -627,6 +688,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchStatus, setSearchStatus] = useState(null)
   const [databaseSearchRows, setDatabaseSearchRows] = useState([])
+  const [confirmedMofSelection, setConfirmedMofSelection] = useState(null)
   const [savedOpen, setSavedOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [acknowledgementsOpen, setAcknowledgementsOpen] = useState(false)
@@ -892,8 +954,12 @@ export default function App() {
     Promise.all([
       fetchDataJson("core_mof_2024/cr_search_index.json", []),
       fetchDataJson("fair_mofs_property_index_v1.json", { records: [] }),
-    ]).then(([coreRows, fairIndex]) => {
+      fetchDataJson("mof_physicochemical_index_v1.json", { records: [], summary: {} }),
+    ]).then(([coreRows, fairIndex, physicochemicalIndex]) => {
       if (!active) return
+      const fairCrossValidationByCoreId = new Map(
+        (physicochemicalIndex?.records || []).map(record => [record.coreRecordId, record.fairMofsCrossValidation]),
+      )
       const exactFairByCoreId = new Map()
       for (const record of fairIndex?.records || []) {
         if (record.match?.structureIdentityLevel !== "exact-refcode") continue
@@ -905,6 +971,8 @@ export default function App() {
         ...record,
         databaseCandidateId: record.id,
         fairMofsRecord: exactFairByCoreId.get(record.id) || null,
+        fairMofsCrossValidation: fairCrossValidationByCoreId.get(record.id) || null,
+        physicochemicalCoverage: physicochemicalIndex?.summary || null,
         searchSource: exactFairByCoreId.has(record.id)
           ? "CoRE structure + FAIR-MOFs exact Refcode"
           : "CoRE MOF 2024 structure",
@@ -936,6 +1004,14 @@ export default function App() {
       active = false
     }
   }, [activeTab, databaseSearchRows.length, searchOpen, searchQuery])
+
+  useEffect(() => {
+    if (!confirmedMofSelection) return
+    const normalize = value => String(value || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "")
+    if (normalize(searchQuery) !== normalize(confirmedMofSelection.query)) {
+      setConfirmedMofSelection(null)
+    }
+  }, [confirmedMofSelection, searchQuery])
 
   const presetSuggestions = useMemo(() => {
     const presetRows = getPresetSuggestionNames(searchQuery)
@@ -986,6 +1062,7 @@ export default function App() {
       setSearchQuery(displayName)
       setSearchOpen(false)
       setSearchStatus("loaded")
+      setConfirmedMofSelection({ query: displayName, record })
       setRouteHash("ecoscreen")
       window.setTimeout(() => {
         document.getElementById("ecoscreen-scenario-controls")?.scrollIntoView({ block: "start", behavior: "smooth" })
@@ -999,14 +1076,46 @@ export default function App() {
       setSearchStatus("miss")
       return
     }
+    const normalizedPreset = String(presetName).toLowerCase().replace(/[^a-z0-9]+/g, "")
+    const matchedRecord = databaseSearchRows.find(record => [
+      record.commonName,
+      record.displayName,
+      record.csdRefcode,
+      ...(record.aliases || []),
+    ].some(value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "") === normalizedPreset)) || null
     setInputs(prev => {
       const { databaseCandidateId: _databaseCandidateId, ...rest } = prev
-      return { ...rest, ...preset, mofName: presetName }
+      return {
+        ...rest,
+        ...preset,
+        mofName: presetName,
+        ...(matchedRecord ? {
+          databaseCandidateId: matchedRecord.databaseCandidateId,
+          betSurfaceArea: matchedRecord.surfaceArea,
+          poreDiameter: matchedRecord.poreSizeA,
+          poreVolume: matchedRecord.poreVolume,
+        } : {}),
+      }
     })
     setSearchQuery(presetName)
     setSearchOpen(false)
     setSearchStatus("loaded")
-    setRouteHash("performance")
+    setConfirmedMofSelection({
+      query: presetName,
+      record: matchedRecord || {
+        displayName: presetName,
+        commonName: presetName,
+        sourceDatabase: "EcoMOF preset input",
+        sourceVersion: "preset",
+        surfaceArea: preset.betSurfaceArea,
+        poreSizeA: preset.poreDiameter,
+        pldA: preset.poreDiameter,
+        poreVolume: preset.poreVolume,
+        density: null,
+        voidFraction: null,
+      },
+    })
+    setRouteHash("ecoscreen")
     window.setTimeout(() => {
       document.getElementById("ecoscreen-scenario-controls")?.scrollIntoView({ block: "start", behavior: "smooth" })
       document.querySelector("[data-testid='ecoscreen-candidate-select']")?.focus()
@@ -1310,6 +1419,7 @@ export default function App() {
             closeContactModal={closeContactModal}
             closeAcknowledgementsModal={closeAcknowledgementsModal}
             closeDisclaimerModal={closeDisclaimerModal}
+            confirmedMofSelection={confirmedMofSelection}
           />
         </ViewportCtx.Provider>
       </LangCtx.Provider>

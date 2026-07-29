@@ -424,6 +424,18 @@
   margin: 0;
 }
 
+.mof-structure-property-source-link {
+  color: var(--mof-sw-accent-text);
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 .mof-structure-sidebar-resizer {
   background: color-mix(in srgb, var(--mof-sw-border) 72%, var(--mof-sw-bg));
   cursor: col-resize;

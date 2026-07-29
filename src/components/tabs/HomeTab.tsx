@@ -103,7 +103,7 @@ function StoryTransition({ index, label, t }) {
 }
 
 function ActionButton({ children, onClick, t, primary = false, wide = false, hash }) {
-  const buttonBackground = primary ? t.panel : t.surface
+  const buttonBackground = t.panel
   const hoverBackground = t.surface
 
   return (
@@ -119,15 +119,15 @@ function ActionButton({ children, onClick, t, primary = false, wide = false, has
         padding: "10px 16px",
         fontSize: 12.5,
         fontWeight: 850,
-        border: `1px solid ${primary ? (t.borderStrong || t.border) : t.border}`,
+        border: `1px solid ${t.borderStrong || t.border}`,
         borderRadius: 8,
         background: buttonBackground,
         color: t.textStrong,
         "--home-action-bg": buttonBackground,
         "--home-action-hover-bg": hoverBackground,
-        "--home-action-border": primary ? (t.borderStrong || t.border) : t.border,
+        "--home-action-border": t.borderStrong || t.border,
         "--home-action-hover-border": t.borderStrong || t.border,
-        "--home-action-shadow": primary ? "0 10px 22px rgba(15, 23, 42, 0.10)" : "0 7px 16px rgba(15, 23, 42, 0.06)",
+        "--home-action-shadow": "0 8px 18px rgba(15, 23, 42, 0.08)",
         width: wide ? "100%" : "auto",
         whiteSpace: "normal",
         textAlign: "center",
@@ -1013,6 +1013,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     { label: zh ? "生态筛选" : "Eco Screening", hash: "ecoscreen", target: "ecoscreen", primary: true },
     { label: zh ? "气体分离" : "Gas Separation", hash: "gassep", target: "gassep" },
     { label: zh ? "催化" : "Catalysis", hash: "catalysis", target: "catalysisLab" },
+    { label: zh ? "MOF库" : "MOF Library", hash: "library", target: "mofLibrary" },
     { label: zh ? "数据合规承诺" : "Data Compliance Pledge", hash: "database-compliance", target: "dataCompliance" },
     { label: zh ? "联系我们" : "Contact Us", hash: "contact", action: "contact" },
   ]

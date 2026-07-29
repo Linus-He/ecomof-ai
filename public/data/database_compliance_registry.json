@@ -1,23 +1,24 @@
 {
   "schemaVersion": "database-compliance-registry-v1",
-  "version": "V1.2",
+  "version": "V1.3",
   "documentControl": {
     "documentId": "ECOMOF-DCP-001",
     "natureZh": "项目级数据治理控制说明；不是 CCDC、Creative Commons、NIST、Zenodo、Figshare 或其他发布方颁发的授权证书",
     "natureEn": "Project-level data-governance control statement; not an authorization certificate issued by CCDC, Creative Commons, NIST, Zenodo, Figshare, or another publisher",
     "ownerZh": "EcoMOF-AI 数据治理与来源登记",
     "ownerEn": "EcoMOF-AI data governance and source registry",
-    "reviewCycleZh": "至少每 6 个月复核一次；条款、数据版本、用途或运营模式变化时立即复核",
-    "reviewCycleEn": "Review at least every six months and immediately after changes to terms, dataset versions, intended use, or operating mode",
-    "contact": "ecomofai@outlook.com"
+    "reviewCycleZh": "来源条款、数据版本、预期用途或非商业运营边界发生变化时立即重新核验",
+    "reviewCycleEn": "Re-verify immediately whenever source terms, dataset versions, intended use, or the non-commercial operating boundary changes",
+    "contact": "ecomofai@outlook.com",
+    "version": "V1.3"
   },
   "operatingMode": {
     "zh": "EcoMOF-AI 的公开数据使用范围限定为非商业研究；任何超出来源许可的用途均不因访问本网站而获得授权。",
     "en": "EcoMOF-AI limits public data use to non-commercial research; access to this website does not authorize any use beyond the source terms."
   },
   "statusStatement": {
-    "zh": "本文件只登记适用条文、凭证、缺口与停止条件，不作“已经全面合规”或“已获统一授权”的自我认证。公开许可只覆盖其明确指定的数据对象和使用范围；逐记录许可未知、机构协议缺失或商业用途未获书面许可时，相关使用必须停止。",
-    "en": "This document records applicable clauses, evidence, gaps, and stop conditions; it does not self-certify comprehensive compliance or blanket authorization. A public licence covers only the identified material and stated scope. Use must stop when record-level terms are unknown, an institutional agreement is missing, or commercial use lacks written permission."
+    "zh": "EcoMOF-AI 按非商业研究模式运行。当前物化性质主层为 9,835 条 CoRE MOF 2024 CSD-modified CR 结构记录；FAIR-MOFs 仅在 CSD Refcode 完全一致时提供独立交叉记录。许可、来源和科学适用性必须按具体数据对象分别判断。",
+    "en": "EcoMOF-AI operates in non-commercial research mode. The primary physicochemical layer contains 9,835 CoRE MOF 2024 CSD-modified CR structure records; FAIR-MOFs supplies an independent cross-record only for an identical CSD Refcode. Licence, provenance, and scientific fitness must be assessed for each data object."
   },
   "accessBoundary": {
     "zh": "访问本网站不等于获得任何数据库的商业许可、再许可或超出原许可的权利。每个数据对象继续受其来源许可、合同条款、论文版权及其他适用权利约束。",
@@ -330,8 +331,8 @@
       "id": "cc-by-4",
       "titleZh": "CC BY 4.0：全部适用控制条文",
       "titleEn": "CC BY 4.0: all applicable control clauses",
-      "scopeZh": "适用于 FAIR-MOFs 与 QMOF 发布页明确标注为 CC BY 4.0 的材料；只覆盖发布者有权许可的权利。",
-      "scopeEn": "Applies to materials identified as CC BY 4.0 on the FAIR-MOFs and QMOF publication pages, and only to rights the publisher has authority to license.",
+      "scopeZh": "适用于 FAIR-MOFs 发布页明确标注为 CC BY 4.0 的材料；只覆盖发布者有权许可的权利。",
+      "scopeEn": "Applies to materials identified as CC BY 4.0 on the FAIR-MOFs publication pages, and only to rights the publisher has authority to license.",
       "clauses": [
         {
           "id": "BY-01",
@@ -553,8 +554,8 @@
       "statusEn": "Public-licence evidence available",
       "authorizationZh": "CCDC 官方下载页将该特定集合标为 CC BY-NC-SA 4.0；只支持许可定义下的非商业使用，不构成商业许可。",
       "authorizationEn": "The official CCDC downloads page identifies this specific collection as CC BY-NC-SA 4.0. It supports only NonCommercial use within that licence and is not a commercial licence.",
-      "limitationZh": "没有发现 CCDC 向 EcoMOF-AI 出具的个别授权证书；所依据的是面向公众的下载条款。15,906 条索引/CIF 在独立数据仓库中与应用代码分发；本仓库试点 manifest 仍标记需认证下载，不能把同名 CoRE/QMOF 结构冒充该集合成员。",
-      "limitationEn": "No individual CCDC authorization certificate issued to EcoMOF-AI is recorded; the evidence is the public download terms. The 15,906-entry index/CIF package is distributed separately from the app code. This repository's pilot manifest still requires authenticated download and does not permit same-name CoRE/QMOF structures to be presented as collection members.",
+      "limitationZh": "没有发现 CCDC 向 EcoMOF-AI 出具的个别授权证书；所依据的是面向公众的下载条款。15,906 条索引/CIF 在独立数据仓库中与应用代码分发；本仓库试点 manifest 仍标记需认证下载，不能把未经核验的同名外部结构冒充该集合成员。",
+      "limitationEn": "No individual CCDC authorization certificate issued to EcoMOF-AI is recorded; the evidence is the public download terms. The 15,906-entry index/CIF package is distributed separately from the app code. This repository's pilot manifest still requires authenticated download and does not permit unverified same-name external structures to be presented as collection members.",
       "evidence": [
         {
           "kindZh": "发布方许可页面",
@@ -665,10 +666,10 @@
       "status": "public-licence",
       "statusZh": "公开许可与文件校验凭证存在",
       "statusEn": "Public licence and file-verification evidence available",
-      "authorizationZh": "Zenodo 数据集记录将 FAIR-MOFs 标为 CC BY 4.0，并公布 DOI、文件清单与校验值；项目接入选择的 JSON 事实字段。",
-      "authorizationEn": "The Zenodo dataset record identifies FAIR-MOFs as CC BY 4.0 and publishes its DOI, file list, and checksums. The project ingests selected factual JSON fields.",
-      "limitationZh": "项目未复制 FAIR CIF 归档；精确 Refcode、base variant 和 article-only 映射分开处理。CC BY 不覆盖发布者无权许可的第三方权利。",
-      "limitationEn": "The project does not copy the FAIR CIF archives, and keeps exact Refcode, base-variant, and article-only mappings separate. CC BY does not cover third-party rights the publisher lacks authority to license.",
+      "authorizationZh": "Zenodo 数据集记录将 FAIR-MOFs 标为 CC BY 4.0，并公布 DOI、逐文件清单与校验值。项目使用 porosity_of_unoptimised_mof.json 建立严格 Refcode 交叉层，并保留来源文件 MD5。",
+      "authorizationEn": "The Zenodo dataset record identifies FAIR-MOFs as CC BY 4.0 and publishes its DOI, file inventory, and checksums. The project uses porosity_of_unoptimised_mof.json for a strict Refcode cross-layer and retains the source-file MD5.",
+      "limitationZh": "37,452 条 FAIR 孔隙记录不直接并入 CoRE 身份层；只有 3,451 条与当前 CoRE 结构的 CSD Refcode 完全一致。其余记录不以 DOI、化学式、基础 Refcode 或名称相似度强行合并。CC BY 不覆盖发布者无权许可的第三方权利。",
+      "limitationEn": "The 37,452 FAIR porosity records are not directly merged into the CoRE identity layer. Only 3,451 have an identical CSD Refcode in the current CoRE corpus. The remainder are not force-joined by DOI, formula, base Refcode, or name similarity. CC BY does not cover third-party rights the publisher lacks authority to license.",
       "evidence": [
         {
           "kindZh": "数据集与许可记录",
@@ -687,38 +688,18 @@
           "kindEn": "Repository source registry",
           "label": "public/data/data_ingestion/source_registry.json · SRC-FAIR-MOFS-V1",
           "localPath": "public/data/data_ingestion/source_registry.json"
-        }
-      ]
-    },
-    {
-      "id": "cred-qmof",
-      "sourceZh": "QMOF",
-      "sourceEn": "QMOF",
-      "status": "documented-quarantined",
-      "statusZh": "公开许可凭证存在，但数据保持隔离",
-      "statusEn": "Public licence evidence available, but data remains quarantined",
-      "authorizationZh": "Figshare QMOF 数据集记录标注 CC BY 4.0。",
-      "authorizationEn": "The Figshare QMOF dataset record is marked CC BY 4.0.",
-      "limitationZh": "原有 1,240 条记录是缺少逐行 QMOF 身份的随机占位符，已排除；授权标签不能修复数据身份与溯源缺陷，因此公开有效记录为 0。",
-      "limitationEn": "The former 1,240 rows were random placeholders without row-level QMOF identity and are excluded. A licence label cannot cure identity and provenance defects, so the active public count is zero.",
-      "evidence": [
-        {
-          "kindZh": "数据集与许可记录",
-          "kindEn": "Dataset and licence record",
-          "label": "Figshare QMOF Database · CC BY 4.0",
-          "url": "https://figshare.com/articles/dataset/QMOF_Database/13147324"
         },
         {
-          "kindZh": "仓库内隔离记录",
-          "kindEn": "Repository quarantine record",
-          "label": "public/data/data_ingestion/source_registry.json · SRC-QMOF",
-          "localPath": "public/data/data_ingestion/source_registry.json"
+          "kindZh": "源文件与校验值",
+          "kindEn": "Source file and checksum",
+          "label": "porosity_of_unoptimised_mof.json · md5:f2ceed4e002c44f309221d604bc391f8",
+          "url": "https://zenodo.org/records/13254307"
         },
         {
-          "kindZh": "仓库内数据清单",
-          "kindEn": "Repository dataset manifest",
-          "label": "public/data/database_index/manifest.json · active 0",
-          "localPath": "public/data/database_index/manifest.json"
+          "kindZh": "严格身份交叉索引",
+          "kindEn": "Strict identity cross-index",
+          "label": "public/data/mof_physicochemical_index_v1.json · exact CSD Refcode only",
+          "localPath": "public/data/mof_physicochemical_index_v1.json"
         }
       ]
     },
@@ -905,8 +886,8 @@
       "titleZh": "CC BY 4.0 法律文本",
       "titleEn": "CC BY 4.0 legal code",
       "url": "https://creativecommons.org/licenses/by/4.0/legalcode.en",
-      "scopeZh": "FAIR-MOFs/QMOF 等来源适用的署名、许可链接、修改说明与不得误示背书",
-      "scopeEn": "Attribution, licence link, change indication, and no-endorsement terms relevant to sources such as FAIR-MOFs/QMOF"
+      "scopeZh": "FAIR-MOFs 等来源适用的署名、许可链接、修改说明与不得误示背书",
+      "scopeEn": "Attribution, licence link, change indication, and no-endorsement terms relevant to sources such as FAIR-MOFs"
     },
     {
       "id": "fair-mofs-record",
@@ -925,15 +906,6 @@
       "url": "https://zenodo.org/records/15055758",
       "scopeZh": "数据集版本、DOI、作者与 CSD-modified 数据来源定位",
       "scopeEn": "Dataset version, DOI, authors, and source location for CSD-modified data"
-    },
-    {
-      "id": "qmof-record",
-      "publisher": "Figshare",
-      "titleZh": "QMOF 数据集记录",
-      "titleEn": "QMOF dataset record",
-      "url": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
-      "scopeZh": "数据集版本、作者、引用与 CC BY 4.0 许可标记",
-      "scopeEn": "Dataset version, author, citation, and CC BY 4.0 licence label"
     },
     {
       "id": "nist-isodb",
@@ -1145,8 +1117,8 @@
       "id": "core-mof-2024-csd-modified",
       "name": "CoRE MOF 2024 · CSD-modified CR",
       "status": "active",
-      "roleZh": "当前结构/描述符计算主库",
-      "roleEn": "Active structure and descriptor computation corpus",
+      "roleZh": "9,835 条结构记录的主物化性质与描述符层",
+      "roleEn": "Primary physicochemical-property and descriptor layer for 9,835 structure records",
       "recordCount": 9835,
       "version": "CoRE MOF 2024 v1.1 · CSD-modified · CR subset",
       "licence": "CC BY-NC-SA 4.0 plus the download page's referenced CCDC standard terms",
@@ -1160,17 +1132,17 @@
       "allowedEn": "Use for structure display, descriptor aggregation, and derived analysis within the non-commercial research boundary, preserving source, licence, and change notices.",
       "prohibitedZh": "不接入、不发布 CoRE-MOF unmodified CSD CIF；不把 CSD-modified 的许可解释为付费 CSD 原始数据的开放授权。",
       "prohibitedEn": "Do not ingest or publish CoRE-MOF unmodified CSD CIFs, and do not treat CSD-modified terms as an open grant for original paid-CSD data.",
-      "projectHandlingZh": "只接入 CCDC 下载页标明的 modified CIF 数据；unmodified 数据明确排除。",
-      "projectHandlingEn": "Only the modified-CIF dataset identified on the CCDC download page is ingested; unmodified data is explicitly excluded."
+      "projectHandlingZh": "只接入 CCDC 下载页标明的 modified 数据对象；9,835 条记录逐条显示比表面积、孔体积、PLD、LCD、密度和空隙率。unmodified 数据明确排除，所有展示标注非商业研究边界。",
+      "projectHandlingEn": "Only the modified data object identified on the CCDC download page is ingested. All 9,835 records expose surface area, pore volume, PLD, LCD, density, and void fraction. Unmodified data are explicitly excluded and every display retains the non-commercial research boundary."
     },
     {
       "id": "fair-mofs",
       "name": "FAIR-MOFs",
       "status": "active",
-      "roleZh": "合成条件、DOI 与派生物化性质证据层",
-      "roleEn": "Synthesis conditions, DOI, and derived physicochemical evidence layer",
-      "recordCount": 4168,
-      "version": "Zenodo record 13254307 · v1 files",
+      "roleZh": "37,452 条孔隙性质记录、4,168 条合成条件/DOI 记录与严格 Refcode 交叉证据层",
+      "roleEn": "37,452 porosity records, 4,168 synthesis-condition/DOI records, and a strict Refcode cross-evidence layer",
+      "recordCount": 37452,
+      "version": "Zenodo record 13254307 · porosity_of_unoptimised_mof.json + synthesis JSON",
       "licence": "CC BY 4.0",
       "sourceUrl": "https://zenodo.org/records/13254307",
       "licenceUrls": [
@@ -1181,8 +1153,8 @@
       "allowedEn": "Copy, reuse, and adapt under CC BY 4.0 with appropriate credit, licence link, and indication of changes.",
       "prohibitedZh": "不得暗示来源方背书，不得以 FAIR-MOFs 的 CC BY 许可覆盖其关联论文全文或另有权利约束的底层晶体数据。",
       "prohibitedEn": "Do not imply source endorsement or use FAIR-MOFs CC BY terms to override rights in linked article full text or separately controlled underlying crystal data.",
-      "projectHandlingZh": "仅公开经校验的条件/DOI/物性索引与派生证据；不复制 FAIR-MOFs CIF 档案。结构映射只接受精确 Refcode，DOI 只作文献层级关联。",
-      "projectHandlingEn": "Publish only validated condition/DOI/property indexes and derived evidence; no FAIR-MOFs CIF archive is copied. Structure mapping requires an exact Refcode; DOI remains article-level association."
+      "projectHandlingZh": "不复制 FAIR-MOFs CIF 归档。物化交叉层只保留与当前 CoRE 结构完全一致的 CSD Refcode（3,451 条），且不覆盖 CoRE 主值；合成条件与 DOI 仍按原有 4,168 条登记。",
+      "projectHandlingEn": "No FAIR-MOFs CIF archive is copied. The property cross-layer retains only CSD Refcodes identical to the current CoRE corpus (3,451 records) and never overwrites CoRE primary values; synthesis conditions and DOI links remain registered for 4,168 records."
     },
     {
       "id": "nist-isodb",
@@ -1202,27 +1174,6 @@
       "prohibitedEn": "No blanket open licence is asserted for the corpus, and linked articles or third-party records are not relicensed to users.",
       "projectHandlingZh": "保留字段级来源、数据等级与计算/实验区分；不发布来源未确认的批量原始档案。",
       "projectHandlingEn": "Preserve field-level provenance and computed/experimental grades; do not publish bulk raw archives with unresolved source rights."
-    },
-    {
-      "id": "qmof",
-      "name": "QMOF",
-      "status": "quarantined",
-      "roleZh": "历史占位数据已清退",
-      "roleEn": "Historical placeholder rows removed",
-      "recordCount": 0,
-      "version": "No active public ingestion",
-      "licence": "Not relied on for active rows",
-      "sourceUrl": "https://figshare.com/articles/dataset/QMOF_Database/13147324",
-      "licenceUrls": [
-        "https://creativecommons.org/licenses/by/4.0/legalcode.en"
-      ],
-      "publisher": "QMOF authors / Figshare",
-      "allowedZh": "未来只有在记录身份、文件校验、许可和字段来源全部通过后才能重新接入。",
-      "allowedEn": "Future ingestion is allowed only after record identity, file validation, licence, and field provenance all pass review.",
-      "prohibitedZh": "当前不得把历史伪造/占位行当作 QMOF 真实记录、物性或催化证据。",
-      "prohibitedEn": "Historical fabricated/placeholder rows must not be presented as real QMOF records, properties, or catalysis evidence.",
-      "projectHandlingZh": "活动记录数为 0；旧占位明细已从计算和公开索引排除。",
-      "projectHandlingEn": "Active record count is zero; legacy placeholder details are excluded from computation and public indexes."
     },
     {
       "id": "literature",

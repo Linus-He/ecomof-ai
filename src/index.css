@@ -1534,17 +1534,9 @@ details[open].motion-surface {
 .home-primary-entry-grid {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 720px;
   width: 100%;
-}
-
-.home-primary-entry-grid > .home-action-button:nth-child(-n + 3) {
-  grid-column: span 2;
-}
-
-.home-primary-entry-grid > .home-action-button:nth-child(n + 4) {
-  grid-column: span 3;
 }
 
 .home-primary-entry-grid > .home-action-button {
@@ -3856,6 +3848,23 @@ input[type="submit"] {
   border-left-color: transparent !important;
   border-right-color: transparent !important;
   border-radius: 10px !important;
+}
+
+.home-story-shell [data-testid="home-data-foundation"] {
+  border-top-color: color-mix(in srgb, currentColor 6%, transparent) !important;
+  margin-top: -6px;
+  position: relative;
+}
+
+.home-story-shell [data-testid="home-data-foundation"]::before {
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, currentColor 2%, transparent));
+  content: "";
+  height: 34px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: -34px;
 }
 
 .home-story-shell .explorer-chart-shell {

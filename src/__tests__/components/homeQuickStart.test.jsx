@@ -51,6 +51,7 @@ describe("home quick start", () => {
       ["生态筛选", "#ecoscreen", "ecoscreen"],
       ["气体分离", "#gassep", "gassep"],
       ["催化", "#catalysis", "catalysisLab"],
+      ["MOF库", "#library", "mofLibrary"],
       ["数据合规承诺", "#database-compliance", "dataCompliance"],
     ]
 
@@ -69,7 +70,7 @@ describe("home quick start", () => {
     expect(setActiveTab).toHaveBeenCalledTimes(expected.length)
   })
 
-  it("keeps the primary entry group in the requested three-over-two order", () => {
+  it("keeps the primary entry group in the requested three-over-three order", () => {
     renderHome()
     const entryGrid = screen.getByTestId("home-primary-entry-grid")
     expect(entryGrid).toHaveClass("home-primary-entry-grid")
@@ -77,6 +78,7 @@ describe("home quick start", () => {
       "生态筛选",
       "气体分离",
       "催化",
+      "MOF库",
       "数据合规承诺",
       "联系我们",
     ])

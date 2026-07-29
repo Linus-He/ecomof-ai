@@ -595,6 +595,7 @@ export function EcoLcaWorkbench({
   predictionResult,
   predicting,
   onPredict,
+  materialConfirmed = false,
 }) {
   const t = useT()
   const { lang } = useLang()
@@ -956,22 +957,33 @@ export function EcoLcaWorkbench({
       <WorkbenchNav t={t} lang={lang} />
 
       <div data-testid="ecoscreen-lca-status" style={{ alignItems: "center", color: t.subtle, display: "flex", flexWrap: "wrap", fontSize: 12, gap: 8, lineHeight: 1.55 }}>
-        <strong style={{ color: t.textStrong }}>{tr(lang, "当前结论等级", "Current conclusion level")}</strong>
-        <BasisBadge tone={result.readiness.comparable ? "calc" : "proxy"}>
-          {result.readiness.comparable ? tr(lang, "候选可比较", "Candidate-comparable") : tr(lang, "情景估算", "Scenario estimate")}
-        </BasisBadge>
-        <span>·</span>
-        <span>{tr(lang, `结构 ${number(coreIndexSummary.recordCount, 0)} · 合成证据 ${number(processEvidence.summary?.emittedRecordCount, 0)}`, `${number(coreIndexSummary.recordCount, 0)} structures · ${number(processEvidence.summary?.emittedRecordCount, 0)} synthesis records`)}</span>
-        <span>·</span>
-        <span>{tr(lang, `候选级 LCI 准备度 ${Math.round(result.readiness.score * 100)}%`, `Candidate-level LCI readiness ${Math.round(result.readiness.score * 100)}%`)}</span>
-        <span>·</span>
-        <BasisBadge tone="info">{tr(lang, currentBaseline.labelZh, currentBaseline.labelEn)}</BasisBadge>
+        {materialConfirmed ? (
+          <>
+            <strong style={{ color: t.textStrong }}>{tr(lang, "当前结论等级", "Current conclusion level")}</strong>
+            <BasisBadge tone={result.readiness.comparable ? "calc" : "proxy"}>
+              {result.readiness.comparable ? tr(lang, "候选可比较", "Candidate-comparable") : tr(lang, "情景估算", "Scenario estimate")}
+            </BasisBadge>
+            <span>·</span>
+            <span>{tr(lang, `结构 ${number(coreIndexSummary.recordCount, 0)} · 合成证据 ${number(processEvidence.summary?.emittedRecordCount, 0)}`, `${number(coreIndexSummary.recordCount, 0)} structures · ${number(processEvidence.summary?.emittedRecordCount, 0)} synthesis records`)}</span>
+            <span>·</span>
+            <span>{tr(lang, `候选级 LCI 准备度 ${Math.round(result.readiness.score * 100)}%`, `Candidate-level LCI readiness ${Math.round(result.readiness.score * 100)}%`)}</span>
+            <span>·</span>
+            <BasisBadge tone="info">{tr(lang, currentBaseline.labelZh, currentBaseline.labelEn)}</BasisBadge>
+          </>
+        ) : (
+          <>
+            <strong style={{ color: t.textStrong }}>{tr(lang, "等待确认材料", "Awaiting confirmed material")}</strong>
+            <span>·</span>
+            <span>{tr(lang, `可检索 ${number(coreIndexSummary.recordCount, 0)} 条结构记录`, `${number(coreIndexSummary.recordCount, 0)} searchable structure records`)}</span>
+          </>
+        )}
       </div>
 
       <Callout tone="warn">
         {tr(lang, model.boundaryZh, model.boundaryEn)}
       </Callout>
 
+      {materialConfirmed ? (
       <Card
         id="ecoscreen-material-conclusion"
         t={t}
@@ -1099,7 +1111,32 @@ export function EcoLcaWorkbench({
           ) : null}
         </div>
       </Card>
+      ) : (
+        <section
+          data-testid="ecoscreen-material-awaiting-confirmation"
+          style={{
+            background: t.surface,
+            border: `1px dashed ${t.borderStrong || t.border}`,
+            borderRadius: 10,
+            display: "grid",
+            gap: 8,
+            justifyItems: "start",
+            padding: isMobile ? 18 : "22px 24px",
+          }}
+        >
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{tr(lang, "请先在上方检索并确认一个 MOF", "Search and confirm a MOF above")}</strong>
+          <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.65, maxWidth: 760 }}>
+            {tr(
+              lang,
+              "确认后才会建立材料身份、加载对应物化性质，并显示该材料的生命周期与成本计算模块。系统不会在未确认时预填示例材料或提前呈现静态结论。",
+              "Only a confirmed selection establishes material identity, loads its physicochemical properties, and reveals the material-specific life-cycle and cost module. No example material or static conclusion is shown before confirmation.",
+            )}
+          </span>
+        </section>
+      )}
 
+      {materialConfirmed ? (
+      <>
       <Card id="ecoscreen-goal-scope" t={t} style={{ display: "grid", gap: 13, scrollMarginTop: 168 }} data-testid="ecoscreen-goal-scope">
         <SectionHead
           t={t}
@@ -1512,6 +1549,8 @@ export function EcoLcaWorkbench({
           ))}
         </div>
       </Card>
+      </>
+      ) : null}
     </div>
   )
 }

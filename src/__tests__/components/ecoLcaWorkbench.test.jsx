@@ -87,12 +87,12 @@ vi.mock("../../services/dataService", async importOriginal => {
   }
 })
 
-function renderWorkbench(lang = "zh") {
+function renderWorkbench(lang = "zh", materialConfirmed = true) {
   return render(
     <ThemeCtx.Provider value={THEME_LIGHT}>
       <LangCtx.Provider value={{ lang, copy: COPY[lang], setLang: vi.fn() }}>
         <ViewportCtx.Provider value={{ isNarrow: false, isMobile: false }}>
-          <EcoLcaWorkbench />
+          <EcoLcaWorkbench materialConfirmed={materialConfirmed} />
         </ViewportCtx.Provider>
       </LangCtx.Provider>
     </ThemeCtx.Provider>,
@@ -100,6 +100,14 @@ function renderWorkbench(lang = "zh") {
 }
 
 describe("EcoScreen LCA-first workbench", () => {
+  it("withholds material calculations until the header search is confirmed", async () => {
+    renderWorkbench("zh", false)
+    const workbench = await screen.findByTestId("ecoscreen-lca-workbench")
+    expect(within(workbench).getByText("等待确认材料")).toBeInTheDocument()
+    expect(within(workbench).queryByTestId("ecoscreen-lca-results")).not.toBeInTheDocument()
+    expect(within(workbench).queryByText("UiO-66")).not.toBeInTheDocument()
+  })
+
   it("renders the LCA chain, economic model, readiness gate, and source basis", async () => {
     renderWorkbench()
     const workbench = await screen.findByTestId("ecoscreen-lca-workbench")

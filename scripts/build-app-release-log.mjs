@@ -278,6 +278,79 @@ const V1_0_1_RELEASE = {
 
 const RECENT_RELEASES = [
   {
+    appVersion: "v1.0.10",
+    date: "2026-07-29",
+    stage: "unified-platform",
+    headline: {
+      zh: "v1.0.10：接入 MOF 物化性质检索，重构导航、生态筛选确认逻辑与数据合规页面。",
+      en: "v1.0.10: adds MOF physicochemical-property search and rebuilds navigation, EcoScreen confirmation logic, and data compliance.",
+    },
+    summary: {
+      zh: "本轮按非商业研究边界接入 CoRE MOF 2024 CR 主性质层，并以 FAIR‑MOFs 的 CSD Refcode 完全一致记录作独立交叉证据；首页改为上三下三六入口，语言、主题和联系方式收纳到设置菜单；生态筛选只在确认材料后显示计算内容；MOF 库同步提供性质查询和结构侧栏；合规页删除非授权控制卡和 QMOF 展示，以 43 条条文、9 项授权凭证、来源登记和发布方原文链接构成正式说明。",
+      en: "Under a non-commercial research boundary, this release adds the CoRE MOF 2024 CR primary property layer with exact CSD-Refcode FAIR-MOFs records as independent cross-evidence; changes the homepage to a six-entry three-by-two grid; collects language, theme, and contact controls in one settings menu; reveals EcoScreen calculations only after material confirmation; exposes property search in the MOF Library and structure sidebar; and replaces the non-authorizing control card and QMOF display with a formal compliance statement containing 43 clauses, 9 authorization records, source registration, and publisher-original links.",
+    },
+    modules: {
+      ui: {
+        summary: {
+          zh: "首页、主导航和全局设置按统一的实体控件与中文居中规则重排。",
+          en: "Reorganizes the homepage, primary navigation, and global settings with consistent solid controls and centered Chinese labels.",
+        },
+        changes: [
+          { zh: "首页六个实体入口固定为“生态筛选、气体分离、催化、MOF库、数据合规承诺、联系我们”，桌面端上三下三排列。", en: "Fixes six solid homepage entries—EcoScreen, Gas Separation, Catalysis, MOF Library, Data Compliance, and Contact—in a desktop three-by-two grid." },
+          { zh: "语言切换、深浅色模式和联系我们合并到单一齿轮设置菜单；邮箱只在联系弹窗中显示。", en: "Collects language, light/dark appearance, and Contact Us inside one gear settings menu; the email remains visible only in the contact dialog." },
+          { zh: "桌面导航改为左右等宽轨道和固定中央栏，解决中文模式下导航整体偏移。", en: "Uses equal outer tracks and a fixed central rail to remove the Chinese-mode navigation offset." },
+          { zh: "数据基础段落减弱上边框并补充过渡留白，保持与现有冷蓝研究界面的设计语言一致。", en: "Softens the data-foundation top border and adds transition space while retaining the existing cool-blue research design language." },
+        ],
+      },
+      ecoScreen: {
+        summary: {
+          zh: "材料确认成为计算结果出现的明确前置条件，并新增同一材料的物化性质弹窗。",
+          en: "Makes material confirmation an explicit prerequisite for calculations and adds a physicochemical-property dialog for the same material.",
+        },
+        changes: [
+          { zh: "移除默认 UiO‑66 已计算假象；搜索框未确认时只显示待确认空状态，不预先渲染材料、公式或结论。", en: "Removes the precomputed UiO-66 illusion; before search confirmation, only an awaiting-confirmation state is shown, without material, formula, or conclusion content." },
+          { zh: "在搜索确认区新增“查看物化性质”，只有确认有效 MOF 后才能打开，并提供显式关闭、Esc 和背景关闭。", en: "Adds View Physicochemical Properties to the confirmation bar, enabled only for a confirmed MOF, with explicit close, Escape, and backdrop dismissal." },
+          { zh: "确认后的材料选择、物化档案与生态筛选计算共享同一条记录，修改输入会清除旧确认状态。", en: "The confirmed material, property record, and EcoScreen calculation share one record; editing the query clears the previous confirmation." },
+        ],
+      },
+      database: {
+        summary: {
+          zh: "以 CoRE 主值和 FAIR 严格交叉层扩展 MOF 物化性质覆盖，并同步到 MOF 库。",
+          en: "Expands MOF physicochemical-property coverage with CoRE primary values and a strict FAIR cross-layer, surfaced throughout the MOF Library.",
+        },
+        changes: [
+          { zh: "建立 9,835 条 CoRE MOF 2024 CSD‑modified CR 物化索引，提供比表面积、孔体积、PLD、LCD、密度和空隙率。", en: "Builds a 9,835-record CoRE MOF 2024 CSD-modified CR physicochemical index with surface area, pore volume, PLD, LCD, density, and void fraction." },
+          { zh: "审计 FAIR‑MOFs 37,452 条孔隙记录，仅保留 3,451 条与当前 CoRE 结构 CSD Refcode 完全一致的交叉记录，不进行模糊合并。", en: "Audits 37,452 FAIR-MOFs porosity records and retains only 3,451 exact CSD-Refcode cross-records against the current CoRE corpus, with no fuzzy merge." },
+          { zh: "MOF 库结构工作台上方新增物化性质搜索，结构侧栏同步显示当前材料的六项 CoRE 主值和 FAIR 精确匹配状态。", en: "Adds physicochemical-property search above the MOF Library structure workbench and shows six CoRE primary values plus exact FAIR match status in the structure sidebar." },
+          { zh: "删除“身份层与材料档案 / 数据库联通状态”展示模块，避免把覆盖统计包装成材料性质结论。", en: "Removes the Identity Layer / Database Linkage presentation block so coverage statistics are not presented as material-property conclusions." },
+        ],
+      },
+      dataCompliance: {
+        summary: {
+          zh: "以非商业用途、逐来源许可和可核验原文为中心重新组织责任页面。",
+          en: "Reorganizes the responsibility page around non-commercial use, source-specific licences, and verifiable primary terms.",
+        },
+        changes: [
+          { zh: "保留并逐项列示 43 条适用条文、9 项授权凭证或缺口、六步使用核验、来源登记和争议响应程序。", en: "Retains and itemizes 43 applicable clauses, 9 authorization records or gaps, the six-step use review, source registration, and dispute-response procedure." },
+          { zh: "删除 ECOMOF‑DCP‑001 非授权控制卡和 QMOF 展示，不以内部编号模拟权利人授权文件。", en: "Removes the ECOMOF-DCP-001 non-authorizing control card and QMOF display so an internal identifier cannot resemble a rightsholder authorization." },
+          { zh: "登记 CoRE 9,835 条主性质记录和 FAIR 37,452 条原始孔隙记录 / 3,451 条精确交叉记录，并明确两层许可与数值优先级。", en: "Registers the 9,835 CoRE primary-property records and 37,452 FAIR source porosity records / 3,451 exact cross-records, with explicit licence and value-precedence boundaries." },
+          { zh: "删除“截至某日已完成”等时点式自我认证；所有外部条款以发布方原文为准，商业用途必须另行取得授权。", en: "Removes dated self-certification language; publisher originals govern all external terms, and commercial use requires separate authorization." },
+        ],
+      },
+      projectEvolution: {
+        summary: {
+          zh: "统一版本中心完整记录本轮已完成范围，历史沿革继续保留原始模块版本。",
+          en: "The unified release center records the completed scope while preserving original module versions in project history.",
+        },
+        changes: [
+          { zh: "新增 v1.0.10 的界面、生态筛选、数据库和合规变更明细。", en: "Adds detailed v1.0.10 UI, EcoScreen, database, and compliance changes." },
+          { zh: "当前版本徽章、版本选择器、模块更新区和开发日志继续读取同一发布记录。", en: "Keeps the current-version badge, selector, module update area, and development log on the same release record." },
+          { zh: "pre‑1.0 历史沿革继续按原始版本号和模块归类展示，不重编号、不留空白。", en: "Continues to show pre-1.0 history by original version and module without renumbering or blank content." },
+        ],
+      },
+    },
+  },
+  {
     appVersion: "v1.0.9",
     date: "2026-07-29",
     stage: "unified-platform",
@@ -547,14 +620,14 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     developmentLog: {
-      baseAppVersion: "v1.0.8",
-      developmentVersion: "v1.0.9",
+      baseAppVersion: "v1.0.9",
+      developmentVersion: "v1.0.10",
       recordedAt: GENERATED_AT,
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.9 只记录本轮实际完成并通过检查的修复与重构，不把计划项写成已完成。",
-        en: "v1.0.9 records only fixes and rebuilds completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.10 只记录本轮实际完成并通过检查的修复、数据接入与重构，不把计划项写成已完成。",
+        en: "v1.0.10 records only fixes, data integration, and rebuilds completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,

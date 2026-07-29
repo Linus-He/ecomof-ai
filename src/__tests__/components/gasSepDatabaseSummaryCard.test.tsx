@@ -17,7 +17,7 @@ describe("GasSepDatabaseSummaryCard", () => {
     render(<GasSepDatabaseSummaryCard summary={summary} exportRows={buildGasSepExportRows(records)} lang="en" t={THEME_LIGHT} isMobile={false} />)
     expect(screen.getByTestId("gassep-database-summary")).toBeInTheDocument()
     expect(screen.getByTestId("gassep-export-button")).toBeInTheDocument()
-    expect(body()).toMatch(/Web v1\.0\.9/)
+    expect(body()).toMatch(/Web v1\.0\.10/)
     expect(body()).toMatch(/Adsorption Records/)
     expect(body()).toMatch(/Source distribution/)
     for (const bad of FORBIDDEN) expect(body()).not.toContain(bad)

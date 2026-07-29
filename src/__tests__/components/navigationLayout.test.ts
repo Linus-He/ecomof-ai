@@ -11,12 +11,22 @@ describe("top navigation layout", () => {
     expect(source).toContain("const compactHeader = viewport.width < 1320")
     expect(source).toContain("const veryCompactHeader = viewport.width < 760")
     expect(source).toContain('"auto minmax(0, 1fr) auto"')
-    expect(source).toContain('"118px minmax(0, 1fr) 96px"')
-    expect(source).toContain('"minmax(180px, auto) minmax(0, 1fr) auto"')
+    expect(source).toContain('"96px minmax(0, 1fr) 96px"')
+    expect(source).toContain('"minmax(180px, 1fr) minmax(0, 880px) minmax(180px, 1fr)"')
     expect(source).toContain('position: "static"')
     expect(source).not.toContain('position: compactHeader && !veryCompactHeader ? "fixed" : "static"')
     expect(source).toContain('width: "100%"')
     expect(source).toContain('overscrollBehaviorX: "contain"')
+  })
+
+  it("collects language, appearance, and contact controls in one settings menu", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+
+    expect(source).toContain("<GearSix")
+    expect(source).toContain('aria-haspopup="menu"')
+    expect(source).toContain("语言")
+    expect(source).toContain("外观")
+    expect(source).toContain("联系我们")
   })
 
   it("centers the desktop rail and turns it into a horizontal scroller at compact widths", () => {
