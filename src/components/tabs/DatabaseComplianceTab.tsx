@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import complianceRegistry from "../../../public/data/database_compliance_registry.json"
-import { CopyLinkButton, PageHeader, toolbarBtn, useLang, useT, useViewport } from "../../shared"
+import { CopyLinkButton, PageHeader, toolbarBtn, useLang, useT } from "../../shared"
 
 const text = (lang, zh, en) => lang === "zh" ? zh : en
 
@@ -19,13 +19,13 @@ const OBLIGATION_TITLES = {
 }
 
 const COMMITMENT_TITLES = {
-  scope: ["用途限缩", "Purpose limitation"],
-  attribution: ["来源与署名保全", "Source and attribution preservation"],
-  changes: ["原始与派生分层", "Source and derivative separation"],
-  noncommercial: ["非商业控制", "Non-commercial control"],
-  "restricted-csd": ["受限 CSD 隔离", "Restricted CSD isolation"],
-  isolation: ["未决记录隔离", "Unresolved-record quarantine"],
-  review: ["变更与异议复核", "Change and dispute review"],
+  scope: ["限制数据用途", "Limit data use"],
+  attribution: ["保留来源与署名", "Preserve provenance and attribution"],
+  changes: ["区分原始数据与派生结果", "Separate source data and derivatives"],
+  noncommercial: ["执行非商业限制", "Apply non-commercial restrictions"],
+  "restricted-csd": ["隔离受限 CSD 数据", "Isolate restricted CSD data"],
+  isolation: ["隔离许可未明记录", "Quarantine unresolved records"],
+  review: ["复核变更与权利异议", "Review changes and rights concerns"],
 }
 
 function Surface({ t, children, style = {}, ...props }) {
@@ -36,6 +36,8 @@ function Surface({ t, children, style = {}, ...props }) {
         background: t.panel,
         border: `1px solid ${t.border}`,
         borderRadius: 0,
+        display: "grid",
+        gap: 16,
         minWidth: 0,
         padding: 20,
         ...style,
@@ -46,228 +48,176 @@ function Surface({ t, children, style = {}, ...props }) {
   )
 }
 
-function SectionHeading({ t, eyebrow, title, body }) {
+function SectionHeading({ number, title, body, t }) {
   return (
-    <header style={{ borderBottom: `2px solid ${t.accent}`, display: "grid", gap: 7, paddingBottom: 15 }}>
-      <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{eyebrow}</span>
-      <h2 style={{ color: t.textStrong, fontSize: 20, fontWeight: 900, lineHeight: 1.25, margin: 0 }}>{title}</h2>
-      {body ? <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, margin: 0, maxWidth: 900 }}>{body}</p> : null}
+    <header style={{ borderBottom: `1px solid ${t.borderStrong || t.border}`, display: "grid", gap: 7, paddingBottom: 13 }}>
+      <span style={{ color: t.accentText, fontSize: 12, fontWeight: 900 }}>{number}</span>
+      <h2 style={{ color: t.textStrong, fontSize: 21, fontWeight: 900, lineHeight: 1.3, margin: 0 }}>{title}</h2>
+      {body ? <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.75, margin: 0, maxWidth: 980 }}>{body}</p> : null}
     </header>
   )
 }
 
-function ResponsibilityRow({ t, label, title, body, required = true, number }) {
+function NumberedItem({ number, title, body, t, children, tone = "normal" }) {
   return (
-    <article style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 7, gridTemplateColumns: "34px minmax(0, 1fr)", padding: "14px 0" }}>
-      <span aria-hidden="true" style={{ alignItems: "center", background: required ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${required ? t.warn : t.accent}`, borderRadius: 6, color: required ? t.warn : t.accentText, display: "inline-flex", fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 10, fontWeight: 900, height: 28, justifyContent: "center", width: 28 }}>
-        {String(number).padStart(2, "0")}
-      </span>
-      <div style={{ display: "grid", gap: 6 }}>
-        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 9 }}>
-          <strong style={{ color: t.textStrong, fontSize: 12.3 }}>{title}</strong>
-          <span style={{ border: `1px solid ${required ? t.warn : t.border}`, borderRadius: 999, color: required ? t.warn : t.accentText, fontSize: 9.5, fontWeight: 900, padding: "2px 7px" }}>
-            {label}
-          </span>
-        </div>
-        <p style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.7, margin: 0 }}>{body}</p>
+    <article style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 7, padding: "13px 0" }}>
+      <div style={{ alignItems: "baseline", display: "grid", gap: 10, gridTemplateColumns: "52px minmax(0, 1fr)" }}>
+        <strong style={{ color: tone === "warn" ? t.warn : t.accentText, fontFamily: "inherit", fontSize: 12.2, fontWeight: 900 }}>{number}</strong>
+        <strong style={{ color: t.textStrong, fontSize: 13.2, lineHeight: 1.5 }}>{title}</strong>
       </div>
+      {body ? <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.75, margin: "0 0 0 62px" }}>{body}</p> : null}
+      {children ? <div style={{ display: "grid", gap: 7, marginLeft: 62 }}>{children}</div> : null}
     </article>
   )
 }
 
-function DocumentLink({ item, lang, t }) {
+function SourceLink({ source, lang, t }) {
+  if (!source) return null
   return (
-    <a
-      href={item.url}
-      target="_blank"
-      rel="noreferrer"
-      style={{
-        background: "transparent",
-        borderBottom: `1px solid ${t.border}`,
-        borderRadius: 0,
-        color: "inherit",
-        display: "grid",
-        gap: 7,
-        minWidth: 0,
-        padding: "13px 2px",
-        textDecorationColor: t.accent,
-        textDecorationThickness: "1px",
-        textUnderlineOffset: 4,
-      }}
-    >
-      <span style={{ color: t.accentText, fontSize: 9.8, fontWeight: 900, letterSpacing: ".05em", textTransform: "uppercase" }}>{item.publisher} · {text(lang, "官方原文", "Primary source")}</span>
-      <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.35 }}>{text(lang, item.titleZh, item.titleEn)}</strong>
-      <span style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.55 }}>{text(lang, item.scopeZh, item.scopeEn)}</span>
-      <span style={{ color: t.faint, fontSize: 9.7, overflowWrap: "anywhere" }}>{item.url} ↗</span>
+    <a href={source.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850, justifySelf: "start", lineHeight: 1.55, overflowWrap: "anywhere", textUnderlineOffset: 3 }}>
+      {text(lang, "发布方原文：", "Publisher source: ")}{text(lang, source.titleZh, source.titleEn)} ↗
     </a>
   )
 }
 
-function WorkflowStep({ item, index, lang, t, isNarrow }) {
-  return (
-    <article style={{ borderLeft: `3px solid ${t.accent}`, borderTop: `1px solid ${t.border}`, display: "grid", gap: 7, minWidth: 0, padding: "13px 14px" }}>
-      <span style={{ color: t.accentText, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 9.8, fontWeight: 900 }}>
-        CONTROL {String(index + 1).padStart(2, "0")}
-      </span>
-      <strong style={{ color: t.textStrong, fontSize: isNarrow ? 12.5 : 13.2 }}>{text(lang, item.titleZh, item.titleEn)}</strong>
-      <p style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.65, margin: 0 }}>{text(lang, item.bodyZh, item.bodyEn)}</p>
-    </article>
-  )
-}
-
-function ClauseGroup({ group, lang, t }) {
-  return (
-    <article style={{ border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, minWidth: 0, overflow: "hidden" }}>
-      <header style={{ background: t.surface, borderBottom: `1px solid ${t.border}`, display: "grid", gap: 7, padding: 15 }}>
-        <span style={{ color: t.accentText, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 9.8, fontWeight: 900 }}>
-          {group.id.toUpperCase()} · {group.clauses.length} {text(lang, "条", "clauses")}
-        </span>
-        <h3 style={{ color: t.textStrong, fontSize: 14.5, lineHeight: 1.35, margin: 0 }}>{text(lang, group.titleZh, group.titleEn)}</h3>
-        <p style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.65, margin: 0 }}>{text(lang, group.scopeZh, group.scopeEn)}</p>
-      </header>
-      <ol style={{ display: "grid", listStyle: "none", margin: 0, padding: 0 }}>
-        {group.clauses.map((clause, index) => {
-          const source = complianceRegistry.officialDocuments.find(item => item.id === clause.sourceDocumentId)
-          return (
-            <li key={clause.id} style={{ background: index % 2 === 0 ? t.panel : t.surface, borderTop: index ? `1px solid ${t.border}` : "none", display: "grid", gap: 10, gridTemplateColumns: "58px minmax(0, 1fr)", padding: "13px 14px" }}>
-              <span style={{ color: t.accentText, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 9.6, fontWeight: 900, paddingTop: 2 }}>{clause.id}</span>
-              <div style={{ display: "grid", gap: 6, minWidth: 0 }}>
-                <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  <strong style={{ color: t.textStrong, fontSize: 12.1, lineHeight: 1.45 }}>{text(lang, clause.titleZh, clause.titleEn)}</strong>
-                  <span style={{ color: t.faint, fontSize: 9.6, fontWeight: 800 }}>{clause.section}</span>
-                </div>
-                <p style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.68, margin: 0 }}>{text(lang, clause.bodyZh, clause.bodyEn)}</p>
-                {source ? (
-                  <a href={source.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.2, fontWeight: 850, justifySelf: "start", textDecoration: "none" }}>
-                    {text(lang, "查看发布方原文", "Open publisher source")} · {text(lang, source.titleZh, source.titleEn)} ↗
-                  </a>
-                ) : null}
-              </div>
-            </li>
-          )
-        })}
-      </ol>
-    </article>
-  )
-}
-
-function credentialStatusMeta(status, t, lang) {
-  const map = {
-    "public-licence": { color: t.success, bg: t.badgeCalcBg, zh: "公开许可凭证", en: "Public-licence evidence" },
-    "documented-quarantined": { color: t.warn, bg: t.badgeWarnBg, zh: "凭证存在 / 数据隔离", en: "Evidence exists / data quarantined" },
-    "record-level": { color: t.accentText, bg: t.badgeInfoBg, zh: "逐记录核验", en: "Record-level review" },
-    "blocked-no-credential": { color: t.warn, bg: t.badgeWarnBg, zh: "缺少覆盖性凭证 / 阻断", en: "No blanket evidence / blocked" },
-    "project-origin": { color: t.accentText, bg: t.badgeInfoBg, zh: "项目来源证据", en: "Project-origin evidence" },
-  }
-  const item = map[status] || { color: t.faint, bg: t.surface, zh: status, en: status }
-  return { ...item, label: text(lang, item.zh, item.en) }
-}
-
-function CredentialCard({ credential, lang, t }) {
-  const meta = credentialStatusMeta(credential.status, t, lang)
-  return (
-    <article style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, display: "grid", minWidth: 0, overflow: "hidden" }}>
-      <header style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 8, padding: 14 }}>
-        <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-          <strong style={{ color: t.textStrong, fontSize: 13.2, lineHeight: 1.4 }}>{text(lang, credential.sourceZh, credential.sourceEn)}</strong>
-          <span style={{ background: meta.bg, border: `1px solid ${meta.color}`, borderRadius: 999, color: meta.color, fontSize: 9.3, fontWeight: 900, padding: "3px 7px" }}>{meta.label}</span>
+function ClauseList({ lang, t }) {
+  let groupNumber = 0
+  return complianceRegistry.applicableClauseGroups.map(group => {
+    groupNumber += 1
+    const sectionNumber = `3.${groupNumber}`
+    return (
+      <section key={group.id} style={{ borderTop: `1px solid ${t.borderStrong || t.border}`, display: "grid", gap: 0, paddingTop: 14 }}>
+        <h3 style={{ color: t.textStrong, fontSize: 15.5, lineHeight: 1.45, margin: 0 }}>
+          <span style={{ color: t.accentText, marginRight: 10 }}>{sectionNumber}</span>
+          {text(lang, group.titleZh, group.titleEn)}
+        </h3>
+        <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.7, margin: "7px 0 4px" }}>{text(lang, group.scopeZh, group.scopeEn)}</p>
+        <div>
+          {group.clauses.map((clause, index) => {
+            const source = complianceRegistry.officialDocuments.find(item => item.id === clause.sourceDocumentId)
+            return (
+              <NumberedItem
+                key={clause.id}
+                number={`${sectionNumber}.${index + 1}`}
+                title={text(lang, clause.titleZh, clause.titleEn)}
+                body={text(lang, clause.bodyZh, clause.bodyEn)}
+                t={t}
+              >
+                <span style={{ color: t.faint, fontSize: 10.6, lineHeight: 1.55 }}>
+                  {text(lang, "原文位置：", "Original section: ")}{clause.section}
+                </span>
+                <SourceLink source={source} lang={lang} t={t} />
+              </NumberedItem>
+            )
+          })}
         </div>
-        <p style={{ color: t.textStrong, fontSize: 11.2, lineHeight: 1.65, margin: 0 }}>{text(lang, credential.authorizationZh, credential.authorizationEn)}</p>
-      </header>
-      <div style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 5, padding: "11px 14px" }}>
-        <span style={{ color: t.warn, fontSize: 9.7, fontWeight: 900 }}>{text(lang, "凭证边界与缺口", "Evidence boundary and gap")}</span>
-        <p style={{ color: t.muted, fontSize: 10.9, lineHeight: 1.62, margin: 0 }}>{text(lang, credential.limitationZh, credential.limitationEn)}</p>
-      </div>
-      <ul style={{ display: "grid", listStyle: "none", margin: 0, padding: "8px 14px 12px" }}>
-        {credential.evidence.map((item, index) => (
-          <li key={`${item.label}-${index}`} style={{ borderTop: index ? `1px solid ${t.border}` : "none", display: "grid", gap: 3, padding: "8px 0" }}>
-            <span style={{ color: t.faint, fontSize: 9.3, fontWeight: 850 }}>{text(lang, item.kindZh, item.kindEn)}</span>
-            {item.url ? (
-              <a href={item.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.5, fontWeight: 800, overflowWrap: "anywhere", textDecoration: "none" }}>{item.label} ↗</a>
+      </section>
+    )
+  })
+}
+
+function credentialStatus(status, lang) {
+  const labels = {
+    "public-licence": ["公开许可", "Public licence"],
+    "documented-quarantined": ["已登记但隔离", "Documented and quarantined"],
+    "record-level": ["逐记录核验", "Record-level review"],
+    "limited-factual-metadata-no-site-licence": ["仅登记事实信息", "Factual metadata only"],
+    "blocked-no-credential": ["无覆盖性凭证，停止接入", "No blanket evidence; blocked"],
+    "project-origin": ["项目自产材料", "Project-origin material"],
+  }
+  return text(lang, ...(labels[status] || [status, status]))
+}
+
+function CredentialList({ lang, t }) {
+  return (
+    <div>
+      {complianceRegistry.authorizationCredentials.map((credential, index) => (
+        <NumberedItem
+          key={credential.id}
+          number={`4.${index + 1}`}
+          title={text(lang, credential.sourceZh, credential.sourceEn)}
+          body={text(lang, credential.authorizationZh, credential.authorizationEn)}
+          t={t}
+          tone={credential.status === "blocked-no-credential" ? "warn" : "normal"}
+        >
+          <strong style={{ color: credential.status === "blocked-no-credential" ? t.warn : t.textStrong, fontSize: 10.8 }}>
+            {credentialStatus(credential.status, lang)}
+          </strong>
+          <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+            <strong style={{ color: t.textStrong }}>{text(lang, "边界：", "Boundary: ")}</strong>
+            {text(lang, credential.limitationZh, credential.limitationEn)}
+          </p>
+          {(credential.evidence || []).map((evidence, evidenceIndex) => (
+            evidence.url ? (
+              <a key={`${credential.id}-${evidenceIndex}`} href={evidence.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.8, fontWeight: 800, overflowWrap: "anywhere", textUnderlineOffset: 3 }}>
+                {text(lang, evidence.kindZh, evidence.kindEn)}：{evidence.label} ↗
+              </a>
             ) : (
-              <code style={{ color: t.textStrong, fontSize: 9.8, overflowWrap: "anywhere" }}>{item.label}</code>
-            )}
-          </li>
-        ))}
-      </ul>
-    </article>
+              <span key={`${credential.id}-${evidenceIndex}`} style={{ color: t.muted, fontSize: 10.8, overflowWrap: "anywhere" }}>
+                {text(lang, evidence.kindZh, evidence.kindEn)}：{evidence.label}
+              </span>
+            )
+          ))}
+        </NumberedItem>
+      ))}
+    </div>
   )
 }
 
-function statusMeta(status, lang) {
-  const map = {
-    active: { color: "#16835d", zh: "当前接入", en: "Active ingestion" },
-    "active-limited": { color: "#196fbb", zh: "按记录有限接入", en: "Limited per-record ingestion" },
-    quarantined: { color: "#9a5b18", zh: "未进入公开数据层", en: "Excluded from public data layer" },
-  }
-  const item = map[status] || { color: "#65758d", zh: status, en: status }
-  return { ...item, label: text(lang, item.zh, item.en) }
-}
+function DatasetList({ datasets, lang, t }) {
+  const statusLabel = status => ({
+    active: text(lang, "当前接入", "Active"),
+    "active-limited": text(lang, "有限接入", "Limited"),
+    quarantined: text(lang, "未公开接入", "Not publicly ingested"),
+  })[status] || status
 
-function DatasetRow({ dataset, lang, t }) {
-  const status = statusMeta(dataset.status, lang)
-  const facts = [
-    [text(lang, "数据角色", "Data role"), text(lang, dataset.roleZh, dataset.roleEn)],
-    [text(lang, "发布方", "Publisher"), dataset.publisher],
-    [text(lang, "当前版本", "Current version"), dataset.version],
-    [text(lang, "记录范围", "Record scope"), dataset.recordCount == null ? text(lang, "逐条登记", "Per-record registry") : Number(dataset.recordCount).toLocaleString()],
-    [text(lang, "许可与边界", "Licence and boundary"), dataset.licence],
-  ]
   return (
-    <article style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 0, minWidth: 0, overflow: "hidden" }}>
-      <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", padding: 14 }}>
-        <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
-          <span style={{ borderLeft: `3px solid ${status.color}`, color: status.color, fontSize: 10.5, fontWeight: 900, paddingLeft: 8 }}>{status.label}</span>
-          <h3 style={{ color: t.textStrong, fontSize: 15, lineHeight: 1.28, margin: 0 }}>{dataset.name}</h3>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          {dataset.sourceUrl ? (
-            <a href={dataset.sourceUrl} target="_blank" rel="noreferrer" style={{ ...toolbarBtn(t), borderRadius: 7, color: t.accentText, textDecoration: "none" }}>
-              {text(lang, "官方来源", "Official source")}
-            </a>
-          ) : null}
-          {(dataset.licenceUrls || []).map((url, index) => (
-            <a key={url} href={url} target="_blank" rel="noreferrer" style={{ ...toolbarBtn(t), borderRadius: 7, textDecoration: "none" }}>
-              {index === 0 ? text(lang, "许可正文", "Licence text") : text(lang, "附加条款", "Additional terms")}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 0 }}>
-        {facts.map(([label, value]) => (
-          <div key={label} style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 8, gridTemplateColumns: "minmax(110px, .32fr) minmax(0, 1fr)", padding: "10px 14px" }}>
-            <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</span>
-            <span style={{ color: t.textStrong, fontSize: 11.2, lineHeight: 1.55, overflowWrap: "anywhere" }}>{value}</span>
+    <div data-testid="compliance-dataset-list">
+      {datasets.map((dataset, index) => (
+        <NumberedItem
+          key={dataset.id}
+          number={`7.${index + 1}`}
+          title={dataset.name}
+          body={text(lang, dataset.roleZh, dataset.roleEn)}
+          t={t}
+          tone={dataset.status === "quarantined" ? "warn" : "normal"}
+        >
+          <span style={{ color: t.textStrong, fontSize: 11.2, lineHeight: 1.65 }}>
+            {statusLabel(dataset.status)} · {dataset.publisher} · {dataset.version}
+            {dataset.recordCount == null ? "" : ` · ${Number(dataset.recordCount).toLocaleString()} ${text(lang, "条记录", "records")}`}
+          </span>
+          <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+            <strong style={{ color: t.textStrong }}>{text(lang, "许可：", "Licence: ")}</strong>{dataset.licence}
+          </p>
+          <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+            <strong style={{ color: t.textStrong }}>{text(lang, "可以怎样使用：", "Permitted use: ")}</strong>
+            {text(lang, dataset.allowedZh, dataset.allowedEn)}
+          </p>
+          <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+            <strong style={{ color: t.warn }}>{text(lang, "不能据此推定：", "Do not infer: ")}</strong>
+            {text(lang, dataset.prohibitedZh, dataset.prohibitedEn)}
+          </p>
+          <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+            <strong style={{ color: t.textStrong }}>{text(lang, "本站处理：", "Site handling: ")}</strong>
+            {text(lang, dataset.projectHandlingZh, dataset.projectHandlingEn)}
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {dataset.sourceUrl ? <a href={dataset.sourceUrl} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850 }}>{text(lang, "官方来源", "Official source")} ↗</a> : null}
+            {(dataset.licenceUrls || []).map((url, urlIndex) => (
+              <a key={url} href={url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850 }}>
+                {urlIndex === 0 ? text(lang, "许可原文", "Licence text") : text(lang, "附加条款", "Additional terms")} ↗
+              </a>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <details style={{ padding: "12px 14px 14px" }}>
-        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 11.5, fontWeight: 900 }}>
-          {text(lang, "查看允许范围、限制与 EcoMOF-AI 处理方式", "Review permitted scope, restrictions, and EcoMOF-AI handling")}
-        </summary>
-        <div style={{ display: "grid", gap: 0, marginTop: 10 }}>
-          {[
-            [text(lang, "允许范围", "Permitted scope"), text(lang, dataset.allowedZh, dataset.allowedEn), "#16835d"],
-            [text(lang, "限制与不可推断", "Restrictions and non-implications"), text(lang, dataset.prohibitedZh, dataset.prohibitedEn), t.warn],
-            [text(lang, "本站处理方式", "Site handling"), text(lang, dataset.projectHandlingZh, dataset.projectHandlingEn), t.accentText],
-          ].map(([label, body, color]) => (
-            <div key={label} style={{ borderLeft: `3px solid ${color}`, borderTop: `1px solid ${t.border}`, display: "grid", gap: 5, padding: "11px 12px" }}>
-              <strong style={{ color, fontSize: 10.8 }}>{label}</strong>
-              <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.65 }}>{body}</span>
-            </div>
-          ))}
-        </div>
-      </details>
-    </article>
+        </NumberedItem>
+      ))}
+    </div>
   )
 }
 
 export function DatabaseComplianceTab() {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow, isMobile } = useViewport()
   const [filter, setFilter] = useState("all")
   const datasets = useMemo(() => {
     if (filter === "all") return complianceRegistry.datasets
@@ -276,371 +226,182 @@ export function DatabaseComplianceTab() {
     return complianceRegistry.datasets.filter(row => row.status === "quarantined")
   }, [filter])
 
-  const nonCommercialCount = complianceRegistry.datasets.filter(row => /BY-NC|NonCommercial|non-commercial/i.test(row.licence)).length
-  const clauseCount = complianceRegistry.applicableClauseGroups.reduce((total, group) => total + group.clauses.length, 0)
-  const blockedCredentialCount = complianceRegistry.authorizationCredentials.filter(item => item.status === "blocked-no-credential").length
-  const acknowledgementZh = "继续访问、检索、下载或使用本网站的数据与派生结果，即表示您确认已经阅读并理解本页所述的来源归属、许可边界与再利用责任，并同意在适用范围内遵守相应要求。该确认不替代您与原始数据发布方之间可能适用的许可协议，也不免除您针对具体用途进行独立核验并取得必要授权的责任。"
-  const acknowledgementEn = "By continuing to access, search, download, or use data and derived results from this website, you confirm that you have read and understood the source attribution, licence boundaries, and reuse responsibilities described on this page, and agree to comply where they apply. This acknowledgement does not replace any licence agreement that may apply between you and the original data publisher, nor does it remove your responsibility to review the intended use independently and obtain any required permission."
+  const acknowledgementZh = "继续访问或使用本站内容，表示您已经看到本页列出的来源、许可和责任说明。这并不替代数据发布方的许可，也不代表您已经取得商业使用、批量再分发或其他受限用途的授权。"
+  const acknowledgementEn = "Continuing to use this site means that you have seen the source, licence, and responsibility notes listed here. This does not replace publisher terms or grant permission for commercial use, bulk redistribution, or another restricted purpose."
 
   return (
     <div id="database-compliance" data-testid="database-compliance-tab" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <PageHeader
-        title={text(lang, "数据使用、许可与责任", "Data Use, Licensing, and Responsibilities")}
+        title={text(lang, "数据使用、许可与责任", "Data use, licensing, and responsibilities")}
         subtitle={text(
           lang,
-          "逐项说明 EcoMOF-AI 使用的数据对象、授权依据、非商业边界、停止条件以及平台与用户在访问、分析、发布、模型训练和再分发中的责任。",
-          "An itemized account of EcoMOF-AI data objects, authorization basis, non-commercial boundaries, stop conditions, and platform/user responsibilities for access, analysis, publication, model training, and redistribution.",
+          "本页按来源列出本站实际使用的数据、对应许可、授权凭证和使用限制。需要判断具体用途时，请先阅读发布方原文；本站说明只帮助定位，不替代许可正文或机构协议。",
+          "This page lists the data actually used by the site, its licences, evidence, and restrictions. Read the publisher terms before deciding on a specific use; this page helps locate them but does not replace the original terms or an institutional agreement.",
         )}
-        meta={text(lang, "非商业研究 · 逐来源核验 · 原文优先", "Non-commercial research · source-by-source review · primary terms prevail")}
+        meta={text(lang, "非商业研究 · 原文优先 · 来源持续登记", "Non-commercial research · primary terms prevail · maintained source registry")}
         action={<CopyLinkButton hash="database-compliance" ariaLabel={text(lang, "复制合规说明链接", "Copy compliance link")} />}
       />
 
-      <nav aria-label={text(lang, "合规页面目录", "Compliance page index")} style={{ background: "transparent", borderBottom: `1px solid ${t.borderStrong || t.border}`, borderTop: `1px solid ${t.borderStrong || t.border}`, display: "flex", flexWrap: "wrap", gap: "8px 18px", padding: "12px 2px" }}>
+      <nav aria-label={text(lang, "合规页面目录", "Compliance page index")} style={{ borderBottom: `1px solid ${t.borderStrong || t.border}`, borderTop: `1px solid ${t.borderStrong || t.border}`, display: "flex", flexWrap: "wrap", gap: "8px 18px", padding: "12px 2px" }}>
         {[
-          ["compliance-position", text(lang, "适用范围", "Position")],
-          ["compliance-controls", text(lang, "核验流程", "Control workflow")],
-          ["compliance-ccdc", "CCDC"],
-          ["compliance-clauses", text(lang, "全部条文", "All clauses")],
-          ["compliance-credentials", text(lang, "授权凭证", "Authorization evidence")],
-          ["compliance-responsibilities", text(lang, "责任与义务", "Responsibilities")],
-          ["compliance-documents", text(lang, "官方原文", "Primary documents")],
-          ["compliance-source-registry", text(lang, "来源登记", "Source registry")],
-          ["compliance-response", text(lang, "异议与移除", "Disputes and removal")],
-        ].map(([id, label], index) => (
-          <a key={id} href={`#${id}`} style={{ color: t.accentText, fontSize: 10.8, fontWeight: 850, textDecorationThickness: "1px", textUnderlineOffset: 3 }}>
-            {String(index + 1).padStart(2, "0")} · {label}
-          </a>
+          ["compliance-position", text(lang, "1 适用范围", "1 Scope")],
+          ["compliance-ccdc", text(lang, "2 CCDC 与 CSD", "2 CCDC and CSD")],
+          ["compliance-clauses", text(lang, "3 条款与原文", "3 Terms and sources")],
+          ["compliance-credentials", text(lang, "4 授权凭证", "4 Evidence")],
+          ["compliance-responsibilities", text(lang, "5 责任", "5 Responsibilities")],
+          ["compliance-documents", text(lang, "6 官方文件", "6 Official documents")],
+          ["compliance-source-registry", text(lang, "7 来源登记", "7 Source registry")],
+          ["compliance-response", text(lang, "8 异议与移除", "8 Disputes and removal")],
+        ].map(([id, label]) => (
+          <a key={id} href={`#${id}`} style={{ color: t.accentText, fontSize: 11.2, fontWeight: 850, textUnderlineOffset: 3 }}>{label}</a>
         ))}
       </nav>
 
-      <Surface data-testid="compliance-use-notice" t={t} style={{ borderLeft: `5px solid ${t.accent}`, display: "grid", gap: 15, padding: isMobile ? 18 : 24 }}>
-        <div style={{ display: "grid", gap: 7 }}>
-          <span style={{ color: t.accentText, fontSize: 10.8, fontWeight: 900, letterSpacing: ".08em", textTransform: "uppercase" }}>{text(lang, "开始使用前必须阅读", "Read before use")}</span>
-          <h2 style={{ color: t.textStrong, fontSize: isMobile ? 22 : 28, fontWeight: 920, lineHeight: 1.2, margin: 0 }}>
-            {text(lang, complianceRegistry.operatingMode.zh, complianceRegistry.operatingMode.en)}
-          </h2>
-          <p style={{ color: t.textStrong, fontSize: 12.3, lineHeight: 1.75, margin: 0, maxWidth: 980 }}>
-            {text(lang, acknowledgementZh, acknowledgementEn)}
-          </p>
-        </div>
-        <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 8, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1fr) auto", paddingTop: 13 }}>
-          <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.65, margin: 0 }}>
-            {text(
-              lang,
-              "如果您对来源、署名方式、许可适用范围、数据移除或商业用途授权有任何疑问，请在继续使用相关数据前联系我们。",
-              "If you have questions about source attribution, licence scope, data removal, or permission for commercial use, contact us before continuing to use the affected data.",
-            )}
-          </p>
-          <a href="#contact" style={{ color: t.accentText, fontSize: 12, fontWeight: 900, justifySelf: isNarrow ? "start" : "end", textDecorationThickness: "1px", textUnderlineOffset: 3 }}>
-            {text(lang, "联系我们", "Contact Us")}
-          </a>
-        </div>
+      <Surface t={t} style={{ background: t.surface, borderLeft: `4px solid ${t.accent}` }}>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "开始使用前请先阅读", "Read before use")}</strong>
+        <p style={{ color: t.textStrong, fontSize: 12.1, lineHeight: 1.75, margin: 0 }}>{text(lang, acknowledgementZh, acknowledgementEn)}</p>
+        <a href="#contact" style={{ color: t.accentText, fontSize: 11.6, fontWeight: 850, justifySelf: "start" }}>{text(lang, "对许可有疑问时联系我们", "Contact us with licence questions")}</a>
       </Surface>
 
-      <Surface id="compliance-position" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
+      <Surface id="compliance-position" t={t} style={{ scrollMarginTop: 112 }}>
         <SectionHeading
+          number="1"
           t={t}
-          eyebrow={text(lang, "文件性质与判断边界", "Document nature and decision boundary")}
-          title={text(lang, "本页列示规则与证据，不作全面合规自我认证", "This page lists rules and evidence; it does not self-certify comprehensive compliance")}
-          body={text(lang, complianceRegistry.statusStatement.zh, complianceRegistry.statusStatement.en)}
+          title={text(lang, "适用范围与免责声明", "Scope and disclaimer")}
+          body={text(lang, "这里记录的是本站采用的处理边界，不是法律意见，也不是全面合规认证。数据对象、用途或发布方条款发生变化时，需要重新判断。", "These are the site's operating boundaries, not legal advice or comprehensive compliance certification. Reassess when the data object, intended use, or publisher terms change.")}
         />
-        <div style={{ display: "grid", gap: 0, gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
-          {[
-            [text(lang, "逐项列示条文", "Itemized clauses"), clauseCount, text(lang, "按许可与来源分组", "grouped by licence and source")],
-            [text(lang, "授权凭证登记", "Evidence entries"), complianceRegistry.authorizationCredentials.length, text(lang, "包括凭证、缺口与阻断", "evidence, gaps, and blocks")],
-            [text(lang, "缺少覆盖性凭证", "No blanket evidence"), blockedCredentialCount, text(lang, "保持阻断，不推定授权", "blocked; no presumed permission")],
-            [text(lang, "含非商业限制", "Non-commercial restrictions"), nonCommercialCount, text(lang, "商业用途需另行授权", "separate permission for commercial use")],
-          ].map(([label, value, note], index) => (
-            <div key={label} style={{ borderLeft: index > 0 && !isNarrow ? `1px solid ${t.border}` : "none", borderTop: isNarrow && index > 0 ? `1px solid ${t.border}` : "none", display: "grid", gap: 4, padding: "11px 14px" }}>
-              <span style={{ color: t.faint, fontSize: 10.2, fontWeight: 850 }}>{label}</span>
-              <strong style={{ color: t.textStrong, fontSize: 18 }}>{value}</strong>
-              <span style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.45 }}>{note}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ borderLeft: `3px solid ${t.warn}`, color: t.muted, fontSize: 11.4, lineHeight: 1.7, padding: "2px 0 2px 12px" }}>
-          <strong style={{ color: t.textStrong }}>{text(lang, "访问边界：", "Access boundary: ")}</strong>
-          {text(lang, complianceRegistry.accessBoundary.zh, complianceRegistry.accessBoundary.en)}
-        </div>
+        <NumberedItem number="1.1" title={text(lang, "本站以非商业研究方式运行", "The site operates for non-commercial research")} body={text(lang, complianceRegistry.statusStatement.zh, complianceRegistry.statusStatement.en)} t={t} />
+        <NumberedItem number="1.2" title={text(lang, "访问不等于取得授权", "Access is not permission")} body={text(lang, "访问本网站不等于获得任何数据库的商业许可、机构许可或批量再分发权。是否可以使用，仍取决于具体数据对象、具体用途和原始条款。", "Accessing this site does not grant commercial, institutional, or bulk-redistribution rights. Permission still depends on the specific data object, use, and source terms.")} t={t} />
+        <NumberedItem number="1.3" title={text(lang, "原文和实际协议优先", "Primary terms and actual agreements prevail")} body={text(lang, "如本站说明与许可正文、附加下载条款、实际机构协议或权利人书面答复不一致，以适用于该记录的原始文件为准。", "If this page differs from a licence, download term, institutional agreement, or written rightsholder response, the source document applicable to the record prevails.")} t={t} />
+        <NumberedItem number="1.4" title={text(lang, "科学结果仍需独立复核", "Scientific results require independent review")} body={text(lang, complianceRegistry.notLegalAdvice.zh, complianceRegistry.notLegalAdvice.en)} t={t} />
       </Surface>
 
-      <Surface id="compliance-controls" data-testid="compliance-control-workflow" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
+      <Surface id="compliance-ccdc" data-testid="compliance-ccdc-boundaries" t={t} style={{ scrollMarginTop: 112 }}>
         <SectionHeading
+          number="2"
           t={t}
-          eyebrow={text(lang, "核验控制流程", "Compliance control workflow")}
-          title={text(lang, "任何下载、训练、发布或再分发都必须经过六步核验", "Every download, training use, publication, or redistribution must pass six controls")}
-          body={text(
-            lang,
-            "本流程用于把“能否访问”与“能否用于某一具体目的”分开判断。任一步出现许可不明、身份不明、商业边界不明或来源冲突，都应停止处理并进入人工复核。",
-            "This workflow separates access from permission for a specific purpose. Any uncertainty about licence, identity, commercial scope, or conflicting provenance stops processing and triggers manual review.",
-          )}
+          title={text(lang, "CCDC 与 CSD 数据边界", "CCDC and CSD data boundaries")}
+          body={text(lang, "CSD MOF Collection、CoRE-MOF modified CIF、CoRE-MOF unmodified CIF 和完整付费 CSD 是不同对象，不能因为名称相近就按同一许可处理。", "The CSD MOF Collection, CoRE-MOF modified CIFs, CoRE-MOF unmodified CIFs, and the full paid CSD are different objects and must not be treated as if they shared one licence.")}
         />
-        <div style={{ display: "grid", gap: 0, gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
-          {complianceRegistry.controlWorkflow.map((item, index) => (
-            <WorkflowStep key={item.id} item={item} index={index} lang={lang} t={t} isNarrow={isNarrow} />
-          ))}
-        </div>
-        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.textStrong, fontSize: 11.4, lineHeight: 1.65, padding: "11px 13px" }}>
-          <strong style={{ color: t.warn }}>{text(lang, "停止条件：", "Stop condition: ")}</strong>
-          {text(
-            lang,
-            "无法确认具体来源、无法读取适用条款、用途涉及商业化但没有书面许可、拟向第三方批量提供原始数据，或记录身份/权利存在合理争议时，不得继续公开发布、下载或导出。",
-            "Do not continue public release, download, or export when the source cannot be identified, applicable terms cannot be read, commercial use lacks written permission, original data would be supplied in bulk to third parties, or record identity/rights are reasonably disputed.",
-          )}
-        </div>
-      </Surface>
-
-      <Surface id="compliance-ccdc" data-testid="compliance-ccdc-boundaries" t={t} style={{ borderColor: t.borderStrong, display: "grid", gap: 14, scrollMarginTop: 112 }}>
-        <SectionHeading
-          t={t}
-          eyebrow="CCDC / CSD"
-          title={text(lang, "CCDC 数据必须按对象和用途分别判断", "CCDC data must be assessed by object and intended use")}
-          body={text(
-            lang,
-            "CSD MOF Collection、CoRE-MOF modified CIFs、CoRE-MOF unmodified CIFs 与完整付费 CSD 不是同一个授权对象。下表依据 CCDC 官方下载页、再分发 FAQ、标准许可入口和 Conditions of Use 建立项目级控制边界；实际机构协议与 CCDC 书面答复始终优先。",
-            "The CSD MOF Collection, CoRE-MOF modified CIFs, CoRE-MOF unmodified CIFs, and the full paid CSD are not the same licensed object. This table establishes project controls from the official CCDC downloads page, redistribution FAQ, standard agreement entry point, and Conditions of Use; the actual institutional agreement and written CCDC response always prevail.",
-          )}
-        />
-        <div style={{ border: `1px solid ${t.border}`, borderRadius: 9, overflow: "hidden" }}>
-          {complianceRegistry.ccdcDecisionRules.map((item, index) => (
-            <article key={item.id} style={{ background: index % 2 === 0 ? t.surface : t.panel, borderTop: index ? `1px solid ${t.border}` : "none", display: "grid", gap: 0, gridTemplateColumns: isNarrow ? "1fr" : "minmax(180px, .58fr) minmax(0, 1.42fr)" }}>
-              <div style={{ borderRight: isNarrow ? "none" : `1px solid ${t.border}`, display: "grid", gap: 7, padding: 14 }}>
-                <span style={{ color: t.faint, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 9.5, fontWeight: 900 }}>CCDC-{String(index + 1).padStart(2, "0")}</span>
-                <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.4 }}>{text(lang, item.objectZh, item.objectEn)}</strong>
-              </div>
-              <div style={{ display: "grid", gap: 10, padding: 14 }}>
-                <p style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.68, margin: 0 }}>{text(lang, item.ruleZh, item.ruleEn)}</p>
-                <div style={{ borderLeft: `3px solid ${index < 2 ? t.success : t.warn}`, color: t.textStrong, fontSize: 10.9, fontWeight: 800, lineHeight: 1.6, paddingLeft: 10 }}>
-                  {text(lang, item.decisionZh, item.decisionEn)}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {complianceRegistry.officialDocuments.slice(0, 4).map(item => (
-            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" style={{ ...toolbarBtn(t), borderRadius: 7, color: t.accentText, textDecoration: "none" }}>
-              {text(lang, item.titleZh, item.titleEn)} ↗
-            </a>
-          ))}
-        </div>
-      </Surface>
-
-      <Surface id="compliance-clauses" data-testid="compliance-applicable-clauses" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
-        <SectionHeading
-          t={t}
-          eyebrow={text(lang, "全部适用控制条文", "All applicable control clauses")}
-          title={text(
-            lang,
-            clauseCount === 43 ? "43 条条文逐项列示，不以概括性承诺替代原许可" : `${clauseCount} 条条文逐项列示，不以概括性承诺替代原许可`,
-            clauseCount === 43 ? "43 clauses itemized; no general pledge substitutes for source terms" : `${clauseCount} clauses itemized; no general pledge substitutes for source terms`,
-          )}
-          body={text(
-            lang,
-            "条文按 CCDC、CC BY-NC-SA 4.0、CC BY 4.0、NIST/文献逐记录边界和项目自有材料分组。中文内容是为本项目建立停止条件和责任分配的保守释义，不是法律文本翻译；每条均链接发布方原文，发生差异时以原文、实际机构协议和权利人书面答复为准。",
-            "Clauses are grouped by CCDC, CC BY-NC-SA 4.0, CC BY 4.0, NIST/literature record-level boundaries, and project-owned material. The summaries are conservative project controls, not certified legal translations. Each links to the publisher source; the original text, actual institutional agreement, and written rightsholder response prevail.",
-          )}
-        />
-        <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.textStrong, fontSize: 11.2, lineHeight: 1.68, padding: "11px 13px" }}>
-          <strong style={{ color: t.warn }}>{text(lang, "阅读规则：", "Reading rule: ")}</strong>
-          {text(
-            lang,
-            "“全部”是指对本网站已登记数据对象和使用场景具有实际控制意义的条文，而不是复制整份许可的每一段定义。定义、解释、可分割性等仍通过原文链接完整保留。",
-            "All means every clause materially controlling the registered data objects and use cases on this site, not a verbatim copy of every definition in each licence. Definitions, interpretation, severability, and the complete text remain available through the source links.",
-          )}
-        </div>
-        <div style={{ display: "grid", gap: 12 }}>
-          {complianceRegistry.applicableClauseGroups.map(group => <ClauseGroup key={group.id} group={group} lang={lang} t={t} />)}
-        </div>
-      </Surface>
-
-      <Surface id="compliance-credentials" data-testid="compliance-authorization-credentials" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
-        <SectionHeading
-          t={t}
-          eyebrow={text(lang, "授权凭证与缺口清单", "Authorization evidence and gaps")}
-          title={text(lang, "逐来源说明“谁授权、授权什么、凭证在哪里、哪些仍未获授权”", "For each source: who grants what, where the evidence is, and what remains unauthorized")}
-          body={text(
-            lang,
-            "公开许可页面、法律文本、机构协议或发布方书面答复才是外部授权凭证。仓库 manifest、来源登记、哈希、NOTICE 和测试只用于证明项目处理状态，不能冒充 CCDC 或其他发布方颁发的证书。标为缺少覆盖性凭证的来源保持阻断。",
-            "Public licence pages, legal codes, institutional agreements, or written publisher responses are external authorization evidence. Repository manifests, source registries, hashes, NOTICE files, and tests evidence project handling only and are not certificates issued by CCDC or another publisher. Sources without blanket evidence remain blocked.",
-          )}
-        />
-        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-          {complianceRegistry.authorizationCredentials.map(item => <CredentialCard key={item.id} credential={item} lang={lang} t={t} />)}
-        </div>
-      </Surface>
-
-      <div id="compliance-responsibilities" style={{ alignItems: "start", display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.08fr) minmax(320px, .92fr)", scrollMarginTop: 112 }}>
-        <Surface t={t} style={{ display: "grid", gap: 0 }}>
-          <SectionHeading
+        {complianceRegistry.ccdcDecisionRules.map((item, index) => (
+          <NumberedItem
+            key={item.id}
+            number={`2.${index + 1}`}
+            title={text(lang, item.objectZh, item.objectEn)}
+            body={text(lang, item.ruleZh, item.ruleEn)}
             t={t}
-            eyebrow={text(lang, "用户责任", "User responsibilities")}
-            title={text(lang, "下载、分析、发布与再分发前必须完成的核验", "Checks required before download, analysis, publication, or redistribution")}
-            body={text(
-              lang,
-              "EcoMOF-AI 的页面、索引和导出文件不会替代原始数据许可。每位用户都应依据具体记录、具体用途和所属机构政策作出独立判断。",
-              "EcoMOF-AI pages, indexes, and exports do not replace source licences. Each user must assess the specific record, intended use, and institutional policy independently.",
-            )}
-          />
-          <div>
-            {complianceRegistry.userObligations.map((item, index) => (
-              <ResponsibilityRow
-                key={item.id}
-                t={t}
-                label={text(lang, item.level === "required" ? "必须遵守" : "独立判断责任", item.level === "required" ? "Required" : "Independent responsibility")}
-                title={text(lang, OBLIGATION_TITLES[item.id]?.[0] || item.id, OBLIGATION_TITLES[item.id]?.[1] || item.id)}
-                body={text(lang, item.zh, item.en)}
-                required={item.level === "required"}
-                number={index + 1}
-              />
-            ))}
-          </div>
-        </Surface>
-
-        <div style={{ display: "grid", gap: 16 }}>
-          <Surface t={t} style={{ display: "grid", gap: 0 }}>
-            <SectionHeading
-              t={t}
-              eyebrow={text(lang, "平台承诺", "Platform commitments")}
-              title={text(lang, "EcoMOF-AI 当前公开执行的处理原则", "Current public handling principles")}
-              body={text(lang, "这些原则用于约束当前数据接入和发布流程；来源条款、数据版本、运营模式或用途变化时会重新复核。", "These principles govern the current ingestion and publication workflow and are reviewed again when source terms, versions, operating mode, or uses change.")}
-            />
-            {complianceRegistry.platformCommitments.map((item, index) => (
-              <ResponsibilityRow
-                key={item.id}
-                t={t}
-                label={text(lang, "平台处理", "Platform handling")}
-                title={text(lang, COMMITMENT_TITLES[item.id]?.[0] || item.id, COMMITMENT_TITLES[item.id]?.[1] || item.id)}
-                body={text(lang, item.zh, item.en)}
-                required={false}
-                number={index + 1}
-              />
-            ))}
-          </Surface>
-
-          <Surface t={t} style={{ background: t.surface, display: "grid", gap: 10 }}>
-            <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "法律与科学边界", "Legal and scientific boundary")}</strong>
-            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>{text(lang, complianceRegistry.notLegalAdvice.zh, complianceRegistry.notLegalAdvice.en)}</p>
-            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
-              {text(
-                lang,
-                "数据库记录、文本挖掘字段、结构映射和算法评分均不构成材料身份、适用性、安全性、可合成性或性能保证。科研与工程使用前仍应核对来源论文、实验条件、晶体身份和派生方法。",
-                "Database records, text-mined fields, structure mappings, and algorithm scores do not guarantee material identity, fitness, safety, synthesizability, or performance. Verify source papers, experimental conditions, crystal identity, and derivation methods before research or engineering use.",
-              )}
+            tone={index > 1 ? "warn" : "normal"}
+          >
+            <p style={{ color: index > 1 ? t.warn : t.textStrong, fontSize: 11.4, fontWeight: 800, lineHeight: 1.65, margin: 0 }}>
+              {text(lang, "本站决定：", "Site decision: ")}{text(lang, item.decisionZh, item.decisionEn)}
             </p>
-            <span style={{ color: t.faint, fontSize: 10.5 }}>
-              {text(lang, "本文件不以日期或测试结果宣称已经全面合规；请依据具体数据对象、用途和最新发布方原文作独立判断。", "This document does not claim comprehensive compliance based on a date or test result; assess the specific data object, intended use, and current publisher terms independently.")}
-            </span>
-          </Surface>
-        </div>
-      </div>
-
-      <Surface id="compliance-documents" data-testid="compliance-primary-documents" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
-        <SectionHeading
-          t={t}
-          eyebrow={text(lang, "官方原文与解释优先级", "Primary documents and precedence")}
-          title={text(lang, "不得用本站摘要替代数据发布方的原始条款", "Do not substitute this summary for publisher terms")}
-          body={text(
-            lang,
-            "以下链接直接指向 CCDC、Creative Commons、Zenodo 与 NIST 的官方页面。发生冲突时，依次核对适用于具体数据对象的附加条款、实际机构协议、许可法律文本和发布方书面答复；EcoMOF-AI 的说明只用于建立保守控制，不构成重新许可。",
-            "These links point directly to official CCDC, Creative Commons, Zenodo, and NIST pages. If terms conflict, review the item-specific additional terms, actual institutional agreement, licence legal code, and written publisher response applicable to the object. EcoMOF-AI provides conservative controls only and does not relicence data.",
-          )}
-        />
-        <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-          {complianceRegistry.officialDocuments.map(item => (
-            <DocumentLink key={item.id} item={item} lang={lang} t={t} />
+          </NumberedItem>
+        ))}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          {complianceRegistry.officialDocuments.slice(0, 4).map(item => (
+            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.9, fontWeight: 850 }}>{text(lang, item.titleZh, item.titleEn)} ↗</a>
           ))}
         </div>
       </Surface>
 
-      <Surface id="compliance-source-registry" data-testid="compliance-source-registry" t={t} style={{ display: "grid", gap: 14, scrollMarginTop: 112 }}>
-        <div style={{ alignItems: "flex-end", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
-          <SectionHeading
-            t={t}
-            eyebrow={text(lang, "来源登记", "Source registry")}
-            title={text(lang, "逐数据库许可与处理矩阵", "Source-by-source licence and handling matrix")}
-            body={text(lang, "每项登记分别说明来源、版本、允许范围、限制、本站处理方式和官方条款。接入状态不是对第三方数据的重新许可。", "Each registry entry states source, version, permitted scope, restrictions, site handling, and official terms. Ingestion status is not a relicence of third-party data.")}
-          />
-          <div role="group" aria-label={text(lang, "按接入状态筛选", "Filter by ingestion status")} style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            {[
-              ["all", text(lang, "全部来源", "All sources")],
-              ["active", text(lang, "当前接入", "Active")],
-              ["limited", text(lang, "有限接入", "Limited")],
-              ["quarantined", text(lang, "未公开接入", "Excluded")],
-            ].map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={filter === id}
-                onClick={() => setFilter(id)}
-                style={{
-                  ...toolbarBtn(t),
-                  background: filter === id ? t.accentText : t.surface,
-                  borderColor: filter === id ? t.accent : t.border,
-                  borderRadius: 7,
-                  color: filter === id ? "#fff" : t.muted,
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div data-testid="compliance-dataset-list" style={{ display: "grid", gap: 11 }}>
-          {datasets.map(dataset => <DatasetRow key={dataset.id} dataset={dataset} lang={lang} t={t} />)}
-        </div>
+      <Surface id="compliance-clauses" data-testid="compliance-applicable-clauses" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="3"
+          t={t}
+          title={text(lang, "适用条款与发布方原文", "Applicable terms and publisher sources")}
+          body={text(lang, "以下内容按许可和来源整理，便于找到与本站数据实际使用有关的条款。中文说明只作索引和保守提示；条款含义、定义和例外情况以链接中的发布方原文为准。", "The entries below are organized by licence and source so the relevant publisher terms can be found. The summaries are a conservative index only; meaning, definitions, and exceptions come from the linked publisher text.")}
+        />
+        <ClauseList lang={lang} t={t} />
       </Surface>
 
-      <div id="compliance-response" style={{ alignItems: "start", display: "grid", gap: 16, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 1.12fr) minmax(320px, .88fr)", scrollMarginTop: 112 }}>
-        <Surface data-testid="compliance-incident-response" t={t} style={{ display: "grid", gap: 14 }}>
-          <SectionHeading
-            t={t}
-            eyebrow={text(lang, "异议、纠错与移除", "Dispute, correction, and removal")}
-            title={text(lang, "权利声明和来源争议的五步响应程序", "Five-step response for rights notices and provenance disputes")}
-            body={text(
-              lang,
-              "收到合理异议后，优先控制风险，再判断是否恢复。暂停展示不代表承认侵权；恢复展示也必须有可记录的来源和条款依据。",
-              "After a reasonable concern is received, contain risk before deciding whether to restore. Suspension is not an admission of infringement, and restoration requires documented provenance and terms.",
-            )}
-          />
-          <ol style={{ display: "grid", gap: 0, listStyle: "none", margin: 0, padding: 0 }}>
-            {complianceRegistry.incidentResponse.map((item, index) => (
-              <li key={item.id} style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 10, gridTemplateColumns: "34px minmax(0, 1fr)", padding: "11px 0" }}>
-                <span style={{ color: t.warn, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 10, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</span>
-                <span style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.65 }}>{text(lang, item.zh, item.en)}</span>
-              </li>
-            ))}
-          </ol>
-        </Surface>
+      <Surface id="compliance-credentials" data-testid="compliance-authorization-credentials" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="4"
+          t={t}
+          title={text(lang, "授权凭证与尚未解决的缺口", "Authorization evidence and unresolved gaps")}
+          body={text(lang, "这一部分说明每个来源目前依据什么接入，以及哪些用途仍然没有覆盖性授权。仓库清单和测试只能证明本站做过登记，不能代替发布方出具的许可。", "This section states the evidence used for each source and the uses that still lack blanket permission. Repository manifests and tests show site handling only; they do not replace publisher permission.")}
+        />
+        <CredentialList lang={lang} t={t} />
+      </Surface>
 
-        <Surface data-testid="compliance-definitions" t={t} style={{ display: "grid", gap: 0 }}>
-          <SectionHeading
-            t={t}
-            eyebrow={text(lang, "术语定义", "Definitions")}
-            title={text(lang, "本页使用的关键合规术语", "Key compliance terms used on this page")}
-            body={text(lang, "这些定义仅用于本项目的控制流程；适用许可或法律定义不一致时，以后者为准。", "These definitions support project controls only; applicable licence or legal definitions prevail.")}
-          />
-          <dl style={{ display: "grid", margin: 0 }}>
-            {complianceRegistry.definitions.map(item => (
-              <div key={item.termEn} style={{ borderBottom: `1px solid ${t.border}`, display: "grid", gap: 5, padding: "11px 0" }}>
-                <dt style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 900 }}>{text(lang, item.termZh, item.termEn)}</dt>
-                <dd style={{ color: t.muted, fontSize: 10.9, lineHeight: 1.6, margin: 0 }}>{text(lang, item.definitionZh, item.definitionEn)}</dd>
-              </div>
-            ))}
-          </dl>
-        </Surface>
-      </div>
+      <Surface id="compliance-responsibilities" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="5"
+          t={t}
+          title={text(lang, "用户责任与本站责任", "User and site responsibilities")}
+          body={text(lang, "数据许可不会因为经过检索、可视化或算法处理而消失。下面分别说明使用者和本站需要承担的事项。", "A licence does not disappear because data are searched, visualized, or processed by an algorithm. The responsibilities of users and the site are listed separately below.")}
+        />
+        <h3 style={{ color: t.textStrong, fontSize: 15, margin: 0 }}>{text(lang, "5.1 使用者需要做到", "5.1 User responsibilities")}</h3>
+        {complianceRegistry.userObligations.map((item, index) => (
+          <NumberedItem key={item.id} number={`5.1.${index + 1}`} title={text(lang, OBLIGATION_TITLES[item.id]?.[0] || item.id, OBLIGATION_TITLES[item.id]?.[1] || item.id)} body={text(lang, item.zh, item.en)} t={t} tone={item.level === "required" ? "warn" : "normal"} />
+        ))}
+        <h3 style={{ color: t.textStrong, fontSize: 15, margin: "12px 0 0" }}>{text(lang, "5.2 本站目前执行的原则", "5.2 Current site commitments")}</h3>
+        {complianceRegistry.platformCommitments.map((item, index) => (
+          <NumberedItem key={item.id} number={`5.2.${index + 1}`} title={text(lang, COMMITMENT_TITLES[item.id]?.[0] || item.id, COMMITMENT_TITLES[item.id]?.[1] || item.id)} body={text(lang, item.zh, item.en)} t={t} />
+        ))}
+      </Surface>
 
-      <Surface t={t} style={{ borderLeft: `4px solid ${t.accent}`, display: "grid", gap: 8 }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "疑问、权利声明或数据移除请求", "Questions, rights notices, or data removal requests")}</strong>
-        <p style={{ color: t.muted, fontSize: 11.7, lineHeight: 1.65, margin: 0 }}>
-          {text(
-            lang,
-            "如您是数据发布方、权利人或网站用户，并对署名、许可适用、记录身份、错误内容或数据移除有疑问，请提供相关记录名称、来源链接与问题说明。我们会先暂停存在合理争议的相关展示，再进行来源和条款核验。",
-            "If you are a publisher, rightsholder, or site user with questions about attribution, licence scope, record identity, incorrect content, or removal, include the record name, source link, and a description of the issue. We will suspend reasonably disputed content before reviewing provenance and terms.",
-          )}
+      <Surface id="compliance-documents" data-testid="compliance-primary-documents" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="6"
+          t={t}
+          title={text(lang, "发布方官方文件", "Official publisher documents")}
+          body={text(lang, "需要判断许可时，请打开对应原文，并结合具体记录的下载页、附加条件和实际机构协议阅读。", "When assessing permission, open the relevant source and read it together with the record download page, additional conditions, and the actual institutional agreement.")}
+        />
+        {complianceRegistry.officialDocuments.map((item, index) => (
+          <NumberedItem key={item.id} number={`6.${index + 1}`} title={text(lang, item.titleZh, item.titleEn)} body={text(lang, item.scopeZh, item.scopeEn)} t={t}>
+            <a href={item.url} target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 10.9, fontWeight: 850, overflowWrap: "anywhere" }}>{item.publisher} · {item.url} ↗</a>
+          </NumberedItem>
+        ))}
+      </Surface>
+
+      <Surface id="compliance-source-registry" data-testid="compliance-source-registry" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="7"
+          t={t}
+          title={text(lang, "来源登记", "Source registry")}
+          body={text(lang, "来源登记功能继续保留。每个条目说明版本、记录范围、许可、允许用途、禁止推定事项和本站处理方式。", "The source registry remains available. Each entry states version, record scope, licence, permitted uses, non-implications, and site handling.")}
+        />
+        <div role="group" aria-label={text(lang, "按接入状态筛选", "Filter by ingestion status")} style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+          {[
+            ["all", text(lang, "全部来源", "All sources")],
+            ["active", text(lang, "当前接入", "Active")],
+            ["limited", text(lang, "有限接入", "Limited")],
+            ["quarantined", text(lang, "未公开接入", "Excluded")],
+          ].map(([id, label]) => (
+            <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)} style={{ ...toolbarBtn(t), background: filter === id ? t.accentText : t.surface, borderColor: filter === id ? t.accent : t.border, borderRadius: 7, color: filter === id ? "#fff" : t.muted }}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <DatasetList datasets={datasets} lang={lang} t={t} />
+      </Surface>
+
+      <Surface id="compliance-response" data-testid="compliance-incident-response" t={t} style={{ scrollMarginTop: 112 }}>
+        <SectionHeading
+          number="8"
+          t={t}
+          title={text(lang, "异议、纠错与移除", "Disputes, corrections, and removal")}
+          body={text(lang, "收到具体且合理的权利或来源异议后，先暂停相关展示，再核对记录、来源和许可。暂停不代表承认侵权，恢复也必须有可记录的依据。", "After a specific and reasonable rights or provenance concern, the affected display is paused while the record, source, and terms are reviewed. Suspension is not an admission, and restoration requires documented support.")}
+        />
+        {complianceRegistry.incidentResponse.map((item, index) => (
+          <NumberedItem key={item.id} number={`8.${index + 1}`} title={text(lang, ["登记问题", "暂停相关展示", "核对来源与条款", "记录处理决定", "通知并保留复核入口"][index], ["Record the concern", "Pause the affected display", "Review provenance and terms", "Record the decision", "Notify and retain a review route"][index])} body={text(lang, item.zh, item.en)} t={t} />
+        ))}
+      </Surface>
+
+      <Surface data-testid="compliance-definitions" t={t}>
+        <SectionHeading number="9" t={t} title={text(lang, "术语说明", "Definitions")} body={text(lang, "这些说明用于理解本站做法；如与许可或法律定义不一致，以后者为准。", "These definitions explain site handling; licence and legal definitions prevail if they differ.")} />
+        {complianceRegistry.definitions.map((item, index) => (
+          <NumberedItem key={item.termEn} number={`9.${index + 1}`} title={text(lang, item.termZh, item.termEn)} body={text(lang, item.definitionZh, item.definitionEn)} t={t} />
+        ))}
+      </Surface>
+
+      <Surface t={t} style={{ borderLeft: `4px solid ${t.accent}` }}>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "提出疑问、权利声明或移除请求", "Questions, rights notices, or removal requests")}</strong>
+        <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.7, margin: 0 }}>
+          {text(lang, "请提供记录名称、来源链接和问题说明。对于存在合理争议的内容，本站会先暂停展示，再核对来源和条款。", "Include the record name, source link, and a description. Reasonably disputed content is paused while provenance and terms are reviewed.")}
         </p>
-        <a href="#contact" style={{ color: t.accentText, fontSize: 12.5, fontWeight: 900, justifySelf: "start", textDecorationThickness: "1px", textUnderlineOffset: 3 }}>{text(lang, "联系我们", "Contact Us")}</a>
+        <a href="#contact" style={{ color: t.accentText, fontSize: 12.2, fontWeight: 900, justifySelf: "start" }}>{text(lang, "联系我们", "Contact us")}</a>
       </Surface>
     </div>
   )

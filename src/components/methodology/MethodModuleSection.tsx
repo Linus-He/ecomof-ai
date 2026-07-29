@@ -133,27 +133,31 @@ function ImplementationLogic({ item, lang, t }) {
         <h3 style={{ color: t.textStrong, fontSize: 17, margin: 0 }}>{text(lang, "从操作到结果的完整执行链", "Complete execution chain from action to result")}</h3>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55, margin: 0 }}>{text(lang, "每一项都说明触发条件、处理过程、输出与阻断边界；缺失数据不会被静默补齐。", "Each function states its trigger, processing, output, and guard; missing data are never silently filled.")}</p>
       </header>
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
-          <thead>
-            <tr>
-              {[text(lang, "功能", "Function"), text(lang, "触发／输入", "Trigger / input"), text(lang, "执行过程", "Processing"), text(lang, "输出", "Output"), text(lang, "阻断与责任边界", "Guard / boundary")].map(label => (
-                <th key={label} style={{ borderBottom: `1px solid ${t.borderStrong || t.border}`, color: t.faint, fontSize: 10.3, padding: "8px 9px", textAlign: "left" }}>{label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={`${row.function}-${index}`}>
-                {[row.function, row.trigger, row.process, row.output, row.guard].map((value, cellIndex) => (
-                  <td key={cellIndex} style={{ borderBottom: `1px solid ${t.border}`, color: cellIndex === 0 ? t.textStrong : t.muted, fontSize: 11.2, fontWeight: cellIndex === 0 ? 850 : 500, lineHeight: 1.5, padding: "9px", verticalAlign: "top" }}>
-                    <ChemicalText value={value || text(lang, "按字段来源状态决定", "Determined by field provenance status")} />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div style={{ display: "grid", gap: 0 }}>
+        {rows.map((row, index) => (
+          <article key={`${row.function}-${index}`} style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 8, padding: "12px 0" }}>
+            <h4 style={{ color: t.textStrong, fontSize: 13.2, lineHeight: 1.45, margin: 0 }}>
+              <span style={{ color: t.accentText, marginRight: 9 }}>{index + 1}</span>
+              <ChemicalText value={row.function} />
+            </h4>
+            <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.68, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "何时触发：", "Trigger: ")}</strong>
+              <ChemicalText value={row.trigger || text(lang, "按当前页面输入触发", "Triggered by the current page input")} />
+            </p>
+            <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.68, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "怎样处理：", "Processing: ")}</strong>
+              <ChemicalText value={row.process || text(lang, "依次执行本节登记的算法步骤", "Runs the registered steps in this section")} />
+            </p>
+            <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.68, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "得到什么：", "Output: ")}</strong>
+              <ChemicalText value={row.output || text(lang, "返回结果和解释信息", "Returns a result with explanation")} />
+            </p>
+            <p style={{ background: t.badgeWarnBg, borderLeft: `3px solid ${t.warn}`, color: t.muted, fontSize: 11.4, lineHeight: 1.65, margin: 0, padding: "8px 10px" }}>
+              <strong style={{ color: t.warn }}>{text(lang, "不能越过的边界：", "Guard: ")}</strong>
+              <ChemicalText value={row.guard || text(lang, "字段来源状态不满足时停止正式计算", "Formal calculation stops when provenance requirements are not met")} />
+            </p>
+          </article>
+        ))}
       </div>
     </section>
   )
@@ -176,7 +180,7 @@ export function MethodModuleSection({ item, lang, t }) {
         </article>
       </div>
       <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, padding: 13 }}>
-        <h3 style={{ color: t.textStrong, fontSize: 16, fontWeight: 930, margin: 0 }}>{text(lang, "Method workflow", "Method workflow")}</h3>
+        <h3 style={{ color: t.textStrong, fontSize: 16, fontWeight: 930, margin: 0 }}>{text(lang, "处理步骤", "Method workflow")}</h3>
         <MethodAlgorithmStepper steps={item.methodWorkflow} lang={lang} t={t} />
       </article>
       {(item.visualizations || []).length ? (

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.11",
+  "currentAppVersion": "v1.0.12",
   "generatedAt": "2026-07-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
   "provenance": {
@@ -9,6 +9,106 @@
     "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
   },
   "developmentLog": {
+    "baseAppVersion": "v1.0.11",
+    "developmentVersion": "v1.0.12",
+    "recordedAt": "2026-07-29",
+    "status": "archived",
+    "statusLabel": {
+      "zh": "已归档",
+      "en": "archived"
+    },
+    "logPolicy": {
+      "zh": "v1.0.12 只记录本轮实际完成并通过检查的方法实现说明、编号式合规文件与响应式调整，不把计划项写成已完成。",
+      "en": "v1.0.12 records only the implementation documentation, numbered compliance document, and responsive changes completed and checked in this release; planned work is not presented as complete."
+    },
+    "releaseBoundary": {
+      "zh": "本轮补全 MOF 库、生态筛选、气体分离、催化、有机酸、字段级溯源和验证路线的实现架构，明确各模块的数据输入、索引、算法、输出与停止条件；数据合规页删除六步控制图、内部等宽编号和表格，改为 1、1.1、1.1.1 的阅读结构，以发布方许可、免责声明和原文链接为主，同时保留来源登记与筛选。",
+      "en": "This release documents implementation architecture for the MOF Library, EcoScreen, Gas Separation, Catalysis, Organic Acid, field-level provenance, and validation, including inputs, indexes, algorithms, outputs, and stopping conditions. The compliance page removes the six-step diagram, internal monospace codes, and tables in favour of hierarchical numbering centred on publisher licences, disclaimers, and source links, while retaining the source registry and filters."
+    },
+    "modules": {
+      "validation": {
+        "summary": {
+          "zh": "方法论从流程概览扩展为可核对的模块实现说明。",
+          "en": "Methodology expands from workflow summaries to reviewable module implementation documentation."
+        },
+        "changes": [
+          {
+            "zh": "新增来源、索引、标准化和任务派生四层数据库架构，说明不同数据库为何分层保存、何时允许连接。",
+            "en": "Adds a four-layer source, index, normalization, and task-derivative architecture explaining why databases remain separate and when joins are permitted."
+          },
+          {
+            "zh": "逐项补全名称与标识符索引、CoRE 性质索引、结构目录、CRITIC、IAST、Qst、反应路径图、经验贝叶斯丰度校正和 HGCPS 的实现边界。",
+            "en": "Documents implementation boundaries for identity and CoRE indexes, structure catalogues, CRITIC, IAST, Qst, pathway graphs, empirical-Bayes abundance correction, and HGCPS."
+          },
+          {
+            "zh": "每个功能统一说明何时触发、怎样处理、得到什么以及不能越过的边界，缺失字段不再由概括性流程掩盖。",
+            "en": "Every function now states its trigger, processing, output, and guard so missing fields are not hidden by generic workflow prose."
+          }
+        ]
+      },
+      "dataCompliance": {
+        "summary": {
+          "zh": "合规页改为发布方原文优先的编号式责任与免责声明文件。",
+          "en": "Compliance becomes a numbered responsibilities and disclaimer document led by publisher sources."
+        },
+        "changes": [
+          {
+            "zh": "删除六步控制流程图、CONTROL/CCDC 内部代码和全部表格，统一使用 1、1.1、1.1.1 分层编号。",
+            "en": "Removes the six-step control diagram, CONTROL/CCDC internal codes, and all tables, using hierarchical 1, 1.1, and 1.1.1 numbering instead."
+          },
+          {
+            "zh": "重写概括式文案，直接区分 CSD MOF Collection、modified CIF、unmodified CIF 与完整付费 CSD 的许可边界。",
+            "en": "Rewrites generic copy to distinguish the licence boundaries of the CSD MOF Collection, modified CIFs, unmodified CIFs, and the full paid CSD."
+          },
+          {
+            "zh": "43 项适用控制内容继续完整保留，但以自然语言标题、原文位置和发布方链接展示；来源登记功能及状态筛选不变。",
+            "en": "Retains all 43 applicable controls through natural-language headings, source locations, and publisher links, while preserving source registration and status filters."
+          }
+        ]
+      },
+      "ui": {
+        "summary": {
+          "zh": "方法与合规长页面的阅读层级和窄屏呈现更清楚。",
+          "en": "Long methodology and compliance pages now have clearer hierarchy and compact layouts."
+        },
+        "changes": [
+          {
+            "zh": "方法目录新增各模块“实现方式与架构”入口，桌面端继续支持 220–440 px 拖动调宽。",
+            "en": "Adds an Implementation and Architecture destination for each module while retaining the 220–440 px resizable desktop directory."
+          },
+          {
+            "zh": "原实现逻辑表格改为纵向编号说明，避免在长文本和窄屏中形成难以阅读的横向网格。",
+            "en": "Replaces the implementation-logic table with numbered vertical explanations for long copy and compact screens."
+          },
+          {
+            "zh": "移动端回到单列目录与正文，不显示桌面拖动柄，也不产生横向溢出。",
+            "en": "Compact screens use a single-column directory and body with no desktop resize handle or horizontal overflow."
+          }
+        ]
+      },
+      "projectEvolution": {
+        "summary": {
+          "zh": "统一版本中心新增 v1.0.12，单独记录本轮方法论与合规重构。",
+          "en": "The unified release center adds v1.0.12 for this methodology and compliance revision."
+        },
+        "changes": [
+          {
+            "zh": "版本选择器、当前徽章和模块更新统一读取 v1.0.12。",
+            "en": "The version selector, current badge, and module updates now read v1.0.12."
+          },
+          {
+            "zh": "开发日志只登记实际完成并通过检查的架构说明、编号式合规文件和响应式调整。",
+            "en": "The development log records only the completed and checked architecture documentation, numbered compliance document, and responsive changes."
+          },
+          {
+            "zh": "本轮仍只创建本地提交，不推送、不部署，也不宣称公开页面已经更新。",
+            "en": "This release remains a local commit only, with no push, deployment, or claim that the public site has changed."
+          }
+        ]
+      }
+    }
+  },
+  "previousDevelopmentLog": {
     "baseAppVersion": "v1.0.10",
     "developmentVersion": "v1.0.11",
     "recordedAt": "2026-07-29",
@@ -128,118 +228,6 @@
       }
     }
   },
-  "previousDevelopmentLog": {
-    "baseAppVersion": "v1.0.10",
-    "developmentVersion": "v1.0.11",
-    "recordedAt": "2026-07-29",
-    "status": "archived",
-    "statusLabel": {
-      "zh": "已归档",
-      "en": "archived"
-    },
-    "logPolicy": {
-      "zh": "v1.0.11 只记录本轮实际完成并通过检查的检索扩展、合规登记、弹窗修复与方法论重构，不把计划项写成已完成。",
-      "en": "v1.0.11 records only search expansion, compliance registration, modal fixes, and methodology work completed and checked in this release; planned work is not presented as complete."
-    },
-    "releaseBoundary": {
-      "zh": "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
-      "en": "This release extends the MOF Library from a CoRE-only property index to two-layer property plus name/literature identity search. It registers 185 factual MOF Anatomy identities under a conservative rights boundary and shows DOI, CCDC number, and explicit gap reasons where no licensed structure or property is available. Long-content dialogs keep their close controls fixed at the top. Methodology removes the obsolete module and is rebuilt with a resizable directory, formula-plus-interactive sensitivity layouts, per-function implementation logic, and the current abundance-neutral V3.9.10 HGCPS."
-    },
-    "modules": {
-      "database": {
-        "summary": {
-          "zh": "名称与文献身份覆盖扩展到 MOF Anatomy 目录，同时保持物化性质严格标识符连接。",
-          "en": "Name and literature identity coverage now includes the MOF Anatomy directory while physicochemical values retain exact-identifier linking."
-        },
-        "changes": [
-          {
-            "zh": "生成 185 条 MOF Anatomy 事实性身份索引，其中 185 条含原论文入口、175 条含 CCDC 号；不复制图片、XYZ 或整理后结构。",
-            "en": "Builds a 185-record factual MOF Anatomy identity index with 185 source-paper links and 175 CCDC numbers, without copying images, XYZ, or cleaned structures."
-          },
-          {
-            "zh": "物化性质搜索新增确认按钮，可按名称、别名、CSD Refcode、CCDC 号和 DOI 查询，并消除系统蓝色焦点外框。",
-            "en": "Adds explicit property-search confirmation across names, aliases, CSD Refcodes, CCDC numbers, and DOIs, while removing the browser-blue focus frame."
-          },
-          {
-            "zh": "DUT‑68 等仅有身份映射的材料显示论文、CCDC 与缺失原因；NTU‑68 等独立整理条目继续进入同一回退逻辑，不按相似名称猜测数值。",
-            "en": "Identity-only materials such as DUT-68 show paper, CCDC, and gap reasons; independently curated entries such as NTU-68 use the same fallback without similarity-based value inference."
-          }
-        ]
-      },
-      "validation": {
-        "summary": {
-          "zh": "方法论以当前数据产物和锁定规则为唯一事实源，并补齐交互解释与逐功能执行链。",
-          "en": "Methodology now uses current artifacts and locked rules as its sole truth source, with interactive explanations and per-function execution chains."
-        },
-        "changes": [
-          {
-            "zh": "删除废止的方法模块和旧版有机酸叙述，改为 V3.9.10 八因子加权几何 HGCPS、丰度中性收缩与审计边界。",
-            "en": "Removes the obsolete method module and superseded Organic Acid narrative in favor of V3.9.10 eight-factor weighted-geometric HGCPS, abundance-neutral shrinkage, and audit boundaries."
-          },
-          {
-            "zh": "所有含公式的方法组采用左公式、右可调敏感性图，下方继续展示算法步骤、输入输出、来源、限制和实现逻辑。",
-            "en": "Formula-bearing method groups now pair formulas on the left with adjustable sensitivity plots on the right, followed by steps, inputs/outputs, sources, limits, and implementation logic."
-          },
-          {
-            "zh": "有机酸因子、示例路线、派生层级和记录数直接读取 V3.9.10 生成产物，不硬编码排名结论。",
-            "en": "Organic Acid factors, example route, derivation levels, and record counts are read from V3.9.10 artifacts rather than hardcoded ranking claims."
-          }
-        ]
-      },
-      "ui": {
-        "summary": {
-          "zh": "长弹窗操作区和方法目录交互更稳定。",
-          "en": "Long-dialog controls and methodology navigation are more stable."
-        },
-        "changes": [
-          {
-            "zh": "字段来源、物化性质、声明、联系、致谢和有机酸抽屉的关闭按钮固定在容器顶部，内容下滑时保持可见。",
-            "en": "Keeps close controls fixed at the top of provenance, properties, disclaimer, contact, acknowledgements, and Organic Acid drawers while their content scrolls."
-          },
-          {
-            "zh": "方法目录支持桌面端拖动调整 220–440 px 宽度，窄屏保持单列目录。",
-            "en": "Makes the desktop methods directory resizable from 220–440 px while retaining the compact single-column mobile layout."
-          },
-          {
-            "zh": "方法论顶部新增开放协作说明，明确开源展示不取消来源许可、数据责任和科研验证义务。",
-            "en": "Adds an open-collaboration statement clarifying that open implementation does not remove licensing, data-governance, or scientific-validation duties."
-          }
-        ]
-      },
-      "dataCompliance": {
-        "summary": {
-          "zh": "新增 MOF Anatomy 的限制性来源登记、授权缺口与禁止复制边界。",
-          "en": "Adds a restricted MOF Anatomy source record, authorization gap, and no-copy boundary."
-        },
-        "changes": [
-          {
-            "zh": "合规页新增 MOF Anatomy 授权凭证／缺口、官方说明入口和数据集处理记录，明确未发现站点统一再利用许可。",
-            "en": "Adds a MOF Anatomy authorization/gap record, official project link, and dataset handling record, explicitly noting that no site-wide reuse licence was located."
-          },
-          {
-            "zh": "只使用名称、年份、分类、DOI 与 CCDC 号等事实性元数据；站点图片、结构文件、页面文案和视觉设计不进入仓库。",
-            "en": "Uses factual metadata such as name, year, class, DOI, and CCDC number only; site images, structure files, page prose, and visual design do not enter the repository."
-          }
-        ]
-      },
-      "projectEvolution": {
-        "summary": {
-          "zh": "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
-          "en": "The unified release center adds v1.0.11 with the actual completed scope."
-        },
-        "changes": [
-          {
-            "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。",
-            "en": "The version selector, current badge, module updates, and development log now read v1.0.11."
-          },
-          {
-            "zh": "本轮只创建本地提交，不推送或宣称公开部署。",
-            "en": "This release is committed locally only, without push or public-deployment claims."
-          }
-        ]
-      }
-    }
-  },
   "moduleCatalog": {
     "organicAcid": {
       "label": {
@@ -351,6 +339,101 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v1.0.12",
+      "date": "2026-07-29",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "v1.0.12：补全全站方法实现说明，并将数据合规页改为原文优先的编号式文件。",
+        "en": "v1.0.12: documents implementation architecture across the platform and recasts data compliance as a numbered, source-first document."
+      },
+      "summary": {
+        "zh": "本轮补全 MOF 库、生态筛选、气体分离、催化、有机酸、字段级溯源和验证路线的实现架构，明确各模块的数据输入、索引、算法、输出与停止条件；数据合规页删除六步控制图、内部等宽编号和表格，改为 1、1.1、1.1.1 的阅读结构，以发布方许可、免责声明和原文链接为主，同时保留来源登记与筛选。",
+        "en": "This release documents implementation architecture for the MOF Library, EcoScreen, Gas Separation, Catalysis, Organic Acid, field-level provenance, and validation, including inputs, indexes, algorithms, outputs, and stopping conditions. The compliance page removes the six-step diagram, internal monospace codes, and tables in favour of hierarchical numbering centred on publisher licences, disclaimers, and source links, while retaining the source registry and filters."
+      },
+      "modules": {
+        "validation": {
+          "summary": {
+            "zh": "方法论从流程概览扩展为可核对的模块实现说明。",
+            "en": "Methodology expands from workflow summaries to reviewable module implementation documentation."
+          },
+          "changes": [
+            {
+              "zh": "新增来源、索引、标准化和任务派生四层数据库架构，说明不同数据库为何分层保存、何时允许连接。",
+              "en": "Adds a four-layer source, index, normalization, and task-derivative architecture explaining why databases remain separate and when joins are permitted."
+            },
+            {
+              "zh": "逐项补全名称与标识符索引、CoRE 性质索引、结构目录、CRITIC、IAST、Qst、反应路径图、经验贝叶斯丰度校正和 HGCPS 的实现边界。",
+              "en": "Documents implementation boundaries for identity and CoRE indexes, structure catalogues, CRITIC, IAST, Qst, pathway graphs, empirical-Bayes abundance correction, and HGCPS."
+            },
+            {
+              "zh": "每个功能统一说明何时触发、怎样处理、得到什么以及不能越过的边界，缺失字段不再由概括性流程掩盖。",
+              "en": "Every function now states its trigger, processing, output, and guard so missing fields are not hidden by generic workflow prose."
+            }
+          ]
+        },
+        "dataCompliance": {
+          "summary": {
+            "zh": "合规页改为发布方原文优先的编号式责任与免责声明文件。",
+            "en": "Compliance becomes a numbered responsibilities and disclaimer document led by publisher sources."
+          },
+          "changes": [
+            {
+              "zh": "删除六步控制流程图、CONTROL/CCDC 内部代码和全部表格，统一使用 1、1.1、1.1.1 分层编号。",
+              "en": "Removes the six-step control diagram, CONTROL/CCDC internal codes, and all tables, using hierarchical 1, 1.1, and 1.1.1 numbering instead."
+            },
+            {
+              "zh": "重写概括式文案，直接区分 CSD MOF Collection、modified CIF、unmodified CIF 与完整付费 CSD 的许可边界。",
+              "en": "Rewrites generic copy to distinguish the licence boundaries of the CSD MOF Collection, modified CIFs, unmodified CIFs, and the full paid CSD."
+            },
+            {
+              "zh": "43 项适用控制内容继续完整保留，但以自然语言标题、原文位置和发布方链接展示；来源登记功能及状态筛选不变。",
+              "en": "Retains all 43 applicable controls through natural-language headings, source locations, and publisher links, while preserving source registration and status filters."
+            }
+          ]
+        },
+        "ui": {
+          "summary": {
+            "zh": "方法与合规长页面的阅读层级和窄屏呈现更清楚。",
+            "en": "Long methodology and compliance pages now have clearer hierarchy and compact layouts."
+          },
+          "changes": [
+            {
+              "zh": "方法目录新增各模块“实现方式与架构”入口，桌面端继续支持 220–440 px 拖动调宽。",
+              "en": "Adds an Implementation and Architecture destination for each module while retaining the 220–440 px resizable desktop directory."
+            },
+            {
+              "zh": "原实现逻辑表格改为纵向编号说明，避免在长文本和窄屏中形成难以阅读的横向网格。",
+              "en": "Replaces the implementation-logic table with numbered vertical explanations for long copy and compact screens."
+            },
+            {
+              "zh": "移动端回到单列目录与正文，不显示桌面拖动柄，也不产生横向溢出。",
+              "en": "Compact screens use a single-column directory and body with no desktop resize handle or horizontal overflow."
+            }
+          ]
+        },
+        "projectEvolution": {
+          "summary": {
+            "zh": "统一版本中心新增 v1.0.12，单独记录本轮方法论与合规重构。",
+            "en": "The unified release center adds v1.0.12 for this methodology and compliance revision."
+          },
+          "changes": [
+            {
+              "zh": "版本选择器、当前徽章和模块更新统一读取 v1.0.12。",
+              "en": "The version selector, current badge, and module updates now read v1.0.12."
+            },
+            {
+              "zh": "开发日志只登记实际完成并通过检查的架构说明、编号式合规文件和响应式调整。",
+              "en": "The development log records only the completed and checked architecture documentation, numbered compliance document, and responsive changes."
+            },
+            {
+              "zh": "本轮仍只创建本地提交，不推送、不部署，也不宣称公开页面已经更新。",
+              "en": "This release remains a local commit only, with no push, deployment, or claim that the public site has changed."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v1.0.11",
       "date": "2026-07-29",

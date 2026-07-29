@@ -19,6 +19,7 @@ import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
+import { MethodArchitectureDetails, MethodArchitectureOverview } from "../methodology/MethodArchitectureDetails"
 import { ArrowsOutLineHorizontal, GithubLogo } from "@phosphor-icons/react"
 
 const MODULE_ORDER = [
@@ -31,6 +32,16 @@ const MODULE_ORDER = [
   "shared-evidence",
   "limitations-validation",
 ]
+
+const ARCHITECTURE_MODULES = new Set([
+  "mof-library",
+  "ecoscreen",
+  "gassep",
+  "catalysis-lab",
+  "organic-acid",
+  "shared-evidence",
+  "limitations-validation",
+])
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
@@ -50,11 +61,23 @@ function buildDirectory(modules, lang) {
       label: module.module,
       labelZh: module.moduleZh,
       level: 1,
-      children: (module.methodGroups || []).map(group => ({
-        id: `methodology-${group.id}`,
-        label: group.title,
-        labelZh: group.titleZh,
-      })),
+      children: [
+        ...(module.id === "platform-overview" ? [{
+          id: "methodology-data-architecture",
+          label: "Data and database architecture",
+          labelZh: "数据与数据库架构",
+        }] : []),
+        ...(module.methodGroups || []).map(group => ({
+          id: `methodology-${group.id}`,
+          label: group.title,
+          labelZh: group.titleZh,
+        })),
+        ...(ARCHITECTURE_MODULES.has(module.id) ? [{
+          id: `methodology-${module.id}-architecture`,
+          label: "Implementation and architecture",
+          labelZh: "实现方式与架构",
+        }] : []),
+      ],
       display: text(lang, module.moduleZh, module.module),
     }))
 }
@@ -479,8 +502,8 @@ export function MethodsLimitationsTab() {
         title={text(lang, "方法论", "Methodology")}
         subtitle={text(
           lang,
-          "按网站菜单顺序组织全站方法论：模块目的、方法流程、算法公式、输入输出、可视化、证据边界、限制和验证路线。",
-          "A menu-aligned methods hub covering module purpose, workflow, algorithms, formulas, inputs, outputs, visualizations, evidence boundaries, limitations, and validation roadmap."
+          "这里按网站功能逐项说明：数据从哪里来，索引怎样建立，字段如何溯源，算法怎样计算，什么情况下停止，以及结果应当怎样理解。",
+          "This page explains each feature in practical terms: where data come from, how indexes and provenance work, how calculations run, when processing stops, and how results should be interpreted."
         )}
         meta={text(lang, "科学方法中心 · 证据感知 · 决策支持原型", "scientific methods hub · evidence-aware · decision-support prototype")}
         action={
@@ -494,12 +517,12 @@ export function MethodsLimitationsTab() {
       <section style={{ alignItems: "flex-start", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 10, display: "flex", gap: 11, padding: "13px 15px" }}>
         <GithubLogo aria-hidden="true" color={t.accentText} size={24} style={{ flex: "0 0 auto" }} weight="duotone" />
         <div style={{ display: "grid", gap: 5 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "开放方法，接受复核", "Open methods, open to review")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "把方法写清楚，方便别人核对", "Methods written for review")}</strong>
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
             {text(
               lang,
-              "我相信可复核的方法比不可见的结论更有价值。秉承互联网开放协作与 GitHub 开源精神，EcoMOF‑AI 公开展示数据来源、公式、实现逻辑、参数边界与验证路线，便于学习、复现、质疑和共同改进；开放不等于放弃来源许可、数据责任或科研验证。",
-              "Reviewable methods are more valuable than invisible conclusions. In the open, collaborative spirit of the internet and GitHub, EcoMOF-AI exposes sources, formulas, implementation logic, parameter boundaries, and validation routes for learning, reproduction, critique, and improvement; openness never removes licensing, data-governance, or scientific-validation responsibilities.",
+              "这个项目沿用互联网与 GitHub 的开放协作方式，因此尽量把数据来源、索引、公式、代码处理步骤和验证边界公开写明。读者可以据此复现、检查或指出问题；公开方法并不改变原始数据许可，也不能替代实验与工程验证。",
+              "The project follows the open collaboration model of the internet and GitHub, so data sources, indexes, formulas, processing steps, and validation boundaries are documented for reproduction and review. Open methods do not change source licences or replace experimental and engineering validation.",
             )}
           </span>
           <a href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 11.2, fontWeight: 850 }}>
@@ -546,6 +569,7 @@ export function MethodsLimitationsTab() {
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
             <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
+            <MethodArchitectureOverview lang={lang} t={t} />
             <FormulaIndex lang={lang} t={t} />
             <MethodologyDataBoundary lang={lang} t={t} />
             <StructuredFactorEffectsMethod lang={lang} t={t} isMobile={isMobile} />
@@ -569,6 +593,7 @@ export function MethodsLimitationsTab() {
             const moduleBlock = (
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
                 <MethodModuleSection item={item} lang={lang} t={t} />
+                <MethodArchitectureDetails moduleId={item.id} lang={lang} t={t} />
                 {item.id === "organic-acid" ? (
                   <CurrentOrganicAcidMethodology lang={lang} t={t} />
                 ) : null}

@@ -278,6 +278,65 @@ const V1_0_1_RELEASE = {
 
 const RECENT_RELEASES = [
   {
+    appVersion: "v1.0.12",
+    date: "2026-07-29",
+    stage: "unified-platform",
+    headline: {
+      zh: "v1.0.12：补全全站方法实现说明，并将数据合规页改为原文优先的编号式文件。",
+      en: "v1.0.12: documents implementation architecture across the platform and recasts data compliance as a numbered, source-first document.",
+    },
+    summary: {
+      zh: "本轮补全 MOF 库、生态筛选、气体分离、催化、有机酸、字段级溯源和验证路线的实现架构，明确各模块的数据输入、索引、算法、输出与停止条件；数据合规页删除六步控制图、内部等宽编号和表格，改为 1、1.1、1.1.1 的阅读结构，以发布方许可、免责声明和原文链接为主，同时保留来源登记与筛选。",
+      en: "This release documents implementation architecture for the MOF Library, EcoScreen, Gas Separation, Catalysis, Organic Acid, field-level provenance, and validation, including inputs, indexes, algorithms, outputs, and stopping conditions. The compliance page removes the six-step diagram, internal monospace codes, and tables in favour of hierarchical numbering centred on publisher licences, disclaimers, and source links, while retaining the source registry and filters.",
+    },
+    modules: {
+      validation: {
+        summary: {
+          zh: "方法论从流程概览扩展为可核对的模块实现说明。",
+          en: "Methodology expands from workflow summaries to reviewable module implementation documentation.",
+        },
+        changes: [
+          { zh: "新增来源、索引、标准化和任务派生四层数据库架构，说明不同数据库为何分层保存、何时允许连接。", en: "Adds a four-layer source, index, normalization, and task-derivative architecture explaining why databases remain separate and when joins are permitted." },
+          { zh: "逐项补全名称与标识符索引、CoRE 性质索引、结构目录、CRITIC、IAST、Qst、反应路径图、经验贝叶斯丰度校正和 HGCPS 的实现边界。", en: "Documents implementation boundaries for identity and CoRE indexes, structure catalogues, CRITIC, IAST, Qst, pathway graphs, empirical-Bayes abundance correction, and HGCPS." },
+          { zh: "每个功能统一说明何时触发、怎样处理、得到什么以及不能越过的边界，缺失字段不再由概括性流程掩盖。", en: "Every function now states its trigger, processing, output, and guard so missing fields are not hidden by generic workflow prose." },
+        ],
+      },
+      dataCompliance: {
+        summary: {
+          zh: "合规页改为发布方原文优先的编号式责任与免责声明文件。",
+          en: "Compliance becomes a numbered responsibilities and disclaimer document led by publisher sources.",
+        },
+        changes: [
+          { zh: "删除六步控制流程图、CONTROL/CCDC 内部代码和全部表格，统一使用 1、1.1、1.1.1 分层编号。", en: "Removes the six-step control diagram, CONTROL/CCDC internal codes, and all tables, using hierarchical 1, 1.1, and 1.1.1 numbering instead." },
+          { zh: "重写概括式文案，直接区分 CSD MOF Collection、modified CIF、unmodified CIF 与完整付费 CSD 的许可边界。", en: "Rewrites generic copy to distinguish the licence boundaries of the CSD MOF Collection, modified CIFs, unmodified CIFs, and the full paid CSD." },
+          { zh: "43 项适用控制内容继续完整保留，但以自然语言标题、原文位置和发布方链接展示；来源登记功能及状态筛选不变。", en: "Retains all 43 applicable controls through natural-language headings, source locations, and publisher links, while preserving source registration and status filters." },
+        ],
+      },
+      ui: {
+        summary: {
+          zh: "方法与合规长页面的阅读层级和窄屏呈现更清楚。",
+          en: "Long methodology and compliance pages now have clearer hierarchy and compact layouts.",
+        },
+        changes: [
+          { zh: "方法目录新增各模块“实现方式与架构”入口，桌面端继续支持 220–440 px 拖动调宽。", en: "Adds an Implementation and Architecture destination for each module while retaining the 220–440 px resizable desktop directory." },
+          { zh: "原实现逻辑表格改为纵向编号说明，避免在长文本和窄屏中形成难以阅读的横向网格。", en: "Replaces the implementation-logic table with numbered vertical explanations for long copy and compact screens." },
+          { zh: "移动端回到单列目录与正文，不显示桌面拖动柄，也不产生横向溢出。", en: "Compact screens use a single-column directory and body with no desktop resize handle or horizontal overflow." },
+        ],
+      },
+      projectEvolution: {
+        summary: {
+          zh: "统一版本中心新增 v1.0.12，单独记录本轮方法论与合规重构。",
+          en: "The unified release center adds v1.0.12 for this methodology and compliance revision.",
+        },
+        changes: [
+          { zh: "版本选择器、当前徽章和模块更新统一读取 v1.0.12。", en: "The version selector, current badge, and module updates now read v1.0.12." },
+          { zh: "开发日志只登记实际完成并通过检查的架构说明、编号式合规文件和响应式调整。", en: "The development log records only the completed and checked architecture documentation, numbered compliance document, and responsive changes." },
+          { zh: "本轮仍只创建本地提交，不推送、不部署，也不宣称公开页面已经更新。", en: "This release remains a local commit only, with no push, deployment, or claim that the public site has changed." },
+        ],
+      },
+    },
+  },
+  {
     appVersion: "v1.0.11",
     date: "2026-07-29",
     stage: "unified-platform",
@@ -690,14 +749,14 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     developmentLog: {
-      baseAppVersion: "v1.0.10",
-      developmentVersion: "v1.0.11",
+      baseAppVersion: "v1.0.11",
+      developmentVersion: "v1.0.12",
       recordedAt: GENERATED_AT,
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.11 只记录本轮实际完成并通过检查的检索扩展、合规登记、弹窗修复与方法论重构，不把计划项写成已完成。",
-        en: "v1.0.11 records only search expansion, compliance registration, modal fixes, and methodology work completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.12 只记录本轮实际完成并通过检查的方法实现说明、编号式合规文件与响应式调整，不把计划项写成已完成。",
+        en: "v1.0.12 records only the implementation documentation, numbered compliance document, and responsive changes completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,

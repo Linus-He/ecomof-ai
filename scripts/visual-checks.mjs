@@ -37,11 +37,11 @@ const routes = [
   ]],
   ["database-compliance", "#database-compliance", [
     "数据使用、许可与责任",
-    "开始使用前必须阅读",
-    "任何下载、训练、发布或再分发都必须经过六步核验",
-    "CCDC 数据必须按对象和用途分别判断",
-    "逐数据库许可与处理矩阵",
-    "43 条条文逐项列示",
+    "开始使用前请先阅读",
+    "CCDC 与 CSD 数据边界",
+    "适用条款与发布方原文",
+    "授权凭证与尚未解决的缺口",
+    "来源登记",
   ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
