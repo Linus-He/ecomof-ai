@@ -3819,7 +3819,7 @@ input[type="submit"] {
 .home-story-shell .research-gateway-stage,
 .home-story-shell .explorer-chart-shell,
 .home-story-shell .home-capability-highlights {
-  border-color: color-mix(in srgb, currentColor 13%, transparent) !important;
+  border-color: color-mix(in srgb, currentColor 8%, transparent) !important;
   box-shadow: none !important;
 }
 
@@ -3839,20 +3839,17 @@ input[type="submit"] {
 .home-story-shell .descriptor-story-stage,
 .home-story-shell .scientific-story-stage,
 .home-story-shell .research-gateway-stage {
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-radius: 10px;
+  border-color: transparent !important;
+  border-radius: 0 !important;
 }
 
 .home-story-shell .home-immersive-panel {
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-radius: 10px !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
 }
 
 .home-story-shell [data-testid="home-data-foundation"] {
-  border-top-color: color-mix(in srgb, currentColor 6%, transparent) !important;
-  margin-top: -6px;
+  margin-top: -10px;
   position: relative;
 }
 
@@ -3868,9 +3865,44 @@ input[type="submit"] {
 }
 
 .home-story-shell .explorer-chart-shell {
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-radius: 6px !important;
+  border-color: color-mix(in srgb, currentColor 7%, transparent) !important;
+  border-radius: 4px !important;
+}
+
+.home-story-shell > section,
+.home-story-shell > .research-gateway-stage {
+  isolation: isolate;
+}
+
+.home-story-shell .home-data-tile,
+.home-story-shell .home-art-card,
+.home-story-shell .content-card {
+  border-color: color-mix(in srgb, currentColor 7%, transparent) !important;
+  border-radius: 4px !important;
+}
+
+/*
+ * Global control shape rule:
+ * text-bearing controls and badges use compact corners, never capsule geometry.
+ * True data marks, circular step numbers and progress tracks keep their semantic shape.
+ */
+button,
+[role="button"] {
+  border-radius: 4px !important;
+}
+
+label[style*="border-radius: 999px"],
+[style*="border-radius: 999px"][style*="padding"] {
+  border-radius: 5px !important;
+}
+
+.explorer-control-group button,
+.pareto-pair-tabs button,
+.workflow-evidence-levels span,
+.workflow-validation-actions span,
+.mof-structure-material-meta span,
+.mof-structure-pill {
+  border-radius: 5px !important;
 }
 
 /* Project evolution: one graph workspace, with the full record retained as an archive. */

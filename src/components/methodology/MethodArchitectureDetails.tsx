@@ -448,6 +448,32 @@ export function MethodArchitectureDetails({ moduleId, lang, t }) {
             {text(lang, block.titleZh, block.titleEn)}
           </h4>
           <p style={{ color: t.muted, fontSize: 11.9, lineHeight: 1.75, margin: 0 }}>{text(lang, block.implementationZh, block.implementationEn)}</p>
+          <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 7, paddingTop: 9 }}>
+            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "执行链：", "Execution chain: ")}</strong>
+              {text(
+                lang,
+                `系统先读取并标准化“${block.inputsZh}”，随后执行本条所述的索引、映射或计算逻辑，把中间状态与原记录标识一并保存，最后才生成“${block.outputsZh}”。任一中间检查失败时，不沿用上一条查询或演示值。`,
+                `The system first reads and normalizes "${block.inputsEn}", runs the indexing, mapping, or calculation logic described here, retains intermediate states with source record IDs, and only then produces "${block.outputsEn}". A failed check never reuses a previous-query or demonstration value.`,
+              )}
+            </p>
+            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "字段与审计：", "Fields and audit: ")}</strong>
+              {text(
+                lang,
+                "原始字段、标准化字段、派生字段和界面显示字段分层保存；字段级来源对象记录数据库、记录号、版本、原单位、换算状态与人工整理状态。页面显示内容可以沿这条链路回到来源或明确的派生规则。",
+                "Source, normalized, derived, and presentation fields remain separate. Field-level provenance records database, record ID, version, original unit, conversion, and curation state, so a displayed value can be traced to its source or explicit derivation rule.",
+              )}
+            </p>
+            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
+              <strong style={{ color: t.textStrong }}>{text(lang, "页面行为：", "UI behavior: ")}</strong>
+              {text(
+                lang,
+                "用户确认输入或切换条件后重新建立当前视图；加载中、无结果、仅可浏览、可计算和被阻断是不同状态。界面不会用预填材料制造已经完成查询的视觉效果，也不会把代理值改写成来源实测值。",
+                "Confirming input or changing conditions rebuilds the current view. Loading, empty, browse-only, computable, and blocked are distinct states. The UI does not use prefilled material to mimic a completed query or relabel a proxy as a source measurement.",
+              )}
+            </p>
+          </div>
           <div style={{ background: t.panel, borderLeft: `3px solid ${t.accent}`, display: "grid", gap: 6, padding: "10px 12px" }}>
             <p style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.65, margin: 0 }}>
               <strong style={{ color: t.textStrong }}>{text(lang, "输入：", "Input: ")}</strong>{text(lang, block.inputsZh, block.inputsEn)}

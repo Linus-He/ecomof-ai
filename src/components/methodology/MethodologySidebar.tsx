@@ -38,23 +38,26 @@ export function MethodologySidebar({ items, activeId, onJump, lang, t, isMobile 
     <aside
       style={{
         background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 10,
+        borderLeft: `2px solid ${t.border}`,
+        borderRight: 0,
+        borderTop: 0,
+        borderBottom: 0,
+        borderRadius: 0,
         maxHeight: isMobile ? "none" : "calc(100vh - 112px)",
         overflow: "auto",
-        padding: 10,
+        padding: "8px 8px 8px 12px",
         position: isMobile ? "static" : "sticky",
         top: 92,
       }}
     >
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, marginBottom: 8, textTransform: "uppercase" }}>
-        {text(lang, "方法目录", "Methods directory")}
+        {text(lang, "方法目录 · 按研究流程排列", "Methods directory · research order")}
       </div>
       <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible" }}>
-        {items.map(item => (
+        {items.map((item, index) => (
           <CollapsibleNavGroup
             key={item.id}
-            item={item}
+            item={{ ...item, sequence: index + 1 }}
             activeId={activeId}
             isOpen={openIds.has(item.id)}
             onToggle={toggle}

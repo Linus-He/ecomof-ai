@@ -278,6 +278,54 @@ const V1_0_1_RELEASE = {
 
 const RECENT_RELEASES = [
   {
+    appVersion: "v1.0.13",
+    date: "2026-07-30",
+    stage: "unified-platform",
+    headline: {
+      zh: "v1.0.13：首页转为连续研究画布，方法论恢复文献来源并逐项补全执行细节。",
+      en: "v1.0.13: turns the homepage into a continuous research canvas and restores literature-backed, item-level methodology detail.",
+    },
+    summary: {
+      zh: "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一移除文本按钮、筛选项和状态标签的胶囊形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
+      en: "This release softens homepage section and card boundaries, shortens section spacing, and removes capsule geometry from text buttons, filters, and status labels. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item.",
+    },
+    modules: {
+      ui: {
+        summary: {
+          zh: "首页区块连续化，并建立全站无胶囊控件规范。",
+          en: "Homepage sections now read continuously under a site-wide non-capsule control rule.",
+        },
+        changes: [
+          { zh: "首页主要区块移除外层实体边框和阴影，内层卡片边界降至低对比度，缩短首屏到数据基础之间的空白。", en: "Removes solid outer borders and shadows from homepage stages, lowers inner-card contrast, and shortens the gap from the hero to Data Foundation." },
+          { zh: "文本按钮、筛选项、状态标签和标签式计数统一使用 6 px 紧凑圆角；数据点、步骤圆点与进度轨道保留语义形状。", en: "Uses compact 6 px corners for text buttons, filters, status labels, and count tags while preserving semantic data marks, step circles, and progress tracks." },
+          { zh: "方法目录改为扁平左导轨，使用 01–10 顺序号、低边框层级和可拉伸宽度，当前项仍保持清晰反馈。", en: "Rebuilds the methods directory as a flat left rail with 01–10 numbering, low-border hierarchy, resizable width, and clear active feedback." },
+        ],
+      },
+      validation: {
+        summary: {
+          zh: "方法论从概览说明扩展为逐项可审查的实现文件。",
+          en: "Methodology expands from summaries into item-level reviewable implementation documentation.",
+        },
+        changes: [
+          { zh: "所有方法分组新增研究目的、输入与进入条件、执行顺序和中间状态、页面呈现、核查依据与停止条件五段说明。", en: "Adds five detailed notes to every method group: purpose, input and entry criteria, execution and intermediate state, presentation, and review/stop conditions." },
+          { zh: "各模块架构条目补充执行链、字段分层审计和页面状态逻辑，明确加载、空态、仅浏览、可计算与阻断状态。", en: "Adds execution chain, layered field audit, and UI-state logic to each architecture item, distinguishing loading, empty, browse-only, computable, and blocked states." },
+          { zh: "每个算法步骤补充身份、单位和来源前置约束；缺失或冲突状态停止向正式结果传递。", en: "Adds identity, unit, and provenance preconditions to every algorithm step so missing or conflicting states do not propagate into formal results." },
+        ],
+      },
+      projectEvolution: {
+        summary: {
+          zh: "统一版本中心新增 v1.0.13，记录本轮首页与方法论重构。",
+          en: "The unified release center adds v1.0.13 for the homepage and methodology revision.",
+        },
+        changes: [
+          { zh: "恢复文献灵感来源：读取 34 条来源、六个分类及原文链接，并在方法目录中置于共享证据之后、限制与验证之前。", en: "Restores 34 literature-inspiration records, six categories, and source links, positioned after Shared Evidence and before Limitations and Validation." },
+          { zh: "删除“把方法写清楚，方便别人核对”及 GitHub 仓库横幅，不再用宣言代替方法内容。", en: "Removes the methods-review declaration and GitHub repository banner so substantive method content leads the page." },
+          { zh: "本轮只建立本地提交，不推送、不部署，也不把本地预览描述为公开版本。", en: "This release creates a local commit only, with no push, deployment, or claim of a public update." },
+        ],
+      },
+    },
+  },
+  {
     appVersion: "v1.0.12",
     date: "2026-07-29",
     stage: "unified-platform",
@@ -749,14 +797,14 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     developmentLog: {
-      baseAppVersion: "v1.0.11",
-      developmentVersion: "v1.0.12",
+      baseAppVersion: "v1.0.12",
+      developmentVersion: "v1.0.13",
       recordedAt: GENERATED_AT,
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.12 只记录本轮实际完成并通过检查的方法实现说明、编号式合规文件与响应式调整，不把计划项写成已完成。",
-        en: "v1.0.12 records only the implementation documentation, numbered compliance document, and responsive changes completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、无胶囊控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
+        en: "v1.0.13 records only the homepage immersion changes, non-capsule control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,

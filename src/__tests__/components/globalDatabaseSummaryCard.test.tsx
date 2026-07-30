@@ -15,7 +15,7 @@ describe("GlobalDatabaseSummaryCard", () => {
     render(<GlobalDatabaseSummaryCard summary={summary} lang="en" t={THEME_LIGHT} isMobile={false} />)
     expect(screen.getByTestId("global-database-summary")).toBeInTheDocument()
     expect(body()).toMatch(/Global Database Summary/)
-    expect(body()).toMatch(/Web v1\.0\.11/)
+    expect(body()).toMatch(/Web v1\.0\.13/)
     expect(body()).toMatch(/Layer Records/)
     for (const bad of FORBIDDEN) expect(body()).not.toContain(bad)
   })

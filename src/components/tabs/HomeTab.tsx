@@ -840,13 +840,13 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     }
   }
 
-  const pageGap = isMobile ? 18 : 24
+  const pageGap = isMobile ? 12 : 16
   const sectionStyle = { background: "transparent", border: "none", borderRadius: 0 }
   const panelStyle = {
     background: t.panel,
-    border: `1px solid ${t.border}`,
-    borderRadius: 12,
-    boxShadow: t.shadowSm,
+    border: "1px solid transparent",
+    borderRadius: 0,
+    boxShadow: "none",
   }
 
   const dataCards = useMemo(() => [
@@ -1080,7 +1080,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         </div>
       </section>
 
-      <section data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.badgeInfoBg }}>
+      <section data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: `linear-gradient(180deg, ${t.badgeInfoBg}, color-mix(in srgb, ${t.badgeInfoBg} 46%, transparent))` }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}
           title={zh ? "当前启用的数据与证据层" : "Active data and evidence layers"}

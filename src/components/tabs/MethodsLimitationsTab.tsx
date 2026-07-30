@@ -20,7 +20,7 @@ import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
 import { MethodArchitectureDetails, MethodArchitectureOverview } from "../methodology/MethodArchitectureDetails"
-import { ArrowsOutLineHorizontal, GithubLogo } from "@phosphor-icons/react"
+import { ArrowsOutLineHorizontal } from "@phosphor-icons/react"
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -80,6 +80,23 @@ function buildDirectory(modules, lang) {
       ],
       display: text(lang, module.moduleZh, module.module),
     }))
+}
+
+function buildLiteratureDirectory(records, lang) {
+  const categories = Array.isArray(records?.categories) ? records.categories : []
+  return {
+    id: "methodology-literature-inspiration",
+    label: "Literature inspiration and adoption boundaries",
+    labelZh: "文献灵感来源与采用边界",
+    display: text(lang, "文献灵感来源与采用边界", "Literature inspiration and adoption boundaries"),
+    level: 1,
+    children: categories.map(category => ({
+      id: `methodology-literature-inspiration-${category.id}`,
+      label: category.titleEn,
+      labelZh: category.titleZh,
+      display: text(lang, category.titleZh, category.titleEn),
+    })),
+  }
 }
 
 function PlatformFlowCard({ lang, t, isMobile }) {
@@ -424,6 +441,7 @@ export function MethodsLimitationsTab() {
   const { width, isNarrow, isMobile } = useViewport()
   const compactMethods = isNarrow || width < 1120
   const [modules, setModules] = useState([])
+  const [literatureRecords, setLiteratureRecords] = useState({ categories: [], sources: [] })
   const [activeId, setActiveId] = useState("methodology-platform-overview")
   const [sidebarWidth, setSidebarWidth] = useState(276)
 
@@ -440,6 +458,18 @@ export function MethodsLimitationsTab() {
     return () => { active = false }
   }, [])
 
+  useEffect(() => {
+    let active = true
+    fetchDataJson("methodology_literature_inspiration_records.json", { categories: [], sources: [] })
+      .then(records => {
+        if (active) setLiteratureRecords(records && typeof records === "object" ? records : { categories: [], sources: [] })
+      })
+      .catch(() => {
+        if (active) setLiteratureRecords({ categories: [], sources: [] })
+      })
+    return () => { active = false }
+  }, [])
+
   const orderedModules = useMemo(() => {
     const byId = new Map(modules.map(item => [item.id, item]))
     return MODULE_ORDER.map(id => byId.get(id)).filter(Boolean)
@@ -447,7 +477,6 @@ export function MethodsLimitationsTab() {
 
   const directoryItems = useMemo(() => {
     const items = buildDirectory(orderedModules, lang)
-    const insertIndex = items.findIndex(item => item.id === "methodology-organic-acid")
     const finalItem = {
       ...ORGANIC_ACID_FINAL_DIRECTORY,
       display: text(lang, ORGANIC_ACID_FINAL_DIRECTORY.labelZh, ORGANIC_ACID_FINAL_DIRECTORY.label),
@@ -457,15 +486,22 @@ export function MethodsLimitationsTab() {
       })),
     }
     const adjustedInsertIndex = items.findIndex(item => item.id === "methodology-organic-acid")
-    if (insertIndex >= 0) {
-      return [
+    const withCurrentMethod = adjustedInsertIndex >= 0
+      ? [
         ...items.slice(0, adjustedInsertIndex + 1),
         finalItem,
         ...items.slice(adjustedInsertIndex + 1),
       ]
-    }
-    return [...items, finalItem]
-  }, [orderedModules, lang])
+      : [...items, finalItem]
+    const literatureItem = buildLiteratureDirectory(literatureRecords, lang)
+    const limitationsIndex = withCurrentMethod.findIndex(item => item.id === "methodology-limitations-validation")
+    if (limitationsIndex < 0) return [...withCurrentMethod, literatureItem]
+    return [
+      ...withCurrentMethod.slice(0, limitationsIndex),
+      literatureItem,
+      ...withCurrentMethod.slice(limitationsIndex),
+    ]
+  }, [orderedModules, lang, literatureRecords])
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
@@ -513,23 +549,6 @@ export function MethodsLimitationsTab() {
           </>
         }
       />
-
-      <section style={{ alignItems: "flex-start", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 10, display: "flex", gap: 11, padding: "13px 15px" }}>
-        <GithubLogo aria-hidden="true" color={t.accentText} size={24} style={{ flex: "0 0 auto" }} weight="duotone" />
-        <div style={{ display: "grid", gap: 5 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13.2 }}>{text(lang, "把方法写清楚，方便别人核对", "Methods written for review")}</strong>
-          <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.65 }}>
-            {text(
-              lang,
-              "这个项目沿用互联网与 GitHub 的开放协作方式，因此尽量把数据来源、索引、公式、代码处理步骤和验证边界公开写明。读者可以据此复现、检查或指出问题；公开方法并不改变原始数据许可，也不能替代实验与工程验证。",
-              "The project follows the open collaboration model of the internet and GitHub, so data sources, indexes, formulas, processing steps, and validation boundaries are documented for reproduction and review. Open methods do not change source licences or replace experimental and engineering validation.",
-            )}
-          </span>
-          <a href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noreferrer" style={{ color: t.accentText, fontSize: 11.2, fontWeight: 850 }}>
-            {text(lang, "查看 GitHub 仓库与实现", "Open the GitHub repository and implementation")}
-          </a>
-        </div>
-      </section>
 
       <div style={{ alignItems: "start", display: "grid", gap: compactMethods ? 16 : 0, gridTemplateColumns: compactMethods ? "1fr" : `${sidebarWidth}px 14px minmax(0, 1fr)` }}>
         <MethodologySidebar
@@ -602,6 +621,18 @@ export function MethodsLimitationsTab() {
             if (item.id === "organic-acid") {
               return [
                 moduleBlock,
+              ]
+            }
+            if (item.id === "shared-evidence") {
+              return [
+                moduleBlock,
+                <LiteratureInspirationSection
+                  key="literature-inspiration"
+                  records={literatureRecords}
+                  lang={lang}
+                  t={t}
+                  isMobile={isMobile}
+                />,
               ]
             }
             return moduleBlock

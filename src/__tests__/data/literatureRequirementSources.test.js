@@ -80,11 +80,13 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
     }
   })
 
-  it("keeps the current methods directory free of retired validation surfaces and connects the EcoScreen matrix", () => {
+  it("restores literature inspiration without retired validation surfaces and connects the EcoScreen matrix", () => {
     const methodsSource = readRepoFile("src/components/tabs/MethodsLimitationsTab.tsx")
     const ecoSource = readRepoFile("src/components/tabs/EcoScreenTab.tsx")
 
-    expect(methodsSource).not.toContain("const literatureItem")
+    expect(methodsSource).toContain('fetchDataJson("methodology_literature_inspiration_records.json"')
+    expect(methodsSource).toContain("<LiteratureInspirationSection")
+    expect(methodsSource).toContain("buildLiteratureDirectory")
     expect(methodsSource).not.toContain("ALGORITHM_VALIDATION_DIRECTORY")
     expect(methodsSource).not.toContain("<AlgorithmValidationCenter")
     expect(methodsSource).toContain("ORGANIC_ACID_FINAL_DIRECTORY")

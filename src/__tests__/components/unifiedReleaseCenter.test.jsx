@@ -50,7 +50,7 @@ describe("Unified Release Center", () => {
     render(<ProjectEvolutionTab data={data} />)
     const update = screen.getByTestId("project-evolution-current-update")
     expect(update.textContent).toMatch(/Current update/)
-    expect(update.textContent).toMatch(/v1\.0\.11/)
+    expect(update.textContent).toMatch(/v1\.0\.13/)
     expect(update.textContent).not.toMatch(/Developer Log|developer log|Next Release Preview|pending release/)
   })
 })

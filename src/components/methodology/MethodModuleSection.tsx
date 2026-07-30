@@ -49,6 +49,76 @@ function MethodReferences({ references = [], lang, t }) {
   )
 }
 
+function DetailedMethodExplanation({ group, lang, t }) {
+  const steps = Array.isArray(group.algorithmSteps) ? group.algorithmSteps : []
+  const inputs = lang === "zh" ? group.inputsZh : group.inputs
+  const outputs = lang === "zh" ? group.outputsZh : group.outputs
+  const limits = lang === "zh" ? group.limitationsZh : group.limitations
+  const references = Array.isArray(group.references) ? group.references : []
+  const stepSequence = steps
+    .map((step, index) => `${index + 1}. ${text(lang, step.labelZh, step.label)}：${text(lang, step.descriptionZh, step.description)}`)
+    .join(text(lang, "；", "; "))
+  const inputList = (inputs || []).join(text(lang, "、", ", "))
+  const outputList = (outputs || []).join(text(lang, "、", ", "))
+  const limitList = (limits || []).join(text(lang, "；", "; "))
+  const sourceList = references.map(reference => reference.label || reference.title).filter(Boolean).join(text(lang, "、", ", "))
+
+  const rows = [
+    {
+      titleZh: "研究对象与使用目的",
+      titleEn: "Research object and intended use",
+      bodyZh: `${group.purposeZh || "本节处理当前功能登记的数据与研究条件。"} 这里首先限定研究对象和可回答的问题，避免把描述性比较扩张为未经验证的因果或性能结论。`,
+      bodyEn: `${group.purpose || "This section processes the data and research conditions registered for the current feature."} The intended question is fixed before calculation so a descriptive comparison is not expanded into an unvalidated causal or performance claim.`,
+    },
+    {
+      titleZh: "输入字段与进入条件",
+      titleEn: "Input fields and entry criteria",
+      bodyZh: `本流程读取${inputList || "本节登记的输入字段"}。进入计算前逐项检查记录身份、字段状态、单位、条件和来源；缺失项保持 missing 或 pending，单位冲突和身份歧义不会被默认值掩盖。`,
+      bodyEn: `The workflow reads ${inputList || "the inputs registered for this section"}. Before calculation it checks identity, field state, units, conditions, and provenance. Missing values remain missing or pending, and unit conflicts or identity ambiguity are not hidden by defaults.`,
+    },
+    {
+      titleZh: "执行顺序与中间状态",
+      titleEn: "Execution order and intermediate states",
+      bodyZh: `实际处理顺序为：${stepSequence || "按本节登记顺序执行数据筛选、计算和校验"}。每一步只接收上一阶段通过检查的输出，同时保留纳入、排除、降级、代理和阻断原因，便于从最终结果回查到中间状态。`,
+      bodyEn: `The execution order is: ${stepSequence || "data filtering, calculation, and validation in the registered order"}. Each step consumes only checked output from the previous stage and retains inclusion, exclusion, downgrade, proxy, and blocking reasons for trace-back.`,
+    },
+    {
+      titleZh: "结果生成与页面呈现",
+      titleEn: "Result generation and presentation",
+      bodyZh: `流程输出${outputList || "结果、解释信息和状态说明"}。页面把来源值、本站计算值、代理值和演示状态分开显示；交互只改变当前查看条件或解释视图，不会在浏览器中覆写正式数据产物。`,
+      bodyEn: `The workflow outputs ${outputList || "results, explanations, and state notes"}. Source values, site calculations, proxies, and demonstrations remain visually distinct. UI interactions change the current view or explanatory state and do not overwrite formal artifacts.`,
+    },
+    {
+      titleZh: "核查依据与停止条件",
+      titleEn: "Review basis and stop conditions",
+      bodyZh: `${sourceList ? `本节登记的直接方法或数据依据包括${sourceList}。` : "本节沿用模块登记的来源、字段溯源和验证规则。"}停止或降级条件包括：${limitList || "来源、条件或必要字段不足以支持当前结论"}。触发后保留已有事实，但不继续生成看似完整的定量结果。`,
+      bodyEn: `${sourceList ? `Registered method or data sources include ${sourceList}.` : "This section follows the module's registered sources, field provenance, and validation rules."} Stop or downgrade conditions include: ${limitList || "insufficient provenance, conditions, or required fields"}. Existing facts remain visible, but no complete-looking quantitative result is generated.`,
+    },
+  ]
+
+  return (
+    <section style={{ background: t.surface, borderTop: `1px solid ${t.border}`, display: "grid", gap: 0, paddingTop: 4 }}>
+      <header style={{ display: "grid", gap: 4, padding: "8px 0 6px" }}>
+        <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "逐项实现说明", "Detailed implementation notes")}</strong>
+        <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.6 }}>
+          {text(lang, "以下说明把本节的用途、输入、执行顺序、页面行为和停止条件连成一条可核查链路。", "The notes below connect purpose, input, execution, UI behavior, and stop conditions into one reviewable chain.")}
+        </span>
+      </header>
+      {rows.map((row, index) => (
+        <article key={row.titleEn} style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 5, gridTemplateColumns: "34px minmax(0, 1fr)", padding: "11px 0" }}>
+          <strong style={{ color: t.accentText, fontSize: 11.5 }}>{index + 1}</strong>
+          <div style={{ display: "grid", gap: 5 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.4 }}>{text(lang, row.titleZh, row.titleEn)}</strong>
+            <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.72, margin: 0 }}>
+              <ChemicalText value={text(lang, row.bodyZh, row.bodyEn)} />
+            </p>
+          </div>
+        </article>
+      ))}
+    </section>
+  )
+}
+
 function MethodSummaryCard({ item, lang, t }) {
   const example = item.example
   return (
@@ -102,6 +172,7 @@ function MethodGroup({ group, lang, t }) {
         </div>
       ) : null}
       <MethodIOPanel inputs={group.inputs} inputsZh={group.inputsZh} outputs={group.outputs} outputsZh={group.outputsZh} lang={lang} t={t} />
+      <DetailedMethodExplanation group={group} lang={lang} t={t} />
       {visualizations.length ? (
         <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
           {visualizations.map(visualization => <MethodVisualizationCard key={visualization.title} visualization={visualization} lang={lang} t={t} />)}

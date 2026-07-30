@@ -15,17 +15,17 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
         }}
         style={{
           alignItems: "center",
-          background: active ? t.badgeInfoBg : t.surface,
+          background: active ? t.badgeInfoBg : "transparent",
           borderBottomColor: active ? t.accent : t.border,
           borderLeftColor: active ? t.accent : "transparent",
-          borderRightColor: active ? t.accent : t.border,
-          borderTopColor: active ? t.accent : t.border,
+          borderRightColor: "transparent",
+          borderTopColor: "transparent",
           borderBottomWidth: 1,
           borderLeftWidth: 4,
           borderRightWidth: 1,
           borderStyle: "solid",
           borderTopWidth: 1,
-          borderRadius: 8,
+          borderRadius: 0,
           color: active ? t.accentText : t.textStrong,
           cursor: "pointer",
           display: "grid",
@@ -39,7 +39,7 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
           whiteSpace: "normal",
         }}
       >
-        <span>{text(lang, item.labelZh, item.label)}</span>
+        <span><span style={{ color: t.faint, fontSize: 10.5, marginRight: 8 }}>{String(item.sequence || 0).padStart(2, "0")}</span>{text(lang, item.labelZh, item.label)}</span>
         <span aria-hidden="true" style={{ color: active ? t.accentText : t.faint, fontSize: 11 }}>
           {isOpen ? "▾" : "▸"}
         </span>
@@ -64,7 +64,7 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
                   borderRightWidth: 1,
                   borderStyle: "solid",
                   borderTopWidth: 1,
-                  borderRadius: 7,
+                  borderRadius: 0,
                   color: childActive ? t.accentText : t.muted,
                   cursor: "pointer",
                   fontSize: 11.3,

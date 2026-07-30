@@ -229,7 +229,7 @@ try {
   await gotoHash(page, "#project-evolution")
   const currentUpdate = page.getByTestId("project-evolution-current-update")
   await currentUpdate.waitFor({ state: "visible", timeout: 30000 })
-  check((await currentUpdate.innerText()).includes("v1.0.12"), "统一版本中心未显示 v1.0.12 更新日志")
+  check((await currentUpdate.innerText()).includes("v1.0.13"), "统一版本中心未显示 v1.0.13 更新日志")
   await page.getByTestId("project-evolution-archive").getByText("发布与历史档案", { exact: true }).click()
   const history = page.getByTestId("project-evolution-pre-v1-history")
   await history.waitFor({ state: "visible", timeout: 30000 })
@@ -238,7 +238,7 @@ try {
   check(historyText.includes("V3.10.1"), "历史沿革仍为空或缺少原始版本记录")
   check(/38\s*(个原始版本|original versions)/.test(historyText), "历史沿革未显示原始版本总数")
   screenshots.projectHistory = await screenshotElement(history, "project-evolution-history.png")
-  interactions.push("v1.0.12 更新日志与非空历史沿革")
+  interactions.push("v1.0.13 更新日志与非空历史沿革")
 
   const mobilePage = await browser.newPage({ viewport: { width: 390, height: 1050 }, deviceScaleFactor: 1 })
   await gotoHash(mobilePage, "#project-evolution")
