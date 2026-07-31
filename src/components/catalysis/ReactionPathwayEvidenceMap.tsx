@@ -171,7 +171,7 @@ export function ReactionPathwayEvidenceMap({
         <SummaryMetric label={zh ? "可见记录" : "Visible records"} value={`${visibleChartRecords.length}/${fullRecords.length}`} note={hiddenCount ? (zh ? `${hiddenCount} 条因评分字段不足隐藏` : `${hiddenCount} hidden: incomplete scoring fields`) : (zh ? "筛选会同步图表与详情" : "filters update chart and inspector")} t={t} />
         <SummaryMetric label={zh ? "平均潜力" : "Avg potential"} value={formatScore(avg("performancePotential"))} note={zh ? "按可用字段加权" : "available weighted average"} t={t} />
         <SummaryMetric label={zh ? "平均证据成熟度" : "Avg readiness"} value={formatScore(avg("evidenceReadiness"))} note={zh ? "证据 + 完整度" : "evidence + completeness"} t={t} />
-        <SummaryMetric label={zh ? "需要验证" : "Needs validation"} value={needsValidation} note={zh ? "仍需实验闭环" : "records still require validation"} t={t} />
+        <SummaryMetric label={zh ? "需要验证" : "Needs validation"} value={needsValidation} note={zh ? "仍缺实验验证" : "records still require validation"} t={t} />
       </div>
 
       <div style={{ minWidth: 0, overflowX: "auto" }}>

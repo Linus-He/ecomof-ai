@@ -84,7 +84,7 @@ export function ExperimentalLabelDashboard({ firstBenchmark = null, lang = "en",
         </div>
       ) : (
         <div data-testid="benchmark-pending-reasons" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 11.6, fontWeight: 700, lineHeight: 1.5, padding: 10 }}>
-          {text(lang, "为什么不能合法展示 Accuracy / ROC：", "Why Accuracy / ROC cannot be shown yet: ")}{reasons.join(" ") || text(lang, "条件不足。", "Conditions not met.")}
+          {text(lang, "Accuracy / ROC 暂不可报告的依据：", "Why Accuracy / ROC cannot be shown yet: ")}{reasons.join(" ") || text(lang, "条件不足。", "Conditions not met.")}
         </div>
       )}
       {invalidGt > 0 ? (

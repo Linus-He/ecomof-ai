@@ -159,7 +159,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
 
       <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, display: "grid", gap: 5, fontSize: 12.5, lineHeight: 1.55, padding: "11px 13px" }}>
         <strong style={{ color: t.textStrong, fontSize: 12.5 }}>
-          {text(lang, "数据状态：演示级闭环，不是已验证催化剂预测", "Data status: demonstration loop, not validated catalyst prediction")}
+          {text(lang, "数据状态：演示级流程，不构成已验证催化剂预测", "Data status: demonstration loop, not validated catalyst prediction")}
         </strong>
         <ChemicalText value={text(
           lang,

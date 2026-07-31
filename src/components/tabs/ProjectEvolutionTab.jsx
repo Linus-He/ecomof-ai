@@ -1005,9 +1005,9 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
         <MethodologyPill t={t}>{context.currentTopRoute}</MethodologyPill>
         <MethodologyPill t={t}>HGCPS {context.hgcps}</MethodologyPill>
         <MethodologyPill t={t}>{context.readinessLevel}</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>High-priority experimental hypothesis</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>Not final catalytic proof</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>Not ready for formal machine learning</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>{text(lang, "高优先级实验假设", "High-priority experimental hypothesis")}</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>{text(lang, "不构成最终催化性能证明", "Not final catalytic proof")}</MethodologyPill>
+        <MethodologyPill tone="risk" t={t}>{text(lang, "尚不具备正式机器学习条件", "Not ready for formal machine learning")}</MethodologyPill>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
         {[

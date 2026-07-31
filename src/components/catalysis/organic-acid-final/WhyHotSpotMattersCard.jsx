@@ -7,7 +7,7 @@ export function WhyHotSpotMattersCard({ lang, t }) {
     <Panel
       id="organic-acid-final-why-hot-spot"
       eyebrow={text(lang, "受耦合催化剂设计思想启发", "Inspired by coupled catalyst design")}
-      title={text(lang, "为什么需要热区图", "Why Hot Spot Matters")}
+      title={text(lang, "热区图的解释用途", "Why Hot Spot Matters")}
       t={t}
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
@@ -26,7 +26,7 @@ export function WhyHotSpotMattersCard({ lang, t }) {
           <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.5, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "受几何-电子耦合催化剂设计启发，本模块将 OACS/DMRS 可视化为耦合描述符热区图。其目标不是复现 ORR 模型，而是将这种设计思想迁移到面向有机酸路径的 MOF 筛选工作流中。",
+              "本模块借鉴几何—电子耦合催化剂设计思路，将 OACS / DMRS 映射为耦合描述符热区图，用于有机酸路径的 MOF 筛选解释；该图不复现 ORR 模型。",
               "Inspired by geometric-electronic coupled catalyst design, this module visualizes OACS/DMRS as a coupled descriptor map. The goal is not to replicate the ORR model, but to translate the same design philosophy into an organic-acid-oriented MOF screening workflow."
             )} />
           </p>

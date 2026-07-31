@@ -65,7 +65,7 @@ export function LiteratureTab({ results, inputs }) {
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <PageHeader
         title={lang === "zh" ? "数据库" : "Database"}
-        subtitle={lang === "zh" ? "以 benchmark 和 reference browser 的方式浏览材料；重点看材料为什么值得对照，而不是先进入密集数据表。" : "Browse materials as a benchmark and reference browser; the first view emphasizes why each case matters instead of starting from a dense backend table."}
+        subtitle={lang === "zh" ? "以基准材料和参考记录组织浏览入口，优先呈现每项材料的对照价值及证据边界。" : "Browse materials as a benchmark and reference browser; the first view emphasizes why each case matters instead of starting from a dense backend table."}
         action={<BasisBadge tone={dataStatus === "loaded" ? "calc" : "proxy"}>{zhText(lang, dataStatus)}</BasisBadge>}
       />
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 12 }}>

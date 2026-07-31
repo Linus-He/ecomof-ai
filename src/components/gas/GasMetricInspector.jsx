@@ -22,7 +22,7 @@ export function GasMetricInspector({ cell, ranked = [], scenario = {}, onClose, 
   if (!record || !metric) {
     return (
       <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12, padding: 14 }}>
-        {text(lang, "请选择一个 heatmap 单元格查看诊断。", "Select a heatmap cell to inspect a metric.")}
+        {text(lang, "尚未选择热图单元格；选中后显示指标诊断。", "Select a heatmap cell to inspect a metric.")}
       </section>
     )
   }

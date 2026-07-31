@@ -668,9 +668,9 @@ export function buildStepWhyPanelModel(step, chainContext = {}, lang = "zh") {
   const chart = step?.dynamicChartModel || {}
   return {
     stepId: safeText(step?.id, "step-0"),
-    titleZh: "为什么是这个结果？",
+    titleZh: "当前结果的形成依据",
     titleEn: "Why this result?",
-    subtitleZh: "该解释由当前数据与 builder 输出生成，不是静态文案。",
+    subtitleZh: "说明内容由当前数据与构建函数输出生成，并随输入与计算结果同步更新。",
     subtitleEn: "This explanation is generated from current data and builder output, not static copy.",
     stepProblemZh: safeText(step?.nameZh, "筛选目标设定"),
     stepProblemEn: safeText(step?.nameEn, "Screening Objective"),

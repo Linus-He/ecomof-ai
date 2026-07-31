@@ -43,7 +43,7 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
           <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}>
             <ChemicalText value={text(
               lang,
-              "追踪 source / citation / license / DOI / descriptor provenance 的人工回填进度。source confirmed / citation ready / license confirmed 都不等于 verified metadata；待补不是失败，而是诚实边界。",
+              "记录来源、引文、许可、DOI 和描述符溯源的人工回填进度。来源已确认、引文已就绪或许可已确认均不等于元数据已核查；待补状态用于明确当前证据边界。",
               "Tracks manual backfill of source / citation / license / DOI / descriptor provenance. source confirmed / citation ready / license confirmed are not verified metadata; pending is an honest boundary, not a failure."
             )} />
           </span>

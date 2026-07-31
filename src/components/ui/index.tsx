@@ -1450,7 +1450,7 @@ export function DataModeNote({ lang }) {
   const t = useT()
   const items = lang === "zh" ? [
     "CoRE MOF 2024 CSD-modified CR 是当前主候选结构路线",
-    "可信度通过字段级来源、证据等级和整理状态表达",
+    "可信度通过字段级溯源、证据等级和整理状态表达",
     "待补充字段仍在复核中，后续可能更新",
     "示例数据只保留在隔离的演示页面",
   ] : [

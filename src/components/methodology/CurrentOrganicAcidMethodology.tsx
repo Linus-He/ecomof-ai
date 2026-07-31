@@ -69,7 +69,7 @@ export function CurrentOrganicAcidMethodology({ lang, t }) {
           <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.68, margin: 0 }}>
             {text(
               lang,
-              "当前实现是可复核的白盒确定性评分，不进行模型训练或推理。本页只保留 V3.9.10 的现行因子、公式和审计边界，不再展示已被替换的旧版综合分层称谓与代理公式。",
+              "当前实现采用可复核的确定性规则评分，不进行模型训练或推理。本页仅保留 V3.9.10 的现行因子、公式和审计边界，已替换的旧版分层称谓与代理公式不再展示。",
               "The current implementation is a reviewable, deterministic white-box score with no model training or inference. Only active V3.9.10 factors, formulas, and audit boundaries remain; superseded tier terminology and proxy formulas are excluded.",
             )}
           </p>

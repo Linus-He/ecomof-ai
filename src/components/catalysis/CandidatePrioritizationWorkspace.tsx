@@ -124,7 +124,7 @@ export function CandidatePrioritizationWorkspace({ lang, selectedCandidateId: ex
           {text(lang, "候选物优先级与规则匹配工作台", "Candidate prioritization and rule-match workspace")}
         </h2>
         <p style={{ color: palette.muted, fontSize: 13, lineHeight: 1.6, margin: 0 }}>
-          {text(lang, "本区把候选物规则匹配、待整理队列和优先级矩阵合并为一个工作台，用于解释哪些 MOF 候选物适合进入路径验证、为什么需要补数据，以及下一步应优先验证什么。", "This workspace merges candidate rule matching, curation queue, and priority matrix to explain which MOF candidates should enter pathway validation, why data gaps matter, and what should be validated next.")}
+          {text(lang, "工作台汇总规则匹配、待整理队列和排序矩阵，列明进入路径验证的候选、阻断判断的数据缺口及后续验证顺序。", "This workspace merges candidate rule matching, curation queue, and priority matrix to explain which MOF candidates should enter pathway validation, why data gaps matter, and what should be validated next.")}
         </p>
       </header>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>

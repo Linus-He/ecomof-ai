@@ -428,14 +428,14 @@ export function PerformanceTab({
   const interpretation = useMemo(() => {
     if (!hasResult) {
       return {
-        means: lang === "zh" ? "性能优先级分数会把吸附量、选择性、热力学线索和适用域提示合成为早期候选优先级。" : "The Performance score combines uptake, selectivity, thermodynamic cues, and applicability notes into an early-stage candidate priority.",
-        high: lang === "zh" ? "当前还没有结果；请先运行筛选模型。" : "No result yet; run the screening model first.",
+        means: lang === "zh" ? "早期性能筛选分数将吸附量、选择性、热力学线索和适用域提示合成为候选排序依据。" : "The Performance score combines uptake, selectivity, thermodynamic cues, and applicability notes into an early-stage candidate priority.",
+        high: lang === "zh" ? "尚无筛选结果；模型运行后生成该项解释。" : "No result yet; run the screening model first.",
         data: lang === "zh" ? "数据来源将显示为用户输入、MOF 预设或 seed 标签。" : "Data support will be user input, MOF preset, or seed label context.",
         next: lang === "zh" ? "下一步是补充实测等温线、GCMC 或严格 IAST 验证。" : "Next step is measured isotherms, GCMC, or strict IAST validation.",
       }
     }
     return {
-      means: lang === "zh" ? "该分数表示当前候选在所选气体体系下的性能优先级，不是真实最终性能。" : "This score indicates candidate priority for the selected gas system, not final material performance.",
+      means: lang === "zh" ? "该分数表示当前候选在所选气体体系下的早期排序位置，不代表最终真实性能。" : "This score indicates candidate priority for the selected gas system, not final material performance.",
       high: lang === "zh" ? "候选排序来自吸附量、选择性和置信度的组合。" : "Ranking comes from a combination of uptake, selectivity, and confidence.",
       data: lang === "zh" ? "支持数据包括当前结构描述符、气体体系规则、预测等温线和适用域提示。" : "Supporting data includes current descriptors, gas-system rules, predicted isotherms, and applicability notes.",
       next: lang === "zh" ? "下一步应验证实测吸附量、混合气选择性、循环稳定性和热力学解释。" : "Validate measured uptake, mixture selectivity, cycling stability, and thermodynamic interpretation next.",
@@ -459,7 +459,7 @@ export function PerformanceTab({
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <ModulePageHeader
-          title={lang === "zh" ? "性能优先级" : "Performance"}
+          title={lang === "zh" ? "早期性能筛选" : "Performance"}
           subtitle={lang === "zh"
             ? "用于结构输入、描述符设置、权重配置和早期筛选结果解释。"
             : "Use structure input, descriptor settings, weighting configuration, and early-screening result explanations."}
@@ -545,11 +545,11 @@ export function PerformanceTab({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <ModulePageHeader
-        title={lang === "zh" ? "性能优先级" : "Performance"}
+        title={lang === "zh" ? "早期性能筛选" : "Performance"}
         subtitle={lang === "zh"
           ? "基于当前可用描述符，对 MOF 候选材料进行早期性能排序与解释。"
           : "Rank and interpret MOF candidates for early-stage performance using currently available descriptors."}
-        action={<CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制性能优先级链接" : "Copy Performance link"} />}
+        action={<CopyLinkButton hash="performance" ariaLabel={lang === "zh" ? "复制早期性能筛选链接" : "Copy Performance link"} />}
       />
 
       <PrimaryWorkbenchCard
@@ -568,7 +568,7 @@ export function PerformanceTab({
         items={contentTabs}
         active={isContentTab ? performanceView : ""}
         onChange={setPerformanceView}
-        ariaLabel={lang === "zh" ? "性能优先级内容导航" : "Performance content navigation"}
+        ariaLabel={lang === "zh" ? "早期性能筛选内容导航" : "Performance content navigation"}
       />
 
       <CompactDataModeBar
@@ -589,7 +589,7 @@ export function PerformanceTab({
         onAction={() => onNavigate?.("gassep")}
       >
         {lang === "zh"
-          ? "性能优先级为早期筛选参考，不替代实验等温线、GCMC 或 IAST；如需查看气体比例、选择性条件与吸量记录，请进入气体分离模块。"
+          ? "早期性能筛选仅用于候选排序，不替代实验等温线、GCMC 或 IAST；气体比例、选择性条件与吸附量记录请在气体分离模块核查。"
           : "Performance priority is an early-screening reference, not a replacement for experimental isotherms, GCMC, or IAST; use GasSep for gas ratio, selectivity conditions, and uptake records."}
       </ScopeNoticeBar>
 
@@ -855,7 +855,7 @@ export function PerformanceTab({
                   : "The active global structural candidates are 9,835 real CoRE 2024 CR records. CO₂ uptake, water stability, toxicity, and task labels are separate evidence layers; missing fields limit results to provisional prioritization."}
               </Callout>
               {dataStatus === "loading" && (
-                <Callout tone="info">{lang === "zh" ? "正在加载性能优先级数据…" : "Loading Performance data..."}</Callout>
+                <Callout tone="info">{lang === "zh" ? "正在加载早期性能筛选数据…" : "Loading Performance data..."}</Callout>
               )}
               {dataStatus === "error" && (
                 <Callout tone="warn">
@@ -880,7 +880,7 @@ export function PerformanceTab({
             number="02"
             title={lang === "zh" ? "方法限制与验证路径" : "Method Limits and Validation Path"}
             subtitle={lang === "zh"
-              ? "性能优先级只负责早期排序和解释，严格性能判断需要后续实验或模拟验证。"
+              ? "早期性能筛选只负责候选排序和解释，严格性能判断仍需实验或模拟验证。"
               : "Performance priority supports early ranking and explanation; rigorous performance claims require later experiments or simulation."}
           >
             <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 10 }}>

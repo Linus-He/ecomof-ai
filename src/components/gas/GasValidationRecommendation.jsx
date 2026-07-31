@@ -25,25 +25,25 @@ export function GasValidationRecommendation({ record, scenario, lang, t }) {
   if (!record) {
     return (
       <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
-        <SectionTitle>{text(lang, "Validation Recommendation", "Validation Recommendation")}</SectionTitle>
+        <SectionTitle>{text(lang, "验证建议", "Validation Recommendation")}</SectionTitle>
         <div style={{ color: t.muted, fontSize: 12, marginTop: 8 }}>{text(lang, "未选中候选。", "No candidate selected.")}</div>
       </section>
     )
   }
   const recommendation = validationForRecord(record, scenario, lang)
   const rows = [
-    [text(lang, "Recommended next validation", "Recommended next validation"), localizedValue(recommendation, "type", lang)],
-    [text(lang, "Why this validation", "Why this validation"), localizedValue(recommendation, "reason", lang)],
-    [text(lang, "Required data", "Required data"), localizedList(recommendation, "requiredData", lang)],
-    [text(lang, "Expected output", "Expected output"), localizedValue(recommendation, "expectedOutput", lang)],
-    [text(lang, "Evidence impact", "Evidence impact"), localizedValue(recommendation, "evidenceImpact", lang)],
+    [text(lang, "下一项验证", "Recommended next validation"), localizedValue(recommendation, "type", lang)],
+    [text(lang, "验证依据", "Validation rationale"), localizedValue(recommendation, "reason", lang)],
+    [text(lang, "所需数据", "Required data"), localizedList(recommendation, "requiredData", lang)],
+    [text(lang, "预期输出", "Expected output"), localizedValue(recommendation, "expectedOutput", lang)],
+    [text(lang, "对证据等级的影响", "Evidence impact"), localizedValue(recommendation, "evidenceImpact", lang)],
   ]
   const recommendationType = localizedValue(recommendation, "type", lang) || recommendation.type
   return (
     <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, minWidth: 0 }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
-          <SectionTitle>{text(lang, "Validation Recommendation", "Validation Recommendation")}</SectionTitle>
+          <SectionTitle>{text(lang, "验证建议", "Validation Recommendation")}</SectionTitle>
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, marginTop: 6 }}><ChemicalText value={record.displayName} /></div>
         </div>
         <BasisBadge tone={priorityTone(recommendation.priority)}>{recommendation.priority || "medium"}</BasisBadge>

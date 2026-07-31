@@ -101,11 +101,11 @@ function buildLiteratureDirectory(records, lang) {
 
 function PlatformFlowCard({ lang, t, isMobile }) {
   const steps = [
-    [text(lang, "Data source", "Data source"), text(lang, "整理文献 / 种子数据 / 显式演示数据", "curated literature / seed dataset / explicit demonstration data")],
-    [text(lang, "Descriptor / condition extraction", "Descriptor / condition extraction"), text(lang, "描述符、条件、路径规则、验证字段", "descriptors, conditions, pathway rules, validation fields")],
-    [text(lang, "Field-level provenance", "Field-level provenance"), text(lang, "来源、位置、证据类型、整理状态", "source, location, evidence type, curation status")],
-    [text(lang, "Task-specific scoring / comparison", "Task-specific scoring / comparison"), text(lang, "CRITIC、条件可比性、规则贡献", "CRITIC, condition comparability, rule contribution")],
-    [text(lang, "Candidate explanation", "Candidate explanation"), text(lang, "驱动因素、警告、验证缺口", "drivers, warnings, validation gaps")],
+    [text(lang, "数据来源", "Data source"), text(lang, "整理文献 / 种子数据 / 显式演示数据", "curated literature / seed dataset / explicit demonstration data")],
+    [text(lang, "描述符与条件提取", "Descriptor and condition extraction"), text(lang, "描述符、条件、路径规则、验证字段", "descriptors, conditions, pathway rules, validation fields")],
+    [text(lang, "字段级溯源", "Field-level provenance"), text(lang, "来源、位置、证据类型、整理状态", "source, location, evidence type, curation status")],
+    [text(lang, "任务评分与条件比较", "Task-specific scoring and comparison"), text(lang, "CRITIC、条件可比性、规则贡献", "CRITIC, condition comparability, rule contribution")],
+    [text(lang, "排序解释与验证缺口", "Ranking explanation and validation gaps"), text(lang, "驱动因素、警告、验证缺口", "drivers, warnings, validation gaps")],
   ]
   return (
     <section id="methodology-platform-flow" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
@@ -119,7 +119,7 @@ function PlatformFlowCard({ lang, t, isMobile }) {
         <p style={{ color: t.muted, fontSize: 13, lineHeight: 1.6, margin: 0, maxWidth: 940 }}>
           {text(
             lang,
-            "EcoMOF-AI 不是黑箱排名工具；页面把数据来源、条件、字段级来源、证据状态、模块算法和验证路线放在同一解释链路中。",
+            "EcoMOF-AI 将数据来源、研究条件、字段级溯源、证据状态、模块算法和验证要求组织为一条可核查链路，不以无法复核的黑箱分数代替研究判断。",
             "EcoMOF-AI is not a black-box ranking tool; the page connects data source, conditions, field-level provenance, evidence status, module algorithms, and validation roadmap in one explanation chain."
           )}
         </p>
@@ -163,9 +163,9 @@ function FormulaIndex({ lang, t }) {
 
 function MethodologyDataBoundary({ lang, t }) {
   const rows = [
-    text(lang, "demonstration / seed dataset：用于展示方法流程，不应作为最终科研结论。", "demonstration / seed dataset: used to show method flow and should not be treated as final scientific conclusions."),
-    text(lang, "curated literature：来自已整理文献，但仍需要条件、来源位置和证据等级语境。", "curated literature: sourced from curated literature but still requires condition, source location, and evidence-level context."),
-    text(lang, "reviewed record：已完成字段核查的记录，也仍需按任务条件判断可比性。", "reviewed record: field-reviewed data that still needs task-specific comparability checks."),
+    text(lang, "演示 / 种子数据：只用于展示方法流程，不作为最终科研结论。", "Demonstration / seed data: used to show method flow and should not be treated as final scientific conclusions."),
+    text(lang, "整理文献数据：已从文献整理，但必须同时保留实验条件、原文位置和证据等级。", "Curated literature data: sourced from literature but still requires conditions, source location, and evidence-level context."),
+    text(lang, "已核查记录：字段已经核查，是否可比较仍由具体任务的条件门控决定。", "Reviewed record: fields have been reviewed, while comparability still depends on task-specific condition gates."),
   ]
   return (
     <section id="methodology-data-boundary" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 12, display: "grid", gap: 8, padding: 14 }}>
@@ -176,7 +176,7 @@ function MethodologyDataBoundary({ lang, t }) {
 }
 
 function LiteratureInspirationSourceCard({ source, lang, t }) {
-  const title = source?.title || "Untitled source"
+  const title = source?.title || text(lang, "未命名来源", "Untitled source")
   const statusTone = source?.status === "validated_literature" || source?.status === "official_standard" || source?.status === "official_reference"
     ? "calc"
     : source?.status?.includes("pending")
@@ -296,7 +296,7 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
         </p>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
-        <MethodMetricCard label={text(lang, "分类版块", "Sections")} value={categories.length} note={text(lang, "目录置顶", "first in directory")} t={t} />
+        <MethodMetricCard label={text(lang, "分类版块", "Sections")} value={categories.length} note={text(lang, "目录独立入口", "dedicated directory entry")} t={t} />
         <MethodMetricCard label={text(lang, "来源条目", "Sources")} value={sources.length} note={text(lang, "动态读取", "loaded from data")} t={t} />
         <MethodMetricCard label={text(lang, "已核验/官方", "Verified / official")} value={validatedCount} note={text(lang, "可直接显示 DOI 或官方链接", "DOI or official links shown")} t={t} tone="calc" />
         <MethodMetricCard label={text(lang, "待补元数据", "Metadata pending")} value={pendingCount} note={text(lang, "保留上传记录，不视为性能证据", "retained uploads, not performance evidence")} t={t} tone={pendingCount ? "warn" : "calc"} />
@@ -345,7 +345,7 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
 
 function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
   const rows = [
-    ["Why not direct black-box ML?", "为什么不直接黑箱机器学习？", "Sparse chemical data often mixes descriptors, categorical factors, conditions, and uneven evidence; direct prediction can hide data-generation structure.", "稀疏化学数据常混合描述符、分类因素、条件和不均衡证据；直接预测容易掩盖数据生成结构。"],
+    ["Why not direct black-box ML?", "不采用直接黑箱预测的原因", "Sparse chemical data often mixes descriptors, categorical factors, conditions, and uneven evidence; direct prediction can hide data-generation structure.", "稀疏化学数据同时包含连续描述符、分类因素、实验条件和不均衡证据；直接预测容易掩盖数据生成过程。"],
     ["Categorical factors", "分类因素", "MOF candidate, metal node, linker, pore class, pathway, condition, gas pair, and evidence type are treated as interpretable factors.", "将 MOF 候选物、金属节点、连接体、孔径类别、路径、条件、气体对和证据类型作为可解释因素。"],
     ["Main effects", "主效应", "First-order factor directions are shown before any interaction is trusted.", "先展示一阶因素方向，再判断交互是否可信。"],
     ["Interaction effects", "交互效应", "Pairwise hypotheses explain when a factor matters only under a pathway, condition, risk dimension, or gas pair.", "二阶假设解释某因素何时只在特定路径、条件、风险维度或气体对下起作用。"],
@@ -361,7 +361,7 @@ function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
           {text(lang, "稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
         </div>
         <h2 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.16, margin: 0 }}>
-          {text(lang, "Structured Factor Effects for Sparse Chemical Data / 稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
+          {text(lang, "稀疏化学数据的结构化因素效应分析", "Structured Factor Effects for Sparse Chemical Data")}
         </h2>
         <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.62, margin: 0, maxWidth: 980 }}>
           {text(
@@ -388,11 +388,11 @@ function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
 
 function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
   const rows = [
-    ["Activation energy proxy", "活化能 proxy", "ΔEa changes are explanatory proxies driven by descriptor chips and interaction-zone emphasis, not calculated barriers.", "ΔEa 变化是由描述符 chip 和交互区重点驱动的解释性 proxy，不是计算能垒。"],
+    ["Activation energy proxy", "活化能代理值", "ΔEa changes are explanatory proxies driven by descriptor tags and interaction-zone emphasis, not calculated barriers.", "ΔEa 变化来自描述符标签与交互区权重，是用于比较的解释性代理值，不是计算得到的反应能垒。"],
     ["Descriptor-to-barrier mapping", "描述符到能垒映射", "Pore matching, open metal sites, polar groups, water stability, surface area, and adsorption heat are mapped to Ea, ΔE, stabilization, and risk shifts.", "孔径匹配、开放金属位点、极性官能团、水稳定性、比表面积和吸附热被映射到 Ea、ΔE、稳定化和风险变化。"],
-    ["Risk penalty", "风险惩罚", "Strong adsorption heat, framework-collapse risk, and missing evidence reduce pathway priority even when the curve looks favorable.", "过强吸附热、结构坍塌风险和证据不足会降低路径优先级，即使曲线看起来有利。"],
-    ["Evidence level", "证据等级", "Each interaction carries an A-D evidence level so demo and inferred states remain visible.", "每个交互绑定 A-D 证据等级，让 demo 和 inferred 状态保持可见。"],
-    ["Limitations", "限制", "The playground is not DFT, microkinetics, or experimental yield prediction; it is an interactive explanation layer.", "该游乐场不是 DFT、微观动力学或实验产率预测，而是交互式解释层。"],
+    ["Risk penalty", "风险惩罚", "Strong adsorption heat, framework-collapse risk, and missing evidence reduce pathway priority even when the curve looks favorable.", "过强吸附热、结构坍塌风险和证据不足会降低路径排序，即使能量曲线显示有利趋势。"],
+    ["Evidence level", "证据等级", "Each interaction carries an A-D evidence level so demo and inferred states remain visible.", "每个交互都标注 A—D 证据等级，演示状态和推断状态不会与来源实测值混合。"],
+    ["Limitations", "限制", "The interactive view is not DFT, microkinetics, or experimental yield prediction; it is an explanation layer.", "该交互视图不执行 DFT、微观动力学计算或实验产率预测，只用于解释描述符变化如何影响当前假设。"],
   ]
   return (
     <section id="catalysis-energy-playground-method" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 15 }}>
@@ -401,7 +401,7 @@ function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
           {text(lang, "催化能量解释方法说明", "Catalysis Energy Explanation Method")}
         </div>
         <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: 0 }}>
-          {text(lang, "Catalysis Energy Explanation Method / 催化能量解释方法说明", "Catalysis Energy Explanation Method")}
+          {text(lang, "催化能量解释方法", "Catalysis Energy Explanation Method")}
         </h2>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0, maxWidth: 940 }}>
           {text(lang, "该方法说明连接催化交互、描述符映射、风险惩罚和证据等级，强调它是解释性假设视图。", "This method note links catalytic interaction cues, descriptor mapping, risk penalties, and evidence levels while keeping the view hypothesis-based.")}
@@ -415,22 +415,6 @@ function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
           </article>
         ))}
       </div>
-    </section>
-  )
-}
-
-function ProjectEvolutionShortcutCard({ lang, t, onNavigate }) {
-  return (
-    <section id="methodology-project-evolution-shortcut" data-testid="methodology-project-evolution-shortcut" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", padding: 12, scrollMarginTop: 118 }}>
-      <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "查看项目演化历史", "View project evolution history")}</strong>
-        <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
-          {text(lang, "版本演化时间线、版本更新记录、关键里程碑与发展路线图已移至独立一级入口：项目演化。", "Version timeline, Release Notes, Milestones, and Roadmap now live in the first-level Project Evolution entry.")}
-        </span>
-      </div>
-      <button type="button" onClick={() => onNavigate?.("projectEvolution")} style={{ ...toolbarBtn(t), color: t.accentText, borderColor: t.accent, justifyContent: "center" }}>
-        {text(lang, "进入项目演化", "Enter Project Evolution")}
-      </button>
     </section>
   )
 }
@@ -538,7 +522,7 @@ export function MethodsLimitationsTab() {
         title={text(lang, "方法论", "Methodology")}
         subtitle={text(
           lang,
-          "这里按网站功能逐项说明：数据从哪里来，索引怎样建立，字段如何溯源，算法怎样计算，什么情况下停止，以及结果应当怎样理解。",
+          "本页按网站功能逐项说明数据来源、索引结构、字段级溯源、计算方法、停止条件和结果边界。",
           "This page explains each feature in practical terms: where data come from, how indexes and provenance work, how calculations run, when processing stops, and how results should be interpreted."
         )}
         meta={text(lang, "科学方法中心 · 证据感知 · 决策支持原型", "scientific methods hub · evidence-aware · decision-support prototype")}

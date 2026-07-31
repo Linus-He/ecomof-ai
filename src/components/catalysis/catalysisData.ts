@@ -296,7 +296,7 @@ export function analyzeComparability(left, right, lang = "en") {
       statusEn: "Not directly comparable",
       statusZh: "不建议直接比较",
       reasonEn: "Select two catalysis tasks to assess comparability.",
-      reasonZh: "请选择两个催化任务以评估可比性。",
+      reasonZh: "可比性评估需要两个催化任务。",
       missingBridgeMetricsEn: [],
       missingBridgeMetricsZh: [],
     }

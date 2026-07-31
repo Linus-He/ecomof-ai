@@ -66,7 +66,7 @@ export function DataSourcesTab() {
   const connectorRows = lang === "zh" ? [
     ["LCI 后端", "public/data/lca_inventory.json 种子 schema", "带版本活动 ID 的 openLCA / ecoinvent 过程映射", "代理 schema"],
     ["价格后端", "USD 种子值 + 静态货币换算", "供应商报价、带日期试剂价格、区域电价", "筛选级"],
-    ["区域因子", "通用电力和溶剂回收假设", "国家/地区电网结构、溶剂回收情景库、水压力因子", "路线图"],
+    ["区域因子", "通用电力和溶剂回收假设", "国家/地区电网结构、溶剂回收情景库、水压力因子", "发展路线图"],
     ["不确定性", "基于代理范围的确定性伪 Monte Carlo", "清单专属分布和校准后的不确定性传播", "测试版"],
     ["审计轨迹", "source_type、source_ref、price_source、assumption、replacement 字段", "DOI / 数据库记录 / 供应商报价附件和修订历史", "脚手架"],
   ] : [
@@ -78,8 +78,8 @@ export function DataSourcesTab() {
   ]
   const datasetCards = lang === "zh" ? [
     ["MOF structures", "气体模块结构链接样本", datasets.structures.length, "public/data/mof_structures.json", "供气体吸附实体解析使用的历史小型结构链接层；全局真实结构主库为 9,835 条 CoRE MOF 2024 CSD-modified CR。", "本文件不是当前全局结构主库，也不直接等于吸附标签。", "Stage 1 gas linkage", "legacy linked sample"],
-    ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、loading、Henry 常数、选择性、方法与 DOI/source。", "真正训练吸附模型需要这一层，且应替换为验证过的 NIST/GCMC/文献标签。", "Stage 1 screening", "benchmark-backed"],
-    ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以 USD seed values 存储，界面可切换主流货币作静态显示换算。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
+    ["Adsorption labels", "吸附标签库", datasets.labels.length, "public/data/adsorption_labels.json", "气体体系、温度、压力、吸附量、Henry 常数、选择性、方法与 DOI / 来源。", "吸附模型训练依赖此层，正式训练前须替换为经过核查的 NIST、GCMC 或文献标签。", "Stage 1 screening", "benchmark-backed"],
+    ["Linker cost band / availability", "连接体成本带 / 可得性", datasets.inventory.filter(row => Number(row.price_usd_per_unit) > 0).length, "price_usd_per_unit + price_source", "价格以美元种子值存储，界面可按静态参考因子换算为其他货币。", "不是实时市场报价，也不是供应商询价。", "Stage 2 feasibility", "exploratory"],
     ["Proxy LCA inventory", "代理 LCA 清单", datasets.inventory.length, "public/data/lca_inventory.json", "材料、溶剂、能耗、水、废弃物、价格、单位、不确定性与替换路线。", "当前是入围候选比较代理层，不能替代完整 ecoinvent/openLCA 工业清单。", "Stage 3 shortlist comparison", "assumption-dependent"],
     ["Isotherm points", "等温线点", datasets.isotherms.length, "public/data/isotherms.json", "多温 pressure-loading 点，用于 Langmuir 拟合、Henry、IAST/Qst 工作流打底。", "科研级 Qst 仍需要真实实验或 GCMC 多温纯组分等温线。", "Stage 1 interpretation", "comparative"],
     ["Gas adsorption v2", "气体吸附 v2.1", datasets.gasV2.length, "public/data/gas_adsorption_records_v2.json", "NIST/ARPA-E ISODB 等温线 JSON 采集，保留 experimental/computed/seed/computed-IAST dataGrade、isotherm、字段级 provenance。", `v2.1：IAST ${v21IastCount} 条；结构链接 ${v21IdentityLinkedCount} 条；代理验证 ${v21ProxyStatus}。`, "Stage 1 screening", "source-backed"],
@@ -187,7 +187,7 @@ export function DataSourcesTab() {
       <div style={cardStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 10 }}>
           <div>
-            <SectionTitle>{lang === "zh" ? "清单 / 价格接入路线图" : "Inventory / Price Connector Roadmap"}</SectionTitle>
+            <SectionTitle>{lang === "zh" ? "清单 / 价格接入发展路线图" : "Inventory / Price Connector Roadmap"}</SectionTitle>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.55 }}>{lang === "zh" ? "第三优先级先把数据结构、字段和替换路线做清楚；当前页面不声称已经接入完整 ecoinvent、openLCA 或实时价格数据库。" : "Third-priority work clarifies the data structure, fields, and replacement path."}</div>
           </div>
           <BasisBadge tone="proxy">{lang === "zh" ? "接入脚手架" : "connector scaffold"}</BasisBadge>
@@ -208,7 +208,7 @@ export function DataSourcesTab() {
                   <td style={{ padding: "8px 10px", color: t.muted, lineHeight: 1.45 }}>{row[1]}</td>
                   <td style={{ padding: "8px 10px", color: t.subtle, lineHeight: 1.45 }}>{row[2]}</td>
                   <td style={{ padding: "8px 10px" }}>
-                    <BasisBadge tone={row[3] === "Beta" || row[3] === "测试版" ? "proxy" : row[3] === "Roadmap" || row[3] === "路线图" ? "info" : "calc"}>{row[3]}</BasisBadge>
+                    <BasisBadge tone={row[3] === "Beta" || row[3] === "测试版" ? "proxy" : row[3] === "Roadmap" || row[3] === "发展路线图" ? "info" : "calc"}>{row[3]}</BasisBadge>
                   </td>
                 </tr>
               ))}

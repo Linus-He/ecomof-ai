@@ -37,7 +37,7 @@ function statusMessage(status, lang, candidateCount, dataMode) {
   if (!candidateCount) return text(lang, "当前没有候选记录；仍可管理描述符集并查看评分模型元数据。", "No candidate records are available; descriptor management and model metadata remain visible.")
   const label = dataMode === "core-mof-2024-cr"
     ? text(lang, "CoRE 2024 CR 真实全局候选源", "CoRE 2024 CR real global candidate source")
-    : text(lang, "字段级来源数据", "field-level provenance data")
+    : text(lang, "字段级溯源数据", "field-level provenance data")
   return text(lang, `${label} · ${candidateCount} 条候选记录。`, `${label} · ${candidateCount} candidate records.`)
 }
 

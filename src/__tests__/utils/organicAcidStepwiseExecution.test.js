@@ -71,7 +71,7 @@ describe("organic acid stepwise execution builders", () => {
       "实验验证路线输出",
     ])
     expect(chain.selectedStepId).toBe("step-0")
-    expect(chain.currentStepWhyPanel.titleZh).toBe("为什么是这个结果？")
+    expect(chain.currentStepWhyPanel.titleZh).toBe("当前结果的形成依据")
     expect(chain.finalResultSummary.finalHGCPS).toBe(workbench.complementarity.topRoute.finalHGCPS)
     expect(chain.finalResultSummary.nextExperiment).toBeTruthy()
     expect(chain.dynamicChartModel.type).toBe("objective-input-output")

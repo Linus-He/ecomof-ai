@@ -109,8 +109,8 @@ function ActivationReadinessCard({ workbench, lang }) {
       <div style={{ alignItems: "start", display: "grid", gap: 12, gridTemplateColumns: "minmax(0, 1.2fr) minmax(0, 0.8fr)" }}>
         <div style={{ display: "grid", gap: 8 }}>
           <SectionTitle
-            kicker="Activation readiness"
-            title="Organic Acid Experimental Activation Center / 有机酸实验启用中心"
+            kicker={text(lang, "实验准备度", "Activation readiness")}
+            title={text(lang, "有机酸实验启用中心", "Organic Acid Experimental Activation Center")}
             note={text(
               lang,
               `现在可以用于实验规划，但还不能用于性能证明。当前路线为 ${workbench.routeContext.topRouteName}；${workbench.routeContext.activationScope}。`,
@@ -120,8 +120,8 @@ function ActivationReadinessCard({ workbench, lang }) {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             <RouteBadge>{workbench.routeContext.topRouteName}</RouteBadge>
             <RouteBadge tone="good">{readiness.readinessLevel}</RouteBadge>
-            <RouteBadge tone="risk">Not final catalytic proof</RouteBadge>
-            <RouteBadge tone="risk">Not ready for formal machine learning</RouteBadge>
+            <RouteBadge tone="risk">{text(lang, "不构成最终催化性能证明", "Not final catalytic proof")}</RouteBadge>
+            <RouteBadge tone="risk">{text(lang, "尚不具备正式机器学习条件", "Not ready for formal machine learning")}</RouteBadge>
           </div>
         </div>
         <div style={{ ...cardStyle({ background: palette.bg }) }}>
@@ -139,11 +139,11 @@ function ActivationReadinessCard({ workbench, lang }) {
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
         {[
-          ["Route", workbench.routeContext.routeId],
-          ["Host family", workbench.routeContext.selectedHostFamily],
-          ["Guest strategy", workbench.routeContext.selectedMoStrategy],
-          ["Fixture scope", workbench.routeContext.activationScope],
-          ["First experiment", workbench.routeContext.firstRecommendedExperiment],
+          [text(lang, "路线", "Route"), workbench.routeContext.routeId],
+          [text(lang, "主体材料家族", "Host family"), workbench.routeContext.selectedHostFamily],
+          [text(lang, "客体引入方案", "Guest strategy"), workbench.routeContext.selectedMoStrategy],
+          [text(lang, "数据适用范围", "Fixture scope"), workbench.routeContext.activationScope],
+          [text(lang, "首项实验", "First experiment"), workbench.routeContext.firstRecommendedExperiment],
           ["HGCPS", fmt(workbench.routeContext.hgcps)],
         ].map(([label, value]) => (
           <div key={label} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 10 }}>
@@ -156,7 +156,7 @@ function ActivationReadinessCard({ workbench, lang }) {
         {readiness.recommendedNextAction}
       </div>
       <button type="button" onClick={openAlgorithmMethodology} style={{ ...buttonStyle(false), color: palette.accent, justifySelf: "start", textAlign: "center" }}>
-        Organic Acid Algorithm Methodology
+        {text(lang, "有机酸算法方法论", "Organic Acid Algorithm Methodology")}
       </button>
     </section>
   )
@@ -166,7 +166,7 @@ function SpecificAlMofHostCandidatesPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Specific Al-MOF hosts"
+        kicker={text(lang, "主体材料候选", "Specific Al-MOF hosts")}
         title={text(lang, workbench.routeContext.routeSpecificMatrixAvailable ? "具体 Al-MOF 主体候选" : "旧版 Al-MOF 参考主体（非当前路线专用）", workbench.routeContext.routeSpecificMatrixAvailable ? "Specific Al-MOF Host Candidates" : "Legacy Al-MOF Reference Hosts (not route-specific)")}
         note={text(lang, "Primary / backup / control 主体均保留 provenance 和 limitation；primary 不是最优催化剂证明。", "Primary, backup, and control hosts retain provenance and limitation; primary is not proof of optimal catalysis.")}
       />
@@ -192,10 +192,10 @@ function SpecificAlMofHostCandidatesPanel({ workbench, lang }) {
   )
 }
 
-function MoStrategyDecisionTree({ workbench }) {
+function MoStrategyDecisionTree({ workbench, lang }) {
   return (
     <div style={{ display: "grid", gap: 8 }}>
-      <strong style={{ color: palette.text, fontSize: 13 }}>Mo strategy decision tree</strong>
+      <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, "Mo 引入方案决策树", "Mo strategy decision tree")}</strong>
       {workbench.moStrategyDecisionTree.map(row => (
         <div key={row.branchId} style={{ ...cardStyle({ background: palette.bg, gridTemplateColumns: "minmax(140px, 0.35fr) minmax(0, 0.65fr)" }) }}>
           <span style={{ color: palette.faint, fontSize: 11, fontWeight: 850 }}>{row.condition}</span>
@@ -210,11 +210,11 @@ function MoIntroductionStrategiesPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Mo introduction"
+        kicker={text(lang, "客体金属引入", "Mo introduction")}
         title={text(lang, "Mo 引入方案", "Mo Introduction Strategies")}
         note={text(lang, "低风险优先 post-synthetic modification；强互补可考虑 bimetallic；快速验证可用 pore confinement / impregnation。", "Low-risk first: post-synthetic modification; stronger synergy: bimetallic; fast validation: pore confinement / impregnation.")}
       />
-      <MoStrategyDecisionTree workbench={workbench} />
+      <MoStrategyDecisionTree workbench={workbench} lang={lang} />
       <div style={{ display: "grid", gap: 10 }}>
         {workbench.moStrategies.all.map(strategy => (
           <article key={strategy.strategyId} style={cardStyle()}>
@@ -242,7 +242,7 @@ function MinimumExperimentalMatrixPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Minimum matrix"
+        kicker={text(lang, "最小实验矩阵", "Minimum matrix")}
         title={text(lang, "最小实验矩阵", "Minimum Experimental Matrix")}
         note={text(lang, "覆盖 blank、pristine Al-MOF、Al-MOF+Mo、guest control、Zr-MOF+Mo、Mo-only/MoOx 与重复稳定性。", "Covers blank, pristine Al-MOF, Al-MOF+Mo, guest control, Zr-MOF+Mo, Mo-only/MoOx, and repeat stability.")}
       />
@@ -288,7 +288,7 @@ function SameConditionDataTemplatePanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Same-condition template"
+        kicker={text(lang, "同条件记录", "Same-condition template")}
         title={text(lang, "同条件数据记录模板", "Same-Condition Data Collection Template")}
         note={text(lang, "字段用于回填 evidence confidence、risk retention 与 host-guest complementarity；pending 不是实验结果。", "Fields feed evidence confidence, risk retention, and host-guest complementarity; pending values are not experimental results.")}
       />
@@ -324,7 +324,7 @@ function ExperimentalResultFeedbackPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Feedback rules"
+        kicker={text(lang, "结果回填规则", "Feedback rules")}
         title={text(lang, "实验结果回填与算法更新", "Experimental Result Feedback and Algorithm Update")}
         note={text(lang, "仅展示 pending template 和规则；没有真实实验结果，也不自动重排。", "Shows pending templates and rules only; no real results and no automatic reranking.")}
       />
@@ -350,7 +350,7 @@ function AlgorithmUpdatePreviewPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Update preview"
+        kicker={text(lang, "更新预览", "Update preview")}
         title={text(lang, "算法更新预览", "Algorithm Update Preview")}
         note={text(lang, "supported / contradicted / inconclusive 只产生预览；碳平衡不闭合保持 inconclusive。", "supported / contradicted / inconclusive create previews only; incomplete carbon balance stays inconclusive.")}
       />
@@ -387,7 +387,7 @@ function ActivationReportExportPanel({ workbench, lang }) {
   return (
     <section style={{ display: "grid", gap: 12 }}>
       <SectionTitle
-        kicker="Activation exports"
+        kicker={text(lang, "实验启用导出", "Activation exports")}
         title={text(lang, "实验启用导出", "Experimental Activation Exports")}
         note={text(lang, "导出保留 seed / curated / proxy 边界，供内部讨论和第一轮实验规划使用。", "Exports retain the seed / curated / proxy boundary for internal discussion and first experiment planning.")}
       />
@@ -453,7 +453,11 @@ export function OrganicAcidExperimentalActivationCenter({
   if (status === "loading" || !workbench) {
     return (
       <section id="organic-acid-experimental-activation-center" data-testid="organic-acid-experimental-activation-center" style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }), fontFamily: ORGANIC_ACID_FONT }}>
-        <SectionTitle kicker="V3.9.4" title="Organic Acid Experimental Activation Center / 有机酸实验启用中心" note="Loading activation package..." />
+        <SectionTitle
+          kicker="V3.9.4"
+          title={text(lang, "有机酸实验启用中心", "Organic Acid Experimental Activation Center")}
+          note={text(lang, "正在载入实验启用数据。", "Loading activation package.")}
+        />
       </section>
     )
   }
@@ -461,19 +465,23 @@ export function OrganicAcidExperimentalActivationCenter({
   if (status === "error") {
     return (
       <section id="organic-acid-experimental-activation-center" data-testid="organic-acid-experimental-activation-center" style={{ ...cardStyle({ background: palette.riskSoft, padding: 14, scrollMarginTop: 118 }), fontFamily: ORGANIC_ACID_FONT }}>
-        <SectionTitle kicker="V3.9.4" title="Organic Acid Experimental Activation Center / 有机酸实验启用中心" note="Activation package could not be loaded." />
+        <SectionTitle
+          kicker="V3.9.4"
+          title={text(lang, "有机酸实验启用中心", "Organic Acid Experimental Activation Center")}
+          note={text(lang, "实验启用数据载入失败。", "Activation package could not be loaded.")}
+        />
       </section>
     )
   }
 
   const tabs = [
-    ["hosts", "Hosts"],
-    ["mo", "Mo Strategies"],
-    ["matrix", "Experiment Matrix"],
-    ["template", "Data Template"],
-    ["feedback", "Feedback Rules"],
-    ["update", "Update Preview"],
-    ["export", "Export"],
+    ["hosts", text(lang, "主体候选", "Hosts")],
+    ["mo", text(lang, "Mo 引入方案", "Mo Strategies")],
+    ["matrix", text(lang, "实验矩阵", "Experiment Matrix")],
+    ["template", text(lang, "数据模板", "Data Template")],
+    ["feedback", text(lang, "回填规则", "Feedback Rules")],
+    ["update", text(lang, "更新预览", "Update Preview")],
+    ["export", text(lang, "导出", "Export")],
   ]
   const tabProblemNotes = {
     hosts: text(lang, "把抽象主体骨架落实为可合成、可采购并可设置对照的具体材料家族。", "Maps the abstract host framework to specific material families suitable for synthesis, sourcing, and controls."),
@@ -492,7 +500,7 @@ export function OrganicAcidExperimentalActivationCenter({
       style={{ background: palette.bg, border: `1px solid ${palette.accent}`, borderRadius: 10, display: "grid", fontFamily: ORGANIC_ACID_FONT, gap: 14, minWidth: 0, padding: isNarrow ? 12 : 14, scrollMarginTop: 118 }}
     >
       <ActivationReadinessCard workbench={workbench} lang={lang} />
-      <div role="tablist" aria-label="Organic Acid Experimental Activation Center tabs" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+      <div role="tablist" aria-label={text(lang, "有机酸实验启用中心目录", "Organic Acid Experimental Activation Center tabs")} style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {tabs.map(([id, label]) => (
           <button key={id} type="button" role="tab" aria-selected={activeTab === id} onClick={() => setActiveTab(id)} style={{ ...buttonStyle(activeTab === id), fontFamily: SCIENTIFIC_TOKEN_FONT }}>
             {label}

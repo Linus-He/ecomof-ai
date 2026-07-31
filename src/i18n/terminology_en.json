@@ -24,5 +24,9 @@
   "localizationEvolution": "Localization Evolution",
   "runSnapshot": "Run Snapshot",
   "citationPackage": "Citation Package",
-  "localizationAudit": "Localization Audit"
+  "localizationAudit": "Localization Audit",
+  "mofLibrary": "MOF Library",
+  "physicochemicalProperties": "Physicochemical Properties",
+  "evidenceLevel": "Evidence Level",
+  "dataCompliancePledge": "Data Compliance Pledge"
 }

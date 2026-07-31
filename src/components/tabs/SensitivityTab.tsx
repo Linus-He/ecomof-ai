@@ -81,7 +81,7 @@ export function SensitivityTab({ results, inputs, onNavigate }) {
               <Bar dataKey="effect" fill={t.sensitivityAccent} radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
-          <HowToRead>{lang === "zh" ? "条形越长代表结论越敏感；它不是重新筛选命中，而是帮助决定下一步补什么数据。" : "Longer bars mean the conclusion is more sensitive; this does not identify new hits, it prioritizes the next data to collect."}</HowToRead>
+          <HowToRead>{lang === "zh" ? "条形长度表示结论对该参数的敏感程度，用于确定数据补充顺序，不用于识别新的候选。" : "Longer bars mean the conclusion is more sensitive; this does not identify new hits, it prioritizes the next data to collect."}</HowToRead>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "1fr 1fr", gap: 14 }}>
           <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>

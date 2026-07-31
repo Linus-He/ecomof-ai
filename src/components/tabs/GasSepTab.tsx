@@ -1217,8 +1217,8 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
                       <button type="button" onClick={event => { event.stopPropagation(); setExpandedRowId(expanded ? null : row.id) }} style={{ background: expanded ? t.badgeInfoBg : t.panel, border: `1px solid ${expanded ? t.accentText : t.border}`, borderRadius: 7, color: expanded ? t.accentText : t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
                         {expanded ? text(lang, "收起详情", "Collapse") : text(lang, "展开详情", "Details")}
                       </button>
-                    <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} aria-label={text(lang, `在候选库查看 ${row.displayName}`, `View ${row.displayName} in MOF Library`)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
-                      {text(lang, "打开候选库", "View in MOF Library")}
+                    <button type="button" onClick={event => { event.stopPropagation(); window.location.hash = "library" }} aria-label={text(lang, `在 MOF库查看 ${row.displayName}`, `View ${row.displayName} in MOF Library`)} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, color: t.accentText, cursor: "pointer", fontSize: 11, fontWeight: 850, padding: "6px 8px" }}>
+                      {text(lang, "在 MOF库中查看", "View in MOF Library")}
                     </button>
                     </div>
                   </td>

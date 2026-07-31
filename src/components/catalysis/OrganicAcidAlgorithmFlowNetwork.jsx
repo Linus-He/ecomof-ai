@@ -212,7 +212,7 @@ export function OrganicAcidNodeInspector({ inspector, lang = "zh", onOpenActivat
           [text(lang, "输出", "Output"), inspector.output],
           [text(lang, "证据状态", "Evidence status"), inspector.evidenceStatus],
           [text(lang, "风险状态", "Risk status"), inspector.riskStatus],
-          [text(lang, "为什么进入下一步", "Why next step"), inspector.whyNextStep],
+          [text(lang, "进入下一步的依据", "Why next step"), inspector.whyNextStep],
           [text(lang, "HGCPS 影响", "HGCPS impact"), inspector.hgcpsImpact],
         ].map(([label, value]) => (
           <div key={label} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, padding: 9 }}>
@@ -279,51 +279,51 @@ export function OrganicAcidCandidateCompetitionView({ network, lang = "zh" }) {
       <SectionTitle
         kicker="Candidate Competition"
         title={text(lang, "候选竞争", "Candidate Competition")}
-        note={text(lang, "先解释 Al-MOF 为什么赢得主体竞争，再解释 Mo 为什么赢得客体竞争，最后解释 Al-MOF + Mo 为什么赢得路线竞争。", "Explains why Al-MOF wins host competition, why Mo wins guest competition, and why Al-MOF + Mo wins route competition.")}
+        note={text(lang, "分别列出 Al-MOF 的主体排序依据、Mo 的客体排序依据，以及 Al-MOF + Mo 的路线排序依据。", "Explains why Al-MOF wins host competition, why Mo wins guest competition, and why Al-MOF + Mo wins route competition.")}
       />
       <div style={{ display: "grid", gap: 12 }}>
         <article style={cardStyle()}>
-          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "Host Competition / 主体 MOF 竞争", "Host Competition")}</strong>
+          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "主体 MOF 排序", "Host Competition")}</strong>
           <CompactTable
             rows={hosts}
             rowKey={row => row.host}
             maxRows={10}
             columns={[
-              { key: "rank", label: "Rank", numeric: true, render: row => `#${row.rank}` },
-              { key: "host", label: "Host", strong: true },
-              { key: "score", label: "Score", numeric: true, render: row => fmt(row.score, 3) },
+              { key: "rank", label: text(lang, "排序", "Rank"), numeric: true, render: row => `#${row.rank}` },
+              { key: "host", label: text(lang, "主体", "Host"), strong: true },
+              { key: "score", label: text(lang, "得分", "Score"), numeric: true, render: row => fmt(row.score, 3) },
               { key: "advantageZh", label: text(lang, "优势", "Advantage") },
               { key: "limitationZh", label: text(lang, "限制", "Limitation") },
-              { key: "whySelectedZh", label: text(lang, "为什么入选", "Why selected") },
-              { key: "whyNotSelectedZh", label: text(lang, "为什么不是第一", "Why not selected") },
+              { key: "whySelectedZh", label: text(lang, "入选依据", "Why selected") },
+              { key: "whyNotSelectedZh", label: text(lang, "未列首位原因", "Why not selected") },
             ]}
           />
         </article>
         <article style={cardStyle()}>
-          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "Guest Competition / 客体金属竞争", "Guest Competition")}</strong>
+          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "客体金属排序", "Guest Competition")}</strong>
           <CompactTable
             rows={guests}
             rowKey={row => row.metal}
             maxRows={8}
             columns={[
-              { key: "rank", label: "Rank", numeric: true, render: row => `#${row.rank}` },
-              { key: "metal", label: "Metal", strong: true },
-              { key: "score", label: "Score", numeric: true, render: row => fmt(row.score, 3) },
+              { key: "rank", label: text(lang, "排序", "Rank"), numeric: true, render: row => `#${row.rank}` },
+              { key: "metal", label: text(lang, "金属", "Metal"), strong: true },
+              { key: "score", label: text(lang, "得分", "Score"), numeric: true, render: row => fmt(row.score, 3) },
               { key: "supportsPathwayZh", label: text(lang, "支持路径", "Supports pathway") },
               { key: "advantageZh", label: text(lang, "优势", "Advantage") },
-              { key: "whySelectedZh", label: text(lang, "为什么入选", "Why selected") },
-              { key: "whyNotSelectedZh", label: text(lang, "为什么不是第一", "Why not selected") },
+              { key: "whySelectedZh", label: text(lang, "入选依据", "Why selected") },
+              { key: "whyNotSelectedZh", label: text(lang, "未列首位原因", "Why not selected") },
             ]}
           />
         </article>
         <article style={cardStyle()}>
-          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "Route Competition / 路线竞争", "Route Competition")}</strong>
+          <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, "路线排序", "Route Competition")}</strong>
           <CompactTable
             rows={routes}
             rowKey={row => row.routeId}
             maxRows={25}
             columns={[
-              { key: "rank", label: "Rank", numeric: true, render: row => `#${row.rank}` },
+              { key: "rank", label: text(lang, "排序", "Rank"), numeric: true, render: row => `#${row.rank}` },
               { key: "route", label: text(lang, "路线", "Route"), strong: true },
               { key: "hgcps", label: "HGCPS", numeric: true, render: row => fmt(row.hgcps, 3) },
               { key: "evidenceConfidence", label: text(lang, "证据", "Evidence"), numeric: true, render: row => fmt(row.evidenceConfidence, 2) },
@@ -353,7 +353,7 @@ export function OrganicAcidRouteOutputPanel({ network, lang = "zh", onOpenActiva
       <SectionTitle
         kicker="Route Output"
         title={text(lang, "路线输出", "Route Output")}
-        note={text(lang, "这里才展示当前输出：Al-MOF + Mo 是最高优先级验证路线，可用于实验规划，但不是最终催化性能证明。", "The current output appears here: Al-MOF + Mo is the top-priority validation route for planning, not final catalytic proof.")}
+        note={text(lang, "当前结果将 Al-MOF + Mo 列为优先验证路线，可用于实验规划，但不构成最终催化性能证明。", "The current output appears here: Al-MOF + Mo is the top-priority validation route for planning, not final catalytic proof.")}
       />
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         <div style={cardStyle({ background: palette.bg })}>
@@ -367,7 +367,7 @@ export function OrganicAcidRouteOutputPanel({ network, lang = "zh", onOpenActiva
           <span style={{ color: palette.risk, fontSize: 12, lineHeight: 1.45 }}>{output.boundaries.join("; ")}</span>
         </div>
         <div style={cardStyle({ background: palette.bg })}>
-          <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "为什么是当前第一", "Why current first")}</span>
+          <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{text(lang, "列为首位的依据", "Why current first")}</span>
           <span style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>{text(lang, top.whyRankedHereZh, top.whyRankedHereEn)}</span>
         </div>
       </div>
@@ -385,7 +385,7 @@ export function OrganicAcidRouteOutputPanel({ network, lang = "zh", onOpenActiva
           {text(lang, "查看 HGCPS 公式", "View HGCPS formula")}
         </button>
         <button type="button" onClick={onOpenAlternatives} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
-          {text(lang, "查看为什么不是其他路线", "View why not other routes")}
+          {text(lang, "查看其他路线的排序差异", "View why not other routes")}
         </button>
         {exportRows.map(([label, action]) => (
           <button key={label} type="button" onClick={action} style={{ ...buttonStyle(false), textAlign: "center" }}>

@@ -25,7 +25,7 @@ export function ModelExplainabilityCenter({ credibility = null, lang = "en", t, 
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Model Explainability Center</span>
         <h3 style={{ color: t.textStrong, fontSize: 16, margin: 0 }}>{text(lang, "模型可解释性中心", "Model Explainability Center")}</h3>
-        <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>{text(lang, "为什么 Random Forest 第一", e.whyRandomForestFirst)}</p>
+        <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>{text(lang, "随机森林列为首位的依据", e.whyRandomForestFirst)}</p>
       </header>
 
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>

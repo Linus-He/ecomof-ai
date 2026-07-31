@@ -101,7 +101,7 @@ export function buildScreeningTrace(options = {}) {
     step("normalization", "Normalization", "标准化", "completed", ranked.length, ranked.length, 0,
       "Benefit/cost indicators normalized to [0,1].", "收益型/成本型指标归一化到 [0,1]。",
       "Benefit-type higher-is-better; cost-type lower-is-better.", "收益型越大越好；成本型越小越好。", "candidate-decision-dashboard"),
-    step("performance_priority_applied", "Performance Priority Applied", "性能优先级已应用", "completed", ranked.length, ranked.length, 0,
+    step("performance_priority_applied", "Early Performance Filter Applied", "早期性能筛选已执行", "completed", ranked.length, ranked.length, 0,
       `Priority mode: ${priorityMode.label}.`, `优先级模式：${priorityMode.labelZh}。`,
       priorityImpactSummary.rankingImpact, priorityImpactSummary.rankingImpactZh, "candidate-decision-dashboard", [], {
         priorityMode: priorityMode.id,

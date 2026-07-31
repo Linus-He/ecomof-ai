@@ -143,7 +143,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           </div>
         </div>
       </ResultLayer>
-      <ResultLayer number="03" title={lang === "zh" ? "适用范围与局限" : "Scope and Limitations"} subtitle={lang === "zh" ? "这里是粗略边界，不是正式 LCC 或工程经济。" : "This is a coarse boundary, not formal LCC or engineering economics."}>
+      <ResultLayer number="03" title={lang === "zh" ? "适用范围与局限" : "Scope and Limitations"} subtitle={lang === "zh" ? "当前仅提供筛选级边界，不构成正式 LCC 或工程经济分析。" : "This is a coarse boundary, not formal LCC or engineering economics."}>
         <ProvenanceGrid items={[
           { label: "Use stage", value: "Stage 2 — Feasibility Boundaries", type: "proxy", note: "Practical boundary between scientific screening and shortlist comparison." },
           { label: "Purpose", value: "Feasibility boundary", type: "user", note: "Cost / availability / supply feasibility screening." },

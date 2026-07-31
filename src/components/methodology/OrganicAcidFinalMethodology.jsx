@@ -39,7 +39,7 @@ function AlgorithmClosureMethod({ result, lang, t }) {
   const rows = [
     [text(lang, "任务定义", "Task definition"), `${ORGANIC_ACID_TASK_DEFINITION.taskId} · ${ORGANIC_ACID_TASK_DEFINITION.targetProduct}`],
     [text(lang, "目标函数", "Objective function"), ORGANIC_ACID_SCORE_EQUATION],
-    [text(lang, "权重来源", "Weight source"), text(lang, "V2.6 集中配置的白盒 MCDA 权重；不是黑盒 ML。", "V2.6 centralized white-box MCDA weights; not black-box ML.")],
+    [text(lang, "权重来源", "Weight source"), text(lang, "V2.6 集中配置的 MCDA 规则权重；不执行机器学习训练或推理。", "V2.6 centralized white-box MCDA weights; not black-box ML.")],
     [text(lang, "风险惩罚", "Risk penalty"), text(lang, "collapseRisk、competingPathwayRisk、ambiguityWarnings、missingCriticalFields、syntheticFixtureFlag、低证据、低溯源、条件不兼容与机制未闭合。", "collapseRisk, competingPathwayRisk, ambiguityWarnings, missingCriticalFields, syntheticFixtureFlag, low evidence, low provenance, low condition compatibility, and unverified mechanism support.")],
     [text(lang, "决策追踪", "Decision trace"), "Candidate Loaded -> Feature Availability Check -> Pathway Fit Calculation -> Evidence Adjustment -> Graph Relevance Calculation -> Structure Suitability Calculation -> Risk Penalty Applied -> Validation Readiness Check -> Final Ranking -> Next Experiment Generated"],
     [text(lang, "算法合理性检查", "Sanity check"), algorithm.sanityCheck?.summaryZh || algorithm.sanityCheck?.summary || "pending"],
@@ -49,23 +49,23 @@ function AlgorithmClosureMethod({ result, lang, t }) {
   return (
     <section id="methodology-oafs-algorithm-closure" data-testid="methodology-oafs-algorithm-closure" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, padding: 15, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 4 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Organic Acid Algorithm Closure</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "有机酸算法流程", "Organic Acid Algorithm Closure")}</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "有机酸算法闭环：白盒多指标决策 + 证据修正 + 图论相关性 + 风险惩罚", "Organic Acid Algorithm Closure: white-box MCDA + evidence adjustment + graph relevance + risk penalty")}
+          {text(lang, "有机酸算法：多指标决策、证据修正、图相关性与风险惩罚", "Organic Acid Algorithm Closure: white-box MCDA + evidence adjustment + graph relevance + risk penalty")}
         </h3>
       </header>
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
         <ChemicalText value={text(
           lang,
-          "V2.6 首次把有机酸模块从展示型面板推进为可运行的候选筛选算法闭环。当前不是黑盒 ML，不报告预测精度；输出是 screening priority / algorithmic suggestion / priority validation candidate，仍需实验验证。",
+          "V2.6 将有机酸模块实现为可运行的候选筛选算法。当前流程不执行机器学习训练或推理，也不报告预测精度；输出包括筛选排序、算法解释和优先验证候选，均须经过实验验证。",
           "V2.6 turns the Organic Acid module from a display panel into a runnable candidate-screening algorithm loop. It is not black-box ML and reports no prediction accuracy; outputs are screening priorities, algorithmic suggestions, and priority validation candidates that still require experimental validation."
         )} />
       </p>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         <MetricCard label={text(lang, "当前模式", "Scoring mode")} value={mode?.labelZh || mode?.label || "formic_acid_priority"} t={t} />
         <MetricCard label={text(lang, "候选数量", "Candidate count")} value={String(algorithm.scoringSummary?.candidateCount ?? 0)} t={t} />
-        <MetricCard label={text(lang, "Sanity", "Sanity")} value={algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")} t={t} tone={algorithm.sanityCheck?.passed ? "info" : "warn"} />
-        <MetricCard label={text(lang, "Top 稳定性", "Top stability")} value={algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "稳定", "stable") : text(lang, "会变化", "changes")} t={t} tone={algorithm.sensitivitySummary?.topCandidateStability ? "info" : "warn"} />
+        <MetricCard label={text(lang, "合理性检查", "Sanity")} value={algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")} t={t} tone={algorithm.sanityCheck?.passed ? "info" : "warn"} />
+        <MetricCard label={text(lang, "首位候选稳定性", "Top stability")} value={algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "稳定", "stable") : text(lang, "发生变化", "changes")} t={t} tone={algorithm.sensitivitySummary?.topCandidateStability ? "info" : "warn"} />
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
         {rows.map(([label, value]) => (
@@ -115,7 +115,7 @@ function RobustnessAuditMethod({ result, lang, t }) {
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Robustness Audit</span>
         <h3 style={{ color: t.textStrong, fontSize: 21, lineHeight: 1.15, margin: 0 }}>
-          {text(lang, "稳健性审计：从推荐结果到可审计假设", "Robustness Audit: From Recommendation to Auditable Hypothesis")}
+          {text(lang, "稳健性审计：从排序结果到可审计假设", "Robustness Audit: From Recommendation to Auditable Hypothesis")}
         </h3>
       </header>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -148,7 +148,7 @@ function SmallRealDatasetMethod({ mappingReport, lang, t }) {
   const rows = [
     [text(lang, "历史边界", "Historical boundary"), text(lang, "本节只复盘 V1.6 的小规模映射样例；当前候选与路线计算已经切换到 9,835 条 CoRE MOF 2024 CSD-modified CR 记录，QMOF 保持隔离。", "This section only documents the small V1.6 mapping sample. Current candidate and route calculations use 9,835 CoRE MOF 2024 CSD-modified CR records, while QMOF remains quarantined.")],
     [text(lang, "数据质量门", "Data quality gate"), text(lang, "ready-for-scoring 才可计算 HGCPS；needs-review 与 rejected 保持可审计但不进入最终推荐。", "Only ready-for-scoring records can calculate HGCPS; needs-review and rejected records remain auditable but cannot enter final recommendation.")],
-    [text(lang, "字段来源", "Field provenance"), text(lang, "缺失来源显示 Pending provenance，不伪造 DOI、citation 或 license。", "Missing sources are shown as Pending provenance; DOI, citation, and license are not fabricated.")],
+    [text(lang, "字段级溯源", "Field provenance"), text(lang, "缺失来源标记为待补，不虚构 DOI、引文或许可信息。", "Missing sources are shown as Pending provenance; DOI, citation, and license are not fabricated.")],
     [text(lang, "热区投影", "Hot spot projection"), text(lang, "Curated 点用于验证 mapper、quality gate 和 hot spot role display，不证明催化性能。", "Curated points validate mapper, quality gate, and hot spot role display; they do not prove catalytic performance.")],
   ]
 
@@ -294,7 +294,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       text(lang, "V2.0-D 在 V2.0-C 工作台上明确大规模评分边界：只对当前审阅范围或用户主动选择的小批量候选做试算。", "V2.0-D clarifies the large-scale scoring boundary on top of the V2.0-C workbench: trial scoring is limited to the current review scope or user-selected small batches."),
     ],
     [
-      text(lang, "为什么不直接给出全库最终排序", "Why the full database is not ranked as a final result"),
+      text(lang, "不直接给出全库最终排序的依据", "Why the full database is not ranked as a final result"),
       text(lang, "9,835 条 CoRE 2024 CR 真实记录已经进入全量结构索引，但全库催化最终排序仍需要描述符复算、方法审计和实验/文献验证；当前界面只把结构审阅样本与路线家族聚合作为可审计输入。QMOF 当前为 0 条并已隔离。", "All 9,835 real CoRE 2024 CR records are present in the full structural index, but final catalytic ranking still requires descriptor recomputation, method audit, and experimental/literature validation. The current interface exposes structural review samples and route-family aggregates as auditable inputs; QMOF contributes zero active rows."),
     ],
     [
@@ -318,7 +318,7 @@ function DatabaseIndexPreviewMethod({ lang, t }) {
       text(lang, "候选详情展示描述符检查、来源检查、证据边界和缺失证据提示；缺失 DOI/citation/license 显示为证据待核验。", "Candidate details show descriptor checks, provenance checks, evidence boundaries, and missing-evidence warnings; missing DOI/citation/license is shown as evidence pending."),
     ],
     [
-      text(lang, "为什么不展示全库最终结论", "Why the full-database conclusion is not shown"),
+      text(lang, "不展示全库最终结论的依据", "Why the full-database conclusion is not shown"),
       text(lang, "当前界面保持数据摘要、Top-N 预览、候选批次与候选详情的审阅边界，不把未完整核验的数据扩展为最终全库评分。", "The current interface keeps the review boundary at data summaries, Top-N previews, candidate batches, and candidate details; it does not turn incompletely verified data into final full-database scoring."),
     ],
     [
@@ -623,7 +623,7 @@ export function OrganicAcidFinalMethodology({ lang, t }) {
             <DataMappingSchemaValidationPanel lang={lang} t={t} />
           </Suspense>
         </LazyMethodologyDetails>
-        <LazyMethodologyDetails id="methodology-oafs-small-real-dataset" title="Historical V1.6 Mapping Sample" titleZh="历史 V1.6 小规模映射样例" summary="Historical mapping sample, quality gate, field provenance, and hot spot projection; not the active candidate corpus." summaryZh="历史映射样例、质量门、字段来源与热区投影；不代表当前候选数据库。" lang={lang} t={t}>
+        <LazyMethodologyDetails id="methodology-oafs-small-real-dataset" title="Historical V1.6 Mapping Sample" titleZh="历史 V1.6 小规模映射样例" summary="Historical mapping sample, quality gate, field provenance, and hot spot projection; not the active candidate corpus." summaryZh="历史映射样例、质量门、字段级溯源与热区投影；不代表当前候选数据库。" lang={lang} t={t}>
           <SmallRealDatasetMethod mappingReport={data.mappingReport} lang={lang} t={t} />
         </LazyMethodologyDetails>
         <TraceWorkbenchMethod lang={lang} t={t} />

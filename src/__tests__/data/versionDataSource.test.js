@@ -105,6 +105,6 @@ describe("version_evolution_records data source", () => {
     expect(methodsSource).not.toMatch(/VERSION_DOCS_DIRECTORY/)
     expect(methodsSource).not.toMatch(/methodology-version-docs/)
     expect(methodsSource).not.toMatch(/Methodology Evolution Timeline/)
-    expect(methodsSource).toMatch(/ProjectEvolutionShortcutCard/)
+    expect(methodsSource).not.toMatch(/ProjectEvolutionShortcutCard/)
   })
 })

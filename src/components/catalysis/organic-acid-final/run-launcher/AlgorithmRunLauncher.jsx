@@ -129,7 +129,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
           disabled={!workflow?.trace}
           style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: workflow?.trace ? t.accentText : t.faint, cursor: workflow?.trace ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 36, padding: "7px 11px" }}
         >
-          {text(lang, "查看运行追踪", "View run trace")}
+          {text(lang, "查看运行审计记录", "View run audit record")}
         </button>
       </div>
 

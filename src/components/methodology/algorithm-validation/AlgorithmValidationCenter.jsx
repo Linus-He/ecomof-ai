@@ -315,7 +315,7 @@ function TopCandidateReview({ algorithm, lang, t, isMobile }) {
               <Metric label="Rank Stability" value={stability?.stability || "pending"} t={t} tone={stability?.stability === "Unstable" ? "warn" : "pass"} />
             </div>
             <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 4, padding: 8 }}>
-              <strong style={{ color: t.textStrong, fontSize: 12 }}>{text(lang, "为什么排在这里", "Why Ranked Here")}</strong>
+              <strong style={{ color: t.textStrong, fontSize: 12 }}>{text(lang, "排序依据", "Why Ranked Here")}</strong>
               {(active.mainReasons || []).slice(0, 3).map(reason => <span key={reason} style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.4 }}>{reason}</span>)}
               <strong style={{ color: t.warn, fontSize: 11.6 }}>{text(lang, "最大不确定性", "Biggest Uncertainty")}: {(active.mainRisks || [])[0] || "Experimental labels missing"}</strong>
               <span style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.4 }}><strong style={{ color: t.textStrong }}>{text(lang, "下一步实验", "Next Experiment")}:</strong> {active.nextExperiment}</span>
@@ -512,7 +512,7 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
       </div>
       {reasons.length ? (
         <div data-testid="benchmark-pending-reasons" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 11.6, fontWeight: 780, lineHeight: 1.5, padding: 10 }}>
-          {text(lang, "为什么不能合法展示 Accuracy / ROC：", "Why Accuracy / ROC cannot be shown yet: ")}{reasons.join(" ")}
+          {text(lang, "Accuracy / ROC 暂不可报告的依据：", "Why Accuracy / ROC cannot be shown yet: ")}{reasons.join(" ")}
         </div>
       ) : null}
     </LayerCard>

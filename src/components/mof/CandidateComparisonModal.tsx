@@ -651,7 +651,7 @@ export function CandidateComparisonModal({
       if (currentIds.includes(matched.id)) {
         setNotice(zh ? "已从 GasSep 带入气体分离条件语境。" : "Gas separation context loaded from GasSep.")
       } else if (currentIds.length >= 3) {
-        setNotice(zh ? "已达到对比上限，如需添加请先移除一个候选材料。" : "Comparison limit reached. Remove a candidate to add another.")
+        setNotice(zh ? "已达到对比上限；移除一个候选材料后可继续添加。" : "Comparison limit reached. Remove a candidate to add another.")
       } else {
         const nextIds = [...currentIds, matched.id].slice(0, 3)
         if (controlled) onSelectionChange?.(nextIds)

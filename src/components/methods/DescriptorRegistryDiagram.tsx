@@ -41,7 +41,7 @@ export function DescriptorRegistryDiagram({ t, lang = "en" }) {
       title={text(lang, "Descriptor Registry Architecture", "Descriptor Registry Architecture")}
       subtitle={text(
         lang,
-        "新增描述符不是随意加字段，而是先进入统一 registry，再被 preset、normalizer 和 scoring engine 复用。",
+        "新增描述符须先登记到统一描述符注册表，再由预设、归一化器和评分引擎调用。",
         "New descriptors are not loose fields; they enter one registry before presets, normalizers, and scoring engines reuse them."
       )}
       action={

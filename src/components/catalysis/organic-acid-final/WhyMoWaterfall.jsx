@@ -124,7 +124,7 @@ export function WhyMoWaterfall({ moRecommendation, audit, comparisons, onCompare
           </strong>
           <ChemicalText value={text(
             lang,
-            "瀑布图解释当前 demo descriptor 下 Mo 为什么排在第一；若所有扰动中排名不变，需要进一步审计 descriptor 饱和和证据偏倚，不能把该图解读为 Mo 最优性证明。",
+            "瀑布图说明 Mo 在当前演示描述符下列为首位的因素。若所有扰动均不改变排序，还需核查描述符饱和与证据偏倚；该图不构成 Mo 最优性证明。",
             "The waterfall explains why Mo ranks first under the current demo descriptors. If the rank is unchanged across all perturbations, descriptor saturation and evidence bias must be audited; this chart must not be read as proof of Mo optimality."
           )} />
         </div>

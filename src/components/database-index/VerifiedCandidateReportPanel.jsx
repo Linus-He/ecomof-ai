@@ -62,7 +62,7 @@ export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, 
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 9, color: t.textStrong, display: "grid", gap: 4, fontSize: 12, lineHeight: 1.5, padding: 10 }}>
           <strong style={{ color: t.warn }}>{text(lang, "暂无经核验候选", "No verified candidates yet")}</strong>
           <span style={{ color: t.muted }}>
-            {text(lang, "当前候选仍需补充 source / citation / license / DOI 或 descriptor provenance。请先完成证据回填。", "Candidates still require source / citation / license / DOI or descriptor provenance backfill. Complete evidence backfill first.")}
+            {text(lang, "当前候选仍缺来源、引文、许可、DOI 或描述符溯源；证据回填完成前不进入已核查候选集。", "Candidates still require source / citation / license / DOI or descriptor provenance backfill. Complete evidence backfill first.")}
           </span>
         </div>
       )}

@@ -131,4 +131,30 @@ describe("localization audit", () => {
 
     expect(machineTranslatedChineseIssues(corpus)).toEqual([])
   })
+
+  it("keeps the generated global copy report clean and core runtime terminology aligned", () => {
+    const report = JSON.parse(read("public/data/localization_gap_report.json"))
+    expect(report.clean).toBe(true)
+    expect(report.untranslatedItems).toEqual([])
+    expect(report.mixedLanguageItems).toEqual([])
+    expect(report.inconsistentTerms).toEqual([])
+    expect(report.deprecatedTerms).toEqual([])
+
+    const coreRuntime = [
+      read("src/components/tabs/HomeTab.tsx"),
+      read("src/components/tabs/EcoScreenTab.tsx"),
+      read("src/components/tabs/GasSepTab.tsx"),
+      read("src/components/tabs/MOFLibraryTab.tsx"),
+      read("src/components/tabs/MethodsLimitationsTab.tsx"),
+      read("src/components/tabs/DataSourcesTab.tsx"),
+      read("src/components/methodology/MethodArchitectureDetails.tsx"),
+      read("src/components/screening-trace/ScreeningTraceTimeline.jsx"),
+      read("public/data/methodology_modules_demo.json"),
+    ].join("\n")
+
+    expect(coreRuntime).not.toMatch(/做什么：|为什么推荐|筛选过程追踪|运行追踪|性能优先级/)
+    expect(coreRuntime).toMatch(/筛选流程追踪/)
+    expect(coreRuntime).toMatch(/字段级溯源/)
+    expect(coreRuntime).toMatch(/发展路线图/)
+  })
 })

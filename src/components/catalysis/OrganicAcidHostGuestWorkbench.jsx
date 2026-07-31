@@ -1164,7 +1164,11 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   if (status === "loading" || !workbench || !selectedExplanation || !stepwiseChain) {
     return (
       <section id="organic-acid-host-guest-workbench" style={{ ...cardStyle({ background: palette.bg, padding: 14, scrollMarginTop: 118 }) }}>
-        <SectionTitle kicker={ORGANIC_ACID_HOST_GUEST_VERSION} title="Organic Acid Host-Guest Pathway Screening Workbench" note="Loading host-guest algorithm data..." />
+        <SectionTitle
+          kicker={ORGANIC_ACID_HOST_GUEST_VERSION}
+          title={text(lang, "有机酸主客体路径筛选工作台", "Organic Acid Host-Guest Pathway Screening Workbench")}
+          note={text(lang, "正在载入主客体算法数据。", "Loading host-guest algorithm data.")}
+        />
       </section>
     )
   }
@@ -1172,7 +1176,11 @@ export function OrganicAcidHostGuestWorkbench({ lang = "zh", isNarrow = false, i
   if (status === "error") {
     return (
       <section id="organic-acid-host-guest-workbench" style={{ ...cardStyle({ background: palette.riskSoft, padding: 14, scrollMarginTop: 118 }) }}>
-        <SectionTitle kicker={ORGANIC_ACID_HOST_GUEST_VERSION} title="Organic Acid Host-Guest Pathway Screening Workbench" note="Host-guest data could not be loaded." />
+        <SectionTitle
+          kicker={ORGANIC_ACID_HOST_GUEST_VERSION}
+          title={text(lang, "有机酸主客体路径筛选工作台", "Organic Acid Host-Guest Pathway Screening Workbench")}
+          note={text(lang, "主客体算法数据载入失败。", "Host-guest data could not be loaded.")}
+        />
       </section>
     )
   }

@@ -301,15 +301,18 @@ export function CatalysisLabTab() {
         data-testid="catalysis-research-overview"
         style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 8, padding: 16 }}
       >
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Catalysis Research Overview</span>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</span>
         <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</h3>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
           {zh
-            ? "催化模块聚焦有机酸路径研究：从项目入口、反应路径证据网络、候选优先级，到研究验证中心、证据矩阵、知识图谱与验证路线图，并链接到方法论。所有统计均由底层数据派生。"
+            ? "催化模块围绕有机酸反应路径组织项目入口、路径证据网络、候选排序、研究验证中心、证据矩阵、知识图谱和验证计划，并与方法论相互链接；页面统计均由当前数据派生。"
             : "Catalysis focuses on organic-acid pathway research: project entry, pathway evidence network, candidate prioritization, the research validation center, evidence matrix, knowledge graph, and validation roadmap, linked to Methodology. All statistics are derived from the underlying data."}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {["Organic Acid Project Entry", "Pathway Evidence Network", "Candidate Prioritization", "Research Validation Center", "Evidence Matrix", "Knowledge Graph", "Validation Roadmap"].map(label => (
+          {(zh
+            ? ["有机酸项目入口", "路径证据网络", "候选排序", "研究验证中心", "证据矩阵", "知识图谱", "验证计划"]
+            : ["Organic Acid Project Entry", "Pathway Evidence Network", "Candidate Prioritization", "Research Validation Center", "Evidence Matrix", "Knowledge Graph", "Validation Plan"]
+          ).map(label => (
             <span key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 10.6, fontWeight: 700, padding: "3px 9px" }}>{label}</span>
           ))}
         </div>
@@ -335,14 +338,14 @@ export function CatalysisLabTab() {
             <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
               <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
                 <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
-                  {zh ? "最终筛选闭环" : "Final screening loop"}
+                  {zh ? "最终筛选与验证" : "Final screening loop"}
                 </div>
                 <h2 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.18, margin: 0 }}>
-                  {zh ? "Organic Acid Final Screening" : "Organic Acid Final Screening"}
+                  {zh ? "有机酸最终筛选" : "Organic Acid Final Screening"}
                 </h2>
                 <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0, maxWidth: 860 }}>
                   {zh
-                    ? "独立展示 170°C 水相 CO₂ 到甲酸 / 有机酸的 Al-MOF 稳定骨架筛选、第二金属推荐、Why Mo 瀑布图、敏感性分析、盲测基线和 EXAFS 可证伪预测。"
+                    ? "独立展示 170°C 水相 CO₂ 向甲酸 / 有机酸转化时的 Al-MOF 稳定骨架筛选、第二金属排序、Mo 排序依据、敏感性分析、盲测基线和 EXAFS 可证伪预测。"
                     : "Open the separate 170°C aqueous CO₂ to formic acid / organic acids workflow for Al-MOF scaffold mining, dopant recommendation, Why Mo waterfall, sensitivity analysis, blind baselines, and EXAFS falsification."}
                 </p>
               </div>
@@ -355,7 +358,10 @@ export function CatalysisLabTab() {
               </button>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              {["Stage 1: Al-MOF only", "Stage 2: dopant recommendation", "Mo as outcome", "needs validation"].map(label => <BasisBadge key={label} tone={label === "needs validation" ? "warn" : "proxy"}>{label}</BasisBadge>)}
+              {(zh
+                ? ["阶段 1：仅筛选 Al-MOF", "阶段 2：第二金属排序", "Mo 为当前筛选结果", "需要验证"]
+                : ["Stage 1: Al-MOF only", "Stage 2: dopant ranking", "Mo as current outcome", "needs validation"]
+              ).map(label => <BasisBadge key={label} tone={label === "需要验证" || label === "needs validation" ? "warn" : "proxy"}>{label}</BasisBadge>)}
             </div>
           </section>
 

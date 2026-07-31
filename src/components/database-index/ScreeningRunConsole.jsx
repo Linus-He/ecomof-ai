@@ -201,7 +201,7 @@ export function ScreeningRunConsole({ summary: summaryProp = null, stepDelayMs =
           {num(transition.sourceConfirmed) === 0 ? (
             <div style={{ background: t.panel, border: `1px dashed ${t.warn}`, borderRadius: 10, color: t.muted, display: "grid", gap: 3, padding: 10 }}>
               <strong style={{ color: t.warn, fontSize: 12 }}>{text(lang, "来源链接补全尚未开始", "Source-link enrichment has not started")}</strong>
-              <span style={{ fontSize: 11.4, lineHeight: 1.45 }}>{text(lang, "请先进入人工 metadata 整理面板补充 source URL。", "Please add source URLs in the manual metadata curation panel first.")}</span>
+              <span style={{ fontSize: 11.4, lineHeight: 1.45 }}>{text(lang, "来源链接缺失；须在人工元数据整理面板补录后继续。", "Please add source URLs in the manual metadata curation panel first.")}</span>
             </div>
           ) : null}
           <ScreeningResultPanel result={runState.result} lang={lang} t={t} isMobile={isMobile} />

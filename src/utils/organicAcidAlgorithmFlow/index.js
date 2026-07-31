@@ -1102,7 +1102,7 @@ export function buildAlgorithmRunTraceSummary(workbenchInput = null, sourceData 
   const topRoute = workbench?.complementarity?.topRoute || arrays.routes.find(isTopRoute) || arrays.routes[0] || {}
   return {
     version: ORGANIC_ACID_ALGORITHM_FLOW_VERSION,
-    titleZh: "算法运行追踪摘要",
+    titleZh: "算法执行记录摘要",
     titleEn: "Algorithm Run Trace Summary",
     steps: [
       ["pathway", "加载 CO2 -> 有机酸路径步骤", `${arrays.pathwaySteps.length} pathway steps`],

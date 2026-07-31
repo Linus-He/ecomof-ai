@@ -31,13 +31,6 @@ export function MethodAlgorithmStepper({ steps = [], lang, t }) {
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>
               <ChemicalText value={text(lang, step.descriptionZh, step.description)} />
             </span>
-            <span style={{ borderLeft: `2px solid ${t.border}`, color: t.faint, fontSize: 11.2, lineHeight: 1.58, marginTop: 3, paddingLeft: 8 }}>
-              {text(
-                lang,
-                "执行约束：仅接收上一阶段已通过身份、单位与来源检查的状态；若条件不满足，本步保留阻断原因并停止向正式结果传递。",
-                "Execution constraint: only states that passed identity, unit, and provenance checks in the previous stage are accepted. Unmet conditions retain a blocking reason and do not propagate into formal results.",
-              )}
-            </span>
           </span>
         </article>
       ))}

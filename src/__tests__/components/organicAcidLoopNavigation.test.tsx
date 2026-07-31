@@ -45,7 +45,7 @@ describe("Organic Acid validation loop navigation", () => {
   it("keeps the existing Organic Acid Project accessible and adds validation-center entries", async () => {
     render(<OrganicAcidProject lang="zh" t={THEME_LIGHT} />)
 
-    await waitFor(() => expect(screen.getByText("有机酸研究验证闭环入口")).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText("有机酸研究验证入口")).toBeInTheDocument())
 
     expect(screen.getByText("进入研究验证中心").closest("a")).toHaveAttribute("href", "#organic-acid-research-validation")
     expect(screen.getByText("查看证据覆盖").closest("a")).toHaveAttribute("href", "#organic-acid-evidence-coverage")

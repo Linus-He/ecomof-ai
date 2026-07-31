@@ -281,8 +281,8 @@ describe("organic acid score provenance builders", () => {
     const workbench = workbenchFromSource()
     const step5 = { id: "step-5", result: "Al-MOF + Mo 路线评分结论", dynamicChartModel: { type: "route-hgcps-breakdown" } }
     const model = buildStepWhyPanelEnhancedModel(step5, workbench, { lang: "zh", sourceData: source() })
-    expect(model.titleZh).toBe("为什么是这个结果？")
-    expect(model.scoreQuestionZh).toBe("这个分数怎么算出来的？")
+    expect(model.titleZh).toBe("当前结果的形成依据")
+    expect(model.scoreQuestionZh).toBe("得分计算依据")
     expect(model.provenance.scoreName).toBe("routeHGCPS")
     expect(model.factorCompressionTrace.steps).toHaveLength(8)
     expect(model.routeFactorComparison.routes.length).toBeGreaterThanOrEqual(3)

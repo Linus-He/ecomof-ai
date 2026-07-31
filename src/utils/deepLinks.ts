@@ -71,8 +71,8 @@ export const HASH_META = {
     description: "查看可持续性导向的 MOF 候选优先级、透明假设、候选评分和使用限制。",
   },
   performance: {
-    title: "性能优先级 | EcoMOF-AI",
-    description: "查看基于规则的 MOF 候选优先级、描述符整理状态和字段级来源信息。",
+    title: "早期性能筛选 | EcoMOF-AI",
+    description: "查看基于规则的 MOF 候选排序、描述符整理状态和字段级溯源信息。",
   },
   gassep: {
     title: "气体分离 | EcoMOF-AI",
@@ -104,7 +104,7 @@ export const HASH_META = {
   },
   "project-evolution": {
     title: "项目演化 | EcoMOF-AI",
-    description: "查看 EcoMOF-AI 的版本时间线、Release Notes、数据库成长、算法演化、验证体系、里程碑和路线图。",
+    description: "查看 EcoMOF-AI 的版本演化时间线、版本更新记录、数据库演化、算法演化、验证体系、关键里程碑和发展路线图。",
   },
   "project-evolution-overview": {
     title: "Project Evolution Overview | EcoMOF-AI",
@@ -164,7 +164,7 @@ export const HASH_META = {
   },
   "methodology-gassep": {
     title: "GasSep 方法 | EcoMOF-AI",
-    description: "查看条件化气体分离数据记录、可比性规则、字段级来源和当前 curated literature data 边界。",
+    description: "查看带条件的气体分离记录、可比性规则、字段级溯源和当前文献整理数据的适用边界。",
   },
   "methodology-organic-acid": {
     title: "Organic Acid 方法 | EcoMOF-AI",
@@ -180,7 +180,7 @@ export const HASH_META = {
   },
   "data-quality-provenance": {
     title: "数据质量与来源 | EcoMOF-AI",
-    description: "查看 EcoMOF-AI 如何区分演示数据、真实种子整理记录、字段级来源和待复核状态。",
+    description: "查看 EcoMOF-AI 如何区分演示数据、真实种子整理记录、字段级溯源和待复核状态。",
   },
   contact: {
     title: "联系与合作 | EcoMOF-AI",

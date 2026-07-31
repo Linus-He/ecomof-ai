@@ -202,7 +202,7 @@ const ECOSCREEN_NEEDS = [
   { id: "separation", label: { zh: "气体分离早筛", en: "Gas-separation screening" }, fields: ["co2Uptake", "surfaceArea", "poreVolume"], gate: "adsorption" },
   { id: "wet", label: { zh: "湿气/水相适用性", en: "Humid/aqueous use" }, fields: ["waterStability", "thermalStability"], gate: "stability" },
   { id: "synthesis", label: { zh: "可持续合成线索", en: "Sustainable synthesis cues" }, fields: ["toxicityConcern", "metalCost"], gate: "lca" },
-  { id: "validation", label: { zh: "验证闭环", en: "Validation closure" }, fields: ["doi", "benchmark"], gate: "weights" },
+  { id: "validation", label: { zh: "验证状态", en: "Validation closure" }, fields: ["doi", "benchmark"], gate: "weights" },
 ]
 
 const CRITICAL_METAL_REVIEW_SET = new Set(["Co", "Ni", "W", "V", "Mo", "Cr", "Mn", "Ce"])
@@ -980,7 +980,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
         </div>
         <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 8 }}>
           {lang === "zh"
-            ? "解释对象是 ranking influence，不是化学因果机制；真实结论仍需实验、DFT 或文献证据闭环。"
+            ? "本区解释排序影响，不推断化学因果；科研结论仍需实验、DFT 或文献证据支持。"
             : "This explains ranking influence, not chemical causality; real conclusions still require experimental, DFT, or literature evidence closure."}
         </div>
       </details>
@@ -1072,7 +1072,7 @@ function PerformanceSustainabilityQuadrant({ candidates, selectedId, onSelect, l
       </ResponsiveContainer>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
         {[
-          [text(lang, "高性能 / 高可持续性", "High performance / high sustainability"), lang === "zh" ? "优先复核证据闭环" : "priority for evidence closure"],
+          [text(lang, "高性能 / 高可持续性", "High performance / high sustainability"), lang === "zh" ? "优先复核证据完整性" : "priority for evidence closure"],
           [text(lang, "高性能 / 低可持续性", "High performance / low sustainability"), lang === "zh" ? "需审查稳定性或风险代价" : "review stability or risk burden"],
           [text(lang, "低性能 / 高可持续性", "Low performance / high sustainability"), lang === "zh" ? "可能适合低风险探索" : "possible low-risk exploration"],
           [text(lang, "低性能 / 低可持续性", "Low performance / low sustainability"), lang === "zh" ? "暂不优先" : "lower priority"],
@@ -1354,7 +1354,7 @@ function EcoScreenExplainabilityPanel({ credibility, reactionGraph, selectedCand
     <Card t={t} style={{ display: "grid", gap: 10 }} data-testid="ecoscreen-explainability">
       <div style={{ display: "grid", gap: 3 }}>
         <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{txt("可解释性与证据", "Explainability & Evidence")}</strong>
-        <span style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5 }}>{txt("基于 V3.4 模型的特征贡献与 CO₂→甲酸路径证据置信度，解释“为什么推荐”。", "Explains “why recommended” from the V3.4 model feature contribution and CO₂→formic-acid evidence confidence.")}</span>
+        <span style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5 }}>{txt("结合 V3.4 模型特征贡献与 CO₂→甲酸路径的证据置信度说明排序依据。", "Explains the ranking from V3.4 model feature contributions and CO₂→formic-acid evidence confidence.")}</span>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         <button type="button" data-testid="ecoscreen-show-feature-importance" aria-pressed={showImportance} onClick={() => setShowImportance(v => !v)}
@@ -1386,7 +1386,7 @@ function EcoScreenExplainabilityPanel({ credibility, reactionGraph, selectedCand
         </div>
       ) : null}
       <div data-testid="ecoscreen-why-recommended" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, fontSize: 11.4, lineHeight: 1.55, padding: 10 }}>
-        <strong style={{ color: t.textStrong }}>{txt("为什么推荐", "Why Recommended")}{selectedCandidate?.name ? ` · ${selectedCandidate.name}` : ""}：</strong>{" "}
+        <strong style={{ color: t.textStrong }}>{txt("排序解释", "Ranking Explanation")}{selectedCandidate?.name ? ` · ${selectedCandidate.name}` : ""}：</strong>{" "}
         {rows.length
           ? txt(
               `主要由 ${rows.slice(0, 2).map(r => r.label).join(" 与 ")} 驱动（${best} 特征贡献）；路径证据置信度 ${evidenceLevel || "—"}。指标来自 V3.4 Benchmark，未伪造。`,
@@ -1702,7 +1702,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
             )}
             performancePriorityMode={performancePriorityMode}
           />
-          <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "数据库预览会先显示流程框架；候选数据返回后补充图表与明细。" : "Database Preview shows the screening flow first; charts and candidate details appear after data loads."}>
+          <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选流程追踪", "Screening Trace")} subtitle={lang === "zh" ? "数据库预览先显示流程框架；候选数据返回后再显示图表与明细。" : "Database Preview shows the screening flow first; charts and candidate details appear after data loads."}>
             <ScreeningTraceSection model={generalTraceModel} scenarioLabel={scoringMode} performancePriorityMode={performancePriorityMode} lang={lang} t={t} isMobile={isMobile} />
           </ResultLayer>
         </>
@@ -1772,7 +1772,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
         </Card>
       </ResultLayer>
 
-      <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选过程追踪", "Screening Trace")} subtitle={lang === "zh" ? "每一步发生了什么、为什么剩下这些候选、为什么排名如此、哪些数据缺口阻断了 verified。" : "What happened at each step, why these candidates remain, why they rank this way, and which data gaps block verified."}>
+      <ResultLayer id="ecoscreen-result-layer-05" testId="ecoscreen-result-layer-05" number="05" title={text(lang, "筛选流程追踪", "Screening Trace")} subtitle={lang === "zh" ? "逐步记录候选的纳入、排除与排序依据，并标明阻断核验的数据缺口。" : "Records inclusion, exclusion, and ranking evidence at each step, including data gaps that block verification."}>
         <ScreeningTraceSection model={model} scenarioLabel={scoringMode} lang={lang} t={t} isMobile={isMobile} />
       </ResultLayer>
 

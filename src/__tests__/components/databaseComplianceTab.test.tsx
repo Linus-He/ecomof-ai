@@ -23,7 +23,7 @@ describe("DatabaseComplianceTab", () => {
   it("states the evidence boundary, acknowledgement, and mandatory user obligations without self-certification", () => {
     renderTab()
     const page = screen.getByTestId("database-compliance-tab")
-    expect(page).toHaveTextContent("开始使用前请先阅读")
+    expect(page).toHaveTextContent("适用条款与使用前核查")
     expect(page).toHaveTextContent("数据使用、许可与责任")
     expect(page).not.toHaveTextContent("ecomofai@outlook.com")
     expect(page).toHaveTextContent("不是法律意见，也不是全面合规认证")

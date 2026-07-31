@@ -51,7 +51,11 @@
     "Localization Evolution": "汉化演化",
     "Run Snapshot": "运行快照",
     "Citation Package": "引用包",
-    "Localization Audit": "汉化质量审计"
+    "Localization Audit": "汉化质量审计",
+    "MOF Library": "MOF库",
+    "Physicochemical Properties": "物化性质",
+    "Evidence Level": "证据等级",
+    "Data Compliance Pledge": "数据合规承诺"
   },
   "forbiddenTranslations": {
     "Why This Result": [
@@ -63,6 +67,7 @@
     ],
     "Screening Trace": [
       "筛选过程",
+      "筛选过程追踪",
       "运行追踪"
     ],
     "Release Notes": [

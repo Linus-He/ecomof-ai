@@ -13,7 +13,7 @@ export function ScreeningTraceTimeline({ trace, lang, t }) {
   return (
     <section id="screening-trace-timeline" data-testid="screening-trace-timeline" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "筛选过程", "Screening Trace")}</strong>
+        <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "筛选流程追踪", "Screening Trace")}</strong>
         <StatusPill tone={trace?.isVerifiedScreening ? "pass" : "warn"} t={t}>{trace?.isVerifiedScreening ? text(lang, "经核验筛选", "verified screening") : text(lang, "数据库预览 · 非最终推荐", "database preview · not final recommendation")}</StatusPill>
       </div>
       <ol style={{ display: "grid", gap: 8, listStyle: "none", margin: 0, padding: 0 }}>

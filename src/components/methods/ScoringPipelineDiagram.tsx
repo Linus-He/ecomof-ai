@@ -58,7 +58,7 @@ export function ScoringPipelineDiagram({ t, lang = "en" }) {
   ]
 
   const qualityItems = text(lang,
-    ["字段级来源", "证据等级", "缺失数据", "Demo / seed 数据状态"],
+    ["字段级溯源", "证据等级", "缺失数据", "演示 / 种子数据状态"],
     ["Field-level provenance", "Evidence level", "Missing data", "Demo / seed data status"]
   )
 

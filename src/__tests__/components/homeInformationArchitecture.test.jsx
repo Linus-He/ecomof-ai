@@ -58,7 +58,7 @@ describe("home information architecture", () => {
 
     expect(screen.getByRole("heading", { name: "EcoMOF-AI" })).toBeInTheDocument()
     expect(screen.getByText("数据驱动的 MOF 筛选与验证平台")).toBeInTheDocument()
-    expect(screen.getByText("四个研究工作区覆盖可持续性筛选、气体分离、白盒催化路线与材料数据库浏览。")).toBeInTheDocument()
+    expect(screen.getByText("四个研究工作区分别覆盖可持续性筛选、气体分离、可解释催化路线和材料数据库检索。")).toBeInTheDocument()
     expect(screen.getAllByText("数据合规承诺").length).toBeGreaterThan(0)
     expect(screen.queryByTestId("home-platform-capabilities")).not.toBeInTheDocument()
     // module-first capability section and the interactive 3D descriptor visual are part of the home IA

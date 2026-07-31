@@ -298,7 +298,7 @@ function CandidateDetailPanel({ candidate }) {
       </div>
 
       <div style={{ display: "grid", gap: 8 }}>
-        <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 700 }}>Why this candidate / 为什么是它</div>
+        <div style={{ color: palette.text, fontSize: 13.5, fontWeight: 700 }}>候选入选依据</div>
         <div style={{ display: "grid", gap: 6 }}>
           {candidate.explanations.slice(0, 3).map((reason) => (
             <div key={reason} style={{ color: palette.muted, fontSize: 12, lineHeight: 1.45 }}>
@@ -360,8 +360,8 @@ function CandidateRankingSection({ rankedRows, selectedMof, setSelectedMof, isNa
 function ValidationSection() {
   return (
     <SectionShell
-      kicker="Validation roadmap"
-      title="验证路线图 Validation Roadmap"
+      kicker="验证计划"
+      title="实验与计算验证计划"
       note="把当前排序结果转成后续主反应测试、路径投料、同位素与 DFT 更新的执行清单。"
     >
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -410,9 +410,11 @@ function ResearchValidationEntryPanel({ lang }) {
   return (
     <section id="organic-acid-validation-loop-entry" style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 12, padding: 14, scrollMarginTop: 118 }}>
       <div style={{ display: "grid", gap: 5 }}>
-        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Research validation loop</div>
+        <div style={{ color: palette.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
+          {zh ? "研究验证" : "Research validation"}
+        </div>
         <h2 style={{ color: palette.text, fontSize: 18, lineHeight: 1.2, margin: 0 }}>
-          {zh ? "有机酸研究验证闭环入口" : "Organic Acid Research Validation Loop Entry"}
+          {zh ? "有机酸研究验证入口" : "Organic Acid Research Validation Loop Entry"}
         </h2>
         <p style={{ color: palette.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
           {zh

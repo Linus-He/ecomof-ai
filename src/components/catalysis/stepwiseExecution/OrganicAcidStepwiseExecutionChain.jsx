@@ -653,7 +653,7 @@ function RiskCounterfactualPanel({ risk, counterfactual, why, lang }) {
       ) : null}
       {why ? (
         <div style={cardStyle({ background: palette.accentSoft })}>
-          <strong style={{ color: palette.accent, fontSize: 12 }}>{text(lang, "为什么不是其他候选", "Why not the other candidates")}</strong>
+          <strong style={{ color: palette.accent, fontSize: 12 }}>{text(lang, "其他候选未列首位的原因", "Why not the other candidates")}</strong>
           <span style={{ color: palette.text, fontSize: 11.5, lineHeight: 1.5 }}>{text(lang, why.whyWinnerLeadsZh, why.whyWinnerLeadsEn)}</span>
           <span style={{ color: palette.risk, fontSize: 11.2, lineHeight: 1.45 }}>{text(lang, why.whyRunnerUpNotSelectedZh, why.whyRunnerUpNotSelectedEn)}</span>
           <span style={{ color: palette.faint, fontSize: 10.8 }}>{why.limitation}</span>
@@ -708,7 +708,7 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
   return (
     <aside data-testid="organic-acid-step-why-panel" style={asideStyle}>
       <SectionTitle
-        kicker="Step Why Panel"
+        kicker={text(lang, "逐步排序解释", "Step rationale")}
         title={text(lang, model.titleZh || panel?.titleZh, model.titleEn || panel?.titleEn)}
         note={text(lang, model.conclusionZh, model.conclusionEn)}
       />
@@ -719,7 +719,7 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
 
       <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} selectedFactorKey={selectedFactorKey} onSelectFactor={selectFactor} />
 
-      <div role="tablist" aria-label={text(lang, "为什么面板分层", "Why panel sections")} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      <div role="tablist" aria-label={text(lang, "排序解释分层", "Why panel sections")} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {tabs.map(tab => (
           <button key={tab.id} type="button" role="tab" aria-selected={activeTab === tab.id} onClick={() => setActiveTab(tab.id)} style={{ ...buttonStyle(activeTab === tab.id), minHeight: 30, padding: "6px 9px", textAlign: "center" }}>
             {text(lang, tab.labelZh, tab.labelEn)}

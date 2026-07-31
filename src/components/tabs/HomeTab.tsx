@@ -259,7 +259,7 @@ function ResearchEquationHero({ t, lang, summary, gasParetoCount, isMobile, redu
       id: "catalysis",
       index: "03",
       label: zh ? "催化路径" : "Catalysis",
-      title: zh ? "白盒主客体路径评分" : "White-box host–guest pathway scoring",
+      title: zh ? "可解释主客体路径评分" : "White-box host–guest pathway scoring",
       formula: String.raw`\mathrm{HGCPS}_i=\prod_{j=1}^{p}\left(x_{ij}+\varepsilon\right)^{w_j},\qquad \sum_jw_j=1`,
       note: zh ? "乘法结构让短板保持可见，并通过误差条表达证据不确定度。" : "The multiplicative form keeps bottlenecks visible and exposes evidence uncertainty with error bars.",
     },
@@ -327,13 +327,13 @@ function ResearchEquationHero({ t, lang, summary, gasParetoCount, isMobile, redu
         <p>{active.note}</p>
       </div>
       <div className="home-equation-pipeline" aria-label={zh ? "统一数据与验证流程" : "Unified data and validation flow"}>
-        <span>MOF / process</span>
+        <span>{zh ? "MOF / 工艺" : "MOF / process"}</span>
         <b>→</b>
-        <span>descriptor vector</span>
+        <span>{zh ? "描述符向量" : "descriptor vector"}</span>
         <b>→</b>
-        <span>white-box score</span>
+        <span>{zh ? "规则评分" : "white-box score"}</span>
         <b>→</b>
-        <span>evidence gate</span>
+        <span>{zh ? "证据门控" : "evidence gate"}</span>
       </div>
       <div className="home-equation-metrics">
         {metrics.map(metric => (
@@ -426,7 +426,7 @@ function ValidationEquationStage({ t, lang, summary, items, isMobile, onNavigate
     >
       <div className="scientific-story-copy">
         <div className="scientific-story-eyebrow">{zh ? "算法与验证 / 可审计链" : "Algorithm & validation / auditable chain"}</div>
-        <h3>{zh ? "白盒筛选与 Benchmark 验证" : "White-box screening and benchmark validation"}</h3>
+        <h3>{zh ? "可解释筛选与基准验证" : "White-box screening and benchmark validation"}</h3>
         <p className="scientific-story-lede">
           {zh
             ? "评分、证据修正、敏感性、实验标签与 Benchmark 不再分散成状态卡，而是构成一条可检查的验证链。"
@@ -525,8 +525,8 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
       tag: zh ? "Benchmark / 实验标签 / 稳健性" : "Benchmark / labels / robustness",
       tone: "success",
       body: zh
-        ? "做什么：集中检查 Benchmark、实验标签、敏感性与模型验证状态。"
-        : "What it does: inspect benchmark, labels, sensitivity, and model-validation status in one place.",
+        ? "集中核查基准测试、实验标签、敏感性分析和模型验证状态。"
+        : "Inspect benchmark, labels, sensitivity, and model-validation status in one place.",
       io: [
         zh ? "输入：筛选结果 + 标签 + 外部证据" : "Input: screening results + labels + external evidence",
         zh ? "输出：可审计验证状态 + 研究边界" : "Output: auditable validation state + research boundary",
@@ -556,7 +556,7 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
       <header>
         <div>
           <span>{zh ? "研究入口 / 证据边界" : "Research routes / evidence boundary"}</span>
-          <h2>{zh ? "从问题类型进入完整工作流" : "Enter the full workflow from the research question"}</h2>
+          <h2>{zh ? "按研究问题选择工作流" : "Enter the full workflow from the research question"}</h2>
           <p>
             {zh
               ? "入口、能力说明与当前限制合并到同一决策面：先选择研究问题，再查看输入、输出和不能越过的证据边界。"
@@ -564,7 +564,7 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
           </p>
         </div>
         <div className="research-gateway-index">
-          <span>{zh ? "WORKSPACES" : "WORKSPACES"}</span>
+          <span>{zh ? "工作区" : "WORKSPACES"}</span>
           <strong className="num">{String(routes.length).padStart(2, "0")}</strong>
         </div>
       </header>
@@ -613,8 +613,8 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
 
       <div data-testid="home-current-limitations" className="research-boundary-strip">
         <div>
-          <span>{zh ? "EVIDENCE BOUNDARY" : "EVIDENCE BOUNDARY"}</span>
-          <strong>{zh ? "当前限制保持显式可见" : "Current limits remain explicit"}</strong>
+          <span>{zh ? "证据边界" : "EVIDENCE BOUNDARY"}</span>
+          <strong>{zh ? "当前限制与阻断条件" : "Current limits remain explicit"}</strong>
         </div>
         <ul>
           {limitations.map(item => <LimitationItem key={item.title} item={item} t={t} lang={lang} />)}
@@ -623,7 +623,7 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
 
       <div data-testid="home-quick-start" className="research-gateway-actions">
         <div>
-          <span>{zh ? "快速开始" : "QUICK START"}</span>
+          <span>{zh ? "研究入口" : "RESEARCH ENTRY"}</span>
           <strong>{zh ? "选择研究入口" : "Choose a research entry point"}</strong>
         </div>
         <div data-testid="home-quick-start-buttons">
@@ -886,7 +886,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   const validationFlow = useMemo(() => [
     {
       id: "screening",
-      title: zh ? "白盒筛选" : "White-box Screening",
+      title: zh ? "可解释筛选" : "White-box Screening",
       body: zh ? "透明规则与权重让筛选路径可检查。" : "Transparent rules and weights keep the screening path inspectable.",
       detail: zh ? "保留每个描述符、归一化方式、权重和候选贡献，避免黑盒分数脱离研究语境。" : "Retains every descriptor, normalization rule, weight, and candidate contribution.",
       formula: String.raw`S_i=\sum_{j=1}^{p}w_jx_{ij}^{*},\qquad \sum_{j=1}^{p}w_j=1`,
@@ -949,8 +949,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       tag: zh ? "可持续性筛选" : "Sustainability screening",
       tone: "info",
       body: zh
-        ? "做什么：对候选 MOF 做 LCA / LCC 可持续性筛选与白盒排序。"
-        : "What it does: LCA / LCC sustainability screening with white-box ranking for candidate MOFs.",
+        ? "按 LCA / LCC 指标比较候选 MOF 的可持续性，并给出可核查的排序解释。"
+        : "Run LCA / LCC sustainability screening with transparent ranking for candidate MOFs.",
       io: [
         zh ? "输入：MOF 结构 + 反应/工艺条件" : "Input: MOF structure + reaction/process conditions",
         zh ? "输出：环境与成本评分 + 可检查的排序解释" : "Output: environment & cost scores + inspectable ranking",
@@ -965,8 +965,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       tag: zh ? "气体分离 / 容量筛选" : "Gas separation / capacity",
       tone: "success",
       body: zh
-        ? "做什么：基于 ISODB 真实等温线与 IAST 选择性比较气体分离候选。"
-        : "What it does: compare gas-separation candidates using real ISODB isotherms and IAST selectivity.",
+        ? "基于 ISODB 等温线、IAST 选择性和工作容量比较气体分离候选。"
+        : "Compare gas-separation candidates using real ISODB isotherms and IAST selectivity.",
       io: [
         zh ? "输入：气对（如 CO₂/N₂）+ 温度条件" : "Input: gas pair (e.g. CO₂/N₂) + temperature",
         zh ? "输出：computed-IAST 选择性 + 工作容量排序" : "Output: computed-IAST selectivity + working-capacity ranking",
@@ -978,11 +978,11 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     {
       mark: "OA",
       title: "Organic Acid",
-      tag: zh ? "白盒催化路线筛选" : "White-box route screening",
+      tag: zh ? "可解释催化路线筛选" : "White-box route screening",
       tone: "warn",
       body: zh
-        ? "做什么：数据驱动的白盒主客体催化路线筛选（HGCPS + 不确定度）。"
-        : "What it does: data-driven white-box host-guest catalytic route screening (HGCPS + uncertainty).",
+        ? "使用 HGCPS 与不确定度分析开展可解释的主客体催化路线筛选。"
+        : "Screen host-guest catalytic routes with transparent HGCPS scoring and uncertainty analysis.",
       io: [
         zh ? "输入：反应数据 + 主体 MOF / 客体金属候选" : "Input: reaction data + host-MOF / guest-metal candidates",
         zh ? "输出：带误差条的 HGCPS 排序 + 证据语境" : "Output: HGCPS ranking with error bars + evidence context",
@@ -993,17 +993,17 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     },
     {
       mark: "ML",
-      title: "MOF Library",
-      tag: zh ? "MOF库" : "MOF Library",
+      title: zh ? "MOF库" : "MOF Library",
+      tag: zh ? "结构与物化性质检索" : "Structure and property search",
       tone: "neutral",
       body: zh
-        ? "做什么：查任意 MOF 的结构、气体与催化全貌，含字段级溯源。"
-        : "What it does: browse any MOF's structure, gas, and catalysis profile with field-level provenance.",
+        ? "检索 MOF 的结构、物化性质、气体吸附与催化关联，并保留字段级溯源。"
+        : "Browse MOF structure, property, gas, and catalysis records with field-level provenance.",
       io: [
         zh ? "输入：金属节点 / 拓扑 / 比表面等分面检索" : "Input: faceted search by metal node / topology / surface area",
         zh ? "输出：聚合详情面板 + 数据完整度三色点" : "Output: aggregated detail panel + tri-color completeness dots",
       ],
-      button: zh ? "进入 MOF Library" : "Enter MOF Library",
+      button: zh ? "进入 MOF库" : "Enter MOF Library",
       hash: "library",
       target: "mofLibrary",
     },
@@ -1059,7 +1059,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             </p>
             <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
               {zh
-                ? "四个研究工作区覆盖可持续性筛选、气体分离、白盒催化路线与材料数据库浏览。"
+                ? "四个研究工作区分别覆盖可持续性筛选、气体分离、可解释催化路线和材料数据库检索。"
                 : "One platform, four research workspaces: EcoScreen for sustainability screening, GasSep for gas separation, Organic Acid for white-box route screening, and MOF Library to browse structure, gas, and catalysis data."}
             </p>
             <div style={{ marginTop: 18 }} className="home-hero-cta home-primary-entry-grid" data-testid="home-primary-entry-grid">

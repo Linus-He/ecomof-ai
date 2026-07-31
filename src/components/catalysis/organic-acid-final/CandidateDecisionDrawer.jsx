@@ -64,10 +64,10 @@ export function CandidateDecisionDrawer({ candidateTrace, open, onClose, lang, t
         <section style={{ background: failed ? t.badgeWarnBg : t.surface, border: `1px solid ${failed ? t.warn : t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
           <strong style={{ color: failed ? t.warn : t.textStrong, fontSize: 13 }}>
             {passed
-              ? text(lang, "Why this candidate passed", "Why this candidate passed")
+              ? text(lang, "候选通过依据", "Why this candidate passed")
               : failed
-                ? text(lang, "Why this candidate failed", "Why this candidate failed")
-                : text(lang, "Why this candidate needs review", "Why this candidate needs review")}
+                ? text(lang, "候选未通过依据", "Why this candidate failed")
+                : text(lang, "候选待复核依据", "Why this candidate needs review")}
           </strong>
           <div style={{ display: "grid", gap: 6 }}>
             {(reasons || []).map(item => (

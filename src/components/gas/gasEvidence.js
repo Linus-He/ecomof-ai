@@ -101,5 +101,5 @@ export function recommendedCurationAction(record = {}, lang = "en") {
   if (!evidence.hasBreakthroughValidation) return text(lang, "补充穿透实验验证来源", "add breakthrough validation source")
   if (!evidence.hasIASTValidation) return text(lang, "补充 IAST 或混合气验证", "add IAST or mixture validation")
   if (!record.condition?.humidity || record.condition.humidity === "unknown") return text(lang, "补充湿度工况", "add humidity condition")
-  return text(lang, "维护字段级来源", "maintain field-level provenance")
+  return text(lang, "维护字段级溯源", "maintain field-level provenance")
 }

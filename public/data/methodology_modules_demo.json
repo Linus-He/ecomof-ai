@@ -5,7 +5,7 @@
     "module": "Platform Overview",
     "moduleZh": "平台总览",
     "summary": "EcoMOF-AI organizes material records, descriptors, separation conditions, catalytic hypotheses, evidence status, and validation needs into a transparent decision-support workflow.",
-    "summaryZh": "EcoMOF-AI 将材料记录、描述符、分离条件、催化假设、证据状态和验证需求组织成透明的决策支持流程。",
+    "summaryZh": "EcoMOF-AI 将材料记录、描述符、分离条件、催化假设、证据状态和验证需求组织为可核查的决策支持流程。",
     "methodWorkflow": [
       {
         "label": "Data source",
@@ -21,7 +21,7 @@
       },
       {
         "label": "Field-level provenance",
-        "labelZh": "字段级来源",
+        "labelZh": "字段级溯源",
         "description": "Attach source, location, evidence type, and curation status to fields that drive interpretation.",
         "descriptionZh": "为影响解释的字段绑定来源、位置、证据类型和整理状态。"
       },
@@ -33,7 +33,7 @@
       },
       {
         "label": "Candidate explanation",
-        "labelZh": "候选解释",
+        "labelZh": "排序解释",
         "description": "Expose drivers, warnings, missing fields, and validation gaps.",
         "descriptionZh": "展示驱动因素、警告、缺失字段和验证缺口。"
       }
@@ -58,16 +58,16 @@
       "validation roadmap"
     ],
     "outputsZh": [
-      "证据感知候选解释",
+      "证据感知排序解释",
       "模块特定比较",
-      "验证路线"
+      "验证计划"
     ],
     "visualizations": [
       {
         "title": "Evidence-aware method flow",
         "titleZh": "证据感知方法流",
         "description": "Data source to descriptor extraction to provenance to comparison to validation roadmap.",
-        "descriptionZh": "从数据来源到描述符提取、来源绑定、比较和验证路线。",
+        "descriptionZh": "从数据来源到描述符提取、字段级溯源、条件比较和验证计划。",
         "chartType": "flow"
       }
     ],
@@ -86,7 +86,7 @@
     ],
     "validationRoadmapZh": [
       "扩展已核查记录",
-      "将字段级来源连接到每个派生输出",
+      "将字段级溯源连接到每个派生输出",
       "接入实验与 DFT 反馈循环"
     ],
     "methodGroups": [
@@ -95,25 +95,25 @@
         "title": "Evidence-aware decision workflow",
         "titleZh": "证据感知决策流程",
         "purpose": "Make every module read as an explainable research workflow rather than an isolated ranking screen.",
-        "purposeZh": "让每个模块都呈现为可解释研究流程，而不是孤立排名界面。",
+        "purposeZh": "建立跨模块一致的研究链路，使排序和比较均可回到数据记录、字段状态、计算规则与验证边界。",
         "algorithmSteps": [
           {
             "label": "Collect records",
             "labelZh": "收集记录",
             "description": "Use source-linked records with explicit data status.",
-            "descriptionZh": "使用带来源和数据状态的记录。"
+            "descriptionZh": "只读取已登记身份、来源版本和字段状态的记录；来源不明或身份冲突的记录保留在审阅层，不进入正式计算。"
           },
           {
             "label": "Normalize evidence fields",
             "labelZh": "规范证据字段",
             "description": "Keep reviewed, pending, estimated, and missing states visible.",
-            "descriptionZh": "保持 reviewed、pending、estimated、missing 状态可见。"
+            "descriptionZh": "将字段标记为已核查、待核查、估计或缺失，并保留原单位、换算过程、来源位置和人工整理状态。"
           },
           {
             "label": "Apply module logic",
             "labelZh": "应用模块逻辑",
             "description": "Choose scoring, condition comparison, or pathway reasoning according to task.",
-            "descriptionZh": "按任务选择评分、条件比较或路径推理。"
+            "descriptionZh": "根据研究问题调用评分、条件比较或路径推理；输出同时包含结果、排序解释、数据缺口和下一步验证要求。"
           }
         ],
         "formulas": [],
@@ -135,7 +135,7 @@
           "validation needs"
         ],
         "outputsZh": [
-          "候选解释",
+          "排序解释",
           "警告",
           "验证需求"
         ],
@@ -144,7 +144,7 @@
             "title": "Workflow cards",
             "titleZh": "流程卡片",
             "description": "Module summaries, method steps, formulas, warnings, and validation roadmap.",
-            "descriptionZh": "模块摘要、方法步骤、公式、警告和验证路线。",
+            "descriptionZh": "模块摘要、方法步骤、公式、警告和验证计划。",
             "chartType": "flow"
           }
         ],
@@ -605,7 +605,7 @@
       "情景 IAST 状态",
       "Henry 亲和比",
       "等量吸附热状态",
-      "验证路线"
+      "验证计划"
     ],
     "visualizations": [
       {
@@ -626,7 +626,7 @@
         "title": "Radar profile and heatmap",
         "titleZh": "雷达图与热力图",
         "description": "Shows multi-metric candidate profiles without replacing missing values with zero.",
-        "descriptionZh": "展示多指标画像，缺失值显示 pending，不用 0 冒充。",
+        "descriptionZh": "展示多指标画像；缺失值标记为待补，不以 0 代替。",
         "chartType": "radar"
       },
       {
@@ -1110,7 +1110,7 @@
             "label": "Default Pareto + APS ranking",
             "labelZh": "默认 Pareto + APS 排序",
             "description": "Use the non-dominated frontier over selectivity and working capacity; use APS = selectivity × working capacity as a transparent tie-breaker.",
-            "descriptionZh": "在选择性与工作容量维度上计算非支配前沿，并用 APS = 选择性 × 工作容量作为透明的同前沿排序依据。"
+            "descriptionZh": "在选择性与工作容量维度上计算非支配前沿，并用 APS = 选择性 × 工作容量作为同一前沿内的排序依据。"
           },
           {
             "label": "APS × R% alternative",
@@ -1276,7 +1276,7 @@
           },
           {
             "label": "Validation roadmap",
-            "labelZh": "验证路线",
+            "labelZh": "验证计划",
             "description": "Map each selected candidate to GCMC, IAST, water stability, regeneration cycling, breakthrough, or process-level assessment.",
             "descriptionZh": "把每个选中候选连接到 GCMC、IAST、水稳定性、再生循环、穿透实验或过程级评估。"
           }
@@ -1439,7 +1439,7 @@
             "label": "Encode evidence level",
             "labelZh": "编码证据等级",
             "description": "Use color or badge to distinguish reviewed, pending, and source-pending values.",
-            "descriptionZh": "用颜色或标签区分 reviewed、pending 和 source-pending。"
+            "descriptionZh": "用颜色或标签区分已核查、待核查和来源待补状态。"
           }
         ],
         "formulas": [],
@@ -1463,14 +1463,14 @@
         "outputsZh": [
           "选择性-压力图",
           "吸附量-选择性散点图",
-          "带完整条件的 tooltip"
+          "带完整条件的悬浮信息"
         ],
         "visualizations": [
           {
             "title": "Pressure and uptake charts",
             "titleZh": "压力与吸附量图",
             "description": "Chart titles and tooltips include gas system, feed ratio, T, P, method, and source location.",
-            "descriptionZh": "图标题和 tooltip 包含气体体系、比例、温度、压力、方法和来源位置。",
+            "descriptionZh": "图标题和悬浮信息包含气体体系、比例、温度、压力、方法和来源位置。",
             "chartType": "scatter"
           }
         ],
@@ -1511,7 +1511,7 @@
       },
       {
         "label": "Validation roadmap",
-        "labelZh": "验证路线",
+        "labelZh": "验证计划",
         "description": "Translate evidence gaps into next experiments or DFT tasks.",
         "descriptionZh": "将证据缺口转换为后续实验或 DFT 任务。"
       }
@@ -1573,25 +1573,25 @@
         "title": "Catalytic pathway evidence map",
         "titleZh": "催化路径证据图",
         "purpose": "Compare pathway records by evidence readiness, data coverage, and validation status.",
-        "purposeZh": "按证据成熟度、数据覆盖度和验证状态比较路径记录。",
+        "purposeZh": "在不混淆反应事实与机理假设的前提下，按证据成熟度、条件可比性、字段覆盖和验证状态组织催化路径。",
         "algorithmSteps": [
           {
             "label": "Classify pathway",
             "labelZh": "路径分类",
             "description": "Assign reaction records to product and pathway categories.",
-            "descriptionZh": "将反应记录分配到产物和路径类别。"
+            "descriptionZh": "先统一反应物、产物、溶剂、温度、时间和催化剂身份，再按产物方向与机理路径建立记录分组；条件不完整的记录不参与定量比较。"
           },
           {
             "label": "Score evidence readiness",
             "labelZh": "评估证据成熟度",
             "description": "Combine literature, measured, rule-based, and pending status.",
-            "descriptionZh": "组合文献、实测、规则和 pending 状态。"
+            "descriptionZh": "分别记录文献报道、实验测量、计算结果、描述符推断和待核查状态；证据类型只限定可解释范围，不压缩为单一真实性分数。"
           },
           {
             "label": "Expose validation needs",
             "labelZh": "展示验证需求",
             "description": "Show which experiments or simulations are still needed.",
-            "descriptionZh": "展示仍需哪些实验或模拟。"
+            "descriptionZh": "根据当前缺口生成验证任务，包括同条件对照实验、产物定量、循环稳定性、机理表征和必要的 DFT 或微观动力学计算。"
           }
         ],
         "formulas": [],
@@ -1643,7 +1643,7 @@
     "parentModule": "Catalysis",
     "parentModuleZh": "催化",
     "summary": "The current V3.9.10 method is a deterministic, abundance-neutral host–guest pathway screen with eight locked factors, explicit provenance, audit artifacts, and validation boundaries.",
-    "summaryZh": "当前 V3.9.10 方法是丰度中性的主客体路径白盒筛选：八因子与权重预先锁定，来源、审计产物和验证边界全部显式展示。",
+    "summaryZh": "当前 V3.9.10 采用丰度中性的主客体路径规则评分：八因子及其权重预先锁定，来源、审计产物和验证边界均可核查。",
     "specialNote": "Only the current preregistered V3.9.10 terms are shown. Earlier composite-tier terminology and superseded proxy formulas are excluded.",
     "specialNoteZh": "本页只展示当前预登记的 V3.9.10 术语；早期综合分层称谓和已被替换的代理公式不再显示。",
     "methodWorkflow": [
@@ -1692,7 +1692,7 @@
       "主体与客体因子表",
       "文献与金标准证据",
       "风险与经济性记录",
-      "字段级来源"
+      "字段级溯源"
     ],
     "outputs": [
       "eight route factors",
@@ -2055,7 +2055,7 @@
     "module": "MOF Library",
     "moduleZh": "MOF库",
     "summary": "MOF Library provides descriptor curation status, name resolution, source-linked data records, and field-level provenance.",
-    "summaryZh": "MOF库提供描述符整理状态、名称解析、来源关联数据记录和字段级来源。",
+    "summaryZh": "MOF库统一检索材料名称、结构身份和物化性质，同时保留字段整理状态、跨库连接依据和字段级溯源。",
     "methodWorkflow": [
       {
         "label": "Name resolution",
@@ -2071,7 +2071,7 @@
       },
       {
         "label": "Field-level provenance",
-        "labelZh": "字段级来源",
+        "labelZh": "字段级溯源",
         "description": "Attach source, location, and curation status to each important field.",
         "descriptionZh": "为每个重要字段绑定来源、位置和整理状态。"
       }
@@ -2105,7 +2105,7 @@
     "outputsZh": [
       "X/8 描述符已整理",
       "数据状态标签",
-      "字段来源",
+      "字段级溯源",
       "名称解析状态"
     ],
     "visualizations": [
@@ -2122,7 +2122,7 @@
       "Name resolution status must remain visible when aliases or identifiers are uncertain."
     ],
     "evidenceBoundaryZh": [
-      "候选库记录是来源关联数据记录，本身不是科研结论。",
+      "MOF库记录是来源关联数据记录，本身不是科研结论。",
       "当别名或标识符不确定时，必须显示名称解析状态。"
     ],
     "validationRoadmap": [
@@ -2141,25 +2141,25 @@
         "title": "Descriptor Curation Checklist",
         "titleZh": "描述符整理清单",
         "purpose": "Keep eight core descriptor fields visible and separate available, pending, estimated, and missing values.",
-        "purposeZh": "保持 8 个核心描述符字段可见，并区分 available、pending、estimated 和 missing。",
+        "purposeZh": "对八个核心描述符执行统一的名称、单位、缺失状态和来源核查，区分来源值、派生值、估计值和缺失值。",
         "algorithmSteps": [
           {
             "label": "Check eight descriptors",
             "labelZh": "检查 8 个描述符",
             "description": "surfaceArea, poreSizeA, poreVolume, co2Uptake, bandGap, waterStability, thermalStability, toxicityConcern.",
-            "descriptionZh": "surfaceArea、poreSizeA、poreVolume、co2Uptake、bandGap、waterStability、thermalStability、toxicityConcern。"
+            "descriptionZh": "检查比表面积、孔径、孔体积、CO₂ 吸附量、带隙、水稳定性、热稳定性和毒性关注项，并保留各字段适用的实验或计算条件。"
           },
           {
             "label": "Assign status badge",
             "labelZh": "分配状态标签",
             "description": "Mark reviewed, pending, estimated, or missing.",
-            "descriptionZh": "标记 reviewed、pending、estimated 或 missing。"
+            "descriptionZh": "将字段标记为已核查、待核查、估计或缺失；不使用同系列材料、相同拓扑或论文平均值填补缺失项。"
           },
           {
             "label": "Attach source-linked record",
             "labelZh": "绑定来源关联记录",
             "description": "Connect field values to paper, database, figure, table, or section when known.",
-            "descriptionZh": "在已知时将字段值连接到论文、数据库、图、表或章节。"
+            "descriptionZh": "字段值通过来源记录号、DOI、图表或章节位置连接原始出处；跨库连接必须保留 Refcode、CCDC 编号或其他明确身份依据。"
           }
         ],
         "formulas": [],
@@ -2181,7 +2181,7 @@
         "outputsZh": [
           "描述符覆盖度",
           "数据状态标签",
-          "字段级来源"
+          "字段级溯源"
         ],
         "visualizations": [
           {
@@ -2207,11 +2207,11 @@
     "module": "Shared Evidence / Provenance",
     "moduleZh": "共享证据 / 来源",
     "summary": "Shared evidence methods define field-level provenance, evidence levels, curation status, source location, and comparison warnings across modules.",
-    "summaryZh": "共享证据方法定义跨模块的字段级来源、证据等级、整理状态、来源位置和比较警告。",
+    "summaryZh": "共享证据方法统一定义跨模块的字段级溯源、证据等级、整理状态、原文位置和比较警告。",
     "methodWorkflow": [
       {
         "label": "Field-level provenance",
-        "labelZh": "字段级来源",
+        "labelZh": "字段级溯源",
         "description": "Record source, source location, evidence type, and curation status for important values.",
         "descriptionZh": "为重要数值记录来源、来源位置、证据类型和整理状态。"
       },
@@ -2219,7 +2219,7 @@
         "label": "Evidence levels",
         "labelZh": "证据等级",
         "description": "Distinguish reviewed, pending, estimated, missing, literature-derived, and experiment-roadmap records.",
-        "descriptionZh": "区分 reviewed、pending、estimated、missing、literature-derived 和 experiment-roadmap 记录。"
+        "descriptionZh": "区分已核查、待核查、估计、缺失、文献派生和实验计划记录。"
       },
       {
         "label": "Comparison warning",
@@ -2261,7 +2261,7 @@
         "title": "Evidence boundary badges",
         "titleZh": "证据边界标签",
         "description": "Reviewed, pending, estimated, missing, demonstration, seed, and curated literature statuses remain visible.",
-        "descriptionZh": "reviewed、pending、estimated、missing、demonstration、seed 和 curated literature 状态保持可见。",
+        "descriptionZh": "已核查、待核查、估计、缺失、演示、种子和文献整理等状态保持可见。",
         "chartType": "score"
       }
     ],
@@ -2270,7 +2270,7 @@
       "DOI, figure, table, and section locations should be shown when available."
     ],
     "evidenceBoundaryZh": [
-      "demonstration、seed dataset、curated literature 和 reviewed record 不能互换。",
+      "演示数据、种子数据、文献整理数据和已核查记录不能互换。",
       "可用时应显示 DOI、图、表和章节位置。"
     ],
     "validationRoadmap": [
@@ -2280,34 +2280,34 @@
     ],
     "validationRoadmapZh": [
       "扩展来源位置覆盖度",
-      "将来源连接到 tooltip 和弹窗",
-      "区分已核查和 pending 证据路径"
+      "将字段级溯源连接到悬浮信息和弹窗",
+      "区分已核查和待核查证据路径"
     ],
     "methodGroups": [
       {
         "id": "field-provenance",
         "title": "Field-level provenance model",
-        "titleZh": "字段级来源模型",
+        "titleZh": "字段级溯源模型",
         "purpose": "Make every important field explain where it came from and how strongly it can be used.",
-        "purposeZh": "让每个重要字段都能解释来源以及可使用强度。",
+        "purposeZh": "使每个影响筛选、比较或结论的字段都能回到原始出处、整理过程和允许的使用范围。",
         "algorithmSteps": [
           {
             "label": "Identify critical field",
             "labelZh": "识别关键字段",
             "description": "Select fields that drive scores, comparisons, or warnings.",
-            "descriptionZh": "选择影响评分、比较或警告的字段。"
+            "descriptionZh": "识别参与评分、条件比较、门控、风险警告和结论生成的字段；纯展示字段不与研究判断字段混为一类。"
           },
           {
             "label": "Attach source context",
             "labelZh": "绑定来源语境",
             "description": "Store title, DOI, figure/table/section, evidence type, and status.",
-            "descriptionZh": "存储标题、DOI、图/表/章节、证据类型和状态。"
+            "descriptionZh": "保存数据库与版本、记录号、标题、DOI、图 / 表 / 章节、原始值、原单位、换算规则、证据类型和核查状态。"
           },
           {
             "label": "Render warning when needed",
             "labelZh": "需要时显示警告",
             "description": "Show pending or mixed-condition warnings near the value.",
-            "descriptionZh": "在数值旁显示 pending 或条件混合警告。"
+            "descriptionZh": "来源缺失、条件不可比或单位转换未确认时，在数值旁显示待核查或阻断说明，并禁止其进入不满足条件的定量比较。"
           }
         ],
         "formulas": [],
@@ -2350,7 +2350,7 @@
           "Pending source fields should not be used as benchmark evidence."
         ],
         "limitationsZh": [
-          "source pending 字段不应作为基准证据使用。"
+          "来源待补字段不得作为基准证据使用。"
         ]
       }
     ]
@@ -2359,15 +2359,15 @@
     "id": "limitations-validation",
     "order": 8,
     "module": "Limitations & Validation Roadmap",
-    "moduleZh": "限制与验证路线",
+    "moduleZh": "限制与验证计划",
     "summary": "Limitations make demonstration, seed, curated literature, and reviewed evidence boundaries explicit across the platform.",
-    "summaryZh": "限制说明明确平台中 demonstration、seed、curated literature 和 reviewed evidence 的边界。",
+    "summaryZh": "限制说明区分演示数据、种子数据、文献整理数据和已核查证据，并把每类限制转化为可执行验证任务。",
     "methodWorkflow": [
       {
         "label": "State data boundary",
         "labelZh": "说明数据边界",
         "description": "Disclose whether a record is demonstration, seed, curated literature, reviewed, pending, or missing.",
-        "descriptionZh": "说明记录是 demonstration、seed、curated literature、reviewed、pending 还是 missing。"
+        "descriptionZh": "明确记录属于演示、种子、文献整理、已核查、待核查或缺失状态。"
       },
       {
         "label": "Avoid validation claims",
@@ -2401,13 +2401,13 @@
     ],
     "outputsZh": [
       "限制说明",
-      "验证路线",
+      "验证计划",
       "数据质量警告"
     ],
     "visualizations": [
       {
         "title": "Validation roadmap cards",
-        "titleZh": "验证路线卡",
+        "titleZh": "验证计划卡",
         "description": "Show what must be curated, computed, or measured next.",
         "descriptionZh": "展示下一步需要整理、计算或测量的内容。",
         "chartType": "flow"
@@ -2439,33 +2439,33 @@
       {
         "id": "validation-roadmap",
         "title": "Validation roadmap",
-        "titleZh": "验证路线",
+        "titleZh": "验证计划",
         "purpose": "Translate evidence limitations into concrete next validation tasks.",
-        "purposeZh": "将证据限制转化为具体后续验证任务。",
+        "purposeZh": "将来源、条件、描述符和实验验证缺口转化为有顺序、有完成条件的后续任务。",
         "algorithmSteps": [
           {
             "label": "Review source",
             "labelZh": "核查来源",
             "description": "Verify DOI, figure, table, and section references.",
-            "descriptionZh": "核验 DOI、图、表和章节。"
+            "descriptionZh": "核验数据库版本、记录身份、DOI、图、表和章节位置，并确认许可、署名和再分发条件。"
           },
           {
             "label": "Compute missing descriptors",
             "labelZh": "计算缺失描述符",
             "description": "Use DFT or curated databases where appropriate.",
-            "descriptionZh": "必要时使用 DFT 或整理数据库。"
+            "descriptionZh": "优先补录可引用的来源字段；确需计算时登记 DFT、分子模拟或描述符算法、参数、软件版本和复现文件。"
           },
           {
             "label": "Run experiment",
             "labelZh": "开展实验",
             "description": "Measure task-specific outputs under comparable conditions.",
-            "descriptionZh": "在可比条件下测量任务特定输出。"
+            "descriptionZh": "按任务设定对照、温度、压力、组成、循环次数和表征方法，在可比条件下测量目标输出。"
           },
           {
             "label": "Update evidence status",
             "labelZh": "更新证据状态",
             "description": "Move records from pending or estimated toward reviewed when justified.",
-            "descriptionZh": "有依据时将记录从 pending 或 estimated 更新为 reviewed。"
+            "descriptionZh": "只有来源、条件和核查记录齐全时，才将待核查或估计状态更新为已核查，并保留修改日期、责任人与版本差异。"
           }
         ],
         "formulas": [],
@@ -2504,7 +2504,7 @@
           "Roadmap tasks are plans until completed and reviewed."
         ],
         "limitationsZh": [
-          "验证路线在完成和复核前仍是计划。"
+          "验证任务在完成和复核前不改变证据状态。"
         ]
       }
     ]

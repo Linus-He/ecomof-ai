@@ -34,7 +34,7 @@ export function WorkflowTab({ setActiveTab, inputs, results }) {
       <StickySummaryBar inputs={inputs || DEFAULT_INPUTS} results={results} stage={lang === "zh" ? "工作流总览" : "Workflow overview"} />
       <Callout tone="info">
         {lang === "zh"
-          ? "核心原则：不要把 LCA/LCC/敏感性当作与性能筛选同等早期的主要命中识别。它们是科学筛选之后的次级比较层。"
+          ? "LCA、LCC 与敏感性分析属于科学筛选后的次级比较层，不参与早期主要候选识别。"
           : "Core rule: do not treat LCA/LCC/sensitivity as equally early primary hit identification. They are secondary comparison layers after scientific screening."}
       </Callout>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>

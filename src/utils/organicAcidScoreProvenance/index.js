@@ -493,7 +493,7 @@ export function buildScoreSourceTableModel(provenance, options = {}) {
     titleEn: "Score Source Table",
     triggerZh: "查看得分来源",
     triggerEn: "View score source",
-    questionZh: "这个分数怎么算出来的？",
+    questionZh: "得分计算依据",
     questionEn: "How is this score calculated?",
     headerNoteZh: source.headerNoteZh || SCORE_HEADER_NOTE_ZH,
     headerNoteEn: source.headerNoteEn || SCORE_HEADER_NOTE_EN,
@@ -1072,9 +1072,9 @@ export function buildStepWhyPanelEnhancedModel(step, workbench, options = {}) {
   const evidenceRecords = asArray(options.evidenceRecords).length ? asArray(options.evidenceRecords) : asArray(sourceData.evidenceRiskRecords)
   const model = {
     stepId,
-    titleZh: "为什么是这个结果？",
+    titleZh: "当前结果的形成依据",
     titleEn: "Why this result?",
-    scoreQuestionZh: "这个分数怎么算出来的？",
+    scoreQuestionZh: "得分计算依据",
     scoreQuestionEn: "How is this score calculated?",
     conclusionZh,
     conclusionEn,

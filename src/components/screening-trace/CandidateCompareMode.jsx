@@ -79,7 +79,7 @@ export function CandidateCompareMode({ candidates = [], lang, t, isMobile }) {
           </div>
         </>
       ) : (
-        <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "请选择 2–3 个候选进行比较。", "Select 2–3 candidates to compare.")}</span>
+        <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "候选比较需要选择 2—3 项记录。", "Select 2–3 candidates to compare.")}</span>
       )}
     </section>
   )

@@ -9,7 +9,7 @@ export function MethodologyLimitationsCard({ lang, t }) {
     [text(lang, "尚未加入微观动力学模型。", "No microkinetic modeling yet.")],
     [text(lang, "尚未对选定 Al-MOF 做直接 DFT。", "No direct selected Al-MOF DFT yet.")],
     [text(lang, "DOI coverage currently 0%。", "DOI coverage currently 0%.")],
-    [text(lang, "评分为数据派生的白盒结果，并标注数据等级。", "Scores are data-derived white-box results with data-grade labels.")],
+    [text(lang, "评分由登记规则和数据字段派生，并标注数据等级。", "Scores are data-derived white-box results with data-grade labels.")],
   ]
   const reproducibility = [
     [text(lang, "描述符字典将公开。", "Descriptor dictionary will be public.")],

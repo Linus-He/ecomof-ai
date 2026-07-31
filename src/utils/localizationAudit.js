@@ -53,6 +53,19 @@ function findHits(text, phrases = []) {
     .map(phrase => ({ phrase }))
 }
 
+function findForbiddenTranslationHits(text, rules) {
+  return Object.entries(rules.forbiddenTranslations || {}).flatMap(([canonical, phrases]) => {
+    const expected = rules.canonicalTranslations?.[canonical] || ""
+    return (phrases || [])
+      .filter(phrase => {
+        if (!text.includes(phrase)) return false
+        if (!expected || !expected.includes(phrase)) return true
+        return text.split("\n").some(line => line.includes(phrase) && !line.includes(expected))
+      })
+      .map(phrase => ({ canonical, expected, phrase }))
+  })
+}
+
 export function runLocalizationAudit({
   corpus = [],
   terms = terminologyCn,
@@ -61,13 +74,7 @@ export function runLocalizationAudit({
   const text = flattenCorpus(corpus)
   const termRows = terminologyPairs()
   const duplicateTranslations = findDuplicateTranslations(terms)
-  const forbiddenTranslationHits = Object.entries(rules.forbiddenTranslations || {}).flatMap(([canonical, phrases]) =>
-    findHits(text, phrases).map(hit => ({
-      canonical,
-      expected: rules.canonicalTranslations?.[canonical] || "",
-      phrase: hit.phrase,
-    })),
-  )
+  const forbiddenTranslationHits = findForbiddenTranslationHits(text, rules)
   const productCopyHits = findHits(text, rules.scientificLanguageGuide?.forbiddenProductCopy || [])
   const canonicalCovered = termRows.filter(row => row.zh && row.en).length
   const localizationCoverage = termRows.length ? canonicalCovered / termRows.length : 1
@@ -149,12 +156,11 @@ export function buildLocalizationGapReport({
   const untranslatedItems = [...new Set(items.filter(looksLikeEnglishTitle))]
   const mixedLanguageItems = [...new Set(items.filter(containsMixedLanguage))]
   const inconsistentTerms = findDuplicateTranslations(terms).map(row => ({ zh: row.zh, keys: row.keys }))
-  const deprecatedTerms = Object.entries(rules.forbiddenTranslations || {}).flatMap(([canonical, phrases]) =>
-    (phrases || []).filter(phrase => text.includes(phrase)).map(phrase => ({ canonical, deprecated: phrase, expected: rules.canonicalTranslations?.[canonical] || "" })),
-  )
+  const deprecatedTerms = findForbiddenTranslationHits(text, rules)
+    .map(({ canonical, phrase, expected }) => ({ canonical, deprecated: phrase, expected }))
 
   return {
-    generatedAt: "2026-06",
+    generatedAt: "2026-07-31",
     modules,
     scannedItemCount: items.length,
     untranslatedItems,

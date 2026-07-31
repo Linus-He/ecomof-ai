@@ -32,7 +32,7 @@ export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
     },
     {
       label: text(lang, "证据边界", "Boundary"),
-      value: text(lang, "数据驱动白盒 · 按数据等级标注", "Data-driven white-box · labeled by data grade"),
+      value: text(lang, "数据派生规则评分 · 标注数据等级", "Data-driven white-box · labeled by data grade"),
     },
   ]
 
@@ -42,7 +42,7 @@ export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
         <div style={{ display: "grid", gap: 7, maxWidth: 760 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             <Badge t={t}>{text(lang, "方法论页", "Methodology")}</Badge>
-            <Badge t={t} tone="good">{text(lang, "数据驱动白盒", "Data-driven white-box")}</Badge>
+            <Badge t={t} tone="good">{text(lang, "数据派生规则评分", "Data-driven white-box")}</Badge>
             <Badge t={t} tone="warn">{text(lang, "按数据等级标注", "Data-grade labeled")}</Badge>
           </div>
           <h2 style={{ color: t.textStrong, fontSize: 26, lineHeight: 1.08, margin: 0 }}>
@@ -51,7 +51,7 @@ export function OrganicAcidMethodologyOverview({ lang, t, coverage }) {
           <p style={{ color: t.muted, fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>
             <ChemicalText value={text(
               lang,
-              "以 HGCPS（加权几何均值）在 8 个数据派生描述符上对主体-客体路线做优先级评分的数据驱动白盒工作流，不预设赢家。",
+              "HGCPS 以加权几何均值聚合八个数据派生描述符，对主体—客体路线进行排序；算法不预设首位候选。",
               "A data-driven white-box workflow that ranks host-guest route priority with HGCPS (a weighted geometric mean over eight data-derived descriptors), with no preset winner."
             )} />
           </p>

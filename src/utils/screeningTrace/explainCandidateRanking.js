@@ -48,7 +48,7 @@ export function explainCandidateRanking(candidate = {}, model = {}) {
     ...(priorityImpact ? [{
       id: "priority",
       labelEn: "Performance Priority Applied",
-      labelZh: "性能优先级已应用",
+      labelZh: "早期性能筛选已执行",
       value: `${priorityImpact.modeLabel || "Balanced"} ${priorityImpact.delta > 0 ? "+" : ""}${priorityImpact.delta}`,
     }] : []),
     { id: "critic", labelEn: "CRITIC weighted score", labelZh: "CRITIC 加权得分", value: Math.round(drivers.reduce((s, d) => s + d.contribution, 0) * 1000) / 1000 },

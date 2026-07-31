@@ -23,8 +23,10 @@ const INTENTIONAL_ENGLISH = [
   "Database Preview", "Not Final Recommendation", "GitHub Stars", "GitHub",
   "Candidates", "Research Outputs Framework", "Full Localization Refactor", "ML",
   "Run ID", "Open MOF Seed", "QMOF", "CoRE", "PXRD", "DFT", "BET", "ICP", "XRD",
+  "Organic Acid",
 ]
 const MODULE_FILES = [
+  "src/components/tabs/HomeTab.tsx",
   "src/components/tabs/ProjectEvolutionTab.jsx",
   "src/components/tabs/ResearchReportsTab.jsx",
   "src/components/tabs/MethodsLimitationsTab.tsx",
@@ -32,6 +34,9 @@ const MODULE_FILES = [
   "src/components/tabs/MOFLibraryTab.tsx",
   "src/components/tabs/GasSepTab.tsx",
   "src/components/tabs/CatalysisLabTab.tsx",
+  "src/components/tabs/DataSourcesTab.tsx",
+  "src/components/screening-trace/ScreeningTraceTimeline.jsx",
+  "src/components/layout/index.tsx",
   "src/components/methodology/model-validation/ModelValidationLab.jsx",
 ]
 
@@ -67,21 +72,48 @@ function extractStrings(source) {
   return out
 }
 
+function extractHardcodedJsxText(source) {
+  const out = []
+  const re = />([^<>{}\n]{3,120})</g
+  let m
+  while ((m = re.exec(source))) {
+    const value = m[1].trim()
+    if (value) out.push(value)
+  }
+  return out
+}
+
 const terminologyCn = readJson("src/i18n/terminology_cn.json")
 const rules = readJson("src/i18n/translation_rules.json")
 
 // English strings that are the `en` argument of a text(lang, "zh", "en") pair (or the zh
 // side) are correctly bilingual, not untranslated. Collect them so they are not flagged.
 function collectBilingualPairs(source, pairedEn, pairedZh) {
-  const re = /text\(\s*lang\s*,\s*["']([^"'\\\n]{1,120})["']\s*,\s*["']([^"'\\\n]{1,120})["']\s*\)/g
+  const re = /(?:text\(\s*lang\s*,|txt\()\s*["']([^"'\\\n]{1,120})["']\s*,\s*["']([^"'\\\n]{1,120})["']\s*\)/g
   let m
   while ((m = re.exec(source))) {
     pairedZh.add(m[1])
     pairedEn.add(m[2])
   }
+  const ternary = /(?:lang\s*===\s*["']zh["']|zh)\s*\?\s*["']([^"'\\\n]{1,120})["']\s*:\s*["']([^"'\\\n]{1,120})["']/g
+  while ((m = ternary.exec(source))) {
+    pairedZh.add(m[1])
+    pairedEn.add(m[2])
+  }
+  const arrayPair = /\[\s*["']([^"'\\\n]{1,120})["']\s*,\s*["']([^"'\\\n]*[一-鿿][^"'\\\n]*)["']/g
+  while ((m = arrayPair.exec(source))) {
+    pairedEn.add(m[1])
+    pairedZh.add(m[2])
+  }
+  const propertyPair = /(?:title|label|summary|description|note|body|purpose|implementation|inputs|outputs|boundary|meaning|explanation):\s*["']([^"'\\\n]{1,120})["']\s*,\s*(?:title|label|summary|description|note|body|purpose|implementation|inputs|outputs|boundary|meaning|explanation)Zh:\s*["']([^"'\\\n]{1,120})["']/g
+  while ((m = propertyPair.exec(source))) {
+    pairedEn.add(m[1])
+    pairedZh.add(m[2])
+  }
 }
 
 const corpus = []
+const hardcodedJsxText = []
 const pairedEn = new Set()
 const pairedZh = new Set()
 for (const rel of MODULE_FILES) {
@@ -90,6 +122,7 @@ for (const rel of MODULE_FILES) {
   const source = fs.readFileSync(full, "utf8")
   collectBilingualPairs(source, pairedEn, pairedZh)
   corpus.push(...extractStrings(source))
+  hardcodedJsxText.push(...extractHardcodedJsxText(source))
 }
 const text = corpus.join("\n")
 
@@ -103,7 +136,7 @@ for (const [key, record] of Object.entries(terminologyCn)) {
 }
 const inconsistentTerms = [...byZh.entries()].filter(([, keys]) => keys.length > 1).map(([zh, keys]) => ({ zh, keys }))
 
-const untranslatedItems = [...new Set(corpus.filter(s => looksLikeEnglishTitle(s) && !pairedEn.has(s)))]
+const untranslatedItems = [...new Set(hardcodedJsxText.filter(s => looksLikeEnglishTitle(s) && !pairedEn.has(s)))]
 const mixedLanguageItems = [...new Set(corpus.filter(s => containsMixedLanguage(s) && !pairedZh.has(s)))]
 const deprecatedTerms = Object.entries(rules.forbiddenTranslations || {}).flatMap(([canonical, phrases]) => {
   const expected = rules.canonicalTranslations?.[canonical] || ""
@@ -116,7 +149,7 @@ const deprecatedTerms = Object.entries(rules.forbiddenTranslations || {}).flatMa
 })
 
 const report = {
-  generatedAt: "2026-06",
+  generatedAt: "2026-07-31",
   modules: LOCALIZATION_AUDIT_MODULES,
   scannedItemCount: corpus.length,
   untranslatedItems,

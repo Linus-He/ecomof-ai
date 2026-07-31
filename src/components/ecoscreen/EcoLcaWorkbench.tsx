@@ -1124,7 +1124,7 @@ export function EcoLcaWorkbench({
             padding: isMobile ? 18 : "22px 24px",
           }}
         >
-          <strong style={{ color: t.textStrong, fontSize: 14 }}>{tr(lang, "请先在上方检索并确认一个 MOF", "Search and confirm a MOF above")}</strong>
+          <strong style={{ color: t.textStrong, fontSize: 14 }}>{tr(lang, "尚未确认 MOF", "Search and confirm a MOF above")}</strong>
           <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.65, maxWidth: 760 }}>
             {tr(
               lang,
@@ -1149,7 +1149,7 @@ export function EcoLcaWorkbench({
             <div>
               <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5 }}>{tr(lang, "区域与经济基准", "Regional and economic baseline")}</strong>
               <span style={{ color: t.muted, display: "block", fontSize: 10.6, lineHeight: 1.45, marginTop: 3 }}>
-                {tr(lang, "一键切换电网因子、币种和公用工程情景；所有参数仍可继续编辑。", "Switch grid factor, currency, and utility scenarios together; every parameter remains editable.")}
+                {tr(lang, "情景切换会同步更新电网因子、币种和公用工程参数；各参数仍可单独编辑。", "Switch grid factor, currency, and utility scenarios together; every parameter remains editable.")}
               </span>
             </div>
             <ChoiceButtons

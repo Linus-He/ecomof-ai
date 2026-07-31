@@ -1123,7 +1123,7 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
         <div>
           <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 920 }}>{text(lang, "统一 MOF 浏览器", "Unified MOF Browser")}</div>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 4 }}>
-            {text(lang, "基于身份层浏览/检索任意 MOF 的打通全貌：结构 + 气体 + 催化。无法确认的名称保持 gas-only 或 structure-only，不强行匹配。", "Browse and search any MOF's connected profile — structure + gas + catalysis — through the identity layer. Unconfirmed names stay gas-only or structure-only instead of being forced together.")}
+            {text(lang, "身份层关联结构、气体吸附和催化记录。无法确认的名称保留为仅气体记录或仅结构记录，不建立推测性连接。", "Browse and search any MOF's connected profile — structure + gas + catalysis — through the identity layer. Unconfirmed names stay gas-only or structure-only instead of being forced together.")}
           </div>
         </div>
         <StatusPill t={t} tone="source">{summary.filtered} / {summary.total}</StatusPill>
@@ -1436,10 +1436,10 @@ export function MOFLibraryTab() {
         title={text(lang, "MOF库", "MOF Library")}
         subtitle={text(
           lang,
-          "基于身份层浏览/检索任意 MOF 的打通全貌：结构属性 + 气体吸附（含等温线）+ 有机酸催化关联，附统一来源溯源。",
+          "通过身份层检索 MOF 的结构属性、气体吸附（含等温线）和有机酸催化关联，并保留统一来源溯源。",
           "Browse and search any MOF's connected profile through the identity layer: structure properties + gas adsorption (incl. isotherms) + organic-acid catalysis links, with unified provenance."
         )}
-        action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF Library 链接", "Copy MOF Library link")} />}
+        action={<CopyLinkButton hash="library" ariaLabel={text(lang, "复制 MOF库链接", "Copy MOF Library link")} />}
       />
 
       <PhysicochemicalSearchPanel

@@ -3,9 +3,9 @@ const text = (lang, zh, en) => lang === "zh" ? zh : en
 
 const MODULE_ARCHITECTURE = {
   "mof-library": {
-    titleZh: "MOF 库如何完成检索、身份解析与性质展示",
+    titleZh: "MOF库如何完成检索、身份解析与性质展示",
     titleEn: "How the MOF Library resolves identity, search, and properties",
-    introZh: "MOF 库不是把多个数据库简单拼在一起。名称、晶体结构、物化性质和文献身份分别保存，只有满足明确连接条件时才在界面上合并。",
+    introZh: "MOF库不会把多个数据库直接拼接。名称、晶体结构、物化性质和文献身份分别保存，只有满足明确连接条件时才在界面上关联。",
     introEn: "The MOF Library does not simply concatenate databases. Names, structures, properties, and literature identities remain separate and are joined only when explicit identity conditions are met.",
     blocks: [
       {
@@ -103,7 +103,7 @@ const MODULE_ARCHITECTURE = {
       {
         titleZh: "证据修正与 LCA 边界",
         titleEn: "Evidence correction and LCA boundary",
-        implementationZh: "综合分先按加权几何方式聚合，再乘字段来源覆盖度、身份确定性和证据等级组成的 Q。材料级 LCA 只在存在可核查清单、功能单位和边界时显示；代理值与来源值分开。",
+        implementationZh: "综合分先按加权几何方式聚合，再乘由字段级溯源覆盖度、身份确定性和证据等级组成的 Q。材料级 LCA 只在存在可核查清单、功能单位和系统边界时显示；代理值与来源值分开。",
         implementationEn: "The aggregate score uses a weighted geometric form, then applies Q from provenance coverage, identity certainty, and evidence level. Material-level LCA is shown only with a reviewable inventory, functional unit, and boundary; proxies remain separate from source values.",
         inputsZh: "权重、描述符得分、fieldSources、身份状态、LCA 清单。",
         inputsEn: "Weights, descriptor scores, fieldSources, identity status, and LCA inventory.",
@@ -121,13 +121,13 @@ const MODULE_ARCHITECTURE = {
     introEn: "GasSep separates source measurements, source-reported values, site calculations, and proxies. Records sharing a material name are not directly compared when temperature, pressure, composition, or sample state differs.",
     blocks: [
       {
-        titleZh: "吸附记录与字段来源",
+        titleZh: "吸附记录与字段级溯源",
         titleEn: "Adsorption records and field provenance",
         implementationZh: "gas_adsorption_records_v2 以记录为单位保存材料身份、气体、温度、压力、吸附量、单位、方法和 DOI；fieldSources 为每个关键字段保留原始字段、换算状态和来源位置。",
         implementationEn: "gas_adsorption_records_v2 stores identity, gas, temperature, pressure, uptake, units, method, and DOI per record; fieldSources retains source field, conversion status, and location for each key value.",
         inputsZh: "等温线点、单点吸附、来源表格、实验条件和 DOI。",
         inputsEn: "Isotherm points, single-point uptake, source tables, experimental conditions, and DOI.",
-        outputsZh: "条件化记录、等温线和字段来源弹窗。",
+        outputsZh: "带条件的记录、等温线和字段级溯源弹窗。",
         outputsEn: "Conditioned records, isotherms, and field-provenance views.",
         boundaryZh: "缺少温度、压力或单位时，记录只能浏览，不能进入条件化比较。",
         boundaryEn: "Records missing temperature, pressure, or units remain browse-only and cannot enter conditioned comparisons.",
@@ -181,7 +181,7 @@ const MODULE_ARCHITECTURE = {
         titleEn: "Reaction-data normalization",
         implementationZh: "normalizeOrganicAcidRecord 和反应映射器把底物、产物、催化剂、溶剂、温度、时间、产率、选择性和来源字段转换为统一记录。原始文本、标准化字段和派生字段保持分层。",
         implementationEn: "normalizeOrganicAcidRecord and reaction mappers align substrate, product, catalyst, solvent, temperature, time, yield, selectivity, and provenance. Raw text, normalized fields, and derived fields remain separate.",
-        inputsZh: "论文记录、实验条件、反应物/产物身份和字段来源。",
+        inputsZh: "论文记录、实验条件、反应物/产物身份和字段级溯源。",
         inputsEn: "Literature records, experimental conditions, reactant/product identity, and field provenance.",
         outputsZh: "可比较的反应记录和字段级证据。",
         outputsEn: "Comparable reaction records with field-level evidence.",
@@ -217,7 +217,7 @@ const MODULE_ARCHITECTURE = {
   "organic-acid": {
     titleZh: "有机酸路线如何执行丰度中性评分",
     titleEn: "How the Organic Acid route applies abundance-neutral scoring",
-    introZh: "现行 V3.9.10 是固定规则的白盒评分。原始记录数量不会直接提高得分；数量只影响经验贝叶斯收缩、置信度和不确定性。",
+    introZh: "现行 V3.9.10 采用固定规则评分。原始记录数量不会直接提高得分，只影响经验贝叶斯收缩、置信度和不确定性。",
     introEn: "Current V3.9.10 is a fixed-rule white-box score. Raw record count never directly raises a score; it affects only empirical-Bayes shrinkage, confidence, and uncertainty.",
     blocks: [
       {
@@ -273,7 +273,7 @@ const MODULE_ARCHITECTURE = {
   "shared-evidence": {
     titleZh: "字段级溯源如何保存、校验和展示",
     titleEn: "How field-level provenance is stored, checked, and displayed",
-    introZh: "来源不是记录底部的一条总备注，而是跟随每个数值字段。这样可以区分同一记录中哪些值来自原文、哪些经过换算、哪些是派生结果、哪些仍然缺失。",
+    introZh: "来源信息跟随每个数值字段保存，用于区分原文值、单位换算值、派生结果和缺失状态；记录底部的总来源说明不替代字段级溯源。",
     introEn: "Provenance is attached to each value rather than stored as one note at record level. This distinguishes source values, conversions, derivatives, and missing fields within the same record.",
     blocks: [
       {
@@ -283,7 +283,7 @@ const MODULE_ARCHITECTURE = {
         implementationEn: "Each important field has a source object containing sourceDatabase, sourceRecordId, sourceVersion, sourceUrl, citation, original field, unit, conversion, derivation, manual-curation, ambiguity, and scoring-eligibility states.",
         inputsZh: "原始数据字段、来源清单、映射规则和单位规则。",
         inputsEn: "Source fields, source registry, mapping rules, and unit rules.",
-        outputsZh: "可由任一页面调用的统一字段来源对象。",
+        outputsZh: "可由任一页面调用的统一字段级溯源对象。",
         outputsEn: "A shared field-provenance object usable by every page.",
         boundaryZh: "记录级 DOI 不能自动成为所有字段的来源；每个关键字段都要单独说明。",
         boundaryEn: "A record-level DOI does not automatically source every field; each key field needs its own account.",
@@ -307,7 +307,7 @@ const MODULE_ARCHITECTURE = {
         implementationEn: "FieldProvenanceButton reads the current field source and shows value, source field, conversion, derivation, curation, ambiguity, source record, and licence in an anchored panel. The title and close control stay fixed while the body scrolls.",
         inputsZh: "字段键、显示名称、当前值和 fieldSources 对象。",
         inputsEn: "Field key, display label, current value, and fieldSources object.",
-        outputsZh: "字段级来源说明和原始链接。",
+        outputsZh: "字段级溯源说明和原始链接。",
         outputsEn: "Field-level provenance with source links.",
         boundaryZh: "没有来源对象时不伪造弹窗内容，页面显示待整理或缺失。",
         boundaryEn: "When no source object exists, the UI shows pending or missing rather than fabricated provenance.",
@@ -315,7 +315,7 @@ const MODULE_ARCHITECTURE = {
       {
         titleZh: "来源登记与合规连接",
         titleEn: "Source registry and compliance linkage",
-        implementationZh: "source_registry.json 登记发布方、数据版本、许可、获取方式、是否允许再分发和当前接入状态。字段来源通过 sourceId 连接到来源登记，合规页面保留原文链接和授权缺口。",
+        implementationZh: "source_registry.json 登记发布方、数据版本、许可、获取方式、是否允许再分发和当前接入状态。字段级溯源对象通过 sourceId 连接来源登记，合规页面保留条款原文链接和授权缺口。",
         implementationEn: "source_registry.json records publisher, version, licence, acquisition route, redistribution boundary, and ingestion status. Field provenance links to the source registry through sourceId, while the compliance page keeps publisher terms and authorization gaps.",
         inputsZh: "来源条目、许可链接、版本、记录范围和处理状态。",
         inputsEn: "Source entry, licence link, version, record scope, and handling status.",
@@ -329,7 +329,7 @@ const MODULE_ARCHITECTURE = {
   "limitations-validation": {
     titleZh: "限制、验证和失败处理如何落到代码中",
     titleEn: "How limitations, validation, and failures are implemented",
-    introZh: "验证不是页面末尾的免责声明，而是贯穿数据接入、映射、评分、展示和发布。校验失败时保留原因，并尽量把记录降级为可浏览状态，而不是生成一个看似完整的结果。",
+    introZh: "验证要求贯穿数据接入、映射、评分、展示和发布。校验失败时保留原因，并将记录降级为可浏览状态；系统不生成缺少必要依据的完整结果。",
     introEn: "Validation is not an end-of-page disclaimer; it spans ingestion, mapping, scoring, presentation, and release. Failures retain reasons and normally downgrade a record to browse-only rather than produce a complete-looking result.",
     blocks: [
       {
@@ -359,7 +359,7 @@ const MODULE_ARCHITECTURE = {
       {
         titleZh: "基准资格与审计",
         titleEn: "Benchmark eligibility and audit",
-        implementationZh: "benchmarkEligibilityAudit 检查身份、条件、字段来源覆盖度和任务输出；provenanceAudit 计算 DOI、引用、来源和字段级覆盖率。只有满足阈值的记录才进入定量基准。",
+        implementationZh: "benchmarkEligibilityAudit 检查身份、条件、字段级溯源覆盖度和任务输出；provenanceAudit 计算 DOI、引用、来源和字段覆盖率。只有满足阈值的记录才进入定量基准。",
         implementationEn: "benchmarkEligibilityAudit checks identity, conditions, field provenance coverage, and task output; provenanceAudit measures DOI, citation, source, and field-level coverage. Only qualifying records enter quantitative benchmarks.",
         inputsZh: "标准化记录、fieldSources、任务条件和输出字段。",
         inputsEn: "Normalized records, fieldSources, task conditions, and outputs.",
@@ -416,7 +416,7 @@ export function MethodArchitectureOverview({ lang, t }) {
       <header style={{ display: "grid", gap: 6 }}>
         <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900 }}>{text(lang, "数据与数据库架构", "Data and database architecture")}</span>
         <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.25, margin: 0 }}>{text(lang, "四层结构：来源、索引、标准化、任务", "Four layers: source, index, normalization, and task")}</h2>
-        <p style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.72, margin: 0 }}>{text(lang, "这套架构的重点不是把记录合成一个更大的表，而是让每次连接都有身份依据、字段来源和失败边界。", "The architecture does not aim to make one larger table; every join needs identity evidence, field provenance, and a failure boundary.")}</p>
+        <p style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.72, margin: 0 }}>{text(lang, "这套架构不追求把记录合成一个大表；每次跨库关联都必须保留身份依据、字段级溯源和失败边界。", "The architecture does not aim to make one larger table; every join needs identity evidence, field provenance, and a failure boundary.")}</p>
       </header>
       {layers.map((layer, index) => (
         <article key={layer.titleEn} style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 6, gridTemplateColumns: "48px minmax(0, 1fr)", paddingTop: 12 }}>
@@ -448,32 +448,6 @@ export function MethodArchitectureDetails({ moduleId, lang, t }) {
             {text(lang, block.titleZh, block.titleEn)}
           </h4>
           <p style={{ color: t.muted, fontSize: 11.9, lineHeight: 1.75, margin: 0 }}>{text(lang, block.implementationZh, block.implementationEn)}</p>
-          <div style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 7, paddingTop: 9 }}>
-            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
-              <strong style={{ color: t.textStrong }}>{text(lang, "执行链：", "Execution chain: ")}</strong>
-              {text(
-                lang,
-                `系统先读取并标准化“${block.inputsZh}”，随后执行本条所述的索引、映射或计算逻辑，把中间状态与原记录标识一并保存，最后才生成“${block.outputsZh}”。任一中间检查失败时，不沿用上一条查询或演示值。`,
-                `The system first reads and normalizes "${block.inputsEn}", runs the indexing, mapping, or calculation logic described here, retains intermediate states with source record IDs, and only then produces "${block.outputsEn}". A failed check never reuses a previous-query or demonstration value.`,
-              )}
-            </p>
-            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
-              <strong style={{ color: t.textStrong }}>{text(lang, "字段与审计：", "Fields and audit: ")}</strong>
-              {text(
-                lang,
-                "原始字段、标准化字段、派生字段和界面显示字段分层保存；字段级来源对象记录数据库、记录号、版本、原单位、换算状态与人工整理状态。页面显示内容可以沿这条链路回到来源或明确的派生规则。",
-                "Source, normalized, derived, and presentation fields remain separate. Field-level provenance records database, record ID, version, original unit, conversion, and curation state, so a displayed value can be traced to its source or explicit derivation rule.",
-              )}
-            </p>
-            <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.7, margin: 0 }}>
-              <strong style={{ color: t.textStrong }}>{text(lang, "页面行为：", "UI behavior: ")}</strong>
-              {text(
-                lang,
-                "用户确认输入或切换条件后重新建立当前视图；加载中、无结果、仅可浏览、可计算和被阻断是不同状态。界面不会用预填材料制造已经完成查询的视觉效果，也不会把代理值改写成来源实测值。",
-                "Confirming input or changing conditions rebuilds the current view. Loading, empty, browse-only, computable, and blocked are distinct states. The UI does not use prefilled material to mimic a completed query or relabel a proxy as a source measurement.",
-              )}
-            </p>
-          </div>
           <div style={{ background: t.panel, borderLeft: `3px solid ${t.accent}`, display: "grid", gap: 6, padding: "10px 12px" }}>
             <p style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.65, margin: 0 }}>
               <strong style={{ color: t.textStrong }}>{text(lang, "输入：", "Input: ")}</strong>{text(lang, block.inputsZh, block.inputsEn)}

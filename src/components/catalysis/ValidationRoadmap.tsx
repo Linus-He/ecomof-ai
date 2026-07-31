@@ -33,7 +33,7 @@ export function ValidationRoadmap({ t, isMobile, lang = "en" }) {
           {zh ? "验证路线与数据缺口" : "Validation Roadmap"}
         </h2>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0, maxWidth: 860 }}>
-          {zh ? "当前工作台用于证据整理和优先级判断，仍需要文献整理和实验验证闭环。" : "The workspace supports evidence organization and prioritization; literature curation and experiments remain required."}
+          {zh ? "当前工作台用于证据整理和候选排序，科研结论仍需文献核查与实验验证。" : "The workspace supports evidence organization and prioritization; literature curation and experiments remain required."}
         </p>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 9 }}>

@@ -136,7 +136,7 @@ export function EvidenceCoverageDashboard({ coverage, lang, t, isMobile }) {
       <header>
         <strong style={{ color: t.textStrong, fontSize: 15 }}>{text(lang, "Evidence Coverage Dashboard", "Evidence Coverage Dashboard")}</strong>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, margin: "4px 0 0" }}>
-          {text(lang, "点击证据类型即可筛选，下方表格会同步显示对应记录。", "Select an evidence type to filter the linked table.")}
+          {text(lang, "选择证据类型后，下方表格同步显示对应记录。", "Select an evidence type to filter the linked table.")}
         </p>
       </header>
       <div style={{ alignItems: "center", display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "180px minmax(0, 1fr)" }}>
@@ -338,23 +338,23 @@ export function ValidationPriorityQueue({ rows, lang, t, activeCandidateId, onSe
               </button>
               <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
                 <div style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>
-                  <strong style={{ color: t.textStrong }}>Key risks</strong><br />
+                  <strong style={{ color: t.textStrong }}>{text(lang, "主要风险", "Key risks")}</strong><br />
                   {(row.keyRisks || []).slice(0, 3).join(" · ")}
                 </div>
                 <div style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>
-                  <strong style={{ color: t.textStrong }}>Missing data</strong><br />
+                  <strong style={{ color: t.textStrong }}>{text(lang, "缺失数据", "Missing data")}</strong><br />
                   {(row.missingData || []).slice(0, 4).join(" · ")}
                 </div>
                 <div style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.45 }}>
-                  <strong style={{ color: t.textStrong }}>Suggested next experiment</strong><br />
+                  <strong style={{ color: t.textStrong }}>{text(lang, "下一项建议实验", "Suggested next experiment")}</strong><br />
                   {row.suggestedNextExperiment}
                 </div>
               </div>
               <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, color: t.muted, display: "grid", fontSize: 11.5, gap: 5, lineHeight: 1.45, padding: 8 }}>
-                <span><strong style={{ color: t.textStrong }}>Why this candidate now</strong>: {row.whyNow}</span>
-                <span><strong style={{ color: t.textStrong }}>Score explanation</strong>: {row.scoreExplanation}</span>
+                <span><strong style={{ color: t.textStrong }}>{text(lang, "当前优先依据", "Current priority rationale")}</strong>: {row.whyNow}</span>
+                <span><strong style={{ color: t.textStrong }}>{text(lang, "得分说明", "Score explanation")}</strong>: {row.scoreExplanation}</span>
                 <span>
-                  <strong style={{ color: t.textStrong }}>Source trace</strong>
+                  <strong style={{ color: t.textStrong }}>{text(lang, "来源追踪", "Source trace")}</strong>
                   <ProvenanceButton source={row.source} field="priorityScore" label="Priority Score" value={row.priorityScore} lang={lang} t={t} />
                   {(row.sourceTrace || []).slice(0, 3).map(trace => (
                     <span key={`${trace.label}-${trace.sourceRecordId}`} style={{ display: "block", marginTop: 3 }}>

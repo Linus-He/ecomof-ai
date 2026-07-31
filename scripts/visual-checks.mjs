@@ -37,7 +37,7 @@ const routes = [
   ]],
   ["database-compliance", "#database-compliance", [
     "数据使用、许可与责任",
-    "开始使用前请先阅读",
+    "适用条款与使用前核查",
     "CCDC 与 CSD 数据边界",
     "适用条款与发布方原文",
     "授权凭证与尚未解决的缺口",
@@ -89,7 +89,7 @@ const routes = [
     "Key risks",
     "Missing data",
     "Suggested next experiment",
-    "Why this candidate now",
+    "当前优先依据",
     "Source trace",
   ]],
   ["knowledge-graph", "#organic-acid-knowledge-graph", [

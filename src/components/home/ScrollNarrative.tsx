@@ -332,7 +332,7 @@ function EvidenceMappingLayer({ lang }) {
       fontSize: 11.5,
       lineHeight: 1.55,
     }}>
-      {text(lang, "字段级来源与整理状态会影响评分解释", "Field-level provenance and curation status influence score explanations")}
+      {text(lang, "字段级溯源与整理状态会影响评分解释", "Field-level provenance and curation status influence score explanations")}
     </div>
   )
 }
@@ -523,7 +523,7 @@ export function ScrollNarrative({ t, isMobile, reducedMotion, lang = "en" }) {
       eyebrow: "Evidence mapping",
       title: "证据映射",
       body: "每个描述符都保留数据状态语言：已整理、待复核、需检查或演示数据。",
-      note: "字段级来源和证据等级不会脱离记录本身，缺失信息会保持可见。",
+      note: "字段级溯源和证据等级始终与记录关联，缺失信息保持可见。",
     },
     {
       eyebrow: "Weighting",

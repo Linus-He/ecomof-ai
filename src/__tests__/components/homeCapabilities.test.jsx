@@ -59,7 +59,7 @@ describe("home capabilities", () => {
     expect(within(data).getByText("来源构成")).toBeInTheDocument()
 
     const validation = screen.getByTestId("home-algorithm-validation")
-    expect(within(validation).getAllByText("白盒筛选").length).toBeGreaterThan(0)
+    expect(within(validation).getAllByText("可解释筛选").length).toBeGreaterThan(0)
     expect(within(validation).getAllByText("证据修正").length).toBeGreaterThan(0)
     expect(within(validation).getAllByText("敏感性分析").length).toBeGreaterThan(0)
     expect(within(validation).getAllByText("实验标签").length).toBeGreaterThan(0)
@@ -71,7 +71,7 @@ describe("home capabilities", () => {
     expect(within(scenarios).getByRole("tab", { name: /EcoScreen/ })).toBeInTheDocument()
     expect(within(scenarios).getByRole("tab", { name: /GasSep/ })).toBeInTheDocument()
     expect(within(scenarios).getByRole("tab", { name: /Organic Acid/ })).toBeInTheDocument()
-    expect(within(scenarios).getByRole("tab", { name: /MOF Library/ })).toBeInTheDocument()
+    expect(within(scenarios).getByRole("tab", { name: /MOF库/ })).toBeInTheDocument()
     expect(within(scenarios).getByRole("tab", { name: /验证中心/ })).toBeInTheDocument()
   })
 })

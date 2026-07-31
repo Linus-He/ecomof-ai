@@ -128,7 +128,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
     <Panel
       id="organic-acid-final-decision-board"
       eyebrow={text(lang, "有机酸最终决策面板", "Organic Acid Final Decision Board")}
-      title={text(lang, "有机酸最终决策面板 / Organic Acid Final Decision Board", "Organic Acid Final Decision Board")}
+      title={text(lang, "有机酸最终决策面板", "Organic Acid Final Decision Board")}
       t={t}
       style={{ borderColor: t.accent }}
     >
@@ -136,7 +136,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
           <ChemicalText value={text(
             lang,
-            "当前用于什么判断：V2.6 决策面板读取 rankOrganicAcidCandidates 的真实算法输出，把目标函数、路径适配、证据修正、图论相关性、结构适配、风险惩罚、验证就绪度、数据缺口与下一步实验放在同一判断面。所有输出都是算法建议，仍需实验验证。",
+            "适用判断范围：V2.6 决策面板读取 rankOrganicAcidCandidates 的真实算法输出，将目标函数、路径适配、证据修正、图论相关性、结构适配、风险惩罚、验证就绪度、数据缺口与下一步实验集中呈现。所有输出均为算法建议，仍需实验验证。",
             "The V2.6 decision board reads rankOrganicAcidCandidates output and combines objective function, pathway fit, evidence adjustment, graph relevance, structure suitability, risk penalty, validation readiness, data gaps, and next experiments. Outputs are algorithmic suggestions and require experimental validation."
           )} />
         </div>
@@ -246,7 +246,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
             </div>
             <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
               <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, padding: 10 }}>
-                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "为什么排在这里", "Why this rank")}</strong>
+                <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "排序依据", "Why this rank")}</strong>
                 {(active.mainReasons || []).slice(0, 4).map(reason => (
                   <span key={reason} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}><ChemicalText value={reason} /></span>
                 ))}

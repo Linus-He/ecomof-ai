@@ -138,7 +138,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
       ) : null}
       {loadingPath ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "正在加载选定分片...", "Loading selected part...")}</span> : null}
       {selectedError ? <span style={{ color: t.warn, fontSize: 12, fontWeight: 850 }}>{displayValue(selectedError.message)}</span> : null}
-      {!selectedPath ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "请选择一个 index part 开始浏览。", "Select an index part to browse records.")}</span> : null}
+      {!selectedPath ? <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "尚未选择索引分片。", "Select an index part to browse records.")}</span> : null}
       {visible.length ? (
         <div style={{ display: "grid", gap: 7 }}>
           {visible.map(row => (

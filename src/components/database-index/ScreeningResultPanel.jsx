@@ -76,7 +76,7 @@ function ResultInterpretation({ lang, t }) {
   ]
   return (
     <div style={{ display: "grid", gap: 8 }}>
-      <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "如何理解这个结果？", "How to read this result?")}</strong>
+      <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "结果解读", "Result interpretation")}</strong>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {sections.map(section => (
           <article key={section.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>

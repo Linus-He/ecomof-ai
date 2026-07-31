@@ -211,7 +211,7 @@ describe("organic acid score provenance charts", () => {
     expect(table.tagName.toLowerCase()).toBe("details")
     expect(table).toHaveAttribute("open")
     expect(within(table).getByText(/查看得分来源/)).toBeInTheDocument()
-    expect(table.textContent).toMatch(/这个分数怎么算出来的？/)
+    expect(table.textContent).toMatch(/得分计算依据/)
     expect(table.textContent).not.toMatch(/undefined|null|NaN/)
   })
 

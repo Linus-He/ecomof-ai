@@ -42,9 +42,7 @@ describe("home module capabilities", () => {
     }
     fireEvent.click(within(modules).getByRole("tab", { name: /GasSep/ }))
     expect(within(modules).getByText("Enter GasSep")).toBeInTheDocument()
-    // user-facing, not agent-prompt tone
-    expect(modules.textContent).toMatch(/What it does/)
-    expect(modules.textContent).not.toMatch(/你的任务|prompt|agent/i)
+    expect(modules.textContent).not.toMatch(/What it does|你的任务|prompt|agent/i)
   })
 
   it("offers a GasSep quick-start entry peer to the other modules", () => {

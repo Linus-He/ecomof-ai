@@ -19,7 +19,7 @@ describe("organicAcidFinalDecisionBoardAlgorithm", () => {
     expect(document.body.textContent).toMatch(/Rank Change Simulator/)
     expect(document.body.textContent).toMatch(/recommendationClass/)
     expect(document.body.textContent).toMatch(/riskPenalty/)
-    expect(document.body.textContent).toMatch(/为什么排在这里/)
+    expect(document.body.textContent).toMatch(/排序依据/)
     expect(document.body.textContent).toMatch(/哪些风险拉低评分/)
   })
 })

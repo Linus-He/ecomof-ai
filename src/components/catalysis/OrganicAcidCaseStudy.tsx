@@ -165,7 +165,7 @@ function FieldPriorityModel({ fieldPriority, lang, t }) {
     <Panel ariaLabel="Field Priority Model" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "字段优先级模型" : "Field priority model"}
-        title={lang === "zh" ? "字段不是清单，而是判定模型" : "Fields are a decision model, not a checklist"}
+        title={lang === "zh" ? "字段及其判定作用" : "Fields are a decision model, not a checklist"}
         note={lang === "zh" ? "必需字段决定记录是否成立，推荐字段决定能否比较，派生字段输出整理状态。" : "Required fields validate the record, recommended fields support comparison, and derived fields produce curation labels."}
         t={t}
       />
@@ -326,7 +326,7 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
     <Panel ariaLabel="Readiness Trace" t={t}>
       <SectionHeader
         eyebrow={lang === "zh" ? "判定轨迹" : "Readiness trace"}
-        title={lang === "zh" ? "为什么当前示例记录仅具备框架级信息" : "Why the example record is framework-level"}
+        title={lang === "zh" ? "示例记录的框架级信息边界" : "Why the example record is framework-level"}
         note={lang === "zh" ? "判定轨迹展示必需、推荐和派生字段如何共同生成最终等级。" : "The trace shows how required, recommended, and derived checks produce the final class."}
         t={t}
       />

@@ -63,7 +63,7 @@ export function SelectedPathwayInspector({ record, t, isMobile, lang = "en" }) {
       <section style={{ background: t.panel, border: `1px dashed ${t.border}`, borderRadius: 10, color: t.muted, display: "grid", gap: 8, padding: 16 }}>
         <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 900 }}>{zh ? "选中路径详情" : "Selected Pathway Inspector"}</div>
         <div style={{ fontSize: 12.5, lineHeight: 1.55 }}>
-          {zh ? "请选择图中的路径点，查看反应指标、证据状态和可比性说明。" : "Select a pathway point in the map to inspect reaction metrics, evidence status, and comparability notes."}
+          {zh ? "尚未选择路径；选中图中路径点后显示反应指标、证据状态和可比性说明。" : "Select a pathway point in the map to inspect reaction metrics, evidence status, and comparability notes."}
         </div>
       </section>
     )
@@ -112,7 +112,7 @@ export function SelectedPathwayInspector({ record, t, isMobile, lang = "en" }) {
         </DetailBlock>
       </div>
 
-      <DetailBlock title={zh ? "为什么位于这里？" : "Why placed here?"} t={t}>
+      <DetailBlock title={zh ? "图中位置依据" : "Why placed here?"} t={t}>
         <div style={{ color: t.muted, display: "grid", fontSize: 12.5, gap: 5, lineHeight: 1.5 }}>
           {placementReasons(record, lang).map(reason => (
             <div key={reason}>- {reason}</div>

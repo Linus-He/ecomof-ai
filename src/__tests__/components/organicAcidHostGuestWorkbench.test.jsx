@@ -102,7 +102,7 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     expect(text).toMatch(/客体（掺杂金属）筛选/)
     expect(text).toMatch(/主客体路线评分/)
     expect(text).toMatch(/实验验证路线输出/)
-    expect(text).toMatch(/为什么是这个结果？/)
+    expect(text).toMatch(/当前结果的形成依据/)
     expect(text).toMatch(/算法输出的是实验验证优先级，不是催化性能结论/)
     expect(text).toMatch(/路线排序仅用于确定实验验证优先级/)
     expect(text).toMatch(/未使用训练型预测模型/)
@@ -156,8 +156,8 @@ describe("OrganicAcidHostGuestWorkbench", () => {
     const whyPanel = screen.getByTestId("organic-acid-step-why-panel")
     expect(within(whyPanel).getByTestId("guest-dumbbell-chart")).toBeInTheDocument()
     expect(within(whyPanel).getByTestId("score-source-table")).toBeInTheDocument()
-    expect(whyPanel.textContent).toMatch(/这个分数怎么算出来的？/)
-    expect(whyPanel.textContent).toMatch(/为什么不是其他候选/)
+    expect(whyPanel.textContent).toMatch(/得分计算依据/)
+    expect(whyPanel.textContent).toMatch(/其他候选未列首位的原因/)
 
     // Step 5 shows the HGCPS factor compression waterfall on the first screen.
     const routeStepButton = within(navigator).getAllByRole("button").find(button => button.textContent?.includes("Step 5"))

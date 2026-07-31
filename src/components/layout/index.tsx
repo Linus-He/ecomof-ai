@@ -422,7 +422,7 @@ export function ContextualHeaderBar({
           onClick={onOpenProperties}
           disabled={!propertyRecord}
           title={!propertyRecord
-            ? (lang === "zh" ? "请先在上方输入并确认一个 MOF。" : "Enter and confirm a MOF first.")
+            ? (lang === "zh" ? "尚未输入并确认 MOF。" : "Enter and confirm a MOF first.")
             : (lang === "zh" ? "查看已确认 MOF 的物化性质" : "View physicochemical properties for the confirmed MOF")}
           style={{
             ...headerChipBtn(t, Boolean(propertyRecord)),

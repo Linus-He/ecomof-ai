@@ -286,7 +286,7 @@ export function ContactModal({ open, onClose }) {
   const moduleOpts = zh
     ? [["", "请选择"],
        ["EcoScreen", "生态筛选"],
-       ["Performance / Advanced Screening", "性能优先级 / 高级筛选"],
+       ["Performance / Advanced Screening", "早期性能筛选 / 高级筛选"],
        ["Catalysis", "催化"],
        ["MOF Library / Data Provenance", "MOF库 / 数据溯源"],
        ["Real Seed Dataset", "真实种子数据集"],

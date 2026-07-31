@@ -141,7 +141,7 @@ function GuideState({ lang, t }) {
       </div>
       <div style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, lineHeight: 1.6, marginTop: 14, paddingTop: 12 }}>
         {lang === "zh"
-          ? "当前图表显示全部催化任务。你可以通过上方筛选器缩小范围。"
+          ? "当前图表显示全部催化任务；上方筛选器用于限定任务范围。"
           : "The chart currently shows all catalysis tasks. Use the filters above to narrow the scope."}
       </div>
     </>
@@ -174,7 +174,7 @@ function FilterState({ filters, filteredTasks, lang, onSelectTask, t }) {
         lang={lang}
         t={t}
         title={lang === "zh" ? "筛选结果" : "Filter Results"}
-        badge={<BasisBadge tone="calc">{lang === "zh" ? "请选择任务" : "Select a task"}</BasisBadge>}
+        badge={<BasisBadge tone="calc">{lang === "zh" ? "等待任务选择" : "Select a task"}</BasisBadge>}
       />
       <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850, lineHeight: 1.55, marginTop: 14 }}>
         {lang === "zh"

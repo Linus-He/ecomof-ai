@@ -211,31 +211,31 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         return {
           title: label,
           message: "孔径超出当前界面支持范围或不是有效数字。",
-          suggestion: "请输入 2.5-35 Å 之间的数值，并尽量使用数据库、文献或结构计算得到的描述符。",
+          suggestion: "有效范围为 2.5—35 Å；描述符应来自数据库、文献或结构计算。",
         }
       case "betSurfaceArea":
         return {
           title: label,
           message: "BET 比表面积超出当前界面支持范围或不是有效数字。",
-          suggestion: "请输入 50-8000 m²/g 之间的数值；如果来自手工估计，建议先改用基准材料或 CIF 描述符流程。",
+          suggestion: "有效范围为 50—8000 m²/g；手工估计值不进入正式比较，可改用基准材料或 CIF 描述符流程。",
         }
       case "poreVolume":
         return {
           title: label,
           message: "孔体积超出当前界面支持范围或不是有效数字。",
-          suggestion: "请输入 0.05-5.5 cm³/g 之间的数值，并确认与孔径、BET 来自同一结构来源。",
+          suggestion: "有效范围为 0.05—5.5 cm³/g，且须与孔径、BET 使用同一结构来源。",
         }
       case "temperature":
         return {
           title: label,
           message: "温度超出当前筛选窗口或不是有效数字。",
-          suggestion: "请输入 150-500 K 之间的数值；若用于当前多温解释，建议优先使用 273 / 298 / 323 K 附近条件。",
+          suggestion: "有效范围为 150—500 K；当前多温解释优先使用接近 273、298 或 323 K 的条件。",
         }
       case "pressure":
         return {
           title: label,
           message: "压力超出当前界面支持范围或不是有效数字。",
-          suggestion: "请输入 0.001-60 bar 之间的数值，并确保与所选气体体系的筛选窗口一致。",
+          suggestion: "有效范围为 0.001—60 bar，且须落在所选气体体系的筛选窗口内。",
         }
       case "structureConsistency":
         return {
@@ -253,7 +253,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
         return {
           title: label,
           message: "金属节点和有机连接体必须同时定义。",
-          suggestion: "请选择基准材料，或手动同时选择金属节点和连接体。",
+          suggestion: "材料定义需要基准材料，或同时指定金属节点与连接体。",
         }
       case "gasSystem":
         return {
@@ -422,7 +422,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
     loading ? `⏳ ${c.structure.computing}` :
     gas.priority === "unavailable" ? c.structure.unsupported : `▶ ${c.structure.run}`
   const runDisabledTitle = inputValidation.blocked
-    ? (lang === "zh" ? "请先修正高亮输入字段。" : "Fix the highlighted input fields first.")
+    ? (lang === "zh" ? "高亮输入字段存在错误，修正后方可运行。" : "Fix the highlighted input fields first.")
     : loading
       ? (lang === "zh" ? "筛选正在运行。" : "Screening is running.")
       : gas.priority === "unavailable"
@@ -961,7 +961,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
               </div>
 
               <Callout tone="info">
-                <strong>{lang === "zh" ? "为什么这个阶段先开始：" : "Why this stage comes first:"}</strong>{" "}
+                <strong>{lang === "zh" ? "本阶段优先执行的依据：" : "Why this stage comes first:"}</strong>{" "}
                 {lang === "zh"
                   ? "早期材料筛选应以性能和化学合理性为中心。更宽的成本与生命周期标准只在形成初筛候选后引入。"
                   : "Early-stage materials screening should remain performance- and chemistry-centered. Broader cost and lifecycle criteria are introduced only after an initial filter exists."}

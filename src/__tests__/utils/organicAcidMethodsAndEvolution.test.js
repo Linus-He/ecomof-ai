@@ -16,8 +16,8 @@ describe("organic acid methods and V2.6 evolution", () => {
 
     expect(source).toMatch(/Organic Acid Algorithm Closure/)
     expect(source).toMatch(/ORGANIC_ACID_SCORE_EQUATION/)
-    expect(source).toMatch(/白盒多指标决策/)
-    expect(source).toMatch(/仍需实验验证/)
+    expect(source).toMatch(/有机酸算法：多指标决策/)
+    expect(source).toMatch(/均须经过实验验证/)
     expect(source).toMatch(/AlgorithmShowcaseSection/)
     expect(source).toMatch(/organic_acid_methodology_showcase_v3_9_10/)
     expect(figureSource).toMatch(/Interactive Scientific Figure/)
