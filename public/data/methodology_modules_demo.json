@@ -499,8 +499,8 @@
     "order": 3,
     "module": "GasSep",
     "moduleZh": "气体分离",
-    "summary": "GasSep treats uptake and selectivity as condition-bound records, explains adsorption with paired pure-component isotherms, Henry affinity, scenario IAST, and isosteric heat, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
-    "summaryZh": "GasSep 将吸附量和选择性视为绑定工况的记录，使用双组分纯气等温线、Henry 亲和、情景 IAST 与等量吸附热解释吸附结果，再用有文献依据的 Pareto/APS、APS×R%、CRITIC 与明确标记的历史 GasScore 模式排序。",
+    "summary": "GasSep treats uptake and selectivity as condition-bound records, explains adsorption with paired pure-component isotherms, Henry affinity, scenario IAST, isosteric heat, mechanism classification, transport/kinetic evidence, framework-response hypotheses, breakthrough, humidity, and cycling boundaries, then ranks candidates with literature-grounded Pareto/APS, APS×R%, CRITIC, and clearly marked legacy GasScore modes.",
+    "summaryZh": "GasSep 将吸附量和选择性视为绑定工况的记录，使用双组分纯气等温线、Henry 亲和、情景 IAST、等量吸附热、机理分类、传质/动力学证据、框架响应假设、穿透、湿度与循环边界解释吸附结果，再用有文献依据的 Pareto/APS、APS×R%、CRITIC 与明确标记的历史 GasScore 模式排序。",
     "methodWorkflow": [
       {
         "label": "Gas system classification",
@@ -525,6 +525,12 @@
         "labelZh": "热力学解释",
         "description": "Use temperature-matched pure-component isotherms to distinguish low-pressure affinity, finite-pressure IAST competition, and isosteric heat.",
         "descriptionZh": "使用同温纯组分等温线，区分低压亲和、有限压力 IAST 竞争与等量吸附热。"
+      },
+      {
+        "label": "Mechanism and dynamic evidence",
+        "labelZh": "机理与动态证据",
+        "description": "Separate equilibrium affinity, kinetic sieving, flexible-framework response, breakthrough, humidity, and cycling evidence before making process claims.",
+        "descriptionZh": "在提出过程结论前，区分平衡亲和、动力学筛分、柔性框架响应、穿透、湿度与循环证据。"
       },
       {
         "label": "Method-backed ranking",
@@ -555,7 +561,13 @@
       "data type",
       "source location",
       "paired pure-component isotherms",
-      "heat of adsorption provenance"
+      "heat of adsorption provenance",
+      "gas molecular properties",
+      "kinetic diameter",
+      "dynamic breakthrough metrics",
+      "humidity and cycling context",
+      "framework-response evidence",
+      "database backfill targets"
     ],
     "inputsZh": [
       "气体体系",
@@ -573,7 +585,13 @@
       "数据类型",
       "来源位置",
       "成对纯组分等温线",
-      "吸附热来源"
+      "吸附热来源",
+      "气体分子物性",
+      "动力学直径",
+      "动态穿透指标",
+      "湿度与循环语境",
+      "框架响应证据",
+      "数据库补全目标"
     ],
     "outputs": [
       "method-specific ranking",
@@ -589,6 +607,10 @@
       "scenario IAST status",
       "Henry affinity ratio",
       "isosteric heat status",
+      "mechanism classification",
+      "transport/kinetic evidence status",
+      "framework-response status",
+      "database backfill queue",
       "validation roadmap"
     ],
     "outputsZh": [
@@ -605,6 +627,10 @@
       "情景 IAST 状态",
       "Henry 亲和比",
       "等量吸附热状态",
+      "机理分类",
+      "传质/动力学证据状态",
+      "框架响应状态",
+      "数据库补全队列",
       "验证计划"
     ],
     "visualizations": [
@@ -635,6 +661,13 @@
         "description": "Shows both pure-component curves when source points exist, binds scenario IAST to feed/temperature/pressure, and keeps Qst provenance visible.",
         "descriptionZh": "当来源点存在时同时显示两条纯组分曲线，把情景 IAST 绑定到进料比例、温度和压力，并显示 Qst 来源。",
         "chartType": "line"
+      },
+      {
+        "title": "Mechanism classification and data backfill queue",
+        "titleZh": "机理分类与数据补全队列",
+        "description": "Compares gas size, pore size, thermodynamic evidence, kinetic hypotheses, framework-response evidence, breakthrough, humidity, and cycling gaps without converting missing data into scores.",
+        "descriptionZh": "比较气体尺寸、孔径、热力学证据、动力学假设、框架响应证据、穿透、湿度与循环缺口，不把缺失数据补造成分数。",
+        "chartType": "evidence matrix"
       }
     ],
     "evidenceBoundary": [
@@ -642,6 +675,8 @@
       "experimental, literature, simulation, predicted, rule-based, demo, and needs validation labels must not be treated as interchangeable evidence.",
       "Legacy GasScore is a candidate-priority heuristic only; default ranking should prefer Pareto/APS, APS×R%, or CRITIC with method boundaries.",
       "Isotherm fitting, Henry affinity, IAST, and Clausius-Clapeyron Qst are derived interpretations and must not be presented as primary mixture or breakthrough data.",
+      "Mechanism classification and dynamic-readiness indicators are evidence-routing tools, not final separation-performance metrics.",
+      "Kinetic sieving, pore gating, and temperature-responsive framework claims require diffusion, breakthrough, or gas-loaded structural evidence.",
       "All ranking modes must be followed by adsorption simulation, stability checks, experiments, and process assessment."
     ],
     "evidenceBoundaryZh": [
@@ -649,6 +684,8 @@
       "实验数据、文献数据、模拟数据、预测数据、规则推断、演示数据和待验证标签不能混作同等证据。",
       "历史 GasScore 只是候选优先级启发式；默认排序应优先使用 Pareto/APS、APS×R% 或 CRITIC，并显示方法边界。",
       "等温线拟合、Henry 亲和、IAST 与 Clausius-Clapeyron Qst 都是派生解释，不能呈现为原始混合气或穿透数据。",
+      "机理分类与动态就绪指标是证据导流工具，不是最终分离性能指标。",
+      "动力学筛分、孔门与温度响应框架结论需要扩散、穿透或载气结构证据支持。",
       "所有排序模式都必须接续吸附模拟、稳定性检查、实验验证和过程级评估。"
     ],
     "validationRoadmap": [
@@ -656,6 +693,7 @@
       "Adsorption simulation",
       "Stability check",
       "Experimental validation",
+      "Dynamic breakthrough validation",
       "Process-level assessment"
     ],
     "validationRoadmapZh": [
@@ -663,6 +701,7 @@
       "吸附模拟",
       "稳定性检查",
       "实验验证",
+      "动态穿透验证",
       "过程级评估"
     ],
     "example": {
@@ -1091,6 +1130,192 @@
           "当缺少副气等温线、温度匹配、有效进料比例、共同总压范围，或 IAST 反算纯组分压力超出来源曲线上限时，不计算情景 IAST。",
           "不从单条等温线推导 Qst，也不混合不同文献；必须有来源值或同一文献至少三个温度。",
           "IAST 假设理想吸附溶液，不能证明传质、湿度、循环或过程性能。"
+        ]
+      },
+      {
+        "id": "gassep-mechanism-dynamic-evidence",
+        "title": "Mechanism classification and dynamic evidence backfill",
+        "titleZh": "机理分类与动态证据补全",
+        "purpose": "Make GasSep useful beyond equilibrium-selectivity ranking by separating thermodynamic affinity, kinetic sieving, framework response, dynamic breakthrough, humidity, cycling, and database-backfill gaps.",
+        "purposeZh": "让 GasSep 不止依赖平衡选择性排序，而是区分热力学亲和、动力学筛分、框架响应、动态穿透、湿度、循环和数据库补全缺口。",
+        "algorithmSteps": [
+          {
+            "label": "Load gas molecular context",
+            "labelZh": "加载气体分子语境",
+            "description": "Read public/data/gas_molecular_properties_v1.json for gas identity, representative kinetic diameter, polarity class, condensability class, and source ids.",
+            "descriptionZh": "读取 public/data/gas_molecular_properties_v1.json，获得气体身份、代表性动力学直径、极性类别、可凝性类别和来源 ID。"
+          },
+          {
+            "label": "Classify equilibrium evidence",
+            "labelZh": "分类平衡证据",
+            "description": "Mark thermodynamic support only when uptake, selectivity, IAST, Henry-derived interpretation, or Qst is present under a condition key.",
+            "descriptionZh": "只有在工况键下存在吸附量、选择性、IAST、Henry 派生解释或 Qst 时，才标记热力学支持。"
+          },
+          {
+            "label": "Detect kinetic-sieving hypotheses",
+            "labelZh": "识别动力学筛分假设",
+            "description": "Treat close gas size or a tight pore-size window as a hypothesis that requires diffusion or breakthrough evidence before being promoted.",
+            "descriptionZh": "将近尺寸气体或窄孔径窗口视作假设；只有扩散或穿透证据支持后才能升级。"
+          },
+          {
+            "label": "Detect framework-response hypotheses",
+            "labelZh": "识别框架响应假设",
+            "description": "Use flexible, soft, gate-opening, breathing, dynamic, or temperature-responsive text and tight-aperture context as cues for in situ structural validation needs.",
+            "descriptionZh": "将 flexible、soft、gate-opening、breathing、dynamic、temperature-responsive 等文本线索和窄孔口语境用于提示原位结构验证需求。"
+          },
+          {
+            "label": "Route missing evidence to databases",
+            "labelZh": "将缺失证据导向数据库",
+            "description": "Send isotherm, molecular-property, breakthrough, and framework-response gaps to the configured source targets instead of filling missing metrics with zero or heuristics.",
+            "descriptionZh": "将等温线、分子物性、穿透和框架响应缺口导向配置的数据源目标，而不是用 0 或启发式值填补缺失指标。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "gassep-kinetic-size-gap",
+            "label": "Kinetic-size gap",
+            "labelZh": "动力学尺寸差",
+            "latex": "\\Delta d_k=|d_{k,A}-d_{k,B}|",
+            "fallback": "Delta d_k = |d_k,A - d_k,B|",
+            "explanation": "A small gap flags a close-size pair where equilibrium selectivity alone may be insufficient; it does not prove diffusion selectivity.",
+            "explanationZh": "较小尺寸差提示近尺寸体系，平衡选择性可能不足；它本身不能证明扩散选择性。"
+          },
+          {
+            "id": "gassep-tight-pore-window",
+            "label": "Tight pore-window cue",
+            "labelZh": "窄孔窗口线索",
+            "latex": "d_{pore}\\lesssim\\max(d_{k,A},d_{k,B})+\\epsilon",
+            "fallback": "d_pore <= max(d_k,A, d_k,B) + epsilon",
+            "explanation": "A tight pore-size window suggests possible sieving or gate effects; epsilon is a screening tolerance, not a crystallographic aperture measurement.",
+            "explanationZh": "窄孔径窗口提示可能存在筛分或孔门效应；epsilon 是筛选容差，不是晶体学孔口测量。"
+          },
+          {
+            "id": "gassep-temperature-breakthrough-ratio",
+            "label": "Temperature-response ratio",
+            "labelZh": "温度响应比",
+            "latex": "R_T=\\frac{t_b(T_{high})}{t_b(T_{low})}",
+            "fallback": "R_T = t_b(T_high) / t_b(T_low)",
+            "explanation": "A ratio above one can flag temperature-enhanced dynamic behavior only when feed, bed, threshold, and flow conditions are comparable.",
+            "explanationZh": "只有进料、床层、阈值和流速条件可比时，大于 1 的比值才可提示升温增强动态行为。"
+          },
+          {
+            "id": "gassep-dynamic-readiness",
+            "label": "Dynamic evidence readiness",
+            "labelZh": "动态证据就绪度",
+            "latex": "E_{dyn}=f(E_{thermo},E_{kinetic},E_{framework},E_{breakthrough},E_{robustness})",
+            "fallback": "E_dyn = f(thermodynamic, kinetic, framework, breakthrough, robustness evidence layers)",
+            "explanation": "The UI reports readiness classes and gap counts; it is not added to APS, CRITIC, IAST, or GasScore.",
+            "explanationZh": "界面只报告就绪类别和缺口数量；该指标不会加入 APS、CRITIC、IAST 或 GasScore。"
+          }
+        ],
+        "inputs": [
+          "gas_molecular_properties_v1.json",
+          "selected gas record",
+          "gas pair",
+          "pore size",
+          "selectivity/IAST/Qst",
+          "breakthrough time",
+          "humidity",
+          "cycle type",
+          "source text and descriptors"
+        ],
+        "inputsZh": [
+          "gas_molecular_properties_v1.json",
+          "选中气体记录",
+          "气体对",
+          "孔径",
+          "选择性/IAST/Qst",
+          "穿透时间",
+          "湿度",
+          "循环类型",
+          "来源文本和描述符"
+        ],
+        "outputs": [
+          "primary mechanism read",
+          "equilibrium-evidence status",
+          "kinetic-sieving hypothesis status",
+          "framework-response hypothesis status",
+          "process breakthrough status",
+          "humidity/cycling status",
+          "temperature-response status",
+          "database backfill queue"
+        ],
+        "outputsZh": [
+          "主导机理判读",
+          "平衡证据状态",
+          "动力学筛分假设状态",
+          "框架响应假设状态",
+          "过程穿透状态",
+          "湿度/循环状态",
+          "温度响应状态",
+          "数据库补全队列"
+        ],
+        "visualizations": [
+          {
+            "title": "Mechanism evidence matrix",
+            "titleZh": "机理证据矩阵",
+            "description": "Shows thermodynamic, kinetic, framework, breakthrough, and robustness layers as separate statuses rather than one blended score.",
+            "descriptionZh": "将热力学、动力学、框架、穿透和鲁棒性层作为独立状态展示，而不是混成一个分数。",
+            "chartType": "evidence matrix"
+          },
+          {
+            "title": "Gas size and pore-window comparison",
+            "titleZh": "气体尺寸与孔径窗口对比",
+            "description": "Compares representative kinetic diameters against the record pore size and flags close-size pairs.",
+            "descriptionZh": "将代表性动力学直径与记录孔径对比，并标记近尺寸气体对。",
+            "chartType": "comparison panel"
+          },
+          {
+            "title": "Database backfill queue",
+            "titleZh": "数据库补全队列",
+            "description": "Lists missing evidence and the database/source target that should be queried next.",
+            "descriptionZh": "列出缺失证据以及下一步应查询的数据库或来源目标。",
+            "chartType": "queue"
+          }
+        ],
+        "references": [
+          {
+            "id": "nist-adsorption-data-resources",
+            "label": "NIST Data Resources for Adsorption",
+            "url": "https://www.nist.gov/programs-projects/nist-data-resources-adsorption",
+            "note": "Primary lookup target for isotherms, adsorbent identities, fitting, IAST, and breakthrough-model workflows.",
+            "noteZh": "等温线、吸附剂身份、拟合、IAST 与穿透模型工作流的主要查询目标。"
+          },
+          {
+            "id": "nist-chemistry-webbook-srd69",
+            "label": "NIST Chemistry WebBook SRD 69",
+            "url": "https://webbook.nist.gov/chemistry/",
+            "note": "Database target for thermochemical, thermophysical, and molecular-property context.",
+            "noteZh": "热化学、热物性与分子物性语境的数据源目标。"
+          },
+          {
+            "id": "upper-bound-visualization-gas-parameters",
+            "label": "Upper-bound visualization review — gas-pair physical parameters",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10015871/",
+            "note": "Representative kinetic diameter, polarizability, quadrupole, and gas-pair context for mechanism screening.",
+            "noteZh": "用于机理筛选的代表性动力学直径、极化率、四极矩和气体对语境。"
+          },
+          {
+            "id": "ntu68-c3h6-c3h8-2023",
+            "label": "Huang et al. 2023 — NTU-68 C3H6/C3H8 temperature-responsive sieving",
+            "url": "https://doi.org/10.1021/jacs.3c10277",
+            "note": "Inspiration for separating equilibrium, kinetic, temperature-responsive structure, breakthrough, impurity, and process evidence layers.",
+            "noteZh": "启发平台将平衡、动力学、温度响应结构、穿透、杂质与过程证据分层。"
+          }
+        ],
+        "limitations": [
+          "Kinetic diameters are representative screening values and can vary by source convention.",
+          "Close size and tight pore-window cues are hypotheses; they do not prove kinetic selectivity.",
+          "Temperature-enhanced breakthrough requires comparable feed, bed, threshold, and flow conditions.",
+          "Breakthrough metrics are process evidence only when the source reports the experimental boundary.",
+          "Dynamic evidence readiness is intentionally not added to ranking scores."
+        ],
+        "limitationsZh": [
+          "动力学直径是代表性筛选值，会随来源约定变化。",
+          "近尺寸和窄孔窗口只是机理假设，不能证明动力学选择性。",
+          "升温增强穿透需要进料、床层、阈值和流速条件可比。",
+          "只有来源报告实验边界时，穿透指标才构成过程证据。",
+          "动态证据就绪度不会加入排序分数。"
         ]
       },
       {

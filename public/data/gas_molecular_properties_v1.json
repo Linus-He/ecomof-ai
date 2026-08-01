@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "gas-molecular-properties-v1",
+  "updatedAt": "2026-08-01",
+  "curationBoundary": "Representative gas-property values and source targets for screening explanations. Kinetic diameters can vary by convention and should be treated as mechanism cues, not final transport measurements.",
+  "curationBoundaryZh": "用于筛选解释的代表性气体物性与数据源目标。动力学直径会随文献约定变化，应作为机理线索，而不是最终传质测量。",
+  "sources": [
+    {
+      "id": "nist-adsorption-data-resources",
+      "label": "NIST Data Resources for Adsorption",
+      "url": "https://www.nist.gov/programs-projects/nist-data-resources-adsorption",
+      "role": "Primary lookup target for traceable adsorption isotherms, adsorbent-material identifiers, fitting, IAST, and breakthrough-model workflows.",
+      "roleZh": "可追溯吸附等温线、吸附剂材料身份、拟合、IAST 与穿透模型工作流的主要查询目标。"
+    },
+    {
+      "id": "nist-chemistry-webbook-srd69",
+      "label": "NIST Chemistry WebBook SRD 69",
+      "url": "https://webbook.nist.gov/chemistry/",
+      "role": "Database target for thermochemical, thermophysical, and molecular-property curation.",
+      "roleZh": "热化学、热物性与分子物性整理的数据源目标。"
+    },
+    {
+      "id": "upper-bound-visualization-gas-parameters",
+      "label": "Upper-bound visualization and gas-pair physical parameters review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10015871/",
+      "role": "Literature source for representative kinetic diameter, polarizability, and quadrupole context across gas-separation pairs.",
+      "roleZh": "气体分离体系中代表性动力学直径、极化率与四极矩语境的文献来源。"
+    },
+    {
+      "id": "jacs-ntu68-temperature-responsive-sieving",
+      "label": "Huang et al. 2023 JACS NTU-68 C3H6/C3H8",
+      "url": "https://doi.org/10.1021/jacs.3c10277",
+      "role": "Mechanistic inspiration for separating equilibrium affinity, kinetic dominance, temperature-responsive pore gating, in situ PXRD/modeling evidence, breakthrough, impurities, and process boundaries.",
+      "roleZh": "为区分平衡亲和、动力学主导、温度响应孔门、原位 PXRD/模型证据、穿透、杂质和过程边界提供机理参考。"
+    }
+  ],
+  "gases": [
+    {
+      "gas": "H2",
+      "name": "Hydrogen",
+      "nameZh": "氢气",
+      "kineticDiameterA": 2.89,
+      "polarityClass": "nonpolar-light",
+      "quadrupoleClass": "very-low",
+      "condensabilityClass": "very-low",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "CO2",
+      "name": "Carbon dioxide",
+      "nameZh": "二氧化碳",
+      "kineticDiameterA": 3.3,
+      "polarityClass": "linear-quadrupolar",
+      "quadrupoleClass": "high",
+      "condensabilityClass": "moderate",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "C2H2",
+      "name": "Acetylene",
+      "nameZh": "乙炔",
+      "kineticDiameterA": 3.3,
+      "polarityClass": "linear-quadrupolar-pi",
+      "quadrupoleClass": "high",
+      "condensabilityClass": "moderate",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "O2",
+      "name": "Oxygen",
+      "nameZh": "氧气",
+      "kineticDiameterA": 3.46,
+      "polarityClass": "nonpolar-paramagnetic",
+      "quadrupoleClass": "low",
+      "condensabilityClass": "low",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "N2",
+      "name": "Nitrogen",
+      "nameZh": "氮气",
+      "kineticDiameterA": 3.64,
+      "polarityClass": "linear-quadrupolar",
+      "quadrupoleClass": "moderate",
+      "condensabilityClass": "low",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "Kr",
+      "name": "Krypton",
+      "nameZh": "氪",
+      "kineticDiameterA": 3.69,
+      "polarityClass": "nonpolar-noble-gas",
+      "quadrupoleClass": "none",
+      "condensabilityClass": "moderate",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "CH4",
+      "name": "Methane",
+      "nameZh": "甲烷",
+      "kineticDiameterA": 3.8,
+      "polarityClass": "nonpolar",
+      "quadrupoleClass": "none",
+      "condensabilityClass": "moderate",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "Xe",
+      "name": "Xenon",
+      "nameZh": "氙",
+      "kineticDiameterA": 3.96,
+      "polarityClass": "nonpolar-noble-gas",
+      "quadrupoleClass": "none",
+      "condensabilityClass": "high",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "C3H6",
+      "name": "Propylene",
+      "nameZh": "丙烯",
+      "kineticDiameterA": 4.0,
+      "polarityClass": "nonpolar-pi",
+      "quadrupoleClass": "low",
+      "condensabilityClass": "high",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69", "jacs-ntu68-temperature-responsive-sieving"]
+    },
+    {
+      "gas": "C2H4",
+      "name": "Ethylene",
+      "nameZh": "乙烯",
+      "kineticDiameterA": 4.16,
+      "polarityClass": "nonpolar-pi",
+      "quadrupoleClass": "low",
+      "condensabilityClass": "moderate",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69"]
+    },
+    {
+      "gas": "C3H8",
+      "name": "Propane",
+      "nameZh": "丙烷",
+      "kineticDiameterA": 4.3,
+      "polarityClass": "nonpolar",
+      "quadrupoleClass": "none",
+      "condensabilityClass": "high",
+      "sourceIds": ["upper-bound-visualization-gas-parameters", "nist-chemistry-webbook-srd69", "jacs-ntu68-temperature-responsive-sieving"]
+    },
+    {
+      "gas": "VOC",
+      "name": "Volatile organic compound class",
+      "nameZh": "挥发性有机物类别",
+      "kineticDiameterA": null,
+      "polarityClass": "class-dependent",
+      "quadrupoleClass": "class-dependent",
+      "condensabilityClass": "high",
+      "sourceIds": ["nist-chemistry-webbook-srd69"]
+    }
+  ],
+  "databaseLookupTargets": [
+    {
+      "id": "isotherm-gap",
+      "missingWhen": "single-component or paired isotherm points are unavailable",
+      "targetSourceId": "nist-adsorption-data-resources",
+      "queryFields": ["adsorbent name", "adsorbate gas", "temperature", "pressure", "DOI", "isotherm id"],
+      "outputFields": ["source isotherm points", "adsorption basis", "fit eligibility", "field provenance"],
+      "missingWhenZh": "缺少单组分或成对等温线点",
+      "queryFieldsZh": ["吸附剂名称", "吸附质气体", "温度", "压力", "DOI", "等温线 ID"],
+      "outputFieldsZh": ["来源等温线点", "吸附基准", "拟合资格", "字段级溯源"]
+    },
+    {
+      "id": "molecular-property-gap",
+      "missingWhen": "gas size, polarity, quadrupole, or condensability context is unavailable",
+      "targetSourceId": "nist-chemistry-webbook-srd69",
+      "queryFields": ["gas formula", "CAS number", "common name"],
+      "outputFields": ["molecular identity", "thermophysical context", "source citation"],
+      "missingWhenZh": "缺少气体尺寸、极性、四极矩或可凝性语境",
+      "queryFieldsZh": ["气体分子式", "CAS 号", "通用名称"],
+      "outputFieldsZh": ["分子身份", "热物性语境", "来源引用"]
+    },
+    {
+      "id": "breakthrough-gap",
+      "missingWhen": "dynamic mixture validation is absent",
+      "targetSourceId": "nist-adsorption-data-resources",
+      "queryFields": ["DOI", "gas pair", "feed ratio", "bed condition", "flow rate"],
+      "outputFields": ["breakthrough time", "dynamic capacity", "outlet concentration curve", "process boundary"],
+      "missingWhenZh": "缺少动态混合气验证",
+      "queryFieldsZh": ["DOI", "气体对", "进料比例", "床层条件", "流速"],
+      "outputFieldsZh": ["穿透时间", "动态容量", "出口浓度曲线", "过程边界"]
+    },
+    {
+      "id": "framework-response-gap",
+      "missingWhen": "kinetic sieving or flexible framework is hypothesized but structural response evidence is absent",
+      "targetSourceId": "jacs-ntu68-temperature-responsive-sieving",
+      "queryFields": ["in situ PXRD", "temperature series", "gas-loaded structure", "DFT/modeling evidence"],
+      "outputFields": ["gate-aperture evidence", "temperature response", "mechanistic boundary"],
+      "missingWhenZh": "提出动力学筛分或柔性框架假设，但缺少结构响应证据",
+      "queryFieldsZh": ["原位 PXRD", "温度序列", "载气结构", "DFT/模型证据"],
+      "outputFieldsZh": ["孔门证据", "温度响应", "机理边界"]
+    }
+  ]
+}

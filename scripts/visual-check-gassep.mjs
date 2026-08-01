@@ -61,6 +61,9 @@ try {
     const panel = page.getByTestId("gassep-thermodynamic-panel")
     await panel.waitFor({ state: "visible", timeout: 30000 })
     await page.getByText(/吸附热力学与竞争平衡|Adsorption Thermodynamics and Competitive Equilibrium/).waitFor()
+    const mechanismPanel = page.getByTestId("gassep-mechanism-evidence")
+    await mechanismPanel.waitFor({ state: "visible", timeout: 30000 })
+    await page.getByText(/机制分类与数据库补全|Mechanism Classification and Database Backfill/).waitFor()
 
     const formulaPane = page.getByTestId("gassep-thermodynamic-formulas")
     const chartPane = page.getByTestId("gassep-thermodynamic-chart")
@@ -118,6 +121,17 @@ try {
     await darkScreenshotStyle.evaluate(node => node.remove())
 
     const gasPair = page.locator('select[aria-label="gas pair"]').first()
+    await gasPair.selectOption("C3H6/C3H8")
+    await page.waitForTimeout(300)
+    for (const ratio of ["50/50", "10/90", "90/10"]) {
+      if (!(await page.getByRole("button", { name: ratio, exact: true }).count())) {
+        throw new Error(`${viewport.name}: missing C3H6/C3H8 ratio preset ${ratio}`)
+      }
+    }
+    const mechanismText = await mechanismPanel.innerText()
+    if (!/动力学|kinetic|数据库补全|Database backfill/i.test(mechanismText)) {
+      throw new Error(`${viewport.name}: mechanism evidence panel did not expose kinetic/database evidence text`)
+    }
     await gasPair.selectOption("C2H2/C2H4")
     await page.waitForTimeout(300)
     for (const ratio of ["0.5/99.5", "1/99", "1/999"]) {

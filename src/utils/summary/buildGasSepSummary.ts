@@ -33,16 +33,26 @@ export function buildGasSepConditionCoverage(records: any) {
   const rows = asArray(records)
   const total = rows.length
   const has = (fn: (r: any) => any) => rows.filter(r => num(fn(r)) != null).length
+  const hasText = (fn: (r: any) => any, missing = ["", "unknown", "not reported", "pending", "not specified"]) => rows.filter(r => {
+    const value = String(fn(r) ?? "").trim().toLowerCase()
+    return value && !missing.includes(value)
+  }).length
   const temperature = has(r => r.condition?.temperatureK)
   const pressure = has(r => r.condition?.pressureBar ?? r.condition?.adsorptionPressureBar)
   const capacity = has(r => r.metrics?.workingCapacity ?? r.metrics?.primaryUptake)
   const selectivity = has(r => r.metrics?.selectivity)
+  const breakthrough = has(r => r.metrics?.breakthroughTime)
+  const humidity = hasText(r => r.condition?.humidity)
+  const cycle = hasText(r => r.condition?.cycleType)
   return {
     total,
     temperatureCoverage: safeRatio(temperature, total, 0),
     pressureCoverage: safeRatio(pressure, total, 0),
     capacityCoverage: safeRatio(capacity, total, 0),
     selectivityCoverage: safeRatio(selectivity, total, 0),
+    breakthroughCoverage: safeRatio(breakthrough, total, 0),
+    humidityCoverage: safeRatio(humidity, total, 0),
+    cycleCoverage: safeRatio(cycle, total, 0),
     missingConditionCount: rows.filter(r => num(r.condition?.temperatureK) == null || num(r.condition?.pressureBar ?? r.condition?.adsorptionPressureBar) == null).length,
   }
 }
@@ -73,7 +83,10 @@ export function buildGasSepExportRows(records: any) {
     temperatureK: num(r.condition?.temperatureK) ?? "",
     pressureBar: num(r.condition?.pressureBar ?? r.condition?.adsorptionPressureBar) ?? "",
     selectivity: num(r.metrics?.selectivity) ?? "",
+    breakthroughTime: num(r.metrics?.breakthroughTime) ?? "",
     workingCapacity: num(r.metrics?.workingCapacity) ?? "",
+    humidity: r.condition?.humidity ?? "",
+    cycleType: r.condition?.cycleType ?? "",
     sourceType: classifyGasSourceType(r),
     sourceDatabase: r.recordProvenance?.sourceDatabase ?? "",
     citation: r.recordProvenance?.citation ?? "",
@@ -87,6 +100,7 @@ export function buildGasSepSummary({ records, dataVersion = "V3.9.1", generatedA
   const distribution = buildGasSepSourceDistribution(rows)
   const benchmark = buildGasSepBenchmarkSuitability(rows)
   const provenanceCount = rows.filter((r: any) => Boolean(r.recordProvenance?.sourceDatabase) || Boolean(r.recordProvenance?.citation)).length
+  const dynamicEvidenceCount = rows.filter((r: any) => num(r.metrics?.breakthroughTime) != null || Boolean(r.evidence?.hasBreakthroughValidation)).length
 
   return {
     summaryId: "gassep-summary-v1",
@@ -100,6 +114,7 @@ export function buildGasSepSummary({ records, dataVersion = "V3.9.1", generatedA
     conditionCoverage: coverage,
     sourceTypeDistribution: distribution,
     benchmarkSuitability: benchmark,
+    dynamicEvidenceCoverage: safeRatio(dynamicEvidenceCount, rows.length, 0),
     provenanceCoverage: safeRatio(provenanceCount, rows.length, 0),
     chartDataAvailable: rows.some((r: any) => Number.isFinite(Number(r.metrics?.selectivity))),
     filterOptions: buildGasSepFilterOptions(rows),

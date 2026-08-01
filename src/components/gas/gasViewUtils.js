@@ -108,6 +108,9 @@ export function validationForRecord(record = {}, scenario = {}, lang = "en") {
   const selectivity = metricNormalizedValue(record, "selectivity", [record])
   const qst = finite(record?.heatOfAdsorption)
   const wetStream = ["CO2/N2", "VOC/N2"].includes(scenario.gasPair || record.gasPair)
+  const pair = String(scenario.gasPair || record.gasPair || "").toUpperCase()
+  const closeSizeOrKineticPair = ["C2H2/C2H4", "C3H6/C3H8", "XE/KR", "O2/N2"].includes(pair)
+  const hasBreakthrough = Boolean(record?.evidence?.hasBreakthroughValidation) || finite(record?.breakthroughTime ?? record?.metrics?.breakthroughTime) !== null
   if (type.includes("predicted") || type.includes("demo")) {
     return {
       type: "GCMC simulation",
@@ -121,6 +124,21 @@ export function validationForRecord(record = {}, scenario = {}, lang = "en") {
       expectedOutputZh: "在选定气体对下得到单组分和混合气吸附量估计。",
       evidenceImpact: "Can improve evidence confidence from C toward B if simulation is reproducible.",
       evidenceImpactZh: "若模拟可复现，可将证据置信度从 C 向 B 推进。",
+    }
+  }
+  if (closeSizeOrKineticPair && !hasBreakthrough) {
+    return {
+      type: "Breakthrough and diffusion validation",
+      typeZh: "穿透与扩散验证",
+      priority: "high",
+      reason: "Close-size gas pairs can be controlled by diffusion or gate opening, so equilibrium selectivity alone is insufficient.",
+      reasonZh: "近尺寸气体对可能受扩散或孔门开启控制，单靠平衡选择性不足以判断。",
+      requiredData: ["packed-bed breakthrough curve", "feed composition", "flow rate", "bed mass", "diffusion or uptake-rate series"],
+      requiredDataZh: ["固定床穿透曲线", "进料组成", "流速", "床层质量", "扩散或吸附速率序列"],
+      expectedOutput: `Dynamic separation window and mass-transfer boundary under ${scenario.gasPair || record.gasPair} conditions.`,
+      expectedOutputZh: `得到 ${scenario.gasPair || record.gasPair} 条件下的动态分离窗口与传质边界。`,
+      evidenceImpact: "Separates kinetic/dynamic sieving hypotheses from equilibrium-only screening records.",
+      evidenceImpactZh: "把动力学/动态筛分假设与仅有平衡筛选的记录区分开。",
     }
   }
   if (selectivity != null && selectivity > 0.72) {

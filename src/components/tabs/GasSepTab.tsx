@@ -70,6 +70,7 @@ import { GasValidationRecommendation } from "../gas/GasValidationRecommendation"
 import { GasDataQualityPanel } from "../gas/GasDataQualityPanel"
 import { GasDataStatusBadge } from "../gas/GasDataStatusBadge"
 import { GasFieldProvenanceButton } from "../gas/GasFieldProvenanceButton"
+import { GasMechanismEvidencePanel } from "../gas/GasMechanismEvidencePanel"
 import { GasRecordSourcePanel } from "../gas/GasRecordSourcePanel"
 import { GasUnitNormalizationNote } from "../gas/GasUnitNormalizationNote"
 import { normalizeGasRecords } from "../gas/gasDataNormalize"
@@ -172,6 +173,18 @@ const SCENARIOS = [
     secondaryGas: "C2H4",
     mechanismZh: ["痕量进料使低压亲和更关键", "0.5/99.5 与 1/99 为文献常见验证比例", "1/999 仅作为反馈提出的极低浓度探索", "最终判断需穿透曲线与循环实验"],
     mechanismEn: ["Trace feeds make low-pressure affinity critical", "0.5/99.5 and 1/99 are literature-used validation feeds", "1/999 is retained only as a feedback-driven ultra-trace exploration", "Final claims require breakthrough and cycling tests"],
+  },
+  {
+    gasPair: "C3H6/C3H8",
+    applicationScenario: "propylene propane separation",
+    labelZh: "C₃H₆/C₃H₈：丙烯/丙烷分离",
+    labelEn: "C₃H₆/C₃H₈: propylene/propane separation",
+    defaultRatio: "50/50",
+    ratioPresets: ["50/50", "10/90", "90/10"],
+    primaryGas: "C3H6",
+    secondaryGas: "C3H8",
+    mechanismZh: ["近尺寸烯烃/烷烃体系不能只看平衡选择性", "窄孔与柔性孔门可能引入动力学筛分", "升温增强穿透表现需要多温动态证据", "最终判断需穿透曲线、杂质和循环验证"],
+    mechanismEn: ["Close-size olefin/paraffin systems cannot be judged by equilibrium selectivity alone", "Tight pores and flexible gates can introduce kinetic sieving", "Temperature-enhanced breakthrough needs multi-temperature dynamic evidence", "Final claims need breakthrough, impurity, and cycling validation"],
   },
 ]
 
@@ -2258,6 +2271,15 @@ export function GasSepTab({ onNavigate }) {
         lang={lang}
         isMobile={isMobile}
         isNarrow={isNarrow}
+        onOpenMethod={openMethod}
+      />
+      <GasMechanismEvidencePanel
+        selected={selected}
+        records={records}
+        scenario={scenario}
+        t={t}
+        lang={lang}
+        isMobile={isMobile}
         onOpenMethod={openMethod}
       />
       <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />

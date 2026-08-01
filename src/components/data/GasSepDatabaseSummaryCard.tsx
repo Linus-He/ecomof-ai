@@ -1,8 +1,9 @@
 // @ts-nocheck
 // V3.9.1 — presentational GasSep database summary. Receives a built summary +
 // export rows (never raw records). Shows record count, gas systems, condition /
-// capacity / selectivity coverage, source-type distribution, provenance, and
-// benchmark suitability, with a provenance-bearing CSV export of the current set.
+// capacity / selectivity / dynamic-process coverage, source-type distribution,
+// provenance, and benchmark suitability, with a provenance-bearing CSV export of
+// the current set.
 import { DataMetricCard } from "./DataMetricCard"
 import { DatasetModeBadge } from "./DatasetModeBadge"
 import { ExportButton } from "./ExportButton"
@@ -49,6 +50,8 @@ export function GasSepDatabaseSummaryCard({ summary = null, exportRows = [], lan
         <DataMetricCard label={zh ? "压力覆盖" : "Pressure Coverage"} value={summary.conditionCoverage?.pressureCoverage} type="ratio" t={t} />
         <DataMetricCard label={zh ? "容量覆盖" : "Capacity Coverage"} value={summary.conditionCoverage?.capacityCoverage} type="ratio" t={t} />
         <DataMetricCard label={zh ? "选择性覆盖" : "Selectivity Coverage"} value={summary.conditionCoverage?.selectivityCoverage} type="ratio" t={t} />
+        <DataMetricCard label={zh ? "穿透覆盖" : "Breakthrough Coverage"} value={summary.conditionCoverage?.breakthroughCoverage} type="ratio" t={t} />
+        <DataMetricCard label={zh ? "湿度覆盖" : "Humidity Coverage"} value={summary.conditionCoverage?.humidityCoverage} type="ratio" t={t} />
         <DataMetricCard label={zh ? "溯源覆盖" : "Provenance Coverage"} value={summary.provenanceCoverage} type="ratio" tone="pass" t={t} />
         <DataMetricCard label={zh ? "可入 Benchmark" : "Benchmark Suitable"} value={summary.benchmarkSuitability?.ratio} type="ratio" t={t} />
       </div>
