@@ -9,7 +9,7 @@ import {
   BrandMotif,
   BlockFormula,
 } from "../../shared"
-import { BrandMotionBackground, GasParetoChart, HomeDataExplorer, MofDescriptor3DScatter, buildGasParetoRows } from "../home"
+import { GasParetoChart, HomeDataExplorer, MofDescriptor3DScatter, ScientificDiscoveryMap, buildGasParetoRows } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
@@ -383,7 +383,7 @@ function MiniBarChart({ title, rows, t, lang }) {
               <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.35, fontWeight: 780 }}>{row.label}</span>
               <span style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, fontWeight: 900, fontFamily: FONT_SANS }}>{row.value} · {row.percent}%</span>
             </div>
-            <div style={{ height: 8, borderRadius: 999, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
+            <div style={{ height: 8, borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, overflow: "hidden" }}>
               <div style={{ width: `${Math.max(5, Math.min(100, row.percent))}%`, height: "100%", background: row.color || t.accent }} />
             </div>
           </button>
@@ -515,7 +515,7 @@ function FlowStep({ item, t, index, isLast }) {
   )
 }
 
-function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMobile, onNavigate, onContactOpen }) {
+function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMobile, onNavigate, onContactOpen, activeResearchBranch }) {
   const zh = lang === "zh"
   const routes = [
     ...modules,
@@ -539,8 +539,20 @@ function ResearchGatewayStage({ t, lang, modules, limitations, quickStart, isMob
   const [activeHash, setActiveHash] = useState(routes[0]?.hash || "")
   const active = routes.find(route => route.hash === activeHash) || routes[0]
 
+  useEffect(() => {
+    const branchHash = {
+      ecoscreen: "ecoscreen",
+      library: "library",
+      gassep: "gassep",
+      organic: "catalysis-organic-acid",
+      validation: "methodology-algorithm-validation",
+    }[activeResearchBranch]
+    if (branchHash) setActiveHash(branchHash)
+  }, [activeResearchBranch])
+
   return (
     <section
+      id="home-research-gateway"
       data-testid="home-research-gateway"
       className="research-gateway-stage"
       style={{
@@ -767,7 +779,7 @@ function HeroVisual({ t, lang, summary }) {
           color: t.accentText,
           background: t.badgeInfoBg,
           border: `1px solid ${t.border}`,
-          borderRadius: 999,
+          borderRadius: 6,
           padding: "6px 9px",
           fontSize: 10.5,
           fontWeight: 850,
@@ -815,6 +827,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   const { isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
+  const [activeResearchBranch, setActiveResearchBranch] = useState("gassep")
   const gasParetoCount = useMemo(() => buildGasParetoRows().length, [])
   const zh = lang === "zh"
 
@@ -838,6 +851,17 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     } catch {
       window.dispatchEvent(new Event("hashchange"))
     }
+  }
+
+  const continueResearch = (branchId, targetId) => {
+    setActiveResearchBranch(branchId)
+    if (typeof document === "undefined") return
+    window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      })
+    })
   }
 
   const pageGap = isMobile ? 12 : 16
@@ -1020,67 +1044,34 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
 
   return (
     <div className="home-story-shell" style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden", position: "relative" }}>
-      <BrandMotionBackground t={t} isMobile={isNarrow} reducedMotion={reducedMotion} />
-
-      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, paddingTop: isMobile ? 10 : 18, position: "relative", overflow: "hidden" }}>
-        <div className="home-hero-bg-layer" aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          {!isMobile && (
-            <BrandMotif
-              size={300}
-              color={t.accentText}
-              opacity={0.052}
-              className="hero-bg-brand-motif"
-              style={{ position: "absolute", right: -86, top: 10, pointerEvents: "none" }}
-              strokeWidth={1.2}
-            />
-          )}
-        </div>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 0.96fr) minmax(320px, 0.82fr)",
-          gap: isMobile ? 16 : 20,
-          alignItems: "center",
-          minWidth: 0,
-          position: "relative",
-          zIndex: 1,
-        }}>
-          <div className="home-hero-foreground" style={{ minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
-              <div style={{ color: t.accentText, fontSize: 12, fontWeight: 900, letterSpacing: 0 }}>
-                {zh ? "材料筛选 / 字段级溯源 / 验证准备" : "Material screening / field-level provenance / validation readiness"}
-              </div>
-            </div>
-            <h1 style={{ margin: 0, color: t.textStrong, fontSize: isMobile ? 42 : 64, lineHeight: 0.98, fontWeight: 950, letterSpacing: 0 }}>
-              EcoMOF-AI
-            </h1>
-            <p style={{ margin: isMobile ? "14px 0 0" : "18px 0 0", color: t.textStrong, fontSize: isMobile ? 20 : 28, lineHeight: 1.18, fontWeight: 900, maxWidth: 860 }}>
-              {zh ? "数据驱动的 MOF 筛选与验证平台" : "Data-driven MOF Screening and Validation Platform"}
-            </p>
-            <p style={{ margin: "13px 0 0", color: t.muted, fontSize: isMobile ? 14 : 16, lineHeight: 1.7, maxWidth: 780 }}>
-              {zh
-                ? "四个研究工作区分别覆盖可持续性筛选、气体分离、可解释催化路线和材料数据库检索。"
-                : "One platform, four research workspaces: EcoScreen for sustainability screening, GasSep for gas separation, Organic Acid for white-box route screening, and MOF Library to browse structure, gas, and catalysis data."}
-            </p>
-            <div style={{ marginTop: 18 }} className="home-hero-cta home-primary-entry-grid" data-testid="home-primary-entry-grid">
-              {quickStart.map(cta => (
-                <ActionButton
-                  key={cta.hash}
-                  t={t}
-                  primary={cta.primary}
-                  hash={`#${cta.hash}`}
-                  onClick={() => cta.action === "contact" ? onContactOpen?.(true) : navigateHash(cta.hash, cta.target)}
-                >
-                  {cta.label}
-                </ActionButton>
-              ))}
-            </div>
-          </div>
-          <ResearchEquationHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
-        </div>
+      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, position: "relative" }}>
+        <ScientificDiscoveryMap
+          t={t}
+          lang={lang}
+          summary={summary}
+          gasParetoCount={gasParetoCount}
+          isMobile={isMobile}
+          reducedMotion={reducedMotion}
+          onNavigate={navigateHash}
+          onBranchChange={setActiveResearchBranch}
+          onContinueResearch={continueResearch}
+        />
       </section>
 
-      <section data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: `linear-gradient(180deg, ${t.badgeInfoBg}, color-mix(in srgb, ${t.badgeInfoBg} 46%, transparent))` }}>
+      <div className="home-research-thread" data-branch={activeResearchBranch} aria-live="polite">
+        <span>{zh ? "当前研究线" : "CURRENT RESEARCH THREAD"}</span>
+        <strong>{({
+          ecoscreen: zh ? "可持续性评价" : "Sustainability evaluation",
+          library: zh ? "结构与来源" : "Structure and provenance",
+          gassep: zh ? "气体分离" : "Gas separation",
+          organic: zh ? "催化路径" : "Catalytic pathway",
+          validation: zh ? "可信验证" : "Trustworthy validation",
+        })[activeResearchBranch]}</strong>
+        <i aria-hidden="true" />
+        <small>{zh ? "数据层 → 描述符 → 任务性能 → 验证证据" : "Data layer → descriptors → task performance → validation evidence"}</small>
+      </div>
+
+      <section id="home-data-foundation" data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.panel }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}
           title={zh ? "当前启用的数据与证据层" : "Active data and evidence layers"}
@@ -1111,10 +1102,12 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         <StoryTransition index={2} label={zh ? "从空间位置到统计结构" : "From spatial position to statistical structure"} t={t} />
         <HomeDataExplorer t={t} lang={lang} isMobile={isMobile} />
         <StoryTransition index={3} label={zh ? "从结构分布到任务性能" : "From structural distribution to task performance"} t={t} />
-        <GasParetoChart t={t} lang={lang} isMobile={isMobile} />
+        <div id="home-gas-performance" className="home-chapter-anchor">
+          <GasParetoChart t={t} lang={lang} isMobile={isMobile} />
+        </div>
       </section>
 
-      <section data-testid="home-algorithm-validation" style={sectionStyle}>
+      <section id="home-algorithm-validation" data-testid="home-algorithm-validation" style={sectionStyle}>
         <StoryTransition index={4} label={zh ? "从候选性能到验证证据" : "From candidate performance to validation evidence"} t={t} />
         <ValidationEquationStage t={t} lang={lang} summary={summary} items={validationFlow} isMobile={isMobile} onNavigate={navigateHash} />
       </section>
@@ -1129,6 +1122,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         isMobile={isMobile}
         onNavigate={navigateHash}
         onContactOpen={onContactOpen}
+        activeResearchBranch={activeResearchBranch}
       />
     </div>
   )

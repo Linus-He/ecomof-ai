@@ -70,17 +70,20 @@ describe("home quick start", () => {
     expect(setActiveTab).toHaveBeenCalledTimes(expected.length)
   })
 
-  it("keeps the primary entry group in the requested three-over-three order", () => {
-    renderHome()
-    const entryGrid = screen.getByTestId("home-primary-entry-grid")
-    expect(entryGrid).toHaveClass("home-primary-entry-grid")
-    expect(within(entryGrid).getAllByRole("button").map(button => button.textContent)).toEqual([
-      "生态筛选",
-      "气体分离",
-      "催化",
-      "MOF库",
-      "数据合规承诺",
-      "联系我们",
-    ])
+  it("uses the research map as the primary entry surface and preserves routed navigation", () => {
+    const { setActiveTab } = renderHome()
+    const atlas = screen.getByTestId("home-scientific-atlas")
+    const clusterIds = Array.from(atlas.querySelectorAll("[data-cluster-id]")).map(button => button.getAttribute("data-cluster-id"))
+
+    expect(clusterIds).toEqual(["ecoscreen", "library", "gassep", "organic", "validation"])
+
+    fireEvent.click(within(atlas).getByRole("button", { name: /哪种材料更适合气体分离/ }))
+    const dialog = atlas.querySelector('[role="dialog"]')
+    expect(dialog).toBeInTheDocument()
+    expect(dialog).toHaveAccessibleName("哪种材料更适合气体分离？")
+    fireEvent.click(within(dialog).getByRole("button", { name: "进入完整工作区" }))
+
+    expect(setActiveTab).toHaveBeenLastCalledWith("gassep")
+    expect(window.location.hash).toBe("#gassep")
   })
 })
