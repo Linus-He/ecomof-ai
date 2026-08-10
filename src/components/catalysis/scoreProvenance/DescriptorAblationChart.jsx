@@ -113,7 +113,7 @@ export function DescriptorAblationChart({ model, lang = "zh", selectedRouteId = 
               onClick={() => onSelectRoute?.(candidate.routeId)}
               style={{ alignItems: "center", background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 8, color: palette.text, cursor: "pointer", display: "grid", gap: 7, gridTemplateColumns: "10px minmax(0, 1fr) auto", padding: "7px 8px", textAlign: "left" }}
             >
-              <span style={{ background: SERIES_COLORS[index % SERIES_COLORS.length], borderRadius: 999, height: 8, width: 8 }} />
+              <span style={{ background: SERIES_COLORS[index % SERIES_COLORS.length], borderRadius: 6, height: 8, width: 8 }} />
               <span style={{ fontSize: 11.2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{candidate.routeName}</span>
               <strong style={{ color: active ? palette.accent : palette.muted, fontSize: 11.2 }}>#{full.rank} · {fmt(full.score, 3)}</strong>
             </button>

@@ -34,7 +34,7 @@ export function CandidateCompareMode({ candidates = [], lang, t, isMobile }) {
           const id = c.id || c.candidateId
           const on = selected.includes(id)
           return (
-            <button key={id} type="button" onClick={() => toggle(id)} style={{ background: on ? t.badgeInfoBg : t.surface, border: `1px solid ${on ? t.accentText : t.border}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 800, padding: "5px 9px" }}>
+            <button key={id} type="button" onClick={() => toggle(id)} style={{ background: on ? t.badgeInfoBg : t.surface, border: `1px solid ${on ? t.accentText : t.border}`, borderRadius: 6, color: t.textStrong, cursor: "pointer", fontSize: 11, fontWeight: 800, padding: "5px 9px" }}>
               {c.displayName || c.name || id}
             </button>
           )

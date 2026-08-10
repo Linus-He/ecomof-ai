@@ -67,8 +67,8 @@ export function GasMechanismEvidencePanel({ selected, records = [], scenario = {
   if (!selected) return null
 
   return (
-    <section data-testid="gassep-mechanism-evidence" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 14, minWidth: 0, padding: 16 }}>
-      <div style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
+    <section data-testid="gassep-mechanism-evidence" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: isMobile ? 12 : 14, minWidth: 0, padding: isMobile ? 12 : 16 }}>
+      <div style={{ alignItems: "flex-start", display: isMobile ? "grid" : "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
         <div>
           <SectionTitle>{text(lang, "机制分类与数据库补全", "Mechanism Classification and Database Backfill")}</SectionTitle>
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5, maxWidth: 940 }}>
@@ -79,7 +79,7 @@ export function GasMechanismEvidencePanel({ selected, records = [], scenario = {
             )}
           </div>
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: isMobile ? "flex-start" : "flex-end" }}>
           <BasisBadge tone={evidence.readiness === "process-ready-evidence" ? "calc" : evidence.readiness === "mechanism-hypothesis-ready" ? "info" : "proxy"}>
             {text(lang, evidence.readinessZh, evidence.readiness)}
           </BasisBadge>
@@ -101,12 +101,12 @@ export function GasMechanismEvidencePanel({ selected, records = [], scenario = {
             </span>
           </div>
 
-          <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
             {gasSizeCell(evidence.primaryGas, evidence.primaryProperty, t, lang)}
             {gasSizeCell(evidence.secondaryGas, evidence.secondaryProperty, t, lang)}
           </div>
 
-          <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+          <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))" }}>
             {[
               [text(lang, "尺寸差", "Size gap"), evidence.diameterGap == null ? formatPending(lang) : `${formatNumber(evidence.diameterGap, 2)} A`, text(lang, "动力学直径差", "kinetic-diameter gap")],
               [text(lang, "孔径", "Pore size"), evidence.poreSizeA == null ? formatPending(lang) : `${formatNumber(evidence.poreSizeA, 2)} A`, evidence.tightWindow ? text(lang, "窄孔筛分候选", "tight sieving window") : evidence.openWindow ? text(lang, "开放孔道", "open pore window") : text(lang, "孔径语境待核", "pore context pending")],
@@ -125,7 +125,7 @@ export function GasMechanismEvidencePanel({ selected, records = [], scenario = {
 
         <div style={{ display: "grid", gap: 8 }}>
           {evidence.layers.map(item => (
-            <div key={item.label} style={{ alignItems: "start", background: t.surface, border: `1px solid ${item.tone === "warn" ? t.warn : t.border}`, borderRadius: 8, display: "grid", gap: 8, gridTemplateColumns: "minmax(0, 0.72fr) minmax(0, 1.28fr)", minHeight: 70, padding: 10 }}>
+            <div key={item.label} style={{ alignItems: "start", background: t.surface, border: `1px solid ${item.tone === "warn" ? t.warn : t.border}`, borderRadius: 8, display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.72fr) minmax(0, 1.28fr)", minHeight: isMobile ? "auto" : 70, padding: 10 }}>
               <div style={{ display: "grid", gap: 6 }}>
                 <strong style={{ color: t.textStrong, fontSize: 12.2, lineHeight: 1.3 }}><ChemicalText value={text(lang, item.labelZh, item.label)} /></strong>
                 <BasisBadge tone={item.tone}>{item.status}</BasisBadge>
@@ -139,7 +139,7 @@ export function GasMechanismEvidencePanel({ selected, records = [], scenario = {
       </div>
 
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 12 }}>
-        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
+        <div style={{ alignItems: isMobile ? "flex-start" : "center", display: isMobile ? "grid" : "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "缺失数据的数据库补全队列", "Database backfill queue for missing evidence")}</strong>
           <BasisBadge tone={evidence.databaseGaps.length ? "warn" : "calc"}>
             {text(lang, `${evidence.databaseGaps.length} 个待查目标`, `${evidence.databaseGaps.length} lookup targets`)}

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 
 function renderValue(value) {
   if (value === null || value === undefined || value === "") return "pending"
@@ -15,7 +15,7 @@ export function ScreeningResultPanel({ result, lang, t, isMobile }) {
     <section data-testid="screening-result-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 12 }}>
       <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 15 }}>{text(lang, "本次筛选审计结果", "Screening Audit Result")}</strong>
-        <StatusPill tone={tone} t={t}>{text(lang, "仅限预览 · 非最终推荐", "preview only · not final recommendation")}</StatusPill>
+        <StatusBadge tone={tone} t={t}>{text(lang, "仅限预览 · 非最终推荐", "preview only · not final recommendation")}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))" }}>
@@ -80,7 +80,7 @@ function ResultInterpretation({ lang, t }) {
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {sections.map(section => (
           <article key={section.title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
-            <StatusPill tone={section.tone} t={t}>{section.title}</StatusPill>
+            <StatusBadge tone={section.tone} t={t}>{section.title}</StatusBadge>
             <ul style={{ color: t.muted, display: "grid", fontSize: 11.2, gap: 3, lineHeight: 1.42, margin: 0, paddingLeft: 16 }}>
               {section.items.map(item => <li key={item}><ChemicalText value={item} /></li>)}
             </ul>

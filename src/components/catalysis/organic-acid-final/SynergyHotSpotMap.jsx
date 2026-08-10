@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, StatusBadge, text } from "./FinalScreeningShared"
 import { roleColor } from "./HotSpotMapLegend"
 
 const plot = { left: 66, top: 30, width: 516, height: 300 }
@@ -113,8 +113,8 @@ export function SynergyHotSpotMap({ data = [], region = {}, lang, t }) {
       {/* Legend kept outside the plot area so it never covers data. */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {LEGEND_ROLES.map(([role, en, zh]) => (
-          <span key={role} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 6, lineHeight: 1.1, padding: "5px 8px" }}>
-            <span style={{ background: roleColor(role, null, t), borderRadius: 999, display: "inline-flex", height: 9, width: 9 }} />
+          <span key={role} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 6, lineHeight: 1.1, padding: "5px 8px" }}>
+            <span style={{ background: roleColor(role, null, t), borderRadius: 6, display: "inline-flex", height: 9, width: 9 }} />
             {text(lang, zh, en)}
           </span>
         ))}
@@ -126,7 +126,7 @@ export function SynergyHotSpotMap({ data = [], region = {}, lang, t }) {
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}><ChemicalText value={displayValue(active?.label)} /></strong>
-          <StatusPill tone={roleTone(active?.role)} t={t}>{active?.role || "pending"}</StatusPill>
+          <StatusBadge tone={roleTone(active?.role)} t={t}>{active?.role || "pending"}</StatusBadge>
         </div>
         <div style={{ color: t.muted, display: "grid", fontSize: 12, gap: 4, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", lineHeight: 1.45 }}>
           <span>{text(lang, "骨架稳健性", "Framework robustness")}: <strong style={{ color: t.textStrong }}>{formatScore(active?.frameworkRobustness)}</strong></span>

@@ -19,11 +19,11 @@ export function CandidateFlowDiagram({ flow = [], lang, t }) {
                 <strong style={{ color: t.textStrong, fontSize: 12 }}><ChemicalText value={text(lang, row.labelZh, row.label)} /></strong>
                 <span style={{ color: t.muted, fontSize: 11.5 }}>{`${row.inputCount} -> ${row.outputCount}`}</span>
               </div>
-              <div style={{ background: t.border, borderRadius: 999, height: 9, overflow: "hidden" }}>
-                <div style={{ background: t.accent, borderRadius: 999, height: "100%", width: `${inputWidth}%` }} />
+              <div style={{ background: t.border, borderRadius: 6, height: 9, overflow: "hidden" }}>
+                <div style={{ background: t.accent, borderRadius: 6, height: "100%", width: `${inputWidth}%` }} />
               </div>
-              <div style={{ background: t.border, borderRadius: 999, height: 7, overflow: "hidden" }}>
-                <div style={{ background: row.blockedCount ? t.warn : t.good || t.accent, borderRadius: 999, height: "100%", width: `${outputWidth}%` }} />
+              <div style={{ background: t.border, borderRadius: 6, height: 7, overflow: "hidden" }}>
+                <div style={{ background: row.blockedCount ? t.warn : t.good || t.accent, borderRadius: 6, height: "100%", width: `${outputWidth}%` }} />
               </div>
               {row.blockedCount ? <span style={{ color: t.warn, fontSize: 11.5 }}>{displayValue(row.blockedCount)} blocked / filtered at this step</span> : null}
             </div>

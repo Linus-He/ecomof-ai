@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { buildFeatureAblationAudit } from "../../utils/databaseIndex/featureAblationAudit"
 
 function overlapTone(value) {
@@ -26,7 +26,7 @@ export function FeatureAblationAuditPanel({ records = [], lang, t }) {
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "仅审计", "audit only")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "仅审计", "audit only")}</StatusBadge>
       </header>
 
       <div style={{ overflowX: "auto" }}>
@@ -42,7 +42,7 @@ export function FeatureAblationAuditPanel({ records = [], lang, t }) {
             {audit.variants.map(variant => (
               <tr key={variant.id}>
                 <td style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11.6, fontWeight: 700, padding: "7px 6px" }}>{text(lang, variant.labelZh, variant.label)}</td>
-                <td style={{ borderTop: `1px solid ${t.divider}`, padding: "7px 6px" }}><StatusPill tone={overlapTone(variant.topNOverlapWithBaseline)} t={t}>{Number(variant.topNOverlapWithBaseline).toFixed(2)}</StatusPill></td>
+                <td style={{ borderTop: `1px solid ${t.divider}`, padding: "7px 6px" }}><StatusBadge tone={overlapTone(variant.topNOverlapWithBaseline)} t={t}>{Number(variant.topNOverlapWithBaseline).toFixed(2)}</StatusBadge></td>
                 <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: "7px 6px" }}>{(variant.removedOrPenalized || []).slice(0, 4).join(", ") || "—"}</td>
               </tr>
             ))}

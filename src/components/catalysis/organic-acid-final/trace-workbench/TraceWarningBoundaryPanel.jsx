@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../FinalScreeningShared"
 
 export function TraceWarningBoundaryPanel({ warnings = [], warningsZh = [], boundaries = [], lang, t, isMobile }) {
   const displayWarnings = lang === "zh" && warningsZh?.length ? warningsZh : warnings
@@ -18,7 +18,7 @@ export function TraceWarningBoundaryPanel({ warnings = [], warningsZh = [], boun
           <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "Evidence boundaries", "Evidence boundaries")}</strong>
           {(boundaries || []).map(row => (
             <div key={row.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 4, paddingTop: 8 }}>
-              <StatusPill tone="warn" t={t}>{text(lang, row.labelZh, row.label)}</StatusPill>
+              <StatusBadge tone="warn" t={t}>{text(lang, row.labelZh, row.label)}</StatusBadge>
               <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}><ChemicalText value={text(lang, row.detailZh, row.detail)} /></span>
             </div>
           ))}

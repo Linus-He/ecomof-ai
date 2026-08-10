@@ -37,7 +37,7 @@ export function GuestScoreBreakdownChart({ models, model, summary, lang = "zh", 
                 const cell = asArray(entry.rows).find(row => row.fieldKey === key) || {}
                 return (
                   <div key={entry.candidateLabel} style={{ alignItems: "center", display: "grid", gap: 7, gridTemplateColumns: "minmax(0,1fr) 36px" }}>
-                    <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+                    <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 6, height: 7, overflow: "hidden" }}>
                       <span style={{ background: SERIES_TONES[index] || palette.accent, display: "block", height: "100%", width: pct(cell.normalizedValue) }} />
                     </span>
                     <span style={{ color: palette.muted, fontSize: 10, textAlign: "right" }}>{fmt(cell.normalizedValue, 2)}</span>

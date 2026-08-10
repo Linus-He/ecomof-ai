@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { formatPercent, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { formatPercent, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 const SEGMENTS = [
   ["rank1", "Rank 1", "第 1 名", "#1A6DB5"],
@@ -26,7 +26,7 @@ export function SensitivityRankDistribution({ bars, audit, lang, t }) {
       eyebrow={text(lang, "扰动排名分布", "Perturbed rank distribution")}
       title={text(lang, "敏感性排名分布", "Sensitivity Rank Distribution")}
       t={t}
-      actions={<StatusPill tone={auditRequired ? "warn" : "pass"} t={t}>{auditRequired ? text(lang, "稳健但需审计", "robust but audit-required") : text(lang, "排名分布", "rank distribution")}</StatusPill>}
+      actions={<StatusBadge tone={auditRequired ? "warn" : "pass"} t={t}>{auditRequired ? text(lang, "稳健但需审计", "robust but audit-required") : text(lang, "排名分布", "rank distribution")}</StatusBadge>}
     >
       {auditRequired ? (
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
@@ -43,7 +43,7 @@ export function SensitivityRankDistribution({ bars, audit, lang, t }) {
           <article key={row.metal} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 10 }}>
             <div style={{ alignItems: "center", display: "grid", gap: 8, gridTemplateColumns: "52px minmax(0, 1fr) 92px" }}>
               <strong style={{ color: t.textStrong, fontSize: 13 }}>{row.metal}</strong>
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, display: "flex", height: 26, minWidth: 0, overflow: "hidden" }}>
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, display: "flex", height: 26, minWidth: 0, overflow: "hidden" }}>
                 {SEGMENTS.map(([key, label, labelZh, color]) => {
                   const value = row.rankProbabilities?.[key] || 0
                   return value > 0 ? (
@@ -51,7 +51,7 @@ export function SensitivityRankDistribution({ bars, audit, lang, t }) {
                   ) : null
                 })}
               </div>
-              <StatusPill tone={toneFor(row)} t={t}>{lang === "zh" ? row.statusZh : row.status}</StatusPill>
+              <StatusBadge tone={toneFor(row)} t={t}>{lang === "zh" ? row.statusZh : row.status}</StatusBadge>
             </div>
             <div style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", lineHeight: 1.4 }}>
               <span>{text(lang, "第 1 名", "Rank 1")} {formatPercent(row.rankProbabilities?.rank1)}</span>

@@ -154,14 +154,14 @@ function openAlgorithmMethodology(anchor = "#project-evolution-organic-acid-algo
   window.location.hash = anchor
 }
 
-function ScorePill({ label, value, tone = palette.accent }) {
+function ScoreBadge({ label, value, tone = palette.accent }) {
   return (
     <div style={{ ...cardStyle({ padding: 10 }), gap: 7 }}>
       <div style={{ alignItems: "baseline", display: "flex", gap: 8, justifyContent: "space-between" }}>
         <span style={{ color: palette.faint, fontSize: 10.5, fontWeight: 850 }}>{label}</span>
         <NumericText style={{ color: palette.text, fontSize: 12, fontWeight: 900 }}>{fmt(value, 2)}</NumericText>
       </div>
-      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+      <div style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 6, height: 7, overflow: "hidden" }}>
         <span style={{ background: tone, display: "block", height: "100%", width: pct(value) }} />
       </div>
     </div>
@@ -195,9 +195,9 @@ function RecommendationCard({ workbench, lang, onOpenActivationCenter }) {
         </h2>
       </div>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <ScorePill label={`${text(lang, "路线最优主体", "Top route host")}: ${routeHost?.displayName || "pending"}`} value={routeHost?.hostScore} tone={palette.positive} />
-        <ScorePill label={`${text(lang, "路线客体 / 掺杂金属", "Route guest / dopant")}: ${routeGuest?.guestMetal || "pending"}`} value={routeGuest?.guestScore} />
-        <ScorePill label="Final HGCPS" value={topRoute?.finalHGCPS} tone={palette.mixed} />
+        <ScoreBadge label={`${text(lang, "路线最优主体", "Top route host")}: ${routeHost?.displayName || "pending"}`} value={routeHost?.hostScore} tone={palette.positive} />
+        <ScoreBadge label={`${text(lang, "路线客体 / 掺杂金属", "Route guest / dopant")}: ${routeGuest?.guestMetal || "pending"}`} value={routeGuest?.guestScore} />
+        <ScoreBadge label="Final HGCPS" value={topRoute?.finalHGCPS} tone={palette.mixed} />
       </div>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
         {[
@@ -427,8 +427,8 @@ function RouteExplanationPanel({ explanation, lang, onOpenActivationCenter, onVi
         ))}
       </div>
       <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
-        <ScorePill label="Complementarity" value={explanation.complementarityScore} />
-        <ScorePill label="Risk retention factor" value={explanation.riskPenalty} tone={palette.risk} />
+        <ScoreBadge label="Complementarity" value={explanation.complementarityScore} />
+        <ScoreBadge label="Risk retention factor" value={explanation.riskPenalty} tone={palette.risk} />
       </div>
       <div style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 11.8, lineHeight: 1.45, padding: 9 }}>
         {text(

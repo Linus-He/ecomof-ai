@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 function toneFor(status) {
   if (status === "completed") return "pass"
@@ -45,7 +45,7 @@ export function AlgorithmPipelineStepper({ steps, lang, t, isMobile }) {
       eyebrow={text(lang, "算法旅程", "Algorithm journey")}
       title={text(lang, "算法流程步进器", "Algorithm Pipeline Stepper")}
       t={t}
-      actions={<StatusPill tone="warn" t={t}>{text(lang, "稳健但仍需审计", "robust but audit-required visible")}</StatusPill>}
+      actions={<StatusBadge tone="warn" t={t}>{text(lang, "稳健但仍需审计", "robust but audit-required visible")}</StatusBadge>}
     >
       <div style={{
         display: isMobile ? "flex" : "grid",
@@ -78,7 +78,7 @@ export function AlgorithmPipelineStepper({ steps, lang, t, isMobile }) {
             >
               <span style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
                 <strong style={{ color: active ? t.accentText : t.textStrong, fontSize: 13 }}>{step.step}</strong>
-                <StatusPill tone={toneFor(step.status)} t={t}>{step.status}</StatusPill>
+                <StatusBadge tone={toneFor(step.status)} t={t}>{step.status}</StatusBadge>
               </span>
               <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.25 }}>
                 <ChemicalText value={lang === "zh" ? step.titleZh || step.title : step.title} />

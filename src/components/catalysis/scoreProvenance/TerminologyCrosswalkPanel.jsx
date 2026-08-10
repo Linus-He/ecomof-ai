@@ -23,7 +23,7 @@ export function TerminologyCrosswalkPanel({ model, lang = "zh", withTestId = tru
             <div key={term.acronym} style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 7, display: "grid", gap: 3, padding: 8 }}>
               <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
                 <strong style={{ color: palette.text, fontSize: 11.8 }}>{term.acronym}</strong>
-                <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 999, color, fontSize: 9, fontWeight: 900, padding: "2px 7px" }}>{text(lang, label[0], label[1])}</span>
+                <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 6, color, fontSize: 9, fontWeight: 900, padding: "2px 7px" }}>{text(lang, label[0], label[1])}</span>
                 <span style={{ color: palette.muted, fontSize: 10.5 }}>{text(lang, term.nameZh, term.nameEn)}</span>
               </div>
               <span style={{ color: palette.faint, fontSize: 10.5, lineHeight: 1.45 }}>{text(lang, term.noteZh, term.noteEn)}</span>

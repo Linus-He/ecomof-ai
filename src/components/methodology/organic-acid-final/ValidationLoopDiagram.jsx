@@ -62,7 +62,7 @@ export function ValidationLoopDiagram({ validation, lang, t }) {
         {controls.map((control, index) => (
           <article key={control.id} style={{ background: control.name.includes("Mo-anchored") ? t.badgeInfoBg : t.surface, border: `1px solid ${control.name.includes("Mo-anchored") ? t.accentText : t.border}`, borderRadius: 10, display: "grid", gap: 7, minHeight: 116, minWidth: 0, padding: 11 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
-              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "4px 7px" }}>{control.step}</span>
+              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "4px 7px" }}>{control.step}</span>
               <span aria-hidden style={{ color: t.faint, fontSize: 17 }}>{index === controls.length - 1 ? "↺" : "→"}</span>
             </div>
             <strong style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.25 }}><ChemicalText value={control.name} /></strong>
@@ -75,7 +75,7 @@ export function ValidationLoopDiagram({ validation, lang, t }) {
         <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "比较读数", "Compare readouts")}</strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
           {(lang === "zh" ? validation?.compareZh : validation?.compare || []).map(item => (
-            <span key={item} style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
+            <span key={item} style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
               <ChemicalText value={item} />
             </span>
           ))}

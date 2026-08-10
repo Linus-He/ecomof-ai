@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildDescriptorRedundancySummary } from "../../utils/databaseIndex/descriptorRedundancyGate"
 
@@ -33,7 +33,7 @@ export function DescriptorRedundancyPanel({ records = [], lang, t, isMobile }) {
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "审计用途", "audit only")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "审计用途", "audit only")}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
@@ -66,7 +66,7 @@ export function DescriptorRedundancyPanel({ records = [], lang, t, isMobile }) {
                   <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.6, padding: "7px 6px" }}>{pair.descriptorA}</td>
                   <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.6, padding: "7px 6px" }}>{pair.descriptorB}</td>
                   <td style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11.6, fontWeight: 850, padding: "7px 6px" }}>{pair.pearsonR}</td>
-                  <td style={{ borderTop: `1px solid ${t.divider}`, padding: "7px 6px" }}><StatusPill tone="warn" t={t}>{actionLabel("penalize", lang)}</StatusPill></td>
+                  <td style={{ borderTop: `1px solid ${t.divider}`, padding: "7px 6px" }}><StatusBadge tone="warn" t={t}>{actionLabel("penalize", lang)}</StatusBadge></td>
                 </tr>
               ))}
             </tbody>
@@ -78,7 +78,7 @@ export function DescriptorRedundancyPanel({ records = [], lang, t, isMobile }) {
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {summary.descriptors.filter(row => row.action !== "keep").slice(0, 8).map(row => (
-          <StatusPill key={row.descriptorKey} tone={actionTone(row.action)} t={t}>{`${row.descriptorKey}: ${actionLabel(row.action, lang)}`}</StatusPill>
+          <StatusBadge key={row.descriptorKey} tone={actionTone(row.action)} t={t}>{`${row.descriptorKey}: ${actionLabel(row.action, lang)}`}</StatusBadge>
         ))}
       </div>
 

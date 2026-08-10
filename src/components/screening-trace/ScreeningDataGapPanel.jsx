@@ -12,7 +12,7 @@ export function ScreeningDataGapPanel({ trace, lang, t, isMobile }) {
       {gaps.byField?.length ? (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {gaps.byField.map(f => (
-            <span key={f.field} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 10.8, fontWeight: 800, padding: "5px 8px" }}>{f.field}: {f.count}</span>
+            <span key={f.field} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, fontSize: 10.8, fontWeight: 800, padding: "5px 8px" }}>{f.field}: {f.count}</span>
           ))}
         </div>
       ) : null}

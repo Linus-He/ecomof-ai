@@ -51,7 +51,7 @@ export function RouteStructureEvidence({ route, lang = "zh", onViewHostStructure
         <span style={{
           background: pristineRoute ? palette.positiveSoft : palette.riskSoft,
           border: `1px solid ${pristineRoute ? palette.positive : palette.risk}`,
-          borderRadius: 999,
+          borderRadius: 6,
           color: pristineRoute ? palette.positive : palette.risk,
           fontSize: 9.7,
           fontWeight: 900,

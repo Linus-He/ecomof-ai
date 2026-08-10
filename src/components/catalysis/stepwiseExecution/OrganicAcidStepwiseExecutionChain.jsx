@@ -76,7 +76,7 @@ function buttonStyle(active = false, style = {}) {
   }
 }
 
-function Pill({ children, tone = "info" }) {
+function InlineBadge({ children, tone = "info" }) {
   const colors = tone === "risk"
     ? [palette.riskSoft, palette.risk, palette.risk]
     : tone === "good"
@@ -85,7 +85,7 @@ function Pill({ children, tone = "info" }) {
         ? [palette.bg, palette.borderStrong, palette.faint]
         : [palette.accentSoft, palette.accent, palette.accent]
   return (
-    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderLeftWidth: 3, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
+    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
       {children}
     </span>
   )
@@ -144,7 +144,7 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
         <div style={cardStyle({ alignContent: "center", background: palette.accentSoft, textAlign: "center" })}>
           <strong style={{ color: palette.accent, fontSize: 13.5 }}>{text(lang, model.algorithmLabelZh, model.algorithmLabelEn)}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5 }}>{text(lang, "目标产物", "Target product")}: {model.targetProduct}</span>
-          <div style={{ borderLeft: `3px solid ${palette.borderStrong}`, color: palette.muted, fontSize: 11.2, lineHeight: 1.45, paddingLeft: 9 }}>
+          <div style={{ border: `1px solid ${palette.borderStrong}`, borderRadius: 6, color: palette.muted, fontSize: 11.2, lineHeight: 1.45, padding: "7px 9px" }}>
             {readinessCopy(model.readinessLevel, lang)}
           </div>
         </div>
@@ -153,7 +153,7 @@ export function StepObjectiveInputOutputChart({ model, lang = "zh", withTestId =
           <span style={{ color: palette.accent, fontSize: 15, fontWeight: 950 }}>{model.outputRoute}</span>
           <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{model.outputRouteType}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {(lang === "zh" ? model.boundariesZh : model.boundariesEn).map(item => <Pill key={item} tone="risk">{item}</Pill>)}
+            {(lang === "zh" ? model.boundariesZh : model.boundariesEn).map(item => <InlineBadge key={item} tone="risk">{item}</InlineBadge>)}
           </div>
         </div>
       </div>
@@ -301,9 +301,9 @@ export function ValidationMatrixCoverageChart({ model, lang = "zh", withTestId =
         ))}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <Pill tone="good">{text(lang, "实验项", "experiments")}: {model.experimentCount}</Pill>
-        <Pill>{text(lang, "必填字段", "required fields")}: {model.requiredFieldCount}</Pill>
-            <Pill tone="risk">{readinessCopy(model.readinessLevel, lang)}</Pill>
+        <InlineBadge tone="good">{text(lang, "实验项", "experiments")}: {model.experimentCount}</InlineBadge>
+        <InlineBadge>{text(lang, "必填字段", "required fields")}: {model.requiredFieldCount}</InlineBadge>
+            <InlineBadge tone="risk">{readinessCopy(model.readinessLevel, lang)}</InlineBadge>
       </div>
     </div>
   )
@@ -330,7 +330,7 @@ export function StepMiniMap({ miniMap, lang = "zh", onSelectStep }) {
       <div style={{ display: "grid", gap: 6 }}>
         {asArray(miniMap.nodes).map(node => (
           <button key={node.id} type="button" onClick={() => onSelectStep?.(node.id)} style={{ ...buttonStyle(node.active), alignItems: "center", display: "grid", gridTemplateColumns: "38px minmax(0, 1fr)" }}>
-            <span style={{ borderLeft: `3px solid ${node.active ? palette.accent : palette.borderStrong}`, color: node.active ? palette.accent : palette.faint, display: "inline-flex", fontSize: 10, fontWeight: 950, paddingLeft: 6 }}>{`S${node.id.replace("step-", "")}`}</span>
+            <span style={{ color: node.active ? palette.accent : palette.faint, display: "inline-flex", fontSize: 10, fontWeight: 950 }}>{`S${node.id.replace("step-", "")}`}</span>
             <span>{node.label}</span>
           </button>
         ))}
@@ -479,7 +479,7 @@ export function ExecutionStepCard({ step, lang = "zh", selected, onSelectStep, o
 
 function WhyPanelGradeBadge({ grade, labelZh, labelEn, lang }) {
   const tone = GRADE_TONE[grade] || "info"
-  return <Pill tone={tone === "risk" ? "risk" : tone === "good" ? "good" : tone === "muted" ? "muted" : "info"}>{text(lang, labelZh, labelEn)}</Pill>
+  return <InlineBadge tone={tone === "risk" ? "risk" : tone === "good" ? "good" : tone === "muted" ? "muted" : "info"}>{text(lang, labelZh, labelEn)}</InlineBadge>
 }
 
 function WhyPanelMainChart({ stepId, step, enhanced, lang, onSelectComparison, onOpenActivationCenter, selectedFactorKey, onSelectFactor }) {
@@ -565,7 +565,7 @@ function PerFactorInterpretationTable({ rows, lang, selectedFactorKey = "", onSe
           <div style={{ alignItems: "baseline", display: "grid", gap: 8, gridTemplateColumns: "minmax(0,1fr) auto auto" }}>
             <strong style={{ color: palette.text, fontSize: 11.8 }}>{text(lang, row.labelZh, row.labelEn)}</strong>
             <NumericText style={{ color: palette.accent, fontSize: 11.8, fontWeight: 950 }}>{fmt(row.normalizedValue, 3)}</NumericText>
-            <Pill tone={row.levelKey === "low" ? "risk" : row.levelKey === "high" ? "good" : "info"}>{text(lang, row.levelTag, row.levelTagEn)}</Pill>
+            <InlineBadge tone={row.levelKey === "low" ? "risk" : row.levelKey === "high" ? "good" : "info"}>{text(lang, row.levelTag, row.levelTagEn)}</InlineBadge>
           </div>
           <span style={{ color: palette.muted, fontSize: 11.3, lineHeight: 1.5 }}>{text(lang, row.interpretationZh, row.interpretationEn)}</span>
           <span style={{ color: palette.faint, fontSize: 10.8 }}>{row.sourceField} · {row.dataGrade} · contribution {fmt(row.contribution, 4)}</span>
@@ -603,9 +603,9 @@ function FactorEvidenceList({ rows, lang }) {
       {items.slice(0, 12).map(row => (
         <div key={`${row.factorKey}-${row.evidenceId}`} style={cardStyle({ background: palette.surface, padding: 10 })}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            <Pill tone={row.factorKey === "route-level" ? "muted" : "info"}>{text(lang, row.factorLabelZh, row.factorLabelEn)}</Pill>
-            <Pill tone={row.sameCondition ? "good" : "risk"}>{row.sameCondition ? text(lang, "同条件", "same condition") : text(lang, "非同条件", "not same condition")}</Pill>
-            <Pill tone="muted">{row.directness}</Pill>
+            <InlineBadge tone={row.factorKey === "route-level" ? "muted" : "info"}>{text(lang, row.factorLabelZh, row.factorLabelEn)}</InlineBadge>
+            <InlineBadge tone={row.sameCondition ? "good" : "risk"}>{row.sameCondition ? text(lang, "同条件", "same condition") : text(lang, "非同条件", "not same condition")}</InlineBadge>
+            <InlineBadge tone="muted">{row.directness}</InlineBadge>
           </div>
           <strong style={{ color: palette.text, fontSize: 11.6 }}>{row.evidenceId}</strong>
           <span style={{ color: palette.muted, fontSize: 11.2, lineHeight: 1.45 }}>{row.supports}</span>
@@ -714,7 +714,7 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {badges.map(badge => <WhyPanelGradeBadge key={badge.grade} grade={badge.grade} labelZh={badge.labelZh} labelEn={badge.labelEn} lang={lang} />)}
-        {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
+        {boundaries.map(boundary => <InlineBadge key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</InlineBadge>)}
       </div>
 
       <WhyPanelMainChart stepId={stepId} step={step} enhanced={model} lang={lang} onSelectComparison={onSelectComparison} onOpenActivationCenter={onOpenActivationCenter} selectedFactorKey={selectedFactorKey} onSelectFactor={selectFactor} />
@@ -735,7 +735,7 @@ export function StepWhyPanel({ panel, step, enhanced, lang = "zh", embedded = fa
           <strong style={{ color: palette.text, fontSize: 12 }}>{text(lang, "一句话结论", "One-line conclusion")}</strong>
           <span style={{ color: palette.muted, fontSize: 11.8, lineHeight: 1.5 }}>{text(lang, model.conclusionZh, model.conclusionEn)}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {boundaries.map(boundary => <Pill key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</Pill>)}
+            {boundaries.map(boundary => <InlineBadge key={boundary.id || boundary.zh} tone="risk">{text(lang, boundary.zh, boundary.en)}</InlineBadge>)}
           </div>
         </div>
         )}
@@ -866,8 +866,8 @@ export function OrganicAcidStepwiseExecutionChain({
         title={text(lang, chain.titleZh, chain.titleEn)}
         note={text(lang, chain.subtitleZh, chain.subtitleEn)}
       />
-      <div style={{ borderLeft: `3px solid ${palette.risk}`, display: "grid", gap: 5, paddingLeft: 10 }}>
-        {chain.boundaries.map(boundary => <Pill key={boundary} tone="risk">{boundary}</Pill>)}
+      <div style={{ border: `1px solid ${palette.risk}`, borderRadius: 7, display: "grid", gap: 5, padding: 10 }}>
+        {chain.boundaries.map(boundary => <InlineBadge key={boundary} tone="risk">{boundary}</InlineBadge>)}
         <span style={{ color: palette.positive, fontSize: 11.5, fontWeight: 900 }}>{text(lang, "当前输出可用于安排验证实验", "The current output can be used to plan validation experiments")}</span>
       </div>
       {(() => {

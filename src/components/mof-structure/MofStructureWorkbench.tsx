@@ -271,9 +271,9 @@ function SourceRow({ label, children, wide = false }) {
   )
 }
 
-function CompactPill({ tone = "neutral", icon: Icon, children }) {
+function CompactBadge({ tone = "neutral", icon: Icon, children }) {
   return (
-    <span className={`mof-structure-pill mof-structure-pill--${tone}`}>
+    <span className={`mof-structure-badge mof-structure-badge--${tone}`}>
       {Icon ? <Icon aria-hidden="true" size={14} weight="bold" /> : null}
       {children}
     </span>
@@ -913,13 +913,13 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
           </p>
         </div>
         <div className="mof-structure-header-actions">
-          <CompactPill tone={publicCatalogReady || fileMeta ? "good" : "warn"} icon={publicCatalogReady || fileMeta ? CheckCircle : ShieldCheck}>
+          <CompactBadge tone={publicCatalogReady || fileMeta ? "good" : "warn"} icon={publicCatalogReady || fileMeta ? CheckCircle : ShieldCheck}>
             {fileMeta?.sourceType === "user-local"
               ? text(lang, "仅本地会话", "Local session only")
               : publicCatalogReady
                 ? text(lang, `${publicRecordCount.toLocaleString()} 条 CSD 结构记录`, `${publicRecordCount.toLocaleString()} CSD structure records`)
                 : text(lang, `CSD 试点 ${readyPilotCount}/${pilotRecords.length || 10}`, `CSD pilot ${readyPilotCount}/${pilotRecords.length || 10}`)}
-          </CompactPill>
+          </CompactBadge>
           <input ref={inputRef} className="mof-structure-file-input" data-testid="mof-structure-file-input" type="file" accept=".cif,text/plain,chemical/x-cif" onChange={handleFile} />
           <button className="mof-structure-primary-button" data-testid="mof-structure-upload-button" type="button" onClick={() => inputRef.current?.click()}>
             <UploadSimple aria-hidden="true" size={17} weight="bold" />
@@ -1481,11 +1481,11 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             {viewerStatus === "ready" ? (
               <>
                 <div className="mof-structure-stats" aria-label={text(lang, "结构统计", "Structure statistics")}>
-                  <CompactPill icon={Atom}>{stats.atomCount} {text(lang, "原子", "atoms")}</CompactPill>
-                  <CompactPill icon={Stack}>{stats.metalCount} {text(lang, "金属中心", "metal centers")}</CompactPill>
-                  <CompactPill tone={stats.polyhedraCount ? "good" : "warn"} icon={CubeTransparent}>
+                  <CompactBadge icon={Atom}>{stats.atomCount} {text(lang, "原子", "atoms")}</CompactBadge>
+                  <CompactBadge icon={Stack}>{stats.metalCount} {text(lang, "金属中心", "metal centers")}</CompactBadge>
+                  <CompactBadge tone={stats.polyhedraCount ? "good" : "warn"} icon={CubeTransparent}>
                     {stats.polyhedraCount} {text(lang, "多面体", "polyhedra")}
-                  </CompactPill>
+                  </CompactBadge>
                 </div>
                 <div className="mof-structure-toolbar" role="toolbar" aria-label={text(lang, "结构查看工具", "Structure viewer tools")}>
                   <button type="button" onClick={handleReset} title={text(lang, "重置视角", "Reset view")}>

@@ -49,7 +49,7 @@ export function ValidationReadinessDonut({ model, lang = "zh", withTestId = true
           <strong style={{ color: palette.risk, fontSize: 17 }}>{counts.pending}</strong>
         </div>
       </div>
-      <p style={{ borderLeft: `3px solid ${palette.risk}`, color: palette.muted, fontSize: 10.8, lineHeight: 1.5, margin: 0, paddingLeft: 9 }}>
+      <p style={{ border: `1px solid ${palette.risk}`, borderRadius: 6, color: palette.muted, fontSize: 10.8, lineHeight: 1.5, margin: 0, padding: "7px 9px" }}>
         {readinessCopy(model, lang)}
       </p>
     </div>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
 import { AlgorithmTraceDrawer } from "./AlgorithmTraceDrawer"
 
 const PROVENANCE_KEYS = [
@@ -108,7 +108,7 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
             <strong style={{ color: t.textStrong, fontSize: 14 }}>
               <ChemicalText value={`Mo rank #${moRecommendation.rank}: ${moRecommendation.mostLikelyForm}`} />
             </strong>
-            <StatusPill tone={statusTone(moRecommendation.sensitivityStatus)} t={t}>{moRecommendation.sensitivityStatus}</StatusPill>
+            <StatusBadge tone={statusTone(moRecommendation.sensitivityStatus)} t={t}>{moRecommendation.sensitivityStatus}</StatusBadge>
           </div>
           <span style={{ color: t.muted, fontSize: 12.4, lineHeight: 1.5 }}>
             <ChemicalText value={text(
@@ -146,17 +146,17 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>{row.rank}</td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                     <ValueWithSource record={record} field="metal" label={text(lang, "金属", "Metal")} value={row.metal} lang={lang} t={t} />
-                    {isBaseline ? <StatusPill tone="warn" t={t}>blind baseline</StatusPill> : null}
+                    {isBaseline ? <StatusBadge tone="warn" t={t}>blind baseline</StatusBadge> : null}
                     {row.metal === "Mo" && algorithmTrace ? <div style={{ marginTop: 6 }}><AlgorithmTraceDrawer trace={algorithmTrace} lang={lang} t={t} compact /></div> : null}
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "9px 8px" }}>
-                    <StatusPill tone={roleTone(row)} t={t}>{roleForMetal(row, lang)}</StatusPill>
+                    <StatusBadge tone={roleTone(row)} t={t}>{roleForMetal(row, lang)}</StatusBadge>
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                     <ValueWithSource record={record} field="DMRS" label="DMRS" value={formatScore(row.dmrs)} lang={lang} t={t} />
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "9px 8px" }}>
-                    <StatusPill tone={row.dataStatus?.tone || "warn"} t={t}>{row.dataStatus?.label || "Pending"}</StatusPill>
+                    <StatusBadge tone={row.dataStatus?.tone || "warn"} t={t}>{row.dataStatus?.label || "Pending"}</StatusBadge>
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.4, padding: "9px 8px" }}>
                     <ChemicalText value={provenance.basis} />
@@ -177,7 +177,7 @@ export function DopantMetalRecommendationMatrix({ metals, moRecommendation, sele
                     <ValueWithSource record={record} field={row.mainRisk} label={text(lang, "主要风险", "Main risk")} value={row.mainRisk} lang={lang} t={t} />
                   </td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "9px 8px" }}>
-                    <StatusPill tone={row.sensitivity?.robust ? "pass" : "warn"} t={t}>{sensitivityLabel(row, lang)}</StatusPill>
+                    <StatusBadge tone={row.sensitivity?.robust ? "pass" : "warn"} t={t}>{sensitivityLabel(row, lang)}</StatusBadge>
                   </td>
                 </tr>
               )

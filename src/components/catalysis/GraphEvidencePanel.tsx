@@ -24,11 +24,11 @@ export function GraphEvidencePanel({ selectedNode, selectedEdge, selectedPathway
     <section style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 12, display: "grid", gap: 10, padding: 12 }}>
       <strong style={{ color: palette.text, fontSize: 13 }}>{text(lang, "证据与验证状态", "Evidence & validation status")}</strong>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <span style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.accent, fontSize: 11.5, fontWeight: 850, padding: "5px 8px" }}>
+        <span style={{ background: palette.accentSoft, border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.accent, fontSize: 11.5, fontWeight: 850, padding: "5px 8px" }}>
           {evidenceLabel(level, lang)}
         </span>
         {evidence.map(item => (
-          <span key={item} style={{ background: "#fff", border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontSize: 11.5, padding: "5px 8px" }}>
+          <span key={item} style={{ background: "#fff", border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.muted, fontSize: 11.5, padding: "5px 8px" }}>
             {item}
           </span>
         ))}

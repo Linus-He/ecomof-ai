@@ -54,7 +54,7 @@ export function CandidatePriorityList({ candidates, selectedCandidateId, onSelec
             <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.45 }}>
               {zh ? "规则匹配" : "Matched rules"} {matchedRules}/{(candidate.rules || []).length || 0} · {zh ? "证据就绪" : "readiness"} {pct(candidate.evidenceReadiness)}
             </div>
-            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 6, overflow: "hidden" }}>
+            <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 6, overflow: "hidden" }}>
               <div style={{ background: statusColor(matchedRules ? "matched" : "missing", t), height: "100%", width: pct(candidate.priorityScore) }} />
             </div>
             <div style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>

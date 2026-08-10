@@ -62,7 +62,7 @@ export function CandidatePriorityMatrix({ rows, selectedCandidateId, onSelectCan
           <rect x={layout.left} y={layout.top} width={layout.width / 2} height={layout.height / 2} fill="#F7FBFF" />
           <rect x={midX} y={layout.top} width={layout.width / 2} height={layout.height / 2} fill="#F2FBF6" />
           <rect x={layout.left} y={midY} width={layout.width / 2} height={layout.height / 2} fill="#FAFBFD" />
-          <rect x={midX} y={midY} width={layout.width / 2} height={layout.height / 2} fill="#FFF7ED" />
+          <rect x={midX} y={midY} width={layout.width / 2} height={layout.height / 2} fill="#F1F5F9" />
           <rect x={layout.left} y={layout.top} width={layout.width} height={layout.height} rx="10" fill="none" stroke={palette.border} />
           <line x1={midX} y1={layout.top} x2={midX} y2={layout.top + layout.height} stroke="#CBD5E1" strokeDasharray="5 6" />
           <line x1={layout.left} y1={midY} x2={layout.left + layout.width} y2={midY} stroke="#CBD5E1" strokeDasharray="5 6" />

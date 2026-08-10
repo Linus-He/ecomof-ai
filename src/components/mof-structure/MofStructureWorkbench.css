@@ -335,7 +335,7 @@
 .mof-structure-material-meta span {
   background: var(--mof-sw-accent-soft);
   border: 1px solid color-mix(in srgb, var(--mof-sw-accent) 22%, var(--mof-sw-border));
-  border-radius: 999px;
+  border-radius: 6px;
   color: var(--mof-sw-accent-text);
   font-size: 9px;
   font-weight: 850;
@@ -446,7 +446,7 @@
 
 .mof-structure-sidebar-resizer::after {
   background: var(--mof-sw-border-strong);
-  border-radius: 999px;
+  border-radius: 6px;
   content: "";
   height: 52px;
   left: 3px;
@@ -486,7 +486,7 @@
 
 .mof-structure-method-card {
   background: var(--mof-sw-bg);
-  border-left: 3px solid var(--mof-sw-accent);
+  border: 1px solid color-mix(in srgb, var(--mof-sw-accent) 32%, var(--mof-sw-border));
   border-radius: 8px;
   display: grid;
   gap: 7px;
@@ -602,7 +602,7 @@
 
 .mof-structure-depth-control input::-webkit-slider-runnable-track {
   background: var(--mof-sw-border-strong);
-  border-radius: 999px;
+  border-radius: 6px;
   height: 4px;
 }
 
@@ -620,7 +620,7 @@
 
 .mof-structure-depth-control input::-moz-range-track {
   background: var(--mof-sw-border-strong);
-  border-radius: 999px;
+  border-radius: 6px;
   height: 4px;
 }
 
@@ -747,11 +747,11 @@
   z-index: 2;
 }
 
-.mof-structure-pill {
+.mof-structure-badge {
   align-items: center;
   background: color-mix(in srgb, var(--mof-sw-bg) 92%, transparent);
   border: 1px solid var(--mof-sw-border);
-  border-radius: 999px;
+  border-radius: 6px;
   color: var(--mof-sw-muted);
   display: inline-flex;
   font-size: 10.5px;
@@ -762,12 +762,12 @@
   padding: 5px 8px;
 }
 
-.mof-structure-pill--good {
+.mof-structure-badge--good {
   border-color: color-mix(in srgb, var(--mof-sw-success) 45%, var(--mof-sw-border));
   color: var(--mof-sw-success);
 }
 
-.mof-structure-pill--warn {
+.mof-structure-badge--warn {
   border-color: color-mix(in srgb, var(--mof-sw-warn) 45%, var(--mof-sw-border));
   color: var(--mof-sw-warn);
 }

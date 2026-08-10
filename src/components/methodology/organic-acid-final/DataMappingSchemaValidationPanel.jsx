@@ -26,12 +26,12 @@ function JsonPreview({ title, value, t }) {
   )
 }
 
-function StatusPill({ children, status, t }) {
+function StatusBadge({ children, status, t }) {
   const value = String(status || "pending")
   const color = value === "pass" || value === "valid" ? (t.good || t.accentText) : value === "blocked" ? (t.danger || t.warn) : t.warn
   const bg = value === "pass" || value === "valid" ? (t.badgeGoodBg || t.badgeInfoBg) : t.badgeWarnBg
   return (
-    <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 999, color, display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "5px 8px", textTransform: "uppercase" }}>
+    <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 6, color, display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "5px 8px", textTransform: "uppercase" }}>
       <ChemicalText value={children} />
     </span>
   )
@@ -79,7 +79,7 @@ export function DataMappingSchemaValidationPanel({ lang, t }) {
             key={row.id}
             type="button"
             onClick={() => setActiveId(row.id)}
-            style={{ background: row.id === active.id ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === active.id ? t.accentText : t.border}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "7px 10px" }}
+            style={{ background: row.id === active.id ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === active.id ? t.accentText : t.border}`, borderRadius: 6, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "7px 10px" }}
           >
             <ChemicalText value={text(lang, row.titleZh, row.title)} />
           </button>
@@ -90,8 +90,8 @@ export function DataMappingSchemaValidationPanel({ lang, t }) {
         <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 15 }}><ChemicalText value={text(lang, active.titleZh, active.title)} /></strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            <StatusPill status={active.validation.valid ? "valid" : "blocked"} t={t}>{active.validation.valid ? "valid schema" : "blocked schema"}</StatusPill>
-            <StatusPill status={active.qualityGate.status} t={t}>{active.qualityGate.status}</StatusPill>
+            <StatusBadge status={active.validation.valid ? "valid" : "blocked"} t={t}>{active.validation.valid ? "valid schema" : "blocked schema"}</StatusBadge>
+            <StatusBadge status={active.qualityGate.status} t={t}>{active.qualityGate.status}</StatusBadge>
           </div>
         </header>
         <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>

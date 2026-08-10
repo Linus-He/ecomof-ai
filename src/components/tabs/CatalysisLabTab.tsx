@@ -11,6 +11,7 @@ import { ModulePageHeader } from "../module/ModuleTop"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
+import { CatalysisReactionRecordWorkbench } from "../catalysis/CatalysisReactionRecordWorkbench"
 
 const ORGANIC_ACID_WORKSPACE_HASHES = new Set([
   "catalysis-organic-acid",
@@ -176,8 +177,8 @@ export function CatalysisLabTab() {
       <ModulePageHeader
         title={zh ? "催化" : "Catalysis"}
         subtitle={zh
-          ? "查看有机酸转化专题、候选排序、研究验证中心，以及 CO₂ 转化等方向的早期验证优先级。"
-          : "Explore the organic-acid conversion workspaces, candidate prioritization, research validation center, and early validation priorities for CO₂ conversion routes."}
+          ? "查看 DOI 核验反应记录、实验条件与活性相证据，以及有机酸转化专题、候选排序和研究验证中心。"
+          : "Explore DOI-verified reaction records, operating conditions, active-phase evidence, organic-acid workspaces, candidate prioritization, and research validation."}
         action={<CopyLinkButton hash="catalysis" ariaLabel={zh ? "复制催化链接" : "Copy Catalysis link"} />}
       />
 
@@ -192,18 +193,20 @@ export function CatalysisLabTab() {
         <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</h3>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
           {zh
-            ? "催化模块围绕有机酸反应路径组织项目入口、候选排序、研究验证中心、证据矩阵、知识图谱和验证计划，并与方法论相互链接。"
-            : "Catalysis focuses on organic-acid pathway research: project entry, candidate prioritization, the research validation center, evidence matrix, knowledge graph, and validation roadmap, linked to Methodology."}
+            ? "催化模块以 DOI 核验反应记录为通用数据底层，组织条件覆盖、活性相证据、来源报道性能与字段级溯源；有机酸项目保持独立工作台，并与方法论相互链接。"
+            : "Catalysis uses DOI-verified reaction records as a reusable data layer for condition coverage, active-phase evidence, source-reported metrics, and field-level provenance. Organic Acid remains an independent workspace linked to Methodology."}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {(zh
-            ? ["有机酸项目入口", "候选排序", "研究验证中心", "证据矩阵", "知识图谱", "验证计划"]
-            : ["Organic Acid Project Entry", "Candidate Prioritization", "Research Validation Center", "Evidence Matrix", "Knowledge Graph", "Validation Plan"]
+            ? ["DOI 反应记录", "条件覆盖矩阵", "活性相证据", "字段级溯源", "有机酸项目入口", "研究验证中心"]
+            : ["DOI Reaction Records", "Condition Matrix", "Active-phase Evidence", "Field Provenance", "Organic Acid Entry", "Research Validation Center"]
           ).map(label => (
-            <span key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 10.6, fontWeight: 700, padding: "3px 9px" }}>{label}</span>
+            <span key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, fontSize: 10.6, fontWeight: 700, padding: "3px 9px" }}>{label}</span>
           ))}
         </div>
       </section>
+
+      <CatalysisReactionRecordWorkbench lang={lang} t={t} isMobile={isMobile} />
 
       <OrganicAcidEntryCard
         t={t}

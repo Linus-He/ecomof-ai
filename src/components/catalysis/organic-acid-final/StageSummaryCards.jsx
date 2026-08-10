@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, text } from "./FinalScreeningShared"
 import { AlgorithmTraceDrawer } from "./AlgorithmTraceDrawer"
 
 function Row({ label, value, t }) {
@@ -29,7 +29,7 @@ export function StageSummaryCards({ summary, trace, lang, t, isMobile, onOpenSel
             <strong style={{ color: t.textStrong, fontSize: 15, lineHeight: 1.25 }}>
               <ChemicalText value={lang === "zh" ? stage1.titleZh || stage1.title : stage1.title} />
             </strong>
-            <StatusPill tone="warn" t={t}>{lang === "zh" ? stage1.statusZh || stage1.status : stage1.status}</StatusPill>
+            <StatusBadge tone="warn" t={t}>{lang === "zh" ? stage1.statusZh || stage1.status : stage1.status}</StatusBadge>
           </header>
           <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
             <Row label={text(lang, "输入", "Input")} value={lang === "zh" ? stage1.inputZh : stage1.input} t={t} />
@@ -52,7 +52,7 @@ export function StageSummaryCards({ summary, trace, lang, t, isMobile, onOpenSel
             <strong style={{ color: t.textStrong, fontSize: 15, lineHeight: 1.25 }}>
               <ChemicalText value={lang === "zh" ? stage2.titleZh || stage2.title : stage2.title} />
             </strong>
-            <StatusPill tone="warn" t={t}>{lang === "zh" ? stage2.statusZh || stage2.status : stage2.status}</StatusPill>
+            <StatusBadge tone="warn" t={t}>{lang === "zh" ? stage2.statusZh || stage2.status : stage2.status}</StatusBadge>
           </header>
           <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
             <Row label={text(lang, "输入", "Input")} value={lang === "zh" ? stage2.inputZh : stage2.input} t={t} />

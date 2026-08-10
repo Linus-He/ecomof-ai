@@ -194,7 +194,7 @@ export function PhysicochemicalPropertyModal({ open, onClose, record }) {
             )}
           </section>
 
-          <footer style={{ background: t.surface, borderLeft: `3px solid ${t.warn}`, color: t.muted, fontSize: 10.7, lineHeight: 1.65, padding: "10px 12px" }}>
+          <footer style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.muted, fontSize: 10.7, lineHeight: 1.65, padding: "10px 12px" }}>
             <strong style={{ color: t.textStrong }}>{text(lang, "使用边界：", "Use boundary: ")}</strong>
             {text(
               lang,

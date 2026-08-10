@@ -126,7 +126,7 @@ export function GasMetricHeatmap({
         )}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
-        {GAS_METRICS.map(metric => <span key={metric.key} style={{ alignItems: "center", color: t.subtle, display: "inline-flex", fontSize: 10.5, gap: 5 }}><i style={{ background: CONTRIBUTION_COLORS[metric.scoreKey], borderRadius: 999, height: 8, width: 8 }} />{text(lang, metric.labelZh, metric.label)}</span>)}
+        {GAS_METRICS.map(metric => <span key={metric.key} style={{ alignItems: "center", color: t.subtle, display: "inline-flex", fontSize: 10.5, gap: 5 }}><i style={{ background: CONTRIBUTION_COLORS[metric.scoreKey], borderRadius: 6, height: 8, width: 8 }} />{text(lang, metric.labelZh, metric.label)}</span>)}
       </div>
     </section>
   )

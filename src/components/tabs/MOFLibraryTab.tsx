@@ -326,10 +326,10 @@ function summarizeRecords(records) {
   }
 }
 
-function StatusPill({ children, tone = "neutral", t }) {
+function StatusBadge({ children, tone = "neutral", t }) {
   const map = {
     good: { bg: t.successSoft || t.accentSoft, fg: t.successText || t.accentText, border: t.success || t.accent },
-    warn: { bg: t.warnSoft || "rgba(245,158,11,0.12)", fg: t.warn || "#b45309", border: t.warn || "#d97706" },
+    warn: { bg: t.warnSoft || "rgba(148,163,184,0.12)", fg: t.warn || "#b45309", border: t.warn || "#d97706" },
     neutral: { bg: t.surface, fg: t.subtle, border: t.border },
     source: { bg: t.accentSoft, fg: t.accentText, border: t.accent },
   }
@@ -339,7 +339,7 @@ function StatusPill({ children, tone = "neutral", t }) {
       alignItems: "center",
       background: toneStyle.bg,
       border: `1px solid ${toneStyle.border}`,
-      borderRadius: 999,
+      borderRadius: 6,
       color: toneStyle.fg,
       display: "inline-flex",
       fontSize: 10.5,
@@ -500,7 +500,7 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
         <label style={{ display: "grid", gap: 6, maxWidth: 980, minWidth: 0, width: "100%" }}>
           <span style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
             <span style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>{text(lang, "物化性质查询", "Physicochemical property search")}</span>
-            <StatusPill t={t} tone="source">{rows.length.toLocaleString()} {text(lang, "条性质记录", "property records")} · {anatomyRecords.length.toLocaleString()} {text(lang, "条身份文献", "identity records")}</StatusPill>
+            <StatusBadge t={t} tone="source">{rows.length.toLocaleString()} {text(lang, "条性质记录", "property records")} · {anatomyRecords.length.toLocaleString()} {text(lang, "条身份文献", "identity records")}</StatusBadge>
           </span>
           <div data-testid="mof-property-search-field" style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 7, boxShadow: "none", display: "flex", gap: 8, minWidth: 0, padding: "0 10px" }}>
             <MagnifyingGlass aria-hidden="true" color={t.faint} size={17} weight="bold" />
@@ -542,9 +542,9 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
                     : `${entry.identity?.mofClass || "MOF"} · DOI ${entry.identity?.associatedPaper?.doi || text(lang, "待登记", "pending")}`}
                 </span>
               </span>
-              <StatusPill t={t} tone={entry.localRecord ? "good" : "warn"}>
+              <StatusBadge t={t} tone={entry.localRecord ? "good" : "warn"}>
                 {entry.localRecord ? text(lang, "有本地性质记录", "Local properties") : text(lang, "仅身份与文献", "Identity + paper only")}
-              </StatusPill>
+              </StatusBadge>
             </button>
           )) : (
             <div style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.65, padding: "12px 14px" }}>
@@ -557,10 +557,10 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
         <div style={{ display: "grid", gap: 10 }}>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
             <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{selected.label}</strong>
-            <StatusPill t={t} tone={record?.fairMofsCrossValidation ? "good" : record ? "neutral" : "warn"}>
+            <StatusBadge t={t} tone={record?.fairMofsCrossValidation ? "good" : record ? "neutral" : "warn"}>
               <ShieldCheck aria-hidden="true" size={13} weight="bold" />
               {record?.fairMofsCrossValidation ? text(lang, "FAIR‑MOFs 精确交叉记录", "Exact FAIR-MOFs cross-record") : record ? text(lang, "CoRE 主性质层", "CoRE primary layer") : text(lang, "无可授权本地性质记录", "No licensed local property record")}
-            </StatusPill>
+            </StatusBadge>
           </div>
           {record ? (
             <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(6, minmax(0, 1fr))" }}>
@@ -569,7 +569,7 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
               ))}
             </div>
           ) : (
-            <div style={{ background: t.warnSoft || t.surface, border: `1px solid ${t.warn || t.border}`, borderLeft: `3px solid ${t.warn}`, borderRadius: 8, display: "grid", gap: 10, padding: "12px 14px" }}>
+            <div style={{ background: t.surface, border: `1px solid ${t.warn || t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: "12px 14px" }}>
               <div style={{ alignItems: "flex-start", display: "flex", gap: 8 }}>
                 <WarningCircle aria-hidden="true" color={t.warn} size={18} weight="duotone" />
                 <span style={{ color: t.textStrong, fontSize: 11.4, lineHeight: 1.65 }}>
@@ -645,7 +645,7 @@ function OpenMofSeedQualitySummary({ records, lang, t, isMobile }) {
             {text(lang, "统计结果来自当前加载的 9,835 条真实 CSD-modified CR 记录。", "Statistics are computed from the 9,835 active real CSD-modified CR records.")}
           </div>
         </div>
-        <StatusPill t={t} tone="source">core_mof_2024/cr_search_index.json</StatusPill>
+        <StatusBadge t={t} tone="source">core_mof_2024/cr_search_index.json</StatusBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 10 }}>
         <div style={groupCardStyle}>
@@ -824,19 +824,19 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
               {text(lang, "原始记录", "Record ID")}: <span style={{ fontFamily: FONT_SANS }}>{item.sourceRecordId}</span>
             </div>
           </div>
-          <StatusPill t={t} tone="source">{db}</StatusPill>
+          <StatusBadge t={t} tone="source">{db}</StatusBadge>
         </div>
         <div style={{ color: t.subtle, fontSize: 11.5, fontWeight: 760, lineHeight: 1.4, overflowWrap: "anywhere" }}>{versionLicense}</div>
         <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-          <StatusPill t={t} tone={item.displayNameType === "recognized_mof_name" ? "good" : "neutral"}>
+          <StatusBadge t={t} tone={item.displayNameType === "recognized_mof_name" ? "good" : "neutral"}>
             {text(lang, "名称状态：", "Name status: ")}{nameStatusLabel(item, lang)}
-          </StatusPill>
-          <StatusPill t={t} tone={String(item.curationStatus).toLowerCase() === "curated" ? "good" : "warn"}>
+          </StatusBadge>
+          <StatusBadge t={t} tone={String(item.curationStatus).toLowerCase() === "curated" ? "good" : "warn"}>
             Data Status: {normalizeStatus(item.curationStatus, lang)}
-          </StatusPill>
-          <StatusPill t={t} tone={completeness.curatedCount === completeness.descriptorCount ? "good" : "neutral"}>
+          </StatusBadge>
+          <StatusBadge t={t} tone={completeness.curatedCount === completeness.descriptorCount ? "good" : "neutral"}>
             {completeness.curatedCount}/{completeness.descriptorCount} descriptors curated
-          </StatusPill>
+          </StatusBadge>
         </div>
       </div>
 
@@ -855,11 +855,11 @@ function OpenMofSeedCard({ item, expanded, onToggle, lang, t, isMobile }) {
       </div>
 
       <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-        <StatusPill t={t} tone={geometryCurated ? "good" : "neutral"}>
+        <StatusBadge t={t} tone={geometryCurated ? "good" : "neutral"}>
           {geometryCurated ? text(lang, "几何描述符已接入", "Geometry curated") : text(lang, "几何描述符待整理", "Geometry pending")}
-        </StatusPill>
-        {electronicAvailable && <StatusPill t={t} tone="good">{text(lang, "电子描述符可用", "Electronic descriptor available")}</StatusPill>}
-        <StatusPill t={t} tone="warn">{text(lang, "有机酸 pending", "Organic acid pending")}</StatusPill>
+        </StatusBadge>
+        {electronicAvailable && <StatusBadge t={t} tone="good">{text(lang, "电子描述符可用", "Electronic descriptor available")}</StatusBadge>}
+        <StatusBadge t={t} tone="warn">{text(lang, "有机酸 pending", "Organic acid pending")}</StatusBadge>
       </div>
 
       <button
@@ -979,7 +979,7 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
             return (
               <div key={row.key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, display: "flex", justifyContent: "space-between", gap: 8, minWidth: 0, padding: "8px 9px" }}>
                 <span style={{ color: t.subtle, fontSize: 10.5, fontWeight: 850, overflowWrap: "anywhere" }}>{lang === "zh" ? row.labelZh : row.label}</span>
-                <StatusPill t={t} tone={tone}>{normalizeStatus(row.status, lang)}</StatusPill>
+                <StatusBadge t={t} tone={tone}>{normalizeStatus(row.status, lang)}</StatusBadge>
               </div>
             )
           })}
@@ -1126,7 +1126,7 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
             {text(lang, "身份层关联结构、气体吸附和催化记录。无法确认的名称保留为仅气体记录或仅结构记录，不建立推测性连接。", "Browse and search any MOF's connected profile — structure + gas + catalysis — through the identity layer. Unconfirmed names stay gas-only or structure-only instead of being forced together.")}
           </div>
         </div>
-        <StatusPill t={t} tone="source">{summary.filtered} / {summary.total}</StatusPill>
+        <StatusBadge t={t} tone="source">{summary.filtered} / {summary.total}</StatusBadge>
       </div>
       <div data-testid="unified-mof-coverage" style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontSize: 12, fontWeight: 760, lineHeight: 1.6, padding: "9px 11px" }}>
         {text(
@@ -1252,7 +1252,7 @@ function CompletenessDots({ completeness, lang, t }) {
         <span
           key={dot.key}
           title={`${text(lang, dot.zh, dot.en)} ${dot.on ? "✓" : "—"}`}
-          style={{ background: dot.on ? (t.success || t.accent) : t.border, borderRadius: 999, display: "inline-block", height: 9, width: 9 }}
+          style={{ background: dot.on ? (t.success || t.accent) : t.border, borderRadius: 6, display: "inline-block", height: 9, width: 9 }}
         />
       ))}
     </span>
@@ -1280,9 +1280,9 @@ function UnifiedDetail({ row, lang, t, isMobile }) {
           <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, marginTop: 3 }}>{row.canonicalId}</div>
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          <StatusPill t={t} tone={row.completeness?.structure ? "good" : "neutral"}>{text(lang, "结构", "structure")} {row.completeness?.structure ? "✓" : text(lang, "无", "none")}</StatusPill>
-          <StatusPill t={t} tone={row.completeness?.gas ? "good" : "neutral"}>{text(lang, "气体", "gas")} {row.completeness?.gas ? "✓" : text(lang, "无", "none")}</StatusPill>
-          <StatusPill t={t} tone={row.completeness?.catalysis ? "good" : "neutral"}>{text(lang, "催化", "catalysis")} {row.completeness?.catalysis ? "✓" : text(lang, "无", "none")}</StatusPill>
+          <StatusBadge t={t} tone={row.completeness?.structure ? "good" : "neutral"}>{text(lang, "结构", "structure")} {row.completeness?.structure ? "✓" : text(lang, "无", "none")}</StatusBadge>
+          <StatusBadge t={t} tone={row.completeness?.gas ? "good" : "neutral"}>{text(lang, "气体", "gas")} {row.completeness?.gas ? "✓" : text(lang, "无", "none")}</StatusBadge>
+          <StatusBadge t={t} tone={row.completeness?.catalysis ? "good" : "neutral"}>{text(lang, "催化", "catalysis")} {row.completeness?.catalysis ? "✓" : text(lang, "无", "none")}</StatusBadge>
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 8 }}>
@@ -1461,9 +1461,9 @@ export function MOFLibraryTab() {
 
       <div data-testid="mof-library-status-strip" style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, color: t.subtle, fontSize: 12.2, lineHeight: 1.55 }}>
         <strong style={{ color: t.textStrong }}>{text(lang, "CoRE MOF 2024 · CSD-modified · CR", "CoRE MOF 2024 · CSD-modified · CR")}</strong>
-        <StatusPill t={t} tone={status === "loaded" ? "good" : status === "loading" ? "neutral" : "warn"}>
+        <StatusBadge t={t} tone={status === "loaded" ? "good" : status === "loading" ? "neutral" : "warn"}>
           {status === "loading" ? text(lang, "加载中", "loading") : text(lang, `${stats.total} 条`, `${stats.total} records`)}
-        </StatusPill>
+        </StatusBadge>
         <span>{statusLine}</span>
       </div>
 

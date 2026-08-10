@@ -43,7 +43,7 @@ export function ReactionPathwayScatter({ data, selectedTaskId, onSelectTask, lan
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 460 }}>
           {domains.map(domain => (
             <span key={domain.key} style={{ alignItems: "center", color: t.muted, display: "inline-flex", fontSize: 10, fontWeight: 800, gap: 5, lineHeight: 1.2 }}>
-              <span aria-hidden="true" style={{ background: DOMAIN_COLORS[domain.key] || t.accent, borderRadius: 999, display: "inline-block", height: 8, width: 8 }} />
+              <span aria-hidden="true" style={{ background: DOMAIN_COLORS[domain.key] || t.accent, borderRadius: 6, display: "inline-block", height: 8, width: 8 }} />
               {domain.label}
             </span>
           ))}

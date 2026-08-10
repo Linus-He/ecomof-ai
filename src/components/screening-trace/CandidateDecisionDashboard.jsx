@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { CandidateRankingExplanation } from "./CandidateRankingExplanation"
 import { FieldProvenanceButton } from "../ui"
 
@@ -83,7 +83,7 @@ export function CandidateDecisionDashboard({ trace, candidatesById = {}, lang, t
             <article key={tr.candidateId} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 10, minWidth: 0 }}>
               <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "space-between" }}>
                 <strong style={{ color: t.textStrong, fontSize: 12.6, overflowWrap: "anywhere" }}>#{tr.rank ?? "-"} {tr.displayName}</strong>
-                <StatusPill tone={st.tone} t={t}>{st.label}</StatusPill>
+                <StatusBadge tone={st.tone} t={t}>{st.label}</StatusBadge>
               </div>
               <span style={{ color: t.muted, fontSize: 11.2 }}>{text(lang, "最终得分", "Final score")}: {tr.finalScore}</span>
               <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4, overflowWrap: "anywhere" }}>{text(lang, tr.mainReasonZh, tr.mainReasonEn)}</span>

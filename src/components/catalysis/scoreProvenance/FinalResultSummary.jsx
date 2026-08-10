@@ -4,14 +4,14 @@ import { HgcpsFactorRose } from "./HgcpsFactorRose"
 import { ValidationReadinessDonut } from "./ValidationReadinessDonut"
 import { RouteStructureEvidence } from "../RouteStructureEvidence"
 
-function Pill({ children, tone = "info" }) {
+function InlineBadge({ children, tone = "info" }) {
   const colors = tone === "risk"
     ? [palette.riskSoft, palette.risk, palette.risk]
     : tone === "good"
       ? [palette.positiveSoft, palette.positive, palette.positive]
       : [palette.accentSoft, palette.accent, palette.accent]
   return (
-    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderLeftWidth: 3, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
+    <span style={{ alignItems: "center", background: colors[0], border: `1px solid ${colors[1]}`, borderRadius: 5, color: colors[2], display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.35, padding: "5px 8px" }}>
       {children}
     </span>
   )
@@ -73,14 +73,14 @@ export function FinalResultSummary({ model, lang = "zh", onOpenActivationCenter,
           <strong style={{ color: palette.text, fontSize: 18 }}>{model.routeLabel}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5 }}>{model.recommendationTier}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            <Pill tone="good">{text(lang, "排名", "rank")} #{model.ranking}</Pill>
-            <Pill>Δ runner {model.deltaToSecond >= 0 ? "+" : ""}{fmt(model.deltaToSecond, 3)}</Pill>
+            <InlineBadge tone="good">{text(lang, "排名", "rank")} #{model.ranking}</InlineBadge>
+            <InlineBadge>Δ runner {model.deltaToSecond >= 0 ? "+" : ""}{fmt(model.deltaToSecond, 3)}</InlineBadge>
           </div>
           <NumericText style={{ color: palette.accent, fontSize: 32, fontWeight: 950 }}>HGCPS {fmt(model.finalHGCPS, 3)}</NumericText>
         </div>
         <HgcpsFactorRose model={model.factorRoseModel} lang={lang} mini />
       </div>
-      <div style={{ borderLeft: `3px solid ${palette.risk}`, display: "grid", gap: 5, paddingLeft: 10 }}>
+      <div style={{ border: `1px solid ${palette.risk}`, borderRadius: 7, display: "grid", gap: 5, padding: 10 }}>
         {asArray(model.boundaries).map(boundary => (
           <span key={boundary.id} style={{ color: palette.risk, fontSize: 11.2, fontWeight: 800, lineHeight: 1.45 }}>
             {text(lang, boundary.zh, boundary.en)}

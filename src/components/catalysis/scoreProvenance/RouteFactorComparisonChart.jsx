@@ -24,7 +24,7 @@ export function RouteFactorComparisonChart({ model, lang = "zh", withTestId = tr
             key={route.routeId}
             type="button"
             onClick={() => onSelectRoute?.(route)}
-            style={{ alignItems: "center", background: palette.surface, border: `1px solid ${index === 0 ? palette.positive : palette.border}`, borderRadius: 999, color: palette.text, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 6, padding: "4px 9px" }}
+            style={{ alignItems: "center", background: palette.surface, border: `1px solid ${index === 0 ? palette.positive : palette.border}`, borderRadius: 6, color: palette.text, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 6, padding: "4px 9px" }}
           >
             <span style={{ background: ROUTE_TONES[index] || palette.faint, borderRadius: 3, height: 10, width: 10 }} />
             #{route.rank} {route.label} · {fmt(route.finalHGCPS, 3)}
@@ -42,7 +42,7 @@ export function RouteFactorComparisonChart({ model, lang = "zh", withTestId = tr
               {asArray(row.values).map((cell, index) => (
                 <div key={cell.routeId} style={{ alignItems: "center", display: "grid", gap: 7, gridTemplateColumns: "26px minmax(0,1fr) 38px" }}>
                   <span style={{ color: palette.faint, fontSize: 10, fontWeight: 850 }}>#{cell.rank}</span>
-                  <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                  <span style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
                     <span style={{ background: cell.isTop ? palette.positive : (ROUTE_TONES[index] || palette.accent), display: "block", height: "100%", width: pct(cell.value) }} />
                   </span>
                   <span style={{ color: palette.muted, fontSize: 10.5, textAlign: "right" }}>{fmt(cell.value, 2)}</span>

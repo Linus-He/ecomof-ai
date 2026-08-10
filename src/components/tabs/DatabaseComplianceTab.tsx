@@ -257,7 +257,7 @@ export function DatabaseComplianceTab() {
         ))}
       </nav>
 
-      <Surface t={t} style={{ background: t.surface, borderLeft: `4px solid ${t.accent}` }}>
+      <Surface t={t} style={{ background: t.surface, borderColor: t.accent }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "适用条款与使用前核查", "Read before use")}</strong>
         <p style={{ color: t.textStrong, fontSize: 12.1, lineHeight: 1.75, margin: 0 }}>{text(lang, acknowledgementZh, acknowledgementEn)}</p>
         <a href="#contact" style={{ color: t.accentText, fontSize: 11.6, fontWeight: 850, justifySelf: "start" }}>{text(lang, "对许可有疑问时联系我们", "Contact us with licence questions")}</a>
@@ -396,7 +396,7 @@ export function DatabaseComplianceTab() {
         ))}
       </Surface>
 
-      <Surface t={t} style={{ borderLeft: `4px solid ${t.accent}` }}>
+      <Surface t={t} style={{ borderColor: t.accent }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "提出疑问、权利声明或移除请求", "Questions, rights notices, or removal requests")}</strong>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.7, margin: 0 }}>
           {text(lang, "来信应包含记录名称、来源链接和问题说明。对于存在合理争议的内容，本站会先暂停展示，再核对来源和条款。", "Include the record name, source link, and a description. Reasonably disputed content is paused while provenance and terms are reviewed.")}

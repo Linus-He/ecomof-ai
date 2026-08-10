@@ -218,7 +218,7 @@ function EffectDecompositionExplorer({ candidate, selectedPathwayId, lang, isNar
             return (
               <button key={item.key} type="button" onClick={() => setActiveKey(item.key)} style={{ background: activeKey === item.key ? palette.accentSoft : palette.bg, border: `1px solid ${activeKey === item.key ? palette.accent : palette.border}`, borderRadius: 8, cursor: "pointer", display: "grid", gap: 7, gridTemplateColumns: "132px minmax(0, 1fr) 54px", minHeight: 42, padding: 8, textAlign: "left" }}>
                 <span style={{ color: palette.text, fontSize: 11.5, fontWeight: 850 }}>{text(lang, item.labelZh, item.labelEn)}</span>
-                <span style={{ alignSelf: "center", background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 999, height: 10, overflow: "hidden" }}>
+                <span style={{ alignSelf: "center", background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 6, height: 10, overflow: "hidden" }}>
                   <span style={{ background: item.color, display: "block", height: "100%", marginLeft: item.value < 0 ? "auto" : 0, width }} />
                 </span>
                 <span style={{ color: item.value < 0 ? palette.risk : palette.accent, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 900, textAlign: "right" }}>{item.value > 0 ? "+" : ""}{fmt(item.value, 2)}</span>
@@ -327,7 +327,7 @@ export function AlgorithmTraceExplorer({
           return (
             <article key={step.id} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 9, display: "grid", gap: 8, padding: 10 }}>
               <button type="button" onClick={() => setStep(step.id)} style={{ alignItems: "center", background: "transparent", border: "none", color: palette.text, cursor: "pointer", display: "grid", gap: 9, gridTemplateColumns: "30px minmax(0, 1fr) auto", padding: 0, textAlign: "left" }}>
-                <span style={{ alignItems: "center", background: active ? palette.accent : palette.bg, border: `1px solid ${active ? palette.accent : palette.borderStrong}`, borderRadius: 999, color: active ? "#fff" : palette.faint, display: "inline-flex", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>{index + 1}</span>
+                <span style={{ alignItems: "center", background: active ? palette.accent : palette.bg, border: `1px solid ${active ? palette.accent : palette.borderStrong}`, borderRadius: 6, color: active ? "#fff" : palette.faint, display: "inline-flex", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>{index + 1}</span>
                 <span style={{ display: "grid", gap: 2 }}>
                   <strong style={{ color: active ? palette.accent : palette.text, fontSize: 13.2, lineHeight: 1.25 }}>{text(lang, step.zh, step.en)}</strong>
                   <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.35 }}>{text(lang, step.detailZh, step.detailEn)}</span>
@@ -343,7 +343,7 @@ export function AlgorithmTraceExplorer({
       {rankedRows.length ? (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {rankedRows.slice(0, 4).map(row => (
-            <button key={row.mof} type="button" onClick={() => setSelectedMof(row.mof)} style={{ background: row.mof === selectedMof ? palette.accentSoft : palette.surface, border: `1px solid ${row.mof === selectedMof ? palette.accent : palette.border}`, borderRadius: 999, color: palette.text, cursor: "pointer", fontSize: 11.8, fontWeight: 850, minHeight: 30, padding: "0 10px" }}>
+            <button key={row.mof} type="button" onClick={() => setSelectedMof(row.mof)} style={{ background: row.mof === selectedMof ? palette.accentSoft : palette.surface, border: `1px solid ${row.mof === selectedMof ? palette.accent : palette.border}`, borderRadius: 6, color: palette.text, cursor: "pointer", fontSize: 11.8, fontWeight: 850, minHeight: 30, padding: "0 10px" }}>
               {row.mof} · <NumericText>{fmt(row.rgfaScore, 2)}</NumericText>
             </button>
           ))}

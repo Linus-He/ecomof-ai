@@ -49,7 +49,7 @@ function groupLabel(group, lang) {
 function ruleTone(rule, t) {
   const group = ruleGroup(rule)
   if (group === "formic") return t.success || "#15803D"
-  if (group === "competing") return t.warn || "#D97706"
+  if (group === "competing") return t.warn || "#6D5BD0"
   if (group === "side") return "#8B5E5E"
   return t.accentText || "#2563EB"
 }
@@ -129,10 +129,10 @@ function rulesForNode(rules, nodeId) {
   return list(rules).filter(rule => [...list(rule.sourceNodes), ...list(rule.targetNodes)].includes(nodeId))
 }
 
-function Pill({ children, t, tone = "info" }) {
+function InlineBadge({ children, t, tone = "info" }) {
   const warn = tone === "warn"
   return (
-    <span style={{ background: warn ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${warn ? t.warn : t.border}`, borderRadius: 999, color: warn ? t.warn : t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 800, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ background: warn ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${warn ? t.warn : t.border}`, borderRadius: 6, color: warn ? t.warn : t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 800, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )
@@ -408,7 +408,7 @@ export function ReactionRuleExplorer({
                   >
                     <span style={{ fontSize: 12.5, fontWeight: 900, lineHeight: 1.3 }}>{chemicalText(rule.label)}</span>
                     <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.4 }}>{chemicalText(rule.reactionType)} · {chemicalText(rule.status)}</span>
-                    {candidateMatched ? <Pill t={t}>{text(lang, "候选物已关联", "Candidate-linked")}</Pill> : null}
+                    {candidateMatched ? <InlineBadge t={t}>{text(lang, "候选物已关联", "Candidate-linked")}</InlineBadge> : null}
                   </button>
                 )
               })}
@@ -421,9 +421,9 @@ export function ReactionRuleExplorer({
             {selectedRule ? (
               <>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  <Pill t={t}>{chemicalText(selectedRule.evidenceLevel)}</Pill>
-                  <Pill t={t} tone="warn">{chemicalText(selectedRule.status)}</Pill>
-                  <Pill t={t}>{chemicalText(selectedRule.confidence)}</Pill>
+                  <InlineBadge t={t}>{chemicalText(selectedRule.evidenceLevel)}</InlineBadge>
+                  <InlineBadge t={t} tone="warn">{chemicalText(selectedRule.status)}</InlineBadge>
+                  <InlineBadge t={t}>{chemicalText(selectedRule.confidence)}</InlineBadge>
                 </div>
                 <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.22, margin: 0 }}>{chemicalText(selectedRule.label)}</h3>
                 <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.55 }}>

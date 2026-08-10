@@ -202,8 +202,8 @@ function StepIndicator({ activeStep, steps, lang }) {
       <div style={{ color: visualPalette.faint, fontSize: 10.5, fontWeight: 850, textAlign: "right", textTransform: "uppercase", letterSpacing: 0 }}>
         {text(lang, `步骤 ${activeStep + 1} / ${steps.length}`, `Step ${activeStep + 1} of ${steps.length}`)}
       </div>
-      <div style={{ height: 3, borderRadius: 999, background: "rgba(87, 119, 152, 0.16)", overflow: "hidden" }}>
-        <div style={{ width: `${progress}%`, height: "100%", borderRadius: 999, background: visualPalette.accent }} />
+      <div style={{ height: 3, borderRadius: 6, background: "rgba(87, 119, 152, 0.16)", overflow: "hidden" }}>
+        <div style={{ width: `${progress}%`, height: "100%", borderRadius: 6, background: visualPalette.accent }} />
       </div>
     </div>
   )
@@ -295,7 +295,7 @@ function DescriptorNetwork({ activeStep, lang, compact = false, reducedMotion = 
               <span style={{
                 width: 7,
                 height: 7,
-                borderRadius: 999,
+                borderRadius: 6,
                 background: showEvidence
                   ? node.status.tone === "curated" ? visualPalette.accent : node.status.tone === "review" ? "#b88443" : "rgba(90, 142, 190, 0.48)"
                   : visualPalette.accent,
@@ -358,13 +358,13 @@ function WeightingBars({ lang }) {
         {WEIGHT_ROWS.map(row => (
           <div key={row.key} style={{ display: "grid", gridTemplateColumns: "minmax(88px, 0.68fr) minmax(0, 1fr) 42px", gap: 9, alignItems: "center" }}>
             <span style={{ color: visualPalette.text, fontSize: 10.8, fontWeight: 850, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{labels[row.key]}</span>
-            <span style={{ height: 8, borderRadius: 999, background: "rgba(87, 119, 152, 0.13)", overflow: "hidden" }}>
+            <span style={{ height: 8, borderRadius: 6, background: "rgba(87, 119, 152, 0.13)", overflow: "hidden" }}>
               <span className="decision-flow-bar" style={{
                 display: "block",
                 width: `${row.weight * 100 * 3.2}%`,
                 maxWidth: "100%",
                 height: "100%",
-                borderRadius: 999,
+                borderRadius: 6,
                 background: row.key === "toxicityConcern" ? visualPalette.slate : visualPalette.accent,
               }} />
             </span>

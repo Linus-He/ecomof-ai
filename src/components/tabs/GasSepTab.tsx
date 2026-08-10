@@ -29,7 +29,6 @@ import {
   getGasAdsorptionV21IastReport,
   getMofIdentityResolutionReport,
   getGasStructureProxyValidationReport,
-  formatDemoLabel,
   formatGasPairLabel,
   formatPending,
   formatPercent,
@@ -505,8 +504,8 @@ function LegendRow({ items, t }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", minWidth: 0 }}>
       {items.map((item, index) => (
-        <span key={item.label} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, display: "inline-flex", fontSize: 11, fontWeight: 760, gap: 6, lineHeight: 1.2, maxWidth: "100%", padding: "5px 8px" }}>
-          <span style={{ background: item.color || CHART_COLORS[index % CHART_COLORS.length], borderRadius: 999, flex: "0 0 auto", height: 9, width: 9 }} />
+        <span key={item.label} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, display: "inline-flex", fontSize: 11, fontWeight: 760, gap: 6, lineHeight: 1.2, maxWidth: "100%", padding: "5px 8px" }}>
+          <span style={{ background: item.color || CHART_COLORS[index % CHART_COLORS.length], borderRadius: 6, flex: "0 0 auto", height: 9, width: 9 }} />
           <span style={{ overflowWrap: "anywhere" }}><ChemicalText value={item.label} /></span>
         </span>
       ))}
@@ -532,7 +531,6 @@ function Overview({ ranked, scenario, screening, t, lang, isMobile }) {
         <span>{methodLabel}</span>
         <span style={{ color: t.faint }}>·</span>
         <span>{text(lang, "第一名", "Top")} <strong style={{ color: t.textStrong }}><ChemicalText value={top?.displayName || formatPending(lang)} /></strong></span>
-        <BasisBadge tone="warn" aria-label={formatDemoLabel(lang)} title={formatDemoLabel(lang)}>{formatDemoLabel(lang)}</BasisBadge>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))", gap: 8 }}>
         <div style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5 }}>
@@ -547,7 +545,9 @@ function Overview({ ranked, scenario, screening, t, lang, isMobile }) {
       </div>
       {weights ? (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <BasisBadge tone="warn">{text(lang, "仅历史 GasScore 使用以下权重", "Only Legacy GasScore uses these weights")}</BasisBadge>
+          <span style={{ color: t.warn, fontSize: 11.5, fontWeight: 850, lineHeight: 1.45 }}>
+            {text(lang, "以下权重仅用于诊断性参考，不参与默认科研排序。", "These weights are diagnostic only and do not drive the default scientific ranking.")}
+          </span>
           {Object.entries(weights).map(([key, value]) => (
             <BasisBadge key={key} tone="proxy">{metricLabel(key, lang)} {Math.round(value * 100)}%</BasisBadge>
           ))}
@@ -570,6 +570,7 @@ function MetricTile({ label, value, note, t }) {
 function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow }) {
   const activeScenario = scenarioFor(scenario.gasPair)
   const parsedRatio = parseMixtureRatio(scenario.mixtureRatio)
+  const showLegacyPriority = (scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD) === "legacy-gasscore"
   const updateGasPair = gasPair => {
     const next = scenarioFor(gasPair)
     setScenario(prev => ({
@@ -611,11 +612,13 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
             {SCENARIOS.map(item => <option key={item.applicationScenario} value={item.applicationScenario}>{item.applicationScenario}</option>)}
           </SelectControl>
         </FormField>
-        <FormField label={text(lang, "历史 GasScore 优先级", "Legacy GasScore priority")} t={t}>
-          <SelectControl value={scenario.targetPriority} onChange={value => setScenario(prev => ({ ...prev, targetPriority: value }))} t={t} ariaLabel="target priority">
-            {PRIORITIES.map(item => <option key={item} value={item}>{item}</option>)}
-          </SelectControl>
-        </FormField>
+        {showLegacyPriority ? (
+          <FormField label={text(lang, "历史 GasScore 优先级", "Legacy GasScore priority")} t={t}>
+            <SelectControl value={scenario.targetPriority} onChange={value => setScenario(prev => ({ ...prev, targetPriority: value }))} t={t} ariaLabel="target priority">
+              {PRIORITIES.map(item => <option key={item} value={item}>{item}</option>)}
+            </SelectControl>
+          </FormField>
+        ) : null}
         <FormField label={text(lang, "温度 K", "Temperature K")} t={t}>
           <NumberControl value={scenario.temperatureK} min={273} max={373} step={1} onChange={value => setScenario(prev => ({ ...prev, temperatureK: value }))} t={t} suffix="K" />
         </FormField>
@@ -634,7 +637,7 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
               onChange={event => setScenario(prev => ({ ...prev, mixtureRatio: event.target.value }))}
               style={{ minHeight: 38, width: "100%", boxSizing: "border-box", background: t.surface, border: `1px solid ${parsedRatio ? t.border : t.warn}`, borderRadius: 8, color: t.text, fontSize: 12, padding: "8px 10px", outline: "none" }}
             />
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+            <div style={{ display: "grid", gap: 5, gridTemplateColumns: isMobile ? "repeat(3, minmax(0, 1fr))" : "repeat(auto-fit, minmax(64px, max-content))" }}>
               {(activeScenario.ratioPresets || [activeScenario.defaultRatio]).map(ratio => (
                 <button
                   key={ratio}
@@ -643,13 +646,16 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
                   style={{
                     background: scenario.mixtureRatio === ratio ? t.badgeInfoBg : t.surface,
                     border: `1px solid ${scenario.mixtureRatio === ratio ? t.accent : t.border}`,
-                    borderRadius: 999,
+                    borderRadius: 6,
                     color: scenario.mixtureRatio === ratio ? t.accentText : t.muted,
                     cursor: "pointer",
                     fontFamily: SCIENTIFIC_TOKEN_FONT,
                     fontSize: 10.5,
                     fontWeight: 820,
+                    minHeight: 30,
                     padding: "4px 7px",
+                    textAlign: "center",
+                    width: "100%",
                   }}
                 >
                   {ratio}
@@ -697,7 +703,7 @@ function GasCoverageNotice({ coverage, collectionReport, iastReport, identityRep
     `seed ${coverage.seed || 0}`,
   ].join(" · ")
   return (
-    <section style={cardStyle(t, { borderLeft: `4px solid ${coverage.thin ? t.warn : t.accent}` })}>
+    <section style={cardStyle(t, { borderColor: coverage.thin ? t.warn : t.border })}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
         <div>
           <SectionTitle>{text(lang, "数据覆盖与薄数据状态", "Data Coverage and Thin-State")}</SectionTitle>
@@ -847,7 +853,7 @@ function ScreeningFunnelPanel({ funnel = [], activeGate, setActiveGate, t, lang,
             >
               <span style={{ color: t.faint, fontFamily: FONT_SANS, fontSize: 11, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</span>
               <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 900, lineHeight: 1.25 }}>{text(lang, gate.labelZh, gate.label)}</span>
-              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 9, overflow: "hidden" }}>
+              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 9, overflow: "hidden" }}>
                 <span style={{ background: active ? t.accent : "#2F7D7B", display: "block", height: "100%", width: `${Math.max(3, pct)}%` }} />
               </span>
               <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 15, fontWeight: 930 }}>{gate.count}</span>
@@ -907,7 +913,7 @@ function RankingStabilityPanel({ screening, scenario, setScenario, onSelect, t, 
           <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "跨方法短名单", "Cross-method shortlist")}</strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             {consensus.map(row => (
-              <button key={row.id} type="button" onClick={() => onSelect(row.id)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "6px 9px" }}>
+              <button key={row.id} type="button" onClick={() => onSelect(row.id)} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 850, padding: "6px 9px" }}>
                 <ChemicalText value={`${row.displayName} · ${row.appearances}/${methods.length}`} />
               </button>
             ))}
@@ -1075,7 +1081,7 @@ function PerformanceMap({ ranked, selectedId, onSelect, chartConfig, setChartCon
         <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{text(lang, "气泡大小图例", "Bubble size legend")}</span>
         {[0.28, 0.62, 1].map((value, index) => (
           <span key={value} style={{ alignItems: "center", color: t.muted, display: "inline-flex", fontSize: 11, gap: 6 }}>
-            <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 999, display: "inline-block", height: 8 + value * 14, width: 8 + value * 14 }} />
+            <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 6, display: "inline-block", height: 8 + value * 14, width: 8 + value * 14 }} />
             {["low", "medium", "high"][index]}
           </span>
         ))}
@@ -1157,7 +1163,7 @@ function CandidateRankingTable({ ranked, selectedId, onSelect, compareIds, setCo
           ["workingCapacity", text(lang, "工作容量", "Working capacity")],
           ["primaryUptake", text(lang, "吸附量", "Uptake")],
         ].map(([key, label]) => (
-          <button key={key} type="button" onClick={() => selectSort(key)} style={{ background: sort.key === key ? t.badgeInfoBg : t.surface, border: `1px solid ${sort.key === key ? t.accentText : t.border}`, borderRadius: 999, color: sort.key === key ? t.accentText : t.muted, cursor: "pointer", fontSize: 11, fontWeight: 850, minHeight: 29, padding: "5px 9px" }}>
+          <button key={key} type="button" onClick={() => selectSort(key)} style={{ background: sort.key === key ? t.badgeInfoBg : t.surface, border: `1px solid ${sort.key === key ? t.accentText : t.border}`, borderRadius: 6, color: sort.key === key ? t.accentText : t.muted, cursor: "pointer", fontSize: 11, fontWeight: 850, minHeight: 29, padding: "5px 9px" }}>
             {label}{sort.key === key ? (sort.dir === "desc" ? " ↓" : " ↑") : ""}
           </button>
         ))}
@@ -1397,7 +1403,7 @@ function ExplanationPanel({ record, t, lang, onOpenMethod }) {
               return (
                 <div key={key} style={{ display: "grid", gridTemplateColumns: "142px minmax(0, 1fr) 48px", gap: 8, alignItems: "center" }}>
                   <span style={{ color: t.muted, fontSize: 11.5 }}>{metricLabel(key, lang)}</span>
-                  <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                  <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
                     <span style={{ background: "#2F7D7B", display: "block", height: "100%", width: `${Math.min(100, value * 5)}%` }} />
                   </span>
                   <span style={{ color: t.subtle, fontFamily: FONT_SANS, fontSize: 11, textAlign: "right" }}>{formatNumber(value)}</span>
@@ -1431,7 +1437,7 @@ function InfoList({ title, rows, t }) {
       <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{title}</strong>
       <div style={{ display: "grid", gap: 6, marginTop: 8 }}>
         {(rows.length ? rows : ["pending"]).map((row, index) => (
-          <div key={`${row}-${index}`} style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, paddingLeft: 9, borderLeft: `3px solid ${t.accent}` }}><ChemicalText value={row} /></div>
+          <div key={`${row}-${index}`} style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, padding: "7px 9px", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6 }}><ChemicalText value={row} /></div>
         ))}
       </div>
     </div>
@@ -1446,7 +1452,7 @@ function MechanismAndEvidence({ scenario, record, t, lang, isMobile }) {
       <SectionTitle>{text(lang, "机理与描述符解释", "Mechanism & Descriptor Interpretation")}</SectionTitle>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10, marginTop: 12 }}>
         {mechanismRows.map((row, index) => (
-          <div key={row} style={surfaceStyle(t, { boxShadow: `inset 3px 0 0 ${CHART_COLORS[index % CHART_COLORS.length]}` })}>
+          <div key={row} style={surfaceStyle(t, { borderColor: CHART_COLORS[index % CHART_COLORS.length] })}>
             <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900, lineHeight: 1.35 }}><ChemicalText value={row} /></div>
           </div>
         ))}
@@ -1693,7 +1699,7 @@ function GasMaterialDecisionPanel({ ranked, selected, scenario, onSelect, t, lan
             ))}
           </SelectControl>
         </FormField>
-        <div aria-label={text(lang, "气体分离评价方程", "Gas-separation evaluation equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
+        <div aria-label={text(lang, "气体分离评价方程", "Gas-separation evaluation equations")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
           <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.35 }}>
             {formulaBasis.selectivity.formula}
           </div>
@@ -1931,7 +1937,7 @@ function GasThermodynamicInterpretationPanel({ selected, records, scenario, t, l
           </p>
         </div>
 
-        <div aria-label={text(lang, "吸附热力学方程", "adsorption thermodynamic equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 8, padding: "12px 13px" }}>
+        <div aria-label={text(lang, "吸附热力学方程", "adsorption thermodynamic equations")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 8, padding: "12px 13px" }}>
           {[
             {
               id: "henry-affinity",
@@ -2238,12 +2244,7 @@ export function GasSepTab({ onNavigate }) {
           "A condition-driven workspace linking candidate screening, thermodynamic interpretation, ranking, and validation planning while preserving evidence level, field provenance, and uncertainty boundaries."
         )}
         meta={text(lang, "场景构建 · 双等温线 · 热力学解释 · 证据链", "scenario builder · paired isotherms · thermodynamic interpretation · evidence chain")}
-        action={
-          <>
-            <BasisBadge tone="proxy">{text(lang, "保留 GasSep 路由", "existing GasSep route")}</BasisBadge>
-            <CopyLinkButton hash="gassep" ariaLabel={text(lang, "复制 GasSep 链接", "Copy GasSep link")} />
-          </>
-        }
+        action={<CopyLinkButton hash="gassep" ariaLabel={text(lang, "复制 GasSep 链接", "Copy GasSep link")} />}
       />
 
       {status === "loading" ? <Callout tone="info">{text(lang, "正在加载 GasSep 数据…", "Loading GasSep data...")}</Callout> : null}
@@ -2252,40 +2253,81 @@ export function GasSepTab({ onNavigate }) {
       {status === "fallback" ? <Callout tone="warn">{text(lang, "Gas Adsorption v1 数据不可用，已回退到演示数据，仅用于界面验证。", "Gas Adsorption v1 data is unavailable; falling back to Demo | interface validation only.")}</Callout> : null}
 
       <ScenarioBuilder scenario={scenario} setScenario={setScenario} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />
-      <GasMaterialDecisionPanel
-        ranked={ranked}
-        selected={selected}
-        scenario={scenario}
-        onSelect={setSelectedMofId}
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-        isNarrow={isNarrow}
-        onOpenMethod={openMethod}
-      />
-      <GasThermodynamicInterpretationPanel
-        selected={selected}
-        records={records}
-        scenario={scenario}
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-        isNarrow={isNarrow}
-        onOpenMethod={openMethod}
-      />
-      <GasMechanismEvidencePanel
-        selected={selected}
-        records={records}
-        scenario={scenario}
-        t={t}
-        lang={lang}
-        isMobile={isMobile}
-        onOpenMethod={openMethod}
-      />
-      <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
-      <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
-      <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
-      <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
+      {isMobile ? (
+        <>
+          <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
+          <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
+          <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
+          <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
+          <GasMaterialDecisionPanel
+            ranked={ranked}
+            selected={selected}
+            scenario={scenario}
+            onSelect={setSelectedMofId}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            isNarrow={isNarrow}
+            onOpenMethod={openMethod}
+          />
+          <GasThermodynamicInterpretationPanel
+            selected={selected}
+            records={records}
+            scenario={scenario}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            isNarrow={isNarrow}
+            onOpenMethod={openMethod}
+          />
+          <GasMechanismEvidencePanel
+            selected={selected}
+            records={records}
+            scenario={scenario}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            onOpenMethod={openMethod}
+          />
+        </>
+      ) : (
+        <>
+          <GasMaterialDecisionPanel
+            ranked={ranked}
+            selected={selected}
+            scenario={scenario}
+            onSelect={setSelectedMofId}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            isNarrow={isNarrow}
+            onOpenMethod={openMethod}
+          />
+          <GasThermodynamicInterpretationPanel
+            selected={selected}
+            records={records}
+            scenario={scenario}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            isNarrow={isNarrow}
+            onOpenMethod={openMethod}
+          />
+          <GasMechanismEvidencePanel
+            selected={selected}
+            records={records}
+            scenario={scenario}
+            t={t}
+            lang={lang}
+            isMobile={isMobile}
+            onOpenMethod={openMethod}
+          />
+          <Overview ranked={ranked} scenario={scenario} screening={screening} t={t} lang={lang} isMobile={isMobile} />
+          <GasSepDatabaseSummaryCard summary={gasSepSummary} exportRows={gasSepExportRows} lang={lang} t={t} isMobile={isMobile} />
+          <ConditionSummary ranked={ranked} scenario={scenario} t={t} lang={lang} isMobile={isMobile} />
+          <GasCoverageNotice coverage={screening.coverage} collectionReport={collectionReport} iastReport={iastReport} identityReport={identityReport} proxyReport={proxyReport} t={t} lang={lang} />
+        </>
+      )}
       <RankingMethodEvidencePanel screening={screening} scenario={scenario} setScenario={setScenario} ranked={ranked} t={t} lang={lang} isMobile={isMobile} />
       <ScreeningFunnelPanel funnel={screening.screeningFunnel} activeGate={activeGate} setActiveGate={setActiveGate} t={t} lang={lang} isMobile={isMobile} />
       <PerformanceMap ranked={ranked} selectedId={selected?.id} onSelect={setSelectedMofId} chartConfig={chartConfig} setChartConfig={setChartConfig} t={t} lang={lang} isMobile={isMobile} isNarrow={isNarrow} />

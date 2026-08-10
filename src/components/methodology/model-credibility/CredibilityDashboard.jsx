@@ -36,7 +36,7 @@ export function CredibilityDashboard({ credibility = null, lang = "en", t, isMob
         <div data-testid="credibility-score" style={{ background: t.surface, border: `1px solid ${gradeColor}`, borderRadius: 10, display: "grid", gap: 2, justifyItems: "center", padding: "14px 10px" }}>
           <strong style={{ color: gradeColor, fontSize: 34, lineHeight: 1 }}>{c.score}</strong>
           <span style={{ color: t.muted, fontSize: 10.5 }}>/ 100</span>
-          <span style={{ background: gradeColor, borderRadius: 999, color: t.panel, fontSize: 13, fontWeight: 900, marginTop: 4, padding: "1px 12px" }}>Grade {c.grade}</span>
+          <span style={{ background: gradeColor, borderRadius: 6, color: t.panel, fontSize: 13, fontWeight: 900, marginTop: 4, padding: "1px 12px" }}>Grade {c.grade}</span>
         </div>
         <div style={{ display: "grid", gap: 7 }}>
           <Bar label={text(lang, "Benchmark（V3.4 ROC）", "Benchmark (V3.4 ROC)")} value={comp.benchmark} t={t} />

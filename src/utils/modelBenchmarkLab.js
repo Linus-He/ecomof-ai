@@ -31,7 +31,7 @@ export const DESCRIPTOR_CATEGORIES = [
 export const CATEGORY_COLORS = {
   Geometry: "#1A6DB5",
   Electronic: "#7C3AED",
-  Metal: "#B45309",
+  Metal: "#B91C1C",
   Linker: "#15803D",
   Evidence: "#0F766E",
   Graph: "#BE123C",

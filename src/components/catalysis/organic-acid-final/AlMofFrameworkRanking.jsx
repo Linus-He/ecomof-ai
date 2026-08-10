@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
 
 function gateLabel(status, lang) {
   const value = String(status || "pending")
@@ -114,7 +114,7 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
                   <ValueWithSource record={row} field="sourceDatabase" label={text(lang, "来源", "Source")} value={row.sourceDatabase} lang={lang} t={t} />
                 </td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "9px 8px" }}>
-                  <StatusPill tone={statusTone(row.hydrothermalGate?.status)} t={t}>{gateLabel(row.hydrothermalGate?.status, lang)}</StatusPill>
+                  <StatusBadge tone={statusTone(row.hydrothermalGate?.status)} t={t}>{gateLabel(row.hydrothermalGate?.status, lang)}</StatusBadge>
                 </td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 12, fontWeight: 900, padding: "9px 8px" }}>
                   <ValueWithSource record={row} field="OACS" label="OACS" value={formatScore(row.organicAcidScore?.oacs)} lang={lang} t={t} />
@@ -154,7 +154,7 @@ export function AlMofFrameworkRanking({ frameworks, selectedFramework, lang, t, 
           <strong style={{ color: t.warn, fontSize: 13 }}>{text(lang, "被硬阈值拦截的高孔结构候选", "High-pore candidates blocked by hard gate")}</strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
             {blockedHighPore.map(row => (
-              <StatusPill key={row.id} tone="warn" t={t}>{`${row.displayName}: ${row.surfaceArea} m2/g, ${gateLabel(row.hydrothermalGate?.status, lang)}`}</StatusPill>
+              <StatusBadge key={row.id} tone="warn" t={t}>{`${row.displayName}: ${row.surfaceArea} m2/g, ${gateLabel(row.hydrothermalGate?.status, lang)}`}</StatusBadge>
             ))}
           </div>
         </article>

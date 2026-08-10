@@ -28,7 +28,7 @@ export function MethodologyFlowDiagram({ flow = [], lang, t }) {
               style={{ background: isActive ? t.badgeInfoBg : t.surface, border: `1px solid ${isActive ? t.accentText : t.border}`, borderRadius: 10, color: t.textStrong, cursor: "pointer", display: "grid", gap: 7, minHeight: 128, minWidth: 0, padding: 11, textAlign: "left" }}
             >
               <span style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
-                <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "4px 7px" }}>{String(index + 1).padStart(2, "0")}</span>
+                <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, fontSize: 10.5, fontWeight: 900, padding: "4px 7px" }}>{String(index + 1).padStart(2, "0")}</span>
                 {index < flow.length - 1 ? <span aria-hidden style={{ color: t.faint, fontSize: 18, lineHeight: 1 }}>→</span> : null}
               </span>
               <strong style={{ fontSize: 13.2, lineHeight: 1.2 }}><ChemicalText value={text(lang, node.titleZh, node.title)} /></strong>
@@ -49,7 +49,7 @@ export function MethodologyFlowDiagram({ flow = [], lang, t }) {
               [text(lang, "输出", "Output"), text(lang, active.outputZh, active.output)],
               [text(lang, "证据状态", "Evidence status"), active.evidenceStatus],
             ].map(([label, value]) => (
-              <div key={label} style={{ borderLeft: `3px solid ${t.accentText}`, display: "grid", gap: 3, paddingLeft: 9 }}>
+              <div key={label} style={{ border: `1px solid ${t.border}`, borderRadius: 6, display: "grid", gap: 3, padding: "7px 9px" }}>
                 <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
                 <span style={{ color: t.muted, fontSize: 12.3, lineHeight: 1.45 }}><ChemicalText value={value} /></span>
               </div>

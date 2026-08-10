@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { formatScore, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 const AXES = [
   ["nodeSubstitution", "Node Substitution", "节点取代"],
@@ -41,7 +41,7 @@ export function MechanismPathRadar({ data, lang, t, isMobile }) {
       eyebrow={text(lang, "机制画像", "Mechanism profile")}
       title={text(lang, "机制路径雷达图", "Mechanism Path Radar")}
       t={t}
-      actions={<StatusPill tone="info" t={t}>Mo / W / V / Fe / Ti / Zr</StatusPill>}
+      actions={<StatusBadge tone="info" t={t}>Mo / W / V / Fe / Ti / Zr</StatusBadge>}
     >
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
         <ChemicalText value={text(

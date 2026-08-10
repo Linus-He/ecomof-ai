@@ -34,7 +34,7 @@ export function HostScoreBreakdownChart({ model, lang = "zh", withTestId = true,
                   <span style={{ color: palette.text, fontSize: 11.6, fontWeight: 800 }}>{text(lang, row.labelZh, row.labelEn)}</span>
                   <GradeBadge grade={row.dataGrade} labelZh={row.dataGrade} labelEn={row.dataGrade} tone={GRADE_TONE[row.dataGrade] || "info"} lang={lang} />
                 </div>
-                <span style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                <span style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
                   <span style={{ background: palette.accent, display: "block", height: "100%", width: pct(row.normalizedValue) }} />
                 </span>
                 <span style={{ color: palette.muted, fontSize: 10.5 }}>

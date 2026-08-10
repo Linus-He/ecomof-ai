@@ -237,7 +237,7 @@ export function ReactionNetworkGraph({
               style={{
                 background: active ? palette.accentSoft : palette.surface,
                 border: `1px solid ${active ? palette.accent : palette.border}`,
-                borderRadius: 999,
+                borderRadius: 6,
                 color: active ? palette.accent : palette.text,
                 cursor: "pointer",
                 fontSize: 11.5,

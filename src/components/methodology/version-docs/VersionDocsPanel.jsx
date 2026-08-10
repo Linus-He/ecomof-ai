@@ -49,7 +49,7 @@ function LiteratureLibraryPanel({ records = [], lang, t, isMobile }) {
         {filters.map(([id, en, zh]) => {
           const active = filter === id
           return (
-            <button key={id} type="button" onClick={() => setFilter(id)} style={{ background: active ? t.accent : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 999, color: active ? t.buttonText || "#fff" : t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "6px 9px" }}>
+            <button key={id} type="button" onClick={() => setFilter(id)} style={{ background: active ? t.accent : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 6, color: active ? t.buttonText || "#fff" : t.textStrong, cursor: "pointer", fontSize: 11.5, fontWeight: 900, padding: "6px 9px" }}>
               {text(lang, zh, en)}
             </button>
           )

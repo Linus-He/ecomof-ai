@@ -164,7 +164,7 @@ export function PageHeader({ title, subtitle, meta, action }) {
   const { isMobile } = useViewport()
   const metaItems = Array.isArray(meta) ? meta : String(meta || "").split("·").map(item => item.trim()).filter(Boolean)
   return (
-    <div style={{
+    <div className="page-header" style={{
       display: "flex", justifyContent: "space-between", gap: 16, alignItems: "flex-start",
       flexWrap: "wrap", marginBottom: 6,
     }}>
@@ -182,7 +182,7 @@ export function PageHeader({ title, subtitle, meta, action }) {
                 color: t.faint,
                 background: t.surface,
                 border: `1px solid ${t.border}`,
-                borderRadius: 999,
+                borderRadius: 6,
                 fontSize: 10,
                 fontWeight: 800,
                 lineHeight: 1.2,
@@ -388,7 +388,7 @@ export function ContextualHeaderBar({
 
   if (activeTab === "gassep") {
     return (
-      <div style={layerStyle}>
+      <div className="contextual-header-bar" style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "气体分离聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
         </div>
@@ -404,7 +404,7 @@ export function ContextualHeaderBar({
 
   if (activeTab === "ecoscreen" || activeTab === "performance") {
     return (
-      <div style={layerStyle}>
+      <div className="contextual-header-bar" style={layerStyle}>
         <PresetSearchControl
           value={searchQuery}
           setValue={setSearchQuery}
@@ -488,7 +488,7 @@ export function ContextualHeaderBar({
 
   if (activeTab === "catalysis") {
     return (
-      <div style={layerStyle}>
+      <div className="contextual-header-bar" style={layerStyle}>
         <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
           {lang === "zh" ? "催化模块用于比较反应路径证据、条件可比性与待验证候选；演示记录会明确标注证据边界。" : "Catalysis compares pathway evidence, condition comparability, and candidates awaiting validation; demonstration records keep their evidence boundaries visible."}
         </div>
@@ -521,4 +521,5 @@ export function InternalNav({ items, active, onChange }) {
 export { ContactModal } from "./ContactModal"
 export { AcknowledgementsModal } from "./AcknowledgementsModal"
 export { DisclaimerModal } from "./DisclaimerModal"
+export { AppFooter } from "./AppFooter"
 export { PhysicochemicalPropertyModal } from "./PhysicochemicalPropertyModal"

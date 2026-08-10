@@ -231,7 +231,7 @@ export function InteractiveDataTable({
                       {row.usedIn.join(" / ")}
                     </td>
                     <td style={{ borderBottom: `1px solid ${palette.border}`, padding: "10px", whiteSpace: "nowrap" }}>
-                      <span style={{ background: statusTone.bg, borderRadius: 999, color: statusTone.text, display: "inline-flex", fontSize: 11.5, fontWeight: 800, padding: "4px 8px" }}>
+                      <span style={{ background: statusTone.bg, borderRadius: 6, color: statusTone.text, display: "inline-flex", fontSize: 11.5, fontWeight: 800, padding: "4px 8px" }}>
                         {statusLabel(row.status)}
                       </span>
                     </td>

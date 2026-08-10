@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { MiniMetric, StatusPill, displayValue, formatScore, text } from "../FinalScreeningShared"
+import { MiniMetric, StatusBadge, displayValue, formatScore, text } from "../FinalScreeningShared"
 
 export function TraceRunOverview({ trace, lang, t, isMobile }) {
   const summary = trace?.outputSummary || {}
@@ -12,9 +12,9 @@ export function TraceRunOverview({ trace, lang, t, isMobile }) {
           <span><strong style={{ color: t.textStrong }}>createdAt:</strong> {displayValue(trace?.createdAt)}</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <StatusPill tone={trace?.status?.includes("warning") ? "warn" : "pass"} t={t}>{trace?.status || "pending"}</StatusPill>
-          <StatusPill tone="proxy" t={t}>{trace?.workflowVersion || "V1.7"}</StatusPill>
-          <StatusPill tone="info" t={t}>{trace?.dataMode || "demo_workflow"}</StatusPill>
+          <StatusBadge tone={trace?.status?.includes("warning") ? "warn" : "pass"} t={t}>{trace?.status || "pending"}</StatusBadge>
+          <StatusBadge tone="proxy" t={t}>{trace?.workflowVersion || "V1.7"}</StatusBadge>
+          <StatusBadge tone="info" t={t}>{trace?.dataMode || "demo_workflow"}</StatusBadge>
         </div>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>

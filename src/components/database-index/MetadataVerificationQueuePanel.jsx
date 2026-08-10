@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildMetadataVerificationQueue, metadataTierLabel, metadataTierTone } from "../../utils/databaseIndex/metadataVerification"
 import { curationStatusLabel, curationStatusTone, getMetadataCurationStatus } from "../../utils/databaseIndex/metadataCuration"
@@ -40,8 +40,8 @@ export function MetadataVerificationQueuePanel({ records = [], curationRecords =
           </span>
         </div>
         <span style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-          <StatusPill tone="warn" t={t}>{text(lang, "优先人工核验", "priority manual review")}</StatusPill>
-          {curationRecords ? <StatusPill tone="info" t={t}>{text(lang, "整理进度", "curation progress")}</StatusPill> : null}
+          <StatusBadge tone="warn" t={t}>{text(lang, "优先人工核验", "priority manual review")}</StatusBadge>
+          {curationRecords ? <StatusBadge tone="info" t={t}>{text(lang, "整理进度", "curation progress")}</StatusBadge> : null}
         </span>
       </header>
 
@@ -70,9 +70,9 @@ export function MetadataVerificationQueuePanel({ records = [], curationRecords =
                 <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
                   <strong style={{ color: t.textStrong, fontSize: 12.4 }}><ChemicalText value={item.displayName} /></strong>
                   <span style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                    <StatusPill tone={priorityTone(item.priority)} t={t}>{priorityLabel(item.priority, lang)}</StatusPill>
-                    <StatusPill tone={metadataTierTone(item.proposedVerificationTier)} t={t}>{metadataTierLabel(item.proposedVerificationTier, lang)}</StatusPill>
-                    {curationStatus ? <StatusPill tone={curationStatusTone(curationStatus)} t={t}>{curationStatusLabel(curationStatus, lang)}</StatusPill> : null}
+                    <StatusBadge tone={priorityTone(item.priority)} t={t}>{priorityLabel(item.priority, lang)}</StatusBadge>
+                    <StatusBadge tone={metadataTierTone(item.proposedVerificationTier)} t={t}>{metadataTierLabel(item.proposedVerificationTier, lang)}</StatusBadge>
+                    {curationStatus ? <StatusBadge tone={curationStatusTone(curationStatus)} t={t}>{curationStatusLabel(curationStatus, lang)}</StatusBadge> : null}
                   </span>
                 </div>
                 <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}>

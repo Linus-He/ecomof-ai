@@ -222,7 +222,7 @@ export function ContactModal({ open, onClose }) {
     width: "fit-content",
     background: t.panel,
     border: `1px solid ${t.border}`,
-    borderRadius: 999,
+    borderRadius: 6,
     color: t.subtle,
     fontSize: 10,
     fontWeight: 800,

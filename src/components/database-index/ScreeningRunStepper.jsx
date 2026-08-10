@@ -33,7 +33,7 @@ export function ScreeningRunStepper({ steps = [], activeIndex = -1, lang, t }) {
               <strong style={{ color: t.textStrong, fontSize: 12.6 }}>{index + 1}. {text(lang, step.titleZh, step.title)}</strong>
               <span style={{ alignItems: "center", display: "flex", gap: 8 }}>
                 <span style={{ color: t.muted, fontSize: 11 }}>{text(lang, "输入", "in")} {formatCount(step.inputCount)} · {text(lang, "输出", "out")} {formatCount(step.outputCount)}</span>
-                <span style={{ background: colors.bg, borderRadius: 999, color: colors.fg, fontSize: 10.5, fontWeight: 900, padding: "3px 9px" }}>
+                <span style={{ background: colors.bg, borderRadius: 6, color: colors.fg, fontSize: 10.5, fontWeight: 900, padding: "3px 9px" }}>
                   {text(lang, STEP_STATUS_COPY[step.status]?.zh || step.status, STEP_STATUS_COPY[step.status]?.en || step.status)}
                 </span>
               </span>

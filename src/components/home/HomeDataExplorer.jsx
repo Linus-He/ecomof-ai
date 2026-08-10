@@ -13,7 +13,7 @@ const METRIC_CONFIG = {
 }
 
 const METRIC_KEYS = Object.keys(METRIC_CONFIG)
-const BAR_COLORS = ["#2563eb", "#16a34a", "#d97706", "#7c3aed", "#0891b2", "#be123c", "#64748b"]
+const BAR_COLORS = ["#d97757", "#788c5d", "#c46686", "#87867f", "#e3dacc", "#bf4d43", "#9c9a92"]
 
 function label(metric, lang) {
   const config = METRIC_CONFIG[metric]
@@ -112,9 +112,9 @@ function buildCorrelationPairs(correlations = []) {
 }
 
 function correlationTone(value, t) {
-  if (value === null) return t.borderStrong || "#94a3b8"
-  if (value >= 0) return t.accentText || "#2563eb"
-  return t.warn || "#d97706"
+  if (value === null) return t.borderStrong || "#9c9a92"
+  if (value >= 0) return t.accentText || "#b84d2f"
+  return t.warn || "#788c5d"
 }
 
 function correlationFill(value, isDiag, active, t) {
@@ -122,8 +122,8 @@ function correlationFill(value, isDiag, active, t) {
   if (isDiag) return active ? t.badgeInfoBg : t.panel
   const abs = Math.min(1, Math.abs(value))
   const alpha = active ? 0.92 : 0.2 + abs * 0.62
-  if (value >= 0) return `rgba(37, 99, 235, ${alpha})`
-  return `rgba(217, 119, 6, ${alpha})`
+  if (value >= 0) return `rgba(217, 119, 87, ${alpha})`
+  return `rgba(120, 140, 93, ${alpha})`
 }
 
 function correlationStrength(value, lang) {
@@ -165,7 +165,7 @@ function ChartShell({ title, subtitle, t, children, badge, className = "" }) {
           <h3 style={{ color: t.textStrong, fontSize: 15, fontWeight: 900, lineHeight: 1.25, margin: 0 }}>{title}</h3>
           <p style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.5, margin: "5px 0 0" }}>{subtitle}</p>
         </div>
-        {badge ? <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 999, color: t.accentText, flex: "0 0 auto", fontSize: 10.5, fontWeight: 850, padding: "3px 8px" }}>{badge}</span> : null}
+        {badge ? <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 6, color: t.accentText, flex: "0 0 auto", fontSize: 10.5, fontWeight: 850, padding: "3px 8px" }}>{badge}</span> : null}
       </div>
       {children}
     </article>
@@ -310,9 +310,9 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
             })
           ))}
           <text x={left} y={H - 18} fill={t.faint} fontSize="10.5" fontWeight="850">{lang === "zh" ? "负相关" : "negative"}</text>
-          <rect x={left + 50} y={H - 27} width="34" height="9" rx="4" fill="rgba(217, 119, 6, 0.66)" />
+          <rect x={left + 50} y={H - 27} width="34" height="9" rx="4" fill="rgba(120, 140, 93, 0.72)" />
           <rect x={left + 90} y={H - 27} width="34" height="9" rx="4" fill={t.panel} stroke={t.border} />
-          <rect x={left + 130} y={H - 27} width="34" height="9" rx="4" fill="rgba(37, 99, 235, 0.66)" />
+          <rect x={left + 130} y={H - 27} width="34" height="9" rx="4" fill="rgba(217, 119, 87, 0.72)" />
           <text x={left + 172} y={H - 18} fill={t.faint} fontSize="10.5" fontWeight="850">{lang === "zh" ? "正相关" : "positive"}</text>
         </svg>
         {focus ? (
@@ -331,7 +331,7 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
             <button key={item.key} type="button" onPointerEnter={() => setHoverCell(item.key)} onPointerLeave={() => setHoverCell(null)} onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 6, minHeight: 36, padding: "7px 9px", textAlign: "left" }}>
               <span style={{ color: active ? t.accentText : t.muted, fontSize: 11.2, fontWeight: 850 }}>{shortLabel(item.rowMetric, lang)} / {shortLabel(item.colMetric, lang)} · n={item.n}</span>
               <span style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(0, 1fr) 42px" }}>
-                <span style={{ background: t.panel, borderRadius: 999, height: 7, overflow: "hidden" }}>
+                <span style={{ background: t.panel, borderRadius: 6, height: 7, overflow: "hidden" }}>
                   <span style={{ background: correlationTone(item.value, t), display: "block", height: "100%", width: `${Math.max(6, item.abs * 100)}%` }} />
                 </span>
                 <span className="num" style={{ color: t.subtle, fontSize: 11, textAlign: "right" }}>{item.value === null ? "NA" : item.value.toFixed(2)}</span>

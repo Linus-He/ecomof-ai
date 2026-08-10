@@ -59,9 +59,9 @@ function matchesForCandidate(candidate, reactionRules, evidenceItems) {
   })
 }
 
-function StatusPill({ children, t, tone = "info" }) {
+function StatusBadge({ children, t, tone = "info" }) {
   return (
-    <span style={{ background: tone === "warn" ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${tone === "warn" ? t.warn : t.border}`, borderRadius: 999, color: tone === "warn" ? t.warn : t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ background: tone === "warn" ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${tone === "warn" ? t.warn : t.border}`, borderRadius: 6, color: tone === "warn" ? t.warn : t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 850, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )
@@ -145,8 +145,8 @@ export function CandidateRuleMatchPanel({
         ) : (
           <div style={{ display: "grid", gap: 10 }}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              <StatusPill t={t}>{text(lang, "匹配规则", "Matched rules")}: {matches.length}</StatusPill>
-              <StatusPill t={t} tone="warn">{safeText(selectedCandidate?.organicAcidRelevance?.scoreStatus)}</StatusPill>
+              <StatusBadge t={t}>{text(lang, "匹配规则", "Matched rules")}: {matches.length}</StatusBadge>
+              <StatusBadge t={t} tone="warn">{safeText(selectedCandidate?.organicAcidRelevance?.scoreStatus)}</StatusBadge>
             </div>
             <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
               {matches.map(({ rule, role, evidenceItems: rows }, index) => (

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { StatusPill } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbStatusLabel } from "../../utils/databaseIndex/databaseIndexCopy"
 
 function toneFor(status) {
@@ -12,5 +12,5 @@ function toneFor(status) {
 }
 
 export function DatabaseIndexStatusBadge({ status, lang = "en", t }) {
-  return <StatusPill tone={toneFor(status)} t={t}>{dbStatusLabel(status, lang)}</StatusPill>
+  return <StatusBadge tone={toneFor(status)} t={t}>{dbStatusLabel(status, lang)}</StatusBadge>
 }

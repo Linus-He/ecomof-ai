@@ -26,6 +26,7 @@ function renderHome(setActiveTab = vi.fn(), onContactOpen = vi.fn()) {
 
 beforeEach(() => {
   window.history.pushState(null, "", "/")
+  window.localStorage.removeItem("ecomof-home-mode")
   vi.stubGlobal("fetch", vi.fn(async (url) => {
     if (String(url).includes("home_summary.json")) return response(homeSummary)
     if (String(url).includes("data_ingestion_summary_v3.json")) return response(dataIngestionSummary)
@@ -78,12 +79,26 @@ describe("home quick start", () => {
     expect(clusterIds).toEqual(["ecoscreen", "library", "gassep", "organic", "validation"])
 
     fireEvent.click(within(atlas).getByRole("button", { name: /哪种材料更适合气体分离/ }))
-    const dialog = atlas.querySelector('[role="dialog"]')
-    expect(dialog).toBeInTheDocument()
-    expect(dialog).toHaveAccessibleName("哪种材料更适合气体分离？")
-    fireEvent.click(within(dialog).getByRole("button", { name: "进入完整工作区" }))
+    const chapter = atlas.querySelector('[role="region"]')
+    expect(chapter).toBeInTheDocument()
+    expect(chapter).toHaveAccessibleName("哪种材料更适合气体分离？")
+    fireEvent.click(within(chapter).getByRole("button", { name: "进入完整工作区" }))
 
     expect(setActiveTab).toHaveBeenLastCalledWith("gassep")
     expect(window.location.hash).toBe("#gassep")
+  })
+
+  it("preserves the classic homepage behind an explicit view switch", () => {
+    renderHome()
+
+    expect(document.querySelector(".home-discovery-map")).toBeInTheDocument()
+    fireEvent.click(screen.getByRole("button", { name: "切换到经典首页" }))
+
+    expect(document.querySelector(".home-discovery-map")).not.toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "EcoMOF-AI" })).toBeInTheDocument()
+    expect(screen.getByText("数据驱动的 MOF 筛选与验证平台")).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole("button", { name: "切换到沉浸首页" }))
+    expect(document.querySelector(".home-discovery-map")).toBeInTheDocument()
   })
 })

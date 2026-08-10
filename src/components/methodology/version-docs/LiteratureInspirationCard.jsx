@@ -44,10 +44,10 @@ export function LiteratureInspirationCard({ record, link, lang, t, selected, onS
         </strong>
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        <span style={{ background: bg, border: `1px solid ${fg}`, borderRadius: 999, color: fg, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
+        <span style={{ background: bg, border: `1px solid ${fg}`, borderRadius: 6, color: fg, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
           {record.status === "verified_from_uploaded_file" ? "verified uploaded paper" : "Pending metadata"}
         </span>
-        <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: record.doi ? t.accentText : t.warn, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
+        <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: record.doi ? t.accentText : t.warn, fontSize: 10.5, fontWeight: 900, padding: "5px 8px" }}>
           {doiLabel(record)}
         </span>
       </div>

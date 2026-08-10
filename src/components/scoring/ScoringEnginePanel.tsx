@@ -221,7 +221,6 @@ export function DescriptorSetDrawer({ open, onClose, draft, setDraft, candidates
       overflow: "auto",
       zIndex: 30,
       background: t.panel,
-      borderLeft: isMobile ? "none" : `1px solid ${t.border}`,
       borderTop: isMobile ? `1px solid ${t.border}` : "none",
       boxShadow: t.shadowLg || t.shadowSm,
       padding: 16,
@@ -306,7 +305,7 @@ export function DescriptorWeightChart({ model, t, lang }) {
           <div key={item.key} style={{ display: "grid", gridTemplateColumns: "minmax(120px, 0.8fr) minmax(0, 1.3fr) auto", gap: 10, alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, padding: 9 }}>
             <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{lang === "zh" ? item.labelZh : item.label}</div>
             <div style={{ display: "grid", gap: 4 }}>
-              <div style={{ height: 7, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden", background: t.panel }}>
+              <div style={{ height: 7, border: `1px solid ${t.border}`, borderRadius: 6, overflow: "hidden", background: t.panel }}>
                 <div style={{ height: "100%", width: pct(item.weight), background: t.accent }} />
               </div>
               <div style={{ color: t.faint, fontSize: 10.5 }}>

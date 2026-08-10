@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbScopeLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildScoringBoundaryNotice, buildWorkerScoringRequest, buildWorkerScoringTrace, canRunBrowserScoring, runLoadedScopeDryRun } from "../../utils/databaseIndex/databaseScoringBoundary"
@@ -58,8 +58,8 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
           </span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone="proxy" t={t}>{dbText(lang, "loadedScopeDryRun")}</StatusPill>
-          <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+          <StatusBadge tone="proxy" t={t}>{dbText(lang, "loadedScopeDryRun")}</StatusBadge>
+          <StatusBadge tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusBadge>
         </div>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(170px, 1fr))" }}>
@@ -77,7 +77,7 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
         <section style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, padding: 10 }}>
           <header style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
             <strong style={{ color: t.textStrong, fontSize: 12.8 }}>{text(lang, "试算结果", "Trial-scoring result")}</strong>
-            <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+            <StatusBadge tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusBadge>
           </header>
           <div style={{ display: "grid", gap: 7, gridTemplateColumns: "repeat(auto-fit, minmax(135px, 1fr))" }}>
             <Metric label={text(lang, "记录数", "record count")} value={formatCount(dryRun.result.inputRecordCount)} t={t} />

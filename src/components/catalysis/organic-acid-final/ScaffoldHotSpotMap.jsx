@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, StatusBadge, text } from "./FinalScreeningShared"
 import { roleColor } from "./HotSpotMapLegend"
 
 const plot = { left: 62, top: 30, width: 520, height: 300 }
@@ -97,7 +97,7 @@ export function ScaffoldHotSpotMap({ data = [], selectedScaffold, lang, t }) {
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}><ChemicalText value={active?.name || selected?.name || "Pending scaffold"} /></strong>
-          <StatusPill tone={active?.gateStatus === "pass" ? "pass" : active?.gateStatus === "fail" ? "fail" : "warn"} t={t}>{active?.gateStatus || "pending"}</StatusPill>
+          <StatusBadge tone={active?.gateStatus === "pass" ? "pass" : active?.gateStatus === "fail" ? "fail" : "warn"} t={t}>{active?.gateStatus || "pending"}</StatusBadge>
         </div>
         <div style={{ color: t.muted, display: "grid", fontSize: 12, gap: 4, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", lineHeight: 1.45 }}>
           <span>OACS: <strong style={{ color: t.textStrong }}>{formatScore(active?.oacs)}</strong></span>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, statusTone, text, ValueWithSource } from "./FinalScreeningShared"
 import { BENCHMARK_MODES, topCandidateReviewRows } from "../../../utils/modelBenchmarkLab"
 
 function buildDecisionRows(result = {}) {
@@ -148,9 +148,9 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
               {text(lang, algorithm.sanityCheck?.summaryZh || "算法合理性检查待生成。", algorithm.sanityCheck?.summary || "Algorithm sanity check pending.")}
             </span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              <StatusPill tone={algorithm.sanityCheck?.passed ? "pass" : "warn"} t={t}>{algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")}</StatusPill>
-              <StatusPill tone="warn" t={t}>{text(lang, "失败规则", "failed rules")}: {algorithm.sanityCheck?.failedRules?.length || 0}</StatusPill>
-              <StatusPill tone="warn" t={t}>{text(lang, "警告", "warnings")}: {algorithm.sanityCheck?.warnings?.length || 0}</StatusPill>
+              <StatusBadge tone={algorithm.sanityCheck?.passed ? "pass" : "warn"} t={t}>{algorithm.sanityCheck?.passed ? text(lang, "通过", "passed") : text(lang, "需复核", "review")}</StatusBadge>
+              <StatusBadge tone="warn" t={t}>{text(lang, "失败规则", "failed rules")}: {algorithm.sanityCheck?.failedRules?.length || 0}</StatusBadge>
+              <StatusBadge tone="warn" t={t}>{text(lang, "警告", "warnings")}: {algorithm.sanityCheck?.warnings?.length || 0}</StatusBadge>
             </div>
           </article>
           <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 7, padding: 11 }}>
@@ -159,9 +159,9 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
               {text(lang, algorithm.sensitivitySummary?.explanationZh || "敏感性分析待生成。", algorithm.sensitivitySummary?.explanation || "Sensitivity analysis pending.")}
             </span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              <StatusPill tone={algorithm.sensitivitySummary?.topCandidateStability ? "pass" : "warn"} t={t}>{algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "Top 稳定", "Top stable") : text(lang, "Top 会变化", "Top changes")}</StatusPill>
-              <StatusPill tone="info" t={t}>{text(lang, "不稳定候选", "unstable")}: {algorithm.sensitivitySummary?.unstableCandidates?.length || 0}</StatusPill>
-              <StatusPill tone="proxy" t={t}>{algorithm.scoringModeLabelZh || algorithm.scoringModeLabel || "formic_acid_priority"}</StatusPill>
+              <StatusBadge tone={algorithm.sensitivitySummary?.topCandidateStability ? "pass" : "warn"} t={t}>{algorithm.sensitivitySummary?.topCandidateStability ? text(lang, "Top 稳定", "Top stable") : text(lang, "Top 会变化", "Top changes")}</StatusBadge>
+              <StatusBadge tone="info" t={t}>{text(lang, "不稳定候选", "unstable")}: {algorithm.sensitivitySummary?.unstableCandidates?.length || 0}</StatusBadge>
+              <StatusBadge tone="proxy" t={t}>{algorithm.scoringModeLabelZh || algorithm.scoringModeLabel || "formic_acid_priority"}</StatusBadge>
             </div>
           </article>
         </div>
@@ -178,7 +178,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
               >
                 <div style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
                   <strong style={{ fontSize: 13.2 }}><ChemicalText value={`#${row.rank || row.candidate?.rank || "-"} ${row.candidateName}`} /></strong>
-                  <StatusPill tone={recommendationTone(row.recommendationClass)} t={t}>{row.recommendationClass || row.validationReadiness}</StatusPill>
+                  <StatusBadge tone={recommendationTone(row.recommendationClass)} t={t}>{row.recommendationClass || row.validationReadiness}</StatusBadge>
                 </div>
                 <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{row.targetProduct} · {row.pathwayRole}</span>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}>

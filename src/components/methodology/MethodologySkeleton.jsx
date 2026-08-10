@@ -14,7 +14,7 @@ export function MethodologySkeleton({ lang, t, title, titleZh }) {
       </strong>
       <div style={{ display: "grid", gap: 8 }}>
         {[0, 1, 2].map(index => (
-          <span key={index} style={{ background: index === 0 ? t.badgeInfoBg : t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 12, opacity: 0.82, width: `${92 - index * 18}%` }} />
+          <span key={index} style={{ background: index === 0 ? t.badgeInfoBg : t.surface, border: `1px solid ${t.border}`, borderRadius: 6, height: 12, opacity: 0.82, width: `${92 - index * 18}%` }} />
         ))}
       </div>
     </section>

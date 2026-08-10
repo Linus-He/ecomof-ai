@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../FinalScreeningShared"
 
 function openTraceWorkbench() {
   if (typeof document === "undefined") return
@@ -14,7 +14,7 @@ export function RunTracePanel({ open, trace, lang, t }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, maxHeight: 420, overflow: "auto", padding: 10 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "运行审计记录", "Run audit record")}</strong>
-        {trace?.runId ? <StatusPill tone="info" t={t}>{trace.runId}</StatusPill> : null}
+        {trace?.runId ? <StatusBadge tone="info" t={t}>{trace.runId}</StatusBadge> : null}
       </div>
       {trace?.runId ? (
         <button type="button" onClick={openTraceWorkbench} style={{ background: t.accent, border: `1px solid ${t.accent}`, borderRadius: 8, color: t.buttonText || "#fff", cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 10px" }}>

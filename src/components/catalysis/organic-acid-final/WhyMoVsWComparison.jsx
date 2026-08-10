@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { formatScore, MiniMetric, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { formatScore, MiniMetric, Panel, StatusBadge, text } from "./FinalScreeningShared"
 import { AlgorithmTraceDrawer } from "./AlgorithmTraceDrawer"
 
 function WinList({ title, items, t }) {
@@ -76,9 +76,9 @@ export function WhyMoVsWComparison({ comparisons, metals, trace, lang, t, isMobi
       </div>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <StatusPill tone="info" t={t}>Mo: primary hypothesis</StatusPill>
-        <StatusPill tone="warn" t={t}>W: backup hypothesis</StatusPill>
-        <StatusPill tone="warn" t={t}>not final proof</StatusPill>
+        <StatusBadge tone="info" t={t}>Mo: primary hypothesis</StatusBadge>
+        <StatusBadge tone="warn" t={t}>W: backup hypothesis</StatusBadge>
+        <StatusBadge tone="warn" t={t}>not final proof</StatusBadge>
       </div>
     </Panel>
   )

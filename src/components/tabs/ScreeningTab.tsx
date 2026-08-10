@@ -98,7 +98,7 @@ function FieldRow({ label, modified, children, note }) {
         <div style={{
           flex: 1,
           minWidth: 0,
-          borderLeft: modified ? `2px solid ${t.accent}` : "2px solid transparent",
+          borderColor: modified ? t.accent : t.border,
           paddingLeft: 6,
         }}>
           {children}
@@ -121,8 +121,8 @@ function InlineNumberField({ value, onChange, min, max, step, unit, modified }) 
   const tooltipValue = `${Number(clamped).toFixed(step < 0.1 ? 2 : step < 1 ? 1 : 0)} ${unit}`
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 66px", alignItems: "center", gap: 8 }}>
-      <div className="range-control" style={{ position: "relative", height: 4, background: t.border, borderRadius: 999 }}>
-        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct}%`, background: t.accent, borderRadius: 999 }} />
+      <div className="range-control" style={{ position: "relative", height: 4, background: t.border, borderRadius: 6 }}>
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct}%`, background: t.accent, borderRadius: 6 }} />
         <div
           className="range-value-tooltip"
           style={{
@@ -501,7 +501,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
             </button>
           ))}
         </div>
-        <div style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 14px", fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
+        <div style={{ color: t.muted, background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, padding: "5px 14px", fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>
           {inputs.metalCenter} / {inputs.organicLinker} · {inputs.gasSystem} · {inputs.temperature} K · {inputs.pressure} bar
         </div>
       </div>

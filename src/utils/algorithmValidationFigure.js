@@ -41,7 +41,7 @@ export const DESCRIPTOR_CLASSES = [
   { key: "Electronic", label: "Electronic", labelZh: "电子", color: "#7C3AED" },
   { key: "Graph", label: "Graph", labelZh: "图论", color: "#BE123C" },
   { key: "Evidence", label: "Evidence", labelZh: "证据", color: "#0F766E" },
-  { key: "OrganicAcid", label: "Organic Acid", labelZh: "有机酸", color: "#B45309" },
+  { key: "OrganicAcid", label: "Organic Acid", labelZh: "有机酸", color: "#B91C1C" },
 ]
 
 // ---- Mini chart data builders (real values, fed to SVG mini charts) ----

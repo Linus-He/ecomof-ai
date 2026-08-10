@@ -171,11 +171,11 @@ export function GasTopRankingChart({
                 </span>
               </span>
               {rankingMode === "overall" ? (
-                <span style={{ alignSelf: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 12, overflow: "hidden" }}>
+                <span style={{ alignSelf: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 12, overflow: "hidden" }}>
                   <span style={{ background: CONTRIBUTION_COLORS.uptake, display: "block", height: "100%", width: `${Math.max(4, (score / maxScore) * 100)}%` }} />
                 </span>
               ) : (
-                <span style={{ alignSelf: "center", display: "flex", overflow: "hidden", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 14 }}>
+                <span style={{ alignSelf: "center", display: "flex", overflow: "hidden", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 14 }}>
                   {["uptake", "selectivity", "workingCapacity", "regenerability", "stability", "evidence"].map(key => {
                     const value = Number(row.scoreBreakdown?.contributions?.[key] || 0)
                     return <span key={key} title={key} style={{ background: CONTRIBUTION_COLORS[key], width: `${Math.max(2, value)}%` }} />

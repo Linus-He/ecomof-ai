@@ -226,9 +226,9 @@ const POSITIONS = {
 const PALETTE = {
   descriptor: { fill: "rgba(26,109,181,0.13)", stroke: "#1A6DB5" },
   feasibility: { fill: "rgba(21,128,61,0.12)", stroke: "#15803D" },
-  risk: { fill: "rgba(180,83,9,0.12)", stroke: "#B45309" },
+  risk: { fill: "rgba(185,28,28,0.12)", stroke: "#B91C1C" },
   graph: { fill: "rgba(14,116,144,0.13)", stroke: "#0E7490" },
-  evidence: { fill: "rgba(217,119,6,0.14)", stroke: "#D97706" },
+  evidence: { fill: "rgba(109,91,208,0.14)", stroke: "#6D5BD0" },
   score: { fill: "rgba(21,94,117,0.12)", stroke: "#155E75" },
   final: { fill: "rgba(26,109,181,0.18)", stroke: "#1A6DB5" },
 }

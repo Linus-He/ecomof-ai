@@ -75,7 +75,7 @@ export function GasFieldProvenanceButton({ record, field, currentValue, unit, la
         title={text(lang, `查看 ${fieldLabel} 字段级溯源`, `View field-level provenance for ${fieldLabel}`)}
         onClick={toggle}
         aria-expanded={open}
-        style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 900, height: 22, justifyContent: "center", marginLeft: 5, width: 22 }}
+        style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 900, height: 22, justifyContent: "center", marginLeft: 5, width: 22 }}
       >
         ⓘ
       </button>

@@ -83,7 +83,7 @@ function RuleList({ rules, t, lang }) {
     <div style={{ display: "grid", gap: 8 }}>
       {rules.map(rule => (
         <div key={rule.ruleId || rule.label} style={{ alignItems: "start", display: "grid", gap: 8, gridTemplateColumns: "10px minmax(0, 1fr) auto" }}>
-          <span aria-hidden="true" style={{ background: ruleDot(rule.status, t), borderRadius: 999, height: 8, marginTop: 5, width: 8 }} />
+          <span aria-hidden="true" style={{ background: ruleDot(rule.status, t), borderRadius: 6, height: 8, marginTop: 5, width: 8 }} />
           <div style={{ minWidth: 0 }}>
             <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 870, lineHeight: 1.3 }}>{ruleLabel(rule, lang)}</div>
             <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.45, marginTop: 2 }}>{ruleReason(rule, lang)}</div>

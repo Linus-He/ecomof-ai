@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import { buildAlgorithmImprovementTrace } from "../../utils/databaseIndex/algorithmImprovementTrace"
 
@@ -21,7 +21,7 @@ export function AlgorithmImprovementTracePanel({ records = [], topNCount, lang, 
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "非最终推荐", "not final recommendation")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "非最终推荐", "not final recommendation")}</StatusBadge>
       </header>
 
       <ol style={{ display: "grid", gap: 8, listStyle: "none", margin: 0, padding: 0 }}>

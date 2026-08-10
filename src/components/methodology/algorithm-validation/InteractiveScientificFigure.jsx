@@ -134,7 +134,7 @@ function FigureInspector({ node, algorithm, readiness, lang, t, onJumpToSection 
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {node.items.map(item => (
-          <span key={item.label} style={{ background: t.surface, border: `1px solid ${item.tone === "warn" ? t.warn : t.border}`, borderRadius: 999, color: item.tone === "warn" ? t.warn : t.muted, fontSize: 10.5, fontWeight: 800, padding: "3px 8px" }}>
+          <span key={item.label} style={{ background: t.surface, border: `1px solid ${item.tone === "warn" ? t.warn : t.border}`, borderRadius: 6, color: item.tone === "warn" ? t.warn : t.muted, fontSize: 10.5, fontWeight: 800, padding: "3px 8px" }}>
             {item.label}
           </span>
         ))}

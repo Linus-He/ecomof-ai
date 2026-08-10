@@ -67,7 +67,7 @@ export function ExperimentalLabelDashboard({ firstBenchmark = null, lang = "en",
 
       {/* First Real Benchmark Dashboard */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <span style={{ background: metricsAllowed ? t.badgeOkBg || t.surface : t.badgeWarnBg, border: `1px solid ${metricsAllowed ? t.success : t.warn}`, borderRadius: 999, color: metricsAllowed ? t.success : t.warn, fontSize: 11, fontWeight: 800, padding: "3px 10px" }}>
+        <span style={{ background: metricsAllowed ? t.badgeOkBg || t.surface : t.badgeWarnBg, border: `1px solid ${metricsAllowed ? t.success : t.warn}`, borderRadius: 6, color: metricsAllowed ? t.success : t.warn, fontSize: 11, fontWeight: 800, padding: "3px 10px" }}>
           {firstBenchmark.overallStatus} · Result {firstBenchmark.result}
         </span>
       </div>

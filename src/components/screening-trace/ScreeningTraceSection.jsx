@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchJson } from "../../services/dataService"
 import { buildScreeningTrace } from "../../utils/screeningTrace/buildScreeningTrace"
 import { ScreeningTraceTimeline } from "./ScreeningTraceTimeline"
@@ -42,7 +42,7 @@ function DatabasePreviewSummary({ trace, lang, t, isMobile }) {
     <section id="database-preview-summary" data-testid="database-preview-summary" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "数据库预览摘要", "Database Preview Summary")}</strong>
-        <StatusPill tone="warn" t={t}>{text(lang, "非最终推荐", "Not Final Recommendation")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "非最终推荐", "Not Final Recommendation")}</StatusBadge>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, minmax(0, 1fr))" }}>
         <Metric label={text(lang, "候选总数", "Total candidates")} value={trace.totalCandidates} t={t} />
@@ -84,10 +84,10 @@ export function ScreeningTraceSection({ model, verification: verificationProp = 
   return (
     <div id="screening-trace" data-testid="screening-trace-section" data-shell-ready="true" data-data-ready={dataReady ? "true" : "false"} style={{ display: "grid", gap: 12, scrollMarginTop: 118 }}>
       <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "flex", flexWrap: "wrap", gap: 8, padding: 12 }}>
-        <StatusPill tone="proxy" t={t}>{text(lang, "数据库预览", "Database Preview")}</StatusPill>
-        {trace.sourceConfirmedCount > 0 ? <StatusPill tone="info" t={t}>{text(lang, `来源确认可用 ${trace.sourceConfirmedCount}`, `Source Confirmed Available ${trace.sourceConfirmedCount}`)}</StatusPill> : null}
-        <StatusPill tone={trace.verifiedMetadataCount > 0 ? "pass" : "warn"} t={t}>{text(lang, `已核验元数据 ${trace.verifiedMetadataCount}`, `Verified Metadata ${trace.verifiedMetadataCount}`)}</StatusPill>
-        <StatusPill tone="warn" t={t}>{text(lang, "非最终推荐", "Not Final Recommendation")}</StatusPill>
+        <StatusBadge tone="proxy" t={t}>{text(lang, "数据库预览", "Database Preview")}</StatusBadge>
+        {trace.sourceConfirmedCount > 0 ? <StatusBadge tone="info" t={t}>{text(lang, `来源确认可用 ${trace.sourceConfirmedCount}`, `Source Confirmed Available ${trace.sourceConfirmedCount}`)}</StatusBadge> : null}
+        <StatusBadge tone={trace.verifiedMetadataCount > 0 ? "pass" : "warn"} t={t}>{text(lang, `已核验元数据 ${trace.verifiedMetadataCount}`, `Verified Metadata ${trace.verifiedMetadataCount}`)}</StatusBadge>
+        <StatusBadge tone="warn" t={t}>{text(lang, "非最终推荐", "Not Final Recommendation")}</StatusBadge>
       </section>
       <DatabasePreviewSummary trace={trace} lang={lang} t={t} isMobile={isMobile} />
       {!dataReady ? (

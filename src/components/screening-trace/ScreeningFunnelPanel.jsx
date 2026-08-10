@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 
 const FILTER_COPY = {
   hard: { en: "hard filter", zh: "硬筛" },
@@ -22,7 +22,7 @@ export function ScreeningFunnelPanel({ trace, lang, t }) {
             <div key={stage.stageId} style={{ display: "grid", gap: 3 }}>
               <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
                 <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 800, overflowWrap: "anywhere" }}>{text(lang, stage.stageNameZh, stage.stageName)}</span>
-                <span style={{ color: t.muted, fontSize: 11 }}>{stage.inputCount} → {stage.outputCount}{stage.removedCount ? ` (−${stage.removedCount})` : ""} · <StatusPill tone={stage.filterType === "hard" ? "warn" : stage.filterType === "soft" ? "proxy" : "info"} t={t}>{text(lang, fc.zh, fc.en)}</StatusPill></span>
+                <span style={{ color: t.muted, fontSize: 11 }}>{stage.inputCount} → {stage.outputCount}{stage.removedCount ? ` (−${stage.removedCount})` : ""} · <StatusBadge tone={stage.filterType === "hard" ? "warn" : stage.filterType === "soft" ? "proxy" : "info"} t={t}>{text(lang, fc.zh, fc.en)}</StatusBadge></span>
               </div>
               <div style={{ background: t.panel, borderRadius: 6, height: 10, overflow: "hidden" }}>
                 <div style={{ background: t.accent, height: "100%", width: `${width}%` }} />

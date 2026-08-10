@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatPercent, MiniMetric, Panel, StatusPill, statusTone, text } from "./FinalScreeningShared"
+import { displayValue, formatPercent, MiniMetric, Panel, StatusBadge, statusTone, text } from "./FinalScreeningShared"
 
 function statusLabel(row, lang) {
   if (row?.status === "rank-locked") return text(lang, "锁定排名 / 需审计", "rank locked / audit required")
@@ -19,7 +19,7 @@ export function MetalSensitivityDistribution({ distribution, sensitivity, audit,
       eyebrow={text(lang, "全金属分布", "Full-metal distribution")}
       title={text(lang, "Full-Metal Sensitivity Distribution", "Full-Metal Sensitivity Distribution")}
       t={t}
-      actions={<StatusPill tone={statusTone(audit?.status)} t={t}>{audit?.label || "distribution audit"}</StatusPill>}
+      actions={<StatusBadge tone={statusTone(audit?.status)} t={t}>{audit?.label || "distribution audit"}</StatusBadge>}
     >
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
         <MiniMetric label="Iterations" value={sensitivity?.iterations || mo?.iterations || 1000} t={t} />
@@ -68,7 +68,7 @@ export function MetalSensitivityDistribution({ distribution, sensitivity, audit,
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, padding: "9px 8px" }}>{displayValue(row.rankStd)}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 12, padding: "9px 8px" }}>{displayValue(row.rankRange)}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, padding: "9px 8px" }}>
-                  <StatusPill tone={row.status === "sensitive" ? "warn" : row.status === "rank-locked" ? "warn" : "pass"} t={t}>{statusLabel(row, lang)}</StatusPill>
+                  <StatusBadge tone={row.status === "sensitive" ? "warn" : row.status === "rank-locked" ? "warn" : "pass"} t={t}>{statusLabel(row, lang)}</StatusBadge>
                 </td>
               </tr>
             ))}

@@ -6,7 +6,7 @@ const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function EvidenceBadge({ children, t }) {
   return (
-    <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "4px 7px", textTransform: "uppercase" }}>
+    <span style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "4px 7px", textTransform: "uppercase" }}>
       <ChemicalText value={children} />
     </span>
   )

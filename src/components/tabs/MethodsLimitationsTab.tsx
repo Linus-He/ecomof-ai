@@ -20,6 +20,7 @@ import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
 import { MethodArchitectureDetails, MethodArchitectureOverview } from "../methodology/MethodArchitectureDetails"
+import { MethodologyRegistry } from "../methodology/MethodologyRegistry"
 import { ArrowsOutLineHorizontal } from "@phosphor-icons/react"
 
 const MODULE_ORDER = [
@@ -63,6 +64,10 @@ function buildDirectory(modules, lang) {
       level: 1,
       children: [
         ...(module.id === "platform-overview" ? [{
+          id: "methodology-registry",
+          label: "Method registry and review entry",
+          labelZh: "方法注册表与复核入口",
+        }, {
           id: "methodology-data-architecture",
           label: "Data and database architecture",
           labelZh: "数据与数据库架构",
@@ -127,7 +132,7 @@ function PlatformFlowCard({ lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
         {steps.map(([title, body], index) => (
           <article key={title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 10 }}>
-            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
             <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.3 }}>{title}</strong>
             <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{body}</span>
           </article>
@@ -322,7 +327,7 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
               }}
             >
               {text(lang, category.titleZh, category.titleEn)}
-              <span style={{ background: active ? "rgba(255,255,255,0.18)" : t.badgeInfoBg, borderRadius: 999, color: active ? "#fff" : t.accentText, fontSize: 10.5, fontWeight: 900, padding: "1px 6px" }}>
+              <span style={{ background: active ? "rgba(255,255,255,0.18)" : t.badgeInfoBg, borderRadius: 6, color: active ? "#fff" : t.accentText, fontSize: 10.5, fontWeight: 900, padding: "1px 6px" }}>
                 {category.sourceIds?.length || 0}
               </span>
             </button>
@@ -375,7 +380,7 @@ function StructuredFactorEffectsMethod({ lang, t, isMobile }) {
         {rows.map(([en, zh, bodyEn, bodyZh], index) => (
           <article key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 11 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
-              <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+              <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
               <strong style={{ color: t.textStrong, fontSize: 12.5, lineHeight: 1.3 }}>{text(lang, zh, en)}</strong>
             </div>
             <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.55 }}>{text(lang, bodyZh, bodyEn)}</span>
@@ -426,6 +431,7 @@ export function MethodsLimitationsTab() {
   const compactMethods = isNarrow || width < 1120
   const [modules, setModules] = useState([])
   const [literatureRecords, setLiteratureRecords] = useState({ categories: [], sources: [] })
+  const [governanceFrameworks, setGovernanceFrameworks] = useState({ standardFields: [], frameworks: [] })
   const [activeId, setActiveId] = useState("methodology-platform-overview")
   const [sidebarWidth, setSidebarWidth] = useState(276)
 
@@ -438,6 +444,18 @@ export function MethodsLimitationsTab() {
       })
       .catch(() => {
         if (active) setModules([])
+      })
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    let active = true
+    fetchDataJson("methodology_governance_frameworks.json", { standardFields: [], frameworks: [] })
+      .then(records => {
+        if (active) setGovernanceFrameworks(records && typeof records === "object" ? records : { standardFields: [], frameworks: [] })
+      })
+      .catch(() => {
+        if (active) setGovernanceFrameworks({ standardFields: [], frameworks: [] })
       })
     return () => { active = false }
   }, [])
@@ -534,6 +552,16 @@ export function MethodsLimitationsTab() {
         }
       />
 
+      <MethodologyRegistry
+        modules={orderedModules}
+        literatureRecords={literatureRecords}
+        governance={governanceFrameworks}
+        lang={lang}
+        t={t}
+        isMobile={isMobile || compactMethods}
+        onJump={scrollToSection}
+      />
+
       <div style={{ alignItems: "start", display: "grid", gap: compactMethods ? 16 : 0, gridTemplateColumns: compactMethods ? "1fr" : `${sidebarWidth}px 14px minmax(0, 1fr)` }}>
         <MethodologySidebar
           items={directoryItems}
@@ -563,7 +591,7 @@ export function MethodsLimitationsTab() {
             }}
             style={{ alignItems: "center", alignSelf: "stretch", background: "transparent", border: 0, color: t.faint, cursor: "col-resize", display: "inline-flex", justifyContent: "center", minHeight: 240, padding: 0, touchAction: "none", width: 14 }}
           >
-            <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, display: "inline-flex", height: 42, justifyContent: "center", position: "sticky", top: 118, width: 12 }}>
+            <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, display: "inline-flex", height: 42, justifyContent: "center", position: "sticky", top: 118, width: 12 }}>
               <ArrowsOutLineHorizontal aria-hidden="true" size={11} weight="bold" />
             </span>
           </button>

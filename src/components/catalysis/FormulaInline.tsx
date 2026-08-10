@@ -16,7 +16,7 @@ export const organicAcidPalette = {
   positive: "#147C43",
   positiveSoft: "#F2FBF6",
   mixed: "#A15C13",
-  mixedSoft: "#FFF7ED",
+  mixedSoft: "#F1F5F9",
   risk: "#8F3B1B",
   riskSoft: "#FFF1E8",
 }

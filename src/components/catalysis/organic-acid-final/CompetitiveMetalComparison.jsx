@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, MiniMetric, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, MiniMetric, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 function DeltaList({ title, items, emptyText, t }) {
   return (
@@ -26,7 +26,7 @@ export function CompetitiveMetalComparison({ comparisons, lang, t, isMobile }) {
       eyebrow={text(lang, "竞品审计", "Competitive audit")}
       title={text(lang, "Mo vs W/V/Ti/Zr/Fe Competitive Metal Comparison", "Mo vs W/V/Ti/Zr/Fe Competitive Metal Comparison")}
       t={t}
-      actions={<StatusPill tone="warn" t={t}>demo/proxy comparison</StatusPill>}
+      actions={<StatusBadge tone="warn" t={t}>demo/proxy comparison</StatusBadge>}
     >
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
         <ChemicalText value={text(
@@ -41,9 +41,9 @@ export function CompetitiveMetalComparison({ comparisons, lang, t, isMobile }) {
           <article key={row.competitor} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, padding: 12 }}>
             <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
               <strong style={{ color: t.textStrong, fontSize: 14 }}>Mo vs {row.competitor}</strong>
-              <StatusPill tone={row.dmrsGap >= 0 ? "pass" : "warn"} t={t}>
+              <StatusBadge tone={row.dmrsGap >= 0 ? "pass" : "warn"} t={t}>
                 {row.dmrsGap >= 0 ? text(lang, "Mo higher", "Mo higher") : text(lang, "competitor higher", "competitor higher")}
-              </StatusPill>
+              </StatusBadge>
             </div>
             <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
               <MiniMetric label="Mo DMRS" value={formatScore(row.targetDmrs)} t={t} />

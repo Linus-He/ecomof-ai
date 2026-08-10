@@ -26,7 +26,7 @@ export function DescriptorMappingExplanationPanel({ model, summary, lang = "zh",
                   <span style={{ color: palette.faint, fontSize: 10.5 }}>{group.stepName} →</span>
                   <strong style={{ color: palette.text, fontSize: 12 }}>{group.descriptorGroup}</strong>
                   {group.missingCount > 0 ? (
-                    <span style={{ background: palette.riskSoft, border: `1px solid ${palette.risk}`, borderRadius: 999, color: palette.risk, fontSize: 9.5, fontWeight: 900, padding: "2px 7px" }}>
+                    <span style={{ background: palette.riskSoft, border: `1px solid ${palette.risk}`, borderRadius: 6, color: palette.risk, fontSize: 9.5, fontWeight: 900, padding: "2px 7px" }}>
                       {text(lang, `缺 ${group.missingCount} 项描述符`, `${group.missingCount} missing`)}
                     </span>
                   ) : null}

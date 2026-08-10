@@ -286,14 +286,14 @@ const RECENT_RELEASES = [
       en: "v1.0.13: turns the homepage into a continuous research canvas and restores literature-backed, item-level methodology detail.",
     },
     summary: {
-      zh: "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一移除文本按钮、筛选项和状态标签的胶囊形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
-      en: "This release softens homepage section and card boundaries, shortens section spacing, and removes capsule geometry from text buttons, filters, and status labels. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item.",
+      zh: "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一将文本按钮、筛选项和状态标签迁移到紧凑小圆角形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
+      en: "This release softens homepage section and card boundaries, shortens section spacing, and moves text buttons, filters, and status labels to compact-corner geometry. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item.",
     },
     modules: {
       ui: {
         summary: {
-          zh: "首页区块连续化，并建立全站无胶囊控件规范。",
-          en: "Homepage sections now read continuously under a site-wide non-capsule control rule.",
+          zh: "首页区块连续化，并建立全站紧凑小圆角控件规范。",
+          en: "Homepage sections now read continuously under a site-wide compact-corner control rule.",
         },
         changes: [
           { zh: "首页主要区块移除外层实体边框和阴影，内层卡片边界降至低对比度，缩短首屏到数据基础之间的空白。", en: "Removes solid outer borders and shadows from homepage stages, lowers inner-card contrast, and shortens the gap from the hero to Data Foundation." },
@@ -803,8 +803,8 @@ async function main() {
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、无胶囊控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
-        en: "v1.0.13 records only the homepage immersion changes, non-capsule control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、紧凑小圆角控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
+        en: "v1.0.13 records only the homepage immersion changes, compact-corner control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,

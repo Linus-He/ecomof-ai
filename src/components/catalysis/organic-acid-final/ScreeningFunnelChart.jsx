@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 function toneFor(status) {
   if (status === "completed") return "pass"
@@ -28,7 +28,7 @@ export function ScreeningFunnelChart({ data, lang, t, isMobile, onOpenSelectedSc
       eyebrow={text(lang, "筛选漏斗", "Screening funnel")}
       title={text(lang, "Screening Funnel Chart", "Screening Funnel Chart")}
       t={t}
-      actions={<StatusPill tone="info" t={t}>No direct Al/Mo retrieval</StatusPill>}
+      actions={<StatusBadge tone="info" t={t}>No direct Al/Mo retrieval</StatusBadge>}
     >
       <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
         <ChemicalText value={text(
@@ -62,11 +62,11 @@ export function ScreeningFunnelChart({ data, lang, t, isMobile, onOpenSelectedSc
                 <strong style={{ color: t.textStrong, fontSize: 12.5 }}>
                   <ChemicalText value={`${index + 1}. ${lang === "zh" ? row.labelZh || row.label : row.label}`} />
                 </strong>
-                <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 24, minWidth: 0, overflow: "hidden" }}>
+                <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 24, minWidth: 0, overflow: "hidden" }}>
                   <div style={{ background: row.status === "warning" ? t.warn : t.accent, height: "100%", opacity: 0.78, width }} />
                 </div>
                 <strong style={{ color: t.textStrong, fontSize: 13, fontVariantNumeric: "tabular-nums" }}>{row.count}</strong>
-                <StatusPill tone={toneFor(row.status)} t={t}>{row.status}</StatusPill>
+                <StatusBadge tone={toneFor(row.status)} t={t}>{row.status}</StatusBadge>
               </div>
               {row.reviewCount || row.failCount ? (
                 <span style={{ color: t.warn, fontSize: 11.8, lineHeight: 1.4 }}>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { StatusPill, text } from "./FinalScreeningShared"
+import { StatusBadge, text } from "./FinalScreeningShared"
 import { X } from "@phosphor-icons/react"
 
 export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false }) {
@@ -47,7 +47,7 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
             onClick={event => event.stopPropagation()}
             style={{
               background: t.panel,
-              borderLeft: `1px solid ${t.borderStrong || t.border}`,
+              borderTop: `1px solid ${t.borderStrong || t.border}`,
               boxShadow: t.shadowLg || t.shadowMd,
               display: "grid",
               gap: 12,
@@ -79,12 +79,12 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
                 <X aria-hidden="true" size={17} weight="bold" />
               </button>
             </header>
-            <StatusPill tone="warn" t={t}>{text(lang, "演示/代理追踪", "demo/proxy trace")}</StatusPill>
+            <StatusBadge tone="warn" t={t}>{text(lang, "演示/代理追踪", "demo/proxy trace")}</StatusBadge>
             <div style={{ display: "grid", gap: 9 }}>
               {rows.map((row, index) => (
                 <article key={row.id || row.title} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 6, padding: 11 }}>
                   <div style={{ alignItems: "start", display: "grid", gap: 8, gridTemplateColumns: "30px minmax(0, 1fr)" }}>
-                    <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>
+                    <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>
                       {index + 1}
                     </span>
                     <div style={{ display: "grid", gap: 3 }}>
@@ -98,7 +98,7 @@ export function AlgorithmTraceDrawer({ trace, lang, t, label, compact = false })
                   </div>
                   {row.items?.length ? (
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingLeft: 38 }}>
-                      {row.items.map(item => <StatusPill key={item} tone="info" t={t}>{item}</StatusPill>)}
+                      {row.items.map(item => <StatusBadge key={item} tone="info" t={t}>{item}</StatusBadge>)}
                     </div>
                   ) : null}
                 </article>

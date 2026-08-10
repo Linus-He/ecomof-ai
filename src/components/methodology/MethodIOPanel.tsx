@@ -4,9 +4,9 @@ import { SCIENTIFIC_TOKEN_FONT } from "../../utils/chemText"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
-function Pill({ children, t }) {
+function InlineBadge({ children, t }) {
   return (
-    <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, display: "inline-flex", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 780, lineHeight: 1.2, padding: "5px 8px" }}>
+    <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, display: "inline-flex", fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 780, lineHeight: 1.2, padding: "5px 8px" }}>
       <ChemicalText value={children} />
     </span>
   )
@@ -23,7 +23,7 @@ export function MethodIOPanel({ inputs = [], inputsZh = [], outputs = [], output
         <article key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: 11 }}>
           <strong style={{ color: t.textStrong, display: "block", fontSize: 12.5, marginBottom: 8 }}>{label}</strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {(values || []).map(value => <Pill key={value} t={t}>{value}</Pill>)}
+            {(values || []).map(value => <InlineBadge key={value} t={t}>{value}</InlineBadge>)}
           </div>
         </article>
       ))}

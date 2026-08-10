@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { buildCandidateValidationRoadmap } from "../../utils/databaseIndex/candidateValidationRoadmap"
 
 function priorityTone(priority) {
@@ -37,7 +37,7 @@ export function CandidateValidationRoadmapPanel({ record = {}, lang, t }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13.4 }}>{text(lang, "候选验证路线", "Candidate Validation Roadmap")}</strong>
-        <StatusPill tone={priorityTone(roadmap.validationPriority)} t={t}>{priorityLabel(roadmap.validationPriority, lang)}</StatusPill>
+        <StatusBadge tone={priorityTone(roadmap.validationPriority)} t={t}>{priorityLabel(roadmap.validationPriority, lang)}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 8 }}>

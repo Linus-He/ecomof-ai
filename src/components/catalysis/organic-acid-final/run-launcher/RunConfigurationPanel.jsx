@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, text } from "../FinalScreeningShared"
+import { StatusBadge, text } from "../FinalScreeningShared"
 
 // Research-readable candidate sources. Status reflects how each source may be used,
 // not a developer "enabled/disabled" flag.
@@ -85,7 +85,7 @@ export function RunConfigurationPanel({ dataMode, setDataMode, lang, t, isMobile
               <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.42 }}>
                 <ChemicalText value={text(lang, mode.noteZh, mode.note)} />
               </span>
-              <StatusPill tone={mode.statusTone} t={t}>{text(lang, mode.statusLabelZh, mode.statusLabel)}</StatusPill>
+              <StatusBadge tone={mode.statusTone} t={t}>{text(lang, mode.statusLabelZh, mode.statusLabel)}</StatusBadge>
             </button>
           )
         })}
@@ -103,7 +103,7 @@ export function RunConfigurationPanel({ dataMode, setDataMode, lang, t, isMobile
         <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "反应约束", "Reaction constraints")}</span>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {PRESET_ROWS.map(([en, zh]) => (
-            <span key={en} style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, fontSize: 11.5, fontWeight: 850, padding: "6px 9px" }}>
+            <span key={en} style={{ background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontSize: 11.5, fontWeight: 850, padding: "6px 9px" }}>
               <ChemicalText value={text(lang, zh, en)} />
             </span>
           ))}

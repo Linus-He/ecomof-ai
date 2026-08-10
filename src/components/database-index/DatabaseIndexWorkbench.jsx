@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { Panel, StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { Panel, StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { loadDatabaseIndexOverview } from "../../utils/databaseIndex/databaseIndexLoaders"
 import { dbStatusLabel } from "../../utils/databaseIndex/databaseIndexCopy"
 import { normalizeComparableCandidate } from "../../utils/databaseIndex/databaseIndexFormatters"
@@ -66,7 +66,7 @@ export function DatabaseIndexWorkbench({ lang, t, isMobile, onOverviewLoaded }) 
       eyebrow={text(lang, "CoRE MOF 2024 · 真实记录索引", "CoRE MOF 2024 · Real Record Index")}
       title={text(lang, "CoRE 2024 CR 数据库索引与结构审阅", "CoRE 2024 CR Database Index & Structural Review")}
       t={t}
-      actions={<StatusPill tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusPill>}
+      actions={<StatusBadge tone={status === "error" ? "warn" : "proxy"} t={t}>{dbStatusLabel(status, lang)}</StatusBadge>}
     >
       <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(

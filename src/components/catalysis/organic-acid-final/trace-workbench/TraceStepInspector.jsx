@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../FinalScreeningShared"
 
 function Row({ label, value, t }) {
   return (
@@ -17,7 +17,7 @@ export function TraceStepInspector({ step, lang, t }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 12 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14.5 }}><ChemicalText value={text(lang, step.titleZh, step.title)} /></strong>
-        <StatusPill tone={step.status === "warning" ? "warn" : "pass"} t={t}>{step.status}</StatusPill>
+        <StatusBadge tone={step.status === "warning" ? "warn" : "pass"} t={t}>{step.status}</StatusBadge>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
         <Row label={text(lang, "输入", "Input")} value={`${step.input?.count || 0} ${step.input?.label || "records"}`} t={t} />
@@ -29,7 +29,7 @@ export function TraceStepInspector({ step, lang, t }) {
         <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, display: "grid", gap: 6, padding: 9 }}>
           <strong style={{ color: t.warn, fontSize: 12.4 }}>{text(lang, "Blocked records", "Blocked records")}</strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {step.blockedRecords.slice(0, 8).map(row => <StatusPill key={row.id} tone="warn" t={t}>{`${row.label}: ${row.status}`}</StatusPill>)}
+            {step.blockedRecords.slice(0, 8).map(row => <StatusBadge key={row.id} tone="warn" t={t}>{`${row.label}: ${row.status}`}</StatusBadge>)}
           </div>
         </div>
       ) : null}

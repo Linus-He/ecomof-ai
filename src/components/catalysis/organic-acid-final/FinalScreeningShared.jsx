@@ -35,7 +35,7 @@ export function statusTone(status) {
   return "info"
 }
 
-export function StatusPill({ children, tone = "info", t }) {
+export function StatusBadge({ children, tone = "info", t }) {
   const palette = {
     pass: [t.badgeGoodBg || t.badgeInfoBg, t.good || "#0f8a5f"],
     warn: [t.badgeWarnBg, t.warn],
@@ -44,7 +44,7 @@ export function StatusPill({ children, tone = "info", t }) {
     info: [t.badgeInfoBg, t.accentText],
   }[tone] || [t.badgeInfoBg, t.accentText]
   return (
-    <span style={{ alignItems: "center", background: palette[0], border: `1px solid ${palette[1]}`, borderRadius: 999, color: palette[1], display: "inline-flex", fontSize: 10.5, fontWeight: 900, lineHeight: 1.1, padding: "5px 8px", textTransform: "uppercase" }}>
+    <span style={{ alignItems: "center", background: palette[0], border: `1px solid ${palette[1]}`, borderRadius: 6, color: palette[1], display: "inline-flex", fontSize: 10.5, fontWeight: 900, lineHeight: 1.1, padding: "5px 8px", textTransform: "uppercase" }}>
       <ChemicalText value={displayValue(children)} />
     </span>
   )
@@ -116,7 +116,7 @@ export function ProvenanceButton({ record, field, label, value, lang = "en", t, 
         title={text(lang, "字段级溯源", "Field-level provenance")}
         onClick={() => setOpen(prev => !prev)}
         aria-expanded={open}
-        style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 900, height: 22, justifyContent: "center", marginLeft: 5, width: 22 }}
+        style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 900, height: 22, justifyContent: "center", marginLeft: 5, width: 22 }}
       >
         i
       </button>

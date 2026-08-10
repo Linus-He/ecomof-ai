@@ -5,7 +5,7 @@
 import { useState } from "react"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
-const COLORS = { "Logistic Regression": "#1A6DB5", "Decision Tree": "#B45309", "Random Forest": "#15803D" }
+const COLORS = { "Logistic Regression": "#1A6DB5", "Decision Tree": "#B91C1C", "Random Forest": "#15803D" }
 
 export function RobustnessValidationFigure({ robustness = null, lang = "en", t, isMobile = false }) {
   const [hover, setHover] = useState(null)

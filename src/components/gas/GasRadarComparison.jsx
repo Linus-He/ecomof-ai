@@ -30,7 +30,7 @@ function DetailRows({ record, ranked, lang, t }) {
           <div key={metric.key} style={{ display: "grid", gridTemplateColumns: "130px minmax(0, 1fr) 58px", gap: 8, alignItems: "center" }}>
             <span style={{ color: t.muted, fontSize: 11.5 }}>{text(lang, metric.labelZh, metric.label)}</span>
             <span style={{ display: "grid", gap: 3 }}>
-              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+              <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
                 {normalized == null ? null : <span style={{ background: COLORS[0], display: "block", height: "100%", width: `${Math.round(normalized * 100)}%` }} />}
               </span>
               <span style={{ color: t.subtle, fontSize: 10.5, lineHeight: 1.35 }}>
@@ -57,7 +57,7 @@ function CompactComparison({ records, ranked, lang, t }) {
               return (
                 <div key={record.id} style={{ display: "grid", gridTemplateColumns: "minmax(90px, 1fr) minmax(0, 1.2fr) 48px", gap: 7, alignItems: "center" }}>
                   <span style={{ color: t.muted, fontSize: 11, overflowWrap: "anywhere" }}><ChemicalText value={record.displayName} /></span>
-                  <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+                  <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
                     {normalized == null ? null : <span style={{ background: COLORS[index % COLORS.length], display: "block", height: "100%", width: `${Math.round(normalized * 100)}%` }} />}
                   </span>
                   <span style={{ color: t.subtle, fontFamily: FONT_SANS, fontSize: 10.5, textAlign: "right" }}>{normalized == null ? "pending" : formatPercent(normalized, { lang, normalized: true })}</span>
@@ -134,8 +134,8 @@ export function GasRadarComparison({ selectedRecord, compareRecords = [], ranked
               {records.map((record, index) => {
                 const off = hidden.includes(record.id)
                 return (
-                  <button key={record.id} type="button" onClick={() => setHidden(prev => off ? prev.filter(id => id !== record.id) : [...prev, record.id])} aria-label={off ? text(lang, `显示 ${record.displayName} 雷达图`, `Show ${record.displayName} radar profile`) : text(lang, `隐藏 ${record.displayName} 雷达图`, `Hide ${record.displayName} radar profile`)} style={{ alignItems: "center", background: off ? t.surface : t.badgeInfoBg, border: `1px solid ${off ? t.border : COLORS[index % COLORS.length]}`, borderRadius: 999, color: t.textStrong, cursor: "pointer", display: "inline-flex", fontSize: 11.5, gap: 6, minHeight: 40, padding: "7px 10px" }}>
-                    <span style={{ background: COLORS[index % COLORS.length], borderRadius: 999, height: 9, width: 9 }} />
+                  <button key={record.id} type="button" onClick={() => setHidden(prev => off ? prev.filter(id => id !== record.id) : [...prev, record.id])} aria-label={off ? text(lang, `显示 ${record.displayName} 雷达图`, `Show ${record.displayName} radar profile`) : text(lang, `隐藏 ${record.displayName} 雷达图`, `Hide ${record.displayName} radar profile`)} style={{ alignItems: "center", background: off ? t.surface : t.badgeInfoBg, border: `1px solid ${off ? t.border : COLORS[index % COLORS.length]}`, borderRadius: 6, color: t.textStrong, cursor: "pointer", display: "inline-flex", fontSize: 11.5, gap: 6, minHeight: 40, padding: "7px 10px" }}>
+                    <span style={{ background: COLORS[index % COLORS.length], borderRadius: 6, height: 9, width: 9 }} />
                     <ChemicalText value={record.displayName} />
                     <small style={{ color: t.subtle }}>{dataStatus(record, lang)}</small>
                   </button>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { formatPercent, MiniMetric, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { formatPercent, MiniMetric, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 export function SensitivityAndBaselinePanel({ sensitivity, moRecommendation, audit, rules, lang, t, isMobile }) {
   const mo = sensitivity?.targetMetal || moRecommendation?.sensitivity
@@ -12,7 +12,7 @@ export function SensitivityAndBaselinePanel({ sensitivity, moRecommendation, aud
       eyebrow={text(lang, "稳健性检验", "Robustness check")}
       title={text(lang, "敏感性分析", "Sensitivity Analysis Card")}
       t={t}
-      actions={<StatusPill tone={auditRequired ? "warn" : robust ? "pass" : "warn"} t={t}>{auditRequired ? text(lang, "稳健但需审计", "robust but audit required") : robust ? text(lang, "稳健推荐", "robust recommendation") : text(lang, "假设生成", "hypothesis-generating")}</StatusPill>}
+      actions={<StatusBadge tone={auditRequired ? "warn" : robust ? "pass" : "warn"} t={t}>{auditRequired ? text(lang, "稳健但需审计", "robust but audit required") : robust ? text(lang, "稳健推荐", "robust recommendation") : text(lang, "假设生成", "hypothesis-generating")}</StatusBadge>}
     >
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
         <MiniMetric label="Monte Carlo" value={`${sensitivity?.iterations || rules?.sensitivityAnalysis?.iterations || 1000}`} t={t} />

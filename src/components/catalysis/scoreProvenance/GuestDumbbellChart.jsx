@@ -29,7 +29,7 @@ export function GuestDumbbellChart({ models, model, lang = "zh", withTestId = tr
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {series.map((entry, index) => (
           <span key={entry.candidateLabel} style={{ alignItems: "center", color: palette.text, display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 6 }}>
-            <span style={{ background: SERIES_TONES[index] || palette.faint, borderRadius: 999, height: 9, width: 9 }} />
+            <span style={{ background: SERIES_TONES[index] || palette.faint, borderRadius: 6, height: 9, width: 9 }} />
             #{entry.rank} {entry.candidateLabel} · {fmt(entry.finalValue, 3)}
           </span>
         ))}

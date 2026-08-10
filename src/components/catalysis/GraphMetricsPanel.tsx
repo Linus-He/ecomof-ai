@@ -6,7 +6,7 @@ const pct = value => `${Math.round(Math.max(0, Math.min(1, Number(value) || 0)) 
 
 function MiniBar({ value, color = palette.accent }) {
   return (
-    <span style={{ background: palette.surfaceStrong, borderRadius: 999, display: "block", height: 7, overflow: "hidden" }}>
+    <span style={{ background: palette.surfaceStrong, borderRadius: 6, display: "block", height: 7, overflow: "hidden" }}>
       <span style={{ background: color, display: "block", height: "100%", width: pct(value) }} />
     </span>
   )

@@ -79,7 +79,7 @@ export function MethodBlock({
         <div style={{ display: "grid", gap: 4 }}>
           {items.map(item => (
             <div key={item} style={{ display: "grid", gridTemplateColumns: "10px minmax(0, 1fr)", gap: 6, alignItems: "baseline" }}>
-              <span style={{ width: 4, height: 4, borderRadius: 999, background: palette.label, transform: "translateY(-1px)" }} />
+              <span style={{ width: 4, height: 4, borderRadius: 6, background: palette.label, transform: "translateY(-1px)" }} />
               <span style={{ color: t.muted, fontSize: compact ? 10.5 : 11.2, lineHeight: 1.42, overflowWrap: "anywhere" }}>
                 {item}
               </span>

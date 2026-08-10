@@ -10,25 +10,25 @@ import { getReadableMofLabel } from "../../utils/mofDisplayName"
 const TARGET_POINT_COUNT = 240
 
 const METAL_COLORS = {
-  Zr: "#2563eb",
-  Cu: "#dc2626",
-  Zn: "#16a34a",
-  Mg: "#9333ea",
-  Co: "#ea580c",
-  Ni: "#0891b2",
-  Fe: "#b45309",
-  Al: "#4f46e5",
-  Mn: "#db2777",
+  Zr: "#d97757",
+  Cu: "#bf4d43",
+  Zn: "#788c5d",
+  Mg: "#c46686",
+  Co: "#c6613f",
+  Ni: "#9c9a92",
+  Fe: "#87867f",
+  Al: "#cbcadb",
+  Mn: "#e3dacc",
 }
 
 const GRADE_COLORS = {
-  database_distribution: "#2563eb",
-  external_database: "#16a34a",
-  source_confirmed: "#0891b2",
-  unverified: "#b45309",
+  database_distribution: "#d97757",
+  external_database: "#788c5d",
+  source_confirmed: "#c46686",
+  unverified: "#87867f",
 }
 
-const FALLBACK_COLOR = "#64748b"
+const FALLBACK_COLOR = "#9c9a92"
 
 function rowsFrom(payload) {
   if (Array.isArray(payload)) return payload
@@ -294,7 +294,7 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode, isMobile = false 
               key={mode}
               type="button"
               onClick={() => setColorMode(mode)}
-              style={{ background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 999, color: active ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.2, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}
+              style={{ background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accent : t.border}`, borderRadius: 6, color: active ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.2, fontWeight: 850, minHeight: 30, padding: "5px 10px" }}
             >
               {label}
             </button>
@@ -380,7 +380,7 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode, isMobile = false 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {legendItems.map(item => (
           <span key={item.value} style={{ alignItems: "center", color: t.muted, display: "inline-flex", fontSize: 11, fontWeight: 760, gap: 5 }}>
-            <span style={{ background: item.color, borderRadius: 999, height: 9, width: 9 }} />
+            <span style={{ background: item.color, borderRadius: 6, height: 9, width: 9 }} />
             {item.value}
           </span>
         ))}
@@ -420,35 +420,35 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
   const stageTheme = darkStage
     ? {
         ...t,
-        accent: "#ff766f",
-        accentText: "#ff827a",
-        badgeInfoBg: "rgba(255, 118, 111, 0.12)",
-        border: "rgba(169, 196, 198, 0.22)",
-        chartBg: "#091317",
-        faint: "#70848b",
-        muted: "#a8b7bc",
-        panel: "#0b161a",
-        subtle: "#82969c",
-        success: "#9caf91",
-        surface: "#101e22",
-        textStrong: "#f4f8f7",
-        warn: "#d8b77b",
+        accent: t.accent,
+        accentText: t.accentText,
+        badgeInfoBg: t.badgeInfoBg,
+        border: t.border,
+        chartBg: t.chartBg,
+        faint: t.faint,
+        muted: t.muted,
+        panel: t.chartBg,
+        subtle: t.subtle,
+        success: t.success,
+        surface: t.card,
+        textStrong: t.textStrong,
+        warn: t.warn,
       }
     : {
         ...t,
-        accent: "#bd4b47",
-        accentText: "#a83e3a",
-        badgeInfoBg: "#fff0ef",
-        border: "#d9e2e5",
-        chartBg: "#fbfdfe",
-        faint: "#718188",
-        muted: "#53636b",
-        panel: "#f6f9fa",
-        subtle: "#687b83",
-        success: "#58785f",
-        surface: "#ffffff",
-        textStrong: "#0a1720",
-        warn: "#9a6a2c",
+        accent: t.accent,
+        accentText: t.accentText,
+        badgeInfoBg: t.badgeInfoBg,
+        border: t.border,
+        chartBg: t.chartBg,
+        faint: t.faint,
+        muted: t.muted,
+        panel: t.chartBg,
+        subtle: t.subtle,
+        success: t.success,
+        surface: t.card,
+        textStrong: t.textStrong,
+        warn: t.warn,
       }
   const descriptorRows = [
     {
@@ -481,11 +481,11 @@ export function MofDescriptor3DScatter({ t, lang, isMobile }) {
       style={{
         "--descriptor-accent": stageTheme.accent,
         "--descriptor-border": stageTheme.border,
-        "--descriptor-divider": darkStage ? "rgba(169, 196, 198, 0.12)" : "rgba(15, 35, 44, 0.10)",
+        "--descriptor-divider": darkStage ? "rgba(169, 196, 198, 0.12)" : "rgba(20, 20, 19, 0.10)",
         "--descriptor-faint": stageTheme.faint,
         "--descriptor-muted": stageTheme.muted,
         "--descriptor-panel": stageTheme.panel,
-        "--descriptor-shadow": darkStage ? "0 16px 38px rgba(3, 12, 15, 0.18)" : "0 16px 38px rgba(38, 75, 91, 0.12)",
+        "--descriptor-shadow": darkStage ? "0 16px 38px rgba(3, 12, 15, 0.18)" : "0 16px 38px rgba(20, 20, 19, 0.10)",
         "--descriptor-surface": stageTheme.surface,
         "--descriptor-text": stageTheme.textStrong,
         boxShadow: t.shadowSm,

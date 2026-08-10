@@ -71,7 +71,6 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
         overflow: "auto",
         zIndex: 40,
         background: t.panel,
-        borderLeft: isMobile ? "none" : `1px solid ${t.border}`,
         borderTop: isMobile ? `1px solid ${t.border}` : "none",
         boxShadow: t.shadowLg || t.shadowSm,
         padding: 16,
@@ -173,7 +172,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
                     <span style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{(lang === "zh" ? item.labelZh : item.label) || item.key}</span>
                     <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: 11.5 }}>{num((item.contribution || 0) * 100, 2)}</span>
                   </div>
-                  <div style={{ height: 7, border: `1px solid ${t.border}`, borderRadius: 999, background: t.panel, overflow: "hidden" }}>
+                  <div style={{ height: 7, border: `1px solid ${t.border}`, borderRadius: 6, background: t.panel, overflow: "hidden" }}>
                     <div style={{ height: "100%", width: pct(item.contribution || 0), background: item.missing ? t.warn : t.accent }} />
                   </div>
                   <div style={{ color: t.faint, fontSize: 10.5 }}>

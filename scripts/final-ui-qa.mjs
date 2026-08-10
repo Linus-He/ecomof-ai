@@ -7,7 +7,7 @@ const ROOT = process.cwd()
 const BASE_URL = process.env.FINAL_UI_QA_BASE_URL || "http://127.0.0.1:4173/ecomof-ai/"
 const OUT_DIR = path.join(ROOT, "test-results", "final-ui-qa")
 const SOURCE_IMAGES = {
-  homeEntries: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_3qhW8v/截屏2026-07-29 19.13.07.png",
+  homeEntries: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_9bPSTz/截屏2026-08-04 12.37.03.png",
   ecoSearch: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_s341To/截屏2026-07-29 19.16.10.png",
   ecoStaticMaterial: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_k8N2gY/截屏2026-07-29 19.17.28.png",
   navigation: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_8SG6aj/截屏2026-07-29 19.25.18.png",
@@ -120,17 +120,23 @@ try {
   await gotoHash(page, "#overview")
   await setChinese(page)
 
-  const homeGrid = page.getByTestId("home-primary-entry-grid")
-  await homeGrid.waitFor({ state: "visible" })
-  const labels = (await homeGrid.getByRole("button").allTextContents()).map(value => value.trim())
-  check(JSON.stringify(labels) === JSON.stringify(["生态筛选", "气体分离", "催化", "MOF库", "数据合规承诺", "联系我们"]), `首页入口顺序错误：${labels.join(" / ")}`)
-  const buttonStyles = await homeGrid.getByRole("button").evaluateAll(nodes => nodes.map(node => {
-    const style = getComputedStyle(node)
-    return { background: style.backgroundColor, border: style.borderStyle, opacity: style.opacity }
-  }))
-  check(new Set(buttonStyles.map(item => item.background)).size === 1, "首页六个入口没有使用一致的实体背景")
-  check(buttonStyles.every(item => item.border !== "none" && item.opacity === "1"), "首页入口仍存在透明或弱化状态")
-  interactions.push("首页六入口顺序、3×2 布局与实体按钮")
+  const homeMap = page.getByTestId("home-scientific-atlas")
+  await homeMap.waitFor({ state: "visible" })
+  const clusterIds = await homeMap.locator("[data-cluster-id]").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-cluster-id")))
+  check(JSON.stringify(clusterIds) === JSON.stringify(["ecoscreen", "library", "gassep", "organic", "validation"]), `首页研究地图入口错误：${clusterIds.join(" / ")}`)
+  check(await homeMap.locator("[data-node-id]").count() === 18, "首页研究地图证据节点数量错误")
+  const stage = homeMap.getByTestId("home-discovery-map-stage")
+  const scaleBefore = await stage.evaluate(node => getComputedStyle(node).transform)
+  await homeMap.getByRole("button", { name: "放大地图" }).click()
+  await page.waitForTimeout(380)
+  const scaleAfter = await stage.evaluate(node => getComputedStyle(node).transform)
+  check(scaleBefore !== scaleAfter, "首页研究地图缩放按钮没有改变视图")
+  await homeMap.getByRole("button", { name: /哪种材料更适合气体分离/ }).click()
+  const mapDialog = page.getByRole("dialog", { name: "哪种材料更适合气体分离？" })
+  await mapDialog.waitFor({ state: "visible" })
+  check((await mapDialog.innerText()).includes("IAST"), "首页研究地图详情缺少 GasSep 证据说明")
+  await mapDialog.getByRole("button", { name: "关闭详情" }).click()
+  interactions.push("首页研究地图节点、详情、缩放与工作区路由")
 
   const navShell = page.locator(".nav-shell")
   const navSlot = page.getByTestId("primary-nav-slot")
@@ -153,14 +159,15 @@ try {
   await page.keyboard.press("Escape")
   interactions.push("齿轮设置菜单、语言、主题与联系我们二级入口")
 
-  await homeGrid.getByRole("button", { name: "联系我们" }).click()
+  const quickStart = page.getByTestId("home-quick-start-buttons")
+  await quickStart.getByRole("button", { name: "联系我们" }).click()
   const contactDialog = page.getByRole("dialog", { name: /联系与合作/ })
   await contactDialog.waitFor({ state: "visible" })
   check((await contactDialog.innerText()).includes("ecomofai@outlook.com"), "联系弹窗未显示指定邮箱")
   check(!(await page.locator("body").innerText()).split("联系与合作")[0].includes("ecomofai@outlook.com"), "邮箱在打开联系弹窗前已直接暴露")
   await contactDialog.getByRole("button", { name: /关闭联系弹窗/ }).click()
   interactions.push("联系我们弹窗显示邮箱并可关闭")
-  screenshots.homeEntries = await screenshotElement(homeGrid, "home-entry-grid.png")
+  screenshots.homeEntries = await screenshotElement(homeMap, "home-research-map.png")
 
   await gotoHash(page, "#ecoscreen")
   await page.getByTestId("ecoscreen-material-awaiting-confirmation").waitFor({ state: "visible", timeout: 30000 })
@@ -265,7 +272,7 @@ try {
   check(localResourceErrors.length === 0, `站内资源加载错误：${localResourceErrors.join(" | ")}`)
 
   const comparisons = {
-    home: await makeComparison(browser, SOURCE_IMAGES.homeEntries, screenshots.homeEntries, "compare-home-entry-grid.png", "首页入口：参考排版与当前 3×2 实体按钮"),
+    home: await makeComparison(browser, SOURCE_IMAGES.homeEntries, screenshots.homeEntries, "compare-home-research-map.png", "首页研究地图：参考交互画布与当前材料证据地图"),
     navigation: await makeComparison(browser, SOURCE_IMAGES.navigation, screenshots.navigation, "compare-navigation.png", "中文导航：原偏移参考与当前等宽居中轨道"),
     ecoEmpty: await makeComparison(browser, SOURCE_IMAGES.ecoStaticMaterial, screenshots.ecoEmpty, "compare-ecoscreen-empty-state.png", "生态筛选：原默认静态材料与当前确认前空状态"),
     ecoProperties: await makeComparison(browser, SOURCE_IMAGES.ecoSearch, screenshots.propertyModal, "compare-property-dialog.png", "生态筛选：原搜索工具条与当前可关闭物化性质档案"),

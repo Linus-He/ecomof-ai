@@ -144,7 +144,7 @@ export function EvidenceChainAnimation({ fields, t, isMobile, lang = "en" }) {
                 <span style={{
                   width: 20,
                   height: 20,
-                  borderRadius: 999,
+                  borderRadius: 6,
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",

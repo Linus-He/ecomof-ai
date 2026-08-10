@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { MiniMetric, StatusPill, displayValue, formatScore, text } from "../FinalScreeningShared"
+import { MiniMetric, StatusBadge, displayValue, formatScore, text } from "../FinalScreeningShared"
 
 function openTraceWorkbench() {
   if (typeof document === "undefined") return
@@ -29,7 +29,7 @@ export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-            <StatusPill tone="pass" t={t}>real CoRE CR index / structural audit</StatusPill>
+            <StatusBadge tone="pass" t={t}>real CoRE CR index / structural audit</StatusBadge>
             <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
           </div>
         </div>
@@ -56,7 +56,7 @@ export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-            <StatusPill tone="warn" t={t}>small curated sample only</StatusPill>
+            <StatusBadge tone="warn" t={t}>small curated sample only</StatusBadge>
             <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
           </div>
         </div>
@@ -80,7 +80,7 @@ export function RunResultSummary({ summary, trace, lang, t, isMobile }) {
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "运行结果摘要", "Run Result Summary")}</strong>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <StatusPill tone="warn" t={t}>demo / proxy run</StatusPill>
+          <StatusBadge tone="warn" t={t}>demo / proxy run</StatusBadge>
           <TraceWorkbenchButton trace={trace} lang={lang} t={t} />
         </div>
       </div>

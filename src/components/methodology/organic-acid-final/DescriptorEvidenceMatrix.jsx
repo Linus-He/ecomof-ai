@@ -14,7 +14,7 @@ function toneFor(value, t) {
 function Badge({ value, t }) {
   const [bg, color] = toneFor(value, t)
   return (
-    <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 999, color, display: "inline-flex", fontSize: 10.3, fontWeight: 900, padding: "4px 7px", textTransform: "uppercase" }}>
+    <span style={{ background: bg, border: `1px solid ${color}`, borderRadius: 6, color, display: "inline-flex", fontSize: 10.3, fontWeight: 900, padding: "4px 7px", textTransform: "uppercase" }}>
       <ChemicalText value={value} />
     </span>
   )

@@ -92,7 +92,7 @@ function Metric({ label, value, t, tone = "default" }) {
 
 function ProvenanceChip({ field, label, source, lang, t }) {
   return (
-    <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, display: "inline-flex", fontSize: 11, fontWeight: 800, minHeight: 24, padding: "3px 7px" }}>
+    <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, display: "inline-flex", fontSize: 11, fontWeight: 800, minHeight: 24, padding: "3px 7px" }}>
       {label}
       <FieldProvenanceButton fieldKey={field} fieldLabel={label} source={source || benchmarkSource(field, { value: label })} lang={lang} />
     </span>

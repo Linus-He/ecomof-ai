@@ -38,10 +38,7 @@ export function MethodologySidebar({ items, activeId, onJump, lang, t, isMobile 
     <aside
       style={{
         background: t.panel,
-        borderLeft: `2px solid ${t.border}`,
-        borderRight: 0,
-        borderTop: 0,
-        borderBottom: 0,
+        border: `1px solid ${t.border}`,
         borderRadius: 0,
         maxHeight: isMobile ? "none" : "calc(100vh - 112px)",
         overflow: "auto",

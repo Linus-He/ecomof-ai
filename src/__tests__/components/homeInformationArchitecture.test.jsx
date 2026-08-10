@@ -24,6 +24,7 @@ function renderHome(lang = "zh") {
 }
 
 beforeEach(() => {
+  window.localStorage.removeItem("ecomof-home-mode")
   vi.stubGlobal("fetch", vi.fn(async (url) => {
     if (String(url).includes("home_summary.json")) return response(homeSummary)
     if (String(url).includes("data_ingestion_summary_v3.json")) return response(dataIngestionSummary)

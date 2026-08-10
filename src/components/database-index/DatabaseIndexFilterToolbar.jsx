@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { DATABASE_INDEX_DESCRIPTOR_FILTERS } from "../../utils/databaseIndex/databaseIndexFormatters"
 
@@ -75,9 +75,9 @@ export function DatabaseIndexFilterToolbar({ filters, onChange, lang, t }) {
           </span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone="proxy" t={t}>{dbText(lang, "topNPreviewOnly")}</StatusPill>
-          <StatusPill tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusPill>
-          <StatusPill tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusPill>
+          <StatusBadge tone="proxy" t={t}>{dbText(lang, "topNPreviewOnly")}</StatusBadge>
+          <StatusBadge tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusBadge>
+          <StatusBadge tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusBadge>
         </div>
       </header>
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))" }}>
@@ -110,7 +110,7 @@ export function DatabaseIndexFilterToolbar({ filters, onChange, lang, t }) {
           {DATABASE_INDEX_DESCRIPTOR_FILTERS.map(descriptor => {
             const active = filters.descriptors?.includes(descriptor.id)
             return (
-              <label key={descriptor.id} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.panel, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 999, color: active ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", fontSize: 11.5, fontWeight: 850, gap: 5, minHeight: 30, padding: "5px 8px" }}>
+              <label key={descriptor.id} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.panel, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 6, color: active ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", fontSize: 11.5, fontWeight: 850, gap: 5, minHeight: 30, padding: "5px 8px" }}>
                 <input checked={active} onChange={() => toggleDescriptor(descriptor.id)} type="checkbox" />
                 {descriptor.label}
               </label>

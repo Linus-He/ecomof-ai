@@ -46,17 +46,17 @@ function buttonStyle(active = false, style = {}) {
   }
 }
 
-function pillStyle(tone = "info") {
+function badgeStyle(tone = "info") {
   if (tone === "risk") return { background: palette.riskSoft, border: palette.risk, color: palette.risk }
   if (tone === "good") return { background: palette.positiveSoft, border: palette.positive, color: palette.positive }
   if (tone === "muted") return { background: palette.bg, border: palette.border, color: palette.muted }
   return { background: palette.accentSoft, border: palette.accent, color: palette.accent }
 }
 
-function Pill({ children, tone = "info" }) {
-  const colors = pillStyle(tone)
+function InlineBadge({ children, tone = "info" }) {
+  const colors = badgeStyle(tone)
   return (
-    <span style={{ alignItems: "center", background: colors.background, border: `1px solid ${colors.border}`, borderRadius: 999, color: colors.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ alignItems: "center", background: colors.background, border: `1px solid ${colors.border}`, borderRadius: 6, color: colors.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )
@@ -103,12 +103,12 @@ export function OrganicAcidAlgorithmStatusBar({ network, lang = "zh", onStartPat
     <section data-testid="organic-acid-algorithm-status-bar" style={{ ...cardStyle({ background: palette.bg, padding: 12 }) }}>
       <div style={{ alignItems: "center", display: "grid", gap: 10, gridTemplateColumns: "minmax(0, 1fr) auto" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <Pill tone="good">{text(lang, "当前阶段：", "Stage: ")}{status.stage}</Pill>
-          <Pill tone="muted">{text(lang, "输入规模：", "Input scale: ")}{text(lang, status.inputScaleLabelZh, status.inputScaleLabelEn)}</Pill>
-          <Pill>{text(lang, "当前链条：", "Chain: ")}{status.chainZh}</Pill>
-          <Pill>{text(lang, "当前输出：", "Output: ")}{status.output}</Pill>
-          <Pill tone="risk">{text(lang, "边界：", "Boundary: ")}{text(lang, status.boundaryZh, status.boundaryEn)}</Pill>
-          <Pill tone="muted">{text(lang, "readiness：", "readiness: ")}{status.readinessZh}</Pill>
+          <InlineBadge tone="good">{text(lang, "当前阶段：", "Stage: ")}{status.stage}</InlineBadge>
+          <InlineBadge tone="muted">{text(lang, "输入规模：", "Input scale: ")}{text(lang, status.inputScaleLabelZh, status.inputScaleLabelEn)}</InlineBadge>
+          <InlineBadge>{text(lang, "当前链条：", "Chain: ")}{status.chainZh}</InlineBadge>
+          <InlineBadge>{text(lang, "当前输出：", "Output: ")}{status.output}</InlineBadge>
+          <InlineBadge tone="risk">{text(lang, "边界：", "Boundary: ")}{text(lang, status.boundaryZh, status.boundaryEn)}</InlineBadge>
+          <InlineBadge tone="muted">{text(lang, "readiness：", "readiness: ")}{status.readinessZh}</InlineBadge>
         </div>
         <button type="button" onClick={onStartPath} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center", whiteSpace: "nowrap" }}>
           {text(lang, status.actionLabelZh, status.actionLabelEn)}
@@ -143,9 +143,9 @@ export function OrganicAcidAlgorithmFlowNetwork({ network, selectedNodeId, onSel
         note={text(lang, "从 CO2 路径步骤开始，沿描述符、主体候选、客体金属、主客体路线、证据风险和验证实验逐步推导路线输出。", "Starts from CO2 pathway steps and moves through descriptors, host candidates, guest metals, routes, evidence/risk, and validation experiments.")}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <Pill tone="good">{text(lang, "高亮：当前 top path", "Highlighted: current top path")}</Pill>
-        <Pill>{text(lang, "弱化：backup / conditional path", "Subdued: backup / conditional path")}</Pill>
-        <Pill tone="muted">{text(lang, "对照：control / pending path", "Control: control / pending path")}</Pill>
+        <InlineBadge tone="good">{text(lang, "高亮：当前 top path", "Highlighted: current top path")}</InlineBadge>
+        <InlineBadge>{text(lang, "弱化：backup / conditional path", "Subdued: backup / conditional path")}</InlineBadge>
+        <InlineBadge tone="muted">{text(lang, "对照：control / pending path", "Control: control / pending path")}</InlineBadge>
       </div>
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : `repeat(${network.columns.length}, minmax(132px, 1fr))`, overflowX: "auto" }}>
         {network.columns.map(column => (
@@ -173,7 +173,7 @@ export function OrganicAcidAlgorithmFlowNetwork({ network, selectedNodeId, onSel
                   <span style={{ color: palette.faint, display: "block", fontSize: 10.5, fontWeight: 900 }}>{node.typeLabelZh}</span>
                   <span style={{ color: palette.text, display: "block", fontSize: 12.2, fontWeight: 950, lineHeight: 1.25, marginTop: 3 }}>{node.labelZh}</span>
                   <span style={{ color: palette.muted, display: "block", fontSize: 11, lineHeight: 1.35, marginTop: 5 }}>{node.statusZh}</span>
-                  <span style={{ display: "block", marginTop: 6 }}><Pill tone={roleTone(node.pathRole)}>{node.pathRole}</Pill></span>
+                  <span style={{ display: "block", marginTop: 6 }}><InlineBadge tone={roleTone(node.pathRole)}>{node.pathRole}</InlineBadge></span>
                 </button>
               )
             })}
@@ -184,7 +184,7 @@ export function OrganicAcidAlgorithmFlowNetwork({ network, selectedNodeId, onSel
         <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "网络边类型", "Network edge types")}</strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {Array.from(new Set(network.edges.map(edge => edge.type))).map(type => (
-            <Pill key={type} tone={type.includes("risk") ? "risk" : "muted"}>{type}</Pill>
+            <InlineBadge key={type} tone={type.includes("risk") ? "risk" : "muted"}>{type}</InlineBadge>
           ))}
         </div>
       </div>
@@ -201,8 +201,8 @@ export function OrganicAcidNodeInspector({ inspector, lang = "zh", onOpenActivat
         note={text(lang, "点击网络节点后，查看输入、输出、证据风险、HGCPS 影响和下一步。", "Click a network node to inspect input, output, evidence/risk, HGCPS impact, and next step.")}
       />
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        <Pill>{inspector.typeLabel}</Pill>
-        {inspector.boundaries.map(boundary => <Pill key={boundary} tone="risk">{boundary}</Pill>)}
+        <InlineBadge>{inspector.typeLabel}</InlineBadge>
+        {inspector.boundaries.map(boundary => <InlineBadge key={boundary} tone="risk">{boundary}</InlineBadge>)}
       </div>
       <h3 style={{ color: palette.text, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{inspector.name}</h3>
       <div style={{ display: "grid", gap: 8 }}>
@@ -224,8 +224,8 @@ export function OrganicAcidNodeInspector({ inspector, lang = "zh", onOpenActivat
       <div style={{ display: "grid", gap: 7 }}>
         <strong style={{ color: palette.text, fontSize: 12.5 }}>{text(lang, "相关项", "Related items")}</strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          {inspector.relatedDescriptors.slice(0, 8).map(item => <Pill key={item} tone="muted">{item}</Pill>)}
-          {inspector.relatedRoutes.slice(0, 4).map(item => <Pill key={item}>{item}</Pill>)}
+          {inspector.relatedDescriptors.slice(0, 8).map(item => <InlineBadge key={item} tone="muted">{item}</InlineBadge>)}
+          {inspector.relatedRoutes.slice(0, 4).map(item => <InlineBadge key={item}>{item}</InlineBadge>)}
         </div>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -409,9 +409,9 @@ export function OrganicAcidAlgorithmFlowExportLinks({ network, lang = "zh", onOp
         <button type="button" onClick={() => onOpenMethodology("#project-evolution-organic-acid-algorithm-methodology")} style={{ ...buttonStyle(false), color: palette.accent, textAlign: "center" }}>
           Organic Acid Algorithm Methodology
         </button>
-        <Pill>{network.version}</Pill>
-        <Pill tone="risk">{text(lang, "非最终催化性能证明", "Not final catalytic proof")}</Pill>
-        <Pill tone="risk">{text(lang, "非正式机器学习推荐", "Not formal machine learning recommendation")}</Pill>
+        <InlineBadge>{network.version}</InlineBadge>
+        <InlineBadge tone="risk">{text(lang, "非最终催化性能证明", "Not final catalytic proof")}</InlineBadge>
+        <InlineBadge tone="risk">{text(lang, "非正式机器学习推荐", "Not formal machine learning recommendation")}</InlineBadge>
       </div>
     </section>
   )

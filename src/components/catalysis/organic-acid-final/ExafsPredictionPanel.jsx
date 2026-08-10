@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 import { AlgorithmTraceDrawer } from "./AlgorithmTraceDrawer"
 
 export function ExafsPredictionPanel({ signature, trace, lang, t, isMobile }) {
@@ -12,7 +12,7 @@ export function ExafsPredictionPanel({ signature, trace, lang, t, isMobile }) {
       eyebrow={text(lang, "可证伪设计假设", "Falsifiable design hypothesis")}
       title={text(lang, "预测结果 vs 可证伪标准 / Prediction vs Falsification", "Prediction vs Falsification")}
       t={t}
-      actions={<div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}><StatusPill tone="warn" t={t}>must-have validation</StatusPill><AlgorithmTraceDrawer trace={trace} lang={lang} t={t} compact /></div>}
+      actions={<div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}><StatusBadge tone="warn" t={t}>must-have validation</StatusBadge><AlgorithmTraceDrawer trace={trace} lang={lang} t={t} compact /></div>}
     >
       <div style={{ background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.58, padding: 11 }}>
         <ChemicalText value={text(

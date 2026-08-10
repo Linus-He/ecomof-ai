@@ -17,7 +17,7 @@ const palette = {
   positive: "#147C43",
   positiveSoft: "#F2FBF6",
   mixed: "#A15C13",
-  mixedSoft: "#FFF7ED",
+  mixedSoft: "#F1F5F9",
   risk: "#8F3B1B",
   riskSoft: "#FFF1E8",
 }
@@ -287,7 +287,7 @@ function PathButton({ path, active, lang, onSelect, onHover, onLeave }) {
         background: active ? path.soft : palette.bg,
         border: `1px solid ${active ? path.color : palette.border}`,
         borderRadius: 8,
-        boxShadow: `inset 4px 0 0 ${path.color}`,
+        boxShadow: active ? `0 0 0 2px ${path.color}22` : "none",
         color: palette.text,
         cursor: "pointer",
         display: "grid",
@@ -313,7 +313,7 @@ function MoleculeDetailPanel({ nodeId, lang }) {
   const secondaryName = lang === "zh" ? molecule.englishName : molecule.zhName
 
   return (
-    <article style={{ background: palette.bg, border: `1px solid ${palette.border}`, borderRadius: 8, boxShadow: `inset 3px 0 0 ${tone.color}`, padding: 12 }}>
+    <article style={{ background: palette.bg, border: `1px solid ${tone.color}`, borderRadius: 8, padding: 12 }}>
       <div style={{ color: palette.faint, fontSize: 10, fontWeight: 950, textTransform: "uppercase" }}>{text(lang, "分子详情", "Molecule detail")}</div>
       <div style={{ display: "grid", gap: 10, marginTop: 8 }}>
         <div>
@@ -368,7 +368,7 @@ function PathwayMappingPanel({ activePath, lang }) {
           const path = pathwayMeta[row.path]
           const active = row.path === activePath
           return (
-            <div key={row.titleEn} style={{ background: active ? path.soft : palette.bg, border: `1px solid ${active ? path.color : palette.border}`, borderRadius: 7, boxShadow: `inset 3px 0 0 ${path.color}`, padding: 9 }}>
+            <div key={row.titleEn} style={{ background: active ? path.soft : palette.bg, border: `1px solid ${active ? path.color : palette.border}`, borderRadius: 7, padding: 9 }}>
               <div style={{ color: path.color, fontSize: 10.2, fontWeight: 920, lineHeight: 1.3 }}>{text(lang, row.titleZh, row.titleEn)}</div>
               <div style={{ color: palette.text, fontSize: 11.5, fontWeight: 880, lineHeight: 1.35, marginTop: 4 }}>{text(lang, row.routeZh, row.routeEn)}</div>
               <div style={{ color: palette.muted, fontSize: 10.8, lineHeight: 1.45, marginTop: 4 }}>{text(lang, row.bodyZh, row.bodyEn)}</div>

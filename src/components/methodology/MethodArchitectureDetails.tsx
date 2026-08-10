@@ -448,7 +448,7 @@ export function MethodArchitectureDetails({ moduleId, lang, t }) {
             {text(lang, block.titleZh, block.titleEn)}
           </h4>
           <p style={{ color: t.muted, fontSize: 11.9, lineHeight: 1.75, margin: 0 }}>{text(lang, block.implementationZh, block.implementationEn)}</p>
-          <div style={{ background: t.panel, borderLeft: `3px solid ${t.accent}`, display: "grid", gap: 6, padding: "10px 12px" }}>
+          <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 6, padding: "10px 12px" }}>
             <p style={{ color: t.muted, fontSize: 11.3, lineHeight: 1.65, margin: 0 }}>
               <strong style={{ color: t.textStrong }}>{text(lang, "输入：", "Input: ")}</strong>{text(lang, block.inputsZh, block.inputsEn)}
             </p>

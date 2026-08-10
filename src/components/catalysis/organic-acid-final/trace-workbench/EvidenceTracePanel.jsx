@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../FinalScreeningShared"
 
 export function EvidenceTracePanel({ evidenceTraces = [], lang, t }) {
   const rows = evidenceTraces.slice(0, 26)
@@ -26,7 +26,7 @@ export function EvidenceTracePanel({ evidenceTraces = [], lang, t }) {
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.8, padding: "8px 7px" }}>{displayValue(row.value)}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.35, padding: "8px 7px" }}>{row.evidenceIds?.slice(0, 4).join(" / ") || "Pending"}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, padding: "8px 7px" }}>{displayValue(row.sourceType)}</td>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "8px 7px" }}><StatusPill tone={row.doiStatus?.includes("available") ? "pass" : "warn"} t={t}>{row.doiStatus}</StatusPill></td>
+                <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "8px 7px" }}><StatusBadge tone={row.doiStatus?.includes("available") ? "pass" : "warn"} t={t}>{row.doiStatus}</StatusBadge></td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, padding: "8px 7px" }}>{displayValue(row.curationStatus)}</td>
                 <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11.5, lineHeight: 1.35, padding: "8px 7px" }}><ChemicalText value={displayValue(row.note)} /></td>
               </tr>

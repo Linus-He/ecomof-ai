@@ -10,7 +10,7 @@ function Badge({ children, t, tone = "info" }) {
     info: [t.badgeInfoBg, t.accentText],
   }[tone] || [t.badgeInfoBg, t.accentText]
   return (
-    <span style={{ background: palette[0], border: `1px solid ${palette[1]}`, borderRadius: 999, color: palette[1], display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "5px 8px", textTransform: "uppercase" }}>
+    <span style={{ background: palette[0], border: `1px solid ${palette[1]}`, borderRadius: 6, color: palette[1], display: "inline-flex", fontSize: 10.5, fontWeight: 900, padding: "5px 8px", textTransform: "uppercase" }}>
       <ChemicalText value={children} />
     </span>
   )

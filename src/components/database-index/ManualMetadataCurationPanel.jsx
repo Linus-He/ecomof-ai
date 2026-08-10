@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchJson } from "../../services/dataService"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import {
@@ -56,7 +56,7 @@ export function ManualMetadataCurationPanel({ curationRecords = null, lang, t, i
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "整理进度", "curation progress")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "整理进度", "curation progress")}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(140px, 1fr))" }}>
@@ -85,7 +85,7 @@ export function ManualMetadataCurationPanel({ curationRecords = null, lang, t, i
               <article key={row.recordId} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
                 <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "space-between" }}>
                   <strong style={{ color: t.textStrong, fontSize: 12 }}><ChemicalText value={row.displayName} /></strong>
-                  <StatusPill tone={curationStatusTone(row.curationStatus)} t={t}>{curationStatusLabel(row.curationStatus, lang)}</StatusPill>
+                  <StatusBadge tone={curationStatusTone(row.curationStatus)} t={t}>{curationStatusLabel(row.curationStatus, lang)}</StatusBadge>
                 </div>
                 <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}>
                   DOI: {curationFieldStatusLabel(row.doiStatus, lang)} · {text(lang, "来源", "source")}: {curationFieldStatusLabel(row.sourceUrlStatus, lang)} · license: {curationFieldStatusLabel(row.licenseStatus, lang)}
@@ -107,7 +107,7 @@ export function ManualMetadataCurationPanel({ curationRecords = null, lang, t, i
                 {normalized.slice(0, 18).map(row => (
                   <tr key={row.recordId}>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11.2, padding: "6px 6px" }}><ChemicalText value={row.displayName} /></td>
-                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusPill tone={curationStatusTone(row.curationStatus)} t={t}>{curationStatusLabel(row.curationStatus, lang)}</StatusPill></td>
+                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusBadge tone={curationStatusTone(row.curationStatus)} t={t}>{curationStatusLabel(row.curationStatus, lang)}</StatusBadge></td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: "6px 6px" }}>{curationFieldStatusLabel(row.sourceUrlStatus, lang)}</td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: "6px 6px" }}>{curationFieldStatusLabel(row.citationStatus, lang)}</td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: "6px 6px" }}>{curationFieldStatusLabel(row.licenseStatus, lang)}</td>

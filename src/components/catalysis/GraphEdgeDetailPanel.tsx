@@ -12,7 +12,7 @@ function ScoreBar({ label, value, color = palette.accent }) {
         <span style={{ color: palette.muted, fontSize: 11.5, fontWeight: 750 }}>{label}</span>
         <span style={{ color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 800 }}>{pct(value)}</span>
       </div>
-      <div style={{ background: palette.surfaceStrong, borderRadius: 999, height: 7, overflow: "hidden" }}>
+      <div style={{ background: palette.surfaceStrong, borderRadius: 6, height: 7, overflow: "hidden" }}>
         <span style={{ background: color, display: "block", height: "100%", width: pct(value) }} />
       </div>
     </div>
@@ -24,7 +24,7 @@ function Tags({ values }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {values.map(value => (
-        <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontSize: 11.5, padding: "4px 7px" }}>
+        <span key={value} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.muted, fontSize: 11.5, padding: "4px 7px" }}>
           <ChemicalText value={value} />
         </span>
       ))}

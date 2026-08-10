@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchIndexPart } from "../../utils/databaseIndex/databaseIndexClient"
 import { dbFallback, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import {
@@ -100,8 +100,8 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
           </span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusPill>
-          <StatusPill tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusPill>
+          <StatusBadge tone="proxy" t={t}>{dbText(lang, "selectedIndexPartOnly")}</StatusBadge>
+          <StatusBadge tone="warn" t={t}>{dbText(lang, "detailOnDemand")}</StatusBadge>
         </div>
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
@@ -132,7 +132,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
                 {SORT_OPTIONS.map(([value, en, zh]) => <option key={value} value={value}>{text(lang, zh, en)}</option>)}
               </select>
             </label>
-            <StatusPill tone="proxy" t={t}>{`${formatCount(filteredRecords.length)} / ${formatCount(selectedPart?.recordCount || selectedPart?.records?.length || 0)}`}</StatusPill>
+            <StatusBadge tone="proxy" t={t}>{`${formatCount(filteredRecords.length)} / ${formatCount(selectedPart?.recordCount || selectedPart?.records?.length || 0)}`}</StatusBadge>
           </div>
         </div>
       ) : null}
@@ -147,7 +147,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
                 <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.25 }}><ChemicalText value={displayValue(row.displayName || row.id)} /></strong>
                 <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.4 }}><ChemicalText value={`${displayValue(row.sourceDatabase)} · ${displayValue(row.sourceRecordId)} · ${displayValue(row.detailRef, dbFallback(lang))}`} /></span>
               </div>
-              <StatusPill tone={qualityTone(row.dataQualityStatus)} t={t}>{dbStatusLabel(row.dataQualityStatus, lang)}</StatusPill>
+              <StatusBadge tone={qualityTone(row.dataQualityStatus)} t={t}>{dbStatusLabel(row.dataQualityStatus, lang)}</StatusBadge>
               <span style={{ color: row.hasAlNode || extractMetals(row).includes("Al") ? t.accentText : t.muted, fontSize: 12, fontWeight: 900 }}>{extractMetals(row).length ? extractMetals(row).join(", ") : text(lang, "金属待核验", "metal pending")}</span>
               <span style={{ color: t.muted, fontSize: 11.7, fontWeight: 850 }}>{`D ${formatPercentValue(descriptorCompletenessPercent(row))} · P ${formatPercentValue(provenanceCompletenessPercent(row))}`}</span>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "flex-end" }}>

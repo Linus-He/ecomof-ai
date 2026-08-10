@@ -31,11 +31,11 @@ export function DescriptorContributionBar({ model, routeId = "", lang = "zh" }) 
                 <span style={{ color: palette.muted, fontSize: 10.8 }}>factor {fmt(row.factorValue, 3)} · weight {fmt(row.weight, 2)}</span>
                 <span style={{ color: positive ? palette.positive : palette.risk, fontSize: 10.8, fontWeight: 900 }}>{fmt(row.logContribution, 5)}</span>
               </div>
-              <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 999, height: 12, overflow: "hidden", position: "relative" }}>
+              <div style={{ background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 6, height: 12, overflow: "hidden", position: "relative" }}>
                 <span style={{ background: palette.borderStrong, height: "100%", left: "50%", position: "absolute", width: 1 }} />
                 <span style={{
                   background: positive ? palette.positive : palette.risk,
-                  borderRadius: 999,
+                  borderRadius: 6,
                   height: "100%",
                   left: positive ? "50%" : `calc(50% - ${width})`,
                   position: "absolute",

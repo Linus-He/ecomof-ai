@@ -24,7 +24,7 @@ describe("app_release_log unified version source", () => {
         expect(module.changes.length).toBeGreaterThanOrEqual(3)
       }
     }
-    expect(JSON.stringify(recent[0])).toMatch(/34|胶囊|literature/)
+    expect(JSON.stringify(recent[0])).toMatch(/34|紧凑小圆角|literature/)
     expect(JSON.stringify(recent[1])).toMatch(/43|CRITIC|IAST|编号/)
     expect(JSON.stringify(recent[2])).toMatch(/185|MOF Anatomy|V3\.9\.10/)
     expect(JSON.stringify(recent[3])).toMatch(/37,452|3,451|9,835/)
@@ -124,7 +124,7 @@ describe("app_release_log unified version source", () => {
       "projectEvolution",
     ])
     expect(JSON.stringify(log.developmentLog.modules.validation)).toMatch(/执行|来源|algorithm/)
-    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/6 px|首页|capsule/)
+    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/6 px|首页|compact-corner/)
     expect(JSON.stringify(log.developmentLog.modules.projectEvolution)).toMatch(/v1\.0\.13|本地提交/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })

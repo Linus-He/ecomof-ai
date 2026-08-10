@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { formatCount, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
 import {
@@ -32,7 +32,7 @@ function ScopeCounts({ label, records, lang, t }) {
       <span style={{ color: t.muted, fontSize: 11.5 }}>{text(lang, "记录数", "records")}: {formatCount(summary.total)}</span>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
         {LEVELS.map(level => (
-          <StatusPill key={level} tone={metadataLevelTone(level)} t={t}>{`${metadataLevelLabel(level, lang)}: ${formatCount(summary[level])}`}</StatusPill>
+          <StatusBadge key={level} tone={metadataLevelTone(level)} t={t}>{`${metadataLevelLabel(level, lang)}: ${formatCount(summary[level])}`}</StatusBadge>
         ))}
       </div>
     </article>
@@ -48,26 +48,26 @@ function CandidateDetail({ candidate, lang, t }) {
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "currentCandidate")}</span>
           <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.25 }}><ChemicalText value={safeText(candidate.displayName || candidate.name || candidate.frameworkId || candidate.id)} /></strong>
         </div>
-        <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
+        <StatusBadge tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusBadge>
       </header>
       <div style={{ display: "grid", gap: 6 }}>
         {STATUS_ROWS.map(([key, en, zh]) => (
           <div key={key} style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
             <span style={{ color: t.muted, fontSize: 11.6 }}>{text(lang, zh, en)}</span>
-            <StatusPill tone={metadataStatusTone(summary.status[key])} t={t}>{metadataStatusValueLabel(summary.status[key], lang)}</StatusPill>
+            <StatusBadge tone={metadataStatusTone(summary.status[key])} t={t}>{metadataStatusValueLabel(summary.status[key], lang)}</StatusBadge>
           </div>
         ))}
       </div>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>
+        <StatusBadge tone={summary.eligible ? "pass" : "warn"} t={t}>
           {summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}
-        </StatusPill>
+        </StatusBadge>
       </div>
       {summary.blockingReasons.length ? (
         <div style={{ display: "grid", gap: 4 }}>
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "blockingReasons")}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-            {summary.blockingReasons.map(reason => <StatusPill key={reason} tone="warn" t={t}>{reason}</StatusPill>)}
+            {summary.blockingReasons.map(reason => <StatusBadge key={reason} tone="warn" t={t}>{reason}</StatusBadge>)}
           </div>
         </div>
       ) : null}
@@ -75,7 +75,7 @@ function CandidateDetail({ candidate, lang, t }) {
         <div style={{ display: "grid", gap: 4 }}>
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "warnings")}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-            {summary.warnings.map(warning => <StatusPill key={warning} tone="proxy" t={t}>{warning}</StatusPill>)}
+            {summary.warnings.map(warning => <StatusBadge key={warning} tone="proxy" t={t}>{warning}</StatusBadge>)}
           </div>
         </div>
       ) : null}
@@ -102,7 +102,7 @@ export function MetadataVerificationPanel({ topCandidates = [], selectedPartReco
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusBadge>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(240px, 1fr))" }}>
         <ScopeCounts label={text(lang, "Top-N 预览范围", "Top-N preview scope")} records={topCandidates} lang={lang} t={t} />

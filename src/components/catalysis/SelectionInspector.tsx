@@ -53,7 +53,7 @@ function Header({ badge, lang, title, t }) {
     <div style={{ alignItems: "flex-start", display: "flex", gap: 10, justifyContent: "space-between", flexWrap: "wrap" }}>
       <div>
         <div style={{ alignItems: "center", color: t.textStrong, display: "flex", fontSize: 16, fontWeight: 950, gap: 9 }}>
-          <span aria-hidden="true" style={{ background: t.accent, borderRadius: 999, boxShadow: `0 0 0 4px ${t.badgeInfoBg}`, height: 8, width: 8 }} />
+          <span aria-hidden="true" style={{ background: t.accent, borderRadius: 6, boxShadow: `0 0 0 4px ${t.badgeInfoBg}`, height: 8, width: 8 }} />
           {title}
         </div>
         <div style={{ color: t.faint, fontSize: 11, marginTop: 5 }}>
@@ -216,7 +216,7 @@ export function SelectionInspector({
     : (lang === "zh" ? "由任务列表选择" : "Selected from task list")
 
   return (
-    <aside style={{ background: t.panel, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.accent}`, borderRadius: 12, minWidth: 0, padding: 18 }}>
+    <aside style={{ background: t.panel, border: `1px solid ${t.accent}`, borderRadius: 12, minWidth: 0, padding: 18 }}>
       {!selectedTask && !hasActiveFilters && <GuideState lang={lang} t={t} />}
       {!selectedTask && hasActiveFilters && <FilterState filters={filters} filteredTasks={filteredTasks} lang={lang} onSelectTask={onSelectTask} t={t} />}
 

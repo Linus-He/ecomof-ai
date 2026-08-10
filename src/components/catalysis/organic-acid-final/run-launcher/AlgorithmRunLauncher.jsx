@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { ChemicalText } from "../../../common/ChemicalFormula"
 import { buildRunSteps, runDemoScreeningWorkflow } from "../../../../utils/organicAcidFinalScreening"
 import { loadDatabaseIndexOverview } from "../../../../utils/databaseIndex/databaseIndexLoaders"
-import { Panel, StatusPill, text } from "../FinalScreeningShared"
+import { Panel, StatusBadge, text } from "../FinalScreeningShared"
 import { RunConfigurationPanel } from "./RunConfigurationPanel"
 import { RunResultSummary } from "./RunResultSummary"
 import { RunStepTimeline } from "./RunStepTimeline"
@@ -97,7 +97,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
       eyebrow={text(lang, "筛选输入与运行范围", "Screening input and run scope")}
       title={text(lang, "筛选运行范围", "Screening Run Scope")}
       t={t}
-      actions={<StatusPill tone="proxy" t={t}>{text(lang, "当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F trial scoring / preview only")}</StatusPill>}
+      actions={<StatusBadge tone="proxy" t={t}>{text(lang, "当前边界：V2.0-F 试算 / 仅限预览", "Current boundary: V2.0-F trial scoring / preview only")}</StatusBadge>}
     >
       <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
         <ChemicalText value={text(
@@ -141,7 +141,7 @@ export function AlgorithmRunLauncher({ frameworks = [], metals = [], rules = {},
             "来源索引覆盖全部 9,835 条真实 CR 记录；浏览器当前只展开结构审阅样本与已选择分片，不把结构完整度当作催化性能评分。追踪覆盖来源清单和当前展开范围。",
             "The source index covers all 9,835 real CR records. The browser expands only the structural-review sample and selected part, and never treats structural completeness as catalytic-performance scoring. Trace covers the source manifest and current expanded scope."
           )} />
-          <StatusPill tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{text(lang, "真实结构索引", "Real structure index")}</StatusPill>
+          <StatusBadge tone={databaseStatus === "loaded" ? "pass" : databaseStatus === "error" ? "warn" : "proxy"} t={t}>{text(lang, "真实结构索引", "Real structure index")}</StatusBadge>
         </section>
       ) : null}
 

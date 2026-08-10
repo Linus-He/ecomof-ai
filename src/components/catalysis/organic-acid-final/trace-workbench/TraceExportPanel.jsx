@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react"
 import { ChemicalText } from "../../../common/ChemicalFormula"
 import { buildTraceExportBundle } from "../../../../utils/organicAcidTrace/traceReportExporter"
-import { StatusPill, text } from "../FinalScreeningShared"
+import { StatusBadge, text } from "../FinalScreeningShared"
 
 export function TraceExportPanel({ trace, lang, t }) {
   const [format, setFormat] = useState("markdown")
@@ -28,7 +28,7 @@ export function TraceExportPanel({ trace, lang, t }) {
         </div>
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 10 }}>
-        <StatusPill tone="info" t={t}>{trace?.exportable ? "exportable" : "pending"}</StatusPill>
+        <StatusBadge tone="info" t={t}>{trace?.exportable ? "exportable" : "pending"}</StatusBadge>
         <pre style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.45, margin: 0, maxHeight: 260, overflow: "auto", whiteSpace: "pre-wrap" }}><ChemicalText value={body} /></pre>
       </div>
     </section>

@@ -215,8 +215,8 @@ function GasIsothermPreview({ zh }) {
               formatter={(value, name) => [`${Number(value).toFixed(3)} mmol/g`, name]}
             />
             <Legend wrapperStyle={{ fontSize: 10, color: "#5f5d57" }} />
-            <Line type="monotone" dataKey="primary" name={primaryGas} connectNulls stroke="#d65f4c" strokeWidth={2.4} dot={{ r: 2.2, fill: "#d65f4c" }} activeDot={{ r: 4 }} isAnimationActive />
-            <Line type="monotone" dataKey="secondary" name={secondaryGas} connectNulls stroke="#3f6fa8" strokeWidth={2.4} dot={{ r: 2.2, fill: "#3f6fa8" }} activeDot={{ r: 4 }} isAnimationActive />
+            <Line type="monotone" dataKey="primary" name={primaryGas} connectNulls stroke="#d97757" strokeWidth={2.4} dot={{ r: 2.2, fill: "#d97757" }} activeDot={{ r: 4 }} isAnimationActive />
+            <Line type="monotone" dataKey="secondary" name={secondaryGas} connectNulls stroke="#788c5d" strokeWidth={2.4} dot={{ r: 2.2, fill: "#788c5d" }} activeDot={{ r: 4 }} isAnimationActive />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -360,7 +360,7 @@ export function ScientificDiscoveryMap({
       if (event.key === "Escape") closeSelection()
     }
     window.addEventListener("keydown", onKeyDown)
-    window.requestAnimationFrame(() => closeRef.current?.focus())
+    window.requestAnimationFrame(() => closeRef.current?.focus({ preventScroll: true }))
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [selectedId, reducedMotion])
 
@@ -481,7 +481,7 @@ export function ScientificDiscoveryMap({
   const cameraProgress = easeInOutCubic(clamp(bloomProgress / 0.9, 0, 1))
   const clusterProgress = easeOutCubic(clamp((bloomProgress - 0.42) / 0.2, 0, 1))
   const lineProgress = easeInOutCubic(clamp((bloomProgress - 0.58) / 0.42, 0, 1))
-  const introScale = isMobile ? 1.22 : 1.72
+  const introScale = 1
   const cameraScale = lerp(introScale, view.scale, cameraProgress)
 
   const positionFor = item => {
@@ -557,9 +557,17 @@ export function ScientificDiscoveryMap({
       return
     }
 
-    if (event.deltaY < 0 || view.scale > minScale + 0.001) {
+    if (event.deltaY < 0 && window.scrollY <= 4) {
       event.preventDefault()
-      zoomBy(event.deltaY < 0 ? 1.06 : 0.94)
+      setSelectedId("")
+      setExpansionPhase("idle")
+      bloomTargetRef.current = reducedMotion ? 1 : 0
+      return
+    }
+
+    if (event.deltaY > 0) {
+      event.preventDefault()
+      window.scrollBy({ top: event.deltaY, behavior: "auto" })
     }
   }
 
@@ -602,23 +610,36 @@ export function ScientificDiscoveryMap({
 
   const continueSelected = () => {
     if (!selectedCluster) return
-    onContinueResearch?.(selectedCluster.id, CONTINUATION_TARGETS[selectedCluster.id])
+    const branchId = selectedCluster.id
+    const targetId = CONTINUATION_TARGETS[branchId]
+    if (reducedMotion) {
+      setSelectedId("")
+      setExpansionPhase("idle")
+      onContinueResearch?.(branchId, targetId)
+      return
+    }
+    setExpansionPhase("closing")
+    window.setTimeout(() => {
+      setSelectedId("")
+      setExpansionPhase("idle")
+      onContinueResearch?.(branchId, targetId)
+    }, 460)
   }
 
   const wordLayout = isMobile
     ? {
-        first: { from: [205, 480], to: [52, 74] },
-        second: { from: [365, 480], to: [330, 1055] },
+        first: { from: [195, 510], to: [36, 64] },
+        second: { from: [345, 510], to: [280, 825] },
       }
     : {
-        first: { from: [430, 390], to: [120, 140] },
-        second: { from: [755, 390], to: [950, 830] },
+        first: { from: [410, 295], to: [42, 46] },
+        second: { from: [650, 295], to: [905, 520] },
       }
 
   const wordStyle = layout => ({
     left: lerp(layout.from[0], layout.to[0], wordProgress),
     top: lerp(layout.from[1], layout.to[1], wordProgress),
-    transform: `scale(${lerp(isMobile ? 0.48 : 0.75, 1, wordProgress)})`,
+    transform: `scale(${lerp(isMobile ? 0.72 : 1, isMobile ? 1.45 : 1.35, wordProgress)})`,
   })
 
   return (
@@ -633,14 +654,14 @@ export function ScientificDiscoveryMap({
       data-expansion-phase={expansionPhase}
       data-reduced-motion={reducedMotion ? "true" : "false"}
       style={{
-        "--map-bg": "#faf9f5",
-        "--map-surface": "#f5f4ed",
-        "--map-text": "#141413",
-        "--map-muted": "#73726c",
-        "--map-faint": "#9c9a92",
-        "--map-border": "#dedcd1",
-        "--map-border-strong": "#c6c4ba",
-        "--map-accent": "#245c9c",
+        "--map-bg": t?.bg || "#f0eee6",
+        "--map-surface": t?.panel || "#f7f5ef",
+        "--map-text": t?.textStrong || "#141413",
+        "--map-muted": t?.muted || "#73726c",
+        "--map-faint": t?.faint || "#9c9a92",
+        "--map-border": t?.border || "#dedcd1",
+        "--map-border-strong": t?.borderStrong || "#c6c4ba",
+        "--map-accent": t?.accent || "#d97757",
         "--map-shadow": t?.shadowMd,
       }}
       onWheel={onWheel}
@@ -649,20 +670,6 @@ export function ScientificDiscoveryMap({
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
     >
-      <nav className="home-map-branch-rail" aria-label={zh ? "核心研究分支" : "Core research branches"} data-visible={bloomDone ? "true" : "false"} onPointerDown={event => event.stopPropagation()}>
-        {clusters.map(cluster => (
-          <button
-            key={cluster.id}
-            type="button"
-            data-active={selectedCluster?.id === cluster.id ? "true" : "false"}
-            onClick={event => openSelection(cluster.id, event)}
-            tabIndex={bloomDone ? 0 : -1}
-          >
-            <img src={CLUSTER_ART[cluster.id]} alt="" aria-hidden="true" />
-            <span>{cluster.shortTitle || cluster.title}</span>
-          </button>
-        ))}
-      </nav>
       <div className="home-map-viewport" aria-label={zh ? "交互式材料研究地图" : "Interactive materials research map"}>
         <div
           data-testid="home-discovery-map-stage"
@@ -698,10 +705,10 @@ export function ScientificDiscoveryMap({
 
           <h1 className="home-map-wordmark" aria-label="EcoMOF-AI">
             <span className="home-map-word home-map-word-first" style={wordStyle(wordLayout.first)}>
-              <span className="home-map-word-inner">EcoMOF</span>
+              <span className="home-map-word-inner">Keep</span>
             </span>
             <span className="home-map-word home-map-word-second" style={wordStyle(wordLayout.second)}>
-              <span className="home-map-word-inner">research.</span>
+              <span className="home-map-word-inner">testing.</span>
             </span>
           </h1>
 
@@ -777,9 +784,9 @@ export function ScientificDiscoveryMap({
             visibility: bloomProgress > 0.115 ? "hidden" : "visible",
           }}
         >
-          <p>{zh ? "让结构、证据与任务条件在同一张研究图谱中展开。" : "Let structures, evidence, and task conditions unfold in one research atlas."}</p>
+          <p>{zh ? "材料研究中的困难问题，需要透明、可追溯且能够继续验证的答案。让结构、来源、任务条件与证据在同一张图谱中展开。" : "Hard questions in materials research deserve transparent, traceable, and testable answers. Let structures, sources, task conditions, and evidence unfold in one atlas."}</p>
           <button type="button" onClick={startBloom}>
-            <span>{zh ? "进入研究图谱" : "Enter the research atlas"}</span>
+            <span>{zh ? "展开研究图谱" : "Open the research atlas"}</span>
             <ArrowRight aria-hidden="true" size={16} weight="bold" />
           </button>
         </div>
@@ -811,12 +818,11 @@ export function ScientificDiscoveryMap({
 
       {selected && selectedCluster ? (
         <div className="home-map-expansion-layer" onPointerDown={event => event.stopPropagation()}>
-          <article
+          <section
             className="home-map-expansion"
             data-phase={expansionPhase}
             data-branch={selectedCluster.id}
-            role="dialog"
-            aria-modal="false"
+            role="region"
             aria-labelledby="home-map-expansion-title"
             style={{
               "--expand-origin-x": `${expansionOrigin.x}px`,
@@ -855,7 +861,7 @@ export function ScientificDiscoveryMap({
                 </button>
               </div>
             </footer>
-          </article>
+          </section>
         </div>
       ) : null}
     </div>

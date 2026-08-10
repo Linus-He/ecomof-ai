@@ -35,7 +35,7 @@ export function GeneralizationFigure({ robustness = null, lang = "en", t, isMobi
         <line x1="12" y1="130" x2="252" y2="130" stroke={t.border} />
       </svg>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8 }}>
-        <span style={{ background: t.badgeWarnBg, border: `1px solid ${riskColor}`, borderRadius: 999, color: riskColor, fontSize: 10.5, fontWeight: 800, padding: "2px 9px" }}>
+        <span style={{ background: t.badgeWarnBg, border: `1px solid ${riskColor}`, borderRadius: 6, color: riskColor, fontSize: 10.5, fontWeight: 800, padding: "2px 9px" }}>
           {text(lang, "过拟合风险", "Overfit risk")}: {g.overfittingRisk} · gap {g.generalizationGap}
         </span>
         <span style={{ color: t.faint, fontSize: 10 }}>{hover ? `${hover}: acc ${g.splits[hover]?.accuracy ?? "—"} (n=${g.splits[hover]?.n ?? "—"})` : g.recommendation}</span>

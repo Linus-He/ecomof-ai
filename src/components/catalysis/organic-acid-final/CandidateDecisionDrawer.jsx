@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, StatusPill, statusTone, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, StatusBadge, statusTone, text } from "./FinalScreeningShared"
 import { X } from "@phosphor-icons/react"
 
 export function CandidateDecisionDrawer({ candidateTrace, open, onClose, lang, t }) {
@@ -30,7 +30,7 @@ export function CandidateDecisionDrawer({ candidateTrace, open, onClose, lang, t
         onClick={event => event.stopPropagation()}
         style={{
           background: t.panel,
-          borderLeft: `1px solid ${t.borderStrong || t.border}`,
+          borderTop: `1px solid ${t.borderStrong || t.border}`,
           boxShadow: t.shadowLg || t.shadowMd,
           display: "grid",
           gap: 12,
@@ -46,9 +46,9 @@ export function CandidateDecisionDrawer({ candidateTrace, open, onClose, lang, t
               <ChemicalText value={candidateTrace.candidateName} />
             </strong>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              <StatusPill tone={statusTone(candidateTrace.gateStatus)} t={t}>{candidateTrace.gateStatus}</StatusPill>
-              <StatusPill tone={failed ? "fail" : passed ? "pass" : "warn"} t={t}>{candidateTrace.decision}</StatusPill>
-              <StatusPill tone={candidateTrace.dataStatus?.tone || "warn"} t={t}>{candidateTrace.dataStatus?.label || "Demo proxy"}</StatusPill>
+              <StatusBadge tone={statusTone(candidateTrace.gateStatus)} t={t}>{candidateTrace.gateStatus}</StatusBadge>
+              <StatusBadge tone={failed ? "fail" : passed ? "pass" : "warn"} t={t}>{candidateTrace.decision}</StatusBadge>
+              <StatusBadge tone={candidateTrace.dataStatus?.tone || "warn"} t={t}>{candidateTrace.dataStatus?.label || "Demo proxy"}</StatusBadge>
             </div>
           </div>
           <button

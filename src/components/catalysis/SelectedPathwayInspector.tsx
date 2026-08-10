@@ -13,7 +13,7 @@ function ScoreLine({ label, value, t }) {
         <span style={{ color: t.muted, fontSize: 11.5, fontWeight: 800 }}>{label}</span>
         <span style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 900, fontVariantNumeric: "tabular-nums" }}>{formatScore(value)}</span>
       </div>
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 7, overflow: "hidden" }}>
+      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, height: 7, overflow: "hidden" }}>
         <div style={{ background: t.accent, height: "100%", width: `${Math.round(safe * 100)}%` }} />
       </div>
     </div>

@@ -18,18 +18,18 @@
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、无胶囊控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
-      "en": "v1.0.13 records only the homepage immersion changes, non-capsule control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete."
+      "zh": "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、紧凑小圆角控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
+      "en": "v1.0.13 records only the homepage immersion changes, compact-corner control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete."
     },
     "releaseBoundary": {
-      "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一移除文本按钮、筛选项和状态标签的胶囊形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
-      "en": "This release softens homepage section and card boundaries, shortens section spacing, and removes capsule geometry from text buttons, filters, and status labels. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item."
+      "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一将文本按钮、筛选项和状态标签迁移到紧凑小圆角形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
+      "en": "This release softens homepage section and card boundaries, shortens section spacing, and moves text buttons, filters, and status labels to compact-corner geometry. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "首页区块连续化，并建立全站无胶囊控件规范。",
-          "en": "Homepage sections now read continuously under a site-wide non-capsule control rule."
+          "zh": "首页区块连续化，并建立全站紧凑小圆角控件规范。",
+          "en": "Homepage sections now read continuously under a site-wide compact-corner control rule."
         },
         "changes": [
           {
@@ -89,8 +89,8 @@
     }
   },
   "previousDevelopmentLog": {
-    "baseAppVersion": "v1.0.11",
-    "developmentVersion": "v1.0.12",
+    "baseAppVersion": "v1.0.12",
+    "developmentVersion": "v1.0.13",
     "recordedAt": "2026-07-29",
     "status": "archived",
     "statusLabel": {
@@ -98,91 +98,71 @@
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v1.0.12 只记录本轮实际完成并通过检查的方法实现说明、编号式合规文件与响应式调整，不把计划项写成已完成。",
-      "en": "v1.0.12 records only the implementation documentation, numbered compliance document, and responsive changes completed and checked in this release; planned work is not presented as complete."
+      "zh": "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、紧凑小圆角控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
+      "en": "v1.0.13 records only the homepage immersion changes, compact-corner control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete."
     },
     "releaseBoundary": {
-      "zh": "本轮补全 MOF 库、生态筛选、气体分离、催化、有机酸、字段级溯源和验证路线的实现架构，明确各模块的数据输入、索引、算法、输出与停止条件；数据合规页删除六步控制图、内部等宽编号和表格，改为 1、1.1、1.1.1 的阅读结构，以发布方许可、免责声明和原文链接为主，同时保留来源登记与筛选。",
-      "en": "This release documents implementation architecture for the MOF Library, EcoScreen, Gas Separation, Catalysis, Organic Acid, field-level provenance, and validation, including inputs, indexes, algorithms, outputs, and stopping conditions. The compliance page removes the six-step diagram, internal monospace codes, and tables in favour of hierarchical numbering centred on publisher licences, disclaimers, and source links, while retaining the source registry and filters."
+      "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一将文本按钮、筛选项和状态标签收敛为紧凑小圆角形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
+      "en": "This release softens homepage section and card boundaries, shortens section spacing, and moves text buttons, filters, and status labels to compact-corner geometry. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item."
     },
     "modules": {
-      "validation": {
-        "summary": {
-          "zh": "方法论从流程概览扩展为可核对的模块实现说明。",
-          "en": "Methodology expands from workflow summaries to reviewable module implementation documentation."
-        },
-        "changes": [
-          {
-            "zh": "新增来源、索引、标准化和任务派生四层数据库架构，说明不同数据库为何分层保存、何时允许连接。",
-            "en": "Adds a four-layer source, index, normalization, and task-derivative architecture explaining why databases remain separate and when joins are permitted."
-          },
-          {
-            "zh": "逐项补全名称与标识符索引、CoRE 性质索引、结构目录、CRITIC、IAST、Qst、反应路径图、经验贝叶斯丰度校正和 HGCPS 的实现边界。",
-            "en": "Documents implementation boundaries for identity and CoRE indexes, structure catalogues, CRITIC, IAST, Qst, pathway graphs, empirical-Bayes abundance correction, and HGCPS."
-          },
-          {
-            "zh": "每个功能统一说明何时触发、怎样处理、得到什么以及不能越过的边界，缺失字段不再由概括性流程掩盖。",
-            "en": "Every function now states its trigger, processing, output, and guard so missing fields are not hidden by generic workflow prose."
-          }
-        ]
-      },
-      "dataCompliance": {
-        "summary": {
-          "zh": "合规页改为发布方原文优先的编号式责任与免责声明文件。",
-          "en": "Compliance becomes a numbered responsibilities and disclaimer document led by publisher sources."
-        },
-        "changes": [
-          {
-            "zh": "删除六步控制流程图、CONTROL/CCDC 内部代码和全部表格，统一使用 1、1.1、1.1.1 分层编号。",
-            "en": "Removes the six-step control diagram, CONTROL/CCDC internal codes, and all tables, using hierarchical 1, 1.1, and 1.1.1 numbering instead."
-          },
-          {
-            "zh": "重写概括式文案，直接区分 CSD MOF Collection、modified CIF、unmodified CIF 与完整付费 CSD 的许可边界。",
-            "en": "Rewrites generic copy to distinguish the licence boundaries of the CSD MOF Collection, modified CIFs, unmodified CIFs, and the full paid CSD."
-          },
-          {
-            "zh": "43 项适用控制内容继续完整保留，但以自然语言标题、原文位置和发布方链接展示；来源登记功能及状态筛选不变。",
-            "en": "Retains all 43 applicable controls through natural-language headings, source locations, and publisher links, while preserving source registration and status filters."
-          }
-        ]
-      },
       "ui": {
         "summary": {
-          "zh": "方法与合规长页面的阅读层级和窄屏呈现更清楚。",
-          "en": "Long methodology and compliance pages now have clearer hierarchy and compact layouts."
+          "zh": "首页区块连续化，并建立全站紧凑小圆角控件规范。",
+          "en": "Homepage sections now read continuously under a site-wide compact-corner control rule."
         },
         "changes": [
           {
-            "zh": "方法目录新增各模块“实现方式与架构”入口，桌面端继续支持 220–440 px 拖动调宽。",
-            "en": "Adds an Implementation and Architecture destination for each module while retaining the 220–440 px resizable desktop directory."
+            "zh": "首页主要区块移除外层实体边框和阴影，内层卡片边界降至低对比度，缩短首屏到数据基础之间的空白。",
+            "en": "Removes solid outer borders and shadows from homepage stages, lowers inner-card contrast, and shortens the gap from the hero to Data Foundation."
           },
           {
-            "zh": "原实现逻辑表格改为纵向编号说明，避免在长文本和窄屏中形成难以阅读的横向网格。",
-            "en": "Replaces the implementation-logic table with numbered vertical explanations for long copy and compact screens."
+            "zh": "文本按钮、筛选项、状态标签和标签式计数统一使用 6 px 紧凑圆角；数据点、步骤圆点与进度轨道保留语义形状。",
+            "en": "Uses compact 6 px corners for text buttons, filters, status labels, and count tags while preserving semantic data marks, step circles, and progress tracks."
           },
           {
-            "zh": "移动端回到单列目录与正文，不显示桌面拖动柄，也不产生横向溢出。",
-            "en": "Compact screens use a single-column directory and body with no desktop resize handle or horizontal overflow."
+            "zh": "方法目录改为扁平左导轨，使用 01–10 顺序号、低边框层级和可拉伸宽度，当前项仍保持清晰反馈。",
+            "en": "Rebuilds the methods directory as a flat left rail with 01–10 numbering, low-border hierarchy, resizable width, and clear active feedback."
+          }
+        ]
+      },
+      "validation": {
+        "summary": {
+          "zh": "方法论从概览说明扩展为逐项可审查的实现文件。",
+          "en": "Methodology expands from summaries into item-level reviewable implementation documentation."
+        },
+        "changes": [
+          {
+            "zh": "所有方法分组新增研究目的、输入与进入条件、执行顺序和中间状态、页面呈现、核查依据与停止条件五段说明。",
+            "en": "Adds five detailed notes to every method group: purpose, input and entry criteria, execution and intermediate state, presentation, and review/stop conditions."
+          },
+          {
+            "zh": "各模块架构条目补充执行链、字段分层审计和页面状态逻辑，明确加载、空态、仅浏览、可计算与阻断状态。",
+            "en": "Adds execution chain, layered field audit, and UI-state logic to each architecture item, distinguishing loading, empty, browse-only, computable, and blocked states."
+          },
+          {
+            "zh": "每个算法步骤补充身份、单位和来源前置约束；缺失或冲突状态停止向正式结果传递。",
+            "en": "Adds identity, unit, and provenance preconditions to every algorithm step so missing or conflicting states do not propagate into formal results."
           }
         ]
       },
       "projectEvolution": {
         "summary": {
-          "zh": "统一版本中心新增 v1.0.12，单独记录本轮方法论与合规重构。",
-          "en": "The unified release center adds v1.0.12 for this methodology and compliance revision."
+          "zh": "统一版本中心新增 v1.0.13，记录本轮首页与方法论重构。",
+          "en": "The unified release center adds v1.0.13 for the homepage and methodology revision."
         },
         "changes": [
           {
-            "zh": "版本选择器、当前徽章和模块更新统一读取 v1.0.12。",
-            "en": "The version selector, current badge, and module updates now read v1.0.12."
+            "zh": "恢复文献灵感来源：读取 34 条来源、六个分类及原文链接，并在方法目录中置于共享证据之后、限制与验证之前。",
+            "en": "Restores 34 literature-inspiration records, six categories, and source links, positioned after Shared Evidence and before Limitations and Validation."
           },
           {
-            "zh": "开发日志只登记实际完成并通过检查的架构说明、编号式合规文件和响应式调整。",
-            "en": "The development log records only the completed and checked architecture documentation, numbered compliance document, and responsive changes."
+            "zh": "删除“把方法写清楚，方便别人核对”及 GitHub 仓库横幅，不再用宣言代替方法内容。",
+            "en": "Removes the methods-review declaration and GitHub repository banner so substantive method content leads the page."
           },
           {
-            "zh": "本轮仍只创建本地提交，不推送、不部署，也不宣称公开页面已经更新。",
-            "en": "This release remains a local commit only, with no push, deployment, or claim that the public site has changed."
+            "zh": "本轮只建立本地提交，不推送、不部署，也不把本地预览描述为公开版本。",
+            "en": "This release creates a local commit only, with no push, deployment, or claim of a public update."
           }
         ]
       }
@@ -308,14 +288,14 @@
         "en": "v1.0.13: turns the homepage into a continuous research canvas and restores literature-backed, item-level methodology detail."
       },
       "summary": {
-        "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一移除文本按钮、筛选项和状态标签的胶囊形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
-        "en": "This release softens homepage section and card boundaries, shortens section spacing, and removes capsule geometry from text buttons, filters, and status labels. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item."
+        "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一将文本按钮、筛选项和状态标签迁移到紧凑小圆角形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
+        "en": "This release softens homepage section and card boundaries, shortens section spacing, and moves text buttons, filters, and status labels to compact-corner geometry. Methodology removes the GitHub collaboration banner, restores 34 literature-inspiration sources across six adoption-boundary categories, reorders the directory by research flow, and adds purpose, eligibility, execution state, presentation, stopping conditions, field audit, and UI behaviour to every method item."
       },
       "modules": {
         "ui": {
           "summary": {
-            "zh": "首页区块连续化，并建立全站无胶囊控件规范。",
-            "en": "Homepage sections now read continuously under a site-wide non-capsule control rule."
+            "zh": "首页区块连续化，并建立全站紧凑小圆角控件规范。",
+            "en": "Homepage sections now read continuously under a site-wide compact-corner control rule."
           },
           "changes": [
             {

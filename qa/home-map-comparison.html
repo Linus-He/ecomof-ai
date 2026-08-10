@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Homepage atlas visual comparison</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        background: #e8e6dc;
+        color: #141413;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 18px;
+      }
+      main {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0 auto;
+        max-width: 2100px;
+      }
+      figure { margin: 0; }
+      figcaption {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      img {
+        background: #faf9f5;
+        border: 1px solid #c6c4ba;
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <figure>
+        <figcaption>Reference: Anthropic Path to Hope</figcaption>
+        <img src="path-to-hope-reference.png" alt="Anthropic reference" />
+      </figure>
+      <figure>
+        <figcaption>Implementation: EcoMOF-AI research atlas</figcaption>
+        <img src="home-map-visual-safety-final-v2.png" alt="EcoMOF-AI implementation" />
+      </figure>
+    </main>
+  </body>
+</html>

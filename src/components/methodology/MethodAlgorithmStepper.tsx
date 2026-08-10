@@ -21,7 +21,7 @@ export function MethodAlgorithmStepper({ steps = [], lang, t }) {
             padding: 10,
           }}
         >
-          <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>
+          <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 900, height: 26, justifyContent: "center", width: 26 }}>
             {index + 1}
           </span>
           <span style={{ display: "grid", gap: 3 }}>

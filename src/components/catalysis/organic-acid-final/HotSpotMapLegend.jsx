@@ -37,8 +37,8 @@ export function HotSpotMapLegend({ lang, t }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
       {items.map(([role, label]) => (
-        <span key={role} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 6, lineHeight: 1.1, padding: "5px 8px" }}>
-          <span style={{ background: roleColor(role, null, t), border: `1px solid ${role === "demo proxy" || role === "evidence pending" ? t.border : "transparent"}`, borderRadius: 999, display: "inline-flex", height: 9, width: 9 }} />
+        <span key={role} style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 6, lineHeight: 1.1, padding: "5px 8px" }}>
+          <span style={{ background: roleColor(role, null, t), border: `1px solid ${role === "demo proxy" || role === "evidence pending" ? t.border : "transparent"}`, borderRadius: 6, display: "inline-flex", height: 9, width: 9 }} />
           <ChemicalText value={label} />
         </span>
       ))}

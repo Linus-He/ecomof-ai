@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 export function BlindBaselinePanel({ baselines, lang, t, isMobile }) {
   return (
@@ -22,7 +22,7 @@ export function BlindBaselinePanel({ baselines, lang, t, isMobile }) {
           <article key={row.metal} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 9, padding: 12 }}>
             <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", gap: 8 }}>
               <strong style={{ color: t.textStrong, fontSize: 16 }}>{row.metal}</strong>
-              <StatusPill tone="warn" t={t}>{text(lang, "盲基线", "blind baseline")}</StatusPill>
+              <StatusBadge tone="warn" t={t}>{text(lang, "盲基线", "blind baseline")}</StatusBadge>
             </div>
             <div style={{ display: "grid", gap: 5 }}>
               <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>DMRS / rank</span>

@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 function ListBlock({ title, rows, t, tone = "info" }) {
   return (
     <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 12 }}>
       <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{title}</strong>
-        <StatusPill tone={tone} t={t}>{rows?.length || 0}</StatusPill>
+        <StatusBadge tone={tone} t={t}>{rows?.length || 0}</StatusBadge>
       </div>
       <div style={{ display: "grid", gap: 6 }}>
         {(rows || []).map(row => (

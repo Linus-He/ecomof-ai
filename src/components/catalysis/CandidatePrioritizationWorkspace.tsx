@@ -34,7 +34,7 @@ function CandidateDetail({ candidate, ruleMap, lang }) {
         {(candidate.matchedRules || []).map(ruleId => {
           const rule = ruleMap.get(ruleId)
           return (
-            <span key={ruleId} style={{ background: "#fff", border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.muted, fontSize: 11.5, padding: "5px 8px" }}>
+            <span key={ruleId} style={{ background: "#fff", border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.muted, fontSize: 11.5, padding: "5px 8px" }}>
               {rule ? text(lang, rule.nameZh, rule.name) : ruleId}
             </span>
           )

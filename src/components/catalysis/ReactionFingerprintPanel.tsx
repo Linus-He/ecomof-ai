@@ -34,7 +34,7 @@ export function ReactionFingerprintPanel({ profile, t, compact = false }) {
                 <span style={{ color: isRisk ? t.warn : t.muted, fontSize: 11.5, fontWeight: 820 }}>{label}</span>
                 <span style={{ color: isRisk ? t.warn : t.textStrong, fontSize: 12, fontWeight: 900, fontVariantNumeric: "tabular-nums" }}>{value}</span>
               </div>
-              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: compact ? 6 : 7, overflow: "hidden" }}>
+              <div style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: compact ? 6 : 7, overflow: "hidden" }}>
                 <div style={{ background: isRisk ? t.warn : t.accentText, height: "100%", width: `${value}%` }} />
               </div>
             </div>

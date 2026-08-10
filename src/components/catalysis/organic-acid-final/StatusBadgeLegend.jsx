@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 const STATUSES = [
   ["Demo proxy", "演示级代理", "warn", "Workflow demonstration and hypothesis generation only."],
@@ -24,7 +24,7 @@ export function StatusBadgeLegend({ lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
         {STATUSES.map(([en, zh, tone, note]) => (
           <article key={en} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 7, padding: 10 }}>
-            <StatusPill tone={tone} t={t}>{lang === "zh" ? zh : en}</StatusPill>
+            <StatusBadge tone={tone} t={t}>{lang === "zh" ? zh : en}</StatusBadge>
             <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}>
               <ChemicalText value={lang === "zh" ? ({
                 "Demo proxy": "仅用于流程演示和假设生成。",

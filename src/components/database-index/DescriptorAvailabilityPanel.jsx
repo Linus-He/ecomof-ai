@@ -17,7 +17,7 @@ export function DescriptorAvailabilityPanel({ availability = {}, lang, t }) {
         {rows.map(row => (
           <article key={row.descriptor} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 5, gridTemplateColumns: "minmax(115px, 0.75fr) minmax(0, 1.25fr) 76px", paddingTop: 7 }}>
             <strong style={{ color: t.textStrong, fontSize: 12.5 }}><ChemicalText value={displayValue(row.descriptor)} /></strong>
-            <div aria-label={`${row.descriptor} coverage`} style={{ alignSelf: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 8, overflow: "hidden" }}>
+            <div aria-label={`${row.descriptor} coverage`} style={{ alignSelf: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 8, overflow: "hidden" }}>
               <span style={{ background: row.percent < 10 ? t.warn : t.accentText, display: "block", height: "100%", width: `${Math.max(0, Math.min(100, row.percent))}%` }} />
             </div>
             <span style={{ color: t.muted, fontSize: 12, textAlign: "right" }}>{formatCount(row.available)} · {formatPercentValue(row.percent)}</span>

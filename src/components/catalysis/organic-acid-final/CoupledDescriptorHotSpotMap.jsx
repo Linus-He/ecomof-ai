@@ -3,7 +3,7 @@ import { useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { DescriptorCouplingPanel } from "./DescriptorCouplingPanel"
 import { DopantMetalHotSpotMap } from "./DopantMetalHotSpotMap"
-import { Panel, StatusPill, text } from "./FinalScreeningShared"
+import { Panel, StatusBadge, text } from "./FinalScreeningShared"
 import { HotSpotMapLegend } from "./HotSpotMapLegend"
 import { ScaffoldHotSpotMap } from "./ScaffoldHotSpotMap"
 import { SynergyHotSpotMap } from "./SynergyHotSpotMap"
@@ -28,7 +28,7 @@ export function CoupledDescriptorHotSpotMap({ result, curatedRealResult, lang, t
         eyebrow={text(lang, "受耦合催化剂设计思想启发", "Inspired by coupled catalyst design")}
         title={text(lang, "耦合描述符热区图", "Coupled Descriptor Hot Spot Map")}
         t={t}
-        actions={<StatusPill tone="proxy" t={t}>{text(lang, "演示级代理 · 仅限预览", "demo/proxy · preview only")}</StatusPill>}
+        actions={<StatusBadge tone="proxy" t={t}>{text(lang, "演示级代理 · 仅限预览", "demo/proxy · preview only")}</StatusBadge>}
       >
         <div style={{ display: "grid", gap: 10 }}>
           <p style={{ color: t.muted, fontSize: 12.6, lineHeight: 1.58, margin: 0 }}>

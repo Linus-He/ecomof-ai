@@ -1007,7 +1007,7 @@ export function EcoLcaWorkbench({
               {selectedCandidate.metalNode || tr(lang, "金属待整理", "metal pending")} · {selectedCandidate.linker || selectedCandidate.organicLinker || tr(lang, "配体待整理", "linker pending")} · {selectedCandidate.sourceDatabase || tr(lang, "来源待整理", "source pending")}
             </div>
           </div>
-          <div aria-label={tr(lang, "生命周期与经济计算方程", "Life-cycle and economic calculation equations")} style={{ background: t.surface, borderLeft: `3px solid ${t.accent}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
+          <div aria-label={tr(lang, "生命周期与经济计算方程", "Life-cycle and economic calculation equations")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 7, padding: "12px 13px" }}>
             <div style={{ color: t.textStrong, fontFamily: "Georgia, 'Times New Roman', serif", fontSize: isMobile ? 18 : 21, lineHeight: 1.35 }}>
               I<sub>GWP</sub><sup>prod</sup>(m) = Σ q<sub>mk</sub> · CF<sub>k</sub>
             </div>

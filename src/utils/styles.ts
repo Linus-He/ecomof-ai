@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { FONT_SANS } from "../constants/theme"
-import { THEME_DARK } from "../constants/theme"
 
 export function toolbarBtn(t) {
   return {
@@ -50,5 +49,5 @@ export function headerInputStyle(t, borderColor = t.border) {
 }
 
 export function darkenLayer(t) {
-  return t === THEME_DARK ? "#1A202C" : "transparent"
+  return t.glass || t.panel || "transparent"
 }

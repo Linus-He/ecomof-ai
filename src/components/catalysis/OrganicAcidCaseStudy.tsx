@@ -32,7 +32,7 @@ function SectionHeader({ eyebrow, title, note, t }) {
 
 function StatusDot({ status, t }) {
   const color = status === "available" ? t.accent : status === "missing" ? t.badgeWarnText : status === "partial" ? t.badgeCalcText : t.faint
-  return <span aria-hidden="true" style={{ background: color, borderRadius: 999, display: "inline-block", height: 7, width: 7 }} />
+  return <span aria-hidden="true" style={{ background: color, borderRadius: 6, display: "inline-block", height: 7, width: 7 }} />
 }
 
 function formatPriority(priority, lang) {
@@ -92,7 +92,7 @@ function OrganicAcidHero({ lang, summary, t }) {
       ]
 
   return (
-    <Panel t={t} style={{ background: `linear-gradient(135deg, ${t.panel}, ${t.surface})`, borderLeft: `3px solid ${t.accent}` }}>
+    <Panel t={t} style={{ background: `linear-gradient(135deg, ${t.panel}, ${t.surface})`, borderColor: t.accent }}>
       <div style={{ display: "grid", gap: 14 }}>
         <div>
           <div style={{ color: t.faint, fontSize: 11, fontWeight: 900, letterSpacing: 0.4, textTransform: "uppercase" }}>
@@ -141,7 +141,7 @@ function CurationWorkflow({ lang, t, workflowSteps }) {
         {workflowSteps.map((step, index) => (
           <article key={step.stepEn} style={{ background: index === 0 ? t.badgeInfoBg : t.bg, border: `1px solid ${t.border}`, borderRadius: 12, minHeight: 150, padding: 12, position: "relative" }}>
             <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
-              <span style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 950, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
+              <span style={{ alignItems: "center", background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 950, height: 24, justifyContent: "center", width: 24 }}>{index + 1}</span>
               <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 950, lineHeight: 1.35 }}>{lang === "zh" ? step.stepZh : step.stepEn}</div>
             </div>
             <div style={{ borderTop: `1px solid ${t.divider}`, marginTop: 10, paddingTop: 9 }}>
@@ -190,7 +190,7 @@ function FieldPriorityModel({ fieldPriority, lang, t }) {
 
 function MockRecordTransformation({ lang, mockRecord, t }) {
   return (
-    <Panel ariaLabel="Mock Record Transformation" t={t} style={{ borderLeft: `3px solid ${t.accent}` }}>
+    <Panel ariaLabel="Mock Record Transformation" t={t} style={{ borderColor: t.accent }}>
       <SectionHeader
         eyebrow={lang === "zh" ? "示例记录转换" : "Example record transformation"}
         title={lang === "zh" ? "一条记录如何被标准化" : "How one record is normalized"}
@@ -333,7 +333,7 @@ function ReadinessTrace({ lang, readinessTrace, t }) {
       <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
         {traceItems.map((item, index) => (
           <article key={item.label} style={{ alignItems: "start", display: "grid", gap: 10, gridTemplateColumns: "30px minmax(0, 1fr)" }}>
-            <div style={{ alignItems: "center", background: index === 3 ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, color: index === 3 ? t.badgeWarnText : t.accentText, display: "flex", fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
+            <div style={{ alignItems: "center", background: index === 3 ? t.badgeWarnBg : t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, color: index === 3 ? t.badgeWarnText : t.accentText, display: "flex", fontSize: 12, fontWeight: 950, height: 30, justifyContent: "center", width: 30 }}>{index + 1}</div>
             <div style={{ borderBottom: `1px solid ${t.divider}`, paddingBottom: 10 }}>
               <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 950 }}>{item.label}</div>
               <div style={{ color: index === 3 ? t.badgeWarnText : t.muted, fontSize: 12, fontWeight: index === 3 ? 850 : 500, lineHeight: 1.55, marginTop: 5 }}>{item.value}</div>

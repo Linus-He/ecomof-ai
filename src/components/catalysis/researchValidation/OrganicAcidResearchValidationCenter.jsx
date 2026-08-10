@@ -2,12 +2,12 @@
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { ORGANIC_ACID_CONFIDENCE_LEVELS, ORGANIC_ACID_VALIDATION_EVIDENCE_TYPES, buildResearchValidationSummary } from "../../../utils/organicAcidResearchValidation"
-import { Panel, ProvenanceButton, StatusPill, ValueWithSource, displayValue, formatScore, text } from "../organic-acid-final/FinalScreeningShared"
+import { Panel, ProvenanceButton, StatusBadge, ValueWithSource, displayValue, formatScore, text } from "../organic-acid-final/FinalScreeningShared"
 
 const COLORS = {
   Literature: "#2563EB",
   Experimental: "#059669",
-  "Expert Review": "#B45309",
+  "Expert Review": "#B91C1C",
   Derived: "#7C3AED",
 }
 
@@ -87,7 +87,7 @@ export function LabelDiversityAudit({ audit, lang, t, isMobile }) {
             {text(lang, "统计 DOI、论文、催化剂与实验多样性；DOI 缺口保持可见。", "Counts DOI, paper, catalyst, and experiment diversity; DOI gaps remain visible.")}
           </p>
         </div>
-        <StatusPill tone={audit.grade === "Weak" ? "warn" : "pass"} t={t}>{audit.grade}</StatusPill>
+        <StatusBadge tone={audit.grade === "Weak" ? "warn" : "pass"} t={t}>{audit.grade}</StatusBadge>
       </header>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, minmax(0, 1fr))" }}>
         {audit.metrics.map(metric => <MetricTile key={metric.id} metric={metric} lang={lang} t={t} />)}
@@ -264,7 +264,7 @@ export function PathwayConfidenceMatrix({ points, lang, t, isMobile, activeCandi
             const x = pad + point.x * (width - pad * 2)
             const y = height - pad - point.y * (height - pad * 2)
             const isActive = point.id === active?.id
-            const fill = point.confidenceLevel === "high" ? "#059669" : point.confidenceLevel === "medium" ? "#2563EB" : "#B45309"
+            const fill = point.confidenceLevel === "high" ? "#059669" : point.confidenceLevel === "medium" ? "#2563EB" : "#B91C1C"
             return (
               <g key={point.id} onClick={() => selectPoint(point)} style={{ cursor: "pointer" }}>
                 <circle cx={x} cy={y} r={isActive ? 9 : 6} fill={isActive ? t.accent : fill} opacity={0.9} stroke={isActive ? t.textStrong : "transparent"} strokeWidth="2" />
@@ -282,7 +282,7 @@ export function PathwayConfidenceMatrix({ points, lang, t, isMobile, activeCandi
             <ValueWithSource record={{}} source={active.source} field="confidenceLevel" label="Confidence Level" value={active.confidenceLevel} lang={lang} t={t} />
             <ValueWithSource record={{}} source={active.source} field="evidenceStrength" label="Evidence Strength" value={formatScore(active.evidenceStrength)} lang={lang} t={t} />
             <ValueWithSource record={{}} source={active.source} field="dataQuality" label="Data Quality" value={formatScore(active.dataQuality)} lang={lang} t={t} />
-            <StatusPill tone={active.confidenceLevel === "low" || active.dataQuality < 0.5 ? "warn" : "pass"} t={t}>{active.recommendationClass || "candidate"}</StatusPill>
+            <StatusBadge tone={active.confidenceLevel === "low" || active.dataQuality < 0.5 ? "warn" : "pass"} t={t}>{active.recommendationClass || "candidate"}</StatusBadge>
             <div style={{ display: "grid", gap: 5 }}>
               <strong style={{ color: t.textStrong, fontSize: 11.8 }}>Low-confidence reason / 低置信度原因</strong>
               {(active.lowConfidenceReasons || [active.confidenceReason]).map(reason => (
@@ -431,14 +431,14 @@ export function ValidationKnowledgeGraph({ graph, lang, t, isMobile, activeCandi
             const from = positions[edge.from]
             const to = positions[edge.to]
             if (!from || !to) return null
-            const color = edge.type === "supports" ? "#059669" : edge.type === "contradicts" ? "#DC2626" : "#B45309"
+            const color = edge.type === "supports" ? "#059669" : edge.type === "contradicts" ? "#DC2626" : "#B91C1C"
             const active = edge.id === activeEdgeId || highlighted.has(edge.candidateId)
             return <line key={edge.id} data-testid="knowledge-graph-edge" x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke={color} strokeWidth={active ? "5" : "2"} opacity={active ? "0.95" : "0.62"} onClick={(event) => selectEdge(edge, event)} style={{ cursor: "pointer" }} />
           })}
           {graph.nodes.map(node => {
             const point = positions[node.id]
             const active = node.id === activeNode?.id || highlighted.has(node.candidateId)
-            const fill = node.type === "Candidate" ? "#2563EB" : node.type === "Evidence" ? "#7C3AED" : node.type === "Experiment" ? "#059669" : "#B45309"
+            const fill = node.type === "Candidate" ? "#2563EB" : node.type === "Evidence" ? "#7C3AED" : node.type === "Experiment" ? "#059669" : "#B91C1C"
             return (
               <g key={node.id} data-testid="knowledge-graph-node" onClick={() => selectNode(node)} style={{ cursor: "pointer" }}>
                 <circle cx={point.x} cy={point.y} r={active ? 13 : 9} fill={fill} stroke={active ? t.textStrong : "transparent"} strokeWidth="2" />
@@ -452,7 +452,7 @@ export function ValidationKnowledgeGraph({ graph, lang, t, isMobile, activeCandi
             <>
               <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "关系证据", "Edge Evidence")}</strong>
               <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={activeEdge.explanation || activeEdge.id} /></span>
-              <StatusPill tone={activeEdge.type === "contradicts" ? "fail" : activeEdge.type === "pending" ? "warn" : "pass"} t={t}>{activeEdge.relationType || activeEdge.type}</StatusPill>
+              <StatusBadge tone={activeEdge.type === "contradicts" ? "fail" : activeEdge.type === "pending" ? "warn" : "pass"} t={t}>{activeEdge.relationType || activeEdge.type}</StatusBadge>
               <ValueWithSource record={{}} source={activeEdge.source} field="edgeEvidenceTier" label="Evidence Tier" value={activeEdge.evidenceTier} lang={lang} t={t} />
               <ValueWithSource record={{}} source={activeEdge.source} field="edgeSource" label="Source" value={activeEdge.source?.sourceRecordId || activeEdge.id} lang={lang} t={t} />
             </>
@@ -460,7 +460,7 @@ export function ValidationKnowledgeGraph({ graph, lang, t, isMobile, activeCandi
             <>
               <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "路径分析", "Path Analysis")}</strong>
               <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45 }}><ChemicalText value={activeNode?.label || "pending"} /></span>
-              <StatusPill tone="info" t={t}>{activeNode?.type || "Node"}</StatusPill>
+              <StatusBadge tone="info" t={t}>{activeNode?.type || "Node"}</StatusBadge>
               <span style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45 }}>{activeNode?.explanation || "Node explanation pending."}</span>
               <ValueWithSource record={{}} source={activeNode?.source} field="nodeConfidence" label="Confidence" value={activeNode?.confidence || "pending"} lang={lang} t={t} />
               <span style={{ color: t.faint, fontSize: 11.2, lineHeight: 1.45 }}>

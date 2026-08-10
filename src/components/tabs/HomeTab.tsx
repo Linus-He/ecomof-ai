@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
   useT,
   useLang,
@@ -9,7 +9,7 @@ import {
   BrandMotif,
   BlockFormula,
 } from "../../shared"
-import { GasParetoChart, HomeDataExplorer, MofDescriptor3DScatter, ScientificDiscoveryMap, buildGasParetoRows } from "../home"
+import { BrandMotionBackground, GasParetoChart, HomeDataExplorer, ImmersiveResearchContinuum, MofDescriptor3DScatter, ScientificDiscoveryMap, buildGasParetoRows } from "../home"
 import { toolbarBtn } from "../../utils/styles"
 import {
   DEFAULT_HOME_SUMMARY,
@@ -826,8 +826,17 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   const { lang } = useLang()
   const { isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
+  const storyShellRef = useRef(null)
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
   const [activeResearchBranch, setActiveResearchBranch] = useState("gassep")
+  const [homeMode, setHomeMode] = useState(() => {
+    if (typeof window === "undefined") return "immersive"
+    try {
+      return window.localStorage.getItem("ecomof-home-mode") === "classic" ? "classic" : "immersive"
+    } catch {
+      return "immersive"
+    }
+  })
   const gasParetoCount = useMemo(() => buildGasParetoRows().length, [])
   const zh = lang === "zh"
 
@@ -863,6 +872,53 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
       })
     })
   }
+
+  const changeHomeMode = mode => {
+    setHomeMode(mode)
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem("ecomof-home-mode", mode)
+      } catch {
+        // The view switch still works when storage is unavailable.
+      }
+    }
+    if (typeof window !== "undefined" && window.scrollY > 0) {
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }))
+    }
+  }
+
+  useEffect(() => {
+    const root = storyShellRef.current
+    if (!root) return undefined
+    const revealTargets = Array.from(root.querySelectorAll("[data-home-reveal]"))
+
+    root.dataset.revealReady = "true"
+    revealTargets.forEach(target => delete target.dataset.revealed)
+
+    if (homeMode !== "immersive" || reducedMotion || typeof IntersectionObserver === "undefined") {
+      revealTargets.forEach(target => { target.dataset.revealed = "true" })
+      return () => { delete root.dataset.revealReady }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return
+        entry.target.dataset.revealed = "true"
+        observer.unobserve(entry.target)
+      })
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 })
+
+    revealTargets.forEach(target => {
+      const rect = target.getBoundingClientRect()
+      if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) target.dataset.revealed = "true"
+      else observer.observe(target)
+    })
+
+    return () => {
+      observer.disconnect()
+      delete root.dataset.revealReady
+    }
+  }, [homeMode, reducedMotion])
 
   const pageGap = isMobile ? 12 : 16
   const sectionStyle = { background: "transparent", border: "none", borderRadius: 0 }
@@ -1043,35 +1099,90 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   ]
 
   return (
-    <div className="home-story-shell" style={{ display: "flex", flexDirection: "column", gap: pageGap, overflow: "hidden", position: "relative" }}>
-      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, position: "relative" }}>
-        <ScientificDiscoveryMap
-          t={t}
-          lang={lang}
-          summary={summary}
-          gasParetoCount={gasParetoCount}
-          isMobile={isMobile}
-          reducedMotion={reducedMotion}
-          onNavigate={navigateHash}
-          onBranchChange={setActiveResearchBranch}
-          onContinueResearch={continueResearch}
-        />
-      </section>
-
-      <div className="home-research-thread" data-branch={activeResearchBranch} aria-live="polite">
-        <span>{zh ? "当前研究线" : "CURRENT RESEARCH THREAD"}</span>
-        <strong>{({
-          ecoscreen: zh ? "可持续性评价" : "Sustainability evaluation",
-          library: zh ? "结构与来源" : "Structure and provenance",
-          gassep: zh ? "气体分离" : "Gas separation",
-          organic: zh ? "催化路径" : "Catalytic pathway",
-          validation: zh ? "可信验证" : "Trustworthy validation",
-        })[activeResearchBranch]}</strong>
-        <i aria-hidden="true" />
-        <small>{zh ? "数据层 → 描述符 → 任务性能 → 验证证据" : "Data layer → descriptors → task performance → validation evidence"}</small>
+    <div ref={storyShellRef} className="home-story-shell" data-home-mode={homeMode} style={{ display: "flex", flexDirection: "column", gap: homeMode === "immersive" ? 0 : pageGap, overflow: "hidden", position: "relative" }}>
+      <div className="home-mode-control">
+        <span className="home-mode-label">{zh ? "首页模式" : "HOME MODE"}</span>
+        <div className="home-mode-switch" role="group" aria-label={zh ? "首页模式" : "Home mode"}>
+          <button type="button" aria-pressed={homeMode === "immersive"} aria-label={zh ? "切换到沉浸首页" : "Switch to immersive home"} onClick={() => changeHomeMode("immersive")}>
+            {zh ? "沉浸" : "Immersive"}
+          </button>
+          <button type="button" aria-pressed={homeMode === "classic"} aria-label={zh ? "切换到经典首页" : "Switch to classic home"} onClick={() => changeHomeMode("classic")}>
+            {zh ? "经典" : "Classic"}
+          </button>
+        </div>
       </div>
 
-      <section id="home-data-foundation" data-testid="home-data-foundation" className="home-immersive-panel" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.panel }}>
+      {homeMode === "classic" ? <BrandMotionBackground t={t} isMobile={isNarrow} reducedMotion={reducedMotion} /> : null}
+
+      <section id="overview" data-testid="home-hero" className="home-hero-section" style={{ ...sectionStyle, position: "relative" }}>
+        {homeMode === "immersive" ? (
+          <ScientificDiscoveryMap
+            t={t}
+            lang={lang}
+            summary={summary}
+            gasParetoCount={gasParetoCount}
+            isMobile={isMobile}
+            reducedMotion={reducedMotion}
+            onNavigate={navigateHash}
+            onBranchChange={setActiveResearchBranch}
+            onContinueResearch={continueResearch}
+          />
+        ) : (
+          <div className="home-classic-hero">
+            <div className="home-hero-bg-layer" aria-hidden="true">
+              {!isMobile && (
+                <BrandMotif
+                  size={300}
+                  color={t.accentText}
+                  opacity={0.052}
+                  className="hero-bg-brand-motif"
+                  style={{ position: "absolute", right: -86, top: 10, pointerEvents: "none" }}
+                  strokeWidth={1.2}
+                />
+              )}
+            </div>
+            <div className="home-classic-hero-grid">
+              <div className="home-hero-foreground">
+                <div className="home-classic-brandline">
+                  <LogoMark size={isMobile ? 48 : 58} radius={14} style={{ boxShadow: t.shadowSm }} />
+                  <span>{zh ? "材料筛选 / 字段级溯源 / 验证准备" : "Material screening / field-level provenance / validation readiness"}</span>
+                </div>
+                <h1>EcoMOF-AI</h1>
+                <h2>{zh ? "数据驱动的 MOF 筛选与验证平台" : "Data-driven MOF Screening and Validation Platform"}</h2>
+                <p>{zh ? "四个研究工作区分别覆盖可持续性筛选、气体分离、可解释催化路线和材料数据库检索。" : "One platform, four research workspaces: EcoScreen, GasSep, Organic Acid, and MOF Library."}</p>
+                <div className="home-hero-cta home-primary-entry-grid" data-testid="home-primary-entry-grid">
+                  {quickStart.map(cta => (
+                    <ActionButton
+                      key={cta.hash}
+                      t={t}
+                      primary={cta.primary}
+                      hash={`#${cta.hash}`}
+                      onClick={() => cta.action === "contact" ? onContactOpen?.(true) : navigateHash(cta.hash, cta.target)}
+                    >
+                      {cta.label}
+                    </ActionButton>
+                  ))}
+                </div>
+              </div>
+              <ResearchEquationHero t={t} lang={lang} summary={summary} gasParetoCount={gasParetoCount} isMobile={isMobile} reducedMotion={reducedMotion} />
+            </div>
+          </div>
+        )}
+      </section>
+
+      {homeMode === "immersive" ? (
+        <ImmersiveResearchContinuum
+          activeBranch={activeResearchBranch}
+          gasParetoCount={gasParetoCount}
+          lang={lang}
+          onBranchChange={setActiveResearchBranch}
+          onContinue={continueResearch}
+          onNavigate={navigateHash}
+          summary={summary}
+        />
+      ) : null}
+
+      <section id="home-data-foundation" data-testid="home-data-foundation" data-home-reveal="data-foundation" className="home-immersive-panel home-deep-section" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.panel }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}
           title={zh ? "当前启用的数据与证据层" : "Active data and evidence layers"}
@@ -1089,7 +1200,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         </div>
       </section>
 
-      <section id="home-descriptor-3d" data-testid="home-descriptor-3d" style={sectionStyle}>
+      <section id="home-descriptor-3d" data-testid="home-descriptor-3d" data-home-reveal="descriptor-space" className="home-deep-section" style={sectionStyle}>
         <SectionHeader
           eyebrow={zh ? "交互可视化" : "Interactive Visual"}
           title={zh ? "数据库描述符空间" : "Descriptor space explorer"}
@@ -1107,23 +1218,25 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         </div>
       </section>
 
-      <section id="home-algorithm-validation" data-testid="home-algorithm-validation" style={sectionStyle}>
+      <section id="home-algorithm-validation" data-testid="home-algorithm-validation" data-home-reveal="algorithm-validation" className="home-deep-section" style={sectionStyle}>
         <StoryTransition index={4} label={zh ? "从候选性能到验证证据" : "From candidate performance to validation evidence"} t={t} />
         <ValidationEquationStage t={t} lang={lang} summary={summary} items={validationFlow} isMobile={isMobile} onNavigate={navigateHash} />
       </section>
 
       <StoryTransition index={5} label={zh ? "从验证结论到研究行动" : "From validation evidence to research action"} t={t} />
-      <ResearchGatewayStage
-        t={t}
-        lang={lang}
-        modules={moduleCapabilities}
-        limitations={limitations}
-        quickStart={quickStart}
-        isMobile={isMobile}
-        onNavigate={navigateHash}
-        onContactOpen={onContactOpen}
-        activeResearchBranch={activeResearchBranch}
-      />
+      <div data-home-reveal="research-gateway" className="home-research-gateway-reveal">
+        <ResearchGatewayStage
+          t={t}
+          lang={lang}
+          modules={moduleCapabilities}
+          limitations={limitations}
+          quickStart={quickStart}
+          isMobile={isMobile}
+          onNavigate={navigateHash}
+          onContactOpen={onContactOpen}
+          activeResearchBranch={activeResearchBranch}
+        />
+      </div>
     </div>
   )
 }

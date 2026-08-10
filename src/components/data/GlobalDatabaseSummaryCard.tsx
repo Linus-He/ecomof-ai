@@ -29,7 +29,7 @@ export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMo
           </p>
         </div>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "flex-end" }}>
-          <span style={{ background: t?.badgeInfoBg || "#EFF6FF", border: `1px solid ${t?.border || "#E2E8F0"}`, borderRadius: 999, color: t?.accentText || "#1A6DB5", fontSize: 10.2, fontWeight: 850, padding: "2px 8px" }}>
+          <span style={{ background: t?.badgeInfoBg || "#EFF6FF", border: `1px solid ${t?.border || "#E2E8F0"}`, borderRadius: 6, color: t?.accentText || "#1A6DB5", fontSize: 10.2, fontWeight: 850, padding: "2px 8px" }}>
             {APP_VERSION_LABEL}
           </span>
           <DatasetModeBadge mode={summary.dataMode} t={t} />

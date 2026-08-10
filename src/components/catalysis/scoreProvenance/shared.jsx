@@ -46,7 +46,7 @@ export function GradeBadge({ grade, labelZh, labelEn, tone = "info", lang = "zh"
     <span
       data-testid="score-data-grade-badge"
       data-grade={grade}
-      style={{ alignItems: "center", background: bg, border: `1px solid ${border}`, borderLeftWidth: 3, borderRadius: 5, color, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 5, lineHeight: 1.35, padding: "4px 8px" }}
+      style={{ alignItems: "center", background: bg, border: `1px solid ${border}`, borderRadius: 5, color, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 5, lineHeight: 1.35, padding: "4px 8px" }}
     >
       {text(lang, labelZh, labelEn)}
     </span>

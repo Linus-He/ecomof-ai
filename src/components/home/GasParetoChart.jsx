@@ -4,11 +4,11 @@ import gasRecordsData from "../../../public/data/gas_adsorption_records_v2.json"
 import { BlockFormula, getReadableMofLabel } from "../../shared"
 
 const GRADE_STYLE = {
-  iast: { color: "#2563eb", labelZh: "IAST", labelEn: "IAST", shape: "circle" },
-  experimental: { color: "#16a34a", labelZh: "实验", labelEn: "Experimental", shape: "square" },
-  computed: { color: "#9333ea", labelZh: "计算", labelEn: "Computed", shape: "diamond" },
-  seed: { color: "#b45309", labelZh: "Seed", labelEn: "Seed", shape: "triangle" },
-  unknown: { color: "#64748b", labelZh: "未知", labelEn: "Unknown", shape: "circle" },
+  iast: { color: "#d97757", labelZh: "IAST", labelEn: "IAST", shape: "circle" },
+  experimental: { color: "#788c5d", labelZh: "实验", labelEn: "Experimental", shape: "square" },
+  computed: { color: "#c46686", labelZh: "计算", labelEn: "Computed", shape: "diamond" },
+  seed: { color: "#87867f", labelZh: "Seed", labelEn: "Seed", shape: "triangle" },
+  unknown: { color: "#9c9a92", labelZh: "未知", labelEn: "Unknown", shape: "circle" },
 }
 
 function recordsFrom(payload) {

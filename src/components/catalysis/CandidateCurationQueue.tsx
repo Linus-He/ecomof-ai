@@ -29,7 +29,7 @@ export function CandidateCurationQueue({ queue, selectedCandidateId, onSelectCan
                 <strong style={{ color: active ? palette.accent : palette.text, fontSize: 12.5 }}>{item.name}</strong>
                 <span style={{ color: palette.faint, fontSize: 11.5 }}>{lang === "zh" ? label[0] : label[1]}</span>
               </div>
-              <div style={{ background: palette.surfaceStrong, borderRadius: 999, height: 7, overflow: "hidden" }}>
+              <div style={{ background: palette.surfaceStrong, borderRadius: 6, height: 7, overflow: "hidden" }}>
                 <span style={{ background: palette.accent, display: "block", height: "100%", width: pct(item.evidenceCompleteness) }} />
               </div>
               <span style={{ color: palette.muted, fontSize: 11.5 }}>

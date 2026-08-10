@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchDetailRecord } from "../../utils/databaseIndex/databaseIndexClient"
 import { dbFallback, dbRenderText, dbStatusLabel, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { descriptorAvailabilityList, descriptorCompletenessPercent, formatPercentValue, organicAcidRelevanceSnapshot, provenanceCompletenessPercent, safeText } from "../../utils/databaseIndex/databaseIndexFormatters"
@@ -36,15 +36,15 @@ function MetadataVerificationSection({ record, lang, t }) {
       <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 12.7 }}>{text(lang, "Metadata 核验", "Metadata Verification")}</strong>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <StatusPill tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusPill>
-          <StatusPill tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusPill>
+          <StatusBadge tone={metadataLevelTone(summary.level)} t={t}>{metadataLevelLabel(summary.level, lang)}</StatusBadge>
+          <StatusBadge tone={summary.eligible ? "pass" : "warn"} t={t}>{summary.eligible ? dbText(lang, "eligibleForVerifiedRecommendation") : dbText(lang, "previewOnly")}</StatusBadge>
         </div>
       </header>
       <div style={{ display: "grid", gap: 5 }}>
         {METADATA_STATUS_ROWS.map(([key, en, zh]) => (
           <div key={key} style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
             <span style={{ color: t.muted, fontSize: 11.6 }}>{text(lang, zh, en)}</span>
-            <StatusPill tone={metadataStatusTone(summary.status[key])} t={t}>{metadataStatusValueLabel(summary.status[key], lang)}</StatusPill>
+            <StatusBadge tone={metadataStatusTone(summary.status[key])} t={t}>{metadataStatusValueLabel(summary.status[key], lang)}</StatusBadge>
           </div>
         ))}
       </div>
@@ -52,7 +52,7 @@ function MetadataVerificationSection({ record, lang, t }) {
         <div style={{ display: "grid", gap: 4 }}>
           <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{dbText(lang, "blockingReasons")}</span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-            {summary.blockingReasons.map(reason => <StatusPill key={reason} tone="warn" t={t}>{reason}</StatusPill>)}
+            {summary.blockingReasons.map(reason => <StatusBadge key={reason} tone="warn" t={t}>{reason}</StatusBadge>)}
           </div>
         </div>
       ) : null}
@@ -73,7 +73,7 @@ function Checklist({ title, rows, lang, t }) {
         {rows.map(row => (
           <div key={row.label} style={{ alignItems: "center", display: "flex", gap: 7, justifyContent: "space-between" }}>
             <span style={{ color: t.muted, fontSize: 11.7 }}>{row.label}</span>
-            <StatusPill tone={row.available ? "pass" : "warn"} t={t}>{row.available ? text(lang, "可用", "available") : dbText(lang, "evidencePending")}</StatusPill>
+            <StatusBadge tone={row.available ? "pass" : "warn"} t={t}>{row.available ? text(lang, "可用", "available") : dbText(lang, "evidencePending")}</StatusBadge>
           </div>
         ))}
       </div>
@@ -104,13 +104,13 @@ function ManualCurationSection({ record, curationRecords, lang, t }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "人工 metadata 整理", "Manual Metadata Curation")}</strong>
-        <StatusPill tone={curationStatusTone(curation.curationStatus)} t={t}>{curationStatusLabel(curation.curationStatus, lang)}</StatusPill>
+        <StatusBadge tone={curationStatusTone(curation.curationStatus)} t={t}>{curationStatusLabel(curation.curationStatus, lang)}</StatusBadge>
       </div>
       <div style={{ display: "grid", gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))" }}>
         {fields.map(([label, value, tone]) => (
           <div key={label} style={{ display: "grid", gap: 3 }}>
             <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-            {tone ? <StatusPill tone={tone} t={t}>{value}</StatusPill> : <span style={{ color: t.textStrong, fontSize: 12 }}>{value}</span>}
+            {tone ? <StatusBadge tone={tone} t={t}>{value}</StatusBadge> : <span style={{ color: t.textStrong, fontSize: 12 }}>{value}</span>}
           </div>
         ))}
       </div>
@@ -154,13 +154,13 @@ function EvidenceBackfillSection({ record, evidenceBackfillRecords, lang, t }) {
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13 }}>{text(lang, "证据回填", "Evidence Backfill")}</strong>
-        <StatusPill tone={row.verifiedMetadataEligible ? "pass" : "warn"} t={t}>{row.verifiedMetadataEligible ? text(lang, "可核验", "verified eligible") : text(lang, "待补", "pending")}</StatusPill>
+        <StatusBadge tone={row.verifiedMetadataEligible ? "pass" : "warn"} t={t}>{row.verifiedMetadataEligible ? text(lang, "可核验", "verified eligible") : text(lang, "待补", "pending")}</StatusBadge>
       </div>
       <div style={{ display: "grid", gap: 6, gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))" }}>
         {fields.map(([label, status, value]) => (
           <div key={label} style={{ display: "grid", gap: 3 }}>
             <span style={{ color: t.faint, fontSize: 10.2, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-            <StatusPill tone={evidenceStatusTone(status)} t={t}>{evidenceStatusLabel(status, lang)}</StatusPill>
+            <StatusBadge tone={evidenceStatusTone(status)} t={t}>{evidenceStatusLabel(status, lang)}</StatusBadge>
             {value ? <a href={String(value).startsWith("http") ? value : undefined} style={{ color: t.accentText, fontSize: 10.6, overflowWrap: "anywhere" }}>{value}</a> : null}
           </div>
         ))}
@@ -238,14 +238,14 @@ export function DatabaseDetailDrawer({ request, curationRecords = null, evidence
         </button>
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <StatusPill tone="proxy" t={t}>{dbStatusLabel(state.status, lang)}</StatusPill>
-        <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
-        {record.dataStatus?.level ? <StatusPill tone="proxy" t={t}>{dbStatusLabel(record.dataStatus.level, lang)}</StatusPill> : null}
+        <StatusBadge tone="proxy" t={t}>{dbStatusLabel(state.status, lang)}</StatusBadge>
+        <StatusBadge tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusBadge>
+        {record.dataStatus?.level ? <StatusBadge tone="proxy" t={t}>{dbStatusLabel(record.dataStatus.level, lang)}</StatusBadge> : null}
       </div>
       <MetadataVerificationSection record={record} lang={lang} t={t} />
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
         <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "核验分层", "Verification tier")}</span>
-        <StatusPill tone={metadataTierTone(getMetadataVerificationTier(record))} t={t}>{metadataTierLabel(getMetadataVerificationTier(record), lang)}</StatusPill>
+        <StatusBadge tone={metadataTierTone(getMetadataVerificationTier(record))} t={t}>{metadataTierLabel(getMetadataVerificationTier(record), lang)}</StatusBadge>
       </div>
       <ManualCurationSection record={record} curationRecords={curationRecords} lang={lang} t={t} />
       <EvidenceBackfillSection record={record} evidenceBackfillRecords={evidenceBackfillRecords} lang={lang} t={t} />
@@ -289,9 +289,9 @@ export function DatabaseDetailDrawer({ request, curationRecords = null, evidence
           )} />
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-          <StatusPill tone="proxy" t={t}>{`descriptor ${formatPercentValue(descriptorCompletenessPercent(record))}`}</StatusPill>
-          <StatusPill tone="proxy" t={t}>{`provenance ${formatPercentValue(provenanceCompletenessPercent(record))}`}</StatusPill>
-          <StatusPill tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusPill>
+          <StatusBadge tone="proxy" t={t}>{`descriptor ${formatPercentValue(descriptorCompletenessPercent(record))}`}</StatusBadge>
+          <StatusBadge tone="proxy" t={t}>{`provenance ${formatPercentValue(provenanceCompletenessPercent(record))}`}</StatusBadge>
+          <StatusBadge tone="warn" t={t}>{dbText(lang, "notFinalRecommendation")}</StatusBadge>
         </div>
       </section>
       {missingSourceFields.length ? (

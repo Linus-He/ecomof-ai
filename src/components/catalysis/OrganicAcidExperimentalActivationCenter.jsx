@@ -96,7 +96,7 @@ function RouteBadge({ children, tone = "info" }) {
       ? { background: palette.positiveSoft, border: palette.positive, color: palette.positive }
       : { background: palette.accentSoft, border: palette.accent, color: palette.accent }
   return (
-    <span style={{ alignItems: "center", background: colors.background, border: `1px solid ${colors.border}`, borderRadius: 999, color: colors.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ alignItems: "center", background: colors.background, border: `1px solid ${colors.border}`, borderRadius: 6, color: colors.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )

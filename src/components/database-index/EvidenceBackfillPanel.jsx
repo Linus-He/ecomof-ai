@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchJson } from "../../services/dataService"
 import { formatCount } from "../../utils/databaseIndex/databaseIndexFormatters"
 import {
@@ -48,7 +48,7 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "回填进度", "backfill progress")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "回填进度", "backfill progress")}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(140px, 1fr))" }}>
@@ -109,10 +109,10 @@ export function EvidenceBackfillPanel({ records: recordsProp = null, lang, t, is
                 {normalized.slice(0, 18).map(row => (
                   <tr key={row.recordId}>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 11, padding: "6px 6px" }}><ChemicalText value={row.displayName} /></td>
-                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusPill tone={evidenceStatusTone(row.sourceStatus)} t={t}>{evidenceStatusLabel(row.sourceStatus, lang)}</StatusPill></td>
-                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusPill tone={evidenceStatusTone(row.citationStatus)} t={t}>{evidenceStatusLabel(row.citationStatus, lang)}</StatusPill></td>
-                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusPill tone={evidenceStatusTone(row.licenseStatus)} t={t}>{evidenceStatusLabel(row.licenseStatus, lang)}</StatusPill></td>
-                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusPill tone={evidenceStatusTone(row.doiStatus)} t={t}>{evidenceStatusLabel(row.doiStatus, lang)}</StatusPill></td>
+                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusBadge tone={evidenceStatusTone(row.sourceStatus)} t={t}>{evidenceStatusLabel(row.sourceStatus, lang)}</StatusBadge></td>
+                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusBadge tone={evidenceStatusTone(row.citationStatus)} t={t}>{evidenceStatusLabel(row.citationStatus, lang)}</StatusBadge></td>
+                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusBadge tone={evidenceStatusTone(row.licenseStatus)} t={t}>{evidenceStatusLabel(row.licenseStatus, lang)}</StatusBadge></td>
+                    <td style={{ borderTop: `1px solid ${t.divider}`, padding: "6px 6px" }}><StatusBadge tone={evidenceStatusTone(row.doiStatus)} t={t}>{evidenceStatusLabel(row.doiStatus, lang)}</StatusBadge></td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 10.8, padding: "6px 6px" }}>{evidenceStatusLabel(row.descriptorProvenanceStatus, lang)}</td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: t.muted, fontSize: 10.8, padding: "6px 6px" }}>{evidenceStatusLabel(row.mechanismEvidenceStatus, lang)}</td>
                     <td style={{ borderTop: `1px solid ${t.divider}`, color: row.verifiedMetadataEligible ? t.textStrong : t.muted, fontSize: 10.8, padding: "6px 6px" }}>{row.verifiedMetadataEligible ? text(lang, "是", "yes") : text(lang, "否", "no")}</td>

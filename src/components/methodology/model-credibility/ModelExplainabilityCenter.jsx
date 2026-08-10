@@ -6,7 +6,7 @@ const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 function Chip({ children, tone, t }) {
   const color = tone === "pos" ? t.success : tone === "neg" ? t.danger : t.muted
-  return <span style={{ background: t.surface, border: `1px solid ${color}`, borderRadius: 999, color, fontSize: 10.8, fontWeight: 800, padding: "2px 8px" }}>{children}</span>
+  return <span style={{ background: t.surface, border: `1px solid ${color}`, borderRadius: 6, color, fontSize: 10.8, fontWeight: 800, padding: "2px 8px" }}>{children}</span>
 }
 
 export function ModelExplainabilityCenter({ credibility = null, lang = "en", t, isMobile = false }) {

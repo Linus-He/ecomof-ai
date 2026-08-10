@@ -347,13 +347,13 @@ export function BasisBadge({ children, tone = "info", style, ...props }) {
     calc: { color: t.badgeCalcText, bg: t.badgeCalcBg, border: "rgba(156,178,212,0.24)" },
     proxy: { color: t.badgeProxyText, bg: t.badgeProxyBg, border: "rgba(183,169,255,0.28)" },
     user: { color: t.badgeUserText, bg: t.badgeUserBg, border: "rgba(156,178,212,0.18)" },
-    warn: { color: t.badgeWarnText, bg: t.badgeWarnBg, border: "rgba(246,201,142,0.42)" },
+    warn: { color: t.badgeWarnText, bg: t.badgeWarnBg, border: "rgba(248,113,113,0.42)" },
     danger: { color: t.badgeDangerText, bg: t.badgeDangerBg, border: "rgba(232,134,134,0.42)" },
   }[tone] || {}
   return (
-    <span {...props} className="basis-badge" style={{ display: "inline-flex", alignItems: "center", width: "fit-content",
+    <span {...props} className="basis-badge" style={{ display: "inline-flex", alignItems: "center", boxSizing: "border-box", maxWidth: "100%", width: "fit-content",
       color: palette.color, background: palette.bg, border: `1px solid ${palette.border}`,
-      borderRadius: 999, padding: "2px 8px", fontSize: 10, fontWeight: 800, lineHeight: 1.4, ...style }}>
+      borderRadius: 6, overflowWrap: "anywhere", padding: "2px 8px", textAlign: "left", whiteSpace: "normal", fontSize: 10, fontWeight: 800, lineHeight: 1.4, ...style }}>
       {zhText(lang, children)}
     </span>
   )
@@ -402,7 +402,7 @@ function DescriptorCurationChecklist({ fieldSources, lang, t }) {
               gap: 6, alignItems: "center",
               background: t.surface, border: `1px solid ${t.border}`,
               borderRadius: 6, padding: "6px 9px",
-              boxShadow: `inset 3px 0 0 0 ${tone === "calc" ? (t.accent || "#4f86f7") : tone === "danger" ? (t.badgeDangerText || "#ef4444") : (t.warn || "#f59e0b")}`,
+              borderColor: tone === "calc" ? (t.accent || "#4f86f7") : tone === "danger" ? (t.badgeDangerText || "#ef4444") : (t.warn || "#ef4444"),
             }}>
               <span style={{ color: t.subtle, fontSize: 10, fontWeight: 700 }}>
                 {zh ? f.zh : f.en}
@@ -508,7 +508,7 @@ export function UnifiedCandidateCard({
       {keyReasons.length > 0 && (
         <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
           {keyReasons.slice(0, 2).map(reason => (
-            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
+            <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
               {reason}
             </span>
           ))}
@@ -540,8 +540,8 @@ export function UnifiedCandidateCard({
                   const itemLabel = lang === "zh" ? (item.labelZh || item.label) : item.label
                   return (
                   <div key={item.key || item.label} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 42px", gap: 8, alignItems: "center" }}>
-                    <div style={{ height: 4, background: t.border, borderRadius: 999, overflow: "hidden" }}>
-                      <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 999 }} />
+                    <div style={{ height: 4, background: t.border, borderRadius: 6, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${normalizedWidth(item.value)}%`, background: item.color || t.accent, borderRadius: 6 }} />
                     </div>
                     <div style={{ color: t.subtle, fontSize: 10, fontWeight: 800 }}>{formattedValue(item.value)}</div>
                     <div style={{ gridColumn: "1 / -1", color: t.faint, fontSize: 10, marginTop: -3 }}>{itemLabel}</div>
@@ -556,7 +556,7 @@ export function UnifiedCandidateCard({
               <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 5 }}>{lang === "zh" ? "关键原因" : "Key reasons"}</div>
               <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                 {keyReasons.map(reason => (
-                  <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
+                  <span key={reason} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "3px 7px", fontSize: 10, fontWeight: 750 }}>
                     {reason}
                   </span>
                 ))}
@@ -646,7 +646,7 @@ export function StageStrip({ current = "screening", onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate?.(item.target)}
-              className="stage-breadcrumb-link stage-pill"
+              className="stage-breadcrumb-link stage-step-link"
               data-active={active ? "true" : "false"}
               disabled={!onNavigate}
               title={lang === "zh" ? item.zh : item.label}
@@ -654,7 +654,7 @@ export function StageStrip({ current = "screening", onNavigate }) {
                 appearance: "none",
                 border: active ? `1px solid ${palette.color}` : `1px solid transparent`,
                 background: active ? palette.bg : "transparent",
-                borderRadius: 999,
+                borderRadius: 6,
                 padding: active ? "4px 10px" : "4px 3px",
                 color: active ? palette.color : t.muted,
                 fontSize: 12,
@@ -1181,7 +1181,7 @@ export function safeVal(value, lang, fallback) {
 }
 
 /**
- * DataModeToggle — compact pill toggle for the active candidate data route.
+ * DataModeToggle — compact segmented toggle for the active candidate data route.
  * Emits the selected option id.
  */
 export function DataModeToggle({ value, onChange, lang, options: customOptions }) {
@@ -1401,7 +1401,7 @@ export function RealSeedCallout({ lang }) {
       fontSize: 12,
       color: t.subtle,
       lineHeight: 1.65,
-      boxShadow: `inset 3px 0 0 0 ${t.accentSoft || t.border}`,
+      borderColor: t.accentSoft || t.border,
     }}>
       {lang === "zh"
         ? "真实种子数据集是真实数据接入框架。待补充字段仍在复核中，后续可能更新。"

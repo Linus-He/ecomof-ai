@@ -116,8 +116,8 @@ function PanelTitle({ title, subtitle, t }) {
 
 function ScoreBar({ value, color, t }) {
   return (
-    <div style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, overflow: "hidden" }}>
-      <div style={{ height: "100%", width: pct(value), background: color || t.accentText, borderRadius: 999 }} />
+    <div style={{ height: 7, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, overflow: "hidden" }}>
+      <div style={{ height: "100%", width: pct(value), background: color || t.accentText, borderRadius: 6 }} />
     </div>
   )
 }
@@ -457,7 +457,7 @@ function EcoScreenRequirementMatrix({ model, activeRequirementId, onSelectRequir
                   <strong style={{ color: selected ? t.accentText : t.textStrong, fontSize: 12.4 }}>{text(lang, requirement.labelZh, requirement.labelEn)}</strong>
                   <span style={{ color: statusTone(requirement.status), fontSize: 11, fontWeight: 900 }}>{statusText(requirement.status)} · {Math.round(requirement.coverage * 100)}%</span>
                 </div>
-                <span style={{ background: t.panel, borderRadius: 999, display: "block", height: 7, overflow: "hidden" }}>
+                <span style={{ background: t.panel, borderRadius: 6, display: "block", height: 7, overflow: "hidden" }}>
                   <span style={{ background: statusTone(requirement.status), display: "block", height: "100%", width: `${Math.round(requirement.coverage * 100)}%` }} />
                 </span>
               </button>
@@ -475,7 +475,7 @@ function EcoScreenRequirementMatrix({ model, activeRequirementId, onSelectRequir
                   <span style={{ color: t.textStrong, fontSize: 11.5, fontWeight: 850 }}>{fieldLabel(field.field)}</span>
                   <span style={{ color: t.faint, fontSize: 10.8 }}>{field.count}/{field.denominator} · {Math.round(field.coverage * 100)}%</span>
                 </div>
-                <span style={{ background: t.panel, borderRadius: 999, display: "block", height: 6, overflow: "hidden" }}>
+                <span style={{ background: t.panel, borderRadius: 6, display: "block", height: 6, overflow: "hidden" }}>
                   <span style={{ background: field.coverage >= 0.5 ? t.success : field.coverage >= 0.2 ? t.amber : t.warn, display: "block", height: "100%", width: `${Math.round(field.coverage * 100)}%` }} />
                 </span>
               </div>
@@ -553,7 +553,7 @@ function EcoScreenEvidenceWorkbench({ evidence, activeNeed, onNeedChange, lang, 
                 <strong style={{ color: t.textStrong, fontSize: 12 }}>{localize(row.label, lang)}</strong>
                 <span style={{ color: t.muted, fontSize: 11, fontWeight: 850 }}>{row.count}/{row.denominator} · {percentLabel(row.count, row.denominator)}</span>
               </div>
-              <span style={{ background: t.panel, borderRadius: 999, height: 8, overflow: "hidden" }}>
+              <span style={{ background: t.panel, borderRadius: 6, height: 8, overflow: "hidden" }}>
                 <span style={{ background: row.count / Math.max(row.denominator, 1) < 0.25 ? t.warn : t.accentText, display: "block", height: "100%", width: percentLabel(row.count, row.denominator) }} />
               </span>
               <span style={{ color: t.faint, fontSize: 11, lineHeight: 1.4 }}>{localize(row.note, lang)}</span>
@@ -988,7 +988,7 @@ function CandidateDetail({ candidate, lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 7 }}>
         <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 880 }}>{lang === "zh" ? "下一步证据" : "Next evidence"}</div>
         {gaps.slice(0, 3).map(gap => (
-          <div key={`${gap.limitation}-${gap.nextEvidence}`} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, borderLeft: `3px solid ${gap.priority === "High" ? t.warn : t.accentText}`, paddingLeft: 9 }}>
+          <div key={`${gap.limitation}-${gap.nextEvidence}`} style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, border: `1px solid ${gap.priority === "High" ? t.warn : t.border}`, borderRadius: 6, padding: "7px 9px" }}>
             {gap.nextEvidence}
           </div>
         ))}

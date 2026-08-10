@@ -14,7 +14,7 @@ function BadgeList({ rows = [], t }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       {rows.map(row => (
-        <span key={row} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 760, lineHeight: 1.2, padding: "5px 8px" }}>
+        <span key={row} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11, fontWeight: 760, lineHeight: 1.2, padding: "5px 8px" }}>
           <ChemicalText value={row} />
         </span>
       ))}
@@ -150,7 +150,7 @@ function ImplementationLogic({ item, lang, t }) {
               <strong style={{ color: t.textStrong }}>{text(lang, "得到什么：", "Output: ")}</strong>
               <ChemicalText value={row.output || text(lang, "返回结果和解释信息", "Returns a result with explanation")} />
             </p>
-            <p style={{ background: t.badgeWarnBg, borderLeft: `3px solid ${t.warn}`, color: t.muted, fontSize: 11.4, lineHeight: 1.65, margin: 0, padding: "8px 10px" }}>
+            <p style={{ background: t.surface, border: `1px solid ${t.warn}`, borderRadius: 7, color: t.muted, fontSize: 11.4, lineHeight: 1.65, margin: 0, padding: "8px 10px" }}>
               <strong style={{ color: t.warn }}>{text(lang, "不能越过的边界：", "Guard: ")}</strong>
               <ChemicalText value={row.guard || text(lang, "字段级溯源不满足要求时停止正式计算", "Formal calculation stops when provenance requirements are not met")} />
             </p>

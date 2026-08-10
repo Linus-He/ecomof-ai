@@ -367,7 +367,7 @@ function ValidationSection() {
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {validationSteps.map(([title, body], index) => (
           <article key={title} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 10, display: "grid", gap: 8, gridTemplateColumns: "34px minmax(0, 1fr)", padding: 11 }}>
-            <div style={{ borderLeft: `3px solid ${palette.accent}`, color: palette.accent, display: "flex", fontSize: 10.5, fontWeight: 900, paddingLeft: 7 }}>{String(index + 1).padStart(2, "0")}</div>
+            <div style={{ color: palette.accent, display: "flex", fontSize: 10.5, fontWeight: 900 }}>{String(index + 1).padStart(2, "0")}</div>
             <div>
               <div style={{ color: palette.text, fontSize: 12.5, fontWeight: 700, lineHeight: 1.4 }}>{title}</div>
               <div style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45, marginTop: 4 }}>{body}</div>
@@ -798,7 +798,7 @@ export function OrganicAcidProject({ lang = "zh", t }) {
           ]}
           miniPreview={
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              {["A", "B", "C", "D"].map(level => <span key={level} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 5, color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 850, padding: "5px 9px" }}>Evidence {level}</span>)}
+              {["A", "B", "C", "D"].map(level => <span key={level} style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 5, color: palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 11.5, fontWeight: 850, padding: "5px 9px" }}>Evidence {level}</span>)}
             </div>
           }
         >

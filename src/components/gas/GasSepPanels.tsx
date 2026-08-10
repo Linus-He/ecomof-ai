@@ -5,7 +5,7 @@ import {
 } from "recharts"
 import { BasisBadge, Callout, SectionTitle, SCIENTIFIC_TOKEN_FONT, chemText, ChemicalFormula } from "../../shared"
 
-export const GAS_CHART_COLORS = ["#69A7DD", "#F59E0B", "#34D399", "#C084FC", "#F87171", "#94A3B8"]
+export const GAS_CHART_COLORS = ["#69A7DD", "#38BDF8", "#34D399", "#C084FC", "#F87171", "#94A3B8"]
 
 function text(lang, zh, en) {
   return lang === "zh" ? zh : en

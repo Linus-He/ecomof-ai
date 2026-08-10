@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, displayValue, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { dbFallback, dbRenderText, dbText } from "../../utils/databaseIndex/databaseIndexCopy"
 import { formatPercentValue } from "../../utils/databaseIndex/databaseIndexFormatters"
 
@@ -38,7 +38,7 @@ export function CandidateComparePanel({ candidates = [], onRemove, lang, t, isMo
             )}
           </span>
         </div>
-        <StatusPill tone={candidates.length >= 3 ? "warn" : "proxy"} t={t}>{`${candidates.length} / 3`}</StatusPill>
+        <StatusBadge tone={candidates.length >= 3 ? "warn" : "proxy"} t={t}>{`${candidates.length} / 3`}</StatusBadge>
       </header>
       {!candidates.length ? (
         <span style={{ color: t.muted, fontSize: 12 }}>

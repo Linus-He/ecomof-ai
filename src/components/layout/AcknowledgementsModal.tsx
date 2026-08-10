@@ -90,7 +90,7 @@ function MoleculeWatermark({ variant }) {
           key={`line-${index}`}
           style={{
             background: style.line,
-            borderRadius: 999,
+            borderRadius: 6,
             height: 2,
             left: line.left,
             position: "absolute",
@@ -107,7 +107,7 @@ function MoleculeWatermark({ variant }) {
           style={{
             background: "rgba(255, 255, 255, 0.18)",
             border: "1px solid rgba(255, 255, 255, 0.16)",
-            borderRadius: 999,
+            borderRadius: 6,
             height: index % 2 ? 15 : 11,
             left: node.left,
             position: "absolute",
@@ -331,7 +331,7 @@ export function AcknowledgementsModal({ open, onClose }) {
               alignItems: "center",
               background: t.surface,
               border: `1px solid ${t.border}`,
-              borderRadius: 999,
+              borderRadius: 6,
               boxShadow: t.shadowSm,
               color: t.textStrong,
               cursor: "pointer",

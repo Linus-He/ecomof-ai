@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, formatScore, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, formatScore, text } from "../FinalScreeningShared"
 
 function ContributionBar({ row, t }) {
   const value = Number(row.value)
@@ -12,8 +12,8 @@ function ContributionBar({ row, t }) {
         <span style={{ color: t.muted, fontSize: 11.7 }}>{displayValue(row.label)}</span>
         <strong style={{ color: penalty ? t.warn : t.textStrong, fontSize: 11.7 }}>{formatScore(row.contribution)}</strong>
       </div>
-      <div style={{ background: t.border, borderRadius: 999, height: 7, overflow: "hidden" }}>
-        <div style={{ background: penalty ? t.warn : t.accent, borderRadius: 999, height: "100%", width: `${width}%` }} />
+      <div style={{ background: t.border, borderRadius: 6, height: 7, overflow: "hidden" }}>
+        <div style={{ background: penalty ? t.warn : t.accent, borderRadius: 6, height: "100%", width: `${width}%` }} />
       </div>
     </div>
   )
@@ -30,7 +30,7 @@ export function FormulaWeightInspector({ formulas = [], lang, t, isMobile }) {
           <article key={formula.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, minWidth: 0, padding: 11 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between" }}>
               <strong style={{ color: t.textStrong, fontSize: 13.5 }}><ChemicalText value={text(lang, formula.labelZh, formula.label)} /></strong>
-              <StatusPill tone="info" t={t}>{formula.formulaId}</StatusPill>
+              <StatusBadge tone="info" t={t}>{formula.formulaId}</StatusBadge>
             </div>
             <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.45 }}><ChemicalText value={text(lang, formula.formulaZh, formula.formula)} /></span>
             <div style={{ color: t.muted, display: "grid", fontSize: 12, gap: 4 }}>

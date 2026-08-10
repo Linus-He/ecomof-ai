@@ -39,6 +39,73 @@ function stop(server) {
   if (server && !server.killed) server.kill("SIGTERM")
 }
 
+async function assertDesignGuardrails(page, viewportName) {
+  const violations = await page.evaluate(() => {
+    const retiredRoundedTokens = ["pi" + "ll", "caps" + "ule"]
+    const retiredWarmBackgrounds = [
+      [254, 243, 199],
+      [255, 251, 235],
+      [255, 247, 237],
+      [253, 230, 138],
+      [245, 158, 11],
+      [217, 119, 6],
+      [180, 83, 9],
+    ].map(parts => `rgb(${parts.join(", ")})`)
+    const offenders = []
+    for (const element of document.querySelectorAll("body *")) {
+      const className = String(element.className || "").toLowerCase()
+      const inlineStyle = element.getAttribute("style") || ""
+      const style = window.getComputedStyle(element)
+      const leftWidth = Number.parseFloat(style["border" + "Left" + "Width"] || "0")
+      const rightWidth = Number.parseFloat(style["border" + "Right" + "Width"] || "0")
+
+      if (retiredRoundedTokens.some(token => className.includes(token))) {
+        offenders.push(`${element.tagName.toLowerCase()}:retired-rounded-class`)
+      }
+      if (/border-radius:\s*999px/i.test(inlineStyle)) {
+        offenders.push(`${element.tagName.toLowerCase()}:retired-rounded-radius`)
+      }
+      if (retiredWarmBackgrounds.includes(style.backgroundColor)) {
+        offenders.push(`${element.tagName.toLowerCase()}:retired-warm-background`)
+      }
+      if (leftWidth >= 3 && leftWidth > rightWidth + 1) {
+        offenders.push(`${element.tagName.toLowerCase()}:colored-one-sided-border`)
+      }
+      if (/box-shadow:\s*inset\s+[34]px\s+0/i.test(inlineStyle)) {
+        offenders.push(`${element.tagName.toLowerCase()}:one-sided-shadow`)
+      }
+      if (offenders.length >= 10) break
+    }
+    return offenders
+  })
+  if (violations.length) {
+    throw new Error(`${viewportName}: global design guardrail violations: ${violations.join(", ")}`)
+  }
+}
+
+async function assertMobileReadingOrder(page, viewportName) {
+  if (viewportName !== "mobile") return false
+  const order = [
+    "gassep-context-bar",
+    "gassep-database-summary",
+    "gassep-material-decision-panel",
+    "gassep-thermodynamic-panel",
+    "gassep-mechanism-evidence",
+  ]
+  const boxes = {}
+  for (const testId of order) {
+    const box = await page.getByTestId(testId).boundingBox()
+    if (!box) throw new Error(`mobile: ${testId} is not measurable for reading-order audit`)
+    boxes[testId] = box
+  }
+  for (let index = 1; index < order.length; index += 1) {
+    if (!(boxes[order[index - 1]].y < boxes[order[index]].y)) {
+      throw new Error(`mobile: ${order[index - 1]} should render before ${order[index]}`)
+    }
+  }
+  return true
+}
+
 const server = spawn("npm", ["run", "preview", "--", "--host", "127.0.0.1", "--port", String(port), "--strictPort"], {
   cwd: root,
   env: { ...process.env, BROWSER: "none" },
@@ -64,6 +131,8 @@ try {
     const mechanismPanel = page.getByTestId("gassep-mechanism-evidence")
     await mechanismPanel.waitFor({ state: "visible", timeout: 30000 })
     await page.getByText(/机制分类与数据库补全|Mechanism Classification and Database Backfill/).waitFor()
+    await assertDesignGuardrails(page, viewport.name)
+    const mobileReadingOrder = await assertMobileReadingOrder(page, viewport.name)
 
     const formulaPane = page.getByTestId("gassep-thermodynamic-formulas")
     const chartPane = page.getByTestId("gassep-thermodynamic-chart")
@@ -147,6 +216,7 @@ try {
       curveCount: secondCurves.length,
       horizontalFormulaChartLayout: viewport.name === "desktop",
       stackedFormulaChartLayout: viewport.name === "mobile",
+      mobileReadingOrder,
       lightScreenshot: `${viewport.name}-light.png`,
       darkScreenshot: `${viewport.name}-dark.png`,
     })

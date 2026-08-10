@@ -241,13 +241,13 @@ function landingHtml({ recordCount }) {
     p{color:#53676f;line-height:1.7}
     .card{background:#fff;border:1px solid #d8e2e5;border-radius:18px;padding:22px;box-shadow:0 16px 38px rgba(25,54,62,.08)}
     .stats{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
-    .pill{border:1px solid #b7d5d8;border-radius:999px;padding:8px 12px;font-size:.86rem;font-weight:750;color:#246b72;background:#eef8f8}
+    .meta-badge{border:1px solid #b7d5d8;border-radius:6px;padding:8px 12px;font-size:.86rem;font-weight:750;color:#246b72;background:#eef8f8}
     label{display:block;font-size:.82rem;font-weight:800;margin-bottom:8px}
     input{box-sizing:border-box;width:100%;border:1px solid #b9c8cc;border-radius:12px;padding:12px 14px;font:inherit;background:#fff;color:#15242a}
     #result{min-height:82px;margin-top:16px}
     a{color:#126f79}
     .notice{font-size:.82rem;margin-top:26px}
-    @media(prefers-color-scheme:dark){body{background:#0d151a;color:#eef6f7}.card{background:#131f25;border-color:#2d4149}.pill{background:#142d32;border-color:#315f65;color:#94d9de}p{color:#a9bac0}input{background:#0d171c;border-color:#3b515a;color:#eef6f7}}
+    @media(prefers-color-scheme:dark){body{background:#0d151a;color:#eef6f7}.card{background:#131f25;border-color:#2d4149}.meta-badge{background:#142d32;border-color:#315f65;color:#94d9de}p{color:#a9bac0}input{background:#0d171c;border-color:#3b515a;color:#eef6f7}}
   </style>
 </head>
 <body>
@@ -256,9 +256,9 @@ function landingHtml({ recordCount }) {
     <h1>CSD MOF public data</h1>
     <p>A public, non-commercial research package derived from the CSD MOF Collection. CIF content is served on demand for the EcoMOF-AI structure viewer.</p>
     <div class="stats">
-      <span class="pill">${recordCount.toLocaleString("en-US")} CIF structures</span>
-      <span class="pill">${DATASET_VERSION}</span>
-      <span class="pill">CC BY-NC-SA 4.0</span>
+      <span class="meta-badge">${recordCount.toLocaleString("en-US")} CIF structures</span>
+      <span class="meta-badge">${DATASET_VERSION}</span>
+      <span class="meta-badge">CC BY-NC-SA 4.0</span>
     </div>
     <section class="card">
       <label for="search">Find a CSD Refcode</label>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { MethodologyLink, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { MethodologyLink, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 export function LimitationsAndReproducibility({ statement, audit, coverage, lang, t }) {
   const limitations = [
@@ -29,7 +29,7 @@ export function LimitationsAndReproducibility({ statement, audit, coverage, lang
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 12 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "Reproducibility Statement", "Reproducibility Statement")}</strong>
-          <StatusPill tone="info" t={t}>descriptor dictionary / CRITIC+AHP / matrix / scripts</StatusPill>
+          <StatusBadge tone="info" t={t}>descriptor dictionary / CRITIC+AHP / matrix / scripts</StatusBadge>
         </div>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.62, margin: 0 }}>
           <ChemicalText value={lang === "zh" ? statement?.zh : statement?.en} />

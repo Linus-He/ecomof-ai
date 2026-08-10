@@ -84,7 +84,7 @@ function DisclaimerCard({ section, zh, t }) {
             color: t.subtle,
             background: t.panel,
             border: `1px solid ${t.border}`,
-            borderRadius: 999,
+            borderRadius: 6,
             padding: "4px 7px",
             fontSize: 10,
             fontWeight: 760,

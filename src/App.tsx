@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
-import { Check, EnvelopeSimple, GearSix, Moon, Sun, Translate } from "@phosphor-icons/react"
+import { ArrowSquareOut, Check, EnvelopeSimple, GearSix, GithubLogo, Moon, Sun, Translate } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -10,10 +10,11 @@ import { TABS } from "./constants/badges"
 import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
 import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
-import { headerChipBtn } from "./utils/styles"
 import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deepLinks"
 import { fetchDataJson } from "./services/dataService"
-import { ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
+import { resolveInitialLocale, SUPPORTED_LOCALES } from "./utils/locale"
+import { observeTraditionalChinese } from "./utils/traditionalChinese"
+import { AppFooter, ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
 import { HomeTab } from "./components/tabs/HomeTab"
@@ -111,13 +112,14 @@ function LoadingPanel({ theme, lang }) {
 function AppShell({
   theme,
   lang,
+  locale,
   copy,
   viewport,
   activeTab,
   setActiveTab,
+  setLang,
   darkMode,
   setDarkMode,
-  setLang,
   inputs,
   setInputs,
   searchQuery,
@@ -169,12 +171,26 @@ function AppShell({
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
   const [settingsOpen, setSettingsOpen] = useState(false)
-  const [settingsSection, setSettingsSection] = useState("language")
+  const [settingsSection, setSettingsSection] = useState("")
   const [propertyOpen, setPropertyOpen] = useState(false)
+  const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, ready: false })
   const navRef = useRef(null)
   const settingsRef = useRef(null)
+  const appShellRef = useRef(null)
   const compactHeader = viewport.width < 1320
   const veryCompactHeader = viewport.width < 760
+  const chromeTheme = theme
+  const moduleTone = ({
+    home: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    ecoscreen: { accent: chromeTheme.success, soft: chromeTheme.badgeCalcBg },
+    performance: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    gassep: { accent: chromeTheme.info, soft: chromeTheme.badgeInfoBg },
+    catalysis: { accent: chromeTheme.violet, soft: chromeTheme.badgeProxyBg },
+    library: { accent: chromeTheme.validationAccent, soft: chromeTheme.badgeUserBg },
+    about: { accent: chromeTheme.amber, soft: chromeTheme.badgeWarnBg },
+    projectEvolution: { accent: chromeTheme.rose, soft: chromeTheme.badgeWarnBg },
+    dataCompliance: { accent: chromeTheme.success, soft: chromeTheme.badgeCalcBg },
+  })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
     setHomeComparisonOpen(true)
@@ -183,6 +199,22 @@ function AppShell({
     setHomeComparisonOpen(false)
     setComparisonBuilderContext(null)
   }, [])
+  useEffect(() => {
+    const root = appShellRef.current
+    if (!root) return undefined
+    root.lang = locale === "zh-TW" ? "zh-TW" : locale === "en" ? "en" : "zh-CN"
+    if (locale !== "zh-TW") return undefined
+    let cancelled = false
+    let restore = null
+    observeTraditionalChinese(root).then(cleanup => {
+      if (cancelled) cleanup()
+      else restore = cleanup
+    })
+    return () => {
+      cancelled = true
+      restore?.()
+    }
+  }, [locale])
   useEffect(() => {
     if (!settingsOpen) return undefined
     const close = event => {
@@ -206,27 +238,44 @@ function AppShell({
     const nav = navRef.current
     if (!activeButton || !nav) return
 
+    const syncIndicator = () => {
+      setNavIndicator({
+        left: activeButton.offsetLeft,
+        width: activeButton.offsetWidth,
+        ready: activeButton.offsetWidth > 0,
+      })
+    }
+
     const centerActiveTab = () => {
+      syncIndicator()
       const left = activeButton.offsetLeft - (nav.clientWidth - activeButton.clientWidth) / 2
       nav.scrollTo({ left: Math.max(0, left), behavior: viewport.isMobile ? "auto" : "smooth" })
     }
 
     const frame = window.requestAnimationFrame(centerActiveTab)
     const timeout = window.setTimeout(centerActiveTab, 180)
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(syncIndicator)
+    resizeObserver?.observe(nav)
+    resizeObserver?.observe(activeButton)
     return () => {
       window.cancelAnimationFrame(frame)
       window.clearTimeout(timeout)
+      resizeObserver?.disconnect()
     }
-  }, [activeTab, viewport.isMobile])
+  }, [activeTab, viewport.isMobile, viewport.width])
 
   return (
     <div
+      ref={appShellRef}
       className="app-shell"
+      data-active-tab={activeTab}
       style={{
         minHeight: "100vh",
         background: theme.bg,
         color: theme.text,
         fontFamily: FONT_SANS,
+        "--module-accent": moduleTone.accent,
+        "--module-soft": moduleTone.soft,
       }}
     >
       <header style={{
@@ -234,8 +283,8 @@ function AppShell({
         top: 0,
         zIndex: 110,
         padding: 0,
-        background: theme.headerBg,
-        borderBottom: `1px solid ${theme.border}`,
+        background: chromeTheme.headerBg,
+        borderBottom: `1px solid ${chromeTheme.border}`,
       }}>
         <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 0, padding: viewport.isMobile ? "0 12px" : "0 18px" }}>
           <div
@@ -263,7 +312,7 @@ function AppShell({
               <LogoWordmark
                 markSize={viewport.isMobile ? 28 : 30}
                 radius={viewport.isMobile ? 7 : 8}
-                t={theme}
+                t={chromeTheme}
                 text={veryCompactHeader ? "" : "EcoMOF-AI"}
                 compact
               />
@@ -280,26 +329,40 @@ function AppShell({
             >
               <nav
                 ref={navRef}
-                className="nav-capsule"
+                className="nav-primary-rail nav-liquid-capsule"
                 data-testid="primary-nav-rail"
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: compactHeader ? "flex-start" : "center",
-                  gap: compactHeader ? 2 : 6,
+                  gap: 2,
                   width: "100%",
                   maxWidth: compactHeader ? 760 : 880,
                   overflowX: "auto",
-                  padding: 0,
-                  background: "transparent",
-                  border: "none",
-                  borderRadius: 0,
-                  boxShadow: "none",
+                  padding: 4,
+                  background: chromeTheme.glass,
+                  border: `1px solid ${chromeTheme.border}`,
+                  borderRadius: 999,
+                  boxShadow: darkMode
+                    ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 26px rgba(0,0,0,0.18)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.72), 0 8px 24px rgba(35,34,30,0.08)",
                   position: "relative",
                   overflow: "auto",
                   overscrollBehaviorX: "contain",
+                  "--nav-indicator-bg": moduleTone.soft,
+                  "--nav-indicator-border": moduleTone.accent,
+                  "--nav-indicator-glow": "color-mix(in srgb, var(--module-accent) 22%, transparent)",
                 }}
               >
+                <span
+                  aria-hidden="true"
+                  className="nav-liquid-indicator"
+                  data-ready={navIndicator.ready ? "true" : "false"}
+                  style={{
+                    width: navIndicator.width,
+                    transform: `translate3d(${navIndicator.left}px, 0, 0)`,
+                  }}
+                />
                 {TABS.map(tab => {
                   const active = activeTab === tab.id
                   return (
@@ -309,37 +372,39 @@ function AppShell({
                       className="nav-tab"
                       data-tab-id={tab.id}
                       data-active={active ? "true" : "false"}
+                      aria-current={active ? "page" : undefined}
                       onClick={() => setActiveTab(tab.id)}
                       style={{
-                        background: active ? theme.badgeInfoBg : "transparent",
-                        border: active ? `1px solid ${theme.border}` : "1px solid transparent",
-                        color: active ? theme.accentText : theme.subtle,
-                        height: 32,
+                        background: "transparent",
+                        border: "1px solid transparent",
+                        color: active ? moduleTone.accent : chromeTheme.subtle,
+                        boxSizing: "border-box",
+                        height: 34,
                         padding: compactHeader ? "0 10px" : "0 12px",
-                        borderRadius: 6,
+                        borderRadius: 999,
                         cursor: "pointer",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: "grid",
+                        placeItems: "center",
                         flex: compactHeader ? "0 0 auto" : "1 1 0",
                         minWidth: compactHeader ? "max-content" : 0,
                         fontSize: 12,
-                        fontWeight: active ? 800 : 700,
-                        lineHeight: 1,
+                        fontWeight: 760,
                         textAlign: "center",
                         whiteSpace: "nowrap",
                         fontFamily: FONT_SANS,
-                        boxShadow: active ? "0 1px 0 rgba(15,23,42,0.04)" : "none",
+                        boxShadow: "none",
+                        position: "relative",
+                        zIndex: 1,
                       }}
                     >
-                      {copy.tabs[tab.copyKey]}
+                      <span className="nav-tab-label">{copy.tabs[tab.copyKey]}</span>
                     </button>
                   )
                 })}
               </nav>
             </div>
 
-            <div ref={settingsRef} style={{
+            <div ref={settingsRef} className="settings-control-cluster" style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -355,70 +420,90 @@ function AppShell({
                 type="button"
                 aria-expanded={settingsOpen}
                 aria-haspopup="menu"
-                onClick={() => setSettingsOpen(open => !open)}
+                onClick={() => setSettingsOpen(open => {
+                  const next = !open
+                  if (next) setSettingsSection("")
+                  return next
+                })}
                 title={lang === "zh" ? "打开设置" : "Open settings"}
                 aria-label={lang === "zh" ? "打开设置" : "Open settings"}
+                className="settings-trigger"
+                data-open={settingsOpen ? "true" : "false"}
                 style={{
-                  ...headerChipBtn(theme),
                   alignItems: "center",
-                  border: `1px solid ${settingsOpen ? theme.accent : theme.border}`,
-                  color: settingsOpen ? theme.accentText : theme.textStrong,
+                  background: settingsOpen ? chromeTheme.badgeInfoBg : chromeTheme.panel,
+                  border: `1px solid ${settingsOpen ? chromeTheme.borderStrong : chromeTheme.border}`,
+                  borderRadius: 6,
+                  boxShadow: settingsOpen ? "0 1px 0 rgba(15,23,42,0.04)" : "none",
+                  color: settingsOpen ? chromeTheme.accentText : chromeTheme.subtle,
+                  cursor: "pointer",
                   display: "inline-flex",
-                  height: 38,
+                  fontFamily: FONT_SANS,
+                  height: 34,
                   justifyContent: "center",
-                  minWidth: 40,
-                  padding: "8px 10px",
+                  minWidth: 36,
+                  padding: 0,
+                  transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
                 }}
               >
-                <GearSix aria-hidden="true" size={19} weight={settingsOpen ? "fill" : "bold"} />
+                <GearSix aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "bold"} />
               </button>
               {settingsOpen ? (
                 <div
                   role="menu"
                   aria-label={lang === "zh" ? "设置菜单" : "Settings menu"}
+                  className="settings-menu"
+                  onPointerDown={event => event.stopPropagation()}
                   style={{
-                    background: theme.panel,
-                    border: `1px solid ${theme.borderStrong || theme.border}`,
-                    borderRadius: 9,
-                    boxShadow: "0 18px 48px rgba(15, 23, 42, 0.18)",
+                    background: chromeTheme.panel,
+                    border: `1px solid ${chromeTheme.border}`,
+                    borderRadius: 8,
+                    boxShadow: "0 16px 40px rgba(15, 23, 42, 0.14)",
                     display: "grid",
-                    minWidth: 246,
+                    gap: 4,
+                    minWidth: 248,
                     overflow: "hidden",
+                    padding: 6,
                     position: "absolute",
                     right: 0,
-                    top: "calc(100% - 2px)",
+                    top: "calc(100% + 7px)",
                     zIndex: 180,
                   }}
                 >
-                  <button type="button" role="menuitem" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: "transparent", border: 0, borderBottom: `1px solid ${theme.border}`, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, justifyContent: "space-between", padding: "12px 14px", textAlign: "left" }}>
-                    <span style={{ alignItems: "center", display: "flex", gap: 9 }}><Translate aria-hidden="true" size={17} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
-                    <span style={{ color: theme.faint }}>{lang === "zh" ? "简体中文" : "English"}</span>
+                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
+                    <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}><Translate aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
+                    <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{locale === "zh-TW" ? "繁體中文" : locale === "en" ? "English" : "简体中文"}</span>
                   </button>
                   {settingsSection === "language" ? (
-                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, display: "grid", padding: 6 }}>
-                      {[["zh", "简体中文"], ["en", "English"]].map(([id, label]) => (
-                        <button key={id} type="button" onClick={() => setLang(id)} style={{ alignItems: "center", background: lang === id ? theme.badgeInfoBg : "transparent", border: 0, borderRadius: 6, color: lang === id ? theme.accentText : theme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: lang === id ? 850 : 700, justifyContent: "space-between", padding: "8px 9px", textAlign: "left" }}>
-                          {label}{lang === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
+                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, borderRadius: 6, display: "grid", gap: 4, padding: 5 }}>
+                      {[["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"]].map(([id, label]) => (
+                        <button key={id} type="button" className="settings-option" onClick={() => { setLang(id); setSettingsSection("") }} style={{ alignItems: "center", background: locale === id ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${locale === id ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: locale === id ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: locale === id ? 850 : 700, justifyContent: "space-between", minHeight: 31, padding: "6px 8px", textAlign: "left" }}>
+                          {label}{locale === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
                         </button>
                       ))}
                     </div>
                   ) : null}
-                  <button type="button" role="menuitem" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: "transparent", border: 0, borderBottom: `1px solid ${theme.border}`, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, justifyContent: "space-between", padding: "12px 14px", textAlign: "left" }}>
-                    <span style={{ alignItems: "center", display: "flex", gap: 9 }}>{darkMode ? <Moon aria-hidden="true" size={17} weight="bold" /> : <Sun aria-hidden="true" size={17} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
-                    <span style={{ color: theme.faint }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
+                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
+                    <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}>{darkMode ? <Moon aria-hidden="true" size={16} weight="bold" /> : <Sun aria-hidden="true" size={16} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
+                    <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
                   </button>
                   {settingsSection === "theme" ? (
-                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} style={{ background: theme.surface, borderBottom: `1px solid ${theme.border}`, display: "grid", padding: 6 }}>
+                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, borderRadius: 999, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
                       {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
-                        <button key={String(value)} type="button" onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? theme.badgeInfoBg : "transparent", border: 0, borderRadius: 6, color: darkMode === value ? theme.accentText : theme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "space-between", padding: "8px 9px", textAlign: "left" }}>
-                          {label}{darkMode === value ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
+                        <button key={String(value)} type="button" className="settings-option" aria-pressed={darkMode === value} onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${darkMode === value ? chromeTheme.borderStrong : "transparent"}`, borderRadius: 999, color: darkMode === value ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "center", minHeight: 32, padding: "6px 8px", textAlign: "center" }}>
+                          {label}{darkMode === value ? <Check aria-hidden="true" size={14} weight="bold" /> : null}
                         </button>
                       ))}
                     </div>
                   ) : null}
-                  <button type="button" role="menuitem" onClick={() => { setSettingsOpen(false); setContactOpen(true) }} style={{ alignItems: "center", background: "transparent", border: 0, color: theme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, padding: "12px 14px", textAlign: "left" }}>
-                    <EnvelopeSimple aria-hidden="true" size={17} weight="bold" />{lang === "zh" ? "联系我们" : "Contact Us"}
+                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => { setSettingsOpen(false); setContactOpen(true) }} style={{ alignItems: "center", background: "transparent", border: "1px solid transparent", borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
+                    <EnvelopeSimple aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "联系我们" : "Contact Us"}
                   </button>
+                  <a role="menuitem" className="settings-menu-row settings-menu-link" href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noreferrer" style={{ alignItems: "center", background: "transparent", border: "1px solid transparent", borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left", textDecoration: "none" }}>
+                    <GithubLogo aria-hidden="true" size={16} weight="bold" />
+                    <span>{lang === "zh" ? "GitHub 仓库" : "GitHub repository"}</span>
+                    <ArrowSquareOut aria-hidden="true" size={14} weight="bold" style={{ color: chromeTheme.faint }} />
+                  </a>
                 </div>
               ) : null}
             </div>
@@ -541,109 +626,14 @@ function AppShell({
         </Suspense>
       </main>
 
-      <footer style={{ marginTop: 48, borderTop: `1px solid ${theme.border}`, padding: viewport.isMobile ? "22px 12px 24px" : "28px 24px 30px", fontFamily: FONT_SANS, background: theme.panel }}>
-        <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 18, flexWrap: "wrap" }}>
-            <div style={{ display: "grid", gap: 7, minWidth: 0 }}>
-              <LogoWordmark
-                markSize={viewport.isMobile ? 30 : 32}
-                radius={9}
-                t={theme}
-                tagline={lang === "zh" ? "面向可持续 MOF 筛选的透明决策支持。" : "Transparent decision-support for sustainable MOF screening."}
-              />
-              <span style={{ color: theme.faint, fontSize: 11 }}>
-                {lang === "zh" ? "© 2026 EcoMOF-AI · Linus-He 维护" : "© 2026 EcoMOF-AI · Maintained by Linus-He"}
-              </span>
-            </div>
-            <span style={{ color: theme.faint, fontSize: 11, maxWidth: 520, textAlign: viewport.isMobile ? "left" : "right" }}>
-              {lang === "zh"
-                ? "当前结果用于早期筛选和研究假设生成，不代表最终实验结论。本项目托管于 GitHub Pages，不同网络环境下访问速度可能不同；如数据加载失败，请刷新页面或稍后重试。"
-                : "Current results are intended for early-stage screening and research hypothesis generation, not final experimental conclusions. Hosted on GitHub Pages; access speed may vary by network region. If data fails to load, refresh the page or try again later."}
-            </span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <a
-              href="https://github.com/Linus-He/ecomof-ai"
-              target="_blank" rel="noreferrer"
-              style={{ color: theme.accentText, fontSize: 12, fontWeight: 700, textDecoration: "none" }}
-            >
-              GitHub ↗
-            </a>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => navigateTab("methodology")}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.subtle, fontSize: 12, fontWeight: 600,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "方法论" : "Methodology"}
-            </button>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => navigateTab("data-quality-provenance")}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.subtle, fontSize: 12, fontWeight: 600,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "数据质量" : "Data Quality"}
-            </button>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => navigateTab("dataCompliance")}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.subtle, fontSize: 12, fontWeight: 600,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "数据合规承诺" : "Data Compliance Pledge"}
-            </button>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => setDisclaimerOpen(true)}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.subtle, fontSize: 12, fontWeight: 600,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "声明" : "Disclaimer"}
-            </button>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => setContactOpen(true)}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.accentText, fontSize: 12, fontWeight: 700,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "联系 / 合作" : "Contact"}
-            </button>
-            <span style={{ color: theme.faint, fontSize: 12 }}>·</span>
-            <button
-              type="button"
-              onClick={() => setAcknowledgementsOpen(true)}
-              style={{
-                background: "none", border: "none", padding: 0,
-                color: theme.subtle, fontSize: 12, fontWeight: 600,
-                cursor: "pointer", fontFamily: FONT_SANS,
-              }}
-            >
-              {lang === "zh" ? "致谢" : "Acknowledgements"}
-            </button>
-          </div>
-        </div>
-      </footer>
+      <AppFooter
+        lang={lang}
+        navigate={navigateTab}
+        onAcknowledgements={() => setAcknowledgementsOpen(true)}
+        onContact={() => setContactOpen(true)}
+        onDisclaimer={() => setDisclaimerOpen(true)}
+        theme={theme}
+      />
 
       <ContactModal open={contactOpen} onClose={closeContactModal} />
       <AcknowledgementsModal open={acknowledgementsOpen} onClose={closeAcknowledgementsModal} />
@@ -675,8 +665,38 @@ function AppShell({
 
 export default function App() {
   const initialDeepLink = useMemo(() => getInitialDeepLinkState(), [])
-  const [darkMode, setDarkMode] = useState(false)
-  const [lang, setLang] = useState("zh")
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return false
+    try {
+      const stored = window.localStorage.getItem("ecomof-theme")
+      if (stored === "dark") return true
+      if (stored === "light") return false
+    } catch {
+      // Fall through to the operating-system preference.
+    }
+    return Boolean(window.matchMedia?.("(prefers-color-scheme: dark)")?.matches)
+  })
+  const [locale, setLocale] = useState(() => {
+    try {
+      return resolveInitialLocale({
+        browserLanguages: typeof navigator === "undefined" ? [] : navigator.languages?.length ? navigator.languages : [navigator.language],
+        storedLocale: typeof window === "undefined" ? null : window.localStorage.getItem("ecomof-language"),
+      })
+    } catch {
+      return resolveInitialLocale({ browserLanguages: typeof navigator === "undefined" ? [] : [navigator.language] })
+    }
+  })
+  const lang = locale === "en" ? "en" : "zh"
+  const setLang = useCallback(next => {
+    const normalized = next === "zh" ? "zh-CN" : next
+    if (!SUPPORTED_LOCALES.includes(normalized)) return
+    setLocale(normalized)
+    try {
+      window.localStorage.setItem("ecomof-language", normalized)
+    } catch {
+      // The locale switch still works when storage is unavailable.
+    }
+  }, [])
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === "undefined" ? 1440 : window.innerWidth))
   const [activeTab, setActiveTab] = useState(initialDeepLink.activeTab)
   const [activeHash, setActiveHash] = useState(initialDeepLink.activeHash)
@@ -803,7 +823,14 @@ export default function App() {
     document.documentElement.style.background = theme.bg
     document.body.style.fontFamily = FONT_SANS
     document.documentElement.lang = lang === "zh" ? "zh-CN" : "en"
-  }, [theme.bg, lang])
+    document.documentElement.dataset.theme = darkMode ? "dark" : "light"
+    document.documentElement.style.colorScheme = darkMode ? "dark" : "light"
+    try {
+      window.localStorage.setItem("ecomof-theme", darkMode ? "dark" : "light")
+    } catch {
+      // Appearance remains functional when storage is unavailable.
+    }
+  }, [darkMode, theme.bg, lang])
 
   useEffect(() => {
     applyDeepLink(window.location.hash)
@@ -1199,6 +1226,10 @@ export default function App() {
       go("performance")
       return
     }
+    if (HASH_TO_TAB[target]) {
+      go(target)
+      return
+    }
     go(tabToHash(target))
   }, [setRouteHash])
 
@@ -1361,18 +1392,19 @@ export default function App() {
 
   return (
     <ThemeCtx.Provider value={theme}>
-      <LangCtx.Provider value={{ lang, copy, setLang }}>
+      <LangCtx.Provider value={{ lang, locale, copy, setLang }}>
         <ViewportCtx.Provider value={viewport}>
           <AppShell
             theme={theme}
             lang={lang}
+            locale={locale}
             copy={copy}
             viewport={viewport}
             activeTab={activeTab}
             setActiveTab={navigateTab}
+            setLang={setLang}
             darkMode={darkMode}
             setDarkMode={setDarkMode}
-            setLang={setLang}
             inputs={inputs}
             setInputs={setInputs}
             searchQuery={searchQuery}

@@ -41,15 +41,16 @@ describe("MofDescriptor3DScatter", () => {
     expect(card.querySelectorAll("circle").length).toBeGreaterThan(5)
   })
 
-  it("adapts the scientific stage to both light and dark themes", () => {
+  it("adapts the descriptor stage to independent light and dark themes", () => {
+    expect(THEME_DARK).not.toBe(THEME_LIGHT)
     const { rerender } = render(<MofDescriptor3DScatter t={THEME_LIGHT} lang="zh" isMobile={false} />)
     const lightCard = screen.getByTestId("home-3d-scatter")
     expect(lightCard.getAttribute("data-color-scheme")).toBe("light")
-    expect(lightCard.style.getPropertyValue("--descriptor-panel")).toBe("#f6f9fa")
+    expect(lightCard.style.getPropertyValue("--descriptor-panel")).toBe("#fcfbf7")
 
     rerender(<MofDescriptor3DScatter t={THEME_DARK} lang="zh" isMobile={false} />)
     const darkCard = screen.getByTestId("home-3d-scatter")
     expect(darkCard.getAttribute("data-color-scheme")).toBe("dark")
-    expect(darkCard.style.getPropertyValue("--descriptor-panel")).toBe("#0b161a")
+    expect(darkCard.style.getPropertyValue("--descriptor-panel")).toBe("#1c1c18")
   })
 })

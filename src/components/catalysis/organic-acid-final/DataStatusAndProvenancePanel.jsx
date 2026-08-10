@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { formatPercent, MiniMetric, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { formatPercent, MiniMetric, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 function CountChips({ counts, t }) {
   const entries = Object.entries(counts || {})
@@ -8,7 +8,7 @@ function CountChips({ counts, t }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
       {entries.map(([key, value]) => (
-        <span key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.textStrong, fontSize: 11, fontWeight: 850, padding: "6px 9px" }}>
+        <span key={key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontSize: 11, fontWeight: 850, padding: "6px 9px" }}>
           <ChemicalText value={`${key}: ${value}`} />
         </span>
       ))}
@@ -24,7 +24,7 @@ export function DataStatusAndProvenancePanel({ coverage, curatedRealResult, lang
       eyebrow={text(lang, "数据状态", "Data status")}
       title={text(lang, "数据状态与溯源覆盖", "Data Status & Provenance Coverage")}
       t={t}
-      actions={<StatusPill tone={coverage?.noFakeDoiPolicyActive ? "pass" : "fail"} t={t}>{text(lang, "禁止伪造 DOI 策略已启用", "No fake DOI policy active")}</StatusPill>}
+      actions={<StatusBadge tone={coverage?.noFakeDoiPolicyActive ? "pass" : "fail"} t={t}>{text(lang, "禁止伪造 DOI 策略已启用", "No fake DOI policy active")}</StatusBadge>}
     >
       <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))" }}>
         <MiniMetric label={text(lang, "结构化数值", "Structured values")} value={formatPercent(coverage?.structuredValueCoverage)} t={t} />
@@ -75,7 +75,7 @@ export function DataStatusAndProvenancePanel({ coverage, curatedRealResult, lang
         <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 10, padding: 11 }}>
           <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
             <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "V1.6 真实样例映射报告", "V1.6 Curated real examples mapping report")}</strong>
-            <StatusPill tone="warn" t={t}>{text(lang, "仅小样本", "small sample only")}</StatusPill>
+            <StatusBadge tone="warn" t={t}>{text(lang, "仅小样本", "small sample only")}</StatusBadge>
           </div>
           <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
             <MiniMetric label={text(lang, "样例数", "Framework records")} value={curatedReport.frameworkRecords} t={t} />

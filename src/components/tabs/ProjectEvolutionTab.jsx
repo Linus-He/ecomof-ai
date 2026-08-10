@@ -559,7 +559,7 @@ function StatusBadge({ tone, children, t }) {
     ? { background: t.badgeWarnBg, color: t.warn, border: t.warn }
     : { background: t.badgeInfoBg, color: t.accentText, border: t.accent }
   return (
-    <span style={{ alignItems: "center", background: palette.background, border: `1px solid ${palette.border}`, borderRadius: 999, color: palette.color, display: "inline-flex", fontSize: 10, fontWeight: 900, letterSpacing: 0.2, padding: "3px 8px", textTransform: "uppercase" }}>
+    <span style={{ alignItems: "center", background: palette.background, border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.color, display: "inline-flex", fontSize: 10, fontWeight: 900, letterSpacing: 0.2, padding: "3px 8px", textTransform: "uppercase" }}>
       {children}
     </span>
   )
@@ -569,7 +569,7 @@ function TimelineEntry({ versionLabel, title, summary, badges, fields, t, isMobi
   return (
     <div style={{ display: "grid", gap: isMobile ? 9 : 12, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0 }}>
       <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
-        <span style={{ background: highlight ? t.accent : t.panel, border: `2px solid ${highlight ? t.accent : t.border}`, borderRadius: 999, flexShrink: 0, height: 12, marginTop: 5, width: 12 }} />
+        <span style={{ background: highlight ? t.accent : t.panel, border: `2px solid ${highlight ? t.accent : t.border}`, borderRadius: 6, flexShrink: 0, height: 12, marginTop: 5, width: 12 }} />
         {!isLast ? <span style={{ background: t.border, flex: 1, minHeight: 18, width: 2 }} /> : null}
       </div>
       <article style={{ background: highlight ? t.badgeInfoBg : t.surface, border: `1px solid ${highlight ? t.accent : t.border}`, borderRadius: 9, display: "grid", gap: fields?.length ? 8 : 5, marginBottom: 12, minWidth: 0, padding: isMobile ? 11 : 13 }}>
@@ -658,7 +658,7 @@ function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
               type="button"
               onClick={() => setActiveModule(key)}
               data-testid={`app-release-module-tab-${key}`}
-              style={{ background: isActive ? t.badgeInfoBg : t.surface, border: `1px solid ${isActive ? t.accent : t.border}`, borderRadius: 999, color: isActive ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 32, padding: "6px 12px" }}
+              style={{ background: isActive ? t.badgeInfoBg : t.surface, border: `1px solid ${isActive ? t.accent : t.border}`, borderRadius: 6, color: isActive ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 32, padding: "6px 12px" }}
             >
               {label}
             </button>
@@ -823,7 +823,7 @@ function MiniBarChart({ rows, xKey, yKey, t, labelFormatter = value => value }) 
               <span style={{ color: t.muted, fontSize: 11.3, fontWeight: 850 }}>{row[xKey]}</span>
               <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{labelFormatter(row[yKey])}</strong>
             </div>
-            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: 9, overflow: "hidden" }}>
+            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: 9, overflow: "hidden" }}>
               <span style={{ background: t.accent, display: "block", height: "100%", width }} />
             </span>
           </div>
@@ -966,12 +966,12 @@ function FormulaMethodCard({ formula, t, lang }) {
   )
 }
 
-function MethodologyPill({ children, tone, t }) {
+function MethodologyBadge({ children, tone, t }) {
   const styles = tone === "risk"
     ? { background: t.badgeWarnBg, border: t.warn, color: t.warn }
     : { background: t.badgeInfoBg, border: t.accent, color: t.accentText }
   return (
-    <span style={{ alignItems: "center", background: styles.background, border: `1px solid ${styles.border}`, borderRadius: 999, color: styles.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
+    <span style={{ alignItems: "center", background: styles.background, border: `1px solid ${styles.border}`, borderRadius: 6, color: styles.color, display: "inline-flex", fontSize: 11, fontWeight: 900, lineHeight: 1.2, padding: "4px 8px" }}>
       {children}
     </span>
   )
@@ -1002,12 +1002,12 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
       actions={<CopyLinkButton hash={methodology.id} ariaLabel={text(lang, "复制算法方法论链接", "Copy algorithm methodology link")} />}
     >
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        <MethodologyPill t={t}>{context.currentTopRoute}</MethodologyPill>
-        <MethodologyPill t={t}>HGCPS {context.hgcps}</MethodologyPill>
-        <MethodologyPill t={t}>{context.readinessLevel}</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>{text(lang, "高优先级实验假设", "High-priority experimental hypothesis")}</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>{text(lang, "不构成最终催化性能证明", "Not final catalytic proof")}</MethodologyPill>
-        <MethodologyPill tone="risk" t={t}>{text(lang, "尚不具备正式机器学习条件", "Not ready for formal machine learning")}</MethodologyPill>
+        <MethodologyBadge t={t}>{context.currentTopRoute}</MethodologyBadge>
+        <MethodologyBadge t={t}>HGCPS {context.hgcps}</MethodologyBadge>
+        <MethodologyBadge t={t}>{context.readinessLevel}</MethodologyBadge>
+        <MethodologyBadge tone="risk" t={t}>{text(lang, "高优先级实验假设", "High-priority experimental hypothesis")}</MethodologyBadge>
+        <MethodologyBadge tone="risk" t={t}>{text(lang, "不构成最终催化性能证明", "Not final catalytic proof")}</MethodologyBadge>
+        <MethodologyBadge tone="risk" t={t}>{text(lang, "尚不具备正式机器学习条件", "Not ready for formal machine learning")}</MethodologyBadge>
       </div>
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))" }}>
         {[
@@ -1047,7 +1047,7 @@ function OrganicAcidAlgorithmMethodology({ methodology, lang, t, isMobile }) {
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {section.dataSource.map(source => (
-                  <MethodologyPill key={source} t={t}>{source}</MethodologyPill>
+                  <MethodologyBadge key={source} t={t}>{source}</MethodologyBadge>
                 ))}
               </div>
             </div>

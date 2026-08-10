@@ -48,7 +48,7 @@ const NODE_TONES = {
   "co-reactant": { stroke: "#0E7490", fill: "rgba(14, 116, 144, 0.12)" },
   intermediate: { stroke: "#7C3AED", fill: "rgba(124, 58, 237, 0.11)" },
   "target product": { stroke: "#15803D", fill: "rgba(22, 163, 74, 0.14)" },
-  "competing product": { stroke: "#D97706", fill: "rgba(217, 119, 6, 0.11)" },
+  "competing product": { stroke: "#6D5BD0", fill: "rgba(109,91,208, 0.11)" },
   "by-product": { stroke: "#9F3A38", fill: "rgba(159, 58, 56, 0.1)" },
 }
 
@@ -490,7 +490,7 @@ function PathwayGraph({ graph, mode, selection, setSelection, selectedCandidate,
           const evidence = evidenceStyle(edge.evidenceLevel, edge.dataStatus)
           const formic = FORMIC_EDGES.has(key)
           const competing = COMPETING_NODES.has(edge.target)
-          const color = formic ? (t.success || "#15803D") : competing ? (t.warn || "#D97706") : t.accentText
+          const color = formic ? (t.success || "#15803D") : competing ? (t.warn || "#6D5BD0") : t.accentText
           const stroke = mode === "evidence" || active ? color : t.borderStrong
           const width = selected ? 4 : active ? 3 : 1.3
           const opacity = mode === "evidence" ? evidence.opacity : active ? 0.96 : mode === "formic" && competing ? 0.28 : 0.34

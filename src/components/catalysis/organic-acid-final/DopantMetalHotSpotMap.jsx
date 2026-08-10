@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState } from "react"
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, StatusBadge, text } from "./FinalScreeningShared"
 import { roleColor } from "./HotSpotMapLegend"
 
 const plot = { left: 62, top: 30, width: 520, height: 300 }
@@ -74,7 +74,7 @@ export function DopantMetalHotSpotMap({ data = [], lang, t }) {
       <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, padding: 11 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
           <strong style={{ color: t.textStrong, fontSize: 14 }}>{displayValue(active?.metal)}</strong>
-          <StatusPill tone={roleTone(active?.role)} t={t}>{active?.role || "pending"}</StatusPill>
+          <StatusBadge tone={roleTone(active?.role)} t={t}>{active?.role || "pending"}</StatusBadge>
         </div>
         <div style={{ color: t.muted, display: "grid", fontSize: 12, gap: 4, gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", lineHeight: 1.45 }}>
           <span>DMRS: <strong style={{ color: t.textStrong }}>{formatScore(active?.dmrs)}</strong></span>

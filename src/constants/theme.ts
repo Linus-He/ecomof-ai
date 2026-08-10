@@ -1,51 +1,56 @@
 // @ts-nocheck
 // ─── Theme ──────────────────────────────────────────────────────────────────
 
-export const THEME_DARK = {
-  bg: "#0F1419", headerBg: "#1A202C", panel: "#141C26", surface: "#111820",
-  sectionTint: "#182230", card: "#141C26",
-  border: "rgba(255,255,255,0.12)", borderStrong: "rgba(255,255,255,0.18)",
-  text: "#E2E8F0", textStrong: "#F8FAFC", muted: "#CBD5E1",
-  subtle: "#94A3B8", faint: "#748397", veryFaint: "#64748B",
-  accent: "#69A7DD", accentStrong: "#8CC4F2", accentSoft: "#B7DCF7", accentText: "#8CC4F2",
-  performance: "#69A7DD", lcaAccent: "#F59E0B", lccAccent: "#F59E0B", sensitivityAccent: "#C084FC", validationAccent: "#94A3B8",
-  success: "#34D399", warn: "#F59E0B", danger: "#F87171",
-  info: "#8CC4F2", rose: "#F87171", amber: "#F59E0B", violet: "#C084FC", cyan: "#69A7DD",
-  tooltipBg: "#132131", divider: "rgba(255,255,255,0.08)",
-  glass: "rgba(255,255,255,0.06)", glassStrong: "rgba(255,255,255,0.10)",
-  chartBg: "#132131", shadowSm: "0 8px 20px rgba(2,8,23,0.24)",
-  shadowMd: "0 18px 42px rgba(0,0,0,0.30)",
-  badgeInfoBg: "rgba(105,167,221,0.16)", badgeInfoText: "#8CC4F2",
-  badgeCalcBg: "rgba(148,163,184,0.15)", badgeCalcText: "#CBD5E1",
-  badgeProxyBg: "rgba(245,158,11,0.16)", badgeProxyText: "#F59E0B",
-  badgeUserBg: "rgba(148,163,184,0.15)", badgeUserText: "#CBD5E1",
-  badgeWarnBg: "#2D2305", badgeWarnText: "#F59E0B",
-  badgeDangerBg: "rgba(248,113,113,0.16)", badgeDangerText: "#F87171",
-}
+export const THEME_LIGHT = Object.freeze({
+  bg: "#f0eee6", headerBg: "#f0eee6", panel: "#f7f5ef", surface: "#e8e5dc",
+  sectionTint: "#ece9e0", card: "#fbfaf6",
+  border: "#d1cfc5", borderStrong: "#a7a49b",
+  text: "#33322f", textStrong: "#171714", muted: "#625f59",
+  subtle: "#747069", faint: "#89857d", veryFaint: "#9c9890",
+  accent: "#c6613f", accentStrong: "#a9472b", accentSoft: "#ead8cf", accentText: "#a9472b",
+  performance: "#c6613f", lcaAccent: "#6f8355", lccAccent: "#3f7c83", sensitivityAccent: "#7c6b99", validationAccent: "#5e6f87",
+  success: "#5f7a4b", warn: "#b94a42", danger: "#b94a42",
+  info: "#3f7c83", rose: "#b85f7c", amber: "#a8733f", violet: "#7c6b99", cyan: "#3f7c83",
+  tooltipBg: "#fffef9", divider: "#dedbd2",
+  glass: "rgba(247,245,239,0.94)", glassStrong: "#fbfaf6",
+  chartBg: "#fcfbf7", shadowSm: "0 8px 22px rgba(20,20,19,0.07)",
+  shadowMd: "0 18px 45px rgba(20,20,19,0.10)",
+  badgeInfoBg: "#e2eceb", badgeInfoText: "#356b70",
+  badgeCalcBg: "#e4eadf", badgeCalcText: "#526b42",
+  badgeProxyBg: "#ebe7f0", badgeProxyText: "#65577d",
+  badgeUserBg: "#e9e7e0", badgeUserText: "#5c5952",
+  badgeWarnBg: "#f1dfdc", badgeWarnText: "#a63f38",
+  badgeDangerBg: "#f1dfdc", badgeDangerText: "#a63f38",
+})
 
-export const THEME_LIGHT = {
-  bg: "#FAFBFD", headerBg: "#FFFFFF", panel: "#FFFFFF", surface: "#F1F5F9",
-  sectionTint: "#F8FAFC", card: "#FFFFFF",
-  border: "#E2E8F0", borderStrong: "#CBD5E1",
-  text: "#1E293B", textStrong: "#0A1628", muted: "#475569",
-  subtle: "#64748B", faint: "#64748B", veryFaint: "#94A3B8",
-  accent: "#1A6DB5", accentStrong: "#155A94", accentSoft: "#E6F1FB", accentText: "#1A6DB5",
-  performance: "#1A6DB5", lcaAccent: "#D97706", lccAccent: "#D97706", sensitivityAccent: "#9333EA", validationAccent: "#64748B",
-  success: "#15803D", warn: "#B45309", danger: "#B91C1C",
-  info: "#1A6DB5", rose: "#B91C1C", amber: "#D97706", violet: "#9333EA", cyan: "#1A6DB5",
-  tooltipBg: "#FCFEFF", divider: "rgba(30,42,58,0.08)",
-  glass: "#FFFFFF", glassStrong: "#FFFFFF",
-  chartBg: "#FCFEFF", shadowSm: "0 8px 22px rgba(46,94,170,0.08)",
-  shadowMd: "0 18px 45px rgba(46,94,170,0.10)",
-  badgeInfoBg: "#EFF6FF", badgeInfoText: "#1A6DB5",
-  badgeCalcBg: "#F1F5F9", badgeCalcText: "#64748B",
-  badgeProxyBg: "#FEF3C7", badgeProxyText: "#D97706",
-  badgeUserBg: "#F1F5F9", badgeUserText: "#475569",
-  badgeWarnBg: "#FEF3C7", badgeWarnText: "#B45309",
-  badgeDangerBg: "#FEE2E2", badgeDangerText: "#B91C1C",
-}
+export const THEME_DARK = Object.freeze({
+  bg: "#141411", headerBg: "#1b1b17", panel: "#25241f", surface: "#323029",
+  sectionTint: "#2a2923", card: "#2b2923",
+  border: "#4e4b42", borderStrong: "#6b665b",
+  text: "#e7e3da", textStrong: "#fffaf2", muted: "#c2bdb2",
+  subtle: "#b0aa9f", faint: "#969188", veryFaint: "#7c776f",
+  accent: "#e17b59", accentStrong: "#f08b67", accentSoft: "#4b3027", accentText: "#ef9270",
+  performance: "#e17b59", lcaAccent: "#91a778", lccAccent: "#6da7ad", sensitivityAccent: "#a392bd", validationAccent: "#8292a8",
+  success: "#91a778", warn: "#e17b59", danger: "#e06f68",
+  info: "#6da7ad", rose: "#d77b99", amber: "#c99a63", violet: "#a392bd", cyan: "#6da7ad",
+  tooltipBg: "#292822", divider: "#403e37",
+  glass: "rgba(37,36,31,0.84)", glassStrong: "rgba(50,48,41,0.95)",
+  chartBg: "#1c1c18", shadowSm: "0 8px 24px rgba(0,0,0,0.24)",
+  shadowMd: "0 20px 48px rgba(0,0,0,0.34)",
+  badgeInfoBg: "#26393a", badgeInfoText: "#8fc1c5",
+  badgeCalcBg: "#30392a", badgeCalcText: "#acc198",
+  badgeProxyBg: "#383143", badgeProxyText: "#bcaed1",
+  badgeUserBg: "#34332e", badgeUserText: "#c5c0b5",
+  badgeWarnBg: "#462d27", badgeWarnText: "#ef9270",
+  badgeDangerBg: "#472a2a", badgeDangerText: "#ee8a84",
+})
 
-export const FONT_SANS = 'Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif'
+// Compatibility entry point for modules that need the default palette without
+// owning appearance state. Runtime surfaces should consume ThemeCtx.
+export const GLOBAL_RESEARCH_THEME = THEME_LIGHT
+
+export const FONT_DISPLAY = '"Iowan Old Style", Baskerville, "Songti SC", STSong, "Noto Serif SC", SimSun, "Times New Roman", serif'
+export const FONT_SANS = 'Inter, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif'
 // v1.0.2 font unification: numerals stay on the body family and align with
 // tabular-nums. Use this spread for metric values, badges, tables, and chart ticks.
 export const NUMERIC_FONT_STYLE = {

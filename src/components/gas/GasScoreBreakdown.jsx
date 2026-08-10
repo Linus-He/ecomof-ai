@@ -25,7 +25,7 @@ export function GasScoreBreakdown({ record, lang, t, compact = false }) {
         return (
           <div key={key} style={{ display: "grid", gridTemplateColumns: compact ? "104px minmax(0, 1fr) 42px" : "148px minmax(0, 1fr) 52px", gap: 8, alignItems: "center" }}>
             <span style={{ color: t.muted, fontSize: compact ? 10.5 : 11.5, overflowWrap: "anywhere" }}>{metricLabel(key, lang)}</span>
-            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 999, height: compact ? 7 : 9, overflow: "hidden" }}>
+            <span style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 6, height: compact ? 7 : 9, overflow: "hidden" }}>
               <span style={{ background: CONTRIBUTION_COLORS[key], display: "block", height: "100%", width: `${Math.max(3, (value / max) * 100)}%` }} />
             </span>
             <span style={{ color: t.textStrong, fontFamily: FONT_SANS, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatNumber(value)}</span>
@@ -34,7 +34,7 @@ export function GasScoreBreakdown({ record, lang, t, compact = false }) {
       })}
       <div style={{ alignItems: "center", display: "grid", gridTemplateColumns: compact ? "104px minmax(0, 1fr) 42px" : "148px minmax(0, 1fr) 52px", gap: 8 }}>
         <span style={{ color: t.warn, fontSize: compact ? 10.5 : 11.5 }}>{text(lang, "风险扣分", "Risk penalty")}</span>
-        <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 999, height: compact ? 7 : 9, overflow: "hidden" }}>
+        <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 6, height: compact ? 7 : 9, overflow: "hidden" }}>
           <span style={{ background: CONTRIBUTION_COLORS.riskPenalty, display: "block", height: "100%", width: `${Math.min(100, riskPenalty * 6)}%` }} />
         </span>
         <span style={{ color: t.warn, fontFamily: FONT_SANS, fontSize: compact ? 10.5 : 11.5, fontWeight: 850, textAlign: "right" }}>{formatRiskPenalty(riskPenalty, lang).replace(/^风险惩罚：/, "")}</span>

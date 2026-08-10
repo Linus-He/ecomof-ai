@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, text } from "../FinalScreeningShared"
+import { StatusBadge, text } from "../FinalScreeningShared"
 
 function tone(status) {
   if (status === "completed") return "pass"
@@ -29,7 +29,7 @@ export function RunStepTimeline({ steps = [], activeIndex = -1, runStatus = "idl
               <strong style={{ color: t.textStrong, fontSize: 12.8, lineHeight: 1.25 }}>
                 {String(step.step).padStart(2, "0")}. <ChemicalText value={text(lang, step.titleZh, step.title)} />
               </strong>
-              <StatusPill tone={tone(step.status)} t={t}>{step.status}</StatusPill>
+              <StatusBadge tone={tone(step.status)} t={t}>{step.status}</StatusBadge>
             </div>
             <div style={{ color: t.muted, display: "grid", fontSize: 11.6, gap: 4, lineHeight: 1.4 }}>
               <span>{text(lang, "输入", "Input")}: {step.inputCount ?? 0} · {text(lang, "输出", "Output")}: {step.outputCount ?? 0}</span>

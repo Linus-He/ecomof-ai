@@ -134,7 +134,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 10 }}>
             {processConstraints.map(([label, value, body]) => (
-              <div key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 12, borderLeft: `3px solid ${value.includes("高") || value.includes("Elevated") || value.includes("long") || value.includes("sensitive") ? t.lccAccent : t.validationAccent}` }}>
+              <div key={label} style={{ background: t.surface, border: `1px solid ${value.includes("高") || value.includes("Elevated") || value.includes("long") || value.includes("sensitive") ? t.lccAccent : t.validationAccent}`, borderRadius: 8, padding: 12 }}>
                 <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
                 <div style={{ color: t.textStrong, fontSize: 13, fontWeight: 850 }}>{value}</div>
                 <div style={{ color: t.subtle, fontSize: 11, lineHeight: 1.5, marginTop: 7 }}>{body}</div>

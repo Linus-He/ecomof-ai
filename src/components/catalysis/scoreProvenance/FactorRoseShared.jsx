@@ -71,7 +71,7 @@ export function FactorRoseChart({
           <strong style={{ color: palette.text, fontSize: 13.5 }}>{text(lang, titleZh, titleEn)}</strong>
           <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.5 }}>{text(lang, subtitleZh, subtitleEn)}</span>
         </div>
-        <div style={{ borderLeft: `3px solid ${palette.accent}`, display: "grid", gap: 2, minWidth: 72, paddingLeft: 9, textAlign: "right" }}>
+        <div style={{ border: `1px solid ${palette.border}`, borderRadius: 6, display: "grid", gap: 2, minWidth: 72, padding: "6px 8px", textAlign: "right" }}>
           <span style={{ color: palette.faint, fontSize: 9.5, fontWeight: 900 }}>{centerLabel}</span>
           <span style={{ color: palette.text, fontSize: 19, fontWeight: 950 }}>{centerValue}</span>
         </div>
@@ -157,7 +157,7 @@ export function FactorRoseChart({
               ["grade", text(lang, "数据等级", "Data grade"), selectedRow.dataGrade],
               ["level", text(lang, "水平", "Level"), text(lang, selectedRow.levelTag, selectedRow.levelTagEn)],
             ].map(([key, label, value], index) => (
-              <span key={key} style={{ borderLeft: index ? `1px solid ${palette.border}` : "none", color: palette.muted, fontSize: 10.5, lineHeight: 1.4, padding: "5px 8px" }}>
+              <span key={key} style={{ borderTop: index ? `1px solid ${palette.border}` : "none", color: palette.muted, fontSize: 10.5, lineHeight: 1.4, padding: "5px 8px" }}>
                 <strong style={{ color: palette.faint, display: "block", fontSize: 9.5 }}>{label}</strong>
                 {typeof value === "number" ? fmt(value, 3) : (value || text(lang, "待核验", "pending"))}
               </span>

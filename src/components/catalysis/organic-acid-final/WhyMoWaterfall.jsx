@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { displayValue, formatScore, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { displayValue, formatScore, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 /**
  * @deprecated Legacy DMRS additive contribution view. The current Organic Acid
@@ -53,7 +53,7 @@ export function WhyMoWaterfall({ moRecommendation, audit, comparisons, onCompare
               <strong style={{ color: t.textStrong, fontSize: 12.2, lineHeight: 1.3 }}>
                 <ChemicalText value={labelFor(item.key, item.label, lang)} />
               </strong>
-              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, height: 24, overflow: "hidden", position: "relative" }}>
+              <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, height: 24, overflow: "hidden", position: "relative" }}>
                 <div
                   style={{
                     background: isPositive ? (t.accentSoft || t.accent) : (t.warnSoft || t.warn),
@@ -107,7 +107,7 @@ export function WhyMoWaterfall({ moRecommendation, audit, comparisons, onCompare
       </div>
 
       <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-        <StatusPill tone="warn" t={t}>W backup hypothesis</StatusPill>
+        <StatusBadge tone="warn" t={t}>W backup hypothesis</StatusBadge>
         <button
           type="button"
           onClick={onCompareMoW}

@@ -20,7 +20,11 @@ let usingStaticDistFallback = false
 const routes = [
   ["home", "#overview", [
     "EcoMOF-AI",
-    "数据驱动的 MOF 筛选与验证平台",
+    "怎样筛选更可持续的 MOF？",
+    "哪种材料更适合气体分离？",
+    "如何解释催化路径？",
+    "结构与证据从哪里来？",
+    "结果是否足够可信？",
     "数据基础",
     "CoRE MOF 2024 CR",
     "FAIR-MOFs",
@@ -343,6 +347,10 @@ async function unlockOrganicAcidProject(page) {
 }
 
 async function waitForRouteReady(page, routeName) {
+  if (routeName === "home") {
+    await page.getByTestId("home-scientific-atlas").waitFor({ state: "visible", timeout: 30000 })
+  }
+
   if (routeName === "organic-acid-project") {
     await unlockOrganicAcidProject(page)
     await page.locator("#organic-acid-validation-loop-entry").first().waitFor({ state: "attached", timeout: 30000 })

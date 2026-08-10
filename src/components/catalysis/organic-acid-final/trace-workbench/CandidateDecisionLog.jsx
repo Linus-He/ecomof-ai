@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../common/ChemicalFormula"
-import { StatusPill, displayValue, formatScore, statusTone, text } from "../FinalScreeningShared"
+import { StatusBadge, displayValue, formatScore, statusTone, text } from "../FinalScreeningShared"
 
 export function CandidateDecisionLog({ decisions = [], lang, t, isMobile }) {
   const rows = decisions.slice(0, 28)
@@ -14,7 +14,7 @@ export function CandidateDecisionLog({ decisions = [], lang, t, isMobile }) {
           <article key={`${row.candidateType}-${row.id}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 8, minWidth: 0, padding: 10 }}>
             <div style={{ alignItems: "center", display: "flex", gap: 8, justifyContent: "space-between" }}>
               <strong style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.25 }}><ChemicalText value={row.label} /></strong>
-              <StatusPill tone={statusTone(row.status)} t={t}>{row.candidateType}</StatusPill>
+              <StatusBadge tone={statusTone(row.status)} t={t}>{row.candidateType}</StatusBadge>
             </div>
             <div style={{ color: t.muted, display: "grid", fontSize: 11.8, gap: 4, lineHeight: 1.4 }}>
               <span>{text(lang, "决策", "Decision")}: <strong style={{ color: t.textStrong }}><ChemicalText value={text(lang, row.decisionZh, row.decision)} /></strong></span>

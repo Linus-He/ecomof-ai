@@ -21,7 +21,7 @@ export function MethodArrow({ t, direction = "down", dashed = false, label }) {
           display: "block",
           width: isDown ? 1 : 38,
           height: isDown ? 16 : 1,
-          borderLeft: isDown ? `1px ${dashed ? "dashed" : "solid"} ${t.borderStrong}` : 0,
+          background: isDown ? t.borderStrong : "transparent",
           borderTop: isDown ? 0 : `1px ${dashed ? "dashed" : "solid"} ${t.borderStrong}`,
         }}
       />

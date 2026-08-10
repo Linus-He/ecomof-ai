@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ChemicalText } from "../../../shared"
-import { MethodologyLink, MiniMetric, Panel, StatusPill, text } from "./FinalScreeningShared"
+import { MethodologyLink, MiniMetric, Panel, StatusBadge, text } from "./FinalScreeningShared"
 
 export function ReactionConstraintBuilder({ rules, summary, lang, t, isMobile }) {
   const zh = lang === "zh"
@@ -31,7 +31,7 @@ export function ReactionConstraintBuilder({ rules, summary, lang, t, isMobile })
         <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 9, padding: 12 }}>
           <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{text(lang, "催化剂要求", "Catalyst requirements")}</strong>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-            {requirements.map(item => <StatusPill key={item} tone="info" t={t}>{item}</StatusPill>)}
+            {requirements.map(item => <StatusBadge key={item} tone="info" t={t}>{item}</StatusBadge>)}
           </div>
           <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
             <ChemicalText value={zh

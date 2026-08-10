@@ -511,7 +511,7 @@ export function CompareTray({ count, names = [], notice, onCompare, onClear, t, 
         {names.length > 0 && (
           <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
             {names.slice(0, 3).map(name => (
-              <span key={name} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "3px 7px", fontSize: 10 }}>
+              <span key={name} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "3px 7px", fontSize: 10 }}>
                 {name}
               </span>
             ))}
@@ -723,7 +723,7 @@ export function CandidateComparisonModal({
       return (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {CORE_FIELDS.map(field => (
-            <span key={field.key} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 8px", fontSize: 11 }}>
+            <span key={field.key} style={{ color: t.subtle, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, padding: "5px 8px", fontSize: 11 }}>
               {field.key}
             </span>
           ))}
@@ -891,7 +891,7 @@ export function CandidateComparisonModal({
               paddingRight: 2,
             }}>
               {selected.map(candidate => (
-                <span key={candidate.id} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 999, padding: "5px 8px", color: t.accentText, fontSize: 11, fontWeight: 800 }}>
+                <span key={candidate.id} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 6, padding: "5px 8px", color: t.accentText, fontSize: 11, fontWeight: 800 }}>
                   {candidate.name}
                   <button type="button" onClick={() => removeCandidate(candidate.id)} aria-label={zh ? `移除 ${candidate.name}` : `Remove ${candidate.name}`} style={{ border: "none", background: "transparent", color: t.subtle, cursor: "pointer", padding: 0, fontSize: 12 }}>×</button>
                 </span>
@@ -1103,7 +1103,7 @@ export function CandidateComparisonModal({
                   return (
                     <div key={candidate.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: 11, display: "grid", gap: 8 }}>
                       <div style={{ color: t.textStrong, fontSize: 12, fontWeight: 850 }}>{candidate.name}</div>
-                      <div style={{ height: 7, background: t.panel, borderRadius: 999, overflow: "hidden", border: `1px solid ${t.border}` }}>
+                      <div style={{ height: 7, background: t.panel, borderRadius: 6, overflow: "hidden", border: `1px solid ${t.border}` }}>
                         <div style={{ width: `${summary.completeness}%`, height: "100%", background: t.accent }} />
                       </div>
                       {[

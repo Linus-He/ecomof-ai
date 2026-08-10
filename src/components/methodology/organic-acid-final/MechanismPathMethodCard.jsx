@@ -45,7 +45,7 @@ export function MechanismPathMethodCard({ lang, t }) {
         <h3 style={{ color: t.textStrong, fontSize: 20, lineHeight: 1.15, margin: 0 }}>
           {text(lang, "三路径机制解释", "Three Mechanism Path Interpretation")}
         </h3>
-        <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 999, color: t.warn, fontSize: 10.5, fontWeight: 900, justifySelf: "start", padding: "4px 8px", textTransform: "uppercase" }}>
+        <span style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 6, color: t.warn, fontSize: 10.5, fontWeight: 900, justifySelf: "start", padding: "4px 8px", textTransform: "uppercase" }}>
           {text(lang, "Curated 专家判断", "Curated expert judgment")}
         </span>
         <p style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.45, margin: 0 }}>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useMemo } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { buildSensitivityAuditSummary } from "../../utils/databaseIndex/sensitivityAudit"
 
 function stabilityTone(value) {
@@ -26,17 +26,17 @@ export function SensitivityAuditPanel({ records = [], lang, t, isMobile }) {
             )} />
           </span>
         </div>
-        <StatusPill tone="warn" t={t}>{text(lang, "仅审计", "audit only")}</StatusPill>
+        <StatusBadge tone="warn" t={t}>{text(lang, "仅审计", "audit only")}</StatusBadge>
       </header>
 
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(auto-fit, minmax(150px, 1fr))" }}>
         <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Top-5 稳定性", "Top-5 stability")}</span>
-          <StatusPill tone={stabilityTone(audit.top5Stability)} t={t}>{audit.top5Stability.toFixed(2)}</StatusPill>
+          <StatusBadge tone={stabilityTone(audit.top5Stability)} t={t}>{audit.top5Stability.toFixed(2)}</StatusBadge>
         </article>
         <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "Top-10 稳定性", "Top-10 stability")}</span>
-          <StatusPill tone={stabilityTone(audit.top10Stability)} t={t}>{audit.top10Stability.toFixed(2)}</StatusPill>
+          <StatusBadge tone={stabilityTone(audit.top10Stability)} t={t}>{audit.top10Stability.toFixed(2)}</StatusBadge>
         </article>
         <article style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 9 }}>
           <span style={{ color: t.faint, fontSize: 10.3, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "不稳定候选", "Unstable candidates")}</span>
@@ -52,7 +52,7 @@ export function SensitivityAuditPanel({ records = [], lang, t, isMobile }) {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           <span style={{ color: t.muted, fontSize: 11.5, fontWeight: 800 }}>{text(lang, "敏感描述符", "Sensitive descriptors")}:</span>
           {audit.sensitiveDescriptors.slice(0, 6).map(key => (
-            <StatusPill key={key} tone="proxy" t={t}>{key}</StatusPill>
+            <StatusBadge key={key} tone="proxy" t={t}>{key}</StatusBadge>
           ))}
         </div>
       ) : null}

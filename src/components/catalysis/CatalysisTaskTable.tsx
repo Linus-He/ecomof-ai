@@ -1,11 +1,11 @@
 // @ts-nocheck
 import { BasisBadge } from "../../shared"
 
-function Pills({ items, t }) {
+function InlineBadges({ items, t }) {
   return (
     <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
       {items.slice(0, 4).map(item => (
-        <span key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 999, color: t.muted, fontSize: 10, fontWeight: 750, padding: "4px 7px" }}>{item}</span>
+        <span key={item} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, fontSize: 10, fontWeight: 750, padding: "4px 7px" }}>{item}</span>
       ))}
     </div>
   )
@@ -50,7 +50,7 @@ export function CatalysisTaskTable({ tasks, selectedTaskId, selectedComparisonId
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: 9 }}>{task.modeLabel}</td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: 9 }}>{task.feedstockLabel}</td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 11, padding: 9 }}>{task.productFamilyLabel}</td>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, padding: 9 }}><Pills items={lang === "zh" ? task.keyMetricsZh : task.keyMetricsEn} t={t} /></td>
+                  <td style={{ borderBottom: `1px solid ${t.divider}`, padding: 9 }}><InlineBadges items={lang === "zh" ? task.keyMetricsZh : task.keyMetricsEn} t={t} /></td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, padding: 9 }}><BasisBadge tone={task.quantitativeStatus === "curated" ? "info" : "proxy"}>{task.quantitativeStatus}</BasisBadge></td>
                   <td style={{ borderBottom: `1px solid ${t.divider}`, padding: 9 }}>
                     <label onClick={event => event.stopPropagation()} style={{ color: checked ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", gap: 6, fontSize: 11, fontWeight: 850 }}>

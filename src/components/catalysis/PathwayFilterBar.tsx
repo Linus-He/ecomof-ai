@@ -29,7 +29,7 @@ export function PathwayFilterBar({ activeFilter, onChange, lang }) {
             style={{
               background: active ? palette.accent : palette.surface,
               border: `1px solid ${active ? palette.accent : palette.border}`,
-              borderRadius: 999,
+              borderRadius: 6,
               color: active ? "#fff" : palette.text,
               cursor: "pointer",
               flex: "0 0 auto",

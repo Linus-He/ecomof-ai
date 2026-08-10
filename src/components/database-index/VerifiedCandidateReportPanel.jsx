@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../common/ChemicalFormula"
-import { StatusPill, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
+import { StatusBadge, text } from "../catalysis/organic-acid-final/FinalScreeningShared"
 import { fetchJson } from "../../services/dataService"
 
 // Prefer the V2.0-L enriched report (with manual source curation); fall back to V2.0-K.
@@ -38,7 +38,7 @@ export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, 
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 12 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 14 }}>{text(lang, "经核验候选报告", "Verified Candidate Report")}</strong>
-        <StatusPill tone={reportStatus === "verified_candidates_available" ? "pass" : "warn"} t={t}>{text(lang, statusCopy.zh, statusCopy.en)}</StatusPill>
+        <StatusBadge tone={reportStatus === "verified_candidates_available" ? "pass" : "warn"} t={t}>{text(lang, statusCopy.zh, statusCopy.en)}</StatusBadge>
       </header>
 
       {verified.length ? (
@@ -47,7 +47,7 @@ export function VerifiedCandidateReportPanel({ report: reportProp = null, lang, 
             <article key={candidate.recordId} style={{ background: t.badgeGoodBg || t.panel, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 5, padding: 10 }}>
               <strong style={{ color: t.textStrong, fontSize: 12.4 }}><ChemicalText value={candidate.displayName} /></strong>
               <span style={{ color: t.muted, fontSize: 11, lineHeight: 1.4 }}>{candidate.verificationNotes}</span>
-              <StatusPill tone="pass" t={t}>{text(lang, "metadata 已核验", "verified metadata")}</StatusPill>
+              <StatusBadge tone="pass" t={t}>{text(lang, "metadata 已核验", "verified metadata")}</StatusBadge>
             </article>
           ))}
         </div>
