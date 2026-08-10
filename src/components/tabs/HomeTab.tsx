@@ -824,7 +824,7 @@ function HeroVisual({ t, lang, summary }) {
 export function HomeTab({ setActiveTab, onContactOpen }) {
   const t = useT()
   const { lang } = useLang()
-  const { isNarrow, isMobile } = useViewport()
+  const { width, isNarrow, isMobile } = useViewport()
   const reducedMotion = usePrefersReducedMotion()
   const storyShellRef = useRef(null)
   const [summary, setSummary] = useState(DEFAULT_HOME_SUMMARY)
@@ -1122,6 +1122,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
             summary={summary}
             gasParetoCount={gasParetoCount}
             isMobile={isMobile}
+            viewportWidth={width}
             reducedMotion={reducedMotion}
             onNavigate={navigateHash}
             onBranchChange={setActiveResearchBranch}

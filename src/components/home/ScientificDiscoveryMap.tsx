@@ -52,11 +52,11 @@ const WORLDS = {
 }
 
 const CLUSTER_POSITIONS = {
-  ecoscreen: { desktop: [315, 285], mobile: [250, 445] },
+  ecoscreen: { desktop: [315, 285], mobile: [190, 445] },
   library: { desktop: [735, 240], mobile: [340, 225] },
-  gassep: { desktop: [1110, 310], mobile: [505, 420] },
-  organic: { desktop: [420, 650], mobile: [270, 775] },
-  validation: { desktop: [970, 650], mobile: [445, 990] },
+  gassep: { desktop: [1110, 310], mobile: [525, 420] },
+  organic: { desktop: [420, 650], mobile: [230, 775] },
+  validation: { desktop: [970, 650], mobile: [490, 990] },
 }
 
 const NODE_POSITIONS = {
@@ -297,18 +297,28 @@ export function ScientificDiscoveryMap({
   summary,
   gasParetoCount,
   isMobile,
+  viewportWidth,
   reducedMotion,
   onNavigate,
   onBranchChange,
   onContinueResearch,
 }) {
   const zh = lang === "zh"
-  const world = WORLDS[isMobile ? "mobile" : "desktop"]
-  const defaultScale = isMobile
-    ? 0.54
-    : clamp((typeof window === "undefined" ? 1440 : window.innerWidth) / WORLDS.desktop.width, 0.78, 1)
-  const minScale = isMobile ? 0.5 : 0.74
-  const maxScale = isMobile ? 0.96 : 1.42
+  const measuredWidth = Number(viewportWidth) || (typeof window === "undefined" ? 1440 : window.innerWidth)
+  const measuredHeight = typeof window === "undefined" ? 900 : window.innerHeight
+  const mobileAtlas = isMobile || (measuredWidth < 900 && measuredHeight >= measuredWidth)
+  const compactAtlas = !mobileAtlas && measuredWidth < 1200
+  const layoutMode = mobileAtlas ? "mobile" : compactAtlas ? "compact" : "desktop"
+  const world = WORLDS[mobileAtlas ? "mobile" : "desktop"]
+  const [mapSize, setMapSize] = useState({ width: measuredWidth, height: measuredHeight })
+  const mapInset = mobileAtlas || compactAtlas ? 24 : 0
+  const fitScale = Math.min(
+    Math.max(1, mapSize.width - mapInset) / world.width,
+    Math.max(1, mapSize.height - mapInset) / world.height,
+  )
+  const defaultScale = clamp(fitScale, mobileAtlas || compactAtlas ? 0.48 : 0.64, mobileAtlas ? 0.96 : 1)
+  const minScale = mobileAtlas ? 0.46 : compactAtlas ? 0.46 : 0.62
+  const maxScale = mobileAtlas ? 0.96 : compactAtlas ? 1.08 : 1.42
   const [view, setView] = useState({ x: 0, y: 0, scale: defaultScale })
   const [bloomProgress, setBloomProgress] = useState(reducedMotion ? 1 : 0)
   const [dragging, setDragging] = useState(false)
@@ -322,8 +332,26 @@ export function ScientificDiscoveryMap({
   const mapRef = useRef(null)
 
   useEffect(() => {
+    const map = mapRef.current
+    if (!map) return undefined
+    const syncMapSize = () => {
+      const rect = map.getBoundingClientRect()
+      setMapSize(current => (
+        Math.abs(current.width - rect.width) < 0.5 && Math.abs(current.height - rect.height) < 0.5
+          ? current
+          : { width: rect.width, height: rect.height }
+      ))
+    }
+    syncMapSize()
+    if (typeof ResizeObserver === "undefined") return undefined
+    const observer = new ResizeObserver(syncMapSize)
+    observer.observe(map)
+    return () => observer.disconnect()
+  }, [layoutMode])
+
+  useEffect(() => {
     setView({ x: 0, y: 0, scale: defaultScale })
-  }, [defaultScale, isMobile])
+  }, [defaultScale, layoutMode])
 
   useEffect(() => {
     if (reducedMotion) {
@@ -486,7 +514,7 @@ export function ScientificDiscoveryMap({
 
   const positionFor = item => {
     const table = item.cluster ? NODE_POSITIONS : CLUSTER_POSITIONS
-    const position = table[item.id]?.[isMobile ? "mobile" : "desktop"] || [0, 0]
+    const position = table[item.id]?.[mobileAtlas ? "mobile" : "desktop"] || [0, 0]
     return { x: position[0], y: position[1] }
   }
 
@@ -588,8 +616,8 @@ export function ScientificDiscoveryMap({
   const onPointerMove = event => {
     const origin = dragRef.current
     if (!origin || origin.pointerId !== event.pointerId) return
-    const maxX = isMobile ? 150 : 290
-    const maxY = isMobile ? 190 : 180
+    const maxX = mobileAtlas ? 150 : compactAtlas ? 180 : 290
+    const maxY = mobileAtlas ? 190 : 180
     setView(current => ({
       ...current,
       x: clamp(origin.x + event.clientX - origin.startX, -maxX, maxX),
@@ -626,11 +654,16 @@ export function ScientificDiscoveryMap({
     }, 460)
   }
 
-  const wordLayout = isMobile
+  const wordLayout = mobileAtlas
     ? {
         first: { from: [195, 510], to: [36, 64] },
-        second: { from: [345, 510], to: [280, 825] },
+        second: { from: [345, 510], to: [285, 600] },
       }
+    : compactAtlas
+      ? {
+          first: { from: [410, 295], to: [60, 54] },
+          second: { from: [650, 295], to: [950, 450] },
+        }
     : {
         first: { from: [410, 295], to: [42, 46] },
         second: { from: [650, 295], to: [905, 520] },
@@ -639,7 +672,7 @@ export function ScientificDiscoveryMap({
   const wordStyle = layout => ({
     left: lerp(layout.from[0], layout.to[0], wordProgress),
     top: lerp(layout.from[1], layout.to[1], wordProgress),
-    transform: `scale(${lerp(isMobile ? 0.72 : 1, isMobile ? 1.45 : 1.35, wordProgress)})`,
+    transform: `scale(${lerp(mobileAtlas ? 0.72 : compactAtlas ? 0.9 : 1, mobileAtlas ? 1.45 : compactAtlas ? 1.05 : 1.35, wordProgress)})`,
   })
 
   return (
@@ -647,7 +680,8 @@ export function ScientificDiscoveryMap({
       ref={mapRef}
       data-testid="home-scientific-atlas"
       className="home-discovery-map"
-      data-mobile={isMobile ? "true" : "false"}
+      data-mobile={mobileAtlas ? "true" : "false"}
+      data-layout={layoutMode}
       data-bloomed={bloomDone ? "true" : "false"}
       data-dragging={dragging ? "true" : "false"}
       data-inspecting={selected ? "true" : "false"}

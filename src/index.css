@@ -2247,6 +2247,44 @@ details[open].motion-surface {
   opacity: 0.36;
 }
 
+.home-discovery-map[data-layout="compact"] .home-map-word,
+.home-discovery-map[data-layout="compact"] .home-map-word-second {
+  font-size: 96px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-cluster {
+  width: 310px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-cluster-mark {
+  height: 58px;
+  width: 58px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-cluster-title {
+  font-size: 27px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-cluster-description {
+  font-size: 15px;
+  max-width: 294px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-node {
+  height: 60px;
+  width: 60px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-node[data-ratio="wide"] {
+  height: 54px;
+  width: 72px;
+}
+
+.home-discovery-map[data-layout="compact"] .home-map-node[data-ratio="tall"] {
+  height: 70px;
+  width: 54px;
+}
+
 .home-map-inspector-backdrop {
   align-items: center;
   animation: home-map-backdrop-in 300ms ease both;
@@ -6441,9 +6479,21 @@ button,
     line-height: 1.55;
   }
 
-  .home-map-word,
+  .home-map-word {
+    font-size: 84px;
+  }
+
   .home-map-word-second {
-    font-size: 88px;
+    font-size: 76px;
+  }
+
+  .home-map-cluster-mark {
+    height: 56px;
+    width: 56px;
+  }
+
+  .home-map-cluster-title {
+    font-size: 24px;
   }
 
   .home-map-expansion {

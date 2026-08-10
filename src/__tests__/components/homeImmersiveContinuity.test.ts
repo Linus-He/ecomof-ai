@@ -54,4 +54,20 @@ describe("immersive homepage continuity", () => {
     expect(css).toContain('.app-main:has(.home-discovery-map[data-inspecting="true"])')
     expect(css).toContain('.home-story-shell:has(.home-discovery-map[data-inspecting="true"]) .home-mode-control')
   })
+
+  it("fits the research atlas to compact tablet viewports without dropping its visual graph", () => {
+    const map = readFileSync(resolve(process.cwd(), "src/components/home/ScientificDiscoveryMap.tsx"), "utf8")
+    const home = readFileSync(resolve(process.cwd(), "src/components/tabs/HomeTab.tsx"), "utf8")
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(home).toContain("viewportWidth={width}")
+    expect(map).toContain('const compactAtlas = !mobileAtlas && measuredWidth < 1200')
+    expect(map).toContain("const observer = new ResizeObserver(syncMapSize)")
+    expect(map).toContain("const fitScale = Math.min(")
+    expect(map).toContain('data-layout={layoutMode}')
+    expect(map).toContain('mobileAtlas || compactAtlas ? 0.48 : 0.64')
+    expect(map).toContain('second: { from: [345, 510], to: [285, 600] }')
+    expect(css).toContain('.home-discovery-map[data-layout="compact"] .home-map-word')
+    expect(css).toContain('.home-discovery-map[data-layout="compact"] .home-map-cluster-title')
+  })
 })
