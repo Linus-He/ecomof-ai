@@ -23,6 +23,8 @@ const DATA_PATHS = {
   organicAcidExperimentRecords: "data/organic_acid_experiment_records.json",
   catalysisTasks: "data/catalysis_tasks.json",
   catalysisRecords: "data/catalysis_records_demo.json",
+  catalysisReactionRecordsV1: "data/catalysis_reaction_records_v1.json",
+  catalysisReactionRecordsSchemaV1: "data/catalysis_reaction_records_schema_v1.json",
   catalyticPathways: "data/catalytic_pathways_demo.json",
   pathwayNodes: "data/pathway_nodes_demo.json",
   reactionFingerprints: "data/reaction_fingerprint_demo.json",
@@ -178,6 +180,14 @@ export function getCatalysisTasks({ throwOnError = false } = {}) {
 
 export function getCatalysisRecords({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.catalysisRecords, [], { throwOnError })
+}
+
+export function getCatalysisReactionRecordsV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisReactionRecordsV1, { records: [], sources: [] }, { throwOnError })
+}
+
+export function getCatalysisReactionRecordsSchemaV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisReactionRecordsSchemaV1, {}, { throwOnError })
 }
 
 export function getCatalyticPathways({ throwOnError = false } = {}) {

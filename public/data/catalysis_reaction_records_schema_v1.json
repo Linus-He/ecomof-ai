@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "catalysis-reaction-records-schema-v1",
+  "updatedAt": "2026-08-08",
+  "purpose": "Reusable bottom-layer schema for DOI-verified catalysis reaction records. It is designed for reaction facts, condition normalization, active-phase evidence, and later joins to the MOF identity registry.",
+  "purposeZh": "面向 DOI 核验催化反应记录的底层通用 schema，用于保存反应事实、条件归一化、活性相证据，并为后续接入 MOF 身份库保留连接字段。",
+  "recordContract": {
+    "requiredTopLevelFields": [
+      "id",
+      "sourceId",
+      "dataMode",
+      "identity",
+      "reaction",
+      "conditions",
+      "performanceMetrics",
+      "activePhaseEvidence",
+      "comparability",
+      "fieldSources",
+      "recordProvenance"
+    ],
+    "requiredSourceFields": [
+      "id",
+      "title",
+      "doi",
+      "doiUrl",
+      "sourceUrl",
+      "journal",
+      "year",
+      "verification"
+    ],
+    "criticalMetricPolicy": "Numeric catalytic metrics may be stored only when extracted from a verified publisher page, DOI landing page, institutional repository, or explicitly cited bibliographic page. Otherwise the metric must stay null or be omitted with status not-extracted.",
+    "criticalMetricPolicyZh": "只有从已核验的出版方页面、DOI 页面、机构知识库或明确文献页面提取到的数值，才能写入性能指标；否则必须保留为空或标记为 not-extracted。"
+  },
+  "normalizationRules": [
+    {
+      "id": "potential-reference",
+      "label": "Potential reference",
+      "labelZh": "电位参比",
+      "rule": "Store electrochemical potentials as numeric V vs RHE only when the source explicitly reports vs RHE. Do not convert from another reference without source-side conversion details.",
+      "ruleZh": "只有来源明确报告为 vs RHE 时，才以 V vs RHE 数值写入；没有来源换算细节时不从其他参比自行换算。"
+    },
+    {
+      "id": "partial-current-density",
+      "label": "Partial current density",
+      "labelZh": "分电流密度",
+      "formula": "j_product = j_total * FE_product / 100",
+      "rule": "Use this formula only when total current density and product Faradaic efficiency are measured under the same condition. Otherwise record only source-reported partial current density.",
+      "ruleZh": "仅当总电流密度与产物法拉第效率来自同一条件时使用该式；否则只记录来源直接报道的分电流密度。"
+    },
+    {
+      "id": "condition-comparability",
+      "label": "Condition comparability",
+      "labelZh": "条件可比性",
+      "rule": "Records are same-condition comparable only when cell type, electrolyte, potential/current mode, product quantification method, duration, and catalyst loading basis are all present and aligned.",
+      "ruleZh": "只有电解池类型、电解液、电位/电流模式、产物定量方法、持续时间和催化剂负载基准均存在且一致时，才允许同条件比较。"
+    },
+    {
+      "id": "active-phase-boundary",
+      "label": "Active-phase boundary",
+      "labelZh": "活性相边界",
+      "rule": "Keep pristine MOF, MOF-derived material, in situ reconstructed phase, and post-reaction phase separate. A precursor MOF is not automatically the proven active phase.",
+      "ruleZh": "原始 MOF、MOF 衍生材料、原位重构相和反应后相必须分开；前驱体 MOF 不能自动视为已证明的活性相。"
+    }
+  ],
+  "identityJoinRules": [
+    {
+      "id": "exact-structure-link",
+      "rule": "Join to mof_identity_registry only by exact CSD Refcode, CCDC identifier, explicit canonicalId, or a curated registry alias with matching source provenance.",
+      "ruleZh": "接入 mof_identity_registry 只能使用精确 CSD Refcode、CCDC 编号、明确 canonicalId，或有来源证明的人工核验别名。"
+    },
+    {
+      "id": "doi-not-structure",
+      "rule": "A shared DOI may connect evidence to an article but does not establish structure-level identity.",
+      "ruleZh": "相同 DOI 只能说明来自同一论文，不能单独建立结构级身份连接。"
+    }
+  ],
+  "fieldDefinitions": {
+    "identity.identityLink.status": [
+      "linked-to-mof-identity-registry",
+      "literature-only-unresolved",
+      "precursor-only",
+      "derived-material-only"
+    ],
+    "dataMode": [
+      "literature-curated"
+    ],
+    "performanceMetrics.status": [
+      "source-extracted",
+      "source-reported-range",
+      "not-extracted"
+    ],
+    "comparability.comparabilityClass": [
+      "same-condition-ready",
+      "condition-partial",
+      "browse-only"
+    ]
+  },
+  "nonClaims": [
+    "This schema does not convert literature records into validated material recommendations.",
+    "This schema does not rank catalysts across incompatible electrochemical conditions.",
+    "This schema does not infer active phases without in situ, operando, post-reaction, or computational evidence."
+  ],
+  "nonClaimsZh": [
+    "该 schema 不把文献记录转化为已验证材料推荐。",
+    "该 schema 不跨不兼容电化学条件给催化剂排名。",
+    "该 schema 不在缺少原位、操作态、反应后或计算证据时推断活性相。"
+  ]
+}

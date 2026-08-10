@@ -1713,149 +1713,212 @@
     "order": 4,
     "module": "Catalysis",
     "moduleZh": "催化",
-    "summary": "Catalysis organizes catalytic pathway evidence, reaction fingerprints, MOF rationale, and validation needs while keeping hypotheses separate from proof.",
-    "summaryZh": "催化模块整理催化路径证据、反应指纹、MOF 依据和验证需求，同时区分假设与证明。",
+    "summary": "Catalysis starts from DOI-verified reaction records. Catalyst identity, operating conditions, source-reported metrics, active-phase evidence, and validation gaps remain separate so that incomplete literature cannot be mistaken for comparable performance.",
+    "summaryZh": "催化模块以 DOI 核验反应记录为底层起点，将催化剂身份、运行条件、来源报道指标、活性相证据和验证缺口分层保存，避免把条件不完整的文献误当成可比性能。",
     "methodWorkflow": [
       {
-        "label": "Pathway evidence map",
-        "labelZh": "路径证据图",
-        "description": "Place catalytic records in a pathway-by-evidence landscape.",
-        "descriptionZh": "将催化记录放入路径-证据空间。"
+        "label": "DOI-verified reaction record",
+        "labelZh": "DOI 核验反应记录",
+        "description": "Verify article identity and preserve field-level source locations before storing any catalytic metric.",
+        "descriptionZh": "先核验论文身份和字段来源位置，再写入任何催化性能指标。"
       },
       {
-        "label": "Reaction pathway classification",
-        "labelZh": "反应路径分类",
-        "description": "Separate product classes, mechanism hints, and validation status.",
-        "descriptionZh": "区分产物类别、机理线索和验证状态。"
+        "label": "Condition normalization",
+        "labelZh": "反应条件归一化",
+        "description": "Store cell, electrolyte, potential reference, control mode, duration, loading basis, and quantification metadata without unsupported conversion.",
+        "descriptionZh": "保存电解池、电解液、电位参比、控制模式、持续时间、负载基准和定量方法，不做无来源换算。"
       },
       {
-        "label": "Reaction fingerprint",
-        "labelZh": "反应指纹",
-        "description": "Summarize pathway features, candidate rationale, and evidence coverage.",
-        "descriptionZh": "汇总路径特征、候选依据和证据覆盖。"
+        "label": "Active-phase evidence ledger",
+        "labelZh": "活性相证据台账",
+        "description": "Keep pristine MOF, precursor, derived material, in situ reconstruction, and post-reaction phase distinct.",
+        "descriptionZh": "区分原始 MOF、前驱体、衍生材料、原位重构相和反应后相。"
       },
       {
-        "label": "Validation roadmap",
-        "labelZh": "验证计划",
-        "description": "Translate evidence gaps into next experiments or DFT tasks.",
-        "descriptionZh": "将证据缺口转换为后续实验或 DFT 任务。"
+        "label": "Database bridge and validation roadmap",
+        "labelZh": "数据库连接与验证计划",
+        "description": "Join exact structure identities where possible and translate unresolved fields into experiments, operando characterization, or DFT tasks.",
+        "descriptionZh": "在精确结构身份可用时连接数据库，并把未解决字段转换为实验、操作态表征或 DFT 任务。"
       }
     ],
     "inputs": [
-      "pathway class",
-      "reaction fingerprint",
-      "MOF rationale",
-      "evidence level",
-      "validation status"
+      "article DOI and publisher source",
+      "catalyst and precursor identity",
+      "reaction and product identity",
+      "electrochemical operating conditions",
+      "source-reported metrics",
+      "active-phase evidence"
     ],
     "inputsZh": [
-      "路径类别",
-      "反应指纹",
-      "MOF 依据",
-      "证据等级",
-      "验证状态"
+      "论文 DOI 与出版方来源",
+      "催化剂与前驱体身份",
+      "反应与产物身份",
+      "电化学运行条件",
+      "来源报道指标",
+      "活性相证据"
     ],
     "outputs": [
-      "pathway evidence context",
-      "candidate validation priority",
-      "comparability note"
+      "field-sourced reaction record",
+      "condition-comparability decision",
+      "active-phase boundary",
+      "identity-link status",
+      "validation task"
     ],
     "outputsZh": [
-      "路径证据语境",
-      "候选验证优先级",
-      "可比性说明"
+      "字段级溯源反应记录",
+      "条件可比性判定",
+      "活性相边界",
+      "身份连接状态",
+      "验证任务"
     ],
     "visualizations": [
       {
-        "title": "Catalytic pathway evidence map",
-        "titleZh": "催化路径证据图",
-        "description": "Scatter-style map for performance potential, evidence readiness, and data coverage.",
-        "descriptionZh": "用散点图表达性能潜力、证据成熟度和数据覆盖度。",
-        "chartType": "scatter"
+        "title": "Catalysis reaction record matrix",
+        "titleZh": "催化反应记录矩阵",
+        "description": "A table of DOI, catalyst state, operating condition coverage, source-reported metrics, active-phase evidence, and registry-link status.",
+        "descriptionZh": "以表格展示 DOI、催化剂状态、运行条件覆盖、来源报道指标、活性相证据和身份库连接状态。",
+        "chartType": "table"
       }
     ],
     "evidenceBoundary": [
       "Organic acid conversion is a prioritized sub-workspace within Catalysis, not the full scope of the module.",
-      "Pathway evidence maps organize hypotheses and literature signals; they do not establish mechanism by themselves."
+      "A DOI verifies the article identity but does not by itself verify every numeric field or establish structure-level identity.",
+      "Records with incompatible cell, electrolyte, potential, loading, duration, or quantification conditions are not ranked against one another.",
+      "A precursor MOF is not automatically the catalytically active phase after electrochemical reconstruction or thermal conversion."
     ],
     "evidenceBoundaryZh": [
       "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。",
-      "路径证据图组织假设和文献信号，本身不证明机理。"
+      "DOI 只能核验论文身份，不能自动证明每个数值字段，也不能单独建立结构级身份连接。",
+      "电解池、电解液、电位、负载、持续时间或定量条件不兼容的记录禁止互相排名。",
+      "发生电化学重构或热转化后，前驱体 MOF 不能自动视为催化活性相。"
     ],
     "validationRoadmap": [
-      "Add reaction condition metadata",
-      "separate measured yields from rule-derived hypotheses",
-      "connect post-reaction characterization"
+      "Expand the DOI-verified source corpus by reaction family",
+      "link exact CSD Refcodes, CCDC identifiers, or canonical IDs when available",
+      "complete same-condition catalyst loading, gas-flow, and product-quantification metadata",
+      "connect operando and post-reaction characterization to active-phase claims",
+      "build same-condition benchmark sets before quantitative ranking"
     ],
     "validationRoadmapZh": [
-      "补充反应条件元数据",
-      "区分实测产率与规则派生假设",
-      "接入反应后表征"
+      "按反应家族扩展 DOI 核验来源库",
+      "存在精确 CSD Refcode、CCDC 编号或 canonical ID 时建立身份连接",
+      "补齐同条件催化剂负载、气体流量和产物定量元数据",
+      "将操作态与反应后表征连接到活性相声明",
+      "建立同条件基准集后再进行定量排名"
     ],
     "methodGroups": [
       {
-        "id": "catalytic-pathway-map",
-        "title": "Catalytic pathway evidence map",
-        "titleZh": "催化路径证据图",
-        "purpose": "Compare pathway records by evidence readiness, data coverage, and validation status.",
-        "purposeZh": "在不混淆反应事实与机理假设的前提下，按证据成熟度、条件可比性、字段覆盖和验证状态组织催化路径。",
+        "id": "catalysis-reaction-record-standard",
+        "title": "DOI-verified catalysis reaction record standard",
+        "titleZh": "DOI 核验催化反应记录标准",
+        "purpose": "Provide a reusable bottom-layer contract for source-backed reaction facts, condition normalization, active-phase evidence, and safe database joins.",
+        "purposeZh": "为来源支持的反应事实、条件归一化、活性相证据和安全数据库连接提供可复用底层契约。",
         "algorithmSteps": [
           {
-            "label": "Classify pathway",
-            "labelZh": "路径分类",
-            "description": "Assign reaction records to product and pathway categories.",
-            "descriptionZh": "先统一反应物、产物、溶剂、温度、时间和催化剂身份，再按产物方向与机理路径建立记录分组；条件不完整的记录不参与定量比较。"
+            "label": "Verify article identity",
+            "labelZh": "核验论文身份",
+            "description": "Resolve the DOI against a publisher page or institutional repository and record the checked source fields and date.",
+            "descriptionZh": "通过出版方页面或机构知识库核对 DOI，并保存已核字段和核查日期。"
           },
           {
-            "label": "Score evidence readiness",
-            "labelZh": "评估证据成熟度",
-            "description": "Combine literature, measured, rule-based, and pending status.",
-            "descriptionZh": "分别记录文献报道、实验测量、计算结果、描述符推断和待核查状态；证据类型只限定可解释范围，不压缩为单一真实性分数。"
+            "label": "Extract fields without inference",
+            "labelZh": "无推测提取字段",
+            "description": "Store numeric metrics only with source location, DOI, condition tuple, unit, and extraction status; unavailable values remain not-extracted.",
+            "descriptionZh": "数值指标必须同时保存来源位置、DOI、条件组合、单位和提取状态；不可核实的值保持 not-extracted。"
           },
           {
-            "label": "Expose validation needs",
-            "labelZh": "展示验证需求",
-            "description": "Show which experiments or simulations are still needed.",
-            "descriptionZh": "根据当前缺口生成验证任务，包括同条件对照实验、产物定量、循环稳定性、机理表征和必要的 DFT 或微观动力学计算。"
+            "label": "Separate catalyst states",
+            "labelZh": "区分催化剂状态",
+            "description": "Record pristine MOF, precursor, derived material, in situ state, and post-reaction phase as distinct identities.",
+            "descriptionZh": "将原始 MOF、前驱体、衍生材料、原位状态和反应后相记录为不同身份。"
+          },
+          {
+            "label": "Gate comparison and identity joins",
+            "labelZh": "控制比较与身份连接",
+            "description": "Allow quantitative comparison only for aligned condition tuples and join the MOF registry only with exact structure identifiers or provenance-matched aliases.",
+            "descriptionZh": "只有条件组合一致时才允许定量比较；只有精确结构标识或来源一致的核验别名才能连接 MOF 身份库。"
           }
         ],
-        "formulas": [],
+        "formulas": [
+          {
+            "id": "catalysis-product-partial-current",
+            "label": "Product partial current density",
+            "labelZh": "产物分电流密度",
+            "latex": "j_{\\mathrm{product}} = j_{\\mathrm{total}} \\times \\frac{\\mathrm{FE}_{\\mathrm{product}}}{100}",
+            "fallback": "j_product = j_total × FE_product / 100",
+            "explanation": "This derivation is allowed only when total current density and product Faradaic efficiency are measured under the same operating condition.",
+            "explanationZh": "只有总电流密度和产物法拉第效率来自完全相同的运行条件时，才允许用该式派生。"
+          },
+          {
+            "id": "catalysis-comparability-gate",
+            "label": "Condition comparability gate",
+            "labelZh": "条件可比性门槛",
+            "latex": "G_{\\mathrm{compare}} = \\prod_{k=1}^{6} I_k",
+            "fallback": "G_compare = Π I_k",
+            "explanation": "Each I_k equals 1 only when cell type, electrolyte, control condition, quantification method, duration, and catalyst-loading basis are present and aligned.",
+            "explanationZh": "只有电解池、电解液、控制条件、定量方法、持续时间和催化剂负载基准均存在且一致时，相应 I_k 才为 1。"
+          }
+        ],
         "inputs": [
-          "pathway category",
-          "main product",
-          "evidence readiness",
-          "data coverage"
+          "verified DOI source",
+          "catalyst-state identity",
+          "reaction and product",
+          "condition tuple",
+          "source-reported metrics",
+          "active-phase evidence"
         ],
         "inputsZh": [
-          "路径类别",
-          "主要产物",
-          "证据成熟度",
-          "数据覆盖度"
+          "已核验 DOI 来源",
+          "催化剂状态身份",
+          "反应与产物",
+          "条件组合",
+          "来源报道指标",
+          "活性相证据"
         ],
         "outputs": [
-          "pathway context",
-          "validation status",
-          "evidence warning"
+          "provenance-complete reaction record",
+          "comparison eligibility",
+          "identity-link status",
+          "active-phase boundary",
+          "validation backlog"
         ],
         "outputsZh": [
-          "路径语境",
-          "验证状态",
-          "证据警告"
+          "溯源完整的反应记录",
+          "比较资格",
+          "身份连接状态",
+          "活性相边界",
+          "验证任务清单"
         ],
         "visualizations": [
           {
-            "title": "Evidence map",
-            "titleZh": "证据图",
-            "description": "Scatter chart of performance potential and evidence readiness.",
-            "descriptionZh": "性能潜力与证据成熟度散点图。",
-            "chartType": "scatter"
+            "title": "Reaction record and evidence matrix",
+            "titleZh": "反应记录与证据矩阵",
+            "description": "Rows are catalyst-state records; columns expose DOI, conditions, metric source, active-phase evidence, missing fields, and join status.",
+            "descriptionZh": "每行对应一个催化剂状态记录，各列展示 DOI、条件、指标来源、活性相证据、缺失字段和连接状态。",
+            "chartType": "table"
           }
         ],
         "limitations": [
-          "The map supports prioritization, not proof of catalytic activity."
+          "The initial corpus is a Bi-based CO2-to-formate seed and is not a complete catalysis literature database.",
+          "No record in the current seed is eligible for cross-paper performance ranking because complete same-condition metadata is unavailable.",
+          "DOI verification confirms the article identity; every numerical field still requires its own source location."
         ],
         "limitationsZh": [
-          "该图支持优先级判断，不证明催化活性。"
+          "当前语料是铋基 CO2 制甲酸盐的首批种子，不是完整催化文献数据库。",
+          "当前种子中没有记录具备跨论文性能排名资格，因为同条件元数据尚不完整。",
+          "DOI 核验只确认论文身份；每个数值字段仍必须有独立来源位置。"
+        ],
+        "references": [
+          {"id": "cat-mfm220-2022", "label": "MFM-220-p · DOI 10.1039/D2TA04485D", "url": "https://doi.org/10.1039/D2TA04485D", "note": "Publisher-verified source for MFM-220 evolution, formate FE, stability, and in situ EPR evidence.", "noteZh": "出版方核验：MFM-220 演化、甲酸盐 FE、稳定性与原位 EPR 证据。"},
+          {"id": "cat-tal33-2022", "label": "TAL-33-derived Bi · DOI 10.1016/j.jcou.2022.101937", "url": "https://doi.org/10.1016/j.jcou.2022.101937", "note": "Publisher-verified source for the TAL-33 precursor and metallic-Bi active-site interpretation; inaccessible numeric metrics remain unfilled.", "noteZh": "出版方核验：TAL-33 前驱体与金属 Bi 活性位解释；未核到的性能数值保持为空。"},
+          {"id": "cat-bicc17-2021", "label": "Bi/CC-17 · DOI 10.1002/celc.202001613", "url": "https://doi.org/10.1002/celc.202001613", "note": "Publisher-verified source for MOF-derived Bi nanosheets, formate FE, and partial current density.", "noteZh": "出版方核验：MOF 衍生 Bi 纳米片、甲酸盐 FE 与分电流密度。"},
+          {"id": "cat-cau17-2020", "label": "CAU-17-derived leafy Bi · DOI 10.1002/aenm.202001709", "url": "https://doi.org/10.1002/aenm.202001709", "note": "Publisher-verified source for CAU-17-derived Bi/Bi-O nanosheets and flow-cell performance bounds.", "noteZh": "出版方核验：CAU-17 衍生 Bi/Bi-O 纳米片与流动池性能边界。"},
+          {"id": "cat-bibtb-2020", "label": "Bi(btb)-derived Bi · DOI 10.1002/adfm.201910408", "url": "https://doi.org/10.1002/adfm.201910408", "note": "DOI and institutional-repository verified source for precatalyst restructuring, formate FE, and mass activity.", "noteZh": "DOI 与机构知识库核验：前催化剂重构、甲酸盐 FE 与质量活性。"},
+          {"id": "cat-zrdmbd-2025", "label": "BiNP@Zr-DMBD · DOI 10.1039/D4MH01153H", "url": "https://doi.org/10.1039/D4MH01153H", "note": "Publisher full-text source for confined Bi nanoparticles, flow-cell formate metrics, and post-reaction evidence.", "noteZh": "出版方全文核验：限域 Bi 纳米颗粒、流动池甲酸盐指标与反应后证据。"},
+          {"id": "cat-bihhtp-2023", "label": "Bi-HHTP · DOI 10.1039/D3SC01876H", "url": "https://doi.org/10.1039/D3SC01876H", "note": "Publisher full-text source for flow-cell metrics, ATR-FTIR intermediate evidence, and DFT interpretation.", "noteZh": "出版方全文核验：流动池指标、ATR-FTIR 中间体证据与 DFT 解释。"},
+          {"id": "cat-su101-2022", "label": "SU-101 · DOI 10.1039/D2TA01727J", "url": "https://doi.org/10.1039/D2TA01727J", "note": "Publisher full-text source for H-cell conditions, formate metrics, stability, and DFT barriers.", "noteZh": "出版方全文核验：H 型池条件、甲酸盐指标、稳定性与 DFT 能垒。"},
+          {"id": "cat-cubi-2021", "label": "CuBi-MOF-derived catalyst · DOI 10.1016/j.apcatb.2021.120571", "url": "https://doi.org/10.1016/j.apcatb.2021.120571", "note": "Publisher-verified source for the derived Bi2CuO4 interface, formate FE, potential window, FT-IR, and DFT interpretation.", "noteZh": "出版方核验：衍生 Bi2CuO4 界面、甲酸盐 FE、电位窗口、FT-IR 与 DFT 解释。"},
+          {"id": "cat-2dbimof-2020", "label": "2D Bi-MOF · DOI 10.1016/j.apcatb.2020.119241", "url": "https://doi.org/10.1016/j.apcatb.2020.119241", "note": "Publisher-verified source for formic-acid FE, mass-specific partial current density, and stability.", "noteZh": "出版方核验：甲酸 FE、质量归一分电流密度与稳定性。"}
         ]
       }
     ]

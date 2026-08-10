@@ -1,0 +1,495 @@
+{
+  "schemaVersion": "catalysis-reaction-records-v1",
+  "updatedAt": "2026-08-08",
+  "status": "doi-verified-literature-seed",
+  "scope": "Bi-based MOF and MOF-derived electrocatalysts for CO2 reduction to formate. This seed is a provenance layer, not a cross-condition performance ranking.",
+  "scopeZh": "铋基 MOF 与 MOF 衍生材料电催化 CO2 还原制甲酸盐的 DOI 核验文献种子层；该数据用于溯源与方法开发，不用于跨条件性能排名。",
+  "sources": [
+    {
+      "id": "CAT-LIT-MFM220-2022",
+      "title": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2",
+      "journal": "Journal of Materials Chemistry A",
+      "year": 2022,
+      "doi": "10.1039/D2TA04485D",
+      "doiUrl": "https://doi.org/10.1039/D2TA04485D",
+      "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "catalyst identity", "electrolyte", "potential", "formate Faradaic efficiency", "stability duration", "in situ EPR evidence"]
+      }
+    },
+    {
+      "id": "CAT-LIT-TAL33-2022",
+      "title": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+      "journal": "Journal of CO2 Utilization",
+      "year": 2022,
+      "doi": "10.1016/j.jcou.2022.101937",
+      "doiUrl": "https://doi.org/10.1016/j.jcou.2022.101937",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2212982022000567",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "TAL-33 precursor", "formate target", "metallic Bi active-site interpretation"]
+      }
+    },
+    {
+      "id": "CAT-LIT-BICC17-2021",
+      "title": "Metal-Organic-Framework-Derived Bismuth Nanosheets for Electrochemical and Solar-Driven Electrochemical CO2 Reduction to Formate",
+      "journal": "ChemElectroChem",
+      "year": 2021,
+      "doi": "10.1002/celc.202001613",
+      "doiUrl": "https://doi.org/10.1002/celc.202001613",
+      "sourceUrl": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/celc.202001613",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "Bi/CC-17 identity", "potential", "formate Faradaic efficiency", "partial current density"]
+      }
+    },
+    {
+      "id": "CAT-LIT-CAU17-2020",
+      "title": "Bi-Based Metal-Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+      "journal": "Advanced Energy Materials",
+      "year": 2020,
+      "doi": "10.1002/aenm.202001709",
+      "doiUrl": "https://doi.org/10.1002/aenm.202001709",
+      "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "CAU-17 precursor", "Bi/Bi-O interface", "flow-cell current density", "formic-acid Faradaic efficiency bounds", "stability duration"]
+      }
+    },
+    {
+      "id": "CAT-LIT-BIBTB-2020",
+      "title": "Restructuring Metal-Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO2 Reduction to Formate",
+      "journal": "Advanced Functional Materials",
+      "year": 2020,
+      "doi": "10.1002/adfm.201910408",
+      "doiUrl": "https://doi.org/10.1002/adfm.201910408",
+      "sourceUrl": "https://pure.au.dk/portal/da/publications/restructuring-metalorganic-frameworks-to-nanoscale-bismuth-electr",
+      "verification": {
+        "status": "doi-and-institutional-page-verified",
+        "sourceType": "institutional-repository",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "Bi(btb) precatalyst", "restructuring claim", "formate Faradaic efficiency", "mass activity"]
+      }
+    },
+    {
+      "id": "CAT-LIT-ZRDMBDBI-2025",
+      "title": "Incarcerating bismuth nanoparticles into a thiol-laced metal-organic framework for electro and photocatalysis",
+      "journal": "Materials Horizons",
+      "year": 2025,
+      "doi": "10.1039/D4MH01153H",
+      "doiUrl": "https://doi.org/10.1039/D4MH01153H",
+      "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "Zr-DMBD host", "Bi nanoparticle size", "flow-cell current setting", "formate Faradaic efficiency", "formate partial current density", "post-reaction evidence"]
+      }
+    },
+    {
+      "id": "CAT-LIT-BIHHTP-2023",
+      "title": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO2 electroreduction to formate",
+      "journal": "Chemical Science",
+      "year": 2023,
+      "doi": "10.1039/D3SC01876H",
+      "doiUrl": "https://doi.org/10.1039/D3SC01876H",
+      "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "Bi-HHTP identity", "conductivity", "flow-cell electrolyte", "Faradaic efficiency", "carbon energy efficiency", "current density", "TOF", "stability", "ATR-FTIR and DFT evidence"]
+      }
+    },
+    {
+      "id": "CAT-LIT-SU101-2022",
+      "title": "A hexacoordinated Bi3+-based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+      "journal": "Journal of Materials Chemistry A",
+      "year": 2022,
+      "doi": "10.1039/D2TA01727J",
+      "doiUrl": "https://doi.org/10.1039/D2TA01727J",
+      "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "SU-101 identity", "H-cell electrolyte", "potential", "formate Faradaic efficiency", "partial current density", "stability", "DFT barriers"]
+      }
+    },
+    {
+      "id": "CAT-LIT-CUBI-2021",
+      "title": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+      "journal": "Applied Catalysis B: Environmental",
+      "year": 2021,
+      "doi": "10.1016/j.apcatb.2021.120571",
+      "doiUrl": "https://doi.org/10.1016/j.apcatb.2021.120571",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0926337321006974",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "CuBi-MOF precursor route", "Bi2CuO4 interface", "potential", "formate Faradaic efficiency", "potential window", "in situ FT-IR and DFT evidence"]
+      }
+    },
+    {
+      "id": "CAT-LIT-2DBIMOF-2020",
+      "title": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+      "journal": "Applied Catalysis B: Environmental",
+      "year": 2020,
+      "doi": "10.1016/j.apcatb.2020.119241",
+      "doiUrl": "https://doi.org/10.1016/j.apcatb.2020.119241",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561",
+      "verification": {
+        "status": "doi-and-publisher-page-verified",
+        "sourceType": "publisher",
+        "checkedAt": "2026-08-08",
+        "verifiedFields": ["title", "journal", "year", "doi", "two-dimensional Bi-MOF identity", "formic-acid Faradaic efficiency", "mass-specific partial current density", "stability duration"]
+      }
+    }
+  ],
+  "records": [
+    {
+      "id": "catrxn-v1-mfm220p-formate-2022",
+      "sourceId": "CAT-LIT-MFM220-2022",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "MFM-220-p",
+        "precursorMofName": "MFM-220",
+        "activeMaterial": "potential-evolved MFM-220-p",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-based MOF",
+        "identityLink": {
+          "canonicalId": null,
+          "status": "literature-only-unresolved",
+          "joinRule": "Requires an exact CSD Refcode, CCDC identifier, canonicalId, or provenance-matched curated alias before joining mof_identity_registry."
+        }
+      },
+      "reaction": {
+        "family": "CO2 electroreduction",
+        "substrate": "CO2",
+        "targetProduct": "formate",
+        "reactionMode": "electrocatalysis"
+      },
+      "conditions": {
+        "cellType": "electrolysis cell",
+        "electrolyte": "0.1 M KHCO3",
+        "potentialVsRheV": -1.1,
+        "currentMode": "constant-potential",
+        "durationH": 5,
+        "missingFields": ["catalyst loading", "geometric electrode area", "CO2 flow rate", "product quantification protocol"]
+      },
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": "=", "value": 90.4, "unit": "%", "condition": {"potentialVsRheV": -1.1, "electrolyte": "0.1 M KHCO3"}, "status": "source-extracted", "sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "publisher abstract"},
+        {"id": "stability-duration", "metric": "stability_duration", "product": "formate", "operator": "=", "value": 5, "unit": "h", "condition": {"potentialVsRheV": -1.1}, "status": "source-extracted", "sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "publisher abstract"},
+        {"id": "total-current-density", "metric": "total_current_density", "product": null, "operator": null, "value": null, "unit": "mA cm-2", "condition": {"potentialVsRheV": -1.1}, "status": "not-extracted", "sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "not present in the verified abstract fields"}
+      ],
+      "activePhaseEvidence": {
+        "claim": "MFM-220 evolves under electrochemical potential; the pristine framework must not be treated automatically as the proven active phase.",
+        "preReaction": ["MFM-220 is the reported precursor framework."],
+        "inSitu": ["In situ EPR reports COOH radical evidence."],
+        "postReaction": [],
+        "computational": [],
+        "intermediateEvidence": ["COOH radical"],
+        "activePhaseBoundary": "Use MFM-220-p as the operational catalyst identity unless active-phase assignment is independently confirmed."
+      },
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Catalyst loading, electrode area, gas flow, and quantification protocol are not all available in the verified fields.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.catalystName": {"sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "conditions.potentialVsRheV": {"sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-MFM220-2022", "doi": "10.1039/D2TA04485D", "doiUrl": "https://doi.org/10.1039/D2TA04485D", "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-tal33-derived-bi-formate-2022",
+      "sourceId": "CAT-LIT-TAL33-2022",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "TAL-33-derived Bi catalyst",
+        "precursorMofName": "TAL-33",
+        "activeMaterial": "carbonized Bi-based material",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "identityLink": {"canonicalId": null, "status": "derived-material-only", "joinRule": "The derived catalyst cannot be joined as the pristine MOF; exact precursor structure evidence is required for a precursor link."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": null, "electrolyte": null, "potentialVsRheV": null, "currentMode": null, "durationH": null, "missingFields": ["cell type", "electrolyte", "potential", "current density", "duration", "catalyst loading", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": null, "value": null, "unit": "%", "condition": {}, "status": "not-extracted", "sourceId": "CAT-LIT-TAL33-2022", "doi": "10.1016/j.jcou.2022.101937", "sourceLocation": "numeric performance not available in the verified publisher abstract fields"}
+      ],
+      "activePhaseEvidence": {
+        "claim": "The accessible source describes TAL-33 as a precursor and attributes catalytic activity to metallic Bi sites after conversion.",
+        "preReaction": ["TAL-33 is the reported MOF precursor."],
+        "inSitu": [],
+        "postReaction": ["XPS, XRD, SEM, and TEM are reported as characterization methods."],
+        "computational": ["DFT interpretation identifies metallic Bi as active sites."],
+        "intermediateEvidence": [],
+        "activePhaseBoundary": "Treat this as a MOF-derived catalyst record, not as evidence that pristine TAL-33 is the active phase."
+      },
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "browse-only", "reason": "Verified numeric performance and operating conditions were not extracted.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.precursorMofName": {"sourceId": "CAT-LIT-TAL33-2022", "doi": "10.1016/j.jcou.2022.101937", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "activePhaseEvidence.computational": {"sourceId": "CAT-LIT-TAL33-2022", "doi": "10.1016/j.jcou.2022.101937", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-TAL33-2022", "doi": "10.1016/j.jcou.2022.101937", "doiUrl": "https://doi.org/10.1016/j.jcou.2022.101937", "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2212982022000567", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-bicc17-nanosheets-formate-2021",
+      "sourceId": "CAT-LIT-BICC17-2021",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "Bi/CC-17",
+        "precursorMofName": "Bi-based MOF grown on carbon cloth",
+        "activeMaterial": "MOF-derived bismuth nanosheet arrays on carbon cloth",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "identityLink": {"canonicalId": null, "status": "derived-material-only", "joinRule": "Requires an exact precursor identifier before any structure-level registry join."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "electrolysis cell", "electrolyte": null, "potentialVsRheV": -1.1, "currentMode": "constant-potential", "durationH": null, "missingFields": ["electrolyte", "duration", "catalyst loading", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": "=", "value": 98, "unit": "%", "condition": {"potentialVsRheV": -1.1}, "status": "source-extracted", "sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "sourceLocation": "publisher abstract"},
+        {"id": "partial-current-formate", "metric": "partial_current_density", "product": "formate", "operator": "=", "value": 45, "unit": "mA cm-2", "condition": {"potentialVsRheV": -1.1}, "status": "source-extracted", "sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "sourceLocation": "publisher abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "The reported electrocatalyst is a MOF-derived bismuth nanosheet array rather than the pristine precursor framework.", "preReaction": ["Bi-based MOF precursor on carbon cloth."], "inSitu": [], "postReaction": [], "computational": [], "intermediateEvidence": [], "activePhaseBoundary": "Use Bi/CC-17 as a derived-material identity; do not transfer its metrics to the precursor MOF."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Electrolyte, duration, loading basis, and quantification details are incomplete in the verified fields.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.catalystName": {"sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.partial-current-formate": {"sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-BICC17-2021", "doi": "10.1002/celc.202001613", "doiUrl": "https://doi.org/10.1002/celc.202001613", "sourceUrl": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/celc.202001613", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-cau17-leafy-bi-formate-2020",
+      "sourceId": "CAT-LIT-CAU17-2020",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "CAU-17-derived leafy bismuth nanosheets",
+        "precursorMofName": "CAU-17",
+        "activeMaterial": "leafy bismuth nanosheets with Bi/Bi-O interface",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "identityLink": {"canonicalId": null, "status": "derived-material-only", "joinRule": "Any registry link must identify CAU-17 as precursor only; performance belongs to the derived Bi/Bi-O material."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formic acid/formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "flow cell", "electrolyte": "1 M KHCO3 or KOH (reported as separate operating media)", "potentialVsRheV": null, "currentMode": "high-current flow operation", "durationH": 10, "missingFields": ["exact potential for each reported bound", "catalyst loading", "gas flow rate", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "total-current-density", "metric": "total_current_density", "product": null, "operator": ">", "value": 200, "unit": "mA cm-2", "condition": {"cellType": "flow cell"}, "status": "source-reported-range", "sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract"},
+        {"id": "fe-formic-acid-khco3", "metric": "faradaic_efficiency", "product": "formic acid/formate", "operator": ">", "value": 85, "unit": "%", "condition": {"electrolyte": "1 M KHCO3", "cellType": "flow cell"}, "status": "source-reported-range", "sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract"},
+        {"id": "fe-formic-acid-koh", "metric": "faradaic_efficiency", "product": "formic acid/formate", "operator": ">", "value": 90, "unit": "%", "condition": {"electrolyte": "KOH", "cellType": "flow cell"}, "status": "source-reported-range", "sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract"},
+        {"id": "stability-duration", "metric": "stability_duration", "product": "formic acid/formate", "operator": ">=", "value": 10, "unit": "h", "condition": {"totalCurrentDensity": ">200 mA cm-2"}, "status": "source-reported-range", "sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "MOF conversion yields leafy Bi nanosheets with a hybrid Bi/Bi-O interface associated with activity.", "preReaction": ["CAU-17 is the reported precursor."], "inSitu": [], "postReaction": ["Hybrid Bi/Bi-O interface is reported for the derived material."], "computational": [], "intermediateEvidence": [], "activePhaseBoundary": "Performance metrics belong to the derived Bi/Bi-O nanosheets, not pristine CAU-17."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "The source reports bounds across different electrolytes without a complete shared condition tuple.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.precursorMofName": {"sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "identity.activeMaterial": {"sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.total-current-density": {"sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "sourceLocation": "publisher abstract", "curationStatus": "source-reported-range"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-CAU17-2020", "doi": "10.1002/aenm.202001709", "doiUrl": "https://doi.org/10.1002/aenm.202001709", "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-bibtb-restructured-bi-formate-2020",
+      "sourceId": "CAT-LIT-BIBTB-2020",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "restructured Bi(btb)-derived bismuth electrocatalyst",
+        "precursorMofName": "Bi(btb)",
+        "activeMaterial": "Bi nanoparticles in a porous organic matrix",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "identityLink": {"canonicalId": null, "status": "derived-material-only", "joinRule": "Bi(btb) may be linked only as the precursor after an exact structure identifier is verified."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": null, "electrolyte": null, "potentialVsRheV": null, "currentMode": null, "durationH": null, "missingFields": ["cell type", "electrolyte", "potential", "duration", "catalyst loading basis", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": "=", "value": 95, "uncertainty": 3, "unit": "%", "condition": {}, "status": "source-extracted", "sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "sourceLocation": "institutional repository abstract"},
+        {"id": "mass-activity", "metric": "mass_activity", "product": "formate", "operator": "=", "value": 261, "uncertainty": 13, "unit": "A g-1", "condition": {}, "status": "source-extracted", "sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "sourceLocation": "institutional repository abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "The Bi(btb) precatalyst restructures to Bi nanoparticles embedded in a porous organic matrix.", "preReaction": ["Bi(btb) is the reported precatalyst."], "inSitu": [], "postReaction": ["Structural rearrangement to Bi nanoparticles in a porous organic matrix is reported."], "computational": [], "intermediateEvidence": [], "activePhaseBoundary": "Use the restructured Bi nanoparticle material as the catalytic identity; pristine Bi(btb) is a precatalyst."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "browse-only", "reason": "Detailed electrochemical conditions were not available in the verified institutional abstract fields.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.activeMaterial": {"sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "sourceLocation": "institutional repository abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "sourceLocation": "institutional repository abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.mass-activity": {"sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "sourceLocation": "institutional repository abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-BIBTB-2020", "doi": "10.1002/adfm.201910408", "doiUrl": "https://doi.org/10.1002/adfm.201910408", "sourceUrl": "https://pure.au.dk/portal/da/publications/restructuring-metalorganic-frameworks-to-nanoscale-bismuth-electr", "verificationStatus": "doi-and-institutional-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-zr-dmbd-bi-np-formate-2025",
+      "sourceId": "CAT-LIT-ZRDMBDBI-2025",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "BiNP@Zr-DMBD",
+        "precursorMofName": "Zr-DMBD",
+        "activeMaterial": "approximately 4.0 nm Bi nanoparticles confined in thiol-laced Zr-DMBD",
+        "metalCenters": ["Bi", "Zr"],
+        "frameworkFamily": "Bi nanoparticle@Zr-MOF composite",
+        "identityLink": {"canonicalId": null, "status": "literature-only-unresolved", "joinRule": "Requires exact Zr-DMBD structure identity; composite performance remains a separate catalyst record."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "flow cell", "electrolyte": null, "potentialVsRheV": null, "currentMode": "constant-current", "durationH": null, "appliedCurrentDensity": -25, "appliedCurrentDensityUnit": "mA cm-2", "missingFields": ["flow-cell electrolyte", "duration", "catalyst loading", "gas flow rate"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": ">", "value": 88.1, "unit": "%", "condition": {"cellType": "flow cell", "appliedCurrentDensity": -25, "appliedCurrentDensityUnit": "mA cm-2"}, "status": "source-reported-range", "sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "sourceLocation": "publisher full text"},
+        {"id": "partial-current-formate", "metric": "partial_current_density", "product": "formate", "operator": ">", "value": 22, "unit": "mA cm-2", "condition": {"cellType": "flow cell", "appliedCurrentDensity": -25, "appliedCurrentDensityUnit": "mA cm-2"}, "status": "source-reported-range", "sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "sourceLocation": "publisher full text"}
+      ],
+      "activePhaseEvidence": {"claim": "Thiol-laced Zr-DMBD confines Bi nanoparticles while post-catalysis characterization indicates partial surface decomposition and retained bulk stabilization.", "preReaction": ["Approximately 4.0 nm Bi nanoparticles are reported within Zr-DMBD."], "inSitu": [], "postReaction": ["Post-catalysis Raman and XPS are reported.", "Surface partial decomposition is distinguished from bulk nanoparticle stabilization."], "computational": [], "intermediateEvidence": [], "activePhaseBoundary": "The composite and its post-reaction surface state must remain distinct from pristine Zr-DMBD."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Current setting is known, but electrolyte, loading, gas flow, and duration are incomplete.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.activeMaterial": {"sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "sourceLocation": "publisher full text", "curationStatus": "source-reported-range"},
+        "activePhaseEvidence.postReaction": {"sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-ZRDMBDBI-2025", "doi": "10.1039/D4MH01153H", "doiUrl": "https://doi.org/10.1039/D4MH01153H", "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-bi-hhtp-formate-2023",
+      "sourceId": "CAT-LIT-BIHHTP-2023",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "Bi-HHTP",
+        "precursorMofName": "Bi-HHTP",
+        "activeMaterial": "conductive catecholate framework with unsaturated Bi sites",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "conductive Bi-MOF",
+        "identityLink": {"canonicalId": null, "status": "literature-only-unresolved", "joinRule": "Requires exact structure identity before joining mof_identity_registry."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "flow cell", "electrolyte": "1 M KOH", "potentialVsRheV": null, "currentMode": "constant-potential", "durationH": 30, "missingFields": ["catalyst loading basis", "gas flow rate", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": ">", "value": 95, "unit": "%", "condition": {"potentialVsRheV": -0.7, "electrolyte": "1 M KOH", "cellType": "flow cell"}, "status": "source-reported-range", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"},
+        {"id": "carbon-energy-efficiency", "metric": "carbon_energy_efficiency", "product": "formate", "operator": "=", "value": 68.8, "unit": "%", "condition": {"potentialVsRheV": -0.7, "electrolyte": "1 M KOH", "cellType": "flow cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"},
+        {"id": "total-current-density", "metric": "total_current_density", "product": null, "operator": "=", "value": 93, "unit": "mA cm-2", "condition": {"potentialVsRheV": -1.1, "electrolyte": "1 M KOH", "cellType": "flow cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"},
+        {"id": "tof-formate", "metric": "turnover_frequency", "product": "formate", "operator": "=", "value": 576, "unit": "h-1", "condition": {"cellType": "flow cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"},
+        {"id": "conductivity", "metric": "electrical_conductivity", "product": null, "operator": "=", "value": 1.65, "unit": "S m-1", "condition": {}, "status": "source-extracted", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"},
+        {"id": "stability-duration", "metric": "stability_duration", "product": "formate", "operator": "=", "value": 30, "unit": "h", "condition": {"cellType": "flow cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text"}
+      ],
+      "activePhaseEvidence": {"claim": "Unsaturated Bi sites in conductive Bi-HHTP are proposed as active centers for a COOH-mediated formate route.", "preReaction": ["Conductive Bi-HHTP framework is reported with unsaturated Bi coordination."], "inSitu": ["ATR-FTIR reports a COOH intermediate signal."], "postReaction": ["The source reports structural stability after catalysis."], "computational": ["DFT reports a 0.897 eV rate-determining barrier and a 1.2 eV HER barrier."], "intermediateEvidence": ["COOH"], "activePhaseBoundary": "The unsaturated-Bi assignment is evidence-supported but remains tied to the reported operando/computational interpretation."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Multiple metrics are reported under different potentials; loading and gas-flow bases are incomplete.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.catalystName": {"sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"},
+        "conditions.electrolyte": {"sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text", "curationStatus": "source-reported-range"},
+        "activePhaseEvidence.inSitu": {"sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-BIHHTP-2023", "doi": "10.1039/D3SC01876H", "doiUrl": "https://doi.org/10.1039/D3SC01876H", "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-su101-formate-2022",
+      "sourceId": "CAT-LIT-SU101-2022",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "SU-101 nanorods",
+        "precursorMofName": "SU-101",
+        "activeMaterial": "hexacoordinated Bi3+-ellagate MOF nanorods",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "Bi-ellagate MOF",
+        "identityLink": {"canonicalId": null, "status": "literature-only-unresolved", "joinRule": "Requires exact structure identity before joining mof_identity_registry."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "H-type cell", "electrolyte": "0.5 M KHCO3", "potentialVsRheV": null, "currentMode": "constant-potential", "durationH": 10, "missingFields": ["catalyst loading basis", "gas flow rate", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": "=", "value": 93.66, "unit": "%", "condition": {"potentialVsRheV": -1.1, "electrolyte": "0.5 M KHCO3", "cellType": "H-type cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher abstract and full text"},
+        {"id": "partial-current-formate", "metric": "partial_current_density", "product": "formate", "operator": "=", "value": 14.57, "unit": "mA cm-2", "condition": {"potentialVsRheV": -1.26, "electrolyte": "0.5 M KHCO3", "cellType": "H-type cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher full text"},
+        {"id": "fe-after-stability", "metric": "faradaic_efficiency_after_stability", "product": "formate", "operator": ">", "value": 87.51, "unit": "%", "condition": {"durationH": 10, "electrolyte": "0.5 M KHCO3", "cellType": "H-type cell"}, "status": "source-reported-range", "sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "SU-101 nanorods are reported as the electrocatalyst; DFT supports formate selectivity relative to HER.", "preReaction": ["Hexacoordinated Bi3+-ellagate MOF nanorods."], "inSitu": [], "postReaction": [], "computational": ["Reported rate-determining barrier: 0.87 eV.", "Reported HER barrier: 2.13 eV."], "intermediateEvidence": [], "activePhaseBoundary": "The accessible evidence supports a framework-level catalyst assignment but does not replace operando active-phase verification."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Loading, gas flow, and quantification details are incomplete; peak FE and peak partial current occur at different potentials.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.catalystName": {"sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "conditions.electrolyte": {"sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher abstract and full text", "curationStatus": "source-extracted"},
+        "activePhaseEvidence.computational": {"sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "sourceLocation": "publisher full text", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-SU101-2022", "doi": "10.1039/D2TA01727J", "doiUrl": "https://doi.org/10.1039/D2TA01727J", "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-cubi-derived-formate-2021",
+      "sourceId": "CAT-LIT-CUBI-2021",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "MOF-derived CuBi catalyst",
+        "precursorMofName": "CuBi-MOF",
+        "activeMaterial": "rod-like CuBi catalyst with Bi2CuO4 interface",
+        "metalCenters": ["Cu", "Bi"],
+        "frameworkFamily": "bimetallic MOF-derived catalyst",
+        "identityLink": {"canonicalId": null, "status": "derived-material-only", "joinRule": "Requires exact CuBi-MOF precursor identity; performance belongs to the carbonized and oxidized derived catalyst."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "H-type cell", "electrolyte": null, "potentialVsRheV": -0.77, "currentMode": "constant-potential", "durationH": null, "synthesis": "CuBi-MOF carbonized at 600 C under Ar, then oxidized at 350 C in air", "missingFields": ["electrolyte", "duration", "catalyst loading", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formate", "metric": "faradaic_efficiency", "product": "formate", "operator": "=", "value": 100, "unit": "%", "condition": {"potentialVsRheV": -0.77, "cellType": "H-type cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract"},
+        {"id": "potential-window", "metric": "selective_potential_window", "product": "formate", "operator": "=", "value": 900, "unit": "mV", "condition": {"cellType": "H-type cell"}, "status": "source-extracted", "sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "A Bi2CuO4 interfacial structure is associated with the MOF-derived catalyst and an HCOO-mediated pathway.", "preReaction": ["CuBi-MOF is the reported precursor."], "inSitu": ["In situ FT-IR supports an HCOO intermediate pathway."], "postReaction": ["Bi2CuO4 interface is reported in the derived catalyst."], "computational": ["DFT supports the HCOO pathway interpretation."], "intermediateEvidence": ["HCOO"], "activePhaseBoundary": "The catalytic record belongs to the derived CuBi/Bi2CuO4 material, not pristine CuBi-MOF."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Electrolyte, duration, loading, and quantification details are incomplete in the verified fields.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.activeMaterial": {"sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "conditions.synthesis": {"sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formate": {"sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "activePhaseEvidence.inSitu": {"sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-CUBI-2021", "doi": "10.1016/j.apcatb.2021.120571", "doiUrl": "https://doi.org/10.1016/j.apcatb.2021.120571", "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0926337321006974", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    },
+    {
+      "id": "catrxn-v1-2d-bi-mof-formate-2020",
+      "sourceId": "CAT-LIT-2DBIMOF-2020",
+      "dataMode": "literature-curated",
+      "recordType": "electrocatalytic-co2rr",
+      "identity": {
+        "catalystName": "two-dimensional Bi-MOF",
+        "precursorMofName": "two-dimensional Bi-MOF",
+        "activeMaterial": "two-dimensional porous Bi-MOF electrocatalyst",
+        "metalCenters": ["Bi"],
+        "frameworkFamily": "two-dimensional Bi-MOF",
+        "identityLink": {"canonicalId": null, "status": "literature-only-unresolved", "joinRule": "Requires exact structure identity before joining mof_identity_registry."}
+      },
+      "reaction": {"family": "CO2 electroreduction", "substrate": "CO2", "targetProduct": "formic acid/formate", "reactionMode": "electrocatalysis"},
+      "conditions": {"cellType": "electrolysis cell", "electrolyte": null, "potentialVsRheV": null, "currentMode": "constant-potential", "durationH": 30, "missingFields": ["electrolyte", "cell architecture", "catalyst loading basis", "product quantification protocol"]},
+      "performanceMetrics": [
+        {"id": "fe-formic-acid", "metric": "faradaic_efficiency", "product": "formic acid/formate", "operator": "=", "value": 92.2, "unit": "%", "condition": {"potentialVsRheVApprox": -0.9}, "status": "source-extracted", "sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract"},
+        {"id": "mass-specific-partial-current", "metric": "mass_specific_partial_current_density", "product": "formic acid/formate", "operator": "=", "value": 41, "unit": "mA mgBi-1", "condition": {"potentialVsRheVApprox": -1.1}, "status": "source-extracted", "sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract"},
+        {"id": "stability-duration", "metric": "stability_duration", "product": "formic acid/formate", "operator": "=", "value": 30, "unit": "h", "condition": {}, "status": "source-extracted", "sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract"}
+      ],
+      "activePhaseEvidence": {"claim": "The source reports a highly stable two-dimensional porous Bi-MOF electrocatalyst.", "preReaction": ["Two-dimensional Bi-MOF with permanent porosity."], "inSitu": [], "postReaction": ["Thirty-hour catalytic stability is reported."], "computational": [], "intermediateEvidence": [], "activePhaseBoundary": "No stronger active-site claim is stored without additional operando or post-reaction structural evidence."},
+      "comparability": {"normalizationReady": false, "sameConditionComparable": false, "comparabilityClass": "condition-partial", "reason": "Electrolyte, cell architecture, loading basis, and quantification details are incomplete; potentials are reported approximately.", "doNotUseAsPerformanceRanking": true},
+      "fieldSources": {
+        "identity.catalystName": {"sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.fe-formic-acid": {"sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"},
+        "performanceMetrics.mass-specific-partial-current": {"sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "sourceLocation": "publisher abstract", "curationStatus": "source-extracted"}
+      },
+      "recordProvenance": {"sourceId": "CAT-LIT-2DBIMOF-2020", "doi": "10.1016/j.apcatb.2020.119241", "doiUrl": "https://doi.org/10.1016/j.apcatb.2020.119241", "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561", "verificationStatus": "doi-and-publisher-page-verified", "checkedAt": "2026-08-08"}
+    }
+  ],
+  "audit": {
+    "sourceCount": 10,
+    "recordCount": 10,
+    "doiVerifiedSourceCount": 10,
+    "identityRegistryLinkedCount": 0,
+    "sameConditionRankingEligibleCount": 0,
+    "recordsWithExplicitNotExtractedMetrics": 2,
+    "qualityDecision": "usable-for-source-backed-curation-with-comparability-caveats",
+    "qualityDecisionZh": "可用于有来源支持的文献整理，但必须保留条件可比性边界。",
+    "requiredNextStep": "Verify exact structure identifiers and complete same-condition operating metadata before identity joins or quantitative ranking.",
+    "requiredNextStepZh": "建立身份连接或定量排名前，必须核验精确结构标识，并补齐同条件运行元数据。"
+  }
+}
