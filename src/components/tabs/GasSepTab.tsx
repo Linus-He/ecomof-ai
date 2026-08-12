@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { GearSix, Play } from "@phosphor-icons/react"
 import {
   BasisBadge,
   Callout,
@@ -38,6 +39,7 @@ import {
   useLang,
   useT,
   useViewport,
+  DataHostingNotice,
 } from "../../shared"
 import {
   getEvidenceScore,
@@ -450,18 +452,19 @@ function surfaceStyle(t, extra = {}) {
   }
 }
 
-function FormField({ label, children, t }) {
+function FormField({ label, children, t, className = "" }) {
   return (
-    <label style={{ display: "grid", gap: 6, minWidth: 0 }}>
+    <label className={className} style={{ display: "grid", gap: 6, minWidth: 0 }}>
       <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 850, textTransform: "uppercase" }}>{label}</span>
       {children}
     </label>
   )
 }
-function SelectControl({ value, onChange, children, t, ariaLabel }) {
+function SelectControl({ value, onChange, children, t, ariaLabel, className = "" }) {
   return (
     <select
       aria-label={ariaLabel}
+      className={className}
       value={value}
       onChange={event => onChange(event.target.value)}
       style={{
@@ -481,21 +484,20 @@ function SelectControl({ value, onChange, children, t, ariaLabel }) {
   )
 }
 
-function NumberControl({ value, min, max, step, onChange, t, suffix }) {
+function NumberControl({ value, min, max, step, onChange, t, suffix, ariaLabel }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 78px", gap: 8, alignItems: "center" }}>
+    <div className="gassep-scenario-number-control" style={{ background: t.glassStrong, borderColor: t.border }}>
       <input
-        type="range"
+        aria-label={ariaLabel}
+        type="number"
         min={min}
         max={max}
         step={step}
         value={value}
         onChange={event => onChange(Number(event.target.value))}
-        style={{ width: "100%" }}
+        style={{ color: t.textStrong }}
       />
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, color: t.textStrong, fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, padding: "8px 9px", textAlign: "center" }}>
-        {value} {suffix}
-      </div>
+      <span style={{ color: t.muted }}>{suffix}</span>
     </div>
   )
 }
@@ -571,6 +573,7 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
   const activeScenario = scenarioFor(scenario.gasPair)
   const parsedRatio = parseMixtureRatio(scenario.mixtureRatio)
   const showLegacyPriority = (scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD) === "legacy-gasscore"
+  const [advancedOpen, setAdvancedOpen] = useState(false)
   const updateGasPair = gasPair => {
     const next = scenarioFor(gasPair)
     setScenario(prev => ({
@@ -582,94 +585,132 @@ function ScenarioBuilder({ scenario, setScenario, t, lang, isMobile, isNarrow })
   }
 
   return (
-    <section style={cardStyle(t)}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 12 }}>
-        <div>
-          <SectionTitle>{text(lang, "气体分离场景构建器", "Gas Separation Scenario Builder")}</SectionTitle>
-          <div style={{ color: t.faint, fontSize: 11.5, lineHeight: 1.55, marginTop: 5 }}>
-            {text(
-              lang,
-              "气体对与排序方法会更新全部视图；压力窗口可重算工作容量。只有存在同温双组分纯气等温线时，进料比例与总压才会触发当前材料的 IAST 情景重算。",
-              "Gas pair and ranking method update all views; the pressure window can recompute working capacity. Feed ratio and total pressure trigger selected-material IAST recalculation only when temperature-matched pure-component isotherms exist.",
-            )}
-          </div>
-        </div>
-        <BasisBadge tone="calc">{text(lang, `${SCENARIOS.length} 个可切换场景`, `${SCENARIOS.length} scenarios`)}</BasisBadge>
+    <section
+      aria-label={text(lang, "气体分离场景构建器", "Gas Separation Scenario Builder")}
+      className="gassep-scenario-capsule"
+      data-layout={isMobile ? "mobile" : isNarrow ? "compact" : "desktop"}
+      data-testid="gassep-scenario-builder"
+      style={{
+        "--gassep-capsule-panel": t.glass,
+        "--gassep-capsule-surface": t.glassStrong,
+        "--gassep-capsule-border": t.border,
+        "--gassep-capsule-border-strong": t.borderStrong,
+        "--gassep-capsule-text": t.text,
+        "--gassep-capsule-text-strong": t.textStrong,
+        "--gassep-capsule-muted": t.faint,
+        "--gassep-capsule-accent": t.info,
+        "--gassep-capsule-accent-soft": t.badgeInfoBg,
+        "--gassep-capsule-accent-text": t.badgeInfoText,
+        "--gassep-capsule-shadow": t.shadowMd,
+      }}
+    >
+      <div className="gassep-scenario-identity">
+        <span>{text(lang, "气体分离", "Gas separation")}</span>
+        <strong>{text(lang, "场景构建", "Scenario builder")}</strong>
+        <small>{text(lang, `${SCENARIOS.length} 个场景`, `${SCENARIOS.length} scenarios`)}</small>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isNarrow ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))", gap: 11 }}>
-        <FormField label={text(lang, "气体对", "Gas pair")} t={t}>
-          <SelectControl value={scenario.gasPair} onChange={updateGasPair} t={t} ariaLabel="gas pair">
+
+      <div className="gassep-scenario-primary-controls">
+        <FormField className="gassep-scenario-field gassep-scenario-field-pair" label={text(lang, "气体对", "Gas pair")} t={t}>
+          <SelectControl className="gassep-scenario-control" value={scenario.gasPair} onChange={updateGasPair} t={t} ariaLabel="gas pair">
             {SCENARIOS.map(item => <option key={item.gasPair} value={item.gasPair}>{text(lang, item.labelZh, item.labelEn)}</option>)}
           </SelectControl>
         </FormField>
-        <FormField label={text(lang, "排序方法", "Ranking method")} t={t}>
-          <SelectControl value={scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD} onChange={value => setScenario(prev => ({ ...prev, rankingMethod: value }))} t={t} ariaLabel="ranking method">
+        <FormField className="gassep-scenario-field gassep-scenario-field-ranking" label={text(lang, "排序方法", "Ranking method")} t={t}>
+          <SelectControl className="gassep-scenario-control" value={scenario.rankingMethod || DEFAULT_GAS_RANKING_METHOD} onChange={value => setScenario(prev => ({ ...prev, rankingMethod: value }))} t={t} ariaLabel="ranking method">
             {GAS_RANKING_METHODS.map(method => <option key={method.id} value={method.id}>{text(lang, method.labelZh, method.label)}</option>)}
           </SelectControl>
         </FormField>
-        <FormField label={text(lang, "应用场景", "Application scenario")} t={t}>
-          <SelectControl value={scenario.applicationScenario} onChange={value => setScenario(prev => ({ ...prev, applicationScenario: value }))} t={t} ariaLabel="application scenario">
-            {SCENARIOS.map(item => <option key={item.applicationScenario} value={item.applicationScenario}>{item.applicationScenario}</option>)}
-          </SelectControl>
+        <FormField className="gassep-scenario-field" label={text(lang, "温度", "Temperature")} t={t}>
+          <NumberControl ariaLabel={text(lang, "温度", "temperature")} value={scenario.temperatureK} min={273} max={373} step={1} onChange={value => setScenario(prev => ({ ...prev, temperatureK: value }))} t={t} suffix="K" />
         </FormField>
-        {showLegacyPriority ? (
-          <FormField label={text(lang, "历史 GasScore 优先级", "Legacy GasScore priority")} t={t}>
-            <SelectControl value={scenario.targetPriority} onChange={value => setScenario(prev => ({ ...prev, targetPriority: value }))} t={t} ariaLabel="target priority">
-              {PRIORITIES.map(item => <option key={item} value={item}>{item}</option>)}
-            </SelectControl>
-          </FormField>
-        ) : null}
-        <FormField label={text(lang, "温度 K", "Temperature K")} t={t}>
-          <NumberControl value={scenario.temperatureK} min={273} max={373} step={1} onChange={value => setScenario(prev => ({ ...prev, temperatureK: value }))} t={t} suffix="K" />
+        <FormField className="gassep-scenario-field" label={text(lang, "吸附压", "Adsorption P")} t={t}>
+          <NumberControl ariaLabel={text(lang, "吸附压力", "adsorption pressure")} value={scenario.adsorptionPressureBar ?? scenario.pressureBar} min={0.1} max={20} step={0.1} onChange={value => setScenario(prev => ({ ...prev, pressureBar: value, adsorptionPressureBar: value }))} t={t} suffix="bar" />
         </FormField>
-        <FormField label={text(lang, "吸附压 bar", "Adsorption pressure bar")} t={t}>
-          <NumberControl value={scenario.adsorptionPressureBar ?? scenario.pressureBar} min={0.1} max={20} step={0.1} onChange={value => setScenario(prev => ({ ...prev, pressureBar: value, adsorptionPressureBar: value }))} t={t} suffix="bar" />
+        <FormField className="gassep-scenario-field" label={text(lang, "脱附压", "Desorption P")} t={t}>
+          <NumberControl ariaLabel={text(lang, "脱附压力", "desorption pressure")} value={scenario.desorptionPressureBar ?? 0.15} min={0.01} max={5} step={0.01} onChange={value => setScenario(prev => ({ ...prev, desorptionPressureBar: value }))} t={t} suffix="bar" />
         </FormField>
-        <FormField label={text(lang, "脱附压 bar", "Desorption pressure bar")} t={t}>
-          <NumberControl value={scenario.desorptionPressureBar ?? 0.15} min={0.01} max={5} step={0.01} onChange={value => setScenario(prev => ({ ...prev, desorptionPressureBar: value }))} t={t} suffix="bar" />
-        </FormField>
-        <FormField label={text(lang, "混合比例", "Mixture ratio")} t={t}>
-          <div style={{ display: "grid", gap: 7 }}>
+        <FormField className="gassep-scenario-field" label={text(lang, "混合比例", "Mixture ratio")} t={t}>
+          <div style={{ display: "grid", gap: 6 }}>
             <input
               aria-invalid={!parsedRatio}
               aria-label={text(lang, "混合比例", "mixture ratio")}
+              className="gassep-scenario-control gassep-scenario-ratio-input"
               value={scenario.mixtureRatio}
               onChange={event => setScenario(prev => ({ ...prev, mixtureRatio: event.target.value }))}
-              style={{ minHeight: 38, width: "100%", boxSizing: "border-box", background: t.surface, border: `1px solid ${parsedRatio ? t.border : t.warn}`, borderRadius: 8, color: t.text, fontSize: 12, padding: "8px 10px", outline: "none" }}
+              style={{ background: t.glassStrong, borderColor: parsedRatio ? t.border : t.warn, color: t.text }}
             />
-            <div style={{ display: "grid", gap: 5, gridTemplateColumns: isMobile ? "repeat(3, minmax(0, 1fr))" : "repeat(auto-fit, minmax(64px, max-content))" }}>
-              {(activeScenario.ratioPresets || [activeScenario.defaultRatio]).map(ratio => (
-                <button
-                  key={ratio}
-                  type="button"
-                  onClick={() => setScenario(prev => ({ ...prev, mixtureRatio: ratio }))}
-                  style={{
-                    background: scenario.mixtureRatio === ratio ? t.badgeInfoBg : t.surface,
-                    border: `1px solid ${scenario.mixtureRatio === ratio ? t.accent : t.border}`,
-                    borderRadius: 6,
-                    color: scenario.mixtureRatio === ratio ? t.accentText : t.muted,
-                    cursor: "pointer",
-                    fontFamily: SCIENTIFIC_TOKEN_FONT,
-                    fontSize: 10.5,
-                    fontWeight: 820,
-                    minHeight: 30,
-                    padding: "4px 7px",
-                    textAlign: "center",
-                    width: "100%",
-                  }}
-                >
-                  {ratio}
-                </button>
-              ))}
-            </div>
             {!parsedRatio ? (
-              <span style={{ color: t.warn, fontSize: 10.3, lineHeight: 1.4 }}>
+              <span className="gassep-scenario-error" style={{ color: t.warn }}>
                 {text(lang, "请使用 A/B 格式并保证两者均大于 0。", "Use A/B format with both values above zero.")}
               </span>
             ) : null}
           </div>
         </FormField>
       </div>
+
+      <button
+        aria-label={text(lang, "更新当前场景计算", "Update current scenario calculation")}
+        className="gassep-scenario-update"
+        onClick={() => setScenario(prev => ({ ...prev }))}
+        type="button"
+      >
+        <span>{text(lang, "更新计算", "Update")}</span>
+        <Play aria-hidden="true" size={15} weight="fill" />
+      </button>
+
+      <button
+        aria-expanded={advancedOpen}
+        aria-label={text(lang, advancedOpen ? "收起更多场景设置" : "展开更多场景设置", advancedOpen ? "Collapse scenario settings" : "Expand scenario settings")}
+        className="gassep-scenario-settings"
+        onClick={() => setAdvancedOpen(open => !open)}
+        type="button"
+      >
+        <GearSix aria-hidden="true" size={18} weight={advancedOpen ? "fill" : "bold"} />
+      </button>
+
+      {advancedOpen ? (
+        <div className="gassep-scenario-advanced" data-testid="gassep-scenario-advanced">
+          <div className="gassep-scenario-advanced-copy">
+            <strong>{text(lang, "情景细节", "Scenario details")}</strong>
+            <span>
+              {text(
+                lang,
+                "气体对与排序方法会更新全部视图；只有存在同温双组分纯气等温线时，进料比例与总压才会触发当前材料的 IAST 情景重算。",
+                "Gas pair and ranking method update all views. Feed ratio and total pressure trigger selected-material IAST recalculation only when temperature-matched pure-component isotherms exist.",
+              )}
+            </span>
+          </div>
+          <FormField className="gassep-scenario-field" label={text(lang, "应用场景", "Application scenario")} t={t}>
+            <SelectControl className="gassep-scenario-control" value={scenario.applicationScenario} onChange={value => setScenario(prev => ({ ...prev, applicationScenario: value }))} t={t} ariaLabel="application scenario">
+              {SCENARIOS.map(item => <option key={item.applicationScenario} value={item.applicationScenario}>{item.applicationScenario}</option>)}
+            </SelectControl>
+          </FormField>
+          {showLegacyPriority ? (
+            <FormField className="gassep-scenario-field" label={text(lang, "历史 GasScore 优先级", "Legacy GasScore priority")} t={t}>
+              <SelectControl className="gassep-scenario-control" value={scenario.targetPriority} onChange={value => setScenario(prev => ({ ...prev, targetPriority: value }))} t={t} ariaLabel="target priority">
+                {PRIORITIES.map(item => <option key={item} value={item}>{item}</option>)}
+              </SelectControl>
+            </FormField>
+          ) : null}
+          <div className="gassep-scenario-presets">
+            <span>{text(lang, "比例预设", "Ratio presets")}</span>
+            <div>
+              {(activeScenario.ratioPresets || [activeScenario.defaultRatio]).map(ratio => (
+                <button
+                  aria-pressed={scenario.mixtureRatio === ratio}
+                  key={ratio}
+                  type="button"
+                  onClick={() => setScenario(prev => ({ ...prev, mixtureRatio: ratio }))}
+                  style={{ background: scenario.mixtureRatio === ratio ? t.badgeInfoBg : t.glassStrong, borderColor: scenario.mixtureRatio === ratio ? t.info : t.border, color: scenario.mixtureRatio === ratio ? t.badgeInfoText : t.muted }}
+                >
+                  {ratio}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }
@@ -2246,6 +2287,8 @@ export function GasSepTab({ onNavigate }) {
         meta={text(lang, "场景构建 · 双等温线 · 热力学解释 · 证据链", "scenario builder · paired isotherms · thermodynamic interpretation · evidence chain")}
         action={<CopyLinkButton hash="gassep" ariaLabel={text(lang, "复制 GasSep 链接", "Copy GasSep link")} />}
       />
+
+      <DataHostingNotice lang={lang} placement="gassep" />
 
       {status === "loading" ? <Callout tone="info">{text(lang, "正在加载 GasSep 数据…", "Loading GasSep data...")}</Callout> : null}
       {status === "error" ? <Callout tone="warn">{text(lang, "GasSep 数据加载失败。", "GasSep data could not be loaded.")}</Callout> : null}

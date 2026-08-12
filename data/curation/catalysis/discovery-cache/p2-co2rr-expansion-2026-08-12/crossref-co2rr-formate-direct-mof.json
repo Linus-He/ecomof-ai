@@ -1,0 +1,3299 @@
+{
+  "schemaVersion": "catalysis-discovery-cache-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "adapter": "crossref",
+  "familyId": "co2rr-formate-direct-mof",
+  "retrievedAt": "2026-08-12T12:21:49.981Z",
+  "request": {
+    "endpoint": "https://api.crossref.org/v1/works",
+    "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+    "filter": "type:journal-article",
+    "rows": 25,
+    "select": "DOI,title,author,container-title,published,type,URL,license",
+    "accessMode": "public"
+  },
+  "response": {
+    "status": "ok",
+    "messageType": "work-list",
+    "totalResults": 3714588,
+    "items": [
+      {
+        "DOI": "10.1016/j.mtcomm.2024.110419",
+        "title": [
+          "Green synthesis of Cu-based metal organic framework for electrochemical CO2 conversion into formic acid"
+        ],
+        "author": [
+          {
+            "given": "Takumi",
+            "family": "Nagasaka",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Keerthiga",
+            "family": "Gopalram",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kartikeya",
+            "family": "Shukla",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Materials Today Communications"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              12
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.mtcomm.2024.110419",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2024-12-01T00:00:00Z",
+              "timestamp": 1733011200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.mattod.2024.05.002",
+        "title": [
+          "Catalyst design and reactor engineering for electrochemical CO2 reduction to formate and formic acid"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-0163-4780",
+            "authenticated-orcid": false,
+            "given": "Rosalynn",
+            "family": "Nankya",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1453-4938",
+            "authenticated-orcid": false,
+            "given": "Ahmad",
+            "family": "Elgazzar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Peng",
+            "family": "Zhu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-3113-383X",
+            "authenticated-orcid": false,
+            "given": "Feng-Yang",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-3552-8978",
+            "authenticated-orcid": false,
+            "given": "Haotian",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Materials Today"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              7
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.mattod.2024.05.002",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  7,
+                  10
+                ]
+              ],
+              "date-time": "2025-07-10T00:00:00Z",
+              "timestamp": 1752105600000
+            },
+            "content-version": "am",
+            "delay-in-days": 374,
+            "URL": "http://www.elsevier.com/open-access/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2024-07-01T00:00:00Z",
+              "timestamp": 1719792000000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.nanoms.2024.11.007",
+        "title": [
+          "Recent progress in bismuth-based materials for electrochemical CO2 reduction to formate/formic acid"
+        ],
+        "author": [
+          {
+            "given": "Xinrui",
+            "family": "Linghu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jun",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Liangliang",
+            "family": "Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tianshuai",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Nano Materials Science"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              8
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.nanoms.2024.11.007",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  8,
+                  1
+                ]
+              ],
+              "date-time": "2026-08-01T00:00:00Z",
+              "timestamp": 1785542400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  8,
+                  1
+                ]
+              ],
+              "date-time": "2026-08-01T00:00:00Z",
+              "timestamp": 1785542400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  11,
+                  30
+                ]
+              ],
+              "date-time": "2024-11-30T00:00:00Z",
+              "timestamp": 1732924800000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.surfin.2025.107576",
+        "title": [
+          "Electrochemical CO2 reduction: The role of catholyte-anolyte interactions in formate/formic acid production"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-4208-5749",
+            "authenticated-orcid": false,
+            "given": "Muhammad",
+            "family": "Arsalan",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Dina",
+            "family": "Ewis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Nafis",
+            "family": "Mahmud",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Zeyad M",
+            "family": "Ghazi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6164-1421",
+            "authenticated-orcid": false,
+            "given": "Muftah H.",
+            "family": "El-Naas",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Surfaces and Interfaces"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              9
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.surfin.2025.107576",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  9,
+                  1
+                ]
+              ],
+              "date-time": "2025-09-01T00:00:00Z",
+              "timestamp": 1756684800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  9,
+                  1
+                ]
+              ],
+              "date-time": "2025-09-01T00:00:00Z",
+              "timestamp": 1756684800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  8,
+                  30
+                ]
+              ],
+              "date-time": "2025-08-30T00:00:00Z",
+              "timestamp": 1756512000000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.3390/nano10122422",
+        "title": [
+          "Photons to Formate: A Review on Photocatalytic Reduction of CO2 to Formic Acid"
+        ],
+        "author": [
+          {
+            "given": "Hanqing",
+            "family": "Pan",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry, New Mexico Institute of Mining and Technology, Socorro, NM 87801, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Michael D.",
+            "family": "Heagy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry, New Mexico Institute of Mining and Technology, Socorro, NM 87801, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Nanomaterials"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              12,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.3390/nano10122422",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  12,
+                  4
+                ]
+              ],
+              "date-time": "2020-12-04T00:00:00Z",
+              "timestamp": 1607040000000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.scib.2025.08.001",
+        "title": [
+          "Electrokinetic insights into cation-coupled reaction pathways in electrochemical CO2 reduction to formic acid or formate"
+        ],
+        "author": [
+          {
+            "given": "Yuqing",
+            "family": "Luo",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Binbin",
+            "family": "Pan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xiaohan",
+            "family": "Yu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xue",
+            "family": "Ding",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xinmin",
+            "family": "Shi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yanguang",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Science Bulletin"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              1
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.scib.2025.08.001",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2026-01-01T00:00:00Z",
+              "timestamp": 1767225600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2026-01-01T00:00:00Z",
+              "timestamp": 1767225600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.3390/catal13071109",
+        "title": [
+          "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-5161-127X",
+            "authenticated-orcid": false,
+            "given": "Wen-Jun",
+            "family": "Xie",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory and Institute of Elemento-Organic Chemistry, College of Chemistry, Nankai University, Tianjin 300071, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Olga M.",
+            "family": "Mulina",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Zelinsky Institute of Organic Chemistry, Russian Academy of Sciences, 47 Leninsky Prospect, Moscow 119991, Russia"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-8018-031X",
+            "authenticated-orcid": false,
+            "given": "Alexander O.",
+            "family": "Terent’ev",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Zelinsky Institute of Organic Chemistry, Russian Academy of Sciences, 47 Leninsky Prospect, Moscow 119991, Russia"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6067-5937",
+            "authenticated-orcid": false,
+            "given": "Liang-Nian",
+            "family": "He",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory and Institute of Elemento-Organic Chemistry, College of Chemistry, Nankai University, Tianjin 300071, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Catalysts"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              15
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.3390/catal13071109",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  7,
+                  15
+                ]
+              ],
+              "date-time": "2023-07-15T00:00:00Z",
+              "timestamp": 1689379200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1039/c3cc00293d",
+        "title": [
+          "Catalytic chromium reduction using formic acid and metal nanoparticles immobilized in a metal–organic framework"
+        ],
+        "author": [
+          {
+            "given": "Mahendra",
+            "family": "Yadav",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Qiang",
+            "family": "Xu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Communications"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2013
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1039/c3cc00293d"
+      },
+      {
+        "DOI": "10.1016/j.cattod.2014.08.001",
+        "title": [
+          "Electrochemical CO2 reduction to formic acid on a Pd-based formic acid oxidation catalyst"
+        ],
+        "author": [
+          {
+            "given": "Ruud",
+            "family": "Kortlever",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Collin",
+            "family": "Balemans",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Youngkook",
+            "family": "Kwon",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Marc T.M.",
+            "family": "Koper",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Catalysis Today"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cattod.2014.08.001",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2015,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2015-04-01T00:00:00Z",
+              "timestamp": 1427846400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2015,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2015-04-01T00:00:00Z",
+              "timestamp": 1427846400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.seppur.2023.123811",
+        "title": [
+          "Electrochemical reduction of CO2 into formate/formic acid: A review of cell design and operation"
+        ],
+        "author": [
+          {
+            "given": "Dina",
+            "family": "Ewis",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Muhammad",
+            "family": "Arsalan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Mazen",
+            "family": "Khaled",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Deepak",
+            "family": "Pant",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Muneer M.",
+            "family": "Ba-Abbad",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Abdulkarem",
+            "family": "Amhamed",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Muftah H.",
+            "family": "El-Naas",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Separation and Purification Technology"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              7
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.seppur.2023.123811",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2023-07-01T00:00:00Z",
+              "timestamp": 1688169600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2023-07-01T00:00:00Z",
+              "timestamp": 1688169600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  4,
+                  8
+                ]
+              ],
+              "date-time": "2023-04-08T00:00:00Z",
+              "timestamp": 1680912000000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.cjche.2022.03.006",
+        "title": [
+          "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate"
+        ],
+        "author": [
+          {
+            "given": "Yachen",
+            "family": "Deng",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Shifu",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yanqiang",
+            "family": "Huang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuning",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chinese Journal of Chemical Engineering"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cjche.2022.03.006",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2022-03-01T00:00:00Z",
+              "timestamp": 1646092800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.3390/catal11050537",
+        "title": [
+          "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-1089-9684",
+            "authenticated-orcid": false,
+            "given": "Tran-Van",
+            "family": "Phuc",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jin-Suk",
+            "family": "Chung",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Seung-Hyun",
+            "family": "Hur",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Catalysts"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              22
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.3390/catal11050537",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  4,
+                  22
+                ]
+              ],
+              "date-time": "2021-04-22T00:00:00Z",
+              "timestamp": 1619049600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1002/cssc.201100220",
+        "title": [
+          "The Electrochemical Reduction of Carbon Dioxide to Formate/Formic Acid: Engineering and Economic Feasibility"
+        ],
+        "author": [
+          {
+            "given": "Arun S.",
+            "family": "Agarwal",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yumei",
+            "family": "Zhai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Davion",
+            "family": "Hill",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Narasi",
+            "family": "Sridhar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "ChemSusChem"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2011,
+              9,
+              16
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1002/cssc.201100220",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2011,
+                  9,
+                  16
+                ]
+              ],
+              "date-time": "2011-09-16T00:00:00Z",
+              "timestamp": 1316131200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1002/cssc.201100752",
+        "title": [
+          "Corrigendum: The Electrochemical Reduction of Carbon Dioxide to Formate/Formic Acid: Engineering and Economic Feasibility"
+        ],
+        "author": [
+          {
+            "given": "Arun S.",
+            "family": "Agarwal",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yumei",
+            "family": "Zhai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Davion",
+            "family": "Hill",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Narasi",
+            "family": "Sridhar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "ChemSusChem"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2011,
+              12,
+              9
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1002/cssc.201100752",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2011,
+                  12,
+                  9
+                ]
+              ],
+              "date-time": "2011-12-09T00:00:00Z",
+              "timestamp": 1323388800000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2019.07.024",
+        "title": [
+          "A techno-economic evaluation approach to the electrochemical reduction of CO2 for formic acid manufacture"
+        ],
+        "author": [
+          {
+            "given": "M.",
+            "family": "Rumayor",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "A.",
+            "family": "Dominguez-Ramos",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "P.",
+            "family": "Perez",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "A.",
+            "family": "Irabien",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              12
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2019.07.024",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2019-12-01T00:00:00Z",
+              "timestamp": 1575158400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2019-12-01T00:00:00Z",
+              "timestamp": 1575158400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1038/s41598-025-21717-9",
+        "title": [
+          "Computational investigation of CO2 hydrogenation and electrochemical reduction to formic acid and methanol using chalcogen-doped nitrogen-graphene nanoflake as a metal-free catalyst"
+        ],
+        "author": [
+          {
+            "given": "Mohammad",
+            "family": "Vakili",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ramesh",
+            "family": "Kheirabadi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Mahmood",
+            "family": "Akbari",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Razieh",
+            "family": "Morad",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Malik",
+            "family": "Maaza",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Scientific Reports"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              10,
+              29
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1038/s41598-025-21717-9",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  10,
+                  29
+                ]
+              ],
+              "date-time": "2025-10-29T00:00:00Z",
+              "timestamp": 1761696000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by-nc-nd/4.0"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  10,
+                  29
+                ]
+              ],
+              "date-time": "2025-10-29T00:00:00Z",
+              "timestamp": 1761696000000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by-nc-nd/4.0"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/s1872-2067(23)64476-6",
+        "title": [
+          "A computational study of electrochemical CO2 reduction to formic acid on metal-doped SnO2"
+        ],
+        "author": [
+          {
+            "given": "Zhaochun",
+            "family": "Liu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xue",
+            "family": "Zong",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Dionisios G.",
+            "family": "Vlachos",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ivo A.W.",
+            "family": "Filot",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Emiel J.M.",
+            "family": "Hensen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chinese Journal of Catalysis"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              7
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/s1872-2067(23)64476-6",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2023-07-01T00:00:00Z",
+              "timestamp": 1688169600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2023-07-01T00:00:00Z",
+              "timestamp": 1688169600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2021.101823",
+        "title": [
+          "Producing formic acid at low pH values by electrochemical CO2 reduction"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-4368-1665",
+            "authenticated-orcid": false,
+            "given": "Marvin",
+            "family": "Oßkopp",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Armin",
+            "family": "Löwe",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-7727-008X",
+            "authenticated-orcid": false,
+            "given": "Carlos M.S.",
+            "family": "Lobo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sebastian",
+            "family": "Baranyai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Thulile",
+            "family": "Khoza",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-8726-6511",
+            "authenticated-orcid": false,
+            "given": "Michael",
+            "family": "Auinger",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Elias",
+            "family": "Klemm",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              2
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2021.101823",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2022-02-01T00:00:00Z",
+              "timestamp": 1643673600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2020.02.007",
+        "title": [
+          "Metal-support interaction enhanced electrochemical reduction of CO2 to formate between graphene and Bi nanoparticles"
+        ],
+        "author": [
+          {
+            "given": "Dan",
+            "family": "Wu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Wenyue",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuewan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xian-Zhu",
+            "family": "Fu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing-Li",
+            "family": "Luo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2020.02.007",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2020-04-01T00:00:00Z",
+              "timestamp": 1585699200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2020-04-01T00:00:00Z",
+              "timestamp": 1585699200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.cej.2022.138164",
+        "title": [
+          "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction"
+        ],
+        "author": [
+          {
+            "given": "Lihang",
+            "family": "Yan",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Guanhua",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jianqiao",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Bai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yaoxuan",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Huaxun",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Liya",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yanjun",
+            "family": "Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cej.2022.138164",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.compchemeng.2016.06.012",
+        "title": [
+          "On the modelling of multidisciplinary electrochemical systems with application on the electrochemical conversion of CO2 to formate/formic acid"
+        ],
+        "author": [
+          {
+            "given": "Chariklia",
+            "family": "Georgopoulou",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Swati",
+            "family": "Jain",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Arun",
+            "family": "Agarwal",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Edward",
+            "family": "Rode",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "George",
+            "family": "Dimopoulos",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Narasi",
+            "family": "Sridhar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Nikolaos",
+            "family": "Kakalis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Computers &amp; Chemical Engineering"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2016,
+              10
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.compchemeng.2016.06.012",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2016,
+                  10,
+                  1
+                ]
+              ],
+              "date-time": "2016-10-01T00:00:00Z",
+              "timestamp": 1475280000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.ijhydene.2026.154803",
+        "title": [
+          "Metal-organic framework-derived BiSn bimetallic oxides for the electrocatalytic reduction of CO2 to formate"
+        ],
+        "author": [
+          {
+            "given": "Leibing",
+            "family": "Chen",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yali",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Mei",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Guoying",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Han",
+            "family": "Yao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-9239-9888",
+            "authenticated-orcid": false,
+            "given": "Jiaxing",
+            "family": "Lu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6759-3475",
+            "authenticated-orcid": false,
+            "given": "Huan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Hydrogen Energy"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.ijhydene.2026.154803",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2026-04-01T00:00:00Z",
+              "timestamp": 1775001600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2026-04-01T00:00:00Z",
+              "timestamp": 1775001600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jelechem.2022.117018",
+        "title": [
+          "Recent advances in designing efficient electrocatalysts for electrochemical carbon dioxide reduction to formic acid/formate"
+        ],
+        "author": [
+          {
+            "given": "Yixin",
+            "family": "Zhang",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Fulin",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Dong",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kaichao",
+            "family": "Jia",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tingting",
+            "family": "Sun",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Lianbin",
+            "family": "Xu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of Electroanalytical Chemistry"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              1
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jelechem.2022.117018",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2023-01-01T00:00:00Z",
+              "timestamp": 1672531200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.ijhydene.2024.12.168",
+        "title": [
+          "Modulating tin phthalocyanine single-atom catalyst anchored onto N and S co-doped graphene-based framework for selective electrochemical reduction of CO2 to formic acid"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0009-0006-6578-862X",
+            "authenticated-orcid": false,
+            "given": "Shaurya",
+            "family": "Verma",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0009-0001-4903-4979",
+            "authenticated-orcid": false,
+            "given": "Ashish",
+            "family": "Yadav",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Hydrogen Energy"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.ijhydene.2024.12.168",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2025-01-01T00:00:00Z",
+              "timestamp": 1735689600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2025-01-01T00:00:00Z",
+              "timestamp": 1735689600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.resconrec.2022.106778",
+        "title": [
+          "Sustainable electrochemical process for recovery of metal ions in synthetic mining wastewater and their utilization in photocathodic CO2 reduction into formic acid"
+        ],
+        "author": [
+          {
+            "given": "G.",
+            "family": "Bharath",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Abdul",
+            "family": "Hai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "K.",
+            "family": "Rambabu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Mohammad Abu",
+            "family": "Haija",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Fawzi",
+            "family": "Banat",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Resources, Conservation and Recycling"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.resconrec.2022.106778",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2023-03-01T00:00:00Z",
+              "timestamp": 1677628800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      }
+    ]
+  },
+  "responseHash": "b2ab924808d4ca527f72cf7801603af5651944f061a359535b4ae3a1181c22e7"
+}

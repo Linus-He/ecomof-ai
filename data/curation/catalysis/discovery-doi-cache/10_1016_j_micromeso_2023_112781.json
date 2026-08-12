@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1016/j.micromeso.2023.112781",
+  "checkedAt": "2026-08-12T12:23:52.024Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Metal-organic framework-derived indium nanotubes for CO2 electroreduction to formate",
+    "discoveryTitle": "Metal-organic framework-derived indium nanotubes for CO2 electroreduction to formate",
+    "journal": "Microporous and Mesoporous Materials",
+    "year": 2023,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "189b21473035dc94ad766df30ba05d80921986cb994efc85c36a1f31c2ab60c9"
+}

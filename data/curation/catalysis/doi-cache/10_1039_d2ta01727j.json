@@ -1,0 +1,43 @@
+{
+  "doi": "10.1039/d2ta01727j",
+  "checkedAt": "2026-08-12T11:41:11.684Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "A hexacoordinated Bi\n                    <sup>3+</sup>\n                    -based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+    "curatedTitle": "A hexacoordinated Bi3+-based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+    "journal": "Journal of Materials Chemistry A",
+    "year": 2022
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              15
+            ]
+          ],
+          "date-time": "2023-07-15T00:00:00Z",
+          "timestamp": 1689379200000
+        },
+        "content-version": "am",
+        "delay-in-days": 560,
+        "URL": "http://rsc.li/journals-terms-of-use"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "e56f2044b951f483fd0d530771f88ce3277fb7ea98bef1fa47a8fc0536a0fbf9"
+}

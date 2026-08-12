@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1002/anie.202111700",
+  "checkedAt": "2026-08-12T12:23:53.090Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Highly Ethylene‐Selective Electrocatalytic CO<sub>2</sub> Reduction Enabled by Isolated Cu−S Motifs in Metal–Organic Framework Based Precatalysts",
+    "discoveryTitle": "Highly Ethylene‐Selective Electrocatalytic CO<sub>2</sub> Reduction Enabled by Isolated Cu−S Motifs in Metal–Organic Framework Based Precatalysts",
+    "journal": "Angewandte Chemie International Edition",
+    "year": 2021,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "2453ce9b4c05fb3c1d77c708101d5d251c2a18449ecb40e7fe7b3ddeacc89dc9"
+}

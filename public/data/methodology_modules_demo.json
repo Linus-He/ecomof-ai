@@ -1713,14 +1713,20 @@
     "order": 4,
     "module": "Catalysis",
     "moduleZh": "催化",
-    "summary": "Catalysis starts from DOI-verified reaction records. Catalyst identity, operating conditions, source-reported metrics, active-phase evidence, and validation gaps remain separate so that incomplete literature cannot be mistaken for comparable performance.",
-    "summaryZh": "催化模块以 DOI 核验反应记录为底层起点，将催化剂身份、运行条件、来源报道指标、活性相证据和验证缺口分层保存，避免把条件不完整的文献误当成可比性能。",
+    "summary": "Catalysis V2 starts from normalized DOI-verified reaction entities. Article identity, claim location, conditions, catalyst state, structure identity, active phase, reuse license, and deterministic admission decisions remain separate so incomplete literature cannot enter comparison or model training.",
+    "summaryZh": "催化方法以 DOI 已核对的反应记录为基础，分别保存论文身份、数值声明位置、实验条件、催化剂状态、结构身份、活性相和数据许可；证据不完整的文献不能用于跨论文比较或模型训练。",
     "methodWorkflow": [
       {
         "label": "DOI-verified reaction record",
         "labelZh": "DOI 核验反应记录",
-        "description": "Verify article identity and preserve field-level source locations before storing any catalytic metric.",
-        "descriptionZh": "先核验论文身份和字段来源位置，再写入任何催化性能指标。"
+        "description": "Refresh DOI metadata against Crossref, store the response snapshot hash and update-relation status, then preserve claim-level source locations separately.",
+        "descriptionZh": "通过 Crossref 刷新 DOI 元数据，保存响应快照哈希与更新关系状态，再独立保存每条声明的来源位置。"
+      },
+      {
+        "label": "L1-L4 claim verification",
+        "labelZh": "数值声明分级核验",
+        "description": "Grade source identification, abstract review, full-text review, and precise figure/table/section location without treating DOI resolution as numeric verification.",
+        "descriptionZh": "依次区分来源确认、摘要核对、全文核对和图表/章节精确定位，不把 DOI 解析等同于数值核验。"
       },
       {
         "label": "Condition normalization",
@@ -1735,10 +1741,16 @@
         "descriptionZh": "区分原始 MOF、前驱体、衍生材料、原位重构相和反应后相。"
       },
       {
-        "label": "Database bridge and validation roadmap",
-        "labelZh": "数据库连接与验证计划",
-        "description": "Join exact structure identities where possible and translate unresolved fields into experiments, operando characterization, or DFT tasks.",
-        "descriptionZh": "在精确结构身份可用时连接数据库，并把未解决字段转换为实验、操作态表征或 DFT 任务。"
+        "label": "Database bridge and admission gate",
+        "labelZh": "数据库连接与使用范围判定",
+        "description": "Join exact structure identities where possible, publish the evidence graph, and turn every unresolved field into a P0/P1 task before Organic Acid or algorithms can consume it.",
+        "descriptionZh": "仅在结构身份准确时连接数据库，并用证据关系图记录论文、反应和来源；数据缺口转为待核事项，有机酸专题与模型只读取满足证据和许可要求的记录。"
+      },
+      {
+        "label": "P2 reproducible literature discovery",
+        "labelZh": "可复现的候选文献检索",
+        "description": "Run versioned reaction-family queries against Crossref and OpenAlex, deduplicate by DOI, quarantine metadata-screened candidates, and forbid machine suggestions from entering the formal reaction database.",
+        "descriptionZh": "使用版本化反应家族检索式查询 Crossref 与 OpenAlex，按 DOI 去重；仅完成题录筛选的候选与正式反应记录分开保存，题名初步识别结果不能直接写入正式记录。"
       }
     ],
     "inputs": [
@@ -1748,6 +1760,7 @@
       "electrochemical operating conditions",
       "source-reported metrics",
       "active-phase evidence"
+      ,"reuse-license metadata"
     ],
     "inputsZh": [
       "论文 DOI 与出版方来源",
@@ -1756,20 +1769,27 @@
       "电化学运行条件",
       "来源报道指标",
       "活性相证据"
+      ,"再利用许可元数据"
     ],
     "outputs": [
       "field-sourced reaction record",
       "condition-comparability decision",
       "active-phase boundary",
       "identity-link status",
-      "validation task"
+      "validation task",
+      "evidence graph",
+      "browse/compare/train/recommend eligibility"
+      ,"versioned discovery batch and quarantined DOI queue"
     ],
     "outputsZh": [
       "字段级溯源反应记录",
       "条件可比性判定",
       "活性相边界",
       "身份连接状态",
-      "验证任务"
+      "验证任务",
+      "证据图",
+      "浏览/比较/训练/推荐资格"
+      ,"版本化检索批次与待全文核对的 DOI 清单"
     ],
     "visualizations": [
       {
@@ -1778,6 +1798,20 @@
         "description": "A table of DOI, catalyst state, operating condition coverage, source-reported metrics, active-phase evidence, and registry-link status.",
         "descriptionZh": "以表格展示 DOI、催化剂状态、运行条件覆盖、来源报道指标、活性相证据和身份库连接状态。",
         "chartType": "table"
+      },
+      {
+        "title": "Article-to-admission evidence trace",
+        "titleZh": "论文来源与核验路径",
+        "description": "An interactive trace connects article, catalyst state, reaction record, numeric claims, precise evidence locations, and unresolved verification tasks.",
+        "descriptionZh": "交互证据链连接论文、催化剂状态、反应记录、数值声明、精确来源位置和未完成核验任务。",
+        "chartType": "network"
+      },
+      {
+        "title": "Discovery-to-admission funnel",
+        "titleZh": "候选文献到正式记录的筛选漏斗",
+        "description": "Shows two-source hits, DOI deduplication, strict reaction-family screening, full-text review queue, formal-library size, and zero automatic promotion.",
+        "descriptionZh": "展示双来源命中、DOI 去重、反应家族筛选、待全文核对文献、正式记录数量，以及未经人工核对直接写入的记录数。",
+        "chartType": "funnel"
       }
     ],
     "evidenceBoundary": [
@@ -1785,40 +1819,50 @@
       "A DOI verifies the article identity but does not by itself verify every numeric field or establish structure-level identity.",
       "Records with incompatible cell, electrolyte, potential, loading, duration, or quantification conditions are not ranked against one another.",
       "A precursor MOF is not automatically the catalytically active phase after electrochemical reconstruction or thermal conversion."
+      ,"Crossref metadata and update relations identify the scholarly object and known updates in the captured response; they do not verify experimental claims or guarantee that no later publisher notice exists."
+      ,"Only records passing condition, L4 claim-location, exact identity, license, and active-phase gates may progress from browsing to comparison, training, or recommendation."
+      ,"Crossref and OpenAlex search hits are discovery metadata, not experimental evidence; candidates remain outside the formal database until human full-text review passes every admission gate."
     ],
     "evidenceBoundaryZh": [
       "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。",
       "DOI 只能核验论文身份，不能自动证明每个数值字段，也不能单独建立结构级身份连接。",
       "电解池、电解液、电位、负载、持续时间或定量条件不兼容的记录禁止互相排名。",
       "发生电化学重构或热转化后，前驱体 MOF 不能自动视为催化活性相。"
+      ,"Crossref 元数据和更新关系只确认所捕获响应中的学术对象与已登记更新，不能证明实验声明，也不能保证出版方此后没有新通知。"
+      ,"记录必须具备完整实验条件、精确到图表或章节的声明位置、准确结构身份、相应许可和明确活性相，才能从查阅用途进一步进入比较、训练或推荐。"
+      ,"Crossref 与 OpenAlex 检索命中属于题录信息，不是实验事实；候选须完成人工全文核对，并满足来源、条件、身份、活性相和许可要求后，才能形成正式反应记录。"
     ],
     "validationRoadmap": [
       "Expand the DOI-verified source corpus by reaction family",
       "link exact CSD Refcodes, CCDC identifiers, or canonical IDs when available",
       "complete same-condition catalyst loading, gas-flow, and product-quantification metadata",
       "connect operando and post-reaction characterization to active-phase claims",
-      "build same-condition benchmark sets before quantitative ranking"
+      "build same-condition benchmark sets before quantitative ranking",
+      "resolve P0 claim/condition tasks before P1 identity, active-phase, and license promotion"
+      ,"review P2 candidates family by family and promote only manually verified primary experiments"
     ],
     "validationRoadmapZh": [
       "按反应家族扩展 DOI 核验来源库",
       "存在精确 CSD Refcode、CCDC 编号或 canonical ID 时建立身份连接",
       "补齐同条件催化剂负载、气体流量和产物定量元数据",
       "将操作态与反应后表征连接到活性相声明",
-      "建立同条件基准集后再进行定量排名"
+      "建立同条件基准集后再进行定量排名",
+      "先解决 P0 声明与条件任务，再推进 P1 身份、活性相和许可升级"
+      ,"按反应家族核对候选文献，仅将人工核对通过的原始实验论文写入正式反应记录"
     ],
     "methodGroups": [
       {
         "id": "catalysis-reaction-record-standard",
         "title": "DOI-verified catalysis reaction record standard",
         "titleZh": "DOI 核验催化反应记录标准",
-        "purpose": "Provide a reusable bottom-layer contract for source-backed reaction facts, condition normalization, active-phase evidence, and safe database joins.",
-        "purposeZh": "为来源支持的反应事实、条件归一化、活性相证据和安全数据库连接提供可复用底层契约。",
+        "purpose": "Provide a reusable normalized V2 contract for source documents, DOI snapshots, reaction records, catalyst states, condition sets, metric claims, evidence items, identity links, admission decisions, and verification tasks.",
+        "purposeZh": "为来源文档、DOI 快照、反应记录、催化剂状态、条件组合、指标声明、证据项、身份连接、使用范围判定和待核事项提供统一的数据结构。",
         "algorithmSteps": [
           {
             "label": "Verify article identity",
             "labelZh": "核验论文身份",
-            "description": "Resolve the DOI against a publisher page or institutional repository and record the checked source fields and date.",
-            "descriptionZh": "通过出版方页面或机构知识库核对 DOI，并保存已核字段和核查日期。"
+            "description": "Resolve each DOI through the Crossref REST API, compare title/journal/year, capture update relations, timestamp the check, and hash the cached response.",
+            "descriptionZh": "通过 Crossref REST API 解析每个 DOI，比对题名、期刊与年份，保存更新关系、核查时间和缓存响应哈希。"
           },
           {
             "label": "Extract fields without inference",
@@ -1837,6 +1881,12 @@
             "labelZh": "控制比较与身份连接",
             "description": "Allow quantitative comparison only for aligned condition tuples and join the MOF registry only with exact structure identifiers or provenance-matched aliases.",
             "descriptionZh": "只有条件组合一致时才允许定量比较；只有精确结构标识或来源一致的核验别名才能连接 MOF 身份库。"
+          },
+          {
+            "label": "Generate deterministic admission and work queue",
+            "labelZh": "判定使用范围并生成待核清单",
+            "description": "Compute browse, comparison, training, and recommendation eligibility from explicit fields, then generate P0 claim/condition tasks and P1 identity/active-phase/license tasks for every blocker.",
+            "descriptionZh": "由明确字段计算浏览、比较、训练和推荐资格，并为每个阻断项生成 P0 声明/条件任务与 P1 身份/活性相/许可任务。"
           }
         ],
         "formulas": [
@@ -1901,12 +1951,16 @@
         "limitations": [
           "The initial corpus is a Bi-based CO2-to-formate seed and is not a complete catalysis literature database.",
           "No record in the current seed is eligible for cross-paper performance ranking because complete same-condition metadata is unavailable.",
-          "DOI verification confirms the article identity; every numerical field still requires its own source location."
+          "DOI verification confirms the article identity; every numerical field still requires its own source location.",
+          "The current identity bridge intentionally contains no canonical MOF links because the seed lacks an exact CSD Refcode, CCDC identifier, or uniquely provenance-matched registry alias.",
+          "No current record is admitted to algorithm training; Organic Acid and validation surfaces consume the gate result rather than importing blocked literature claims."
         ],
         "limitationsZh": [
-          "当前语料是铋基 CO2 制甲酸盐的首批种子，不是完整催化文献数据库。",
-          "当前种子中没有记录具备跨论文性能排名资格，因为同条件元数据尚不完整。",
-          "DOI 核验只确认论文身份；每个数值字段仍必须有独立来源位置。"
+          "当前收录范围聚焦铋基 MOF 电催化 CO2 还原制甲酸盐，并非完整的催化文献数据库。",
+          "当前记录均缺少完整的同条件实验信息，因此不能进行跨论文性能排名。",
+          "DOI 核验只确认论文身份；每个数值字段仍必须有独立来源位置。",
+          "当前尚无标准 MOF 结构连接，因为记录缺少准确的 CSD Refcode、CCDC 编号或唯一且来源一致的身份库别名。",
+          "当前没有记录满足模型训练所需的证据与许可要求；有机酸专题和验证界面不会导入这些尚待核对的文献声明。"
         ],
         "references": [
           {"id": "cat-mfm220-2022", "label": "MFM-220-p · DOI 10.1039/D2TA04485D", "url": "https://doi.org/10.1039/D2TA04485D", "note": "Publisher-verified source for MFM-220 evolution, formate FE, stability, and in situ EPR evidence.", "noteZh": "出版方核验：MFM-220 演化、甲酸盐 FE、稳定性与原位 EPR 证据。"},
@@ -1918,7 +1972,94 @@
           {"id": "cat-bihhtp-2023", "label": "Bi-HHTP · DOI 10.1039/D3SC01876H", "url": "https://doi.org/10.1039/D3SC01876H", "note": "Publisher full-text source for flow-cell metrics, ATR-FTIR intermediate evidence, and DFT interpretation.", "noteZh": "出版方全文核验：流动池指标、ATR-FTIR 中间体证据与 DFT 解释。"},
           {"id": "cat-su101-2022", "label": "SU-101 · DOI 10.1039/D2TA01727J", "url": "https://doi.org/10.1039/D2TA01727J", "note": "Publisher full-text source for H-cell conditions, formate metrics, stability, and DFT barriers.", "noteZh": "出版方全文核验：H 型池条件、甲酸盐指标、稳定性与 DFT 能垒。"},
           {"id": "cat-cubi-2021", "label": "CuBi-MOF-derived catalyst · DOI 10.1016/j.apcatb.2021.120571", "url": "https://doi.org/10.1016/j.apcatb.2021.120571", "note": "Publisher-verified source for the derived Bi2CuO4 interface, formate FE, potential window, FT-IR, and DFT interpretation.", "noteZh": "出版方核验：衍生 Bi2CuO4 界面、甲酸盐 FE、电位窗口、FT-IR 与 DFT 解释。"},
-          {"id": "cat-2dbimof-2020", "label": "2D Bi-MOF · DOI 10.1016/j.apcatb.2020.119241", "url": "https://doi.org/10.1016/j.apcatb.2020.119241", "note": "Publisher-verified source for formic-acid FE, mass-specific partial current density, and stability.", "noteZh": "出版方核验：甲酸 FE、质量归一分电流密度与稳定性。"}
+          {"id": "cat-2dbimof-2020", "label": "2D Bi-MOF · DOI 10.1016/j.apcatb.2020.119241", "url": "https://doi.org/10.1016/j.apcatb.2020.119241", "note": "Publisher-verified source for formic-acid FE, mass-specific partial current density, and stability.", "noteZh": "出版方核验：甲酸 FE、质量归一分电流密度与稳定性。"},
+          {"id": "crossref-rest-api", "label": "Crossref REST API", "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/", "note": "Primary metadata-resolution interface used for the tracked DOI verification snapshots.", "noteZh": "用于生成可追踪 DOI 核验快照的官方元数据解析接口。"},
+          {"id": "crossref-crossmark", "label": "Crossmark update policy", "url": "https://www.crossref.org/services/crossmark/", "note": "Defines publisher-maintained update and correction context; the current build stores Crossref update relations and does not represent them as claim verification.", "noteZh": "说明出版方维护的更新与更正语境；当前构建保存 Crossref 更新关系，但不将其表述为声明核验。"}
+        ]
+      },
+      {
+        "id": "catalysis-p2-literature-discovery",
+        "title": "P2 reproducible literature discovery and extraction quarantine",
+        "titleZh": "可复现候选文献检索与全文核对方法",
+        "purpose": "Expand reaction-family and DOI coverage without weakening the V2 evidence gate or allowing search metadata and machine suggestions to become experimental facts.",
+        "purposeZh": "在不降低证据要求的前提下扩展反应家族与 DOI 覆盖，并确保题录信息和题名初步识别结果不会被当作实验事实。",
+        "algorithmSteps": [
+          {
+            "label": "Version reaction families and queries",
+            "labelZh": "版本化反应家族与检索式",
+            "description": "Store family ID, Chinese and English scope, query string, product terms, catalyst-state terms, exclusions, retrieval row count, and admission threshold in a tracked configuration.",
+            "descriptionZh": "在受版本控制的配置中保存反应家族标识、中英文范围、检索式、产物词、催化剂状态词、排除项、返回数量和候选筛选阈值。"
+          },
+          {
+            "label": "Retrieve and cache official metadata",
+            "labelZh": "检索并缓存官方元数据",
+            "description": "Query Crossref publisher-deposited metadata and OpenAlex scholarly metadata, store request parameters, retrieval time, response hash, and compact response without persisting abstracts or full text.",
+            "descriptionZh": "查询 Crossref 出版方提交元数据与 OpenAlex 学术元数据，保存请求参数、检索时间、响应哈希和压缩响应；不持久化摘要或全文。"
+          },
+          {
+            "label": "Deduplicate and screen deterministically",
+            "labelZh": "确定性去重与筛选",
+            "description": "Normalize DOI and title, merge adapters by DOI, score every unique work against every reaction family, exclude corrections, reviews, missing product signals, and incompatible catalyst states, then record every blocker.",
+            "descriptionZh": "归一化 DOI 与题名，按 DOI 合并来源，对每个唯一论文重新评估全部反应家族；排除更正、综述、缺少产物信号和催化剂状态不符记录，并保存每个阻断原因。"
+          },
+          {
+            "label": "Resolve each candidate DOI",
+            "labelZh": "逐条解析候选 DOI",
+            "description": "Re-query the Crossref single-work endpoint for each queued DOI and compare title, journal, year, publication type, and update relations; DOI identity resolution remains separate from full-text claim verification.",
+            "descriptionZh": "对每个入队 DOI 再调用 Crossref 单条工作端点，比对题名、期刊、年份、出版类型与更新关系；DOI 身份解析仍与全文声明核验分离。"
+          },
+          {
+            "label": "Quarantine machine suggestions",
+            "labelZh": "分开保存题名初步识别结果",
+            "description": "Generate only title-signal suggestions for substrate, product, catalyst state, and reaction mode. Every suggestion is unverified, promotion-disabled, and prohibited from writing to the formal database.",
+            "descriptionZh": "仅根据题名中的明确术语初步识别底物、产物、催化剂状态和反应模式；所有结果均标为待全文核对，不能直接写入正式反应记录。"
+          },
+          {
+            "label": "Promote through human gates only",
+            "labelZh": "完成人工核对后写入正式记录",
+            "description": "Require publisher or repository full text, primary experimental status, claim location, complete conditions, active-phase decision, exact identity, and reuse license before a new formal reaction record can be created.",
+            "descriptionZh": "创建新正式反应记录前，必须人工确认出版方或机构全文、原始实验论文、声明位置、完整条件、活性相、精确身份和再利用许可。"
+          }
+        ],
+        "formulas": [
+          {
+            "id": "catalysis-p2-candidate-gate",
+            "label": "P2 candidate title gate",
+            "labelZh": "候选题名筛选条件",
+            "latex": "G_{candidate}=I_{DOI}I_{MOF}I_{CO_2RR}I_{product}I_{not\\,excluded}",
+            "fallback": "G_candidate = I_DOI × I_MOF × I_CO2RR × I_product × I_not-excluded",
+            "explanation": "A candidate enters the full-text queue only when all required bibliographic title signals are present and no exclusion signal is active. This is a discovery gate, not a scientific verification score.",
+            "explanationZh": "只有题名同时包含 DOI 对应文献、MOF、CO₂ 电还原和目标产物信号，且没有排除项时，记录才进入全文待核清单。该式仅用于文献初筛，不代表实验依据强弱。"
+          }
+        ],
+        "inputs": ["versioned family configuration", "Crossref metadata", "OpenAlex metadata", "formal-library DOI set", "manual review overrides"],
+        "inputsZh": ["版本化反应家族配置", "Crossref 元数据", "OpenAlex 元数据", "正式记录 DOI 集合", "人工核对结果"],
+        "outputs": ["reproducible retrieval batches", "deduplicated DOI queue", "navigation-only reviews", "machine suggestions", "discovery audit"],
+        "outputsZh": ["可复现检索批次", "去重 DOI 清单", "仅用于追溯原始论文的综述", "题名初步识别结果", "文献检索审计报告"],
+        "visualizations": [
+          {
+            "title": "P2 candidate discovery workbench",
+            "titleZh": "候选文献检索与核对工作区",
+            "description": "A family-filtered queue links retrieval counts, DOI identity checks, candidate rationale, suggestions, and human promotion requirements.",
+            "descriptionZh": "按反应家族查看检索数量、DOI 身份核对、入选依据、题名初步识别结果和写入正式记录前的人工核对要求。",
+            "chartType": "funnel-and-ledger"
+          }
+        ],
+        "limitations": [
+          "The first P2 batch retrieves only the top 25 results per adapter and reaction family; it is reproducible but not a systematic-review-complete corpus.",
+          "Crossref and OpenAlex metadata can be incomplete or differently ranked; a single-adapter hit is not weaker experimental evidence because no candidate has experimental-evidence status yet.",
+          "Title-only screening may miss relevant studies whose product or catalyst state appears only in the abstract or full text.",
+          "Machine-assisted fields are routing suggestions only and cannot populate the formal V2 reaction tables."
+        ],
+        "limitationsZh": [
+          "当前首批检索对每个来源、每个反应家族只读取前 25 条结果；检索过程可复现，但不构成系统综述所需的完整文献集合。",
+          "Crossref 与 OpenAlex 元数据可能不完整且排序不同；单来源命中不代表实验依据较弱，因为所有候选当前都不具备实验事实状态。",
+          "仅基于题名的筛选可能漏掉只在摘要或全文中出现产物或催化剂状态的相关论文。",
+          "题名初步识别结果只用于安排全文核对，不得填入正式反应记录。"
+        ],
+        "references": [
+          {"id": "crossref-rest-api-p2", "label": "Crossref REST API", "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/", "note": "Official interface for publisher-deposited bibliographic metadata, DOI resolution, filtering, queries, and response caching guidance.", "noteZh": "用于出版方提交书目元数据、DOI 解析、筛选、查询和响应缓存规范的官方接口。"},
+          {"id": "openalex-api-p2", "label": "OpenAlex API and Data Snapshot", "url": "https://help.openalex.org/hc/en-us/articles/24398041565207-API-and-Data-Snapshot", "note": "Official OpenAlex description of its scholarly REST API and data snapshot used as a second discovery adapter.", "noteZh": "OpenAlex 对其学术 REST API 与数据快照的官方说明，本项目将其作为第二文献发现适配器。"}
         ]
       }
     ]

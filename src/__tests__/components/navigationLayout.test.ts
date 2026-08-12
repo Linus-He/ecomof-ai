@@ -19,12 +19,17 @@ describe("top navigation layout", () => {
     expect(source).toContain('overscrollBehaviorX: "contain"')
   })
 
-  it("collects language, appearance, contact, and repository controls in one collapsed settings menu", () => {
+  it("keeps search and user controls outside the tab capsule and nests settings in the user menu", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
 
-    expect(source).toContain("<GearSix")
+    expect(source).toContain("<MagnifyingGlass")
+    expect(source).toContain("<User")
+    expect(source).not.toContain("<CaretDown")
+    expect(source).not.toContain("<GearSix")
+    expect(source).toContain('className="nav-action-button nav-search-trigger"')
+    expect(source).toContain('className="settings-trigger nav-action-button nav-user-trigger"')
+    expect(source).toContain('aria-haspopup="dialog"')
     expect(source).toContain('aria-haspopup="menu"')
-    expect(source).toContain('className="settings-trigger"')
     expect(source).toContain('className="settings-menu-row"')
     expect(source).toContain('className="settings-option"')
     expect(source).toContain("语言")
@@ -34,19 +39,42 @@ describe("top navigation layout", () => {
     expect(source).toContain("深色模式")
     expect(source).toContain('window.localStorage.setItem("ecomof-theme"')
     expect(source).toContain('onPointerDown={event => event.stopPropagation()}')
-    expect(source).toContain("联系我们")
-    expect(source).toContain("GitHub 仓库")
-    expect(source).toContain('href="https://github.com/Linus-He/ecomof-ai"')
+    expect(source).toContain("数据托管与跨境访问")
+    expect(source).toContain('href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"')
+    expect(source).toContain("数据合规承诺")
+    expect(source).not.toContain("GitHub 仓库")
+    expect(source).not.toContain("联系我们")
     expect(source).toContain('useState("")')
+  })
+
+  it("renders the search and user triggers as equal circular controls", () => {
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*aspect-ratio:\s*1/s)
+    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*border-radius:\s*50%\s*!important/s)
+    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*height:\s*40px/s)
+    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*width:\s*40px/s)
+  })
+
+  it("keeps brand and action controls outside the liquid tab rail", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const railStart = source.indexOf('<nav\n                ref={navRef}')
+    const railEnd = source.indexOf('</nav>', railStart)
+    const railSource = source.slice(railStart, railEnd)
+
+    expect(railSource).not.toContain("LogoWordmark")
+    expect(railSource).not.toContain("nav-search-trigger")
+    expect(railSource).not.toContain("nav-user-trigger")
   })
 
   it("centers the desktop rail and turns it into a horizontal scroller at compact widths", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
 
+    expect(source).toContain('const contentSizedNavTabs = compactHeader || lang === "en"')
     expect(source).toContain('justifyContent: compactHeader ? "flex-start" : "center"')
     expect(source).toContain('maxWidth: compactHeader ? 760 : 880')
-    expect(source).toContain('flex: compactHeader ? "0 0 auto" : "1 1 0"')
-    expect(source).toContain('minWidth: compactHeader ? "max-content" : 0')
+    expect(source).toContain('flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0"')
+    expect(source).toContain('minWidth: contentSizedNavTabs ? "max-content" : 0')
   })
 
   it("wraps tabs in one liquid-glass capsule with a measured sliding selection layer", () => {
@@ -73,12 +101,22 @@ describe("top navigation layout", () => {
 
     expect(navTabStyle).toContain('display: "grid"')
     expect(navTabStyle).toContain('placeItems: "center"')
-    expect(navTabStyle).toContain('flex: compactHeader ? "0 0 auto" : "1 1 0"')
+    expect(navTabStyle).toContain('flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0"')
     expect(navTabStyle).toContain('textAlign: "center"')
     expect(navTabStyle).toContain('<span className="nav-tab-label">')
     expect(css).toContain(".nav-tab-label")
     expect(css).toContain("place-items: center")
     expect(css).toContain("inline-size: 100%")
     expect(css).toContain("block-size: 100%")
+  })
+
+  it("preserves the intrinsic width of English tab labels", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(source).toContain("data-lang={lang}")
+    expect(css).toContain('.nav-primary-rail[data-lang="en"] .nav-tab-label')
+    expect(css).toContain("inline-size: max-content")
+    expect(css).toContain("min-inline-size: max-content")
   })
 })

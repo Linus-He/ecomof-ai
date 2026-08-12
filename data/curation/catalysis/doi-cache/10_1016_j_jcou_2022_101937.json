@@ -1,0 +1,139 @@
+{
+  "doi": "10.1016/j.jcou.2022.101937",
+  "checkedAt": "2026-08-12T11:41:08.961Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+    "curatedTitle": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+    "journal": "Journal of CO2 Utilization",
+    "year": 2022
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "c4f6ecf762c560003208e2a5a1819906e69710a05a096df027333d9ce81dae21"
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "catalysis-identity-bridge-v2",
+  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "registryVersion": "mof-identity-registry-v2.1",
+  "registryRecordCount": 3626,
+  "links": [
+    {
+      "id": "identity-link-catrxn-v2-mfm220p-formate-2022",
+      "catalystStateId": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-tal33-derived-bi-formate-2022",
+      "catalystStateId": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "catalystStateId": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "catalystStateId": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "catalystStateId": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "catalystStateId": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-bi-hhtp-formate-2023",
+      "catalystStateId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-su101-formate-2022",
+      "catalystStateId": "catalyst-state-catrxn-v2-su101-formate-2022",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-cubi-derived-formate-2021",
+      "catalystStateId": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    },
+    {
+      "id": "identity-link-catrxn-v2-2d-bi-mof-formate-2020",
+      "catalystStateId": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+      "canonicalId": null,
+      "status": "unresolved",
+      "candidateCanonicalIds": [],
+      "acceptedIdentifiers": [
+        "CSD Refcode",
+        "CCDC identifier",
+        "canonicalId",
+        "provenance-matched curated alias"
+      ],
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+    }
+  ]
+}

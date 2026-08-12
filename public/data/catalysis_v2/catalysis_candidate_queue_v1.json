@@ -1,0 +1,2538 @@
+{
+  "schemaVersion": "catalysis-candidate-queue-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "generatedAt": "2026-08-12T12:22:14.989Z",
+  "policy": {
+    "status": "quarantined-discovery-layer",
+    "formalLibraryWriteAllowed": false,
+    "requiredPromotionGate": [
+      "fulltext",
+      "claim-location",
+      "conditions",
+      "identity",
+      "active-phase",
+      "license"
+    ]
+  },
+  "summary": {
+    "adapterCount": 2,
+    "familyCount": 5,
+    "rawHitCount": 250,
+    "uniqueDoiCount": 155,
+    "missingDoiHitCount": 0,
+    "existingFormalMatchCount": 2,
+    "navigationCandidateCount": 1,
+    "candidateQueueCount": 9,
+    "excludedCount": 143,
+    "suggestionCount": 9,
+    "individuallyDoiVerifiedCount": 9,
+    "automaticPromotionCount": 0,
+    "formalLibrarySourceCount": 10
+  },
+  "families": [
+    {
+      "id": "co2rr-formate-direct-mof",
+      "titleZh": "CO2 电还原制甲酸盐：直接 MOF 催化剂",
+      "titleEn": "CO2 electroreduction to formate: direct MOF catalysts",
+      "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 1,
+      "existingFormalCount": 0
+    },
+    {
+      "id": "co2rr-formate-mof-derived",
+      "titleZh": "CO2 电还原制甲酸盐：MOF 衍生催化剂",
+      "titleEn": "CO2 electroreduction to formate: MOF-derived catalysts",
+      "query": "metal organic framework derived electrochemical CO2 reduction formate formic acid",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 3,
+      "existingFormalCount": 1
+    },
+    {
+      "id": "co2rr-formate-mof-enzyme-hybrid",
+      "titleZh": "CO2 电还原制甲酸盐：MOF-酶杂化体系",
+      "titleEn": "CO2 electroreduction to formate: MOF-enzyme hybrid systems",
+      "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 1,
+      "existingFormalCount": 2
+    },
+    {
+      "id": "co2rr-carbon-monoxide-mof",
+      "titleZh": "CO2 电还原制一氧化碳：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to carbon monoxide: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction carbon monoxide CO",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 2,
+      "existingFormalCount": 0
+    },
+    {
+      "id": "co2rr-c2plus-mof",
+      "titleZh": "CO2 电还原制 C2+ 产物：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to C2+ products: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction ethylene ethanol C2",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 2,
+      "existingFormalCount": 0
+    }
+  ],
+  "candidates": [
+    {
+      "id": "catlit-9273673d8b2d",
+      "doi": "10.1002/smll.202512635",
+      "doiUrl": "https://doi.org/10.1002/smll.202512635",
+      "title": "Unique Single‐Copper Metal−Organic Framework Enables Highly Selective Electrocatalytic CO2 Reduction to Ethylene via Asymmetric Coupling",
+      "year": 2025,
+      "journal": "Small",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1002/smll.202512635",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-c2plus-mof"
+      ],
+      "familyId": "co2rr-c2plus-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "ethylene"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "ethylene"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "catalytic"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1002/smll.202512635",
+        "checkedAt": "2026-08-12T12:23:50.477Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Unique Single‐Copper Metal−Organic Framework Enables Highly Selective Electrocatalytic CO\n                    <sub>2</sub>\n                    Reduction to Ethylene via Asymmetric Coupling",
+          "discoveryTitle": "Unique Single‐Copper Metal−Organic Framework Enables Highly Selective Electrocatalytic CO\n                    2\n                    Reduction to Ethylene via Asymmetric Coupling",
+          "journal": "Small",
+          "year": 2025,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "57558bc1e4c8ae5d1e4efd1c0d56c89145645d4017f9b01e3c4995cc2edff6d6"
+      }
+    },
+    {
+      "id": "catlit-98f2511ae029",
+      "doi": "10.1007/s10008-025-06266-5",
+      "doiUrl": "https://doi.org/10.1007/s10008-025-06266-5",
+      "title": "Fabrication of Bi‐based metal‐organic framework for efficient electrocatalytic CO2 reduction to produce HCOOH",
+      "year": 2025,
+      "journal": "Journal of Solid State Electrochemistry",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1007/s10008-025-06266-5",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-c2plus-mof"
+      ],
+      "familyId": "co2rr-formate-direct-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "hcooh"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "hcooh"
+            ],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "hcooh"
+            ],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "hcooh"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "catalytic"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1007/s10008-025-06266-5",
+        "checkedAt": "2026-08-12T12:23:50.753Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Fabrication of Bi‐based metal‐organic framework for efficient electrocatalytic CO2 reduction to produce HCOOH",
+          "discoveryTitle": "Fabrication of Bi‐based metal‐organic framework for efficient electrocatalytic CO2 reduction to produce HCOOH",
+          "journal": "Journal of Solid State Electrochemistry",
+          "year": 2025,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "1700cb1931fb54f6d90793bc00fbbaabf3543ef3448f8a87366f66ecaf6cacfe"
+      }
+    },
+    {
+      "id": "catlit-affa96291ac8",
+      "doi": "10.1016/j.micromeso.2023.112781",
+      "doiUrl": "https://doi.org/10.1016/j.micromeso.2023.112781",
+      "title": "Metal-organic framework-derived indium nanotubes for CO2 electroreduction to formate",
+      "year": 2023,
+      "journal": "Microporous and Mesoporous Materials",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1016/j.micromeso.2023.112781",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-formate-mof-derived"
+      ],
+      "familyId": "co2rr-formate-mof-derived",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 electroreduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "derived"
+            ],
+            "experimental": [
+              "electroreduction"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 electroreduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [],
+            "experimental": [
+              "electroreduction"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 electroreduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework",
+              "derived"
+            ],
+            "experimental": [
+              "electroreduction"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 electroreduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework",
+              "derived"
+            ],
+            "experimental": [
+              "electroreduction"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "excluded-catalyst-state"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 electroreduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electroreduction"
+            ],
+            "excludedState": [
+              "framework-derived"
+            ],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 electroreduction"
+        ],
+        "product": [
+          "formate"
+        ],
+        "state": [
+          "derived"
+        ],
+        "experimental": [
+          "electroreduction"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1016/j.micromeso.2023.112781",
+        "checkedAt": "2026-08-12T12:23:52.024Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Metal-organic framework-derived indium nanotubes for CO2 electroreduction to formate",
+          "discoveryTitle": "Metal-organic framework-derived indium nanotubes for CO2 electroreduction to formate",
+          "journal": "Microporous and Mesoporous Materials",
+          "year": 2023,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "189b21473035dc94ad766df30ba05d80921986cb994efc85c36a1f31c2ab60c9"
+      }
+    },
+    {
+      "id": "catlit-023d788775f3",
+      "doi": "10.1016/j.cej.2022.138164",
+      "doiUrl": "https://doi.org/10.1016/j.cej.2022.138164",
+      "title": "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction",
+      "year": 2022,
+      "journal": "Chemical Engineering Journal",
+      "publicationType": "journal-article",
+      "documentRole": "primary-experimental-mof-enzyme-hybrid",
+      "landingPage": "https://doi.org/10.1016/j.cej.2022.138164",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-c2plus-mof",
+        "co2rr-carbon-monoxide-mof",
+        "co2rr-formate-direct-mof",
+        "co2rr-formate-mof-enzyme-hybrid"
+      ],
+      "familyId": "co2rr-formate-mof-enzyme-hybrid",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate",
+              "formate dehydrogenase"
+            ],
+            "state": [
+              "formate dehydrogenase",
+              "enzyme",
+              "immobilized"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "excluded-catalyst-state"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "metal organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [
+              "formate dehydrogenase",
+              "enzyme",
+              "immobilized"
+            ],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "formate",
+          "formate dehydrogenase"
+        ],
+        "state": [
+          "formate dehydrogenase",
+          "enzyme",
+          "immobilized"
+        ],
+        "experimental": [
+          "electrocatal",
+          "catalytic"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": {
+        "decision": "reaction-record-candidate",
+        "documentRole": "primary-experimental-mof-enzyme-hybrid",
+        "catalystStateOverride": "mof-enzyme-hybrid",
+        "checkedAgainst": "Crossref title metadata",
+        "sourceUrl": "https://doi.org/10.1016/j.cej.2022.138164",
+        "noteZh": "题名明确为 MOF 固定化甲酸脱氢酶体系，不能归作普通直接 MOF 催化剂。",
+        "noteEn": "The title identifies an MOF-immobilized formate-dehydrogenase system, not a conventional direct MOF catalyst."
+      },
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1016/j.cej.2022.138164",
+        "checkedAt": "2026-08-12T12:23:52.292Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction",
+          "discoveryTitle": "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction",
+          "journal": "Chemical Engineering Journal",
+          "year": 2022,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "cd494fdde4f326e3b06a0f3056c86d3d3763df0a1b643c96802209b3df5997d0"
+      }
+    },
+    {
+      "id": "catlit-588124b931bd",
+      "doi": "10.1016/j.cjche.2022.03.006",
+      "doiUrl": "https://doi.org/10.1016/j.cjche.2022.03.006",
+      "title": "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate",
+      "year": 2022,
+      "journal": "Chinese Journal of Chemical Engineering",
+      "publicationType": "journal-article",
+      "documentRole": "primary-experimental-reconstructed-mof",
+      "landingPage": "https://doi.org/10.1016/j.cjche.2022.03.006",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-formate-direct-mof",
+        "co2rr-formate-mof-derived",
+        "co2rr-formate-mof-enzyme-hybrid"
+      ],
+      "familyId": "co2rr-formate-mof-derived",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "reconstruction"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "excluded-catalyst-state"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [
+              "reconstruction"
+            ],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "formate"
+        ],
+        "state": [
+          "reconstruction"
+        ],
+        "experimental": [
+          "electrochemical"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": {
+        "decision": "reaction-record-candidate",
+        "documentRole": "primary-experimental-reconstructed-mof",
+        "catalystStateOverride": "reconstructed-mof-derived-material",
+        "checkedAgainst": "Crossref title metadata",
+        "sourceUrl": "https://doi.org/10.1016/j.cjche.2022.03.006",
+        "noteZh": "题名明确包含结构重构，候选状态必须保持为重构/衍生材料，不能标为原始 MOF 活性相。",
+        "noteEn": "The title explicitly reports structural reconstruction, so the candidate remains a reconstructed or derived material rather than a pristine-MOF active phase."
+      },
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1016/j.cjche.2022.03.006",
+        "checkedAt": "2026-08-12T12:23:52.559Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate",
+          "discoveryTitle": "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate",
+          "journal": "Chinese Journal of Chemical Engineering",
+          "year": 2022,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "14cff13275b5531534b413a98300855a70bbf57c46cced3346a61564cdd16a90"
+      }
+    },
+    {
+      "id": "catlit-8fe6127530ec",
+      "doi": "10.1021/acs.inorgchem.2c01961",
+      "doiUrl": "https://doi.org/10.1021/acs.inorgchem.2c01961",
+      "title": "Metal–Organic Framework-Derived BiIn Bimetallic Oxide Nanoparticles Embedded in Carbon Networks for Efficient Electrochemical Reduction of CO2 to Formate",
+      "year": 2022,
+      "journal": "Inorganic Chemistry",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1021/acs.inorgchem.2c01961",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-formate-mof-derived"
+      ],
+      "familyId": "co2rr-formate-mof-derived",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "derived"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework",
+              "derived"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework",
+              "derived"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "excluded-catalyst-state"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [
+              "formate"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrochemical"
+            ],
+            "excludedState": [
+              "framework-derived"
+            ],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "electrochemical reduction of co2"
+        ],
+        "product": [
+          "formate"
+        ],
+        "state": [
+          "derived"
+        ],
+        "experimental": [
+          "electrochemical"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1021/acs.inorgchem.2c01961",
+        "checkedAt": "2026-08-12T12:23:52.824Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Metal–Organic Framework-Derived BiIn Bimetallic Oxide Nanoparticles Embedded in Carbon Networks for Efficient Electrochemical Reduction of CO<sub>2</sub> to Formate",
+          "discoveryTitle": "Metal–Organic Framework-Derived BiIn Bimetallic Oxide Nanoparticles Embedded in Carbon Networks for Efficient Electrochemical Reduction of CO2 to Formate",
+          "journal": "Inorganic Chemistry",
+          "year": 2022,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "8af461f1906a8a09bea913daf91756a97e78d9728547b15be0275b7f056e1583"
+      }
+    },
+    {
+      "id": "catlit-625884b1e252",
+      "doi": "10.1002/anie.202111700",
+      "doiUrl": "https://doi.org/10.1002/anie.202111700",
+      "title": "Highly Ethylene‐Selective Electrocatalytic CO2 Reduction Enabled by Isolated Cu−S Motifs in Metal–Organic Framework Based Precatalysts",
+      "year": 2021,
+      "journal": "Angewandte Chemie International Edition",
+      "publicationType": "article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1002/anie.202111700",
+      "adapterEvidence": [
+        "openalex"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-c2plus-mof"
+      ],
+      "familyId": "co2rr-c2plus-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "ethylene"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalyst",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalyst",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalyst",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalyst",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalyst",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "ethylene"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "catalyst",
+          "catalytic"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "openalex-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1002/anie.202111700",
+        "checkedAt": "2026-08-12T12:23:53.090Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Highly Ethylene‐Selective Electrocatalytic CO<sub>2</sub> Reduction Enabled by Isolated Cu−S Motifs in Metal–Organic Framework Based Precatalysts",
+          "discoveryTitle": "Highly Ethylene‐Selective Electrocatalytic CO<sub>2</sub> Reduction Enabled by Isolated Cu−S Motifs in Metal–Organic Framework Based Precatalysts",
+          "journal": "Angewandte Chemie International Edition",
+          "year": 2021,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "2453ce9b4c05fb3c1d77c708101d5d251c2a18449ecb40e7fe7b3ddeacc89dc9"
+      }
+    },
+    {
+      "id": "catlit-909f24a80746",
+      "doi": "10.1016/j.materresbull.2021.111228",
+      "doiUrl": "https://doi.org/10.1016/j.materresbull.2021.111228",
+      "title": "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO",
+      "year": 2021,
+      "journal": "Materials Research Bulletin",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.1016/j.materresbull.2021.111228",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-formate-mof-enzyme-hybrid"
+      ],
+      "familyId": "co2rr-carbon-monoxide-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [
+              "co2 to co"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "electrochemical reduction of co2"
+        ],
+        "product": [
+          "co2 to co"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "electrochemical",
+          "catalyst"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.1016/j.materresbull.2021.111228",
+        "checkedAt": "2026-08-12T12:23:53.355Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO",
+          "discoveryTitle": "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO",
+          "journal": "Materials Research Bulletin",
+          "year": 2021,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "566e956ab2c455c8d965b27e145e1037ba318ff22898d875519fc5da39084923"
+      }
+    },
+    {
+      "id": "catlit-e01f139840c7",
+      "doi": "10.3390/catal11050537",
+      "doiUrl": "https://doi.org/10.3390/catal11050537",
+      "title": "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2",
+      "year": 2021,
+      "journal": "Catalysts",
+      "publicationType": "journal-article",
+      "documentRole": "unresolved-primary-or-secondary-literature",
+      "landingPage": "https://doi.org/10.3390/catal11050537",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-carbon-monoxide-mof",
+        "co2rr-formate-direct-mof",
+        "co2rr-formate-mof-derived",
+        "co2rr-formate-mof-enzyme-hybrid"
+      ],
+      "familyId": "co2rr-carbon-monoxide-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [
+              "co selective"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 7,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "electrochemical reduction of co2"
+            ],
+            "product": [],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "electrochemical",
+              "catalyst"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "electrochemical reduction of co2"
+        ],
+        "product": [
+          "co selective"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "electrochemical",
+          "catalyst"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "candidate-awaiting-fulltext-review",
+      "manualReview": null,
+      "formalLibraryEligible": false,
+      "reviewStatus": "metadata-screened-not-fulltext-verified",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.3390/catal11050537",
+        "checkedAt": "2026-08-12T12:23:53.619Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2",
+          "discoveryTitle": "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2",
+          "journal": "Catalysts",
+          "year": 2021,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "a4c00fd568c22a238873a3bc74f40ab415073ff6595ab0b25ab57d4f5381033f"
+      }
+    }
+  ],
+  "navigationCandidates": [
+    {
+      "id": "catlit-1d784dcce137",
+      "doi": "10.3390/catal13071109",
+      "doiUrl": "https://doi.org/10.3390/catal13071109",
+      "title": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+      "year": 2023,
+      "journal": "Catalysts",
+      "publicationType": "journal-article",
+      "documentRole": "review-article",
+      "landingPage": "https://doi.org/10.3390/catal13071109",
+      "adapterEvidence": [
+        "crossref"
+      ],
+      "discoveryFamilyIds": [
+        "co2rr-c2plus-mof",
+        "co2rr-carbon-monoxide-mof",
+        "co2rr-formate-direct-mof",
+        "co2rr-formate-mof-derived"
+      ],
+      "familyId": "co2rr-formate-direct-mof",
+      "familyMatches": [
+        {
+          "familyId": "co2rr-formate-direct-mof",
+          "score": 11,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formic acid"
+            ],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-derived",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formic acid"
+            ],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-formate-mof-enzyme-hybrid",
+          "score": 10,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "family-product",
+            "experimental-language"
+          ],
+          "blockers": [],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [
+              "formic acid"
+            ],
+            "state": [],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": true
+        },
+        {
+          "familyId": "co2rr-c2plus-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        },
+        {
+          "familyId": "co2rr-carbon-monoxide-mof",
+          "score": 8,
+          "signals": [
+            "mof-context",
+            "co2-electroreduction",
+            "experimental-language",
+            "catalyst-state-language"
+          ],
+          "blockers": [
+            "missing-signal:family-product"
+          ],
+          "matchedTerms": {
+            "mof": [
+              "metal-organic framework",
+              "metal–organic framework"
+            ],
+            "co2rr": [
+              "co2 reduction"
+            ],
+            "product": [],
+            "state": [
+              "metal-organic framework"
+            ],
+            "experimental": [
+              "electrocatal",
+              "catalytic"
+            ],
+            "excludedState": [],
+            "excludedPublication": []
+          },
+          "eligibleForCandidateQueue": false
+        }
+      ],
+      "relevanceScore": 11,
+      "relevanceSignals": [
+        "mof-context",
+        "co2-electroreduction",
+        "family-product",
+        "experimental-language",
+        "catalyst-state-language"
+      ],
+      "matchedTerms": {
+        "mof": [
+          "metal-organic framework",
+          "metal–organic framework"
+        ],
+        "co2rr": [
+          "co2 reduction"
+        ],
+        "product": [
+          "formic acid"
+        ],
+        "state": [
+          "metal-organic framework"
+        ],
+        "experimental": [
+          "electrocatal",
+          "catalytic"
+        ],
+        "excludedState": [],
+        "excludedPublication": []
+      },
+      "blockers": [],
+      "metadataVerification": "crossref-metadata-resolved",
+      "queueStatus": "literature-navigation-only",
+      "manualReview": {
+        "decision": "literature-navigation-only",
+        "documentRole": "review-article",
+        "checkedAgainst": "Crossref deposited abstract and publisher landing page",
+        "sourceUrl": "https://doi.org/10.3390/catal13071109",
+        "noteZh": "摘要明确写明为综述；可用于追溯参考文献，但不得作为实验反应记录候选。",
+        "noteEn": "The deposited abstract explicitly identifies a review; it may guide reference discovery but cannot become an experimental reaction-record candidate."
+      },
+      "formalLibraryEligible": false,
+      "reviewStatus": "literature-navigation-only",
+      "doiVerification": {
+        "schemaVersion": "catalysis-discovery-doi-verification-v1",
+        "doi": "10.3390/catal13071109",
+        "checkedAt": "2026-08-12T12:23:53.980Z",
+        "checkedBy": "Crossref REST API single-work endpoint",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+          "discoveryTitle": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+          "journal": "Catalysts",
+          "year": 2023,
+          "publicationType": "journal-article"
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "updateCount": 0,
+          "relatedUpdateCount": 0
+        },
+        "abstractPersisted": false,
+        "snapshotHash": "2f9756a94509e17ed96f2d26b52f42ae9aa33038eb3b14259ef318bb4e00ec75"
+      }
+    }
+  ]
+}

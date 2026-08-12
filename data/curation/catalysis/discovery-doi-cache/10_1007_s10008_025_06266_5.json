@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1007/s10008-025-06266-5",
+  "checkedAt": "2026-08-12T12:23:50.753Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Fabrication of Bi‐based metal‐organic framework for efficient electrocatalytic CO2 reduction to produce HCOOH",
+    "discoveryTitle": "Fabrication of Bi‐based metal‐organic framework for efficient electrocatalytic CO2 reduction to produce HCOOH",
+    "journal": "Journal of Solid State Electrochemistry",
+    "year": 2025,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "1700cb1931fb54f6d90793bc00fbbaabf3543ef3448f8a87366f66ecaf6cacfe"
+}

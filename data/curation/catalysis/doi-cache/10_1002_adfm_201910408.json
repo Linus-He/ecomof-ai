@@ -1,0 +1,43 @@
+{
+  "doi": "10.1002/adfm.201910408",
+  "checkedAt": "2026-08-12T11:41:10.322Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Restructuring Metal–Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO<sub>2</sub> Reduction to Formate",
+    "curatedTitle": "Restructuring Metal-Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO2 Reduction to Formate",
+    "journal": "Advanced Functional Materials",
+    "year": 2020
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              2,
+              24
+            ]
+          ],
+          "date-time": "2020-02-24T00:00:00Z",
+          "timestamp": 1582502400000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "4e7498ad7423670b4bf88a8560ed2b0211ad784ad13cb8d07f53279d729d52cf"
+}

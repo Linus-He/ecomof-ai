@@ -31,6 +31,7 @@ import { StatusBadgeLegend } from "./StatusBadgeLegend"
 import { WhyMoWaterfall } from "./WhyMoWaterfall"
 import { WhyMoVsWComparison } from "./WhyMoVsWComparison"
 import { OrganicAcidResearchValidationCenter } from "../researchValidation/OrganicAcidResearchValidationCenter"
+import { catalysisTrainingGate } from "../../../utils/catalysisVerificationV2"
 
 const DatabaseIndexWorkbench = lazy(() =>
   import("../../database-index/DatabaseIndexWorkbench").then(module => ({ default: module.DatabaseIndexWorkbench })),
@@ -64,6 +65,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const [databaseIndexOverview, setDatabaseIndexOverview] = useState(null)
   const [experimentalLabels, setExperimentalLabels] = useState(null)
   const [benchmarkDataset, setBenchmarkDataset] = useState(null)
+  const [catalysisDatabase, setCatalysisDatabase] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -79,8 +81,9 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
       fetchDataJson("organic_acid_final_screening/curated_real_examples/real_data_mapping_report.json", {}, { throwOnError: true }),
       fetchDataJson("experimental_labels/experimental_labels_v2.json", null, { throwOnError: false }),
       fetchDataJson("benchmark_dataset_v3_6.json", null, { throwOnError: false }),
+      fetchDataJson("catalysis_v2/catalysis_reaction_database_v2.json", null, { throwOnError: false }),
     ])
-      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows, curatedFrameworkRows, curatedQmofRows, curatedEvidenceRows, curatedReport, labelRows, benchmarkRows]) => {
+      .then(([frameworkRows, metalRows, ruleConfig, evidenceRows, curatedFrameworkRows, curatedQmofRows, curatedEvidenceRows, curatedReport, labelRows, benchmarkRows, nextCatalysisDatabase]) => {
         if (!active) return
         setFrameworks(Array.isArray(frameworkRows) ? frameworkRows : [])
         setMetals(Array.isArray(metalRows) ? metalRows : [])
@@ -94,6 +97,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         })
         setExperimentalLabels(labelRows || null)
         setBenchmarkDataset(benchmarkRows || null)
+        setCatalysisDatabase(nextCatalysisDatabase || null)
         setStatus("loaded")
       })
       .catch(error => {
@@ -105,6 +109,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         setCuratedRealExamples(null)
         setExperimentalLabels(null)
         setBenchmarkDataset(null)
+        setCatalysisDatabase(null)
         setRules({})
         setStatus("error")
       })
@@ -122,6 +127,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
   const decisionTrace = useMemo(() => (
     decisionCandidate ? buildCandidateDecisionTrace(decisionCandidate) : null
   ), [decisionCandidate])
+  const catalysisGate = useMemo(() => catalysisTrainingGate(catalysisDatabase), [catalysisDatabase])
 
   const openSelectedScaffold = () => {
     if (result?.selectedFramework) setDecisionCandidate(result.selectedFramework)
@@ -168,6 +174,11 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
         )} />
       </section>
 
+      <section data-testid="organic-acid-catalysis-admission-gate" style={{ background: catalysisGate.eligible ? t.badgeCalcBg : t.badgeWarnBg, border: `1px solid ${catalysisGate.eligible ? t.success : t.warn}`, borderRadius: 8, color: t.muted, display: "grid", gap: 4, padding: "9px 11px" }}>
+        <strong style={{ color: t.textStrong, fontSize: 11.5 }}>{text(lang, "催化底层数据准入", "Catalysis data admission")}: {catalysisGate.eligibleCount}</strong>
+        <span style={{ fontSize: 10.8, lineHeight: 1.5 }}>{lang === "zh" ? catalysisGate.reasonZh : catalysisGate.reasonEn}</span>
+      </section>
+
       {status === "loading" ? <LoadingPanel lang={lang} t={t} /> : null}
       {status === "error" ? <ErrorPanel lang={lang} t={t} /> : null}
 
@@ -180,7 +191,7 @@ export function OrganicAcidFinalScreening({ lang, t, isMobile, onBack }) {
           <Suspense fallback={<DatabaseIndexSkeleton lang={lang} t={t} />}>
             <DatabaseIndexWorkbench lang={lang} t={t} isMobile={isMobile} onOverviewLoaded={setDatabaseIndexOverview} />
           </Suspense>
-          <OrganicAcidResearchValidationCenter result={result} evidenceRecords={evidenceRecords} experimentalLabels={experimentalLabels} benchmarkDataset={benchmarkDataset} lang={lang} t={t} isMobile={isMobile} />
+          <OrganicAcidResearchValidationCenter result={result} evidenceRecords={evidenceRecords} experimentalLabels={experimentalLabels} benchmarkDataset={benchmarkDataset} catalysisDatabase={catalysisDatabase} lang={lang} t={t} isMobile={isMobile} />
           <OrganicAcidFinalDecisionBoard result={result} lang={lang} t={t} isMobile={isMobile} onInspectCandidate={setDecisionCandidate} />
           <AlgorithmTraceWorkbench trace={latestTrace} lang={lang} t={t} isMobile={isMobile} />
           <AlgorithmPipelineStepper steps={result.algorithmJourneySteps} lang={lang} t={t} isMobile={isMobile} />

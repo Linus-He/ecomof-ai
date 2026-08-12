@@ -1,0 +1,1904 @@
+{
+  "schemaVersion": "catalysis-evidence-graph-v2",
+  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "summary": {
+    "nodeCount": 156,
+    "edgeCount": 146
+  },
+  "nodes": [
+    {
+      "id": "source-cat-lit-mfm220-2022",
+      "type": "source-document",
+      "label": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2",
+      "doi": "10.1039/d2ta04485d",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-tal33-2022",
+      "type": "source-document",
+      "label": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+      "doi": "10.1016/j.jcou.2022.101937",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-bicc17-2021",
+      "type": "source-document",
+      "label": "Metal-Organic-Framework-Derived Bismuth Nanosheets for Electrochemical and Solar-Driven Electrochemical CO2 Reduction to Formate",
+      "doi": "10.1002/celc.202001613",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-cau17-2020",
+      "type": "source-document",
+      "label": "Bi-Based Metal-Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+      "doi": "10.1002/aenm.202001709",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-bibtb-2020",
+      "type": "source-document",
+      "label": "Restructuring Metal-Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO2 Reduction to Formate",
+      "doi": "10.1002/adfm.201910408",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-zrdmbdbi-2025",
+      "type": "source-document",
+      "label": "Incarcerating bismuth nanoparticles into a thiol-laced metal-organic framework for electro and photocatalysis",
+      "doi": "10.1039/d4mh01153h",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-bihhtp-2023",
+      "type": "source-document",
+      "label": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO2 electroreduction to formate",
+      "doi": "10.1039/d3sc01876h",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-su101-2022",
+      "type": "source-document",
+      "label": "A hexacoordinated Bi3+-based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+      "doi": "10.1039/d2ta01727j",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-cubi-2021",
+      "type": "source-document",
+      "label": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+      "doi": "10.1016/j.apcatb.2021.120571",
+      "status": "matched"
+    },
+    {
+      "id": "source-cat-lit-2dbimof-2020",
+      "type": "source-document",
+      "label": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+      "doi": "10.1016/j.apcatb.2020.119241",
+      "status": "matched"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+      "type": "catalyst-state",
+      "label": "MFM-220-p",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-mfm220p-formate-2022",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 90.4 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "type": "metric-claim",
+      "label": "stability_duration: 5 h",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "metric-claim",
+      "label": "total_current_density: not-extracted mA cm-2",
+      "status": "not-extracted"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+      "type": "catalyst-state",
+      "label": "TAL-33-derived Bi catalyst",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: not-extracted %",
+      "status": "not-extracted"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "type": "catalyst-state",
+      "label": "Bi/CC-17",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 98 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "type": "metric-claim",
+      "label": "partial_current_density: 45 mA cm-2",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "type": "catalyst-state",
+      "label": "CAU-17-derived leafy bismuth nanosheets",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "type": "reaction-record",
+      "label": "CO2 -> formic acid/formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "type": "metric-claim",
+      "label": "total_current_density: 200 mA cm-2",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 85 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 90 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "type": "metric-claim",
+      "label": "stability_duration: 10 h",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "type": "catalyst-state",
+      "label": "restructured Bi(btb)-derived bismuth electrocatalyst",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 95 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "type": "metric-claim",
+      "label": "mass_activity: 261 A g-1",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "type": "catalyst-state",
+      "label": "BiNP@Zr-DMBD",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 88.1 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "metric-claim",
+      "label": "partial_current_density: 22 mA cm-2",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+      "type": "catalyst-state",
+      "label": "Bi-HHTP",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-bi-hhtp-formate-2023",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 95 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "type": "metric-claim",
+      "label": "carbon_energy_efficiency: 68.8 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "type": "metric-claim",
+      "label": "total_current_density: 93 mA cm-2",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "type": "metric-claim",
+      "label": "turnover_frequency: 576 h-1",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "type": "metric-claim",
+      "label": "electrical_conductivity: 1.65 S m-1",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "type": "metric-claim",
+      "label": "stability_duration: 30 h",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-su101-formate-2022",
+      "type": "catalyst-state",
+      "label": "SU-101 nanorods",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-su101-formate-2022",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 93.66 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "type": "metric-claim",
+      "label": "partial_current_density: 14.57 mA cm-2",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency_after_stability: 87.51 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+      "type": "catalyst-state",
+      "label": "MOF-derived CuBi catalyst",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-cubi-derived-formate-2021",
+      "type": "reaction-record",
+      "label": "CO2 -> formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 100 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "type": "metric-claim",
+      "label": "selective_potential_window: 900 mV",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+      "type": "catalyst-state",
+      "label": "two-dimensional Bi-MOF",
+      "status": "unresolved"
+    },
+    {
+      "id": "catrxn-v2-2d-bi-mof-formate-2020",
+      "type": "reaction-record",
+      "label": "CO2 -> formic acid/formate",
+      "status": "literature-curated"
+    },
+    {
+      "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 92.2 %",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "type": "metric-claim",
+      "label": "mass_specific_partial_current_density: 41 mA mgBi-1",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "type": "metric-claim",
+      "label": "stability_duration: 30 h",
+      "status": "L2-abstract-only"
+    },
+    {
+      "id": "evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3a",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "evidence-item",
+      "label": "not present in the verified abstract fields",
+      "status": "not-extracted"
+    },
+    {
+      "id": "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "type": "evidence-item",
+      "label": "numeric performance not available in the verified publisher abstract fields",
+      "status": "not-extracted"
+    },
+    {
+      "id": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "type": "evidence-item",
+      "label": "institutional repository abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "type": "evidence-item",
+      "label": "institutional repository abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical performance · Fig. 3c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical performance · Fig. 3c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical performance · Fig. 3b–3c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical performance · Fig. 3e",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "type": "evidence-item",
+      "label": "publisher full text · Electronic structure and conductivity · Fig. 2b; Table S2",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical performance · Fig. 3d",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-su101-formate-2022-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Results and discussion · Fig. 2b–2c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Results and discussion · Fig. 2c",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "type": "evidence-item",
+      "label": "publisher full text · Results and discussion · Fig. 2d",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "type": "evidence-item",
+      "label": "publisher abstract",
+      "status": "location-backfill-required"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-identity-resolution-4",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-active-phase-review-5",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-mfm220-2022-license-review-6",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-1",
+      "type": "verification-task",
+      "label": "补齐比较条件：cellType",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：potentialOrCurrent",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-5",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-condition-backfill-6",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-identity-resolution-7",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-active-phase-review-8",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-tal33-2022-license-review-9",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-condition-backfill-5",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-identity-resolution-6",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-active-phase-review-7",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bicc17-2021-license-review-8",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：potentialOrCurrent",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-identity-resolution-5",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-active-phase-review-6",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cau17-2020-license-review-7",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：cellType",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：potentialOrCurrent",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-5",
+      "type": "verification-task",
+      "label": "补齐比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-6",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-condition-backfill-7",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-identity-resolution-8",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-active-phase-review-9",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bibtb-2020-license-review-10",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-zrdmbdbi-2025-license-review-7",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-1",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-active-phase-review-3",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-license-review-4",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-su101-2022-condition-backfill-1",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-su101-2022-identity-resolution-2",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-su101-2022-active-phase-review-3",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-su101-2022-license-review-4",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-condition-backfill-5",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-identity-resolution-6",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-active-phase-review-7",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-cubi-2021-license-review-8",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-claim-location-backfill-1",
+      "type": "verification-task",
+      "label": "补齐数值的图表或补充材料位置",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-2",
+      "type": "verification-task",
+      "label": "补齐比较条件：electrolyte",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐比较条件：productQuantification",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-identity-resolution-5",
+      "type": "verification-task",
+      "label": "核验精确结构身份",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-active-phase-review-6",
+      "type": "verification-task",
+      "label": "核验真实催化活性相",
+      "status": "open",
+      "priority": "P1"
+    },
+    {
+      "id": "task-source-cat-lit-2dbimof-2020-license-review-7",
+      "type": "verification-task",
+      "label": "核验模型训练使用许可",
+      "status": "open",
+      "priority": "P1"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-source-cat-lit-mfm220-2022-catalyst-state-catrxn-v2-mfm220p-formate-2022",
+      "source": "source-cat-lit-mfm220-2022",
+      "target": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-mfm220p-formate-2022-catrxn-v2-mfm220p-formate-2022",
+      "source": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+      "target": "catrxn-v2-mfm220p-formate-2022",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-fe-formate-evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "source": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "target": "evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-stability-duration-evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "source": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "target": "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-total-current-density-evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "source": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "target": "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-tal33-2022-catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+      "source": "source-cat-lit-tal33-2022",
+      "target": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022-catrxn-v2-tal33-derived-bi-formate-2022",
+      "source": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate-evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "source": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "target": "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-bicc17-2021-catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "source": "source-cat-lit-bicc17-2021",
+      "target": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "source": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate-evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "source": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "target": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate-evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "source": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "target": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-cau17-2020-catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "source": "source-cat-lit-cau17-2020",
+      "target": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "source": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-bibtb-2020-catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "source": "source-cat-lit-bibtb-2020",
+      "target": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "source": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate-evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "source": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "target": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity-evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "source": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "target": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-zrdmbdbi-2025-catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "source": "source-cat-lit-zrdmbdbi-2025",
+      "target": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "source": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "source": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "target": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "source": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "target": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-bihhtp-2023-catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+      "source": "source-cat-lit-bihhtp-2023",
+      "target": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-bi-hhtp-formate-2023-catrxn-v2-bi-hhtp-formate-2023",
+      "source": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+      "target": "catrxn-v2-bi-hhtp-formate-2023",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate-evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency-evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density-evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate-evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-conductivity-evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration-evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "source": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-su101-2022-catalyst-state-catrxn-v2-su101-formate-2022",
+      "source": "source-cat-lit-su101-2022",
+      "target": "catalyst-state-catrxn-v2-su101-formate-2022",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-su101-formate-2022-catrxn-v2-su101-formate-2022",
+      "source": "catalyst-state-catrxn-v2-su101-formate-2022",
+      "target": "catrxn-v2-su101-formate-2022",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-su101-formate-2022-fe-formate-evidence-catrxn-v2-su101-formate-2022-fe-formate",
+      "source": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "target": "evidence-catrxn-v2-su101-formate-2022-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-su101-formate-2022-partial-current-formate-evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "source": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "target": "evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-su101-formate-2022-fe-after-stability-evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "source": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "target": "evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-cubi-2021-catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+      "source": "source-cat-lit-cubi-2021",
+      "target": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-cubi-derived-formate-2021-catrxn-v2-cubi-derived-formate-2021",
+      "source": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+      "target": "catrxn-v2-cubi-derived-formate-2021",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cubi-derived-formate-2021-fe-formate-evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "source": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "target": "evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-cubi-derived-formate-2021-potential-window-evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "source": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "target": "evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-source-cat-lit-2dbimof-2020-catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+      "source": "source-cat-lit-2dbimof-2020",
+      "target": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+      "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catalyst-state-catrxn-v2-2d-bi-mof-formate-2020-catrxn-v2-2d-bi-mof-formate-2020",
+      "source": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "catrxn-v2-2d-bi-mof-formate-2020",
+      "type": "participates-in"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid-evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "source": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "target": "evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current-evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "source": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "target": "evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration-evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "source": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "target": "evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-condition-backfill-2",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-condition-backfill-3",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-identity-resolution-4",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-identity-resolution-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-active-phase-review-5",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-active-phase-review-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-license-review-6",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "task-source-cat-lit-mfm220-2022-license-review-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-1",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-2",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-3",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-4",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-5",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-6",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-condition-backfill-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-identity-resolution-7",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-identity-resolution-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-active-phase-review-8",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-active-phase-review-8",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-license-review-9",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "task-source-cat-lit-tal33-2022-license-review-9",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-claim-location-backfill-1",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-2",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-3",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-4",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-5",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-condition-backfill-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-identity-resolution-6",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-identity-resolution-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-active-phase-review-7",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-active-phase-review-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-license-review-8",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "task-source-cat-lit-bicc17-2021-license-review-8",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-claim-location-backfill-1",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-2",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-3",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-4",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-identity-resolution-5",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-identity-resolution-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-active-phase-review-6",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-active-phase-review-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-license-review-7",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "task-source-cat-lit-cau17-2020-license-review-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-claim-location-backfill-1",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-2",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-3",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-4",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-5",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-6",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-7",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-condition-backfill-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-identity-resolution-8",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-identity-resolution-8",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-active-phase-review-9",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-active-phase-review-9",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-license-review-10",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "task-source-cat-lit-bibtb-2020-license-review-10",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-license-review-7",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-license-review-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-condition-backfill-1",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-active-phase-review-3",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "task-source-cat-lit-bihhtp-2023-active-phase-review-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-license-review-4",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "task-source-cat-lit-bihhtp-2023-license-review-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-condition-backfill-1",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "task-source-cat-lit-su101-2022-condition-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-identity-resolution-2",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "task-source-cat-lit-su101-2022-identity-resolution-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-active-phase-review-3",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "task-source-cat-lit-su101-2022-active-phase-review-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-license-review-4",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "task-source-cat-lit-su101-2022-license-review-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-claim-location-backfill-1",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-2",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-3",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-4",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-5",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-condition-backfill-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-identity-resolution-6",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-identity-resolution-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-active-phase-review-7",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-active-phase-review-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-license-review-8",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "task-source-cat-lit-cubi-2021-license-review-8",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-claim-location-backfill-1",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-claim-location-backfill-1",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-2",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-3",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-4",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-identity-resolution-5",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-identity-resolution-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-active-phase-review-6",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-active-phase-review-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-license-review-7",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "task-source-cat-lit-2dbimof-2020-license-review-7",
+      "type": "requires-verification"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "doi": "10.1002/celc.202001613",
+  "checkedAt": "2026-08-12T11:41:09.224Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Metal‐Organic‐Framework‐Derived Bismuth Nanosheets for Electrochemical and Solar‐Driven Electrochemical CO<sub>2</sub> Reduction to Formate",
+    "curatedTitle": "Metal-Organic-Framework-Derived Bismuth Nanosheets for Electrochemical and Solar-Driven Electrochemical CO2 Reduction to Formate",
+    "journal": "ChemElectroChem",
+    "year": 2021
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              1
+            ]
+          ],
+          "date-time": "2021-02-01T00:00:00Z",
+          "timestamp": 1612137600000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "dea89ab712b00bd6bf2a6e2667229688d67436bc8873e6ba24903cf90c61255c"
+}

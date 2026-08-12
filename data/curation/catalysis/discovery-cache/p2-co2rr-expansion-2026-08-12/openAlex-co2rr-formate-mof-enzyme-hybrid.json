@@ -1,0 +1,1079 @@
+{
+  "schemaVersion": "catalysis-discovery-cache-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "adapter": "openAlex",
+  "familyId": "co2rr-formate-mof-enzyme-hybrid",
+  "retrievedAt": "2026-08-12T12:22:02.791Z",
+  "request": {
+    "endpoint": "https://api.openalex.org/works",
+    "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+    "filter": "type:article",
+    "rows": 25,
+    "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+    "accessMode": "public"
+  },
+  "response": {
+    "meta": {
+      "count": 203,
+      "perPage": 25
+    },
+    "results": [
+      {
+        "id": "https://openalex.org/W3007475430",
+        "doi": "https://doi.org/10.1038/s41563-020-0610-2",
+        "display_name": "Molecular enhancement of heterogeneous CO2 reduction",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.1038/s41563-020-0610-2",
+          "is_oa": false,
+          "landing_page_url": "https://doi.org/10.1038/s41563-020-0610-2",
+          "pdf_url": null,
+          "source": {
+            "id": "https://openalex.org/S103895331",
+            "display_name": "Nature Materials",
+            "issn_l": "1476-1122",
+            "issn": [
+              "1476-1122",
+              "1476-4660"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319908",
+            "host_organization_name": "Nature Portfolio",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319908",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Nature Portfolio",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nature Materials",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4367551803",
+        "doi": "https://doi.org/10.1007/s40820-023-01092-8",
+        "display_name": "Applications of Metal–Organic Frameworks and Their Derivatives in Electrochemical CO2 Reduction",
+        "publication_year": 2023,
+        "primary_location": {
+          "id": "doi:10.1007/s40820-023-01092-8",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1007/s40820-023-01092-8",
+          "pdf_url": "https://link.springer.com/content/pdf/10.1007/s40820-023-01092-8.pdf",
+          "source": {
+            "id": "https://openalex.org/S9070373",
+            "display_name": "Nano-Micro Letters",
+            "issn_l": "2150-5551",
+            "issn": [
+              "2150-5551",
+              "2311-6706"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319900",
+            "host_organization_name": "Springer Science+Business Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319900",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Springer Science+Business Media",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nano-Micro Letters",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3188794244",
+        "doi": "https://doi.org/10.1016/j.copbio.2021.07.011",
+        "display_name": "Formate dehydrogenases for CO2 utilization",
+        "publication_year": 2021,
+        "primary_location": {
+          "id": "doi:10.1016/j.copbio.2021.07.011",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.copbio.2021.07.011",
+          "pdf_url": "https://www.sciencedirect.com/science/article/pii/S0958166921001233/pdf",
+          "source": {
+            "id": "https://openalex.org/S23939942",
+            "display_name": "Current Opinion in Biotechnology",
+            "issn_l": "0958-1669",
+            "issn": [
+              "0958-1669",
+              "1879-0429"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Current Opinion in Biotechnology",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2991513105",
+        "doi": "https://doi.org/10.3389/fbioe.2019.00394",
+        "display_name": "Sequential Co-immobilization of Enzymes in Metal-Organic Frameworks for Efficient Biocatalytic Conversion of Adsorbed CO2 to Formate",
+        "publication_year": 2019,
+        "primary_location": {
+          "id": "doi:10.3389/fbioe.2019.00394",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3389/fbioe.2019.00394",
+          "pdf_url": "https://www.frontiersin.org/articles/10.3389/fbioe.2019.00394/pdf",
+          "source": {
+            "id": "https://openalex.org/S2595131146",
+            "display_name": "Frontiers in Bioengineering and Biotechnology",
+            "issn_l": "2296-4185",
+            "issn": [
+              "2296-4185"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320527",
+            "host_organization_name": "Frontiers Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320527"
+            ],
+            "host_organization_lineage_names": [
+              "Frontiers Media"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Frontiers in Bioengineering and Biotechnology",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2999527125",
+        "doi": "https://doi.org/10.1021/jacs.9b12828",
+        "display_name": "Integration of Enzymes and Photosensitizers in a Hierarchical Mesoporous Metal–Organic Framework for Light-Driven CO<sub>2</sub> Reduction",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.1021/jacs.9b12828",
+          "is_oa": false,
+          "landing_page_url": "https://doi.org/10.1021/jacs.9b12828",
+          "pdf_url": null,
+          "source": {
+            "id": "https://openalex.org/S111155417",
+            "display_name": "Journal of the American Chemical Society",
+            "issn_l": "0002-7863",
+            "issn": [
+              "0002-7863",
+              "1520-5126",
+              "1943-2984"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320006",
+            "host_organization_name": "American Chemical Society",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320006"
+            ],
+            "host_organization_lineage_names": [
+              "American Chemical Society"
+            ],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Journal of the American Chemical Society",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2960791141",
+        "doi": "https://doi.org/10.1038/s41467-019-10996-2",
+        "display_name": "Fundamentals and applications of photocatalytic CO2 methanation",
+        "publication_year": 2019,
+        "primary_location": {
+          "id": "doi:10.1038/s41467-019-10996-2",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1038/s41467-019-10996-2",
+          "pdf_url": "https://www.nature.com/articles/s41467-019-10996-2.pdf",
+          "source": {
+            "id": "https://openalex.org/S64187185",
+            "display_name": "Nature Communications",
+            "issn_l": "2041-1723",
+            "issn": [
+              "2041-1723"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319908",
+            "host_organization_name": "Nature Portfolio",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319908",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Nature Portfolio",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nature Communications",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3013610085",
+        "doi": "https://doi.org/10.1016/j.ijbiomac.2020.03.177",
+        "display_name": "Co-immobilization multienzyme nanoreactor with co-factor regeneration for conversion of CO2",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.1016/j.ijbiomac.2020.03.177",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.ijbiomac.2020.03.177",
+          "pdf_url": "https://www.sciencedirect.com/science/article/pii/S0141813020327574",
+          "source": {
+            "id": "https://openalex.org/S83853393",
+            "display_name": "International Journal of Biological Macromolecules",
+            "issn_l": "0141-8130",
+            "issn": [
+              "0141-8130",
+              "1879-0003"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "International Journal of Biological Macromolecules",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3108756563",
+        "doi": "https://doi.org/10.3390/nano10122422",
+        "display_name": "Photons to Formate: A Review on Photocatalytic Reduction of CO2 to Formic Acid",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.3390/nano10122422",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3390/nano10122422",
+          "pdf_url": "https://www.mdpi.com/2079-4991/10/12/2422/pdf",
+          "source": {
+            "id": "https://openalex.org/S2764646681",
+            "display_name": "Nanomaterials",
+            "issn_l": "2079-4991",
+            "issn": [
+              "2079-4991"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310310987",
+            "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310310987"
+            ],
+            "host_organization_lineage_names": [
+              "Multidisciplinary Digital Publishing Institute"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nanomaterials",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3045166001",
+        "doi": "https://doi.org/10.1039/d0cs00218f",
+        "display_name": "Molecular catalysis of CO <sub>2</sub> reduction: recent advances and perspectives in electrochemical and light-driven processes with selected Fe, Ni and Co aza macrocyclic and polypyridine complexes",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.1039/d0cs00218f",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1039/d0cs00218f",
+          "pdf_url": "https://pubs.rsc.org/en/content/articlepdf/2020/cs/d0cs00218f",
+          "source": {
+            "id": "https://openalex.org/S316438",
+            "display_name": "Chemical Society Reviews",
+            "issn_l": "0306-0012",
+            "issn": [
+              "0306-0012",
+              "1460-4744"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320556",
+            "host_organization_name": "Royal Society of Chemistry",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320556"
+            ],
+            "host_organization_lineage_names": [
+              "Royal Society of Chemistry"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc",
+          "license_id": "https://openalex.org/licenses/cc-by-nc",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Chemical Society Reviews",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2945448914",
+        "doi": "https://doi.org/10.3389/fchem.2019.00397",
+        "display_name": "Secondary-Sphere Effects in Molecular Electrocatalytic CO2 Reduction",
+        "publication_year": 2019,
+        "primary_location": {
+          "id": "doi:10.3389/fchem.2019.00397",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3389/fchem.2019.00397",
+          "pdf_url": "https://www.frontiersin.org/articles/10.3389/fchem.2019.00397/pdf",
+          "source": {
+            "id": "https://openalex.org/S2764970645",
+            "display_name": "Frontiers in Chemistry",
+            "issn_l": "2296-2646",
+            "issn": [
+              "2296-2646"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320527",
+            "host_organization_name": "Frontiers Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320527"
+            ],
+            "host_organization_lineage_names": [
+              "Frontiers Media"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Frontiers in Chemistry",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2883288462",
+        "doi": "https://doi.org/10.1016/j.ccr.2018.05.022",
+        "display_name": "Mechanistic aspects of CO2 reduction catalysis with manganese-based molecular catalysts",
+        "publication_year": 2018,
+        "primary_location": {
+          "id": "doi:10.1016/j.ccr.2018.05.022",
+          "is_oa": false,
+          "landing_page_url": "https://doi.org/10.1016/j.ccr.2018.05.022",
+          "pdf_url": null,
+          "source": {
+            "id": "https://openalex.org/S117186765",
+            "display_name": "Coordination Chemistry Reviews",
+            "issn_l": "0010-8545",
+            "issn": [
+              "0010-8545",
+              "1873-3840"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Coordination Chemistry Reviews",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4404215812",
+        "doi": "https://doi.org/10.1007/s40843-024-3165-6",
+        "display_name": "Recent advances and future perspectives of metal-organic frameworks as efficient electrocatalysts for CO2 reduction",
+        "publication_year": 2024,
+        "primary_location": {
+          "id": "doi:10.1007/s40843-024-3165-6",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1007/s40843-024-3165-6",
+          "pdf_url": "https://link.springer.com/content/pdf/10.1007/s40843-024-3165-6.pdf",
+          "source": {
+            "id": "https://openalex.org/S2764782236",
+            "display_name": "Science China Materials",
+            "issn_l": "2095-8226",
+            "issn": [
+              "2095-8226",
+              "2199-4501"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319900",
+            "host_organization_name": "Springer Science+Business Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319900",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Springer Science+Business Media",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Science China Materials",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W2787324237",
+        "doi": "https://doi.org/10.1007/s40843-017-9151-y",
+        "display_name": "Recent progress on advanced design for photoelectrochemical reduction of CO2 to fuels",
+        "publication_year": 2018,
+        "primary_location": {
+          "id": "doi:10.1007/s40843-017-9151-y",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1007/s40843-017-9151-y",
+          "pdf_url": "https://link.springer.com/content/pdf/10.1007%2Fs40843-017-9151-y.pdf",
+          "source": {
+            "id": "https://openalex.org/S2764782236",
+            "display_name": "Science China Materials",
+            "issn_l": "2095-8226",
+            "issn": [
+              "2095-8226",
+              "2199-4501"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319900",
+            "host_organization_name": "Springer Science+Business Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319900",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Springer Science+Business Media",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Science China Materials",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4386886157",
+        "doi": "https://doi.org/10.1016/j.crcon.2023.09.003",
+        "display_name": "Surface modification of HKUST-1 for enhanced activity of immobilized formate dehydrogenase used in CO2 hydrogenation",
+        "publication_year": 2023,
+        "primary_location": {
+          "id": "doi:10.1016/j.crcon.2023.09.003",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.crcon.2023.09.003",
+          "pdf_url": null,
+          "source": {
+            "id": "https://openalex.org/S2898119963",
+            "display_name": "Carbon Resources Conversion",
+            "issn_l": "2588-9133",
+            "issn": [
+              "2588-9133"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc-nd",
+          "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Carbon Resources Conversion",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4406248987",
+        "doi": "https://doi.org/10.3390/molecules30020251",
+        "display_name": "Recent Progress in Enzyme Immobilization to Metal–Organic Frameworks to Enhance the CO2 Conversion Efficiency",
+        "publication_year": 2025,
+        "primary_location": {
+          "id": "doi:10.3390/molecules30020251",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3390/molecules30020251",
+          "pdf_url": "https://www.mdpi.com/1420-3049/30/2/251/pdf?version=1736494124",
+          "source": {
+            "id": "https://openalex.org/S108911230",
+            "display_name": "Molecules",
+            "issn_l": "1420-3049",
+            "issn": [
+              "1420-3049",
+              "1433-1373"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310310987",
+            "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310310987"
+            ],
+            "host_organization_lineage_names": [
+              "Multidisciplinary Digital Publishing Institute"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Molecules",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4403514898",
+        "doi": "https://doi.org/10.1007/s43153-024-00513-4",
+        "display_name": "Metal–organic frameworks as highly effective platforms for enzyme immobilization–current developments and future perspectives",
+        "publication_year": 2024,
+        "primary_location": {
+          "id": "doi:10.1007/s43153-024-00513-4",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1007/s43153-024-00513-4",
+          "pdf_url": "https://link.springer.com/content/pdf/10.1007/s43153-024-00513-4.pdf",
+          "source": {
+            "id": "https://openalex.org/S93559295",
+            "display_name": "Brazilian Journal of Chemical Engineering",
+            "issn_l": "0104-6632",
+            "issn": [
+              "0104-6632",
+              "1678-4383"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319900",
+            "host_organization_name": "Springer Science+Business Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319900",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Springer Science+Business Media",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Brazilian Journal of Chemical Engineering",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4226373728",
+        "doi": "https://doi.org/10.1038/s41467-021-27457-4",
+        "display_name": "Charge-transfer regulated visible light driven photocatalytic H2 production and CO2 reduction in tetrathiafulvalene based coordination polymer gel",
+        "publication_year": 2021,
+        "primary_location": {
+          "id": "doi:10.1038/s41467-021-27457-4",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1038/s41467-021-27457-4",
+          "pdf_url": "https://www.nature.com/articles/s41467-021-27457-4.pdf",
+          "source": {
+            "id": "https://openalex.org/S64187185",
+            "display_name": "Nature Communications",
+            "issn_l": "2041-1723",
+            "issn": [
+              "2041-1723"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310319908",
+            "host_organization_name": "Nature Portfolio",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310319908",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "Nature Portfolio",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nature Communications",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3048433798",
+        "doi": "https://doi.org/10.3390/molecules25163653",
+        "display_name": "Research Progress in Conversion of CO2 to Valuable Fuels",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.3390/molecules25163653",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3390/molecules25163653",
+          "pdf_url": "https://www.mdpi.com/1420-3049/25/16/3653/pdf?version=1597140299",
+          "source": {
+            "id": "https://openalex.org/S108911230",
+            "display_name": "Molecules",
+            "issn_l": "1420-3049",
+            "issn": [
+              "1420-3049",
+              "1433-1373"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310310987",
+            "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310310987"
+            ],
+            "host_organization_lineage_names": [
+              "Multidisciplinary Digital Publishing Institute"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Molecules",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3200380336",
+        "doi": "https://doi.org/10.3389/fchem.2021.748957",
+        "display_name": "Recent Advances in Non-Enzymatic Glucose Sensors Based on Metal and Metal Oxide Nanostructures for Diabetes Management- A Review",
+        "publication_year": 2021,
+        "primary_location": {
+          "id": "doi:10.3389/fchem.2021.748957",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3389/fchem.2021.748957",
+          "pdf_url": "https://www.frontiersin.org/articles/10.3389/fchem.2021.748957/pdf",
+          "source": {
+            "id": "https://openalex.org/S2764970645",
+            "display_name": "Frontiers in Chemistry",
+            "issn_l": "2296-2646",
+            "issn": [
+              "2296-2646"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320527",
+            "host_organization_name": "Frontiers Media",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320527"
+            ],
+            "host_organization_lineage_names": [
+              "Frontiers Media"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Frontiers in Chemistry",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3215935303",
+        "doi": "https://doi.org/10.1016/j.chemosphere.2021.133117",
+        "display_name": "Fabrication of a biocathode for formic acid production upon the immobilization of formate dehydrogenase from Candida boidinii on a nanoporous carbon",
+        "publication_year": 2021,
+        "primary_location": {
+          "id": "doi:10.1016/j.chemosphere.2021.133117",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.chemosphere.2021.133117",
+          "pdf_url": "https://www.sciencedirect.com/science/article/pii/S004565352103589X/pdf",
+          "source": {
+            "id": "https://openalex.org/S203465130",
+            "display_name": "Chemosphere",
+            "issn_l": "0045-6535",
+            "issn": [
+              "0045-6535",
+              "1879-1298"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc-nd",
+          "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Chemosphere",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4308685950",
+        "doi": "https://doi.org/10.1039/d2ra03459j",
+        "display_name": "Simultaneous CO <sub>2</sub> reduction and NADH regeneration using formate and glycerol dehydrogenase enzymes co-immobilized on modified natural zeolite",
+        "publication_year": 2022,
+        "primary_location": {
+          "id": "doi:10.1039/d2ra03459j",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1039/d2ra03459j",
+          "pdf_url": "https://pubs.rsc.org/en/content/articlepdf/2022/ra/d2ra03459j",
+          "source": {
+            "id": "https://openalex.org/S2481244646",
+            "display_name": "RSC Advances",
+            "issn_l": "2046-2069",
+            "issn": [
+              "2046-2069"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320556",
+            "host_organization_name": "Royal Society of Chemistry",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320556"
+            ],
+            "host_organization_lineage_names": [
+              "Royal Society of Chemistry"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc",
+          "license_id": "https://openalex.org/licenses/cc-by-nc",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "RSC Advances",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3169708967",
+        "doi": "https://doi.org/10.1016/j.nanoms.2021.05.003",
+        "display_name": "Photoelectrocatalytic carbon dioxide reduction: Fundamental, advances and challenges",
+        "publication_year": 2021,
+        "primary_location": {
+          "id": "doi:10.1016/j.nanoms.2021.05.003",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.nanoms.2021.05.003",
+          "pdf_url": "https://www.sciencedirect.com/science/article/pii/S2589965121000210/pdf",
+          "source": {
+            "id": "https://openalex.org/S4210230927",
+            "display_name": "Nano Materials Science",
+            "issn_l": "2096-6482",
+            "issn": [
+              "2096-6482",
+              "2589-9651"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc-nd",
+          "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Nano Materials Science",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W3080647710",
+        "doi": "https://doi.org/10.1016/j.ceja.2020.100013",
+        "display_name": "Carbon dioxide utilization: A paradigm shift with CO2 economy",
+        "publication_year": 2020,
+        "primary_location": {
+          "id": "doi:10.1016/j.ceja.2020.100013",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.ceja.2020.100013",
+          "pdf_url": "https://www.sciencedirect.com/science/article/pii/S2666821120300132/pdf",
+          "source": {
+            "id": "https://openalex.org/S4210233595",
+            "display_name": "Chemical Engineering Journal Advances",
+            "issn_l": "2666-8211",
+            "issn": [
+              "2666-8211"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc-nd",
+          "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Chemical Engineering Journal Advances",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4289520002",
+        "doi": "https://doi.org/10.3390/molecules27154913",
+        "display_name": "Improving the Enzymatic Cascade of Reactions for the Reduction of CO2 to CH3OH in Water: From Enzymes Immobilization Strategies to Cofactor Regeneration and Cofactor Suppression",
+        "publication_year": 2022,
+        "primary_location": {
+          "id": "doi:10.3390/molecules27154913",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.3390/molecules27154913",
+          "pdf_url": "https://www.mdpi.com/1420-3049/27/15/4913/pdf?version=1659422419",
+          "source": {
+            "id": "https://openalex.org/S108911230",
+            "display_name": "Molecules",
+            "issn_l": "1420-3049",
+            "issn": [
+              "1420-3049",
+              "1433-1373"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310310987",
+            "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310310987"
+            ],
+            "host_organization_lineage_names": [
+              "Multidisciplinary Digital Publishing Institute"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Molecules",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      },
+      {
+        "id": "https://openalex.org/W4392765051",
+        "doi": "https://doi.org/10.1016/j.crcon.2024.100234",
+        "display_name": "A multienzyme system immobilized on surface-modified metal–organic framework for enhanced CO2 hydrogenation",
+        "publication_year": 2024,
+        "primary_location": {
+          "id": "doi:10.1016/j.crcon.2024.100234",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1016/j.crcon.2024.100234",
+          "pdf_url": null,
+          "source": {
+            "id": "https://openalex.org/S2898119963",
+            "display_name": "Carbon Resources Conversion",
+            "issn_l": "2588-9133",
+            "issn": [
+              "2588-9133"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "host_organization": "https://openalex.org/P4310320990",
+            "host_organization_name": "Elsevier BV",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320990"
+            ],
+            "host_organization_lineage_names": [
+              "Elsevier BV"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by-nc-nd",
+          "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Carbon Resources Conversion",
+          "raw_type": "journal-article"
+        },
+        "type": "article",
+        "is_retracted": false
+      }
+    ]
+  },
+  "responseHash": "d2d1ccb912b3b21e3e36ca409a5293c12c09019044b920e9ef19fe28c3e383cd"
+}

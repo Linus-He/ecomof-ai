@@ -1,0 +1,585 @@
+{
+  "schemaVersion": "catalysis-extraction-suggestions-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "generatedAt": "2026-08-12T12:22:14.989Z",
+  "policy": {
+    "inputScope": "bibliographic-title-only",
+    "suggestionsAreFacts": false,
+    "humanReviewRequired": true,
+    "automaticVerificationAllowed": false,
+    "automaticPromotionAllowed": false
+  },
+  "summary": {
+    "suggestionCount": 9,
+    "verifiedSuggestionCount": 0,
+    "promotedSuggestionCount": 0
+  },
+  "suggestions": [
+    {
+      "id": "suggestion-catlit-9273673d8b2d",
+      "candidateId": "catlit-9273673d8b2d",
+      "doi": "10.1002/smll.202512635",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "C2+ products",
+          "confidence": "medium",
+          "basis": [
+            "ethylene"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-or-mof-derived-unresolved",
+          "confidence": "low",
+          "basis": [
+            "metal-organic framework"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "catalytic"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 reduction",
+        "ethylene",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-98f2511ae029",
+      "candidateId": "catlit-98f2511ae029",
+      "doi": "10.1007/s10008-025-06266-5",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "formate/formic acid",
+          "confidence": "medium",
+          "basis": [
+            "hcooh"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "reported-mof-catalyst",
+          "confidence": "low",
+          "basis": [
+            "metal-organic framework"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "catalytic"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 reduction",
+        "hcooh",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-affa96291ac8",
+      "candidateId": "catlit-affa96291ac8",
+      "doi": "10.1016/j.micromeso.2023.112781",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "formate/formic acid",
+          "confidence": "medium",
+          "basis": [
+            "formate"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-derived-material",
+          "confidence": "low",
+          "basis": [
+            "derived"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electroreduction"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 electroreduction",
+        "derived",
+        "formate",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-023d788775f3",
+      "candidateId": "catlit-023d788775f3",
+      "doi": "10.1016/j.cej.2022.138164",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "formate/formic acid",
+          "confidence": "medium",
+          "basis": [
+            "formate",
+            "formate dehydrogenase"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-enzyme-hybrid",
+          "confidence": "low",
+          "basis": [
+            "formate dehydrogenase",
+            "enzyme",
+            "immobilized"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "catalytic"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 reduction",
+        "enzyme",
+        "formate",
+        "formate dehydrogenase",
+        "immobilized",
+        "metal organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-588124b931bd",
+      "candidateId": "catlit-588124b931bd",
+      "doi": "10.1016/j.cjche.2022.03.006",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "formate/formic acid",
+          "confidence": "medium",
+          "basis": [
+            "formate"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "reconstructed-mof-derived-material",
+          "confidence": "low",
+          "basis": [
+            "reconstruction"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrochemical"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 reduction",
+        "formate",
+        "metal-organic framework",
+        "metal–organic framework",
+        "reconstruction"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-8fe6127530ec",
+      "candidateId": "catlit-8fe6127530ec",
+      "doi": "10.1021/acs.inorgchem.2c01961",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "formate/formic acid",
+          "confidence": "medium",
+          "basis": [
+            "formate"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-derived-material",
+          "confidence": "low",
+          "basis": [
+            "derived"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrochemical"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "derived",
+        "electrochemical reduction of co2",
+        "formate",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-625884b1e252",
+      "candidateId": "catlit-625884b1e252",
+      "doi": "10.1002/anie.202111700",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "C2+ products",
+          "confidence": "medium",
+          "basis": [
+            "ethylene"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-or-mof-derived-unresolved",
+          "confidence": "low",
+          "basis": [
+            "metal-organic framework"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "catalyst",
+            "catalytic"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 reduction",
+        "ethylene",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-909f24a80746",
+      "candidateId": "catlit-909f24a80746",
+      "doi": "10.1016/j.materresbull.2021.111228",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "carbon monoxide",
+          "confidence": "medium",
+          "basis": [
+            "co2 to co"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-or-mof-derived-unresolved",
+          "confidence": "low",
+          "basis": [
+            "metal-organic framework"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "electrochemical",
+            "catalyst"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co2 to co",
+        "electrochemical reduction of co2",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    },
+    {
+      "id": "suggestion-catlit-e01f139840c7",
+      "candidateId": "catlit-e01f139840c7",
+      "doi": "10.3390/catal11050537",
+      "generationMode": "machine-assisted-deterministic-v1",
+      "sourceScope": "bibliographic-title-only",
+      "reviewStatus": "suggested-not-verified",
+      "verificationLevel": "unverified",
+      "promotionAllowed": false,
+      "formalLibraryWriteAllowed": false,
+      "suggestedFields": [
+        {
+          "field": "reaction.substrate",
+          "value": "CO2",
+          "confidence": "medium",
+          "basis": [
+            "co2-electroreduction-title-signal"
+          ]
+        },
+        {
+          "field": "reaction.targetProduct",
+          "value": "carbon monoxide",
+          "confidence": "medium",
+          "basis": [
+            "co selective"
+          ]
+        },
+        {
+          "field": "catalystState.stateType",
+          "value": "mof-or-mof-derived-unresolved",
+          "confidence": "low",
+          "basis": [
+            "metal-organic framework"
+          ]
+        },
+        {
+          "field": "reaction.mode",
+          "value": "electrochemical",
+          "confidence": "medium",
+          "basis": [
+            "electrocatal",
+            "electrochemical",
+            "catalyst"
+          ]
+        }
+      ],
+      "evidenceTerms": [
+        "co selective",
+        "electrochemical reduction of co2",
+        "metal-organic framework",
+        "metal–organic framework"
+      ],
+      "requiredHumanChecks": [
+        "publisher-or-repository-fulltext",
+        "primary-experimental-document-type",
+        "claim-level-source-location",
+        "condition-tuple",
+        "catalyst-state-and-active-phase",
+        "exact-structure-identity",
+        "reuse-license"
+      ],
+      "warning": "This suggestion is generated from bibliographic title signals. It is not a verified reaction record and cannot be promoted automatically."
+    }
+  ]
+}

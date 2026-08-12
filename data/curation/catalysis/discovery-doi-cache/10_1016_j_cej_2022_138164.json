@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1016/j.cej.2022.138164",
+  "checkedAt": "2026-08-12T12:23:52.292Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction",
+    "discoveryTitle": "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction",
+    "journal": "Chemical Engineering Journal",
+    "year": 2022,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "cd494fdde4f326e3b06a0f3056c86d3d3763df0a1b643c96802209b3df5997d0"
+}

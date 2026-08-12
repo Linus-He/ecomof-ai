@@ -1,0 +1,155 @@
+{
+  "doi": "10.1016/j.apcatb.2020.119241",
+  "checkedAt": "2026-08-12T11:41:13.019Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+    "curatedTitle": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+    "journal": "Applied Catalysis B: Environmental",
+    "year": 2020
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              6,
+              25
+            ]
+          ],
+          "date-time": "2021-06-25T00:00:00Z",
+          "timestamp": 1624579200000
+        },
+        "content-version": "am",
+        "delay-in-days": 236,
+        "URL": "http://www.elsevier.com/open-access/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              11,
+              1
+            ]
+          ],
+          "date-time": "2020-11-01T00:00:00Z",
+          "timestamp": 1604188800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "bc4bb39533cac5441b0999f3715957321298b6ce675ba6020b794f65f404bb76"
+}

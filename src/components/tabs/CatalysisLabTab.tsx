@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import {
   BasisBadge,
   CopyLinkButton,
+  DataHostingNotice,
   useLang,
   useT,
   useViewport,
@@ -11,7 +12,8 @@ import { ModulePageHeader } from "../module/ModuleTop"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
-import { CatalysisReactionRecordWorkbench } from "../catalysis/CatalysisReactionRecordWorkbench"
+import { CatalysisLiteratureRecordCenter } from "../catalysis/CatalysisLiteratureRecordCenter"
+import { CatalysisDiscoveryWorkbench } from "../catalysis/CatalysisDiscoveryWorkbench"
 
 const ORGANIC_ACID_WORKSPACE_HASHES = new Set([
   "catalysis-organic-acid",
@@ -39,11 +41,11 @@ function BoundaryStrip({ t, lang }) {
   return (
     <section style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, display: "grid", gap: 5, fontSize: 12.5, lineHeight: 1.5, padding: "11px 13px" }}>
       <div style={{ color: t.textStrong, fontSize: 12.5, fontWeight: 900 }}>
-        {zh ? "数据状态：demo / seed / literature-derived" : "Data status: demo / seed / literature-derived"}
+        {zh ? "数据范围：文献核对记录、验证用样例与待核候选" : "Data status: demo / seed / literature-derived"}
       </div>
       <div>
         {zh
-          ? "页面用于证据整理、可比性检查和验证优先级判断；任何候选结果都需要实验验证。"
+          ? "本页用于整理来源证据、检查实验条件是否可比，并安排后续核验；候选结果不能替代实验结论。"
           : "This page supports evidence organization, comparability checks, and validation prioritization; candidate results still require experiments."}
       </div>
     </section>
@@ -182,6 +184,8 @@ export function CatalysisLabTab() {
         action={<CopyLinkButton hash="catalysis" ariaLabel={zh ? "复制催化链接" : "Copy Catalysis link"} />}
       />
 
+      <DataHostingNotice lang={lang} placement="catalysis" />
+
       <BoundaryStrip t={t} lang={lang} />
 
       <section
@@ -189,24 +193,26 @@ export function CatalysisLabTab() {
         data-testid="catalysis-research-overview"
         style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 8, padding: 16 }}
       >
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</span>
-        <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究总览" : "Catalysis Research Overview"}</h3>
+        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{zh ? "本页内容" : "Catalysis Research Overview"}</span>
+        <h3 style={{ color: t.textStrong, fontSize: 18, lineHeight: 1.2, margin: 0 }}>{zh ? "催化研究资料与验证入口" : "Catalysis Research Overview"}</h3>
         <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0, maxWidth: 920 }}>
           {zh
-            ? "催化模块以 DOI 核验反应记录为通用数据底层，组织条件覆盖、活性相证据、来源报道性能与字段级溯源；有机酸项目保持独立工作台，并与方法论相互链接。"
-            : "Catalysis uses DOI-verified reaction records as a reusable data layer for condition coverage, active-phase evidence, source-reported metrics, and field-level provenance. Organic Acid remains an independent workspace linked to Methodology."}
+            ? "文献与反应记录中心集中呈现 DOI 已核对的来源、实验条件、活性相证据、数值声明位置与数据缺口；有机酸专题保留独立研究区，并与相应方法说明互相链接。"
+            : "The Catalysis literature and reaction record center uses DOI-verified records as a reusable layer for conditions, active-phase evidence, claim verification, admission tasks, and field provenance. Organic Acid remains an independent workspace linked to Methodology."}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {(zh
-            ? ["DOI 反应记录", "条件覆盖矩阵", "活性相证据", "字段级溯源", "有机酸项目入口", "研究验证中心"]
-            : ["DOI Reaction Records", "Condition Matrix", "Active-phase Evidence", "Field Provenance", "Organic Acid Entry", "Research Validation Center"]
+            ? ["文献与反应记录", "实验条件覆盖", "声明与来源核对", "字段级来源", "有机酸专题", "研究验证"]
+            : ["Literature and Record Center", "Condition Matrix", "Evidence Admission", "Field Provenance", "Organic Acid Entry", "Research Validation Center"]
           ).map(label => (
             <span key={label} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.muted, fontSize: 10.6, fontWeight: 700, padding: "3px 9px" }}>{label}</span>
           ))}
         </div>
       </section>
 
-      <CatalysisReactionRecordWorkbench lang={lang} t={t} isMobile={isMobile} />
+      <CatalysisLiteratureRecordCenter lang={lang} t={t} isMobile={isMobile} />
+
+      <CatalysisDiscoveryWorkbench lang={lang} t={t} isMobile={isMobile} />
 
       <OrganicAcidEntryCard
         t={t}

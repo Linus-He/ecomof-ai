@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
-import { ArrowSquareOut, Check, EnvelopeSimple, GearSix, GithubLogo, Moon, Sun, Translate } from "@phosphor-icons/react"
+import { ArrowSquareOut, CaretRight, Check, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate, User } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -172,6 +172,7 @@ function AppShell({
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [settingsSection, setSettingsSection] = useState("")
+  const [globalSearchOpen, setGlobalSearchOpen] = useState(false)
   const [propertyOpen, setPropertyOpen] = useState(false)
   const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, ready: false })
   const navRef = useRef(null)
@@ -179,6 +180,7 @@ function AppShell({
   const appShellRef = useRef(null)
   const compactHeader = viewport.width < 1320
   const veryCompactHeader = viewport.width < 760
+  const contentSizedNavTabs = compactHeader || lang === "en"
   const chromeTheme = theme
   const moduleTone = ({
     home: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
@@ -216,14 +218,16 @@ function AppShell({
     }
   }, [locale])
   useEffect(() => {
-    if (!settingsOpen) return undefined
+    if (!settingsOpen && !globalSearchOpen) return undefined
     const close = event => {
       if (event.key === "Escape") {
         setSettingsOpen(false)
+        setGlobalSearchOpen(false)
         return
       }
       if (event.type === "pointerdown" && !settingsRef.current?.contains(event.target)) {
         setSettingsOpen(false)
+        setGlobalSearchOpen(false)
       }
     }
     window.addEventListener("keydown", close)
@@ -232,7 +236,7 @@ function AppShell({
       window.removeEventListener("keydown", close)
       window.removeEventListener("pointerdown", close)
     }
-  }, [settingsOpen])
+  }, [settingsOpen, globalSearchOpen])
   useEffect(() => {
     const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
     const nav = navRef.current
@@ -330,6 +334,7 @@ function AppShell({
               <nav
                 ref={navRef}
                 className="nav-primary-rail nav-liquid-capsule"
+                data-lang={lang}
                 data-testid="primary-nav-rail"
                 style={{
                   display: "flex",
@@ -385,8 +390,8 @@ function AppShell({
                         cursor: "pointer",
                         display: "grid",
                         placeItems: "center",
-                        flex: compactHeader ? "0 0 auto" : "1 1 0",
-                        minWidth: compactHeader ? "max-content" : 0,
+                        flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0",
+                        minWidth: contentSizedNavTabs ? "max-content" : 0,
                         fontSize: 12,
                         fontWeight: 760,
                         textAlign: "center",
@@ -408,7 +413,7 @@ function AppShell({
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              gap: veryCompactHeader ? 4 : 8,
+              gap: compactHeader ? 4 : 8,
               minWidth: 0,
               flex: "0 0 auto",
               width: compactHeader && !veryCompactHeader ? 96 : "auto",
@@ -416,66 +421,125 @@ function AppShell({
               zIndex: 2,
               background: "transparent",
             }}>
+              <div className="global-search-control" style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  aria-expanded={globalSearchOpen}
+                  aria-haspopup="dialog"
+                  aria-label={lang === "zh" ? "打开全局 MOF 检索" : "Open global MOF search"}
+                  className="nav-action-button nav-search-trigger"
+                  onClick={() => {
+                    setGlobalSearchOpen(open => !open)
+                    setSettingsOpen(false)
+                    setSearchOpen(true)
+                  }}
+                  style={{
+                    background: globalSearchOpen ? chromeTheme.badgeInfoBg : chromeTheme.glass,
+                    border: `1px solid ${globalSearchOpen ? chromeTheme.borderStrong : chromeTheme.border}`,
+                    color: globalSearchOpen ? chromeTheme.accentText : chromeTheme.textStrong,
+                  }}
+                >
+                  <MagnifyingGlass aria-hidden="true" size={18} weight="regular" />
+                </button>
+                {globalSearchOpen ? (
+                  <div
+                    aria-label={lang === "zh" ? "全局 MOF 检索" : "Global MOF search"}
+                    className="global-search-popover"
+                    role="dialog"
+                    style={{ background: chromeTheme.panel, border: `1px solid ${chromeTheme.border}`, boxShadow: "0 18px 46px rgba(15, 23, 42, 0.16)" }}
+                  >
+                    <label style={{ color: chromeTheme.faint, fontSize: 10.5, fontWeight: 820 }}>
+                      {lang === "zh" ? "跨来源检索 MOF" : "Search MOFs across sources"}
+                    </label>
+                    <input
+                      aria-label={lang === "zh" ? "全局检索 MOF 候选材料" : "Global MOF candidate search"}
+                      autoFocus
+                      onChange={event => { setSearchQuery(event.target.value); setSearchStatus(null); setSearchOpen(true) }}
+                      onKeyDown={event => {
+                        if (event.key === "Escape") setGlobalSearchOpen(false)
+                        if (event.key === "Enter" && presetSuggestions[0]) {
+                          applyPreset(typeof presetSuggestions[0] === "object" ? presetSuggestions[0].value : presetSuggestions[0])
+                          setGlobalSearchOpen(false)
+                        }
+                      }}
+                      placeholder={copy.header.searchPlaceholder}
+                      value={searchQuery}
+                      style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.borderStrong}`, borderRadius: 10, color: chromeTheme.textStrong, fontFamily: FONT_SANS, fontSize: 12, minHeight: 40, outline: "none", padding: "9px 12px", width: "100%" }}
+                    />
+                    {searchQuery && presetSuggestions.length ? (
+                      <div className="global-search-results" role="listbox">
+                        {presetSuggestions.slice(0, 5).map(suggestion => {
+                          const value = typeof suggestion === "object" ? suggestion.value : suggestion
+                          const label = typeof suggestion === "object" ? suggestion.label : suggestion
+                          const meta = typeof suggestion === "object" ? suggestion.meta : ""
+                          return (
+                            <button key={value} type="button" onClick={() => { applyPreset(value); setGlobalSearchOpen(false) }} role="option" style={{ background: "transparent", border: 0, borderRadius: 8, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, gap: 2, padding: "8px 9px", textAlign: "left", width: "100%" }}>
+                              <strong style={{ fontSize: 11.5 }}>{label}</strong>
+                              {meta ? <span style={{ color: chromeTheme.faint, fontSize: 10 }}>{meta}</span> : null}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    ) : searchQuery ? <span style={{ color: chromeTheme.faint, fontSize: 10.5 }}>{lang === "zh" ? "继续输入材料名、Refcode 或 DOI" : "Keep typing a material name, Refcode, or DOI"}</span> : null}
+                  </div>
+                ) : null}
+              </div>
               <button
                 type="button"
                 aria-expanded={settingsOpen}
                 aria-haspopup="menu"
                 onClick={() => setSettingsOpen(open => {
                   const next = !open
-                  if (next) setSettingsSection("")
+                  if (next) {
+                    setSettingsSection("")
+                    setGlobalSearchOpen(false)
+                  }
                   return next
                 })}
-                title={lang === "zh" ? "打开设置" : "Open settings"}
-                aria-label={lang === "zh" ? "打开设置" : "Open settings"}
-                className="settings-trigger"
+                title={lang === "zh" ? "打开用户菜单" : "Open user menu"}
+                aria-label={lang === "zh" ? "打开用户菜单" : "Open user menu"}
+                className="settings-trigger nav-action-button nav-user-trigger"
                 data-open={settingsOpen ? "true" : "false"}
                 style={{
                   alignItems: "center",
-                  background: settingsOpen ? chromeTheme.badgeInfoBg : chromeTheme.panel,
+                  background: settingsOpen ? chromeTheme.badgeInfoBg : chromeTheme.glass,
                   border: `1px solid ${settingsOpen ? chromeTheme.borderStrong : chromeTheme.border}`,
-                  borderRadius: 6,
                   boxShadow: settingsOpen ? "0 1px 0 rgba(15,23,42,0.04)" : "none",
                   color: settingsOpen ? chromeTheme.accentText : chromeTheme.subtle,
                   cursor: "pointer",
                   display: "inline-flex",
                   fontFamily: FONT_SANS,
-                  height: 34,
                   justifyContent: "center",
-                  minWidth: 36,
-                  padding: 0,
+                  gap: 4,
                   transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
                 }}
               >
-                <GearSix aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "bold"} />
+                <User aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
               </button>
               {settingsOpen ? (
                 <div
                   role="menu"
-                  aria-label={lang === "zh" ? "设置菜单" : "Settings menu"}
+                  aria-label={lang === "zh" ? "用户与设置菜单" : "User and settings menu"}
                   className="settings-menu"
                   onPointerDown={event => event.stopPropagation()}
                   style={{
-                    background: chromeTheme.panel,
-                    border: `1px solid ${chromeTheme.border}`,
-                    borderRadius: 8,
-                    boxShadow: "0 16px 40px rgba(15, 23, 42, 0.14)",
                     display: "grid",
-                    gap: 4,
-                    minWidth: 248,
+                    gap: 5,
+                    minWidth: 292,
                     overflow: "hidden",
-                    padding: 6,
+                    padding: 9,
                     position: "absolute",
                     right: 0,
                     top: "calc(100% + 7px)",
                     zIndex: 180,
                   }}
                 >
-                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
+                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
                     <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}><Translate aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
                     <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{locale === "zh-TW" ? "繁體中文" : locale === "en" ? "English" : "简体中文"}</span>
                   </button>
                   {settingsSection === "language" ? (
-                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, borderRadius: 6, display: "grid", gap: 4, padding: 5 }}>
+                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} className="settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 4, padding: 5 }}>
                       {[["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"]].map(([id, label]) => (
                         <button key={id} type="button" className="settings-option" onClick={() => { setLang(id); setSettingsSection("") }} style={{ alignItems: "center", background: locale === id ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${locale === id ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: locale === id ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: locale === id ? 850 : 700, justifyContent: "space-between", minHeight: 31, padding: "6px 8px", textAlign: "left" }}>
                           {label}{locale === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
@@ -483,12 +547,12 @@ function AppShell({
                       ))}
                     </div>
                   ) : null}
-                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
+                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
                     <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}>{darkMode ? <Moon aria-hidden="true" size={16} weight="bold" /> : <Sun aria-hidden="true" size={16} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
                     <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
                   </button>
                   {settingsSection === "theme" ? (
-                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, borderRadius: 999, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
+                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
                       {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
                         <button key={String(value)} type="button" className="settings-option" aria-pressed={darkMode === value} onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${darkMode === value ? chromeTheme.borderStrong : "transparent"}`, borderRadius: 999, color: darkMode === value ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "center", minHeight: 32, padding: "6px 8px", textAlign: "center" }}>
                           {label}{darkMode === value ? <Check aria-hidden="true" size={14} weight="bold" /> : null}
@@ -496,14 +560,19 @@ function AppShell({
                       ))}
                     </div>
                   ) : null}
-                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => { setSettingsOpen(false); setContactOpen(true) }} style={{ alignItems: "center", background: "transparent", border: "1px solid transparent", borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, minHeight: 38, padding: "8px 9px", textAlign: "left" }}>
-                    <EnvelopeSimple aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "联系我们" : "Contact Us"}
+                  <button type="button" role="menuitem" className="settings-menu-row settings-menu-row--notice" onClick={() => setSettingsSection(section => section === "data-access" ? "" : "data-access")} style={{ alignItems: "center", background: settingsSection === "data-access" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "data-access" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
+                    <GlobeHemisphereEast aria-hidden="true" size={17} weight="duotone" />
+                    <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & cross-border access"}</span>
+                    <CaretRight aria-hidden="true" className="settings-section-caret" data-open={settingsSection === "data-access" ? "true" : "false"} size={15} weight="bold" style={{ color: chromeTheme.faint }} />
                   </button>
-                  <a role="menuitem" className="settings-menu-row settings-menu-link" href="https://github.com/Linus-He/ecomof-ai" target="_blank" rel="noreferrer" style={{ alignItems: "center", background: "transparent", border: "1px solid transparent", borderRadius: 6, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 38, padding: "8px 9px", textAlign: "left", textDecoration: "none" }}>
-                    <GithubLogo aria-hidden="true" size={16} weight="bold" />
-                    <span>{lang === "zh" ? "GitHub 仓库" : "GitHub repository"}</span>
-                    <ArrowSquareOut aria-hidden="true" size={14} weight="bold" style={{ color: chromeTheme.faint }} />
-                  </a>
+                  {settingsSection === "data-access" ? (
+                    <div className="settings-submenu settings-access-submenu" role="group" aria-label={lang === "zh" ? "数据托管与跨境访问说明" : "Data hosting and cross-border access notice"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}` }}>
+                      <p>{lang === "zh" ? "受欧盟及相关地区的数据保护与跨境传输要求、数据提供方许可和当前托管条件影响，相关数据暂未部署在中国大陆地区服务器。若数据无法加载，请切换至可访问相关境外数据源的合规网络环境。对此带来的不便，我们深表歉意。" : "European and other applicable data-protection and cross-border transfer requirements, provider licences, and current hosting conditions mean that the relevant data is not hosted on servers in mainland China. If it does not load, retry from a compliant network that can access the relevant overseas source. We apologize for the inconvenience."}</p>
+                      <small>{lang === "zh" ? "注：GDPR 第五章适用于个人数据向第三国或国际组织的传输，并非对所有科研数据的地域禁令。" : "Note: GDPR Chapter V applies to transfers of personal data to third countries or international organizations; it is not a geographic ban on all research data."}</small>
+                      <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer"><span>{lang === "zh" ? "GDPR 原始法律条文" : "Original GDPR text"}</span><ArrowSquareOut aria-hidden size={14} /></a>
+                      <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "数据合规承诺" : "Data compliance pledge"}</span><CaretRight aria-hidden size={14} /></button>
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -973,8 +1042,7 @@ export default function App() {
 
   useEffect(() => {
     if (
-      !["ecoscreen", "performance"].includes(activeTab)
-      || databaseSearchRows.length
+      databaseSearchRows.length
       || (!searchOpen && !String(searchQuery || "").trim())
     ) return
     let active = true
@@ -1030,7 +1098,7 @@ export default function App() {
     return () => {
       active = false
     }
-  }, [activeTab, databaseSearchRows.length, searchOpen, searchQuery])
+  }, [databaseSearchRows.length, searchOpen, searchQuery])
 
   useEffect(() => {
     if (!confirmedMofSelection) return

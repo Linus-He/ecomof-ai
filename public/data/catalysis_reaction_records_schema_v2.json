@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "catalysis-reaction-records-schema-v2",
+  "updatedAt": "2026-08-12",
+  "purposeZh": "以可核验事实声明为最小单位，将论文身份、催化剂状态、条件组合、数值声明、证据位置、结构连接、资格判定和验证任务分层保存。",
+  "tables": {
+    "sourceDocuments": ["doi", "title", "journal", "year", "scholarStatus", "fullTextAccess", "license"],
+    "documentVerifications": ["sourceDocumentId", "checkedAt", "registrationAgency", "metadataMatch", "updateStatus", "snapshotHash"],
+    "reactionRecords": ["sourceDocumentId", "catalystStateId", "conditionSetId", "reaction", "activePhaseBoundary"],
+    "catalystStates": ["stateType", "precursorMofName", "activeMaterial", "activePhaseStatus", "identityLink"],
+    "conditionSets": ["cellType", "electrolyte", "potentialVsRheV", "currentMode", "durationH", "catalystLoading", "gasFlowRate", "productQuantification", "productQuantificationSourceLocation"],
+    "metricClaims": ["metric", "value", "unit", "conditionSetId", "evidenceItemIds", "verificationLevel"],
+    "evidenceItems": ["sourceType", "sourceLocation", "sourceUrl", "page", "section", "figure", "table", "reviewStatus", "reviewNote", "checkedAt"],
+    "identityLinks": ["catalystStateId", "canonicalId", "status", "candidateCanonicalIds", "rejectionReason"],
+    "eligibilityDecisions": ["browseEligible", "compareEligible", "trainingEligible", "recommendationEligible", "blockers"],
+    "verificationTasks": ["type", "priority", "status", "targetId", "reason"],
+    "curationEvents": ["type", "at", "actor", "summary"]
+  },
+  "verificationLevels": {
+    "L1-source-identified": "已确认来源，但没有正文级字段依据。",
+    "L2-abstract-only": "字段只在摘要或落地页核对。",
+    "L3-fulltext-reviewed": "已核对全文，但来源位置尚未精确到图、表、章节或SI。",
+    "L4-claim-located": "声明具有图、表、章节、页码或SI级来源位置。"
+  },
+  "eligibilityPolicy": {
+    "browseEligible": "论文元数据一致、当前没有已知撤稿或撤回阻断。",
+    "compareEligible": "浏览资格通过，关键条件完整，全部非空数值均达到L4。",
+    "trainingEligible": "比较资格通过，结构身份已解析，并明确允许相应数据用于模型训练。",
+    "recommendationEligible": "训练资格通过，且真实活性相获得实验解析。"
+  },
+  "identityPolicyZh": "DOI只建立文章关联；结构连接只接受精确CSD Refcode、CCDC编号、canonicalId或来源匹配的人工核验别名。",
+  "aiPolicyZh": "AI可以推荐候选字段和来源位置，但不得将记录自动标记为人工核验通过。"
+}

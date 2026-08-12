@@ -1,0 +1,3399 @@
+{
+  "schemaVersion": "catalysis-discovery-cache-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "adapter": "crossref",
+  "familyId": "co2rr-formate-mof-enzyme-hybrid",
+  "retrievedAt": "2026-08-12T12:22:01.795Z",
+  "request": {
+    "endpoint": "https://api.crossref.org/v1/works",
+    "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+    "filter": "type:journal-article",
+    "rows": 25,
+    "select": "DOI,title,author,container-title,published,type,URL,license",
+    "accessMode": "public"
+  },
+  "response": {
+    "status": "ok",
+    "messageType": "work-list",
+    "totalResults": 2809140,
+    "items": [
+      {
+        "DOI": "10.1016/j.cej.2022.138164",
+        "title": [
+          "Hierarchically porous metal organic framework immobilized formate dehydrogenase for enzyme electrocatalytic CO2 reduction"
+        ],
+        "author": [
+          {
+            "given": "Lihang",
+            "family": "Yan",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Guanhua",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jianqiao",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Bai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yaoxuan",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Huaxun",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Liya",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yanjun",
+            "family": "Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cej.2022.138164",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2022-12-01T00:00:00Z",
+              "timestamp": 1669852800000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2018.09.020",
+        "title": [
+          "Enzymatic CO2 reduction to formate by formate dehydrogenase from Candida boidinii coupling with direct electrochemical regeneration of NADH"
+        ],
+        "author": [
+          {
+            "given": "Razieh",
+            "family": "Barin",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Davoud",
+            "family": "Biria",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Sahar",
+            "family": "Rashid-Nadimi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Mohammad Ali",
+            "family": "Asadollahi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2018,
+              12
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2018.09.020",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2018,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "2018-12-01T00:00:00Z",
+              "timestamp": 1543622400000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.cjche.2022.03.006",
+        "title": [
+          "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate"
+        ],
+        "author": [
+          {
+            "given": "Yachen",
+            "family": "Deng",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Shifu",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yanqiang",
+            "family": "Huang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuning",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chinese Journal of Chemical Engineering"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cjche.2022.03.006",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2022-03-01T00:00:00Z",
+              "timestamp": 1646092800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.3390/catal11050537",
+        "title": [
+          "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-1089-9684",
+            "authenticated-orcid": false,
+            "given": "Tran-Van",
+            "family": "Phuc",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jin-Suk",
+            "family": "Chung",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Seung-Hyun",
+            "family": "Hur",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Chemical Engineering, University of Ulsan, Daehak-ro 93, Nam-gu, Ulsan 44610, Korea"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Catalysts"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              22
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.3390/catal11050537",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  4,
+                  22
+                ]
+              ],
+              "date-time": "2021-04-22T00:00:00Z",
+              "timestamp": 1619049600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1021/acs.langmuir.4c01444",
+        "title": [
+          "Electrocatalysis of CO<sub>2</sub> Reduction by Immobilized Formate Dehydrogenase without a Metal Redox Center"
+        ],
+        "author": [
+          {
+            "given": "ZhangFei",
+            "family": "Su",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Electrochemical Technology Center, Department of Chemistry, University of Guelph, Guelph, Ontario N1G 2W1, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Reem",
+            "family": "Elmahdy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Electrochemical Technology Center, Department of Chemistry, University of Guelph, Guelph, Ontario N1G 2W1, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jan F.",
+            "family": "Biernat",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry, Gdansk University of Technology, Gdańsk 80-233, Poland"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-2239-6785",
+            "authenticated-orcid": true,
+            "given": "Aicheng",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Electrochemical Technology Center, Department of Chemistry, University of Guelph, Guelph, Ontario N1G 2W1, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6449-7464",
+            "authenticated-orcid": true,
+            "given": "Jacek",
+            "family": "Lipkowski",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Electrochemical Technology Center, Department of Chemistry, University of Guelph, Guelph, Ontario N1G 2W1, Canada"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Langmuir"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              7,
+              27
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1021/acs.langmuir.4c01444",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  27
+                ]
+              ],
+              "date-time": "2024-07-27T00:00:00Z",
+              "timestamp": 1722038400000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  27
+                ]
+              ],
+              "date-time": "2024-07-27T00:00:00Z",
+              "timestamp": 1722038400000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  7,
+                  27
+                ]
+              ],
+              "date-time": "2024-07-27T00:00:00Z",
+              "timestamp": 1722038400000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-045"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2020.02.007",
+        "title": [
+          "Metal-support interaction enhanced electrochemical reduction of CO2 to formate between graphene and Bi nanoparticles"
+        ],
+        "author": [
+          {
+            "given": "Dan",
+            "family": "Wu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Wenyue",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuewan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xian-Zhu",
+            "family": "Fu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing-Li",
+            "family": "Luo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2020.02.007",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2020-04-01T00:00:00Z",
+              "timestamp": 1585699200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2020-04-01T00:00:00Z",
+              "timestamp": 1585699200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.ijhydene.2026.154803",
+        "title": [
+          "Metal-organic framework-derived BiSn bimetallic oxides for the electrocatalytic reduction of CO2 to formate"
+        ],
+        "author": [
+          {
+            "given": "Leibing",
+            "family": "Chen",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yali",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Mei",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Guoying",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Han",
+            "family": "Yao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-9239-9888",
+            "authenticated-orcid": false,
+            "given": "Jiaxing",
+            "family": "Lu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6759-3475",
+            "authenticated-orcid": false,
+            "given": "Huan",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Hydrogen Energy"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.ijhydene.2026.154803",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2026-04-01T00:00:00Z",
+              "timestamp": 1775001600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  1
+                ]
+              ],
+              "date-time": "2026-04-01T00:00:00Z",
+              "timestamp": 1775001600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.ijhydene.2024.12.492",
+        "title": [
+          "CO2 hydrogenation to formate by immobilized formate dehydrogenase: Challenges and opportunities"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-2304-2161",
+            "authenticated-orcid": false,
+            "given": "Shadeera",
+            "family": "Rouf",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yasser E.",
+            "family": "Greish",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Bart",
+            "family": "Van der Bruggen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-5042-9495",
+            "authenticated-orcid": false,
+            "given": "Sulaiman",
+            "family": "Al Zuhair",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Hydrogen Energy"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              6
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.ijhydene.2024.12.492",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2025-06-01T00:00:00Z",
+              "timestamp": 1748736000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2025-06-01T00:00:00Z",
+              "timestamp": 1748736000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  12,
+                  24
+                ]
+              ],
+              "date-time": "2025-12-24T00:00:00Z",
+              "timestamp": 1766534400000
+            },
+            "content-version": "vor",
+            "delay-in-days": 206,
+            "URL": "http://creativecommons.org/licenses/by/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1007/s40242-026-6047-7",
+        "title": [
+          "Structure-Activity Relationships in Metal-Organic Framework-based Catalysts for Electrochemical CO2 Reduction"
+        ],
+        "author": [
+          {
+            "given": "Shiyu",
+            "family": "Yao",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Junkuo",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Research in Chinese Universities"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              20
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1007/s40242-026-6047-7",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  20
+                ]
+              ],
+              "date-time": "2026-04-20T00:00:00Z",
+              "timestamp": 1776643200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2026,
+                  4,
+                  20
+                ]
+              ],
+              "date-time": "2026-04-20T00:00:00Z",
+              "timestamp": 1776643200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1002/ange.201901981",
+        "title": [
+          "Stabilization of Formate Dehydrogenase in a Metal–Organic Framework for Bioelectrocatalytic Reduction of CO<sub>2</sub>"
+        ],
+        "author": [
+          {
+            "given": "Yijing",
+            "family": "Chen",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Peng",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Shanghai Key Laboratory of Molecular Catalysis and Innovative Materials Department of Chemistry Fudan University  2005 Songhu Road Shanghai 200438 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hyunho",
+            "family": "Noh",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Chung‐Wei",
+            "family": "Kung",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Department of Chemical Engineering National Cheng Kung University  1 University Road Tainan City 70101 Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Cassandra T.",
+            "family": "Buru",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xingjie",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xuan",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-9904-9845",
+            "authenticated-orcid": false,
+            "given": "Omar K.",
+            "family": "Farha",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Department of Chemical and Biological Engineering Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Angewandte Chemie"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5,
+              2
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1002/ange.201901981",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  3,
+                  26
+                ]
+              ],
+              "date-time": "2020-03-26T00:00:00Z",
+              "timestamp": 1585180800000
+            },
+            "content-version": "am",
+            "delay-in-days": 329,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#am"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  5,
+                  2
+                ]
+              ],
+              "date-time": "2019-05-02T00:00:00Z",
+              "timestamp": 1556755200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.cherd.2023.03.031",
+        "title": [
+          "Direct-air capture conversion of CO2 in fixed-bed microreactors with immobilized formate dehydrogenase and glucose dehydrogenase: Concept feasibility"
+        ],
+        "author": [
+          {
+            "given": "Ion",
+            "family": "Iliuta",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Faïçal",
+            "family": "Larachi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Engineering Research and Design"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              5
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cherd.2023.03.031",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2023-05-01T00:00:00Z",
+              "timestamp": 1682899200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2023,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2023-05-01T00:00:00Z",
+              "timestamp": 1682899200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.gresc.2024.09.005",
+        "title": [
+          "Enhancement of CO2 hydrogenation to formate using formate dehydrogenase immobilized on UiO66 and its derivatives"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-2304-2161",
+            "authenticated-orcid": false,
+            "given": "Shadeera",
+            "family": "Rouf",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yaser E.",
+            "family": "Greish",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Bart",
+            "family": "Van der Bruggen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-5042-9495",
+            "authenticated-orcid": false,
+            "given": "Sulaiman",
+            "family": "Al-Zuhair",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Green Synthesis and Catalysis"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              5
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.gresc.2024.09.005",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2025-05-01T00:00:00Z",
+              "timestamp": 1746057600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2025-05-01T00:00:00Z",
+              "timestamp": 1746057600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  9,
+                  20
+                ]
+              ],
+              "date-time": "2024-09-20T00:00:00Z",
+              "timestamp": 1726790400000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.cjche.2022.08.009",
+        "title": [
+          "Corrigendum to “Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate” [Chin. J. Chem. Eng. 43 (2022) 353–359]"
+        ],
+        "author": [
+          {
+            "given": "Yachen",
+            "family": "Deng",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Shifu",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yanqiang",
+            "family": "Huang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xuning",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chinese Journal of Chemical Engineering"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              11
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.cjche.2022.08.009",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  11,
+                  1
+                ]
+              ],
+              "date-time": "2022-11-01T00:00:00Z",
+              "timestamp": 1667260800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  11,
+                  1
+                ]
+              ],
+              "date-time": "2022-11-01T00:00:00Z",
+              "timestamp": 1667260800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1002/celc.202001613",
+        "title": [
+          "Metal‐Organic‐Framework‐Derived Bismuth Nanosheets for Electrochemical and Solar‐Driven Electrochemical CO<sub>2</sub> Reduction to Formate"
+        ],
+        "author": [
+          {
+            "given": "Bo",
+            "family": "Zhang",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Shuyan",
+            "family": "Cao",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yunzhen",
+            "family": "Wu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Panlong",
+            "family": "Zhai",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Zhuwei",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yanting",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Zhaozhong",
+            "family": "Fan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Chen",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xiaomeng",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1896-2999",
+            "authenticated-orcid": false,
+            "given": "Jungang",
+            "family": "Hou",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Licheng",
+            "family": "Sun",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "State Key Laboratory of Fine Chemicals School of Chemical Engineering Dalian University of Technology (DUT)  Dalian 116024 China"
+              },
+              {
+                "name": "College of Science Westlake University  Hangzhou 310024 P. R. China"
+              },
+              {
+                "name": "Department of Chemistry KTH Royal Institute of Technology  10044 Stockholm Sweden"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "ChemElectroChem"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1002/celc.202001613",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  2,
+                  1
+                ]
+              ],
+              "date-time": "2021-02-01T00:00:00Z",
+              "timestamp": 1612137600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2022.101937",
+        "title": [
+          "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst"
+        ],
+        "author": [
+          {
+            "given": "Beatriz",
+            "family": "Ávila-Bolívar",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ritums",
+            "family": "Cepitis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Mahboob",
+            "family": "Alam",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jürgen-Martin",
+            "family": "Assafrei",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kefeng",
+            "family": "Ping",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jaan",
+            "family": "Aruväli",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Arvo",
+            "family": "Kikas",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Vambola",
+            "family": "Kisand",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sergei",
+            "family": "Vlassov",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Maike",
+            "family": "Käärik",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jaan",
+            "family": "Leis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Vladislav",
+            "family": "Ivaništštev",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Pavel",
+            "family": "Starkov",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Vicente",
+            "family": "Montiel",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "José",
+            "family": "Solla-Gullón",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Nadezda",
+            "family": "Kongi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              5
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2022.101937",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2022,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2022-05-01T00:00:00Z",
+              "timestamp": 1651363200000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1039/c3cc00293d",
+        "title": [
+          "Catalytic chromium reduction using formic acid and metal nanoparticles immobilized in a metal–organic framework"
+        ],
+        "author": [
+          {
+            "given": "Mahendra",
+            "family": "Yadav",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Qiang",
+            "family": "Xu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemical Communications"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2013
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1039/c3cc00293d"
+      },
+      {
+        "DOI": "10.1016/j.jcou.2025.103041",
+        "title": [
+          "Bioelectrocatalytic CO2 reduction to formate by Candida boidinii formate dehydrogenase overcoming NADH dependence with tailored amino-viologen redox polymers"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0003-3011-2575",
+            "authenticated-orcid": false,
+            "given": "Mihai-Cristian",
+            "family": "Fera",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kavita",
+            "family": "Jayakumar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Diego García",
+            "family": "Bueno",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jose M.",
+            "family": "Abad",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-9347-0452",
+            "authenticated-orcid": false,
+            "given": "Antonio L.",
+            "family": "De Lacey",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6714-3669",
+            "authenticated-orcid": false,
+            "given": "Marcos",
+            "family": "Pita",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              3
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2025.103041",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2025-03-01T00:00:00Z",
+              "timestamp": 1740787200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2025-03-01T00:00:00Z",
+              "timestamp": 1740787200000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2025,
+                  2,
+                  10
+                ]
+              ],
+              "date-time": "2025-02-10T00:00:00Z",
+              "timestamp": 1739145600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2020.101159",
+        "title": [
+          "Electrochemical carbon dioxide reduction to isopropanol using novel carbonized copper metal organic framework derived electrodes"
+        ],
+        "author": [
+          {
+            "given": "Aravind V.",
+            "family": "Rayer",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Elliot",
+            "family": "Reid",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Atish",
+            "family": "Kataria",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ignacio",
+            "family": "Luz",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Samuel J.",
+            "family": "Thompson",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Marty",
+            "family": "Lail",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "James",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Mustapha",
+            "family": "Soukri",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              7
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2020.101159",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2020-07-01T00:00:00Z",
+              "timestamp": 1593561600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2020-07-01T00:00:00Z",
+              "timestamp": 1593561600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jechem.2020.09.021",
+        "title": [
+          "Ultrathin two-dimensional metal–organic framework nanosheets for efficient electrochemical CO2 reduction"
+        ],
+        "author": [
+          {
+            "given": "Lu",
+            "family": "Ye",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuyang",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yan",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xin",
+            "family": "Ding",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jungang",
+            "family": "Hou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Shuyan",
+            "family": "Cao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of Energy Chemistry"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              6
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jechem.2020.09.021",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.materresbull.2021.111228",
+        "title": [
+          "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-1089-9684",
+            "authenticated-orcid": false,
+            "given": "Tran",
+            "family": "Van Phuc",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sung Gu",
+            "family": "Kang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jin Suk",
+            "family": "Chung",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Seung Hyun",
+            "family": "Hur",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Materials Research Bulletin"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              6
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.materresbull.2021.111228",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-017"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-037"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-012"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-029"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  6,
+                  1
+                ]
+              ],
+              "date-time": "2021-06-01T00:00:00Z",
+              "timestamp": 1622505600000
+            },
+            "content-version": "stm-asf",
+            "delay-in-days": 0,
+            "URL": "https://doi.org/10.15223/policy-004"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.jcou.2024.102805",
+        "title": [
+          "Theoretical performance optimization of enzymatic electrochemical CO2 reduction to formate: Voltage, concentration, temperature, pressure, and flow rate"
+        ],
+        "author": [
+          {
+            "given": "Daniel",
+            "family": "Moreno",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              5
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.jcou.2024.102805",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2024-05-01T00:00:00Z",
+              "timestamp": 1714521600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2024-05-01T00:00:00Z",
+              "timestamp": 1714521600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2024,
+                  5,
+                  10
+                ]
+              ],
+              "date-time": "2024-05-10T00:00:00Z",
+              "timestamp": 1715299200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 9,
+            "URL": "http://creativecommons.org/licenses/by-nc/4.0/"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1016/j.chemosphere.2020.128921",
+        "title": [
+          "Immobilization of formate dehydrogenase in metal organic frameworks for enhanced conversion of carbon dioxide to formate"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-2304-2161",
+            "authenticated-orcid": false,
+            "given": "Shadeera",
+            "family": "Rouf",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-7147-6773",
+            "authenticated-orcid": false,
+            "given": "Yasser E.",
+            "family": "Greish",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-5042-9495",
+            "authenticated-orcid": false,
+            "given": "Sulaiman",
+            "family": "Al-Zuhair",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Chemosphere"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              3
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.chemosphere.2020.128921",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2021-03-01T00:00:00Z",
+              "timestamp": 1614556800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2021,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2021-03-01T00:00:00Z",
+              "timestamp": 1614556800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.63386/620645",
+        "title": [
+          "Bismuth-Based Bimetallic Catalysts for Electrochemical CO2 Reduction to Formate"
+        ],
+        "author": [
+          {
+            "given": "Xinyue",
+            "family": "Hu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Haiqian",
+            "family": "Yu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xi",
+            "family": "He",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "ZKG International"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.63386/620645"
+      },
+      {
+        "DOI": "10.1016/j.electacta.2019.03.101",
+        "title": [
+          "Metal–organic framework-mediated strategy for enhanced methane production on copper nanoparticles in electrochemical CO2 reduction"
+        ],
+        "author": [
+          {
+            "given": "Mun Kyoung",
+            "family": "Kim",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Hyeok Joo",
+            "family": "Kim",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Hyungseob",
+            "family": "Lim",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Youngkook",
+            "family": "Kwon",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Hyung Mo",
+            "family": "Jeong",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Electrochimica Acta"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1016/j.electacta.2019.03.101",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2019-05-01T00:00:00Z",
+              "timestamp": 1556668800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  5,
+                  1
+                ]
+              ],
+              "date-time": "2019-05-01T00:00:00Z",
+              "timestamp": 1556668800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/legal/tdmrep-license"
+          }
+        ]
+      },
+      {
+        "DOI": "10.1002/anie.201901981",
+        "title": [
+          "Stabilization of Formate Dehydrogenase in a Metal–Organic Framework for Bioelectrocatalytic Reduction of CO<sub>2</sub>"
+        ],
+        "author": [
+          {
+            "given": "Yijing",
+            "family": "Chen",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Peng",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Shanghai Key Laboratory of Molecular Catalysis and Innovative Materials Department of Chemistry Fudan University  2005 Songhu Road Shanghai 200438 China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Hyunho",
+            "family": "Noh",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Chung‐Wei",
+            "family": "Kung",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Department of Chemical Engineering National Cheng Kung University  1 University Road Tainan City 70101 Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Cassandra T.",
+            "family": "Buru",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xingjie",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuan",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-9904-9845",
+            "authenticated-orcid": false,
+            "given": "Omar K.",
+            "family": "Farha",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Chemistry and International Institute of Nanotechnology Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              },
+              {
+                "name": "Department of Chemical and Biological Engineering Northwestern University  2145 Sheridan Road Evanston IL 60208-3113 USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Angewandte Chemie International Edition"
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5,
+              2
+            ]
+          ]
+        },
+        "type": "journal-article",
+        "URL": "https://doi.org/10.1002/anie.201901981",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2020,
+                  3,
+                  26
+                ]
+              ],
+              "date-time": "2020-03-26T00:00:00Z",
+              "timestamp": 1585180800000
+            },
+            "content-version": "am",
+            "delay-in-days": 329,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#am"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2019,
+                  5,
+                  2
+                ]
+              ],
+              "date-time": "2019-05-02T00:00:00Z",
+              "timestamp": 1556755200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+          }
+        ]
+      }
+    ]
+  },
+  "responseHash": "b2aecb467aedc2ad25dde35409e4f1432837f34d74ac3b2a05130fb64930027f"
+}

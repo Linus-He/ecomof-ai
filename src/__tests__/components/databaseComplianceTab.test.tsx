@@ -27,6 +27,8 @@ describe("DatabaseComplianceTab", () => {
     expect(page).toHaveTextContent("数据使用、许可与责任")
     expect(page).not.toHaveTextContent("ecomofai@outlook.com")
     expect(page).toHaveTextContent("不是法律意见，也不是全面合规认证")
+    expect(screen.getByTestId("compliance-hosting-notice")).toHaveTextContent("部分数据暂未部署在中国大陆地区服务器")
+    expect(screen.getByRole("link", { name: /GDPR 原始法律条文/ })).toHaveAttribute("href", "https://eur-lex.europa.eu/eli/reg/2016/679/oj")
     expect(page).toHaveTextContent("访问本网站不等于获得任何数据库的商业许可")
     expect(page).toHaveTextContent("5.1 使用者需要做到")
     expect(page).toHaveTextContent("5.2 本站目前执行的原则")

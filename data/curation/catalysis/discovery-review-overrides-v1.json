@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "catalysis-discovery-review-overrides-v1",
+  "updatedAt": "2026-08-12",
+  "reviews": {
+    "10.3390/catal13071109": {
+      "decision": "literature-navigation-only",
+      "documentRole": "review-article",
+      "checkedAgainst": "Crossref deposited abstract and publisher landing page",
+      "sourceUrl": "https://doi.org/10.3390/catal13071109",
+      "noteZh": "摘要明确写明为综述；可用于追溯参考文献，但不得作为实验反应记录候选。",
+      "noteEn": "The deposited abstract explicitly identifies a review; it may guide reference discovery but cannot become an experimental reaction-record candidate."
+    },
+    "10.1016/j.cej.2022.138164": {
+      "decision": "reaction-record-candidate",
+      "documentRole": "primary-experimental-mof-enzyme-hybrid",
+      "catalystStateOverride": "mof-enzyme-hybrid",
+      "checkedAgainst": "Crossref title metadata",
+      "sourceUrl": "https://doi.org/10.1016/j.cej.2022.138164",
+      "noteZh": "题名明确为 MOF 固定化甲酸脱氢酶体系，不能归作普通直接 MOF 催化剂。",
+      "noteEn": "The title identifies an MOF-immobilized formate-dehydrogenase system, not a conventional direct MOF catalyst."
+    },
+    "10.1016/j.cjche.2022.03.006": {
+      "decision": "reaction-record-candidate",
+      "documentRole": "primary-experimental-reconstructed-mof",
+      "catalystStateOverride": "reconstructed-mof-derived-material",
+      "checkedAgainst": "Crossref title metadata",
+      "sourceUrl": "https://doi.org/10.1016/j.cjche.2022.03.006",
+      "noteZh": "题名明确包含结构重构，候选状态必须保持为重构/衍生材料，不能标为原始 MOF 活性相。",
+      "noteEn": "The title explicitly reports structural reconstruction, so the candidate remains a reconstructed or derived material rather than a pristine-MOF active phase."
+    }
+  }
+}

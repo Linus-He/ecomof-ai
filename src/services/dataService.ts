@@ -25,6 +25,14 @@ const DATA_PATHS = {
   catalysisRecords: "data/catalysis_records_demo.json",
   catalysisReactionRecordsV1: "data/catalysis_reaction_records_v1.json",
   catalysisReactionRecordsSchemaV1: "data/catalysis_reaction_records_schema_v1.json",
+  catalysisReactionDatabaseV2: "data/catalysis_v2/catalysis_reaction_database_v2.json",
+  catalysisReactionSchemaV2: "data/catalysis_reaction_records_schema_v2.json",
+  catalysisVerificationTasksV2: "data/catalysis_v2/catalysis_verification_tasks_v2.json",
+  catalysisEvidenceGraphV2: "data/catalysis_v2/catalysis_evidence_graph_v2.json",
+  catalysisDiscoveryBatchesV1: "data/catalysis_v2/catalysis_discovery_batches_v1.json",
+  catalysisCandidateQueueV1: "data/catalysis_v2/catalysis_candidate_queue_v1.json",
+  catalysisExtractionSuggestionsV1: "data/catalysis_v2/catalysis_extraction_suggestions_v1.json",
+  catalysisDiscoveryAuditV1: "data/catalysis_v2/catalysis_discovery_audit_v1.json",
   catalyticPathways: "data/catalytic_pathways_demo.json",
   pathwayNodes: "data/pathway_nodes_demo.json",
   reactionFingerprints: "data/reaction_fingerprint_demo.json",
@@ -188,6 +196,38 @@ export function getCatalysisReactionRecordsV1({ throwOnError = false } = {}) {
 
 export function getCatalysisReactionRecordsSchemaV1({ throwOnError = false } = {}) {
   return fetchJson(DATA_PATHS.catalysisReactionRecordsSchemaV1, {}, { throwOnError })
+}
+
+export function getCatalysisReactionDatabaseV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisReactionDatabaseV2, { summary: {}, tables: {} }, { throwOnError })
+}
+
+export function getCatalysisReactionSchemaV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisReactionSchemaV2, {}, { throwOnError })
+}
+
+export function getCatalysisVerificationTasksV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisVerificationTasksV2, { summary: {}, tasks: [] }, { throwOnError })
+}
+
+export function getCatalysisEvidenceGraphV2({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisEvidenceGraphV2, { summary: {}, nodes: [], edges: [] }, { throwOnError })
+}
+
+export function getCatalysisDiscoveryBatchesV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisDiscoveryBatchesV1, { summary: {}, families: [], batches: [] }, { throwOnError })
+}
+
+export function getCatalysisCandidateQueueV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisCandidateQueueV1, { summary: {}, families: [], candidates: [], navigationCandidates: [] }, { throwOnError })
+}
+
+export function getCatalysisExtractionSuggestionsV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisExtractionSuggestionsV1, { summary: {}, suggestions: [] }, { throwOnError })
+}
+
+export function getCatalysisDiscoveryAuditV1({ throwOnError = false } = {}) {
+  return fetchJson(DATA_PATHS.catalysisDiscoveryAuditV1, { summary: {}, checks: [] }, { throwOnError })
 }
 
 export function getCatalyticPathways({ throwOnError = false } = {}) {

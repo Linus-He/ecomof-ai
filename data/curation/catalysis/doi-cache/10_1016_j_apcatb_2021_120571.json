@@ -1,0 +1,139 @@
+{
+  "doi": "10.1016/j.apcatb.2021.120571",
+  "checkedAt": "2026-08-12T11:41:12.510Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+    "curatedTitle": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+    "journal": "Applied Catalysis B: Environmental",
+    "year": 2021
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/legal/tdmrep-license"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              12,
+              1
+            ]
+          ],
+          "date-time": "2021-12-01T00:00:00Z",
+          "timestamp": 1638316800000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "54b317a5ce038ceeab3e37f0ee9a18ee49a8895a64869927c9ad9581a2e66e46"
+}

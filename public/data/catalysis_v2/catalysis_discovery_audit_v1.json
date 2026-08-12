@@ -1,0 +1,1577 @@
+{
+  "schemaVersion": "catalysis-discovery-audit-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "generatedAt": "2026-08-12T12:22:14.989Z",
+  "result": "passed-with-quarantined-candidates",
+  "summary": {
+    "adapterCount": 2,
+    "familyCount": 5,
+    "rawHitCount": 250,
+    "uniqueDoiCount": 155,
+    "missingDoiHitCount": 0,
+    "existingFormalMatchCount": 2,
+    "navigationCandidateCount": 1,
+    "candidateQueueCount": 9,
+    "excludedCount": 143,
+    "suggestionCount": 9,
+    "individuallyDoiVerifiedCount": 9,
+    "automaticPromotionCount": 0,
+    "formalLibrarySourceCount": 10
+  },
+  "checks": [
+    {
+      "id": "doi-deduplication",
+      "status": "passed",
+      "detail": "155 unique DOI records from 250 metadata hits."
+    },
+    {
+      "id": "formal-library-isolation",
+      "status": "passed",
+      "detail": "Candidate and suggestion datasets cannot write to the formal reaction database."
+    },
+    {
+      "id": "suggestion-status",
+      "status": "passed",
+      "detail": "Every extraction suggestion remains suggested-not-verified with promotion disabled."
+    },
+    {
+      "id": "abstract-copyright-boundary",
+      "status": "passed",
+      "detail": "No abstract or full text is stored in the discovery cache or public datasets."
+    }
+  ],
+  "existingFormalMatches": [
+    {
+      "id": "catlit-c6b63864607a",
+      "doi": "10.1016/j.jcou.2022.101937",
+      "title": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+      "familyId": "co2rr-formate-direct-mof"
+    },
+    {
+      "id": "catlit-911aca7effd2",
+      "doi": "10.1002/celc.202001613",
+      "title": "Metal‐Organic‐Framework‐Derived Bismuth Nanosheets for Electrochemical and Solar‐Driven Electrochemical CO2 Reduction to Formate",
+      "familyId": "co2rr-formate-mof-derived"
+    }
+  ],
+  "navigationCandidates": [
+    {
+      "id": "catlit-1d784dcce137",
+      "doi": "10.3390/catal13071109",
+      "title": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+      "familyId": "co2rr-formate-direct-mof",
+      "manualReview": {
+        "decision": "literature-navigation-only",
+        "documentRole": "review-article",
+        "checkedAgainst": "Crossref deposited abstract and publisher landing page",
+        "sourceUrl": "https://doi.org/10.3390/catal13071109",
+        "noteZh": "摘要明确写明为综述；可用于追溯参考文献，但不得作为实验反应记录候选。",
+        "noteEn": "The deposited abstract explicitly identifies a review; it may guide reference discovery but cannot become an experimental reaction-record candidate."
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "id": "catlit-ce05bba65b86",
+      "doi": "10.1007/s40242-026-6047-7",
+      "title": "Structure-Activity Relationships in Metal-Organic Framework-based Catalysts for Electrochemical CO2 Reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-a3c62f4544d8",
+      "doi": "10.1016/j.cjsc.2026.100948",
+      "title": "Boosting efficient electrocatalytic CO2 reduction by two-dimensional polyoxometalate@metal-organic framework composites with asymmetric sites",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-0046e82217b1",
+      "doi": "10.1016/j.fuel.2025.136382",
+      "title": "Dual photo/electrocatalytic CO2 reduction by porphyrin based metal organic framework under visible light and electrochemical bias",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-44730ffc0b70",
+      "doi": "10.1016/j.ijhydene.2026.154803",
+      "title": "Metal-organic framework-derived BiSn bimetallic oxides for the electrocatalytic reduction of CO2 to formate",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-184cf728db67",
+      "doi": "10.1021/acsmaterialslett.6c00309",
+      "title": "Copper-Azolate Metal−Organic Framework as Cathode Material for Electrocatalytic CO2 Reduction within a Zero-Gap Electrolyzer",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-938f99e6c22b",
+      "doi": "10.1016/j.jcou.2025.103041",
+      "title": "Bioelectrocatalytic CO2 reduction to formate by Candida boidinii formate dehydrogenase overcoming NADH dependence with tailored amino-viologen redox polymers",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-2b31ce66f232",
+      "doi": "10.3390/catal15010052",
+      "title": "Electrodeposition of Bismuth Dendrites on Oxide-Derived Copper Foam Enhancing Electrochemical CO2 Reduction to Formate",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-492fee027831",
+      "doi": "10.1016/j.carbon.2023.118527",
+      "title": "Bifunctional carbon quantum dot-embedded metal-organic framework nanohybrid as a highly efficient electrocatalyst for water splitting and CO2 reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-2ce047fde7aa",
+      "doi": "10.1016/j.cjsc.2024.100301",
+      "title": "2D zirconium-based metal-organic framework/bismuth(III) oxide nanorods composite for electrocatalytic CO2-to-formate reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-be592e812820",
+      "doi": "10.1016/j.mtcomm.2024.110419",
+      "title": "Green synthesis of Cu-based metal organic framework for electrochemical CO2 conversion into formic acid",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-b58e677c6879",
+      "doi": "10.1016/j.surfin.2023.103816",
+      "title": "Metal–organic framework derived synergistic carbon nanoarchitectures boost bifunctional electrocatalytic performances toward methanol oxidation and oxygen reduction in Pt-nanoparticles",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-51b8662093c5",
+      "doi": "10.1021/acs.inorgchem.4c01109",
+      "title": "Toward Developing Superior Cu-Based Metal–Organic Framework-Derived Materials for Electrocatalytic Oxidation of Ethanol",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-31d11d05d356",
+      "doi": "10.1021/acs.langmuir.4c01444",
+      "title": "Electrocatalysis of CO2 Reduction by Immobilized Formate Dehydrogenase without a Metal Redox Center",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-34885c979151",
+      "doi": "10.1007/s40820-023-01092-8",
+      "title": "Applications of Metal–Organic Frameworks and Their Derivatives in Electrochemical CO2 Reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-960f3cb54755",
+      "doi": "10.1016/j.cattod.2022.09.005",
+      "title": "Metal-organic framework-based single-atom catalysts for efficient electrocatalytic CO2 reduction reactions",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-db569e82186c",
+      "doi": "10.1016/j.electacta.2023.141896",
+      "title": "Assembly and electrocatalytic CO2 reduction of two-dimensional bimetallic porphyrin-based conjugated cobalt metal-organic framework",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-7193a3460993",
+      "doi": "10.1038/s41467-023-40117-z",
+      "title": "Confining charge-transfer complex in a metal-organic framework for photocatalytic CO2 reduction in water",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-26355a044278",
+      "doi": "10.3390/cryst13101426",
+      "title": "Two-Dimensional Metal–Organic Framework TM Catalysts for Electrocatalytic N2 and CO2 Reduction: A Density Functional Theory Investigation",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-717eacb3c1ce",
+      "doi": "10.1016/j.fuel.2022.123638",
+      "title": "Metal organic framework assisted Co-Ce mixed oxide catalyst for carbon monoxide and ethylene oxidation",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-34942632fbe0",
+      "doi": "10.2139/ssrn.4203014",
+      "title": "Assembly And Electrocatalytic Co2 Reduction Of Two-Dimensional Bimetallic Porphyrin-Based Conjugated Cobalt Metal-Organic Framework",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-55ddeae1bb44",
+      "doi": "10.1016/j.jechem.2020.09.021",
+      "title": "Ultrathin two-dimensional metal–organic framework nanosheets for efficient electrochemical CO2 reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-1ae2c3aa94b8",
+      "doi": "10.1016/j.jcou.2020.101159",
+      "title": "Electrochemical carbon dioxide reduction to isopropanol using novel carbonized copper metal organic framework derived electrodes",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-6fb756ee430e",
+      "doi": "10.1002/ange.201901981",
+      "title": "Stabilization of Formate Dehydrogenase in a Metal–Organic Framework for Bioelectrocatalytic Reduction of CO2",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-c59e2754b120",
+      "doi": "10.1002/anie.201901981",
+      "title": "Stabilization of Formate Dehydrogenase in a Metal–Organic Framework for Bioelectrocatalytic Reduction of CO2",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-72cb1802c338",
+      "doi": "10.1007/s11426-019-9530-7",
+      "title": "Conversion of CO2 to ethanol by using a metal-organic framework catalyst",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-a568b7d2e5a7",
+      "doi": "10.1016/j.electacta.2019.03.101",
+      "title": "Metal–organic framework-mediated strategy for enhanced methane production on copper nanoparticles in electrochemical CO2 reduction",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-06ebbb031802",
+      "doi": "10.3389/fbioe.2019.00394",
+      "title": "Sequential Co-immobilization of Enzymes in Metal-Organic Frameworks for Efficient Biocatalytic Conversion of Adsorbed CO2 to Formate",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-a1cf6a046fb4",
+      "doi": "10.1016/j.jcou.2018.09.020",
+      "title": "Enzymatic CO2 reduction to formate by formate dehydrogenase from Candida boidinii coupling with direct electrochemical regeneration of NADH",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-4641b40da8e0",
+      "doi": "10.1039/c3cc00293d",
+      "title": "Catalytic chromium reduction using formic acid and metal nanoparticles immobilized in a metal–organic framework",
+      "relevanceScore": 8,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-88ba1cf159b6",
+      "doi": "10.1016/j.scib.2025.08.001",
+      "title": "Electrokinetic insights into cation-coupled reaction pathways in electrochemical CO2 reduction to formic acid or formate",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-4fedb7e4a5ea",
+      "doi": "10.1016/j.ccst.2025.100523",
+      "title": "Graphene-based metal-organic framework nanocomposites for CO2 reduction reactions",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-2e2666744bab",
+      "doi": "10.1016/j.ijhydene.2024.12.168",
+      "title": "Modulating tin phthalocyanine single-atom catalyst anchored onto N and S co-doped graphene-based framework for selective electrochemical reduction of CO2 to formic acid",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-6a0deb9d783a",
+      "doi": "10.1016/j.surfin.2025.107576",
+      "title": "Electrochemical CO2 reduction: The role of catholyte-anolyte interactions in formate/formic acid production",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-9882d0640a72",
+      "doi": "10.3390/catal15010032",
+      "title": "Ag Nanoparticle-Modified Metal Azole Framework for Enhancing the Electrocatalytic Reduction of Carbon Dioxide to Carbon Monoxide",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-ce7ff44530c2",
+      "doi": "10.63386/620645",
+      "title": "Bismuth-Based Bimetallic Catalysts for Electrochemical CO2 Reduction to Formate",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-eac55f32223c",
+      "doi": "10.1007/s40820-023-01276-2",
+      "title": "Cu-Based Materials for Enhanced C2+ Product Selectivity in Photo-/Electro-Catalytic CO2 Reduction: Challenges and Prospects",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-d7385f0380dc",
+      "doi": "10.1016/j.jcou.2024.102805",
+      "title": "Theoretical performance optimization of enzymatic electrochemical CO2 reduction to formate: Voltage, concentration, temperature, pressure, and flow rate",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-20d1612e6360",
+      "doi": "10.1016/j.mattod.2024.05.002",
+      "title": "Catalyst design and reactor engineering for electrochemical CO2 reduction to formate and formic acid",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-33bdffe168d8",
+      "doi": "10.1016/j.resconrec.2022.106778",
+      "title": "Sustainable electrochemical process for recovery of metal ions in synthetic mining wastewater and their utilization in photocathodic CO2 reduction into formic acid",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-2acbaf22cf2c",
+      "doi": "10.1016/s1872-2067(23)64476-6",
+      "title": "A computational study of electrochemical CO2 reduction to formic acid on metal-doped SnO2",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-761dfc8c6537",
+      "doi": "10.1016/j.jcou.2021.101823",
+      "title": "Producing formic acid at low pH values by electrochemical CO2 reduction",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-e83588575f53",
+      "doi": "10.1038/s41467-021-27768-6",
+      "title": "Au-activated N motifs in non-coherent cupric porphyrin metal organic frameworks for promoting and stabilizing ethylene production",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-3c8d3e223b3c",
+      "doi": "10.1039/d2ra03459j",
+      "title": "Simultaneous CO2 reduction and NADH regeneration using formate and glycerol dehydrogenase enzymes co-immobilized on modified natural zeolite",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-165c76297446",
+      "doi": "10.1016/j.chemosphere.2020.128921",
+      "title": "Immobilization of formate dehydrogenase in metal organic frameworks for enhanced conversion of carbon dioxide to formate",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:co2-electroreduction"
+      ]
+    },
+    {
+      "id": "catlit-8386b77d83e1",
+      "doi": "10.1016/j.jcou.2020.02.007",
+      "title": "Metal-support interaction enhanced electrochemical reduction of CO2 to formate between graphene and Bi nanoparticles",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-e70011438c65",
+      "doi": "10.1021/jacs.9b12828",
+      "title": "Integration of Enzymes and Photosensitizers in a Hierarchical Mesoporous Metal–Organic Framework for Light-Driven CO2 Reduction",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:family-product"
+      ]
+    },
+    {
+      "id": "catlit-8a4c24fd1ce9",
+      "doi": "10.1038/s41467-020-17403-1",
+      "title": "Electrochemical CO2 reduction to high-concentration pure formic acid solutions in an all-solid-state reactor",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-0c9569a8f199",
+      "doi": "10.1016/j.jcou.2019.07.024",
+      "title": "A techno-economic evaluation approach to the electrochemical reduction of CO2 for formic acid manufacture",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-a11cd15bb129",
+      "doi": "10.1038/s41467-019-08805-x",
+      "title": "Promoting electrocatalytic CO2 reduction to formate via sulfur-boosting water activation on indium surfaces",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-08f0530c7e5a",
+      "doi": "10.1038/s41929-018-0084-7",
+      "title": "Steering post-C–C coupling selectivity enables high efficiency electroreduction of carbon dioxide to multi-carbon alcohols",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-977b82108c71",
+      "doi": "10.1016/j.joule.2017.09.014",
+      "title": "Sulfur-Modulated Tin Sites Enable Highly Selective Electrochemical Reduction of CO2 to Formate",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-6f48ff623550",
+      "doi": "10.1038/ncomms13869",
+      "title": "A metal-free electrocatalyst for carbon dioxide reduction to multi-carbon hydrocarbons and oxygenates",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-5d039050081f",
+      "doi": "10.1016/j.cattod.2014.08.001",
+      "title": "Electrochemical CO2 reduction to formic acid on a Pd-based formic acid oxidation catalyst",
+      "relevanceScore": 7,
+      "blockers": [
+        "missing-signal:mof-context"
+      ]
+    },
+    {
+      "id": "catlit-1b306a97c567",
+      "doi": "10.1016/j.cjche.2022.08.009",
+      "title": "Corrigendum to “Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate” [Chin. J. Chem. Eng. 43 (2022) 353–359]",
+      "relevanceScore": 6,
+      "blockers": [
+        "review-or-perspective-signal",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-784267a10cb9",
+      "doi": "10.1021/jacsau.4c00246",
+      "title": "Electrocatalytic Reduction of Carbon Dioxide in Acidic Electrolyte with Superior Performance of a Metal–Covalent Organic Framework over Metal–Organic Framework",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-24157cce6bac",
+      "doi": "10.62051/8w4yjg12",
+      "title": "Metal-Organic Frameworks-Based Electrocatalytic Reduction of CO2",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-18eee86d0740",
+      "doi": "10.1016/j.fuel.2022.127056",
+      "title": "Multi-metallic organic framework-derived materials for electrocatalytic CO2 reduction reaction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-b60c3f24b716",
+      "doi": "10.1016/j.jcou.2023.102412",
+      "title": "Electrocatalytic CO2 conversion on metal-organic frameworks derivative electrocatalysts",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-d046f37057a9",
+      "doi": "10.1039/d2ya00284a",
+      "title": "Metal–organic framework-derived single atom catalysts for electrocatalytic reduction of carbon dioxide to C1 products",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-59f627a7fbdb",
+      "doi": "10.6023/a21120617",
+      "title": "Preparation of Bimetallic Conductive Metal-organic Framework Material Ni/Co-CAT for Electrocatalytic Oxygen Reduction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-1bcf38e45f05",
+      "doi": "10.1038/s41467-021-22991-7",
+      "title": "Metal-organic framework membranes with single-atomic centers for photocatalytic CO2 and O2 reduction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-809ba954901a",
+      "doi": "10.1039/d1sc00997d",
+      "title": "Carbon support tuned electrocatalytic activity of a single-site metal–organic framework toward the oxygen reduction reaction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-c8cac544f877",
+      "doi": "10.1186/s40580-020-00251-6",
+      "title": "Metal–organic framework derived nanomaterials for electrocatalysis: recent developments for CO2 and N2 reduction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-999a45af39f6",
+      "doi": "10.1002/smll.201805324",
+      "title": "Co–Fe Alloy/N‐Doped Carbon Hollow Spheres Derived from Dual Metal–Organic Frameworks for Enhanced Electrocatalytic Oxygen Reduction",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-b4034cb36f8c",
+      "doi": "10.3390/app9122427",
+      "title": "Metal–Organic Frameworks Toward Electrocatalytic Applications",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-68e021c1947d",
+      "doi": "10.1016/j.ccr.2017.12.013",
+      "title": "Titanium-based metal–organic frameworks for photocatalytic applications",
+      "relevanceScore": 5,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-52618358396d",
+      "doi": "10.1016/j.gresc.2024.09.005",
+      "title": "Enhancement of CO2 hydrogenation to formate using formate dehydrogenase immobilized on UiO66 and its derivatives",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4db4c9e89965",
+      "doi": "10.1016/j.ijhydene.2024.12.492",
+      "title": "CO2 hydrogenation to formate by immobilized formate dehydrogenase: Challenges and opportunities",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-62133a1fecf8",
+      "doi": "10.1038/s41598-025-21717-9",
+      "title": "Computational investigation of CO2 hydrogenation and electrochemical reduction to formic acid and methanol using chalcogen-doped nitrogen-graphene nanoflake as a metal-free catalyst",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-9674f8d4c1e1",
+      "doi": "10.1016/j.crcon.2024.100234",
+      "title": "A multienzyme system immobilized on surface-modified metal–organic framework for enhanced CO2 hydrogenation",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-781a57d58ff0",
+      "doi": "10.1063/5.0223542",
+      "title": "Metal–metal oxide hybrid catalysts for electrocatalytic CO2 reduction reaction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-25f08529aa1f",
+      "doi": "10.3390/molecules29102320",
+      "title": "Density Functional Study of Electrocatalytic Carbon Dioxide Reduction in Fourth-Period Transition Metal–Tetrahydroxyquinone Organic Framework",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-c7a46aa6befd",
+      "doi": "10.1016/j.ccr.2023.215257",
+      "title": "Metal organic framework composites for reduction of CO2",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-1f88709245ff",
+      "doi": "10.1016/j.cherd.2023.03.031",
+      "title": "Direct-air capture conversion of CO2 in fixed-bed microreactors with immobilized formate dehydrogenase and glucose dehydrogenase: Concept feasibility",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-60cb85f0f2e8",
+      "doi": "10.1016/j.crcon.2023.09.003",
+      "title": "Surface modification of HKUST-1 for enhanced activity of immobilized formate dehydrogenase used in CO2 hydrogenation",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-6ba0bac8e03c",
+      "doi": "10.1038/s41467-023-40412-9",
+      "title": "Modulating adsorbed hydrogen drives electrochemical CO2-to-C2 products",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-8d2ef355a8b6",
+      "doi": "10.1016/j.chempr.2021.12.002",
+      "title": "Electrochemical CO2 reduction in membrane-electrode assemblies",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-c28637016ba0",
+      "doi": "10.1016/j.jallcom.2022.164042",
+      "title": "CuNi alloy nanoparticles embedded in N-doped carbon framework for electrocatalytic reduction of CO2 to CO",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-a66fa9853025",
+      "doi": "10.1016/j.chemosphere.2021.133117",
+      "title": "Fabrication of a biocathode for formic acid production upon the immobilization of formate dehydrogenase from Candida boidinii on a nanoporous carbon",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-f99b39f435ff",
+      "doi": "10.1016/j.copbio.2021.07.011",
+      "title": "Formate dehydrogenases for CO2 utilization",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-229dca58fd6c",
+      "doi": "10.1038/s41467-021-27457-4",
+      "title": "Charge-transfer regulated visible light driven photocatalytic H2 production and CO2 reduction in tetrathiafulvalene based coordination polymer gel",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-c50913feeb94",
+      "doi": "10.1007/s11426-020-9756-8",
+      "title": "A significant breakthrough in electrocatalytic reduction of CO2 to ethylene and ethanol",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-ce76c8b57c84",
+      "doi": "10.1007/s40820-020-00538-7",
+      "title": "Defect Engineering on Carbon-Based Catalysts for Electrocatalytic CO2 Reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-8d5f32d5da65",
+      "doi": "10.1016/j.apsusc.2020.147466",
+      "title": "Single transition metal atoms on nitrogen-doped carbon for CO2 electrocatalytic reduction: CO production or further CO reduction?",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-978b14f39c58",
+      "doi": "10.1016/j.mtadv.2020.100074",
+      "title": "Electrocatalytic carbon dioxide reduction: from fundamental principles to catalyst design",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-05987dec7668",
+      "doi": "10.1038/s41929-020-0450-0",
+      "title": "Electrocatalytic reduction of CO2 to ethylene and ethanol through hydrogen-assisted C–C coupling over fluorine-modified copper",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-3242ee85253c",
+      "doi": "10.1002/adma.201807166",
+      "title": "Electrochemical CO2 Reduction into Chemical Feedstocks: From Mechanistic Electrocatalysis Models to System Design",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-ee7562e9f2d4",
+      "doi": "10.1016/j.nanoms.2019.03.006",
+      "title": "Material design at nano and atomic scale for electrocatalytic CO2 reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-b844ae2bc682",
+      "doi": "10.1038/s41467-019-09626-8",
+      "title": "Modulating the mechanism of electrocatalytic CO2 reduction by cobalt phthalocyanine through polymer coordination and encapsulation",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-d0826addbef6",
+      "doi": "10.1038/s41929-019-0383-7",
+      "title": "Cooperative CO2-to-ethanol conversion via enriched intermediates at molecule–metal catalyst interfaces",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4b1fd74e175d",
+      "doi": "10.3389/fchem.2019.00397",
+      "title": "Secondary-Sphere Effects in Molecular Electrocatalytic CO2 Reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-cf578dcfbada",
+      "doi": "10.1016/j.ccr.2018.05.022",
+      "title": "Mechanistic aspects of CO2 reduction catalysis with manganese-based molecular catalysts",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-491b6eb54fbb",
+      "doi": "10.1038/s41467-018-02819-7",
+      "title": "Active sites of copper-complex catalytic materials for electrochemical carbon dioxide reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-04dcd0a4afc7",
+      "doi": "10.1038/s41467-018-06938-z",
+      "title": "Oriented electron transmission in polyoxometalate-metalloporphyrin organic framework for highly selective electroreduction of CO2",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-2ece33ce465b",
+      "doi": "10.1038/s41929-017-0009-x",
+      "title": "Metal ion cycling of Cu foil for selective C–C coupling in electrochemical CO2 reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-b34185fd4c3e",
+      "doi": "10.1021/jacs.7b11940",
+      "title": "Reticular Electronic Tuning of Porphyrin Active Sites in Covalent Organic Frameworks for Electrocatalytic Carbon Dioxide Reduction",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-921a7da80f66",
+      "doi": "10.1038/ncomms14675",
+      "title": "Highly selective and active CO2 reduction electrocatalysts based on cobalt phthalocyanine/carbon nanotube hybrid structures",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-99869979732d",
+      "doi": "10.1038/s41467-017-01035-z",
+      "title": "Understanding activity and selectivity of metal-nitrogen-doped carbon catalysts for electrochemical reduction of CO2",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-e1c4260c2921",
+      "doi": "10.1016/j.compchemeng.2016.06.012",
+      "title": "On the modelling of multidisciplinary electrochemical systems with application on the electrochemical conversion of CO2 to formate/formic acid",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-8d550e3c0f59",
+      "doi": "10.1002/cssc.201100220",
+      "title": "The Electrochemical Reduction of Carbon Dioxide to Formate/Formic Acid: Engineering and Economic Feasibility",
+      "relevanceScore": 4,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-e6040d54fced",
+      "doi": "10.1007/s40843-024-3165-6",
+      "title": "Recent advances and future perspectives of metal-organic frameworks as efficient electrocatalysts for CO2 reduction",
+      "relevanceScore": 3,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-90bc20701f76",
+      "doi": "10.1016/j.cartre.2024.100384",
+      "title": "Layered double hydroxides and metal-organic frameworks for electrocatalytic CO2 reduction: A comprehensive review",
+      "relevanceScore": 3,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-524f4045207c",
+      "doi": "10.1016/j.ccr.2024.215858",
+      "title": "Recent advances in metal–organic framework-derived materials for electrocatalytic and photocatalytic CO2 reduction",
+      "relevanceScore": 3,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-72955248291c",
+      "doi": "10.1055/s-0042-1751974",
+      "title": "CO2 Reduction by a Membranous, Metal-Free, Triazine- and Imine-Containing Covalent Organic Framework",
+      "relevanceScore": 3,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-635694c4632d",
+      "doi": "10.1038/s41563-020-0610-2",
+      "title": "Molecular enhancement of heterogeneous CO2 reduction",
+      "relevanceScore": 3,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-82656536cd7b",
+      "doi": "10.1021/acs.chemrev.6b00816",
+      "title": "Challenges in the Greener Production of Formates/Formic Acid, Methanol, and DME by Heterogeneously Catalyzed CO2Hydrogenation Processes",
+      "relevanceScore": 3,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-88a8ff766675",
+      "doi": "10.1016/j.nanoms.2024.11.007",
+      "title": "Recent progress in bismuth-based materials for electrochemical CO2 reduction to formate/formic acid",
+      "relevanceScore": 2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-b5ed778abf8c",
+      "doi": "10.1016/j.jelechem.2022.117018",
+      "title": "Recent advances in designing efficient electrocatalysts for electrochemical carbon dioxide reduction to formic acid/formate",
+      "relevanceScore": 2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-9591d164b60c",
+      "doi": "10.1016/j.seppur.2023.123811",
+      "title": "Electrochemical reduction of CO2 into formate/formic acid: A review of cell design and operation",
+      "relevanceScore": 2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-f9905fbd0e37",
+      "doi": "10.1021/acsenergylett.3c00489",
+      "title": "Electroreduction of CO2 : Advances in the Continuous Production of Formic Acid and Formate",
+      "relevanceScore": 2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-dac81ae7a273",
+      "doi": "10.1016/j.cej.2021.128825",
+      "title": "A review on electrochemical synthesized copper-based catalysts for electrochemical reduction of CO2 to C2+ products",
+      "relevanceScore": 2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-9333d4f0724d",
+      "doi": "10.1126/sciadv.abo0762",
+      "title": "Metal-metal interactions in correlated single-atom catalysts",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4389a04424e5",
+      "doi": "10.3390/molecules27154913",
+      "title": "Improving the Enzymatic Cascade of Reactions for the Reduction of CO2 to CH3OH in Water: From Enzymes Immobilization Strategies to Cofactor Regeneration and Cofactor Suppression",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-5a03e568f431",
+      "doi": "10.1038/s41467-020-20769-x",
+      "title": "Insights on forming N,O-coordinated Cu single-atom catalysts for electrochemical reduction CO2 to methane",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-fcabebe02dd5",
+      "doi": "10.1038/s41467-021-21750-y",
+      "title": "Isolated copper–tin atomic interfaces tuning electrocatalytic CO2 conversion",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4c9b1b9c5183",
+      "doi": "10.1038/s41467-021-25426-5",
+      "title": "Controllable CO2 electrocatalytic reduction via ferroelectric switching on single atom anchored In2Se3 monolayer",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-058a8d3a9e28",
+      "doi": "10.1016/j.ijbiomac.2020.03.177",
+      "title": "Co-immobilization multienzyme nanoreactor with co-factor regeneration for conversion of CO2",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-56d3d4a21f86",
+      "doi": "10.1038/s41467-019-10996-2",
+      "title": "Fundamentals and applications of photocatalytic CO2 methanation",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-dd0965e35ae1",
+      "doi": "10.1038/s41467-019-11542-w",
+      "title": "CO2 electrochemical catalytic reduction with a highly active cobalt phthalocyanine",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-cc5cd175de7d",
+      "doi": "10.1038/s41929-019-0306-7",
+      "title": "Designing materials for electrochemical carbon dioxide recycling",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-25c7dc53cde3",
+      "doi": "10.1126/science.aad4998",
+      "title": "Combining theory and experiment in electrocatalysis: Insights into materials design",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-9d0bff705fff",
+      "doi": "10.1021/acs.chemrev.5b00370",
+      "title": "Light-Driven Heterogeneous Reduction of Carbon Dioxide: Photocatalysts and Photoelectrodes",
+      "relevanceScore": 1,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-43d49aea3f03",
+      "doi": "10.1007/s11581-024-05468-7",
+      "title": "Indigenous designed metal-organic framework for electrocatalytic reduction of CO2—a review",
+      "relevanceScore": 0,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4142caa88653",
+      "doi": "10.1016/j.ceja.2020.100013",
+      "title": "Carbon dioxide utilization: A paradigm shift with CO2 economy",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-3a1bf76f6e21",
+      "doi": "10.1038/s41467-019-13638-9",
+      "title": "CO2 hydrogenation to high-value products via heterogeneous catalysis",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-8c85cb929545",
+      "doi": "10.1126/science.aav3506",
+      "title": "What would it take for renewably powered electrosynthesis to displace petrochemical processes?",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-0774fa4b0341",
+      "doi": "10.1016/j.joule.2017.09.003",
+      "title": "What Should We Make with CO2 and How Can We Make It?",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-9fac32942f5f",
+      "doi": "10.1021/acs.iecr.7b03514",
+      "title": "General Techno-Economic Analysis of CO2 Electrolysis Systems",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-fa7f91c72583",
+      "doi": "10.1016/j.petlm.2016.11.003",
+      "title": "CO2 utilization: Developments in conversion processes",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-0ebba4e92fbc",
+      "doi": "10.1039/c5cs00878f",
+      "title": "Covalent organic frameworks based on Schiff-base chemistry: synthesis, properties and potential applications",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-88c601e4328e",
+      "doi": "10.1002/chem.201402509",
+      "title": "Metal‐Catalyzed Reductive Coupling Reactions of Organic Halides with Carbonyl‐Type Compounds",
+      "relevanceScore": 0,
+      "blockers": [
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-092842568607",
+      "doi": "10.3390/molecules30020251",
+      "title": "Recent Progress in Enzyme Immobilization to Metal–Organic Frameworks to Enhance the CO2 Conversion Efficiency",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-0e191032db3e",
+      "doi": "10.1007/s43153-024-00513-4",
+      "title": "Metal–organic frameworks as highly effective platforms for enzyme immobilization–current developments and future perspectives",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-e880ccbf9038",
+      "doi": "10.1016/j.nanoms.2021.05.003",
+      "title": "Photoelectrocatalytic carbon dioxide reduction: Fundamental, advances and challenges",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-98d17feace15",
+      "doi": "10.1039/d0cs00218f",
+      "title": "Molecular catalysis of CO2 reduction: recent advances and perspectives in electrochemical and light-driven processes with selected Fe, Ni and Co aza macrocyclic and polypyridine complexes",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4e4a60a19819",
+      "doi": "10.3390/nano10122422",
+      "title": "Photons to Formate: A Review on Photocatalytic Reduction of CO2 to Formic Acid",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-0aa06c4bbe3d",
+      "doi": "10.1007/s40820-019-0293-x",
+      "title": "Advances in Sn-Based Catalysts for Electrochemical CO2 Reduction",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-cd022cb3a38c",
+      "doi": "10.1007/s40843-017-9151-y",
+      "title": "Recent progress on advanced design for photoelectrochemical reduction of CO2 to fuels",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-28f3bb3a4c9c",
+      "doi": "10.1002/cssc.201100752",
+      "title": "Corrigendum: The Electrochemical Reduction of Carbon Dioxide to Formate/Formic Acid: Engineering and Economic Feasibility",
+      "relevanceScore": -1,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-ddca7d4d5e31",
+      "doi": "10.1016/j.jphotochemrev.2015.06.001",
+      "title": "Review of material design and reactor engineering on TiO2 photocatalysis for CO2 reduction",
+      "relevanceScore": -2,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-90c6965dd23d",
+      "doi": "10.1038/s41565-020-00823-x",
+      "title": "An industrial perspective on catalysts for low-temperature CO2 electrolysis",
+      "relevanceScore": -4,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-826ce191c33c",
+      "doi": "10.3389/fchem.2021.748957",
+      "title": "Recent Advances in Non-Enzymatic Glucose Sensors Based on Metal and Metal Oxide Nanostructures for Diabetes Management- A Review",
+      "relevanceScore": -5,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    },
+    {
+      "id": "catlit-4012d5bb9369",
+      "doi": "10.3390/molecules25163653",
+      "title": "Research Progress in Conversion of CO2 to Valuable Fuels",
+      "relevanceScore": -5,
+      "blockers": [
+        "review-or-perspective-signal",
+        "missing-signal:mof-context",
+        "missing-signal:co2-electroreduction",
+        "missing-signal:family-product",
+        "below-candidate-score"
+      ]
+    }
+  ],
+  "missingDoiHits": []
+}

@@ -160,6 +160,8 @@ describe("MofStructureWorkbench", () => {
     )
 
     expect(screen.getByTestId("mof-structure-workbench")).toBeInTheDocument()
+    expect(screen.getByText("数据托管与访问说明")).toBeInTheDocument()
+    expect(screen.getByText(/暂未将相关数据部署在中国大陆地区服务器/)).toBeInTheDocument()
     expect(screen.getByText("等待已授权的结构文件")).toBeInTheDocument()
     expect(screen.getByText("CSD MOF Collection")).toBeInTheDocument()
     expect(screen.getByText("CC-BY-NC-SA-4.0")).toBeInTheDocument()

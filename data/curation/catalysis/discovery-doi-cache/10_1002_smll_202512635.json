@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1002/smll.202512635",
+  "checkedAt": "2026-08-12T12:23:50.477Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Unique Single‐Copper Metal−Organic Framework Enables Highly Selective Electrocatalytic CO\n                    <sub>2</sub>\n                    Reduction to Ethylene via Asymmetric Coupling",
+    "discoveryTitle": "Unique Single‐Copper Metal−Organic Framework Enables Highly Selective Electrocatalytic CO\n                    2\n                    Reduction to Ethylene via Asymmetric Coupling",
+    "journal": "Small",
+    "year": 2025,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "57558bc1e4c8ae5d1e4efd1c0d56c89145645d4017f9b01e3c4995cc2edff6d6"
+}

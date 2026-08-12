@@ -13,10 +13,10 @@ describe("methodology registry", () => {
 
     expect(registry.metrics).toMatchObject({
       moduleCount: 8,
-      groupCount: 19,
-      formulaCount: 33,
-      referenceCount: 20,
-      limitationCount: 37,
+      groupCount: 20,
+      formulaCount: 34,
+      referenceCount: 24,
+      limitationCount: 43,
       sourceCount: literature.sources.length,
     })
     expect(registry.cards.map(card => card.id)).toEqual(modules.map(module => module.id))

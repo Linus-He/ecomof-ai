@@ -1,5 +1,7 @@
 // @ts-nocheck
 
+import { localizeCatalysisText } from "./catalysisDisplayText"
+
 const NON_EMPTY = (value) => value !== null && value !== undefined && value !== ""
 
 export const CATALYSIS_CONDITION_FIELDS = [
@@ -138,8 +140,8 @@ export function formatCatalysisMetricCondition(condition = {}, lang = "zh") {
     ? condition.potentialVsRheV
     : condition.potentialVsRheVApprox
   if (NON_EMPTY(potential)) parts.push(`${condition.potentialVsRheVApprox != null ? "≈ " : ""}${potential} V vs RHE`)
-  if (NON_EMPTY(condition.electrolyte)) parts.push(condition.electrolyte)
-  if (NON_EMPTY(condition.cellType)) parts.push(condition.cellType)
+  if (NON_EMPTY(condition.electrolyte)) parts.push(localizeCatalysisText(condition.electrolyte, zh))
+  if (NON_EMPTY(condition.cellType)) parts.push(localizeCatalysisText(condition.cellType, zh))
   if (NON_EMPTY(condition.appliedCurrentDensity)) {
     parts.push(`${condition.appliedCurrentDensity} ${condition.appliedCurrentDensityUnit || ""}`.trim())
   }
@@ -155,7 +157,7 @@ function buildConditionSummary(record, lang = "zh") {
   const potentialState = fieldState("potential", record)
   const potential = potentialState.value
   const parts = []
-  if (NON_EMPTY(cell)) parts.push(String(cell))
+  if (NON_EMPTY(cell)) parts.push(localizeCatalysisText(cell, zh))
   if (NON_EMPTY(electrolyte)) parts.push(String(electrolyte))
   if (NON_EMPTY(potential)) parts.push(`${potentialState.inferredFromMetric ? "≈ " : ""}${potential} V vs RHE`)
   return parts.length ? parts.join(" · ") : (zh ? "关键条件未提取" : "Critical conditions not extracted")

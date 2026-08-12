@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1016/j.materresbull.2021.111228",
+  "checkedAt": "2026-08-12T12:23:53.355Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO",
+    "discoveryTitle": "Highly selective metal-organic framework-based electrocatalyst for the electrochemical reduction of CO2 to CO",
+    "journal": "Materials Research Bulletin",
+    "year": 2021,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "566e956ab2c455c8d965b27e145e1037ba318ff22898d875519fc5da39084923"
+}

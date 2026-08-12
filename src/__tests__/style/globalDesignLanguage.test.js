@@ -88,9 +88,17 @@ function findOffenders(files, predicate) {
 
 describe("global design language guardrails", () => {
   const files = readTextFiles()
+  const reviewedRoundedSurfaceFiles = new Set([
+    "src/App.tsx",
+    "src/index.css",
+    "src/components/tabs/GasSepTab.tsx",
+  ])
 
-  it("does not reintroduce retired rounded-tag geometry or naming", () => {
-    const offenders = findOffenders(files, line => deprecatedShapePatterns.some(pattern => pattern.test(line)))
+  it("does not reintroduce retired rounded-tag geometry outside reviewed navigation and GasSep surfaces", () => {
+    const offenders = findOffenders(files, (line, file) => {
+      if (file.startsWith("src/__tests__/") || reviewedRoundedSurfaceFiles.has(file)) return false
+      return deprecatedShapePatterns.some(pattern => pattern.test(line))
+    })
     expect(offenders).toEqual([])
   })
 

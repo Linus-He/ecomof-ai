@@ -1,0 +1,43 @@
+{
+  "doi": "10.1039/d2ta04485d",
+  "checkedAt": "2026-08-12T11:41:07.494Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Evolution of bismuth-based metal–organic frameworks for efficient electroreduction of CO\n                    <sub>2</sub>",
+    "curatedTitle": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2",
+    "journal": "Journal of Materials Chemistry A",
+    "year": 2022
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              18
+            ]
+          ],
+          "date-time": "2022-08-18T00:00:00Z",
+          "timestamp": 1660780800000
+        },
+        "content-version": "vor",
+        "delay-in-days": 229,
+        "URL": "http://creativecommons.org/licenses/by/3.0/"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "e529159c6014acac496a0ba70aaca76eb0823bf8fb4258b031eb326cdb6a53c5"
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "catalysis-audit-report-v2",
+  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "result": "passed-with-blocked-eligibility",
+  "summary": {
+    "sourceDocumentCount": 10,
+    "reactionRecordCount": 10,
+    "catalystStateCount": 10,
+    "metricClaimCount": 28,
+    "numericClaimCount": 26,
+    "claimLocatedCount": 12,
+    "abstractOnlyClaimCount": 14,
+    "identityLinkedCount": 0,
+    "browseEligibleCount": 10,
+    "compareEligibleCount": 0,
+    "trainingEligibleCount": 0,
+    "recommendationEligibleCount": 0,
+    "openTaskCount": 70,
+    "p0TaskCount": 40,
+    "p1TaskCount": 30
+  },
+  "findings": [
+    {
+      "severity": "info",
+      "code": "ARTICLE_IDENTITY_VERIFIED",
+      "messageZh": "10篇种子论文已作为论文身份核验来源迁移。"
+    },
+    {
+      "severity": "blocker",
+      "code": "CLAIM_LOCATION_INCOMPLETE",
+      "messageZh": "摘要级或全文泛化位置的数值仍需图、表、章节或SI定位，已阻断比较资格。"
+    },
+    {
+      "severity": "blocker",
+      "code": "IDENTITY_UNRESOLVED",
+      "messageZh": "未发现可安全自动建立的精确结构身份连接，已生成身份核验任务。"
+    },
+    {
+      "severity": "blocker",
+      "code": "CONDITION_INCOMPLETE",
+      "messageZh": "负载、定量方法等比较字段不完整，禁止跨论文排名。"
+    },
+    {
+      "severity": "blocker",
+      "code": "LICENSE_NOT_CLEARED_FOR_TRAINING",
+      "messageZh": "开放元数据不等于全文衍生字段可用于模型训练，训练资格保持关闭。"
+    }
+  ]
+}

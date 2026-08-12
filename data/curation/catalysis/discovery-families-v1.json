@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "catalysis-discovery-families-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "updatedAt": "2026-08-12",
+  "retrieval": {
+    "rowsPerFamily": 25,
+    "crossref": {
+      "endpoint": "https://api.crossref.org/v1/works",
+      "filter": "type:journal-article",
+      "select": "DOI,title,author,container-title,published,type,URL,license"
+    },
+    "openAlex": {
+      "endpoint": "https://api.openalex.org/works",
+      "filter": "type:article",
+      "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted"
+    }
+  },
+  "admissionPolicy": {
+    "candidateMinimumScore": 7,
+    "requiredSignals": [
+      "mof-context",
+      "co2-electroreduction",
+      "family-product"
+    ],
+    "excludedPublicationSignals": [
+      "review",
+      "perspective",
+      "overview",
+      "progress",
+      "advances"
+      ,"corrigendum"
+      ,"correction"
+      ,"erratum"
+    ],
+    "formalPromotion": "manual-gate-only",
+    "aiSuggestionMayVerify": false
+  },
+  "families": [
+    {
+      "id": "co2rr-formate-direct-mof",
+      "titleZh": "CO2 电还原制甲酸盐：直接 MOF 催化剂",
+      "titleEn": "CO2 electroreduction to formate: direct MOF catalysts",
+      "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+      "productTerms": ["formate", "formic acid", "hcooh"],
+      "stateTerms": ["metal-organic framework", "metal organic framework", "mof"],
+      "excludedStateTerms": ["mof-derived", "mof derived", "framework-derived", "framework derived", "metal-organic-framework-derived", "metal organic framework derived", "reconstruction", "reconstructed", "formate dehydrogenase", "enzyme", "immobilized"],
+      "suggestedProduct": "formate/formic acid",
+      "suggestedCatalystState": "reported-mof-catalyst"
+    },
+    {
+      "id": "co2rr-formate-mof-derived",
+      "titleZh": "CO2 电还原制甲酸盐：MOF 衍生催化剂",
+      "titleEn": "CO2 electroreduction to formate: MOF-derived catalysts",
+      "query": "metal organic framework derived electrochemical CO2 reduction formate formic acid",
+      "productTerms": ["formate", "formic acid", "hcooh"],
+      "stateTerms": ["derived", "derivative", "converted", "reconstruction"],
+      "excludedStateTerms": [],
+      "suggestedProduct": "formate/formic acid",
+      "suggestedCatalystState": "mof-derived-material"
+    },
+    {
+      "id": "co2rr-formate-mof-enzyme-hybrid",
+      "titleZh": "CO2 电还原制甲酸盐：MOF-酶杂化体系",
+      "titleEn": "CO2 electroreduction to formate: MOF-enzyme hybrid systems",
+      "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+      "productTerms": ["formate", "formic acid", "hcooh", "formate dehydrogenase"],
+      "stateTerms": ["formate dehydrogenase", "enzyme", "immobilized", "bioelectrocatal"],
+      "excludedStateTerms": [],
+      "suggestedProduct": "formate/formic acid",
+      "suggestedCatalystState": "mof-enzyme-hybrid"
+    },
+    {
+      "id": "co2rr-carbon-monoxide-mof",
+      "titleZh": "CO2 电还原制一氧化碳：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to carbon monoxide: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction carbon monoxide CO",
+      "productTerms": ["carbon monoxide", "co production", "co selective", "co-selective", "co2-to-co", "co2 to co", "reduction to co"],
+      "stateTerms": ["metal-organic framework", "metal organic framework", "mof", "derived"],
+      "excludedStateTerms": [],
+      "suggestedProduct": "carbon monoxide",
+      "suggestedCatalystState": "mof-or-mof-derived-unresolved"
+    },
+    {
+      "id": "co2rr-c2plus-mof",
+      "titleZh": "CO2 电还原制 C2+ 产物：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to C2+ products: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction ethylene ethanol C2",
+      "productTerms": ["ethylene", "ethanol", "acetate", "c2+", "c2 product", "multicarbon", "multi-carbon"],
+      "stateTerms": ["metal-organic framework", "metal organic framework", "mof", "derived"],
+      "excludedStateTerms": [],
+      "suggestedProduct": "C2+ products",
+      "suggestedCatalystState": "mof-or-mof-derived-unresolved"
+    }
+  ]
+}

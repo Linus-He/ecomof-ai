@@ -20,6 +20,7 @@ import {
   BasisBadge,
   Callout,
   CopyLinkButton,
+  DataHostingNotice,
   getReadableMofLabel,
   PageHeader,
   toolbarBtn,
@@ -953,6 +954,8 @@ export function EcoLcaWorkbench({
           </>
         }
       />
+
+      <DataHostingNotice lang={lang} placement="ecoscreen" />
 
       <WorkbenchNav t={t} lang={lang} />
 

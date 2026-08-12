@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.3390/catal11050537",
+  "checkedAt": "2026-08-12T12:23:53.619Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2",
+    "discoveryTitle": "Highly CO Selective Trimetallic Metal-Organic Framework Electrocatalyst for the Electrochemical Reduction of CO2",
+    "journal": "Catalysts",
+    "year": 2021,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "a4c00fd568c22a238873a3bc74f40ab415073ff6595ab0b25ab57d4f5381033f"
+}

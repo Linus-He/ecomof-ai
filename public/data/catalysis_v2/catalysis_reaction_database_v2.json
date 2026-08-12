@@ -1,0 +1,3568 @@
+{
+  "schemaVersion": "catalysis-reaction-records-v2",
+  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "generatedBy": "scripts/catalysis/build-catalysis-reaction-records-v2.mjs",
+  "sourceDataset": "catalysis_reaction_records_v1.json",
+  "curationOverlay": "data/curation/catalysis/v2-curation-overrides.json",
+  "policy": {
+    "articleIdentityIsNotClaimVerification": true,
+    "exactIdentityOnly": true,
+    "noCrossConditionRanking": true,
+    "aiMaySuggestButCannotVerify": true
+  },
+  "summary": {
+    "sourceDocumentCount": 10,
+    "reactionRecordCount": 10,
+    "catalystStateCount": 10,
+    "metricClaimCount": 28,
+    "numericClaimCount": 26,
+    "claimLocatedCount": 12,
+    "abstractOnlyClaimCount": 14,
+    "identityLinkedCount": 0,
+    "browseEligibleCount": 10,
+    "compareEligibleCount": 0,
+    "trainingEligibleCount": 0,
+    "recommendationEligibleCount": 0,
+    "openTaskCount": 70,
+    "p0TaskCount": 40,
+    "p1TaskCount": 30
+  },
+  "tables": {
+    "sourceDocuments": [
+      {
+        "id": "source-cat-lit-mfm220-2022",
+        "legacySourceId": "CAT-LIT-MFM220-2022",
+        "doi": "10.1039/d2ta04485d",
+        "doiUrl": "https://doi.org/10.1039/d2ta04485d",
+        "title": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2",
+        "journal": "Journal of Materials Chemistry A",
+        "year": 2022,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-tal33-2022",
+        "legacySourceId": "CAT-LIT-TAL33-2022",
+        "doi": "10.1016/j.jcou.2022.101937",
+        "doiUrl": "https://doi.org/10.1016/j.jcou.2022.101937",
+        "title": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+        "journal": "Journal of CO2 Utilization",
+        "year": 2022,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2212982022000567",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-bicc17-2021",
+        "legacySourceId": "CAT-LIT-BICC17-2021",
+        "doi": "10.1002/celc.202001613",
+        "doiUrl": "https://doi.org/10.1002/celc.202001613",
+        "title": "Metal-Organic-Framework-Derived Bismuth Nanosheets for Electrochemical and Solar-Driven Electrochemical CO2 Reduction to Formate",
+        "journal": "ChemElectroChem",
+        "year": 2021,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/celc.202001613",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-cau17-2020",
+        "legacySourceId": "CAT-LIT-CAU17-2020",
+        "doi": "10.1002/aenm.202001709",
+        "doiUrl": "https://doi.org/10.1002/aenm.202001709",
+        "title": "Bi-Based Metal-Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+        "journal": "Advanced Energy Materials",
+        "year": 2020,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-bibtb-2020",
+        "legacySourceId": "CAT-LIT-BIBTB-2020",
+        "doi": "10.1002/adfm.201910408",
+        "doiUrl": "https://doi.org/10.1002/adfm.201910408",
+        "title": "Restructuring Metal-Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO2 Reduction to Formate",
+        "journal": "Advanced Functional Materials",
+        "year": 2020,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://pure.au.dk/portal/da/publications/restructuring-metalorganic-frameworks-to-nanoscale-bismuth-electr",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-zrdmbdbi-2025",
+        "legacySourceId": "CAT-LIT-ZRDMBDBI-2025",
+        "doi": "10.1039/d4mh01153h",
+        "doiUrl": "https://doi.org/10.1039/d4mh01153h",
+        "title": "Incarcerating bismuth nanoparticles into a thiol-laced metal-organic framework for electro and photocatalysis",
+        "journal": "Materials Horizons",
+        "year": 2025,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-bihhtp-2023",
+        "legacySourceId": "CAT-LIT-BIHHTP-2023",
+        "doi": "10.1039/d3sc01876h",
+        "doiUrl": "https://doi.org/10.1039/d3sc01876h",
+        "title": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO2 electroreduction to formate",
+        "journal": "Chemical Science",
+        "year": 2023,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-su101-2022",
+        "legacySourceId": "CAT-LIT-SU101-2022",
+        "doi": "10.1039/d2ta01727j",
+        "doiUrl": "https://doi.org/10.1039/d2ta01727j",
+        "title": "A hexacoordinated Bi3+-based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+        "journal": "Journal of Materials Chemistry A",
+        "year": 2022,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-cubi-2021",
+        "legacySourceId": "CAT-LIT-CUBI-2021",
+        "doi": "10.1016/j.apcatb.2021.120571",
+        "doiUrl": "https://doi.org/10.1016/j.apcatb.2021.120571",
+        "title": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+        "journal": "Applied Catalysis B: Environmental",
+        "year": 2021,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0926337321006974",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      },
+      {
+        "id": "source-cat-lit-2dbimof-2020",
+        "legacySourceId": "CAT-LIT-2DBIMOF-2020",
+        "doi": "10.1016/j.apcatb.2020.119241",
+        "doiUrl": "https://doi.org/10.1016/j.apcatb.2020.119241",
+        "title": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+        "journal": "Applied Catalysis B: Environmental",
+        "year": 2020,
+        "documentType": "primary-experimental",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561",
+        "discoverySource": "v1-curated-seed",
+        "metadataVerification": "matched",
+        "scholarStatus": "no-update-declared-in-crossref-record",
+        "fullTextAccess": "crossref-link-available",
+        "license": {
+          "metadataReuseAllowed": true,
+          "fullTextReuseStatus": "publisher-license-declared-review-required",
+          "trainingUseAllowed": false
+        }
+      }
+    ],
+    "documentVerifications": [
+      {
+        "id": "verification-cat-lit-mfm220-2022",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "checkedAt": "2026-08-12T11:41:07.494Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Evolution of bismuth-based metal–organic frameworks for efficient electroreduction of CO\n                    <sub>2</sub>",
+          "curatedTitle": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2",
+          "journal": "Journal of Materials Chemistry A",
+          "year": 2022
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "0ae2b5b4b13b64e0ef0604e5a808b994c54fd56ca87c963863b4fd390c2e10ce"
+      },
+      {
+        "id": "verification-cat-lit-tal33-2022",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "checkedAt": "2026-08-12T11:41:08.961Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+          "curatedTitle": "CO2 reduction to formate on an affordable bismuth metal-organic framework based catalyst",
+          "journal": "Journal of CO2 Utilization",
+          "year": 2022
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "022995e089c0bda363de8099725dc91aeda5f0c1e01abe819bdec368a93d10c2"
+      },
+      {
+        "id": "verification-cat-lit-bicc17-2021",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "checkedAt": "2026-08-12T11:41:09.224Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Metal‐Organic‐Framework‐Derived Bismuth Nanosheets for Electrochemical and Solar‐Driven Electrochemical CO<sub>2</sub> Reduction to Formate",
+          "curatedTitle": "Metal-Organic-Framework-Derived Bismuth Nanosheets for Electrochemical and Solar-Driven Electrochemical CO2 Reduction to Formate",
+          "journal": "ChemElectroChem",
+          "year": 2021
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "7f4c8d030357f19cd669d408aac7e86f9a27360e8aded5220f1cf0b7af467e7e"
+      },
+      {
+        "id": "verification-cat-lit-cau17-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "checkedAt": "2026-08-12T11:41:09.816Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Bi‐Based Metal‐Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+          "curatedTitle": "Bi-Based Metal-Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+          "journal": "Advanced Energy Materials",
+          "year": 2020
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "8eb6245bb12a26bb5888167d9b800b417941c093eec3df6774f521ee7966411c"
+      },
+      {
+        "id": "verification-cat-lit-bibtb-2020",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "checkedAt": "2026-08-12T11:41:10.322Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Restructuring Metal–Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO<sub>2</sub> Reduction to Formate",
+          "curatedTitle": "Restructuring Metal-Organic Frameworks to Nanoscale Bismuth Electrocatalysts for Highly Active and Selective CO2 Reduction to Formate",
+          "journal": "Advanced Functional Materials",
+          "year": 2020
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "fd311102448e39d2cc9faef9bedf708b88b39f2439d3a2a7268f84239a285c2c"
+      },
+      {
+        "id": "verification-cat-lit-zrdmbdbi-2025",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "checkedAt": "2026-08-12T11:41:10.833Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Incarcerating bismuth nanoparticles into a thiol-laced metal–organic framework for electro and photocatalysis",
+          "curatedTitle": "Incarcerating bismuth nanoparticles into a thiol-laced metal-organic framework for electro and photocatalysis",
+          "journal": "Materials Horizons",
+          "year": 2025
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {
+            "has-review": [
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v3/decision1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v1/review1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v1/review2",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v2/review1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v3/response1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v2/decision1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v3/review1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v1/decision1",
+                "asserted-by": "object"
+              },
+              {
+                "id-type": "doi",
+                "id": "10.1039/D4MH01153H/v2/response1",
+                "asserted-by": "object"
+              }
+            ]
+          }
+        },
+        "snapshotHash": "bc68b3e93b58d9e699025e2c904f266a8725e4c09fc651db68f2eae057f9d8d9"
+      },
+      {
+        "id": "verification-cat-lit-bihhtp-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "checkedAt": "2026-08-12T11:41:11.111Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO\n                    <sub>2</sub>\n                    electroreduction to formate",
+          "curatedTitle": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO2 electroreduction to formate",
+          "journal": "Chemical Science",
+          "year": 2023
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "6d6d7f2d30dc579f2b050ffa9f8cfc72b144b13cfe36c2767c5a911995ef6a2a"
+      },
+      {
+        "id": "verification-cat-lit-su101-2022",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "checkedAt": "2026-08-12T11:41:11.684Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "A hexacoordinated Bi\n                    <sup>3+</sup>\n                    -based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+          "curatedTitle": "A hexacoordinated Bi3+-based ellagate MOF with acid/base resistance boosting carbon dioxide electroreduction to formate",
+          "journal": "Journal of Materials Chemistry A",
+          "year": 2022
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "f07cd5c11b3fb381ea1460af87345034e1b2593168f11c7fcba928dc706b1061"
+      },
+      {
+        "id": "verification-cat-lit-cubi-2021",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "checkedAt": "2026-08-12T11:41:12.510Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+          "curatedTitle": "MOF derived bimetallic CuBi catalysts with ultra-wide potential window for high-efficient electrochemical reduction of CO2 to formate",
+          "journal": "Applied Catalysis B: Environmental",
+          "year": 2021
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "8a908d87c02cfc6f793e7ed46dba14ffb0fe6bd185b6d3c645403df4277a65de"
+      },
+      {
+        "id": "verification-cat-lit-2dbimof-2020",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "checkedAt": "2026-08-12T11:41:13.019Z",
+        "checkedBy": "Crossref REST API",
+        "registrationAgency": "Crossref",
+        "metadataMatch": {
+          "status": "matched",
+          "registeredTitle": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+          "curatedTitle": "Highly stable two-dimensional bismuth metal-organic frameworks for efficient electrochemical reduction of CO2",
+          "journal": "Applied Catalysis B: Environmental",
+          "year": 2020
+        },
+        "updateStatus": {
+          "status": "none-declared",
+          "update": [],
+          "relation": {}
+        },
+        "snapshotHash": "05d46935b21094aedbd1eb83dd14045e119e994e3da31c406e39c323c8a0bf30"
+      }
+    ],
+    "reactionRecords": [
+      {
+        "id": "catrxn-v2-mfm220p-formate-2022",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+        "conditionSetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-mfm220p-formate-2022",
+        "activePhaseClaim": "MFM-220 evolves under electrochemical potential; the pristine framework must not be treated automatically as the proven active phase.",
+        "activePhaseBoundary": "Use MFM-220-p as the operational catalyst identity unless active-phase assignment is independently confirmed."
+      },
+      {
+        "id": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+        "conditionSetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-tal33-derived-bi-formate-2022",
+        "activePhaseClaim": "The accessible source describes TAL-33 as a precursor and attributes catalytic activity to metallic Bi sites after conversion.",
+        "activePhaseBoundary": "Treat this as a MOF-derived catalyst record, not as evidence that pristine TAL-33 is the active phase."
+      },
+      {
+        "id": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "catalystStateId": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "conditionSetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-bicc17-nanosheets-formate-2021",
+        "activePhaseClaim": "The reported electrocatalyst is a MOF-derived bismuth nanosheet array rather than the pristine precursor framework.",
+        "activePhaseBoundary": "Use Bi/CC-17 as a derived-material identity; do not transfer its metrics to the precursor MOF."
+      },
+      {
+        "id": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "conditionSetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formic acid/formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-cau17-leafy-bi-formate-2020",
+        "activePhaseClaim": "MOF conversion yields leafy Bi nanosheets with a hybrid Bi/Bi-O interface associated with activity.",
+        "activePhaseBoundary": "Performance metrics belong to the derived Bi/Bi-O nanosheets, not pristine CAU-17."
+      },
+      {
+        "id": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "conditionSetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "activePhaseClaim": "The Bi(btb) precatalyst restructures to Bi nanoparticles embedded in a porous organic matrix.",
+        "activePhaseBoundary": "Use the restructured Bi nanoparticle material as the catalytic identity; pristine Bi(btb) is a precatalyst."
+      },
+      {
+        "id": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "catalystStateId": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "conditionSetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "activePhaseClaim": "Thiol-laced Zr-DMBD confines Bi nanoparticles while post-catalysis characterization indicates partial surface decomposition and retained bulk stabilization.",
+        "activePhaseBoundary": "The composite and its post-reaction surface state must remain distinct from pristine Zr-DMBD."
+      },
+      {
+        "id": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "catalystStateId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-bi-hhtp-formate-2023",
+        "activePhaseClaim": "Unsaturated Bi sites in conductive Bi-HHTP are proposed as active centers for a COOH-mediated formate route.",
+        "activePhaseBoundary": "The unsaturated-Bi assignment is evidence-supported but remains tied to the reported operando/computational interpretation."
+      },
+      {
+        "id": "catrxn-v2-su101-formate-2022",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-su101-formate-2022",
+        "conditionSetId": "condition-catrxn-v1-su101-formate-2022",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-su101-formate-2022",
+        "activePhaseClaim": "SU-101 nanorods are reported as the electrocatalyst; DFT supports formate selectivity relative to HER.",
+        "activePhaseBoundary": "The accessible evidence supports a framework-level catalyst assignment but does not replace operando active-phase verification."
+      },
+      {
+        "id": "catrxn-v2-cubi-derived-formate-2021",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "catalystStateId": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+        "conditionSetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-cubi-derived-formate-2021",
+        "activePhaseClaim": "A Bi2CuO4 interfacial structure is associated with the MOF-derived catalyst and an HCOO-mediated pathway.",
+        "activePhaseBoundary": "The catalytic record belongs to the derived CuBi/Bi2CuO4 material, not pristine CuBi-MOF."
+      },
+      {
+        "id": "catrxn-v2-2d-bi-mof-formate-2020",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+        "conditionSetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "recordType": "electrocatalytic-co2rr",
+        "reaction": {
+          "family": "CO2 electroreduction",
+          "substrate": "CO2",
+          "targetProduct": "formic acid/formate",
+          "reactionMode": "electrocatalysis"
+        },
+        "dataMode": "literature-curated-v2",
+        "legacyRecordId": "catrxn-v1-2d-bi-mof-formate-2020",
+        "activePhaseClaim": "The source reports a highly stable two-dimensional porous Bi-MOF electrocatalyst.",
+        "activePhaseBoundary": "No stronger active-site claim is stored without additional operando or post-reaction structural evidence."
+      }
+    ],
+    "catalystStates": [
+      {
+        "id": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "catalystName": "MFM-220-p",
+        "precursorMofName": "MFM-220",
+        "activeMaterial": "potential-evolved MFM-220-p",
+        "frameworkFamily": "Bi-based MOF",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "reported-catalyst",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "catalystName": "TAL-33-derived Bi catalyst",
+        "precursorMofName": "TAL-33",
+        "activeMaterial": "carbonized Bi-based material",
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "mof-derived-material",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "catalystName": "Bi/CC-17",
+        "precursorMofName": "Bi-based MOF grown on carbon cloth",
+        "activeMaterial": "MOF-derived bismuth nanosheet arrays on carbon cloth",
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "mof-derived-material",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "catalystName": "CAU-17-derived leafy bismuth nanosheets",
+        "precursorMofName": "CAU-17",
+        "activeMaterial": "leafy bismuth nanosheets with Bi/Bi-O interface",
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "mof-derived-material",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "catalystName": "restructured Bi(btb)-derived bismuth electrocatalyst",
+        "precursorMofName": "Bi(btb)",
+        "activeMaterial": "Bi nanoparticles in a porous organic matrix",
+        "frameworkFamily": "Bi-MOF-derived catalyst",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "mof-derived-material",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "catalystName": "BiNP@Zr-DMBD",
+        "precursorMofName": "Zr-DMBD",
+        "activeMaterial": "approximately 4.0 nm Bi nanoparticles confined in thiol-laced Zr-DMBD",
+        "frameworkFamily": "Bi nanoparticle@Zr-MOF composite",
+        "metalCenters": [
+          "Bi",
+          "Zr"
+        ],
+        "stateType": "reported-catalyst",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "catalystName": "Bi-HHTP",
+        "precursorMofName": "Bi-HHTP",
+        "activeMaterial": "conductive catecholate framework with unsaturated Bi sites",
+        "frameworkFamily": "conductive Bi-MOF",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "reported-catalyst",
+        "activePhaseStatus": "evidence-supported-unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-su101-formate-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "catalystName": "SU-101 nanorods",
+        "precursorMofName": "SU-101",
+        "activeMaterial": "hexacoordinated Bi3+-ellagate MOF nanorods",
+        "frameworkFamily": "Bi-ellagate MOF",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "reported-catalyst",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "catalystName": "MOF-derived CuBi catalyst",
+        "precursorMofName": "CuBi-MOF",
+        "activeMaterial": "rod-like CuBi catalyst with Bi2CuO4 interface",
+        "frameworkFamily": "bimetallic MOF-derived catalyst",
+        "metalCenters": [
+          "Cu",
+          "Bi"
+        ],
+        "stateType": "mof-derived-material",
+        "activePhaseStatus": "evidence-supported-unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      },
+      {
+        "id": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "catalystName": "two-dimensional Bi-MOF",
+        "precursorMofName": "two-dimensional Bi-MOF",
+        "activeMaterial": "two-dimensional porous Bi-MOF electrocatalyst",
+        "frameworkFamily": "two-dimensional Bi-MOF",
+        "metalCenters": [
+          "Bi"
+        ],
+        "stateType": "reported-catalyst",
+        "activePhaseStatus": "unresolved",
+        "identityLink": {
+          "status": "unresolved",
+          "canonicalId": null,
+          "method": "no-safe-automatic-match",
+          "candidateCanonicalIds": []
+        }
+      }
+    ],
+    "conditionSets": [
+      {
+        "id": "condition-catrxn-v1-mfm220p-formate-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "cellType": "electrolysis cell",
+        "electrolyte": "0.1 M KHCO3",
+        "potentialVsRheV": -1.1,
+        "potentialVsRheVApprox": null,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": 5,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "catalyst loading",
+          "geometric electrode area",
+          "CO2 flow rate",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "cellType": null,
+        "electrolyte": null,
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": null,
+        "currentMode": null,
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": null,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "cell type",
+          "electrolyte",
+          "potential",
+          "current density",
+          "duration",
+          "catalyst loading",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "cellType": "electrolysis cell",
+        "electrolyte": null,
+        "potentialVsRheV": -1.1,
+        "potentialVsRheVApprox": null,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": null,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "electrolyte",
+          "duration",
+          "catalyst loading",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "cellType": "flow cell",
+        "electrolyte": "1 M KHCO3 or KOH (reported as separate operating media)",
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": null,
+        "currentMode": "high-current flow operation",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": 10,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "exact potential for each reported bound",
+          "catalyst loading",
+          "gas flow rate",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "potentialOrCurrent",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "cellType": null,
+        "electrolyte": null,
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": null,
+        "currentMode": null,
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": null,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "cell type",
+          "electrolyte",
+          "potential",
+          "duration",
+          "catalyst loading basis",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "cellType": "flow cell",
+        "electrolyte": null,
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": null,
+        "currentMode": "constant-current",
+        "appliedCurrentDensity": -25,
+        "appliedCurrentDensityUnit": "mA cm-2",
+        "durationH": null,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "flow-cell electrolyte",
+          "duration",
+          "catalyst loading",
+          "gas flow rate"
+        ],
+        "sourceMissingFields": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "cellType": "flow cell",
+        "electrolyte": "1 M KOH",
+        "potentialVsRheV": -0.7,
+        "potentialVsRheVApprox": null,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": 30,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": "liquid-phase products quantified by nuclear magnetic resonance",
+        "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4",
+        "legacyMissingFieldNotes": [
+          "catalyst loading basis",
+          "gas flow rate",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "catalystLoading"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-su101-formate-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "cellType": "H-type cell",
+        "electrolyte": "0.5 M KHCO3",
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": -1.06,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": 10,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": "liquid products by NMR; gas products by online gas chromatography",
+        "productQuantificationSourceLocation": "publisher full text · Results and discussion · Fig. S7–S8",
+        "legacyMissingFieldNotes": [
+          "catalyst loading basis",
+          "gas flow rate",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "catalystLoading"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "cellType": "H-type cell",
+        "electrolyte": null,
+        "potentialVsRheV": -0.77,
+        "potentialVsRheVApprox": null,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": null,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "electrolyte",
+          "duration",
+          "catalyst loading",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      },
+      {
+        "id": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "cellType": "electrolysis cell",
+        "electrolyte": null,
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": -0.9,
+        "currentMode": "constant-potential",
+        "appliedCurrentDensity": null,
+        "appliedCurrentDensityUnit": null,
+        "durationH": 30,
+        "catalystLoading": null,
+        "catalystLoadingUnit": null,
+        "gasFlowRate": null,
+        "gasFlowRateUnit": null,
+        "productQuantification": null,
+        "productQuantificationSourceLocation": null,
+        "legacyMissingFieldNotes": [
+          "electrolyte",
+          "cell architecture",
+          "catalyst loading basis",
+          "product quantification protocol"
+        ],
+        "sourceMissingFields": [
+          "electrolyte",
+          "catalystLoading",
+          "productQuantification"
+        ]
+      }
+    ],
+    "metricClaims": [
+      {
+        "id": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "conditionSetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-mfm220p-formate-2022-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 90.4,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": -1.1,
+          "electrolyte": "0.1 M KHCO3"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "conditionSetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration"
+        ],
+        "metric": "stability_duration",
+        "product": "formate",
+        "operator": "=",
+        "value": 5,
+        "uncertainty": null,
+        "unit": "h",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheV": -1.1
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "conditionSetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density"
+        ],
+        "metric": "total_current_density",
+        "product": null,
+        "operator": null,
+        "value": null,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "not-extracted",
+        "verificationLevel": "not-extracted",
+        "condition": {
+          "potentialVsRheV": -1.1
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "conditionSetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": null,
+        "value": null,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "not-extracted",
+        "verificationLevel": "not-extracted",
+        "condition": {}
+      },
+      {
+        "id": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "conditionSetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 98,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheV": -1.1
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "conditionSetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate"
+        ],
+        "metric": "partial_current_density",
+        "product": "formate",
+        "operator": "=",
+        "value": 45,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheV": -1.1
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "conditionSetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density"
+        ],
+        "metric": "total_current_density",
+        "product": null,
+        "operator": ">",
+        "value": 200,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "conditionSetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formic acid/formate",
+        "operator": ">",
+        "value": 85,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "electrolyte": "1 M KHCO3",
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "conditionSetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formic acid/formate",
+        "operator": ">",
+        "value": 90,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "electrolyte": "KOH",
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "conditionSetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration"
+        ],
+        "metric": "stability_duration",
+        "product": "formic acid/formate",
+        "operator": ">=",
+        "value": 10,
+        "uncertainty": null,
+        "unit": "h",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "totalCurrentDensity": ">200 mA cm-2"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "conditionSetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 95,
+        "uncertainty": 3,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {}
+      },
+      {
+        "id": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "conditionSetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity"
+        ],
+        "metric": "mass_activity",
+        "product": "formate",
+        "operator": "=",
+        "value": 261,
+        "uncertainty": 13,
+        "unit": "A g-1",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {}
+      },
+      {
+        "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "conditionSetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": ">",
+        "value": 88.1,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "cellType": "flow cell",
+          "appliedCurrentDensity": -25,
+          "appliedCurrentDensityUnit": "mA cm-2"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "conditionSetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate"
+        ],
+        "metric": "partial_current_density",
+        "product": "formate",
+        "operator": ">",
+        "value": 22,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "cellType": "flow cell",
+          "appliedCurrentDensity": -25,
+          "appliedCurrentDensityUnit": "mA cm-2"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": ">",
+        "value": 95,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": -0.7,
+          "electrolyte": "1 M KOH",
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency"
+        ],
+        "metric": "carbon_energy_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 68.8,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": -0.7,
+          "electrolyte": "1 M KOH",
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density"
+        ],
+        "metric": "total_current_density",
+        "product": null,
+        "operator": "=",
+        "value": 93,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": -1.1,
+          "electrolyte": "1 M KOH",
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate"
+        ],
+        "metric": "turnover_frequency",
+        "product": "formate",
+        "operator": "=",
+        "value": 576,
+        "uncertainty": null,
+        "unit": "h-1",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity"
+        ],
+        "metric": "electrical_conductivity",
+        "product": null,
+        "operator": "=",
+        "value": 1.65,
+        "uncertainty": null,
+        "unit": "S m-1",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {}
+      },
+      {
+        "id": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "conditionSetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration"
+        ],
+        "metric": "stability_duration",
+        "product": "formate",
+        "operator": "=",
+        "value": 30,
+        "uncertainty": null,
+        "unit": "h",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "cellType": "flow cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "conditionSetId": "condition-catrxn-v1-su101-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-su101-formate-2022-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 93.66,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": null,
+          "electrolyte": "0.5 M KHCO3",
+          "cellType": "H-type cell",
+          "potentialVsRheVApprox": -1.06
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "conditionSetId": "condition-catrxn-v1-su101-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-su101-formate-2022-partial-current-formate"
+        ],
+        "metric": "partial_current_density",
+        "product": "formate",
+        "operator": "=",
+        "value": 14.57,
+        "uncertainty": null,
+        "unit": "mA cm-2",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "potentialVsRheV": -1.26,
+          "electrolyte": "0.5 M KHCO3",
+          "cellType": "H-type cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "conditionSetId": "condition-catrxn-v1-su101-formate-2022",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-su101-formate-2022-fe-after-stability"
+        ],
+        "metric": "faradaic_efficiency_after_stability",
+        "product": "formate",
+        "operator": ">",
+        "value": 87.51,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-reported-range",
+        "verificationLevel": "L4-claim-located",
+        "condition": {
+          "durationH": 10,
+          "electrolyte": "0.5 M KHCO3",
+          "cellType": "H-type cell",
+          "potentialVsRheV": -1.06
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "conditionSetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formate",
+        "operator": "=",
+        "value": 100,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheV": -0.77,
+          "cellType": "H-type cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "conditionSetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-cubi-derived-formate-2021-potential-window"
+        ],
+        "metric": "selective_potential_window",
+        "product": "formate",
+        "operator": "=",
+        "value": 900,
+        "uncertainty": null,
+        "unit": "mV",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "cellType": "H-type cell"
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "conditionSetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid"
+        ],
+        "metric": "faradaic_efficiency",
+        "product": "formic acid/formate",
+        "operator": "=",
+        "value": 92.2,
+        "uncertainty": null,
+        "unit": "%",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheVApprox": -0.9
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "conditionSetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current"
+        ],
+        "metric": "mass_specific_partial_current_density",
+        "product": "formic acid/formate",
+        "operator": "=",
+        "value": 41,
+        "uncertainty": null,
+        "unit": "mA mgBi-1",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {
+          "potentialVsRheVApprox": -1.1
+        }
+      },
+      {
+        "id": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "conditionSetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "evidenceItemIds": [
+          "evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration"
+        ],
+        "metric": "stability_duration",
+        "product": "formic acid/formate",
+        "operator": "=",
+        "value": 30,
+        "uncertainty": null,
+        "unit": "h",
+        "sourceReportedStatus": "source-extracted",
+        "verificationLevel": "L2-abstract-only",
+        "condition": {}
+      }
+    ],
+    "evidenceItems": [
+      {
+        "id": "evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "claimId": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
+        "page": null,
+        "section": null,
+        "figure": "3a",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "The publisher full text locates the 90.4% formate FE at -1.1 V vs RHE in Fig. 3a."
+      },
+      {
+        "id": "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "claimId": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "claimId": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+        "sourceType": "abstract",
+        "sourceLocation": "not present in the verified abstract fields",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "not-extracted",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "claimId": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+        "sourceType": "abstract",
+        "sourceLocation": "numeric performance not available in the verified publisher abstract fields",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S2212982022000567",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "not-extracted",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "claimId": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/celc.202001613",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "claimId": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/celc.202001613",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202001709",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+        "sourceType": "abstract",
+        "sourceLocation": "institutional repository abstract",
+        "sourceUrl": "https://pure.au.dk/portal/da/publications/restructuring-metalorganic-frameworks-to-nanoscale-bismuth-electr",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "claimId": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+        "sourceType": "abstract",
+        "sourceLocation": "institutional repository abstract",
+        "sourceUrl": "https://pure.au.dk/portal/da/publications/restructuring-metalorganic-frameworks-to-nanoscale-bismuth-electr",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "claimId": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+        "page": null,
+        "section": null,
+        "figure": "5c",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 5c reports formate FE above 88.1% at -25 mA cm-2; the article states three independent measurements."
+      },
+      {
+        "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "claimId": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+        "page": null,
+        "section": null,
+        "figure": "5c",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 5c reports formate partial current density above 22 mA cm-2 at -25 mA cm-2."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "3c",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 3c reports formate FE above 95% at -0.7 V vs RHE."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "3c",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "The text accompanying Fig. 3c reports cathodic energy efficiency of 68.8% at -0.7 V vs RHE."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3b–3c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "3b",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "The article reports 93 mA cm-2 at -1.1 V vs RHE in the discussion of Fig. 3b–3c."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3e",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "3e",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 3e reports a maximum formate TOF of 576 h-1."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+        "sourceType": "supporting-information",
+        "sourceLocation": "publisher full text · Electronic structure and conductivity · Fig. 2b; Table S2",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "2b",
+        "table": "S2",
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "The conductivity value 1.65 S m-1 is located in Fig. 2b and Table S2."
+      },
+      {
+        "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "claimId": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3d",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "page": null,
+        "section": null,
+        "figure": "3d",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 3d is the stability test; the text reports no discernible current-density change for over 30 h."
+      },
+      {
+        "id": "evidence-catrxn-v2-su101-formate-2022-fe-formate",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "claimId": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Results and discussion · Fig. 2b–2c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+        "page": null,
+        "section": null,
+        "figure": "2b",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "The potential-dependent formate FE is plotted in Fig. 2b–2c; the full text reports 93.66% at approximately -1.06 V vs RHE."
+      },
+      {
+        "id": "evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "claimId": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Results and discussion · Fig. 2c",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+        "page": null,
+        "section": null,
+        "figure": "2c",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 2c reports formate partial current density of 14.57 mA cm-2."
+      },
+      {
+        "id": "evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "claimId": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+        "sourceType": "fulltext",
+        "sourceLocation": "publisher full text · Results and discussion · Fig. 2d",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+        "page": null,
+        "section": null,
+        "figure": "2d",
+        "table": null,
+        "extractionMethod": "manual-publisher-fulltext-review",
+        "reviewStatus": "verified",
+        "checkedAt": "2026-08-08",
+        "reviewNote": "Fig. 2d reports 87.51% formate FE during the 10 h stability test at -1.06 V vs RHE."
+      },
+      {
+        "id": "evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "claimId": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0926337321006974",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "claimId": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0926337321006974",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "claimId": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "claimId": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      },
+      {
+        "id": "evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "claimId": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+        "sourceType": "abstract",
+        "sourceLocation": "publisher abstract",
+        "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0926337320306561",
+        "page": null,
+        "section": null,
+        "figure": null,
+        "table": null,
+        "extractionMethod": "manual-v1-curation",
+        "reviewStatus": "location-backfill-required",
+        "checkedAt": "2026-08-08",
+        "reviewNote": null
+      }
+    ],
+    "identityLinks": [
+      {
+        "id": "identity-link-catrxn-v2-mfm220p-formate-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-tal33-derived-bi-formate-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "catalystStateId": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "catalystStateId": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-bi-hhtp-formate-2023",
+        "catalystStateId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-su101-formate-2022",
+        "catalystStateId": "catalyst-state-catrxn-v2-su101-formate-2022",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-cubi-derived-formate-2021",
+        "catalystStateId": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      },
+      {
+        "id": "identity-link-catrxn-v2-2d-bi-mof-formate-2020",
+        "catalystStateId": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+        "canonicalId": null,
+        "status": "unresolved",
+        "candidateCanonicalIds": [],
+        "acceptedIdentifiers": [
+          "CSD Refcode",
+          "CCDC identifier",
+          "canonicalId",
+          "provenance-matched curated alias"
+        ],
+        "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      }
+    ],
+    "eligibilityDecisions": [
+      {
+        "id": "eligibility-catrxn-v2-mfm220p-formate-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.6666666666666666
+        },
+        "blockers": [
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-tal33-derived-bi-formate-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0
+        },
+        "blockers": [
+          "missing-condition:cellType",
+          "missing-condition:electrolyte",
+          "missing-condition:potentialOrCurrent",
+          "missing-condition:duration",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "electrolyte",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.3333333333333333
+        },
+        "blockers": [
+          "missing-condition:electrolyte",
+          "missing-condition:duration",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "potentialOrCurrent",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.5
+        },
+        "blockers": [
+          "missing-condition:potentialOrCurrent",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0
+        },
+        "blockers": [
+          "missing-condition:cellType",
+          "missing-condition:electrolyte",
+          "missing-condition:potentialOrCurrent",
+          "missing-condition:duration",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "electrolyte",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.3333333333333333
+        },
+        "blockers": [
+          "missing-condition:electrolyte",
+          "missing-condition:duration",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-bi-hhtp-formate-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "catalystLoading"
+          ],
+          "ratio": 0.8333333333333334
+        },
+        "blockers": [
+          "missing-condition:catalystLoading",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-su101-formate-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "catalystLoading"
+          ],
+          "ratio": 0.8333333333333334
+        },
+        "blockers": [
+          "missing-condition:catalystLoading",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-cubi-derived-formate-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "electrolyte",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.3333333333333333
+        },
+        "blockers": [
+          "missing-condition:electrolyte",
+          "missing-condition:duration",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      },
+      {
+        "id": "eligibility-catrxn-v2-2d-bi-mof-formate-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "browseEligible": true,
+        "compareEligible": false,
+        "trainingEligible": false,
+        "recommendationEligible": false,
+        "conditionCompleteness": {
+          "required": [
+            "cellType",
+            "electrolyte",
+            "potentialOrCurrent",
+            "duration",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "missing": [
+            "electrolyte",
+            "catalystLoading",
+            "productQuantification"
+          ],
+          "ratio": 0.5
+        },
+        "blockers": [
+          "missing-condition:electrolyte",
+          "missing-condition:catalystLoading",
+          "missing-condition:productQuantification",
+          "numeric-claims-lack-precise-source-location",
+          "structure-identity-unresolved",
+          "training-license-not-cleared",
+          "active-phase-not-experimentally-resolved"
+        ],
+        "decidedBy": "catalysis-v2-deterministic-gate"
+      }
+    ],
+    "verificationTasks": [
+      {
+        "id": "task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": [
+          "claim-catrxn-v2-mfm220p-formate-2022-stability-duration"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "1 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-mfm220-2022-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-mfm220-2022-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": "condition-catrxn-v1-mfm220p-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-mfm220-2022-identity-resolution-4",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-mfm220-2022-active-phase-review-5",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-mfm220-2022-license-review-6",
+        "sourceDocumentId": "source-cat-lit-mfm220-2022",
+        "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+        "targetId": "source-cat-lit-mfm220-2022",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-1",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：cellType",
+        "titleEn": "Backfill comparison condition: cellType",
+        "reason": "Required comparison field cellType is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：potentialOrCurrent",
+        "titleEn": "Backfill comparison condition: potentialOrCurrent",
+        "reason": "Required comparison field potentialOrCurrent is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：duration",
+        "titleEn": "Backfill comparison condition: duration",
+        "reason": "Required comparison field duration is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-5",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-condition-backfill-6",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "condition-catrxn-v1-tal33-derived-bi-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-identity-resolution-7",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-active-phase-review-8",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-tal33-2022-license-review-9",
+        "sourceDocumentId": "source-cat-lit-tal33-2022",
+        "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+        "targetId": "source-cat-lit-tal33-2022",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": [
+          "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+          "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "2 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：duration",
+        "titleEn": "Backfill comparison condition: duration",
+        "reason": "Required comparison field duration is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-condition-backfill-5",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "condition-catrxn-v1-bicc17-nanosheets-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-identity-resolution-6",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-active-phase-review-7",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-bicc17-2021-license-review-8",
+        "sourceDocumentId": "source-cat-lit-bicc17-2021",
+        "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+        "targetId": "source-cat-lit-bicc17-2021",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": [
+          "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+          "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+          "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+          "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "4 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：potentialOrCurrent",
+        "titleEn": "Backfill comparison condition: potentialOrCurrent",
+        "reason": "Required comparison field potentialOrCurrent is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-cau17-leafy-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-identity-resolution-5",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-active-phase-review-6",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-cau17-2020-license-review-7",
+        "sourceDocumentId": "source-cat-lit-cau17-2020",
+        "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+        "targetId": "source-cat-lit-cau17-2020",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": [
+          "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+          "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "2 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：cellType",
+        "titleEn": "Backfill comparison condition: cellType",
+        "reason": "Required comparison field cellType is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：potentialOrCurrent",
+        "titleEn": "Backfill comparison condition: potentialOrCurrent",
+        "reason": "Required comparison field potentialOrCurrent is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-5",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：duration",
+        "titleEn": "Backfill comparison condition: duration",
+        "reason": "Required comparison field duration is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-6",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-condition-backfill-7",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "condition-catrxn-v1-bibtb-restructured-bi-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-identity-resolution-8",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-active-phase-review-9",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-bibtb-2020-license-review-10",
+        "sourceDocumentId": "source-cat-lit-bibtb-2020",
+        "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+        "targetId": "source-cat-lit-bibtb-2020",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：duration",
+        "titleEn": "Backfill comparison condition: duration",
+        "reason": "Required comparison field duration is missing."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "condition-catrxn-v1-zr-dmbd-bi-np-formate-2025",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-zrdmbdbi-2025-license-review-7",
+        "sourceDocumentId": "source-cat-lit-zrdmbdbi-2025",
+        "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+        "targetId": "source-cat-lit-zrdmbdbi-2025",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-1",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "targetId": "condition-catrxn-v1-bi-hhtp-formate-2023",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "targetId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-bihhtp-2023-active-phase-review-3",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "targetId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-bihhtp-2023-license-review-4",
+        "sourceDocumentId": "source-cat-lit-bihhtp-2023",
+        "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+        "targetId": "source-cat-lit-bihhtp-2023",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-su101-2022-condition-backfill-1",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "targetId": "condition-catrxn-v1-su101-formate-2022",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-su101-2022-identity-resolution-2",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-su101-formate-2022",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-su101-2022-active-phase-review-3",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "targetId": "catalyst-state-catrxn-v2-su101-formate-2022",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-su101-2022-license-review-4",
+        "sourceDocumentId": "source-cat-lit-su101-2022",
+        "reactionRecordId": "catrxn-v2-su101-formate-2022",
+        "targetId": "source-cat-lit-su101-2022",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": [
+          "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+          "claim-catrxn-v2-cubi-derived-formate-2021-potential-window"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "2 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：duration",
+        "titleEn": "Backfill comparison condition: duration",
+        "reason": "Required comparison field duration is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-condition-backfill-5",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "condition-catrxn-v1-cubi-derived-formate-2021",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-identity-resolution-6",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-active-phase-review-7",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-cubi-2021-license-review-8",
+        "sourceDocumentId": "source-cat-lit-cubi-2021",
+        "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+        "targetId": "source-cat-lit-cubi-2021",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-claim-location-backfill-1",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": [
+          "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+          "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+          "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration"
+        ],
+        "type": "claim-location-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐数值的图表或补充材料位置",
+        "titleEn": "Locate numeric claims in figures, tables, or SI",
+        "reason": "3 numeric claims remain below L4."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-2",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：electrolyte",
+        "titleEn": "Backfill comparison condition: electrolyte",
+        "reason": "Required comparison field electrolyte is missing."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-3",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：catalystLoading",
+        "titleEn": "Backfill comparison condition: catalystLoading",
+        "reason": "Required comparison field catalystLoading is missing."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-4",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "condition-catrxn-v1-2d-bi-mof-formate-2020",
+        "type": "condition-backfill",
+        "priority": "P0",
+        "status": "open",
+        "titleZh": "补齐比较条件：productQuantification",
+        "titleEn": "Backfill comparison condition: productQuantification",
+        "reason": "Required comparison field productQuantification is missing."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-identity-resolution-5",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+        "type": "identity-resolution",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验精确结构身份",
+        "titleEn": "Resolve exact structure identity",
+        "reason": "No exact CSD Refcode, CCDC identifier, or provenance-matched canonical ID is available."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-active-phase-review-6",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
+        "type": "active-phase-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验真实催化活性相",
+        "titleEn": "Review the catalytically active phase",
+        "reason": "Precursor, derived, operando, and post-reaction states are not yet experimentally resolved into one active-phase decision."
+      },
+      {
+        "id": "task-source-cat-lit-2dbimof-2020-license-review-7",
+        "sourceDocumentId": "source-cat-lit-2dbimof-2020",
+        "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+        "targetId": "source-cat-lit-2dbimof-2020",
+        "type": "license-review",
+        "priority": "P1",
+        "status": "open",
+        "titleZh": "核验模型训练使用许可",
+        "titleEn": "Review machine-learning reuse license",
+        "reason": "Metadata access does not establish permission to reuse full-text-derived claims for model training."
+      }
+    ],
+    "curationEvents": [
+      {
+        "id": "event-v2-initial-migration",
+        "type": "migration",
+        "at": "2026-08-08",
+        "actor": "build-catalysis-reaction-records-v2",
+        "summary": "Migrated the DOI-verified V1 seed into normalized V2 entities without promoting unresolved claims or identities."
+      },
+      {
+        "id": "event-v2-claim-location-review",
+        "type": "manual-evidence-review",
+        "at": "2026-08-12T00:00:00.000Z",
+        "actor": "curated-publisher-fulltext-review",
+        "summary": "Applied only explicit publisher full-text figure, table, section, and supporting-information locations from the tracked curation override layer.",
+        "source": "data/curation/catalysis/v2-curation-overrides.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "catalysis-v2-curation-overrides-v1",
+  "updatedAt": "2026-08-12T00:00:00.000Z",
+  "policy": {
+    "scope": "Only publisher full-text statements with an explicit figure, table, section, or supporting-information location are promoted to L4.",
+    "articleIdentityIsNotClaimVerification": true,
+    "unverifiedFieldsRemainOpenTasks": true
+  },
+  "records": {
+    "catrxn-v1-mfm220p-formate-2022": {
+      "claimEvidence": {
+        "fe-formate": {
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
+          "reviewNote": "The publisher full text locates the 90.4% formate FE at -1.1 V vs RHE in Fig. 3a."
+        }
+      }
+    },
+    "catrxn-v1-zr-dmbd-bi-np-formate-2025": {
+      "claimEvidence": {
+        "fe-formate": {
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+          "reviewNote": "Fig. 5c reports formate FE above 88.1% at -25 mA cm-2; the article states three independent measurements."
+        },
+        "partial-current-formate": {
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+          "reviewNote": "Fig. 5c reports formate partial current density above 22 mA cm-2 at -25 mA cm-2."
+        }
+      }
+    },
+    "catrxn-v1-bi-hhtp-formate-2023": {
+      "conditionOverrides": {
+        "productQuantificationProtocol": "liquid-phase products quantified by nuclear magnetic resonance",
+        "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4"
+      },
+      "claimEvidence": {
+        "fe-formate": {
+          "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "Fig. 3c reports formate FE above 95% at -0.7 V vs RHE."
+        },
+        "carbon-energy-efficiency": {
+          "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "The text accompanying Fig. 3c reports cathodic energy efficiency of 68.8% at -0.7 V vs RHE."
+        },
+        "total-current-density": {
+          "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3b–3c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "The article reports 93 mA cm-2 at -1.1 V vs RHE in the discussion of Fig. 3b–3c."
+        },
+        "tof-formate": {
+          "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3e",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "Fig. 3e reports a maximum formate TOF of 576 h-1."
+        },
+        "conductivity": {
+          "sourceLocation": "publisher full text · Electronic structure and conductivity · Fig. 2b; Table S2",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "The conductivity value 1.65 S m-1 is located in Fig. 2b and Table S2."
+        },
+        "stability-duration": {
+          "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3d",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+          "reviewNote": "Fig. 3d is the stability test; the text reports no discernible current-density change for over 30 h."
+        }
+      }
+    },
+    "catrxn-v1-su101-formate-2022": {
+      "conditionOverrides": {
+        "potentialVsRheV": null,
+        "potentialVsRheVApprox": -1.06,
+        "productQuantificationProtocol": "liquid products by NMR; gas products by online gas chromatography",
+        "productQuantificationSourceLocation": "publisher full text · Results and discussion · Fig. S7–S8"
+      },
+      "claimEvidence": {
+        "fe-formate": {
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2b–2c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+          "reviewNote": "The potential-dependent formate FE is plotted in Fig. 2b–2c; the full text reports 93.66% at approximately -1.06 V vs RHE.",
+          "condition": {
+            "potentialVsRheVApprox": -1.06,
+            "potentialVsRheV": null
+          }
+        },
+        "partial-current-formate": {
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2c",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+          "reviewNote": "Fig. 2c reports formate partial current density of 14.57 mA cm-2."
+        },
+        "fe-after-stability": {
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2d",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
+          "reviewNote": "Fig. 2d reports 87.51% formate FE during the 10 h stability test at -1.06 V vs RHE.",
+          "condition": {
+            "potentialVsRheV": -1.06
+          }
+        }
+      }
+    }
+  }
+}

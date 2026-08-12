@@ -1,0 +1,43 @@
+{
+  "doi": "10.1039/d3sc01876h",
+  "checkedAt": "2026-08-12T11:41:11.111Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO\n                    <sub>2</sub>\n                    electroreduction to formate",
+    "curatedTitle": "A conductive catecholate-based framework coordinated with unsaturated bismuth boosts CO2 electroreduction to formate",
+    "journal": "Chemical Science",
+    "year": 2023
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              5,
+              31
+            ]
+          ],
+          "date-time": "2023-05-31T00:00:00Z",
+          "timestamp": 1685491200000
+        },
+        "content-version": "vor",
+        "delay-in-days": 150,
+        "URL": "http://creativecommons.org/licenses/by/3.0/"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "e78bfb8952828a5ff05cef857c4a07710f5e2928c02199d3f36f49c117d09585"
+}

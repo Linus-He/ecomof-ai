@@ -1,0 +1,91 @@
+{
+  "doi": "10.1039/d4mh01153h",
+  "checkedAt": "2026-08-12T11:41:10.833Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Incarcerating bismuth nanoparticles into a thiol-laced metal–organic framework for electro and photocatalysis",
+    "curatedTitle": "Incarcerating bismuth nanoparticles into a thiol-laced metal-organic framework for electro and photocatalysis",
+    "journal": "Materials Horizons",
+    "year": 2025
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {
+      "has-review": [
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v3/decision1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v1/review1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v1/review2",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v2/review1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v3/response1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v2/decision1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v3/review1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v1/decision1",
+          "asserted-by": "object"
+        },
+        {
+          "id-type": "doi",
+          "id": "10.1039/D4MH01153H/v2/response1",
+          "asserted-by": "object"
+        }
+      ]
+    }
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2024,
+              11,
+              22
+            ]
+          ],
+          "date-time": "2024-11-22T00:00:00Z",
+          "timestamp": 1732233600000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://creativecommons.org/licenses/by-nc/3.0/"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "7f9eec0d754486460734a9e9c2e4434072976b6b47dcdb697626f536893ef369"
+}

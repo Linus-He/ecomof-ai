@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { ChemicalText } from "../../../shared"
 import { ORGANIC_ACID_CONFIDENCE_LEVELS, ORGANIC_ACID_VALIDATION_EVIDENCE_TYPES, buildResearchValidationSummary } from "../../../utils/organicAcidResearchValidation"
+import { catalysisTrainingGate } from "../../../utils/catalysisVerificationV2"
 import { Panel, ProvenanceButton, StatusBadge, ValueWithSource, displayValue, formatScore, text } from "../organic-acid-final/FinalScreeningShared"
 
 const COLORS = {
@@ -480,7 +481,7 @@ export function ValidationKnowledgeGraph({ graph, lang, t, isMobile, activeCandi
   )
 }
 
-export function OrganicAcidResearchValidationCenter({ result, evidenceRecords, experimentalLabels, benchmarkDataset, lang, t, isMobile }) {
+export function OrganicAcidResearchValidationCenter({ result, evidenceRecords, experimentalLabels, benchmarkDataset, catalysisDatabase = null, lang, t, isMobile }) {
   const summary = useMemo(() => buildResearchValidationSummary({
     result,
     evidenceRecords,
@@ -489,6 +490,7 @@ export function OrganicAcidResearchValidationCenter({ result, evidenceRecords, e
   }), [result, evidenceRecords, experimentalLabels, benchmarkDataset])
   const [activeCandidateId, setActiveCandidateId] = useState("")
   const [highlightedCandidateIds, setHighlightedCandidateIds] = useState([])
+  const catalysisGate = useMemo(() => catalysisTrainingGate(catalysisDatabase), [catalysisDatabase])
   const defaultCandidateId = summary.validationQueue?.[0]?.id || summary.confidenceMatrix?.[0]?.id || ""
 
   useEffect(() => {
@@ -511,6 +513,10 @@ export function OrganicAcidResearchValidationCenter({ result, evidenceRecords, e
       style={{ borderColor: t.accent }}
     >
       <div data-testid="organic-acid-research-validation-center" style={{ display: "grid", gap: 12 }}>
+        <div data-testid="research-validation-catalysis-gate" style={{ background: catalysisGate.eligible ? t.badgeCalcBg : t.badgeWarnBg, border: `1px solid ${catalysisGate.eligible ? t.success : t.warn}`, borderRadius: 7, color: t.muted, display: "grid", gap: 3, padding: "8px 10px" }}>
+          <strong style={{ color: t.textStrong, fontSize: 11 }}>{text(lang, `催化训练记录准入：${catalysisGate.eligibleCount}`, `Admitted catalysis training records: ${catalysisGate.eligibleCount}`)}</strong>
+          <span style={{ fontSize: 10.5, lineHeight: 1.45 }}>{lang === "zh" ? catalysisGate.reasonZh : catalysisGate.reasonEn}</span>
+        </div>
         <ValidationLoopReturnNav lang={lang} t={t} />
         <LabelDiversityAudit audit={summary.labelDiversity} lang={lang} t={t} isMobile={isMobile} />
         <EvidenceCoverageDashboard coverage={summary.evidenceCoverage} lang={lang} t={t} isMobile={isMobile} />

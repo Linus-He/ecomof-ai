@@ -1,0 +1,367 @@
+{
+  "schemaVersion": "catalysis-eligibility-report-v2",
+  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "summary": {
+    "sourceDocumentCount": 10,
+    "reactionRecordCount": 10,
+    "catalystStateCount": 10,
+    "metricClaimCount": 28,
+    "numericClaimCount": 26,
+    "claimLocatedCount": 12,
+    "abstractOnlyClaimCount": 14,
+    "identityLinkedCount": 0,
+    "browseEligibleCount": 10,
+    "compareEligibleCount": 0,
+    "trainingEligibleCount": 0,
+    "recommendationEligibleCount": 0,
+    "openTaskCount": 70,
+    "p0TaskCount": 40,
+    "p1TaskCount": 30
+  },
+  "decisions": [
+    {
+      "id": "eligibility-catrxn-v2-mfm220p-formate-2022",
+      "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.6666666666666666
+      },
+      "blockers": [
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-tal33-derived-bi-formate-2022",
+      "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0
+      },
+      "blockers": [
+        "missing-condition:cellType",
+        "missing-condition:electrolyte",
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.3333333333333333
+      },
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "potentialOrCurrent",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.5
+      },
+      "blockers": [
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0
+      },
+      "blockers": [
+        "missing-condition:cellType",
+        "missing-condition:electrolyte",
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.3333333333333333
+      },
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bi-hhtp-formate-2023",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "catalystLoading"
+        ],
+        "ratio": 0.8333333333333334
+      },
+      "blockers": [
+        "missing-condition:catalystLoading",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-su101-formate-2022",
+      "reactionRecordId": "catrxn-v2-su101-formate-2022",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "catalystLoading"
+        ],
+        "ratio": 0.8333333333333334
+      },
+      "blockers": [
+        "missing-condition:catalystLoading",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-cubi-derived-formate-2021",
+      "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.3333333333333333
+      },
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-2d-bi-mof-formate-2020",
+      "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.5
+      },
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    }
+  ]
+}

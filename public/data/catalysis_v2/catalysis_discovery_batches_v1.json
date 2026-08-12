@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "catalysis-discovery-batches-v1",
+  "batchId": "p2-co2rr-expansion-2026-08-12",
+  "generatedAt": "2026-08-12T12:22:14.989Z",
+  "generatedBy": "scripts/catalysis/discover-catalysis-literature.mjs",
+  "mode": "tracked-cache-rebuild",
+  "configHash": "47177f0accfe7f9c7a5d248d6096976e045daa929761bc5103e81827cb667b06",
+  "reviewOverrideHash": "cc697005a390e4e5e7f0fb26542844b2be53e7ecbf20fbe2d45d627f26d2629a",
+  "officialSources": [
+    {
+      "id": "crossref",
+      "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/",
+      "scope": "publisher-deposited bibliographic metadata"
+    },
+    {
+      "id": "openalex",
+      "url": "https://help.openalex.org/hc/en-us/articles/24398041565207-API-and-Data-Snapshot",
+      "scope": "open scholarly metadata cross-check"
+    }
+  ],
+  "policy": {
+    "bibliographicMetadataIsNotExperimentalEvidence": true,
+    "abstractsNotPersisted": true,
+    "candidatesAreQuarantined": true,
+    "automaticPromotionAllowed": false
+  },
+  "summary": {
+    "adapterCount": 2,
+    "familyCount": 5,
+    "rawHitCount": 250,
+    "uniqueDoiCount": 155,
+    "missingDoiHitCount": 0,
+    "existingFormalMatchCount": 2,
+    "navigationCandidateCount": 1,
+    "candidateQueueCount": 9,
+    "excludedCount": 143,
+    "suggestionCount": 9,
+    "individuallyDoiVerifiedCount": 9,
+    "automaticPromotionCount": 0,
+    "formalLibrarySourceCount": 10
+  },
+  "families": [
+    {
+      "id": "co2rr-formate-direct-mof",
+      "titleZh": "CO2 电还原制甲酸盐：直接 MOF 催化剂",
+      "titleEn": "CO2 electroreduction to formate: direct MOF catalysts",
+      "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 1,
+      "existingFormalCount": 0
+    },
+    {
+      "id": "co2rr-formate-mof-derived",
+      "titleZh": "CO2 电还原制甲酸盐：MOF 衍生催化剂",
+      "titleEn": "CO2 electroreduction to formate: MOF-derived catalysts",
+      "query": "metal organic framework derived electrochemical CO2 reduction formate formic acid",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 3,
+      "existingFormalCount": 1
+    },
+    {
+      "id": "co2rr-formate-mof-enzyme-hybrid",
+      "titleZh": "CO2 电还原制甲酸盐：MOF-酶杂化体系",
+      "titleEn": "CO2 electroreduction to formate: MOF-enzyme hybrid systems",
+      "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 1,
+      "existingFormalCount": 2
+    },
+    {
+      "id": "co2rr-carbon-monoxide-mof",
+      "titleZh": "CO2 电还原制一氧化碳：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to carbon monoxide: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction carbon monoxide CO",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 2,
+      "existingFormalCount": 0
+    },
+    {
+      "id": "co2rr-c2plus-mof",
+      "titleZh": "CO2 电还原制 C2+ 产物：MOF 与 MOF 衍生体系",
+      "titleEn": "CO2 electroreduction to C2+ products: MOF and MOF-derived systems",
+      "query": "metal organic framework electrocatalytic CO2 reduction ethylene ethanol C2",
+      "retrievedHitCount": 50,
+      "deduplicatedDoiCount": 50,
+      "queuedCandidateCount": 2,
+      "existingFormalCount": 0
+    }
+  ],
+  "batches": [
+    {
+      "adapter": "crossref",
+      "familyId": "co2rr-formate-direct-mof",
+      "retrievedAt": "2026-08-12T12:21:49.981Z",
+      "request": {
+        "endpoint": "https://api.crossref.org/v1/works",
+        "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+        "filter": "type:journal-article",
+        "rows": 25,
+        "select": "DOI,title,author,container-title,published,type,URL,license",
+        "accessMode": "public"
+      },
+      "responseHash": "b2ab924808d4ca527f72cf7801603af5651944f061a359535b4ae3a1181c22e7",
+      "resultCount": 25
+    },
+    {
+      "adapter": "openAlex",
+      "familyId": "co2rr-formate-direct-mof",
+      "retrievedAt": "2026-08-12T12:21:51.864Z",
+      "request": {
+        "endpoint": "https://api.openalex.org/works",
+        "query": "metal organic framework electrochemical CO2 reduction formate formic acid",
+        "filter": "type:article",
+        "rows": 25,
+        "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+        "accessMode": "public"
+      },
+      "responseHash": "3f6005a5e9a11db9ef71a667a01c3cf59980e046e3444c15b2384a42439bec65",
+      "resultCount": 25
+    },
+    {
+      "adapter": "crossref",
+      "familyId": "co2rr-formate-mof-derived",
+      "retrievedAt": "2026-08-12T12:21:57.088Z",
+      "request": {
+        "endpoint": "https://api.crossref.org/v1/works",
+        "query": "metal organic framework derived electrochemical CO2 reduction formate formic acid",
+        "filter": "type:journal-article",
+        "rows": 25,
+        "select": "DOI,title,author,container-title,published,type,URL,license",
+        "accessMode": "public"
+      },
+      "responseHash": "03afb09f7df7adba1d3a37b3b2c774150a5100a27a0495c2eecfe60bea4d1829",
+      "resultCount": 25
+    },
+    {
+      "adapter": "openAlex",
+      "familyId": "co2rr-formate-mof-derived",
+      "retrievedAt": "2026-08-12T12:21:58.790Z",
+      "request": {
+        "endpoint": "https://api.openalex.org/works",
+        "query": "metal organic framework derived electrochemical CO2 reduction formate formic acid",
+        "filter": "type:article",
+        "rows": 25,
+        "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+        "accessMode": "public"
+      },
+      "responseHash": "49aa5665afed917f834ee285d3d7a43eb55345cb1497cbbb48d5aa47cf92fff4",
+      "resultCount": 25
+    },
+    {
+      "adapter": "crossref",
+      "familyId": "co2rr-formate-mof-enzyme-hybrid",
+      "retrievedAt": "2026-08-12T12:22:01.795Z",
+      "request": {
+        "endpoint": "https://api.crossref.org/v1/works",
+        "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+        "filter": "type:journal-article",
+        "rows": 25,
+        "select": "DOI,title,author,container-title,published,type,URL,license",
+        "accessMode": "public"
+      },
+      "responseHash": "b2aecb467aedc2ad25dde35409e4f1432837f34d74ac3b2a05130fb64930027f",
+      "resultCount": 25
+    },
+    {
+      "adapter": "openAlex",
+      "familyId": "co2rr-formate-mof-enzyme-hybrid",
+      "retrievedAt": "2026-08-12T12:22:02.791Z",
+      "request": {
+        "endpoint": "https://api.openalex.org/works",
+        "query": "metal organic framework immobilized formate dehydrogenase electrochemical CO2 reduction",
+        "filter": "type:article",
+        "rows": 25,
+        "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+        "accessMode": "public"
+      },
+      "responseHash": "d2d1ccb912b3b21e3e36ca409a5293c12c09019044b920e9ef19fe28c3e383cd",
+      "resultCount": 25
+    },
+    {
+      "adapter": "crossref",
+      "familyId": "co2rr-carbon-monoxide-mof",
+      "retrievedAt": "2026-08-12T12:22:07.492Z",
+      "request": {
+        "endpoint": "https://api.crossref.org/v1/works",
+        "query": "metal organic framework electrocatalytic CO2 reduction carbon monoxide CO",
+        "filter": "type:journal-article",
+        "rows": 25,
+        "select": "DOI,title,author,container-title,published,type,URL,license",
+        "accessMode": "public"
+      },
+      "responseHash": "7b42cea7fc89d2d3c6029bc994abf5dd810b971606e8e80587e04c796ee3308b",
+      "resultCount": 25
+    },
+    {
+      "adapter": "openAlex",
+      "familyId": "co2rr-carbon-monoxide-mof",
+      "retrievedAt": "2026-08-12T12:22:09.058Z",
+      "request": {
+        "endpoint": "https://api.openalex.org/works",
+        "query": "metal organic framework electrocatalytic CO2 reduction carbon monoxide CO",
+        "filter": "type:article",
+        "rows": 25,
+        "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+        "accessMode": "public"
+      },
+      "responseHash": "12e652750f96b3a612e0cbf1f4162bd8f4b123640656d7f74972d97bd3cfe741",
+      "resultCount": 25
+    },
+    {
+      "adapter": "crossref",
+      "familyId": "co2rr-c2plus-mof",
+      "retrievedAt": "2026-08-12T12:22:13.383Z",
+      "request": {
+        "endpoint": "https://api.crossref.org/v1/works",
+        "query": "metal organic framework electrocatalytic CO2 reduction ethylene ethanol C2",
+        "filter": "type:journal-article",
+        "rows": 25,
+        "select": "DOI,title,author,container-title,published,type,URL,license",
+        "accessMode": "public"
+      },
+      "responseHash": "450ab265af3d0da40d523a46b5531bdd77f92c4ac9080b9e5bdab32df784f836",
+      "resultCount": 25
+    },
+    {
+      "adapter": "openAlex",
+      "familyId": "co2rr-c2plus-mof",
+      "retrievedAt": "2026-08-12T12:22:14.989Z",
+      "request": {
+        "endpoint": "https://api.openalex.org/works",
+        "query": "metal organic framework electrocatalytic CO2 reduction ethylene ethanol C2",
+        "filter": "type:article",
+        "rows": 25,
+        "select": "id,doi,display_name,publication_year,primary_location,type,is_retracted",
+        "accessMode": "public"
+      },
+      "responseHash": "0bf200e07012e2545dd9f9deb2898d0b68f39c307ba798a3026b4c5a1acc5f5e",
+      "resultCount": 25
+    }
+  ]
+}

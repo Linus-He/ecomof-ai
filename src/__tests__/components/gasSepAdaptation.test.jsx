@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react"
+import { readFileSync } from "node:fs"
+import { resolve } from "node:path"
 import gasV2 from "../../../public/data/gas_adsorption_records_v2.json"
 import gasV1 from "../../../public/data/gas_adsorption_records_v1.json"
 import gasDemo from "../../../public/data/gas_adsorption_records_demo.json"
@@ -67,6 +69,12 @@ afterEach(() => {
 })
 
 describe("GasSep adaptation regressions", () => {
+  it("does not render the retired GasSep contextual header strip", () => {
+    const layoutSource = readFileSync(resolve(process.cwd(), "src/components/layout/index.tsx"), "utf8")
+    expect(layoutSource).toContain('if (activeTab === "gassep") return null')
+    expect(layoutSource).not.toContain("气体分离聚焦气体比例")
+  })
+
   it("renders the method, funnel, and ranking copy in Chinese", async () => {
     renderGasSep({ lang: "zh" })
     await waitForGasSep("zh")
@@ -99,9 +107,14 @@ describe("GasSep adaptation regressions", () => {
     renderGasSep({ lang: "zh" })
     await waitForGasSep("zh")
 
+    expect(screen.getByTestId("gassep-scenario-builder")).toHaveClass("gassep-scenario-capsule")
+    expect(screen.getByTestId("gassep-scenario-builder")).toHaveAttribute("data-layout", "desktop")
+
     const gasPair = screen.getByLabelText("gas pair")
     fireEvent.change(gasPair, { target: { value: "C2H2/C2H4" } })
     expect(bodyText()).toMatch(/痕量乙炔脱除/)
+    fireEvent.click(screen.getByRole("button", { name: "展开更多场景设置" }))
+    expect(screen.getByTestId("gassep-scenario-advanced")).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "0.5/99.5" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "1/99" })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "1/999" })).toBeInTheDocument()

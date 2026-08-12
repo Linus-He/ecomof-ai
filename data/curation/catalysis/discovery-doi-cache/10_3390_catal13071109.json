@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.3390/catal13071109",
+  "checkedAt": "2026-08-12T12:23:53.980Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+    "discoveryTitle": "Metal–Organic Frameworks for Electrocatalytic CO2 Reduction into Formic Acid",
+    "journal": "Catalysts",
+    "year": 2023,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "2f9756a94509e17ed96f2d26b52f42ae9aa33038eb3b14259ef318bb4e00ec75"
+}

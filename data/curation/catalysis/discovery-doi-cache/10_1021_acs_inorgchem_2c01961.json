@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1021/acs.inorgchem.2c01961",
+  "checkedAt": "2026-08-12T12:23:52.824Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Metal–Organic Framework-Derived BiIn Bimetallic Oxide Nanoparticles Embedded in Carbon Networks for Efficient Electrochemical Reduction of CO<sub>2</sub> to Formate",
+    "discoveryTitle": "Metal–Organic Framework-Derived BiIn Bimetallic Oxide Nanoparticles Embedded in Carbon Networks for Efficient Electrochemical Reduction of CO2 to Formate",
+    "journal": "Inorganic Chemistry",
+    "year": 2022,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "8af461f1906a8a09bea913daf91756a97e78d9728547b15be0275b7f056e1583"
+}

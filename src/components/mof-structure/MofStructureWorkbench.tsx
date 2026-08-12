@@ -13,6 +13,7 @@ import {
   Database,
   Eye,
   EyeSlash,
+  GlobeHemisphereEast,
   Info,
   LinkSimple,
   MagnifyingGlass,
@@ -912,6 +913,19 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
             )}
           </p>
         </div>
+        <aside className="mof-structure-access-note" aria-label={text(lang, "数据托管与访问说明", "Data hosting and access notice")}>
+          <GlobeHemisphereEast aria-hidden="true" size={19} weight="duotone" />
+          <div>
+            <strong>{text(lang, "数据托管与访问说明", "Data hosting and access")}</strong>
+            <p>
+              {text(
+                lang,
+                "基于对欧盟及相关地区数据保护与跨境传输要求的审慎处理，同时受数据提供方许可和当前托管条件影响，本站暂未将相关数据部署在中国大陆地区服务器。若数据未能加载，请切换至可正常访问相关境外数据源的合规网络环境后重试。由此带来的不便，我们深表歉意。",
+                "As a cautious response to European and other applicable data-protection and cross-border transfer requirements, together with provider licences and current hosting conditions, the relevant data is not currently hosted on servers in mainland China. If it does not load, please retry from a compliant network environment that can access the relevant overseas data source. We apologize for the inconvenience.",
+              )}
+            </p>
+          </div>
+        </aside>
         <div className="mof-structure-header-actions">
           <CompactBadge tone={publicCatalogReady || fileMeta ? "good" : "warn"} icon={publicCatalogReady || fileMeta ? CheckCircle : ShieldCheck}>
             {fileMeta?.sourceType === "user-local"

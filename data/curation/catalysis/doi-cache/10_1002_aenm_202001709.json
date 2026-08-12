@@ -1,0 +1,43 @@
+{
+  "doi": "10.1002/aenm.202001709",
+  "checkedAt": "2026-08-12T11:41:09.816Z",
+  "checkedBy": "Crossref REST API",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Bi‐Based Metal‐Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+    "curatedTitle": "Bi-Based Metal-Organic Framework Derived Leafy Bismuth Nanosheets for Carbon Dioxide Electroreduction",
+    "journal": "Advanced Energy Materials",
+    "year": 2020
+  },
+  "scholarStatus": "no-update-declared-in-crossref-record",
+  "updateStatus": {
+    "status": "none-declared",
+    "update": [],
+    "relation": {}
+  },
+  "fullTextAccess": "crossref-link-available",
+  "license": {
+    "fullTextReuseStatus": "publisher-license-declared-review-required",
+    "trainingUseAllowed": false,
+    "records": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              8,
+              2
+            ]
+          ],
+          "date-time": "2020-08-02T00:00:00Z",
+          "timestamp": 1596326400000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+      }
+    ]
+  },
+  "crossrefSnapshotHash": "90a0c17bae66f3577b39720145a1b0dd1b0ca7d4c1794445d699a52bf9a20990"
+}

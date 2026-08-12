@@ -10,14 +10,50 @@
 .mof-structure-header {
   align-items: flex-start;
   border-bottom: 1px solid var(--mof-sw-border);
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
+  display: grid;
+  gap: 18px 28px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
   padding: 19px 21px 17px;
 }
 
 .mof-structure-heading {
   min-width: 0;
+}
+
+.mof-structure-access-note {
+  align-items: flex-start;
+  align-self: center;
+  background: color-mix(in srgb, var(--mof-sw-surface) 66%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mof-sw-border-strong) 72%, transparent);
+  border-radius: 12px;
+  display: grid;
+  gap: 10px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  grid-template-columns: auto minmax(0, 1fr);
+  max-width: 490px;
+  padding: 13px 15px;
+}
+
+.mof-structure-access-note > svg {
+  color: var(--mof-sw-accent-text);
+  margin-top: 1px;
+}
+
+.mof-structure-access-note strong {
+  color: var(--mof-sw-text-strong);
+  display: block;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+}
+
+.mof-structure-access-note p {
+  color: var(--mof-sw-muted);
+  font-size: 10.4px;
+  line-height: 1.65;
+  margin: 5px 0 0;
 }
 
 .mof-structure-eyebrow {
@@ -51,10 +87,10 @@
 .mof-structure-header-actions {
   align-items: center;
   display: flex;
-  flex: 0 0 auto;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: flex-end;
+  grid-column: 1;
+  justify-content: flex-start;
 }
 
 .mof-structure-file-input {
@@ -847,8 +883,7 @@
 
 @media (max-width: 1320px) {
   .mof-structure-header {
-    align-items: stretch;
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
   }
 
   .mof-structure-header-actions {
@@ -861,6 +896,20 @@
 }
 
 @media (max-width: 980px) {
+  .mof-structure-header {
+    grid-template-columns: 1fr;
+  }
+
+  .mof-structure-access-note {
+    grid-column: 1;
+    grid-row: auto;
+    max-width: none;
+  }
+
+  .mof-structure-header-actions {
+    grid-column: 1;
+  }
+
   .mof-structure-catalog {
     grid-template-columns: 1fr;
   }

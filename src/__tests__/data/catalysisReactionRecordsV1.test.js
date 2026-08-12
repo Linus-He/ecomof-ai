@@ -151,8 +151,10 @@ describe("Catalysis reaction records v1", () => {
 
     expect(serialized).not.toMatch(/Pathway evidence map|Catalytic pathway evidence map|催化路径证据图|路径证据图/)
     expect(standard).toBeTruthy()
-    expect(standard.references).toHaveLength(dataset.sources.length)
-    expect(standard.references.every(reference => reference.label.includes("DOI"))).toBe(true)
+    const literatureReferences = standard.references.filter(reference => reference.id.startsWith("cat-"))
+    expect(literatureReferences).toHaveLength(dataset.sources.length)
+    expect(literatureReferences.every(reference => reference.label.includes("DOI"))).toBe(true)
+    expect(standard.references.map(reference => reference.id)).toEqual(expect.arrayContaining(["crossref-rest-api", "crossref-crossmark"]))
     expect(standard.formulas.map(formula => formula.id)).toEqual(expect.arrayContaining([
       "catalysis-product-partial-current",
       "catalysis-comparability-gate",

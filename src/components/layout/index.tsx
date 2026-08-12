@@ -45,7 +45,7 @@ export function PresetSearchControl({
   }, [applyPreset, setOpen, setStatus, suggestions, value])
 
   return (
-    <div style={{ display: "grid", gap: 7, gridTemplateColumns: "minmax(0, 1fr) auto", minWidth: 0, width: "100%", maxWidth: width }}>
+    <div className="preset-search-control" style={{ display: "grid", gap: 7, gridTemplateColumns: "minmax(0, 1fr) auto", minWidth: 0, width: "100%", maxWidth: width }}>
       <div style={{ position: "relative", minWidth: 0 }}>
         <input
           aria-label={lang === "zh" ? "检索 MOF 候选材料" : "Search MOF candidates"}
@@ -386,25 +386,11 @@ export function ContextualHeaderBar({
 
   if (activeTab === "home") return null
 
-  if (activeTab === "gassep") {
-    return (
-      <div className="contextual-header-bar" style={layerStyle}>
-        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "气体分离聚焦气体比例、温度、压力、方法、来源和等温线状态的条件语境记录。" : "GasSep focuses on records with condition context: gas ratio, temperature, pressure, method, source, and isotherm status."}
-        </div>
-        <button type="button" onClick={() => setActiveTab("ecoscreen")} style={subnavChip()}>
-          {lang === "zh" ? "EcoScreen 候选评分" : "EcoScreen"}
-        </button>
-        <button type="button" onClick={() => setActiveTab("library")} style={subnavChip()}>
-          {lang === "zh" ? "MOF库" : "MOF Library"}
-        </button>
-      </div>
-    )
-  }
+  if (activeTab === "gassep") return null
 
   if (activeTab === "ecoscreen" || activeTab === "performance") {
     return (
-      <div className="contextual-header-bar" style={layerStyle}>
+      <div className="contextual-header-bar" data-context={activeTab} style={layerStyle}>
         <PresetSearchControl
           value={searchQuery}
           setValue={setSearchQuery}

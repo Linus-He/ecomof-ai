@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "catalysis-discovery-doi-verification-v1",
+  "doi": "10.1016/j.cjche.2022.03.006",
+  "checkedAt": "2026-08-12T12:23:52.559Z",
+  "checkedBy": "Crossref REST API single-work endpoint",
+  "registrationAgency": "Crossref",
+  "metadataMatch": {
+    "status": "matched",
+    "registeredTitle": "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate",
+    "discoveryTitle": "Structural reconstruction of Sn-based metal–organic frameworks for efficient electrochemical CO2 reduction to formate",
+    "journal": "Chinese Journal of Chemical Engineering",
+    "year": 2022,
+    "publicationType": "journal-article"
+  },
+  "updateStatus": {
+    "status": "none-declared",
+    "updateCount": 0,
+    "relatedUpdateCount": 0
+  },
+  "abstractPersisted": false,
+  "snapshotHash": "14cff13275b5531534b413a98300855a70bbf57c46cced3346a61564cdd16a90"
+}
