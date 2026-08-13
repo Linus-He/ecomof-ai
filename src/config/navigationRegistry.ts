@@ -300,17 +300,24 @@ export const NAVIGATION_ROUTES = [
           "查看 EcoMOF-AI 当前验证状态、已明确检查的内容、未来验证计划和非验证声明。",
         ),
       },
-      {
-        id: "benchmark-references",
-        hash: "benchmark-references",
-        scrollTarget: true,
-        label: label("基准参考", "Benchmark References"),
-        meta: meta(
-          "基准参考 | EcoMOF-AI",
-          "查看用于解释候选记录的 MOF 基准参考，不宣称已验证的预测优越性。",
-        ),
-      },
     ],
+  },
+  {
+    id: "benchmarkReferences",
+    tabId: "benchmarkReferences",
+    primary: false,
+    domainId: "methodology",
+    hash: "benchmark-references",
+    label: label("基准参考", "Benchmark References"),
+    meta: meta(
+      "基准参考 | EcoMOF-AI",
+      "集中查看生态、结构与数据、气体分离、催化和算法验证采用的标准、数据集、方法文献与内部协议，以及各自的适用边界。",
+    ),
+    component: {
+      strategy: "lazy",
+      exportName: "BenchmarkReferencesPage",
+      load: () => import("../components/pages/BenchmarkReferencesPage"),
+    },
   },
   {
     id: "algorithmValidation",
@@ -331,7 +338,7 @@ export const NAVIGATION_ROUTES = [
     children: [
       { id: "algval-figure", hash: "algval-figure", scrollTarget: true, label: label("交互式科研主图", "Interactive Scientific Figure") },
       { id: "algval-data-audit", hash: "algval-data-audit", scrollTarget: true, label: label("数据审计中心", "Data Audit Center") },
-      { id: "algval-first-benchmark", hash: "algval-first-benchmark", scrollTarget: true, label: label("首个真实基准", "First Real Benchmark") },
+      { id: "algval-first-benchmark", hash: "algval-first-benchmark", scrollTarget: true, label: label("内部协议基准", "Internal Protocol Benchmark") },
       { id: "algval-database", hash: "algval-database", scrollTarget: true, label: label("数据库层", "Database Layer") },
       { id: "algval-descriptor", hash: "algval-descriptor", scrollTarget: true, label: label("描述符层", "Descriptor Layer") },
       { id: "algval-feature-selection", hash: "algval-feature-selection", scrollTarget: true, label: label("特征选择", "Feature Selection") },
@@ -368,10 +375,11 @@ export const NAVIGATION_ROUTES = [
     copyKey: "projectEvolution",
     domainId: "project",
     hash: "project-evolution",
+    aliases: ["project-evolution-version-timeline"],
     label: label("项目演化", "Project Evolution"),
     meta: meta(
       "项目演化 | EcoMOF-AI",
-      "查看 EcoMOF-AI 的版本演化时间线、版本更新记录、数据库演化、算法演化、验证体系、关键里程碑和发展路线图。",
+      "查看 EcoMOF-AI 的项目状态、数据库演化、算法演化、验证体系、关键里程碑和发展路线图。",
     ),
     component: {
       strategy: "lazy",
@@ -380,7 +388,6 @@ export const NAVIGATION_ROUTES = [
     },
     children: [
       { id: "project-evolution-overview", hash: "project-evolution-overview", scrollTarget: true, label: label("项目概览", "Project Overview"), meta: meta("Project Evolution Overview | EcoMOF-AI", "查看 EcoMOF-AI 当前版本、数据库规模、verified metadata、字段级溯源覆盖率和项目状态。") },
-      { id: "project-evolution-version-timeline", hash: "project-evolution-version-timeline", scrollTarget: true, label: label("版本时间线", "Version Timeline"), meta: meta("Version Timeline | EcoMOF-AI", "查看 EcoMOF-AI 的统一版本历史，这是版本时间线、Release Notes、Roadmap 和 Milestones 的唯一权威数据源。") },
       { id: "project-evolution-scientific", hash: "project-evolution-scientific", scrollTarget: true, label: label("科学演化", "Scientific Evolution"), meta: meta("Scientific Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从 raw screening 到 verified metadata 和未来 experimental validation 的科学能力演化。") },
       { id: "project-evolution-database", hash: "project-evolution-database", scrollTarget: true, label: label("数据库演化", "Database Evolution"), meta: meta("Database Evolution | EcoMOF-AI", "查看 EcoMOF-AI 数据库规模、verified metadata 和字段级溯源覆盖率的演化。") },
       { id: "project-evolution-algorithm", hash: "project-evolution-algorithm", scrollTarget: true, label: label("算法演化", "Algorithm Evolution"), meta: meta("Algorithm Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从描述符评分、CRITIC、证据调整到模型验证框架的算法演化。") },
@@ -408,6 +415,51 @@ export const NAVIGATION_ROUTES = [
     },
   },
   {
+    id: "creatorStatement",
+    tabId: "creatorStatement",
+    primary: false,
+    domainId: "about",
+    hash: "creator-statement",
+    label: label("创建者说明", "Creator Statement"),
+    meta: meta(
+      "为什么建立 EcoMOF-AI | 创建者说明",
+      "了解 EcoMOF-AI 的创建原因、学生与独立项目身份、非商业运行方式、纠错态度和顾问邀请。",
+    ),
+    component: {
+      strategy: "lazy",
+      exportName: "CreatorStatementPage",
+      load: () => import("../components/pages/CreatorStatementPage"),
+    },
+  },
+  {
+    id: "contact",
+    tabId: "contact",
+    primary: false,
+    domainId: "about",
+    hash: "contact",
+    label: label("联系与合作", "Contact"),
+    meta: meta("联系与合作 | EcoMOF-AI", "联系 EcoMOF-AI，讨论研究合作、数据接入、方法复核或界面问题。"),
+    component: {
+      strategy: "lazy",
+      exportName: "ContactPage",
+      load: () => import("../components/pages/ContactPage"),
+    },
+  },
+  {
+    id: "acknowledgements",
+    tabId: "acknowledgements",
+    primary: false,
+    domainId: "about",
+    hash: "acknowledgements",
+    label: label("致谢", "Acknowledgements"),
+    meta: meta("致谢 | EcoMOF-AI", "查看 EcoMOF-AI 对个人支持者、CCDC、开放数据集和科研工具维护者的致谢。"),
+    component: {
+      strategy: "lazy",
+      exportName: "AcknowledgementsPage",
+      load: () => import("../components/pages/AcknowledgementsPage"),
+    },
+  },
+  {
     id: "dataCompliance",
     tabId: "dataCompliance",
     primary: true,
@@ -425,12 +477,22 @@ export const NAVIGATION_ROUTES = [
       exportName: "DatabaseComplianceTab",
       load: () => import("../components/tabs/DatabaseComplianceTab"),
     },
+    children: [
+      {
+        id: "compliance-hosting-notice",
+        hash: "compliance-hosting-notice",
+        scrollTarget: true,
+        label: label("数据托管与跨境访问", "Data hosting & cross-border access"),
+        meta: meta(
+          "数据托管与跨境访问 | EcoMOF-AI",
+          "了解 EcoMOF-AI 的数据托管位置、跨境访问条件与适用边界。",
+        ),
+      },
+    ],
   },
 ]
 
 export const OVERLAY_NAVIGATION_ITEMS = [
-  { id: "contact", hash: "contact", domainId: "about", label: label("联系与合作", "Contact"), meta: meta("联系与合作 | EcoMOF-AI", "联系 EcoMOF-AI 维护者，讨论研究合作、数据集接入或反馈。") },
-  { id: "acknowledgements", hash: "acknowledgements", domainId: "about", label: label("致谢", "Acknowledgements"), meta: meta("致谢 | EcoMOF-AI", "EcoMOF-AI 早期研究原型的致谢与维护者信息。") },
   { id: "disclaimer", hash: "disclaimer", domainId: "about", label: label("声明与使用边界", "Disclaimer"), meta: meta("声明与使用边界 | EcoMOF-AI", "集中说明 EcoMOF-AI 的原型状态、数据解释、评分、可持续性信号、催化记录、机器学习和合作方保密数据边界。") },
 ]
 
@@ -459,7 +521,7 @@ export const NAVIGATION_DOMAINS = [
     label: label("方法与验证", "Methods & validation"),
     groups: [
       { id: "method-index", label: label("方法索引", "Method index"), itemIds: ["about", "methodology-gassep", "methodology-organic-acid", "methodology-organic-acid-final-screening"] },
-      { id: "method-validation", label: label("验证与边界", "Validation & boundaries"), itemIds: ["algorithmValidation", "validation-evidence", "benchmark-references"] },
+      { id: "method-validation", label: label("验证与边界", "Validation & boundaries"), itemIds: ["algorithmValidation", "validation-evidence", "benchmarkReferences"] },
     ],
   },
   {
@@ -467,7 +529,7 @@ export const NAVIGATION_DOMAINS = [
     order: 4,
     label: label("项目", "Project"),
     groups: [
-      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["projectEvolution", "releaseNotes", "project-evolution-version-timeline"] },
+      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["projectEvolution", "releaseNotes"] },
       { id: "project-planning", label: label("规划", "Planning"), itemIds: ["project-evolution-milestones", "project-evolution-roadmap"] },
     ],
   },
@@ -476,7 +538,7 @@ export const NAVIGATION_DOMAINS = [
     order: 5,
     label: label("关于", "About"),
     groups: [
-      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["charter", "dataCompliance", "disclaimer"] },
+      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["creatorStatement", "charter", "dataCompliance", "disclaimer"] },
       { id: "about-contact", label: label("联系", "Contact"), itemIds: ["contact", "acknowledgements"] },
     ],
   },

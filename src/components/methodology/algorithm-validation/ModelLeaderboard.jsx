@@ -1,8 +1,6 @@
 // @ts-nocheck
-// V3.4 Model Leaderboard — Logistic Regression / Decision Tree / Random Forest
-// ranked by their real First Real Benchmark metrics. When the Accuracy / ROC
-// gates are not satisfied every row is "Blocked" with Pending metrics; nothing
-// is fabricated.
+// Frozen V3.4 model leaderboard. Metrics describe the internal curated-label
+// protocol and are not presented as independently verified experimental truth.
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 
 const COLUMNS = [
@@ -23,6 +21,7 @@ export function ModelLeaderboard({ firstBenchmark = null, lang = "en", t, isMobi
     <section
       id="algval-model-leaderboard"
       data-testid="algval-model-leaderboard"
+      className="algorithm-validation-section"
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 10, minWidth: 0, padding: 14, scrollMarginTop: 118 }}
     >
       <header style={{ display: "grid", gap: 4 }}>
@@ -30,7 +29,7 @@ export function ModelLeaderboard({ firstBenchmark = null, lang = "en", t, isMobi
         <h3 style={{ color: t.textStrong, fontSize: 16, margin: 0 }}>{text(lang, "模型排行榜", "Model Leaderboard")}</h3>
         <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>
           {metricsAllowed
-            ? text(lang, `按外部测试 ROC-AUC 排序。最佳模型：${board.bestModel}。指标来自真实拟合的 LR / DT / RF 模型。`, `Ranked by external-test ROC-AUC. Best model: ${board.bestModel}. Metrics come from genuinely fitted LR / DT / RF models.`)
+            ? text(lang, `按内部留出集 ROC-AUC 排序。最佳模型：${board.bestModel}。LR / DT / RF 均已实际拟合，但标签仍待 DOI 与全文复核。`, `Ranked by internal held-out ROC-AUC. Best model: ${board.bestModel}. LR / DT / RF are fitted models, but the labels still await DOI and full-text verification.`)
             : text(lang, "排行榜 Blocked：Accuracy / ROC 门槛未满足，指标 Pending。", "Leaderboard Blocked: Accuracy / ROC gates not satisfied, metrics Pending.")}
         </p>
       </header>
@@ -39,7 +38,7 @@ export function ModelLeaderboard({ firstBenchmark = null, lang = "en", t, isMobi
         <table data-testid="leaderboard-table" style={{ borderCollapse: "collapse", fontSize: 11.6, minWidth: isMobile ? 520 : "100%", width: "100%" }}>
           <thead>
             <tr>
-              {["#", "Model", "Status", ...COLUMNS.map(c => c.label), "Test / Ext"].map(h => (
+              {["#", "Model", "Status", ...COLUMNS.map(c => c.label), "Test / Held-out"].map(h => (
                 <th key={h} style={{ borderBottom: `1px solid ${t.border}`, color: t.faint, fontSize: 10, fontWeight: 900, padding: "6px 8px", textAlign: "left", textTransform: "uppercase" }}>{h}</th>
               ))}
             </tr>

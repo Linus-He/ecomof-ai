@@ -39,6 +39,16 @@ describe("deep links", () => {
     expect(getHashMeta("project-evolution").title).toMatch(/项目演化/i)
   })
 
+  it("routes the creator statement as an independent governance page", () => {
+    expect(HASH_TO_TAB["creator-statement"]).toBe("creatorStatement")
+    expect(getHashMeta("creator-statement").title).toMatch(/为什么建立 EcoMOF-AI|Creator/i)
+  })
+
+  it("routes benchmark references as an independent methods page", () => {
+    expect(HASH_TO_TAB["benchmark-references"]).toBe("benchmarkReferences")
+    expect(getHashMeta("benchmark-references").title).toMatch(/基准参考|Benchmark References/i)
+  })
+
   it("retires Research Reports as a first-level tab", () => {
     const hashMap = HASH_TO_TAB as Record<string, string | undefined>
     expect(hashMap["research-reports"]).toBeUndefined()

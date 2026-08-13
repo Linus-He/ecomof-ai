@@ -62,7 +62,6 @@
   font-weight: 760;
 }
 
-.release-note-version time,
 .release-note-version span {
   color: var(--app-muted);
   font-size: 11px;
@@ -170,7 +169,7 @@
 
   .release-note-version {
     align-items: baseline;
-    grid-template-columns: auto auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
   }
 
   .release-note-version span {

@@ -1,19 +1,15 @@
 // @ts-nocheck
 import React from "react"
 import { describe, expect, it } from "vitest"
-import { render, screen, within } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import data from "../../../public/data/version_evolution_records.json"
-import releaseLog from "../../../public/data/app_release_log.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
 
 describe("versionTimelineDynamic", () => {
-  it("uses module history and unified release records as separate dynamic sources", () => {
+  it("removes the duplicate version timeline while preserving the project roadmap", () => {
     render(React.createElement(ProjectEvolutionTab, { data }))
 
-    const timeline = screen.getByTestId("project-evolution-version-timeline")
-    expect(within(timeline).getAllByText("V3.6").length).toBeGreaterThan(0)
-    expect(within(timeline).getAllByText(/Experimental Label Expansion & Model Robustness/).length).toBeGreaterThan(0)
-
+    expect(screen.queryByTestId("project-evolution-version-timeline")).not.toBeInTheDocument()
     expect(screen.queryByTestId("project-evolution-release-notes")).not.toBeInTheDocument()
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")

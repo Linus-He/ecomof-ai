@@ -16,7 +16,7 @@ const repoRoot = path.resolve(__dirname, "..")
 const LOCALIZATION_AUDIT_MODULES = [
   "Methods & Evidence", "Project Evolution", "Research Reports", "EcoScreen", "MOF Library",
   "GasSep", "Catalysis Lab", "Model Validation Lab", "Data Quality Audit", "Roadmap",
-  "Milestones", "Release Notes", "Version Timeline",
+  "Milestones", "Release Notes",
 ]
 const INTENTIONAL_ENGLISH = [
   "EcoMOF-AI", "EcoScreen", "GasSep", "CRITIC", "DOI", "MOF", "MOFs", "CO2", "CO₂",

@@ -140,8 +140,24 @@ export function AlgorithmValidationPage() {
       <PageIntro
         eyebrow={text(lang, "方法与验证", "Methods & Validation")}
         title={text(lang, "算法验证中心", "Algorithm Validation Center")}
-        description={text(lang, "这里读取已提交的数据库摘要、审计报告、首个真实基准、模型可信度与稳健性报告。结构元数据、标签和实验验证是彼此独立的证据层。", "This page reads the committed database summary, audit reports, first real benchmark, model credibility, and robustness reports. Structural metadata, labels, and experimental validation remain separate evidence layers.")}
+        description={text(lang, "这里读取已提交的数据库摘要、审计报告、内部协议基准、模型可信度与稳健性报告。结构元数据、整理标签、模型诊断和实验验证是彼此独立的证据层。", "This page reads the committed database summary, audit reports, internal protocol benchmark, model credibility, and robustness reports. Structural metadata, curated labels, model diagnostics, and experimental validation remain separate evidence layers.")}
       />
+      <section className="research-center-boundary" aria-labelledby="algorithm-boundary-title">
+        <h2 id="algorithm-boundary-title">{text(lang, "当前可以说明什么", "What the evidence currently supports")}</h2>
+        <p>{text(lang, "模型指标来自冻结的内部整理标签和留出协议，可用于检查代码、拆分、泄漏、稳健性与可解释性。标签尚未完成逐条 DOI 和全文数值定位，因此不能称为外部独立实验验证；高过拟合风险也必须与指标同时阅读。", "Model metrics come from a frozen internally curated label corpus and held-out protocol. They can test code, splitting, leakage, robustness, and explainability. Because per-label DOI and full-text claim locations are incomplete, this is not independent external experimental validation; the high overfitting risk must be read alongside the metrics.")}</p>
+        <a href="#benchmark-references">{text(lang, "查看基准采用与来源", "View benchmark adoption and sources")}<ArrowSquareOut aria-hidden size={15} /></a>
+      </section>
+      <nav className="research-center-index" aria-label={text(lang, "算法验证内容索引", "Algorithm validation index")}>
+        {[
+          ["algval-figure", text(lang, "验证图谱", "Validation map")],
+          ["algval-data-audit", text(lang, "数据审计", "Data audit")],
+          ["algval-experimental-labels", text(lang, "标签与协议基准", "Labels & protocol benchmark")],
+          ["algval-model-leaderboard", text(lang, "模型诊断", "Model diagnostics")],
+          ["algval-robustness", text(lang, "稳健性", "Robustness")],
+          ["algval-database", text(lang, "数据库与描述符", "Database & descriptors")],
+          ["algval-experimental", text(lang, "实验验证边界", "Experimental boundary")],
+        ].map(([id, label], index) => <a href={`#${id}`} key={id}><span>{String(index + 1).padStart(2, "0")}</span>{label}</a>)}
+      </nav>
       <StatusMessage status={status} lang={lang} />
       {status === "loaded" ? <AlgorithmValidationCenter {...data} lang={lang} t={t} isMobile={isMobile} /> : null}
     </div>
@@ -172,6 +188,20 @@ export function DataQualityProvenancePage() {
         title={text(lang, "数据质量与来源中心", "Data Quality & Provenance")}
         description={text(lang, "直接审计当前 9,835 条 CoRE MOF 2024 CSD-modified CR 记录，展示字段覆盖、来源完整度、歧义、缺失与核验阻断项；不沿用旧的合成样例审计摘要。", "Audit the active 9,835 CoRE MOF 2024 CSD-modified CR records directly, including field coverage, provenance completeness, ambiguity, missingness, and verification blockers. Legacy synthetic-fixture audit summaries are not reused.")}
       />
+      <section className="research-center-boundary" aria-labelledby="data-quality-boundary-title">
+        <h2 id="data-quality-boundary-title">{text(lang, "审计对象与判定边界", "Audit scope and decision boundary")}</h2>
+        <p>{text(lang, "页面直接对当前统一 MOF 记录运行字段审计。来源已确认、引文就绪、许可证已确认和已核验元数据是不同状态；任何一项都不会自动升级另一项，也不代表论文实验性能已经核对。", "The page runs field audits directly over the active unified MOF records. Source confirmed, citation ready, licence confirmed, and verified metadata are distinct states; none automatically upgrades another or verifies experimental performance in a paper.")}</p>
+        <a href="#benchmark-references">{text(lang, "查看结构数据库与来源基准", "View structural data and provenance references")}<ArrowSquareOut aria-hidden size={15} /></a>
+      </section>
+      <nav className="research-center-index" aria-label={text(lang, "数据质量内容索引", "Data quality index")}>
+        {[
+          ["database-health-score-card", text(lang, "数据库健康", "Database health")],
+          ["field-coverage-matrix", text(lang, "字段覆盖", "Field coverage")],
+          ["provenance-completeness-panel", text(lang, "来源完整度", "Provenance")],
+          ["ambiguity-risk-panel", text(lang, "歧义与缺失", "Ambiguity & missingness")],
+          ["verified-blocker-summary", text(lang, "核验阻断项", "Verification blockers")],
+        ].map(([id, label], index) => <a href={`#${id}`} key={id}><span>{String(index + 1).padStart(2, "0")}</span>{label}</a>)}
+      </nav>
       <StatusMessage status={status} lang={lang} />
       {status === "loaded" ? <DataQualityAuditPanel records={records} lang={lang} t={t} isMobile={isMobile} /> : null}
     </div>

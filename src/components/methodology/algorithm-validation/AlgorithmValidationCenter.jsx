@@ -34,9 +34,9 @@ export const ALGORITHM_VALIDATION_DIRECTORY = {
   children: [
     { id: "algval-figure", label: "Interactive Scientific Figure", labelZh: "交互式科研主图" },
     { id: "algval-data-audit", label: "Data Audit Center", labelZh: "数据审计中心" },
-    { id: "algval-experimental-labels", label: "Experimental Label Status", labelZh: "实验标签状态" },
+    { id: "algval-experimental-labels", label: "Curated Label Status", labelZh: "整理标签状态" },
     { id: "algval-model-leaderboard", label: "Model Leaderboard", labelZh: "模型排行榜" },
-    { id: "algval-first-benchmark", label: "First Real Benchmark", labelZh: "首个真实 Benchmark" },
+    { id: "algval-first-benchmark", label: "Internal Protocol Benchmark", labelZh: "内部协议基准" },
     { id: "algval-explainability", label: "Model Explainability Center", labelZh: "模型可解释性中心" },
     { id: "algval-feature-importance", label: "Feature Importance Workbench", labelZh: "特征重要性工作台" },
     { id: "algval-cross-validation", label: "Cross Validation Dashboard", labelZh: "交叉验证仪表板" },
@@ -66,7 +66,7 @@ function LayerCard({ id, eyebrow, title, subtitle, t, children, status }) {
   const tone = status === "blocked" || status === "warning" ? "warn" : status === "planned" ? "info" : "calc"
   const statusLabel = { passed: "Passed", warning: "Warning", blocked: "Blocked", planned: "Planned" }[status]
   return (
-    <section id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, minWidth: 0, padding: 14, scrollMarginTop: 118 }}>
+    <section className="algorithm-validation-section" id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, minWidth: 0, padding: 14, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
           <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{eyebrow}</span>
@@ -83,7 +83,7 @@ function LayerCard({ id, eyebrow, title, subtitle, t, children, status }) {
 function Metric({ label, value, t, tone = "default" }) {
   const color = tone === "warn" ? t.warn : tone === "pass" ? (t.success || t.accentText) : t.textStrong
   return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 9 }}>
+    <div className="algorithm-validation-metric" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, minWidth: 0, padding: 9 }}>
       <span style={{ color: t.faint, display: "block", fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
       <strong style={{ color, display: "block", fontSize: 14, lineHeight: 1.18, marginTop: 5, overflowWrap: "anywhere" }}>{value}</strong>
     </div>
@@ -431,7 +431,7 @@ function ExperimentalValidationLayer({ lang, t, isMobile }) {
         ))}
       </div>
       <div style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 8, color: t.warn, fontSize: 12, fontWeight: 900, lineHeight: 1.45, padding: 10 }}>
-        {text(lang, "当前阻断条件：缺少真实实验标签；Cross Validation / External Test / Publication 均被阻断。", "Current blocker: no real experimental labels; Cross Validation / External Test / Publication are all blocked.")}
+        {text(lang, "当前阻断条件：缺少逐条 DOI 与全文数值定位完成的实验标签；外部独立验证与发表级结论仍被阻断。", "Current blocker: experimental labels lack complete per-record DOI and full-text claim locations; independent external validation and publication-grade conclusions remain blocked.")}
       </div>
     </LayerCard>
   )
@@ -486,9 +486,9 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
     <LayerCard
       id="algval-first-benchmark"
       status={blocked ? "blocked" : report.metricsAllowed ? "passed" : "warning"}
-      eyebrow="First Real Benchmark Dashboard"
-      title={text(lang, "首个真实 Benchmark 仪表板", "First Real Benchmark Dashboard")}
-      subtitle={text(lang, "展示当前 Benchmark 状态、审计状态、泄漏状态与标签状态；Accuracy / ROC 仅在合法时显示，否则 Pending。", "Shows current benchmark status, audit status, leakage status, and label status; Accuracy / ROC display only when legitimate, otherwise Pending.")}
+      eyebrow="Internal Protocol Benchmark"
+      title={text(lang, "内部协议基准", "Internal Protocol Benchmark")}
+      subtitle={text(lang, "展示旧审计流程的运行状态、泄漏状态与标签门槛。指标仅用于内部流程诊断，不构成 DOI 支撑的外部实验验证。", "Shows the legacy audit workflow, leakage status, and label gates. Metrics diagnose the internal pipeline and do not constitute DOI-backed external experimental validation.")}
       t={t}
     >
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -500,7 +500,7 @@ function FirstBenchmarkDashboard({ dataAudit, lang, t, isMobile }) {
         <Metric label="Current Benchmark Status" value={report.runnable ? "Runnable" : "Blocked"} t={t} tone={report.runnable ? "pass" : "warn"} />
         <Metric label="Audit Status" value={dataAudit.overallStatus} t={t} tone={dataAudit.overallStatus === "Pass" ? "pass" : "warn"} />
         <Metric label="Leakage Status" value={`${a.leakage.leakCount} leaks`} t={t} tone={a.leakage.leakCount === 0 ? "pass" : "warn"} />
-        <Metric label="Label Status" value={a.label.realExperimentalLabelCount > 0 ? "Experimental" : "Dataset-derived"} t={t} tone={a.label.realExperimentalLabelCount > 0 ? "pass" : "warn"} />
+        <Metric label="Label Status" value={a.label.realExperimentalLabelCount > 0 ? "Curated · DOI review pending" : "Dataset-derived"} t={t} tone="warn" />
       </div>
       <div style={{ display: "grid", gap: 7 }}>
         {(report.models || []).map(row => (
@@ -528,20 +528,9 @@ export function AlgorithmValidationCenter({ summary = {}, organicAcidResult = nu
     <section
       id="methodology-algorithm-validation"
       data-testid="algorithm-validation-center"
+      className="algorithm-validation-openai-center"
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 14, minWidth: 0, padding: 15, scrollMarginTop: 118 }}
     >
-      <header style={{ display: "grid", gap: 6 }}>
-        <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Algorithm Validation Center</span>
-        <h2 style={{ color: t.textStrong, fontSize: 23, lineHeight: 1.14, margin: 0 }}>{text(lang, "算法验证中心", "Algorithm Validation Center")}</h2>
-        <p style={{ color: t.muted, fontSize: 12.8, lineHeight: 1.6, margin: 0, maxWidth: 980 }}>
-          {text(
-            lang,
-            "当前结构层使用 9,835 条真实 CoRE MOF 2024 CSD-modified CR；FAIR-MOFs 补充合成条件、DOI 与部分物化性质。实验标签与 Benchmark 是独立验证层，不会因结构库扩充而自动变成实验验证结果。",
-            "The active structural layer uses 9,835 real CoRE MOF 2024 CSD-modified CR records, with FAIR-MOFs adding synthesis conditions, DOI links, and selected physicochemical properties. Experimental labels and Benchmark remain independent validation layers."
-          )}
-        </p>
-      </header>
-
       <InteractiveScientificFigure summary={safeSummary} algorithm={algorithm} dataFoundation={dataFoundation} dataAudit={dataAudit} firstBenchmark={firstBenchmark} lang={lang} t={t} isMobile={isMobile} onJumpToSection={jumpToSection} />
 
       <DataAuditCenter dataAudit={dataAudit} lang={lang} t={t} isMobile={isMobile} />

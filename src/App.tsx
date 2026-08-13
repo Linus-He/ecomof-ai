@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
-import { ArrowSquareOut, CaretRight, Check, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate, User } from "@phosphor-icons/react"
+import { CaretRight, EnvelopeSimple, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate, User } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -21,7 +21,7 @@ import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deep
 import { fetchDataJson } from "./services/dataService"
 import { resolveInitialLocale, SUPPORTED_LOCALES } from "./utils/locale"
 import { observeTraditionalChinese } from "./utils/traditionalChinese"
-import { AppFooter, ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
+import { AppFooter, ContextualHeaderBar, SavedRunsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { PrimaryDomainNavigation } from "./components/navigation/PrimaryDomainNavigation"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
@@ -63,10 +63,14 @@ const CatalysisLiteratureVerificationPage = lazyNamed(routeComponent("catalysisL
 const OrganicAcidResearchPage = lazyNamed(routeComponent("organicAcid").load, routeComponent("organicAcid").exportName)
 const AlgorithmValidationPage = lazyNamed(routeComponent("algorithmValidation").load, routeComponent("algorithmValidation").exportName)
 const DataQualityProvenancePage = lazyNamed(routeComponent("dataQuality").load, routeComponent("dataQuality").exportName)
+const BenchmarkReferencesPage = lazyNamed(routeComponent("benchmarkReferences").load, routeComponent("benchmarkReferences").exportName)
 const MofRecordPage = lazyNamed(routeComponent("mofRecord").load, routeComponent("mofRecord").exportName)
 const LiteratureRecordPage = lazyNamed(routeComponent("literatureRecord").load, routeComponent("literatureRecord").exportName)
 const ResearchCharterPage = lazyNamed(routeComponent("charter").load, routeComponent("charter").exportName)
+const CreatorStatementPage = lazyNamed(routeComponent("creatorStatement").load, routeComponent("creatorStatement").exportName)
 const ReleaseNotesPage = lazyNamed(routeComponent("releaseNotes").load, routeComponent("releaseNotes").exportName)
+const ContactPage = lazyNamed(routeComponent("contact").load, routeComponent("contact").exportName)
+const AcknowledgementsPage = lazyNamed(routeComponent("acknowledgements").load, routeComponent("acknowledgements").exportName)
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -165,21 +169,14 @@ function AppShell({
   importSavedRuns,
   removeComparisonCandidate,
   moveComparisonCandidate,
-  contactOpen,
-  setContactOpen,
-  acknowledgementsOpen,
-  setAcknowledgementsOpen,
   disclaimerOpen,
   setDisclaimerOpen,
-  closeContactModal,
-  closeAcknowledgementsModal,
   closeDisclaimerModal,
   confirmedMofSelection,
 }) {
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
   const [settingsOpen, setSettingsOpen] = useState(false)
-  const [settingsSection, setSettingsSection] = useState("")
   const [globalSearchOpen, setGlobalSearchOpen] = useState(false)
   const [propertyOpen, setPropertyOpen] = useState(false)
   const settingsRef = useRef(null)
@@ -201,10 +198,14 @@ function AppShell({
     organicAcid: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     algorithmValidation: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     dataQuality: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    benchmarkReferences: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     mofRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     literatureRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     charter: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    creatorStatement: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     releaseNotes: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
+    contact: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
+    acknowledgements: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
   })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
@@ -336,6 +337,109 @@ function AppShell({
               zIndex: 2,
               background: "transparent",
             }}>
+              <div className="user-menu-control" style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  aria-expanded={settingsOpen}
+                  aria-haspopup="menu"
+                  onClick={() => {
+                    setSettingsOpen(open => !open)
+                    setGlobalSearchOpen(false)
+                  }}
+                  title={lang === "zh" ? "打开用户菜单" : "Open user menu"}
+                  aria-label={lang === "zh" ? "打开用户菜单" : "Open user menu"}
+                  className="settings-trigger nav-action-button nav-user-trigger"
+                  data-open={settingsOpen ? "true" : "false"}
+                  style={{
+                    alignItems: "center",
+                    background: "transparent",
+                    border: "1px solid transparent",
+                    boxShadow: "none",
+                    color: settingsOpen ? chromeTheme.textStrong : chromeTheme.subtle,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    fontFamily: FONT_SANS,
+                    justifyContent: "center",
+                    gap: 4,
+                    transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
+                  }}
+                >
+                  <User aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
+                </button>
+                {settingsOpen ? (
+                  <div
+                    role="menu"
+                    aria-label={lang === "zh" ? "用户与设置菜单" : "User and settings menu"}
+                    className="settings-menu"
+                    onPointerDown={event => event.stopPropagation()}
+                    style={{
+                      display: "grid",
+                      overflow: "hidden",
+                      padding: 6,
+                      position: "absolute",
+                      right: 0,
+                      top: "calc(100% + 8px)",
+                      zIndex: 180,
+                    }}
+                  >
+                    <div role="none" className="settings-menu-row settings-menu-row--select">
+                      <Translate aria-hidden="true" size={17} weight="regular" />
+                      <label htmlFor="user-menu-language">{lang === "zh" ? "语言" : "Language"}</label>
+                      <select
+                        id="user-menu-language"
+                        aria-label={lang === "zh" ? "语言" : "Language"}
+                        className="settings-language-select"
+                        onChange={event => {
+                          setLang(event.target.value)
+                          setSettingsOpen(false)
+                        }}
+                        value={locale}
+                      >
+                        <option value="zh-CN">简体中文</option>
+                        <option value="zh-TW">繁體中文</option>
+                        <option value="en">English</option>
+                      </select>
+                    </div>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      aria-pressed={darkMode}
+                      className="settings-menu-row"
+                      onClick={() => setDarkMode(!darkMode)}
+                    >
+                      {darkMode ? <Moon aria-hidden="true" size={17} weight="regular" /> : <Sun aria-hidden="true" size={17} weight="regular" />}
+                      <span>{lang === "zh" ? "外观" : "Appearance"}</span>
+                      <span className="settings-menu-value">{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="settings-menu-row"
+                      onClick={() => {
+                        setSettingsOpen(false)
+                        navigateTab("compliance-hosting-notice")
+                      }}
+                    >
+                      <GlobeHemisphereEast aria-hidden="true" size={17} weight="regular" />
+                      <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & access"}</span>
+                      <CaretRight aria-hidden="true" size={14} weight="bold" />
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="settings-menu-row"
+                      onClick={() => {
+                        setSettingsOpen(false)
+                        navigateTab("contact")
+                      }}
+                    >
+                      <EnvelopeSimple aria-hidden="true" size={17} weight="regular" />
+                      <span>{lang === "zh" ? "联系与合作" : "Contact & collaboration"}</span>
+                      <CaretRight aria-hidden="true" size={14} weight="bold" />
+                    </button>
+                  </div>
+                ) : null}
+              </div>
               <div className="global-search-control" style={{ position: "relative" }}>
                 <button
                   type="button"
@@ -399,103 +503,6 @@ function AppShell({
                   </div>
                 ) : null}
               </div>
-              <button
-                type="button"
-                aria-expanded={settingsOpen}
-                aria-haspopup="menu"
-                onClick={() => setSettingsOpen(open => {
-                  const next = !open
-                  if (next) {
-                    setSettingsSection("")
-                    setGlobalSearchOpen(false)
-                  }
-                  return next
-                })}
-                title={lang === "zh" ? "打开用户菜单" : "Open user menu"}
-                aria-label={lang === "zh" ? "打开用户菜单" : "Open user menu"}
-                className="settings-trigger nav-action-button nav-user-trigger"
-                data-open={settingsOpen ? "true" : "false"}
-                style={{
-                  alignItems: "center",
-                  background: "transparent",
-                  border: "1px solid transparent",
-                  boxShadow: "none",
-                  color: settingsOpen ? chromeTheme.accentText : chromeTheme.subtle,
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  fontFamily: FONT_SANS,
-                  justifyContent: "center",
-                  gap: 4,
-                  transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
-                }}
-              >
-                <User aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
-              </button>
-              {settingsOpen ? (
-                <div
-                  role="menu"
-                  aria-label={lang === "zh" ? "用户与设置菜单" : "User and settings menu"}
-                  className="settings-menu"
-                  onPointerDown={event => event.stopPropagation()}
-                  style={{
-                    display: "grid",
-                    gap: 5,
-                    minWidth: 292,
-                    overflow: "hidden",
-                    padding: 9,
-                    position: "absolute",
-                    right: 0,
-                    top: "calc(100% + 7px)",
-                    zIndex: 180,
-                  }}
-                >
-                  <div role="none" className="settings-menu-group settings-menu-group--language">
-                    <button type="button" role="menuitem" aria-expanded={settingsSection === "language"} className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                      <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}><Translate aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
-                      <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{locale === "zh-TW" ? "繁體中文" : locale === "en" ? "English" : "简体中文"}</span>
-                    </button>
-                    {settingsSection === "language" ? (
-                      <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} className="settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 4, padding: 5 }}>
-                        {[["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"]].map(([id, label]) => (
-                          <button key={id} type="button" className="settings-option" onClick={() => { setLang(id); setSettingsSection("") }} style={{ alignItems: "center", background: locale === id ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${locale === id ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: locale === id ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: locale === id ? 850 : 700, justifyContent: "space-between", minHeight: 31, padding: "6px 8px", textAlign: "left" }}>
-                            {label}{locale === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
-                          </button>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div role="none" className="settings-menu-group settings-menu-group--theme">
-                    <button type="button" role="menuitem" aria-expanded={settingsSection === "theme"} className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                      <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}>{darkMode ? <Moon aria-hidden="true" size={16} weight="bold" /> : <Sun aria-hidden="true" size={16} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
-                      <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
-                    </button>
-                    {settingsSection === "theme" ? (
-                      <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
-                        {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
-                          <button key={String(value)} type="button" className="settings-option" aria-pressed={darkMode === value} onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${darkMode === value ? chromeTheme.borderStrong : "transparent"}`, borderRadius: 999, color: darkMode === value ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "center", minHeight: 32, padding: "6px 8px", textAlign: "center" }}>
-                            {label}{darkMode === value ? <Check aria-hidden="true" size={14} weight="bold" /> : null}
-                          </button>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div role="none" className="settings-menu-group settings-menu-group--access">
-                    <button type="button" role="menuitem" aria-expanded={settingsSection === "data-access"} className="settings-menu-row settings-menu-row--notice" onClick={() => setSettingsSection(section => section === "data-access" ? "" : "data-access")} style={{ alignItems: "center", background: settingsSection === "data-access" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "data-access" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                      <GlobeHemisphereEast aria-hidden="true" size={17} weight="duotone" />
-                      <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & cross-border access"}</span>
-                      <CaretRight aria-hidden="true" className="settings-section-caret" data-open={settingsSection === "data-access" ? "true" : "false"} size={15} weight="bold" style={{ color: chromeTheme.faint }} />
-                    </button>
-                    {settingsSection === "data-access" ? (
-                      <div className="settings-submenu settings-access-submenu" role="group" aria-label={lang === "zh" ? "数据托管与跨境访问说明" : "Data hosting and cross-border access notice"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}` }}>
-                        <p>{lang === "zh" ? "受欧盟及相关地区的数据保护与跨境传输要求、数据提供方许可和当前托管条件影响，相关数据暂未部署在中国大陆地区服务器。若数据无法加载，请切换至可访问相关境外数据源的合规网络环境。对此带来的不便，我们深表歉意。" : "European and other applicable data-protection and cross-border transfer requirements, provider licences, and current hosting conditions mean that the relevant data is not hosted on servers in mainland China. If it does not load, retry from a compliant network that can access the relevant overseas source. We apologize for the inconvenience."}</p>
-                        <small>{lang === "zh" ? "注：GDPR 第五章适用于个人数据向第三国或国际组织的传输，并非对所有科研数据的地域禁令。" : "Note: GDPR Chapter V applies to transfers of personal data to third countries or international organizations; it is not a geographic ban on all research data."}</small>
-                        <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer"><span>{lang === "zh" ? "GDPR 原始法律条文" : "Original GDPR text"}</span><ArrowSquareOut aria-hidden size={14} /></a>
-                        <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "条款与政策" : "Terms & policies"}</span><CaretRight aria-hidden size={14} /></button>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              ) : null}
             </div>
           </div>
           <ContextualHeaderBar
@@ -533,7 +540,7 @@ function AppShell({
       <main className="app-main" style={{ padding: viewport.isMobile ? "14px 12px" : "22px 24px", maxWidth: 1460, margin: "0 auto" }}>
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
-            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={setContactOpen} onOpenComparisonBuilder={() => openComparisonBuilder()} />}
+            {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={() => navigateTab("contact")} onOpenComparisonBuilder={() => openComparisonBuilder()} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}
@@ -616,10 +623,14 @@ function AppShell({
             {activeTab === "organicAcid" && <OrganicAcidResearchPage onNavigate={navigateTab} />}
             {activeTab === "algorithmValidation" && <AlgorithmValidationPage />}
             {activeTab === "dataQuality" && <DataQualityProvenancePage />}
+            {activeTab === "benchmarkReferences" && <BenchmarkReferencesPage />}
             {activeTab === "mofRecord" && <MofRecordPage />}
             {activeTab === "literatureRecord" && <LiteratureRecordPage />}
             {activeTab === "charter" && <ResearchCharterPage />}
+            {activeTab === "creatorStatement" && <CreatorStatementPage />}
             {activeTab === "releaseNotes" && <ReleaseNotesPage />}
+            {activeTab === "contact" && <ContactPage />}
+            {activeTab === "acknowledgements" && <AcknowledgementsPage />}
           </div>
         </Suspense>
       </main>
@@ -627,14 +638,12 @@ function AppShell({
       <AppFooter
         lang={lang}
         navigate={navigateTab}
-        onAcknowledgements={() => setAcknowledgementsOpen(true)}
-        onContact={() => setContactOpen(true)}
+        onAcknowledgements={() => navigateTab("acknowledgements")}
+        onContact={() => navigateTab("contact")}
         onDisclaimer={() => setDisclaimerOpen(true)}
         theme={theme}
       />
 
-      <ContactModal open={contactOpen} onClose={closeContactModal} />
-      <AcknowledgementsModal open={acknowledgementsOpen} onClose={closeAcknowledgementsModal} />
       <DisclaimerModal open={disclaimerOpen} onClose={closeDisclaimerModal} />
       <PhysicochemicalPropertyModal open={propertyOpen} onClose={() => setPropertyOpen(false)} record={confirmedMofSelection?.record || null} />
       <CandidateComparisonModal
@@ -708,8 +717,6 @@ export default function App() {
   const [databaseSearchRows, setDatabaseSearchRows] = useState([])
   const [confirmedMofSelection, setConfirmedMofSelection] = useState(null)
   const [savedOpen, setSavedOpen] = useState(false)
-  const [contactOpen, setContactOpen] = useState(false)
-  const [acknowledgementsOpen, setAcknowledgementsOpen] = useState(false)
   const [disclaimerOpen, setDisclaimerOpen] = useState(false)
   const [comparisonTab, setComparisonTab] = useState("feasibility")
   const [comparisonFocusId, setComparisonFocusId] = useState("all")
@@ -754,8 +761,6 @@ export default function App() {
     const tab = resolveTabForHash(routeHash)
 
     setActiveHash(hash)
-    setContactOpen(routeHash === "contact")
-    setAcknowledgementsOpen(routeHash === "acknowledgements")
     setDisclaimerOpen(routeHash === "disclaimer")
 
     if (tab) {
@@ -775,20 +780,6 @@ export default function App() {
     }
     applyDeepLink(normalized)
   }, [applyDeepLink])
-
-  const closeContactModal = useCallback(() => {
-    setContactOpen(false)
-    if (normalizeHash(window.location.hash) === "contact") {
-      setRouteHash(tabToHash(activeTab), { replace: true })
-    }
-  }, [activeTab, setRouteHash])
-
-  const closeAcknowledgementsModal = useCallback(() => {
-    setAcknowledgementsOpen(false)
-    if (normalizeHash(window.location.hash) === "acknowledgements") {
-      setRouteHash(tabToHash(activeTab), { replace: true })
-    }
-  }, [activeTab, setRouteHash])
 
   const closeDisclaimerModal = useCallback(() => {
     setDisclaimerOpen(false)
@@ -865,6 +856,19 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "about") return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
+    if (!pendingScrollTarget || activeTab !== "dataCompliance") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
       if (target) {
@@ -1445,14 +1449,8 @@ export default function App() {
             importSavedRuns={importSavedRuns}
             removeComparisonCandidate={removeComparisonCandidate}
             moveComparisonCandidate={moveComparisonCandidate}
-            contactOpen={contactOpen}
-            setContactOpen={() => setRouteHash("contact")}
-            acknowledgementsOpen={acknowledgementsOpen}
-            setAcknowledgementsOpen={() => setRouteHash("acknowledgements")}
             disclaimerOpen={disclaimerOpen}
             setDisclaimerOpen={() => setRouteHash("disclaimer")}
-            closeContactModal={closeContactModal}
-            closeAcknowledgementsModal={closeAcknowledgementsModal}
             closeDisclaimerModal={closeDisclaimerModal}
             confirmedMofSelection={confirmedMofSelection}
           />

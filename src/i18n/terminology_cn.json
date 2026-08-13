@@ -84,11 +84,6 @@
     "zh": "研究成熟度",
     "description": "综合数据质量、证据状态、验证状态和复现信息的成熟度。"
   },
-  "versionTimeline": {
-    "en": "Version Timeline",
-    "zh": "版本演化时间线",
-    "description": "项目版本的单一权威演化记录。"
-  },
   "scientificEvolution": {
     "en": "Scientific Evolution",
     "zh": "科研能力演化",

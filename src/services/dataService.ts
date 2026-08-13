@@ -259,7 +259,7 @@ export function getReferences({ throwOnError = false } = {}) {
 }
 
 export function getBenchmarkReferences({ throwOnError = false } = {}) {
-  return fetchJson(DATA_PATHS.benchmarkReferences, [], { throwOnError })
+  return fetchJson(DATA_PATHS.benchmarkReferences, { schemaVersion: "", modules: [] }, { throwOnError })
 }
 
 export function getMofStructures({ throwOnError = false } = {}) {

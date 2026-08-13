@@ -411,7 +411,6 @@ function EvolutionArchive({ data, projectStatus, log, methodology, lang, t, isMo
       summary: text(lang, "状态总览与模块历史；完整更新内容已迁移到独立更新日志。", "Status overview and module history; complete release details now live in the independent changelog."),
       content: <>
         <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
-        <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
         <LegacyModuleHistory log={log} lang={lang} t={t} isMobile={isMobile} />
       </>,
     },
@@ -570,95 +569,6 @@ function LegacyModuleHistory({ log, lang, t, isMobile }) {
           </section>
         ))}
       </div>
-    </Card>
-  )
-}
-
-function TimelineEntry({ versionLabel, title, summary, badges, fields, t, isMobile, highlight, isLast }) {
-  return (
-    <div style={{ display: "grid", gap: isMobile ? 9 : 12, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0 }}>
-      <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
-        <span style={{ background: highlight ? t.accent : t.panel, border: `2px solid ${highlight ? t.accent : t.border}`, borderRadius: 6, flexShrink: 0, height: 12, marginTop: 5, width: 12 }} />
-        {!isLast ? <span style={{ background: t.border, flex: 1, minHeight: 18, width: 2 }} /> : null}
-      </div>
-      <article style={{ background: highlight ? t.badgeInfoBg : t.surface, border: `1px solid ${highlight ? t.accent : t.border}`, borderRadius: 9, display: "grid", gap: fields?.length ? 8 : 5, marginBottom: 12, minWidth: 0, padding: isMobile ? 11 : 13 }}>
-        <header style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 7, minWidth: 0 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13.5 }}>{versionLabel}</strong>
-          {title ? <span style={{ color: t.muted, fontSize: 12.5 }}>· {title}</span> : null}
-          {badges}
-        </header>
-        {summary ? <span style={{ color: t.muted, fontSize: 12, lineHeight: 1.5 }}>{summary}</span> : null}
-        {fields?.length ? (
-          <div style={{ display: "grid", gap: 7, gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(160px, 1fr))" }}>
-            {fields.filter(([, , value]) => value).map(([key, label, value, warn]) => (
-              <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: 8 }}>
-                <span style={{ color: t.faint, display: "block", fontSize: 9.5, fontWeight: 900, textTransform: "uppercase" }}>{label}</span>
-                <span style={{ color: warn ? t.warn : t.textStrong, display: "block", fontSize: 11.2, lineHeight: 1.4, marginTop: 3 }}>{value}</span>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </article>
-    </div>
-  )
-}
-
-function impactFields(row, lang) {
-  return [
-    ["scientificImpact", text(lang, "科研影响", "Scientific Impact"), localize(row.scientificImpact, lang), false],
-    ["validationImpact", text(lang, "验证影响", "Validation Impact"), localize(row.validationImpact, lang), false],
-    ["breakingChanges", text(lang, "破坏性变更", "Breaking Changes"), localize(row.breakingChanges, lang), true],
-    ["nextVersionGoal", text(lang, "当时开发目标", "Recorded Development Goal"), localize(row.nextVersionGoal, lang), false],
-  ]
-}
-
-function VersionTimeline({ data, lang, t, isMobile }) {
-  const [query, setQuery] = useState("")
-  const versions = data.versions || []
-  const ordered = [...versions].reverse()
-  const recent = ordered.slice(0, 2)
-  const earlier = ordered.slice(2)
-  const q = query.trim().toLowerCase()
-  const searchPool = ordered
-  const matches = q
-    ? searchPool.filter(row => `${row.version} ${row.summary} ${(row.categories || []).join(" ")}`.toLowerCase().includes(q))
-    : null
-
-  return (
-    <Card
-      id="project-evolution-version-timeline"
-      title={text(lang, "模块历史时间线", "Module History Timeline")}
-      subtitle={text(lang, "这里只展示 V3.x 等模块/数据历史；当前 Web 发布号在统一版本中心维护，避免新旧版本混读。", "This timeline only shows V3.x module/data history; the current Web release is maintained in the Unified Release Center to avoid mixing release schemes.")}
-      t={t}
-      actions={<input value={query} onChange={event => setQuery(event.target.value)} placeholder={text(lang, "搜索版本", "Search versions")} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, minHeight: 34, padding: "7px 9px" }} />}
-    >
-      {matches ? (
-        <div style={{ display: "grid" }}>
-          {matches.length ? matches.map((row, index) => (
-            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} t={t} isMobile={isMobile} isLast={index === matches.length - 1} />
-          )) : (
-            <span style={{ color: t.muted, fontSize: 12 }}>{text(lang, "没有匹配的版本。", "No matching versions.")}</span>
-          )}
-        </div>
-      ) : (
-        <div style={{ display: "grid" }}>
-          {recent.map((row, index) => (
-            <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} fields={impactFields(row, lang)} t={t} isMobile={isMobile} highlight={index === 0} isLast={false} />
-          ))}
-          {earlier.length ? (
-            <details style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}>
-              <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
-                {text(lang, "查看早期版本", "View earlier milestones")}
-              </summary>
-              <div style={{ display: "grid", marginTop: 11 }}>
-                {earlier.map((row, index) => (
-                  <TimelineEntry key={row.version} versionLabel={row.version} summary={row.summary} t={t} isMobile={isMobile} isLast={index === earlier.length - 1} />
-                ))}
-              </div>
-            </details>
-          ) : null}
-        </div>
-      )}
     </Card>
   )
 }

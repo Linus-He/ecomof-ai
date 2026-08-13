@@ -31,7 +31,7 @@ function theme(t) {
 
 function Card({ id, title, subtitle, children, t }) {
   return (
-    <section id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
+    <section className="data-quality-openai-section" id={id} data-testid={id} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
       <div style={{ display: "grid", gap: 3 }}>
         <h3 style={{ color: t.textStrong, fontSize: 14.5, lineHeight: 1.2, margin: 0 }}>{title}</h3>
         {subtitle ? <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.45, margin: 0 }}>{subtitle}</p> : null}
@@ -44,7 +44,7 @@ function Card({ id, title, subtitle, children, t }) {
 function Metric({ label, value, note, t, tone = "info" }) {
   const color = tone === "warn" ? t.warn : tone === "danger" ? t.danger : tone === "pass" ? t.good : t.textStrong
   return (
-    <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: 9 }}>
+    <div className="data-quality-metric" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, minWidth: 0, padding: 9 }}>
       <div style={{ color: t.faint, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>{label}</div>
       <div style={{ color, fontSize: 18, fontWeight: 920, lineHeight: 1.12, marginTop: 5, overflowWrap: "anywhere" }}>{value}</div>
       {note ? <div style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.35, marginTop: 4 }}>{note}</div> : null}
@@ -231,10 +231,10 @@ export function DataQualityAuditPanel({ records = [], audit: auditProp, lang = "
   }
 
   return (
-    <section id="data-quality-audit-panel" data-testid="data-quality-audit-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
+    <section className="data-quality-openai-center" id="data-quality-audit-panel" data-testid="data-quality-audit-panel" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 12, minWidth: 0, padding: 12, scrollMarginTop: 118 }}>
       <header style={{ alignItems: "flex-start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
-          <h2 style={{ color: t.textStrong, fontSize: compact ? 16 : 18, lineHeight: 1.18, margin: 0 }}>{text(lang, "数据质量审计", "Data Quality Audit")}</h2>
+          <h2 style={{ color: t.textStrong, fontSize: compact ? 16 : 18, lineHeight: 1.18, margin: 0 }}>{text(lang, "当前数据库审计结果", "Current database audit results")}</h2>
           <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.5, margin: 0 }}>
             {text(lang, "数据库预览 / 非最终推荐。字段来源、覆盖率、阻断项与健康评分贯穿 V2.2。", "Database Preview / Not Final Recommendation. Field-level provenance, coverage, blockers, and health score are carried through V2.2.")}
           </p>

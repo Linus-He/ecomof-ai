@@ -114,7 +114,6 @@ export const LOCALIZATION_AUDIT_MODULES = [
   "Roadmap",
   "Milestones",
   "Release Notes",
-  "Version Timeline",
   "Navigation",
 ]
 

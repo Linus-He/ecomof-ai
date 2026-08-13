@@ -14,6 +14,7 @@ describe("independent changelog", () => {
     expect(updates.textContent).toMatch(/Changelog/)
     expect(updates.textContent).toContain(releaseLog.currentAppVersion)
     expect(updates.textContent).toContain(currentRelease.headline.en.replace(/^v\d+(?:\.\d+){2}:\s*/, ""))
+    expect(updates.querySelector("time")).toBeNull()
   })
 
   it("preserves every module and change instead of truncating the log", () => {

@@ -66,6 +66,7 @@ describe("primary domain navigation", () => {
   it("shows the independent research charter under About", () => {
     renderNavigation()
     fireEvent.click(screen.getByRole("button", { name: "关于" }))
+    expect(screen.getByRole("menuitem", { name: "创建者说明" })).toBeInTheDocument()
     expect(screen.getByRole("menuitem", { name: "研究宪章" })).toBeInTheDocument()
     expect(screen.getByRole("menuitem", { name: "条款与政策" })).toBeInTheDocument()
   })
@@ -74,6 +75,7 @@ describe("primary domain navigation", () => {
     renderNavigation()
     fireEvent.click(screen.getByRole("button", { name: "项目" }))
     expect(screen.getByRole("menuitem", { name: "更新日志" })).toBeInTheDocument()
+    expect(screen.queryByRole("menuitem", { name: "版本时间线" })).not.toBeInTheDocument()
   })
 
   it("closes the open menu with Escape and restores focus to its trigger", () => {

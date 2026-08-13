@@ -16,7 +16,8 @@ describe("RobustnessDashboard", () => {
     expect(screen.getByTestId("generalization-figure")).toBeInTheDocument()
     expect(screen.getByTestId("robustness-cv-table")).toBeInTheDocument()
     expect(body()).toMatch(/Reliability Score/)
-    expect(body()).toMatch(/Experimental Label Growth/)
+    expect(body()).toMatch(/Internal Curated-label Scale/)
+    expect(body()).toMatch(/Held-out Set/)
     expect(body()).toMatch(new RegExp(robustness.bestModel))
   })
 

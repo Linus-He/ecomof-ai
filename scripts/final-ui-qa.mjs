@@ -41,15 +41,11 @@ async function gotoHash(page, hash) {
 }
 
 async function setChinese(page) {
-  const settings = page.getByRole("button", { name: /打开设置|Open settings/ }).first()
+  const settings = page.getByRole("button", { name: /打开用户菜单|Open user menu/ }).first()
   await settings.click()
-  const languageItem = page.getByRole("menuitem", { name: /语言|Language/ }).first()
-  const label = await languageItem.innerText()
-  if (!label.includes("简体中文")) {
-    await languageItem.click()
-    await page.getByRole("button", { name: "简体中文" }).click()
-  }
-  await page.keyboard.press("Escape")
+  const languageSelect = page.getByRole("combobox", { name: /语言|Language/ }).first()
+  if (await languageSelect.inputValue() !== "zh-CN") await languageSelect.selectOption("zh-CN")
+  else await page.keyboard.press("Escape")
 }
 
 async function screenshotElement(locator, fileName) {
@@ -148,25 +144,24 @@ try {
   }
   screenshots.navigation = await screenshotElement(navShell, "navigation-chinese-centered.png")
 
-  const settingsButton = page.getByRole("button", { name: "打开设置" }).first()
+  const settingsButton = page.getByRole("button", { name: "打开用户菜单" }).first()
   await settingsButton.click()
-  const settingsMenu = page.getByRole("menu", { name: "设置菜单" })
+  const settingsMenu = page.getByRole("menu", { name: "用户与设置菜单" })
   await settingsMenu.waitFor({ state: "visible" })
-  check(await settingsMenu.getByRole("menuitem", { name: /语言/ }).count() === 1, "设置菜单缺少语言切换")
+  check(await settingsMenu.getByRole("combobox", { name: /语言/ }).count() === 1, "设置菜单缺少语言切换")
   check(await settingsMenu.getByRole("menuitem", { name: /外观/ }).count() === 1, "设置菜单缺少深浅色切换")
-  check(await settingsMenu.getByRole("menuitem", { name: "联系我们" }).count() === 1, "设置菜单缺少联系我们")
+  check(await settingsMenu.getByRole("menuitem", { name: "联系与合作" }).count() === 1, "设置菜单缺少联系与合作")
   screenshots.settings = await screenshotElement(settingsMenu, "settings-menu.png")
   await page.keyboard.press("Escape")
-  interactions.push("齿轮设置菜单、语言、主题与联系我们二级入口")
+  interactions.push("用户设置菜单、语言、主题与联系合作入口")
 
   const quickStart = page.getByTestId("home-quick-start-buttons")
   await quickStart.getByRole("button", { name: "联系我们" }).click()
-  const contactDialog = page.getByRole("dialog", { name: /联系与合作/ })
-  await contactDialog.waitFor({ state: "visible" })
-  check((await contactDialog.innerText()).includes("ecomofai@outlook.com"), "联系弹窗未显示指定邮箱")
-  check(!(await page.locator("body").innerText()).split("联系与合作")[0].includes("ecomofai@outlook.com"), "邮箱在打开联系弹窗前已直接暴露")
-  await contactDialog.getByRole("button", { name: /关闭联系弹窗/ }).click()
-  interactions.push("联系我们弹窗显示邮箱并可关闭")
+  const contactPage = page.getByTestId("contact-page")
+  await contactPage.waitFor({ state: "visible" })
+  check((await contactPage.innerText()).includes("ecomofai@outlook.com"), "独立联系页未显示指定邮箱")
+  check(await contactPage.getByRole("form", { name: "联系与合作表单" }).count() === 1, "独立联系页缺少合作表单")
+  interactions.push("独立联系页显示邮箱与合作表单")
   screenshots.homeEntries = await screenshotElement(homeMap, "home-research-map.png")
 
   await gotoHash(page, "#ecoscreen")

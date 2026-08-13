@@ -1,7 +1,7 @@
 // @ts-nocheck
 // V3.6 Figure H — Generalization Audit. Interactive SVG comparing the best
-// model's accuracy on Train / Validation / Test / External Test, highlighting the
-// train→external generalization gap and the overfitting-risk verdict.
+// model's accuracy on Train / Validation / Test / the internal held-out split,
+// highlighting the frozen report's generalization gap and overfitting verdict.
 import { useState } from "react"
 
 const text = (lang, zh, en) => (lang === "zh" ? zh : en)
@@ -11,13 +11,18 @@ export function GeneralizationFigure({ robustness = null, lang = "en", t, isMobi
   const [hover, setHover] = useState(null)
   const g = robustness?.generalization
   if (!g?.splits) return null
-  const order = [["train", "Train"], ["validation", "Validation"], ["test", "Test"], ["externalTest", "External"]]
+  const order = [
+    ["train", text(lang, "训练", "Train")],
+    ["validation", text(lang, "验证", "Validation")],
+    ["test", text(lang, "测试", "Test")],
+    ["externalTest", text(lang, "内部留出", "Held-out")],
+  ]
   const riskColor = t[RISK_TONE[g.overfittingRisk]] || t.muted
 
   return (
     <section id="figure-h-generalization" data-testid="generalization-figure" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 6, padding: 10 }}>
       <span style={{ color: t.accentText, fontSize: 9.5, fontWeight: 900, textTransform: "uppercase" }}>Figure H · {text(lang, "泛化审计", "Generalization Audit")}</span>
-      <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{g.model} · {text(lang, "训练→外部", "Train → External")}</strong>
+      <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{g.model} · {text(lang, "训练→内部留出", "Train → Held-out")}</strong>
       <svg viewBox="0 0 260 150" role="img" aria-label="generalization audit" style={{ width: "100%" }}>
         {order.map(([key, label], i) => {
           const s = g.splits[key]

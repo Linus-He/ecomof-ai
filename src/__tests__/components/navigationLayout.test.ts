@@ -32,20 +32,19 @@ describe("top navigation layout", () => {
     expect(source).toContain('aria-haspopup="dialog"')
     expect(source).toContain('aria-haspopup="menu"')
     expect(source).toContain('className="settings-menu-row"')
-    expect(source).toContain('className="settings-option"')
+    expect(source).toContain('className="settings-language-select"')
     expect(source).toContain("语言")
-    expect(source).toContain('["zh-TW", "繁體中文"]')
+    expect(source).toContain('<option value="zh-TW">繁體中文</option>')
     expect(source).toContain("外观")
-    expect(source).toContain("浅色模式")
-    expect(source).toContain("深色模式")
+    expect(source).toContain("浅色")
+    expect(source).toContain("深色")
     expect(source).toContain('window.localStorage.setItem("ecomof-theme"')
     expect(source).toContain('onPointerDown={event => event.stopPropagation()}')
     expect(source).toContain("数据托管与跨境访问")
-    expect(source).toContain('href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"')
-    expect(source).toContain("条款与政策")
+    expect(source).toContain('navigateTab("compliance-hosting-notice")')
     expect(source).not.toContain("GitHub 仓库")
-    expect(source).not.toContain("联系我们")
-    expect(source).toContain('useState("")')
+    expect(source).toContain("联系与合作")
+    expect(source).not.toContain("settingsSection")
   })
 
   it("keeps search and user triggers unframed", () => {
@@ -60,10 +59,10 @@ describe("top navigation layout", () => {
   it("keeps the user menu compact, vertical, rounded, and glass-backed", () => {
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*width:\s*min\(276px,/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*width:\s*min\(272px,/s)
     expect(css).toMatch(/\.settings-menu\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s)
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*border-radius:\s*22px/s)
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*backdrop-filter:\s*blur\(34px\) saturate\(165%\)/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*border-radius:\s*16px/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*backdrop-filter:\s*blur\(20px\) saturate\(130%\)/s)
   })
 
   it("keeps brand and action controls outside the text navigation rail", () => {

@@ -18,13 +18,14 @@ export function CrossValidationDashboard({ credibility = null, lang = "en", t, i
     <section
       id="algval-cross-validation"
       data-testid="algval-cross-validation"
+      className="algorithm-validation-section"
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, minWidth: 0, padding: 14, scrollMarginTop: 118 }}
     >
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Cross Validation Dashboard</span>
         <h3 style={{ color: t.textStrong, fontSize: 16, margin: 0 }}>{text(lang, "交叉验证仪表板", "Cross Validation Dashboard")}</h3>
         <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>
-          {text(lang, `${cv.datasetSize} 条实验标签上的 ${cv.k}-fold 交叉验证；与 V3.4 Benchmark 并行的稳定性诊断，不修改 Benchmark 数值。`, `${cv.k}-fold cross validation over ${cv.datasetSize} experimental labels — a stability diagnostic parallel to the V3.4 benchmark; the benchmark numbers are unchanged.`)}
+          {text(lang, `${cv.datasetSize} 条内部整理标签上的 ${cv.k}-fold 交叉验证；这是模型稳定性诊断，不提升标签证据等级。`, `${cv.k}-fold cross-validation over ${cv.datasetSize} internally curated labels; this diagnoses model stability without upgrading label evidence.`)}
         </p>
       </header>
 

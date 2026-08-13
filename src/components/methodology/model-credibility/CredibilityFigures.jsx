@@ -46,7 +46,7 @@ export function CredibilityFigures({ credibility = null, firstBenchmark = null, 
           })}
           <line x1="14" y1="130" x2="230" y2="130" stroke={t.border} />
         </svg>
-        <span style={{ color: t.faint, fontSize: 10 }}>{hover ? `${hover}: acc ${models.find(m => m.model === hover)?.accuracy} · ROC ${models.find(m => m.model === hover)?.rocAuc}` : text(lang, "实心=Accuracy，半透明=ROC-AUC（V3.4 外部测试）", "Solid = Accuracy, faded = ROC-AUC (V3.4 external test)")}</span>
+        <span style={{ color: t.faint, fontSize: 10 }}>{hover ? `${hover}: acc ${models.find(m => m.model === hover)?.accuracy} · ROC ${models.find(m => m.model === hover)?.rocAuc}` : text(lang, "实心=Accuracy，半透明=ROC-AUC（V3.4 内部留出集）", "Solid = Accuracy, faded = ROC-AUC (V3.4 internal held-out set)")}</span>
       </FigureFrame>
 
       {/* Figure D — Feature Importance */}

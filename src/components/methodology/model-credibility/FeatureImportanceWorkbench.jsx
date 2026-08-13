@@ -26,13 +26,14 @@ export function FeatureImportanceWorkbench({ credibility = null, lang = "en", t,
     <section
       id="algval-feature-importance"
       data-testid="algval-feature-importance"
+      className="algorithm-validation-section"
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 11, minWidth: 0, padding: 14, scrollMarginTop: 118 }}
     >
       <header style={{ display: "grid", gap: 4 }}>
         <span style={{ color: t.accentText, fontSize: 10, fontWeight: 900, textTransform: "uppercase" }}>Feature Importance Workbench</span>
         <h3 style={{ color: t.textStrong, fontSize: 16, margin: 0 }}>{text(lang, "特征重要性工作台", "Feature Importance Workbench")}</h3>
         <p style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5, margin: 0 }}>
-          {text(lang, "排列重要性（permutation importance），基于 V3.4 真实模型在外部测试集上的表现；仅展示模型实际使用的特征。", "Permutation importance from the real V3.4 models on the external test set; only features the model actually used are shown.")}
+          {text(lang, "排列重要性（permutation importance）基于 V3.4 已拟合模型和内部留出集；仅展示模型实际使用的特征，不代表外部实验因果关系。", "Permutation importance uses the fitted V3.4 models and internal held-out set; it shows features used by the model and does not establish external experimental causality.")}
         </p>
       </header>
 

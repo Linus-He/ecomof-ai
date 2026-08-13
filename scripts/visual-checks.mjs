@@ -55,6 +55,15 @@ const routes = [
     "保持技术与证据领导力",
     "保持开放合作取向",
   ]],
+  ["creator-statement", "#creator-statement", [
+    "为什么建立 EcoMOF-AI",
+    "因为我真心喜欢化学",
+    "在读学生",
+    "个人独立维护",
+    "非商业研究",
+    "我欢迎专业人士成为这个项目的顾问",
+    "查看致谢",
+  ]],
   ["methodology", "#methodology", [
     "方法论",
     "方法注册表与复核入口",
@@ -65,6 +74,20 @@ const routes = [
     "v1.0.14",
     "当前版本",
   ]],
+  ["acknowledgements", "#acknowledgements", [
+    "致谢",
+    "HappyFlight",
+    "李新建",
+    "Cambridge Crystallographic Data Centre",
+    "CCDC",
+  ]],
+  ["contact", "#contact", [
+    "联系与合作",
+    "合作类型",
+    "数据状态",
+    "问题与预期结果",
+    "ecomofai@outlook.com",
+  ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
     "Current Version",
@@ -73,7 +96,6 @@ const routes = [
     "Experimental Labels",
     "Credibility",
     "Current Risk",
-    "Version Timeline",
   ]],
   ["organic-acid-project", "#catalysis-organic-acid", [
     ["有机酸路径工作台", "Organic Acid Workspace"],
@@ -378,7 +400,6 @@ async function waitForRouteReady(page, routeName) {
 
   if (routeName === "project-status-center") {
     await page.locator("#project-evolution").first().waitFor({ state: "attached", timeout: 30000 })
-    await page.locator("#project-evolution-version-timeline").first().waitFor({ state: "attached", timeout: 30000 })
   }
 
   if (routeName.startsWith("organic-acid-validation") || ["confidence-matrix", "priority-queue", "knowledge-graph"].includes(routeName)) {

@@ -48,24 +48,25 @@ export function RobustnessDashboard({ robustness = null, lang = "en", t, isMobil
     <section
       id="algval-robustness"
       data-testid="algval-robustness"
+      className="algorithm-validation-section"
       style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 12, display: "grid", gap: 13, minWidth: 0, padding: 15, scrollMarginTop: 118 }}
     >
       <header style={{ display: "grid", gap: 5 }}>
         <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>Robustness Section · Model Reliability</span>
         <h3 style={{ color: t.textStrong, fontSize: 18, margin: 0 }}>{text(lang, "稳健性验证与模型可靠度", "Robustness Validation & Model Reliability")}</h3>
         <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, margin: 0 }}>
-          {text(lang, `实验标签扩展到 ${ds.experimentalLabels}、外部测试 ${ds.externalTest}；在更大数据上重跑真实 Benchmark，并用交叉验证、Bootstrap、置信区间与泛化审计检验“结果是否稳健”。`, `Experimental labels expanded to ${ds.experimentalLabels}, external test ${ds.externalTest}; the real benchmark is re-run on the larger data and stress-tested with cross validation, bootstrap, confidence intervals, and a generalization audit.`)}
+          {text(lang, `内部整理标签扩展到 ${ds.experimentalLabels}、留出记录 ${ds.externalTest}；冻结报告用交叉验证、Bootstrap、置信区间与泛化审计检验内部模型行为。标签证据等级不因此升级。`, `The internally curated corpus contains ${ds.experimentalLabels} labels and ${ds.externalTest} held-out records. The frozen report uses cross-validation, bootstrap, confidence intervals, and a generalization audit to test internal model behaviour without upgrading label evidence.`)}
         </p>
       </header>
 
       {/* Experimental Label Growth V3.4 -> V3.6 */}
       <div style={{ display: "grid", gap: 6 }}>
-        <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "实验标签增长 V3.4 → V3.6", "Experimental Label Growth V3.4 → V3.6")}</strong>
+        <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{text(lang, "内部整理标签规模 V3.4 → V3.6", "Internal Curated-label Scale V3.4 → V3.6")}</strong>
         <div style={{ color: t.faint, display: "grid", fontSize: 9.5, fontWeight: 900, gap: 6, gridTemplateColumns: "minmax(0,1.4fr) repeat(3, minmax(0,1fr))", padding: "0 10px", textTransform: "uppercase" }}>
           <span>Metric</span><span>Current</span><span>Target</span><span>Gap</span>
         </div>
-        <GrowthRow label={text(lang, "实验标签", "Experimental Labels")} current={ds.experimentalLabels} target={exp.target || 150} t={t} />
-        <GrowthRow label={text(lang, "外部测试", "External Test")} current={ds.externalTest} target={exp.externalTarget || 60} t={t} />
+        <GrowthRow label={text(lang, "内部整理标签", "Curated Labels")} current={ds.experimentalLabels} target={exp.target || 150} t={t} />
+        <GrowthRow label={text(lang, "内部留出集", "Held-out Set")} current={ds.externalTest} target={exp.externalTarget || 60} t={t} />
       </div>
 
       {/* Headline reliability + credibility */}

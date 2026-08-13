@@ -55,7 +55,7 @@ describe("DataQualityAuditPanel", () => {
     render(<DataQualityAuditPanel records={[record("R1")]} lang="en" t={THEME_LIGHT} isMobile={false} />)
 
     expect(screen.getByTestId("data-quality-audit-panel")).toBeInTheDocument()
-    expect(bodyText()).toMatch(/Data Quality Audit/i)
+    expect(bodyText()).toMatch(/Current database audit results/i)
     expect(bodyText()).toMatch(/Database Preview \/ Not Final Recommendation/i)
     expect(bodyText()).toMatch(/pending/i)
     expect(bodyText()).toMatch(/ambiguous/i)
@@ -68,11 +68,11 @@ describe("DataQualityAuditPanel", () => {
   it("uses natural Chinese labels in Chinese mode", () => {
     render(<DataQualityAuditPanel records={[record("R1")]} lang="zh" t={THEME_LIGHT} isMobile={false} />)
 
-    expect(screen.getByText("数据质量审计")).toBeInTheDocument()
+    expect(screen.getByText("当前数据库审计结果")).toBeInTheDocument()
     expect(bodyText()).toMatch(/数据库预览 \/ 非最终推荐/)
     expect(screen.getByText("导出筛选审计")).toBeInTheDocument()
     expect(screen.getByText("导出候选数据缺口")).toBeInTheDocument()
     expect(screen.getByText("导出模型就绪度摘要")).toBeInTheDocument()
-    expect(bodyText()).not.toMatch(/Data Quality Audit|Export Screening Audit JSON/)
+    expect(bodyText()).not.toMatch(/Current database audit results|Export Screening Audit JSON/)
   })
 })

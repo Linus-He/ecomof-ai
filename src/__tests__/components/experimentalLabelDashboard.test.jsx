@@ -15,8 +15,8 @@ describe("ExperimentalLabelDashboard", () => {
     render(<ExperimentalLabelDashboard firstBenchmark={report} lang="en" t={THEME_LIGHT} isMobile={false} />)
     expect(screen.getByTestId("algval-experimental-labels")).toBeInTheDocument()
     expect(screen.getByTestId("first-benchmark-dashboard")).toBeInTheDocument()
-    expect(body()).toMatch(/Experimental Labels/)
-    expect(body()).toMatch(/External Test/)
+    expect(body()).toMatch(/Internally Curated Labels/)
+    expect(body()).toMatch(/Internal Held-out Set/)
     expect(body()).toMatch(/Leakage Status/)
     expect(body()).toMatch(/Benchmark Status/)
     // Result A → real metrics are shown, not Pending

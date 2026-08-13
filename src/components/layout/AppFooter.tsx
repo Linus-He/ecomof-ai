@@ -41,6 +41,7 @@ export function AppFooter({
       links: [
         [zh ? "方法论总览" : "Methodology Overview", "methodology"],
         [zh ? "算法验证中心" : "Algorithm Validation", "methodology-algorithm-validation"],
+        [zh ? "基准参考" : "Benchmark References", "benchmark-references"],
         [zh ? "GasSep 方法" : "GasSep Method", "methodology-gassep"],
         [zh ? "有机酸方法" : "Organic Acid Method", "methodology-organic-acid"],
         [zh ? "验证与证据" : "Validation & Evidence", "validation-evidence"],
@@ -50,6 +51,7 @@ export function AppFooter({
     {
       title: zh ? "关于" : "About",
       links: [
+        [zh ? "创建者说明" : "Creator Statement", "creator-statement"],
         [zh ? "研究宪章" : "Research Charter", "research-charter"],
         [zh ? "项目演化" : "Project Evolution", "project-evolution"],
         [zh ? "更新日志" : "Changelog", "release-notes"],
@@ -67,8 +69,14 @@ export function AppFooter({
   ]
 
   const activate = target => {
-    if (target === "contact") return onContact?.()
-    if (target === "acknowledgements") return onAcknowledgements?.()
+    if (target === "contact") {
+      if (onContact) return onContact()
+      return navigate?.(target)
+    }
+    if (target === "acknowledgements") {
+      if (onAcknowledgements) return onAcknowledgements()
+      return navigate?.(target)
+    }
     if (target === "disclaimer") return onDisclaimer?.()
     navigate?.(target)
   }
