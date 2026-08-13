@@ -259,8 +259,9 @@ export function DatabaseComplianceTab() {
     <div id="database-compliance" className="dc-page" data-testid="database-compliance-tab">
       <section className="dc-cover">
         <div className="dc-cover-copy">
-          <h1>{text(lang, "我们希望以可追溯的方式使用研究数据", "We want to use research data in a traceable way")}</h1>
-          <button className="dc-copy-link" type="button" onClick={copyLink} aria-label={text(lang, "复制合规说明链接", "Copy compliance link")}>
+          <h1>{text(lang, "条款与政策", "Terms & Policies")}</h1>
+          <p className="dc-cover-intro">{text(lang, "以非商业、可追溯和可复核的方式建设研究工具。", "Building research tools that are non-commercial, traceable, and reviewable.")}</p>
+          <button className="dc-copy-link" type="button" onClick={copyLink} aria-label={text(lang, "复制条款与政策链接", "Copy terms and policies link")}>
             {copyStatus === "copied" ? <CheckCircle aria-hidden size={19} /> : <LinkSimple aria-hidden size={19} />}
             {copyStatus === "copied" ? text(lang, "链接已复制", "Link copied") : copyStatus === "failed" ? text(lang, "复制失败", "Copy failed") : text(lang, "复制本页链接", "Copy page link")}
           </button>
@@ -273,6 +274,35 @@ export function DatabaseComplianceTab() {
           <p className="dc-lead">{text(lang, "开放科学可以带来非凡价值，但只有当来源、许可、计算边界与不确定性都能够被追问时，数据才值得被信任。", "Open science can create extraordinary value, but research data is trustworthy only when its provenance, licence, computational boundary, and uncertainty can be questioned.")}</p>
           <p>{text(lang, "EcoMOF-AI 以非商业研究模式运行。我们把数据责任放进每一次接入、标准化、筛选和派生计算中：先识别数据对象与原始条款，再保留字段级来源，最后把不能确认的记录隔离，而不是用界面上的“合规”标签替代判断。", "EcoMOF-AI operates in non-commercial research mode. Responsibility is built into ingestion, normalization, screening, and derivation: identify the data object and primary terms, preserve field-level provenance, and quarantine records that cannot be resolved rather than replacing judgment with a compliance label.")}</p>
           <p>{text(lang, "本页不是法律意见，也不是全面合规认证。发布方许可正文、附加下载条款、机构协议和权利人书面答复始终优先。", "This page is not legal advice or comprehensive compliance certification. Publisher licences, download terms, institutional agreements, and written rightsholder responses always prevail.")}</p>
+        </div>
+      </section>
+
+      <section className="dc-charter" id="research-charter" data-testid="research-charter">
+        <header>
+          <h2>{text(lang, "EcoMOF-AI 宪章", "The EcoMOF-AI Charter")}</h2>
+          <p>{text(lang, "这份宪章定义本站希望长期坚持的方向。它不替代下方许可条款、法律说明或数据发布方的原始文件。", "This charter defines the direction this site intends to uphold over time. It does not replace the licence terms, legal notices, or primary publisher documents below.")}</p>
+        </header>
+        <div className="dc-charter-grid">
+          <article>
+            <span>01</span>
+            <h3>{text(lang, "服务可信研究", "Advance trustworthy research")}</h3>
+            <p>{text(lang, "我们的目标是让材料筛选、证据核验与科研讨论更透明、更可追溯。界面、算法和数据组织应帮助使用者理解依据与边界，而不是用复杂度制造权威感。", "Our aim is to make materials screening, evidence review, and scientific discussion more transparent and traceable. Interfaces, algorithms, and data organization should reveal reasoning and boundaries rather than manufacture authority through complexity.")}</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>{text(lang, "坚持非商业性质", "Remain non-commercial")}</h3>
+            <p>{text(lang, "EcoMOF-AI 承诺以非商业科研与教育展示为定位，不出售本站数据、不以受限数据提供收费服务，也不将带有非商业限制的来源用于商业模型或客户交付。若未来运营边界发生变化，相关数据应先停止使用并重新完成授权审查与公开说明。", "EcoMOF-AI is committed to non-commercial research and educational demonstration. We will not sell site data, provide paid services from restricted data, or use non-commercial sources for commercial models or client delivery. If the operating boundary changes, affected data must be paused, re-authorized, and publicly disclosed first.")}</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>{text(lang, "保持科学诚实", "Preserve scientific integrity")}</h3>
+            <p>{text(lang, "我们将尽可能保留字段级来源、计算假设、不确定性与失败条件；明确区分原始记录、派生结果、代理指标和模型预测，不把筛选分数包装成最终结论。", "We will preserve field-level provenance, assumptions, uncertainty, and failure conditions wherever possible; distinguish source records, derivatives, proxies, and predictions; and never present a screening score as a final conclusion.")}</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>{text(lang, "审慎发布并持续纠错", "Publish carefully and keep correcting")}</h3>
+            <p>{text(lang, "当证据、许可或安全边界尚不清楚时，我们宁可延迟接入，也不制造确定性。对合理的权利异议、科学质疑与错误报告，我们将保留暂停、修正、限制或移除内容的机制，并公开可复核的处理依据。", "When evidence, licensing, or safety boundaries remain unclear, we prefer delayed ingestion over false certainty. For reasonable rights concerns, scientific challenges, and error reports, we will maintain mechanisms to pause, correct, restrict, or remove content and document the basis for action.")}</p>
+          </article>
         </div>
       </section>
 

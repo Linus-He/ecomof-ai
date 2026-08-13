@@ -1,22 +1,319 @@
 {
-  "schemaVersion": "catalysis-v2-curation-overrides-v1",
-  "updatedAt": "2026-08-12T00:00:00.000Z",
+  "schemaVersion": "catalysis-v2-curation-overrides-v2",
+  "updatedAt": "2026-08-13T00:00:00.000Z",
   "policy": {
     "scope": "Only publisher full-text statements with an explicit figure, table, section, or supporting-information location are promoted to L4.",
     "articleIdentityIsNotClaimVerification": true,
     "unverifiedFieldsRemainOpenTasks": true
   },
+  "sources": {
+    "10.1039/d3sc01876h": {
+      "fullTextAccess": "publisher-html-and-supporting-information",
+      "license": {
+        "name": "Creative Commons Attribution 3.0 Unported",
+        "url": "https://creativecommons.org/licenses/by/3.0/",
+        "reviewStatus": "resolved",
+        "fullTextReuseStatus": "cc-by-3.0-verified-on-publisher-page",
+        "trainingUseAllowed": true
+      },
+      "licenseEvidence": {
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2023/sc/d3sc01876h",
+        "sourceLocation": "publisher article landing page · Open Access licence statement",
+        "checkedAt": "2026-08-13"
+      }
+    },
+    "10.1039/d4mh01153h": {
+      "fullTextAccess": "publisher-html-and-supporting-information",
+      "license": {
+        "name": "Creative Commons Attribution-NonCommercial 3.0 Unported",
+        "url": "https://creativecommons.org/licenses/by-nc/3.0/",
+        "reviewStatus": "resolved-restricted",
+        "fullTextReuseStatus": "cc-by-nc-3.0-verified-on-publisher-page",
+        "trainingUseAllowed": false,
+        "trainingUseRestriction": "Non-commercial restriction requires downstream-use review; this record is not admitted to the general training set."
+      },
+      "licenseEvidence": {
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2024/mh/d4mh01153h",
+        "sourceLocation": "publisher article landing page · Open Access licence statement",
+        "checkedAt": "2026-08-13"
+      }
+    },
+    "10.1039/d2ta04485d": {
+      "fullTextAccess": "publisher-html-and-supporting-information",
+      "license": {
+        "name": "Creative Commons Attribution 3.0 Unported",
+        "url": "https://creativecommons.org/licenses/by/3.0/",
+        "reviewStatus": "resolved",
+        "fullTextReuseStatus": "cc-by-3.0-verified-on-publisher-page",
+        "trainingUseAllowed": true
+      },
+      "licenseEvidence": {
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlelanding/2022/ta/d2ta04485d",
+        "sourceLocation": "publisher article landing page · Open Access licence statement",
+        "checkedAt": "2026-08-13"
+      }
+    }
+  },
   "records": {
     "catrxn-v1-mfm220p-formate-2022": {
+      "precursorIdentity": {
+        "material": "MFM-220",
+        "identifierType": "CCDC",
+        "identifier": "899427",
+        "status": "publisher-supporting-information-verified",
+        "sourceUrl": "https://www.rsc.org/suppdata/d2/ta/d2ta04485d/d2ta04485d1.pdf",
+        "sourceLocation": "Supporting Information · Crystallographic section · CCDC deposition statement",
+        "activeMaterialBoundary": "CCDC 899427 identifies precursor MFM-220 only; it must not be assigned to potential-evolved MFM-220-p."
+      },
+      "metricOverrides": {
+        "total-current-density": {
+          "operator": "=",
+          "value": 23,
+          "status": "source-extracted",
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
+          "condition": {
+            "potentialVsRheV": -1.1,
+            "durationH": 1
+          }
+        }
+      },
+      "additionalClaims": [
+        {
+          "id": "partial-current-formate",
+          "metric": "partial_current_density",
+          "product": "formate",
+          "operator": "=",
+          "value": 20.8,
+          "unit": "mA cm-2",
+          "condition": {
+            "potentialVsRheV": -1.1,
+            "durationH": 1,
+            "electrolyte": "0.1 M KHCO3",
+            "cellType": "H-type cell"
+          },
+          "status": "source-extracted",
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3b"
+        }
+      ],
+      "experimentRuns": [
+        {
+          "id": "performance-1h",
+          "labelZh": "1小时性能点",
+          "labelEn": "1 h performance point",
+          "purpose": "potential-dependent-performance",
+          "claimIds": [
+            "fe-formate",
+            "total-current-density",
+            "partial-current-formate"
+          ],
+          "provenanceStatus": "source-reported-with-calculated-loading",
+          "sourceLocations": [
+            "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
+            "Supporting Information · Electrochemical study · pp. 3–4"
+          ],
+          "conditions": {
+            "cellType": "H-type cell",
+            "electrolyte": "0.1 M KHCO3 in both catholyte and anolyte",
+            "potentialVsRheV": -1.1,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": 1,
+            "catalystLoading": 0.995,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "nominal precursor MFM-220 mass per geometric carbon-paper area",
+            "catalystLoadingStatus": "calculated-from-source-preparation",
+            "catalystLoadingCalculation": "10 mg × 0.100 mL / 2.010 mL / 0.5 cm2 = 0.995 mg cm-2",
+            "geometricElectrodeAreaCm2": 0.5,
+            "productQuantificationProtocol": "liquid products by 1H NMR with DMSO reference; gas products by GC and Bruker Matrix MG5 FTIR",
+            "productQuantificationSourceLocation": "Supporting Information · Quantitative analysis of products in liquid and gas phase · pp. 3–4",
+            "sourceLocations": [
+              "Supporting Information · Electrochemical study · pp. 3–4",
+              "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b"
+            ],
+            "missingFields": [
+              "numerical CO2 flow rate not reported"
+            ]
+          }
+        },
+        {
+          "id": "stability-5h",
+          "labelZh": "5小时稳定性",
+          "labelEn": "5 h stability run",
+          "purpose": "stability",
+          "claimIds": [
+            "stability-duration"
+          ],
+          "provenanceStatus": "source-reported-with-calculated-loading",
+          "sourceLocations": [
+            "publisher full text · Electrochemical CO2 reduction · Fig. 3c–3d",
+            "Supporting Information · Fig. S28–S29"
+          ],
+          "conditions": {
+            "cellType": "H-type cell",
+            "electrolyte": "0.1 M KHCO3 in both catholyte and anolyte",
+            "potentialVsRheV": -1.1,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": 5,
+            "catalystLoading": 0.995,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "nominal precursor MFM-220 mass per geometric carbon-paper area",
+            "catalystLoadingStatus": "calculated-from-source-preparation",
+            "catalystLoadingCalculation": "10 mg × 0.100 mL / 2.010 mL / 0.5 cm2 = 0.995 mg cm-2",
+            "geometricElectrodeAreaCm2": 0.5,
+            "productQuantificationProtocol": "liquid products by 1H NMR with DMSO reference; gas products by GC and Bruker Matrix MG5 FTIR",
+            "productQuantificationSourceLocation": "Supporting Information · Quantitative analysis of products in liquid and gas phase · pp. 3–4",
+            "sourceLocations": [
+              "Supporting Information · Electrochemical study · pp. 3–4",
+              "publisher full text · Electrochemical CO2 reduction · Fig. 3c–3d",
+              "Supporting Information · Fig. S28–S29"
+            ],
+            "missingFields": [
+              "numerical CO2 flow rate not reported"
+            ]
+          }
+        }
+      ],
       "claimEvidence": {
         "fe-formate": {
-          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a",
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
           "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
-          "reviewNote": "The publisher full text locates the 90.4% formate FE at -1.1 V vs RHE in Fig. 3a."
+          "reviewNote": "Fig. 3a–3b reports 90.4% formate FE at -1.1 V vs RHE after 1 h."
+        },
+        "total-current-density": {
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
+          "reviewNote": "The text accompanying Fig. 3a–3b reports total current density of 23.0 mA cm-2 after 1 h at -1.1 V vs RHE."
+        },
+        "partial-current-formate": {
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3b",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
+          "reviewNote": "Fig. 3b reports formate partial current density of 20.8 mA cm-2 for MFM-220-p/CP."
+        },
+        "stability-duration": {
+          "sourceLocation": "publisher full text · Electrochemical CO2 reduction · Fig. 3c–3d; Supporting Information · Fig. S28–S29",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta04485d",
+          "reviewNote": "Fig. 3c–3d and SI Fig. S28–S29 locate the 5 h electrolysis stability record at -1.1 V vs RHE."
         }
       }
     },
     "catrxn-v1-zr-dmbd-bi-np-formate-2025": {
+      "additionalClaims": [
+        {
+          "id": "fe-formate-hcell",
+          "metric": "faradaic_efficiency",
+          "product": "formate",
+          "operator": ">",
+          "value": 60,
+          "unit": "%",
+          "condition": {
+            "cellType": "custom two-compartment H-cell",
+            "electrolyte": "0.1 M KHCO3; 8 mL in each compartment",
+            "potentialVsRheV": -1.4
+          },
+          "status": "source-reported-range",
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a"
+        },
+        {
+          "id": "partial-current-formate-hcell",
+          "metric": "partial_current_density",
+          "product": "formate",
+          "operator": ">",
+          "value": 2.2,
+          "unit": "mA cm-2",
+          "valueBasis": "cathodic-current magnitude; source text reports -2.2 mA cm-2",
+          "condition": {
+            "cellType": "custom two-compartment H-cell",
+            "electrolyte": "0.1 M KHCO3; 8 mL in each compartment",
+            "potentialVsRheV": -1.4
+          },
+          "status": "source-reported-range-sign-normalized",
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a"
+        }
+      ],
+      "experimentRuns": [
+        {
+          "id": "flow-cell-minus-25ma",
+          "labelZh": "流动池 25 mA cm-2 性能点",
+          "labelEn": "Flow-cell 25 mA cm-2 performance point",
+          "purpose": "constant-current-performance",
+          "inheritRecordConditions": false,
+          "claimIds": [
+            "fe-formate",
+            "partial-current-formate"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+            "Supporting Information · 3 compartment flow cell experimental procedure · p. S4"
+          ],
+          "conditions": {
+            "cellType": "custom three-compartment flow cell",
+            "electrolyte": "1 M KOH; 25 mL anolyte and 25 mL catholyte",
+            "potentialVsRheV": null,
+            "currentMode": "constant-current",
+            "appliedCurrentDensity": -25,
+            "appliedCurrentDensityUnit": "mA cm-2",
+            "durationH": null,
+            "catalystLoading": 0.5,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "BiNP@Zr-DMBD-1 catalyst mass per geometric Sigracet 39-BB carbon-paper area",
+            "catalystLoadingStatus": "source-reported",
+            "gasFlowRate": 20,
+            "gasFlowRateUnit": "sccm CO2",
+            "productQuantificationProtocol": null,
+            "productQuantificationSourceLocation": null,
+            "sourceLocations": [
+              "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
+              "Supporting Information · 3 compartment flow cell experimental procedure · p. S4"
+            ],
+            "missingFields": [
+              "flow-cell measurement duration",
+              "flow-cell product quantification protocol"
+            ]
+          }
+        },
+        {
+          "id": "hcell-minus-1-4v",
+          "labelZh": "H 型池 -1.4 V 性能点",
+          "labelEn": "H-cell -1.4 V performance point",
+          "purpose": "constant-potential-performance",
+          "inheritRecordConditions": false,
+          "claimIds": [
+            "fe-formate-hcell",
+            "partial-current-formate-hcell"
+          ],
+          "provenanceStatus": "source-reported-with-calculated-loading",
+          "sourceLocations": [
+            "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+            "Supporting Information · Electrochemical CO2 reduction reaction · pp. S3-S4"
+          ],
+          "conditions": {
+            "cellType": "custom two-compartment H-cell",
+            "electrolyte": "0.1 M KHCO3; 8 mL in each compartment",
+            "potentialVsRheV": -1.4,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": null,
+            "catalystLoading": 0.239,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "nominal catalyst mass per 15 mm diameter geometric glassy-carbon disc area",
+            "catalystLoadingStatus": "calculated-from-source-preparation",
+            "catalystLoadingCalculation": "5 mg × 88 µL / 1040 µL / [π × (0.75 cm)^2] = 0.239 mg cm-2",
+            "geometricElectrodeAreaCm2": 1.767,
+            "gasFlowRate": 20,
+            "gasFlowRateUnit": "sccm CO2",
+            "productQuantificationProtocol": "gas products by online Agilent 8980B GC; liquid products by 1H NMR with DMSO/phenol internal standard",
+            "productQuantificationSourceLocation": "Supporting Information · Electrochemical CO2 reduction reaction · pp. S3-S4",
+            "sourceLocations": [
+              "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+              "Supporting Information · Electrochemical CO2 reduction reaction · pp. S3-S4"
+            ],
+            "missingFields": [
+              "measurement duration for the reported -1.4 V point"
+            ]
+          }
+        }
+      ],
       "claimEvidence": {
         "fe-formate": {
           "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
@@ -27,14 +324,188 @@
           "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5c",
           "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
           "reviewNote": "Fig. 5c reports formate partial current density above 22 mA cm-2 at -25 mA cm-2."
+        },
+        "fe-formate-hcell": {
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+          "reviewNote": "The text accompanying Fig. 5a reports formate Faradaic efficiency steady above 60% at -1.4 V vs RHE for BiNP@Zr-DMBD-1."
+        },
+        "partial-current-formate-hcell": {
+          "sourceLocation": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+          "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2024/mh/d4mh01153h",
+          "reviewNote": "The text accompanying Fig. 5a reports formate partial current density above -2.2 mA cm-2 under cathodic sign convention; the database stores its 2.2 mA cm-2 magnitude."
         }
       }
     },
     "catrxn-v1-bi-hhtp-formate-2023": {
+      "activeMaterialIdentity": {
+        "material": "Bi-HHTP",
+        "identifierType": "CCDC",
+        "identifier": "2242230",
+        "status": "publisher-crystallographic-identifier-verified",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "sourceLocation": "publisher full text · ESI and crystallographic data footnote",
+        "activeMaterialBoundary": "CCDC 2242230 identifies the reported Bi-HHTP crystal structure; catalytic active-site interpretation remains separately gated by operando and post-reaction evidence."
+      },
       "conditionOverrides": {
         "productQuantificationProtocol": "liquid-phase products quantified by nuclear magnetic resonance",
         "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4"
       },
+      "experimentRuns": [
+        {
+          "id": "selectivity-minus-0-7v",
+          "labelZh": "-0.7 V 选择性与能效",
+          "labelEn": "-0.7 V selectivity and energy efficiency",
+          "purpose": "constant-potential-performance",
+          "claimIds": [
+            "fe-formate",
+            "carbon-energy-efficiency"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electrochemical performance · Fig. 3c",
+            "publisher full text · Electrochemical performance · Fig. S4"
+          ],
+          "conditions": {
+            "cellType": "liquid-phase flow cell",
+            "electrolyte": "1 M KOH",
+            "potentialVsRheV": -0.7,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": null,
+            "catalystLoading": null,
+            "catalystLoadingBasis": null,
+            "productQuantificationProtocol": "liquid-phase products quantified by nuclear magnetic resonance",
+            "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4",
+            "sourceLocations": [
+              "publisher full text · Electrochemical performance · Fig. 3c",
+              "publisher full text · Electrochemical performance · Fig. S4"
+            ],
+            "missingFields": [
+              "measurement duration",
+              "catalyst loading basis"
+            ]
+          }
+        },
+        {
+          "id": "current-minus-1-1v",
+          "labelZh": "-1.1 V 总电流密度",
+          "labelEn": "-1.1 V total current density",
+          "purpose": "polarization-performance",
+          "comparisonScope": "electrochemical-polarization",
+          "claimIds": [
+            "total-current-density"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electrochemical performance · Fig. 3b-3c"
+          ],
+          "conditions": {
+            "cellType": "liquid-phase flow cell",
+            "electrolyte": "1 M KOH",
+            "potentialVsRheV": -1.1,
+            "potentialVsRheVApprox": null,
+            "currentMode": "potential-sweep",
+            "durationH": null,
+            "catalystLoading": null,
+            "catalystLoadingBasis": null,
+            "polarizationProtocol": null,
+            "productQuantificationProtocol": null,
+            "productQuantificationSourceLocation": null,
+            "sourceLocations": [
+              "publisher full text · Electrochemical performance · Fig. 3b-3c",
+              "publisher full text · Electrochemical performance · Fig. S4"
+            ],
+            "missingFields": [
+              "polarization scan protocol",
+              "catalyst loading basis"
+            ]
+          }
+        },
+        {
+          "id": "maximum-tof",
+          "labelZh": "最大甲酸盐 TOF",
+          "labelEn": "Maximum formate TOF",
+          "purpose": "turnover-frequency-performance",
+          "comparisonScope": "turnover-frequency",
+          "claimIds": [
+            "tof-formate"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electrochemical performance · Fig. 3e"
+          ],
+          "conditions": {
+            "cellType": "liquid-phase flow cell",
+            "electrolyte": "1 M KOH",
+            "potentialVsRheV": null,
+            "currentMode": "constant-potential",
+            "durationH": null,
+            "catalystLoading": null,
+            "catalystLoadingBasis": null,
+            "activeSiteNormalization": null,
+            "productQuantificationProtocol": "liquid-phase products quantified by nuclear magnetic resonance",
+            "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4",
+            "sourceLocations": [
+              "publisher full text · Electrochemical performance · Fig. 3e",
+              "publisher full text · Electrochemical performance · Fig. S4"
+            ],
+            "missingFields": [
+              "potential of maximum TOF",
+              "measurement duration",
+              "catalyst or active-site normalization basis"
+            ]
+          }
+        },
+        {
+          "id": "stability-30h-minus-0-7v",
+          "labelZh": "-0.7 V 30小时稳定性",
+          "labelEn": "-0.7 V 30 h stability run",
+          "purpose": "stability",
+          "claimIds": [
+            "stability-duration"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electrochemical performance · Fig. 3d"
+          ],
+          "conditions": {
+            "cellType": "liquid-phase flow cell",
+            "electrolyte": "1 M KOH",
+            "potentialVsRheV": -0.7,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": 30,
+            "catalystLoading": null,
+            "catalystLoadingBasis": null,
+            "productQuantificationProtocol": "liquid-phase products quantified by nuclear magnetic resonance",
+            "productQuantificationSourceLocation": "publisher full text · Electrochemical performance · Fig. S4",
+            "sourceLocations": [
+              "publisher full text · Electrochemical performance · Fig. 3d",
+              "publisher full text · Electrochemical performance · Fig. S4"
+            ],
+            "missingFields": [
+              "catalyst loading basis"
+            ]
+          }
+        },
+        {
+          "id": "conductivity-characterization",
+          "labelZh": "两探针电导率表征",
+          "labelEn": "Two-contact-probe conductivity characterization",
+          "purpose": "material-characterization",
+          "comparisonScope": "material-characterization",
+          "inheritRecordConditions": false,
+          "claimIds": [
+            "conductivity"
+          ],
+          "sourceLocations": [
+            "publisher full text · Electronic structure and conductivity · Fig. 2b; Table S2"
+          ],
+          "conditions": {
+            "sourceLocations": [
+              "publisher full text · Electronic structure and conductivity · Fig. 2b; Table S2"
+            ],
+            "missingFields": []
+          }
+        }
+      ],
       "claimEvidence": {
         "fe-formate": {
           "sourceLocation": "publisher full text · Electrochemical performance · Fig. 3c",
@@ -69,15 +540,115 @@
       }
     },
     "catrxn-v1-su101-formate-2022": {
-      "conditionOverrides": {
-        "potentialVsRheV": null,
-        "potentialVsRheVApprox": -1.06,
-        "productQuantificationProtocol": "liquid products by NMR; gas products by online gas chromatography",
-        "productQuantificationSourceLocation": "publisher full text · Results and discussion · Fig. S7–S8"
-      },
+      "experimentRuns": [
+        {
+          "id": "peak-fe-1h",
+          "labelZh": "峰值法拉第效率",
+          "labelEn": "Peak Faradaic efficiency",
+          "purpose": "potential-dependent-performance",
+          "claimIds": [
+            "fe-formate"
+          ],
+          "sourceLocations": [
+            "publisher full text · Results and discussion · Fig. 2b–2c",
+            "Supporting Information · Working electrode preparation; Electrochemical measurement; Fig. S7–S8"
+          ],
+          "conditions": {
+            "cellType": "sealed two-compartment H-type cell",
+            "electrolyte": "0.5 M KHCO3; 40 mL in each compartment",
+            "potentialVsRheV": null,
+            "potentialVsRheVApprox": -1.06,
+            "currentMode": "constant-potential",
+            "durationH": 1,
+            "catalystLoading": 1,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "SU-101 catalyst mass per 1 × 1 cm2 geometric GDL area",
+            "catalystLoadingStatus": "source-reported",
+            "geometricElectrodeAreaCm2": 1,
+            "productQuantificationProtocol": "liquid products by 1H NMR; gas products by online gas chromatography",
+            "productQuantificationSourceLocation": "Supporting Information · Electrochemical measurement; product analysis; Fig. S7–S8",
+            "sourceLocations": [
+              "Supporting Information · Working electrode preparation",
+              "Supporting Information · Electrochemical measurement",
+              "Supporting Information · Fig. S7–S8",
+              "publisher full text · Fig. 2b–2c"
+            ],
+            "missingFields": []
+          }
+        },
+        {
+          "id": "peak-partial-current-1h",
+          "labelZh": "峰值甲酸盐分电流",
+          "labelEn": "Peak formate partial current",
+          "purpose": "potential-dependent-performance",
+          "claimIds": [
+            "partial-current-formate"
+          ],
+          "sourceLocations": [
+            "publisher full text · Results and discussion · Fig. 2c",
+            "Supporting Information · Fig. S7; Table S1"
+          ],
+          "conditions": {
+            "cellType": "sealed two-compartment H-type cell",
+            "electrolyte": "0.5 M KHCO3; 40 mL in each compartment",
+            "potentialVsRheV": -1.26,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": 1,
+            "catalystLoading": 1,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "SU-101 catalyst mass per 1 × 1 cm2 geometric GDL area",
+            "catalystLoadingStatus": "source-reported",
+            "geometricElectrodeAreaCm2": 1,
+            "productQuantificationProtocol": "liquid products by 1H NMR; gas products by online gas chromatography",
+            "productQuantificationSourceLocation": "Supporting Information · Electrochemical measurement; product analysis; Fig. S7–S8",
+            "sourceLocations": [
+              "Supporting Information · Working electrode preparation",
+              "Supporting Information · Electrochemical measurement",
+              "Supporting Information · Fig. S7; Table S1",
+              "publisher full text · Fig. 2c"
+            ],
+            "missingFields": []
+          }
+        },
+        {
+          "id": "stability-10h",
+          "labelZh": "10小时稳定性",
+          "labelEn": "10 h stability run",
+          "purpose": "stability",
+          "claimIds": [
+            "fe-after-stability"
+          ],
+          "sourceLocations": [
+            "publisher full text · Results and discussion · Fig. 2d",
+            "Supporting Information · Working electrode preparation; Electrochemical measurement"
+          ],
+          "conditions": {
+            "cellType": "sealed two-compartment H-type cell",
+            "electrolyte": "0.5 M KHCO3; 40 mL in each compartment",
+            "potentialVsRheV": -1.06,
+            "potentialVsRheVApprox": null,
+            "currentMode": "constant-potential",
+            "durationH": 10,
+            "catalystLoading": 1,
+            "catalystLoadingUnit": "mg cm-2",
+            "catalystLoadingBasis": "SU-101 catalyst mass per 1 × 1 cm2 geometric GDL area",
+            "catalystLoadingStatus": "source-reported",
+            "geometricElectrodeAreaCm2": 1,
+            "productQuantificationProtocol": "liquid products by 1H NMR; gas products by online gas chromatography",
+            "productQuantificationSourceLocation": "Supporting Information · Electrochemical measurement; product analysis",
+            "sourceLocations": [
+              "Supporting Information · Working electrode preparation",
+              "Supporting Information · Electrochemical measurement",
+              "publisher full text · Fig. 2d"
+            ],
+            "missingFields": []
+          }
+        }
+      ],
       "claimEvidence": {
         "fe-formate": {
-          "sourceLocation": "publisher full text · Results and discussion · Fig. 2b–2c",
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2b–2c; Supporting Information · Fig. S7; Table S1",
           "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
           "reviewNote": "The potential-dependent formate FE is plotted in Fig. 2b–2c; the full text reports 93.66% at approximately -1.06 V vs RHE.",
           "condition": {
@@ -86,12 +657,12 @@
           }
         },
         "partial-current-formate": {
-          "sourceLocation": "publisher full text · Results and discussion · Fig. 2c",
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2c; Supporting Information · Fig. S7; Table S1",
           "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
           "reviewNote": "Fig. 2c reports formate partial current density of 14.57 mA cm-2."
         },
         "fe-after-stability": {
-          "sourceLocation": "publisher full text · Results and discussion · Fig. 2d",
+          "sourceLocation": "publisher full text · Results and discussion · Fig. 2d; Supporting Information · Working electrode preparation; Electrochemical measurement",
           "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2022/ta/d2ta01727j",
           "reviewNote": "Fig. 2d reports 87.51% formate FE during the 10 h stability test at -1.06 V vs RHE.",
           "condition": {

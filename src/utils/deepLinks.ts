@@ -147,8 +147,8 @@ export const HASH_META = {
     description: "查看 EcoMOF-AI V2.4 到 V3.0 的规划、目标和风险边界。",
   },
   "database-compliance": {
-    title: "数据合规承诺 | EcoMOF-AI",
-    description: "逐库查看 EcoMOF-AI 的数据来源、许可、非商业边界、平台承诺、用户再利用责任与官方条款链接。",
+    title: "条款与政策 | EcoMOF-AI",
+    description: "查看 EcoMOF-AI 的非商业研究宪章、数据来源、许可边界、平台承诺、用户责任与官方条款链接。",
   },
   methodology: {
     title: "方法论 | EcoMOF-AI",

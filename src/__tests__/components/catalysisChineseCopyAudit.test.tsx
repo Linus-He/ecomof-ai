@@ -19,12 +19,13 @@ describe("catalysis Chinese copy audit", () => {
     render(<CatalysisLiteratureRecordCenter evidenceGraph={evidenceGraph} lang="zh" recordDataset={recordDataset} t={THEME_LIGHT} verificationDatabase={verificationDatabase} verificationTasks={verificationTasks} />)
     const center = screen.getByTestId("catalysis-literature-record-center")
     expect(center.textContent).not.toMatch(INTERNAL_COPY)
-    expect(center).toHaveTextContent("出版方摘要")
+    expect(center).toHaveTextContent("出版方全文")
+    expect(center).toHaveTextContent("补充材料")
     expect(center).toHaveTextContent("催化剂载量")
 
     fireEvent.click(screen.getByRole("tab", { name: "来源核验与使用范围" }))
     expect(center.textContent).not.toMatch(INTERNAL_COPY)
-    expect(center).toHaveTextContent("数值声明缺少图表或章节定位")
+    expect(center).toHaveTextContent("数值声明尚未精确定位到图表、章节或补充材料")
     expect(center).toHaveTextContent("获得论文元数据不等于取得全文数据的模型训练使用许可")
   })
 

@@ -17,7 +17,7 @@ describe("DataHostingNotice", () => {
       "href",
       "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
     )
-    expect(screen.getByRole("link", { name: "查看数据合规承诺" })).toHaveAttribute("href", "#database-compliance")
+    expect(screen.getByRole("link", { name: "查看条款与政策" })).toHaveAttribute("href", "#database-compliance")
   })
 
   it("is present at the three requested research entry points", () => {

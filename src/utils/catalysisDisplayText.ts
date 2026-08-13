@@ -36,6 +36,17 @@ const EXACT_ZH = {
   "electrolysis cell": "电解池",
   "flow cell": "流动电解池",
   "H-type cell": "H 型电解池",
+  "sealed two-compartment H-type cell": "密闭双室 H 型电解池",
+  "custom two-compartment H-cell": "定制双室 H 型电解池",
+  "custom three-compartment flow cell": "定制三室流动电解池",
+  "liquid-phase flow cell": "液相流动电解池",
+  "0.1 M KHCO3 in both catholyte and anolyte": "阴极液与阳极液均为 0.1 M KHCO₃",
+  "0.1 M KHCO3; 8 mL in each compartment": "0.1 M KHCO₃，每室 8 mL",
+  "0.5 M KHCO3; 40 mL in each compartment": "0.5 M KHCO₃，每室 40 mL",
+  "1 M KOH; 25 mL anolyte and 25 mL catholyte": "1 M KOH；阳极液与阴极液各 25 mL",
+  "liquid-phase products quantified by nuclear magnetic resonance": "液相产物采用核磁共振定量",
+  "liquid products by 1H NMR with DMSO reference; gas products by GC and Bruker Matrix MG5 FTIR": "液相产物采用 ¹H NMR 并以 DMSO 为参照定量；气相产物采用 GC 与 Bruker Matrix MG5 FTIR 分析",
+  "liquid products by 1H NMR; gas products by online gas chromatography": "液相产物采用 ¹H NMR 分析；气相产物采用在线气相色谱分析",
   "constant-potential": "恒电位",
   "constant-current": "恒电流",
   "high-current flow operation": "高电流流动电解",
@@ -53,6 +64,11 @@ const EXACT_ZH = {
   "gas flow rate": "气体流量",
   "flow-cell electrolyte": "流动电解池电解液",
   "product quantification protocol": "产物定量方法",
+  activeSiteNormalization: "活性位点归一化基准",
+  catalystLoading: "催化剂载量",
+  polarizationProtocol: "极化扫描方案",
+  potentialOrCurrent: "电位或电流",
+  productQuantification: "产物定量方法",
   "exact potential for each reported bound": "各范围端点对应的准确电位",
   "publisher abstract": "出版方摘要",
   "publisher abstract and full text": "出版方摘要与全文",
@@ -155,10 +171,12 @@ const EXACT_ZH = {
 }
 
 const COMPARISON_FIELDS_ZH = {
+  activeSiteNormalization: "活性位点归一化基准",
   catalystLoading: "催化剂载量",
   cellType: "电解池类型",
   duration: "反应时长",
   electrolyte: "电解液",
+  polarizationProtocol: "极化扫描方案",
   potentialOrCurrent: "电位或电流",
   productQuantification: "产物定量方法",
 }
@@ -168,6 +186,8 @@ const BLOCKERS_ZH = {
   "numeric-claims-lack-precise-source-location": "数值声明缺少图表或章节定位",
   "structure-identity-unresolved": "结构身份尚未解析",
   "training-license-not-cleared": "模型训练所需许可尚未确认",
+  "training-license-restricted": "许可已核验，但当前使用范围不允许进入通用训练集",
+  "comparison-not-applicable:material-characterization": "材料表征不适用反应性能比较",
 }
 
 export function localizeCatalysisText(value, zh = true) {
@@ -181,19 +201,41 @@ export function localizeCatalysisText(value, zh = true) {
   const missingComparison = text.match(/^Required comparison field ([A-Za-z]+) is missing\.$/)
   if (missingComparison) return `缺少同条件比较所需的${COMPARISON_FIELDS_ZH[missingComparison[1]] || missingComparison[1]}。`
 
+  const missingRunComparison = text.match(/^Required comparison field ([A-Za-z]+) is missing for experiment run .+\.$/)
+  if (missingRunComparison) return `该实验运行缺少同条件比较所需的${COMPARISON_FIELDS_ZH[missingRunComparison[1]] || missingRunComparison[1]}。`
+
   const chineseTaskField = text.match(/^补齐比较条件：([A-Za-z]+)$/)
   if (chineseTaskField) return `补齐比较条件：${COMPARISON_FIELDS_ZH[chineseTaskField[1]] || chineseTaskField[1]}`
+
+  const namedChineseTaskField = text.match(/^补齐“(.+)”的比较条件：([A-Za-z]+)$/)
+  if (namedChineseTaskField) return `补齐“${namedChineseTaskField[1]}”的比较条件：${COMPARISON_FIELDS_ZH[namedChineseTaskField[2]] || namedChineseTaskField[2]}`
 
   if (text.startsWith("publisher full text · ")) {
     return text
       .replace(/^publisher full text/, "出版方全文")
+      .replace(/Supporting Information/g, "补充材料")
       .replace("Electrocatalytic CO2 reduction", "电催化 CO₂ 还原")
       .replace("Electrochemical CO2 reduction", "电化学 CO₂ 还原")
       .replace("Electrochemical performance", "电化学性能")
+      .replace("Electrochemical study", "电化学测试")
       .replace("Electronic structure and conductivity", "电子结构与电导率")
       .replace("Results and discussion", "结果与讨论")
       .replace(/Fig\.\s*/g, "图 ")
       .replace(/Table\s*/g, "表 ")
+      .replace(/pp\.\s*/g, "第 ")
+  }
+
+  if (text.startsWith("Supporting Information · ")) {
+    return text
+      .replace(/^Supporting Information/, "补充材料")
+      .replace("Electrochemical study", "电化学测试")
+      .replace("Quantitative analysis of products in liquid and gas phase", "液相与气相产物定量分析")
+      .replace("Working electrode preparation", "工作电极制备")
+      .replace("Electrochemical measurement", "电化学测试")
+      .replace("product analysis", "产物分析")
+      .replace(/Fig\.\s*/g, "图 ")
+      .replace(/Table\s*/g, "表 ")
+      .replace(/pp\.\s*/g, "第 ")
   }
 
   if (text === "Metadata access does not establish permission to reuse full-text-derived claims for model training.") {

@@ -184,14 +184,14 @@ function AppShell({
   const chromeTheme = theme
   const moduleTone = ({
     home: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
-    ecoscreen: { accent: chromeTheme.success, soft: chromeTheme.badgeCalcBg },
+    ecoscreen: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     performance: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
-    gassep: { accent: chromeTheme.info, soft: chromeTheme.badgeInfoBg },
-    catalysis: { accent: chromeTheme.violet, soft: chromeTheme.badgeProxyBg },
-    library: { accent: chromeTheme.validationAccent, soft: chromeTheme.badgeUserBg },
-    about: { accent: chromeTheme.amber, soft: chromeTheme.badgeWarnBg },
-    projectEvolution: { accent: chromeTheme.rose, soft: chromeTheme.badgeWarnBg },
-    dataCompliance: { accent: chromeTheme.success, soft: chromeTheme.badgeCalcBg },
+    gassep: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    catalysis: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    library: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    about: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    projectEvolution: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    dataCompliance: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
   })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
@@ -575,7 +575,7 @@ function AppShell({
                         <p>{lang === "zh" ? "受欧盟及相关地区的数据保护与跨境传输要求、数据提供方许可和当前托管条件影响，相关数据暂未部署在中国大陆地区服务器。若数据无法加载，请切换至可访问相关境外数据源的合规网络环境。对此带来的不便，我们深表歉意。" : "European and other applicable data-protection and cross-border transfer requirements, provider licences, and current hosting conditions mean that the relevant data is not hosted on servers in mainland China. If it does not load, retry from a compliant network that can access the relevant overseas source. We apologize for the inconvenience."}</p>
                         <small>{lang === "zh" ? "注：GDPR 第五章适用于个人数据向第三国或国际组织的传输，并非对所有科研数据的地域禁令。" : "Note: GDPR Chapter V applies to transfers of personal data to third countries or international organizations; it is not a geographic ban on all research data."}</small>
                         <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer"><span>{lang === "zh" ? "GDPR 原始法律条文" : "Original GDPR text"}</span><ArrowSquareOut aria-hidden size={14} /></a>
-                        <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "数据合规承诺" : "Data compliance pledge"}</span><CaretRight aria-hidden size={14} /></button>
+                        <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "条款与政策" : "Terms & policies"}</span><CaretRight aria-hidden size={14} /></button>
                       </div>
                     ) : null}
                   </div>

@@ -28,20 +28,69 @@ function GateBadge({ enabled, children }) {
 function VerificationKpis({ summary, t, zh, isMobile }) {
   const rows = [
     [zh ? "可查阅记录" : "Browse eligible", summary.browseEligibleCount || 0],
+    [zh ? "实验运行" : "Experiment runs", summary.experimentRunCount || 0],
     [zh ? "已定位数值声明" : "Located claims", `${summary.claimLocatedCount || 0}/${summary.numericClaimCount || 0}`],
-    [zh ? "结构身份连接" : "Identity linked", summary.identityLinkedCount || 0],
-    [zh ? "可作同条件比较" : "Compare eligible", summary.compareEligibleCount || 0],
+    [zh ? "结构身份已解析" : "Identity resolved", summary.identityResolvedCount || 0],
+    [zh ? "条件完整运行" : "Condition-complete runs", summary.compareEligibleRunCount || 0],
+    [zh ? "含完整运行记录" : "Records with complete runs", summary.compareEligibleCount || 0],
     [zh ? "可用于模型训练" : "Training eligible", summary.trainingEligibleCount || 0],
     [zh ? "待核事项" : "Open tasks", summary.openTaskCount || 0],
   ]
   return (
-    <div data-testid="catalysis-verification-kpis" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `1px solid ${t.border}`, display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(6, minmax(0, 1fr))" }}>
+    <div data-testid="catalysis-verification-kpis" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `1px solid ${t.border}`, display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(8, minmax(0, 1fr))" }}>
       {rows.map(([label, value], index) => (
-        <div key={label} style={{ boxShadow: index % (isMobile ? 2 : 6) ? `-1px 0 0 ${t.border}` : "none", display: "grid", gap: 3, minWidth: 0, padding: "10px 9px" }}>
-          <strong style={{ color: index > 0 && index < 5 && (value === 0 || String(value).startsWith("0/")) ? t.warn : t.textStrong, fontSize: 20, fontVariantNumeric: "tabular-nums" }}>{value}</strong>
+        <div key={label} style={{ boxShadow: index % (isMobile ? 2 : 8) ? `-1px 0 0 ${t.border}` : "none", display: "grid", gap: 3, minWidth: 0, padding: "10px 9px" }}>
+          <strong style={{ color: index > 1 && index < 7 && (value === 0 || String(value).startsWith("0/")) ? t.warn : t.textStrong, fontSize: 20, fontVariantNumeric: "tabular-nums" }}>{value}</strong>
           <span style={{ color: t.muted, fontSize: 9.8, lineHeight: 1.35 }}>{label}</span>
         </div>
       ))}
+    </div>
+  )
+}
+
+function formatPotential(condition, zh) {
+  if (condition.potentialVsRheV != null) return `${condition.potentialVsRheV} V vs RHE`
+  if (condition.potentialVsRheVApprox != null) return `${zh ? "约 " : "~"}${condition.potentialVsRheVApprox} V vs RHE`
+  if (condition.appliedCurrentDensity != null) return `${condition.appliedCurrentDensity} ${condition.appliedCurrentDensityUnit || ""}`.trim()
+  return zh ? "未记录" : "Not recorded"
+}
+
+function ExperimentRunLedger({ runs, t, zh, isMobile }) {
+  return (
+    <div data-testid="catalysis-experiment-run-ledger" style={{ borderTop: `1px solid ${t.divider}`, display: "grid", minWidth: 0 }}>
+      <span style={{ color: t.subtle, fontSize: 9.5, fontWeight: 800, padding: "8px 10px 5px" }}>{zh ? "实验运行台账" : "Experiment run ledger"}</span>
+      {runs.map(run => {
+        const condition = run.condition || {}
+        const comparisonApplicable = run.decision.comparisonApplicable !== false
+        const comparisonStatus = comparisonApplicable
+          ? (run.decision.compareEligible ? (zh ? "比较字段完整" : "Comparison fields complete") : (zh ? "比较字段不完整" : "Comparison fields incomplete"))
+          : (zh ? "材料表征，不适用反应性能比较" : "Material characterization; reaction comparison not applicable")
+        const loading = condition.catalystLoading == null ? (zh ? "未记录" : "Not recorded") : `${condition.catalystLoading} ${condition.catalystLoadingUnit || ""}`.trim()
+        const loadingStatus = condition.catalystLoadingStatus === "calculated-from-source-preparation"
+          ? (zh ? "按电极制备步骤计算" : "Calculated from electrode preparation")
+          : (zh ? "文献报告" : "Source reported")
+        return (
+          <article key={run.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "minmax(130px, .8fr) minmax(190px, 1.3fr) minmax(190px, 1.3fr) auto", padding: "9px 10px" }}>
+            <div style={{ display: "grid", gap: 4 }}>
+              <strong style={{ color: t.textStrong, fontSize: 10.8 }}>{zh ? run.labelZh : run.labelEn}</strong>
+              <span style={{ color: run.decision.compareEligible ? t.success : comparisonApplicable ? t.warn : t.muted, fontSize: 9.5 }}>{comparisonStatus}</span>
+            </div>
+            <div style={{ color: t.muted, display: "grid", fontSize: 9.7, gap: 3, lineHeight: 1.4 }}>
+              <span>{formatPotential(condition, zh)} · {condition.durationH ?? (zh ? "未记录" : "n/a")} h</span>
+              <span>{localizeCatalysisText(condition.cellType, zh) || (zh ? "电解池未记录" : "Cell not recorded")}</span>
+              <span>{localizeCatalysisText(condition.electrolyte, zh) || (zh ? "电解液未记录" : "Electrolyte not recorded")}</span>
+            </div>
+            <div style={{ color: t.muted, display: "grid", fontSize: 9.7, gap: 3, lineHeight: 1.4 }}>
+              <span>{zh ? "负载" : "Loading"}: {loading} · {loadingStatus}</span>
+              <span>{localizeCatalysisText(condition.productQuantification, zh) || (zh ? "定量方法未记录" : "Quantification not recorded")}</span>
+              {condition.catalystLoadingCalculation ? <span>{condition.catalystLoadingCalculation}</span> : null}
+            </div>
+            <div style={{ alignContent: "start", display: "flex", flexWrap: "wrap", gap: 4 }}>
+              {run.claims.map(claim => <BasisBadge key={claim.id} tone={claim.verificationLevel === "L4-claim-located" ? "calc" : "warn"}>{localizeCatalysisText(String(claim.metric || "metric"), zh).replaceAll("_", " ")}</BasisBadge>)}
+            </div>
+          </article>
+        )
+      })}
     </div>
   )
 }
@@ -57,7 +106,7 @@ function GateMatrix({ rows, t, zh }) {
               <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 10.5, fontWeight: 800, padding: "8px 7px" }}>{localizeCatalysisText(row.catalyst, zh)}</td>
               <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "8px 7px" }}><a href={row.document.doiUrl} rel="noreferrer" target="_blank" style={{ color: t.accentText, fontSize: 10, textDecoration: "none" }}>{row.document.doi}</a></td>
               <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 10, padding: "8px 7px" }}>{row.claims.filter(claim => claim.value != null && claim.verificationLevel === "L4-claim-located").length}/{row.claims.filter(claim => claim.value != null).length}{zh ? " 条" : " L4"}</td>
-              <td style={{ borderBottom: `1px solid ${t.divider}`, color: row.canonicalId ? t.success : t.warn, fontSize: 10, padding: "8px 7px" }}>{row.canonicalId || (zh ? "未解析" : "Unresolved")}</td>
+              <td style={{ borderBottom: `1px solid ${t.divider}`, color: row.canonicalId || row.exactStructureIdentifier ? t.success : t.warn, fontSize: 10, padding: "8px 7px" }}>{row.canonicalId || row.exactStructureIdentifier || (zh ? "未解析" : "Unresolved")}</td>
               {["browseEligible", "compareEligible", "trainingEligible", "recommendationEligible"].map(field => <td key={field} style={{ borderBottom: `1px solid ${t.divider}`, padding: "8px 7px" }}>{row.decision[field] ? <CheckCircle aria-label="pass" color={t.success} size={16} weight="fill" /> : <ShieldWarning aria-label="blocked" color={t.warn} size={16} weight="fill" />}</td>)}
               <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 9.6, lineHeight: 1.4, maxWidth: 230, padding: "8px 7px" }}>{(row.decision.blockers || []).slice(0, 3).map(blocker => localizeCatalysisBlocker(blocker, zh)).join(" · ")}</td>
             </tr>
@@ -87,8 +136,8 @@ function EvidenceTrace({ rows, t, zh, isMobile }) {
     {
       label: zh ? "催化剂状态" : "Catalyst state",
       value: localizeCatalysisText(selected.catalyst, zh),
-      status: selected.canonicalId || (zh ? "结构身份未解析" : "Structure unresolved"),
-      pass: Boolean(selected.canonicalId),
+      status: selected.canonicalId || selected.exactStructureIdentifier || (zh ? "结构身份未解析" : "Structure unresolved"),
+      pass: Boolean(selected.canonicalId || selected.exactStructureIdentifier),
     },
     {
       label: zh ? "反应记录" : "Reaction record",
@@ -131,6 +180,7 @@ function EvidenceTrace({ rows, t, zh, isMobile }) {
           </div>
         ))}
       </div>
+      <ExperimentRunLedger runs={selected.experimentRuns || []} t={t} zh={zh} isMobile={isMobile} />
       <div data-testid="catalysis-l4-claim-ledger" style={{ borderTop: `1px solid ${t.divider}`, display: "grid" }}>
         <span style={{ color: t.subtle, fontSize: 9.5, fontWeight: 800, padding: "8px 10px 5px" }}>{zh ? "已精确定位的声明" : "Precisely located claims"}</span>
         {locatedClaims.length ? locatedClaims.map(claim => {

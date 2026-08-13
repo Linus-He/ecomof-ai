@@ -50,7 +50,7 @@ describe("home module capabilities", () => {
     const quickStart = screen.getByTestId("home-quick-start-buttons")
     expect(within(quickStart).getByText("气体分离")).toBeInTheDocument()
     expect(within(quickStart).getByText("生态筛选")).toBeInTheDocument()
-    expect(within(quickStart).getByText("数据合规承诺")).toBeInTheDocument()
+    expect(within(quickStart).getByText("条款与政策")).toBeInTheDocument()
     expect(within(quickStart).getByText("联系我们")).toBeInTheDocument()
   })
 })

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalysis-identity-bridge-v2",
-  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "generatedAt": "2026-08-13T00:00:00.000Z",
   "registryVersion": "mof-identity-registry-v2.1",
   "registryRecordCount": 3626,
   "links": [
@@ -16,7 +16,19 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": {
+        "material": "MFM-220",
+        "identifierType": "CCDC",
+        "identifier": "899427",
+        "status": "publisher-supporting-information-verified",
+        "sourceUrl": "https://www.rsc.org/suppdata/d2/ta/d2ta04485d/d2ta04485d1.pdf",
+        "sourceLocation": "Supporting Information · Crystallographic section · CCDC deposition statement",
+        "activeMaterialBoundary": "CCDC 899427 identifies precursor MFM-220 only; it must not be assigned to potential-evolved MFM-220-p."
+      }
     },
     {
       "id": "identity-link-catrxn-v2-tal33-derived-bi-formate-2022",
@@ -30,7 +42,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-bicc17-nanosheets-formate-2021",
@@ -44,7 +60,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-cau17-leafy-bi-formate-2020",
@@ -58,7 +78,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-bibtb-restructured-bi-formate-2020",
@@ -72,7 +96,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-zr-dmbd-bi-np-formate-2025",
@@ -86,13 +114,17 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-bi-hhtp-formate-2023",
       "catalystStateId": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
       "canonicalId": null,
-      "status": "unresolved",
+      "status": "publisher-structure-identifier-verified",
       "candidateCanonicalIds": [],
       "acceptedIdentifiers": [
         "CSD Refcode",
@@ -100,7 +132,19 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": null,
+      "registryJoinStatus": "exact-external-identifier-not-in-local-registry",
+      "registryJoinReason": "The publisher CCDC identifier resolves the active material, but no matching record is present in the current local MOF identity registry.",
+      "activeMaterialIdentity": {
+        "material": "Bi-HHTP",
+        "identifierType": "CCDC",
+        "identifier": "2242230",
+        "status": "publisher-crystallographic-identifier-verified",
+        "sourceUrl": "https://pubs.rsc.org/en/content/articlehtml/2023/sc/d3sc01876h",
+        "sourceLocation": "publisher full text · ESI and crystallographic data footnote",
+        "activeMaterialBoundary": "CCDC 2242230 identifies the reported Bi-HHTP crystal structure; catalytic active-site interpretation remains separately gated by operando and post-reaction evidence."
+      },
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-su101-formate-2022",
@@ -114,7 +158,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-cubi-derived-formate-2021",
@@ -128,7 +176,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     },
     {
       "id": "identity-link-catrxn-v2-2d-bi-mof-formate-2020",
@@ -142,7 +194,11 @@
         "canonicalId",
         "provenance-matched curated alias"
       ],
-      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields."
+      "rejectionReason": "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+      "registryJoinStatus": "unresolved",
+      "registryJoinReason": null,
+      "activeMaterialIdentity": null,
+      "precursorIdentity": null
     }
   ]
 }

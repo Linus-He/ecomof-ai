@@ -34,7 +34,7 @@ export function DataHostingNotice({ lang = "zh", placement = "workspace" }) {
             {zh ? "欧盟 GDPR 原始法律文本" : "Original EU GDPR text"}
           </a>
           <a href="#database-compliance">
-            {zh ? "查看数据合规承诺" : "View Data Responsibility"}
+            {zh ? "查看条款与政策" : "View terms and policies"}
           </a>
         </div>
       </div>

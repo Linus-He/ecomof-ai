@@ -46,7 +46,7 @@ describe("MofDescriptor3DScatter", () => {
     const { rerender } = render(<MofDescriptor3DScatter t={THEME_LIGHT} lang="zh" isMobile={false} />)
     const lightCard = screen.getByTestId("home-3d-scatter")
     expect(lightCard.getAttribute("data-color-scheme")).toBe("light")
-    expect(lightCard.style.getPropertyValue("--descriptor-panel")).toBe("#fcfbf7")
+    expect(lightCard.style.getPropertyValue("--descriptor-panel")).toBe("#ffffff")
 
     rerender(<MofDescriptor3DScatter t={THEME_DARK} lang="zh" isMobile={false} />)
     const darkCard = screen.getByTestId("home-3d-scatter")

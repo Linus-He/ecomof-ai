@@ -688,8 +688,8 @@ export function ScientificDiscoveryMap({
       data-expansion-phase={expansionPhase}
       data-reduced-motion={reducedMotion ? "true" : "false"}
       style={{
-        "--map-bg": t?.bg || "#f0eee6",
-        "--map-surface": t?.panel || "#f7f5ef",
+        "--map-bg": t?.bg || "#ffffff",
+        "--map-surface": t?.panel || "#ffffff",
         "--map-text": t?.textStrong || "#141413",
         "--map-muted": t?.muted || "#73726c",
         "--map-faint": t?.faint || "#9c9a92",

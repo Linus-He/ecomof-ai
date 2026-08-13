@@ -1,3 +1,66 @@
+# Design QA: White Canvas, Unified Accent, Terms Charter, And Catalysis Tabs
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_RLvYhA/截屏2026-08-13 11.49.52.png` (`1892 x 220`), plus the user's explicit white-canvas and reduced-color direction.
+- Directional references: `https://openai.com/` for the neutral white canvas and `https://openai.com/charter/` for the charter's principle-led information structure. These are directional references rather than a pixel-clone target.
+- Browser-rendered implementation: `http://127.0.0.1:4182/ecomof-ai/#database-compliance` and `http://127.0.0.1:4182/ecomof-ai/#catalysis`.
+- Implementation evidence: `outputs/design-qa-2026-08-13-white-policy/terms-policy-desktop-final.png`, `outputs/design-qa-2026-08-13-white-policy/catalysis-page-final.png`, and `outputs/design-qa-2026-08-13-white-policy/catalysis-tabs-final.png`.
+- Same-input comparison: `outputs/design-qa-2026-08-13-white-policy/reference-implementation-comparison.png`.
+
+## Viewport, State, And Normalization
+
+- Browser CSS viewport: `1280 x 720`, device pixel ratio `2`; screenshots are browser-normalized PNG output.
+- Source tab crop: `1892 x 220`. The combined comparison contains the source crop above a contain-scaled implementation capture so width, silhouette, centering, active state, and page-density context can be judged together without claiming pixel identity.
+- Terms state: Chinese, light theme, `#database-compliance`, page transition settled.
+- Catalysis state: Chinese, light theme, `#catalysis`, reaction-record workbench visible and first tab selected.
+- Console errors checked: `0`. Document horizontal overflow: `0`.
+
+## Full-View And Focused Comparison
+
+- The light canvas is measured `#ffffff` across the page and footer. White glass layers, hairline borders, restrained shadows, and neutral `#f5f5f5` support surfaces now provide depth without the previous beige cast.
+- The catalysis record selector contracts from the source's very long empty rail to a centered `586 x 48` content-sized capsule. Its four buttons are equal `142px` segments; the rail uses a continuous `1280px` radius and `blur(22px) saturate(1.55)`.
+- The active segment uses the same coral brand family as top-level navigation. Workspace-specific green, teal, violet, rose, and amber UI accents have been collapsed into that brand family; multicolor data encodings inside charts remain exempt.
+- The renamed `条款与政策` page retains its existing editorial layout and adds `EcoMOF-AI 宪章` as a long-form section. The footer repeats the renamed destination, links the charter and non-commercial statement to it, and remains white.
+
+## Required Fidelity Surfaces
+
+- Fonts and typography: existing `Inter / PingFang SC / Noto Sans SC` UI stack and editorial display hierarchy are retained. The terms cover uses a large low-weight title; the catalysis tab keeps compact single-line labels with equal optical weight.
+- Spacing and layout rhythm: the terms cover keeps generous white space. The catalysis tab is content-sized, centered, and free of the source rail's unused lateral mass. Footer grid, reading widths, and responsive structure are unchanged.
+- Colors and visual tokens: base layers are white, neutral support layers are grey, and interactive accents resolve to coral. Success and danger remain available only for genuine semantic state. Chart palettes and scientific visualization color encodings remain unchanged.
+- Image quality and asset fidelity: existing logos, scientific hero media, and icon-library assets are unchanged. No visible source asset was replaced with a CSS drawing, custom SVG, glyph, or placeholder.
+- Copy and content: all current UI references now say `条款与政策`; the charter explicitly commits to non-commercial research and education use, scientific honesty, traceability, careful release, correction, and reauthorization if operating boundaries change. Historical release-log wording remains historical evidence and is intentionally unchanged.
+
+## Findings
+
+- No actionable P0, P1, or P2 findings remain.
+- Accepted adaptation: the compact catalysis tab is intentionally narrower than the supplied source because the request was to adjust the over-wide rail; button order, icons, selected state, glass treatment, and center alignment are preserved.
+- Accepted exception: success/error semantics and data visualizations may retain distinct colors; ordinary navigation, badges, and decorative UI no longer use module-specific rainbow accents.
+
+## Comparison History
+
+### Iteration 1
+
+- Earlier P1: beige base tokens reduced contrast between the canvas and translucent glass surfaces. Fixed by moving the complete light canvas, panels, cards, charts, header glass, and footer to white/neutral tokens.
+- Earlier P2: the catalysis rail retained a wide minimum width and excessive empty space. Fixed with intrinsic content sizing and equal `142px` segments; post-fix browser measurement is `586 x 48` with no overflow.
+
+### Iteration 2
+
+- Earlier P2: after the first white-canvas pass, the policy page still exposed a Google-blue local accent and the overall UI retained multiple module accent families. Fixed by remapping ordinary UI accents and badge families to the single coral brand family and converting the policy-local blue/teal tokens and response block to the same accent.
+- Post-fix evidence: `terms-policy-desktop-final.png`, `catalysis-page-final.png`, and `reference-implementation-comparison.png`. Recomparison found no remaining P0/P1/P2 issue.
+
+## Verification
+
+- Focused visual and contract regression: `5/5` files and `24/24` tests passed after the footer and palette additions; the broader focused run passed `10/10` files and `40/40` tests.
+- TypeScript: passed.
+- Production build: passed; existing 3Dmol `eval` and large-chunk warnings remain non-blocking.
+- `git diff --check`: passed.
+- `visual:check`: static-dist browserless fallback passed because the sandbox denied its preview ports; the successful in-app Browser screenshots, measurements, interaction states, zero-overflow check, and zero-console-error check above are the visual evidence.
+
+final result: passed
+
+---
+
 # Design QA: Global Theme, Context Bar, and Liquid Navigation
 
 ## Addendum: Glass Control Groups And Title-First Layout (2026-08-12)

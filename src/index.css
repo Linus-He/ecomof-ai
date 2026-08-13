@@ -19,21 +19,21 @@ html {
 /* Global visual contract. Keep these values synchronized with constants/theme.ts. */
 :root {
   color-scheme: light;
-  --app-bg: #f0eee6;
-  --app-panel: #f7f5ef;
-  --app-surface: #e8e5dc;
-  --app-card: #fbfaf6;
-  --app-chart: #fcfbf7;
-  --app-text: #33322f;
-  --app-text-strong: #171714;
-  --app-muted: #625f59;
-  --app-border: #d1cfc5;
-  --app-divider: #dedbd2;
+  --app-bg: #ffffff;
+  --app-panel: #ffffff;
+  --app-surface: #f5f5f5;
+  --app-card: #ffffff;
+  --app-chart: #ffffff;
+  --app-text: #323230;
+  --app-text-strong: #111110;
+  --app-muted: #5f5f5b;
+  --app-border: #dededb;
+  --app-divider: #e8e8e5;
   --app-accent: #c6613f;
   --app-accent-strong: #a9472b;
   --app-success: #5f7a4b;
-  --app-info: #3f7c83;
-  --app-violet: #7c6b99;
+  --app-info: #c6613f;
+  --app-violet: #c6613f;
   --app-danger: #b94a42;
   --font-body: Inter, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: "Iowan Old Style", Baskerville, "Songti SC", STSong, "Noto Serif SC", SimSun, "Times New Roman", serif;
@@ -55,8 +55,8 @@ html {
   --app-accent: #e17b59;
   --app-accent-strong: #f08b67;
   --app-success: #91a778;
-  --app-info: #6da7ad;
-  --app-violet: #a392bd;
+  --app-info: #e17b59;
+  --app-violet: #e17b59;
   --app-danger: #e06f68;
 }
 
@@ -1293,7 +1293,17 @@ button:disabled {
 }
 
 .reaction-record-tabs {
-  min-width: min(100%, 760px);
+  min-width: 0;
+  width: min(100%, max-content);
+}
+
+.reaction-record-tabs > .glass-segmented-item {
+  min-width: 142px;
+}
+
+.reaction-record-tabs > .glass-segmented-item[data-active="true"] {
+  background: rgba(255, 255, 255, 0.86) !important;
+  border-color: color-mix(in srgb, var(--module-accent) 58%, rgba(255, 255, 255, 0.72)) !important;
 }
 
 
@@ -2660,7 +2670,7 @@ details[open].motion-surface {
 }
 
 .home-map-node img {
-  background: #f0eee6;
+  background: var(--app-bg);
 }
 
 .home-map-intro {
@@ -2966,7 +2976,7 @@ details[open].motion-surface {
 .home-map-inspector-backdrop {
   align-items: center;
   animation: home-map-backdrop-in 300ms ease both;
-  background: rgb(240 238 230 / 72%);
+  background: rgb(255 255 255 / 72%);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -2977,7 +2987,7 @@ details[open].motion-surface {
 
 .home-map-inspector {
   animation: home-map-inspector-in 500ms cubic-bezier(0.215, 0.61, 0.355, 1) both;
-  background: #f0eee6;
+  background: var(--app-bg);
   border: 1px solid var(--map-border);
   border-radius: 8px;
   box-shadow: 0 18px 44px rgb(20 20 19 / 14%);
@@ -3110,7 +3120,7 @@ details[open].motion-surface {
 
 .home-map-expansion {
   --branch-color: #d97757;
-  background: #f0eee6;
+  background: var(--app-bg);
   border: 1px solid color-mix(in srgb, var(--branch-color) 72%, var(--map-border));
   border-radius: 5px;
   box-shadow: 0 22px 52px rgb(20 20 19 / 14%);
@@ -3290,7 +3300,7 @@ details[open].motion-surface {
 }
 
 .home-map-branch-art {
-  background: #f0eee6;
+  background: var(--app-bg);
   border-right: 1px solid var(--map-border);
   min-height: 0;
   overflow: hidden;
@@ -6962,6 +6972,7 @@ button,
 
 .app-footer {
   background: var(--app-bg);
+  border-top: 1px solid var(--app-divider);
   color: var(--app-text-strong);
   clip-path: inset(6% 0 0 0);
   margin-top: 0;

@@ -29,7 +29,7 @@ const routes = [
     "CoRE MOF 2024 CR",
     "FAIR-MOFs",
     "高过拟合风险",
-    "数据合规承诺",
+    "条款与政策",
     "MOF库",
     "联系我们",
   ]],
@@ -40,6 +40,9 @@ const routes = [
     "补充工具：旧版描述符评分",
   ]],
   ["database-compliance", "#database-compliance", [
+    "条款与政策",
+    "EcoMOF-AI 宪章",
+    "坚持非商业性质",
     "数据使用、许可与责任",
     "适用条款与使用前核查",
     "CCDC 与 CSD 数据边界",

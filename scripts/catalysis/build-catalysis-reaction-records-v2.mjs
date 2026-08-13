@@ -1,9 +1,11 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import {
+  aggregateEligibilityDecision,
   buildConditionSet,
   buildEligibilityDecision,
   buildVerificationTasks,
+  hasExactCatalystIdentity,
   normalizeDoi,
   stableHash,
   verificationLevelForEvidence,
@@ -39,11 +41,13 @@ const sourceDocuments = []
 const documentVerifications = []
 const reactionRecords = []
 const catalystStates = []
+const experimentRuns = []
 const conditionSets = []
 const metricClaims = []
 const evidenceItems = []
 const identityLinks = []
 const eligibilityDecisions = []
+const runEligibilityDecisions = []
 const verificationTasks = []
 const graphNodes = []
 const graphEdges = []
@@ -71,8 +75,11 @@ for (const source of v1.sources || []) {
       metadataReuseAllowed: true,
       fullTextReuseStatus: cache?.license?.fullTextReuseStatus || "not-established",
       trainingUseAllowed: cache?.license?.trainingUseAllowed === true,
+      ...(curationOverrides.sources?.[doi]?.license || {}),
     },
+    licenseEvidence: curationOverrides.sources?.[doi]?.licenseEvidence || null,
   }
+  if (curationOverrides.sources?.[doi]?.fullTextAccess) sourceDocument.fullTextAccess = curationOverrides.sources[doi].fullTextAccess
   sourceDocuments.push(sourceDocument)
   graphNodes.push({ id: sourceDocument.id, type: "source-document", label: source.title, doi: sourceDocument.doi, status: sourceDocument.metadataVerification })
   documentVerifications.push({
@@ -105,6 +112,7 @@ for (const legacy of v1.records || []) {
   const normalizedName = catalystName.toLowerCase().replace(/[^a-z0-9]+/g, "")
   const candidates = identityByAlias.get(normalizedName) || []
   const exactCandidate = candidates.length === 1 && (candidates[0].links?.structural || []).length > 0 ? candidates[0] : null
+  const activeMaterialIdentity = recordOverride.activeMaterialIdentity || null
   const catalystState = {
     id: `catalyst-state-${reactionRecordId}`,
     reactionRecordId,
@@ -116,11 +124,14 @@ for (const legacy of v1.records || []) {
     stateType: legacy.identity?.identityLink?.status === "derived-material-only" ? "mof-derived-material" : "reported-catalyst",
     activePhaseStatus: (legacy.activePhaseEvidence?.inSitu || []).length && (legacy.activePhaseEvidence?.postReaction || []).length ? "evidence-supported-unresolved" : "unresolved",
     identityLink: {
-      status: exactCandidate ? "linked-to-mof-identity-registry" : "unresolved",
+      status: activeMaterialIdentity ? "publisher-structure-identifier-verified" : exactCandidate ? "linked-to-mof-identity-registry" : "unresolved",
       canonicalId: exactCandidate?.canonicalId || null,
-      method: exactCandidate ? "exact-alias-plus-structural-record" : "no-safe-automatic-match",
+      exactStructureIdentifier: activeMaterialIdentity ? `${activeMaterialIdentity.identifierType}:${activeMaterialIdentity.identifier}` : null,
+      method: activeMaterialIdentity ? "publisher-crystallographic-identifier" : exactCandidate ? "exact-alias-plus-structural-record" : "no-safe-automatic-match",
       candidateCanonicalIds: candidates.map(candidate => candidate.canonicalId),
     },
+    activeMaterialIdentity,
+    precursorIdentity: recordOverride.precursorIdentity || null,
   }
   catalystStates.push(catalystState)
   graphNodes.push({ id: catalystState.id, type: "catalyst-state", label: catalystState.catalystName, status: catalystState.identityLink.status })
@@ -132,15 +143,71 @@ for (const legacy of v1.records || []) {
     status: catalystState.identityLink.status,
     candidateCanonicalIds: catalystState.identityLink.candidateCanonicalIds,
     acceptedIdentifiers: ["CSD Refcode", "CCDC identifier", "canonicalId", "provenance-matched curated alias"],
-    rejectionReason: exactCandidate ? null : "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+    rejectionReason: hasExactCatalystIdentity(catalystState) ? null : "No exact structure identifier or uniquely provenance-matched registry alias was present in the curated source fields.",
+    registryJoinStatus: catalystState.identityLink.canonicalId ? "linked-to-local-mof-identity-registry" : activeMaterialIdentity ? "exact-external-identifier-not-in-local-registry" : "unresolved",
+    registryJoinReason: activeMaterialIdentity && !catalystState.identityLink.canonicalId ? "The publisher CCDC identifier resolves the active material, but no matching record is present in the current local MOF identity registry." : null,
+    activeMaterialIdentity: catalystState.activeMaterialIdentity,
+    precursorIdentity: catalystState.precursorIdentity,
   })
-  const conditionSet = buildConditionSet(normalizedLegacy)
-  conditionSets.push(conditionSet)
+  const baseMetrics = (legacy.performanceMetrics || []).map(metric => {
+    const metricOverride = recordOverride.metricOverrides?.[metric.id] || {}
+    return {
+      ...metric,
+      ...metricOverride,
+      condition: { ...(metric.condition || {}), ...(metricOverride.condition || {}) },
+    }
+  })
+  const allMetrics = [...baseMetrics, ...(recordOverride.additionalClaims || [])]
+  const runDefinitions = recordOverride.experimentRuns?.length
+    ? recordOverride.experimentRuns
+    : [{ id: "reported-run", labelZh: "文献记录运行", labelEn: "Literature record run", purpose: "reported-performance", claimIds: allMetrics.map(metric => metric.id) }]
+  const runByClaimId = new Map()
+  const recordRuns = runDefinitions.map(run => {
+    const experimentRunId = `run-${reactionRecordId}-${run.id}`
+    const runMetrics = allMetrics.filter(metric => run.claimIds.includes(metric.id))
+    for (const metric of runMetrics) {
+      if (runByClaimId.has(metric.id)) throw new Error(`${legacy.id}: claim ${metric.id} is assigned to more than one experiment run`)
+      runByClaimId.set(metric.id, experimentRunId)
+    }
+    const inheritedConditions = run.inheritRecordConditions === false ? {} : normalizedLegacy.conditions
+    const conditionSet = buildConditionSet({
+      ...normalizedLegacy,
+      conditions: { ...(inheritedConditions || {}), ...(run.conditions || {}) },
+      performanceMetrics: runMetrics,
+    }, {
+      id: `condition-${experimentRunId}`,
+      reactionRecordId,
+      experimentRunId,
+      comparisonScope: run.comparisonScope,
+      metrics: runMetrics,
+      fallbackToMetricConditions: !recordOverride.experimentRuns?.length,
+    })
+    conditionSets.push(conditionSet)
+    const experimentRun = {
+      id: experimentRunId,
+      reactionRecordId,
+      conditionSetId: conditionSet.id,
+      labelZh: run.labelZh,
+      labelEn: run.labelEn,
+      purpose: run.purpose,
+      comparisonScope: run.comparisonScope || "reaction-performance",
+      metricClaimIds: runMetrics.map(metric => `claim-${reactionRecordId}-${metric.id}`),
+      provenanceStatus: run.provenanceStatus || "source-reported",
+      sourceLocations: run.sourceLocations || conditionSet.sourceLocations,
+    }
+    experimentRuns.push(experimentRun)
+    graphNodes.push({ id: experimentRun.id, type: "experiment-run", label: experimentRun.labelZh, status: experimentRun.provenanceStatus })
+    graphEdges.push({ id: `edge-${reactionRecordId}-${experimentRun.id}`, source: reactionRecordId, target: experimentRun.id, type: "has-experiment-run" })
+    return experimentRun
+  })
+  const unassignedMetricIds = allMetrics.filter(metric => !runByClaimId.has(metric.id)).map(metric => metric.id)
+  if (unassignedMetricIds.length) throw new Error(`${legacy.id}: claims lack an experiment run: ${unassignedMetricIds.join(", ")}`)
   reactionRecords.push({
     id: reactionRecordId,
     sourceDocumentId: sourceDocument.id,
     catalystStateId: catalystState.id,
-    conditionSetId: conditionSet.id,
+    conditionSetId: recordRuns[0].conditionSetId,
+    experimentRunIds: recordRuns.map(run => run.id),
     recordType: legacy.recordType,
     reaction: legacy.reaction,
     dataMode: "literature-curated-v2",
@@ -150,9 +217,11 @@ for (const legacy of v1.records || []) {
   })
   graphNodes.push({ id: reactionRecordId, type: "reaction-record", label: `${legacy.reaction?.substrate || "reaction"} -> ${legacy.reaction?.targetProduct || "product"}`, status: "literature-curated" })
   graphEdges.push({ id: `edge-${catalystState.id}-${reactionRecordId}`, source: catalystState.id, target: reactionRecordId, type: "participates-in" })
-  const claims = (legacy.performanceMetrics || []).map(metric => {
+  const claims = allMetrics.map(metric => {
     const evidenceOverride = recordOverride.claimEvidence?.[metric.id] || {}
     const sourceLocation = evidenceOverride.sourceLocation || metric.sourceLocation
+    const experimentRunId = runByClaimId.get(metric.id)
+    const experimentRun = recordRuns.find(run => run.id === experimentRunId)
     const evidenceId = `evidence-${reactionRecordId}-${metric.id}`
     const level = metric.value == null ? "not-extracted" : verificationLevelForEvidence(sourceLocation)
     evidenceItems.push({
@@ -169,14 +238,15 @@ for (const legacy of v1.records || []) {
       table: (sourceLocation || "").match(/table\s*([a-z0-9-]+)/i)?.[1] || null,
       extractionMethod: evidenceOverride.sourceLocation ? "manual-publisher-fulltext-review" : "manual-v1-curation",
       reviewStatus: level === "L4-claim-located" ? "verified" : metric.value == null ? "not-extracted" : "location-backfill-required",
-      checkedAt: legacy.recordProvenance?.checkedAt || v1.updatedAt,
+      checkedAt: evidenceOverride.sourceLocation ? curationOverrides.updatedAt : legacy.recordProvenance?.checkedAt || v1.updatedAt,
       reviewNote: evidenceOverride.reviewNote || null,
     })
     return {
       id: `claim-${reactionRecordId}-${metric.id}`,
       reactionRecordId,
       sourceDocumentId: sourceDocument.id,
-      conditionSetId: conditionSet.id,
+      experimentRunId,
+      conditionSetId: experimentRun.conditionSetId,
       evidenceItemIds: [evidenceId],
       metric: metric.metric,
       product: metric.product,
@@ -185,6 +255,7 @@ for (const legacy of v1.records || []) {
       uncertainty: metric.uncertainty ?? null,
       unit: metric.unit,
       sourceReportedStatus: metric.status,
+      valueBasis: metric.valueBasis || null,
       verificationLevel: level,
       condition: { ...(metric.condition || {}), ...(evidenceOverride.condition || {}) },
     }
@@ -193,11 +264,19 @@ for (const legacy of v1.records || []) {
   for (const claim of claims) {
     graphNodes.push({ id: claim.id, type: "metric-claim", label: `${claim.metric}: ${claim.value ?? "not-extracted"} ${claim.unit || ""}`.trim(), status: claim.verificationLevel })
     graphEdges.push({ id: `edge-${reactionRecordId}-${claim.id}`, source: reactionRecordId, target: claim.id, type: "has-claim" })
+    graphEdges.push({ id: `edge-${claim.experimentRunId}-${claim.id}`, source: claim.experimentRunId, target: claim.id, type: "reports-claim" })
     for (const evidenceId of claim.evidenceItemIds) graphEdges.push({ id: `edge-${claim.id}-${evidenceId}`, source: claim.id, target: evidenceId, type: "supported-by" })
   }
-  const eligibility = buildEligibilityDecision({ sourceDocument, conditionSet, claims, catalystState })
+  const recordConditionSets = recordRuns.map(run => conditionSets.find(condition => condition.id === run.conditionSetId))
+  const recordRunDecisions = recordRuns.map(run => {
+    const conditionSet = recordConditionSets.find(condition => condition.id === run.conditionSetId)
+    const runClaims = claims.filter(claim => claim.experimentRunId === run.id)
+    return buildEligibilityDecision({ sourceDocument, conditionSet, claims: runClaims, catalystState, experimentRunId: run.id })
+  })
+  runEligibilityDecisions.push(...recordRunDecisions)
+  const eligibility = aggregateEligibilityDecision({ sourceDocument, reactionRecordId, catalystState, runDecisions: recordRunDecisions })
   eligibilityDecisions.push(eligibility)
-  verificationTasks.push(...buildVerificationTasks({ sourceDocument, conditionSet, claims, catalystState, eligibility }))
+  verificationTasks.push(...buildVerificationTasks({ sourceDocument, conditionSets: recordConditionSets, experimentRuns: recordRuns, claims, catalystState, eligibility }))
 }
 
 const tables = {
@@ -205,15 +284,18 @@ const tables = {
   documentVerifications,
   reactionRecords,
   catalystStates,
+  experimentRuns,
   conditionSets,
   metricClaims,
   evidenceItems,
   identityLinks,
   eligibilityDecisions,
+  runEligibilityDecisions,
   verificationTasks,
   curationEvents: [
     { id: "event-v2-initial-migration", type: "migration", at: v1.updatedAt, actor: "build-catalysis-reaction-records-v2", summary: "Migrated the DOI-verified V1 seed into normalized V2 entities without promoting unresolved claims or identities." },
     { id: "event-v2-claim-location-review", type: "manual-evidence-review", at: curationOverrides.updatedAt, actor: "curated-publisher-fulltext-review", summary: "Applied only explicit publisher full-text figure, table, section, and supporting-information locations from the tracked curation override layer.", source: path.relative(root, overridesPath) },
+    { id: "event-v2-experiment-run-normalization", type: "schema-normalization", at: curationOverrides.updatedAt, actor: "build-catalysis-reaction-records-v2", summary: "Separated performance, stability, TOF, polarization, and material-characterization runs; each run uses its applicable comparison fields, while source-reported and preparation-derived conditions remain distinguishable.", source: path.relative(root, overridesPath) },
   ],
 }
 
@@ -221,13 +303,16 @@ const summary = {
   sourceDocumentCount: sourceDocuments.length,
   reactionRecordCount: reactionRecords.length,
   catalystStateCount: catalystStates.length,
+  experimentRunCount: experimentRuns.length,
   metricClaimCount: metricClaims.length,
   numericClaimCount: metricClaims.filter(claim => claim.value != null).length,
   claimLocatedCount: metricClaims.filter(claim => claim.verificationLevel === "L4-claim-located").length,
   abstractOnlyClaimCount: metricClaims.filter(claim => claim.verificationLevel === "L2-abstract-only").length,
+  identityResolvedCount: catalystStates.filter(hasExactCatalystIdentity).length,
   identityLinkedCount: catalystStates.filter(state => state.identityLink.canonicalId).length,
   browseEligibleCount: eligibilityDecisions.filter(row => row.browseEligible).length,
   compareEligibleCount: eligibilityDecisions.filter(row => row.compareEligible).length,
+  compareEligibleRunCount: runEligibilityDecisions.filter(row => row.compareEligible).length,
   trainingEligibleCount: eligibilityDecisions.filter(row => row.trainingEligible).length,
   recommendationEligibleCount: eligibilityDecisions.filter(row => row.recommendationEligible).length,
   openTaskCount: verificationTasks.filter(task => task.status === "open").length,
@@ -254,13 +339,13 @@ const database = {
 for (const evidence of evidenceItems) graphNodes.push({ id: evidence.id, type: "evidence-item", label: evidence.sourceLocation, status: evidence.reviewStatus })
 for (const task of verificationTasks) {
   graphNodes.push({ id: task.id, type: "verification-task", label: task.titleZh, status: task.status, priority: task.priority })
-  graphEdges.push({ id: `edge-${task.reactionRecordId}-${task.id}`, source: task.reactionRecordId, target: task.id, type: "requires-verification" })
+  graphEdges.push({ id: `edge-${task.experimentRunId || task.reactionRecordId}-${task.id}`, source: task.experimentRunId || task.reactionRecordId, target: task.id, type: "requires-verification" })
 }
 
 await writeJson(path.join(outDir, "catalysis_reaction_database_v2.json"), database)
 await writeJson(path.join(outDir, "catalysis_verification_tasks_v2.json"), { schemaVersion: "catalysis-verification-tasks-v2", generatedAt, summary: { open: summary.openTaskCount, p0: summary.p0TaskCount, p1: summary.p1TaskCount }, tasks: verificationTasks })
 await writeJson(path.join(outDir, "catalysis_identity_bridge_v2.json"), { schemaVersion: "catalysis-identity-bridge-v2", generatedAt, registryVersion: identityRegistry.schemaVersion, registryRecordCount: identityRegistry.records?.length || 0, links: identityLinks })
-await writeJson(path.join(outDir, "catalysis_eligibility_report_v2.json"), { schemaVersion: "catalysis-eligibility-report-v2", generatedAt, summary, decisions: eligibilityDecisions })
+await writeJson(path.join(outDir, "catalysis_eligibility_report_v2.json"), { schemaVersion: "catalysis-eligibility-report-v2", generatedAt, summary, decisions: eligibilityDecisions, runDecisions: runEligibilityDecisions })
 await writeJson(path.join(outDir, "catalysis_evidence_graph_v2.json"), { schemaVersion: "catalysis-evidence-graph-v2", generatedAt, summary: { nodeCount: graphNodes.length, edgeCount: graphEdges.length }, nodes: graphNodes, edges: graphEdges })
 await writeJson(path.join(outDir, "catalysis_audit_report_v2.json"), {
   schemaVersion: "catalysis-audit-report-v2",
@@ -269,10 +354,11 @@ await writeJson(path.join(outDir, "catalysis_audit_report_v2.json"), {
   summary,
   findings: [
     { severity: "info", code: "ARTICLE_IDENTITY_VERIFIED", messageZh: "10篇种子论文已作为论文身份核验来源迁移。" },
-    { severity: "blocker", code: "CLAIM_LOCATION_INCOMPLETE", messageZh: "摘要级或全文泛化位置的数值仍需图、表、章节或SI定位，已阻断比较资格。" },
-    { severity: "blocker", code: "IDENTITY_UNRESOLVED", messageZh: "未发现可安全自动建立的精确结构身份连接，已生成身份核验任务。" },
-    { severity: "blocker", code: "CONDITION_INCOMPLETE", messageZh: "负载、定量方法等比较字段不完整，禁止跨论文排名。" },
-    { severity: "blocker", code: "LICENSE_NOT_CLEARED_FOR_TRAINING", messageZh: "开放元数据不等于全文衍生字段可用于模型训练，训练资格保持关闭。" },
+    { severity: "info", code: "EXPERIMENT_RUN_COMPARISON_READY", messageZh: `${summary.compareEligibleRunCount}个实验运行通过六项条件与L4声明门槛；不同运行仍不得混合补齐或直接排名。` },
+    { severity: "blocker", code: "CLAIM_LOCATION_INCOMPLETE", messageZh: "其余摘要级或全文泛化位置的数值仍需图、表、章节或SI定位，相关运行保持不可比较。" },
+    { severity: summary.identityResolvedCount > 0 ? "info" : "blocker", code: "IDENTITY_RESOLUTION_STATUS", messageZh: `${summary.identityResolvedCount}条活性材料记录已取得精确结构身份，其中${summary.identityLinkedCount}条已连接本地MOF身份库；其余记录保持未解析并生成身份核验任务。` },
+    { severity: "blocker", code: "CONDITION_INCOMPLETE", messageZh: "其余运行仍缺负载基准、定量方法等比较字段；已通过的运行也只能在条件匹配时比较。" },
+    { severity: "blocker", code: "LICENSE_OR_IDENTITY_NOT_CLEARED_FOR_TRAINING", messageZh: "已核验许可与结构身份分别保存；受限许可不会重复生成许可核验任务，但仍阻断通用训练。当前没有记录同时通过条件、身份、许可和活性相门槛。" },
   ],
 })
 

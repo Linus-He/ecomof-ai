@@ -144,9 +144,9 @@
     "zh": "证据等级",
     "description": "说明记录或结论所依据证据的强度与核查状态。"
   },
-  "dataCompliancePledge": {
-    "en": "Data Compliance Pledge",
-    "zh": "数据合规承诺",
-    "description": "说明数据访问、使用、署名、再分发、免责和来源登记责任。"
+  "termsAndPolicies": {
+    "en": "Terms & Policies",
+    "zh": "条款与政策",
+    "description": "说明非商业研究宪章、数据访问、使用、署名、再分发、免责和来源登记责任。"
   }
 }

@@ -41,7 +41,7 @@ describe("top navigation layout", () => {
     expect(source).toContain('onPointerDown={event => event.stopPropagation()}')
     expect(source).toContain("数据托管与跨境访问")
     expect(source).toContain('href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"')
-    expect(source).toContain("数据合规承诺")
+    expect(source).toContain("条款与政策")
     expect(source).not.toContain("GitHub 仓库")
     expect(source).not.toContain("联系我们")
     expect(source).toContain('useState("")')

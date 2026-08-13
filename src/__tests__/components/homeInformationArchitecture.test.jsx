@@ -63,7 +63,7 @@ describe("home information architecture", () => {
     expect(screen.getByText("如何解释催化路径？")).toBeInTheDocument()
     expect(screen.getByText("结构与证据从哪里来？")).toBeInTheDocument()
     expect(screen.getByText("结果是否足够可信？")).toBeInTheDocument()
-    expect(screen.getAllByText("数据合规承诺").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("条款与政策").length).toBeGreaterThan(0)
     expect(screen.queryByTestId("home-platform-capabilities")).not.toBeInTheDocument()
     // The interactive atlas is the primary navigation surface; the detailed research gateway remains below it.
     const atlas = screen.getByTestId("home-scientific-atlas")

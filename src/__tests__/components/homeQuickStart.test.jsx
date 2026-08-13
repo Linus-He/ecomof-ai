@@ -53,7 +53,7 @@ describe("home quick start", () => {
       ["气体分离", "#gassep", "gassep"],
       ["催化", "#catalysis", "catalysisLab"],
       ["MOF库", "#library", "mofLibrary"],
-      ["数据合规承诺", "#database-compliance", "dataCompliance"],
+      ["条款与政策", "#database-compliance", "dataCompliance"],
     ]
 
     for (const [label, hash, target] of expected) {

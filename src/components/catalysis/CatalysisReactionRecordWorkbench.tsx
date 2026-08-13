@@ -34,6 +34,7 @@ import {
   formatCatalysisValue,
 } from "../../utils/catalysisReactionRecords"
 import { localizeCatalysisText } from "../../utils/catalysisDisplayText"
+import { buildCatalysisVerificationView } from "../../utils/catalysisVerificationV2"
 
 const VIEW_OPTIONS = [
   { id: "records", zh: "反应记录", en: "Records", icon: Table },
@@ -46,6 +47,7 @@ function getIdentityLabel(status, zh) {
   if (status === "derived-material-only") return zh ? "仅衍生材料" : "Derived material only"
   if (status === "literature-only-unresolved") return zh ? "文献身份待连接" : "Literature identity unresolved"
   if (status === "linked-to-mof-identity-registry") return zh ? "已连接结构库" : "Registry linked"
+  if (status === "publisher-structure-identifier-verified") return zh ? "精确结构已解析" : "Exact structure resolved"
   return zh ? "身份待核验" : "Identity pending"
 }
 
@@ -74,7 +76,7 @@ function KpiBand({ summary, t, zh, isMobile }) {
     { label: zh ? "DOI 核验来源" : "DOI-verified sources", value: summary.sourceCount },
     { label: zh ? "反应记录" : "Reaction records", value: summary.recordCount },
     { label: zh ? "数值指标" : "Numeric metrics", value: summary.numericMetricCount },
-    { label: zh ? "可作同条件比较" : "Same-condition ranking eligible", value: summary.rankingEligibleCount, boundary: true },
+    { label: zh ? "含完整运行记录" : "Records with complete runs", value: summary.rankingEligibleCount, boundary: true },
   ]
   return (
     <div data-testid="catalysis-reaction-kpis" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `1px solid ${t.border}`, display: "grid", gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))" }}>
@@ -86,6 +88,143 @@ function KpiBand({ summary, t, zh, isMobile }) {
       ))}
     </div>
   )
+}
+
+function hasValue(value) {
+  return value !== null && value !== undefined && value !== ""
+}
+
+function uniqueValues(values) {
+  return [...new Set(values.filter(hasValue).map(value => typeof value === "string" ? value.trim() : value))]
+}
+
+function summarizeRunValues(values) {
+  const unique = uniqueValues(values)
+  if (!unique.length) return null
+  if (unique.length === 1) return unique[0]
+  if (unique.every(value => typeof value === "number")) {
+    const sorted = [...unique].sort((a, b) => a - b)
+    return `${formatCatalysisValue(sorted[0])}–${formatCatalysisValue(sorted[sorted.length - 1])}`
+  }
+  return unique.slice(0, 2).join(" / ")
+}
+
+function buildRunConditionCoverage(experimentRuns) {
+  const runs = experimentRuns || []
+  const valuesByField = {
+    cell: runs.map(run => run.condition?.cellType),
+    electrolyte: runs.map(run => run.condition?.electrolyte),
+    potential: runs.map(run => run.condition?.potentialVsRheV ?? run.condition?.potentialVsRheVApprox),
+    control: runs.map(run => run.condition?.appliedCurrentDensity != null
+      ? `${run.condition.appliedCurrentDensity} ${run.condition.appliedCurrentDensityUnit || ""}`.trim()
+      : run.condition?.currentMode),
+    duration: runs.map(run => run.condition?.durationH),
+    loading: runs.map(run => run.condition?.catalystLoading != null
+      ? `${run.condition.catalystLoading} ${run.condition.catalystLoadingUnit || ""}`.trim()
+      : run.condition?.catalystLoadingBasis),
+    quantification: runs.map(run => run.condition?.productQuantification),
+  }
+
+  return Object.fromEntries(CATALYSIS_CONDITION_FIELDS.map(field => {
+    const values = valuesByField[field.id] || []
+    const availableCount = values.filter(hasValue).length
+    return [field.id, {
+      available: availableCount > 0,
+      availableCount,
+      explicitMissing: availableCount === 0,
+      inferredFromMetric: false,
+      runCount: runs.length,
+      value: summarizeRunValues(values),
+    }]
+  }))
+}
+
+function mergeVerificationRows(legacyRows, verificationDatabase, lang) {
+  if (!verificationDatabase) return legacyRows
+  const zh = lang === "zh"
+  const verification = buildCatalysisVerificationView(verificationDatabase)
+  const byLegacyId = new Map(verification.recordRows.map(record => [record.legacyRecordId, record]))
+
+  return legacyRows.map(row => {
+    const verified = byLegacyId.get(row.id)
+    if (!verified) return row
+    const metrics = verified.claims.map(claim => ({
+      ...claim,
+      sourceLocation: claim.evidence?.map(item => item.sourceLocation).filter(Boolean).join("; ")
+        || (zh ? "尚未定位到原文图表或章节" : "Not yet located to a source figure, table, or section"),
+      status: claim.sourceReportedStatus,
+    }))
+    const numericMetrics = metrics.filter(metric => Number.isFinite(metric.value))
+    const missingMetrics = metrics.filter(metric => !hasValue(metric.value))
+    const conditionCoverage = buildRunConditionCoverage(verified.experimentRuns)
+    const availableConditionCount = Object.values(conditionCoverage).filter(field => field.available).length
+    const comparableRunCount = verified.experimentRuns.filter(run => run.decision?.compareEligible).length
+    const firstCondition = verified.experimentRuns[0]?.condition || {}
+    const conditionParts = [
+      firstCondition.cellType,
+      firstCondition.electrolyte,
+    ].filter(Boolean).map(value => localizeCatalysisText(value, zh))
+    const runLabel = zh
+      ? `${verified.experimentRuns.length} 个实验运行 · ${comparableRunCount} 个条件完整`
+      : `${verified.experimentRuns.length} experiment run${verified.experimentRuns.length === 1 ? "" : "s"} · ${comparableRunCount} condition-complete`
+
+    return {
+      ...row,
+      activePhaseEvidence: {
+        ...row.activePhaseEvidence,
+        claim: verified.activePhaseClaim || row.activePhaseEvidence?.claim,
+        activePhaseBoundary: verified.activePhaseBoundary || row.activePhaseEvidence?.activePhaseBoundary,
+      },
+      availableConditionCount,
+      comparability: {
+        sameConditionComparable: comparableRunCount > 0,
+        reason: zh
+          ? `${comparableRunCount} 个实验运行已达到单次运行的条件完整门槛；跨论文比较仍须匹配电位、电解液、池型、时长和载量基准。`
+          : `${comparableRunCount} experiment runs pass the per-run condition gate; cross-paper comparison still requires aligned potential, electrolyte, cell, duration, and loading basis.`,
+      },
+      comparableRunCount,
+      conditionCoverage,
+      conditionCoverageRatio: availableConditionCount / CATALYSIS_CONDITION_FIELDS.length,
+      conditionSummary: [...conditionParts, runLabel].join(" · "),
+      experimentRuns: verified.experimentRuns,
+      identityCanonicalId: verified.canonicalId,
+      identityExactStructureIdentifier: verified.exactStructureIdentifier,
+      identityJoinRule: verified.canonicalId
+        ? row.identityJoinRule
+        : verified.exactStructureIdentifier
+          ? (zh
+              ? "论文中的精确晶体结构标识已核验；当前本地 mof_identity_registry 尚无完全匹配条目，因此不建立本地 canonicalId。"
+              : "The exact crystallographic identifier is verified in the article; no exact row exists in the local mof_identity_registry, so no local canonicalId is assigned.")
+          : row.identityJoinRule,
+      identityStatus: verified.identityStatus,
+      faradaicEfficiencyMetrics: numericMetrics.filter(metric => metric.metric === "faradaic_efficiency"),
+      fieldSources: Object.fromEntries([
+        ...verified.experimentRuns.map(run => [`run:${run.id}`, run.sourceLocations || []]),
+        ...metrics.map(metric => [`claim:${metric.id}`, metric.sourceLocation]),
+      ]),
+      hasCriticalGaps: verified.experimentRuns.some(run => (run.decision?.conditionCompleteness?.missing || []).length > 0),
+      metrics,
+      missingFields: [...new Set(verified.experimentRuns.flatMap(run => run.decision?.conditionCompleteness?.missing || []))],
+      notExtractedMetricCount: missingMetrics.length,
+      notExtractedMetrics: missingMetrics,
+      numericMetricCount: numericMetrics.length,
+      numericMetrics,
+      verificationRecordId: verified.id,
+    }
+  })
+}
+
+function mergeVerificationSummary(legacySummary, verificationDatabase) {
+  if (!verificationDatabase?.summary) return legacySummary
+  const summary = verificationDatabase.summary
+  return {
+    ...legacySummary,
+    experimentRunCount: summary.experimentRunCount,
+    numericMetricCount: summary.numericClaimCount,
+    rankingEligibleCount: summary.compareEligibleCount,
+    recordCount: summary.reactionRecordCount,
+    sourceCount: summary.sourceDocumentCount,
+  }
 }
 
 function ViewSelector({ view, setView, t, zh, isMobile }) {
@@ -132,6 +271,7 @@ function FilterBar({ search, setSearch, identityStatus, setIdentityStatus, cover
       </label>
       <select aria-label={zh ? "身份连接状态" : "Identity-link status"} onChange={event => setIdentityStatus(event.target.value)} style={controlStyle} value={identityStatus}>
         <option value="all">{zh ? "全部身份状态" : "All identity states"}</option>
+        <option value="publisher-structure-identifier-verified">{zh ? "精确结构已解析" : "Exact structure resolved"}</option>
         <option value="literature-only-unresolved">{zh ? "文献身份待连接" : "Literature identity unresolved"}</option>
         <option value="derived-material-only">{zh ? "仅衍生材料" : "Derived material only"}</option>
       </select>
@@ -160,11 +300,12 @@ function DetailSection({ title, children, t }) {
 function RecordDetail({ row, t, zh }) {
   if (!row) return null
   const metricRows = row.metrics.map(metric => ({ metric, formatted: formatCatalysisMetric(metric, zh ? "zh" : "en") }))
+  const hasResolvedIdentity = Boolean(row.identityCanonicalId || row.identityExactStructureIdentifier)
   return (
     <aside data-testid="catalysis-record-detail" style={{ display: "grid", gap: 11, minWidth: 0 }}>
       <div style={{ display: "grid", gap: 5 }}>
         <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <BasisBadge tone={row.identityCanonicalId ? "calc" : "proxy"}>{getIdentityLabel(row.identityStatus, zh)}</BasisBadge>
+          <BasisBadge tone={hasResolvedIdentity ? "calc" : "proxy"}>{getIdentityLabel(row.identityStatus, zh)}</BasisBadge>
           <BasisBadge tone="info">{row.year || "—"}</BasisBadge>
         </div>
         <h3 style={{ color: t.textStrong, fontSize: 17, lineHeight: 1.25, margin: 0, overflowWrap: "anywhere" }}>{localizeCatalysisText(row.catalyst, zh)}</h3>
@@ -180,7 +321,8 @@ function RecordDetail({ row, t, zh }) {
             [zh ? "前驱 MOF" : "Precursor MOF", row.precursor],
             [zh ? "框架家族" : "Framework family", localizeCatalysisText(row.frameworkFamily, zh)],
             [zh ? "金属中心" : "Metal centers", row.metalCenters.join(", ")],
-            [zh ? "标准结构 ID" : "Canonical ID", row.identityCanonicalId || (zh ? "未连接" : "Not linked")],
+            [zh ? "论文结构标识" : "Article structure ID", row.identityExactStructureIdentifier || (zh ? "未解析" : "Unresolved")],
+            [zh ? "本地结构 ID" : "Local canonical ID", row.identityCanonicalId || (zh ? "尚未连接" : "Not linked")],
           ].map(([label, value]) => (
             <div key={label} style={{ display: "contents" }}>
               <dt style={{ color: t.subtle, fontSize: 10.5 }}>{label}</dt>
@@ -310,7 +452,15 @@ function ConditionsView({ rows, selectedId, setSelectedId, t, zh }) {
         firstColumnLabel={zh ? "催化剂 / DOI" : "Catalyst / DOI"}
         getState={(row, field) => {
           const state = row.conditionCoverage[field.id]
-          return { ...state, value: getConditionValue(field.id, state, zh), title: getConditionValue(field.id, state, zh) }
+          const formatted = getConditionValue(field.id, state, zh)
+          const runCoverage = state.runCount > 1
+            ? (zh ? `${state.availableCount}/${state.runCount} 个运行` : `${state.availableCount}/${state.runCount} runs`)
+            : null
+          return {
+            ...state,
+            value: runCoverage ? `${formatted} · ${runCoverage}` : formatted,
+            title: runCoverage ? `${formatted} · ${runCoverage}` : formatted,
+          }
         }}
         rows={rows}
         selectedId={selectedId}
@@ -321,8 +471,8 @@ function ConditionsView({ rows, selectedId, setSelectedId, t, zh }) {
       />
       <p style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: 0 }}>
         {zh
-          ? "电位、电解液或池型可从具体指标条件中补齐覆盖状态，但不会自动上卷为整条记录的统一实验条件。载量基准与产物定量方法未核验时保持缺失。"
-          : "Potential, electrolyte, or cell type may be recovered from metric-level conditions, but they are not promoted to a single record-wide condition. Loading basis and quantification remain missing until verified."}
+          ? "覆盖状态按实验运行分别核对；同一论文中的峰值性能、分电流与稳定性试验不会合并成一套虚构条件。载量基准或产物定量方法未核验时仍保持缺失。"
+          : "Coverage is checked per experiment run. Peak performance, partial-current, and stability tests from one paper are not merged into a fictitious shared condition set. Loading basis and quantification remain missing until verified."}
       </p>
     </div>
   )
@@ -384,7 +534,7 @@ function FeTooltip({ active, payload, t, zh }) {
   )
 }
 
-function PerformanceView({ rows, t, zh, isMobile }) {
+function PerformanceView({ rows, summary, t, zh, isMobile }) {
   const data = useMemo(() => buildFaradaicEfficiencyRows(rows), [rows])
   if (!data.length) return <EmptyState t={t} zh={zh} />
   const chartHeight = Math.max(isMobile ? 430 : 380, data.length * (isMobile ? 38 : 34))
@@ -396,7 +546,11 @@ function PerformanceView({ rows, t, zh, isMobile }) {
             <h3 id="catalysis-fe-chart-title" style={{ color: t.textStrong, fontSize: 14, margin: 0 }}>{zh ? "来源报道的法拉第效率（条件不一致，不作排名）" : "Source-reported FE (incompatible conditions; not a ranking)"}</h3>
             <p style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: "4px 0 0" }}>{zh ? "按发表年份与文献收录顺序排列；柱长仅编码原文报道数值。" : "Ordered by publication year and curated source order; bar length only encodes the reported value."}</p>
           </div>
-          <BasisBadge tone="warn">{zh ? "当前没有可在同等条件下直接比较的记录" : "0 records eligible for same-condition ranking"}</BasisBadge>
+          <BasisBadge tone="warn">
+            {zh
+              ? `${summary.rankingEligibleCount} 条记录含条件完整的实验运行；跨论文仍不直接排名`
+              : `${summary.rankingEligibleCount} records contain condition-complete runs; no direct cross-paper ranking`}
+          </BasisBadge>
         </div>
         <div data-testid="catalysis-fe-chart" style={{ height: chartHeight, minWidth: 0, width: "100%" }}>
           <ResponsiveContainer height="100%" width="100%">
@@ -443,7 +597,7 @@ function EmptyState({ t, zh }) {
   )
 }
 
-export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = false, dataset: datasetProp = null, embedded = false }) {
+export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = false, dataset: datasetProp = null, verificationDatabase = null, embedded = false }) {
   const zh = lang === "zh"
   const [dataset, setDataset] = useState(datasetProp)
   const [loading, setLoading] = useState(!datasetProp)
@@ -479,9 +633,15 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
     return () => { cancelled = true }
   }, [datasetProp])
 
-  const rows = useMemo(() => buildCatalysisReactionRecordRows(dataset, lang), [dataset, lang])
+  const rows = useMemo(
+    () => mergeVerificationRows(buildCatalysisReactionRecordRows(dataset, lang), verificationDatabase, lang),
+    [dataset, lang, verificationDatabase],
+  )
   const filteredRows = useMemo(() => filterCatalysisReactionRows(rows, { search, identityStatus, coverage }), [rows, search, identityStatus, coverage])
-  const summary = useMemo(() => buildCatalysisReactionSummary(dataset, rows), [dataset, rows])
+  const summary = useMemo(
+    () => mergeVerificationSummary(buildCatalysisReactionSummary(dataset, rows), verificationDatabase),
+    [dataset, rows, verificationDatabase],
+  )
 
   useEffect(() => {
     if (!filteredRows.length) return
@@ -501,7 +661,7 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             <BasisBadge tone="calc">{zh ? "文献核对数据" : "Literature curated"}</BasisBadge>
             <BasisBadge tone="warn">{zh ? "不同实验条件下不作性能排名" : "No cross-condition ranking"}</BasisBadge>
-            <BasisBadge tone="proxy">{zh ? "结构身份待核对" : "Structure identity not linked"}</BasisBadge>
+            <BasisBadge tone="proxy">{zh ? "结构身份逐条核验" : "Identity reviewed per record"}</BasisBadge>
           </div>
         </div>
         <a href="#methodology" style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 850, gap: 6, minHeight: 32, padding: "0 10px", textDecoration: "none" }}>
@@ -523,7 +683,7 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
             {view === "records" && <RecordsView isMobile={isMobile} rows={filteredRows} selectedId={selectedId} setSelectedId={setSelectedId} t={t} zh={zh} />}
             {view === "conditions" && <ConditionsView rows={filteredRows} selectedId={selectedId} setSelectedId={setSelectedId} t={t} zh={zh} />}
             {view === "active-phase" && <ActivePhaseView rows={filteredRows} selectedId={selectedId} setSelectedId={setSelectedId} t={t} zh={zh} />}
-            {view === "performance" && <PerformanceView isMobile={isMobile} rows={filteredRows} t={t} zh={zh} />}
+            {view === "performance" && <PerformanceView isMobile={isMobile} rows={filteredRows} summary={summary} t={t} zh={zh} />}
           </div>
 
           <footer style={{ alignItems: "start", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 5, color: t.muted, display: "flex", fontSize: 10.5, gap: 7, lineHeight: 1.5, padding: "8px 10px" }}>

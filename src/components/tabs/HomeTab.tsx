@@ -1085,7 +1085,7 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
     { label: zh ? "气体分离" : "Gas Separation", hash: "gassep", target: "gassep" },
     { label: zh ? "催化" : "Catalysis", hash: "catalysis", target: "catalysisLab" },
     { label: zh ? "MOF库" : "MOF Library", hash: "library", target: "mofLibrary" },
-    { label: zh ? "数据合规承诺" : "Data Compliance Pledge", hash: "database-compliance", target: "dataCompliance" },
+    { label: zh ? "条款与政策" : "Terms & Policies", hash: "database-compliance", target: "dataCompliance" },
     { label: zh ? "联系我们" : "Contact Us", hash: "contact", action: "contact" },
   ]
 

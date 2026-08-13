@@ -11,7 +11,9 @@ describe("catalysis verification v2 view model", () => {
     expect(view.recordRows[0].document.doi).toBeTruthy()
     expect(view.recordRows[0].claims[0].evidence.length).toBeGreaterThan(0)
     expect(view.recordRows[0].decision.browseEligible).toBe(true)
-    expect(view.recordRows[0].decision.compareEligible).toBe(false)
+    expect(view.recordRows[0].decision.compareEligible).toBe(true)
+    expect(view.recordRows[0].experimentRuns).toHaveLength(2)
+    expect(view.recordRows[0].experimentRuns.every(run => run.condition.experimentRunId === run.id)).toBe(true)
     expect(view.recordRows[0].tasks.length).toBeGreaterThan(0)
   })
 
@@ -19,7 +21,7 @@ describe("catalysis verification v2 view model", () => {
     const p0 = filterCatalysisVerificationTasks(tasks.tasks, { priority: "P0", status: "open" })
     const identity = filterCatalysisVerificationTasks(tasks.tasks, { type: "identity-resolution", status: "open" })
     expect(p0).toHaveLength(database.summary.p0TaskCount)
-    expect(identity).toHaveLength(10)
+    expect(identity).toHaveLength(database.summary.reactionRecordCount - database.summary.identityResolvedCount)
   })
 
   it("blocks algorithm training when no record clears all gates", () => {

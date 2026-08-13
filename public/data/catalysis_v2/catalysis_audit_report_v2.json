@@ -1,23 +1,26 @@
 {
   "schemaVersion": "catalysis-audit-report-v2",
-  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "generatedAt": "2026-08-13T00:00:00.000Z",
   "result": "passed-with-blocked-eligibility",
   "summary": {
     "sourceDocumentCount": 10,
     "reactionRecordCount": 10,
     "catalystStateCount": 10,
-    "metricClaimCount": 28,
-    "numericClaimCount": 26,
-    "claimLocatedCount": 12,
-    "abstractOnlyClaimCount": 14,
+    "experimentRunCount": 18,
+    "metricClaimCount": 31,
+    "numericClaimCount": 30,
+    "claimLocatedCount": 17,
+    "abstractOnlyClaimCount": 13,
+    "identityResolvedCount": 1,
     "identityLinkedCount": 0,
     "browseEligibleCount": 10,
-    "compareEligibleCount": 0,
+    "compareEligibleCount": 2,
+    "compareEligibleRunCount": 5,
     "trainingEligibleCount": 0,
     "recommendationEligibleCount": 0,
-    "openTaskCount": 70,
-    "p0TaskCount": 40,
-    "p1TaskCount": 30
+    "openTaskCount": 68,
+    "p0TaskCount": 42,
+    "p1TaskCount": 26
   },
   "findings": [
     {
@@ -26,24 +29,29 @@
       "messageZh": "10篇种子论文已作为论文身份核验来源迁移。"
     },
     {
-      "severity": "blocker",
-      "code": "CLAIM_LOCATION_INCOMPLETE",
-      "messageZh": "摘要级或全文泛化位置的数值仍需图、表、章节或SI定位，已阻断比较资格。"
+      "severity": "info",
+      "code": "EXPERIMENT_RUN_COMPARISON_READY",
+      "messageZh": "5个实验运行通过六项条件与L4声明门槛；不同运行仍不得混合补齐或直接排名。"
     },
     {
       "severity": "blocker",
-      "code": "IDENTITY_UNRESOLVED",
-      "messageZh": "未发现可安全自动建立的精确结构身份连接，已生成身份核验任务。"
+      "code": "CLAIM_LOCATION_INCOMPLETE",
+      "messageZh": "其余摘要级或全文泛化位置的数值仍需图、表、章节或SI定位，相关运行保持不可比较。"
+    },
+    {
+      "severity": "info",
+      "code": "IDENTITY_RESOLUTION_STATUS",
+      "messageZh": "1条活性材料记录已取得精确结构身份，其中0条已连接本地MOF身份库；其余记录保持未解析并生成身份核验任务。"
     },
     {
       "severity": "blocker",
       "code": "CONDITION_INCOMPLETE",
-      "messageZh": "负载、定量方法等比较字段不完整，禁止跨论文排名。"
+      "messageZh": "其余运行仍缺负载基准、定量方法等比较字段；已通过的运行也只能在条件匹配时比较。"
     },
     {
       "severity": "blocker",
-      "code": "LICENSE_NOT_CLEARED_FOR_TRAINING",
-      "messageZh": "开放元数据不等于全文衍生字段可用于模型训练，训练资格保持关闭。"
+      "code": "LICENSE_OR_IDENTITY_NOT_CLEARED_FOR_TRAINING",
+      "messageZh": "已核验许可与结构身份分别保存；受限许可不会重复生成许可核验任务，但仍阻断通用训练。当前没有记录同时通过条件、身份、许可和活性相门槛。"
     }
   ]
 }

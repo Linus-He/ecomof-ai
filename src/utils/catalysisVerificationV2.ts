@@ -12,13 +12,18 @@ export function buildCatalysisVerificationView(database, tasksDataset = null) {
   const documents = tables.sourceDocuments || []
   const records = tables.reactionRecords || []
   const states = tables.catalystStates || []
+  const runs = tables.experimentRuns || []
+  const conditions = tables.conditionSets || []
   const claims = tables.metricClaims || []
   const evidence = tables.evidenceItems || []
   const decisions = tables.eligibilityDecisions || []
+  const runDecisions = tables.runEligibilityDecisions || []
   const tasks = tasksDataset?.tasks || tables.verificationTasks || []
   const stateById = new Map(states.map(state => [state.id, state]))
   const documentById = new Map(documents.map(document => [document.id, document]))
   const decisionByRecord = new Map(decisions.map(decision => [decision.reactionRecordId, decision]))
+  const conditionById = new Map(conditions.map(condition => [condition.id, condition]))
+  const runDecisionById = new Map(runDecisions.map(decision => [decision.experimentRunId, decision]))
   const evidenceByClaim = new Map()
   for (const item of evidence) {
     if (!evidenceByClaim.has(item.claimId)) evidenceByClaim.set(item.claimId, [])
@@ -29,6 +34,13 @@ export function buildCatalysisVerificationView(database, tasksDataset = null) {
     const document = documentById.get(record.sourceDocumentId) || {}
     const recordClaims = claims.filter(claim => claim.reactionRecordId === record.id)
     const recordTasks = tasks.filter(task => task.reactionRecordId === record.id)
+    const recordRuns = runs.filter(run => run.reactionRecordId === record.id).map(run => ({
+      ...run,
+      condition: conditionById.get(run.conditionSetId) || {},
+      claims: recordClaims.filter(claim => claim.experimentRunId === run.id),
+      decision: runDecisionById.get(run.id) || {},
+      tasks: recordTasks.filter(task => task.experimentRunId === run.id),
+    }))
     return {
       ...record,
       catalyst: state.catalystName,
@@ -36,13 +48,17 @@ export function buildCatalysisVerificationView(database, tasksDataset = null) {
       activeMaterial: state.activeMaterial,
       identityStatus: state.identityLink?.status || "unresolved",
       canonicalId: state.identityLink?.canonicalId || null,
+      activeMaterialIdentity: state.activeMaterialIdentity || null,
+      exactStructureIdentifier: state.identityLink?.exactStructureIdentifier || null,
+      precursorIdentity: state.precursorIdentity || null,
       document,
+      experimentRuns: recordRuns,
       claims: recordClaims.map(claim => ({ ...claim, evidence: evidenceByClaim.get(claim.id) || [] })),
       decision: decisionByRecord.get(record.id) || {},
       tasks: recordTasks,
     }
   })
-  return { summary: database?.summary || {}, documents, recordRows, tasks, decisions }
+  return { summary: database?.summary || {}, documents, recordRows, tasks, decisions, runDecisions }
 }
 
 export function filterCatalysisVerificationTasks(tasks, filters = {}) {

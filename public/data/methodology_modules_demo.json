@@ -1713,14 +1713,14 @@
     "order": 4,
     "module": "Catalysis",
     "moduleZh": "催化",
-    "summary": "Catalysis V2 starts from normalized DOI-verified reaction entities. Article identity, claim location, conditions, catalyst state, structure identity, active phase, reuse license, and deterministic admission decisions remain separate so incomplete literature cannot enter comparison or model training.",
-    "summaryZh": "催化方法以 DOI 已核对的反应记录为基础，分别保存论文身份、数值声明位置、实验条件、催化剂状态、结构身份、活性相和数据许可；证据不完整的文献不能用于跨论文比较或模型训练。",
+    "summary": "Catalysis V2 starts from normalized DOI-verified reaction entities and separates distinct performance and stability experiments into experiment runs. Article identity, claim location, run conditions, catalyst state, structure identity, active phase, reuse license, and deterministic admission decisions remain separate.",
+    "summaryZh": "催化方法以 DOI 已核对的反应记录为基础，将同一论文中的性能点和稳定性试验拆成独立实验运行，并分别保存声明位置、运行条件、催化剂状态、结构身份、活性相和数据许可。",
     "methodWorkflow": [
       {
         "label": "DOI-verified reaction record",
         "labelZh": "DOI 核验反应记录",
-        "description": "Refresh DOI metadata against Crossref, store the response snapshot hash and update-relation status, then preserve claim-level source locations separately.",
-        "descriptionZh": "通过 Crossref 刷新 DOI 元数据，保存响应快照哈希与更新关系状态，再独立保存每条声明的来源位置。"
+        "description": "Refresh DOI metadata against Crossref, store the response snapshot hash and update-relation status, split distinct experiments into runs, then preserve claim-level source locations separately.",
+        "descriptionZh": "通过 Crossref 刷新 DOI 元数据并保存快照哈希与更新关系；再把不同电位或时长的试验拆成独立运行，分别保存声明来源。"
       },
       {
         "label": "L1-L4 claim verification",
@@ -1731,8 +1731,8 @@
       {
         "label": "Condition normalization",
         "labelZh": "反应条件归一化",
-        "description": "Store cell, electrolyte, potential reference, control mode, duration, loading basis, and quantification metadata without unsupported conversion.",
-        "descriptionZh": "保存电解池、电解液、电位参比、控制模式、持续时间、负载基准和定量方法，不做无来源换算。"
+        "description": "Store cell, electrolyte, potential reference, control mode, duration, loading basis, and quantification per experiment run; source-reported and preparation-derived fields remain distinct.",
+        "descriptionZh": "按实验运行保存电解池、电解液、电位参比、控制模式、持续时间、负载基准和定量方法；极化曲线、TOF 与材料表征使用各自适用字段，文献报告值与按制备步骤计算值明确区分。"
       },
       {
         "label": "Active-phase evidence ledger",
@@ -1818,7 +1818,7 @@
       "Organic acid conversion is a prioritized sub-workspace within Catalysis, not the full scope of the module.",
       "A DOI verifies the article identity but does not by itself verify every numeric field or establish structure-level identity.",
       "Records with incompatible cell, electrolyte, potential, loading, duration, or quantification conditions are not ranked against one another.",
-      "A precursor MOF is not automatically the catalytically active phase after electrochemical reconstruction or thermal conversion."
+      "A precursor MOF or its CCDC identifier is not automatically the catalytically active phase after electrochemical reconstruction or thermal conversion."
       ,"Crossref metadata and update relations identify the scholarly object and known updates in the captured response; they do not verify experimental claims or guarantee that no later publisher notice exists."
       ,"Only records passing condition, L4 claim-location, exact identity, license, and active-phase gates may progress from browsing to comparison, training, or recommendation."
       ,"Crossref and OpenAlex search hits are discovery metadata, not experimental evidence; candidates remain outside the formal database until human full-text review passes every admission gate."
@@ -1827,7 +1827,7 @@
       "有机酸转化是催化中优先展示的子工作台，但不是催化模块的全部范围。",
       "DOI 只能核验论文身份，不能自动证明每个数值字段，也不能单独建立结构级身份连接。",
       "电解池、电解液、电位、负载、持续时间或定量条件不兼容的记录禁止互相排名。",
-      "发生电化学重构或热转化后，前驱体 MOF 不能自动视为催化活性相。"
+      "发生电化学重构或热转化后，前驱体 MOF 及其 CCDC 编号都不能自动转移给催化活性相。"
       ,"Crossref 元数据和更新关系只确认所捕获响应中的学术对象与已登记更新，不能证明实验声明，也不能保证出版方此后没有新通知。"
       ,"记录必须具备完整实验条件、精确到图表或章节的声明位置、准确结构身份、相应许可和明确活性相，才能从查阅用途进一步进入比较、训练或推荐。"
       ,"Crossref 与 OpenAlex 检索命中属于题录信息，不是实验事实；候选须完成人工全文核对，并满足来源、条件、身份、活性相和许可要求后，才能形成正式反应记录。"
@@ -1855,8 +1855,8 @@
         "id": "catalysis-reaction-record-standard",
         "title": "DOI-verified catalysis reaction record standard",
         "titleZh": "DOI 核验催化反应记录标准",
-        "purpose": "Provide a reusable normalized V2 contract for source documents, DOI snapshots, reaction records, catalyst states, condition sets, metric claims, evidence items, identity links, admission decisions, and verification tasks.",
-        "purposeZh": "为来源文档、DOI 快照、反应记录、催化剂状态、条件组合、指标声明、证据项、身份连接、使用范围判定和待核事项提供统一的数据结构。",
+        "purpose": "Provide a reusable normalized V2 contract for source documents, DOI snapshots, reaction records, experiment runs, catalyst states, condition sets, metric claims, evidence items, identity links, admission decisions, and verification tasks.",
+        "purposeZh": "为来源文档、DOI 快照、反应记录、实验运行、催化剂状态、条件组合、指标声明、证据项、身份连接、使用范围判定和待核事项提供统一的数据结构。",
         "algorithmSteps": [
           {
             "label": "Verify article identity",
@@ -1867,8 +1867,8 @@
           {
             "label": "Extract fields without inference",
             "labelZh": "无推测提取字段",
-            "description": "Store numeric metrics only with source location, DOI, condition tuple, unit, and extraction status; unavailable values remain not-extracted.",
-            "descriptionZh": "数值指标必须同时保存来源位置、DOI、条件组合、单位和提取状态；不可核实的值保持 not-extracted。"
+            "description": "Split distinct performance and stability experiments into separate runs, then store metrics with source location, DOI, condition tuple, unit, and extraction status; unavailable values remain not-extracted.",
+            "descriptionZh": "先把不同电位或时长的性能与稳定性试验拆成独立运行，再保存来源位置、DOI、条件组合、单位和提取状态；不可核实的值保持 not-extracted。"
           },
           {
             "label": "Separate catalyst states",
@@ -1879,14 +1879,14 @@
           {
             "label": "Gate comparison and identity joins",
             "labelZh": "控制比较与身份连接",
-            "description": "Allow quantitative comparison only for aligned condition tuples and join the MOF registry only with exact structure identifiers or provenance-matched aliases.",
-            "descriptionZh": "只有条件组合一致时才允许定量比较；只有精确结构标识或来源一致的核验别名才能连接 MOF 身份库。"
+            "description": "Use run-type-specific comparison tuples and join structure identities only with exact identifiers or provenance-matched aliases.",
+            "descriptionZh": "按稳态性能、极化曲线、TOF 或材料表征选择适用条件门；只有精确结构标识或来源一致的核验别名才能建立结构身份。"
           },
           {
             "label": "Generate deterministic admission and work queue",
             "labelZh": "判定使用范围并生成待核清单",
-            "description": "Compute browse, comparison, training, and recommendation eligibility from explicit fields, then generate P0 claim/condition tasks and P1 identity/active-phase/license tasks for every blocker.",
-            "descriptionZh": "由明确字段计算浏览、比较、训练和推荐资格，并为每个阻断项生成 P0 声明/条件任务与 P1 身份/活性相/许可任务。"
+            "description": "Compute comparison eligibility per experiment run, aggregate it to the literature record, then generate P0 claim/condition tasks and P1 identity/active-phase/license tasks for every blocker.",
+            "descriptionZh": "先按实验运行判定比较资格，再汇总到文献记录，并为阻断项生成 P0 声明/条件任务与 P1 身份/活性相/许可任务。"
           }
         ],
         "formulas": [
@@ -1905,8 +1905,8 @@
             "labelZh": "条件可比性门槛",
             "latex": "G_{\\mathrm{compare}} = \\prod_{k=1}^{6} I_k",
             "fallback": "G_compare = Π I_k",
-            "explanation": "Each I_k equals 1 only when cell type, electrolyte, control condition, quantification method, duration, and catalyst-loading basis are present and aligned.",
-            "explanationZh": "只有电解池、电解液、控制条件、定量方法、持续时间和催化剂负载基准均存在且一致时，相应 I_k 才为 1。"
+            "explanation": "For steady performance, each I_k covers cell, electrolyte, control condition, quantification method, duration, and loading. Polarization and TOF replace inapplicable fields with scan protocol and active-site normalization; material characterization is excluded from reaction-performance comparison.",
+            "explanationZh": "稳态性能的 I_k 对应电解池、电解液、控制条件、定量方法、持续时间和载量；极化曲线与 TOF 分别改查扫描方案和活性位归一化，材料表征不进入反应性能比较。"
           }
         ],
         "inputs": [
@@ -1914,6 +1914,7 @@
           "catalyst-state identity",
           "reaction and product",
           "condition tuple",
+          "experiment-run boundary",
           "source-reported metrics",
           "active-phase evidence"
         ],
@@ -1922,6 +1923,7 @@
           "催化剂状态身份",
           "反应与产物",
           "条件组合",
+          "实验运行边界",
           "来源报道指标",
           "活性相证据"
         ],
@@ -1950,16 +1952,16 @@
         ],
         "limitations": [
           "The initial corpus is a Bi-based CO2-to-formate seed and is not a complete catalysis literature database.",
-          "No record in the current seed is eligible for cross-paper performance ranking because complete same-condition metadata is unavailable.",
+          "MFM-220-p and SU-101 contain run-level records that clear the steady-performance gate, but unlike potentials, durations, cells, or products are not rank-equivalent.",
           "DOI verification confirms the article identity; every numerical field still requires its own source location.",
-          "The current identity bridge intentionally contains no canonical MOF links because the seed lacks an exact CSD Refcode, CCDC identifier, or uniquely provenance-matched registry alias.",
+          "Bi-HHTP is resolved to the publisher-declared crystal identifier CCDC 2242230, but that external identifier is not yet a local mof_identity_registry join; CCDC 899427 remains precursor-only for MFM-220 and is not transferred to MFM-220-p.",
           "No current record is admitted to algorithm training; Organic Acid and validation surfaces consume the gate result rather than importing blocked literature claims."
         ],
         "limitationsZh": [
           "当前收录范围聚焦铋基 MOF 电催化 CO2 还原制甲酸盐，并非完整的催化文献数据库。",
-          "当前记录均缺少完整的同条件实验信息，因此不能进行跨论文性能排名。",
+          "MFM-220-p 与 SU-101 已有实验运行通过稳态性能条件门，但不同电位、时长、电解池或产物条件仍不能进行跨论文性能排名。",
           "DOI 核验只确认论文身份；每个数值字段仍必须有独立来源位置。",
-          "当前尚无标准 MOF 结构连接，因为记录缺少准确的 CSD Refcode、CCDC 编号或唯一且来源一致的身份库别名。",
+          "Bi-HHTP 已由出版方晶体编号 CCDC 2242230 精确解析，但该外部编号尚未连接到本地 mof_identity_registry；CCDC 899427 仍只属于前驱体 MFM-220，不转移给 MFM-220-p。",
           "当前没有记录满足模型训练所需的证据与许可要求；有机酸专题和验证界面不会导入这些尚待核对的文献声明。"
         ],
         "references": [

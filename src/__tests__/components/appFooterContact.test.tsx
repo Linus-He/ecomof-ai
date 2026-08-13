@@ -13,4 +13,12 @@ describe("AppFooter contact links", () => {
     expect(screen.getByRole("link", { name: "发送邮件至 ecomofai@outlook.com" })).toHaveAttribute("href", "mailto:ecomofai@outlook.com")
     expect(screen.getByRole("link", { name: "在知乎关注小落生" })).toHaveAttribute("href", "https://www.zhihu.com/people/xiao-luo-sheng-25")
   })
+
+  it("keeps the renamed policy destination and charter visible in the footer", () => {
+    render(<AppFooter lang="zh" navigate={vi.fn()} theme={THEME_LIGHT} />)
+
+    expect(screen.getByRole("button", { name: "EcoMOF-AI 宪章" })).toBeInTheDocument()
+    expect(screen.getAllByRole("button", { name: "条款与政策" }).length).toBeGreaterThan(0)
+    expect(screen.queryByText("数据合规承诺")).not.toBeInTheDocument()
+  })
 })

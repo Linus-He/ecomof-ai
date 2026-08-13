@@ -27,7 +27,7 @@ describe("CatalysisReactionRecordWorkbench", () => {
     expect(kpis).toHaveTextContent("DOI 核验来源")
     expect(kpis).toHaveTextContent("10")
     expect(kpis).toHaveTextContent("26")
-    expect(kpis).toHaveTextContent("可作同条件比较")
+    expect(kpis).toHaveTextContent("含完整运行记录")
     expect(workbench).toHaveTextContent("不同实验条件下不作性能排名")
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("MFM-220-p")
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("DOI 10.1039/D2TA04485D")

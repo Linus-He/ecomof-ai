@@ -18,17 +18,17 @@ describe("global research theme contract", () => {
     expect(THEME_LIGHT).toBe(GLOBAL_RESEARCH_THEME)
     expect(THEME_DARK).not.toBe(GLOBAL_RESEARCH_THEME)
     expect(GLOBAL_RESEARCH_THEME).toMatchObject({
-      bg: "#f0eee6",
-      panel: "#f7f5ef",
-      surface: "#e8e5dc",
-      card: "#fbfaf6",
-      chartBg: "#fcfbf7",
-      textStrong: "#171714",
-      border: "#d1cfc5",
+      bg: "#ffffff",
+      panel: "#ffffff",
+      surface: "#f5f5f5",
+      card: "#ffffff",
+      chartBg: "#ffffff",
+      textStrong: "#111110",
+      border: "#dededb",
       accent: "#c6613f",
       success: "#5f7a4b",
-      info: "#3f7c83",
-      violet: "#7c6b99",
+      info: "#c6613f",
+      violet: "#c6613f",
       danger: "#b94a42",
     })
     expect(THEME_DARK).toMatchObject({
@@ -40,8 +40,8 @@ describe("global research theme contract", () => {
       textStrong: "#fffaf2",
       accent: "#e17b59",
       success: "#91a778",
-      info: "#6da7ad",
-      violet: "#a392bd",
+      info: "#e17b59",
+      violet: "#e17b59",
     })
   })
 
@@ -54,16 +54,16 @@ describe("global research theme contract", () => {
   it("mirrors the application palette and font contract in global CSS", () => {
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
-    expect(css).toContain("--app-bg: #f0eee6")
-    expect(css).toContain("--app-panel: #f7f5ef")
-    expect(css).toContain("--app-surface: #e8e5dc")
-    expect(css).toContain("--app-card: #fbfaf6")
-    expect(css).toContain("--app-chart: #fcfbf7")
-    expect(css).toContain("--app-text-strong: #171714")
-    expect(css).toContain("--app-border: #d1cfc5")
+    expect(css).toContain("--app-bg: #ffffff")
+    expect(css).toContain("--app-panel: #ffffff")
+    expect(css).toContain("--app-surface: #f5f5f5")
+    expect(css).toContain("--app-card: #ffffff")
+    expect(css).toContain("--app-chart: #ffffff")
+    expect(css).toContain("--app-text-strong: #111110")
+    expect(css).toContain("--app-border: #dededb")
     expect(css).toContain("--app-accent: #c6613f")
-    expect(css).toContain("--app-info: #3f7c83")
-    expect(css).toContain("--app-violet: #7c6b99")
+    expect(css).toContain("--app-info: #c6613f")
+    expect(css).toContain("--app-violet: #c6613f")
     expect(css).toContain(':root[data-theme="dark"]')
     expect(css).toContain("--app-bg: #141411")
     expect(css).toContain("--app-accent: #e17b59")

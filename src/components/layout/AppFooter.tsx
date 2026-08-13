@@ -28,7 +28,7 @@ export function AppFooter({
         title: zh ? "数据与证据" : "Data and evidence",
         links: [
           [zh ? "数据质量与溯源" : "Data quality & provenance", "data-quality-provenance"],
-          [zh ? "数据合规承诺" : "Data compliance pledge", "dataCompliance"],
+          [zh ? "条款与政策" : "Terms & policies", "dataCompliance"],
           [zh ? "验证证据" : "Validation evidence", "validation-evidence"],
         ],
       }],
@@ -80,7 +80,8 @@ export function AppFooter({
       sections: [{
         title: zh ? "条款与政策" : "Terms and policies",
         links: [
-          [zh ? "非商业研究说明" : "Non-commercial research notice", "disclaimer"],
+          [zh ? "EcoMOF-AI 宪章" : "EcoMOF-AI Charter", "dataCompliance"],
+          [zh ? "非商业研究说明" : "Non-commercial research notice", "dataCompliance"],
           [zh ? "数据许可与引用" : "Data licenses & citation", "dataCompliance"],
           [zh ? "方法限制" : "Method limitations", "methodology"],
         ],
@@ -184,7 +185,7 @@ export function AppFooter({
           </p>
           <div>
             <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer">{zh ? "GDPR 原文" : "GDPR text"}<ArrowSquareOut aria-hidden size={13} /></a>
-            <button type="button" onClick={() => activate("dataCompliance")}>{zh ? "数据合规承诺" : "Data compliance pledge"}</button>
+            <button type="button" onClick={() => activate("dataCompliance")}>{zh ? "条款与政策" : "Terms & policies"}</button>
           </div>
         </aside>
       </div>

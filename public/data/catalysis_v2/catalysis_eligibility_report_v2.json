@@ -1,32 +1,37 @@
 {
   "schemaVersion": "catalysis-eligibility-report-v2",
-  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "generatedAt": "2026-08-13T00:00:00.000Z",
   "summary": {
     "sourceDocumentCount": 10,
     "reactionRecordCount": 10,
     "catalystStateCount": 10,
-    "metricClaimCount": 28,
-    "numericClaimCount": 26,
-    "claimLocatedCount": 12,
-    "abstractOnlyClaimCount": 14,
+    "experimentRunCount": 18,
+    "metricClaimCount": 31,
+    "numericClaimCount": 30,
+    "claimLocatedCount": 17,
+    "abstractOnlyClaimCount": 13,
+    "identityResolvedCount": 1,
     "identityLinkedCount": 0,
     "browseEligibleCount": 10,
-    "compareEligibleCount": 0,
+    "compareEligibleCount": 2,
+    "compareEligibleRunCount": 5,
     "trainingEligibleCount": 0,
     "recommendationEligibleCount": 0,
-    "openTaskCount": 70,
-    "p0TaskCount": 40,
-    "p1TaskCount": 30
+    "openTaskCount": 68,
+    "p0TaskCount": 42,
+    "p1TaskCount": 26
   },
   "decisions": [
     {
       "id": "eligibility-catrxn-v2-mfm220p-formate-2022",
       "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
       "browseEligible": true,
-      "compareEligible": false,
+      "compareEligible": true,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -35,21 +40,18 @@
           "catalystLoading",
           "productQuantification"
         ],
-        "missing": [
-          "catalystLoading",
-          "productQuantification"
-        ],
-        "ratio": 0.6666666666666666
+        "missing": [],
+        "ratio": 1
       },
+      "eligibleExperimentRunIds": [
+        "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+        "run-catrxn-v2-mfm220p-formate-2022-stability-5h"
+      ],
       "blockers": [
-        "missing-condition:catalystLoading",
-        "missing-condition:productQuantification",
-        "numeric-claims-lack-precise-source-location",
         "structure-identity-unresolved",
-        "training-license-not-cleared",
         "active-phase-not-experimentally-resolved"
       ],
-      "decidedBy": "catalysis-v2-deterministic-gate"
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
     },
     {
       "id": "eligibility-catrxn-v2-tal33-derived-bi-formate-2022",
@@ -59,6 +61,407 @@
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:cellType",
+        "missing-condition:electrolyte",
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.3333333333333333
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "potentialOrCurrent",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.5
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:cellType",
+        "missing-condition:electrolyte",
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "duration"
+        ],
+        "ratio": 0.8333333333333334
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:duration",
+        "missing-condition:productQuantification",
+        "structure-identity-unresolved",
+        "training-license-restricted",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-bi-hhtp-formate-2023",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "catalystLoading"
+        ],
+        "ratio": 0.8333333333333334
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:polarizationProtocol",
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:activeSiteNormalization",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-su101-formate-2022",
+      "reactionRecordId": "catrxn-v2-su101-formate-2022",
+      "browseEligible": true,
+      "compareEligible": true,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [],
+        "ratio": 1
+      },
+      "eligibleExperimentRunIds": [
+        "run-catrxn-v2-su101-formate-2022-peak-fe-1h",
+        "run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+        "run-catrxn-v2-su101-formate-2022-stability-10h"
+      ],
+      "blockers": [
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-cubi-derived-formate-2021",
+      "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.3333333333333333
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    },
+    {
+      "id": "eligibility-catrxn-v2-2d-bi-mof-formate-2020",
+      "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+      "browseEligible": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "electrolyte",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "ratio": 0.5
+      },
+      "eligibleExperimentRunIds": [],
+      "blockers": [
+        "missing-condition:electrolyte",
+        "missing-condition:catalystLoading",
+        "missing-condition:productQuantification",
+        "numeric-claims-lack-precise-source-location",
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-experiment-run-aggregate-gate"
+    }
+  ],
+  "runDecisions": [
+    {
+      "id": "eligibility-run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+      "experimentRunId": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": true,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [],
+        "ratio": 1
+      },
+      "blockers": [
+        "structure-identity-unresolved",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "reactionRecordId": "catrxn-v2-mfm220p-formate-2022",
+      "experimentRunId": "run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": true,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [],
+        "ratio": 1
+      },
+      "blockers": [
+        "structure-identity-unresolved",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "reactionRecordId": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "experimentRunId": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -91,13 +494,17 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-bicc17-nanosheets-formate-2021",
+      "id": "eligibility-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "reactionRecordId": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "experimentRunId": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -127,13 +534,17 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-cau17-leafy-bi-formate-2020",
+      "id": "eligibility-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
       "reactionRecordId": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "experimentRunId": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -161,13 +572,17 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "eligibility-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "reactionRecordId": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "experimentRunId": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -201,13 +616,17 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "id": "eligibility-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
       "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "experimentRunId": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -217,32 +636,165 @@
           "productQuantification"
         ],
         "missing": [
-          "electrolyte",
           "duration",
-          "catalystLoading",
           "productQuantification"
         ],
-        "ratio": 0.3333333333333333
+        "ratio": 0.6666666666666666
       },
       "blockers": [
-        "missing-condition:electrolyte",
         "missing-condition:duration",
-        "missing-condition:catalystLoading",
         "missing-condition:productQuantification",
         "structure-identity-unresolved",
-        "training-license-not-cleared",
+        "training-license-restricted",
         "active-phase-not-experimentally-resolved"
       ],
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-bi-hhtp-formate-2023",
+      "id": "eligibility-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "reactionRecordId": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "experimentRunId": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "duration"
+        ],
+        "ratio": 0.8333333333333334
+      },
+      "blockers": [
+        "missing-condition:duration",
+        "structure-identity-unresolved",
+        "training-license-restricted",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
       "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "experimentRunId": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [
+          "duration",
+          "catalystLoading"
+        ],
+        "ratio": 0.6666666666666666
+      },
+      "blockers": [
+        "missing-condition:duration",
+        "missing-condition:catalystLoading",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "experimentRunId": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "electrochemical-polarization",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "catalystLoading",
+          "polarizationProtocol"
+        ],
+        "missing": [
+          "catalystLoading",
+          "polarizationProtocol"
+        ],
+        "ratio": 0.6
+      },
+      "blockers": [
+        "missing-condition:catalystLoading",
+        "missing-condition:polarizationProtocol",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "experimentRunId": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "turnover-frequency",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "activeSiteNormalization",
+          "productQuantification"
+        ],
+        "missing": [
+          "potentialOrCurrent",
+          "duration",
+          "activeSiteNormalization"
+        ],
+        "ratio": 0.5
+      },
+      "blockers": [
+        "missing-condition:potentialOrCurrent",
+        "missing-condition:duration",
+        "missing-condition:activeSiteNormalization",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "experimentRunId": "run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -258,20 +810,44 @@
       },
       "blockers": [
         "missing-condition:catalystLoading",
-        "structure-identity-unresolved",
-        "training-license-not-cleared",
         "active-phase-not-experimentally-resolved"
       ],
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-su101-formate-2022",
+      "id": "eligibility-run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "reactionRecordId": "catrxn-v2-bi-hhtp-formate-2023",
+      "experimentRunId": "run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "browseEligible": true,
+      "comparisonApplicable": false,
+      "compareEligible": false,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": false,
+        "scope": "material-characterization",
+        "required": [],
+        "missing": [],
+        "ratio": 1
+      },
+      "blockers": [
+        "comparison-not-applicable:material-characterization",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-su101-formate-2022-peak-fe-1h",
       "reactionRecordId": "catrxn-v2-su101-formate-2022",
+      "experimentRunId": "run-catrxn-v2-su101-formate-2022-peak-fe-1h",
       "browseEligible": true,
-      "compareEligible": false,
+      "comparisonApplicable": true,
+      "compareEligible": true,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -280,13 +856,10 @@
           "catalystLoading",
           "productQuantification"
         ],
-        "missing": [
-          "catalystLoading"
-        ],
-        "ratio": 0.8333333333333334
+        "missing": [],
+        "ratio": 1
       },
       "blockers": [
-        "missing-condition:catalystLoading",
         "structure-identity-unresolved",
         "training-license-not-cleared",
         "active-phase-not-experimentally-resolved"
@@ -294,13 +867,77 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-cubi-derived-formate-2021",
-      "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+      "id": "eligibility-run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+      "reactionRecordId": "catrxn-v2-su101-formate-2022",
+      "experimentRunId": "run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
       "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": true,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [],
+        "ratio": 1
+      },
+      "blockers": [
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-su101-formate-2022-stability-10h",
+      "reactionRecordId": "catrxn-v2-su101-formate-2022",
+      "experimentRunId": "run-catrxn-v2-su101-formate-2022-stability-10h",
+      "browseEligible": true,
+      "comparisonApplicable": true,
+      "compareEligible": true,
+      "trainingEligible": false,
+      "recommendationEligible": false,
+      "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
+        "required": [
+          "cellType",
+          "electrolyte",
+          "potentialOrCurrent",
+          "duration",
+          "catalystLoading",
+          "productQuantification"
+        ],
+        "missing": [],
+        "ratio": 1
+      },
+      "blockers": [
+        "structure-identity-unresolved",
+        "training-license-not-cleared",
+        "active-phase-not-experimentally-resolved"
+      ],
+      "decidedBy": "catalysis-v2-deterministic-gate"
+    },
+    {
+      "id": "eligibility-run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "reactionRecordId": "catrxn-v2-cubi-derived-formate-2021",
+      "experimentRunId": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",
@@ -330,13 +967,17 @@
       "decidedBy": "catalysis-v2-deterministic-gate"
     },
     {
-      "id": "eligibility-catrxn-v2-2d-bi-mof-formate-2020",
+      "id": "eligibility-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
       "reactionRecordId": "catrxn-v2-2d-bi-mof-formate-2020",
+      "experimentRunId": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
       "browseEligible": true,
+      "comparisonApplicable": true,
       "compareEligible": false,
       "trainingEligible": false,
       "recommendationEligible": false,
       "conditionCompleteness": {
+        "applicable": true,
+        "scope": "reaction-performance",
         "required": [
           "cellType",
           "electrolyte",

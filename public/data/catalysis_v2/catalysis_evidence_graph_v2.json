@@ -1,9 +1,9 @@
 {
   "schemaVersion": "catalysis-evidence-graph-v2",
-  "generatedAt": "2026-08-12T11:41:13.019Z",
+  "generatedAt": "2026-08-13T00:00:00.000Z",
   "summary": {
-    "nodeCount": 156,
-    "edgeCount": 146
+    "nodeCount": 178,
+    "edgeCount": 199
   },
   "nodes": [
     {
@@ -83,6 +83,18 @@
       "status": "unresolved"
     },
     {
+      "id": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "type": "experiment-run",
+      "label": "1小时性能点",
+      "status": "source-reported-with-calculated-loading"
+    },
+    {
+      "id": "run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "type": "experiment-run",
+      "label": "5小时稳定性",
+      "status": "source-reported-with-calculated-loading"
+    },
+    {
       "id": "catrxn-v2-mfm220p-formate-2022",
       "type": "reaction-record",
       "label": "CO2 -> formate",
@@ -98,19 +110,31 @@
       "id": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
       "type": "metric-claim",
       "label": "stability_duration: 5 h",
-      "status": "L2-abstract-only"
+      "status": "L4-claim-located"
     },
     {
       "id": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
       "type": "metric-claim",
-      "label": "total_current_density: not-extracted mA cm-2",
-      "status": "not-extracted"
+      "label": "total_current_density: 23 mA cm-2",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "type": "metric-claim",
+      "label": "partial_current_density: 20.8 mA cm-2",
+      "status": "L4-claim-located"
     },
     {
       "id": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
       "type": "catalyst-state",
       "label": "TAL-33-derived Bi catalyst",
       "status": "unresolved"
+    },
+    {
+      "id": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
     },
     {
       "id": "catrxn-v2-tal33-derived-bi-formate-2022",
@@ -129,6 +153,12 @@
       "type": "catalyst-state",
       "label": "Bi/CC-17",
       "status": "unresolved"
+    },
+    {
+      "id": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
     },
     {
       "id": "catrxn-v2-bicc17-nanosheets-formate-2021",
@@ -153,6 +183,12 @@
       "type": "catalyst-state",
       "label": "CAU-17-derived leafy bismuth nanosheets",
       "status": "unresolved"
+    },
+    {
+      "id": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
     },
     {
       "id": "catrxn-v2-cau17-leafy-bi-formate-2020",
@@ -191,6 +227,12 @@
       "status": "unresolved"
     },
     {
+      "id": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
+    },
+    {
       "id": "catrxn-v2-bibtb-restructured-bi-formate-2020",
       "type": "reaction-record",
       "label": "CO2 -> formate",
@@ -215,6 +257,18 @@
       "status": "unresolved"
     },
     {
+      "id": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
+      "type": "experiment-run",
+      "label": "流动池 25 mA cm-2 性能点",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "type": "experiment-run",
+      "label": "H 型池 -1.4 V 性能点",
+      "status": "source-reported-with-calculated-loading"
+    },
+    {
       "id": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
       "type": "reaction-record",
       "label": "CO2 -> formate",
@@ -233,10 +287,52 @@
       "status": "L4-claim-located"
     },
     {
+      "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "type": "metric-claim",
+      "label": "faradaic_efficiency: 60 %",
+      "status": "L4-claim-located"
+    },
+    {
+      "id": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "type": "metric-claim",
+      "label": "partial_current_density: 2.2 mA cm-2",
+      "status": "L4-claim-located"
+    },
+    {
       "id": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
       "type": "catalyst-state",
       "label": "Bi-HHTP",
-      "status": "unresolved"
+      "status": "publisher-structure-identifier-verified"
+    },
+    {
+      "id": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "type": "experiment-run",
+      "label": "-0.7 V 选择性与能效",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "type": "experiment-run",
+      "label": "-1.1 V 总电流密度",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "type": "experiment-run",
+      "label": "最大甲酸盐 TOF",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "type": "experiment-run",
+      "label": "-0.7 V 30小时稳定性",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "type": "experiment-run",
+      "label": "两探针电导率表征",
+      "status": "source-reported"
     },
     {
       "id": "catrxn-v2-bi-hhtp-formate-2023",
@@ -287,6 +383,24 @@
       "status": "unresolved"
     },
     {
+      "id": "run-catrxn-v2-su101-formate-2022-peak-fe-1h",
+      "type": "experiment-run",
+      "label": "峰值法拉第效率",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+      "type": "experiment-run",
+      "label": "峰值甲酸盐分电流",
+      "status": "source-reported"
+    },
+    {
+      "id": "run-catrxn-v2-su101-formate-2022-stability-10h",
+      "type": "experiment-run",
+      "label": "10小时稳定性",
+      "status": "source-reported"
+    },
+    {
       "id": "catrxn-v2-su101-formate-2022",
       "type": "reaction-record",
       "label": "CO2 -> formate",
@@ -317,6 +431,12 @@
       "status": "unresolved"
     },
     {
+      "id": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
+    },
+    {
       "id": "catrxn-v2-cubi-derived-formate-2021",
       "type": "reaction-record",
       "label": "CO2 -> formate",
@@ -339,6 +459,12 @@
       "type": "catalyst-state",
       "label": "two-dimensional Bi-MOF",
       "status": "unresolved"
+    },
+    {
+      "id": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "type": "experiment-run",
+      "label": "文献记录运行",
+      "status": "source-reported"
     },
     {
       "id": "catrxn-v2-2d-bi-mof-formate-2020",
@@ -367,20 +493,26 @@
     {
       "id": "evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
       "type": "evidence-item",
-      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3a",
+      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
       "status": "verified"
     },
     {
       "id": "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
       "type": "evidence-item",
-      "label": "publisher abstract",
-      "status": "location-backfill-required"
+      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3c–3d; Supporting Information · Fig. S28–S29",
+      "status": "verified"
     },
     {
       "id": "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
       "type": "evidence-item",
-      "label": "not present in the verified abstract fields",
-      "status": "not-extracted"
+      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3a–3b",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrochemical CO2 reduction · Fig. 3b",
+      "status": "verified"
     },
     {
       "id": "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
@@ -449,6 +581,18 @@
       "status": "verified"
     },
     {
+      "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+      "status": "verified"
+    },
+    {
+      "id": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "type": "evidence-item",
+      "label": "publisher full text · Electrocatalytic CO2 reduction · Fig. 5a",
+      "status": "verified"
+    },
+    {
       "id": "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
       "type": "evidence-item",
       "label": "publisher full text · Electrochemical performance · Fig. 3c",
@@ -487,19 +631,19 @@
     {
       "id": "evidence-catrxn-v2-su101-formate-2022-fe-formate",
       "type": "evidence-item",
-      "label": "publisher full text · Results and discussion · Fig. 2b–2c",
+      "label": "publisher full text · Results and discussion · Fig. 2b–2c; Supporting Information · Fig. S7; Table S1",
       "status": "verified"
     },
     {
       "id": "evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
       "type": "evidence-item",
-      "label": "publisher full text · Results and discussion · Fig. 2c",
+      "label": "publisher full text · Results and discussion · Fig. 2c; Supporting Information · Fig. S7; Table S1",
       "status": "verified"
     },
     {
       "id": "evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
       "type": "evidence-item",
-      "label": "publisher full text · Results and discussion · Fig. 2d",
+      "label": "publisher full text · Results and discussion · Fig. 2d; Supporting Information · Working electrode preparation; Electrochemical measurement",
       "status": "verified"
     },
     {
@@ -533,86 +677,58 @@
       "status": "location-backfill-required"
     },
     {
-      "id": "task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
-      "type": "verification-task",
-      "label": "补齐数值的图表或补充材料位置",
-      "status": "open",
-      "priority": "P0"
-    },
-    {
-      "id": "task-source-cat-lit-mfm220-2022-condition-backfill-2",
-      "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
-      "status": "open",
-      "priority": "P0"
-    },
-    {
-      "id": "task-source-cat-lit-mfm220-2022-condition-backfill-3",
-      "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
-      "status": "open",
-      "priority": "P0"
-    },
-    {
-      "id": "task-source-cat-lit-mfm220-2022-identity-resolution-4",
+      "id": "task-source-cat-lit-mfm220-2022-identity-resolution-1",
       "type": "verification-task",
       "label": "核验精确结构身份",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-mfm220-2022-active-phase-review-5",
+      "id": "task-source-cat-lit-mfm220-2022-active-phase-review-2",
       "type": "verification-task",
       "label": "核验真实催化活性相",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-mfm220-2022-license-review-6",
-      "type": "verification-task",
-      "label": "核验模型训练使用许可",
-      "status": "open",
-      "priority": "P1"
-    },
-    {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-1",
       "type": "verification-task",
-      "label": "补齐比较条件：cellType",
+      "label": "补齐“文献记录运行”的比较条件：cellType",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“文献记录运行”的比较条件：electrolyte",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：potentialOrCurrent",
+      "label": "补齐“文献记录运行”的比较条件：potentialOrCurrent",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：duration",
+      "label": "补齐“文献记录运行”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-5",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-tal33-2022-condition-backfill-6",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -647,28 +763,28 @@
     {
       "id": "task-source-cat-lit-bicc17-2021-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“文献记录运行”的比较条件：electrolyte",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bicc17-2021-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：duration",
+      "label": "补齐“文献记录运行”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bicc17-2021-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bicc17-2021-condition-backfill-5",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -703,21 +819,21 @@
     {
       "id": "task-source-cat-lit-cau17-2020-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：potentialOrCurrent",
+      "label": "补齐“文献记录运行”的比较条件：potentialOrCurrent",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-cau17-2020-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-cau17-2020-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -752,42 +868,42 @@
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：cellType",
+      "label": "补齐“文献记录运行”的比较条件：cellType",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“文献记录运行”的比较条件：electrolyte",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：potentialOrCurrent",
+      "label": "补齐“文献记录运行”的比较条件：potentialOrCurrent",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-5",
       "type": "verification-task",
-      "label": "补齐比较条件：duration",
+      "label": "补齐“文献记录运行”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-6",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-bibtb-2020-condition-backfill-7",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -815,103 +931,117 @@
     {
       "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“流动池 25 mA cm-2 性能点”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：duration",
+      "label": "补齐“流动池 25 mA cm-2 性能点”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“H 型池 -1.4 V 性能点”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
-      "id": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
-      "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
-      "status": "open",
-      "priority": "P0"
-    },
-    {
-      "id": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "id": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-4",
       "type": "verification-task",
       "label": "核验精确结构身份",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
+      "id": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-5",
       "type": "verification-task",
       "label": "核验真实催化活性相",
-      "status": "open",
-      "priority": "P1"
-    },
-    {
-      "id": "task-source-cat-lit-zrdmbdbi-2025-license-review-7",
-      "type": "verification-task",
-      "label": "核验模型训练使用许可",
       "status": "open",
       "priority": "P1"
     },
     {
       "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-1",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“-0.7 V 选择性与能效”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
-      "id": "task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-2",
       "type": "verification-task",
-      "label": "核验精确结构身份",
+      "label": "补齐“-0.7 V 选择性与能效”的比较条件：catalystLoading",
       "status": "open",
-      "priority": "P1"
+      "priority": "P0"
     },
     {
-      "id": "task-source-cat-lit-bihhtp-2023-active-phase-review-3",
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-3",
+      "type": "verification-task",
+      "label": "补齐“-1.1 V 总电流密度”的比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-4",
+      "type": "verification-task",
+      "label": "补齐“-1.1 V 总电流密度”的比较条件：polarizationProtocol",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-5",
+      "type": "verification-task",
+      "label": "补齐“最大甲酸盐 TOF”的比较条件：potentialOrCurrent",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-6",
+      "type": "verification-task",
+      "label": "补齐“最大甲酸盐 TOF”的比较条件：duration",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-7",
+      "type": "verification-task",
+      "label": "补齐“最大甲酸盐 TOF”的比较条件：activeSiteNormalization",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-condition-backfill-8",
+      "type": "verification-task",
+      "label": "补齐“-0.7 V 30小时稳定性”的比较条件：catalystLoading",
+      "status": "open",
+      "priority": "P0"
+    },
+    {
+      "id": "task-source-cat-lit-bihhtp-2023-active-phase-review-9",
       "type": "verification-task",
       "label": "核验真实催化活性相",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-bihhtp-2023-license-review-4",
-      "type": "verification-task",
-      "label": "核验模型训练使用许可",
-      "status": "open",
-      "priority": "P1"
-    },
-    {
-      "id": "task-source-cat-lit-su101-2022-condition-backfill-1",
-      "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
-      "status": "open",
-      "priority": "P0"
-    },
-    {
-      "id": "task-source-cat-lit-su101-2022-identity-resolution-2",
+      "id": "task-source-cat-lit-su101-2022-identity-resolution-1",
       "type": "verification-task",
       "label": "核验精确结构身份",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-su101-2022-active-phase-review-3",
+      "id": "task-source-cat-lit-su101-2022-active-phase-review-2",
       "type": "verification-task",
       "label": "核验真实催化活性相",
       "status": "open",
       "priority": "P1"
     },
     {
-      "id": "task-source-cat-lit-su101-2022-license-review-4",
+      "id": "task-source-cat-lit-su101-2022-license-review-3",
       "type": "verification-task",
       "label": "核验模型训练使用许可",
       "status": "open",
@@ -927,28 +1057,28 @@
     {
       "id": "task-source-cat-lit-cubi-2021-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“文献记录运行”的比较条件：electrolyte",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-cubi-2021-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：duration",
+      "label": "补齐“文献记录运行”的比较条件：duration",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-cubi-2021-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-cubi-2021-condition-backfill-5",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -983,21 +1113,21 @@
     {
       "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-2",
       "type": "verification-task",
-      "label": "补齐比较条件：electrolyte",
+      "label": "补齐“文献记录运行”的比较条件：electrolyte",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-3",
       "type": "verification-task",
-      "label": "补齐比较条件：catalystLoading",
+      "label": "补齐“文献记录运行”的比较条件：catalystLoading",
       "status": "open",
       "priority": "P0"
     },
     {
       "id": "task-source-cat-lit-2dbimof-2020-condition-backfill-4",
       "type": "verification-task",
-      "label": "补齐比较条件：productQuantification",
+      "label": "补齐“文献记录运行”的比较条件：productQuantification",
       "status": "open",
       "priority": "P0"
     },
@@ -1031,6 +1161,18 @@
       "type": "reports-catalyst-state"
     },
     {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "type": "has-experiment-run"
+    },
+    {
       "id": "edge-catalyst-state-catrxn-v2-mfm220p-formate-2022-catrxn-v2-mfm220p-formate-2022",
       "source": "catalyst-state-catrxn-v2-mfm220p-formate-2022",
       "target": "catrxn-v2-mfm220p-formate-2022",
@@ -1041,6 +1183,12 @@
       "source": "catrxn-v2-mfm220p-formate-2022",
       "target": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-mfm220p-formate-2022-performance-1h-claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "source": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-fe-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-fe-formate-evidence-catrxn-v2-mfm220p-formate-2022-fe-formate",
@@ -1055,6 +1203,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-mfm220p-formate-2022-stability-5h-claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "source": "run-catrxn-v2-mfm220p-formate-2022-stability-5h",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-stability-duration-evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
       "source": "claim-catrxn-v2-mfm220p-formate-2022-stability-duration",
       "target": "evidence-catrxn-v2-mfm220p-formate-2022-stability-duration",
@@ -1067,9 +1221,33 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-mfm220p-formate-2022-performance-1h-claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "source": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-total-current-density-evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
       "source": "claim-catrxn-v2-mfm220p-formate-2022-total-current-density",
       "target": "evidence-catrxn-v2-mfm220p-formate-2022-total-current-density",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "source": "catrxn-v2-mfm220p-formate-2022",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-mfm220p-formate-2022-performance-1h-claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "source": "run-catrxn-v2-mfm220p-formate-2022-performance-1h",
+      "target": "claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "type": "reports-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate-evidence-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "source": "claim-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
+      "target": "evidence-catrxn-v2-mfm220p-formate-2022-partial-current-formate",
       "type": "supported-by"
     },
     {
@@ -1077,6 +1255,12 @@
       "source": "source-cat-lit-tal33-2022",
       "target": "catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022",
       "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "target": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "type": "has-experiment-run"
     },
     {
       "id": "edge-catalyst-state-catrxn-v2-tal33-derived-bi-formate-2022-catrxn-v2-tal33-derived-bi-formate-2022",
@@ -1091,6 +1275,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
+      "target": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate-evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
       "source": "claim-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
       "target": "evidence-catrxn-v2-tal33-derived-bi-formate-2022-fe-formate",
@@ -1101,6 +1291,12 @@
       "source": "source-cat-lit-bicc17-2021",
       "target": "catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021",
       "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
+      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "target": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
+      "type": "has-experiment-run"
     },
     {
       "id": "edge-catalyst-state-catrxn-v2-bicc17-nanosheets-formate-2021-catrxn-v2-bicc17-nanosheets-formate-2021",
@@ -1115,6 +1311,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
+      "target": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate-evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
       "source": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
       "target": "evidence-catrxn-v2-bicc17-nanosheets-formate-2021-fe-formate",
@@ -1125,6 +1327,12 @@
       "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
       "target": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
+      "target": "claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate-evidence-catrxn-v2-bicc17-nanosheets-formate-2021-partial-current-formate",
@@ -1139,6 +1347,12 @@
       "type": "reports-catalyst-state"
     },
     {
+      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "target": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "type": "has-experiment-run"
+    },
+    {
       "id": "edge-catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020-catrxn-v2-cau17-leafy-bi-formate-2020",
       "source": "catalyst-state-catrxn-v2-cau17-leafy-bi-formate-2020",
       "target": "catrxn-v2-cau17-leafy-bi-formate-2020",
@@ -1149,6 +1363,12 @@
       "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
       "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-total-current-density",
@@ -1163,6 +1383,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
       "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
       "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-khco3",
@@ -1173,6 +1399,12 @@
       "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
       "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-fe-formic-acid-koh",
@@ -1187,6 +1419,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration-evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
       "source": "claim-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
       "target": "evidence-catrxn-v2-cau17-leafy-bi-formate-2020-stability-duration",
@@ -1197,6 +1435,12 @@
       "source": "source-cat-lit-bibtb-2020",
       "target": "catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020",
       "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
+      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "target": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
+      "type": "has-experiment-run"
     },
     {
       "id": "edge-catalyst-state-catrxn-v2-bibtb-restructured-bi-formate-2020-catrxn-v2-bibtb-restructured-bi-formate-2020",
@@ -1211,6 +1455,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate-evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
       "source": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
       "target": "evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-fe-formate",
@@ -1221,6 +1471,12 @@
       "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
       "target": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity-evidence-catrxn-v2-bibtb-restructured-bi-formate-2020-mass-activity",
@@ -1235,6 +1491,18 @@
       "type": "reports-catalyst-state"
     },
     {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "type": "has-experiment-run"
+    },
+    {
       "id": "edge-catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025-catrxn-v2-zr-dmbd-bi-np-formate-2025",
       "source": "catalyst-state-catrxn-v2-zr-dmbd-bi-np-formate-2025",
       "target": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
@@ -1245,6 +1513,12 @@
       "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
       "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate",
@@ -1259,9 +1533,51 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
       "source": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
       "target": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "type": "reports-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "source": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "target": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-fe-formate-hcell",
+      "type": "supported-by"
+    },
+    {
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
+      "target": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "type": "reports-claim"
+    },
+    {
+      "id": "edge-claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell-evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "source": "claim-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
+      "target": "evidence-catrxn-v2-zr-dmbd-bi-np-formate-2025-partial-current-formate-hcell",
       "type": "supported-by"
     },
     {
@@ -1269,6 +1585,36 @@
       "source": "source-cat-lit-bihhtp-2023",
       "target": "catalyst-state-catrxn-v2-bi-hhtp-formate-2023",
       "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "target": "run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "type": "has-experiment-run"
     },
     {
       "id": "edge-catalyst-state-catrxn-v2-bi-hhtp-formate-2023-catrxn-v2-bi-hhtp-formate-2023",
@@ -1283,6 +1629,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v-claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate-evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
       "source": "claim-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
       "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-fe-formate",
@@ -1293,6 +1645,12 @@
       "source": "catrxn-v2-bi-hhtp-formate-2023",
       "target": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v-claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency-evidence-catrxn-v2-bi-hhtp-formate-2023-carbon-energy-efficiency",
@@ -1307,6 +1665,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v-claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density-evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
       "source": "claim-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
       "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-total-current-density",
@@ -1317,6 +1681,12 @@
       "source": "catrxn-v2-bi-hhtp-formate-2023",
       "target": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof-claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-tof-formate-evidence-catrxn-v2-bi-hhtp-formate-2023-tof-formate",
@@ -1331,6 +1701,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization-claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-conductivity-characterization",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-conductivity-evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
       "source": "claim-catrxn-v2-bi-hhtp-formate-2023-conductivity",
       "target": "evidence-catrxn-v2-bi-hhtp-formate-2023-conductivity",
@@ -1341,6 +1717,12 @@
       "source": "catrxn-v2-bi-hhtp-formate-2023",
       "target": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v-claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "target": "claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-bi-hhtp-formate-2023-stability-duration-evidence-catrxn-v2-bi-hhtp-formate-2023-stability-duration",
@@ -1355,6 +1737,24 @@
       "type": "reports-catalyst-state"
     },
     {
+      "id": "edge-catrxn-v2-su101-formate-2022-run-catrxn-v2-su101-formate-2022-peak-fe-1h",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "run-catrxn-v2-su101-formate-2022-peak-fe-1h",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+      "type": "has-experiment-run"
+    },
+    {
+      "id": "edge-catrxn-v2-su101-formate-2022-run-catrxn-v2-su101-formate-2022-stability-10h",
+      "source": "catrxn-v2-su101-formate-2022",
+      "target": "run-catrxn-v2-su101-formate-2022-stability-10h",
+      "type": "has-experiment-run"
+    },
+    {
       "id": "edge-catalyst-state-catrxn-v2-su101-formate-2022-catrxn-v2-su101-formate-2022",
       "source": "catalyst-state-catrxn-v2-su101-formate-2022",
       "target": "catrxn-v2-su101-formate-2022",
@@ -1365,6 +1765,12 @@
       "source": "catrxn-v2-su101-formate-2022",
       "target": "claim-catrxn-v2-su101-formate-2022-fe-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-su101-formate-2022-peak-fe-1h-claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "source": "run-catrxn-v2-su101-formate-2022-peak-fe-1h",
+      "target": "claim-catrxn-v2-su101-formate-2022-fe-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-su101-formate-2022-fe-formate-evidence-catrxn-v2-su101-formate-2022-fe-formate",
@@ -1379,6 +1785,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-su101-formate-2022-peak-partial-current-1h-claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "source": "run-catrxn-v2-su101-formate-2022-peak-partial-current-1h",
+      "target": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-su101-formate-2022-partial-current-formate-evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
       "source": "claim-catrxn-v2-su101-formate-2022-partial-current-formate",
       "target": "evidence-catrxn-v2-su101-formate-2022-partial-current-formate",
@@ -1389,6 +1801,12 @@
       "source": "catrxn-v2-su101-formate-2022",
       "target": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-su101-formate-2022-stability-10h-claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "source": "run-catrxn-v2-su101-formate-2022-stability-10h",
+      "target": "claim-catrxn-v2-su101-formate-2022-fe-after-stability",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-su101-formate-2022-fe-after-stability-evidence-catrxn-v2-su101-formate-2022-fe-after-stability",
@@ -1403,6 +1821,12 @@
       "type": "reports-catalyst-state"
     },
     {
+      "id": "edge-catrxn-v2-cubi-derived-formate-2021-run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "target": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "type": "has-experiment-run"
+    },
+    {
       "id": "edge-catalyst-state-catrxn-v2-cubi-derived-formate-2021-catrxn-v2-cubi-derived-formate-2021",
       "source": "catalyst-state-catrxn-v2-cubi-derived-formate-2021",
       "target": "catrxn-v2-cubi-derived-formate-2021",
@@ -1413,6 +1837,12 @@
       "source": "catrxn-v2-cubi-derived-formate-2021",
       "target": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "target": "claim-catrxn-v2-cubi-derived-formate-2021-fe-formate",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-cubi-derived-formate-2021-fe-formate-evidence-catrxn-v2-cubi-derived-formate-2021-fe-formate",
@@ -1427,6 +1857,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
+      "target": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-cubi-derived-formate-2021-potential-window-evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
       "source": "claim-catrxn-v2-cubi-derived-formate-2021-potential-window",
       "target": "evidence-catrxn-v2-cubi-derived-formate-2021-potential-window",
@@ -1437,6 +1873,12 @@
       "source": "source-cat-lit-2dbimof-2020",
       "target": "catalyst-state-catrxn-v2-2d-bi-mof-formate-2020",
       "type": "reports-catalyst-state"
+    },
+    {
+      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "target": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "type": "has-experiment-run"
     },
     {
       "id": "edge-catalyst-state-catrxn-v2-2d-bi-mof-formate-2020-catrxn-v2-2d-bi-mof-formate-2020",
@@ -1451,6 +1893,12 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid-evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
       "source": "claim-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
       "target": "evidence-catrxn-v2-2d-bi-mof-formate-2020-fe-formic-acid",
@@ -1461,6 +1909,12 @@
       "source": "catrxn-v2-2d-bi-mof-formate-2020",
       "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
       "type": "has-claim"
+    },
+    {
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
+      "type": "reports-claim"
     },
     {
       "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current-evidence-catrxn-v2-2d-bi-mof-formate-2020-mass-specific-partial-current",
@@ -1475,80 +1929,62 @@
       "type": "has-claim"
     },
     {
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
+      "target": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
+      "type": "reports-claim"
+    },
+    {
       "id": "edge-claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration-evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
       "source": "claim-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
       "target": "evidence-catrxn-v2-2d-bi-mof-formate-2020-stability-duration",
       "type": "supported-by"
     },
     {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-identity-resolution-1",
       "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-claim-location-backfill-1",
+      "target": "task-source-cat-lit-mfm220-2022-identity-resolution-1",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-condition-backfill-2",
+      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-active-phase-review-2",
       "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-condition-backfill-2",
+      "target": "task-source-cat-lit-mfm220-2022-active-phase-review-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-condition-backfill-3",
-      "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-condition-backfill-3",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-identity-resolution-4",
-      "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-identity-resolution-4",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-active-phase-review-5",
-      "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-active-phase-review-5",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-mfm220p-formate-2022-task-source-cat-lit-mfm220-2022-license-review-6",
-      "source": "catrxn-v2-mfm220p-formate-2022",
-      "target": "task-source-cat-lit-mfm220-2022-license-review-6",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-1",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-1",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-1",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-2",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-2",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-3",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-3",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-4",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-4",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-4",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-5",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-5",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-5",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-tal33-derived-bi-formate-2022-task-source-cat-lit-tal33-2022-condition-backfill-6",
-      "source": "catrxn-v2-tal33-derived-bi-formate-2022",
+      "id": "edge-run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run-task-source-cat-lit-tal33-2022-condition-backfill-6",
+      "source": "run-catrxn-v2-tal33-derived-bi-formate-2022-reported-run",
       "target": "task-source-cat-lit-tal33-2022-condition-backfill-6",
       "type": "requires-verification"
     },
@@ -1577,26 +2013,26 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-2",
-      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-task-source-cat-lit-bicc17-2021-condition-backfill-2",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "target": "task-source-cat-lit-bicc17-2021-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-3",
-      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-task-source-cat-lit-bicc17-2021-condition-backfill-3",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "target": "task-source-cat-lit-bicc17-2021-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-4",
-      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-task-source-cat-lit-bicc17-2021-condition-backfill-4",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "target": "task-source-cat-lit-bicc17-2021-condition-backfill-4",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bicc17-nanosheets-formate-2021-task-source-cat-lit-bicc17-2021-condition-backfill-5",
-      "source": "catrxn-v2-bicc17-nanosheets-formate-2021",
+      "id": "edge-run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run-task-source-cat-lit-bicc17-2021-condition-backfill-5",
+      "source": "run-catrxn-v2-bicc17-nanosheets-formate-2021-reported-run",
       "target": "task-source-cat-lit-bicc17-2021-condition-backfill-5",
       "type": "requires-verification"
     },
@@ -1625,20 +2061,20 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-2",
-      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-task-source-cat-lit-cau17-2020-condition-backfill-2",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-cau17-2020-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-3",
-      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-task-source-cat-lit-cau17-2020-condition-backfill-3",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-cau17-2020-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cau17-leafy-bi-formate-2020-task-source-cat-lit-cau17-2020-condition-backfill-4",
-      "source": "catrxn-v2-cau17-leafy-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run-task-source-cat-lit-cau17-2020-condition-backfill-4",
+      "source": "run-catrxn-v2-cau17-leafy-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-cau17-2020-condition-backfill-4",
       "type": "requires-verification"
     },
@@ -1667,38 +2103,38 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-2",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-2",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-3",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-3",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-4",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-4",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-4",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-5",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-5",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-5",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-6",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-6",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-6",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bibtb-restructured-bi-formate-2020-task-source-cat-lit-bibtb-2020-condition-backfill-7",
-      "source": "catrxn-v2-bibtb-restructured-bi-formate-2020",
+      "id": "edge-run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run-task-source-cat-lit-bibtb-2020-condition-backfill-7",
+      "source": "run-catrxn-v2-bibtb-restructured-bi-formate-2020-reported-run",
       "target": "task-source-cat-lit-bibtb-2020-condition-backfill-7",
       "type": "requires-verification"
     },
@@ -1721,93 +2157,105 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
-      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
       "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-1",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
-      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-flow-cell-minus-25ma",
       "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
-      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
+      "id": "edge-run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
+      "source": "run-catrxn-v2-zr-dmbd-bi-np-formate-2025-hcell-minus-1-4v",
       "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-identity-resolution-4",
       "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
-      "target": "task-source-cat-lit-zrdmbdbi-2025-condition-backfill-4",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-4",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-active-phase-review-5",
       "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
-      "target": "task-source-cat-lit-zrdmbdbi-2025-identity-resolution-5",
+      "target": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-5",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
-      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
-      "target": "task-source-cat-lit-zrdmbdbi-2025-active-phase-review-6",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-zr-dmbd-bi-np-formate-2025-task-source-cat-lit-zrdmbdbi-2025-license-review-7",
-      "source": "catrxn-v2-zr-dmbd-bi-np-formate-2025",
-      "target": "task-source-cat-lit-zrdmbdbi-2025-license-review-7",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-condition-backfill-1",
-      "source": "catrxn-v2-bi-hhtp-formate-2023",
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v-task-source-cat-lit-bihhtp-2023-condition-backfill-1",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
       "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-1",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v-task-source-cat-lit-bihhtp-2023-condition-backfill-2",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-selectivity-minus-0-7v",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-2",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v-task-source-cat-lit-bihhtp-2023-condition-backfill-3",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-3",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v-task-source-cat-lit-bihhtp-2023-condition-backfill-4",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-current-minus-1-1v",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-4",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof-task-source-cat-lit-bihhtp-2023-condition-backfill-5",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-5",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof-task-source-cat-lit-bihhtp-2023-condition-backfill-6",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-6",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof-task-source-cat-lit-bihhtp-2023-condition-backfill-7",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-maximum-tof",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-7",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v-task-source-cat-lit-bihhtp-2023-condition-backfill-8",
+      "source": "run-catrxn-v2-bi-hhtp-formate-2023-stability-30h-minus-0-7v",
+      "target": "task-source-cat-lit-bihhtp-2023-condition-backfill-8",
+      "type": "requires-verification"
+    },
+    {
+      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-active-phase-review-9",
       "source": "catrxn-v2-bi-hhtp-formate-2023",
-      "target": "task-source-cat-lit-bihhtp-2023-identity-resolution-2",
+      "target": "task-source-cat-lit-bihhtp-2023-active-phase-review-9",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-active-phase-review-3",
-      "source": "catrxn-v2-bi-hhtp-formate-2023",
-      "target": "task-source-cat-lit-bihhtp-2023-active-phase-review-3",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-bi-hhtp-formate-2023-task-source-cat-lit-bihhtp-2023-license-review-4",
-      "source": "catrxn-v2-bi-hhtp-formate-2023",
-      "target": "task-source-cat-lit-bihhtp-2023-license-review-4",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-condition-backfill-1",
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-identity-resolution-1",
       "source": "catrxn-v2-su101-formate-2022",
-      "target": "task-source-cat-lit-su101-2022-condition-backfill-1",
+      "target": "task-source-cat-lit-su101-2022-identity-resolution-1",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-identity-resolution-2",
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-active-phase-review-2",
       "source": "catrxn-v2-su101-formate-2022",
-      "target": "task-source-cat-lit-su101-2022-identity-resolution-2",
+      "target": "task-source-cat-lit-su101-2022-active-phase-review-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-active-phase-review-3",
+      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-license-review-3",
       "source": "catrxn-v2-su101-formate-2022",
-      "target": "task-source-cat-lit-su101-2022-active-phase-review-3",
-      "type": "requires-verification"
-    },
-    {
-      "id": "edge-catrxn-v2-su101-formate-2022-task-source-cat-lit-su101-2022-license-review-4",
-      "source": "catrxn-v2-su101-formate-2022",
-      "target": "task-source-cat-lit-su101-2022-license-review-4",
+      "target": "task-source-cat-lit-su101-2022-license-review-3",
       "type": "requires-verification"
     },
     {
@@ -1817,26 +2265,26 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-2",
-      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-task-source-cat-lit-cubi-2021-condition-backfill-2",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
       "target": "task-source-cat-lit-cubi-2021-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-3",
-      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-task-source-cat-lit-cubi-2021-condition-backfill-3",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
       "target": "task-source-cat-lit-cubi-2021-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-4",
-      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-task-source-cat-lit-cubi-2021-condition-backfill-4",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
       "target": "task-source-cat-lit-cubi-2021-condition-backfill-4",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-cubi-derived-formate-2021-task-source-cat-lit-cubi-2021-condition-backfill-5",
-      "source": "catrxn-v2-cubi-derived-formate-2021",
+      "id": "edge-run-catrxn-v2-cubi-derived-formate-2021-reported-run-task-source-cat-lit-cubi-2021-condition-backfill-5",
+      "source": "run-catrxn-v2-cubi-derived-formate-2021-reported-run",
       "target": "task-source-cat-lit-cubi-2021-condition-backfill-5",
       "type": "requires-verification"
     },
@@ -1865,20 +2313,20 @@
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-2",
-      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-task-source-cat-lit-2dbimof-2020-condition-backfill-2",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
       "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-2",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-3",
-      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-task-source-cat-lit-2dbimof-2020-condition-backfill-3",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
       "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-3",
       "type": "requires-verification"
     },
     {
-      "id": "edge-catrxn-v2-2d-bi-mof-formate-2020-task-source-cat-lit-2dbimof-2020-condition-backfill-4",
-      "source": "catrxn-v2-2d-bi-mof-formate-2020",
+      "id": "edge-run-catrxn-v2-2d-bi-mof-formate-2020-reported-run-task-source-cat-lit-2dbimof-2020-condition-backfill-4",
+      "source": "run-catrxn-v2-2d-bi-mof-formate-2020-reported-run",
       "target": "task-source-cat-lit-2dbimof-2020-condition-backfill-4",
       "type": "requires-verification"
     },
