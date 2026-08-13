@@ -58,15 +58,17 @@ describe("navigation registry", () => {
     expect(resolveTabForHash("mof-record-coremof2024-csdm-00001")).toBe("mofRecord")
     expect(resolveTabForHash("literature-doi-10.1039%2Fd2ta04485d")).toBe("literatureRecord")
     expect(resolveTabForHash("project-evolution-roadmap")).toBe("projectEvolution")
+    expect(resolveTabForHash("project-evolution-release-notes")).toBe("releaseNotes")
     expect(getNavigationItem("gas-separation")?.id).toBe("gassep")
     expect(getScrollTargetForHash("methodology-gassep")).toBe("methodology-gassep")
     expect(getScrollTargetForHash("project-evolution-roadmap")).toBe("project-evolution-roadmap")
   })
 
   it("registers the first-priority centers and the independent charter as real routes", () => {
-    expect(["catalysisLiterature", "organicAcid", "algorithmValidation", "dataQuality", "mofRecord", "literatureRecord", "charter"].every(id => Boolean(NAVIGATION_ROUTES.find(route => route.tabId === id)))).toBe(true)
+    expect(["catalysisLiterature", "organicAcid", "algorithmValidation", "dataQuality", "mofRecord", "literatureRecord", "charter", "releaseNotes"].every(id => Boolean(NAVIGATION_ROUTES.find(route => route.tabId === id)))).toBe(true)
     expect(getNavigationItem("research-charter")?.tabId).toBe("charter")
     expect(getNavigationItem("data-quality-provenance")?.tabId).toBe("dataQuality")
+    expect(getNavigationItem("project-evolution-release-notes")?.tabId).toBe("releaseNotes")
   })
 
   it("ensures every future mega-menu group references a registered item", () => {

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest"
 import { render, screen, within } from "@testing-library/react"
 import data from "../../../public/data/version_evolution_records.json"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 describe("dynamic overview cards", () => {
   it("renders the project status overview from the dynamic status center", () => {
@@ -17,7 +18,7 @@ describe("dynamic overview cards", () => {
     expect(within(overview).getByText("Best Model")).toBeInTheDocument()
     expect(within(overview).getByText("Credibility")).toBeInTheDocument()
     expect(within(overview).getByText("Current Risk")).toBeInTheDocument()
-    expect(overview.textContent).toMatch(/Web v1\.0\.13/)
+    expect(overview.textContent).toContain(APP_VERSION_LABEL)
     expect(overview.textContent).toMatch(/V3\.10\.1/)
     expect(overview.textContent).toMatch(/10277\+/)
     expect(overview.textContent).toMatch(/150/)

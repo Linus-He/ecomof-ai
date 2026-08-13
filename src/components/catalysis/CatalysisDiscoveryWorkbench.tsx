@@ -174,8 +174,8 @@ export function CatalysisDiscoveryWorkbench({ queueDataset: queueProp = null, su
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}><BasisBadge tone="info">Crossref + OpenAlex</BasisBadge><BasisBadge tone={isolationPassed ? "calc" : "warn"}>{isolationPassed ? (zh ? "候选与正式记录已分离" : "Isolation passed") : (zh ? "数据分层异常" : "Isolation failed")}</BasisBadge><BasisBadge tone="warn">{zh ? "未经人工核验入库：0" : "Auto-promotion 0"}</BasisBadge></div>
       </header>
-      {status === "loading" ? <span style={{ color: t.muted, fontSize: 11, padding: 10 }}>{zh ? "正在读取候选文献…" : "Loading P2 literature batches…"}</span> : null}
-      {status === "error" ? <span role="alert" style={{ color: t.warn, fontSize: 11, padding: 10 }}>{zh ? "候选文献加载失败。" : "P2 literature data failed to load."}</span> : null}
+      {status === "loading" ? <span style={{ color: t.muted, fontSize: 11, padding: 10 }}>{zh ? "正在读取候选文献…" : "Loading literature batches…"}</span> : null}
+      {status === "error" ? <span role="alert" style={{ color: t.warn, fontSize: 11, padding: 10 }}>{zh ? "候选文献加载失败。" : "Literature data failed to load."}</span> : null}
       {status === "loaded" ? <>
         <Funnel isMobile={isMobile} summary={view.summary} t={t} zh={zh} />
         <FamilyTabs active={familyId} families={view.families} onChange={setFamilyId} t={t} zh={zh} />

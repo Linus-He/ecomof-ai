@@ -4,8 +4,8 @@ import { APP_VERSION, APP_VERSION_LABEL, getCurrentAppVersion } from "../../cons
 
 describe("app version constants", () => {
   it("reads the current Web version from app_release_log", () => {
-    expect(APP_VERSION).toBe("v1.0.13")
-    expect(APP_VERSION_LABEL).toBe("Web v1.0.13")
+    expect(APP_VERSION).toBe("v1.0.14")
+    expect(APP_VERSION_LABEL).toBe("Web v1.0.14")
     expect(getCurrentAppVersion(appReleaseLog)).toBe(appReleaseLog.currentAppVersion)
   })
 

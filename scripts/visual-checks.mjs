@@ -55,6 +55,16 @@ const routes = [
     "保持技术与证据领导力",
     "保持开放合作取向",
   ]],
+  ["methodology", "#methodology", [
+    "方法论",
+    "方法注册表与复核入口",
+    "数据与数据库架构",
+  ]],
+  ["release-notes", "#release-notes", [
+    "更新日志",
+    "v1.0.14",
+    "当前版本",
+  ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",
     "Current Version",
@@ -114,7 +124,9 @@ const routes = [
 
 const viewports = [
   ["desktop", 1440, 1100],
-  ["mobile", 390, 1050],
+  ["phone", 390, 844],
+  ["ipad-portrait", 820, 1180],
+  ["ipad-landscape", 1180, 820],
 ]
 
 function normalizeBaseUrl(url) {

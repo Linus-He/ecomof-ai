@@ -50,7 +50,7 @@ export function MethodologySidebar({ items, activeId, onJump, lang, t, isMobile 
       <div style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, marginBottom: 8, textTransform: "uppercase" }}>
         {text(lang, "方法目录 · 按研究流程排列", "Methods directory · research order")}
       </div>
-      <nav style={{ display: isMobile ? "flex" : "grid", gap: 6, overflowX: isMobile ? "auto" : "visible" }}>
+      <nav style={{ display: "grid", gap: 6, gridTemplateColumns: isMobile ? "repeat(auto-fit, minmax(min(210px, 100%), 1fr))" : "1fr", overflow: "visible" }}>
         {items.map((item, index) => (
           <CollapsibleNavGroup
             key={item.id}

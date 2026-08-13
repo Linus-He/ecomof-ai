@@ -13,7 +13,7 @@ import path from "node:path"
 
 const ROOT = process.cwd()
 const DATA_DIR = path.join(ROOT, "public", "data")
-const GENERATED_AT = process.env.ECOMOF_RETRIEVED_AT || "2026-07-29"
+const GENERATED_AT = process.env.ECOMOF_RETRIEVED_AT || "2026-08-13"
 
 const MODULE_CATALOG = {
   organicAcid: {
@@ -277,6 +277,54 @@ const V1_0_1_RELEASE = {
 }
 
 const RECENT_RELEASES = [
+  {
+    appVersion: "v1.0.14",
+    date: "2026-08-13",
+    stage: "unified-platform",
+    headline: {
+      zh: "v1.0.14：建立全局研究导航与独立页面，收敛方法论配色，并将更新日志拆为独立版本记录页。",
+      en: "v1.0.14: adds global research navigation and independent pages, neutralizes Methodology styling, and moves the changelog to a dedicated release-history page.",
+    },
+    summary: {
+      zh: "本轮将总览、研究、数据、方法与验证、项目、关于重组为无底框的文字导航和全宽二级索引；研究宪章、催化文献核验、有机酸研究、算法验证、数据质量、MOF 记录和 DOI 文献记录均成为可直接访问的页面；方法论以黑色文字和中性选中态为主，删除面向用户的内部阶段标签；更新日志从项目演化页独立出来，并补充手机与 iPad 响应式检查。",
+      en: "This release reorganizes Overview, Research, Data, Methods and Validation, Project, and About into an unframed text navigation with full-width secondary indexes. The Research Charter, Catalysis Literature Verification, Organic Acid Research, Algorithm Validation, Data Quality, MOF Record, and DOI Literature Record are directly addressable pages. Methodology now uses black-first typography and neutral selected states, removes user-facing internal phase labels, and moves the changelog out of Project Evolution with phone and iPad responsive checks.",
+    },
+    modules: {
+      ui: {
+        summary: {
+          zh: "导航、独立页面与跨尺寸布局改为更直接的研究信息架构。",
+          en: "Navigation, independent pages, and cross-device layouts now use a more direct research information architecture.",
+        },
+        changes: [
+          { zh: "一级导航改为无底框文字栏，二级菜单改为全宽、分组式文字索引，并保留键盘关闭与焦点恢复。", en: "Replaces the framed primary rail with unframed text navigation and full-width grouped secondary indexes while retaining keyboard dismissal and focus restoration." },
+          { zh: "将研究宪章及六个高优先级研究、数据和验证入口注册为独立可访问页面，旧链接继续兼容。", en: "Registers the Research Charter and six high-priority research, data, and validation destinations as independent pages while preserving legacy links." },
+          { zh: "补充手机、iPad 竖屏与 iPad 横屏检查，限制长标题、导航、方法目录和更新日志的横向溢出。", en: "Adds phone, iPad portrait, and iPad landscape checks that guard long headings, navigation, methodology directories, and changelog content against horizontal overflow." },
+        ],
+      },
+      validation: {
+        summary: {
+          zh: "方法论以中性文字层级为主，并清理内部阶段标签。",
+          en: "Methodology now uses a neutral typographic hierarchy and removes internal phase labels from public copy.",
+        },
+        changes: [
+          { zh: "方法论组件建立独立中性主题映射：正文、标题、步骤号和选中态以黑色为主，蓝色只保留给必要链接或数据系列。", en: "Adds a neutral Methodology theme mapping so body copy, headings, steps, and selected states are black-first, reserving blue for necessary links or data series." },
+          { zh: "删除候选文献检索中的内部阶段标签，保留实际检索、隔离、人工核对和写入门禁逻辑。", en: "Removes visible internal phase labels from literature discovery while retaining retrieval, quarantine, human review, and admission-gate behavior." },
+          { zh: "修复首页验证链指标与选中节点边框相交的问题，指标回到正常文档流，交互不再横向跳动。", en: "Fixes the homepage validation-chain metric intersecting selected-node borders by returning it to normal flow and removing lateral selection movement." },
+        ],
+      },
+      projectEvolution: {
+        summary: {
+          zh: "发布记录成为独立、可扫读且数据驱动的更新日志。",
+          en: "Release records now form an independent, scannable, data-driven changelog.",
+        },
+        changes: [
+          { zh: "新增独立更新日志页面，采用版本与日期在左、完整更新内容在右的简单文字排版。", en: "Adds a dedicated changelog page with version and date on the left and complete release content on the right." },
+          { zh: "项目演化页保留状态、演化图、模块历史与路线图，不再重复渲染完整发布日志。", en: "Keeps status, evolution charts, module history, and roadmap in Project Evolution without duplicating the full release log." },
+          { zh: "更新日志继续读取统一发布数据，版本号、页头徽章和版本记录保持同源。", en: "Keeps the changelog on the unified release data source so version labels, header badges, and release records remain synchronized." },
+        ],
+      },
+    },
+  },
   {
     appVersion: "v1.0.13",
     date: "2026-07-30",
@@ -797,19 +845,18 @@ async function main() {
         "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number.",
     },
     developmentLog: {
-      baseAppVersion: "v1.0.12",
-      developmentVersion: "v1.0.13",
+      baseAppVersion: "v1.0.13",
+      developmentVersion: "v1.0.14",
       recordedAt: GENERATED_AT,
       status: "archived",
       statusLabel: { zh: "已归档", en: "archived" },
       logPolicy: {
-        zh: "v1.0.13 只记录本轮实际完成并通过检查的首页沉浸式调整、紧凑小圆角控件规范、逐项方法说明和文献来源恢复，不把计划项写成已完成。",
-        en: "v1.0.13 records only the homepage immersion changes, compact-corner control rule, item-level methodology details, and restored literature sources completed and checked in this release; planned work is not presented as complete.",
+        zh: "v1.0.14 只记录本轮实际完成并通过检查的导航与独立页面、方法论中性化、验证链修复、独立更新日志和响应式适配，不把计划项写成已完成。",
+        en: "v1.0.14 records only the navigation and independent pages, neutral Methodology styling, validation-chain fix, independent changelog, and responsive adaptation completed and checked in this release; planned work is not presented as complete.",
       },
       releaseBoundary: RECENT_RELEASES[0].summary,
       modules: RECENT_RELEASES[0].modules,
     },
-    ...(existingReleaseLog?.developmentLog ? { previousDevelopmentLog: existingReleaseLog.developmentLog } : {}),
     moduleCatalog: {
       ...MODULE_CATALOG,
       ...(existingReleaseLog?.moduleCatalog || {}),

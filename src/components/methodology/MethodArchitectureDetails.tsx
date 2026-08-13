@@ -174,11 +174,11 @@ const MODULE_ARCHITECTURE = {
     titleZh: "催化工作区如何组织反应、证据和决策",
     titleEn: "How the catalysis workspace organizes reactions, evidence, and decisions",
     introZh: "催化方法从 DOI 已核对的论文记录开始，分别保存文献检索结果、论文身份、数值声明位置、实验条件、催化剂状态、结构身份、活性相与数据许可。候选文献、有机酸专题和模型验证读取同一套使用范围判定，未经核对的数据不会进入跨论文比较或模型训练。",
-    introEn: "Catalysis V2 starts from normalized DOI-verified entities and separates discovery, article identity, numeric claims, operating conditions, catalyst state, structure identity, active phase, license, and admission decisions. The P2 quarantine, Organic Acid, Final Screening, and algorithm validation read the same gate result, so search hits and blocked fields cannot enter comparison or training.",
+    introEn: "Catalysis V2 starts from normalized DOI-verified entities and separates discovery, article identity, numeric claims, operating conditions, catalyst state, structure identity, active phase, license, and admission decisions. The candidate quarantine, Organic Acid, Final Screening, and algorithm validation read the same gate result, so search hits and blocked fields cannot enter comparison or training.",
     blocks: [
       {
         titleZh: "候选文献检索与分层保存",
-        titleEn: "P2 literature discovery and candidate quarantine",
+        titleEn: "Literature discovery and candidate quarantine",
         implementationZh: "discovery-families-v1 固定五个 CO2 电还原反应家族及检索式；构建脚本从 Crossref 与 OpenAlex 各读取前 25 条结果，保存请求、时间和响应哈希，按 DOI 合并后让每个唯一论文重新评估全部家族。候选再由 Crossref 单条 DOI 端点核对题名、期刊、年份与更新关系；摘要和全文不写入缓存。",
         implementationEn: "discovery-families-v1 fixes five CO2 electroreduction families and queries. The build retrieves the top 25 records per family from Crossref and OpenAlex, stores request, time, and response hash, merges by DOI, and reevaluates every unique work against every family. Queued works are then checked through the Crossref single-DOI endpoint for title, journal, year, and updates; abstracts and full text are not persisted.",
         inputsZh: "版本化检索配置、Crossref 与 OpenAlex 元数据、正式记录 DOI 集合和人工核对结果。",

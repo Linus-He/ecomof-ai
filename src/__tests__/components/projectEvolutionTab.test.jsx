@@ -4,6 +4,7 @@ import data from "../../../public/data/version_evolution_records.json"
 import { TABS } from "../../constants/badges"
 import { HASH_TO_TAB } from "../../utils/deepLinks"
 import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 function bodyText() {
   return document.body.textContent || ""
@@ -32,7 +33,7 @@ describe("ProjectEvolutionTab", () => {
 
     expect(screen.getByTestId("project-evolution-overview")).toBeInTheDocument()
     expect(bodyText()).toMatch(/Current Web Version/)
-    expect(bodyText()).toMatch(/Web v1\.0\.10/)
+    expect(bodyText()).toContain(APP_VERSION_LABEL)
     expect(bodyText()).toMatch(/Latest Module Data Version/)
     expect(bodyText()).toMatch(/V3\.10\.1/)
     expect(bodyText()).toMatch(/10277\+/)

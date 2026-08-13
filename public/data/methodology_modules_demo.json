@@ -1747,7 +1747,7 @@
         "descriptionZh": "仅在结构身份准确时连接数据库，并用证据关系图记录论文、反应和来源；数据缺口转为待核事项，有机酸专题与模型只读取满足证据和许可要求的记录。"
       },
       {
-        "label": "P2 reproducible literature discovery",
+        "label": "Reproducible literature discovery",
         "labelZh": "可复现的候选文献检索",
         "description": "Run versioned reaction-family queries against Crossref and OpenAlex, deduplicate by DOI, quarantine metadata-screened candidates, and forbid machine suggestions from entering the formal reaction database.",
         "descriptionZh": "使用版本化反应家族检索式查询 Crossref 与 OpenAlex，按 DOI 去重；仅完成题录筛选的候选与正式反应记录分开保存，题名初步识别结果不能直接写入正式记录。"
@@ -1839,7 +1839,7 @@
       "connect operando and post-reaction characterization to active-phase claims",
       "build same-condition benchmark sets before quantitative ranking",
       "resolve P0 claim/condition tasks before P1 identity, active-phase, and license promotion"
-      ,"review P2 candidates family by family and promote only manually verified primary experiments"
+      ,"review candidates family by family and promote only manually verified primary experiments"
     ],
     "validationRoadmapZh": [
       "按反应家族扩展 DOI 核验来源库",
@@ -1981,7 +1981,7 @@
       },
       {
         "id": "catalysis-p2-literature-discovery",
-        "title": "P2 reproducible literature discovery and extraction quarantine",
+        "title": "Reproducible literature discovery and extraction quarantine",
         "titleZh": "可复现候选文献检索与全文核对方法",
         "purpose": "Expand reaction-family and DOI coverage without weakening the V2 evidence gate or allowing search metadata and machine suggestions to become experimental facts.",
         "purposeZh": "在不降低证据要求的前提下扩展反应家族与 DOI 覆盖，并确保题录信息和题名初步识别结果不会被当作实验事实。",
@@ -2026,7 +2026,7 @@
         "formulas": [
           {
             "id": "catalysis-p2-candidate-gate",
-            "label": "P2 candidate title gate",
+            "label": "Candidate title gate",
             "labelZh": "候选题名筛选条件",
             "latex": "G_{candidate}=I_{DOI}I_{MOF}I_{CO_2RR}I_{product}I_{not\\,excluded}",
             "fallback": "G_candidate = I_DOI × I_MOF × I_CO2RR × I_product × I_not-excluded",
@@ -2040,7 +2040,7 @@
         "outputsZh": ["可复现检索批次", "去重 DOI 清单", "仅用于追溯原始论文的综述", "题名初步识别结果", "文献检索审计报告"],
         "visualizations": [
           {
-            "title": "P2 candidate discovery workbench",
+            "title": "Candidate discovery workbench",
             "titleZh": "候选文献检索与核对工作区",
             "description": "A family-filtered queue links retrieval counts, DOI identity checks, candidate rationale, suggestions, and human promotion requirements.",
             "descriptionZh": "按反应家族查看检索数量、DOI 身份核对、入选依据、题名初步识别结果和写入正式记录前的人工核对要求。",
@@ -2048,7 +2048,7 @@
           }
         ],
         "limitations": [
-          "The first P2 batch retrieves only the top 25 results per adapter and reaction family; it is reproducible but not a systematic-review-complete corpus.",
+          "The first discovery batch retrieves only the top 25 results per adapter and reaction family; it is reproducible but not a systematic-review-complete corpus.",
           "Crossref and OpenAlex metadata can be incomplete or differently ranked; a single-adapter hit is not weaker experimental evidence because no candidate has experimental-evidence status yet.",
           "Title-only screening may miss relevant studies whose product or catalyst state appears only in the abstract or full text.",
           "Machine-assisted fields are routing suggestions only and cannot populate the formal V2 reaction tables."

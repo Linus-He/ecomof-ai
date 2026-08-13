@@ -15,7 +15,6 @@ import {
   BasisBadge,
   CopyLinkButton,
   FieldProvenanceButton,
-  FONT_SANS,
   PageHeader,
   fetchDataJson,
   toolbarBtn,
@@ -409,12 +408,11 @@ function EvolutionArchive({ data, projectStatus, log, methodology, lang, t, isMo
       id: "release",
       index: "01",
       title: text(lang, "发布与历史档案", "Release and history archive"),
-      summary: text(lang, "Web 发布、状态总览、模块历史与项目更新。", "Web releases, status overview, module history, and project updates."),
+      summary: text(lang, "状态总览与模块历史；完整更新内容已迁移到独立更新日志。", "Status overview and module history; complete release details now live in the independent changelog."),
       content: <>
-        <UnifiedReleaseCenter log={log} lang={lang} t={t} isMobile={isMobile} />
         <EvolutionOverview data={data} projectStatus={projectStatus} lang={lang} t={t} isMobile={isMobile} />
         <VersionTimeline data={data} lang={lang} t={t} isMobile={isMobile} />
-        <ProjectUpdates log={log} lang={lang} t={t} isMobile={isMobile} />
+        <LegacyModuleHistory log={log} lang={lang} t={t} isMobile={isMobile} />
       </>,
     },
     {
@@ -532,12 +530,6 @@ function EvolutionOverview({ data, projectStatus, lang, t, isMobile }) {
   )
 }
 
-function getCurrentRelease(log) {
-  const releases = Array.isArray(log?.releases) ? log.releases : []
-  const current = String(log?.currentAppVersion || "").trim()
-  return releases.find(row => row.appVersion === current) || releases[0] || null
-}
-
 function localize(value, lang) {
   return value && typeof value === "object" ? value[lang === "zh" ? "zh" : "en"] : value
 }
@@ -554,14 +546,31 @@ function publicHistoryNote(note, lang) {
   )
 }
 
-function StatusBadge({ tone, children, t }) {
-  const palette = tone === "warn"
-    ? { background: t.badgeWarnBg, color: t.warn, border: t.warn }
-    : { background: t.badgeInfoBg, color: t.accentText, border: t.accent }
+function LegacyModuleHistory({ log, lang, t, isMobile }) {
+  const catalog = log?.moduleCatalog || {}
+  const historyByModule = log?.history?.byModule || {}
   return (
-    <span style={{ alignItems: "center", background: palette.background, border: `1px solid ${palette.border}`, borderRadius: 6, color: palette.color, display: "inline-flex", fontSize: 10, fontWeight: 900, letterSpacing: 0.2, padding: "3px 8px", textTransform: "uppercase" }}>
-      {children}
-    </span>
+    <Card
+      id="project-evolution-pre-v1-history"
+      title={localize(log?.history?.label, lang) || text(lang, "历史沿革（pre-1.0）", "History (pre-1.0)")}
+      subtitle={`${localize(log?.history?.note, lang) || ""} · ${log?.history?.versionCount || 0} ${text(lang, "个原始版本", "original versions")}`}
+      t={t}
+    >
+      <div style={{ display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
+        {Object.entries(historyByModule).filter(([, rows]) => rows.length).map(([key, rows]) => (
+          <section key={key} style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 8, minWidth: 0, paddingTop: 12 }}>
+            <strong style={{ color: t.textStrong, fontSize: 12.5 }}>{localize(catalog[key]?.label, lang) || key} · {rows.length}</strong>
+            {rows.slice(-6).reverse().map(row => (
+              <p key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 11, lineHeight: 1.5, margin: 0 }}>
+                <strong style={{ color: t.textStrong }}>{row.version}</strong>
+                {row.date ? <span style={{ color: t.faint }}> · {row.date}</span> : null}
+                <span> · {publicHistoryNote(row.note, lang)}</span>
+              </p>
+            ))}
+          </section>
+        ))}
+      </div>
+    </Card>
   )
 }
 
@@ -601,112 +610,6 @@ function impactFields(row, lang) {
     ["breakingChanges", text(lang, "破坏性变更", "Breaking Changes"), localize(row.breakingChanges, lang), true],
     ["nextVersionGoal", text(lang, "当时开发目标", "Recorded Development Goal"), localize(row.nextVersionGoal, lang), false],
   ]
-}
-
-function UnifiedReleaseCenter({ log, lang, t, isMobile }) {
-  const releases = log?.releases || []
-  const catalog = log?.moduleCatalog || {}
-  const [activeVersion, setActiveVersion] = useState(releases[0]?.appVersion || "")
-  const release = releases.find(row => row.appVersion === activeVersion) || releases[0]
-  const moduleKeys = release ? Object.keys(release.modules || {}) : []
-  const [activeModule, setActiveModule] = useState(moduleKeys[0] || "")
-  const activeModuleKey = moduleKeys.includes(activeModule) ? activeModule : moduleKeys[0]
-  const activeModuleData = activeModuleKey ? release.modules[activeModuleKey] : null
-  const historyByModule = log?.history?.byModule || {}
-  const isCurrentRelease = release?.appVersion === log?.currentAppVersion
-
-  if (!release) return null
-
-  return (
-    <Card
-      id="project-evolution-app-release"
-      title={text(lang, "统一版本中心", "Unified Release Center")}
-      subtitle={text(lang, "Web 版本统一记录每次发布范围；选择版本后，可查看对应模块的更新内容。", "Web releases use one version sequence; select a release to review the modules changed in it.")}
-      t={t}
-      actions={
-        <label style={{ alignItems: "center", display: "inline-flex", gap: 7 }}>
-          <span style={{ color: t.faint, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "版本", "Version")}</span>
-          <select
-            value={activeVersion}
-            onChange={event => setActiveVersion(event.target.value)}
-            aria-label={text(lang, "选择 Web 版本", "Select Web version")}
-            style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, color: t.textStrong, fontSize: 12, fontWeight: 850, minHeight: 34, padding: "6px 9px" }}
-          >
-            {releases.map(row => (
-              <option key={row.appVersion} value={row.appVersion}>{`Web ${row.appVersion}`}</option>
-            ))}
-          </select>
-        </label>
-      }
-    >
-      <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 10 }}>
-        <span style={{ alignItems: "baseline", background: t.badgeInfoBg, border: `1px solid ${t.accent}`, borderRadius: 10, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 19, fontWeight: 950, gap: 6, padding: "6px 12px" }}>
-          Web {release.appVersion}
-        </span>
-        <StatusBadge tone="info" t={t}>{isCurrentRelease ? text(lang, "当前 Web 发布", "Current Web Release") : text(lang, "历史 Web 发布", "Historical Web Release")}</StatusBadge>
-      </div>
-      <p style={{ color: t.textStrong, fontSize: 13.5, fontWeight: 850, lineHeight: 1.5, margin: 0 }}>{localize(release.headline, lang)}</p>
-      <p style={{ color: t.muted, fontSize: 12.2, lineHeight: 1.55, margin: 0 }}>{localize(release.summary, lang)}</p>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-        {moduleKeys.map(key => {
-          const isActive = key === activeModuleKey
-          const label = localize(catalog[key]?.label, lang) || key
-          return (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setActiveModule(key)}
-              data-testid={`app-release-module-tab-${key}`}
-              style={{ background: isActive ? t.badgeInfoBg : t.surface, border: `1px solid ${isActive ? t.accent : t.border}`, borderRadius: 6, color: isActive ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 850, minHeight: 32, padding: "6px 12px" }}
-            >
-              {label}
-            </button>
-          )
-        })}
-      </div>
-
-      {activeModuleData ? (
-        <article data-testid={`app-release-module-panel-${activeModuleKey}`} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 8, padding: isMobile ? 11 : 13 }}>
-          <strong style={{ color: t.textStrong, fontSize: 13 }}>{localize(catalog[activeModuleKey]?.label, lang) || activeModuleKey}</strong>
-          <span style={{ color: t.muted, fontSize: 11.8, lineHeight: 1.5 }}>{localize(activeModuleData.summary, lang)}</span>
-          <ul style={{ display: "grid", gap: 6, margin: 0, paddingLeft: 18 }}>
-            {(activeModuleData.changes || []).map((change, index) => (
-              <li key={index} style={{ color: t.textStrong, fontSize: 11.8, lineHeight: 1.5 }}>{localize(change, lang)}</li>
-            ))}
-          </ul>
-        </article>
-      ) : null}
-
-      <details
-        open
-        data-testid="project-evolution-pre-v1-history"
-        style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, padding: "9px 11px" }}
-      >
-        <summary style={{ color: t.accentText, cursor: "pointer", fontSize: 12, fontWeight: 850 }}>
-          {localize(log?.history?.label, lang) || text(lang, "历史沿革（pre-1.0）", "History (pre-1.0)")}
-          {` · ${log?.history?.versionCount || 0} ${text(lang, "个原始版本", "original versions")}`}
-        </summary>
-        <p style={{ color: t.muted, fontSize: 11.4, lineHeight: 1.5, margin: "9px 0 0" }}>{localize(log?.history?.note, lang)}</p>
-        <div style={{ display: "grid", gap: 9, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", marginTop: 10 }}>
-          {Object.entries(historyByModule).filter(([, rows]) => rows.length).map(([key, rows]) => (
-            <div key={key} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 6, minWidth: 0, padding: 10 }}>
-              <strong style={{ color: t.textStrong, fontSize: 12 }}>{localize(catalog[key]?.label, lang) || key} · {rows.length}</strong>
-              <div style={{ display: "grid", gap: 4 }}>
-                {rows.slice(-6).reverse().map(row => (
-                  <div key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 10.8, lineHeight: 1.4 }}>
-                    <span style={{ color: t.accentText, fontFamily: FONT_SANS, fontWeight: 850 }}>{row.version}</span>
-                    {row.date ? <span style={{ color: t.faint }}> · {row.date}</span> : null}
-                    <span> · {publicHistoryNote(row.note, lang)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </details>
-    </Card>
-  )
 }
 
 function VersionTimeline({ data, lang, t, isMobile }) {
@@ -756,56 +659,6 @@ function VersionTimeline({ data, lang, t, isMobile }) {
           ) : null}
         </div>
       )}
-    </Card>
-  )
-}
-
-function ProjectUpdates({ log, lang, t, isMobile }) {
-  const release = getCurrentRelease(log)
-  const catalog = log?.moduleCatalog || {}
-  const streams = release
-    ? Object.entries(release.modules || {}).map(([key, module], index) => ({
-        key,
-        no: String(index + 1).padStart(2, "0"),
-        label: localize(catalog[key]?.label, lang) || localize(module.label, lang) || key,
-        body: localize(module.summary, lang),
-        changes: (module.changes || []).map(change => localize(change, lang)).filter(Boolean),
-      }))
-    : []
-
-  if (!release) return null
-
-  return (
-    <Card
-      id="project-evolution-release-notes"
-      title={text(lang, "项目更新", "Project Updates")}
-      subtitle={text(
-        lang,
-        `当前 Web ${release.appVersion} 的模块更新由统一版本记录生成；版本记录调整后此处自动更新。`,
-        `Module updates for Web ${release.appVersion} come from the unified release record and update automatically when that record changes.`
-      )}
-      t={t}
-    >
-      <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))" }}>
-        {streams.map(stream => (
-          <article key={stream.key} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 11, gridTemplateColumns: "auto minmax(0, 1fr)", minWidth: 0, padding: isMobile ? 11 : 13 }}>
-            <span style={{ alignItems: "center", background: t.badgeInfoBg, border: `1px solid ${t.border}`, borderRadius: 8, color: t.accentText, display: "inline-flex", fontFamily: FONT_SANS, fontSize: 13, fontWeight: 950, height: 34, justifyContent: "center", width: 34 }}>
-              {stream.no}
-            </span>
-            <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
-              <strong style={{ color: t.textStrong, fontSize: 13 }}>{stream.label}</strong>
-              <span style={{ color: t.muted, fontSize: 11.6, lineHeight: 1.5 }}>{stream.body}</span>
-              {stream.changes.length ? (
-                <ul style={{ display: "grid", gap: 5, margin: "3px 0 0", paddingLeft: 17 }}>
-                  {stream.changes.slice(0, 3).map((change, index) => (
-                    <li key={index} style={{ color: t.textStrong, fontSize: 11.3, lineHeight: 1.45 }}>{change}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          </article>
-        ))}
-      </div>
     </Card>
   )
 }
@@ -961,7 +814,7 @@ function FormulaMethodCard({ formula, t, lang }) {
           {text(lang, "复制 LaTeX", "Copy LaTeX")}
         </button>
       </div>
-      <BlockFormula math={formula.latex} t={t} style={{ background: t.panel, maxWidth: "100%", minWidth: 0 }} />
+      <BlockFormula math={formula.latex} t={t} style={{ background: t.panel, maxWidth: "100%", minWidth: 0, overflowX: "auto" }} />
     </div>
   )
 }

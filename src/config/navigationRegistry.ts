@@ -343,6 +343,24 @@ export const NAVIGATION_ROUTES = [
     ],
   },
   {
+    id: "releaseNotes",
+    tabId: "releaseNotes",
+    primary: false,
+    domainId: "project",
+    hash: "release-notes",
+    aliases: ["project-evolution-release-notes"],
+    label: label("更新日志", "Changelog"),
+    meta: meta(
+      "更新日志 | EcoMOF-AI",
+      "按统一 Web 版本查看 EcoMOF-AI 已完成的功能、方法、数据与界面更新。",
+    ),
+    component: {
+      strategy: "lazy",
+      exportName: "ReleaseNotesPage",
+      load: () => import("../components/pages/ReleaseNotesPage"),
+    },
+  },
+  {
     id: "projectEvolution",
     tabId: "projectEvolution",
     primary: true,
@@ -363,7 +381,6 @@ export const NAVIGATION_ROUTES = [
     children: [
       { id: "project-evolution-overview", hash: "project-evolution-overview", scrollTarget: true, label: label("项目概览", "Project Overview"), meta: meta("Project Evolution Overview | EcoMOF-AI", "查看 EcoMOF-AI 当前版本、数据库规模、verified metadata、字段级溯源覆盖率和项目状态。") },
       { id: "project-evolution-version-timeline", hash: "project-evolution-version-timeline", scrollTarget: true, label: label("版本时间线", "Version Timeline"), meta: meta("Version Timeline | EcoMOF-AI", "查看 EcoMOF-AI 的统一版本历史，这是版本时间线、Release Notes、Roadmap 和 Milestones 的唯一权威数据源。") },
-      { id: "project-evolution-release-notes", hash: "project-evolution-release-notes", scrollTarget: true, label: label("更新日志", "Project Updates"), meta: meta("Project Updates | EcoMOF-AI", "按数据接入、解释链路、交互与样式、页面级导出查看 EcoMOF-AI 当前版本的更新。") },
       { id: "project-evolution-scientific", hash: "project-evolution-scientific", scrollTarget: true, label: label("科学演化", "Scientific Evolution"), meta: meta("Scientific Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从 raw screening 到 verified metadata 和未来 experimental validation 的科学能力演化。") },
       { id: "project-evolution-database", hash: "project-evolution-database", scrollTarget: true, label: label("数据库演化", "Database Evolution"), meta: meta("Database Evolution | EcoMOF-AI", "查看 EcoMOF-AI 数据库规模、verified metadata 和字段级溯源覆盖率的演化。") },
       { id: "project-evolution-algorithm", hash: "project-evolution-algorithm", scrollTarget: true, label: label("算法演化", "Algorithm Evolution"), meta: meta("Algorithm Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从描述符评分、CRITIC、证据调整到模型验证框架的算法演化。") },
@@ -450,7 +467,7 @@ export const NAVIGATION_DOMAINS = [
     order: 4,
     label: label("项目", "Project"),
     groups: [
-      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["projectEvolution", "project-evolution-version-timeline", "project-evolution-release-notes"] },
+      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["projectEvolution", "releaseNotes", "project-evolution-version-timeline"] },
       { id: "project-planning", label: label("规划", "Planning"), itemIds: ["project-evolution-milestones", "project-evolution-roadmap"] },
     ],
   },
@@ -522,6 +539,7 @@ export function getScrollTargetForHash(hash) {
   const item = NAVIGATION_ITEM_BY_HASH[normalized]
   if (item?.scrollTarget === true) return normalized
   if (typeof item?.scrollTarget === "string") return item.scrollTarget
+  if (item) return null
   if (normalized.startsWith("methodology-") || normalized.startsWith("project-evolution-")) return normalized
   return null
 }

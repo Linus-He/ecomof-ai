@@ -5,6 +5,7 @@ import { THEME_LIGHT } from "../../constants/theme"
 import { GlobalDatabaseSummaryCard } from "../../components/data/GlobalDatabaseSummaryCard"
 import { DataMetricCard } from "../../components/data/DataMetricCard"
 import { buildGlobalDatabaseSummary } from "../../utils/summary/buildGlobalDatabaseSummary"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 const body = () => document.body.textContent || ""
 const FORBIDDEN = ["undefined", "null", "NaN", "[object Object]"]
@@ -15,7 +16,7 @@ describe("GlobalDatabaseSummaryCard", () => {
     render(<GlobalDatabaseSummaryCard summary={summary} lang="en" t={THEME_LIGHT} isMobile={false} />)
     expect(screen.getByTestId("global-database-summary")).toBeInTheDocument()
     expect(body()).toMatch(/Global Database Summary/)
-    expect(body()).toMatch(/Web v1\.0\.13/)
+    expect(body()).toContain(APP_VERSION_LABEL)
     expect(body()).toMatch(/Layer Records/)
     for (const bad of FORBIDDEN) expect(body()).not.toContain(bad)
   })

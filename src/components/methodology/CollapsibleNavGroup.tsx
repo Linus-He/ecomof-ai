@@ -6,7 +6,7 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
   const activeChild = item.children?.some(child => child.id === activeId)
   const active = activeParent || activeChild
   return (
-    <div style={{ display: "grid", gap: 4, minWidth: isMobile ? 240 : 0 }}>
+    <div style={{ alignContent: "start", display: "grid", gap: 4, minWidth: 0 }}>
       <button
         type="button"
         onClick={() => {

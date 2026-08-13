@@ -14,12 +14,7 @@ describe("versionTimelineDynamic", () => {
     expect(within(timeline).getAllByText("V3.6").length).toBeGreaterThan(0)
     expect(within(timeline).getAllByText(/Experimental Label Expansion & Model Robustness/).length).toBeGreaterThan(0)
 
-    const projectUpdates = screen.getByTestId("project-evolution-release-notes")
-    expect(projectUpdates.textContent).toMatch(/Project Updates/)
-    expect(projectUpdates.textContent).toContain(`Module updates for Web ${releaseLog.currentAppVersion} come from the unified release record`)
-    for (const moduleKey of Object.keys(releaseLog.releases[0].modules)) {
-      expect(projectUpdates.textContent).toContain(releaseLog.moduleCatalog[moduleKey].label.en)
-    }
+    expect(screen.queryByTestId("project-evolution-release-notes")).not.toBeInTheDocument()
 
     const roadmap = screen.getByTestId("project-evolution-roadmap")
     expect(roadmap.textContent).toMatch(/V3\.10\.1/)

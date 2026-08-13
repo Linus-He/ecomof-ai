@@ -6,6 +6,7 @@ import gasData from "../../../public/data/gas_adsorption_records_v1.json"
 import { GasSepDatabaseSummaryCard } from "../../components/data/GasSepDatabaseSummaryCard"
 import { buildGasSepSummary, buildGasSepExportRows } from "../../utils/summary/buildGasSepSummary"
 import { ExportButton } from "../../components/data/ExportButton"
+import { APP_VERSION_LABEL } from "../../constants/appVersion"
 
 const records = Array.isArray(gasData) ? gasData : gasData.records
 const body = () => document.body.textContent || ""
@@ -17,7 +18,7 @@ describe("GasSepDatabaseSummaryCard", () => {
     render(<GasSepDatabaseSummaryCard summary={summary} exportRows={buildGasSepExportRows(records)} lang="en" t={THEME_LIGHT} isMobile={false} />)
     expect(screen.getByTestId("gassep-database-summary")).toBeInTheDocument()
     expect(screen.getByTestId("gassep-export-button")).toBeInTheDocument()
-    expect(body()).toMatch(/Web v1\.0\.13/)
+    expect(body()).toContain(APP_VERSION_LABEL)
     expect(body()).toMatch(/Adsorption Records/)
     expect(body()).toMatch(/Source distribution/)
     for (const bad of FORBIDDEN) expect(body()).not.toContain(bad)

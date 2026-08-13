@@ -70,6 +70,12 @@ describe("primary domain navigation", () => {
     expect(screen.getByRole("menuitem", { name: "条款与政策" })).toBeInTheDocument()
   })
 
+  it("shows the independent changelog under Project", () => {
+    renderNavigation()
+    fireEvent.click(screen.getByRole("button", { name: "项目" }))
+    expect(screen.getByRole("menuitem", { name: "更新日志" })).toBeInTheDocument()
+  })
+
   it("closes the open menu with Escape and restores focus to its trigger", () => {
     renderNavigation()
     const trigger = screen.getByRole("button", { name: "数据" })

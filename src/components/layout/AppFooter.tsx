@@ -52,6 +52,7 @@ export function AppFooter({
       links: [
         [zh ? "研究宪章" : "Research Charter", "research-charter"],
         [zh ? "项目演化" : "Project Evolution", "project-evolution"],
+        [zh ? "更新日志" : "Changelog", "release-notes"],
         [zh ? "条款与政策" : "Terms & Policies", "database-compliance"],
       ],
       sections: [{

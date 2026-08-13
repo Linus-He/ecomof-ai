@@ -66,6 +66,7 @@ const DataQualityProvenancePage = lazyNamed(routeComponent("dataQuality").load, 
 const MofRecordPage = lazyNamed(routeComponent("mofRecord").load, routeComponent("mofRecord").exportName)
 const LiteratureRecordPage = lazyNamed(routeComponent("literatureRecord").load, routeComponent("literatureRecord").exportName)
 const ResearchCharterPage = lazyNamed(routeComponent("charter").load, routeComponent("charter").exportName)
+const ReleaseNotesPage = lazyNamed(routeComponent("releaseNotes").load, routeComponent("releaseNotes").exportName)
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -203,6 +204,7 @@ function AppShell({
     mofRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     literatureRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     charter: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    releaseNotes: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
   })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
@@ -617,6 +619,7 @@ function AppShell({
             {activeTab === "mofRecord" && <MofRecordPage />}
             {activeTab === "literatureRecord" && <LiteratureRecordPage />}
             {activeTab === "charter" && <ResearchCharterPage />}
+            {activeTab === "releaseNotes" && <ReleaseNotesPage />}
           </div>
         </Suspense>
       </main>

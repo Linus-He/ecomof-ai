@@ -321,13 +321,13 @@ function LiteratureInspirationSection({ records, lang, t, isMobile }) {
                 ...toolbarBtn(t),
                 background: active ? t.accentText : t.panel,
                 borderColor: active ? t.accent : t.border,
-                boxShadow: active ? "0 8px 18px rgba(26,109,181,0.18)" : "none",
-                color: active ? "#fff" : t.muted,
+                boxShadow: "none",
+                color: active ? t.buttonText : t.muted,
                 scrollMarginTop: 118,
               }}
             >
               {text(lang, category.titleZh, category.titleEn)}
-              <span style={{ background: active ? "rgba(255,255,255,0.18)" : t.badgeInfoBg, borderRadius: 6, color: active ? "#fff" : t.accentText, fontSize: 10.5, fontWeight: 900, padding: "1px 6px" }}>
+              <span style={{ background: active ? "color-mix(in srgb, currentColor 12%, transparent)" : t.badgeInfoBg, borderRadius: 6, color: active ? t.buttonText : t.accentText, fontSize: 10.5, fontWeight: 900, padding: "1px 6px" }}>
                 {category.sourceIds?.length || 0}
               </span>
             </button>
@@ -434,6 +434,19 @@ export function MethodsLimitationsTab() {
   const [governanceFrameworks, setGovernanceFrameworks] = useState({ standardFields: [], frameworks: [] })
   const [activeId, setActiveId] = useState("methodology-platform-overview")
   const [sidebarWidth, setSidebarWidth] = useState(276)
+  const methodTheme = useMemo(() => ({
+    ...t,
+    accent: t.textStrong,
+    accentStrong: t.textStrong,
+    accentSoft: t.surface,
+    accentText: t.textStrong,
+    badgeCalcBg: t.surface,
+    badgeCalcText: t.textStrong,
+    badgeInfoBg: t.surface,
+    badgeInfoText: t.textStrong,
+    buttonText: t.bg,
+    info: t.textStrong,
+  }), [t])
 
   useEffect(() => {
     let active = true
@@ -535,7 +548,7 @@ export function MethodsLimitationsTab() {
   }, [directoryItems])
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+    <div className="methodology-page" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
       <PageHeader
         title={text(lang, "方法论", "Methodology")}
         subtitle={text(
@@ -546,7 +559,9 @@ export function MethodsLimitationsTab() {
         meta={text(lang, "科学方法中心 · 证据感知 · 决策支持原型", "scientific methods hub · evidence-aware · decision-support prototype")}
         action={
           <>
-            <BasisBadge tone="proxy">{text(lang, "不是验证排名", "not validated ranking")}</BasisBadge>
+            <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontSize: 10.5, fontWeight: 850, padding: "5px 8px" }}>
+              {text(lang, "不是验证排名", "not validated ranking")}
+            </span>
             <CopyLinkButton hash="methodology" ariaLabel={text(lang, "复制方法论链接", "Copy methodology link")} />
           </>
         }
@@ -557,7 +572,7 @@ export function MethodsLimitationsTab() {
         literatureRecords={literatureRecords}
         governance={governanceFrameworks}
         lang={lang}
-        t={t}
+        t={methodTheme}
         isMobile={isMobile || compactMethods}
         onJump={scrollToSection}
       />
@@ -568,7 +583,7 @@ export function MethodsLimitationsTab() {
           activeId={activeId}
           onJump={scrollToSection}
           lang={lang}
-          t={t}
+          t={methodTheme}
           isMobile={isMobile || compactMethods}
         />
         {!compactMethods ? (
@@ -599,12 +614,12 @@ export function MethodsLimitationsTab() {
 
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
-            <PlatformFlowCard lang={lang} t={t} isMobile={isMobile} />
-            <MethodArchitectureOverview lang={lang} t={t} />
-            <FormulaIndex lang={lang} t={t} />
-            <MethodologyDataBoundary lang={lang} t={t} />
-            <StructuredFactorEffectsMethod lang={lang} t={t} isMobile={isMobile} />
-            <CatalysisEnergyPlaygroundMethod lang={lang} t={t} isMobile={isMobile} />
+            <PlatformFlowCard lang={lang} t={methodTheme} isMobile={isMobile} />
+            <MethodArchitectureOverview lang={lang} t={methodTheme} />
+            <FormulaIndex lang={lang} t={methodTheme} />
+            <MethodologyDataBoundary lang={lang} t={methodTheme} />
+            <StructuredFactorEffectsMethod lang={lang} t={methodTheme} isMobile={isMobile} />
+            <CatalysisEnergyPlaygroundMethod lang={lang} t={methodTheme} isMobile={isMobile} />
             <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, color: t.muted, fontSize: 12.5, lineHeight: 1.55, padding: 11 }}>
               <span style={{ color: t.textStrong, fontWeight: 900 }}>{text(lang, "化学式与科学 token：", "Chemistry and scientific tokens: ")}</span>
               <span style={{ fontFamily: SCIENTIFIC_TOKEN_FONT }}>
@@ -623,10 +638,10 @@ export function MethodsLimitationsTab() {
             if (item.id === "platform-overview") return null
             const moduleBlock = (
               <div key={item.id} style={{ display: "grid", gap: 16 }}>
-                <MethodModuleSection item={item} lang={lang} t={t} />
-                <MethodArchitectureDetails moduleId={item.id} lang={lang} t={t} />
+                <MethodModuleSection item={item} lang={lang} t={methodTheme} />
+                <MethodArchitectureDetails moduleId={item.id} lang={lang} t={methodTheme} />
                 {item.id === "organic-acid" ? (
-                  <CurrentOrganicAcidMethodology lang={lang} t={t} />
+                  <CurrentOrganicAcidMethodology lang={lang} t={methodTheme} />
                 ) : null}
               </div>
             )
@@ -642,7 +657,7 @@ export function MethodsLimitationsTab() {
                   key="literature-inspiration"
                   records={literatureRecords}
                   lang={lang}
-                  t={t}
+                  t={methodTheme}
                   isMobile={isMobile}
                 />,
               ]

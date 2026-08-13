@@ -3,17 +3,17 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current Web version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.13")
+    expect(log.currentAppVersion).toBe("v1.0.14")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.13")
+    expect(log.releases[0].appVersion).toBe("v1.0.14")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
     expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
     expect(log.authority).toMatch(/single unified/i)
   })
 
   it("records the current and four previously missing recent releases with concrete module changes", () => {
-    const recent = ["v1.0.13", "v1.0.12", "v1.0.11", "v1.0.10", "v1.0.9", "v1.0.8", "v1.0.7", "v1.0.6"]
+    const recent = ["v1.0.14", "v1.0.13", "v1.0.12", "v1.0.11", "v1.0.10", "v1.0.9", "v1.0.8", "v1.0.7", "v1.0.6"]
       .map(version => log.releases.find(row => row.appVersion === version))
     expect(recent.every(Boolean)).toBe(true)
     for (const release of recent) {
@@ -24,14 +24,15 @@ describe("app_release_log unified version source", () => {
         expect(module.changes.length).toBeGreaterThanOrEqual(3)
       }
     }
-    expect(JSON.stringify(recent[0])).toMatch(/34|紧凑小圆角|literature/)
-    expect(JSON.stringify(recent[1])).toMatch(/43|CRITIC|IAST|编号/)
-    expect(JSON.stringify(recent[2])).toMatch(/185|MOF Anatomy|V3\.9\.10/)
-    expect(JSON.stringify(recent[3])).toMatch(/37,452|3,451|9,835/)
-    expect(JSON.stringify(recent[4])).toMatch(/43|10|96/)
-    expect(JSON.stringify(recent[5])).toMatch(/HGCPS|合规/)
-    expect(JSON.stringify(recent[6])).toMatch(/9,835|FAIR-MOFs|CSD/)
-    expect(JSON.stringify(recent[7])).toMatch(/IAST|等量吸附热|isosteric/)
+    expect(JSON.stringify(recent[0])).toMatch(/更新日志|changelog|内部阶段/)
+    expect(JSON.stringify(recent[1])).toMatch(/34|紧凑小圆角|literature/)
+    expect(JSON.stringify(recent[2])).toMatch(/43|CRITIC|IAST|编号/)
+    expect(JSON.stringify(recent[3])).toMatch(/185|MOF Anatomy|V3\.9\.10/)
+    expect(JSON.stringify(recent[4])).toMatch(/37,452|3,451|9,835/)
+    expect(JSON.stringify(recent[5])).toMatch(/43|10|96/)
+    expect(JSON.stringify(recent[6])).toMatch(/HGCPS|合规/)
+    expect(JSON.stringify(recent[7])).toMatch(/9,835|FAIR-MOFs|CSD/)
+    expect(JSON.stringify(recent[8])).toMatch(/IAST|等量吸附热|isosteric/)
   })
 
   it("v1.0.5 archives material-level evaluation, readable MOF names, and formula alignment", () => {
@@ -113,9 +114,9 @@ describe("app_release_log unified version source", () => {
   })
 
   it("records completed work in the current concrete patch developer log", () => {
-    expect(log.currentAppVersion).toBe("v1.0.13")
-    expect(log.developmentLog.baseAppVersion).toBe("v1.0.12")
-    expect(log.developmentLog.developmentVersion).toBe("v1.0.13")
+    expect(log.currentAppVersion).toBe("v1.0.14")
+    expect(log.developmentLog.baseAppVersion).toBe("v1.0.13")
+    expect(log.developmentLog.developmentVersion).toBe("v1.0.14")
     expect(log.developmentLog.status).toBe("archived")
     expect(log.developmentLog.logPolicy.zh).toMatch(/实际完成并通过检查/)
     expect(Object.keys(log.developmentLog.modules)).toEqual([
@@ -123,9 +124,9 @@ describe("app_release_log unified version source", () => {
       "validation",
       "projectEvolution",
     ])
-    expect(JSON.stringify(log.developmentLog.modules.validation)).toMatch(/执行|来源|algorithm/)
-    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/6 px|首页|compact-corner/)
-    expect(JSON.stringify(log.developmentLog.modules.projectEvolution)).toMatch(/v1\.0\.13|本地提交/)
+    expect(JSON.stringify(log.developmentLog.modules.validation)).toMatch(/内部阶段|验证链|Methodology/)
+    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/导航|iPad|navigation/)
+    expect(JSON.stringify(log.developmentLog.modules.projectEvolution)).toMatch(/更新日志|changelog/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

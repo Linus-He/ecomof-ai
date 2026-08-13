@@ -1605,6 +1605,27 @@ button:disabled {
   gap: 7px;
 }
 
+.validation-network-visual {
+  align-self: stretch;
+  display: grid;
+  gap: 14px;
+  padding-top: 0;
+}
+
+.validation-network-visual .scientific-story-metric {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  justify-self: end;
+  padding: 0;
+  position: static;
+}
+
+.validation-network-visual .scientific-story-metric span,
+.validation-network-visual .scientific-story-metric strong {
+  color: var(--science-text);
+}
+
 .validation-network-list button {
   align-items: center;
   background: var(--science-surface);
@@ -1624,14 +1645,14 @@ button:disabled {
 .validation-network-list button:hover,
 .validation-network-list button:focus-visible,
 .validation-network-list button[data-active="true"] {
-  border-color: var(--science-accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--science-accent) 18%, transparent);
+  border-color: var(--science-text);
+  box-shadow: none;
   outline: none;
-  transform: translateX(2px);
+  transform: none;
 }
 
 .validation-network-list button > span {
-  color: var(--science-accent);
+  color: var(--science-text);
   font-size: 10px;
   font-weight: 900;
 }
@@ -1653,7 +1674,7 @@ button:disabled {
 }
 
 .validation-network-list button b {
-  color: var(--science-accent);
+  color: var(--science-text);
   font-size: 10px;
 }
 
@@ -1663,6 +1684,27 @@ button:disabled {
   gap: 7px;
   margin-top: 13px;
   padding-top: 13px;
+}
+
+.methodology-page .glass-segmented-control {
+  background: var(--app-surface);
+  border-color: var(--app-border);
+  box-shadow: none;
+}
+
+.methodology-page .glass-segmented-control > .glass-segmented-item[data-active="true"],
+.methodology-page .glass-segmented-control > .glass-segmented-item[aria-selected="true"],
+.methodology-page .glass-segmented-control > .glass-segmented-item[aria-pressed="true"] {
+  background: var(--app-text-strong) !important;
+  border-color: var(--app-text-strong) !important;
+  box-shadow: none !important;
+  color: var(--app-bg) !important;
+}
+
+.methodology-page .basis-badge {
+  background: var(--app-surface) !important;
+  border-color: var(--app-border) !important;
+  color: var(--app-text-strong) !important;
 }
 
 .validation-active-note > span {
