@@ -16,20 +16,22 @@ const CENTER_VIEWS = [
 
 function CenterViewTabs({ activeView, onChange, t, zh, isMobile }) {
   return (
-    <div aria-label={zh ? "催化文献与反应记录中心视图" : "Catalysis literature and reaction record center views"} role="tablist" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 3, gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", padding: 3 }}>
+    <div className="glass-segmented-control catalysis-center-tabs" aria-label={zh ? "催化文献与反应记录中心视图" : "Catalysis literature and reaction record center views"} role="tablist">
       {CENTER_VIEWS.map(view => {
         const Icon = view.icon
         const selected = activeView === view.id
         return (
           <button
             key={view.id}
+            className="glass-segmented-item"
+            data-active={selected ? "true" : "false"}
             aria-controls={`catalysis-center-panel-${view.id}`}
             aria-selected={selected}
             id={`catalysis-center-tab-${view.id}`}
             onClick={() => onChange(view.id)}
             role="tab"
             type="button"
-            style={{ alignItems: "center", background: selected ? t.panel : "transparent", border: selected ? `1px solid ${t.borderStrong}` : "1px solid transparent", borderRadius: 5, color: selected ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 6, justifyContent: "center", minHeight: 36, padding: "7px 10px" }}
+            style={{ color: selected ? t.accentText : t.muted }}
           >
             <Icon aria-hidden size={15} weight={selected ? "fill" : "regular"} />
             {zh ? view.zh : view.en}
@@ -48,7 +50,6 @@ export function CatalysisLiteratureRecordCenter({ lang = "zh", t, isMobile = fal
     <section id="catalysis-literature-record-center" data-testid="catalysis-literature-record-center" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 14, padding: isMobile ? 12 : 16 }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5, minWidth: 0, maxWidth: 900 }}>
-          <span style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 900, gap: 6, textTransform: "uppercase" }}><Database aria-hidden size={15} weight="fill" />{zh ? "反应记录、来源与核验状态" : "Formal records and evidence admission"}</span>
           <h2 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, lineHeight: 1.2, margin: 0 }}>{zh ? "催化文献与反应记录中心" : "Catalysis literature and reaction record center"}</h2>
           <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, margin: 0 }}>
             {zh

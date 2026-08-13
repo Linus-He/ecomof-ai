@@ -90,18 +90,20 @@ function KpiBand({ summary, t, zh, isMobile }) {
 
 function ViewSelector({ view, setView, t, zh, isMobile }) {
   return (
-    <div aria-label={zh ? "记录库视图" : "Record-library view"} role="tablist" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 7, display: "grid", gap: 3, gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(4, minmax(0, 1fr))", padding: 3 }}>
+    <div className="glass-segmented-control reaction-record-tabs" aria-label={zh ? "记录库视图" : "Record-library view"} role="tablist">
       {VIEW_OPTIONS.map(option => {
         const Icon = option.icon
         const selected = view === option.id
         return (
           <button
             key={option.id}
+            className="glass-segmented-item"
+            data-active={selected ? "true" : "false"}
             aria-selected={selected}
             onClick={() => setView(option.id)}
             role="tab"
             type="button"
-            style={{ alignItems: "center", background: selected ? t.panel : "transparent", border: selected ? `1px solid ${t.borderStrong}` : "1px solid transparent", borderRadius: 5, color: selected ? t.accentText : t.muted, cursor: "pointer", display: "inline-flex", fontSize: 11, fontWeight: 850, gap: 6, justifyContent: "center", minHeight: 34, padding: "7px 9px" }}
+            style={{ color: selected ? t.accentText : t.muted }}
           >
             <Icon aria-hidden size={15} weight={selected ? "fill" : "regular"} />
             <span>{zh ? option.zh : option.en}</span>
@@ -490,7 +492,6 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
     <section id="catalysis-reaction-records" data-testid="catalysis-reaction-record-workbench" style={{ background: embedded ? "transparent" : t.panel, border: embedded ? 0 : `1px solid ${t.border}`, borderRadius: embedded ? 0 : 8, display: "grid", gap: 14, padding: embedded ? 0 : isMobile ? 12 : 16 }}>
       {!embedded ? <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
-          <span style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 900, gap: 6, textTransform: "uppercase" }}><Database aria-hidden size={15} weight="fill" />{zh ? "文献反应记录" : "Reusable catalysis data layer"}</span>
           <h2 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, lineHeight: 1.2, margin: 0 }}>{zh ? "DOI 核验催化反应记录库" : "DOI-verified catalysis reaction library"}</h2>
           <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, margin: 0, maxWidth: 850 }}>
             {zh

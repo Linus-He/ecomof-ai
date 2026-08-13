@@ -400,12 +400,12 @@ export function HomeDataExplorer({ t, lang, isMobile }) {
           <p>{zh ? "同一筛选子集同时驱动频数统计、描述符摘要与 Pearson r。" : "The same filtered subset drives counts, descriptor summaries, and Pearson r."}</p>
         </div>
         <div className="scientific-variable-list">
-          <div>
+          <div className="glass-filter-control" role="group" aria-label={zh ? "金属节点筛选" : "Metal node filter"}>
             <strong className="formula">𝓜ₘ</strong>
             <span>{zh ? "当前金属子集" : "Active metal subset"}</span>
             <small className="num">{activeMetal === "all" ? (zh ? "全部" : "all") : activeMetal} · {model.selectedMetalCount}</small>
           </div>
-          <div>
+          <div className="glass-filter-control" role="group" aria-label={zh ? "描述符筛选" : "Descriptor filter"}>
             <strong className="formula">xᵢ</strong>
             <span>{label(distributionMetric, lang)}</span>
             <small>{metricConfig.unit || (zh ? "无量纲" : "dimensionless")}</small>

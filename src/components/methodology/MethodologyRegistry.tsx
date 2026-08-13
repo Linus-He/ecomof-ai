@@ -45,17 +45,11 @@ function ViewButton({ active, icon: Icon, label, onClick, t }) {
   return (
     <button
       type="button"
+      className="glass-segmented-item"
+      data-active={active ? "true" : "false"}
       aria-pressed={active}
       onClick={onClick}
-      style={{
-        ...toolbarBtn(t),
-        background: active ? t.accent : t.surface,
-        borderColor: active ? t.accent : t.border,
-        color: active ? "#fff" : t.muted,
-        justifyContent: "center",
-        minHeight: 34,
-        padding: "6px 9px",
-      }}
+      style={{ color: active ? t.accentText : t.muted }}
     >
       <Icon aria-hidden="true" size={14} weight="bold" />
       {label}
@@ -322,15 +316,14 @@ export function MethodologyRegistry({ modules, literatureRecords, governance, la
 
   return (
     <section id="methodology-registry" data-testid="methodology-registry" style={{ display: "grid", gap: 13, scrollMarginTop: 118 }}>
-      <header style={{ alignItems: "end", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between" }}>
-        <div style={{ display: "grid", gap: 5, maxWidth: 840 }}>
-          <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "方法注册表 · 可复核入口", "Method registry · review entry")}</div>
+      <header style={{ alignItems: "center", display: "grid", gap: 12, justifyItems: "center", textAlign: "center" }}>
+        <div style={{ display: "grid", gap: 5, justifyItems: "center", maxWidth: 840 }}>
           <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.18, margin: 0 }}>{text(lang, "先判断能否使用，再进入完整方法", "Check eligibility before opening the complete method")}</h2>
           <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.58, margin: 0 }}>
             {text(lang, "该总览从现有方法数据动态生成，不替代下方任何正文。每个模块统一显示数据库连接、公式与引用覆盖、验证边界，以及已经打通的功能入口。", "This overview is derived from the existing method data and replaces none of the complete content below. Every module exposes its database connection, formula and citation coverage, validation boundary, and linked product function.")}
           </p>
         </div>
-        <div aria-label={text(lang, "方法注册表视图", "Method registry views")} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        <div className="glass-segmented-control methodology-view-tabs" aria-label={text(lang, "方法注册表视图", "Method registry views")} role="group">
           <ViewButton active={view === "registry"} icon={ListDashes} label={text(lang, "方法索引", "Method index")} onClick={() => setView("registry")} t={t} />
           <ViewButton active={view === "coverage"} icon={ChartBar} label={text(lang, "覆盖矩阵", "Coverage matrix")} onClick={() => setView("coverage")} t={t} />
           <ViewButton active={view === "governance"} icon={ShieldCheck} label={text(lang, "标准与治理", "Standards and governance")} onClick={() => setView("governance")} t={t} />

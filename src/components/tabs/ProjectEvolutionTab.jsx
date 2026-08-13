@@ -290,7 +290,6 @@ function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigat
       }}
     >
       <div className="project-evolution-copy">
-        <span className="project-evolution-eyebrow">{text(lang, "项目演化函数", "Project evolution function")}</span>
         <h2>{text(lang, "以一张图查看项目演化", "Project evolution in one view")}</h2>
         <p>{text(lang, "左侧给出演化定义、当前状态与本次更新；右侧按 Web 发布、数据、科研、验证和界面五个维度呈现变化。", "Definitions, current status, and the latest update are shown on the left; the graph compares Web releases, data, research, validation, and interface changes.")}</p>
         <div className="project-evolution-formula">
@@ -344,11 +343,12 @@ function EvolutionAtlas({ data, projectStatus, log, lang, t, isMobile, onNavigat
           </div>
           <small>{text(lang, "选择节点查看对应记录", "Select a node to view its record")}</small>
         </header>
-        <div className="project-evolution-lenses" role="tablist" aria-label={text(lang, "演化图层", "Evolution graph lenses")}>
+        <div className="project-evolution-lenses glass-segmented-control" role="tablist" aria-label={text(lang, "演化图层", "Evolution graph lenses")}>
           {lenses.map(lens => (
             <button
               key={lens.id}
               type="button"
+              className="glass-segmented-item"
               role="tab"
               aria-selected={lens.id === activeLens.id}
               data-active={lens.id === activeLens.id ? "true" : "false"}

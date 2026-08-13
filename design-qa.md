@@ -1,5 +1,20 @@
 # Design QA: Global Theme, Context Bar, and Liquid Navigation
 
+## Addendum: Glass Control Groups And Title-First Layout (2026-08-12)
+
+- Restored the classic-home primary entry buttons to their original independent layout after the user clarified that this surface was out of scope.
+- Verified the user menu at `276 x 156`: one compact vertical column, `22px` continuous radius, `blur(34px) saturate(165%)`, and no horizontal overflow.
+- Verified the immersive atlas CTAs at `48px` and `36.5px` height with continuous pill radii and `20px / 18px` glass blur. The zoom controls are one grouped three-button capsule, not three floating rectangles.
+- Verified the EcoScreen workflow navigator as one centered `832.5px` glass pill with ten functional anchors, `24px` blur, continuous radius, and a live selected layer.
+- Removed the contextual header's solid accent rule and standalone candidate-count line; EcoScreen keeps only its functional search surface above the title.
+- Removed the MOF Library property search panel's orange top rule and bottom divider.
+- Verified the Methodology view menu as one centered `336.3px` glass pill; center offset was `3px`, with no positive horizontal overflow. Catalysis center/record tabs and Project Evolution lenses use the same grouped-control contract.
+- Final focused regressions: `5/5` files and `28/28` tests passed, including navigation scope, compact user menu, classic-home continuity, EcoScreen workflow navigation, contextual-title rules, and global design guardrails. TypeScript, production build, and `git diff --check` passed. `visual:check` also passed its static-dist browserless fallback because this sandbox denied every local preview port; the earlier in-app Browser measurements remain the visual evidence for this addendum. Existing 3Dmol `eval` and large-chunk warnings remain non-blocking.
+
+final result: passed
+
+---
+
 ## Comparison Target
 
 - Source visual truth:
@@ -90,6 +105,56 @@
 - [x] Desktop and mobile visual checks
 - [x] Console and horizontal-overflow checks
 - [x] Focused source/implementation comparison
+
+final result: passed
+
+---
+
+# Design QA: Horizontal User Menu, Glass Home Switch, Title Line, And Module Reset
+
+> Superseded final state: after the later correction, the desktop user menu is a compact `276 x 156` vertical glass popover rather than the intermediate `520 x 109` two-column version. The classic-home six-button primary entry also remains in its original independent layout. See the addendum above for the accepted final state.
+
+## Comparison Target
+
+- User-menu source: `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_d62Oay/截屏2026-08-12 22.11.34.png` (`754 x 310`).
+- Home-switch source: `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_iRiSFJ/截屏2026-08-12 22.12.29.png` (`390 x 128`).
+- Classic-title source: `/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_gqviLB/截屏2026-08-12 22.15.19.png` (`1048 x 462`).
+- Final implementation screenshots: `outputs/design-qa-2026-08-12-nav-controls/settings-menu-desktop-final.png`, `outputs/design-qa-2026-08-12-nav-controls/home-mode-desktop.png`, `outputs/design-qa-2026-08-12-nav-controls/classic-title-desktop.png`, and `outputs/design-qa-2026-08-12-nav-controls/home-controls-mobile-final.png`.
+- Same-input comparisons: `outputs/design-qa-2026-08-12-nav-controls/compare-settings-menu.png`, `outputs/design-qa-2026-08-12-nav-controls/compare-home-mode.png`, and `outputs/design-qa-2026-08-12-nav-controls/compare-classic-title.png`.
+
+## Viewport, State, And Normalization
+
+- Desktop browser viewport override: `1440 x 1000`; browser output is `1329 x 996` at the in-app browser's rendered density. Chinese, light theme, home route.
+- Compact browser viewport override: `390 x 844`; output is `384 x 768`. Classic home mode selected for title measurement.
+- Source images and implementation screenshots are placed into separate equal `700 x 610` contain frames in each comparison image; this compares shape, proportions, wrapping, and hierarchy without pretending that the source crop is a full page.
+- Menu-open measurement: `520 x 109`, two `247.5px` columns, `22px` radius, `34px` blur, no left/right viewport overflow.
+- Home switch measurement: `106 x 40`, `22px` blur, full continuous radius, and no visible `首页模式` label.
+- Classic title measurement: desktop `554.8 x 88.1`; compact `352 x 42.1`; `white-space: nowrap`, `scrollWidth === clientWidth` at both checked sizes.
+
+## Required Fidelity Surfaces
+
+- Fonts and typography: existing product typefaces are retained. The menu uses the established `12/11px` hierarchy, the switch uses the existing `11px` UI weight, and the classic wordmark retains its editorial serif while reducing fluid scale enough to remain one line.
+- Spacing and layout rhythm: the menu changes from three stacked rows to two compact top cells plus one full-width access row, producing the requested shorter and wider silhouette. The switch uses `4px` glass padding with one equal-width sliding selection layer.
+- Colors and visual tokens: menu and switch both use current application surface, border, text, blur, saturation, highlight, and shadow tokens. No new palette is introduced.
+- Image quality and asset fidelity: no new raster or icon asset is required. Existing Phosphor icons remain unchanged; no custom SVG, CSS icon drawing, or substitute glyph was introduced.
+- Copy and content: `首页模式` is removed visually while the group keeps the accessible name `首页显示模式`. Language, appearance, and cross-border access options remain intact. `EcoMOF-AI` content is unchanged.
+- Responsiveness and accessibility: menu groups use semantic `role="none"` wrappers under the menu and expose `aria-expanded`; below `700px` the menu returns to one column. The mode buttons keep `aria-pressed` and distinct focus rings. The compact title does not overflow a `390px` viewport.
+
+## Findings And Comparison History
+
+- Earlier P1: the first two-column menu capture was clipped at the viewport's right edge because the popover's absolute positioning was anchored to the full header rather than its user-control cluster. Fixed by making the cluster a positioned containing block. Final menu bounds are `left 896 / right 1416` in the `1440px` CSS viewport with zero overflow.
+- Earlier P2: the mode control was a square segmented rectangle and the extra `首页模式` label increased visual weight. Fixed with a translucent pill-shaped base, backdrop blur, inner highlight, and a sliding pill selection layer; the label is now accessibility-only.
+- Earlier P1: `EcoMOF-AI` wrapped after the hyphen in the supplied classic-home state. Fixed with `white-space: nowrap` and a smaller fluid desktop/mobile scale. Browser measurements confirm one line without overflow at desktop and `390px` compact width.
+- Earlier P1: switching first-level tabs while the page was at the footer preserved the old scroll offset. Fixed by giving primary-tab navigation an explicit reset contract and repeating the reset on the next animation frame after route state changes. Browser evidence at the fully visible footer recorded `scrollY 5826.5`; clicking GasSep produced `#gassep`, the `气体分离` heading, and `scrollY 0`.
+- Recomparison: no actionable P0, P1, or P2 difference remains. The menu intentionally uses the user-requested wider/tighter information arrangement instead of faithfully retaining the source's three-row vertical layout.
+
+## Verification
+
+- Focused regression: `5/5` files and `22/22` tests passed.
+- TypeScript check: passed.
+- Production build: passed; the existing 3Dmol `eval` and large-chunk warnings remain non-blocking.
+- `git diff --check`: passed.
+- Browser interactions: menu open/close, classic/immersive switch, desktop and compact title measurements, fully visible footer to GasSep navigation, hash/title/heading update, and scroll reset all passed.
 
 final result: passed
 

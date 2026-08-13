@@ -13,7 +13,7 @@ describe("top navigation layout", () => {
     expect(source).toContain('"auto minmax(0, 1fr) auto"')
     expect(source).toContain('"96px minmax(0, 1fr) 96px"')
     expect(source).toContain('"minmax(180px, 1fr) minmax(0, 880px) minmax(180px, 1fr)"')
-    expect(source).toContain('position: "static"')
+    expect(source).toContain('position: "relative"')
     expect(source).not.toContain('position: compactHeader && !veryCompactHeader ? "fixed" : "static"')
     expect(source).toContain('width: "100%"')
     expect(source).toContain('overscrollBehaviorX: "contain"')
@@ -54,6 +54,15 @@ describe("top navigation layout", () => {
     expect(css).toMatch(/\.nav-action-button\s*\{[^}]*border-radius:\s*50%\s*!important/s)
     expect(css).toMatch(/\.nav-action-button\s*\{[^}]*height:\s*40px/s)
     expect(css).toMatch(/\.nav-action-button\s*\{[^}]*width:\s*40px/s)
+  })
+
+  it("keeps the user menu compact, vertical, rounded, and glass-backed", () => {
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*width:\s*min\(276px,/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*border-radius:\s*22px/s)
+    expect(css).toMatch(/\.settings-menu\s*\{[^}]*backdrop-filter:\s*blur\(34px\) saturate\(165%\)/s)
   })
 
   it("keeps brand and action controls outside the liquid tab rail", () => {
@@ -108,6 +117,14 @@ describe("top navigation layout", () => {
     expect(css).toContain("place-items: center")
     expect(css).toContain("inline-size: 100%")
     expect(css).toContain("block-size: 100%")
+  })
+
+  it("returns to the top when a primary tab changes modules", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+
+    expect(source).toContain('setActiveTab(tab.id, { resetScroll: true })')
+    expect(source).toContain('window.scrollTo({ top: 0, left: 0, behavior: "auto" })')
+    expect(source).toContain("window.requestAnimationFrame(scrollToModuleTop)")
   })
 
   it("preserves the intrinsic width of English tab labels", () => {

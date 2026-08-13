@@ -56,16 +56,6 @@ function usePrefersReducedMotion() {
 function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
   return (
     <div style={{ marginBottom: isMobile ? 14 : 18, maxWidth: 880 }}>
-      <div className="home-capability-highlights" style={{
-        color: t.accentText,
-        fontSize: 11,
-        fontWeight: 850,
-        textTransform: "uppercase",
-        letterSpacing: 0,
-        marginBottom: 7,
-      }}>
-        {eyebrow}
-      </div>
       <h2 style={{
         margin: 0,
         color: t.textStrong,
@@ -76,6 +66,7 @@ function SectionHeader({ eyebrow, title, subtitle, t, isMobile }) {
       }}>
         {title}
       </h2>
+      {eyebrow && <div className="home-capability-highlights" style={{ color: t.accentText, fontSize: 11, fontWeight: 850, marginTop: 7 }}>{eyebrow}</div>}
       {subtitle && (
         <p style={{
           margin: "8px 0 0",
@@ -1101,8 +1092,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
   return (
     <div ref={storyShellRef} className="home-story-shell" data-home-mode={homeMode} style={{ display: "flex", flexDirection: "column", gap: homeMode === "immersive" ? 0 : pageGap, overflow: "hidden", position: "relative" }}>
       <div className="home-mode-control">
-        <span className="home-mode-label">{zh ? "首页模式" : "HOME MODE"}</span>
-        <div className="home-mode-switch" role="group" aria-label={zh ? "首页模式" : "Home mode"}>
+        <div className="home-mode-switch" data-mode={homeMode} role="group" aria-label={zh ? "首页显示模式" : "Home display mode"}>
+          <span aria-hidden="true" className="home-mode-indicator" />
           <button type="button" aria-pressed={homeMode === "immersive"} aria-label={zh ? "切换到沉浸首页" : "Switch to immersive home"} onClick={() => changeHomeMode("immersive")}>
             {zh ? "沉浸" : "Immersive"}
           </button>

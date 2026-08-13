@@ -1,14 +1,13 @@
 // @ts-nocheck
 import { useState, useCallback, useRef } from "react"
-import { Flask, MagnifyingGlass } from "@phosphor-icons/react"
+import { MagnifyingGlass } from "@phosphor-icons/react"
 import { useT, useLang, useViewport } from "../../contexts"
-import { FONT_SANS, THEME_DARK } from "../../constants/theme"
-import { GAS_SYSTEMS, MOF_PRESETS } from "../../constants/catalogs"
-import { headerChipBtn, headerInputStyle, toolbarBtn, darkenLayer } from "../../utils/styles"
+import { FONT_SANS } from "../../constants/theme"
+import { MOF_PRESETS } from "../../constants/catalogs"
+import { headerChipBtn, headerInputStyle, toolbarBtn } from "../../utils/styles"
 import { findPresetName, getPresetSuggestionNames } from "../../utils/presets"
 import { downloadTextFile } from "../../utils/report"
 import { MetricCard } from "../ui/index"
-import { gasLabel } from "../../utils/labels"
 
 export function PresetSearchControl({
   value,
@@ -26,10 +25,6 @@ export function PresetSearchControl({
   const { lang, copy } = useLang()
   const borderColor = status === "miss" ? t.danger : status === "loaded" ? t.success : t.border
   const trimmedQuery = value.trim()
-  const showSearchFeedback = trimmedQuery.length > 0 && status !== "loaded"
-  const resultFeedback = suggestions.length
-    ? (lang === "zh" ? `${suggestions.length} 个匹配候选材料` : `${suggestions.length} matching candidate${suggestions.length === 1 ? "" : "s"}`)
-    : (lang === "zh" ? "未找到匹配候选材料" : "No matching candidates")
   const confirmSearch = useCallback(() => {
     const match = findPresetName(value)
     if (match) {
@@ -63,25 +58,10 @@ export function PresetSearchControl({
         <div style={{ alignItems: "center", display: "flex", position: "absolute", right: 13, top: 19, transform: "translateY(-50%)", color: t.faint, pointerEvents: "none" }}>
           <MagnifyingGlass aria-hidden="true" size={15} weight="bold" />
         </div>
-        {showSearchFeedback && (
-          <div style={{
-            position: "absolute",
-            top: "calc(100% + 6px)",
-            left: 2,
-            color: suggestions.length ? t.subtle : t.danger,
-            fontSize: 10,
-            fontWeight: 750,
-            lineHeight: 1.3,
-            zIndex: 121,
-            pointerEvents: "none",
-          }} aria-live="polite">
-            {resultFeedback}
-          </div>
-        )}
         {open && suggestions.length > 0 && value && status !== "loaded" && (
           <div style={{
             position: "absolute",
-            top: "calc(100% + 26px)",
+            top: "calc(100% + 8px)",
             left: 0,
             right: 0,
             background: t.panel,
@@ -122,16 +102,6 @@ export function PresetSearchControl({
               </button>
               )
             })}
-          </div>
-        )}
-        {status === "loaded" && (
-          <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 2, color: t.success, fontSize: 10 }} aria-live="polite">
-            ✓ {copy.header.loaded}
-          </div>
-        )}
-        {status === "miss" && (
-          <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 2, color: t.danger, fontSize: 10 }} aria-live="polite">
-            {lang === "zh" ? "未找到匹配候选材料" : "No matching candidates"}
           </div>
         )}
       </div>
@@ -351,9 +321,9 @@ export function ContextualHeaderBar({
     flexWrap: "wrap",
     minHeight: 40,
     padding: isMobile ? "6px 0 8px" : "6px 0 8px",
-    background: darkenLayer(t),
+    background: "transparent",
     border: "none",
-    borderTop: `1px solid ${t.divider || t.border}`,
+    borderTop: 0,
     borderRadius: 0,
     boxShadow: "none",
   }
@@ -368,8 +338,6 @@ export function ContextualHeaderBar({
     minHeight: 30,
     boxShadow: "none",
   })
-  const compactSelectStyle = { ...headerInputStyle(t), minWidth: 0, flex: "0 1 auto", cursor: "pointer" }
-  const gasOptions = GAS_SYSTEMS.filter(item => item.priority !== "unavailable")
   const comparisonSubtabs = [
     { id: "feasibility", label: lang === "zh" ? "可行性" : "Feasibility" },
     { id: "lca", label: "LCA / LCC" },
@@ -388,7 +356,9 @@ export function ContextualHeaderBar({
 
   if (activeTab === "gassep") return null
 
-  if (activeTab === "ecoscreen" || activeTab === "performance") {
+  if (activeTab === "library") return null
+
+  if (activeTab === "ecoscreen") {
     return (
       <div className="contextual-header-bar" data-context={activeTab} style={layerStyle}>
         <PresetSearchControl
@@ -403,89 +373,9 @@ export function ContextualHeaderBar({
           placeholder={copy.header.searchPlaceholder}
           width={isMobile ? "100%" : 450}
         />
-        <button
-          type="button"
-          onClick={onOpenProperties}
-          disabled={!propertyRecord}
-          title={!propertyRecord
-            ? (lang === "zh" ? "尚未输入并确认 MOF。" : "Enter and confirm a MOF first.")
-            : (lang === "zh" ? "查看已确认 MOF 的物化性质" : "View physicochemical properties for the confirmed MOF")}
-          style={{
-            ...headerChipBtn(t, Boolean(propertyRecord)),
-            alignItems: "center",
-            background: propertyRecord ? t.badgeInfoBg : t.surface,
-            borderColor: propertyRecord ? t.accent : t.border,
-            color: propertyRecord ? t.accentText : t.faint,
-            display: "inline-flex",
-            gap: 6,
-            minHeight: 38,
-            opacity: propertyRecord ? 1 : 0.56,
-            padding: "8px 11px",
-            whiteSpace: "nowrap",
-          }}
-        >
-          <Flask aria-hidden="true" size={16} weight="duotone" />
-          {lang === "zh" ? "查看物化性质" : "View properties"}
-        </button>
-        <select
-          value={inputs.gasSystem}
-          onChange={e => setInputs(prev => ({ ...prev, gasSystem: e.target.value }))}
-          style={{ ...compactSelectStyle, width: isMobile ? "100%" : 220 }}
-        >
-          {gasOptions.map(gas => (
-            <option key={gas.id} value={gas.id}>{gasLabel(gas.label, lang)}</option>
-          ))}
-        </select>
-        <button
-          type="button"
-          onClick={onAddComparison}
-          disabled={!results || results.unavailable}
-          title={!results || results.unavailable ? (lang === "zh" ? "先运行当前结构后再加入比较。" : "Run the current structure before adding it to comparison.") : undefined}
-          style={{
-            ...headerChipBtn(t, false),
-            opacity: !results || results.unavailable ? 0.45 : 1,
-            cursor: !results || results.unavailable ? "not-allowed" : "pointer",
-          }}
-        >
-          {lang === "zh" ? "加入比较" : "Add to comparison"}
-        </button>
-        <span className="ecomof-tooltip" data-tooltip={copy.common.savedRuns} style={{ display: "inline-flex" }}>
-          <button
-            type="button"
-            onClick={onSavedRuns}
-            title={copy.common.savedRuns}
-            aria-label={copy.common.savedRuns}
-            style={{
-              ...headerChipBtn(t),
-              minWidth: 40,
-              minHeight: 38,
-              padding: isMobile ? "9px 0" : "9px 12px",
-              justifyContent: "center",
-              fontSize: 12,
-            }}
-          >
-            <span aria-hidden="true" style={{ fontSize: 15, lineHeight: 1 }}>◧</span>
-            {!isMobile && <span>{copy.common.savedRuns}</span>}
-          </button>
-        </span>
       </div>
     )
   }
-
-  if (activeTab === "catalysis") {
-    return (
-      <div className="contextual-header-bar" style={layerStyle}>
-        <div style={{ color: t.subtle, fontSize: 12, lineHeight: 1.5 }}>
-          {lang === "zh" ? "催化模块用于比较反应路径证据、条件可比性与待验证候选；演示记录会明确标注证据边界。" : "Catalysis compares pathway evidence, condition comparability, and candidates awaiting validation; demonstration records keep their evidence boundaries visible."}
-        </div>
-        <button type="button" onClick={() => setActiveTab("about")} style={headerChipBtn(t)}>
-          {lang === "zh" ? "阅读方法论" : "Read methodology"}
-        </button>
-      </div>
-    )
-  }
-
-  if (activeTab === "library") return null
 
   return null
 }

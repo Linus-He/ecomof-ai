@@ -259,7 +259,6 @@ export function DatabaseComplianceTab() {
     <div id="database-compliance" className="dc-page" data-testid="database-compliance-tab">
       <section className="dc-cover">
         <div className="dc-cover-copy">
-          <span className="dc-eyebrow">{text(lang, "数据责任与使用边界", "Data responsibility & use boundaries")}</span>
           <h1>{text(lang, "我们希望以可追溯的方式使用研究数据", "We want to use research data in a traceable way")}</h1>
           <button className="dc-copy-link" type="button" onClick={copyLink} aria-label={text(lang, "复制合规说明链接", "Copy compliance link")}>
             {copyStatus === "copied" ? <CheckCircle aria-hidden size={19} /> : <LinkSimple aria-hidden size={19} />}
@@ -300,7 +299,6 @@ export function DatabaseComplianceTab() {
       <section className="dc-hosting-notice" id="compliance-hosting-notice" data-testid="compliance-hosting-notice">
         <div className="dc-hosting-notice-icon"><GlobeHemisphereEast aria-hidden size={31} weight="light" /></div>
         <div>
-          <span className="dc-eyebrow">{text(lang, "数据托管与跨境访问", "Data hosting & cross-border access")}</span>
           <h2>{text(lang, "部分数据暂未部署在中国大陆地区服务器", "Some data is not currently hosted on servers in mainland China")}</h2>
           <p>{text(lang, "基于对欧盟及相关地区数据保护与跨境传输要求的审慎处理，同时受数据提供方许可和当前托管条件影响，本站暂未将相关数据部署在中国大陆地区服务器。若数据未能加载，请切换至可正常访问相关境外数据源的合规网络环境后重试。由此带来的不便，我们深表歉意。", "As a cautious response to European and other applicable data-protection and cross-border transfer requirements, together with provider licences and current hosting conditions, the relevant data is not currently hosted on servers in mainland China. If it does not load, please retry from a compliant network environment that can access the relevant overseas data source. We apologize for the inconvenience.")}</p>
           <p className="dc-hosting-legal-note">{text(lang, "法律范围说明：GDPR 第五章规范的是个人数据向第三国或国际组织的传输，不是对所有科研数据在特定地域托管的概括性禁令。本项目当前限制还包括数据发布方的许可条件与实际托管能力。", "Legal scope: GDPR Chapter V regulates transfers of personal data to third countries or international organizations; it is not a blanket geographic hosting ban for all research data. Current project limits also reflect publisher licence terms and practical hosting capability.")}</p>
@@ -314,7 +312,7 @@ export function DatabaseComplianceTab() {
 
       <section className="dc-registry" id="compliance-source-registry" data-testid="compliance-source-registry">
         <header className="dc-section-header">
-          <div><span className="dc-eyebrow">{text(lang, "实际数据边界", "Actual data boundary")}</span><h2>{text(lang, "来源登记", "Source registry")}</h2></div>
+          <div><h2>{text(lang, "来源登记", "Source registry")}</h2></div>
           <p>{text(lang, "这里不是合作伙伴徽标墙，而是本站真实接入对象的可审计清单。展开任一来源，可查看版本、许可、允许范围和禁止推定。", "This is not a partner-logo wall. It is an auditable list of the objects actually ingested by this site. Open any source to review its version, licence, permitted scope, and non-implications.")}</p>
         </header>
         <div className="dc-registry-stats" aria-label={text(lang, "登记摘要", "Registry summary")}>

@@ -288,7 +288,7 @@ function AppShell({
         zIndex: 110,
         padding: 0,
         background: chromeTheme.headerBg,
-        borderBottom: `1px solid ${chromeTheme.border}`,
+        borderBottom: 0,
       }}>
         <div style={{ maxWidth: 1460, margin: "0 auto", display: "flex", flexDirection: "column", gap: 0, padding: viewport.isMobile ? "0 12px" : "0 18px" }}>
           <div
@@ -378,7 +378,7 @@ function AppShell({
                       data-tab-id={tab.id}
                       data-active={active ? "true" : "false"}
                       aria-current={active ? "page" : undefined}
-                      onClick={() => setActiveTab(tab.id)}
+                      onClick={() => setActiveTab(tab.id, { resetScroll: true })}
                       style={{
                         background: "transparent",
                         border: "1px solid transparent",
@@ -417,7 +417,7 @@ function AppShell({
               minWidth: 0,
               flex: "0 0 auto",
               width: compactHeader && !veryCompactHeader ? 96 : "auto",
-              position: "static",
+              position: "relative",
               zIndex: 2,
               background: "transparent",
             }}>
@@ -534,45 +534,51 @@ function AppShell({
                     zIndex: 180,
                   }}
                 >
-                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                    <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}><Translate aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
-                    <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{locale === "zh-TW" ? "繁體中文" : locale === "en" ? "English" : "简体中文"}</span>
-                  </button>
-                  {settingsSection === "language" ? (
-                    <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} className="settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 4, padding: 5 }}>
-                      {[["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"]].map(([id, label]) => (
-                        <button key={id} type="button" className="settings-option" onClick={() => { setLang(id); setSettingsSection("") }} style={{ alignItems: "center", background: locale === id ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${locale === id ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: locale === id ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: locale === id ? 850 : 700, justifyContent: "space-between", minHeight: 31, padding: "6px 8px", textAlign: "left" }}>
-                          {label}{locale === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
-                  <button type="button" role="menuitem" className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                    <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}>{darkMode ? <Moon aria-hidden="true" size={16} weight="bold" /> : <Sun aria-hidden="true" size={16} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
-                    <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
-                  </button>
-                  {settingsSection === "theme" ? (
-                    <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
-                      {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
-                        <button key={String(value)} type="button" className="settings-option" aria-pressed={darkMode === value} onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${darkMode === value ? chromeTheme.borderStrong : "transparent"}`, borderRadius: 999, color: darkMode === value ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "center", minHeight: 32, padding: "6px 8px", textAlign: "center" }}>
-                          {label}{darkMode === value ? <Check aria-hidden="true" size={14} weight="bold" /> : null}
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
-                  <button type="button" role="menuitem" className="settings-menu-row settings-menu-row--notice" onClick={() => setSettingsSection(section => section === "data-access" ? "" : "data-access")} style={{ alignItems: "center", background: settingsSection === "data-access" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "data-access" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
-                    <GlobeHemisphereEast aria-hidden="true" size={17} weight="duotone" />
-                    <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & cross-border access"}</span>
-                    <CaretRight aria-hidden="true" className="settings-section-caret" data-open={settingsSection === "data-access" ? "true" : "false"} size={15} weight="bold" style={{ color: chromeTheme.faint }} />
-                  </button>
-                  {settingsSection === "data-access" ? (
-                    <div className="settings-submenu settings-access-submenu" role="group" aria-label={lang === "zh" ? "数据托管与跨境访问说明" : "Data hosting and cross-border access notice"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}` }}>
-                      <p>{lang === "zh" ? "受欧盟及相关地区的数据保护与跨境传输要求、数据提供方许可和当前托管条件影响，相关数据暂未部署在中国大陆地区服务器。若数据无法加载，请切换至可访问相关境外数据源的合规网络环境。对此带来的不便，我们深表歉意。" : "European and other applicable data-protection and cross-border transfer requirements, provider licences, and current hosting conditions mean that the relevant data is not hosted on servers in mainland China. If it does not load, retry from a compliant network that can access the relevant overseas source. We apologize for the inconvenience."}</p>
-                      <small>{lang === "zh" ? "注：GDPR 第五章适用于个人数据向第三国或国际组织的传输，并非对所有科研数据的地域禁令。" : "Note: GDPR Chapter V applies to transfers of personal data to third countries or international organizations; it is not a geographic ban on all research data."}</small>
-                      <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer"><span>{lang === "zh" ? "GDPR 原始法律条文" : "Original GDPR text"}</span><ArrowSquareOut aria-hidden size={14} /></a>
-                      <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "数据合规承诺" : "Data compliance pledge"}</span><CaretRight aria-hidden size={14} /></button>
-                    </div>
-                  ) : null}
+                  <div role="none" className="settings-menu-group settings-menu-group--language">
+                    <button type="button" role="menuitem" aria-expanded={settingsSection === "language"} className="settings-menu-row" onClick={() => setSettingsSection(section => section === "language" ? "" : "language")} style={{ alignItems: "center", background: settingsSection === "language" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "language" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
+                      <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}><Translate aria-hidden="true" size={16} weight="bold" />{lang === "zh" ? "语言" : "Language"}</span>
+                      <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{locale === "zh-TW" ? "繁體中文" : locale === "en" ? "English" : "简体中文"}</span>
+                    </button>
+                    {settingsSection === "language" ? (
+                      <div role="group" aria-label={lang === "zh" ? "语言选项" : "Language options"} className="settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 4, padding: 5 }}>
+                        {[["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"]].map(([id, label]) => (
+                          <button key={id} type="button" className="settings-option" onClick={() => { setLang(id); setSettingsSection("") }} style={{ alignItems: "center", background: locale === id ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${locale === id ? chromeTheme.border : "transparent"}`, borderRadius: 6, color: locale === id ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: locale === id ? 850 : 700, justifyContent: "space-between", minHeight: 31, padding: "6px 8px", textAlign: "left" }}>
+                            {label}{locale === id ? <Check aria-hidden="true" size={15} weight="bold" /> : null}
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div role="none" className="settings-menu-group settings-menu-group--theme">
+                    <button type="button" role="menuitem" aria-expanded={settingsSection === "theme"} className="settings-menu-row" onClick={() => setSettingsSection(section => section === "theme" ? "" : "theme")} style={{ alignItems: "center", background: settingsSection === "theme" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "theme" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
+                      <span style={{ alignItems: "center", display: "flex", gap: 9, minWidth: 0 }}>{darkMode ? <Moon aria-hidden="true" size={16} weight="bold" /> : <Sun aria-hidden="true" size={16} weight="bold" />}{lang === "zh" ? "外观" : "Appearance"}</span>
+                      <span style={{ color: chromeTheme.faint, fontSize: 11, fontWeight: 760 }}>{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
+                    </button>
+                    {settingsSection === "theme" ? (
+                      <div role="group" aria-label={lang === "zh" ? "外观选项" : "Appearance options"} className="settings-theme-segment settings-submenu" style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}`, display: "grid", gap: 3, gridTemplateColumns: "repeat(2, minmax(0, 1fr))", padding: 4 }}>
+                        {[[false, lang === "zh" ? "浅色模式" : "Light mode"], [true, lang === "zh" ? "深色模式" : "Dark mode"]].map(([value, label]) => (
+                          <button key={String(value)} type="button" className="settings-option" aria-pressed={darkMode === value} onClick={() => setDarkMode(value)} style={{ alignItems: "center", background: darkMode === value ? chromeTheme.badgeInfoBg : "transparent", border: `1px solid ${darkMode === value ? chromeTheme.borderStrong : "transparent"}`, borderRadius: 999, color: darkMode === value ? chromeTheme.accentText : chromeTheme.muted, cursor: "pointer", display: "flex", fontFamily: FONT_SANS, fontSize: 11.5, fontWeight: darkMode === value ? 850 : 700, justifyContent: "center", minHeight: 32, padding: "6px 8px", textAlign: "center" }}>
+                            {label}{darkMode === value ? <Check aria-hidden="true" size={14} weight="bold" /> : null}
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  <div role="none" className="settings-menu-group settings-menu-group--access">
+                    <button type="button" role="menuitem" aria-expanded={settingsSection === "data-access"} className="settings-menu-row settings-menu-row--notice" onClick={() => setSettingsSection(section => section === "data-access" ? "" : "data-access")} style={{ alignItems: "center", background: settingsSection === "data-access" ? chromeTheme.surface : "transparent", border: `1px solid ${settingsSection === "data-access" ? chromeTheme.border : "transparent"}`, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, fontSize: 12, fontWeight: 850, gap: 9, gridTemplateColumns: "auto minmax(0, 1fr) auto", minHeight: 42, padding: "9px 11px", textAlign: "left" }}>
+                      <GlobeHemisphereEast aria-hidden="true" size={17} weight="duotone" />
+                      <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & cross-border access"}</span>
+                      <CaretRight aria-hidden="true" className="settings-section-caret" data-open={settingsSection === "data-access" ? "true" : "false"} size={15} weight="bold" style={{ color: chromeTheme.faint }} />
+                    </button>
+                    {settingsSection === "data-access" ? (
+                      <div className="settings-submenu settings-access-submenu" role="group" aria-label={lang === "zh" ? "数据托管与跨境访问说明" : "Data hosting and cross-border access notice"} style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.border}` }}>
+                        <p>{lang === "zh" ? "受欧盟及相关地区的数据保护与跨境传输要求、数据提供方许可和当前托管条件影响，相关数据暂未部署在中国大陆地区服务器。若数据无法加载，请切换至可访问相关境外数据源的合规网络环境。对此带来的不便，我们深表歉意。" : "European and other applicable data-protection and cross-border transfer requirements, provider licences, and current hosting conditions mean that the relevant data is not hosted on servers in mainland China. If it does not load, retry from a compliant network that can access the relevant overseas source. We apologize for the inconvenience."}</p>
+                        <small>{lang === "zh" ? "注：GDPR 第五章适用于个人数据向第三国或国际组织的传输，并非对所有科研数据的地域禁令。" : "Note: GDPR Chapter V applies to transfers of personal data to third countries or international organizations; it is not a geographic ban on all research data."}</small>
+                        <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noreferrer"><span>{lang === "zh" ? "GDPR 原始法律条文" : "Original GDPR text"}</span><ArrowSquareOut aria-hidden size={14} /></a>
+                        <button type="button" onClick={() => { setSettingsOpen(false); navigateTab("dataCompliance") }}><span>{lang === "zh" ? "数据合规承诺" : "Data compliance pledge"}</span><CaretRight aria-hidden size={14} /></button>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -1218,8 +1224,14 @@ export default function App() {
     window.setTimeout(() => setSearchStatus(null), 1800)
   }, [databaseSearchRows, setRouteHash])
 
-  const navigateTab = useCallback((target) => {
-    const go = (hash) => setRouteHash(hash)
+  const navigateTab = useCallback((target, { resetScroll = false } = {}) => {
+    const go = (hash) => {
+      setRouteHash(hash)
+      if (!resetScroll || typeof window === "undefined") return
+      const scrollToModuleTop = () => window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+      scrollToModuleTop()
+      window.requestAnimationFrame(scrollToModuleTop)
+    }
     if (target === "overview") {
       go("overview")
       return

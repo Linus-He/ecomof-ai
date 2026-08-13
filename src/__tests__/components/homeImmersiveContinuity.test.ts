@@ -7,12 +7,25 @@ describe("immersive homepage continuity", () => {
   it("keeps mode controls explicit and reveals the deep homepage progressively", () => {
     const source = readFileSync(resolve(process.cwd(), "src/components/tabs/HomeTab.tsx"), "utf8")
 
-    expect(source).toContain('className="home-mode-label"')
-    expect(source).toContain('className="home-mode-switch" role="group"')
+    expect(source).not.toContain('className="home-mode-label"')
+    expect(source).toContain('className="home-mode-switch" data-mode={homeMode} role="group"')
+    expect(source).toContain('className="home-mode-indicator"')
     expect(source).toContain('data-home-reveal="data-foundation"')
     expect(source).toContain('data-home-reveal="descriptor-space"')
     expect(source).toContain('data-home-reveal="algorithm-validation"')
     expect(source).toContain("new IntersectionObserver")
+  })
+
+  it("preserves the classic-home primary entry as six independent buttons", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/components/tabs/HomeTab.tsx"), "utf8")
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+    const entryStart = css.indexOf(".home-primary-entry-grid {")
+    const entryRules = css.slice(entryStart, entryStart + 320)
+
+    expect(source).toContain('className="home-hero-cta home-primary-entry-grid"')
+    expect(source).not.toContain('className="home-hero-cta home-primary-entry-grid glass-menu-capsule"')
+    expect(source).toContain("quickStart.map(cta =>")
+    expect(entryRules).toContain("grid-template-columns: repeat(3, minmax(0, 1fr))")
   })
 
   it("uses the shared scientific canvas tokens through the footer", () => {

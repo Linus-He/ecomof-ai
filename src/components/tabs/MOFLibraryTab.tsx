@@ -495,7 +495,7 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
   }
 
   return (
-    <section data-testid="mof-physicochemical-search" style={{ borderBottom: `1px solid ${t.border}`, borderTop: `2px solid ${t.accent}`, display: "grid", gap: 13, padding: isMobile ? "15px 0" : "17px 0" }}>
+    <section data-testid="mof-physicochemical-search" style={{ border: 0, display: "grid", gap: 13, padding: isMobile ? "10px 0 15px" : "12px 0 17px" }}>
       <form onSubmit={submit} style={{ display: "grid", gap: 10 }}>
         <label style={{ display: "grid", gap: 6, maxWidth: 980, minWidth: 0, width: "100%" }}>
           <span style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>

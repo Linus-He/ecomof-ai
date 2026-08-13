@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
   Bar,
   BarChart,
@@ -91,48 +91,82 @@ function WorkbenchNav({ t, lang }) {
     ["ecoscreen-method-readiness", "07", tr(lang, "门控", "Data gate")],
     ["ecoscreen-literature-basis", "08", tr(lang, "依据", "Sources")],
   ]
+  const navRef = useRef(null)
+  const [activeSection, setActiveSection] = useState(sections[0][0])
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false })
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined
+    const targets = sections.map(([id]) => document.getElementById(id)).filter(Boolean)
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => Math.abs(a.boundingClientRect.top - 190) - Math.abs(b.boundingClientRect.top - 190))
+      if (visible[0]?.target?.id) setActiveSection(visible[0].target.id)
+    }, { rootMargin: "-150px 0px -68% 0px", threshold: [0, 0.08, 0.24] })
+    targets.forEach(target => observer.observe(target))
+    return () => observer.disconnect()
+  }, [lang])
+
+  useEffect(() => {
+    const nav = navRef.current
+    const activeLink = nav?.querySelector(`[data-section-id="${activeSection}"]`)
+    if (!nav || !activeLink) return undefined
+    const syncIndicator = () => {
+      setIndicator({ left: activeLink.offsetLeft, width: activeLink.offsetWidth, ready: activeLink.offsetWidth > 0 })
+      const targetLeft = activeLink.offsetLeft - (nav.clientWidth - activeLink.clientWidth) / 2
+      if (typeof nav.scrollTo === "function") nav.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" })
+      else nav.scrollLeft = Math.max(0, targetLeft)
+    }
+    const frame = window.requestAnimationFrame(syncIndicator)
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(syncIndicator)
+    resizeObserver?.observe(nav)
+    resizeObserver?.observe(activeLink)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      resizeObserver?.disconnect()
+    }
+  }, [activeSection, lang])
+
+  const selectSection = (event, id) => {
+    event.preventDefault()
+    setActiveSection(id)
+    window.history.replaceState(null, "", `#${id}`)
+    document.getElementById(id)?.scrollIntoView?.({ behavior: "smooth", block: "start" })
+  }
+
   return (
-    <nav
-      aria-label={tr(lang, "EcoScreen 工作流导航", "EcoScreen workflow navigation")}
-      style={{
-        background: t.panel,
-        border: `1px solid ${t.border}`,
-        borderRadius: 12,
-        display: "flex",
-        gap: 6,
-        overflowX: "auto",
-        padding: 7,
-        position: "sticky",
-        scrollSnapType: "x proximity",
-        top: 112,
-        zIndex: 6,
-      }}
-    >
-      {sections.map(([id, index, label]) => (
-        <a
-          key={id}
-          href={`#${id}`}
-          style={{
-            alignItems: "center",
-            background: t.surface,
-            border: `1px solid ${t.border}`,
-            borderRadius: 9,
-            color: t.muted,
-            display: "inline-flex",
-            flex: "0 0 auto",
-            fontSize: 10.8,
-            fontWeight: 850,
-            gap: 7,
-            padding: "7px 9px",
-            scrollSnapAlign: "start",
-            textDecoration: "none",
-          }}
-        >
-          <span style={{ color: t.accentText, fontSize: 9.5 }}>{index}</span>
-          {label}
-        </a>
-      ))}
-    </nav>
+    <div className="ecoscreen-workbench-nav-stage">
+      <nav
+        ref={navRef}
+        aria-label={tr(lang, "EcoScreen 工作流导航", "EcoScreen workflow navigation")}
+        className="ecoscreen-workbench-nav"
+      >
+        <span
+          aria-hidden="true"
+          className="ecoscreen-workbench-nav-indicator"
+          data-ready={indicator.ready ? "true" : "false"}
+          style={{ width: indicator.width, transform: `translate3d(${indicator.left}px, 0, 0)` }}
+        />
+        {sections.map(([id, index, label]) => {
+          const active = activeSection === id
+          return (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active ? "location" : undefined}
+              className="ecoscreen-workbench-nav-item"
+              data-active={active ? "true" : "false"}
+              data-section-id={id}
+              onClick={event => selectSection(event, id)}
+            >
+              <span>{index}</span>
+              {label}
+            </a>
+          )
+        })}
+      </nav>
+    </div>
   )
 }
 

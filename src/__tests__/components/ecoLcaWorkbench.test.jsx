@@ -122,6 +122,19 @@ describe("EcoScreen LCA-first workbench", () => {
     expect(within(workbench).getByTestId("ecoscreen-literature-basis")).toHaveTextContent("ISO 14040 / ISO 14044")
   })
 
+  it("uses one centered glass workflow navigator with a live selected section", async () => {
+    renderWorkbench()
+    const navigation = await screen.findByRole("navigation", { name: "EcoScreen 工作流导航" })
+    const first = within(navigation).getByRole("link", { name: "01 边界与基准" })
+    const results = within(navigation).getByRole("link", { name: "03 结果" })
+
+    expect(navigation).toHaveClass("ecoscreen-workbench-nav")
+    expect(first).toHaveAttribute("aria-current", "location")
+    fireEvent.click(results)
+    expect(results).toHaveAttribute("aria-current", "location")
+    expect(navigation.querySelector(".ecoscreen-workbench-nav-indicator")).toBeInTheDocument()
+  })
+
   it("switches functional unit and exposes the capture-service assumptions", async () => {
     renderWorkbench()
     const workbench = await screen.findByTestId("ecoscreen-lca-workbench")
