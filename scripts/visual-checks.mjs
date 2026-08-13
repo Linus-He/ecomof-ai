@@ -41,14 +41,19 @@ const routes = [
   ]],
   ["database-compliance", "#database-compliance", [
     "条款与政策",
-    "EcoMOF-AI 宪章",
-    "坚持非商业性质",
     "数据使用、许可与责任",
     "适用条款与使用前核查",
     "CCDC 与 CSD 数据边界",
     "适用条款与发布方原文",
     "授权凭证与尚未解决的缺口",
     "来源登记",
+  ]],
+  ["research-charter", "#research-charter", [
+    "EcoMOF-AI 研究宪章",
+    "让研究收益广泛可用",
+    "坚持长期科学可靠性",
+    "保持技术与证据领导力",
+    "保持开放合作取向",
   ]],
   ["project-status-center", "#project-evolution", [
     "Project Evolution Center",

@@ -25,10 +25,10 @@ describe("global research theme contract", () => {
       chartBg: "#ffffff",
       textStrong: "#111110",
       border: "#dededb",
-      accent: "#c6613f",
+      accent: "#4aa8d8",
       success: "#5f7a4b",
-      info: "#c6613f",
-      violet: "#c6613f",
+      info: "#4aa8d8",
+      violet: "#6e6aa8",
       danger: "#b94a42",
     })
     expect(THEME_DARK).toMatchObject({
@@ -38,10 +38,10 @@ describe("global research theme contract", () => {
       card: "#2b2923",
       chartBg: "#1c1c18",
       textStrong: "#fffaf2",
-      accent: "#e17b59",
+      accent: "#68bde5",
       success: "#91a778",
-      info: "#e17b59",
-      violet: "#e17b59",
+      info: "#68bde5",
+      violet: "#aaa2df",
     })
   })
 
@@ -61,12 +61,12 @@ describe("global research theme contract", () => {
     expect(css).toContain("--app-chart: #ffffff")
     expect(css).toContain("--app-text-strong: #111110")
     expect(css).toContain("--app-border: #dededb")
-    expect(css).toContain("--app-accent: #c6613f")
-    expect(css).toContain("--app-info: #c6613f")
-    expect(css).toContain("--app-violet: #c6613f")
+    expect(css).toContain("--app-accent: #4aa8d8")
+    expect(css).toContain("--app-info: #4aa8d8")
+    expect(css).toContain("--app-violet: #6e6aa8")
     expect(css).toContain(':root[data-theme="dark"]')
     expect(css).toContain("--app-bg: #141411")
-    expect(css).toContain("--app-accent: #e17b59")
+    expect(css).toContain("--app-accent: #68bde5")
     expect(css).toContain("--font-body: Inter, 'PingFang SC', 'Noto Sans SC'")
     expect(css).toContain("background: var(--app-bg)")
   })

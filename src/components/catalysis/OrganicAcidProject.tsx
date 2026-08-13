@@ -180,6 +180,17 @@ function PrototypeGate({ lang, t, onUnlock }) {
               ? "本工作区包含仍在验证中的路线筛选和实验规划内容，使用访问码与催化总览分开展示。访问码只用于页面分区，不代表数据授权或许可范围。"
               : "This workspace contains route-screening and experimental-planning content that remains under validation. The access code separates it from the Catalysis overview and does not define data authorization or licence scope."}
           </p>
+          <aside
+            aria-label={lang === "zh" ? "访问范围说明" : "Access availability notice"}
+            style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 8, color: palette.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12, padding: "10px 12px" }}
+          >
+            <strong style={{ color: palette.text, display: "block", fontSize: 12.5, marginBottom: 3 }}>
+              {lang === "zh" ? "很抱歉，当前工作区暂未向所有访客开放" : "We are sorry, but this workspace is not yet open to all visitors"}
+            </strong>
+            {lang === "zh"
+              ? "为保护尚未公开的研究记录、合作信息，以及可能涉及个人或机构的信息，现阶段仅向获授权的研究参与者提供访问。催化总览仍会持续公开不含受限内容的研究进展。感谢理解。"
+              : "To protect unpublished research records, collaboration information, and information that may relate to individuals or institutions, access is currently limited to authorised research participants. The Catalysis overview will continue to publish progress that contains no restricted material. Thank you for your understanding."}
+          </aside>
         </div>
         <form onSubmit={submit} style={{ alignItems: "end", display: "grid", gap: 10, gridTemplateColumns: isNarrow ? "1fr" : "minmax(0, 280px) auto" }}>
           <label style={{ display: "grid", gap: 5 }}>

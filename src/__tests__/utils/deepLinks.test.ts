@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import { HASH_TO_TAB, getHashMeta, normalizeHash } from "../../utils/deepLinks"
 
 describe("deep links", () => {
-  it("routes V2.8 Algorithm Validation Center figure anchors to Methodology", () => {
+  it("routes Algorithm Validation Center anchors to its independent page", () => {
     const algorithmValidationHashes = [
       "methodology-algorithm-validation",
       "algval-figure",
@@ -16,7 +16,7 @@ describe("deep links", () => {
       "algval-experimental",
     ] as const
     for (const hash of algorithmValidationHashes) {
-      expect(HASH_TO_TAB[hash]).toBe("about")
+      expect(HASH_TO_TAB[hash]).toBe("algorithmValidation")
     }
   })
 
@@ -28,8 +28,8 @@ describe("deep links", () => {
 
   it("has metadata for the Algorithm Validation Center deep link", () => {
     expect(normalizeHash("#methodology-algorithm-validation")).toBe("methodology-algorithm-validation")
-    expect(getHashMeta("methodology-algorithm-validation").title).toMatch(/Algorithm Validation Center/i)
-    expect(getHashMeta("algval-figure").title).toMatch(/Interactive Scientific Figure/i)
+    expect(getHashMeta("methodology-algorithm-validation").title).toMatch(/算法验证中心|Algorithm Validation Center/i)
+    expect(getHashMeta("algval-figure").title).toMatch(/交互式科研主图|Interactive Scientific Figure/i)
   })
 
   it("routes Project Evolution as a first-level tab", () => {

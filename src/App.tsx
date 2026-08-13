@@ -7,6 +7,13 @@ import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
 import { DEFAULT_INPUTS } from "./constants/defaults"
 import { MOF_PRESETS } from "./constants/catalogs"
 import { TABS } from "./constants/badges"
+import {
+  getNavigationItem,
+  getNavigationRoute,
+  getScrollTargetForHash,
+  preloadNavigationRoutes,
+  resolveTabForHash,
+} from "./config/navigationRegistry"
 import { findPresetName, getPresetSuggestionNames } from "./utils/presets"
 import { predictMOF, validateScreeningInputs } from "./utils/prediction"
 import { downloadTextFile, buildComparisonCandidate } from "./utils/report"
@@ -16,6 +23,7 @@ import { resolveInitialLocale, SUPPORTED_LOCALES } from "./utils/locale"
 import { observeTraditionalChinese } from "./utils/traditionalChinese"
 import { AppFooter, ContextualHeaderBar, SavedRunsModal, ContactModal, AcknowledgementsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
+import { PrimaryDomainNavigation } from "./components/navigation/PrimaryDomainNavigation"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
 import { HomeTab } from "./components/tabs/HomeTab"
 
@@ -36,19 +44,28 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
   }
 })
 
-const EcoScreenTab = lazyNamed(() => import("./components/tabs/EcoScreenTab"), "EcoScreenTab")
-const PerformanceTab = lazyNamed(() => import("./components/tabs/PerformanceTab"), "PerformanceTab")
-const GasSepTab = lazyNamed(() => import("./components/tabs/GasSepTab"), "GasSepTab")
-const CatalysisLabTab = lazyNamed(() => import("./components/tabs/CatalysisLabTab"), "CatalysisLabTab")
-const MOFLibraryTab = lazyNamed(() => import("./components/tabs/MOFLibraryTab"), "MOFLibraryTab")
+const routeComponent = tabId => getNavigationRoute(tabId)?.component
+
+const EcoScreenTab = lazyNamed(routeComponent("ecoscreen").load, routeComponent("ecoscreen").exportName)
+const PerformanceTab = lazyNamed(routeComponent("performance").load, routeComponent("performance").exportName)
+const GasSepTab = lazyNamed(routeComponent("gassep").load, routeComponent("gassep").exportName)
+const CatalysisLabTab = lazyNamed(routeComponent("catalysis").load, routeComponent("catalysis").exportName)
+const MOFLibraryTab = lazyNamed(routeComponent("library").load, routeComponent("library").exportName)
 const WorkflowTab = lazyNamed(() => import("./components/tabs/WorkflowTab"), "WorkflowTab")
 const ScreeningTab = lazyNamed(() => import("./components/tabs/ScreeningTab"), "ScreeningTab")
 const ComparisonTab = lazyNamed(() => import("./components/tabs/ComparisonTab"), "ComparisonTab")
 const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"), "ValidationTab")
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
-const MethodsLimitationsTab = lazyNamed(() => import("./components/tabs/MethodsLimitationsTab"), "MethodsLimitationsTab")
-const ProjectEvolutionTab = lazyNamed(() => import("./components/tabs/ProjectEvolutionTab"), "ProjectEvolutionTab")
-const DatabaseComplianceTab = lazyNamed(() => import("./components/tabs/DatabaseComplianceTab"), "DatabaseComplianceTab")
+const MethodsLimitationsTab = lazyNamed(routeComponent("about").load, routeComponent("about").exportName)
+const ProjectEvolutionTab = lazyNamed(routeComponent("projectEvolution").load, routeComponent("projectEvolution").exportName)
+const DatabaseComplianceTab = lazyNamed(routeComponent("dataCompliance").load, routeComponent("dataCompliance").exportName)
+const CatalysisLiteratureVerificationPage = lazyNamed(routeComponent("catalysisLiterature").load, routeComponent("catalysisLiterature").exportName)
+const OrganicAcidResearchPage = lazyNamed(routeComponent("organicAcid").load, routeComponent("organicAcid").exportName)
+const AlgorithmValidationPage = lazyNamed(routeComponent("algorithmValidation").load, routeComponent("algorithmValidation").exportName)
+const DataQualityProvenancePage = lazyNamed(routeComponent("dataQuality").load, routeComponent("dataQuality").exportName)
+const MofRecordPage = lazyNamed(routeComponent("mofRecord").load, routeComponent("mofRecord").exportName)
+const LiteratureRecordPage = lazyNamed(routeComponent("literatureRecord").load, routeComponent("literatureRecord").exportName)
+const ResearchCharterPage = lazyNamed(routeComponent("charter").load, routeComponent("charter").exportName)
 
 function shouldPreloadRouteModules() {
   if (typeof navigator === "undefined") return true
@@ -59,12 +76,7 @@ function shouldPreloadRouteModules() {
 }
 
 function preloadCommonRouteModules() {
-  return Promise.allSettled([
-    import("./components/tabs/PerformanceTab"),
-    import("./components/tabs/CatalysisLabTab"),
-    import("./components/tabs/MOFLibraryTab"),
-    import("./components/tabs/GasSepTab"),
-  ])
+  return preloadNavigationRoutes(["performance", "catalysis", "library", "gassep"])
 }
 
 function getInitialDeepLinkState() {
@@ -72,17 +84,11 @@ function getInitialDeepLinkState() {
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
   const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-  const pendingScrollTarget = (
-    routeHash.startsWith("methodology-") ||
-    routeHash.startsWith("project-evolution-") ||
-    ["data-quality-provenance", "validation-evidence", "benchmark-references", "graph-informed-descriptor-integration", "organic-acid-graph-explorer"].includes(routeHash)
-  )
-    ? routeHash
-    : null
+  const pendingScrollTarget = getScrollTargetForHash(routeHash)
 
   return {
     activeHash: hash,
-    activeTab: HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : routeHash.startsWith("project-evolution-") ? "projectEvolution" : "home"),
+    activeTab: resolveTabForHash(routeHash) || "home",
     pendingScrollTarget,
   }
 }
@@ -115,6 +121,7 @@ function AppShell({
   locale,
   copy,
   viewport,
+  activeHash,
   activeTab,
   setActiveTab,
   setLang,
@@ -174,13 +181,10 @@ function AppShell({
   const [settingsSection, setSettingsSection] = useState("")
   const [globalSearchOpen, setGlobalSearchOpen] = useState(false)
   const [propertyOpen, setPropertyOpen] = useState(false)
-  const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, ready: false })
-  const navRef = useRef(null)
   const settingsRef = useRef(null)
   const appShellRef = useRef(null)
   const compactHeader = viewport.width < 1320
   const veryCompactHeader = viewport.width < 760
-  const contentSizedNavTabs = compactHeader || lang === "en"
   const chromeTheme = theme
   const moduleTone = ({
     home: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
@@ -192,6 +196,13 @@ function AppShell({
     about: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     projectEvolution: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     dataCompliance: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    catalysisLiterature: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    organicAcid: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    algorithmValidation: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    dataQuality: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    mofRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    literatureRecord: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
+    charter: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
   })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
     setComparisonBuilderContext(context || null)
@@ -237,37 +248,6 @@ function AppShell({
       window.removeEventListener("pointerdown", close)
     }
   }, [settingsOpen, globalSearchOpen])
-  useEffect(() => {
-    const activeButton = navRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
-    const nav = navRef.current
-    if (!activeButton || !nav) return
-
-    const syncIndicator = () => {
-      setNavIndicator({
-        left: activeButton.offsetLeft,
-        width: activeButton.offsetWidth,
-        ready: activeButton.offsetWidth > 0,
-      })
-    }
-
-    const centerActiveTab = () => {
-      syncIndicator()
-      const left = activeButton.offsetLeft - (nav.clientWidth - activeButton.clientWidth) / 2
-      nav.scrollTo({ left: Math.max(0, left), behavior: viewport.isMobile ? "auto" : "smooth" })
-    }
-
-    const frame = window.requestAnimationFrame(centerActiveTab)
-    const timeout = window.setTimeout(centerActiveTab, 180)
-    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(syncIndicator)
-    resizeObserver?.observe(nav)
-    resizeObserver?.observe(activeButton)
-    return () => {
-      window.cancelAnimationFrame(frame)
-      window.clearTimeout(timeout)
-      resizeObserver?.disconnect()
-    }
-  }, [activeTab, viewport.isMobile, viewport.width])
-
   return (
     <div
       ref={appShellRef}
@@ -299,11 +279,11 @@ function AppShell({
                 ? "auto minmax(0, 1fr) auto"
                 : compactHeader
                   ? "96px minmax(0, 1fr) 96px"
-                  : "minmax(180px, 1fr) minmax(0, 880px) minmax(180px, 1fr)",
+                  : "170px minmax(0, 1fr) auto",
               alignItems: "center",
               columnGap: veryCompactHeader ? 6 : 10,
-              minHeight: 56,
-              padding: viewport.isMobile ? "8px 0" : "8px 0",
+              minHeight: viewport.isMobile ? 56 : 72,
+              padding: 0,
               background: "transparent",
               border: "none",
               borderRadius: 0,
@@ -328,85 +308,18 @@ function AppShell({
                 display: "flex",
                 justifyContent: "center",
                 minWidth: 0,
-                overflow: "hidden",
+                overflow: "visible",
+                position: "relative",
               }}
             >
-              <nav
-                ref={navRef}
-                className="nav-primary-rail nav-liquid-capsule"
-                data-lang={lang}
-                data-testid="primary-nav-rail"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: compactHeader ? "flex-start" : "center",
-                  gap: 2,
-                  width: "100%",
-                  maxWidth: compactHeader ? 760 : 880,
-                  overflowX: "auto",
-                  padding: 4,
-                  background: chromeTheme.glass,
-                  border: `1px solid ${chromeTheme.border}`,
-                  borderRadius: 999,
-                  boxShadow: darkMode
-                    ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 26px rgba(0,0,0,0.18)"
-                    : "inset 0 1px 0 rgba(255,255,255,0.72), 0 8px 24px rgba(35,34,30,0.08)",
-                  position: "relative",
-                  overflow: "auto",
-                  overscrollBehaviorX: "contain",
-                  "--nav-indicator-bg": moduleTone.soft,
-                  "--nav-indicator-border": moduleTone.accent,
-                  "--nav-indicator-glow": "color-mix(in srgb, var(--module-accent) 22%, transparent)",
-                }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="nav-liquid-indicator"
-                  data-ready={navIndicator.ready ? "true" : "false"}
-                  style={{
-                    width: navIndicator.width,
-                    transform: `translate3d(${navIndicator.left}px, 0, 0)`,
-                  }}
-                />
-                {TABS.map(tab => {
-                  const active = activeTab === tab.id
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      className="nav-tab"
-                      data-tab-id={tab.id}
-                      data-active={active ? "true" : "false"}
-                      aria-current={active ? "page" : undefined}
-                      onClick={() => setActiveTab(tab.id, { resetScroll: true })}
-                      style={{
-                        background: "transparent",
-                        border: "1px solid transparent",
-                        color: active ? moduleTone.accent : chromeTheme.subtle,
-                        boxSizing: "border-box",
-                        height: 34,
-                        padding: compactHeader ? "0 10px" : "0 12px",
-                        borderRadius: 999,
-                        cursor: "pointer",
-                        display: "grid",
-                        placeItems: "center",
-                        flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0",
-                        minWidth: contentSizedNavTabs ? "max-content" : 0,
-                        fontSize: 12,
-                        fontWeight: 760,
-                        textAlign: "center",
-                        whiteSpace: "nowrap",
-                        fontFamily: FONT_SANS,
-                        boxShadow: "none",
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      <span className="nav-tab-label">{copy.tabs[tab.copyKey]}</span>
-                    </button>
-                  )
-                })}
-              </nav>
+              <PrimaryDomainNavigation
+                activeHash={activeHash}
+                activeTab={activeTab}
+                isMobile={viewport.isMobile}
+                lang={lang}
+                onNavigate={setActiveTab}
+                theme={chromeTheme}
+              />
             </div>
 
             <div ref={settingsRef} className="settings-control-cluster" style={{
@@ -434,8 +347,8 @@ function AppShell({
                     setSearchOpen(true)
                   }}
                   style={{
-                    background: globalSearchOpen ? chromeTheme.badgeInfoBg : chromeTheme.glass,
-                    border: `1px solid ${globalSearchOpen ? chromeTheme.borderStrong : chromeTheme.border}`,
+                    background: "transparent",
+                    border: "1px solid transparent",
                     color: globalSearchOpen ? chromeTheme.accentText : chromeTheme.textStrong,
                   }}
                 >
@@ -502,9 +415,9 @@ function AppShell({
                 data-open={settingsOpen ? "true" : "false"}
                 style={{
                   alignItems: "center",
-                  background: settingsOpen ? chromeTheme.badgeInfoBg : chromeTheme.glass,
-                  border: `1px solid ${settingsOpen ? chromeTheme.borderStrong : chromeTheme.border}`,
-                  boxShadow: settingsOpen ? "0 1px 0 rgba(15,23,42,0.04)" : "none",
+                  background: "transparent",
+                  border: "1px solid transparent",
+                  boxShadow: "none",
                   color: settingsOpen ? chromeTheme.accentText : chromeTheme.subtle,
                   cursor: "pointer",
                   display: "inline-flex",
@@ -697,6 +610,13 @@ function AppShell({
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
             {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
             {activeTab === "dataCompliance" && <DatabaseComplianceTab />}
+            {activeTab === "catalysisLiterature" && <CatalysisLiteratureVerificationPage />}
+            {activeTab === "organicAcid" && <OrganicAcidResearchPage onNavigate={navigateTab} />}
+            {activeTab === "algorithmValidation" && <AlgorithmValidationPage />}
+            {activeTab === "dataQuality" && <DataQualityProvenancePage />}
+            {activeTab === "mofRecord" && <MofRecordPage />}
+            {activeTab === "literatureRecord" && <LiteratureRecordPage />}
+            {activeTab === "charter" && <ResearchCharterPage />}
           </div>
         </Suspense>
       </main>
@@ -828,7 +748,7 @@ export default function App() {
     const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
     const hash = explicitHash || "default"
     const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
-    const tab = HASH_TO_TAB[routeHash] || (routeHash.startsWith("methodology-") ? "about" : routeHash.startsWith("project-evolution-") ? "projectEvolution" : null)
+    const tab = resolveTabForHash(routeHash)
 
     setActiveHash(hash)
     setContactOpen(routeHash === "contact")
@@ -837,27 +757,8 @@ export default function App() {
 
     if (tab) {
       setActiveTab(tab)
-      if (routeHash === "data-quality-provenance") {
-        setPendingScrollTarget("data-quality-provenance")
-      }
-      if (routeHash === "validation-evidence") {
-        setPendingScrollTarget("validation-evidence")
-      }
-      if (routeHash === "benchmark-references") {
-        setPendingScrollTarget("benchmark-references")
-      }
-      if (routeHash === "graph-informed-descriptor-integration") {
-        setPendingScrollTarget("graph-informed-descriptor-integration")
-      }
-      if (routeHash === "organic-acid-graph-explorer") {
-        setPendingScrollTarget("organic-acid-graph-explorer")
-      }
-      if (routeHash.startsWith("methodology-")) {
-        setPendingScrollTarget(routeHash)
-      }
-      if (routeHash.startsWith("project-evolution-")) {
-        setPendingScrollTarget(routeHash)
-      }
+      const scrollTarget = getScrollTargetForHash(routeHash)
+      if (scrollTarget) setPendingScrollTarget(scrollTarget)
     }
   }, [])
 
@@ -999,6 +900,19 @@ export default function App() {
   }, [activeTab, pendingScrollTarget])
 
   useEffect(() => {
+    if (!pendingScrollTarget || !["organicAcid", "algorithmValidation"].includes(activeTab)) return
+    const scroll = () => {
+      const target = document.getElementById(pendingScrollTarget)
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" })
+        setPendingScrollTarget(null)
+      }
+    }
+    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 120))
+    return () => window.cancelAnimationFrame(frame)
+  }, [activeTab, pendingScrollTarget])
+
+  useEffect(() => {
     const onResize = () => setViewportWidth(window.innerWidth)
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
@@ -1033,7 +947,7 @@ export default function App() {
       validation: "about",
       resources: "about",
     }
-    const nextTab = normalizedTabs[activeTab] || (TABS.some(tab => tab.id === activeTab) ? activeTab : TABS[0]?.id || "home")
+    const nextTab = normalizedTabs[activeTab] || (getNavigationRoute(activeTab) ? activeTab : TABS[0]?.id || "home")
     if (nextTab !== activeTab) setActiveTab(nextTab)
   }, [activeTab])
 
@@ -1306,6 +1220,11 @@ export default function App() {
       go("performance")
       return
     }
+    const navigationItem = getNavigationItem(target)
+    if (navigationItem) {
+      go(navigationItem.hash)
+      return
+    }
     if (HASH_TO_TAB[target]) {
       go(target)
       return
@@ -1480,6 +1399,7 @@ export default function App() {
             locale={locale}
             copy={copy}
             viewport={viewport}
+            activeHash={activeHash}
             activeTab={activeTab}
             setActiveTab={navigateTab}
             setLang={setLang}

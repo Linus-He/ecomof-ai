@@ -12,7 +12,6 @@ import { ModulePageHeader } from "../module/ModuleTop"
 import { OrganicAcidEntryCard } from "../catalysis/OrganicAcidEntryCard"
 import { OrganicAcidFinalScreening } from "../catalysis/organic-acid-final/OrganicAcidFinalScreening"
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
-import { CatalysisLiteratureRecordCenter } from "../catalysis/CatalysisLiteratureRecordCenter"
 import { CatalysisDiscoveryWorkbench } from "../catalysis/CatalysisDiscoveryWorkbench"
 
 const ORGANIC_ACID_WORKSPACE_HASHES = new Set([
@@ -80,6 +79,9 @@ export function CatalysisLabTab() {
   const [pendingOrganicScrollTarget, setPendingOrganicScrollTarget] = useState(null)
   const [pendingFinalScrollTarget, setPendingFinalScrollTarget] = useState(null)
   const workspaceRef = useRef(null)
+  const openLiteratureCenter = () => {
+    window.location.hash = "catalysis-literature-verification"
+  }
 
   useEffect(() => {
     const syncWorkspace = () => {
@@ -210,7 +212,23 @@ export function CatalysisLabTab() {
         </div>
       </section>
 
-      <CatalysisLiteratureRecordCenter lang={lang} t={t} isMobile={isMobile} />
+      <section
+        data-testid="catalysis-literature-center-entry"
+        style={{ alignItems: "end", background: t.panel, borderTop: `1px solid ${t.border}`, display: "grid", gap: 18, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) auto", padding: "22px 0" }}
+      >
+        <div style={{ display: "grid", gap: 7, maxWidth: 900 }}>
+          <span style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{zh ? "独立研究中心" : "Independent research center"}</span>
+          <h2 style={{ color: t.textStrong, fontSize: 22, lineHeight: 1.18, margin: 0 }}>{zh ? "催化文献核验中心" : "Catalysis Literature Verification"}</h2>
+          <p style={{ color: t.muted, fontSize: 12.5, lineHeight: 1.6, margin: 0 }}>
+            {zh
+              ? "集中查看 DOI 身份、出版方核验、实验条件、数值声明位置、活性相证据、许可范围与待办任务。反应记录和核验中心使用同一底层数据库。"
+              : "Review DOI identity, publisher verification, conditions, claim locations, active-phase evidence, licensing, and open tasks. Reaction records and verification share one underlying database."}
+          </p>
+        </div>
+        <button type="button" onClick={openLiteratureCenter} style={{ background: t.textStrong, border: 0, borderRadius: 6, color: t.bg, cursor: "pointer", fontSize: 12, fontWeight: 850, minHeight: 38, padding: "0 14px" }}>
+          {zh ? "进入核验中心" : "Open verification center"}
+        </button>
+      </section>
 
       <CatalysisDiscoveryWorkbench lang={lang} t={t} isMobile={isMobile} />
 

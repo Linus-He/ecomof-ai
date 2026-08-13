@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { getPrimaryNavigationItems } from "../config/navigationRegistry"
 export const SOURCE_BADGES = {
   literature: { label: "Literature-backed", tone: "calc" },
   benchmark: { label: "Benchmark-backed", tone: "calc" },
@@ -14,13 +15,6 @@ export const WORKFLOW_STAGE_ITEMS = [
   { id: "engineering", stage: "Future Stage 4", label: "Engineering Evaluation (future)", zh: "工程评估（未来）", target: "about", tone: "calc" },
 ]
 
-export const TABS = [
-  { id: "home",          copyKey: "overview" },
-  { id: "ecoscreen",     copyKey: "ecoScreen" },
-  { id: "gassep",        copyKey: "gasSep" },
-  { id: "catalysis",     copyKey: "catalysisLab" },
-  { id: "library",       copyKey: "mofLibrary" },
-  { id: "about",         copyKey: "methodology" },
-  { id: "projectEvolution", copyKey: "projectEvolution" },
-  { id: "dataCompliance", copyKey: "dataCompliance" },
-]
+// Compatibility export for the current tab bar. P1 can render domains and groups
+// from the same registry without changing page IDs or deep links.
+export const TABS = getPrimaryNavigationItems()

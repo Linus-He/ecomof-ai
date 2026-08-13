@@ -32,7 +32,7 @@ describe("Validation center merge (V2.8)", () => {
   })
 
   it("keeps deep links pointed at the algorithm validation center, not the retired labs", () => {
-    expect(HASH_TO_TAB["methodology-algorithm-validation"]).toBe("about")
+    expect(HASH_TO_TAB["methodology-algorithm-validation"]).toBe("algorithmValidation")
     expect(HASH_TO_TAB["methodology-model-benchmark"]).toBeUndefined()
     expect(HASH_TO_TAB["methodology-model-validation"]).toBeUndefined()
   })

@@ -6,17 +6,18 @@ import { resolve } from "node:path"
 describe("top navigation layout", () => {
   it("keeps the wordmark, navigation, and actions on one responsive row", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const navigation = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
 
     expect(source).not.toContain('"160px 1fr 160px"')
     expect(source).toContain("const compactHeader = viewport.width < 1320")
     expect(source).toContain("const veryCompactHeader = viewport.width < 760")
     expect(source).toContain('"auto minmax(0, 1fr) auto"')
     expect(source).toContain('"96px minmax(0, 1fr) 96px"')
-    expect(source).toContain('"minmax(180px, 1fr) minmax(0, 880px) minmax(180px, 1fr)"')
+    expect(source).toContain('"170px minmax(0, 1fr) auto"')
     expect(source).toContain('position: "relative"')
     expect(source).not.toContain('position: compactHeader && !veryCompactHeader ? "fixed" : "static"')
     expect(source).toContain('width: "100%"')
-    expect(source).toContain('overscrollBehaviorX: "contain"')
+    expect(navigation).toContain('className="nav-primary-rail"')
   })
 
   it("keeps search and user controls outside the tab capsule and nests settings in the user menu", () => {
@@ -47,13 +48,13 @@ describe("top navigation layout", () => {
     expect(source).toContain('useState("")')
   })
 
-  it("renders the search and user triggers as equal circular controls", () => {
+  it("keeps search and user triggers unframed", () => {
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
-    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*aspect-ratio:\s*1/s)
-    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*border-radius:\s*50%\s*!important/s)
-    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*height:\s*40px/s)
-    expect(css).toMatch(/\.nav-action-button\s*\{[^}]*width:\s*40px/s)
+    expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*border:\s*0\s*!important/s)
+    expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*border-radius:\s*0\s*!important/s)
+    expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*box-shadow:\s*none\s*!important/s)
+    expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*backdrop-filter:\s*none/s)
   })
 
   it("keeps the user menu compact, vertical, rounded, and glass-backed", () => {
@@ -65,54 +66,58 @@ describe("top navigation layout", () => {
     expect(css).toMatch(/\.settings-menu\s*\{[^}]*backdrop-filter:\s*blur\(34px\) saturate\(165%\)/s)
   })
 
-  it("keeps brand and action controls outside the liquid tab rail", () => {
-    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
-    const railStart = source.indexOf('<nav\n                ref={navRef}')
-    const railEnd = source.indexOf('</nav>', railStart)
-    const railSource = source.slice(railStart, railEnd)
+  it("keeps brand and action controls outside the text navigation rail", () => {
+    const railSource = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
 
     expect(railSource).not.toContain("LogoWordmark")
     expect(railSource).not.toContain("nav-search-trigger")
     expect(railSource).not.toContain("nav-user-trigger")
   })
 
-  it("centers the desktop rail and turns it into a horizontal scroller at compact widths", () => {
-    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
-
-    expect(source).toContain('const contentSizedNavTabs = compactHeader || lang === "en"')
-    expect(source).toContain('justifyContent: compactHeader ? "flex-start" : "center"')
-    expect(source).toContain('maxWidth: compactHeader ? 760 : 880')
-    expect(source).toContain('flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0"')
-    expect(source).toContain('minWidth: contentSizedNavTabs ? "max-content" : 0')
-  })
-
-  it("wraps tabs in one liquid-glass capsule with a measured sliding selection layer", () => {
-    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+  it("keeps six domain-level controls and turns the rail into a horizontal scroller at compact widths", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
-    expect(source).toContain('className="nav-primary-rail nav-liquid-capsule"')
-    expect(source).toContain('className="nav-liquid-indicator"')
-    expect(source).toContain("activeButton.offsetLeft")
-    expect(source).toContain("activeButton.offsetWidth")
-    expect(source).toContain("borderRadius: 999")
-    expect(css).toContain(".nav-liquid-capsule")
-    expect(css).toContain("backdrop-filter: blur(22px) saturate(155%)")
-    expect(css).toContain(".nav-liquid-indicator")
+    expect(source).toContain("NAVIGATION_DOMAINS")
+    expect(source).toContain("domains.map(domain =>")
+    expect(css).toMatch(/\.primary-domain-navigation \.nav-primary-rail\s*\{[^}]*overflow-x:\s*auto/s)
+    expect(css).toContain("@media (max-width: 1319px)")
+    expect(css).toMatch(/\.primary-domain-navigation \.nav-tab\s*\{[^}]*flex:\s*0 0 auto/s)
+  })
+
+  it("uses an OpenAI-style unframed text rail without a selection capsule", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(source).toContain('className="nav-primary-rail"')
+    expect(source).not.toContain("nav-liquid-capsule")
+    expect(source).not.toContain("nav-liquid-indicator")
+    expect(source).not.toContain("CaretDown")
+    expect(css).toMatch(/\.primary-domain-navigation \.nav-primary-rail\s*\{[^}]*background:\s*transparent/s)
+    expect(css).toMatch(/\.primary-domain-navigation \.nav-primary-rail\s*\{[^}]*border:\s*0/s)
+    expect(css).toMatch(/\.primary-domain-navigation \.nav-primary-rail\s*\{[^}]*box-shadow:\s*none/s)
     expect(css).toMatch(/\.nav-shell\s*\{[^}]*z-index:\s*2/s)
-    expect(css).toContain("transform 480ms cubic-bezier(0.2, 0.82, 0.2, 1)")
   })
 
-  it("centers Chinese tab labels inside each navigation button", () => {
-    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+  it("renders the secondary menu as a full-width unframed index layer", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
-    const navTabStart = source.indexOf('className="nav-tab"')
-    const navTabStyle = source.slice(navTabStart, navTabStart + 1800)
 
-    expect(navTabStyle).toContain('display: "grid"')
-    expect(navTabStyle).toContain('placeItems: "center"')
-    expect(navTabStyle).toContain('flex: contentSizedNavTabs ? "0 0 auto" : "1 1 0"')
-    expect(navTabStyle).toContain('textAlign: "center"')
-    expect(navTabStyle).toContain('<span className="nav-tab-label">')
+    expect(source).toContain('className="nav-domain-panel-inner"')
+    expect(source).toContain('data-featured={groupIndex === 0 ? "true" : "false"}')
+    expect(css).toMatch(/\.nav-domain-panel\s*\{[^}]*border:\s*0/s)
+    expect(css).toMatch(/\.nav-domain-panel\s*\{[^}]*border-radius:\s*0/s)
+    expect(css).toMatch(/\.nav-domain-panel\s*\{[^}]*box-shadow:\s*none/s)
+    expect(css).toMatch(/\.nav-domain-panel\s*\{[^}]*position:\s*fixed/s)
+    expect(css).toMatch(/\.nav-domain-panel\s*\{[^}]*width:\s*100vw/s)
+    expect(css).toMatch(/\.nav-domain-group\[data-featured="true"\] \.nav-domain-item\s*\{[^}]*font-size:\s*30px/s)
+  })
+
+  it("keeps bilingual domain labels centered without shrinking long English text", () => {
+    const source = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+
+    expect(source).toContain('<span className="nav-tab-label">')
     expect(css).toContain(".nav-tab-label")
     expect(css).toContain("place-items: center")
     expect(css).toContain("inline-size: 100%")
@@ -121,14 +126,15 @@ describe("top navigation layout", () => {
 
   it("returns to the top when a primary tab changes modules", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const navigation = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
 
-    expect(source).toContain('setActiveTab(tab.id, { resetScroll: true })')
+    expect(navigation).toContain('onNavigate(hash, { resetScroll: true })')
     expect(source).toContain('window.scrollTo({ top: 0, left: 0, behavior: "auto" })')
     expect(source).toContain("window.requestAnimationFrame(scrollToModuleTop)")
   })
 
   it("preserves the intrinsic width of English tab labels", () => {
-    const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
+    const source = readFileSync(resolve(process.cwd(), "src/components/navigation/PrimaryDomainNavigation.tsx"), "utf8")
     const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
     expect(source).toContain("data-lang={lang}")

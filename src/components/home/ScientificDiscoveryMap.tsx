@@ -215,7 +215,7 @@ function GasIsothermPreview({ zh }) {
               formatter={(value, name) => [`${Number(value).toFixed(3)} mmol/g`, name]}
             />
             <Legend wrapperStyle={{ fontSize: 10, color: "#5f5d57" }} />
-            <Line type="monotone" dataKey="primary" name={primaryGas} connectNulls stroke="#d97757" strokeWidth={2.4} dot={{ r: 2.2, fill: "#d97757" }} activeDot={{ r: 4 }} isAnimationActive />
+            <Line type="monotone" dataKey="primary" name={primaryGas} connectNulls stroke="#4aa8d8" strokeWidth={2.4} dot={{ r: 2.2, fill: "#4aa8d8" }} activeDot={{ r: 4 }} isAnimationActive />
             <Line type="monotone" dataKey="secondary" name={secondaryGas} connectNulls stroke="#788c5d" strokeWidth={2.4} dot={{ r: 2.2, fill: "#788c5d" }} activeDot={{ r: 4 }} isAnimationActive />
           </LineChart>
         </ResponsiveContainer>
@@ -695,7 +695,7 @@ export function ScientificDiscoveryMap({
         "--map-faint": t?.faint || "#9c9a92",
         "--map-border": t?.border || "#dedcd1",
         "--map-border-strong": t?.borderStrong || "#c6c4ba",
-        "--map-accent": t?.accent || "#d97757",
+        "--map-accent": t?.accent || "#4aa8d8",
         "--map-shadow": t?.shadowMd,
       }}
       onWheel={onWheel}

@@ -13,7 +13,7 @@ const METRIC_CONFIG = {
 }
 
 const METRIC_KEYS = Object.keys(METRIC_CONFIG)
-const BAR_COLORS = ["#d97757", "#788c5d", "#c46686", "#87867f", "#e3dacc", "#bf4d43", "#9c9a92"]
+const BAR_COLORS = ["#4aa8d8", "#788c5d", "#c46686", "#87867f", "#b9dcea", "#bf4d43", "#9c9a92"]
 
 function label(metric, lang) {
   const config = METRIC_CONFIG[metric]

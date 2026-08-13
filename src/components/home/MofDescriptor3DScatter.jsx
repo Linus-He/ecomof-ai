@@ -10,11 +10,11 @@ import { getReadableMofLabel } from "../../utils/mofDisplayName"
 const TARGET_POINT_COUNT = 240
 
 const METAL_COLORS = {
-  Zr: "#d97757",
+  Zr: "#4aa8d8",
   Cu: "#bf4d43",
   Zn: "#788c5d",
   Mg: "#c46686",
-  Co: "#c6613f",
+  Co: "#4aa8d8",
   Ni: "#9c9a92",
   Fe: "#87867f",
   Al: "#cbcadb",
@@ -22,7 +22,7 @@ const METAL_COLORS = {
 }
 
 const GRADE_COLORS = {
-  database_distribution: "#d97757",
+  database_distribution: "#4aa8d8",
   external_database: "#788c5d",
   source_confirmed: "#c46686",
   unverified: "#87867f",

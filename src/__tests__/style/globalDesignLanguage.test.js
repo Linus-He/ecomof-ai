@@ -91,6 +91,7 @@ describe("global design language guardrails", () => {
   const reviewedRoundedSurfaceFiles = new Set([
     "src/App.tsx",
     "src/index.css",
+    "src/components/navigation/PrimaryDomainNavigation.tsx",
     "src/components/tabs/GasSepTab.tsx",
   ])
 

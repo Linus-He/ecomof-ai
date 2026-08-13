@@ -277,35 +277,6 @@ export function DatabaseComplianceTab() {
         </div>
       </section>
 
-      <section className="dc-charter" id="research-charter" data-testid="research-charter">
-        <header>
-          <h2>{text(lang, "EcoMOF-AI 宪章", "The EcoMOF-AI Charter")}</h2>
-          <p>{text(lang, "这份宪章定义本站希望长期坚持的方向。它不替代下方许可条款、法律说明或数据发布方的原始文件。", "This charter defines the direction this site intends to uphold over time. It does not replace the licence terms, legal notices, or primary publisher documents below.")}</p>
-        </header>
-        <div className="dc-charter-grid">
-          <article>
-            <span>01</span>
-            <h3>{text(lang, "服务可信研究", "Advance trustworthy research")}</h3>
-            <p>{text(lang, "我们的目标是让材料筛选、证据核验与科研讨论更透明、更可追溯。界面、算法和数据组织应帮助使用者理解依据与边界，而不是用复杂度制造权威感。", "Our aim is to make materials screening, evidence review, and scientific discussion more transparent and traceable. Interfaces, algorithms, and data organization should reveal reasoning and boundaries rather than manufacture authority through complexity.")}</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>{text(lang, "坚持非商业性质", "Remain non-commercial")}</h3>
-            <p>{text(lang, "EcoMOF-AI 承诺以非商业科研与教育展示为定位，不出售本站数据、不以受限数据提供收费服务，也不将带有非商业限制的来源用于商业模型或客户交付。若未来运营边界发生变化，相关数据应先停止使用并重新完成授权审查与公开说明。", "EcoMOF-AI is committed to non-commercial research and educational demonstration. We will not sell site data, provide paid services from restricted data, or use non-commercial sources for commercial models or client delivery. If the operating boundary changes, affected data must be paused, re-authorized, and publicly disclosed first.")}</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>{text(lang, "保持科学诚实", "Preserve scientific integrity")}</h3>
-            <p>{text(lang, "我们将尽可能保留字段级来源、计算假设、不确定性与失败条件；明确区分原始记录、派生结果、代理指标和模型预测，不把筛选分数包装成最终结论。", "We will preserve field-level provenance, assumptions, uncertainty, and failure conditions wherever possible; distinguish source records, derivatives, proxies, and predictions; and never present a screening score as a final conclusion.")}</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>{text(lang, "审慎发布并持续纠错", "Publish carefully and keep correcting")}</h3>
-            <p>{text(lang, "当证据、许可或安全边界尚不清楚时，我们宁可延迟接入，也不制造确定性。对合理的权利异议、科学质疑与错误报告，我们将保留暂停、修正、限制或移除内容的机制，并公开可复核的处理依据。", "When evidence, licensing, or safety boundaries remain unclear, we prefer delayed ingestion over false certainty. For reasonable rights concerns, scientific challenges, and error reports, we will maintain mechanisms to pause, correct, restrict, or remove content and document the basis for action.")}</p>
-          </article>
-        </div>
-      </section>
-
       <figure className="dc-hero-media">
         <img src={responsibleDataHero} alt={text(lang, "由 MOF 孔道与证据节点组成的抽象数据溯源网络", "An abstract provenance network formed from MOF pores and evidence nodes")} />
         <figcaption><span>{text(lang, "证据网络", "Evidence network")}</span><p>{text(lang, "每一个发光节点代表一个可回到来源、条款或计算记录的研究声明。", "Each luminous node represents a research claim that can return to a source, term, or computational record.")}</p></figcaption>

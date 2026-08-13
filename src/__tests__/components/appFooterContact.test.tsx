@@ -17,8 +17,9 @@ describe("AppFooter contact links", () => {
   it("keeps the renamed policy destination and charter visible in the footer", () => {
     render(<AppFooter lang="zh" navigate={vi.fn()} theme={THEME_LIGHT} />)
 
-    expect(screen.getByRole("button", { name: "EcoMOF-AI 宪章" })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "研究宪章" })).toBeInTheDocument()
     expect(screen.getAllByRole("button", { name: "条款与政策" }).length).toBeGreaterThan(0)
     expect(screen.queryByText("数据合规承诺")).not.toBeInTheDocument()
+    expect(screen.queryByText("数据托管与跨境访问")).not.toBeInTheDocument()
   })
 })

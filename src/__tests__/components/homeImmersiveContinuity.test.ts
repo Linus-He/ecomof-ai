@@ -52,7 +52,7 @@ describe("immersive homepage continuity", () => {
     expect(source).not.toContain('activeTab === "home" ? "#f0eee6"')
     expect(home).toContain("const t = useT()")
     expect(home).not.toContain("const baseTheme = useT()")
-    expect(map).toContain('"--map-accent": t?.accent || "#d97757"')
+    expect(map).toContain('"--map-accent": t?.accent || "#4aa8d8"')
   })
 
   it("prevents selection focus from scrolling the atlas and keeps its overlay above mode controls", () => {

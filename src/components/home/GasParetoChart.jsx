@@ -4,7 +4,7 @@ import gasRecordsData from "../../../public/data/gas_adsorption_records_v2.json"
 import { BlockFormula, getReadableMofLabel } from "../../shared"
 
 const GRADE_STYLE = {
-  iast: { color: "#d97757", labelZh: "IAST", labelEn: "IAST", shape: "circle" },
+  iast: { color: "#4aa8d8", labelZh: "IAST", labelEn: "IAST", shape: "circle" },
   experimental: { color: "#788c5d", labelZh: "实验", labelEn: "Experimental", shape: "square" },
   computed: { color: "#c46686", labelZh: "计算", labelEn: "Computed", shape: "diamond" },
   seed: { color: "#87867f", labelZh: "Seed", labelEn: "Seed", shape: "triangle" },

@@ -43,16 +43,12 @@ describe("DatabaseComplianceTab", () => {
     expect(page).not.toHaveTextContent(/截至\s*\d{4}/)
   })
 
-  it("presents the renamed terms page with a non-commercial research charter", () => {
+  it("keeps terms and policies separate from the research charter", () => {
     renderTab()
 
     expect(screen.getByRole("heading", { name: "条款与政策", level: 1 })).toBeInTheDocument()
-    const charter = screen.getByTestId("research-charter")
-    expect(charter).toHaveTextContent("EcoMOF-AI 宪章")
-    expect(charter).toHaveTextContent("坚持非商业性质")
-    expect(charter).toHaveTextContent("不出售本站数据")
-    expect(charter).toHaveTextContent("保持科学诚实")
-    expect(charter).toHaveTextContent("审慎发布并持续纠错")
+    expect(screen.queryByTestId("research-charter")).not.toBeInTheDocument()
+    expect(screen.queryByText("EcoMOF-AI 宪章")).not.toBeInTheDocument()
   })
 
   it("lists all applicable clauses and every authorization evidence category", () => {

@@ -42,6 +42,17 @@ afterEach(() => {
 })
 
 describe("Organic Acid validation loop navigation", () => {
+  it("explains why the research workspace is temporarily limited", () => {
+    window.sessionStorage.removeItem("ecomof_organic_acid_project_access")
+    render(<OrganicAcidProject lang="zh" t={THEME_LIGHT} />)
+
+    const notice = screen.getByLabelText("访问范围说明")
+    expect(notice).toHaveTextContent("很抱歉，当前工作区暂未向所有访客开放")
+    expect(notice).toHaveTextContent("尚未公开的研究记录、合作信息")
+    expect(notice).toHaveTextContent("仅向获授权的研究参与者提供访问")
+    expect(notice).toHaveTextContent("催化总览仍会持续公开不含受限内容的研究进展")
+  })
+
   it("keeps the existing Organic Acid Project accessible and adds validation-center entries", async () => {
     render(<OrganicAcidProject lang="zh" t={THEME_LIGHT} />)
 
