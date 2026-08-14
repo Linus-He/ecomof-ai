@@ -16,7 +16,7 @@ import { ChemicalFormula as ChemicalFormulaText } from "../common/ChemicalFormul
 import { AnchoredFieldProvenancePanel } from "../common/FieldProvenanceButton"
 import { X } from "@phosphor-icons/react"
 
-export const ECOMOF_LOGO_SRC = "/ecomof-ai/ecomof-logo.png"
+export const ECOMOF_LOGO_SRC = `${import.meta.env.BASE_URL || "/"}ecomof-logo.png`
 
 function FormulaFallback({ children, block = false, t }) {
   return (

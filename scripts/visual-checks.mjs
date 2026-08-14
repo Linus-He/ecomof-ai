@@ -5,7 +5,7 @@ import { spawn } from "node:child_process"
 import { chromium } from "playwright"
 
 const outDir = path.join(process.cwd(), "test-results", "visual-checks")
-const basePath = process.env.VISUAL_CHECK_BASE_PATH || "/ecomof-ai/"
+const basePath = process.env.VISUAL_CHECK_BASE_PATH || "/"
 const host = process.env.VISUAL_CHECK_HOST || "127.0.0.1"
 const startTimeoutMs = Number(process.env.VISUAL_CHECK_SERVER_TIMEOUT_MS || 18000)
 const candidatePorts = String(process.env.VISUAL_CHECK_PORTS || "5173,5174,4173,4174,5273,5373")
@@ -355,7 +355,7 @@ async function ensurePreviewServer() {
   const combined = attempts.map(row => `${row.url}\n${row.message}`).join("\n\n")
   if (startupBlocked(combined) && process.env.VISUAL_CHECK_STATIC_FALLBACK !== "0") {
     usingStaticDistFallback = true
-    baseUrl = "http://visual-check.local/ecomof-ai/"
+    baseUrl = "http://visual-check.local/"
     console.error(`[visual:check] preview server blocked on every fallback port; using static dist route fallback at ${baseUrl}`)
     return
   }

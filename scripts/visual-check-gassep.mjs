@@ -7,7 +7,7 @@ import { chromium } from "playwright"
 const root = process.cwd()
 const outDir = path.join(root, "test-results", "visual-checks", "gassep")
 const port = Number(process.env.GASSEP_VISUAL_PORT || 4186)
-const baseUrl = `http://127.0.0.1:${port}/ecomof-ai/`
+const baseUrl = `http://127.0.0.1:${port}/`
 const records = JSON.parse(await fs.readFile(path.join(root, "public/data/gas_adsorption_records_v2.json"), "utf8"))
 const computedIds = new Set(records.filter(record => record.dataGrade === "computed-IAST" && record.secondaryIsotherm?.length >= 3).map(record => record.id))
 

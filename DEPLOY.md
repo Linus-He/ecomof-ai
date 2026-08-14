@@ -1,6 +1,6 @@
 # ecomof-ai — Deployment Guide
 
-Live URL: **https://linus-he.github.io/ecomof-ai**
+Live URL: **https://ecomofai.com**
 
 ---
 
@@ -45,7 +45,7 @@ The workflow file is at `.github/workflows/deploy.yml`.
 
 ```bash
 npm install           # install dependencies
-npm run dev           # start dev server at http://localhost:5173/ecomof-ai/
+npm run dev           # start dev server at http://localhost:5173/
 npm run build         # production build to dist/
 npm run preview       # preview the build locally
 ```
@@ -75,7 +75,7 @@ ecomof-ai/
 │   ├── constants/
 │   └── utils/                  # scoring, prediction, labels, etc.
 ├── .github/workflows/deploy.yml
-├── vite.config.js
+├── vite.config.ts
 └── package.json
 ```
 
@@ -127,6 +127,6 @@ Until labeled experimental or literature data are available, ML evaluation remai
   author = {He, Linus},
   title  = {ecomof-ai: Research-oriented MOF screening prototype},
   year   = {2025},
-  url    = {https://github.com/Linus-He/ecomof-ai}
+  url    = {https://ecomofai.com}
 }
 ```

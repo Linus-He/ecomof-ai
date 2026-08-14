@@ -4,7 +4,7 @@
   "description": "Research-oriented MOF AI prototype platform for candidate screening, sustainability evaluation, performance comparison, and task-oriented application exploration.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prepare-pages-artifact.mjs",
     "build:csd-public": "node scripts/build-csd-mof-public-dataset.mjs",
     "build:coremof2024": "node scripts/build-core-mof-2024-csd-modified.mjs",
     "build:fairmofs": "node scripts/build-fair-mofs-integration.mjs",

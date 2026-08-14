@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://linus-he.github.io/ecomof-ai/sitemap.xml
+Sitemap: https://ecomofai.com/sitemap.xml

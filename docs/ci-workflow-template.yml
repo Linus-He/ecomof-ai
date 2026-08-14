@@ -68,7 +68,7 @@ jobs:
       - name: Wait for dev server
         run: |
           for i in $(seq 1 60); do
-            if curl -sSf http://127.0.0.1:5173/ecomof-ai/ > /dev/null; then
+            if curl -sSf http://127.0.0.1:5173/ > /dev/null; then
               echo "Dev server is up."
               exit 0
             fi

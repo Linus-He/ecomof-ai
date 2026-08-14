@@ -4,7 +4,7 @@ import process from "node:process"
 import { chromium } from "playwright"
 
 const ROOT = process.cwd()
-const BASE_URL = process.env.FINAL_UI_QA_BASE_URL || "http://127.0.0.1:4173/ecomof-ai/"
+const BASE_URL = process.env.FINAL_UI_QA_BASE_URL || "http://127.0.0.1:4173/"
 const OUT_DIR = path.join(ROOT, "test-results", "final-ui-qa")
 const SOURCE_IMAGES = {
   homeEntries: "/var/folders/8k/hwwkxqpn6fv6kkkx14j_r6700000gn/T/TemporaryItems/NSIRD_screencaptureui_9bPSTz/截屏2026-08-04 12.37.03.png",

@@ -2,7 +2,7 @@
 
 EcoMOF-AI is a research prototype for transparent MOF screening, adsorption-performance interpretation, sustainability comparison, and catalysis-oriented evidence structuring. It is designed for exploratory scientific workflows where every score, label, and visualization must keep its data boundary visible.
 
-Live site: https://linus-he.github.io/ecomof-ai/
+Live site: https://ecomofai.com/
 
 ## 1. Project Motivation
 
@@ -142,5 +142,5 @@ GitHub citation metadata is provided in [`CITATION.cff`](./CITATION.cff).
 Suggested citation:
 
 ```text
-EcoMOF-AI contributors. EcoMOF-AI: A transparent research prototype for MOF candidate screening, gas adsorption evidence curation, sustainability comparison, and catalysis-oriented data provenance. GitHub Pages, 2026. Available at: https://linus-he.github.io/ecomof-ai/
+EcoMOF-AI contributors. EcoMOF-AI: A transparent research prototype for MOF candidate screening, gas adsorption evidence curation, sustainability comparison, and catalysis-oriented data provenance. GitHub Pages, 2026. Available at: https://ecomofai.com/
 ```

@@ -7,7 +7,7 @@ import {
   getNavigationMeta,
 } from "../config/navigationRegistry"
 
-export const BASE_PATH = "/ecomof-ai/"
+export const BASE_PATH = "/"
 
 export { HASH_META, HASH_TO_TAB, TAB_TO_HASH }
 
@@ -26,7 +26,7 @@ export function buildDeepLink(hash = "overview") {
     const base = import.meta.env.BASE_URL || BASE_PATH
     return `${window.location.origin}${base}#${normalized}`
   }
-  return `https://linus-he.github.io${BASE_PATH}#${normalized}`
+  return `https://ecomofai.com${BASE_PATH}#${normalized}`
 }
 
 export function getHashMeta(hash) {
