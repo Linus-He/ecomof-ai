@@ -271,16 +271,6 @@ export const NAVIGATION_ROUTES = [
         ),
       },
       {
-        id: "methodology-organic-acid-final-screening",
-        hash: "methodology-organic-acid-final-screening",
-        scrollTarget: true,
-        label: label("有机酸最终筛选方法", "Organic Acid Final Screening Method"),
-        meta: meta(
-          "Organic Acid Final Screening 方法 | EcoMOF-AI",
-          "查看 Al-MOF 水热硬阈值、OACS、DMRS、CRITIC+AHP、敏感性分析、盲测基线、EXAFS 和复现声明。",
-        ),
-      },
-      {
         id: "graph-informed-descriptor-integration",
         hash: "graph-informed-descriptor-integration",
         scrollTarget: true,
@@ -446,6 +436,23 @@ export const NAVIGATION_ROUTES = [
     },
   },
   {
+    id: "openSourceLicenses",
+    tabId: "openSourceLicenses",
+    primary: false,
+    domainId: "about",
+    hash: "open-source-licenses",
+    label: label("开源许可", "Open Source Licenses"),
+    meta: meta(
+      "开源许可 | EcoMOF-AI",
+      "集中说明 EcoMOF-AI 自有代码、前端依赖、测试工具、字体、图标、Swift 生态和第三方数据的许可边界。",
+    ),
+    component: {
+      strategy: "lazy",
+      exportName: "OpenSourceLicensesPage",
+      load: () => import("../components/pages/OpenSourceLicensesPage"),
+    },
+  },
+  {
     id: "acknowledgements",
     tabId: "acknowledgements",
     primary: false,
@@ -520,7 +527,7 @@ export const NAVIGATION_DOMAINS = [
     order: 3,
     label: label("方法与验证", "Methods & validation"),
     groups: [
-      { id: "method-index", label: label("方法索引", "Method index"), itemIds: ["about", "methodology-gassep", "methodology-organic-acid", "methodology-organic-acid-final-screening"] },
+      { id: "method-index", label: label("方法索引", "Method index"), itemIds: ["about", "methodology-gassep", "methodology-organic-acid"] },
       { id: "method-validation", label: label("验证与边界", "Validation & boundaries"), itemIds: ["algorithmValidation", "validation-evidence", "benchmarkReferences"] },
     ],
   },
@@ -538,7 +545,7 @@ export const NAVIGATION_DOMAINS = [
     order: 5,
     label: label("关于", "About"),
     groups: [
-      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["creatorStatement", "charter", "dataCompliance", "disclaimer"] },
+      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["creatorStatement", "charter", "dataCompliance", "openSourceLicenses"] },
       { id: "about-contact", label: label("联系", "Contact"), itemIds: ["contact", "acknowledgements"] },
     ],
   },

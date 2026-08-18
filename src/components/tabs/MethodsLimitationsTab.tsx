@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   BasisBadge,
   BlockFormula,
@@ -17,7 +17,6 @@ import {
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
 import { MethodFormulaCard } from "../methodology/MethodFormulaCard"
 import { MethodModuleSection } from "../methodology/MethodModuleSection"
-import { ORGANIC_ACID_FINAL_DIRECTORY } from "../methodology/organic-acid-final/directory"
 import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
 import { MethodArchitectureDetails, MethodArchitectureOverview } from "../methodology/MethodArchitectureDetails"
 import { MethodologyRegistry } from "../methodology/MethodologyRegistry"
@@ -434,6 +433,7 @@ export function MethodsLimitationsTab() {
   const [governanceFrameworks, setGovernanceFrameworks] = useState({ standardFields: [], frameworks: [] })
   const [activeId, setActiveId] = useState("methodology-platform-overview")
   const [sidebarWidth, setSidebarWidth] = useState(276)
+  const sidebarResizeRef = useRef(null)
   const methodTheme = useMemo(() => ({
     ...t,
     accent: t.textStrong,
@@ -492,31 +492,49 @@ export function MethodsLimitationsTab() {
 
   const directoryItems = useMemo(() => {
     const items = buildDirectory(orderedModules, lang)
-    const finalItem = {
-      ...ORGANIC_ACID_FINAL_DIRECTORY,
-      display: text(lang, ORGANIC_ACID_FINAL_DIRECTORY.labelZh, ORGANIC_ACID_FINAL_DIRECTORY.label),
-      children: (ORGANIC_ACID_FINAL_DIRECTORY.children || []).map(child => ({
-        ...child,
-        display: text(lang, child.labelZh, child.label),
-      })),
-    }
-    const adjustedInsertIndex = items.findIndex(item => item.id === "methodology-organic-acid")
-    const withCurrentMethod = adjustedInsertIndex >= 0
-      ? [
-        ...items.slice(0, adjustedInsertIndex + 1),
-        finalItem,
-        ...items.slice(adjustedInsertIndex + 1),
-      ]
-      : [...items, finalItem]
     const literatureItem = buildLiteratureDirectory(literatureRecords, lang)
-    const limitationsIndex = withCurrentMethod.findIndex(item => item.id === "methodology-limitations-validation")
-    if (limitationsIndex < 0) return [...withCurrentMethod, literatureItem]
+    const limitationsIndex = items.findIndex(item => item.id === "methodology-limitations-validation")
+    if (limitationsIndex < 0) return [...items, literatureItem]
     return [
-      ...withCurrentMethod.slice(0, limitationsIndex),
+      ...items.slice(0, limitationsIndex),
       literatureItem,
-      ...withCurrentMethod.slice(limitationsIndex),
+      ...items.slice(limitationsIndex),
     ]
   }, [orderedModules, lang, literatureRecords])
+
+  const stopSidebarResize = useCallback(() => {
+    const resizeState = sidebarResizeRef.current
+    if (!resizeState) return
+    resizeState.handle?.releasePointerCapture?.(resizeState.pointerId)
+    window.removeEventListener("pointermove", resizeState.onMove)
+    window.removeEventListener("pointerup", resizeState.onStop)
+    window.removeEventListener("pointercancel", resizeState.onStop)
+    window.removeEventListener("blur", resizeState.onStop)
+    sidebarResizeRef.current = null
+  }, [])
+
+  const startSidebarResize = useCallback((event) => {
+    if (typeof window === "undefined") return
+    event.preventDefault()
+    stopSidebarResize()
+    const handle = event.currentTarget
+    const pointerId = event.pointerId
+    handle.setPointerCapture?.(pointerId)
+    const startX = event.clientX
+    const startWidth = sidebarWidth
+    const onMove = moveEvent => {
+      moveEvent.preventDefault()
+      setSidebarWidth(Math.min(440, Math.max(220, startWidth + moveEvent.clientX - startX)))
+    }
+    const onStop = () => stopSidebarResize()
+    sidebarResizeRef.current = { handle, pointerId, onMove, onStop }
+    window.addEventListener("pointermove", onMove, { passive: false })
+    window.addEventListener("pointerup", onStop)
+    window.addEventListener("pointercancel", onStop)
+    window.addEventListener("blur", onStop)
+  }, [sidebarWidth, stopSidebarResize])
+
+  useEffect(() => stopSidebarResize, [stopSidebarResize])
 
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
@@ -591,19 +609,7 @@ export function MethodsLimitationsTab() {
             type="button"
             aria-label={text(lang, "拖动调整方法目录宽度", "Drag to resize the methods directory")}
             title={text(lang, "拖动调整目录宽度", "Drag to resize directory")}
-            onPointerDown={event => {
-              event.currentTarget.setPointerCapture(event.pointerId)
-              const startX = event.clientX
-              const startWidth = sidebarWidth
-              const onMove = moveEvent => setSidebarWidth(Math.min(440, Math.max(220, startWidth + moveEvent.clientX - startX)))
-              const onUp = upEvent => {
-                event.currentTarget.releasePointerCapture?.(upEvent.pointerId)
-                window.removeEventListener("pointermove", onMove)
-                window.removeEventListener("pointerup", onUp)
-              }
-              window.addEventListener("pointermove", onMove)
-              window.addEventListener("pointerup", onUp)
-            }}
+            onPointerDown={startSidebarResize}
             style={{ alignItems: "center", alignSelf: "stretch", background: "transparent", border: 0, color: t.faint, cursor: "col-resize", display: "inline-flex", justifyContent: "center", minHeight: 240, padding: 0, touchAction: "none", width: 14 }}
           >
             <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, display: "inline-flex", height: 42, justifyContent: "center", position: "sticky", top: 118, width: 12 }}>

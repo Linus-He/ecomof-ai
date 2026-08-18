@@ -430,6 +430,171 @@
   color: var(--app-danger, #b42318);
 }
 
+.open-source-licenses-page {
+  gap: 52px;
+}
+
+.license-summary-strip {
+  border-bottom: 1px solid var(--app-border);
+  border-top: 1px solid var(--app-border);
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.license-summary-strip > div {
+  border-right: 1px solid var(--app-border);
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 26px 22px;
+}
+
+.license-summary-strip > div:last-child {
+  border-right: 0;
+}
+
+.license-summary-strip span,
+.license-section > header span,
+.license-ledger-row span,
+.license-data-boundaries article > span,
+.license-review-rules article > span {
+  color: var(--app-muted);
+  font-size: 11px;
+  font-weight: 760;
+}
+
+.license-summary-strip strong {
+  color: var(--app-text-strong);
+  font-size: 18px;
+  font-weight: 620;
+  line-height: 1.35;
+}
+
+.license-section {
+  display: grid;
+  gap: 24px;
+}
+
+.license-section > header {
+  border-bottom: 1px solid var(--app-border);
+  display: grid;
+  gap: 10px;
+  padding-bottom: 18px;
+}
+
+.license-section > header h2 {
+  color: var(--app-text-strong);
+  font-size: 32px;
+  font-weight: 560;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.license-section > header p {
+  color: var(--app-text);
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0;
+  max-width: 780px;
+}
+
+.license-ledger {
+  border-top: 1px solid var(--app-border);
+  display: grid;
+}
+
+.license-ledger-row {
+  border-bottom: 1px solid var(--app-border);
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(220px, 0.36fr) repeat(2, minmax(0, 1fr));
+  padding: 24px 0;
+}
+
+.license-ledger-row > div {
+  align-content: start;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.license-ledger-title strong {
+  color: var(--app-text-strong);
+  font-size: 15px;
+  font-weight: 720;
+  line-height: 1.45;
+}
+
+.license-ledger-title a {
+  align-items: center;
+  color: var(--app-text-strong);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 760;
+  gap: 6px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.license-ledger-row p,
+.license-data-boundaries p,
+.license-review-rules p {
+  color: var(--app-text);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.license-data-boundaries {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.license-data-boundaries article {
+  border-bottom: 1px solid var(--app-border);
+  display: grid;
+  gap: 10px;
+  padding: 24px 26px 24px 0;
+}
+
+.license-data-boundaries article:nth-child(odd) {
+  border-right: 1px solid var(--app-border);
+}
+
+.license-data-boundaries article:nth-child(even) {
+  padding-left: 26px;
+}
+
+.license-data-boundaries h3 {
+  color: var(--app-text-strong);
+  font-size: 18px;
+  font-weight: 620;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.license-review-rules {
+  border-top: 1px solid var(--app-border);
+  display: grid;
+}
+
+.license-review-rules article {
+  border-bottom: 1px solid var(--app-border);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 72px minmax(180px, 0.3fr) minmax(0, 1fr);
+  padding: 20px 0;
+}
+
+.license-review-rules strong {
+  color: var(--app-text-strong);
+  font-size: 15px;
+  font-weight: 720;
+  line-height: 1.45;
+}
+
 @media (max-width: 900px) {
   .about-text-page {
     gap: 54px;
@@ -469,6 +634,27 @@
     gap: 42px;
     grid-template-columns: minmax(0, 1fr) minmax(220px, 0.38fr);
   }
+
+  .license-summary-strip,
+  .license-data-boundaries {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .license-summary-strip > div,
+  .license-data-boundaries article,
+  .license-data-boundaries article:nth-child(even) {
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .license-ledger-row {
+    grid-template-columns: minmax(180px, 0.38fr) minmax(0, 1fr);
+  }
+
+  .license-ledger-title {
+    grid-row: span 2;
+  }
 }
 
 @media (max-width: 680px) {
@@ -488,7 +674,9 @@
   .about-text-row,
   .contact-page-layout,
   .creator-statement-section,
-  .creator-statement-closing {
+  .creator-statement-closing,
+  .license-ledger-row,
+  .license-review-rules article {
     gap: 22px;
     grid-template-columns: minmax(0, 1fr);
   }
@@ -565,5 +753,17 @@
 
   .creator-statement-closing {
     padding: 38px 0;
+  }
+
+  .license-section > header h2 {
+    font-size: 25px;
+  }
+
+  .license-summary-strip strong {
+    font-size: 16px;
+  }
+
+  .license-ledger-title {
+    grid-row: auto;
   }
 }

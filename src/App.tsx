@@ -70,6 +70,7 @@ const ResearchCharterPage = lazyNamed(routeComponent("charter").load, routeCompo
 const CreatorStatementPage = lazyNamed(routeComponent("creatorStatement").load, routeComponent("creatorStatement").exportName)
 const ReleaseNotesPage = lazyNamed(routeComponent("releaseNotes").load, routeComponent("releaseNotes").exportName)
 const ContactPage = lazyNamed(routeComponent("contact").load, routeComponent("contact").exportName)
+const OpenSourceLicensesPage = lazyNamed(routeComponent("openSourceLicenses").load, routeComponent("openSourceLicenses").exportName)
 const AcknowledgementsPage = lazyNamed(routeComponent("acknowledgements").load, routeComponent("acknowledgements").exportName)
 
 function shouldPreloadRouteModules() {
@@ -205,6 +206,7 @@ function AppShell({
     creatorStatement: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     releaseNotes: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     contact: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
+    openSourceLicenses: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     acknowledgements: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
   })[activeTab] || { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft }
   const openComparisonBuilder = useCallback((context = null) => {
@@ -630,6 +632,7 @@ function AppShell({
             {activeTab === "creatorStatement" && <CreatorStatementPage />}
             {activeTab === "releaseNotes" && <ReleaseNotesPage />}
             {activeTab === "contact" && <ContactPage />}
+            {activeTab === "openSourceLicenses" && <OpenSourceLicensesPage />}
             {activeTab === "acknowledgements" && <AcknowledgementsPage />}
           </div>
         </Suspense>
