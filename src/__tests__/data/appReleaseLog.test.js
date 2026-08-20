@@ -2,18 +2,19 @@ import { describe, expect, it } from "vitest"
 import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
-  it("defines a single current Web version with v1.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v1.0.14")
+  it("defines a single current Web version with v3.0.0 as the first unified release", () => {
+    expect(log.currentAppVersion).toBe("v3.5.1")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
-    // releases are newest-first; v1.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v1.0.14")
-    expect(log.releases.map(r => r.appVersion)).toContain("v1.0.1")
-    expect(log.releases.map(r => r.appVersion)).toContain("v1.0.0")
+    // releases are newest-first; v3.0.0 remains the first unified platform release
+    expect(log.releases[0].appVersion).toBe("v3.5.1")
+    expect(log.releases.map(r => r.appVersion)).toContain("v3.1.0")
+    expect(log.releases.map(r => r.appVersion)).toContain("v3.0.0")
     expect(log.authority).toMatch(/single unified/i)
+    expect(log.releases.every(r => /^v3\.[0-5]\.\d+$/.test(r.appVersion))).toBe(true)
   })
 
   it("records the current and four previously missing recent releases with concrete module changes", () => {
-    const recent = ["v1.0.14", "v1.0.13", "v1.0.12", "v1.0.11", "v1.0.10", "v1.0.9", "v1.0.8", "v1.0.7", "v1.0.6"]
+    const recent = ["v3.5.1", "v3.5.0", "v3.4.2", "v3.4.1", "v3.4.0", "v3.3.2", "v3.3.1", "v3.3.0", "v3.2.2"]
       .map(version => log.releases.find(row => row.appVersion === version))
     expect(recent.every(Boolean)).toBe(true)
     for (const release of recent) {
@@ -24,7 +25,7 @@ describe("app_release_log unified version source", () => {
         expect(module.changes.length).toBeGreaterThanOrEqual(3)
       }
     }
-    expect(JSON.stringify(recent[0])).toMatch(/更新日志|changelog|内部阶段/)
+    expect(JSON.stringify(recent[0])).toMatch(/科学里程碑|changelog|scroll-reveal|路线图/)
     expect(JSON.stringify(recent[1])).toMatch(/34|紧凑小圆角|literature/)
     expect(JSON.stringify(recent[2])).toMatch(/43|CRITIC|IAST|编号/)
     expect(JSON.stringify(recent[3])).toMatch(/185|MOF Anatomy|V3\.9\.10/)
@@ -35,8 +36,8 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(recent[8])).toMatch(/IAST|等量吸附热|isosteric/)
   })
 
-  it("v1.0.5 archives material-level evaluation, readable MOF names, and formula alignment", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.5")
+  it("v3.2.1 archives material-level evaluation, readable MOF names, and formula alignment", () => {
+    const release = log.releases.find(row => row.appVersion === "v3.2.1")
     expect(Object.keys(release.modules)).toEqual([
       "ui",
       "ecoScreen",
@@ -53,8 +54,8 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(release.modules.projectEvolution)).toMatch(/zt,j|z_t,j/)
   })
 
-  it("v1.0.4 archives the homepage scientific narrative and integrated research routes", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.4")
+  it("v3.2.0 archives the homepage scientific narrative and integrated research routes", () => {
+    const release = log.releases.find(row => row.appVersion === "v3.2.0")
     expect(Object.keys(release.modules)).toEqual(["ui"])
     expect(JSON.stringify(release.modules.ui)).toMatch(/Pareto|多目标/)
     expect(JSON.stringify(release.modules.ui)).toMatch(/严格改进|strict-improvement/)
@@ -62,8 +63,8 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(release.modules.ui)).toMatch(/浅色|深色|light|dark/)
   })
 
-  it("v1.0.3 archives the completed EcoScreen, Project Evolution, homepage, and navigation work", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.3")
+  it("v3.1.2 archives the completed EcoScreen, Project Evolution, homepage, and navigation work", () => {
+    const release = log.releases.find(row => row.appVersion === "v3.1.2")
     expect(Object.keys(release.modules)).toEqual(["ui", "ecoScreen", "methodsEvidence", "projectEvolution"])
     expect(JSON.stringify(release.modules.ui)).toMatch(/MOF descriptor|描述符三维分布/)
     expect(JSON.stringify(release.modules.ui)).toMatch(/equal-width|等宽/)
@@ -73,8 +74,8 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(release.modules.projectEvolution)).toMatch(/completed|已完成/)
   })
 
-  it("v1.0.2 records ui, GasSep, and MOF Library updates without renumbering module history", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.2")
+  it("v3.1.1 records ui, GasSep, and MOF Library updates without renumbering module history", () => {
+    const release = log.releases.find(row => row.appVersion === "v3.1.1")
     expect(Object.keys(release.modules)).toEqual(["ui", "gasSep", "database"])
     expect(release.modules.ui.changes.length).toBeGreaterThan(0)
     expect(release.modules.gasSep.changes.length).toBeGreaterThan(0)
@@ -85,8 +86,8 @@ describe("app_release_log unified version source", () => {
     expect(JSON.stringify(release.modules.database)).toMatch(/MOF Library|候选库|结构|identity/)
   })
 
-  it("v1.0.0 release only lists modules it changed, each with a summary and changes", () => {
-    const release = log.releases.find(row => row.appVersion === "v1.0.0")
+  it("v3.0.0 release only lists modules it changed, each with a summary and changes", () => {
+    const release = log.releases.find(row => row.appVersion === "v3.0.0")
     const moduleKeys = Object.keys(release.modules)
     expect(moduleKeys).toEqual(expect.arrayContaining(["organicAcid", "gasSep", "database", "validation", "ui"]))
     for (const key of moduleKeys) {
@@ -101,11 +102,10 @@ describe("app_release_log unified version source", () => {
   it("preserves pre-1.0 history regrouped by module without renumbering", () => {
     expect(log.history.byModule.organicAcid.length).toBeGreaterThan(0)
     expect(log.history.byModule.database.length).toBeGreaterThan(0)
-    // Original module version numbers are preserved verbatim (not renumbered to 1.x).
+    // Original module version numbers are preserved verbatim.
     const allVersions = Object.values(log.history.byModule).flat().map(row => row.version)
     expect(allVersions).toContain("V3.10.1")
-    // History keeps original labels (V1.0, V2.x, V3.x); nothing was renumbered to the unified app version.
-    expect(allVersions).not.toContain("v1.0.0")
+    expect(allVersions).not.toContain("v3.0.0")
   })
 
   it("records honest provenance derived from version_evolution_records", () => {
@@ -114,19 +114,19 @@ describe("app_release_log unified version source", () => {
   })
 
   it("records completed work in the current concrete patch developer log", () => {
-    expect(log.currentAppVersion).toBe("v1.0.14")
-    expect(log.developmentLog.baseAppVersion).toBe("v1.0.13")
-    expect(log.developmentLog.developmentVersion).toBe("v1.0.14")
+    expect(log.currentAppVersion).toBe("v3.5.1")
+    expect(log.developmentLog.baseAppVersion).toBe("v3.5.0")
+    expect(log.developmentLog.developmentVersion).toBe("v3.5.1")
     expect(log.developmentLog.status).toBe("archived")
-    expect(log.developmentLog.logPolicy.zh).toMatch(/实际完成并通过检查/)
+    expect(log.developmentLog.logPolicy.zh).toMatch(/已完成|计划写成已完成/)
     expect(Object.keys(log.developmentLog.modules)).toEqual([
       "ui",
-      "validation",
-      "projectEvolution",
+      "releaseNotes",
+      "roadmap",
     ])
-    expect(JSON.stringify(log.developmentLog.modules.validation)).toMatch(/内部阶段|验证链|Methodology/)
-    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/导航|iPad|navigation/)
-    expect(JSON.stringify(log.developmentLog.modules.projectEvolution)).toMatch(/更新日志|changelog/)
+    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/过渡|scroll-reveal|配色/)
+    expect(JSON.stringify(log.developmentLog.modules.releaseNotes)).toMatch(/v3\.5\.1|changelog/)
+    expect(JSON.stringify(log.developmentLog.modules.roadmap)).toMatch(/科学里程碑|Roadmap/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

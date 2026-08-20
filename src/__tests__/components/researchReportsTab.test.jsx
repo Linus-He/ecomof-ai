@@ -13,7 +13,6 @@ describe("ResearchReportsTab", () => {
       "catalysis",
       "library",
       "about",
-      "projectEvolution",
       "dataCompliance",
     ])
     expect(HASH_TO_TAB["research-reports"]).toBeUndefined()

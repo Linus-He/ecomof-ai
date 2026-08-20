@@ -62,6 +62,13 @@
   font-weight: 760;
 }
 
+.release-note-version time {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
 .release-note-version span {
   color: var(--app-muted);
   font-size: 11px;
@@ -114,6 +121,12 @@
   margin: 0;
 }
 
+.release-note-modules > section > div {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
 .release-note-modules p {
   color: var(--app-muted);
   font-size: 12.5px;
@@ -124,7 +137,6 @@
 .release-note-modules ul {
   display: grid;
   gap: 7px;
-  grid-column: 2;
   margin: 2px 0 0;
   padding-left: 18px;
 }

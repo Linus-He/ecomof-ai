@@ -11,9 +11,10 @@ describe("V2.7 performance priority placement", () => {
     expect(ids).toContain("ecoscreen")
   })
 
-  it("places the MOF Library after Catalysis and Data Compliance after Project Evolution", () => {
+  it("places the MOF Library after Catalysis and removes Project Evolution from primary navigation", () => {
     const ids = TABS.map(tab => tab.id)
-    expect(ids).toEqual(["home", "ecoscreen", "gassep", "catalysis", "library", "about", "projectEvolution", "dataCompliance"])
+    expect(ids).toEqual(["home", "ecoscreen", "gassep", "catalysis", "library", "about", "dataCompliance"])
+    expect(ids).not.toContain("projectEvolution")
   })
 
   it("keeps a centralized performance priority config with the six run-setup modes", () => {

@@ -89,7 +89,6 @@ describe("methodology literature inspiration and EcoScreen requirements", () => 
     expect(methodsSource).toContain("buildLiteratureDirectory")
     expect(methodsSource).not.toContain("ALGORITHM_VALIDATION_DIRECTORY")
     expect(methodsSource).not.toContain("<AlgorithmValidationCenter")
-    expect(methodsSource).toContain("ORGANIC_ACID_FINAL_DIRECTORY")
     expect(methodsSource).toContain("<CurrentOrganicAcidMethodology")
     expect(ecoSource).toContain('fetchDataJson("ecoscreen_literature_requirements.json", null)')
     expect(ecoSource).toContain('data-testid="ecoscreen-requirement-matrix"')

@@ -32,11 +32,13 @@ describe("deep links", () => {
     expect(getHashMeta("algval-figure").title).toMatch(/交互式科研主图|Interactive Scientific Figure/i)
   })
 
-  it("routes Project Evolution as a first-level tab", () => {
-    expect(HASH_TO_TAB["project-evolution"]).toBe("projectEvolution")
-    expect(HASH_TO_TAB["project-evolution-version-timeline"]).toBe("projectEvolution")
+  it("routes legacy Project Evolution links to the split project pages", () => {
+    expect(HASH_TO_TAB["project-evolution"]).toBe("releaseNotes")
+    expect(HASH_TO_TAB["project-evolution-version-timeline"]).toBe("releaseNotes")
+    expect(HASH_TO_TAB["project-evolution-milestones"]).toBe("scientificMilestones")
+    expect(HASH_TO_TAB["project-evolution-roadmap"]).toBe("researchRoadmap")
     expect(normalizeHash("#project-evolution")).toBe("project-evolution")
-    expect(getHashMeta("project-evolution").title).toMatch(/项目演化/i)
+    expect(getHashMeta("project-evolution").title).toMatch(/更新日志|Changelog/i)
   })
 
   it("routes the creator statement as an independent governance page", () => {

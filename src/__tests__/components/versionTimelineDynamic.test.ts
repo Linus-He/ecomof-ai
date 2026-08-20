@@ -2,12 +2,11 @@
 import React from "react"
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
-import data from "../../../public/data/version_evolution_records.json"
-import { ProjectEvolutionTab } from "../../components/tabs/ProjectEvolutionTab"
+import { ResearchRoadmapPage } from "../../components/pages/MilestoneRoadmapPages"
 
 describe("versionTimelineDynamic", () => {
   it("removes the duplicate version timeline while preserving the project roadmap", () => {
-    render(React.createElement(ProjectEvolutionTab, { data }))
+    render(React.createElement(ResearchRoadmapPage))
 
     expect(screen.queryByTestId("project-evolution-version-timeline")).not.toBeInTheDocument()
     expect(screen.queryByTestId("project-evolution-release-notes")).not.toBeInTheDocument()

@@ -38,6 +38,7 @@ export function ReleaseNotesPage() {
             <article className="release-note" key={release.appVersion} data-current={releaseIndex === 0 ? "true" : "false"}>
               <header className="release-note-version">
                 <strong>{release.appVersion}</strong>
+                <time dateTime={release.date}>{release.date}</time>
                 {releaseIndex === 0 ? <span>{text(lang, "当前版本", "Current")}</span> : null}
               </header>
               <div className="release-note-content">
@@ -47,12 +48,14 @@ export function ReleaseNotesPage() {
                   {modules.map(([moduleKey, module]) => (
                     <section key={`${release.appVersion}-${moduleKey}`}>
                       <h3>{localize(catalog[moduleKey]?.label, lang) || moduleKey}</h3>
-                      <p>{localize(module.summary, lang)}</p>
-                      <ul>
-                        {(module.changes || []).map((change, index) => (
-                          <li key={index}>{localize(change, lang)}</li>
-                        ))}
-                      </ul>
+                      <div>
+                        <p>{localize(module.summary, lang)}</p>
+                        <ul>
+                          {(module.changes || []).map((change, index) => (
+                            <li key={index}>{localize(change, lang)}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </section>
                   ))}
                 </div>

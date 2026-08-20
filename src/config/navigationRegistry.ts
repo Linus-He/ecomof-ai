@@ -345,7 +345,7 @@ export const NAVIGATION_ROUTES = [
     primary: false,
     domainId: "project",
     hash: "release-notes",
-    aliases: ["project-evolution-release-notes"],
+    aliases: ["project-evolution", "project-evolution-version-timeline", "project-evolution-release-notes"],
     label: label("更新日志", "Changelog"),
     meta: meta(
       "更新日志 | EcoMOF-AI",
@@ -358,34 +358,40 @@ export const NAVIGATION_ROUTES = [
     },
   },
   {
-    id: "projectEvolution",
-    tabId: "projectEvolution",
-    primary: true,
-    order: 6,
-    copyKey: "projectEvolution",
+    id: "scientificMilestones",
+    tabId: "scientificMilestones",
+    primary: false,
     domainId: "project",
-    hash: "project-evolution",
-    aliases: ["project-evolution-version-timeline"],
-    label: label("项目演化", "Project Evolution"),
+    hash: "project-evolution-milestones",
+    aliases: ["scientific-milestones"],
+    label: label("科学里程碑", "Scientific Milestones"),
     meta: meta(
-      "项目演化 | EcoMOF-AI",
-      "查看 EcoMOF-AI 的项目状态、数据库演化、算法演化、验证体系、关键里程碑和发展路线图。",
+      "科学里程碑 | EcoMOF-AI",
+      "独立查看 EcoMOF-AI 已完成的科研能力、数据和验证里程碑。",
     ),
     component: {
       strategy: "lazy",
-      exportName: "ProjectEvolutionTab",
-      load: () => import("../components/tabs/ProjectEvolutionTab"),
+      exportName: "ScientificMilestonesPage",
+      load: () => import("../components/pages/MilestoneRoadmapPages"),
     },
-    children: [
-      { id: "project-evolution-overview", hash: "project-evolution-overview", scrollTarget: true, label: label("项目概览", "Project Overview"), meta: meta("Project Evolution Overview | EcoMOF-AI", "查看 EcoMOF-AI 当前版本、数据库规模、verified metadata、字段级溯源覆盖率和项目状态。") },
-      { id: "project-evolution-scientific", hash: "project-evolution-scientific", scrollTarget: true, label: label("科学演化", "Scientific Evolution"), meta: meta("Scientific Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从 raw screening 到 verified metadata 和未来 experimental validation 的科学能力演化。") },
-      { id: "project-evolution-database", hash: "project-evolution-database", scrollTarget: true, label: label("数据库演化", "Database Evolution"), meta: meta("Database Evolution | EcoMOF-AI", "查看 EcoMOF-AI 数据库规模、verified metadata 和字段级溯源覆盖率的演化。") },
-      { id: "project-evolution-algorithm", hash: "project-evolution-algorithm", scrollTarget: true, label: label("算法演化", "Algorithm Evolution"), meta: meta("Algorithm Evolution | EcoMOF-AI", "查看 EcoMOF-AI 从描述符评分、CRITIC、证据调整到模型验证框架的算法演化。") },
-      { id: "project-evolution-validation", hash: "project-evolution-validation", scrollTarget: true, label: label("验证演化", "Validation Evolution"), meta: meta("Validation Evolution | EcoMOF-AI", "查看 source confirmed、citation ready、verified metadata、external validation 和 experimental validation 的边界。") },
-      { id: "project-evolution-ui", hash: "project-evolution-ui", scrollTarget: true, label: label("界面演化", "UI Evolution"), meta: meta("UI Evolution | EcoMOF-AI", "查看 EcoMOF-AI 主要工作区和导航结构的界面演化。") },
-      { id: "project-evolution-milestones", hash: "project-evolution-milestones", scrollTarget: true, label: label("科学里程碑", "Milestones"), meta: meta("Milestone Center | EcoMOF-AI", "查看 EcoMOF-AI 的关键里程碑和对应版本。") },
-      { id: "project-evolution-roadmap", hash: "project-evolution-roadmap", scrollTarget: true, label: label("路线图", "Roadmap"), meta: meta("Roadmap | EcoMOF-AI", "查看 EcoMOF-AI V2.4 到 V3.0 的规划、目标和风险边界。") },
-    ],
+  },
+  {
+    id: "researchRoadmap",
+    tabId: "researchRoadmap",
+    primary: false,
+    domainId: "project",
+    hash: "project-evolution-roadmap",
+    aliases: ["research-roadmap"],
+    label: label("科研路线图", "Research Roadmap"),
+    meta: meta(
+      "科研路线图 | EcoMOF-AI",
+      "独立查看 EcoMOF-AI 后续科研、数据、验证目标与风险边界。",
+    ),
+    component: {
+      strategy: "lazy",
+      exportName: "ResearchRoadmapPage",
+      load: () => import("../components/pages/MilestoneRoadmapPages"),
+    },
   },
   {
     id: "charter",
@@ -536,8 +542,8 @@ export const NAVIGATION_DOMAINS = [
     order: 4,
     label: label("项目", "Project"),
     groups: [
-      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["projectEvolution", "releaseNotes"] },
-      { id: "project-planning", label: label("规划", "Planning"), itemIds: ["project-evolution-milestones", "project-evolution-roadmap"] },
+      { id: "project-progress", label: label("进展", "Progress"), itemIds: ["releaseNotes", "scientificMilestones"] },
+      { id: "project-planning", label: label("规划", "Planning"), itemIds: ["researchRoadmap"] },
     ],
   },
   {
@@ -599,7 +605,6 @@ export function resolveTabForHash(hash) {
   if (normalized.startsWith("literature-doi-")) return "literatureRecord"
   if (normalized.startsWith("algval-")) return "algorithmValidation"
   if (normalized.startsWith("methodology-")) return "about"
-  if (normalized.startsWith("project-evolution-")) return "projectEvolution"
   return null
 }
 
@@ -609,7 +614,7 @@ export function getScrollTargetForHash(hash) {
   if (item?.scrollTarget === true) return normalized
   if (typeof item?.scrollTarget === "string") return item.scrollTarget
   if (item) return null
-  if (normalized.startsWith("methodology-") || normalized.startsWith("project-evolution-")) return normalized
+  if (normalized.startsWith("methodology-")) return normalized
   return null
 }
 

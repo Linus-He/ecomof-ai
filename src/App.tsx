@@ -57,7 +57,6 @@ const ComparisonTab = lazyNamed(() => import("./components/tabs/ComparisonTab"),
 const ValidationTab = lazyNamed(() => import("./components/tabs/ValidationTab"), "ValidationTab")
 const ResourcesTab = lazyNamed(() => import("./components/tabs/ResourcesTab"), "ResourcesTab")
 const MethodsLimitationsTab = lazyNamed(routeComponent("about").load, routeComponent("about").exportName)
-const ProjectEvolutionTab = lazyNamed(routeComponent("projectEvolution").load, routeComponent("projectEvolution").exportName)
 const DatabaseComplianceTab = lazyNamed(routeComponent("dataCompliance").load, routeComponent("dataCompliance").exportName)
 const CatalysisLiteratureVerificationPage = lazyNamed(routeComponent("catalysisLiterature").load, routeComponent("catalysisLiterature").exportName)
 const OrganicAcidResearchPage = lazyNamed(routeComponent("organicAcid").load, routeComponent("organicAcid").exportName)
@@ -69,6 +68,8 @@ const LiteratureRecordPage = lazyNamed(routeComponent("literatureRecord").load, 
 const ResearchCharterPage = lazyNamed(routeComponent("charter").load, routeComponent("charter").exportName)
 const CreatorStatementPage = lazyNamed(routeComponent("creatorStatement").load, routeComponent("creatorStatement").exportName)
 const ReleaseNotesPage = lazyNamed(routeComponent("releaseNotes").load, routeComponent("releaseNotes").exportName)
+const ScientificMilestonesPage = lazyNamed(routeComponent("scientificMilestones").load, routeComponent("scientificMilestones").exportName)
+const ResearchRoadmapPage = lazyNamed(routeComponent("researchRoadmap").load, routeComponent("researchRoadmap").exportName)
 const ContactPage = lazyNamed(routeComponent("contact").load, routeComponent("contact").exportName)
 const OpenSourceLicensesPage = lazyNamed(routeComponent("openSourceLicenses").load, routeComponent("openSourceLicenses").exportName)
 const AcknowledgementsPage = lazyNamed(routeComponent("acknowledgements").load, routeComponent("acknowledgements").exportName)
@@ -193,7 +194,6 @@ function AppShell({
     catalysis: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     library: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     about: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
-    projectEvolution: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     dataCompliance: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     catalysisLiterature: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     organicAcid: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
@@ -205,6 +205,8 @@ function AppShell({
     charter: { accent: chromeTheme.accentText, soft: chromeTheme.accentSoft },
     creatorStatement: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     releaseNotes: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
+    scientificMilestones: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
+    researchRoadmap: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     contact: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     openSourceLicenses: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
     acknowledgements: { accent: chromeTheme.textStrong, soft: chromeTheme.surface },
@@ -619,7 +621,6 @@ function AppShell({
             )}
             {activeTab === "resources" && <ResourcesTab activeSub={resourcesTab} setActiveSub={setResourcesTab} results={results} inputs={inputs} />}
             {activeTab === "about" && <MethodsLimitationsTab onNavigate={navigateTab} />}
-            {activeTab === "projectEvolution" && <ProjectEvolutionTab onNavigate={navigateTab} />}
             {activeTab === "dataCompliance" && <DatabaseComplianceTab />}
             {activeTab === "catalysisLiterature" && <CatalysisLiteratureVerificationPage />}
             {activeTab === "organicAcid" && <OrganicAcidResearchPage onNavigate={navigateTab} />}
@@ -631,6 +632,8 @@ function AppShell({
             {activeTab === "charter" && <ResearchCharterPage />}
             {activeTab === "creatorStatement" && <CreatorStatementPage />}
             {activeTab === "releaseNotes" && <ReleaseNotesPage />}
+            {activeTab === "scientificMilestones" && <ScientificMilestonesPage />}
+            {activeTab === "researchRoadmap" && <ResearchRoadmapPage />}
             {activeTab === "contact" && <ContactPage />}
             {activeTab === "openSourceLicenses" && <OpenSourceLicensesPage />}
             {activeTab === "acknowledgements" && <AcknowledgementsPage />}
@@ -872,19 +875,6 @@ export default function App() {
 
   useEffect(() => {
     if (!pendingScrollTarget || activeTab !== "dataCompliance") return
-    const scroll = () => {
-      const target = document.getElementById(pendingScrollTarget)
-      if (target) {
-        target.scrollIntoView({ block: "start", behavior: "smooth" })
-        setPendingScrollTarget(null)
-      }
-    }
-    const frame = window.requestAnimationFrame(() => window.setTimeout(scroll, 80))
-    return () => window.cancelAnimationFrame(frame)
-  }, [activeTab, pendingScrollTarget])
-
-  useEffect(() => {
-    if (!pendingScrollTarget || activeTab !== "projectEvolution") return
     const scroll = () => {
       const target = document.getElementById(pendingScrollTarget)
       if (target) {
@@ -1213,7 +1203,15 @@ export default function App() {
       return
     }
     if (target === "projectEvolution" || target === "project-evolution") {
-      go("project-evolution")
+      go("release-notes")
+      return
+    }
+    if (target === "project-evolution-milestones" || target === "scientificMilestones") {
+      go("project-evolution-milestones")
+      return
+    }
+    if (target === "project-evolution-roadmap" || target === "researchRoadmap") {
+      go("project-evolution-roadmap")
       return
     }
     if (["feasibility", "lca", "sensitivity", "comparison"].includes(target)) {

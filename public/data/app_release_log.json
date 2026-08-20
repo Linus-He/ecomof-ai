@@ -1,88 +1,88 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v1.0.14",
+  "currentAppVersion": "v3.5.1",
   "generatedAt": "2026-08-13",
-  "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform; each release lists only the modules it changed. Historical module version numbers are preserved verbatim in history (pre-1.0 modular-development era).",
+  "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform. Historical module V1.x/V2.x/V3.x records remain preserved in pre-Web history; current Web releases are replanned as v3.0.0-v3.5.1 and never exceed v3.5.1.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
     "generatingScript": "scripts/build-app-release-log.mjs",
-    "note": "v1.0.0 module changes are authored from the integration work in this release; history is regrouped by module from existing per-module impact fields without altering any original version number."
+    "note": "The current release log merges earlier and current work into one logical Web-version line. Historical module version numbers are preserved in history; visible Web release numbers are replanned up to v3.5.1."
   },
   "developmentLog": {
-    "baseAppVersion": "v1.0.13",
-    "developmentVersion": "v1.0.14",
-    "recordedAt": "2026-08-13",
+    "baseAppVersion": "v3.5.0",
+    "developmentVersion": "v3.5.1",
+    "recordedAt": "2026-08-20",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v1.0.14 只记录本轮实际完成并通过检查的导航与独立页面、方法论中性化、验证链修复、独立更新日志和响应式适配，不把计划项写成已完成。",
-      "en": "v1.0.14 records only the navigation and independent pages, neutral Methodology styling, validation-chain fix, independent changelog, and responsive adaptation completed and checked in this release; planned work is not presented as complete."
+      "zh": "v3.5.1 合并此前和本轮已完成内容，采用独立更新日志、科学里程碑与科研路线图三页表达；不再把不同工作挂在同一旧版本号下，也不把计划写成已完成。",
+      "en": "v3.5.1 merges previous and current completed work into three surfaces: changelog, scientific milestones, and research roadmap. Work is no longer presented under one stale version number, and planned items are not written as completed."
     },
     "releaseBoundary": {
-      "zh": "本轮将总览、研究、数据、方法与验证、项目、关于重组为无底框的文字导航和全宽二级索引；研究宪章、催化文献核验、有机酸研究、算法验证、数据质量、MOF 记录和 DOI 文献记录均成为可直接访问的页面；方法论以黑色文字和中性选中态为主，删除面向用户的内部阶段标签；更新日志从项目演化页独立出来，并补充手机与 iPad 响应式检查。",
-      "en": "This release reorganizes Overview, Research, Data, Methods and Validation, Project, and About into an unframed text navigation with full-width secondary indexes. The Research Charter, Catalysis Literature Verification, Organic Acid Research, Algorithm Validation, Data Quality, MOF Record, and DOI Literature Record are directly addressable pages. Methodology now uses black-first typography and neutral selected states, removes user-facing internal phase labels, and moves the changelog out of Project Evolution with phone and iPad responsive checks."
+      "zh": "本轮取消项目演化板块，将更新日志保留为独立页面，并新增科学里程碑与科研路线图页面；更新日志改为接近 OpenAI changelog 的日期、版本、摘要和分项结构；全站主题收敛到黑白灰和低彩度状态色，减少大面积蓝紫等领域色滥用；除方法论页外，为页面和主要段落加入下滑进入过渡动画；同时继续清理大卡片套小卡片问题。",
+      "en": "This release removes the Project Evolution section, keeps the changelog as its own page, and adds Scientific Milestones and Research Roadmap pages. The changelog now follows a clearer OpenAI-style date, version, summary, and bullet structure. Site colors are reduced to black, white, grey, and restrained status tones; scroll-entry transitions are added to pages except Methodology; nested-card presentation is further removed."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "导航、独立页面与跨尺寸布局改为更直接的研究信息架构。",
-          "en": "Navigation, independent pages, and cross-device layouts now use a more direct research information architecture."
+          "zh": "页面结构、滚动过渡和全域配色改为更克制的 OpenAI 风格。",
+          "en": "Page structure, scroll transitions, and global colors move toward a more restrained OpenAI-like style."
         },
         "changes": [
           {
-            "zh": "一级导航改为无底框文字栏，二级菜单改为全宽、分组式文字索引，并保留键盘关闭与焦点恢复。",
-            "en": "Replaces the framed primary rail with unframed text navigation and full-width grouped secondary indexes while retaining keyboard dismissal and focus restoration."
+            "zh": "为方法论之外的页面增加下滑进入与滚动显现动画，并保留 reduced-motion 降级。",
+            "en": "Adds slide-in and scroll-reveal transitions outside the Methodology page, with reduced-motion fallback."
           },
           {
-            "zh": "将研究宪章及六个高优先级研究、数据和验证入口注册为独立可访问页面，旧链接继续兼容。",
-            "en": "Registers the Research Charter and six high-priority research, data, and validation destinations as independent pages while preserving legacy links."
+            "zh": "将主强调色从高饱和蓝色收敛为黑白灰，状态色保留为低彩度绿、赭、灰蓝。",
+            "en": "Reduces the primary accent from saturated blue to black/white/grey, retaining only low-chroma green, ochre, and grey-blue status tones."
           },
           {
-            "zh": "补充手机、iPad 竖屏与 iPad 横屏检查，限制长标题、导航、方法目录和更新日志的横向溢出。",
-            "en": "Adds phone, iPad portrait, and iPad landscape checks that guard long headings, navigation, methodology directories, and changelog content against horizontal overflow."
+            "zh": "新增科学里程碑与科研路线图的独立列表页，使用分隔线和文本层级，不再使用卡片套卡片。",
+            "en": "Adds independent Scientific Milestones and Research Roadmap list pages using dividers and typography instead of nested cards."
           }
         ]
       },
-      "validation": {
+      "releaseNotes": {
         "summary": {
-          "zh": "方法论以中性文字层级为主，并清理内部阶段标签。",
-          "en": "Methodology now uses a neutral typographic hierarchy and removes internal phase labels from public copy."
+          "zh": "开发日志补齐并按逻辑重排为 v3.0.0-v3.5.1 的统一 Web 版本线。",
+          "en": "The development log is completed and replanned into a unified Web release line from v3.0.0 to v3.5.1."
         },
         "changes": [
           {
-            "zh": "方法论组件建立独立中性主题映射：正文、标题、步骤号和选中态以黑色为主，蓝色只保留给必要链接或数据系列。",
-            "en": "Adds a neutral Methodology theme mapping so body copy, headings, steps, and selected states are black-first, reserving blue for necessary links or data series."
+            "zh": "当前版本设为 v3.5.1；此前统一发布按能力阶段回填为 v3.5.0、v3.4.x、v3.3.x、v3.2.x、v3.1.x 和 v3.0.0。",
+            "en": "Sets the current version to v3.5.1 and backfills earlier unified releases into v3.5.0, v3.4.x, v3.3.x, v3.2.x, v3.1.x, and v3.0.0."
           },
           {
-            "zh": "删除候选文献检索中的内部阶段标签，保留实际检索、隔离、人工核对和写入门禁逻辑。",
-            "en": "Removes visible internal phase labels from literature discovery while retaining retrieval, quarantine, human review, and admission-gate behavior."
+            "zh": "更新日志改用日期、版本、摘要、模块分项和要点列表结构，减少重复叙述。",
+            "en": "Recasts the changelog around date, version, summary, module sections, and bullet points with less repetition."
           },
           {
-            "zh": "修复首页验证链指标与选中节点边框相交的问题，指标回到正常文档流，交互不再横向跳动。",
-            "en": "Fixes the homepage validation-chain metric intersecting selected-node borders by returning it to normal flow and removing lateral selection movement."
+            "zh": "保留历史模块版本为 pre-Web 历史事实，不把旧有机酸、GasSep 或数据库模块号伪装成当前 Web 发布号。",
+            "en": "Preserves historical module versions as pre-Web facts instead of treating old Organic Acid, GasSep, or database module numbers as current Web releases."
           }
         ]
       },
-      "projectEvolution": {
+      "roadmap": {
         "summary": {
-          "zh": "发布记录成为独立、可扫读且数据驱动的更新日志。",
-          "en": "Release records now form an independent, scannable, data-driven changelog."
+          "zh": "删除项目演化板块，把已完成节点和未来计划拆成两个独立页面。",
+          "en": "Removes Project Evolution and separates completed milestones from future planning into two independent pages."
         },
         "changes": [
           {
-            "zh": "新增独立更新日志页面，采用版本与日期在左、完整更新内容在右的简单文字排版。",
-            "en": "Adds a dedicated changelog page with version and date on the left and complete release content on the right."
+            "zh": "旧项目演化入口改为更新日志入口；旧里程碑和路线图锚点分别进入新独立页面。",
+            "en": "Routes the old Project Evolution entry to the changelog, while legacy milestone and roadmap anchors open the new standalone pages."
           },
           {
-            "zh": "项目演化页保留状态、演化图、模块历史与路线图，不再重复渲染完整发布日志。",
-            "en": "Keeps status, evolution charts, module history, and roadmap in Project Evolution without duplicating the full release log."
+            "zh": "科学里程碑只显示已完成且有方法、数据或验证边界的节点。",
+            "en": "Scientific Milestones shows only completed nodes with method, data, or validation boundaries."
           },
           {
-            "zh": "更新日志继续读取统一发布数据，版本号、页头徽章和版本记录保持同源。",
-            "en": "Keeps the changelog on the unified release data source so version labels, header badges, and release records remain synchronized."
+            "zh": "科研路线图单独展示科研目标、数据库目标、验证目标和已知风险，避免与发布记录混在一起。",
+            "en": "The Research Roadmap separately presents scientific goals, database goals, validation goals, and known risks rather than mixing them into release notes."
           }
         ]
       }
@@ -187,100 +187,124 @@
     },
     "projectEvolution": {
       "label": {
-        "zh": "项目演化",
-        "en": "Project Evolution"
+        "zh": "历史项目演化",
+        "en": "Historical Project Evolution"
       },
       "blurb": {
-        "zh": "统一发布、历史里程碑与研究系统演化。",
-        "en": "Unified releases, history milestones, and research-system evolution."
+        "zh": "已拆分为更新日志、科学里程碑与科研路线图。",
+        "en": "Split into Changelog, Scientific Milestones, and Research Roadmap."
       },
-      "target": "projectEvolution",
-      "hash": "project-evolution"
+      "target": "releaseNotes",
+      "hash": "release-notes"
+    },
+    "releaseNotes": {
+      "label": {
+        "zh": "更新日志",
+        "en": "Changelog"
+      },
+      "blurb": {
+        "zh": "统一 Web 发布、开发日志和完成范围。",
+        "en": "Unified Web releases, development logs, and completed scope."
+      },
+      "target": "releaseNotes",
+      "hash": "release-notes"
+    },
+    "roadmap": {
+      "label": {
+        "zh": "科学里程碑与路线图",
+        "en": "Milestones & Roadmap"
+      },
+      "blurb": {
+        "zh": "已完成科研节点与未来研究计划分开呈现。",
+        "en": "Completed scientific nodes and future research plans are presented separately."
+      },
+      "target": "scientificMilestones",
+      "hash": "project-evolution-milestones"
     }
   },
   "releases": [
     {
-      "appVersion": "v1.0.14",
-      "date": "2026-08-13",
+      "appVersion": "v3.5.1",
+      "date": "2026-08-20",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.14：建立全局研究导航与独立页面，收敛方法论配色，并将更新日志拆为独立版本记录页。",
-        "en": "v1.0.14: adds global research navigation and independent pages, neutralizes Methodology styling, and moves the changelog to a dedicated release-history page."
+        "zh": "v3.5.1：重排开发日志，移除项目演化，并建立科学里程碑与科研路线图。",
+        "en": "v3.5.1: replans the changelog, removes Project Evolution, and adds Scientific Milestones plus Research Roadmap."
       },
       "summary": {
-        "zh": "本轮将总览、研究、数据、方法与验证、项目、关于重组为无底框的文字导航和全宽二级索引；研究宪章、催化文献核验、有机酸研究、算法验证、数据质量、MOF 记录和 DOI 文献记录均成为可直接访问的页面；方法论以黑色文字和中性选中态为主，删除面向用户的内部阶段标签；更新日志从项目演化页独立出来，并补充手机与 iPad 响应式检查。",
-        "en": "This release reorganizes Overview, Research, Data, Methods and Validation, Project, and About into an unframed text navigation with full-width secondary indexes. The Research Charter, Catalysis Literature Verification, Organic Acid Research, Algorithm Validation, Data Quality, MOF Record, and DOI Literature Record are directly addressable pages. Methodology now uses black-first typography and neutral selected states, removes user-facing internal phase labels, and moves the changelog out of Project Evolution with phone and iPad responsive checks."
+        "zh": "本轮取消项目演化板块，将更新日志保留为独立页面，并新增科学里程碑与科研路线图页面；更新日志改为接近 OpenAI changelog 的日期、版本、摘要和分项结构；全站主题收敛到黑白灰和低彩度状态色，减少大面积蓝紫等领域色滥用；除方法论页外，为页面和主要段落加入下滑进入过渡动画；同时继续清理大卡片套小卡片问题。",
+        "en": "This release removes the Project Evolution section, keeps the changelog as its own page, and adds Scientific Milestones and Research Roadmap pages. The changelog now follows a clearer OpenAI-style date, version, summary, and bullet structure. Site colors are reduced to black, white, grey, and restrained status tones; scroll-entry transitions are added to pages except Methodology; nested-card presentation is further removed."
       },
       "modules": {
         "ui": {
           "summary": {
-            "zh": "导航、独立页面与跨尺寸布局改为更直接的研究信息架构。",
-            "en": "Navigation, independent pages, and cross-device layouts now use a more direct research information architecture."
+            "zh": "页面结构、滚动过渡和全域配色改为更克制的 OpenAI 风格。",
+            "en": "Page structure, scroll transitions, and global colors move toward a more restrained OpenAI-like style."
           },
           "changes": [
             {
-              "zh": "一级导航改为无底框文字栏，二级菜单改为全宽、分组式文字索引，并保留键盘关闭与焦点恢复。",
-              "en": "Replaces the framed primary rail with unframed text navigation and full-width grouped secondary indexes while retaining keyboard dismissal and focus restoration."
+              "zh": "为方法论之外的页面增加下滑进入与滚动显现动画，并保留 reduced-motion 降级。",
+              "en": "Adds slide-in and scroll-reveal transitions outside the Methodology page, with reduced-motion fallback."
             },
             {
-              "zh": "将研究宪章及六个高优先级研究、数据和验证入口注册为独立可访问页面，旧链接继续兼容。",
-              "en": "Registers the Research Charter and six high-priority research, data, and validation destinations as independent pages while preserving legacy links."
+              "zh": "将主强调色从高饱和蓝色收敛为黑白灰，状态色保留为低彩度绿、赭、灰蓝。",
+              "en": "Reduces the primary accent from saturated blue to black/white/grey, retaining only low-chroma green, ochre, and grey-blue status tones."
             },
             {
-              "zh": "补充手机、iPad 竖屏与 iPad 横屏检查，限制长标题、导航、方法目录和更新日志的横向溢出。",
-              "en": "Adds phone, iPad portrait, and iPad landscape checks that guard long headings, navigation, methodology directories, and changelog content against horizontal overflow."
+              "zh": "新增科学里程碑与科研路线图的独立列表页，使用分隔线和文本层级，不再使用卡片套卡片。",
+              "en": "Adds independent Scientific Milestones and Research Roadmap list pages using dividers and typography instead of nested cards."
             }
           ]
         },
-        "validation": {
+        "releaseNotes": {
           "summary": {
-            "zh": "方法论以中性文字层级为主，并清理内部阶段标签。",
-            "en": "Methodology now uses a neutral typographic hierarchy and removes internal phase labels from public copy."
+            "zh": "开发日志补齐并按逻辑重排为 v3.0.0-v3.5.1 的统一 Web 版本线。",
+            "en": "The development log is completed and replanned into a unified Web release line from v3.0.0 to v3.5.1."
           },
           "changes": [
             {
-              "zh": "方法论组件建立独立中性主题映射：正文、标题、步骤号和选中态以黑色为主，蓝色只保留给必要链接或数据系列。",
-              "en": "Adds a neutral Methodology theme mapping so body copy, headings, steps, and selected states are black-first, reserving blue for necessary links or data series."
+              "zh": "当前版本设为 v3.5.1；此前统一发布按能力阶段回填为 v3.5.0、v3.4.x、v3.3.x、v3.2.x、v3.1.x 和 v3.0.0。",
+              "en": "Sets the current version to v3.5.1 and backfills earlier unified releases into v3.5.0, v3.4.x, v3.3.x, v3.2.x, v3.1.x, and v3.0.0."
             },
             {
-              "zh": "删除候选文献检索中的内部阶段标签，保留实际检索、隔离、人工核对和写入门禁逻辑。",
-              "en": "Removes visible internal phase labels from literature discovery while retaining retrieval, quarantine, human review, and admission-gate behavior."
+              "zh": "更新日志改用日期、版本、摘要、模块分项和要点列表结构，减少重复叙述。",
+              "en": "Recasts the changelog around date, version, summary, module sections, and bullet points with less repetition."
             },
             {
-              "zh": "修复首页验证链指标与选中节点边框相交的问题，指标回到正常文档流，交互不再横向跳动。",
-              "en": "Fixes the homepage validation-chain metric intersecting selected-node borders by returning it to normal flow and removing lateral selection movement."
+              "zh": "保留历史模块版本为 pre-Web 历史事实，不把旧有机酸、GasSep 或数据库模块号伪装成当前 Web 发布号。",
+              "en": "Preserves historical module versions as pre-Web facts instead of treating old Organic Acid, GasSep, or database module numbers as current Web releases."
             }
           ]
         },
-        "projectEvolution": {
+        "roadmap": {
           "summary": {
-            "zh": "发布记录成为独立、可扫读且数据驱动的更新日志。",
-            "en": "Release records now form an independent, scannable, data-driven changelog."
+            "zh": "删除项目演化板块，把已完成节点和未来计划拆成两个独立页面。",
+            "en": "Removes Project Evolution and separates completed milestones from future planning into two independent pages."
           },
           "changes": [
             {
-              "zh": "新增独立更新日志页面，采用版本与日期在左、完整更新内容在右的简单文字排版。",
-              "en": "Adds a dedicated changelog page with version and date on the left and complete release content on the right."
+              "zh": "旧项目演化入口改为更新日志入口；旧里程碑和路线图锚点分别进入新独立页面。",
+              "en": "Routes the old Project Evolution entry to the changelog, while legacy milestone and roadmap anchors open the new standalone pages."
             },
             {
-              "zh": "项目演化页保留状态、演化图、模块历史与路线图，不再重复渲染完整发布日志。",
-              "en": "Keeps status, evolution charts, module history, and roadmap in Project Evolution without duplicating the full release log."
+              "zh": "科学里程碑只显示已完成且有方法、数据或验证边界的节点。",
+              "en": "Scientific Milestones shows only completed nodes with method, data, or validation boundaries."
             },
             {
-              "zh": "更新日志继续读取统一发布数据，版本号、页头徽章和版本记录保持同源。",
-              "en": "Keeps the changelog on the unified release data source so version labels, header badges, and release records remain synchronized."
+              "zh": "科研路线图单独展示科研目标、数据库目标、验证目标和已知风险，避免与发布记录混在一起。",
+              "en": "The Research Roadmap separately presents scientific goals, database goals, validation goals, and known risks rather than mixing them into release notes."
             }
           ]
         }
       }
     },
     {
-      "appVersion": "v1.0.13",
+      "appVersion": "v3.5.0",
       "date": "2026-07-30",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.13：首页转为连续研究画布，方法论恢复文献来源并逐项补全执行细节。",
-        "en": "v1.0.13: turns the homepage into a continuous research canvas and restores literature-backed, item-level methodology detail."
+        "zh": "v3.5.0：首页转为连续研究画布，方法论恢复文献来源并逐项补全执行细节。",
+        "en": "v3.5.0: turns the homepage into a continuous research canvas and restores literature-backed, item-level methodology detail."
       },
       "summary": {
         "zh": "本轮弱化首页外层区块和内部卡片的边界、缩短区块间距，并统一将文本按钮、筛选项和状态标签迁移到紧凑小圆角形态；方法论删除 GitHub 开放协作横幅，恢复 34 条文献灵感来源及六类采用边界，目录改为研究流程顺序，同时为每个方法分项补充研究目的、输入资格、执行状态、结果呈现、停止条件、字段审计与界面行为。",
@@ -329,8 +353,8 @@
         },
         "projectEvolution": {
           "summary": {
-            "zh": "统一版本中心新增 v1.0.13，记录本轮首页与方法论重构。",
-            "en": "The unified release center adds v1.0.13 for the homepage and methodology revision."
+            "zh": "统一版本中心新增 v3.5.0，记录本轮首页与方法论重构。",
+            "en": "The unified release center adds v3.5.0 for the homepage and methodology revision."
           },
           "changes": [
             {
@@ -350,12 +374,12 @@
       }
     },
     {
-      "appVersion": "v1.0.12",
+      "appVersion": "v3.4.2",
       "date": "2026-07-29",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.12：补全全站方法实现说明，并将数据合规页改为原文优先的编号式文件。",
-        "en": "v1.0.12: documents implementation architecture across the platform and recasts data compliance as a numbered, source-first document."
+        "zh": "v3.4.2：补全全站方法实现说明，并将数据合规页改为原文优先的编号式文件。",
+        "en": "v3.4.2: documents implementation architecture across the platform and recasts data compliance as a numbered, source-first document."
       },
       "summary": {
         "zh": "本轮补全 MOF 库、生态筛选、气体分离、催化、有机酸、字段级溯源和验证路线的实现架构，明确各模块的数据输入、索引、算法、输出与停止条件；数据合规页删除六步控制图、内部等宽编号和表格，改为 1、1.1、1.1.1 的阅读结构，以发布方许可、免责声明和原文链接为主，同时保留来源登记与筛选。",
@@ -424,13 +448,13 @@
         },
         "projectEvolution": {
           "summary": {
-            "zh": "统一版本中心新增 v1.0.12，单独记录本轮方法论与合规重构。",
-            "en": "The unified release center adds v1.0.12 for this methodology and compliance revision."
+            "zh": "统一版本中心新增 v3.4.2，单独记录本轮方法论与合规重构。",
+            "en": "The unified release center adds v3.4.2 for this methodology and compliance revision."
           },
           "changes": [
             {
-              "zh": "版本选择器、当前徽章和模块更新统一读取 v1.0.12。",
-              "en": "The version selector, current badge, and module updates now read v1.0.12."
+              "zh": "版本选择器、当前徽章和模块更新统一读取 v3.4.2。",
+              "en": "The version selector, current badge, and module updates now read v3.4.2."
             },
             {
               "zh": "开发日志只登记实际完成并通过检查的架构说明、编号式合规文件和响应式调整。",
@@ -445,12 +469,12 @@
       }
     },
     {
-      "appVersion": "v1.0.11",
+      "appVersion": "v3.4.1",
       "date": "2026-07-29",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.11：扩展 MOF 身份检索，固定弹窗操作区，并以现行 V3.9.10 重构方法论。",
-        "en": "v1.0.11: expands MOF identity search, fixes modal controls in place, and rebuilds methodology around current V3.9.10 rules."
+        "zh": "v3.4.1：扩展 MOF 身份检索，固定弹窗操作区，并以现行 V3.9.10 重构方法论。",
+        "en": "v3.4.1: expands MOF identity search, fixes modal controls in place, and rebuilds methodology around current V3.9.10 rules."
       },
       "summary": {
         "zh": "本轮将 MOF 库从单一 CoRE 性质索引扩展为“性质记录 + 名称／文献身份”双层检索：合规登记 MOF Anatomy 185 条事实性身份记录，并在缺少可授权结构或性质时展示 DOI、CCDC 号和明确缺失原因；全局长内容弹窗的关闭按钮固定在容器顶部；方法论移除已废止的旧模块，以可拉伸目录、左公式右交互敏感性图、逐功能实现逻辑和现行 V3.9.10 丰度中性 HGCPS 完整重构。",
@@ -539,13 +563,13 @@
         },
         "projectEvolution": {
           "summary": {
-            "zh": "统一版本中心新增 v1.0.11 并记录本轮真实完成范围。",
-            "en": "The unified release center adds v1.0.11 with the actual completed scope."
+            "zh": "统一版本中心新增 v3.4.1 并记录本轮真实完成范围。",
+            "en": "The unified release center adds v3.4.1 with the actual completed scope."
           },
           "changes": [
             {
-              "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v1.0.11。",
-              "en": "The version selector, current badge, module updates, and development log now read v1.0.11."
+              "zh": "版本选择器、当前徽章、模块更新与开发日志统一读取 v3.4.1。",
+              "en": "The version selector, current badge, module updates, and development log now read v3.4.1."
             },
             {
               "zh": "本轮只创建本地提交，不推送或宣称公开部署。",
@@ -560,12 +584,12 @@
       }
     },
     {
-      "appVersion": "v1.0.10",
+      "appVersion": "v3.4.0",
       "date": "2026-07-29",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.10：接入 MOF 物化性质检索，重构导航、生态筛选确认逻辑与数据合规页面。",
-        "en": "v1.0.10: adds MOF physicochemical-property search and rebuilds navigation, EcoScreen confirmation logic, and data compliance."
+        "zh": "v3.4.0：接入 MOF 物化性质检索，重构导航、生态筛选确认逻辑与数据合规页面。",
+        "en": "v3.4.0: adds MOF physicochemical-property search and rebuilds navigation, EcoScreen confirmation logic, and data compliance."
       },
       "summary": {
         "zh": "本轮按非商业研究边界接入 CoRE MOF 2024 CR 主性质层，并以 FAIR‑MOFs 的 CSD Refcode 完全一致记录作独立交叉证据；首页改为上三下三六入口，语言、主题和联系方式收纳到设置菜单；生态筛选只在确认材料后显示计算内容；MOF 库同步提供性质查询和结构侧栏；合规页删除非授权控制卡和 QMOF 展示，以 43 条条文、9 项授权凭证、来源登记和发布方原文链接构成正式说明。",
@@ -671,8 +695,8 @@
           },
           "changes": [
             {
-              "zh": "新增 v1.0.10 的界面、生态筛选、数据库和合规变更明细。",
-              "en": "Adds detailed v1.0.10 UI, EcoScreen, database, and compliance changes."
+              "zh": "新增 v3.4.0 的界面、生态筛选、数据库和合规变更明细。",
+              "en": "Adds detailed v3.4.0 UI, EcoScreen, database, and compliance changes."
             },
             {
               "zh": "当前版本徽章、版本选择器、模块更新区和开发日志继续读取同一发布记录。",
@@ -687,16 +711,16 @@
       }
     },
     {
-      "appVersion": "v1.0.9",
+      "appVersion": "v3.3.2",
       "date": "2026-07-29",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.9：恢复生态筛选响应，重构数据合规承诺，并补齐首页与项目沿革。",
-        "en": "v1.0.9: restores EcoScreen responsiveness, rebuilds data compliance, and completes the homepage and project history."
+        "zh": "v3.3.2：恢复生态筛选响应，重构数据合规承诺，并补齐首页与项目沿革。",
+        "en": "v3.3.2: restores EcoScreen responsiveness, rebuilds data compliance, and completes the homepage and project history."
       },
       "summary": {
-        "zh": "本轮集中修复会阻断使用的交互缺陷，并把合规声明改造成可审计的控制文件：生态筛选主工作区不再因旧版全量评分而卡死；首页入口按三上二下排列，联系方式仅在弹窗中显示；合规页逐项列出 43 条控制条文和 10 项授权凭证或缺口；项目演化页恢复历史沿革，并补录 v1.0.6 至 v1.0.9 的真实发布范围。",
-        "en": "This release fixes blocking interaction failures and turns compliance into an auditable control document: EcoScreen no longer freezes on full legacy scoring; homepage entries use a three-plus-two layout and contact details appear only in a dialog; the compliance page itemizes 43 control clauses and 10 authorization-evidence or gap records; Project Evolution restores its history and records the actual v1.0.6-v1.0.9 release scope."
+        "zh": "本轮集中修复会阻断使用的交互缺陷，并把合规声明改造成可审计的控制文件：生态筛选主工作区不再因旧版全量评分而卡死；首页入口按三上二下排列，联系方式仅在弹窗中显示；合规页逐项列出 43 条控制条文和 10 项授权凭证或缺口；项目演化页恢复历史沿革，并补录 v3.2.2 至 v3.3.2 的真实发布范围。",
+        "en": "This release fixes blocking interaction failures and turns compliance into an auditable control document: EcoScreen no longer freezes on full legacy scoring; homepage entries use a three-plus-two layout and contact details appear only in a dialog; the compliance page itemizes 43 control clauses and 10 authorization-evidence or gap records; Project Evolution restores its history and records the actual v3.2.2-v3.3.2 release scope."
       },
       "modules": {
         "ui": {
@@ -790,8 +814,8 @@
               "en": "Opens history by default and shows the original-version count, module counts, dates, and six most recent original records."
             },
             {
-              "zh": "补录 v1.0.6 至 v1.0.9，并保持 pre-1.0 模块版本号原样不重编号。",
-              "en": "Adds v1.0.6 through v1.0.9 while preserving pre-1.0 module version labels without renumbering."
+              "zh": "补录 v3.2.2 至 v3.3.2，并保持 pre-1.0 模块版本号原样不重编号。",
+              "en": "Adds v3.2.2 through v3.3.2 while preserving pre-1.0 module version labels without renumbering."
             },
             {
               "zh": "统一版本选择器、模块页签和当前更新区继续由同一发布日志生成。",
@@ -802,12 +826,12 @@
       }
     },
     {
-      "appVersion": "v1.0.8",
+      "appVersion": "v3.3.1",
       "date": "2026-07-28",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.8：数据合规与有机酸研究工作区的严肃化重构。",
-        "en": "v1.0.8: a more rigorous data-compliance and Organic Acid research-workspace redesign."
+        "zh": "v3.3.1：数据合规与有机酸研究工作区的严肃化重构。",
+        "en": "v3.3.1: a more rigorous data-compliance and Organic Acid research-workspace redesign."
       },
       "summary": {
         "zh": "重做数据合规页面和有机酸研究界面的信息层级，收敛首页入口与专业图形；保留原评分、证据和来源登记，不把视觉重构误写为新实验结论。",
@@ -881,12 +905,12 @@
       }
     },
     {
-      "appVersion": "v1.0.7",
+      "appVersion": "v3.3.0",
       "date": "2026-07-28",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.7：CSD 结构图谱、CoRE 2024 CR、FAIR-MOFs 与有机酸数据层接入。",
-        "en": "v1.0.7: integrates the CSD structure atlas, CoRE 2024 CR, FAIR-MOFs, and Organic Acid data layers."
+        "zh": "v3.3.0：CSD 结构图谱、CoRE 2024 CR、FAIR-MOFs 与有机酸数据层接入。",
+        "en": "v3.3.0: integrates the CSD structure atlas, CoRE 2024 CR, FAIR-MOFs, and Organic Acid data layers."
       },
       "summary": {
         "zh": "以可追溯来源替换旧种子数据，建立可搜索、可调整的三维结构工作台，并把 CoRE 2024 CR、FAIR-MOFs 和有机酸重跑结果接入统一数据层；无法确认许可或身份的记录继续隔离。",
@@ -984,12 +1008,12 @@
       }
     },
     {
-      "appVersion": "v1.0.6",
+      "appVersion": "v3.2.2",
       "date": "2026-07-26",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.6：气体分离热力学解释、配对等温线和适用性门禁。",
-        "en": "v1.0.6: thermodynamic interpretation, paired isotherms, and eligibility gates for gas separation."
+        "zh": "v3.2.2：气体分离热力学解释、配对等温线和适用性门禁。",
+        "en": "v3.2.2: thermodynamic interpretation, paired isotherms, and eligibility gates for gas separation."
       },
       "summary": {
         "zh": "将气体分离从单一排序扩展为有条件边界的热力学解释：配对真实单组分等温线、IAST、亨利亲和、等量吸附热和工作容量分别说明来源、公式、适用条件与不可计算原因。",
@@ -1063,12 +1087,12 @@
       }
     },
     {
-      "appVersion": "v1.0.5",
+      "appVersion": "v3.2.1",
       "date": "2026-07-25",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.5：材料级 LCA、气体评价、MOF 候选库与公式溯源重构。",
-        "en": "v1.0.5: material-level LCA, gas evaluation, MOF Library, and formula-traceability rebuild."
+        "zh": "v3.2.1：材料级 LCA、气体评价、MOF 候选库与公式溯源重构。",
+        "en": "v3.2.1: material-level LCA, gas evaluation, MOF Library, and formula-traceability rebuild."
       },
       "summary": {
         "zh": "完成全局导航与候选检索闭环，将 EcoScreen 和 GasSep 从静态概览改为随候选、工况与证据类型变化的评价工作区；重构 MOF 候选库与可读命名，并逐项校正页面公式和实际计算的对应关系。深浅色、桌面及移动端交互均已复核。",
@@ -1174,12 +1198,12 @@
       }
     },
     {
-      "appVersion": "v1.0.4",
+      "appVersion": "v3.2.0",
       "date": "2026-07-25",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.4：首页科学叙事、方程界面与研究路径整合。",
-        "en": "v1.0.4: homepage scientific narrative, equation interface, and research-route integration."
+        "zh": "v3.2.0：首页科学叙事、方程界面与研究路径整合。",
+        "en": "v3.2.0: homepage scientific narrative, equation interface, and research-route integration."
       },
       "summary": {
         "zh": "将首页重构为从真实数据、描述符与统计结构，到任务性能、白盒验证和研究行动的连续工作流；原有数据来源、筛选交互和证据边界保持不变，并完成深浅色、移动端和减少动画适配。",
@@ -1217,12 +1241,12 @@
       }
     },
     {
-      "appVersion": "v1.0.3",
+      "appVersion": "v3.1.2",
       "date": "2026-07-25",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.3：EcoScreen LCA/经济筛选重构、项目演化整合与首页科学展板优化。",
-        "en": "v1.0.3: EcoScreen LCA/economic screening rebuild, Project Evolution integration, and homepage scientific-stage refinement."
+        "zh": "v3.1.2：EcoScreen LCA/经济筛选重构、项目演化整合与首页科学展板优化。",
+        "en": "v3.1.2: EcoScreen LCA/economic screening rebuild, Project Evolution integration, and homepage scientific-stage refinement."
       },
       "summary": {
         "zh": "围绕可审计研究流程完成一次平台级小版本：EcoScreen 接入双地域基线、候选级合成证据、LCA/经济情景与严格数据门禁；项目演化只记录实际完成项；首页 MOF 描述符图改为方程—交互图双栏科学展板并完成深浅色、移动端和等距导航适配。Organic Acid 排名算法和底层评分未改变。",
@@ -1291,8 +1315,8 @@
         },
         "projectEvolution": {
           "summary": {
-            "zh": "项目演化按研究程序整合，并将本轮实际完成项归档为 v1.0.3 开发者日志。",
-            "en": "Project Evolution is organized around the research program and archives this work as the v1.0.3 developer log."
+            "zh": "项目演化按研究程序整合，并将本轮实际完成项归档为 v3.1.2 开发者日志。",
+            "en": "Project Evolution is organized around the research program and archives this work as the v3.1.2 developer log."
           },
           "changes": [
             {
@@ -1304,24 +1328,24 @@
               "en": "Adds a release-data-algorithm-validation-research program map and exposes FAIR-MOFs evidence coverage plus seven comparative-LCA hard gaps in Database Evolution."
             },
             {
-              "zh": "v1.0.3 仅归档已完成并通过检查的开发项，不展示未完成计划。",
-              "en": "v1.0.3 archives only completed and checked development work and does not display unfinished plans."
+              "zh": "v3.1.2 仅归档已完成并通过检查的开发项，不展示未完成计划。",
+              "en": "v3.1.2 archives only completed and checked development work and does not display unfinished plans."
             }
           ]
         }
       }
     },
     {
-      "appVersion": "v1.0.2",
+      "appVersion": "v3.1.1",
       "date": "2026-08-13",
       "stage": "unified-platform",
       "headline": {
-        "zh": "v1.0.2：首页动态图、GasSep 数据联动、MOF Library 浏览体验与全局汉化审查。",
-        "en": "v1.0.2: homepage interactive charts, GasSep data linkage, MOF Library browsing experience, and global localization audit."
+        "zh": "v3.1.1：首页动态图、GasSep 数据联动、MOF Library 浏览体验与全局汉化审查。",
+        "en": "v3.1.1: homepage interactive charts, GasSep data linkage, MOF Library browsing experience, and global localization audit."
       },
       "summary": {
-        "zh": "继续沿用 v1.0.2，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 浏览区展示结构、气体与身份映射覆盖；新增高频界面汉化审查，覆盖中英文、深浅色和移动端。",
-        "en": "v1.0.2 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; shows structure, gas, and identity-link coverage in the MOF Library; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile."
+        "zh": "继续沿用 v3.1.1，不改 Organic Acid 排名算法、底层评分或源数据：修复首页入口按钮的玻璃反光异常，保留真实数据驱动的首页统计分布、金属筛选和相关性动态图；GasSep 候选排序、对比、验证队列与方法说明改为随气体对、筛选漏斗和字段覆盖实时变化；MOF Library 浏览区展示结构、气体与身份映射覆盖；新增高频界面汉化审查，覆盖中英文、深浅色和移动端。",
+        "en": "v3.1.1 continues without changing Organic Acid ranking algorithms, scores, or source data: fixed the homepage entry-button glare, kept real-data-driven homepage distribution, metal filtering, and correlation visuals; made GasSep ranking, comparison, validation queue, and method context update from the selected gas pair, funnel, and field coverage; shows structure, gas, and identity-link coverage in the MOF Library; and adds high-traffic localization QA across Chinese/English, light/dark, and mobile."
       },
       "modules": {
         "ui": {
@@ -1335,8 +1359,8 @@
               "en": "Unifies the display style for numbers, versions, metrics, counts, step labels, and table values, while chemistry formulas keep dedicated scientific typography."
             },
             {
-              "zh": "建立统一 Web 版本来源，当前 Web 徽章显示 Web v1.0.2；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。",
-              "en": "Adds a unified Web version source; current Web badges show Web v1.0.2 while historical V3.x / dataset v2.x labels remain unchanged in module history."
+              "zh": "建立统一 Web 版本来源，当前 Web 徽章显示 Web v3.1.1；历史 V3.x / 数据集 v2.x 版本按模块历史原样保留。",
+              "en": "Adds a unified Web version source; current Web badges show Web v3.1.1 while historical V3.x / dataset v2.x labels remain unchanged in module history."
             },
             {
               "zh": "首页 MOF 描述符三维分布改用更大的 CoRE/QMOF 样本，补充轴刻度、真实值悬停、金属 / 数据等级着色切换和孔径点大小图例。",
@@ -1407,7 +1431,7 @@
       }
     },
     {
-      "appVersion": "v1.0.1",
+      "appVersion": "v3.1.0",
       "date": "2026-06-29",
       "stage": "unified-platform",
       "headline": {
@@ -1415,8 +1439,8 @@
         "en": "Experience polish: site-wide font unification, legacy version block removed, homepage 3D scatter fixed."
       },
       "summary": {
-        "zh": "纯呈现层维护，不改算法/分数/数据：统一字体 token，数字归一为同一 sans 字族并 tabular-nums 对齐；衬线仅保留给化学式；移除与 Web v1.0.0 矛盾的旧版本区块；修复 3D 描述符散点的切顶、挤团与空白。",
-        "en": "Presentation-only maintenance with no algorithm/score/data changes: unified font tokens with numbers on one sans family (tabular-nums), serif reserved for chemistry formulas, removal of the legacy version block that conflicted with Web v1.0.0, and fixes to the 3D descriptor scatter (clipping, clustering, empty space)."
+        "zh": "纯呈现层维护，不改算法/分数/数据：统一字体 token，数字归一为同一 sans 字族并 tabular-nums 对齐；衬线仅保留给化学式；移除与 Web v3.0.0 矛盾的旧版本区块；修复 3D 描述符散点的切顶、挤团与空白。",
+        "en": "Presentation-only maintenance with no algorithm/score/data changes: unified font tokens with numbers on one sans family (tabular-nums), serif reserved for chemistry formulas, removal of the legacy version block that conflicted with Web v3.0.0, and fixes to the 3D descriptor scatter (clipping, clustering, empty space)."
       },
       "modules": {
         "ui": {
@@ -1434,8 +1458,8 @@
               "en": "Serif reserved for chemistry / math formulas only; scattered legacy sans and ad-hoc fixed-width declarations removed."
             },
             {
-              "zh": "移除首页与 Web v1.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。",
-              "en": "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with Web v1.0.0; legacy versions stay in the collapsed pre-1.0 history."
+              "zh": "移除首页与 Web v3.0.0 矛盾的「近期进展 V3.4–V3.6」区块，旧版只在折叠的 pre-1.0 历史中出现。",
+              "en": "Removed the homepage 'Recent Progress V3.4–V3.6' block that conflicted with Web v3.0.0; legacy versions stay in the collapsed pre-1.0 history."
             },
             {
               "zh": "修复 3D 描述符散点：标题不再切顶，按数据自适应填满视图（不再挤团/留白），新增方向指示器。",
@@ -1446,7 +1470,7 @@
       }
     },
     {
-      "appVersion": "v1.0.0",
+      "appVersion": "v3.0.0",
       "date": "2026-06-29",
       "stage": "unified-platform",
       "headline": {
@@ -1454,8 +1478,8 @@
         "en": "First unified platform release: organic-acid, gas separation, database, and validation now ship under one Web version."
       },
       "summary": {
-        "zh": "整合此前各模块为成熟 Web 的统一版本；此前为模块化开发期，原始版本号（有机酸 V3.9.x / 数据库 V2.2 / 气体 v2.1 等）见下方历史沿革，一律未改。自 v1.0.0 起，每次发布只列出本次有更新的模块。",
-        "en": "Integrates the previously separate modules into one mature Web version. Earlier work was the modular-development era; original module version numbers (Organic Acid V3.9.x, Database V2.2, Gas v2.1, ...) are preserved unchanged in the history below. From v1.0.0, each release lists only the modules it changed."
+        "zh": "整合此前各模块为成熟 Web 的统一版本；此前为模块化开发期，原始版本号（有机酸 V3.9.x / 数据库 V2.2 / 气体 v2.1 等）见下方历史沿革，一律未改。自 v3.0.0 起，每次发布只列出本次有更新的模块。",
+        "en": "Integrates the previously separate modules into one mature Web version. Earlier work was the modular-development era; original module version numbers (Organic Acid V3.9.x, Database V2.2, Gas v2.1, ...) are preserved unchanged in the history below. From v3.0.0, each release lists only the modules it changed."
       },
       "modules": {
         "organicAcid": {
@@ -1575,8 +1599,8 @@
       "en": "History (pre-1.0 modular-development era)"
     },
     "note": {
-      "zh": "v1.0.0 之前 EcoMOF-AI 按模块分别迭代，原始版本号与真实 commit 绑定，全部原样保留并按模块归类展示。",
-      "en": "Before v1.0.0, EcoMOF-AI iterated module by module. Original version numbers are bound to real commits and are kept verbatim, regrouped here by module."
+      "zh": "v3.0.0 之前 EcoMOF-AI 按模块分别迭代，原始版本号与真实 commit 绑定，全部原样保留并按模块归类展示。",
+      "en": "Before v3.0.0, EcoMOF-AI iterated module by module. Original version numbers are bound to real commits and are kept verbatim, regrouped here by module."
     },
     "versionCount": 38,
     "byModule": {

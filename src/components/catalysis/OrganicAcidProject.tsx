@@ -182,7 +182,7 @@ function PrototypeGate({ lang, t, onUnlock }) {
           </p>
           <aside
             aria-label={lang === "zh" ? "访问范围说明" : "Access availability notice"}
-            style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${palette.accent}`, borderRadius: 8, color: palette.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12, padding: "10px 12px" }}
+            style={{ background: palette.surface, border: `1px solid ${palette.border}`, borderRadius: 8, color: palette.muted, fontSize: 12, lineHeight: 1.65, marginTop: 12, padding: "10px 12px" }}
           >
             <strong style={{ color: palette.text, display: "block", fontSize: 12.5, marginBottom: 3 }}>
               {lang === "zh" ? "很抱歉，当前工作区暂未向所有访客开放" : "We are sorry, but this workspace is not yet open to all visitors"}
