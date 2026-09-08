@@ -26,6 +26,7 @@ import { LogoWordmark } from "./components/brand"
 import { PrimaryDomainNavigation } from "./components/navigation/PrimaryDomainNavigation"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
 import { HomeTab } from "./components/tabs/HomeTab"
+import { UnifiedResearchSearchPage } from "./components/pages/UnifiedResearchSearchPage"
 
 const lazyNamed = (loader, exportName) => lazy(async () => {
   const reloadKey = `ecomof-lazy-reload:${exportName}`
@@ -45,6 +46,7 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 })
 
 const routeComponent = tabId => getNavigationRoute(tabId)?.component
+const UpdateStoryPage = lazyNamed(() => import("./components/pages/UpdateStoryPage"), "UpdateStoryPage")
 
 const EcoScreenTab = lazyNamed(routeComponent("ecoscreen").load, routeComponent("ecoscreen").exportName)
 const PerformanceTab = lazyNamed(routeComponent("performance").load, routeComponent("performance").exportName)
@@ -90,7 +92,7 @@ function getInitialDeepLinkState() {
   const rawHash = typeof window === "undefined" ? "" : window.location.hash
   const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
   const hash = explicitHash || "default"
-  const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
+  const routeHash = hash === "default" ? "unified-search" : normalizeHash(hash)
   const pendingScrollTarget = getScrollTargetForHash(routeHash)
 
   return {
@@ -222,11 +224,11 @@ function AppShell({
   useEffect(() => {
     const root = appShellRef.current
     if (!root) return undefined
-    root.lang = locale === "zh-TW" ? "zh-TW" : locale === "en" ? "en" : "zh-CN"
-    if (locale !== "zh-TW") return undefined
+    root.lang = locale
+    if (locale !== "zh-TW" && locale !== "zh-HK") return undefined
     let cancelled = false
     let restore = null
-    observeTraditionalChinese(root).then(cleanup => {
+    observeTraditionalChinese(root, locale === "zh-HK" ? "hk" : "tw").then(cleanup => {
       if (cancelled) cleanup()
       else restore = cleanup
     })
@@ -299,15 +301,21 @@ function AppShell({
               overflow: "visible",
             }}
           >
-            <div className="brand-nav-wordmark" style={{ display: "flex", alignItems: "center", minWidth: 0, flex: "0 0 auto" }}>
+            <button
+              type="button"
+              className="brand-nav-wordmark brand-nav-search-trigger"
+              aria-label={lang === "zh" ? "打开统一研究搜索" : "Open unified research search"}
+              onClick={() => navigateTab("unifiedSearch", { resetScroll: true })}
+            >
               <LogoWordmark
                 markSize={viewport.isMobile ? 28 : 30}
                 radius={viewport.isMobile ? 7 : 8}
                 t={chromeTheme}
-                text={veryCompactHeader ? "" : "EcoMOF-AI"}
+                text="EcoMOF-AI"
+                showMark={false}
                 compact
               />
-            </div>
+            </button>
 
             <div
               data-testid="primary-nav-slot"
@@ -400,8 +408,12 @@ function AppShell({
                         value={locale}
                       >
                         <option value="zh-CN">简体中文</option>
-                        <option value="zh-TW">繁體中文</option>
+                        <option value="zh-TW">繁體中文 · 台灣（中國）</option>
+                        <option value="zh-HK">繁體中文 · 香港（中國）</option>
                         <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="es">Español</option>
                       </select>
                     </div>
                     <button
@@ -545,6 +557,8 @@ function AppShell({
         <Suspense fallback={<LoadingPanel theme={theme} lang={lang} />}>
           <div key={activeTab} className="page-transition" data-tab={activeTab}>
             {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={() => navigateTab("contact")} onOpenComparisonBuilder={() => openComparisonBuilder()} />}
+            {activeTab === "unifiedSearch" && <UnifiedResearchSearchPage onNavigate={navigateTab} />}
+            {activeTab === "updateStory" && <UpdateStoryPage hash={activeHash} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}
@@ -699,7 +713,7 @@ export default function App() {
       return resolveInitialLocale({ browserLanguages: typeof navigator === "undefined" ? [] : [navigator.language] })
     }
   })
-  const lang = locale === "en" ? "en" : "zh"
+  const lang = locale.startsWith("zh") ? "zh" : "en"
   const setLang = useCallback(next => {
     const normalized = next === "zh" ? "zh-CN" : next
     if (!SUPPORTED_LOCALES.includes(normalized)) return
@@ -763,7 +777,7 @@ export default function App() {
   const applyDeepLink = useCallback((rawHash) => {
     const explicitHash = String(rawHash || "").replace(/^#/, "").trim()
     const hash = explicitHash || "default"
-    const routeHash = hash === "default" ? "overview" : normalizeHash(hash)
+    const routeHash = hash === "default" ? "unified-search" : normalizeHash(hash)
     const tab = resolveTabForHash(routeHash)
 
     setActiveHash(hash)
@@ -798,7 +812,7 @@ export default function App() {
     document.body.style.background = theme.bg
     document.documentElement.style.background = theme.bg
     document.body.style.fontFamily = FONT_SANS
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en"
+    document.documentElement.lang = locale
     document.documentElement.dataset.theme = darkMode ? "dark" : "light"
     document.documentElement.style.colorScheme = darkMode ? "dark" : "light"
     try {
@@ -806,7 +820,7 @@ export default function App() {
     } catch {
       // Appearance remains functional when storage is unavailable.
     }
-  }, [darkMode, theme.bg, lang])
+  }, [darkMode, theme.bg, locale])
 
   useEffect(() => {
     applyDeepLink(window.location.hash)

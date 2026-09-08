@@ -1,13 +1,13 @@
-const CONVERTED_ATTRIBUTES = ["aria-label", "placeholder", "title"]
+const CONVERTED_ATTRIBUTES = ["aria-label", "placeholder", "title", "alt"]
 
 function isIgnored(node: Node) {
   const element = node.nodeType === Node.ELEMENT_NODE ? node as Element : node.parentElement
   return Boolean(element?.closest?.(".ignore-opencc"))
 }
 
-export async function observeTraditionalChinese(root: HTMLElement) {
+export async function observeTraditionalChinese(root: HTMLElement, region: "tw" | "hk" = "tw") {
   const { default: OpenCC } = await import("opencc-js/cn2t")
-  const convertToTraditional = OpenCC.Converter({ from: "cn", to: "tw" })
+  const convertToTraditional = OpenCC.Converter({ from: "cn", to: region })
   const originalText = new Map<Text, string>()
   const originalAttributes = new Map<Element, Map<string, string>>()
 
@@ -85,11 +85,15 @@ export async function observeTraditionalChinese(root: HTMLElement) {
   return () => {
     observer.disconnect()
     originalText.forEach((source, node) => {
-      if (node.isConnected) node.nodeValue = source
+      // React may have already committed a new language before effect cleanup.
+      // Restore only text still owned by this conversion pass.
+      if (node.isConnected && node.nodeValue === convertToTraditional(source)) node.nodeValue = source
     })
     originalAttributes.forEach((attributes, element) => {
       if (!element.isConnected) return
-      attributes.forEach((source, attribute) => element.setAttribute(attribute, source))
+      attributes.forEach((source, attribute) => {
+        if (element.getAttribute(attribute) === convertToTraditional(source)) element.setAttribute(attribute, source)
+      })
     })
   }
 }

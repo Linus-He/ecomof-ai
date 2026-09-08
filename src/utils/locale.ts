@@ -1,4 +1,4 @@
-export const SUPPORTED_LOCALES = ["zh-CN", "zh-TW", "en"] as const
+export const SUPPORTED_LOCALES = ["zh-CN", "zh-TW", "zh-HK", "en", "ja", "ko", "es"] as const
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number]
 
 export function resolveInitialLocale({
@@ -13,10 +13,14 @@ export function resolveInitialLocale({
   }
 
   const browserLocale = String(browserLanguages[0] || "").trim().toLowerCase()
-  if (browserLocale === "zh-tw" || browserLocale === "zh-hk" || browserLocale === "zh-mo" || browserLocale.startsWith("zh-hant")) {
+  if (browserLocale === "zh-hk" || browserLocale === "zh-mo" || browserLocale === "zh-hant-hk") return "zh-HK"
+  if (browserLocale === "zh-tw" || browserLocale.startsWith("zh-hant")) {
     return "zh-TW"
   }
   if (browserLocale === "zh" || browserLocale.startsWith("zh-")) return "zh-CN"
   if (browserLocale === "en" || browserLocale.startsWith("en-")) return "en"
+  for (const locale of ["ja", "ko", "es"] as const) {
+    if (browserLocale === locale || browserLocale.startsWith(`${locale}-`)) return locale
+  }
   return "en"
 }

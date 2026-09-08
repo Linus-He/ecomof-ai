@@ -9,6 +9,7 @@ export function LogoWordmark({
   tagline,
   t,
   compact = false,
+  showMark = true,
   className = "",
   style,
 }) {
@@ -24,7 +25,7 @@ export function LogoWordmark({
         ...style,
       }}
     >
-      <LogoMark size={markSize} radius={radius} style={{ boxShadow: t?.shadowSm }} />
+      {showMark && <LogoMark size={markSize} radius={radius} style={{ boxShadow: t?.shadowSm }} />}
       <span style={{ display: "grid", gap: 1, minWidth: 0 }}>
         <span style={{
           color: t?.textStrong || "currentColor",

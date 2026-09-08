@@ -6,6 +6,25 @@ afterEach(() => {
 })
 
 describe("traditional Chinese locale conversion", () => {
+  it("does not overwrite a newly committed language during cleanup", async () => {
+    document.body.innerHTML = '<main id="root"><button aria-label="打开">研究进展</button></main>'
+    const root = document.getElementById("root") as HTMLElement
+    const restore = await observeTraditionalChinese(root, "hk")
+    const button = root.querySelector("button")!
+    button.firstChild!.nodeValue = "Progreso científico"
+    button.setAttribute("aria-label", "Abrir")
+    restore()
+    expect(button.textContent).toBe("Progreso científico")
+    expect(button.getAttribute("aria-label")).toBe("Abrir")
+  })
+  it("uses Hong Kong regional characters and restores them before another locale", async () => {
+    document.body.innerHTML = '<main id="root"><p>里面的数据库与研究</p></main>'
+    const root = document.getElementById("root") as HTMLElement
+    const restore = await observeTraditionalChinese(root, "hk")
+    expect(root.textContent).toBe("裏面的數據庫與研究")
+    restore()
+    expect(root.textContent).toBe("里面的数据库与研究")
+  })
   it("converts current and dynamically inserted interface copy, then restores the source", async () => {
     document.body.innerHTML = '<main id="root"><button aria-label="打开设置">项目演化</button></main>'
     const root = document.getElementById("root") as HTMLElement

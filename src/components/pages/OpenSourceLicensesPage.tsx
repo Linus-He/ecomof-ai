@@ -45,10 +45,10 @@ const softwareLicenses = [
   {
     name: "opencc-js",
     license: "MIT AND Apache License 2.0",
-    scopeZh: "用于简繁中文转换与本地化显示辅助。",
-    scopeEn: "Used for Simplified and Traditional Chinese conversion and localization support.",
-    boundaryZh: "依赖自身按双许可声明使用；转换后的 EcoMOF-AI 文字内容仍按原内容来源判断。",
-    boundaryEn: "The dependency is used under its declared dual licensing; converted EcoMOF-AI text remains governed by the source content boundary.",
+    scopeZh: "使用 opencc-js 1.4.1 的 cn2t 转换器，支持台湾（中国）与香港（中国）的繁体中文显示；分别采用 tw 与 hk 区域字形转换。",
+    scopeEn: "Uses opencc-js 1.4.1 cn2t conversion with the tw and hk regional variants for Taiwan (China) and Hong Kong (China).",
+    boundaryZh: "MIT AND Apache-2.0 为组合许可义务，不是任选其一；保留库许可及词典的第三方声明。转换不改变原始内容许可，也不代表逐条人工语言审校。",
+    boundaryEn: "MIT AND Apache-2.0 requires both sets of applicable notices, not a choice of one. Retain library and dictionary notices. Conversion neither relicenses content nor implies item-by-item linguistic review.",
     url: "https://github.com/nk2028/opencc-js",
   },
   {
@@ -72,6 +72,13 @@ const softwareLicenses = [
 ]
 
 const dataLicenses = [
+  {
+    name: "Search landing illustrations and editorial summaries · 2026-09",
+    statusZh: "AI 辅助生成素材与项目编写的摘要，独立于代码许可",
+    statusEn: "AI-assisted illustrations and project-authored summaries, separate from code licensing",
+    bodyZh: "首页六张 search-release / search-research 封面为本项目通过 OpenAI 图像生成工具制作的概念插图，不是论文实验图，也未复制参考网站的图片或字体文件。动态效果、打字提示、检索和语言面板由项目代码及浏览器原生 CSS 动画、dialog、React portal 实现，未加入外部动画或搜索服务。OpenAI 页面仅作为布局参考，不表示关联或背书。论文摘要按发布方页面重新撰写并附 DOI；原文和图像仍依各自来源条款。生成图片不因同处本仓库而自动纳入源码 MIT 许可，不保证排他版权；复用前需另行核对适用权利与服务条款。",
+    bodyEn: "The six search-release / search-research covers were made with OpenAI image generation as conceptual artwork, not experimental figures. No reference-site image or font files are copied. Motion, typewriter prompts, search, and the language panel use project code, native CSS animation, dialog, and React portals, without a new animation or search service. OpenAI is a layout reference, not an affiliation or endorsement. Summaries are rewritten from publisher pages with DOI links; source text and figures retain their own terms. Generated artwork is not automatically covered by the source-code MIT license or guaranteed exclusive copyright; reuse requires a separate rights and terms review.",
+  },
   {
     name: "CCDC / CSD MOF Collection and CoRE-MOF modified CIF records",
     statusZh: "按来源条款和记录级许可使用",

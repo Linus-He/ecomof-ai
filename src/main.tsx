@@ -5,6 +5,7 @@ import App from './App'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import 'katex/dist/katex.min.css'
 import './index.css'
+import './components/pages/SearchLanding.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

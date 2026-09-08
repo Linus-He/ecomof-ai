@@ -1,7 +1,9 @@
 // @ts-nocheck
+import { useLang } from "../../contexts"
+import { interfaceText } from "../../utils/interfaceLocale"
 import { useEffect, useRef, useState } from "react"
 import { SiGithub, SiGmail, SiZhihu } from "react-icons/si"
-import { LogoWordmark } from "../brand"
+import { FooterLanguagePicker } from "./FooterLanguagePicker"
 
 export function AppFooter({
   lang,
@@ -11,60 +13,65 @@ export function AppFooter({
   onDisclaimer,
   theme,
 }) {
+  const { locale } = useLang()
+  const l = (en, zh = en) => interfaceText(lang === "zh" ? "zh-CN" : locale, en, zh)
   const zh = lang === "zh"
   const footerRef = useRef(null)
   const [visible, setVisible] = useState(false)
   const columns = [
     {
-      title: zh ? "研究" : "Research",
+      title: l("Research", "研究"),
       links: [
-        [zh ? "生态筛选" : "EcoScreen", "ecoscreen"],
-        [zh ? "气体分离" : "GasSep", "gassep"],
-        [zh ? "催化" : "Catalysis", "catalysis"],
-        [zh ? "有机酸研究工作区" : "Organic Acid Research", "catalysis-organic-acid"],
+        [l("EcoScreen", "生态筛选"), "ecoscreen"],
+        [l("GasSep", "气体分离"), "gassep"],
+        [l("Catalysis", "催化"), "catalysis"],
+        [l("Organic Acid Research", "有机酸研究工作区"), "catalysis-organic-acid"],
       ],
       sections: [],
     },
     {
-      title: zh ? "数据与核验" : "Data & Verification",
+      title: l("Data & Verification", "数据与核验"),
       links: [
-        [zh ? "MOF 库" : "MOF Library", "library"],
-        [zh ? "催化文献核验中心" : "Catalysis Literature Verification", "catalysis-literature-verification"],
-        [zh ? "数据质量与来源中心" : "Data Quality & Provenance", "data-quality-provenance"],
-        [zh ? "MOF 记录详情" : "MOF Record Detail", "mof-record"],
-        [zh ? "DOI 文献详情" : "DOI Literature Detail", "literature-record"],
+        [l("MOF Library", "MOF 库"), "library"],
+        [l("Catalysis Literature Verification", "催化文献核验中心"), "catalysis-literature-verification"],
+        [l("Data Quality & Provenance", "数据质量与来源中心"), "data-quality-provenance"],
+        [l("MOF Record Detail", "MOF 记录详情"), "mof-record"],
+        [l("DOI Literature Detail", "DOI 文献详情"), "literature-record"],
       ],
       sections: [],
     },
     {
-      title: zh ? "方法与验证" : "Methods & Validation",
+      title: l("Methods & Validation", "方法与验证"),
       links: [
-        [zh ? "方法论总览" : "Methodology Overview", "methodology"],
-        [zh ? "算法验证中心" : "Algorithm Validation", "methodology-algorithm-validation"],
-        [zh ? "基准参考" : "Benchmark References", "benchmark-references"],
-        [zh ? "GasSep 方法" : "GasSep Method", "methodology-gassep"],
-        [zh ? "有机酸方法" : "Organic Acid Method", "methodology-organic-acid"],
-        [zh ? "验证与证据" : "Validation & Evidence", "validation-evidence"],
+        [l("Methodology Overview", "方法论总览"), "methodology"],
+        [l("Algorithm Validation", "算法验证中心"), "methodology-algorithm-validation"],
+        [l("Benchmark References", "基准参考"), "benchmark-references"],
+        [l("GasSep Method", "GasSep 方法"), "methodology-gassep"],
+        [l("Organic Acid Method", "有机酸方法"), "methodology-organic-acid"],
+        [l("Validation & Evidence", "验证与证据"), "validation-evidence"],
       ],
       sections: [],
     },
     {
-      title: zh ? "关于" : "About",
+      title: l("About", "关于"),
       links: [
-        [zh ? "创建者说明" : "Creator Statement", "creator-statement"],
-        [zh ? "研究宪章" : "Research Charter", "research-charter"],
-        [zh ? "项目演化" : "Project Evolution", "project-evolution"],
-        [zh ? "更新日志" : "Changelog", "release-notes"],
-        [zh ? "条款与政策" : "Terms & Policies", "database-compliance"],
+        [l("Creator Statement", "创建者说明"), "creator-statement"],
+        [l("Research Charter", "研究宪章"), "research-charter"],
+        [l("Scientific Milestones", "科学里程碑"), "project-evolution-milestones"],
+        [l("Research Roadmap", "科研路线图"), "project-evolution-roadmap"],
+        [l("Changelog", "更新日志"), "release-notes"],
+        [l("Terms & Policies", "条款与政策"), "database-compliance"],
       ],
-      sections: [{
-        title: zh ? "联系与说明" : "Contact & Notices",
+      sections: [],
+    },
+    {
+        title: l("Contact & Notices", "联系与说明"),
         links: [
-          [zh ? "联系我们" : "Contact", "contact"],
-          [zh ? "致谢" : "Acknowledgements", "acknowledgements"],
-          [zh ? "声明与使用边界" : "Disclaimer & Boundaries", "disclaimer"],
+          [l("Contact", "联系我们"), "contact"],
+          [l("Acknowledgements", "致谢"), "acknowledgements"],
+          [l("Disclaimer & Boundaries", "声明与使用边界"), "disclaimer"],
         ],
-      }],
+      sections: [],
     },
   ]
 
@@ -100,16 +107,13 @@ export function AppFooter({
   }, [])
 
   return (
-    <footer ref={footerRef} className="app-footer" data-visible={visible ? "true" : "false"} aria-label={zh ? "站点页脚" : "Site footer"}>
+    <footer ref={footerRef} className="app-footer" data-visible={visible ? "true" : "false"} aria-label={l("Site footer", "站点页脚")}>
       <div className="app-footer-inner">
         <div className="app-footer-brand">
-          <LogoWordmark markSize={34} radius={8} t={theme} text="EcoMOF-AI" compact />
-          <p>{zh ? "让 MOF 研究判断回到数据、条件、方法与来源。" : "Grounding MOF research decisions in data, conditions, methods, and sources."}</p>
-          <nav className="app-footer-social" aria-label={zh ? "联系我们" : "Contact us"}>
-            <h2>{zh ? "联系我们" : "Contact us"}</h2>
+          <nav className="app-footer-social" aria-label={l("Contact us", "联系我们")}>
             <div>
               <a
-                aria-label={zh ? "在 GitHub 查看 EcoMOF-AI 仓库" : "View the EcoMOF-AI repository on GitHub"}
+                aria-label={l("View the EcoMOF-AI repository on GitHub", "在 GitHub 查看 EcoMOF-AI 仓库")}
                 href="https://github.com/Linus-He/ecomof-ai"
                 rel="noreferrer"
                 target="_blank"
@@ -118,18 +122,18 @@ export function AppFooter({
                 <SiGithub aria-hidden="true" />
               </a>
               <a
-                aria-label={zh ? "发送邮件至 ecomofai@outlook.com" : "Email ecomofai@outlook.com"}
+                aria-label={l("Email ecomofai@outlook.com", "发送邮件至 ecomofai@outlook.com")}
                 href="mailto:ecomofai@outlook.com"
                 title="ecomofai@outlook.com"
               >
                 <SiGmail aria-hidden="true" />
               </a>
               <a
-                aria-label={zh ? "在知乎关注小落生" : "Follow Xiao Luo Sheng on Zhihu"}
+                aria-label={l("Follow Xiao Luo Sheng on Zhihu", "在知乎关注小落生")}
                 href="https://www.zhihu.com/people/xiao-luo-sheng-25"
                 rel="noreferrer"
                 target="_blank"
-                title={zh ? "知乎" : "Zhihu"}
+                title={l("Zhihu", "知乎")}
               >
                 <SiZhihu aria-hidden="true" />
               </a>
@@ -137,7 +141,7 @@ export function AppFooter({
           </nav>
         </div>
 
-        <nav className="app-footer-links" aria-label={zh ? "页脚导航" : "Footer navigation"}>
+        <nav className="app-footer-links" aria-label={l("Footer navigation", "页脚导航")}>
           {columns.map(column => (
             <div className="app-footer-column" key={column.title}>
               <section>
@@ -159,8 +163,8 @@ export function AppFooter({
         </nav>
 
         <div className="app-footer-meta">
-          <span>{zh ? "© EcoMOF-AI · Linus-He 维护" : "© EcoMOF-AI · Maintained by Linus-He"}</span>
-          <p>{zh ? "用于早期筛选和研究假设生成，不代表最终实验结论。" : "For early-stage screening and research hypothesis generation; not a final experimental conclusion."}</p>
+          <span>{l("© EcoMOF-AI · Maintained by Linus-He", "© EcoMOF-AI · Linus-He 维护")}</span>
+          <FooterLanguagePicker />
         </div>
       </div>
     </footer>

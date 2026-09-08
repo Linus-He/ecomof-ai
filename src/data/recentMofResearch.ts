@@ -1,0 +1,7 @@
+// Editorial summaries checked against publisher pages on 2026-09-07.
+// Cover images are original conceptual illustrations, not experimental figures.
+export const recentMofResearch = [
+  { id: "molecular-fans", date: "2026-09-01", kind: ["研究", "Research"], journal: "Nature Communications", doi: "10.1038/s41467-026-77361-y", title: ["在 MOF 孔道中安装分子风扇，改善痕量苯捕集", "Molecular fans improve trace benzene capture"], summary: ["研究在 Fe 基 ZJU-701 中引入可旋转单元，缓解匹配孔径带来的扩散阻力，在给定测试条件下兼顾吸附速度与容量。", "Rotating units in Fe-based ZJU-701 reduce pore diffusion resistance, balancing benzene uptake rate and capacity under the reported conditions."] },
+  { id: "reticular-sites", date: "2026-08-28", kind: ["综述", "Review"], journal: "Nature Synthesis", doi: "10.1038/s44160-026-01130-4", title: ["用网状化学设计异相电催化位点", "Designing electrocatalytic sites with reticular chemistry"], summary: ["综述聚焦催化位点周围的化学微环境，讨论网状化学如何调节小分子活化的活性与选择性。", "A review of how reticular chemistry tunes local chemical environments around heterogeneous sites for small-molecule activation."] },
+  { id: "monolithic-catalyst", date: "2026-08-25", kind: ["研究", "Research"], journal: "Communications Materials", doi: "10.1038/s43246-026-01249-z", title: ["酸碱双功能整体式 MOF 用于生物柴油生产", "A monolithic MOF catalyst for biodiesel production"], summary: ["研究提出锆基整体式酸碱双功能 MOF，结合一锅反应与产物分离，探索非食用油的生物柴油转化。", "A zirconium-based monolithic MOF combines acid and base functions for one-pot conversion of inedible oils and product separation."] },
+]

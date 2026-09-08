@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useLang } from "../../contexts"
+import { interfaceText } from "../../utils/interfaceLocale"
 import {
   NAVIGATION_DOMAINS,
   getNavigationItem,
@@ -22,6 +24,8 @@ export function PrimaryDomainNavigation({
   onNavigate,
   theme,
 }) {
+  const { locale } = useLang()
+  const navigationLabel = (item) => interfaceText(lang === "zh" ? "zh-CN" : locale, getNavigationLabel(item, "en"), getNavigationLabel(item, "zh"))
   const [openDomainId, setOpenDomainId] = useState(null)
   const rootRef = useRef(null)
   const railRef = useRef(null)
@@ -29,7 +33,7 @@ export function PrimaryDomainNavigation({
   const currentHash = normalizeActiveHash(activeHash)
   const activeItem = getNavigationItem(currentHash)
   const activeRoute = getNavigationRoute(activeTab)
-  const activeNavId = activeItem?.id === "home"
+  const activeNavId = activeTab === "unifiedSearch" ? null : activeItem?.id === "home"
     ? "home"
     : activeItem?.domainId || activeRoute?.domainId || "home"
   const domains = useMemo(
@@ -137,7 +141,7 @@ export function PrimaryDomainNavigation({
           onClick={() => navigate(OVERVIEW_ITEM.hash)}
           type="button"
         >
-          <span className="nav-tab-label">{getNavigationLabel(OVERVIEW_ITEM, lang)}</span>
+          <span className="nav-tab-label">{navigationLabel(OVERVIEW_ITEM)}</span>
         </button>
         {domains.map(domain => {
           const active = activeNavId === domain.id
@@ -166,7 +170,7 @@ export function PrimaryDomainNavigation({
               }}
               type="button"
             >
-              <span className="nav-tab-label">{getNavigationLabel(domain, lang)}</span>
+              <span className="nav-tab-label">{navigationLabel(domain)}</span>
             </button>
           )
         })}
@@ -174,7 +178,7 @@ export function PrimaryDomainNavigation({
 
       {openDomain ? (
         <div
-          aria-label={getNavigationLabel(openDomain, lang)}
+          aria-label={navigationLabel(openDomain)}
           className="nav-domain-panel"
           data-domain-id={openDomain.id}
           id={`nav-domain-panel-${openDomain.id}`}
@@ -187,7 +191,7 @@ export function PrimaryDomainNavigation({
                 data-featured={groupIndex === 0 ? "true" : "false"}
                 key={group.id}
               >
-                <p>{getNavigationLabel(group, lang)}</p>
+                <p>{navigationLabel(group)}</p>
                 <div>
                   {group.itemIds.map(itemId => {
                     const item = getNavigationItem(itemId)
@@ -203,7 +207,7 @@ export function PrimaryDomainNavigation({
                         role="menuitem"
                         type="button"
                       >
-                        <span>{getNavigationLabel(item, lang)}</span>
+                        <span>{navigationLabel(item)}</span>
                       </button>
                     )
                   })}

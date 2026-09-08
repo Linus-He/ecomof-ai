@@ -10,6 +10,33 @@ export const DEFAULT_ROUTE_META = meta(
 
 export const NAVIGATION_ROUTES = [
   {
+    id:"updateStory", tabId:"updateStory", primary:false, domainId:"project", hash:"update-research-progress",
+    label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
+    component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
+    children:[
+      { id:"update-research-canvas", hash:"update-research-canvas", label:label("连续研究画布", "Research canvas") },
+      { id:"update-methods", hash:"update-methods", label:label("从来源到实现", "Sources and implementation") },
+    ],
+  },
+  {
+    id: "unifiedSearch",
+    tabId: "unifiedSearch",
+    primary: false,
+    hidden: true,
+    order: -1,
+    domainId: "research",
+    hash: "unified-search",
+    label: label("统一搜索", "Unified Search"),
+    meta: meta(
+      "统一研究搜索 | EcoMOF-AI",
+      "搜索所有资料、功能与研究版块，并在原版块与即时阅读之间切换。",
+    ),
+    component: {
+      strategy: "eager",
+      exportName: "UnifiedResearchSearchPage",
+    },
+  },
+  {
     id: "home",
     tabId: "home",
     primary: true,
