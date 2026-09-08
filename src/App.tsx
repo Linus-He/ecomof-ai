@@ -47,6 +47,7 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 
 const routeComponent = tabId => getNavigationRoute(tabId)?.component
 const UpdateStoryPage = lazyNamed(() => import("./components/pages/UpdateStoryPage"), "UpdateStoryPage")
+const ResearchArticlePage = lazyNamed(() => import("./components/pages/ResearchArticlePage"), "ResearchArticlePage")
 
 const EcoScreenTab = lazyNamed(routeComponent("ecoscreen").load, routeComponent("ecoscreen").exportName)
 const PerformanceTab = lazyNamed(routeComponent("performance").load, routeComponent("performance").exportName)
@@ -559,6 +560,7 @@ function AppShell({
             {activeTab === "home" && <HomeTab setActiveTab={navigateTab} onContactOpen={() => navigateTab("contact")} onOpenComparisonBuilder={() => openComparisonBuilder()} />}
             {activeTab === "unifiedSearch" && <UnifiedResearchSearchPage onNavigate={navigateTab} />}
             {activeTab === "updateStory" && <UpdateStoryPage hash={activeHash} />}
+            {activeTab === "researchArticle" && <ResearchArticlePage hash={activeHash} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
                 inputs={inputs}

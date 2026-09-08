@@ -1,4 +1,7 @@
+import { recentUpdateStories } from "./recentUpdateStories"
+
 export const updateStories = [
+  ...recentUpdateStories,
   {
     hash:"update-research-progress", version:"v3.5.1", date:"2026-08-20", image:0,
     title:["让研究进展清晰可循", "Making research progress visible"],

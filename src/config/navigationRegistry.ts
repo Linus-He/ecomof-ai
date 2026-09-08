@@ -10,10 +10,21 @@ export const DEFAULT_ROUTE_META = meta(
 
 export const NAVIGATION_ROUTES = [
   {
+    id:"researchArticle", tabId:"researchArticle", primary:false, domainId:"research", hash:"research-article-molecular-fans",
+    label:label("分子风扇与苯捕集解读", "Molecular fans and benzene capture"), meta:meta("研究解读 | EcoMOF-AI", "论文来源、研究进展、意义与证据边界。"),
+    component:{ strategy:"lazy", exportName:"ResearchArticlePage", load:() => import("../components/pages/ResearchArticlePage") },
+    children:[
+      { id:"research-article-reticular-sites", hash:"research-article-reticular-sites", label:label("网状化学与催化位点解读", "Reticular chemistry interpretation") },
+      { id:"research-article-monolithic-catalyst", hash:"research-article-monolithic-catalyst", label:label("整体式 MOF 与生物柴油解读", "Monolithic MOF interpretation") },
+    ],
+  },
+  {
     id:"updateStory", tabId:"updateStory", primary:false, domainId:"project", hash:"update-research-progress",
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-search-platform", hash:"update-search-platform", label:label("统一搜索与多语言研究首页", "Unified search and multilingual home") },
+      { id:"update-research-reading", hash:"update-research-reading", label:label("从研究链接到研究解读", "From paper links to research interpretation") },
       { id:"update-research-canvas", hash:"update-research-canvas", label:label("连续研究画布", "Research canvas") },
       { id:"update-methods", hash:"update-methods", label:label("从来源到实现", "Sources and implementation") },
     ],

@@ -163,7 +163,7 @@ export function AppFooter({
         </nav>
 
         <div className="app-footer-meta">
-          <span>{l("© EcoMOF-AI · Maintained by Linus-He", "© EcoMOF-AI · Linus-He 维护")}</span>
+          <span className="footer-maintenance">{l("© EcoMOF-AI · Maintained by Linus-He", "© EcoMOF-AI · Linus-He 维护")} · since2025</span>
           <FooterLanguagePicker />
         </div>
       </div>

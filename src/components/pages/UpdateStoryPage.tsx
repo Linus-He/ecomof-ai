@@ -8,7 +8,8 @@ export function UpdateStoryPage({ hash }) {
   const i = lang === "zh" ? 0 : 1
   const story = updateStories.find(item => item.hash === hash) || updateStories[0]
   const local = editorialLocales[locale]
-  const translated = local?.stories[updateStories.indexOf(story)]
+  const legacyIndex = ["update-research-progress", "update-research-canvas", "update-methods"].indexOf(story.hash)
+  const translated = local?.stories[legacyIndex]
   const label = (n, zh, en) => local?.labels[n] || (i === 0 ? zh : en)
   return <article className="update-story-page">
     <header><a href="#unified-search">{label(0, "最新动态", "Latest updates")}</a><p><time dateTime={story.date}>{story.date}</time> · {story.version}</p><h1>{translated?.title || story.title[i]}</h1><p className="update-story-deck">{translated?.intro || story.intro[i]}</p></header>

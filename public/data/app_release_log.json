@@ -1,88 +1,64 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.1",
-  "generatedAt": "2026-08-13",
-  "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the whole platform. Historical module V1.x/V2.x/V3.x records remain preserved in pre-Web history; current Web releases are replanned as v3.0.0-v3.5.1 and never exceed v3.5.1.",
+  "currentAppVersion": "v3.5.3",
+  "generatedAt": "2026-09-08",
+  "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
     "generatingScript": "scripts/build-app-release-log.mjs",
-    "note": "The current release log merges earlier and current work into one logical Web-version line. Historical module version numbers are preserved in history; visible Web release numbers are replanned up to v3.5.1."
+    "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.0",
-    "developmentVersion": "v3.5.1",
-    "recordedAt": "2026-08-20",
+    "baseAppVersion": "v3.5.2",
+    "developmentVersion": "v3.5.3",
+    "recordedAt": "2026-09-08",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
       "en": "archived"
     },
     "logPolicy": {
-      "zh": "v3.5.1 合并此前和本轮已完成内容，采用独立更新日志、科学里程碑与科研路线图三页表达；不再把不同工作挂在同一旧版本号下，也不把计划写成已完成。",
-      "en": "v3.5.1 merges previous and current completed work into three surfaces: changelog, scientific milestones, and research roadmap. Work is no longer presented under one stale version number, and planned items are not written as completed."
+      "zh": "只记录已完成内容；本地提交不代表已经推送或上线。",
+      "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "本轮取消项目演化板块，将更新日志保留为独立页面，并新增科学里程碑与科研路线图页面；更新日志改为接近 OpenAI changelog 的日期、版本、摘要和分项结构；全站主题收敛到黑白灰和低彩度状态色，减少大面积蓝紫等领域色滥用；除方法论页外，为页面和主要段落加入下滑进入过渡动画；同时继续清理大卡片套小卡片问题。",
-      "en": "This release removes the Project Evolution section, keeps the changelog as its own page, and adds Scientific Milestones and Research Roadmap pages. The changelog now follows a clearer OpenAI-style date, version, summary, and bullet structure. Site colors are reduced to black, white, grey, and restrained status tones; scroll-entry transitions are added to pages except Methodology; nested-card presentation is further removed."
+      "zh": "让最新研究不止于一个外部链接：先理解研究解决了什么、意味着什么，再回到原论文核对证据。",
+      "en": "Read what a study addresses and why it matters before following its sources. Research now opens as an editorial article inside EcoMOF-AI."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "页面结构、滚动过渡和全域配色改为更克制的 OpenAI 风格。",
-          "en": "Page structure, scroll transitions, and global colors move toward a more restrained OpenAI-like style."
+          "zh": "阅读先于跳转",
+          "en": "Read before leaving"
         },
         "changes": [
           {
-            "zh": "为方法论之外的页面增加下滑进入与滚动显现动画，并保留 reduced-motion 降级。",
-            "en": "Adds slide-in and scroll-reveal transitions outside the Methodology page, with reduced-motion fallback."
-          },
+            "zh": "上一轮的最新研究卡片直接打开论文。这一版将三条入口改为站内文章，围绕研究问题、核心进展、研究意义和证据边界组织内容。读者可以先把握研究脉络，再选择是否继续阅读原文，而不必在多个外部页面之间切换。",
+            "en": "Previously, research cards opened external papers. This version adds three in-site articles organized around the question, findings, significance and limitations. Readers can understand the context before deciding to consult the source."
+          }
+        ]
+      },
+      "methodsEvidence": {
+        "summary": {
+          "zh": "把来源放在最前面",
+          "en": "Sources at the top"
+        },
+        "changes": [
           {
-            "zh": "将主强调色从高饱和蓝色收敛为黑白灰，状态色保留为低彩度绿、赭、灰蓝。",
-            "en": "Reduces the primary accent from saturated blue to black/white/grey, retaining only low-chroma green, ochre, and grey-blue status tones."
-          },
-          {
-            "zh": "新增科学里程碑与科研路线图的独立列表页，使用分隔线和文本层级，不再使用卡片套卡片。",
-            "en": "Adds independent Scientific Milestones and Research Roadmap list pages using dividers and typography instead of nested cards."
+            "zh": "每篇解读顶部提供论文原文链接和 DOI，标明期刊、论文日期以及本站解读身份；能够提供机构档案时也保留入口。正文区分论文报告结果与本站分析，不把综述当作新实验，也不将文献结果冒充平台计算或独立验证。",
+            "en": "Each article begins with the original paper link and DOI, journal and date, and an editorial label. Institutional records are linked where available. Source findings and our interpretation remain distinct; reviews are not presented as new experiments or platform validation."
           }
         ]
       },
       "releaseNotes": {
         "summary": {
-          "zh": "开发日志补齐并按逻辑重排为 v3.0.0-v3.5.1 的统一 Web 版本线。",
-          "en": "The development log is completed and replanned into a unified Web release line from v3.0.0 to v3.5.1."
+          "zh": "两个版本，一条连续的阅读路径",
+          "en": "Two versions, one reading path"
         },
         "changes": [
           {
-            "zh": "当前版本设为 v3.5.1；此前统一发布按能力阶段回填为 v3.5.0、v3.4.x、v3.3.x、v3.2.x、v3.1.x 和 v3.0.0。",
-            "en": "Sets the current version to v3.5.1 and backfills earlier unified releases into v3.5.0, v3.4.x, v3.3.x, v3.2.x, v3.1.x, and v3.0.0."
-          },
-          {
-            "zh": "更新日志改用日期、版本、摘要、模块分项和要点列表结构，减少重复叙述。",
-            "en": "Recasts the changelog around date, version, summary, module sections, and bullet points with less repetition."
-          },
-          {
-            "zh": "保留历史模块版本为 pre-Web 历史事实，不把旧有机酸、GasSep 或数据库模块号伪装成当前 Web 发布号。",
-            "en": "Preserves historical module versions as pre-Web facts instead of treating old Organic Acid, GasSep, or database module numbers as current Web releases."
-          }
-        ]
-      },
-      "roadmap": {
-        "summary": {
-          "zh": "删除项目演化板块，把已完成节点和未来计划拆成两个独立页面。",
-          "en": "Removes Project Evolution and separates completed milestones from future planning into two independent pages."
-        },
-        "changes": [
-          {
-            "zh": "旧项目演化入口改为更新日志入口；旧里程碑和路线图锚点分别进入新独立页面。",
-            "en": "Routes the old Project Evolution entry to the changelog, while legacy milestone and roadmap anchors open the new standalone pages."
-          },
-          {
-            "zh": "科学里程碑只显示已完成且有方法、数据或验证边界的节点。",
-            "en": "Scientific Milestones shows only completed nodes with method, data, or validation boundaries."
-          },
-          {
-            "zh": "科研路线图单独展示科研目标、数据库目标、验证目标和已知风险，避免与发布记录混在一起。",
-            "en": "The Research Roadmap separately presents scientific goals, database goals, validation goals, and known risks rather than mixing them into release notes."
+            "zh": "本轮补记上一轮的统一搜索与多语言首页变化，并将两篇版本总结放入最新动态。页脚在维护信息之后增加 since2025，维护行相对整个页脚居中；窄屏时单独占一行，避免被社交入口或语言按钮挤偏。本轮没有改动科研评分、材料数据或论文结论。",
+            "en": "Both the previous search release and this reading release now have update stories. The footer adds since2025 after maintenance text and centres that line across the footer, placing it on its own row on narrow screens. Scientific scoring and material data are unchanged."
           }
         ]
       }
@@ -223,6 +199,110 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.3",
+      "date": "2026-09-08",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "从研究链接到研究解读",
+        "en": "From paper links to research interpretation"
+      },
+      "summary": {
+        "zh": "让最新研究不止于一个外部链接：先理解研究解决了什么、意味着什么，再回到原论文核对证据。",
+        "en": "Read what a study addresses and why it matters before following its sources. Research now opens as an editorial article inside EcoMOF-AI."
+      },
+      "editorialHash": "update-research-reading",
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "阅读先于跳转",
+            "en": "Read before leaving"
+          },
+          "changes": [
+            {
+              "zh": "上一轮的最新研究卡片直接打开论文。这一版将三条入口改为站内文章，围绕研究问题、核心进展、研究意义和证据边界组织内容。读者可以先把握研究脉络，再选择是否继续阅读原文，而不必在多个外部页面之间切换。",
+              "en": "Previously, research cards opened external papers. This version adds three in-site articles organized around the question, findings, significance and limitations. Readers can understand the context before deciding to consult the source."
+            }
+          ]
+        },
+        "methodsEvidence": {
+          "summary": {
+            "zh": "把来源放在最前面",
+            "en": "Sources at the top"
+          },
+          "changes": [
+            {
+              "zh": "每篇解读顶部提供论文原文链接和 DOI，标明期刊、论文日期以及本站解读身份；能够提供机构档案时也保留入口。正文区分论文报告结果与本站分析，不把综述当作新实验，也不将文献结果冒充平台计算或独立验证。",
+              "en": "Each article begins with the original paper link and DOI, journal and date, and an editorial label. Institutional records are linked where available. Source findings and our interpretation remain distinct; reviews are not presented as new experiments or platform validation."
+            }
+          ]
+        },
+        "releaseNotes": {
+          "summary": {
+            "zh": "两个版本，一条连续的阅读路径",
+            "en": "Two versions, one reading path"
+          },
+          "changes": [
+            {
+              "zh": "本轮补记上一轮的统一搜索与多语言首页变化，并将两篇版本总结放入最新动态。页脚在维护信息之后增加 since2025，维护行相对整个页脚居中；窄屏时单独占一行，避免被社交入口或语言按钮挤偏。本轮没有改动科研评分、材料数据或论文结论。",
+              "en": "Both the previous search release and this reading release now have update stories. The footer adds since2025 after maintenance text and centres that line across the footer, placing it on its own row on narrow screens. Scientific scoring and material data are unchanged."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v3.5.2",
+      "date": "2026-09-08",
+      "stage": "unified-platform",
+      "headline": {
+        "zh": "一个入口，连接材料、方法与研究",
+        "en": "One entry for materials, methods and research"
+      },
+      "summary": {
+        "zh": "回顾上一轮已提交的更新：独立搜索首页、可追溯材料结果，以及适配手机和 iPad 的多语言阅读体验。",
+        "en": "A retrospective of the previous committed release: a dedicated search home, traceable material results and multilingual reading across phone and tablet layouts."
+      },
+      "editorialHash": "update-search-platform",
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "从导航入口到材料记录",
+            "en": "From navigation to material records"
+          },
+          "changes": [
+            {
+              "zh": "统一搜索成为网站默认入口，左上角英文品牌名返回这一页。搜索把研究版块、功能和部分文字资料放在同一个界面，并支持 MOF 名称与别名检索。材料结果直接展示已有物化字段、来源和 DOI；记录缺少属性或可加载结构时，保留缺失提示，不以其他材料替代。",
+              "en": "Unified search becomes the default entry and wordmark destination. It connects sections, functions and selected text resources, with MOF name and alias matching. Results expose available properties, sources and DOI links while preserving missing-field and unavailable-structure boundaries."
+            }
+          ]
+        },
+        "methodsEvidence": {
+          "summary": {
+            "zh": "在不同屏幕上保持连续阅读",
+            "en": "Continuous reading across screens"
+          },
+          "changes": [
+            {
+              "zh": "搜索结果减少胶囊与嵌套卡片，手机上以两列属性和可换行操作显示。文章表格在自身区域内横向滚动，iPad 页脚根据空间调整列数。首页加入动态概念封面、暂停控制和减少动态效果的降级方式；这些是浏览器尺寸检查结果，不等于完成了所有真机型号验证。",
+              "en": "Results reduce nested cards, use two property columns on phones and wrap actions. Tables scroll internally and tablet footers adjust their columns. Conceptual covers include motion and pause controls with reduced-motion support. Browser-size checks do not amount to testing every physical device."
+            }
+          ]
+        },
+        "releaseNotes": {
+          "summary": {
+            "zh": "语言支持与已知边界",
+            "en": "Languages and remaining boundaries"
+          },
+          "changes": [
+            {
+              "zh": "新增日语、韩语、西班牙语和香港繁体选项，并明确台湾（中国）的显示名称。新首页、主要搜索文案和专题内容提供相应适配；旧科研工作区仍可能回退英文。开源许可页补充本轮依赖与生成素材说明。上一轮提交为 8e0baba，本篇为其补记，不把本轮研究解读功能倒写成上一版已有能力。",
+              "en": "Japanese, Korean, Spanish and Hong Kong Traditional Chinese were added, with Taiwan (China) explicitly labelled. New landing and core search copy are localized; legacy workbenches may fall back to English. Notices cover dependencies and generated imagery. This entry records commit 8e0baba and does not backdate this version's research articles."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.1",
       "date": "2026-08-20",

@@ -876,6 +876,16 @@ async function main() {
     },
   }
 
+  // Preserve metadata alongside manually authored releases newer than this
+  // historical builder's authored range, rather than reverting the active log.
+  if (preservedNewerReleases.some(release => release.appVersion === payload.currentAppVersion)) {
+    payload.generatedAt = existingReleaseLog.generatedAt || payload.generatedAt
+    payload.provenance = existingReleaseLog.provenance || payload.provenance
+    if (existingReleaseLog.developmentLog?.developmentVersion === payload.currentAppVersion) {
+      payload.developmentLog = existingReleaseLog.developmentLog
+    }
+  }
+
   await fs.writeFile(
     releaseLogPath,
     `${JSON.stringify(payload, null, 2)}\n`,

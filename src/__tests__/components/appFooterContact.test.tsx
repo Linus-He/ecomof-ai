@@ -9,6 +9,7 @@ describe("AppFooter contact links", () => {
     render(<AppFooter lang="zh" navigate={vi.fn()} theme={THEME_LIGHT} />)
 
     expect(screen.getByRole("navigation", { name: "联系我们" })).toBeInTheDocument()
+    expect(screen.getByText(/Linus-He 维护.*since2025/)).toHaveClass("footer-maintenance")
     expect(screen.getByRole("link", { name: "在 GitHub 查看 EcoMOF-AI 仓库" })).toHaveAttribute("href", "https://github.com/Linus-He/ecomof-ai")
     expect(screen.getByRole("link", { name: "发送邮件至 ecomofai@outlook.com" })).toHaveAttribute("href", "mailto:ecomofai@outlook.com")
     expect(screen.getByRole("link", { name: "在知乎关注小落生" })).toHaveAttribute("href", "https://www.zhihu.com/people/xiao-luo-sheng-25")

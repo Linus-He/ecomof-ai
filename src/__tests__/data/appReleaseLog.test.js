@@ -3,10 +3,10 @@ import log from "../../../public/data/app_release_log.json"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current Web version with v3.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v3.5.1")
+    expect(log.currentAppVersion).toBe("v3.5.3")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v3.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v3.5.1")
+    expect(log.releases[0].appVersion).toBe("v3.5.3")
     expect(log.releases.map(r => r.appVersion)).toContain("v3.1.0")
     expect(log.releases.map(r => r.appVersion)).toContain("v3.0.0")
     expect(log.authority).toMatch(/single unified/i)
@@ -114,19 +114,19 @@ describe("app_release_log unified version source", () => {
   })
 
   it("records completed work in the current concrete patch developer log", () => {
-    expect(log.currentAppVersion).toBe("v3.5.1")
-    expect(log.developmentLog.baseAppVersion).toBe("v3.5.0")
-    expect(log.developmentLog.developmentVersion).toBe("v3.5.1")
+    expect(log.currentAppVersion).toBe("v3.5.3")
+    expect(log.developmentLog.baseAppVersion).toBe("v3.5.2")
+    expect(log.developmentLog.developmentVersion).toBe("v3.5.3")
     expect(log.developmentLog.status).toBe("archived")
     expect(log.developmentLog.logPolicy.zh).toMatch(/已完成|计划写成已完成/)
     expect(Object.keys(log.developmentLog.modules)).toEqual([
       "ui",
+      "methodsEvidence",
       "releaseNotes",
-      "roadmap",
     ])
-    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/过渡|scroll-reveal|配色/)
-    expect(JSON.stringify(log.developmentLog.modules.releaseNotes)).toMatch(/v3\.5\.1|changelog/)
-    expect(JSON.stringify(log.developmentLog.modules.roadmap)).toMatch(/科学里程碑|Roadmap/)
+    expect(JSON.stringify(log.developmentLog.modules.ui)).toMatch(/站内文章/)
+    expect(JSON.stringify(log.developmentLog.modules.releaseNotes)).toMatch(/since2025/)
+    expect(JSON.stringify(log.developmentLog.modules.methodsEvidence)).toMatch(/DOI/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })
