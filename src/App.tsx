@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
-import { CaretRight, EnvelopeSimple, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate, User } from "@phosphor-icons/react"
+import { CaretRight, EnvelopeSimple, GearSix, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -359,8 +359,8 @@ function AppShell({
                     setSettingsOpen(open => !open)
                     setGlobalSearchOpen(false)
                   }}
-                  title={lang === "zh" ? "打开用户菜单" : "Open user menu"}
-                  aria-label={lang === "zh" ? "打开用户菜单" : "Open user menu"}
+                  title={lang === "zh" ? "打开设置" : "Open settings"}
+                  aria-label={lang === "zh" ? "打开设置" : "Open settings"}
                   className="settings-trigger nav-action-button nav-user-trigger"
                   data-open={settingsOpen ? "true" : "false"}
                   style={{
@@ -377,7 +377,7 @@ function AppShell({
                     transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
                   }}
                 >
-                  <User aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
+                  <GearSix aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
                 </button>
                 {settingsOpen ? (
                   <div
@@ -460,19 +460,17 @@ function AppShell({
               <div className="global-search-control" style={{ position: "relative" }}>
                 <button
                   type="button"
-                  aria-expanded={globalSearchOpen}
-                  aria-haspopup="dialog"
-                  aria-label={lang === "zh" ? "打开全局 MOF 检索" : "Open global MOF search"}
+                  aria-label={lang === "zh" ? "打开搜索页" : "Open search page"}
                   className="nav-action-button nav-search-trigger"
                   onClick={() => {
-                    setGlobalSearchOpen(open => !open)
+                    setGlobalSearchOpen(false)
                     setSettingsOpen(false)
-                    setSearchOpen(true)
+                    navigateTab("unified-search", { resetScroll: true })
                   }}
                   style={{
                     background: "transparent",
                     border: "1px solid transparent",
-                    color: globalSearchOpen ? chromeTheme.accentText : chromeTheme.textStrong,
+                    color: chromeTheme.textStrong,
                   }}
                 >
                   <MagnifyingGlass aria-hidden="true" size={18} weight="regular" />

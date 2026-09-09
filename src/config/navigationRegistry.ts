@@ -435,6 +435,7 @@ export const NAVIGATION_ROUTES = [
     id: "charter",
     tabId: "charter",
     primary: false,
+    hidden: true,
     domainId: "about",
     hash: "research-charter",
     label: label("研究宪章", "Research Charter"),
@@ -589,7 +590,7 @@ export const NAVIGATION_DOMAINS = [
     order: 5,
     label: label("关于", "About"),
     groups: [
-      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["creatorStatement", "charter", "dataCompliance", "openSourceLicenses"] },
+      { id: "about-governance", label: label("项目治理", "Governance"), itemIds: ["creatorStatement", "dataCompliance", "openSourceLicenses"] },
       { id: "about-contact", label: label("联系", "Contact"), itemIds: ["contact", "acknowledgements"] },
     ],
   },

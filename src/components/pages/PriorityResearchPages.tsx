@@ -7,6 +7,7 @@ import { CatalysisLiteratureRecordCenter } from "../catalysis/CatalysisLiteratur
 import { OrganicAcidWorkspace } from "../catalysis/OrganicAcidWorkspace"
 import { AlgorithmValidationCenter } from "../methodology/algorithm-validation/AlgorithmValidationCenter"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
+import CreatorStatementPage from "./CreatorStatementPage"
 import "./PriorityResearchPages.css"
 
 const text = (lang, zh, en) => lang === "zh" ? zh : en
@@ -430,31 +431,5 @@ const CHARTER_PRINCIPLES = [
 ]
 
 export function ResearchCharterPage() {
-  const { lang } = useLang()
-  return (
-    <article className="research-charter-page" data-testid="research-charter-page">
-      <header>
-        <span>{text(lang, "关于 / 项目治理", "About / Governance")}</span>
-        <h1>{text(lang, "EcoMOF-AI 研究宪章", "The EcoMOF-AI Research Charter")}</h1>
-        <p>{text(lang, "我们的使命是建设一套面向 MOF 可持续筛选、气体分离、催化研究与数据核验的透明基础设施，使每个重要判断都能回到记录、条件、方法与来源。", "Our mission is to build transparent infrastructure for sustainable MOF screening, gas separation, catalysis research, and data verification, so every material judgment can return to records, conditions, methods, and sources.")}</p>
-        <small>{text(lang, "研究治理文件 · 不是法律条款或许可替代文件", "Research governance document · not a substitute for legal terms or licences")}</small>
-      </header>
-      <section className="research-charter-principles">
-        {CHARTER_PRINCIPLES.map(item => (
-          <article key={item.number}>
-            <span>{item.number}</span>
-            <h2>{text(lang, item.zh, item.en)}</h2>
-            <p>{text(lang, item.bodyZh, item.bodyEn)}</p>
-          </article>
-        ))}
-      </section>
-      <footer>
-        <p>{text(lang, "本宪章规定项目方向；具体数据访问、许可、署名、再分发与用户责任仍以“条款与政策”及发布方原文为准。", "This charter sets project direction. Data access, licensing, attribution, redistribution, and user responsibilities remain governed by Terms & Policies and the original publisher documents.")}</p>
-        <div>
-          <a href="#database-compliance">{text(lang, "查看条款与政策", "View Terms & Policies")}<ArrowSquareOut aria-hidden size={14} /></a>
-          <a href="https://openai.com/charter/" target="_blank" rel="noreferrer">{text(lang, "结构参考：OpenAI Charter", "Structural reference: OpenAI Charter")}<ArrowSquareOut aria-hidden size={14} /></a>
-        </div>
-      </footer>
-    </article>
-  )
+  return <CreatorStatementPage />
 }

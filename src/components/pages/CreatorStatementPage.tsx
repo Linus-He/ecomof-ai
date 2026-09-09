@@ -96,6 +96,21 @@ const sections = [
       "An advisory relationship can begin with one specific comment. It does not require institutional status and does not create employment, commercial partnership, or project endorsement. I will not publish anyone's name or present feedback as approval without consent; those who wish to contribute over time can agree on an appropriate scope, attribution, and information boundary.",
     ],
   },
+  {
+    number: "07",
+    labelZh: "研究宪章",
+    labelEn: "Research charter",
+    titleZh: "让研究判断回到证据、条件与可纠正性。",
+    titleEn: "Return research decisions to evidence, conditions, and correction.",
+    bodyZh: [
+      "研究宪章是创建者说明中的治理小版块，用来说明 EcoMOF-AI 希望长期坚持的工作方式。它不是法律条款，也不替代数据许可、出版方政策或具体研究的实验记录。",
+      "项目坚持四个方向：让研究收益广泛可用；在证据、许可或条件不足时保留待补和阻断状态；用真实记录、字段级来源与可复核方法提高可靠性；支持错误报告和方法讨论，同时尊重署名、许可与机构边界。",
+    ],
+    bodyEn: [
+      "The research charter is a governance section within the creator statement. It describes how EcoMOF-AI aims to work over time; it is not a legal document and does not replace data licences, publisher policies, or experimental records.",
+      "The project follows four directions: make research broadly useful; preserve pending and blocked states when evidence, licensing, or conditions are insufficient; improve reliability through real records, field-level provenance, and reviewable methods; and support error reporting and methodological discussion while respecting attribution, licences, and institutional boundaries.",
+    ],
+  },
 ]
 
 export function CreatorStatementPage() {
@@ -152,6 +167,7 @@ export function CreatorStatementPage() {
           <a href="#contact"><span>{text(lang, "联系与合作", "Contact and collaboration")}</span><ArrowRight aria-hidden size={18} /></a>
           <a href="#acknowledgements"><span>{text(lang, "查看致谢", "View acknowledgements")}</span><ArrowRight aria-hidden size={18} /></a>
           <a href="#database-compliance"><span>{text(lang, "条款与政策", "Terms and policies")}</span><ArrowRight aria-hidden size={18} /></a>
+          <a href="#footer-social"><span>{text(lang, "与我们的社群保持联系", "Stay connected with our community")}</span><ArrowRight aria-hidden size={18} /></a>
         </nav>
       </footer>
     </div>

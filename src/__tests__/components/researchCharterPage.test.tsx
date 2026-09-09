@@ -6,18 +6,15 @@ import { COPY } from "../../i18n"
 import { ResearchCharterPage } from "../../components/pages/PriorityResearchPages"
 
 describe("ResearchCharterPage", () => {
-  it("presents the charter as a separate governance page with four principles", () => {
+  it("keeps the legacy charter route inside the creator statement", () => {
     render(
       <LangCtx.Provider value={{ lang: "zh", copy: COPY.zh, setLang: () => {} }}>
         <ResearchCharterPage />
       </LangCtx.Provider>,
     )
 
-    expect(screen.getByTestId("research-charter-page")).toHaveTextContent("EcoMOF-AI 研究宪章")
-    expect(screen.getByText("让研究收益广泛可用")).toBeInTheDocument()
-    expect(screen.getByText("坚持长期科学可靠性")).toBeInTheDocument()
-    expect(screen.getByText("保持技术与证据领导力")).toBeInTheDocument()
-    expect(screen.getByText("保持开放合作取向")).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: /查看条款与政策/ })).toHaveAttribute("href", "#database-compliance")
+    expect(screen.getByTestId("creator-statement-page")).toHaveTextContent("研究宪章")
+    expect(screen.getByText("让研究判断回到证据、条件与可纠正性。")).toBeInTheDocument()
+    expect(screen.getByRole("link", { name: /条款与政策/ })).toHaveAttribute("href", "#database-compliance")
   })
 })

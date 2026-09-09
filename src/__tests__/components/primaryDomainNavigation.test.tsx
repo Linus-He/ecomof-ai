@@ -63,11 +63,11 @@ describe("primary domain navigation", () => {
     expect(screen.getByRole("menuitem", { name: "GasSep 方法" })).toHaveAttribute("aria-current", "page")
   })
 
-  it("shows the independent research charter under About", () => {
+  it("keeps the research charter merged into the creator statement", () => {
     renderNavigation()
     fireEvent.click(screen.getByRole("button", { name: "关于" }))
     expect(screen.getByRole("menuitem", { name: "创建者说明" })).toBeInTheDocument()
-    expect(screen.getByRole("menuitem", { name: "研究宪章" })).toBeInTheDocument()
+    expect(screen.queryByRole("menuitem", { name: "研究宪章" })).not.toBeInTheDocument()
     expect(screen.getByRole("menuitem", { name: "条款与政策" })).toBeInTheDocument()
   })
 

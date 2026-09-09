@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowUp } from "@phosphor-icons/react"
 import { useLang, useT } from "../../shared"
+import { fetchDataJson } from "../../services/dataService"
 import { MaterialSearchResults } from "./MaterialSearchResults"
 import { interfaceText } from "../../utils/interfaceLocale"
 import {
@@ -122,6 +123,37 @@ export function UnifiedResearchSearch({ onNavigate }) {
   const [promptLength, setPromptLength] = useState(0)
   const [erasing, setErasing] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [catalysisDocuments, setCatalysisDocuments] = useState([])
+
+  useEffect(() => {
+    let active = true
+    fetchDataJson("catalysis_v2/catalysis_reaction_database_v2.json", { tables: { sourceDocuments: [], reactionRecords: [], catalystStates: [] } })
+      .then(database => {
+        if (!active) return
+        const tables = database?.tables || {}
+        const recordsBySource = new Map((tables.reactionRecords || []).map(record => [record.sourceDocumentId, record]))
+        const statesByRecord = new Map((tables.catalystStates || []).map(record => [record.reactionRecordId, record]))
+        setCatalysisDocuments((tables.sourceDocuments || []).map(source => {
+          const reaction = recordsBySource.get(source.id)
+          const catalyst = reaction ? statesByRecord.get(reaction.id) : null
+          const product = reaction?.reaction?.targetProduct || ""
+          const family = reaction?.reaction?.family || ""
+          const catalystName = catalyst?.catalystName || catalyst?.precursorMofName || ""
+          return {
+            id: `catalysis-literature-${source.id}`,
+            kind: "literature",
+            titleZh: source.title,
+            titleEn: source.title,
+            bodyZh: `${source.journal} · ${source.year} · ${catalystName}${product ? ` · ${product}` : ""}。催化文献库记录，保留来源 DOI、反应类型与活性相边界。`,
+            bodyEn: `${source.journal} · ${source.year} · ${catalystName}${product ? ` · ${product}` : ""}. Curated catalysis literature record with DOI, reaction type, and active-phase boundaries retained.`,
+            hash: "catalysis-literature-verification",
+            keywords: [source.title, source.doi, source.journal, family, product, catalystName, source.year].filter(Boolean).join(" "),
+          }
+        }))
+      })
+      .catch(() => active && setCatalysisDocuments([]))
+    return () => { active = false }
+  }, [lang])
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -149,7 +181,8 @@ export function UnifiedResearchSearch({ onNavigate }) {
     ...FEATURE_DOCUMENTS.map(([id, titleZh, titleEn, bodyZh, bodyEn, hash, keywords]) => ({ id, kind: "feature", titleZh, titleEn, bodyZh, bodyEn, hash, keywords })),
     ...SEARCH_DOCUMENTS,
     ...routeDocuments(lang),
-  ], [lang])
+    ...catalysisDocuments,
+  ], [catalysisDocuments, lang])
   const results = useMemo(() => {
     const value = query.trim()
     if (!value) return []
@@ -237,12 +270,12 @@ export function UnifiedResearchSearch({ onNavigate }) {
             return (
               <article key={document.id} className={`unified-research-result unified-research-result--${document.kind}`}>
                 <div className="unified-research-result-copy">
-                  <span>{isText ? text(lang, "文字资料", "TEXT") : document.kind === "feature" ? text(lang, "功能入口", "FUNCTION") : text(lang, "研究版块", "SECTION")}</span>
+                  <span>{isText ? text(lang, "文字资料", "TEXT") : document.kind === "feature" ? text(lang, "功能入口", "FUNCTION") : document.kind === "literature" ? text(lang, "催化文献", "CATALYSIS LITERATURE") : text(lang, "研究版块", "SECTION")}</span>
                   <h3>{title}</h3>
                   <p>{body}</p>
                 </div>
                 <button type="button" onClick={() => navigate(document)}>
-                  {isText ? text(lang, "展开资料", "Read here") : text(lang, "进入版块", "Open section")} <ArrowRight aria-hidden="true" size={15} />
+                  {isText ? text(lang, "展开资料", "Read here") : document.kind === "literature" ? text(lang, "进入催化文献库", "Open catalysis literature") : text(lang, "进入版块", "Open section")} <ArrowRight aria-hidden="true" size={15} />
                 </button>
               </article>
             )

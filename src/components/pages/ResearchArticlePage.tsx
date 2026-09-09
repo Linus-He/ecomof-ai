@@ -21,7 +21,7 @@ export function ResearchArticlePage({ hash }: { hash: string }) {
       </div>
       <p>{article.category[i]} · {i === 0 ? "本站研究解读" : "EcoMOF-AI interpretation"}</p>
       <h1>{paper.title[i]}</h1><p className="update-story-deck">{paper.summary[i]}</p>
-      <p>{paper.journal} · <time dateTime={paper.date}>{paper.date}</time> · {i === 0 ? "解读更新于 2026-09-08" : "Interpretation updated 2026-09-08"}</p>
+      <p>{paper.journal} · <time dateTime={paper.date}>{paper.date}</time> · <span className="research-article-field-keyword">{paper.fieldKeywords[i].join(" · ")}</span> · {i === 0 ? "解读更新于 2026-09-08" : "Interpretation updated 2026-09-08"}</p>
       {locale && ["ja", "ko", "es"].includes(locale) && <p lang="en">Full interpretation currently available in Chinese and English.</p>}
     </header>
     <figure><img src={`${import.meta.env.BASE_URL}images/search-research-${index}.png`} alt={i === 0 ? "MOF 研究概念插图，非实验图" : "Conceptual MOF illustration, not experimental data"} /><figcaption>{i === 0 ? "概念插图，不代表论文实验数据" : "Conceptual illustration, not a figure from the paper"}</figcaption></figure>

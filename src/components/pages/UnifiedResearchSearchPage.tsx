@@ -50,7 +50,7 @@ export function UnifiedResearchSearchPage({ onNavigate }) {
           {recentMofResearch.map((paper, index) => <article className="search-release-story" key={paper.id}>
             <a className="search-release-image" href={`#research-article-${paper.id}`} onClick={event => { event.preventDefault(); onNavigate(`research-article-${paper.id}`, { resetScroll: true }) }}><img src={`${import.meta.env.BASE_URL}images/search-research-${index}.png`} alt={l("Conceptual MOF illustration, not experimental data", "MOF 研究概念插图，非实验图")} loading="lazy" /></a>
             <h3><a href={`#research-article-${paper.id}`} onClick={event => { event.preventDefault(); onNavigate(`research-article-${paper.id}`, { resetScroll: true }) }}>{local?.research[index][0] || paper.title[zh ? 0 : 1]}</a></h3>
-            <div className="search-release-meta"><span>{l(paper.kind[1], paper.kind[0])}</span><time dateTime={paper.date}>{paper.date}</time></div>
+            <div className="search-release-meta"><span>{l(paper.kind[1], paper.kind[0])}</span><time dateTime={paper.date}>{paper.date}</time><span className="research-field-keywords">{paper.fieldKeywords[zh ? 0 : 1].join(" · ")}</span></div>
             <p>{local?.research[index][1] || paper.summary[zh ? 0 : 1]}</p><small>{paper.journal}</small>
           </article>)}
         </div>

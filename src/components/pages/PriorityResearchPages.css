@@ -3,6 +3,7 @@
   color: var(--app-text);
   display: grid;
   gap: 28px;
+  font-family: var(--font-body);
   margin: 0 auto;
   max-width: 1280px;
   min-width: 0;
@@ -25,7 +26,7 @@
 .priority-page-intro h1,
 .research-charter-page > header h1 {
   color: var(--app-text-strong);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(38px, 5vw, 68px);
   font-weight: 500;
   line-height: 1.04;

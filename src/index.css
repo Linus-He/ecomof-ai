@@ -70,6 +70,18 @@ body {
   overflow-x: hidden;
 }
 
+/* Keep top-level page headers focused on the title; supporting copy remains in the page body. */
+.page-header > div > p,
+.priority-page-intro > p,
+.about-text-intro > p,
+.milestone-roadmap-hero > p,
+.release-notes-intro > p,
+.update-story-page > header .update-story-deck,
+.creator-statement-title > p,
+.dc-cover-intro {
+  display: none !important;
+}
+
 .num {
   font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
@@ -5280,6 +5292,7 @@ body.cat-dragging {
 .search-release-story--0 h3 { font-size:clamp(32px,3.7vw,48px); line-height:1.18; margin-top:24px; max-width:760px; }
 .search-release-meta { display:flex; flex-wrap:wrap; gap:12px; font-size:14px; color:var(--app-muted); }
 .search-release-meta span { color:var(--app-text-strong); }
+.search-release-meta .research-field-keywords { color:var(--app-muted); }
 .search-release-story p { font-size:16px; line-height:1.8; max-width:740px; margin:20px 0 0; color:var(--app-muted); }
 @media(max-width:640px) {
   .search-release-grid { grid-template-columns:1fr 1fr; gap:32px 16px; }

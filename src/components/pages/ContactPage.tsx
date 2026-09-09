@@ -86,7 +86,11 @@ export function ContactPage() {
           <section>
             <h2>{text(lang, "直接联系", "Direct contact")}</h2>
             <p><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+          </section>
+          <section>
+            <h2>{text(lang, "社交媒体", "Social media")}</h2>
             <p><a href="https://github.com/Linus-He/ecomof-ai" rel="noreferrer" target="_blank">GitHub / Linus-He</a></p>
+            <p><a href="https://x.com/ecomofai" rel="noreferrer" target="_blank">X / @ecomofai</a></p>
           </section>
           <section>
             <h2>{text(lang, "保密承诺", "Confidentiality commitment")}</h2>

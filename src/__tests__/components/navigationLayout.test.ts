@@ -20,16 +20,15 @@ describe("top navigation layout", () => {
     expect(navigation).toContain('className="nav-primary-rail"')
   })
 
-  it("keeps search and user controls outside the tab capsule and nests settings in the user menu", () => {
+  it("keeps search and settings controls outside the tab capsule", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
 
     expect(source).toContain("<MagnifyingGlass")
-    expect(source).toContain("<User")
+    expect(source).toContain("<GearSix")
+    expect(source).not.toContain("<User")
     expect(source).not.toContain("<CaretDown")
-    expect(source).not.toContain("<GearSix")
     expect(source).toContain('className="nav-action-button nav-search-trigger"')
     expect(source).toContain('className="settings-trigger nav-action-button nav-user-trigger"')
-    expect(source).toContain('aria-haspopup="dialog"')
     expect(source).toContain('aria-haspopup="menu"')
     expect(source).toContain('className="settings-menu-row"')
     expect(source).toContain('className="settings-language-select"')
