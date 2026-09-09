@@ -2,7 +2,7 @@
 import { useLang } from "../../contexts"
 import { interfaceText } from "../../utils/interfaceLocale"
 import { useEffect, useRef, useState } from "react"
-import { SiGithub, SiGmail, SiZhihu } from "react-icons/si"
+import { SiGithub, SiGmail, SiX, SiZhihu } from "react-icons/si"
 import { FooterLanguagePicker } from "./FooterLanguagePicker"
 
 export function AppFooter({
@@ -120,6 +120,15 @@ export function AppFooter({
                 title="GitHub"
               >
                 <SiGithub aria-hidden="true" />
+              </a>
+              <a
+                aria-label={l("Follow EcoMOF-AI on X", "在 X 关注 EcoMOF-AI")}
+                href="https://x.com/ecomofai"
+                rel="noreferrer"
+                target="_blank"
+                title="X"
+              >
+                <SiX aria-hidden="true" />
               </a>
               <a
                 aria-label={l("Email ecomofai@outlook.com", "发送邮件至 ecomofai@outlook.com")}

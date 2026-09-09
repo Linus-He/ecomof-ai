@@ -7938,12 +7938,12 @@ button,
   align-items: center;
   color: var(--app-accent);
   display: inline-flex;
-  font-size: 25px;
-  height: 34px;
+  font-size: 27px;
+  height: 36px;
   justify-content: center;
   text-decoration: none;
   transition: color 180ms ease, transform 180ms ease;
-  width: 34px;
+  width: 36px;
 }
 
 .app-footer-social a:hover,
