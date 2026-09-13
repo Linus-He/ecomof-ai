@@ -9,20 +9,16 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
     <div style={{ alignContent: "start", display: "grid", gap: 4, minWidth: 0 }}>
       <button
         type="button"
+        aria-expanded={isOpen}
+        aria-current={activeParent ? "location" : undefined}
         onClick={() => {
           onToggle(item.id)
           onJump(item.id)
         }}
         style={{
           alignItems: "center",
-          background: active ? t.badgeInfoBg : "transparent",
-          borderBottomColor: active ? t.accent : t.border,
-          borderRightColor: active ? t.accent : "transparent",
-          borderTopColor: active ? t.accent : "transparent",
-          borderBottomWidth: 1,
-          borderRightWidth: 1,
-          borderStyle: "solid",
-          borderTopWidth: 1,
+          background: active ? `color-mix(in srgb, #2457a6 16%, ${t.panel})` : t.surface,
+          border: 0,
           borderRadius: 6,
           color: active ? t.accentText : t.textStrong,
           cursor: "pointer",
@@ -50,12 +46,11 @@ export function CollapsibleNavGroup({ item, activeId, isOpen, onToggle, onJump, 
               <button
                 key={child.id}
                 type="button"
+                aria-current={childActive ? "location" : undefined}
                 onClick={() => onJump(child.id)}
                 style={{
-                  background: childActive ? t.badgeInfoBg : "transparent",
-                  borderColor: childActive ? t.accent : "transparent",
-                  borderWidth: 1,
-                  borderStyle: "solid",
+                  background: childActive ? `color-mix(in srgb, #2457a6 16%, ${t.panel})` : "transparent",
+                  border: 0,
                   borderRadius: 6,
                   color: childActive ? t.accentText : t.muted,
                   cursor: "pointer",

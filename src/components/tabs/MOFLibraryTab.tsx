@@ -35,6 +35,7 @@ import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
 import { fetchDataJson } from "../../services/dataService"
 import { MofIndexProgress } from "../mof-structure/MofIndexProgress"
+import "../mof-structure/MofLibraryColors.css"
 import csdCommonAliases from "../../data/csdCommonAliases.json"
 
 const DATA_MODE = "core-mof-2024-cr"
@@ -496,7 +497,7 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
   }
 
   return (
-    <section data-testid="mof-physicochemical-search" style={{ border: 0, display: "grid", gap: 13, padding: isMobile ? "10px 0 15px" : "12px 0 17px" }}>
+    <section data-testid="mof-physicochemical-search" style={{ background: "var(--library-teal-bg)", borderRadius: 12, border: 0, display: "grid", gap: 13, padding: isMobile ? "14px" : "18px 20px" }}>
       <form onSubmit={submit} style={{ display: "grid", gap: 10 }}>
         <label style={{ display: "grid", gap: 6, maxWidth: 980, minWidth: 0, width: "100%" }}>
           <span style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
