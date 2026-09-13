@@ -359,7 +359,7 @@ export function ReactionRuleExplorer({
         <SectionCard t={t} title={text(lang, "移动端规则列表", "Mobile rule list")}>
           <div style={{ display: "grid", gap: 7 }}>
             {filteredRules.map(rule => (
-              <button key={rule.ruleId} type="button" onClick={() => selectRule(rule.ruleId)} style={{ background: selectedRule?.ruleId === rule.ruleId ? t.badgeInfoBg : t.panel, border: `1px solid ${selectedRule?.ruleId === rule.ruleId ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", padding: 10, textAlign: "left" }}>
+              <button data-selected={selectedRule?.ruleId === rule.ruleId} key={rule.ruleId} type="button" onClick={() => selectRule(rule.ruleId)} style={{ background: selectedRule?.ruleId === rule.ruleId ? t.badgeInfoBg : t.panel, border: `1px solid ${selectedRule?.ruleId === rule.ruleId ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", padding: 10, textAlign: "left" }}>
                 <strong style={{ display: "block", fontSize: 12.5, lineHeight: 1.35 }}>{chemicalText(rule.label)}</strong>
                 <span style={{ color: t.muted, display: "block", fontSize: 11.5, lineHeight: 1.45, marginTop: 3 }}>{pathwayLabel(pathwayForRule(rule), lang)} · {chemicalText(rule.status)}</span>
               </button>
@@ -389,7 +389,7 @@ export function ReactionRuleExplorer({
                 const active = selectedRule?.ruleId === rule.ruleId
                 const candidateMatched = candidateRuleIds.has(rule.ruleId)
                 return (
-                  <button
+                  <button data-selected={active}
                     key={rule.ruleId}
                     type="button"
                     onClick={() => selectRule(rule.ruleId)}

@@ -29,7 +29,7 @@ export function PathwayRouteTabs({ activeGroup, onChange, t, isMobile }) {
       {ROUTE_GROUPS.map(group => {
         const active = group === activeGroup
         return (
-          <button
+          <button data-selected={active}
             key={group}
             type="button"
             onClick={() => onChange(group)}

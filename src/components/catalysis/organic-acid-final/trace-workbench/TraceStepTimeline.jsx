@@ -19,7 +19,7 @@ export function TraceStepTimeline({ steps = [], activeStepId, setActiveStepId, l
         {steps.map(step => {
           const active = step.id === activeStepId
           return (
-            <button
+            <button data-selected={active}
               key={step.id}
               type="button"
               onClick={() => setActiveStepId(step.id)}

@@ -926,7 +926,7 @@ export function CandidateComparisonModal({
                 const limitReached = selectedIds.length >= 3 && !selectedAlready
                 const curatedCount = curatedDescriptorCount(candidate)
                 return (
-                  <button
+                  <button data-selected={selectedAlready}
                     key={candidate.id}
                     type="button"
                     onClick={() => selectedAlready ? removeCandidate(candidate.id) : addCandidate(candidate)}
@@ -971,7 +971,7 @@ export function CandidateComparisonModal({
                 {COMPARE_FUNCTIONS.map(item => {
                   const active = item.id === compareFunctionId
                   return (
-                    <button
+                    <button data-selected={active}
                       key={item.id}
                       type="button"
                       onClick={() => { setCompareFunctionId(item.id); setBuilt(false); setShowFullTable(false) }}

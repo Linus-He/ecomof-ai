@@ -10,7 +10,7 @@ export function VersionTimeline({ versions = [], selectedVersion, onSelect, lang
       {versions.map(version => {
         const selected = version.version === selectedVersion
         return (
-          <button
+          <button data-selected={selected}
             key={version.version}
             type="button"
             onClick={() => onSelect(version.version)}

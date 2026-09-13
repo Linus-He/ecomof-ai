@@ -107,7 +107,7 @@ export function DescriptorAblationChart({ model, lang = "zh", selectedRouteId = 
           const active = candidate.routeId === activeRouteId
           const full = candidate.evolution?.at(-1) || {}
           return (
-            <button
+            <button data-selected={active}
               key={candidate.routeId}
               type="button"
               onClick={() => onSelectRoute?.(candidate.routeId)}

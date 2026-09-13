@@ -62,7 +62,7 @@ export function RunConfigurationPanel({ dataMode, setDataMode, lang, t, isMobile
         {RUN_SCOPES.map(mode => {
           const active = mode.id === dataMode
           return (
-            <button
+            <button data-selected={active}
               key={mode.id}
               type="button"
               onClick={() => setDataMode(mode.id)}

@@ -290,7 +290,7 @@ function Scatter3D({ points, t, lang, colorMode, setColorMode, isMobile = false 
         ].map(([mode, label]) => {
           const active = colorMode === mode
           return (
-            <button
+            <button data-selected={active}
               key={mode}
               type="button"
               onClick={() => setColorMode(mode)}

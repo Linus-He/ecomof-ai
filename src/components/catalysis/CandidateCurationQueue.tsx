@@ -24,7 +24,7 @@ export function CandidateCurationQueue({ queue, selectedCandidateId, onSelectCan
           const active = selectedCandidateId === item.id
           const label = statusLabel[item.curationStatus] || [item.curationStatus, item.curationStatus]
           return (
-            <button key={item.id} type="button" onClick={() => onSelectCandidate(item.id)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 7, padding: 10, textAlign: "left" }}>
+            <button data-selected={active} key={item.id} type="button" onClick={() => onSelectCandidate(item.id)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 7, padding: 10, textAlign: "left" }}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
                 <strong style={{ color: active ? palette.accent : palette.text, fontSize: 12.5 }}>{item.name}</strong>
                 <span style={{ color: palette.faint, fontSize: 11.5 }}>{lang === "zh" ? label[0] : label[1]}</span>

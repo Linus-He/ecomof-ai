@@ -181,7 +181,7 @@ function DescriptorLayer({ lang, t, isMobile }) {
     >
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {grouped.map(group => (
-          <button key={group.key} type="button" onClick={() => setActive(group.key)} style={{ background: selected.key === group.key ? t.badgeInfoBg : t.surface, border: `1px solid ${selected.key === group.key ? t.accent : t.border}`, borderRadius: 7, color: selected.key === group.key ? t.accentText : t.muted, cursor: "pointer", fontSize: 12, fontWeight: 850, minHeight: 32, padding: "6px 10px" }}>
+          <button data-selected={selected.key === group.key} key={group.key} type="button" onClick={() => setActive(group.key)} style={{ background: selected.key === group.key ? t.badgeInfoBg : t.surface, border: `1px solid ${selected.key === group.key ? t.accent : t.border}`, borderRadius: 7, color: selected.key === group.key ? t.accentText : t.muted, cursor: "pointer", fontSize: 12, fontWeight: 850, minHeight: 32, padding: "6px 10px" }}>
             {text(lang, group.labelZh, group.label)}
           </button>
         ))}
@@ -209,7 +209,7 @@ function FeatureSelectionExplorer({ lang, t, isMobile }) {
     >
       <div style={{ display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "repeat(6, minmax(0, 1fr))" }}>
         {FEATURE_SELECTION_WORKFLOW.map((step, index) => (
-          <button key={step.id} type="button" onClick={() => setActive(step.id)} style={{ background: selected.id === step.id ? t.badgeInfoBg : t.surface, border: `1px solid ${selected.id === step.id ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 4, minHeight: 78, padding: 9, textAlign: "left" }}>
+          <button data-selected={selected.id === step.id} key={step.id} type="button" onClick={() => setActive(step.id)} style={{ background: selected.id === step.id ? t.badgeInfoBg : t.surface, border: `1px solid ${selected.id === step.id ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 4, minHeight: 78, padding: 9, textAlign: "left" }}>
             <span style={{ color: t.accentText, fontSize: 11, fontWeight: 900 }}>{index + 1}</span>
             <strong style={{ fontSize: 11.6, lineHeight: 1.22 }}>{text(lang, step.titleZh, step.title)}</strong>
             <span style={{ color: step.pending ? t.warn : t.muted, fontSize: 10 }}>{step.inputFeatureCount} → {step.outputFeatureCount}</span>
@@ -299,7 +299,7 @@ function TopCandidateReview({ algorithm, lang, t, isMobile }) {
       <div style={{ display: "grid", gap: 10, gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.9fr) minmax(260px, 1.1fr)" }}>
         <div style={{ display: "grid", gap: 6 }}>
           {rows.map(row => (
-            <button key={row.candidateId} type="button" onClick={() => setActiveId(row.candidateId)} style={{ background: active?.candidateId === row.candidateId ? t.badgeInfoBg : t.surface, border: `1px solid ${active?.candidateId === row.candidateId ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 4, padding: 9, textAlign: "left" }}>
+            <button data-selected={active?.candidateId === row.candidateId} key={row.candidateId} type="button" onClick={() => setActiveId(row.candidateId)} style={{ background: active?.candidateId === row.candidateId ? t.badgeInfoBg : t.surface, border: `1px solid ${active?.candidateId === row.candidateId ? t.accent : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 4, padding: 9, textAlign: "left" }}>
               <strong style={{ fontSize: 12.2 }}>#{row.rank} {row.candidateName}</strong>
               <span style={{ color: t.muted, fontSize: 11 }}>finalScore {score(row.finalScore)} · {row.recommendationClass}</span>
             </button>

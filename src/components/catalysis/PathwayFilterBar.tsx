@@ -22,7 +22,7 @@ export function PathwayFilterBar({ activeFilter, onChange, lang }) {
       {pathwayFilters.map(filter => {
         const active = activeFilter === filter.id
         return (
-          <button
+          <button data-selected={active}
             key={filter.id}
             type="button"
             onClick={() => onChange(filter.id)}

@@ -31,7 +31,7 @@ export function CandidatePriorityList({ candidates, selectedCandidateId, onSelec
         const selected = candidate.candidateId === selectedCandidateId
         const matchedRules = (candidate.rules || []).filter(rule => rule.status === "matched").length
         return (
-          <button
+          <button data-selected={selected}
             key={candidate.candidateId}
             type="button"
             onClick={() => onSelectCandidate(candidate.candidateId)}

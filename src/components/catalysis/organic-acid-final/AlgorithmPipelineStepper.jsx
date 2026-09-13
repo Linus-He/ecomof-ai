@@ -58,7 +58,7 @@ export function AlgorithmPipelineStepper({ steps, lang, t, isMobile }) {
         {(steps || []).map(step => {
           const active = step.id === activeId
           return (
-            <button
+            <button data-selected={active}
               key={step.id}
               type="button"
               onClick={() => jump(step)}

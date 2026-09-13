@@ -30,7 +30,7 @@ function normalizeState(value, fallback = "compact") {
 
 function ControlButton({ children, onClick, t, active, ariaLabel, ariaExpanded, ariaControls }) {
   return (
-    <button
+    <button data-selected={active}
       type="button"
       aria-label={ariaLabel}
       aria-expanded={ariaExpanded}

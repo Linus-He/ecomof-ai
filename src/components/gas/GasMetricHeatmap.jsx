@@ -101,14 +101,14 @@ export function GasMetricHeatmap({
             {GAS_METRICS.map(metric => {
               const active = selectedMetric === metric.key
               return (
-                <button key={metric.key} type="button" onClick={() => setSelectedMetric(metric.key)} aria-label={text(lang, `切换热力图指标：${metric.labelZh}`, `Switch heatmap metric: ${metric.label}`)} title={text(lang, metric.labelZh, metric.label)} style={{ background: active ? t.badgeInfoBg : "transparent", border: `1px solid ${active ? t.accent : "transparent"}`, borderRadius: 7, color: active ? t.textStrong : t.faint, cursor: "pointer", fontSize: 10.5, fontWeight: 850, minHeight: 36, padding: "5px 4px" }}>
+                <button data-selected={active} key={metric.key} type="button" onClick={() => setSelectedMetric(metric.key)} aria-label={text(lang, `切换热力图指标：${metric.labelZh}`, `Switch heatmap metric: ${metric.label}`)} title={text(lang, metric.labelZh, metric.label)} style={{ background: active ? t.badgeInfoBg : "transparent", border: `1px solid ${active ? t.accent : "transparent"}`, borderRadius: 7, color: active ? t.textStrong : t.faint, cursor: "pointer", fontSize: 10.5, fontWeight: 850, minHeight: 36, padding: "5px 4px" }}>
                   {text(lang, metric.labelZh, metric.label)}
                 </button>
               )
             })}
             {rows.map(row => (
               <Fragment key={row.id}>
-                <button key={`${row.id}-name`} type="button" onClick={() => onSelectCell(row, selectedMetricKey)} style={{ background: row.id === selectedId ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selectedId ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", display: "grid", gap: 3, fontSize: 11.5, fontWeight: 850, minHeight: 58, padding: 8, textAlign: "left" }}>
+                <button data-selected={row.id === selectedId} key={`${row.id}-name`} type="button" onClick={() => onSelectCell(row, selectedMetricKey)} style={{ background: row.id === selectedId ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selectedId ? t.accent : t.border}`, borderRadius: 7, color: t.textStrong, cursor: "pointer", display: "grid", gap: 3, fontSize: 11.5, fontWeight: 850, minHeight: 58, padding: 8, textAlign: "left" }}>
                   <ChemicalText value={row.displayName} />
                   <small style={{ color: t.subtle, fontWeight: 600 }}>{dataStatus(row, lang)} · {gasMethodScoreLabel(row, row.gasScreening?.methodId, lang)} · {formatScore100(row.score, lang)}</small>
                 </button>

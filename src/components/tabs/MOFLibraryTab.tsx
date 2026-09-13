@@ -527,7 +527,7 @@ function PhysicochemicalSearchPanel({ rows, anatomyRecords, query, setQuery, sub
       {submittedQuery ? (
         <div data-testid="mof-property-search-results" style={{ border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", overflow: "hidden" }}>
           {matches.length ? matches.map(entry => (
-            <button
+            <button data-selected={entry.id === selected?.id}
               key={entry.id}
               type="button"
               onClick={() => {

@@ -88,7 +88,7 @@ export function GasInteractionDiagnostics({ scenario = {}, record, lang = "en", 
               const colors = statusColor(row.status, t)
               const selected = active?.id === row.id
               return (
-                <button
+                <button data-selected={selected}
                   key={row.id}
                   type="button"
                   onClick={() => setActiveId(row.id)}

@@ -21,7 +21,7 @@ export function MethodologyFlowDiagram({ flow = [], lang, t }) {
         {flow.map((node, index) => {
           const isActive = node.id === active?.id
           return (
-            <button
+            <button data-selected={isActive}
               key={node.id}
               type="button"
               onClick={() => setActiveId(node.id)}

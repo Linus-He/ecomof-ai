@@ -647,7 +647,7 @@ export function ScreeningTab({ inputs, setInputs, results, loading, onPredict, o
                       {AROMATIC_SUBSTITUTION_POSITIONS.map(pos => {
                         const active = (functionalGroupDetails[value]?.positions || []).includes(pos)
                         return (
-                          <button
+                          <button data-selected={active}
                             key={pos}
                             type="button"
                             onClick={() => toggleFGPosition(value, pos)}

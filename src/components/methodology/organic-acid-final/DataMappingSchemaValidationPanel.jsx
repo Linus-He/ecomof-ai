@@ -75,7 +75,7 @@ export function DataMappingSchemaValidationPanel({ lang, t }) {
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {preview.rows.map(row => (
-          <button
+          <button data-selected={row.id === active.id}
             key={row.id}
             type="button"
             onClick={() => setActiveId(row.id)}

@@ -69,7 +69,7 @@ export function WorkerScoringBoundaryPreview({ topCandidates = [], selectedPartR
         <p style={{ color: t.warn, fontSize: 12, fontWeight: 850, lineHeight: 1.45, margin: 0 }}>
           <ChemicalText value={dbText(lang, "localLoadedScopeNotice")} />
         </p>
-        <button type="button" disabled={!selectedPartRecords.length} onClick={runSelectedPartDryRun} style={{ background: selectedPartRecords.length ? t.accent : t.panel, border: `1px solid ${selectedPartRecords.length ? t.accent : t.border}`, borderRadius: 8, color: selectedPartRecords.length ? t.buttonText || "#fff" : t.faint, cursor: selectedPartRecords.length ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 11px" }}>
+        <button data-selected={selectedPartRecords.length} type="button" disabled={!selectedPartRecords.length} onClick={runSelectedPartDryRun} style={{ background: selectedPartRecords.length ? t.accent : t.panel, border: `1px solid ${selectedPartRecords.length ? t.accent : t.border}`, borderRadius: 8, color: selectedPartRecords.length ? t.buttonText || "#fff" : t.faint, cursor: selectedPartRecords.length ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 11px" }}>
           {text(lang, "运行已加载范围试算", "Run loaded-scope trial")}
         </button>
       </div>

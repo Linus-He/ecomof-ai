@@ -16,7 +16,7 @@ const LAYER_LABELS = {
 function NetworkNode({ node, active, dimmed, onClick, t }) {
   const risk = ["byproduct", "unknown"].includes(node.type)
   return (
-    <button
+    <button data-selected={active}
       type="button"
       onClick={onClick}
       title={node.description}
@@ -44,7 +44,7 @@ function NetworkNode({ node, active, dimmed, onClick, t }) {
 function EdgeButton({ pathway, active, dimmed, onClick, t }) {
   const risk = pathway.routeGroup === "Byproduct / carbon-loss route"
   return (
-    <button
+    <button data-selected={active}
       type="button"
       onClick={onClick}
       title={`${pathway.from} to ${pathway.to}: ${pathway.status}`}

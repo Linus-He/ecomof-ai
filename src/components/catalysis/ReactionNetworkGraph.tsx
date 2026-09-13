@@ -230,7 +230,7 @@ export function ReactionNetworkGraph({
         {pathways.map(pathway => {
           const active = selectedPathwayId === pathway.id
           return (
-            <button
+            <button data-selected={active}
               key={pathway.id}
               type="button"
               onClick={() => onSelectPathway(pathway)}

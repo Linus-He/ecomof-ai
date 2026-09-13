@@ -143,7 +143,7 @@ export function EvidenceCoverageDashboard({ coverage, lang, t, isMobile }) {
       <div style={{ alignItems: "center", display: "grid", gap: 12, gridTemplateColumns: isMobile ? "1fr" : "180px minmax(0, 1fr)" }}>
         <CoverageBars buckets={coverage.buckets} activeType={activeType} onSelect={setActiveType} t={t} lang={lang} />
         <div style={{ alignContent: "start", display: "grid", gap: 10 }}>
-          <button type="button" onClick={() => setActiveType("All")} style={{ background: activeType === "All" ? t.badgeInfoBg : t.surface, border: `1px solid ${activeType === "All" ? t.accent : t.border}`, borderRadius: 8, color: activeType === "All" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 900, minHeight: 30 }}>
+          <button data-selected={activeType === "All"} type="button" onClick={() => setActiveType("All")} style={{ background: activeType === "All" ? t.badgeInfoBg : t.surface, border: `1px solid ${activeType === "All" ? t.accent : t.border}`, borderRadius: 8, color: activeType === "All" ? t.accentText : t.muted, cursor: "pointer", fontSize: 11.5, fontWeight: 900, minHeight: 30 }}>
             All Evidence
           </button>
           <p style={{ color: t.muted, fontSize: 11.5, lineHeight: 1.55, margin: 0 }}>

@@ -145,7 +145,7 @@ export function GasTopRankingChart({
           const score = scoreForSort(row, sortMetric)
           const sortValue = sortDisplayValue(row, sortMetric, lang, ranked)
           return (
-            <button
+            <button data-selected={selected}
               key={row.id}
               type="button"
               onClick={() => onSelect(row.id)}

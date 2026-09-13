@@ -797,7 +797,7 @@ function RankingMethodEvidencePanel({ screening, scenario, setScenario, ranked, 
         {GAS_RANKING_METHODS.map(method => {
           const active = method.id === activeMethod.id
           return (
-            <button
+            <button data-selected={active}
               key={method.id}
               type="button"
               onClick={() => setScenario(prev => ({ ...prev, rankingMethod: method.id }))}
@@ -874,7 +874,7 @@ function ScreeningFunnelPanel({ funnel = [], activeGate, setActiveGate, t, lang,
           const active = gate.id === activeGate
           const pct = total ? Math.round((gate.count / total) * 100) : 0
           return (
-            <button
+            <button data-selected={active}
               key={gate.id}
               type="button"
               onClick={() => setActiveGate(gate.id)}

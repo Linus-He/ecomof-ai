@@ -82,7 +82,7 @@ function CandidateList({ candidates, selectedId, onSelect, t, zh }) {
       {candidates.map(candidate => {
         const selected = candidate.id === selectedId
         return (
-          <button key={candidate.id} onClick={() => onSelect(candidate.id)} style={{ background: selected ? t.accentSoft : "transparent", border: 0, borderBottom: `1px solid ${t.divider}`, color: t.text, cursor: "pointer", display: "grid", gap: 5, padding: "10px 11px", textAlign: "left", width: "100%" }}>
+          <button data-selected={selected} key={candidate.id} onClick={() => onSelect(candidate.id)} style={{ background: selected ? t.accentSoft : "transparent", border: 0, borderBottom: `1px solid ${t.divider}`, color: t.text, cursor: "pointer", display: "grid", gap: 5, padding: "10px 11px", textAlign: "left", width: "100%" }}>
             <span style={{ color: t.textStrong, fontSize: 11.2, fontWeight: 800, lineHeight: 1.45 }}>{localizeCatalysisText(candidate.title, zh)}</span>
             {zh ? <span style={{ color: t.subtle, fontSize: 9.3, lineHeight: 1.4 }}>{candidate.title}</span> : null}
             <span style={{ alignItems: "center", color: t.muted, display: "flex", flexWrap: "wrap", fontSize: 9.5, gap: 6 }}>

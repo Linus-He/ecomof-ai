@@ -544,7 +544,7 @@ function FairMofsPropertyExplorer({
             const mappedCandidateId = candidateIdByFairId.get(record.id)
             const identityLevel = record.match?.structureIdentityLevel || "unmatched"
             return (
-              <button
+              <button data-selected={active}
                 key={record.id}
                 type="button"
                 onClick={() => mappedCandidateId && onSelectCandidate(mappedCandidateId)}

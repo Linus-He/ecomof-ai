@@ -60,7 +60,7 @@ function SegmentedButtons({ items, value, onChange, t, lang }) {
       {items.map(item => {
         const active = item.id === value
         return (
-          <button
+          <button data-selected={active}
             key={item.id}
             type="button"
             onClick={() => onChange(item.id)}

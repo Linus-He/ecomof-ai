@@ -106,7 +106,7 @@ export function IndexPartBrowser({ manifest = {}, filters = {}, onOpenDetail, on
       </header>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
         {parts.map(part => (
-          <button key={part.path} type="button" onClick={() => loadPart(part.path)} style={{ background: selectedPath === part.path ? t.badgeInfoBg : t.panel, border: `1px solid ${selectedPath === part.path ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 9px" }}>
+          <button data-selected={selectedPath === part.path} key={part.path} type="button" onClick={() => loadPart(part.path)} style={{ background: selectedPath === part.path ? t.badgeInfoBg : t.panel, border: `1px solid ${selectedPath === part.path ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", fontSize: 12, fontWeight: 900, minHeight: 34, padding: "7px 9px" }}>
             {part.label}
           </button>
         ))}

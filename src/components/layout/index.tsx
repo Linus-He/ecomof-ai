@@ -369,7 +369,7 @@ export function InternalNav({ items, active, onChange }) {
   return (
     <div className="subnav-strip" style={{ display: "flex", gap: 5, flexWrap: "wrap", background: t.surface, border: `1px solid ${t.divider || t.border}`, borderRadius: 8, padding: 4 }}>
       {items.map(item => (
-        <button key={item.id} type="button" onClick={() => onChange(item.id)}
+        <button data-selected={active === item.id} key={item.id} type="button" onClick={() => onChange(item.id)}
           style={{ ...toolbarBtn(t), padding: "4px 8px", minHeight: 28, fontSize: 10.5, background: active === item.id ? t.panel : "transparent", border: `1px solid ${active === item.id ? t.border : "transparent"}`, color: active === item.id ? t.accentText : t.faint, boxShadow: "none", fontWeight: active === item.id ? 760 : 650 }}>
           {item.label}
         </button>

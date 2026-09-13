@@ -869,7 +869,7 @@ function MilestoneCenter({ data, lang, t }) {
     <Card id="project-evolution-milestones" title={text(lang, "关键里程碑", "Milestones")} subtitle={text(lang, "关键里程碑时间线，选择节点查看科研能力变化。", "Milestone Timeline; select a node to review capability changes.")} t={t}>
       <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2 }}>
         {(data.milestones || []).map(row => (
-          <button key={row.id} type="button" onClick={() => setActive(row.id)} style={{ background: row.id === selected?.id ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selected?.id ? t.accent : t.border}`, borderRadius: 8, color: row.id === selected?.id ? t.accentText : t.muted, cursor: "pointer", flex: "0 0 auto", fontSize: 11.5, fontWeight: 850, minHeight: 36, padding: "7px 9px" }}>
+          <button data-selected={row.id === selected?.id} key={row.id} type="button" onClick={() => setActive(row.id)} style={{ background: row.id === selected?.id ? t.badgeInfoBg : t.surface, border: `1px solid ${row.id === selected?.id ? t.accent : t.border}`, borderRadius: 8, color: row.id === selected?.id ? t.accentText : t.muted, cursor: "pointer", flex: "0 0 auto", fontSize: 11.5, fontWeight: 850, minHeight: 36, padding: "7px 9px" }}>
             {row.title}
           </button>
         ))}

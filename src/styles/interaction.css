@@ -1,0 +1,52 @@
+/* Shared interaction states: persistent selection uses the entire surface. */
+:root {
+  --selection-fill: #d9e8fc;
+  --selection-ink: #163e76;
+  --interaction-focus: #3974c5;
+  --interaction-shadow: 0 3px 12px #183f7020;
+}
+:root[data-theme="dark"] {
+  --selection-fill: #304e73;
+  --selection-ink: #edf5ff;
+  --interaction-focus: #9ac6ff;
+  --interaction-shadow: 0 3px 12px #00000040;
+}
+#root :is(button, a[href], [role="button"], [role="tab"], summary):not(:disabled):not([aria-disabled="true"]) {
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, filter 100ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) {
+  #root :is(button, [role="button"], [role="tab"], summary):not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(.94);
+    box-shadow: var(--interaction-shadow);
+  }
+  :root[data-theme="dark"] #root :is(button, [role="button"], [role="tab"], summary):not(:disabled):not([aria-disabled="true"]):hover { filter: brightness(1.12); }
+}
+#root :is(button, a[href], [role="button"], [role="tab"], summary):not(:disabled):not([aria-disabled="true"]):active {
+  filter: brightness(.82);
+  box-shadow: none;
+}
+#root :is(button, a[href], [role="button"], [role="tab"], summary):focus-visible {
+  outline: 3px solid var(--interaction-focus) !important;
+  outline-offset: 3px;
+}
+#root :is(button, a[href], [role="button"], [role="tab"], tr):is(
+  [aria-selected="true"], [aria-pressed="true"], [aria-current="page"], [aria-current="location"],
+  [data-active="true"], [data-selected="true"], .is-active
+):not(:disabled):not([aria-disabled="true"]) {
+  background: var(--selection-fill) !important;
+  color: var(--selection-ink) !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  font-weight: 800;
+  opacity: 1 !important;
+}
+#root :is(button, a[href], [role="button"], [role="tab"]):is(
+  [aria-selected="true"], [aria-pressed="true"], [aria-current="page"], [aria-current="location"],
+  [data-active="true"], [data-selected="true"], .is-active
+) > :is(span, strong, small) { color: inherit !important; }
+#root .primary-domain-navigation .nav-tab { padding: 0 10px; border-radius: 8px; }
+#root :is(button, [role="button"], [role="tab"]):is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  #root :is(button, a[href], [role="button"], [role="tab"], summary) { transition: none !important; }
+}

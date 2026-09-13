@@ -42,7 +42,7 @@ export function ScreeningFunnelChart({ data, lang, t, isMobile, onOpenSelectedSc
         {rows.map((row, index) => {
           const width = `${Math.max(12, ((Number(row.count) || 0) / maxCount) * 100)}%`
           return (
-            <button
+            <button data-selected={activeId === row.id}
               key={row.id}
               type="button"
               onClick={() => handleRow(row)}

@@ -328,7 +328,7 @@ function CorrelationMatrix({ model, activeCell, setActiveCell, t, lang, isMobile
           {pairs.slice(0, 6).map(item => {
           const active = focus?.key === item.key
           return (
-            <button key={item.key} type="button" onPointerEnter={() => setHoverCell(item.key)} onPointerLeave={() => setHoverCell(null)} onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 6, minHeight: 36, padding: "7px 9px", textAlign: "left" }}>
+            <button data-selected={active} key={item.key} type="button" onPointerEnter={() => setHoverCell(item.key)} onPointerLeave={() => setHoverCell(null)} onClick={() => setActiveCell(activeCell === item.key ? null : item.key)} style={{ alignItems: "center", background: active ? t.badgeInfoBg : t.surface, border: `1px solid ${active ? t.accentText : t.border}`, borderRadius: 8, color: t.textStrong, cursor: "pointer", display: "grid", gap: 6, minHeight: 36, padding: "7px 9px", textAlign: "left" }}>
               <span style={{ color: active ? t.accentText : t.muted, fontSize: 11.2, fontWeight: 850 }}>{shortLabel(item.rowMetric, lang)} / {shortLabel(item.colMetric, lang)} · n={item.n}</span>
               <span style={{ alignItems: "center", display: "grid", gap: 6, gridTemplateColumns: "minmax(0, 1fr) 42px" }}>
                 <span style={{ background: t.panel, borderRadius: 6, height: 7, overflow: "hidden" }}>

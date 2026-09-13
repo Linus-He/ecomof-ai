@@ -170,7 +170,7 @@ export function OrganicAcidFinalDecisionBoard({ result, lang, t, isMobile, onIns
           {rows.map(row => {
             const activeCard = row.id === active?.id
             return (
-              <button
+              <button data-selected={activeCard}
                 key={row.id}
                 type="button"
                 onClick={() => setActiveId(row.id)}

@@ -15,7 +15,7 @@ export function CandidateRuleMatchExplorer({ rules, selectedRuleId, onSelectRule
         {rules.map(rule => {
           const active = selectedRuleId === rule.id
           return (
-            <button key={rule.id} type="button" onClick={() => onSelectRule(rule)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 7, padding: 10, textAlign: "left" }}>
+            <button data-selected={active} key={rule.id} type="button" onClick={() => onSelectRule(rule)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 7, padding: 10, textAlign: "left" }}>
               <strong style={{ color: active ? palette.accent : palette.text, fontSize: 12.5 }}>{text(lang, rule.nameZh, rule.name)}</strong>
               <span style={{ color: palette.muted, fontSize: 11.5, lineHeight: 1.45 }}>{text(lang, rule.descriptionZh, rule.description)}</span>
               <span style={{ color: palette.faint, fontSize: 11 }}>

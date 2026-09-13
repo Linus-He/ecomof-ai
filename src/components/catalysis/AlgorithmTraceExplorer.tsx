@@ -216,7 +216,7 @@ function EffectDecompositionExplorer({ candidate, selectedPathwayId, lang, isNar
           {items.map(item => {
             const width = `${Math.max(5, Math.abs(item.value) / Math.max(0.01, positiveTotal) * 100)}%`
             return (
-              <button key={item.key} type="button" onClick={() => setActiveKey(item.key)} style={{ background: activeKey === item.key ? palette.accentSoft : palette.bg, border: `1px solid ${activeKey === item.key ? palette.accent : palette.border}`, borderRadius: 8, cursor: "pointer", display: "grid", gap: 7, gridTemplateColumns: "132px minmax(0, 1fr) 54px", minHeight: 42, padding: 8, textAlign: "left" }}>
+              <button data-selected={activeKey === item.key} key={item.key} type="button" onClick={() => setActiveKey(item.key)} style={{ background: activeKey === item.key ? palette.accentSoft : palette.bg, border: `1px solid ${activeKey === item.key ? palette.accent : palette.border}`, borderRadius: 8, cursor: "pointer", display: "grid", gap: 7, gridTemplateColumns: "132px minmax(0, 1fr) 54px", minHeight: 42, padding: 8, textAlign: "left" }}>
                 <span style={{ color: palette.text, fontSize: 11.5, fontWeight: 850 }}>{text(lang, item.labelZh, item.labelEn)}</span>
                 <span style={{ alignSelf: "center", background: palette.surfaceStrong, border: `1px solid ${palette.border}`, borderRadius: 6, height: 10, overflow: "hidden" }}>
                   <span style={{ background: item.color, display: "block", height: "100%", marginLeft: item.value < 0 ? "auto" : 0, width }} />
@@ -343,7 +343,7 @@ export function AlgorithmTraceExplorer({
       {rankedRows.length ? (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {rankedRows.slice(0, 4).map(row => (
-            <button key={row.mof} type="button" onClick={() => setSelectedMof(row.mof)} style={{ background: row.mof === selectedMof ? palette.accentSoft : palette.surface, border: `1px solid ${row.mof === selectedMof ? palette.accent : palette.border}`, borderRadius: 6, color: palette.text, cursor: "pointer", fontSize: 11.8, fontWeight: 850, minHeight: 30, padding: "0 10px" }}>
+            <button data-selected={row.mof === selectedMof} key={row.mof} type="button" onClick={() => setSelectedMof(row.mof)} style={{ background: row.mof === selectedMof ? palette.accentSoft : palette.surface, border: `1px solid ${row.mof === selectedMof ? palette.accent : palette.border}`, borderRadius: 6, color: palette.text, cursor: "pointer", fontSize: 11.8, fontWeight: 850, minHeight: 30, padding: "0 10px" }}>
               {row.mof} · <NumericText>{fmt(row.rgfaScore, 2)}</NumericText>
             </button>
           ))}

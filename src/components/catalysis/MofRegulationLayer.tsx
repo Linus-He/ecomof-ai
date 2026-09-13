@@ -18,7 +18,7 @@ export function MofRegulationLayer({ regulations, activeRegulationId, onSelectRe
         {regulations.map(item => {
           const active = activeRegulationId === item.id
           return (
-            <button key={item.id} type="button" onClick={() => onSelectRegulation(item)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 6, padding: 10, textAlign: "left" }}>
+            <button data-selected={active} key={item.id} type="button" onClick={() => onSelectRegulation(item)} style={{ background: active ? palette.accentSoft : palette.surface, border: `1px solid ${active ? palette.accent : palette.border}`, borderRadius: 10, cursor: "pointer", display: "grid", gap: 6, padding: 10, textAlign: "left" }}>
               <strong style={{ color: active ? palette.accent : palette.text, fontFamily: SCIENTIFIC_TOKEN_FONT, fontSize: 13 }}>{text(lang, item.labelZh, item.label)}</strong>
               <span style={{ color: palette.muted, fontSize: 11.5 }}>{item.direction} · {item.evidenceLevel}</span>
               <span style={{ color: palette.faint, fontSize: 11.5 }}>{text(lang, "影响边", "Affected edges")}: {item.affectedEdges?.length || 0}</span>

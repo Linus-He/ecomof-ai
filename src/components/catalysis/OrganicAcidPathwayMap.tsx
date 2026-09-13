@@ -277,7 +277,7 @@ function edgeCurve(edge) {
 
 function PathButton({ path, active, lang, onSelect, onHover, onLeave }) {
   return (
-    <button
+    <button data-selected={active}
       type="button"
       onClick={onSelect}
       onMouseEnter={onHover}

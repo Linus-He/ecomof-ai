@@ -660,7 +660,7 @@ export function OrganicAcidGraphExplorer({
         {MODES.map(item => {
           const active = mode === item.id
           return (
-            <button
+            <button data-selected={active}
               key={item.id}
               type="button"
               onClick={() => setMode(item.id)}

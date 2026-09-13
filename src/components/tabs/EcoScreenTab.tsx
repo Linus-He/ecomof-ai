@@ -139,7 +139,7 @@ function SegmentedControl({ items, value, onChange, lang, t }) {
       {items.map(item => {
         const active = item.id === value
         return (
-          <button
+          <button data-selected={active}
             key={item.id}
             type="button"
             onClick={() => onChange(item.id)}
@@ -438,7 +438,7 @@ function EcoScreenRequirementMatrix({ model, activeRequirementId, onSelectRequir
           {requirements.map(requirement => {
             const selected = requirement.id === active?.id
             return (
-              <button
+              <button data-selected={selected}
                 key={requirement.id}
                 type="button"
                 onClick={() => onSelectRequirement(requirement.id)}
@@ -528,7 +528,7 @@ function EcoScreenEvidenceWorkbench({ evidence, activeNeed, onNeedChange, lang, 
         {evidence.needs.map(need => {
           const active = need.id === selectedNeed?.id
           return (
-            <button
+            <button data-selected={active}
               key={need.id}
               type="button"
               onClick={() => onNeedChange(need.id)}
@@ -805,7 +805,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
         {visibleCandidates.map(candidate => {
           const active = candidate.id === selectedId
           return (
-            <button
+            <button data-selected={active}
               key={candidate.id}
               type="button"
               onClick={() => onSelect(candidate.id)}
@@ -862,7 +862,7 @@ function CandidateRanking({ candidates, selectedId, onSelect, lang, t, isMobile 
         {visibleCandidates.map(candidate => {
           const active = candidate.id === selectedId
           return (
-            <button
+            <button data-selected={active}
               key={candidate.id}
               type="button"
               onClick={() => onSelect(candidate.id)}
@@ -1636,7 +1636,7 @@ function LegacyEcoScreenTab({ onNavigate }) {
           ].map(item => {
             const active = scoringMode === item.id
             return (
-              <button
+              <button data-selected={active}
                 key={item.id}
                 type="button"
                 onClick={() => setScoringMode(item.id)}

@@ -140,7 +140,7 @@ export function InteractiveDataTable({
         {filterTabs.map((tab) => {
           const active = tab.key === activeFilter
           return (
-            <button
+            <button data-selected={active}
               key={tab.key}
               type="button"
               onClick={() => setActiveFilter(tab.key)}
@@ -198,6 +198,7 @@ export function InteractiveDataTable({
                 return (
                   <tr
                     key={row.key}
+                    data-selected={selected}
                     onClick={() => setSelectedKey(row.key)}
                     style={{
                       background: selected || highlighted ? palette.accentSoft : index % 2 === 0 ? palette.bg : palette.surface,

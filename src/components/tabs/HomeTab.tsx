@@ -354,7 +354,7 @@ function MiniBarChart({ title, rows, t, lang }) {
       <h3 style={{ margin: 0, color: t.textStrong, fontSize: 14.5, lineHeight: 1.3, fontWeight: 900 }}>{title}</h3>
       <div style={{ display: "grid", gap: 10 }}>
         {rows.map(row => (
-          <button
+          <button data-selected={row.label === active?.label}
             key={row.label}
             type="button"
             onClick={() => setActiveLabel(row.label)}

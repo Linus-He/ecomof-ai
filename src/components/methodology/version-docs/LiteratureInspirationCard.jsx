@@ -19,7 +19,7 @@ export function LiteratureInspirationCard({ record, link, lang, t, selected, onS
   const [bg, fg] = statusTone(record, t)
   const modules = link?.inspiredFeatures?.length ? link.inspiredFeatures : record.inspiredModules || []
   return (
-    <button
+    <button data-selected={selected}
       type="button"
       onClick={onSelect}
       style={{
