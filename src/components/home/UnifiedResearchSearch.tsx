@@ -2,7 +2,8 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowUp } from "@phosphor-icons/react"
 import { useLang, useT } from "../../shared"
-import { fetchDataJson } from "../../services/dataService"
+import { catalysisSearchDocuments, scoreResearchDocument as scoreDocument } from "../../utils/catalysisLiteratureSearch"
+import { CatalysisLiteraturePreview } from "../catalysis/CatalysisLiteraturePreview"
 import { MaterialSearchResults } from "./MaterialSearchResults"
 import { interfaceText } from "../../utils/interfaceLocale"
 import {
@@ -78,23 +79,6 @@ const FEATURE_DOCUMENTS = [
   ["search-validation", "验证中心", "Validation Center", "查看 Benchmark、实验标签、稳健性和数据质量验证。", "Inspect benchmarks, experimental labels, robustness, and data-quality validation.", "algorithm-validation", "验证 benchmark 实验标签 稳健性 data quality"],
 ]
 
-function normalize(value) {
-  return String(value || "").toLocaleLowerCase().replace(/[\s\-_/.·]+/g, "")
-}
-
-function scoreDocument(document, query) {
-  const needle = normalize(query)
-  if (!needle) return 0
-  const title = normalize(`${document.titleZh} ${document.titleEn}`)
-  const keywords = normalize(document.keywords)
-  const body = normalize(`${document.bodyZh || ""} ${document.bodyEn || ""}`)
-  if (title === needle) return 100
-  if (title.includes(needle)) return 80
-  if (keywords.includes(needle)) return 58
-  if (body.includes(needle)) return 38
-  return 0
-}
-
 function routeDocuments(lang) {
   return NAVIGATION_ITEMS
     .filter(item => item?.hash && item?.label && item?.meta)
@@ -117,44 +101,13 @@ export function UnifiedResearchSearch({ onNavigate }) {
   const { lang, locale } = useLang()
   const text = (_lang, zh, en) => interfaceText(locale, en, zh)
   const inputRef = useRef(null)
+  const readingRef = useRef(null)
   const [query, setQuery] = useState("")
   const [focused, setFocused] = useState(false)
   const [promptIndex, setPromptIndex] = useState(0)
   const [promptLength, setPromptLength] = useState(0)
   const [erasing, setErasing] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
-  const [catalysisDocuments, setCatalysisDocuments] = useState([])
-
-  useEffect(() => {
-    let active = true
-    fetchDataJson("catalysis_v2/catalysis_reaction_database_v2.json", { tables: { sourceDocuments: [], reactionRecords: [], catalystStates: [] } })
-      .then(database => {
-        if (!active) return
-        const tables = database?.tables || {}
-        const recordsBySource = new Map((tables.reactionRecords || []).map(record => [record.sourceDocumentId, record]))
-        const statesByRecord = new Map((tables.catalystStates || []).map(record => [record.reactionRecordId, record]))
-        setCatalysisDocuments((tables.sourceDocuments || []).map(source => {
-          const reaction = recordsBySource.get(source.id)
-          const catalyst = reaction ? statesByRecord.get(reaction.id) : null
-          const product = reaction?.reaction?.targetProduct || ""
-          const family = reaction?.reaction?.family || ""
-          const catalystName = catalyst?.catalystName || catalyst?.precursorMofName || ""
-          return {
-            id: `catalysis-literature-${source.id}`,
-            kind: "literature",
-            titleZh: source.title,
-            titleEn: source.title,
-            bodyZh: `${source.journal} · ${source.year} · ${catalystName}${product ? ` · ${product}` : ""}。催化文献库记录，保留来源 DOI、反应类型与活性相边界。`,
-            bodyEn: `${source.journal} · ${source.year} · ${catalystName}${product ? ` · ${product}` : ""}. Curated catalysis literature record with DOI, reaction type, and active-phase boundaries retained.`,
-            hash: "catalysis-literature-verification",
-            keywords: [source.title, source.doi, source.journal, family, product, catalystName, source.year].filter(Boolean).join(" "),
-          }
-        }))
-      })
-      .catch(() => active && setCatalysisDocuments([]))
-    return () => { active = false }
-  }, [lang])
-
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)")
     const sync = () => setReducedMotion(media.matches)
@@ -181,8 +134,8 @@ export function UnifiedResearchSearch({ onNavigate }) {
     ...FEATURE_DOCUMENTS.map(([id, titleZh, titleEn, bodyZh, bodyEn, hash, keywords]) => ({ id, kind: "feature", titleZh, titleEn, bodyZh, bodyEn, hash, keywords })),
     ...SEARCH_DOCUMENTS,
     ...routeDocuments(lang),
-    ...catalysisDocuments,
-  ], [catalysisDocuments, lang])
+    ...catalysisSearchDocuments,
+  ], [lang])
   const results = useMemo(() => {
     const value = query.trim()
     if (!value) return []
@@ -190,8 +143,7 @@ export function UnifiedResearchSearch({ onNavigate }) {
       .map(document => ({ ...document, score: scoreDocument(document, value) }))
       .filter(document => document.score > 0)
       .sort((a, b) => b.score - a.score || a.titleZh.length - b.titleZh.length)
-      .filter((document, index, list) => list.findIndex(item => item.titleZh === document.titleZh && item.hash === document.hash) === index)
-      .slice(0, 8)
+      .filter((document, index, list) => list.findIndex(item => document.kind === "literature" ? item.doi === document.doi : item.titleZh === document.titleZh && item.hash === document.hash) === index)
   }, [documents, query])
 
   useEffect(() => {
@@ -210,11 +162,12 @@ export function UnifiedResearchSearch({ onNavigate }) {
 
   const navigate = document => {
     setActiveDocument(document)
-    if (document.kind !== "text") {
+    if (document.kind !== "text" && document.kind !== "literature") {
       onNavigate?.(document.hash)
       return
     }
     window.requestAnimationFrame(() => {
+      if (document.kind === "literature") readingRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" })
       document.targetId && window.document.getElementById(document.targetId)?.scrollIntoView({ behavior: "smooth", block: "start" })
     })
   }
@@ -256,7 +209,7 @@ export function UnifiedResearchSearch({ onNavigate }) {
           onChange={event => { setQuery(event.target.value); setActiveDocument(null) }}
           onKeyDown={event => { if (event.key === "Enter" && !event.nativeEvent.isComposing) submit() }}
         />
-        <button type="button" aria-label={text(lang, "提交搜索", "Submit search")} onMouseDown={event => event.preventDefault()} onClick={submit}><ArrowUp size={20} weight="bold" /></button>
+        <button type="button" disabled={!query.trim()} data-ready={Boolean(query.trim())} aria-label={text(lang, "提交搜索", "Submit search")} onMouseDown={event => event.preventDefault()} onClick={submit}><ArrowUp size={20} weight="bold" /></button>
       </div>
 
       {query ? (
@@ -275,7 +228,7 @@ export function UnifiedResearchSearch({ onNavigate }) {
                   <p>{body}</p>
                 </div>
                 <button type="button" onClick={() => navigate(document)}>
-                  {isText ? text(lang, "展开资料", "Read here") : document.kind === "literature" ? text(lang, "进入催化文献库", "Open catalysis literature") : text(lang, "进入版块", "Open section")} <ArrowRight aria-hidden="true" size={15} />
+                  {isText ? text(lang, "展开资料", "Read here") : document.kind === "literature" ? text(lang, "简短预览", "Brief preview") : text(lang, "进入版块", "Open section")} <ArrowRight aria-hidden="true" size={15} />
                 </button>
               </article>
             )
@@ -283,16 +236,17 @@ export function UnifiedResearchSearch({ onNavigate }) {
             <div className="unified-research-search-empty">{text(lang, "没有匹配的版块或文字条目；材料匹配结果见上方。", "No section or text matches; material matches appear above.")}</div>
           )}
         </div>
-        {activeDocument?.kind === "text" ? (
-          <div className="unified-research-reading" aria-live="polite">
+        {activeDocument?.kind === "text" || activeDocument?.kind === "literature" ? (
+          <div ref={readingRef} className="unified-research-reading" aria-live="polite">
             <div>
               <span>{text(lang, "当前阅读", "READING NOW")}</span>
               <h3>{text(lang, activeDocument.titleZh, activeDocument.titleEn)}</h3>
-              <p>{text(lang, activeDocument.bodyZh, activeDocument.bodyEn)}</p>
+              {activeDocument.kind === "literature" ? <CatalysisLiteraturePreview paper={activeDocument.paper} lang={lang} showTitle={false} /> : <p>{text(lang, activeDocument.bodyZh, activeDocument.bodyEn)}</p>}
             </div>
             <button type="button" onClick={() => navigate({ ...activeDocument, kind: "section" })}>
-              {text(lang, "跳转到原版块", "Open original section")} <ArrowRight aria-hidden="true" size={15} />
+              {activeDocument.kind === "literature" ? text(lang, "进入催化文献库", "Open catalysis literature") : text(lang, "跳转到原版块", "Open original section")} <ArrowRight aria-hidden="true" size={15} />
             </button>
+            <button type="button" onClick={() => setActiveDocument(null)}>{text(lang, "收起预览", "Close preview")}</button>
           </div>
         ) : null}
         </>

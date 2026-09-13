@@ -1,4 +1,5 @@
 // @ts-nocheck
+import "./CatalysisResearch.css"
 import { useEffect, useMemo, useState } from "react"
 import {
   ArrowSquareOut,
@@ -55,44 +56,30 @@ function formatPotential(condition, zh) {
   return zh ? "未记录" : "Not recorded"
 }
 
-function ExperimentRunLedger({ runs, t, zh, isMobile }) {
-  return (
-    <div data-testid="catalysis-experiment-run-ledger" style={{ borderTop: `1px solid ${t.divider}`, display: "grid", minWidth: 0 }}>
-      <span style={{ color: t.subtle, fontSize: 9.5, fontWeight: 800, padding: "8px 10px 5px" }}>{zh ? "实验运行台账" : "Experiment run ledger"}</span>
-      {runs.map(run => {
-        const condition = run.condition || {}
-        const comparisonApplicable = run.decision.comparisonApplicable !== false
-        const comparisonStatus = comparisonApplicable
-          ? (run.decision.compareEligible ? (zh ? "比较字段完整" : "Comparison fields complete") : (zh ? "比较字段不完整" : "Comparison fields incomplete"))
-          : (zh ? "材料表征，不适用反应性能比较" : "Material characterization; reaction comparison not applicable")
-        const loading = condition.catalystLoading == null ? (zh ? "未记录" : "Not recorded") : `${condition.catalystLoading} ${condition.catalystLoadingUnit || ""}`.trim()
-        const loadingStatus = condition.catalystLoadingStatus === "calculated-from-source-preparation"
-          ? (zh ? "按电极制备步骤计算" : "Calculated from electrode preparation")
-          : (zh ? "文献报告" : "Source reported")
-        return (
-          <article key={run.id} style={{ borderTop: `1px solid ${t.divider}`, display: "grid", gap: 8, gridTemplateColumns: isMobile ? "1fr" : "minmax(130px, .8fr) minmax(190px, 1.3fr) minmax(190px, 1.3fr) auto", padding: "9px 10px" }}>
-            <div style={{ display: "grid", gap: 4 }}>
-              <strong style={{ color: t.textStrong, fontSize: 10.8 }}>{zh ? run.labelZh : run.labelEn}</strong>
-              <span style={{ color: run.decision.compareEligible ? t.success : comparisonApplicable ? t.warn : t.muted, fontSize: 9.5 }}>{comparisonStatus}</span>
-            </div>
-            <div style={{ color: t.muted, display: "grid", fontSize: 9.7, gap: 3, lineHeight: 1.4 }}>
-              <span>{formatPotential(condition, zh)} · {condition.durationH ?? (zh ? "未记录" : "n/a")} h</span>
-              <span>{localizeCatalysisText(condition.cellType, zh) || (zh ? "电解池未记录" : "Cell not recorded")}</span>
-              <span>{localizeCatalysisText(condition.electrolyte, zh) || (zh ? "电解液未记录" : "Electrolyte not recorded")}</span>
-            </div>
-            <div style={{ color: t.muted, display: "grid", fontSize: 9.7, gap: 3, lineHeight: 1.4 }}>
-              <span>{zh ? "负载" : "Loading"}: {loading} · {loadingStatus}</span>
-              <span>{localizeCatalysisText(condition.productQuantification, zh) || (zh ? "定量方法未记录" : "Quantification not recorded")}</span>
-              {condition.catalystLoadingCalculation ? <span>{condition.catalystLoadingCalculation}</span> : null}
-            </div>
-            <div style={{ alignContent: "start", display: "flex", flexWrap: "wrap", gap: 4 }}>
-              {run.claims.map(claim => <BasisBadge key={claim.id} tone={claim.verificationLevel === "L4-claim-located" ? "calc" : "warn"}>{localizeCatalysisText(String(claim.metric || "metric"), zh).replaceAll("_", " ")}</BasisBadge>)}
-            </div>
-          </article>
-        )
-      })}
-    </div>
-  )
+function ExperimentRunLedger({ runs, t, zh }) {
+  return <div data-testid="catalysis-experiment-run-ledger">
+    {runs.map((run, index) => {
+      const condition = run.condition || {}
+      const comparisonApplicable = run.decision.comparisonApplicable !== false
+      const comparisonStatus = comparisonApplicable
+        ? (run.decision.compareEligible ? (zh ? "比较字段完整" : "Comparison fields complete") : (zh ? "比较字段不完整" : "Comparison fields incomplete"))
+        : (zh ? "材料表征，不适用反应性能比较" : "Material characterization; reaction comparison not applicable")
+      const loading = condition.catalystLoading == null ? (zh ? "未记录" : "Not recorded") : `${condition.catalystLoading} ${condition.catalystLoadingUnit || ""}`.trim()
+      const loadingStatus = condition.catalystLoadingStatus === "calculated-from-source-preparation" ? (zh ? "按电极制备步骤计算" : "Calculated from electrode preparation") : (zh ? "文献报告" : "Source reported")
+      return <details key={run.id} className="cr-run" open={index === 0}>
+        <summary><strong>{zh ? run.labelZh : run.labelEn}</strong><span>{formatPotential(condition, zh)} · {condition.durationH ?? (zh ? "未记录" : "n/a")} h · {comparisonStatus}</span></summary>
+        <div className="cr-run-content">
+          <dl className="cr-facts">{[
+            [zh ? "电解池" : "Cell", localizeCatalysisText(condition.cellType, zh)],
+            [zh ? "电解液" : "Electrolyte", localizeCatalysisText(condition.electrolyte, zh)],
+            [zh ? "催化剂载量" : "Catalyst loading", loading],
+            [zh ? "载量依据" : "Loading basis", loadingStatus],
+          ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value || (zh ? "未记录" : "Not recorded")}</dd></div>)}</dl>
+          <div><span className="cr-eyebrow">{zh ? "产物定量与计算依据" : "QUANTIFICATION & CALCULATION"}</span><p>{localizeCatalysisText(condition.productQuantification, zh) || (zh ? "定量方法未记录" : "Quantification not recorded")}</p>{condition.catalystLoadingCalculation && <p>{condition.catalystLoadingCalculation}</p>}<span className="cr-eyebrow">{run.claims.map(claim => localizeCatalysisText(String(claim.metric || "metric"), zh).replaceAll("_", " ")).join(" · ")}</span></div>
+        </div>
+      </details>
+    })}
+  </div>
 }
 
 function GateMatrix({ rows, t, zh }) {
@@ -119,6 +106,7 @@ function GateMatrix({ rows, t, zh }) {
 
 function EvidenceTrace({ rows, t, zh, isMobile }) {
   const [selectedId, setSelectedId] = useState(rows[0]?.id || "")
+  const [readingView, setReadingView] = useState("runs")
   useEffect(() => {
     if (!rows.some(row => row.id === selectedId)) setSelectedId(rows[0]?.id || "")
   }, [rows, selectedId])
@@ -169,26 +157,28 @@ function EvidenceTrace({ rows, t, zh, isMobile }) {
           {rows.map(row => <option key={row.id} value={row.id}>{localizeCatalysisText(row.catalyst, zh)}</option>)}
         </select>
       </header>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, minmax(0, 1fr))", gap: 0 }}>
-        {stages.map((stage, index) => (
-          <div key={stage.label} style={{ borderBottom: isMobile && index < stages.length - 1 ? `1px solid ${t.divider}` : "none", boxShadow: !isMobile && index ? `-1px 0 0 ${t.border}` : "none", display: "grid", gap: 5, minHeight: 92, padding: "9px 10px" }}>
-            <span style={{ color: t.subtle, fontSize: 9.5, fontWeight: 800 }}>{String(index + 1).padStart(2, "0")} · {stage.label}</span>
-            <strong style={{ color: t.textStrong, fontSize: 11.5, lineHeight: 1.35, overflowWrap: "anywhere" }}>{stage.value}</strong>
-            <span style={{ alignItems: "center", color: stage.pass ? t.success : t.warn, display: "inline-flex", fontSize: 9.6, gap: 4 }}>
-              {stage.pass ? <CheckCircle size={13} weight="fill" /> : <ShieldWarning size={13} weight="fill" />}{stage.status}
-            </span>
-          </div>
-        ))}
+      <div className="cr-trace-stages">
+        {stages.map((stage, index) => <div key={stage.label} data-status={stage.pass ? "verified" : "pending"}>
+          <span className="cr-eyebrow">{String(index + 1).padStart(2, "0")} / {stage.label}</span>
+          <strong>{stage.value}</strong>
+          <span className="cr-stage-status">{stage.pass ? <CheckCircle size={14} weight="fill" style={{ flexShrink: 0 }} /> : <ShieldWarning size={14} style={{ flexShrink: 0 }} />}{stage.status}</span>
+        </div>)}
       </div>
+      <div className="cr-local-nav" aria-label={zh ? "核验内容视图" : "Verification reading views"}>
+        <button type="button" aria-pressed={readingView === "runs"} onClick={() => setReadingView("runs")}>{zh ? "实验运行台账" : "Experiment run ledger"} · {selected.experimentRuns?.length || 0}</button>
+        <button type="button" aria-pressed={readingView === "claims"} onClick={() => setReadingView("claims")}>{zh ? "已精确定位的声明" : "Precisely located claims"} · {locatedClaims.length}</button>
+      </div>
+      <div hidden={readingView !== "runs"} className="cr-verification-panel">
       <ExperimentRunLedger runs={selected.experimentRuns || []} t={t} zh={zh} isMobile={isMobile} />
-      <div data-testid="catalysis-l4-claim-ledger" style={{ borderTop: `1px solid ${t.divider}`, display: "grid" }}>
-        <span style={{ color: t.subtle, fontSize: 9.5, fontWeight: 800, padding: "8px 10px 5px" }}>{zh ? "已精确定位的声明" : "Precisely located claims"}</span>
+      </div>
+      <div hidden={readingView !== "claims"} data-testid="catalysis-l4-claim-ledger" className="cr-verification-panel">
+
         {locatedClaims.length ? locatedClaims.map(claim => {
           const locatedEvidence = claim.evidence.find(item => item.reviewStatus === "verified") || claim.evidence[0]
           const metricLabel = localizeCatalysisText(String(claim.metric || "metric"), zh).replaceAll("_", " ")
           return (
-            <div key={claim.id} style={{ alignItems: "start", borderTop: `1px solid ${t.divider}`, display: "grid", gap: 6, gridTemplateColumns: isMobile ? "1fr" : "minmax(150px, .7fr) minmax(0, 1.5fr) auto", padding: "8px 10px" }}>
-              <strong style={{ color: t.textStrong, fontSize: 10.5, textTransform: "capitalize" }}>{metricLabel} · {claim.operator || "="} {claim.value} {claim.unit || ""}</strong>
+            <div key={claim.id} className="cr-claim-row">
+              <strong style={{ color: t.textStrong, fontSize: 10.5, textTransform: "none" }}>{metricLabel} · {claim.operator || "="} {claim.value} {claim.unit || ""}</strong>
               <span style={{ color: t.muted, fontSize: 9.8, lineHeight: 1.45 }}>{localizeCatalysisText(locatedEvidence?.sourceLocation, zh)}</span>
               {locatedEvidence?.sourceUrl ? <a href={locatedEvidence.sourceUrl} rel="noreferrer" target="_blank" style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 9.8, gap: 4, textDecoration: "none" }}>{zh ? "出版方证据" : "Publisher evidence"}<ArrowSquareOut size={11} /></a> : null}
             </div>
@@ -254,7 +244,7 @@ export function CatalysisVerificationCenter({ database: databaseProp = null, tas
   const view = useMemo(() => buildCatalysisVerificationView(database, tasksDataset), [database, tasksDataset])
   const trainingGate = useMemo(() => catalysisTrainingGate(database), [database])
   return (
-    <section id="catalysis-verification-center" data-testid="catalysis-verification-center" style={{ background: embedded ? "transparent" : t.panel, border: embedded ? 0 : `1px solid ${t.border}`, borderRadius: embedded ? 0 : 8, display: "grid", gap: 13, padding: embedded ? 0 : isMobile ? 12 : 16 }}>
+    <section className="catalysis-research" id="catalysis-verification-center" data-testid="catalysis-verification-center" style={{ background: embedded ? "transparent" : t.panel, border: embedded ? 0 : `1px solid ${t.border}`, borderRadius: embedded ? 0 : 8, display: "grid", gap: 13, padding: embedded ? 0 : isMobile ? 12 : 16 }}>
       {!embedded ? <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5, maxWidth: 850 }}>
           <span style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 10.5, fontWeight: 900, gap: 6, textTransform: "uppercase" }}><ListChecks aria-hidden size={15} weight="fill" />{zh ? "证据核验与使用边界" : "Evidence admission system"}</span>
@@ -273,10 +263,10 @@ export function CatalysisVerificationCenter({ database: databaseProp = null, tas
       {status === "error" ? <div role="alert" style={{ color: t.warn, fontSize: 11, padding: 12 }}>{zh ? "核验记录加载失败。" : "The V2 verification database failed to load."}</div> : null}
       {status === "loaded" ? <>
       <VerificationKpis isMobile={isMobile} summary={view.summary} t={t} zh={zh} />
-      <div role="status" style={{ background: trainingGate.eligible ? t.badgeCalcBg : t.badgeWarnBg, border: `1px solid ${trainingGate.eligible ? t.success : t.warn}`, borderRadius: 5, color: t.muted, fontSize: 10.8, lineHeight: 1.5, padding: "8px 10px" }}>{zh ? trainingGate.reasonZh : trainingGate.reasonEn}</div>
+      <div role="status" className="cr-inline-note">{zh ? trainingGate.reasonZh : trainingGate.reasonEn}</div>
       <EvidenceTrace isMobile={isMobile} rows={view.recordRows} t={t} zh={zh} />
-      <GateMatrix rows={view.recordRows} t={t} zh={zh} />
-      <VerificationQueue tasks={view.tasks} t={t} zh={zh} />
+      <details className="cr-run"><summary>{zh ? "全部记录的使用范围" : "Admission across all records"}</summary><div className="cr-verification-panel"><GateMatrix rows={view.recordRows} t={t} zh={zh} /></div></details>
+      <details className="cr-run"><summary>{zh ? "待核事项与筛选" : "Pending tasks and filters"}</summary><div className="cr-verification-panel"><VerificationQueue tasks={view.tasks} t={t} zh={zh} /></div></details>
       </> : null}
     </section>
   )

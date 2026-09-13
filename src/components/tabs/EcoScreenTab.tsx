@@ -1805,13 +1805,14 @@ function LegacyEcoScreenTab({ onNavigate }) {
   )
 }
 
-export function EcoScreenTab({ inputs, setInputs, results, loading, onPredict, onNavigate, materialConfirmed = false }) {
+export function EcoScreenTab({ searchControl, inputs, setInputs, results, loading, onPredict, onNavigate, materialConfirmed = false }) {
   const t = useT()
   const { lang } = useLang()
   const [legacyToolsOpen, setLegacyToolsOpen] = useState(false)
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <EcoLcaWorkbench
+        searchControl={searchControl}
         onNavigate={onNavigate}
         appInputs={inputs}
         onAppInputsChange={setInputs}

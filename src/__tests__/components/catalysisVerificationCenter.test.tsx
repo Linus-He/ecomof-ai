@@ -40,4 +40,14 @@ describe("CatalysisVerificationCenter", () => {
     expect(screen.getByTestId("catalysis-verification-queue")).toHaveTextContent("补齐数值的图表或补充材料位置")
     expect(screen.getByTestId("catalysis-verification-queue")).not.toHaveTextContent("核验模型训练使用许可")
   })
+
+  it("keeps runs and located claims in separate reading views", () => {
+    render(<CatalysisVerificationCenter database={database} tasksDataset={tasks} graph={graph} lang="zh" t={THEME_LIGHT} />)
+    expect(screen.getByTestId("catalysis-l4-claim-ledger")).not.toBeVisible()
+    fireEvent.click(screen.getByRole("button", { name: "已精确定位的声明 · 4" }))
+    expect(screen.getByTestId("catalysis-l4-claim-ledger")).toBeVisible()
+    expect(screen.getByTestId("catalysis-experiment-run-ledger")).not.toBeVisible()
+    fireEvent.click(screen.getByRole("button", { name: "实验运行台账 · 2" }))
+    expect(screen.getByTestId("catalysis-experiment-run-ledger")).toBeVisible()
+  })
 })

@@ -31,7 +31,7 @@ describe("CatalysisReactionRecordWorkbench", () => {
     expect(workbench).toHaveTextContent("不同实验条件下不作性能排名")
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("MFM-220-p")
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("DOI 10.1039/D2TA04485D")
-    expect(within(workbench).getAllByRole("link", { name: /DOI/i }).length).toBeGreaterThan(1)
+    expect(within(workbench).getByRole("link", { name: /DOI/i })).toHaveAttribute("href", "https://doi.org/10.1039/D2TA04485D")
   })
 
   it("switches among condition, active-phase, and non-ranking performance views", () => {
@@ -60,5 +60,26 @@ describe("CatalysisReactionRecordWorkbench", () => {
     expect(screen.getByText("显示 1 / 10")).toBeInTheDocument()
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("TAL-33 衍生铋催化剂")
     expect(screen.getByTestId("catalysis-record-detail")).toHaveTextContent("未提取")
+  })
+
+  it("reveals identity and active-phase details on demand while keeping metrics focused", () => {
+    renderWorkbench()
+    const detail = screen.getByTestId("catalysis-record-detail")
+    expect(within(detail).getByText("结构身份与关联范围")).not.toBeVisible()
+    fireEvent.click(within(detail).getByRole("button", { name: "结构身份", exact: true }))
+    expect(within(detail).getByText("结构身份与关联范围")).toBeVisible()
+    expect(within(detail).getByText(/来源报道指标/)).not.toBeVisible()
+    fireEvent.click(within(detail).getByRole("button", { name: "活性相与边界" }))
+    expect(within(detail).getByText("缺失信息与可比性")).toBeVisible()
+  })
+
+  it("selects FE observations through keyboard-accessible controls without losing operators", () => {
+    renderWorkbench()
+    fireEvent.click(screen.getByRole("tab", { name: "文献报道性能" }))
+    const plot = screen.getByTestId("catalysis-fe-chart")
+    const observations = within(plot).getAllByRole("button")
+    fireEvent.click(observations[observations.length - 1])
+    expect(observations[observations.length - 1]).toHaveAttribute("aria-pressed", "true")
+    expect(screen.getByText("精确数值与实验条件")).toBeVisible()
   })
 })

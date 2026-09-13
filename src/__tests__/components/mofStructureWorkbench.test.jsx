@@ -148,6 +148,19 @@ describe("MofStructureWorkbench", () => {
     expect(polyhedra[0].distances.every(distance => distance < 1.6)).toBe(true)
   })
 
+  it("starts empty when the catalog arrives and loads only an explicitly selected structure", async () => {
+    vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
+    const props = { item: null, pilotManifest, lang: "zh", t: THEME_LIGHT, isMobile: false }
+    const { rerender } = render(<MofStructureWorkbench {...props} catalogStatus="loading" />)
+    rerender(<MofStructureWorkbench {...props} publicCatalog={publicCatalog} catalogStatus="ready" />)
+    expect(screen.getByRole("searchbox")).toHaveValue("")
+    expect(downloadCsdMofCif).not.toHaveBeenCalled()
+    expect(screen.getByText("等待已授权的结构文件")).toBeInTheDocument()
+    fireEvent.change(screen.getByRole("searchbox"), { target: { value: "RUBTAK" } })
+    fireEvent.click(screen.getByRole("button", { name: /RUBTAK/ }))
+    await waitFor(() => expect(downloadCsdMofCif).toHaveBeenCalledTimes(1))
+  })
+
   it("keeps an honest CSD authorization empty state", () => {
     render(
       <MofStructureWorkbench
@@ -174,7 +187,7 @@ describe("MofStructureWorkbench", () => {
     vi.mocked(downloadCsdMofCif).mockRejectedValue({ kind: "network" })
     render(
       <MofStructureWorkbench
-        item={{ id: "ntu-68", name: "NTU-68", metal: "Cu" }}
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr", csdRefcode: "RUBTAK" }}
         pilotManifest={pilotManifest}
         publicCatalog={publicCatalog}
         catalogStatus="ready"
@@ -200,7 +213,7 @@ describe("MofStructureWorkbench", () => {
     })
     render(
       <MofStructureWorkbench
-        item={{ id: "uio66", name: "UiO-66", metal: "Zr" }}
+        item={{ id: "uio66", name: "UiO-66", metal: "Zr", csdRefcode: "RUBTAK" }}
         pilotManifest={pilotManifest}
         publicCatalog={publicCatalog}
         catalogStatus="ready"
@@ -253,7 +266,7 @@ describe("MofStructureWorkbench", () => {
       />,
     )
 
-    expect(await screen.findByText("网络下载失败")).toBeInTheDocument()
+    expect(downloadCsdMofCif).not.toHaveBeenCalled()
     const search = screen.getByRole("searchbox")
 
     fireEvent.change(search, { target: { value: "Al L2" } })

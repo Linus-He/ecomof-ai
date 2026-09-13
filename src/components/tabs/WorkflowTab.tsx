@@ -39,7 +39,7 @@ export function WorkflowTab({ setActiveTab, inputs, results }) {
       </Callout>
       <div style={{ display: "grid", gridTemplateColumns: isNarrow ? "1fr" : "repeat(4, minmax(0, 1fr))", gap: 12 }}>
         {stages.map(([title, body, chip, accent], index) => (
-          <div key={title} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16, borderTop: `3px solid ${accent}` }}>
+          <div key={title} style={{ background: `color-mix(in srgb, ${accent} 10%, ${t.panel})`, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
             <BasisBadge tone={index === 0 ? "info" : index === 1 ? "proxy" : index === 2 ? "user" : "calc"}>{chip}</BasisBadge>
             <div style={{ color: t.textStrong, fontSize: 15, fontWeight: 850, marginTop: 12, lineHeight: 1.3 }}>{title}</div>
             <div style={{ color: t.muted, fontSize: 12, lineHeight: 1.65, marginTop: 8 }}>{body}</div>

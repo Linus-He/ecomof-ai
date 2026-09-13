@@ -358,24 +358,8 @@ export function ContextualHeaderBar({
 
   if (activeTab === "library") return null
 
-  if (activeTab === "ecoscreen") {
-    return (
-      <div className="contextual-header-bar" data-context={activeTab} style={layerStyle}>
-        <PresetSearchControl
-          value={searchQuery}
-          setValue={setSearchQuery}
-          status={searchStatus}
-          setStatus={setSearchStatus}
-          open={searchOpen}
-          setOpen={setSearchOpen}
-          suggestions={presetSuggestions}
-          applyPreset={applyPreset}
-          placeholder={copy.header.searchPlaceholder}
-          width={isMobile ? "100%" : 450}
-        />
-      </div>
-    )
-  }
+  if (activeTab === "ecoscreen") return null
+
 
   return null
 }

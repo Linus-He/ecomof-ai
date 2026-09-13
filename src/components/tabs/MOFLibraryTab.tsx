@@ -34,6 +34,7 @@ import { useMofReactionProfile } from "../catalysis/reactionRationaleData"
 import { DataQualityAuditPanel } from "../data-quality/DataQualityAuditPanel"
 import { MofStructureWorkbench } from "../mof-structure/MofStructureWorkbench"
 import { fetchDataJson } from "../../services/dataService"
+import { MofIndexProgress } from "../mof-structure/MofIndexProgress"
 import csdCommonAliases from "../../data/csdCommonAliases.json"
 
 const DATA_MODE = "core-mof-2024-cr"
@@ -1101,7 +1102,7 @@ function UnifiedMofDatabasePanel({ rows, collectionReport, identityReport, proxy
       return String(av || "").localeCompare(String(bv || "")) * dir
     })
   }, [rows, filters, sort])
-  const selected = filtered.find(row => row.id === selectedId) || filtered[0] || null
+  const selected = filtered.find(row => row.id === selectedId) || null
   const proxyValidation = useMemo(() => validateStructureProxy(filtered), [filtered])
   const reportedProxy = proxyReport?.summary || {}
   const reportedSpearmanMetric = proxyReport?.metrics?.find(metric => Number.isFinite(Number(metric?.rho))) || null
@@ -1270,7 +1271,7 @@ function MetricMini({ label, value, note, t }) {
 }
 
 function UnifiedDetail({ row, lang, t, isMobile }) {
-  if (!row) return <Callout tone="warn">{text(lang, "当前筛选无记录。", "No rows match the current filters.")}</Callout>
+  if (!row) return <p style={{ color: t.muted }}>{text(lang, "选择一条 MOF 记录以查看详情。", "Select a MOF record to view its details.")}</p>
   const gasRows = row.gasRecords || []
   return (
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 10, padding: 12 }}>
@@ -1322,6 +1323,14 @@ function UnifiedDetail({ row, lang, t, isMobile }) {
   )
 }
 
+const LIBRARY_INDEX_LABELS = [
+  ["CoRE 结构候选", "CoRE structures"], ["气体吸附记录", "Gas adsorption"],
+  ["材料身份索引", "Material identities"], ["气体收录报告", "Gas collection report"],
+  ["身份关联报告", "Identity links"], ["结构代理验证", "Structure validation"],
+  ["CSD 授权清单", "CSD manifest"], ["CSD 结构索引", "CSD catalog"],
+  ["物化性质索引", "Property index"], ["MOF 名称索引", "MOF names"],
+]
+
 export function MOFLibraryTab() {
   const t = useT()
   const { lang } = useLang()
@@ -1345,11 +1354,20 @@ export function MOFLibraryTab() {
   const [propertyQuery, setPropertyQuery] = useState("")
   const [propertySubmittedQuery, setPropertySubmittedQuery] = useState("")
   const [propertySelectedResult, setPropertySelectedResult] = useState(null)
+  const [indexProgress, setIndexProgress] = useState(() => LIBRARY_INDEX_LABELS.map(() => "loading"))
   const [unifiedBrowserOpen, setUnifiedBrowserOpen] = useState(false)
 
   useEffect(() => {
     let active = true
     setStatus("loading")
+    setIndexProgress(LIBRARY_INDEX_LABELS.map(() => "loading"))
+    const trackIndex = (request, index) => request.then(value => {
+      if (active) setIndexProgress(previous => previous.map((state, i) => i === index ? "returned" : state))
+      return value
+    }, error => {
+      if (active) setIndexProgress(previous => previous.map((state, i) => i === index ? "failed" : state))
+      throw error
+    })
     Promise.all([
       getGlobalMofCandidates({ mode: DATA_MODE, throwOnError: true }),
       getGasAdsorptionRecordsV2({ throwOnError: false }),
@@ -1361,7 +1379,7 @@ export function MOFLibraryTab() {
       getCsdMofPublicCatalog({ throwOnError: false }),
       fetchDataJson("mof_physicochemical_index_v1.json", { records: [], summary: {} }),
       fetchDataJson("mof_anatomy_identity_index_v1.json", { records: [], summary: {} }),
-    ])
+    ].map(trackIndex))
       .then(([data, gasData, registry, report, identityResolution, proxyValidation, csdManifest, csdCatalog, physicochemicalIndex, mofAnatomyIndex]) => {
         if (!active) return
         const fairCrossValidationByCoreId = new Map(
@@ -1468,6 +1486,7 @@ export function MOFLibraryTab() {
       </div>
 
       <MofStructureWorkbench
+        indexProgressContent={<MofIndexProgress states={indexProgress} labels={LIBRARY_INDEX_LABELS} lang={lang} />}
         item={activeRecord}
         pilotManifest={csdPilotManifest}
         publicCatalog={csdPublicCatalog}

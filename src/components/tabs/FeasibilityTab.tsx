@@ -76,7 +76,7 @@ export function FeasibilityTab({ results, inputs, onNavigate }) {
           {rows.map(([label, value, note]) => {
             const severity = severityTone(value)
             return (
-              <div key={label} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14, borderTop: `3px solid ${severity.color}` }}>
+              <div key={label} style={{ background: `color-mix(in srgb, ${severity.color} 10%, ${t.panel})`, border: `1px solid ${t.border}`, borderRadius: 10, padding: 14 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center", marginBottom: 8 }}>
                   <div style={{ color: t.faint, fontSize: 10, textTransform: "uppercase" }}>{label}</div>
                   <BasisBadge tone={severity.tone}>{severity.label}</BasisBadge>

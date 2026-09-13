@@ -163,7 +163,7 @@ export function PhysicochemicalPropertyModal({ open, onClose, record }) {
             </p>
           </section>
 
-          <section style={{ borderTop: `2px solid ${t.accent}`, paddingTop: 16 }}>
+          <section style={{ background: t.badgeInfoBg, borderRadius: 8, padding: 16 }}>
             <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
               <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
                 <ShieldCheck aria-hidden="true" color={fair ? t.success : t.warn} size={17} weight="duotone" />

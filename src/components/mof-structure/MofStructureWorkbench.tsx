@@ -281,7 +281,7 @@ function CompactBadge({ tone = "neutral", icon: Icon, children }) {
   )
 }
 
-export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, catalogStatus = "loading", physicochemicalRecords = [], physicochemicalSummary = {}, lang, t, isMobile }) {
+export function MofStructureWorkbench({ indexProgressContent, item, pilotManifest, publicCatalog, catalogStatus = "loading", physicochemicalRecords = [], physicochemicalSummary = {}, lang, t, isMobile }) {
   const containerRef = useRef(null)
   const layoutRef = useRef(null)
   const resizeStateRef = useRef(null)
@@ -291,7 +291,6 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   const polyhedraRef = useRef([])
   const initialViewRef = useRef(null)
   const remoteRequestRef = useRef(null)
-  const defaultCatalogRecordRef = useRef(false)
   const [cifText, setCifText] = useState("")
   const [viewerStatus, setViewerStatus] = useState("idle")
   const [viewerPhase, setViewerPhase] = useState("idle")
@@ -625,17 +624,6 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
   }, [])
 
   useEffect(() => {
-    if (defaultCatalogRecordRef.current || !publicCatalogReady) return
-    const requestedRefcode = String(item?.csdRefcode || "").trim().toUpperCase()
-    const defaultRecord = publicRecords.find(record => String(record.refcode || "").trim().toUpperCase() === requestedRefcode)
-      || publicRecords.find(record => record.refcode === "ABADUG")
-      || publicRecords[0]
-    if (!defaultRecord) return
-    defaultCatalogRecordRef.current = true
-    void loadPublicRecord(defaultRecord)
-  }, [item?.csdRefcode, loadPublicRecord, publicCatalogReady, publicRecords])
-
-  useEffect(() => {
     if (!publicCatalogReady || !item?.csdRefcode) return
     const requestedRefcode = String(item.csdRefcode).trim().toUpperCase()
     if (String(activeCsdRecord?.refcode || "").trim().toUpperCase() === requestedRefcode) return
@@ -947,6 +935,7 @@ export function MofStructureWorkbench({ item, pilotManifest, publicCatalog, cata
           <div>
             <CloudArrowDown aria-hidden="true" size={18} weight="duotone" />
             <strong>{text(lang, "CSD MOF 公共目录", "CSD MOF public catalog")}</strong>
+            {indexProgressContent}
           </div>
           <span>
             {catalogStatus === "loading"

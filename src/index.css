@@ -36,7 +36,7 @@ html {
   --app-violet: #68636f;
   --app-danger: #a5453f;
   --font-body: Inter, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: "Iowan Old Style", Baskerville, "Songti SC", STSong, "Noto Serif SC", SimSun, "Times New Roman", serif;
+  --font-display: var(--font-body);
   --font-formula: "Times New Roman", "STIX Two Text", Times, serif;
 }
 
@@ -1077,7 +1077,7 @@ button:disabled {
   align-items: start;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-radius: 8px;
   color: inherit;
   cursor: pointer;
   display: grid;
@@ -1091,7 +1091,7 @@ button:disabled {
 .home-equation-model-tabs button:hover,
 .home-equation-model-tabs button:focus-visible,
 .home-equation-model-tabs button[data-active="true"] {
-  border-bottom-color: var(--color-accent, #4aa8d8);
+  background: color-mix(in srgb, var(--color-accent, #4aa8d8) 12%, var(--app-panel));
   color: var(--color-accent, #4aa8d8);
   outline: none;
   transform: translateY(-1px);
@@ -2791,7 +2791,7 @@ details[open].motion-surface {
   align-items: center;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-radius: 8px;
   color: var(--map-muted);
   cursor: pointer;
   display: grid;
@@ -2808,7 +2808,7 @@ details[open].motion-surface {
 .home-map-branch-rail button:hover,
 .home-map-branch-rail button:focus-visible,
 .home-map-branch-rail button[data-active="true"] {
-  border-bottom-color: var(--map-text);
+  background: color-mix(in srgb, var(--map-text) 12%, var(--app-panel));
   color: var(--map-text);
   outline: none;
 }
@@ -3790,7 +3790,7 @@ details[open].motion-surface {
 }
 
 .home-research-thread strong {
-  font-family: var(--font-serif, "Songti SC", serif);
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
 }
@@ -7168,7 +7168,7 @@ button,
 .project-evolution-lenses button {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--evolution-divider);
+  border-radius: 8px;
   color: var(--evolution-muted);
   cursor: pointer;
   display: grid;
@@ -7179,7 +7179,7 @@ button,
 }
 
 .project-evolution-lenses button[data-active="true"] {
-  border-bottom-color: var(--evolution-accent);
+  background: color-mix(in srgb, var(--evolution-accent) 12%, var(--app-panel));
   color: var(--evolution-accent);
 }
 
@@ -7613,7 +7613,7 @@ button,
   align-items: center;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-radius: 8px;
   color: var(--home-ink-soft);
   cursor: pointer;
   display: grid;
@@ -7627,7 +7627,7 @@ button,
 .home-continuum-branch-index button:hover,
 .home-continuum-branch-index button:focus-visible,
 .home-continuum-branch-index button[data-active="true"] {
-  border-bottom-color: var(--home-ink);
+  background: color-mix(in srgb, var(--home-ink) 12%, var(--app-panel));
   color: var(--home-ink);
   outline: none;
 }
@@ -7686,7 +7686,7 @@ button,
 }
 
 .home-continuum-copy h2 {
-  font-family: "Iowan Old Style", Baskerville, "Songti SC", STSong, "Times New Roman", serif;
+  font-family: var(--font-body);
   font-size: clamp(34px, 4vw, 62px);
   font-weight: 400;
   letter-spacing: 0;
@@ -7833,7 +7833,7 @@ button,
 }
 
 .home-classic-hero h1 {
-  font-family: "Iowan Old Style", Baskerville, "Songti SC", STSong, "Times New Roman", serif;
+  font-family: var(--font-body);
   font-size: clamp(58px, 6.8vw, 108px);
   font-weight: 400;
   letter-spacing: 0;
@@ -8369,4 +8369,12 @@ button,
   .home-discovery-map[data-bloomed="true"] .home-map-node {
     animation: none !important;
   }
+}
+
+.unified-research-search-input > button[data-ready="true"],
+.unified-search-page .unified-research-search-input > button[data-ready="true"] {
+  background: #21845b;
+  border-color: #21845b;
+  color: #fff;
+  cursor: pointer;
 }

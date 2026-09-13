@@ -20,7 +20,7 @@ describe("DataHostingNotice", () => {
     expect(screen.getByRole("link", { name: "查看条款与政策" })).toHaveAttribute("href", "#database-compliance")
   })
 
-  it("is present at the three requested research entry points", () => {
+  it("keeps notices in GasSep and catalysis while removing the EcoScreen banner", () => {
     const files = import.meta.glob("../../components/{ecoscreen,tabs}/*.{tsx,jsx}", {
       eager: true,
       query: "?raw",
@@ -28,7 +28,7 @@ describe("DataHostingNotice", () => {
     })
     const source = Object.values(files).join("\n")
 
-    expect(source).toContain('placement="ecoscreen"')
+    expect(source).not.toContain('placement="ecoscreen"')
     expect(source).toContain('placement="gassep"')
     expect(source).toContain('placement="catalysis"')
   })

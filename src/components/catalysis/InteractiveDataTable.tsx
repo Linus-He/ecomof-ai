@@ -200,8 +200,8 @@ export function InteractiveDataTable({
                     key={row.key}
                     onClick={() => setSelectedKey(row.key)}
                     style={{
-                      background: selected ? palette.accentSoft : index % 2 === 0 ? palette.bg : palette.surface,
-                      boxShadow: highlighted ? `inset 3px 0 0 ${palette.accent}` : "none",
+                      background: selected || highlighted ? palette.accentSoft : index % 2 === 0 ? palette.bg : palette.surface,
+                      boxShadow: "none",
                       cursor: "pointer",
                     }}
                   >

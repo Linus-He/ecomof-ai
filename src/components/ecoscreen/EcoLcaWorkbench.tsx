@@ -20,7 +20,6 @@ import {
   BasisBadge,
   Callout,
   CopyLinkButton,
-  DataHostingNotice,
   getReadableMofLabel,
   PageHeader,
   toolbarBtn,
@@ -624,6 +623,7 @@ function FairMofsPropertyExplorer({
 }
 
 export function EcoLcaWorkbench({
+  searchControl,
   onNavigate,
   appInputs,
   onAppInputsChange,
@@ -989,7 +989,7 @@ export function EcoLcaWorkbench({
         }
       />
 
-      <DataHostingNotice lang={lang} placement="ecoscreen" />
+      {searchControl ? <div data-testid="ecoscreen-material-search" style={{ width: "100%", maxWidth: 720, margin: "8px auto" }}>{searchControl}</div> : null}
 
       <WorkbenchNav t={t} lang={lang} />
 

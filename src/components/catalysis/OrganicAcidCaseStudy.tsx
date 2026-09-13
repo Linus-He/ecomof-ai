@@ -173,7 +173,7 @@ function FieldPriorityModel({ fieldPriority, lang, t }) {
         {groups.map(group => {
           const fields = lang === "zh" ? group.fieldsZh : group.fieldsEn
           return (
-            <article key={group.en} style={{ borderTop: `2px solid ${t.accent}`, paddingTop: 12 }}>
+            <article key={group.en} style={{ background: t.badgeInfoBg, borderRadius: 8, padding: 12 }}>
               <div style={{ color: t.textStrong, fontSize: 14, fontWeight: 950 }}>{lang === "zh" ? group.zh : group.en}</div>
               <p style={{ color: t.muted, fontSize: 12, lineHeight: 1.55, margin: "6px 0 0" }}>{lang === "zh" ? group.purposeZh : group.purposeEn}</p>
               <ol style={{ color: t.textStrong, fontSize: 12, lineHeight: 1.65, margin: "10px 0 0", paddingLeft: 18 }}>

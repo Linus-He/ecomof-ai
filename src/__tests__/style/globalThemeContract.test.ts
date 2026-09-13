@@ -45,8 +45,8 @@ describe("global research theme contract", () => {
     })
   })
 
-  it("reserves Songti for display text and keeps dense UI text sans-serif", () => {
-    expect(FONT_DISPLAY).toContain('"Songti SC", STSong')
+  it("uses the same sans-serif family for display and dense UI text", () => {
+    expect(FONT_DISPLAY).toBe(FONT_SANS)
     expect(FONT_SANS).toContain('"PingFang SC", "Noto Sans SC", "Microsoft YaHei"')
     expect(FONT_SANS).not.toMatch(/Songti SC|STSong|Noto Serif SC|SimSun/)
   })

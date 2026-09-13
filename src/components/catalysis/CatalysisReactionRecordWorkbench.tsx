@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useEffect, useMemo, useState } from "react"
+import "./CatalysisResearch.css"
 import {
   ArrowSquareOut,
   ChartBarHorizontal,
@@ -12,16 +13,6 @@ import {
   Table,
   WarningCircle,
 } from "@phosphor-icons/react"
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts"
 import { BasisBadge, getCatalysisReactionRecordsV1 } from "../../shared"
 import {
   buildCatalysisReactionRecordRows,
@@ -288,123 +279,71 @@ function FilterBar({ search, setSearch, identityStatus, setIdentityStatus, cover
   )
 }
 
-function DetailSection({ title, children, t }) {
-  return (
-    <section style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 7, paddingTop: 11 }}>
-      <h4 style={{ color: t.textStrong, fontSize: 11, fontWeight: 900, margin: 0 }}>{title}</h4>
-      {children}
-    </section>
-  )
-}
-
 function RecordDetail({ row, t, zh }) {
+  const [panel, setPanel] = useState("metrics")
   if (!row) return null
-  const metricRows = row.metrics.map(metric => ({ metric, formatted: formatCatalysisMetric(metric, zh ? "zh" : "en") }))
   const hasResolvedIdentity = Boolean(row.identityCanonicalId || row.identityExactStructureIdentifier)
-  return (
-    <aside data-testid="catalysis-record-detail" style={{ display: "grid", gap: 11, minWidth: 0 }}>
-      <div style={{ display: "grid", gap: 5 }}>
-        <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
-          <BasisBadge tone={hasResolvedIdentity ? "calc" : "proxy"}>{getIdentityLabel(row.identityStatus, zh)}</BasisBadge>
-          <BasisBadge tone="info">{row.year || "—"}</BasisBadge>
-        </div>
-        <h3 style={{ color: t.textStrong, fontSize: 17, lineHeight: 1.25, margin: 0, overflowWrap: "anywhere" }}>{localizeCatalysisText(row.catalyst, zh)}</h3>
-        <div style={{ color: t.muted, fontSize: 11, lineHeight: 1.5 }}>{localizeCatalysisText(row.activeMaterial || row.frameworkFamily, zh)}</div>
-        <a href={row.doiUrl} rel="noreferrer" target="_blank" style={{ alignItems: "center", color: t.accentText, display: "inline-flex", fontSize: 11, fontWeight: 800, gap: 5, overflowWrap: "anywhere", textDecoration: "none", width: "fit-content" }}>
-          DOI {row.doi} <ArrowSquareOut aria-hidden size={13} />
-        </a>
-      </div>
-
-      <DetailSection title={zh ? "结构身份与关联范围" : "Identity and database-link boundary"} t={t}>
-        <dl style={{ display: "grid", gap: 6, gridTemplateColumns: "96px minmax(0, 1fr)", margin: 0 }}>
-          {[
-            [zh ? "前驱 MOF" : "Precursor MOF", row.precursor],
-            [zh ? "框架家族" : "Framework family", localizeCatalysisText(row.frameworkFamily, zh)],
-            [zh ? "金属中心" : "Metal centers", row.metalCenters.join(", ")],
-            [zh ? "论文结构标识" : "Article structure ID", row.identityExactStructureIdentifier || (zh ? "未解析" : "Unresolved")],
-            [zh ? "本地结构 ID" : "Local canonical ID", row.identityCanonicalId || (zh ? "尚未连接" : "Not linked")],
-          ].map(([label, value]) => (
-            <div key={label} style={{ display: "contents" }}>
-              <dt style={{ color: t.subtle, fontSize: 10.5 }}>{label}</dt>
-              <dd style={{ color: t.text, fontSize: 10.5, lineHeight: 1.45, margin: 0, overflowWrap: "anywhere" }}>{value || "—"}</dd>
-            </div>
-          ))}
-        </dl>
-        <p style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: 0 }}>{localizeCatalysisText(row.identityJoinRule, zh)}</p>
-      </DetailSection>
-
-      <DetailSection title={zh ? `来源报道指标（${row.numericMetricCount} 个数值）` : `Source-reported metrics (${row.numericMetricCount} numeric)`} t={t}>
-        <div style={{ display: "grid", gap: 7 }}>
-          {metricRows.map(({ metric, formatted }) => (
-            <div key={metric.id} style={{ borderBottom: `1px solid ${t.divider}`, display: "grid", gap: 2, paddingBottom: 7 }}>
-              <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "space-between" }}>
-                <span style={{ color: t.text, fontSize: 10.8, fontWeight: 800 }}>{formatted.label}</span>
-                <span style={{ color: formatted.isMissing ? t.warn : t.textStrong, fontSize: 11, fontVariantNumeric: "tabular-nums", fontWeight: 900 }}>{formatted.value}</span>
-              </div>
-              <span style={{ color: t.subtle, fontSize: 9.8, lineHeight: 1.4 }}>{formatted.condition} · {localizeCatalysisText(metric.sourceLocation, zh)}</span>
-            </div>
-          ))}
-        </div>
-      </DetailSection>
-
-      <DetailSection title={zh ? "活性相声明及证据范围" : "Active-phase claim and evidence boundary"} t={t}>
-        <p style={{ color: t.text, fontSize: 10.5, lineHeight: 1.52, margin: 0 }}>{localizeCatalysisText(row.activePhaseEvidence.claim || "—", zh)}</p>
-        <p style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 5, color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: 0, padding: "7px 9px" }}>{localizeCatalysisText(row.activePhaseEvidence.activePhaseBoundary || "—", zh)}</p>
-      </DetailSection>
-
-      <DetailSection title={zh ? "缺失信息与可比性" : "Missing fields and comparability"} t={t}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-          {row.missingFields.map(field => <BasisBadge key={field} tone="warn">{localizeCatalysisText(field, zh)}</BasisBadge>)}
-        </div>
-        <p style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: 0 }}>{localizeCatalysisText(row.comparability.reason, zh)}</p>
-        <span style={{ color: t.subtle, fontSize: 10 }}>{zh ? `${Object.keys(row.fieldSources).length} 个字段已记录来源` : `${Object.keys(row.fieldSources).length} field-level source mappings`}</span>
-      </DetailSection>
-    </aside>
-  )
+  const panels = [["metrics", zh ? "报道指标" : "Reported metrics"], ["identity", zh ? "结构身份" : "Structure identity"], ["phase", zh ? "活性相与边界" : "Active phase & limits"]]
+  return <aside data-testid="catalysis-record-detail" className="cr-detail">
+    <header className="cr-detail-heading">
+      <div className="cr-eyebrow">{row.year} <span> / </span> {getIdentityLabel(row.identityStatus, zh)}</div>
+      <h3>{localizeCatalysisText(row.catalyst, zh)}</h3>
+      <p>{localizeCatalysisText(row.activeMaterial || row.frameworkFamily, zh)}</p>
+      <a href={row.doiUrl} rel="noreferrer" target="_blank">DOI {row.doi} <ArrowSquareOut aria-hidden size={14} /></a>
+    </header>
+    <div className="cr-local-nav" aria-label={zh ? "记录阅读视图" : "Record reading views"}>
+      {panels.map(([id, label]) => <button key={id} type="button" aria-pressed={panel === id} onClick={() => setPanel(id)}>{label}</button>)}
+    </div>
+    <section hidden={panel !== "metrics"} className="cr-reading-panel">
+      <h4>{zh ? `来源报道指标（${row.numericMetricCount} 个数值）` : `Source-reported metrics (${row.numericMetricCount} numeric)`}</h4>
+      <div className="cr-metric-grid">{row.metrics.map(metric => {
+        const formatted = formatCatalysisMetric(metric, zh ? "zh" : "en")
+        return <article key={metric.id} className="cr-metric" data-metric={metric.metric}>
+          <span className="cr-eyebrow">{formatted.label}</span>
+          <strong className="cr-metric-value">{formatted.value}</strong>
+          <span className="cr-condition">{formatted.condition}</span>
+          <small>{localizeCatalysisText(metric.sourceLocation, zh)}</small>
+        </article>
+      })}</div>
+      <div className="cr-inline-note">{zh ? "数值保留原文条件与不等号；不同运行间不直接比较。" : "Values retain source conditions and inequality signs; separate runs are not directly comparable."}</div>
+    </section>
+    <section hidden={panel !== "identity"} className="cr-reading-panel">
+      <h4>{zh ? "结构身份与关联范围" : "Identity and database-link boundary"}</h4>
+      <dl className="cr-facts">{[
+        [zh ? "前驱 MOF" : "Precursor MOF", row.precursor],
+        [zh ? "框架家族" : "Framework family", localizeCatalysisText(row.frameworkFamily, zh)],
+        [zh ? "金属中心" : "Metal centers", row.metalCenters.join(", ")],
+        [zh ? "论文结构标识" : "Article structure ID", row.identityExactStructureIdentifier || (zh ? "未解析" : "Unresolved")],
+        [zh ? "本地结构 ID" : "Local canonical ID", row.identityCanonicalId || (zh ? "尚未连接" : "Not linked")],
+      ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value || "—"}</dd></div>)}</dl>
+      <p className="cr-inline-note">{localizeCatalysisText(row.identityJoinRule, zh)}</p>
+    </section>
+    <section hidden={panel !== "phase"} className="cr-reading-panel">
+      <h4>{zh ? "活性相声明及证据范围" : "Active-phase claim and evidence boundary"}</h4>
+      <p>{localizeCatalysisText(row.activePhaseEvidence.claim || "—", zh)}</p>
+      <p className="cr-inline-note">{localizeCatalysisText(row.activePhaseEvidence.activePhaseBoundary || "—", zh)}</p>
+      <h4>{zh ? "缺失信息与可比性" : "Missing fields and comparability"}</h4>
+      <p className="cr-missing">{row.missingFields.map(field => localizeCatalysisText(field, zh)).join(" · ") || (zh ? "当前无缺失字段" : "No missing fields")}</p>
+      <p>{localizeCatalysisText(row.comparability.reason, zh)}</p>
+      <small>{zh ? `${Object.keys(row.fieldSources).length} 个字段已记录来源` : `${Object.keys(row.fieldSources).length} field-level source mappings`}</small>
+    </section>
+    <footer className="cr-detail-footer"><span className={hasResolvedIdentity ? "cr-status-pass" : "cr-status-pending"}>{hasResolvedIdentity ? (zh ? "结构已解析" : "Structure resolved") : (zh ? "结构身份待核对" : "Structure review pending")}</span><span>{zh ? `${row.missingFields.length} 项条件待补全` : `${row.missingFields.length} condition gaps`}</span></footer>
+  </aside>
 }
 
-function RecordsView({ rows, selectedId, setSelectedId, t, zh, isMobile }) {
+function RecordsView({ rows, selectedId, setSelectedId, t, zh }) {
   const selected = rows.find(row => row.id === selectedId) || rows[0]
   if (!selected) return <EmptyState t={t} zh={zh} />
-  return (
-    <div style={{ display: "grid", gap: 16, gridTemplateColumns: isMobile ? "minmax(0, 1fr)" : "minmax(0, 1.55fr) minmax(300px, .85fr)" }}>
-      <div style={{ minWidth: 0, overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", minWidth: 720, width: "100%" }}>
-          <thead>
-            <tr>
-              {(zh ? ["催化剂 / 来源", "身份状态", "条件摘要", "数值指标", "DOI"] : ["Catalyst / source", "Identity", "Condition summary", "Numeric metrics", "DOI"]).map(label => (
-                <th key={label} scope="col" style={{ borderBottom: `1px solid ${t.borderStrong}`, color: t.subtle, fontSize: 9.5, fontWeight: 900, padding: "7px 8px", textAlign: "left" }}>{label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(row => {
-              const selectedRow = row.id === selected.id
-              return (
-                <tr key={row.id} aria-selected={selectedRow} onClick={() => setSelectedId(row.id)} style={{ background: selectedRow ? t.badgeInfoBg : "transparent", cursor: "pointer" }}>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, maxWidth: 220, padding: "9px 8px", verticalAlign: "top" }}>
-                    <button type="button" onClick={() => setSelectedId(row.id)} style={{ background: "transparent", border: 0, color: t.textStrong, cursor: "pointer", display: "grid", fontFamily: "inherit", gap: 3, padding: 0, textAlign: "left", width: "100%" }}>
-                      <strong style={{ fontSize: 11, lineHeight: 1.35 }}>{localizeCatalysisText(row.catalyst, zh)}</strong>
-                      <span style={{ color: t.subtle, fontSize: 9.5 }}>{row.year} · {localizeCatalysisText(row.frameworkFamily, zh)}</span>
-                    </button>
-                  </td>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 10.2, padding: "9px 8px", verticalAlign: "top" }}>{getIdentityLabel(row.identityStatus, zh)}</td>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 10.2, lineHeight: 1.45, maxWidth: 240, padding: "9px 8px", verticalAlign: "top" }}>{row.conditionSummary}</td>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, color: row.numericMetricCount ? t.textStrong : t.warn, fontSize: 11, fontVariantNumeric: "tabular-nums", fontWeight: 900, padding: "9px 8px", verticalAlign: "top" }}>{row.numericMetricCount}</td>
-                  <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "9px 8px", verticalAlign: "top" }}>
-                    <a aria-label={`DOI ${row.doi}`} href={row.doiUrl} onClick={event => event.stopPropagation()} rel="noreferrer" target="_blank" style={{ color: t.accentText, fontSize: 9.5, textDecoration: "none" }}>{row.doi}</a>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-      <div style={{ borderTop: isMobile ? `1px solid ${t.border}` : "none", boxShadow: isMobile ? "none" : `-1px 0 0 ${t.border}`, minWidth: 0, paddingLeft: isMobile ? 0 : 16, paddingTop: isMobile ? 14 : 0 }}>
-        <RecordDetail row={selected} t={t} zh={zh} />
-      </div>
-    </div>
-  )
+  return <div className="cr-record-layout">
+    <nav className="cr-record-index" aria-label={zh ? "选择反应记录" : "Choose reaction record"}>
+      <div className="cr-eyebrow cr-index-heading">{zh ? "文献记录" : "PUBLICATION RECORDS"}<span>{rows.length}</span></div>
+      {rows.map((row, index) => <button key={row.id} type="button" aria-pressed={row.id === selected.id} onClick={() => setSelectedId(row.id)}>
+        <span className="cr-record-number">{String(index + 1).padStart(2, "0")}</span>
+        <span><strong>{localizeCatalysisText(row.catalyst, zh)}</strong><small>{row.year} · {row.numericMetricCount} {zh ? "项数值" : "numeric claims"}</small></span>
+      </button>)}
+    </nav>
+    <RecordDetail row={selected} t={t} zh={zh} />
+  </div>
 }
 
 function MatrixTable({ rows, fields, getState, selectedId, setSelectedId, t, zh, firstColumnLabel, testId }) {
@@ -501,91 +440,39 @@ function ActivePhaseView({ rows, selectedId, setSelectedId, t, zh }) {
         testId="catalysis-active-phase-matrix"
         zh={zh}
       />
-      <section style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 8, paddingTop: 12 }}>
-        <div style={{ alignItems: "baseline", display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "space-between" }}>
-          <h3 style={{ color: t.textStrong, fontSize: 14, margin: 0 }}>{localizeCatalysisText(selected.catalyst, zh)}</h3>
-          <a href={selected.doiUrl} rel="noreferrer" target="_blank" style={{ color: t.accentText, fontSize: 10.5, textDecoration: "none" }}>DOI {selected.doi}</a>
+      <section className="cr-phase-story">
+        <header><span className="cr-eyebrow">{zh ? "活性相解读" : "ACTIVE PHASE"}</span><h3>{localizeCatalysisText(selected.catalyst, zh)}</h3><a href={selected.doiUrl} target="_blank" rel="noreferrer">DOI {selected.doi} <ArrowSquareOut size={13} /></a></header>
+        <div className="cr-phase-content"><p className="cr-phase-lead">{localizeCatalysisText(selected.activePhaseEvidence.claim, zh)}</p>
+          <div className="cr-phase-timeline">{CATALYSIS_EVIDENCE_FIELDS.filter(field => selected.evidenceCoverage[field.id].available).map((field, index) => <div key={field.id}>
+            <span className="cr-eyebrow">{String(index + 1).padStart(2, "0")} / {zh ? field.zh : field.en}</span>
+            {selected.evidenceCoverage[field.id].items.map((item, n) => <p key={n}>{localizeCatalysisText(item, zh)}</p>)}
+          </div>)}</div>
+          <p className="cr-inline-note">{localizeCatalysisText(selected.activePhaseEvidence.activePhaseBoundary, zh)}</p>
         </div>
-        <p style={{ color: t.text, fontSize: 10.8, lineHeight: 1.55, margin: 0 }}>{localizeCatalysisText(selected.activePhaseEvidence.claim, zh)}</p>
-        <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))" }}>
-          {CATALYSIS_EVIDENCE_FIELDS.filter(field => selected.evidenceCoverage[field.id].available).map(field => (
-            <div key={field.id} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 5, padding: 9 }}>
-              <strong style={{ color: t.textStrong, display: "block", fontSize: 10.5, marginBottom: 4 }}>{zh ? field.zh : field.en}</strong>
-              {selected.evidenceCoverage[field.id].items.map((item, index) => <p key={`${field.id}-${index}`} style={{ color: t.muted, fontSize: 10.2, lineHeight: 1.45, margin: index ? "4px 0 0" : 0 }}>{localizeCatalysisText(item, zh)}</p>)}
-            </div>
-          ))}
-        </div>
-        <p style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 5, color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: 0, padding: "7px 9px" }}>{localizeCatalysisText(selected.activePhaseEvidence.activePhaseBoundary, zh)}</p>
       </section>
     </div>
   )
 }
 
-function FeTooltip({ active, payload, t, zh }) {
-  if (!active || !payload?.length) return null
-  const item = payload[0].payload
-  return (
-    <div style={{ background: t.tooltipBg, border: `1px solid ${t.borderStrong}`, borderRadius: 6, boxShadow: t.shadowSm, display: "grid", gap: 4, maxWidth: 300, padding: "9px 10px" }}>
-      <strong style={{ color: t.textStrong, fontSize: 11 }}>{localizeCatalysisText(item.catalyst, zh)}</strong>
-      <span style={{ color: t.accentText, fontSize: 13, fontVariantNumeric: "tabular-nums", fontWeight: 900 }}>{item.operator && item.operator !== "=" ? `${item.operator} ` : ""}{item.value} {item.unit}</span>
-      <span style={{ color: t.muted, fontSize: 10, lineHeight: 1.45 }}>{zh ? item.conditionLabelZh : item.conditionLabelEn}</span>
-      <span style={{ color: t.subtle, fontSize: 9.5 }}>DOI {item.doi}</span>
-    </div>
-  )
-}
-
-function PerformanceView({ rows, summary, t, zh, isMobile }) {
+function PerformanceView({ rows, summary, t, zh }) {
   const data = useMemo(() => buildFaradaicEfficiencyRows(rows), [rows])
-  if (!data.length) return <EmptyState t={t} zh={zh} />
-  const chartHeight = Math.max(isMobile ? 430 : 380, data.length * (isMobile ? 38 : 34))
-  return (
-    <div style={{ display: "grid", gap: 15 }}>
-      <section aria-labelledby="catalysis-fe-chart-title" style={{ display: "grid", gap: 8 }}>
-        <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
-          <div>
-            <h3 id="catalysis-fe-chart-title" style={{ color: t.textStrong, fontSize: 14, margin: 0 }}>{zh ? "来源报道的法拉第效率（条件不一致，不作排名）" : "Source-reported FE (incompatible conditions; not a ranking)"}</h3>
-            <p style={{ color: t.muted, fontSize: 10.5, lineHeight: 1.5, margin: "4px 0 0" }}>{zh ? "按发表年份与文献收录顺序排列；柱长仅编码原文报道数值。" : "Ordered by publication year and curated source order; bar length only encodes the reported value."}</p>
-          </div>
-          <BasisBadge tone="warn">
-            {zh
-              ? `${summary.rankingEligibleCount} 条记录含条件完整的实验运行；跨论文仍不直接排名`
-              : `${summary.rankingEligibleCount} records contain condition-complete runs; no direct cross-paper ranking`}
-          </BasisBadge>
-        </div>
-        <div data-testid="catalysis-fe-chart" style={{ height: chartHeight, minWidth: 0, width: "100%" }}>
-          <ResponsiveContainer height="100%" width="100%">
-            <BarChart data={data} layout="vertical" margin={{ bottom: 10, left: isMobile ? 4 : 14, right: 22, top: 6 }}>
-              <CartesianGrid horizontal={false} stroke={t.divider} />
-              <XAxis domain={[0, 105]} tick={{ fill: t.subtle, fontSize: 9 }} tickLine={false} type="number" unit="%" />
-              <YAxis dataKey="displayLabel" interval={0} tick={{ fill: t.muted, fontSize: isMobile ? 8.5 : 9.5 }} tickLine={false} type="category" width={isMobile ? 118 : 210} />
-              <Tooltip content={<FeTooltip t={t} zh={zh} />} cursor={{ fill: t.surface }} />
-              <Bar dataKey="value" maxBarSize={14} radius={[0, 3, 3, 0]}>
-                {data.map(item => <Cell key={item.id} fill={t.performance || t.accent} opacity={0.84} />)}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </section>
-
-      <section style={{ borderTop: `1px solid ${t.border}`, display: "grid", gap: 8, paddingTop: 12 }}>
-        <h3 style={{ color: t.textStrong, fontSize: 12, margin: 0 }}>{zh ? "精确数值与实验条件" : "Exact values and conditions"}</h3>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ borderCollapse: "collapse", minWidth: 760, width: "100%" }}>
-            <thead><tr>{(zh ? ["年份", "催化剂", "法拉第效率", "指标条件", "DOI"] : ["Year", "Catalyst", "FE", "Metric condition", "DOI"]).map(label => <th key={label} style={{ borderBottom: `1px solid ${t.borderStrong}`, color: t.subtle, fontSize: 9.5, padding: "7px 8px", textAlign: "left" }}>{label}</th>)}</tr></thead>
-            <tbody>{data.map(item => (
-              <tr key={item.id}>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 10, padding: "8px" }}>{item.year}</td>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.textStrong, fontSize: 10.5, fontWeight: 800, padding: "8px" }}>{localizeCatalysisText(item.catalyst, zh)}</td>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.accentText, fontSize: 10.5, fontVariantNumeric: "tabular-nums", fontWeight: 900, padding: "8px" }}>{item.operator && item.operator !== "=" ? `${item.operator} ` : ""}{item.value} {item.unit}</td>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, color: t.muted, fontSize: 10, padding: "8px" }}>{zh ? item.conditionLabelZh : item.conditionLabelEn}</td>
-                <td style={{ borderBottom: `1px solid ${t.divider}`, padding: "8px" }}><a href={item.doiUrl} rel="noreferrer" target="_blank" style={{ color: t.accentText, fontSize: 9.5, textDecoration: "none" }}>{item.doi}</a></td>
-              </tr>
-            ))}</tbody>
-          </table>
-        </div>
-      </section>
+  const [selectedId, setSelectedId] = useState(null)
+  const selected = data.find(item => item.id === selectedId) || data[0]
+  if (!selected) return <EmptyState t={t} zh={zh} />
+  return <div className="cr-performance">
+    <header className="cr-section-heading"><div><span className="cr-eyebrow">{zh ? "文献性能观察" : "REPORTED PERFORMANCE"}</span><h3>{zh ? "来源报道的法拉第效率（条件不一致，不作排名）" : "Source-reported FE (incompatible conditions; not a ranking)"}</h3><p>{zh ? "按年份与收录顺序排列。选择一项，核对其数值和实验条件。" : "Ordered by year and curation sequence. Select a measurement to inspect its value and conditions."}</p></div><span className="cr-small-note">{zh ? `${summary.rankingEligibleCount} 条记录含条件完整运行` : `${summary.rankingEligibleCount} records with complete runs`}</span></header>
+    <div className="cr-performance-layout">
+      <div data-testid="catalysis-fe-chart" className="cr-fe-plot" aria-label={zh ? "法拉第效率记录，非排名" : "Faradaic efficiency records, not a ranking"}>
+        <div className="cr-fe-axis"><span>{zh ? "催化剂 / 年份" : "Catalyst / year"}</span><span>0 <i>50</i> 100%</span><span>FE</span></div>
+        {data.map(item => <button type="button" key={item.id} className="cr-fe-row" aria-pressed={selected.id === item.id} onClick={() => setSelectedId(item.id)}>
+          <span className="cr-fe-name"><strong>{localizeCatalysisText(item.catalyst, zh)}</strong><small>{item.year} · {zh ? item.conditionLabelZh : item.conditionLabelEn}</small></span>
+          <span className="cr-fe-track" aria-hidden="true"><span style={{ left: `${Math.max(0, Math.min(100, item.value))}%` }} /></span>
+          <strong className="cr-fe-value">{item.operator && item.operator !== "=" ? `${item.operator} ` : ""}{item.value}<small> %</small></strong>
+        </button>)}
+      </div>
+      <aside className="cr-fe-inspector" aria-live="polite"><span className="cr-eyebrow">{zh ? "当前测量" : "SELECTED MEASUREMENT"}</span><h4>{localizeCatalysisText(selected.catalyst, zh)}</h4><div className="cr-fe-big">{selected.operator && selected.operator !== "=" ? `${selected.operator} ` : ""}{selected.value}<small> %</small></div><h4>{zh ? "精确数值与实验条件" : "Exact values and conditions"}</h4><p>{zh ? selected.conditionLabelZh : selected.conditionLabelEn}</p><a href={selected.doiUrl} target="_blank" rel="noreferrer">DOI {selected.doi} <ArrowSquareOut size={13} /></a><p className="cr-inline-note">{zh ? "刻度位置表示来源报道数值，不等号保持原意。跨论文比较仍需匹配电位、电解液、池型、时长及载量。" : "Positions encode reported values; inequality signs retain their meaning. Cross-paper comparison still requires matched potentials, electrolytes, cells, durations and loading."}</p></aside>
     </div>
-  )
+  </div>
 }
 
 function EmptyState({ t, zh }) {
@@ -649,7 +536,7 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
   }, [filteredRows, selectedId])
 
   return (
-    <section id="catalysis-reaction-records" data-testid="catalysis-reaction-record-workbench" style={{ background: embedded ? "transparent" : t.panel, border: embedded ? 0 : `1px solid ${t.border}`, borderRadius: embedded ? 0 : 8, display: "grid", gap: 14, padding: embedded ? 0 : isMobile ? 12 : 16 }}>
+    <section className="catalysis-research" id="catalysis-reaction-records" data-testid="catalysis-reaction-record-workbench" style={{ background: embedded ? "transparent" : t.panel, border: embedded ? 0 : `1px solid ${t.border}`, borderRadius: embedded ? 0 : 8, display: "grid", gap: 14, padding: embedded ? 0 : isMobile ? 12 : 16 }}>
       {!embedded ? <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5, minWidth: 0 }}>
           <h2 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, lineHeight: 1.2, margin: 0 }}>{zh ? "DOI 核验催化反应记录库" : "DOI-verified catalysis reaction library"}</h2>
@@ -686,7 +573,7 @@ export function CatalysisReactionRecordWorkbench({ lang = "zh", t, isMobile = fa
             {view === "performance" && <PerformanceView isMobile={isMobile} rows={filteredRows} summary={summary} t={t} zh={zh} />}
           </div>
 
-          <footer style={{ alignItems: "start", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 5, color: t.muted, display: "flex", fontSize: 10.5, gap: 7, lineHeight: 1.5, padding: "8px 10px" }}>
+          <footer className="cr-workbench-footnote">
             <WarningCircle aria-hidden color={t.warn} size={15} style={{ flex: "0 0 auto", marginTop: 1 }} />
             <span>{zh ? dataset?.audit?.qualityDecisionZh : dataset?.audit?.qualityDecision} {zh ? dataset?.audit?.requiredNextStepZh : dataset?.audit?.requiredNextStep}</span>
           </footer>

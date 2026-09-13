@@ -49,8 +49,8 @@ export const THEME_DARK = Object.freeze({
 // owning appearance state. Runtime surfaces should consume ThemeCtx.
 export const GLOBAL_RESEARCH_THEME = THEME_LIGHT
 
-export const FONT_DISPLAY = '"Iowan Old Style", Baskerville, "Songti SC", STSong, "Noto Serif SC", SimSun, "Times New Roman", serif'
 export const FONT_SANS = 'Inter, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif'
+export const FONT_DISPLAY = FONT_SANS
 // v1.0.2 font unification: numerals stay on the body family and align with
 // tabular-nums. Use this spread for metric values, badges, tables, and chart ticks.
 export const NUMERIC_FONT_STYLE = {

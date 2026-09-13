@@ -1023,3 +1023,15 @@
     transition: none;
   }
 }
+
+.mof-index-progress { position: relative; margin-left: auto; flex: 0 0 auto; }
+.mof-index-progress summary { display: flex; align-items: center; gap: 5px; list-style: none; cursor: pointer; color: var(--mof-sw-muted); font-size: 11px; padding: 4px 0 4px 6px; white-space: nowrap; }
+.mof-index-progress summary::-webkit-details-marker { display: none; }
+.mof-index-progress summary [role="progressbar"] { font-variant-numeric: tabular-nums; min-width: 30px; }
+.mof-index-progress-popover { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: min(290px, calc(100vw - 64px)); padding: 16px; border: 1px solid var(--app-border); border-radius: 12px; background: var(--app-panel); box-shadow: 0 8px 28px #00000012; color: var(--mof-sw-muted); font-size: 11px; }
+.mof-index-progress-popover > strong { display: block; color: var(--mof-sw-text-strong); margin-bottom: 12px; }
+.mof-index-progress-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 7px; }
+.mof-index-progress-popover p { margin: 12px 0 0; line-height: 1.6; }
+.mof-index-spinner { animation: mof-index-rotate 1s steps(8) infinite; }
+@keyframes mof-index-rotate { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mof-index-spinner { animation: none; } }

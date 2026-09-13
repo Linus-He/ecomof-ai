@@ -21,7 +21,7 @@ import { HASH_TO_TAB, getHashMeta, normalizeHash, tabToHash } from "./utils/deep
 import { fetchDataJson } from "./services/dataService"
 import { resolveInitialLocale, SUPPORTED_LOCALES } from "./utils/locale"
 import { observeTraditionalChinese } from "./utils/traditionalChinese"
-import { AppFooter, ContextualHeaderBar, SavedRunsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
+import { AppFooter, ContextualHeaderBar, PresetSearchControl, SavedRunsModal, DisclaimerModal, PhysicochemicalPropertyModal } from "./components/layout"
 import { LogoWordmark } from "./components/brand"
 import { PrimaryDomainNavigation } from "./components/navigation/PrimaryDomainNavigation"
 import { CandidateComparisonModal } from "./components/mof/CandidateComparisonModal"
@@ -561,6 +561,13 @@ function AppShell({
             {activeTab === "researchArticle" && <ResearchArticlePage hash={activeHash} />}
             {activeTab === "ecoscreen" && (
               <EcoScreenTab
+                searchControl={<PresetSearchControl
+                  value={searchQuery} setValue={setSearchQuery}
+                  status={searchStatus} setStatus={setSearchStatus}
+                  open={searchOpen} setOpen={setSearchOpen}
+                  suggestions={presetSuggestions} applyPreset={applyPreset}
+                  placeholder={copy.header.searchPlaceholder} width="100%"
+                />}
                 inputs={inputs}
                 setInputs={setInputs}
                 results={results}

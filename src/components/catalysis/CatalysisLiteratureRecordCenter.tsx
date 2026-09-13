@@ -14,8 +14,10 @@ import {
 } from "../../shared"
 import { CatalysisReactionRecordWorkbench } from "./CatalysisReactionRecordWorkbench"
 import { CatalysisVerificationCenter } from "./CatalysisVerificationCenter"
+import { CatalysisLiteratureCatalog } from "./CatalysisLiteraturePreview"
 
 const CENTER_VIEWS = [
+  { id: "literature", zh: "文献目录与预览", en: "Literature and previews", icon: Database },
   { id: "records", zh: "反应记录与条件", en: "Records and conditions", icon: Database },
   { id: "verification", zh: "来源核验与使用范围", en: "Evidence and admission", icon: ListChecks },
 ]
@@ -91,7 +93,7 @@ export function CatalysisLiteratureRecordCenter({ lang = "zh", t, isMobile = fal
   }, [evidenceGraph, recordDataset, verificationDatabase, verificationTasks])
 
   return (
-    <section id="catalysis-literature-record-center" data-testid="catalysis-literature-record-center" style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 8, display: "grid", gap: 14, padding: isMobile ? 12 : 16 }}>
+    <section className="catalysis-center" id="catalysis-literature-record-center" data-testid="catalysis-literature-record-center" style={{ display: "grid", gap: 20, padding: isMobile ? 0 : "8px 0" }}>
       <header style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 5, minWidth: 0, maxWidth: 900 }}>
           <h2 style={{ color: t.textStrong, fontSize: isMobile ? 18 : 21, lineHeight: 1.2, margin: 0 }}>{zh ? "催化文献与反应记录中心" : "Catalysis literature and reaction record center"}</h2>
@@ -112,6 +114,10 @@ export function CatalysisLiteratureRecordCenter({ lang = "zh", t, isMobile = fal
       </header>
 
       <CenterViewTabs activeView={activeView} isMobile={isMobile} onChange={setActiveView} t={t} zh={zh} />
+
+      <div aria-labelledby="catalysis-center-tab-literature" hidden={activeView !== "literature"} id="catalysis-center-panel-literature" role="tabpanel" style={{ minWidth: 0 }}>
+        <CatalysisLiteratureCatalog lang={lang} t={t} />
+      </div>
 
       {loadStatus === "loading" ? <div role="status" style={{ color: t.muted, fontSize: 11, minHeight: 120, padding: 12 }}>{zh ? "正在读取催化反应与核验记录…" : "Loading catalysis reaction and verification records…"}</div> : null}
       {loadStatus === "error" ? <div role="alert" style={{ background: t.badgeWarnBg, border: `1px solid ${t.warn}`, borderRadius: 6, color: t.warn, fontSize: 11, padding: "10px 12px" }}>{zh ? "催化反应与核验记录加载失败，请检查数据文件。" : "Catalysis reaction and verification records failed to load. Check the data files."}</div> : null}

@@ -26,7 +26,9 @@
     "validate:data": "node scripts/validate-reaction-rationale-data.mjs",
     "visual:check": "node scripts/visual-checks.mjs",
     "visual:check:final": "node scripts/final-ui-qa.mjs",
-    "visual:check:gassep": "node scripts/visual-check-gassep.mjs"
+    "visual:check:gassep": "node scripts/visual-check-gassep.mjs",
+    "build:catalysis-literature": "node scripts/catalysis/build-catalysis-literature-catalog.mjs",
+    "prebuild": "npm run build:catalysis-literature"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
