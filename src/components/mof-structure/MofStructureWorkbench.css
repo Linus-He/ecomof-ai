@@ -20,40 +20,72 @@
   min-width: 0;
 }
 
+/* A compact disclosure keeps access guidance available without dominating the header. */
 .mof-structure-access-note {
-  align-items: flex-start;
   align-self: center;
-  background: color-mix(in srgb, var(--mof-sw-surface) 66%, transparent);
-  border: 1px solid color-mix(in srgb, var(--mof-sw-border-strong) 72%, transparent);
+  background: color-mix(in srgb, var(--mof-sw-surface) 78%, transparent);
+  border: 0;
   border-radius: 12px;
-  display: grid;
-  gap: 10px;
   grid-column: 2;
   grid-row: 1 / span 2;
-  grid-template-columns: auto minmax(0, 1fr);
-  max-width: 490px;
-  padding: 13px 15px;
+  min-width: 0;
 }
 
-.mof-structure-access-note > svg {
-  color: var(--mof-sw-accent-text);
-  margin-top: 1px;
+.mof-structure-access-note summary {
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 14px;
 }
-
-.mof-structure-access-note strong {
+.mof-structure-access-note summary::-webkit-details-marker { display: none; }
+.mof-structure-access-icon {
+  align-items: center;
+  background: var(--selection-fill);
+  border-radius: 10px;
+  color: var(--selection-ink);
+  display: flex;
+  flex: 0 0 36px;
+  height: 36px;
+  justify-content: center;
+}
+.mof-structure-access-heading { flex: 1; min-width: 0; }
+.mof-structure-access-heading strong {
   color: var(--mof-sw-text-strong);
   display: block;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-  line-height: 1.45;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
 }
-
+.mof-structure-access-heading > span {
+  color: var(--mof-sw-muted);
+  display: block;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 3px;
+}
+.mof-structure-access-toggle {
+  align-items: center;
+  color: var(--selection-ink);
+  display: flex;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 5px;
+}
+.mof-access-open { display: none; }
+.mof-structure-access-note details[open] summary { background: var(--selection-fill); }
+.mof-structure-access-note details[open] .mof-access-closed { display: none; }
+.mof-structure-access-note details[open] .mof-access-open { display: inline; }
+.mof-structure-access-note details[open] .mof-structure-access-toggle svg { transform: rotate(180deg); }
 .mof-structure-access-note p {
   color: var(--mof-sw-muted);
-  font-size: 10.4px;
-  line-height: 1.65;
-  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.85;
+  margin: 0;
+  padding: 14px 16px 16px;
 }
 
 .mof-structure-eyebrow {

@@ -5,6 +5,7 @@ import {
   ArrowsClockwise,
   Atom,
   Camera,
+  CaretDown,
   CheckCircle,
   CloudArrowDown,
   CopySimple,
@@ -902,9 +903,19 @@ export function MofStructureWorkbench({ indexProgressContent, item, pilotManifes
           </p>
         </div>
         <aside className="mof-structure-access-note" aria-label={text(lang, "数据托管与访问说明", "Data hosting and access notice")}>
-          <GlobeHemisphereEast aria-hidden="true" size={19} weight="duotone" />
-          <div>
-            <strong>{text(lang, "数据托管与访问说明", "Data hosting and access")}</strong>
+          <details>
+            <summary>
+              <span className="mof-structure-access-icon"><GlobeHemisphereEast aria-hidden="true" size={20} weight="duotone" /></span>
+              <span className="mof-structure-access-heading">
+                <strong>{text(lang, "数据托管与访问说明", "Data hosting and access")}</strong>
+                <span>{text(lang, "外部数据访问受网络与来源许可影响", "External data access depends on connectivity and source licences")}</span>
+              </span>
+              <span className="mof-structure-access-toggle">
+                <span className="mof-access-closed">{text(lang, "详情", "Details")}</span>
+                <span className="mof-access-open">{text(lang, "收起", "Close")}</span>
+                <CaretDown aria-hidden="true" size={14} weight="bold" />
+              </span>
+            </summary>
             <p>
               {text(
                 lang,
@@ -912,7 +923,7 @@ export function MofStructureWorkbench({ indexProgressContent, item, pilotManifes
                 "As a cautious response to European and other applicable data-protection and cross-border transfer requirements, together with provider licences and current hosting conditions, the relevant data is not currently hosted on servers in mainland China. If it does not load, please retry from a compliant network environment that can access the relevant overseas data source. We apologize for the inconvenience.",
               )}
             </p>
-          </div>
+          </details>
         </aside>
         <div className="mof-structure-header-actions">
           <CompactBadge tone={publicCatalogReady || fileMeta ? "good" : "warn"} icon={publicCatalogReady || fileMeta ? CheckCircle : ShieldCheck}>

@@ -15,7 +15,7 @@
   --library-blue: #b9d4ff;
 }
 #library .mof-structure-header { background: var(--library-blue-bg); }
-#library .mof-structure-access-note { background: var(--library-amber-bg); border: 0; }
+#library .mof-structure-access-note { background: color-mix(in srgb, var(--mof-sw-surface) 78%, transparent); border: 0; }
 #library .mof-structure-catalog { background: var(--library-blue-bg); }
 #library .mof-structure-search-results button { background: var(--app-panel); border-color: transparent; }
 #library .mof-structure-search-results button.is-identity-only { background: var(--library-amber-bg); border: 1px solid transparent; }
