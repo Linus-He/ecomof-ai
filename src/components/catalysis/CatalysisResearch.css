@@ -26,7 +26,7 @@
   box-shadow: none !important; border-radius: 8px !important; min-width: 0; padding: 12px 16px !important;
 }
 .catalysis-center .glass-segmented-control > .glass-segmented-item[data-active=true] {
-  background: var(--cr-blue-bg, #e9f0fc) !important; color: var(--cr-blue, #2457a6) !important; box-shadow: none !important;
+  background: var(--app-panel) !important; color: var(--app-text-strong) !important; box-shadow: 0 0 0 1px var(--app-border), 0 1px 3px #0000000a !important;
 }
 .catalysis-center .catalysis-center-tabs { gap: 8px; }
 .catalysis-research [hidden] { display: none !important; }
