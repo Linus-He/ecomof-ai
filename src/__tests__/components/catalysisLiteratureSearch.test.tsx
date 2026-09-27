@@ -74,7 +74,7 @@ describe("catalysis literature search and previews", () => {
     render(<CatalysisLiteratureCatalog t={THEME_LIGHT} />)
     const input = screen.getByRole("searchbox")
     fireEvent.change(input, { target: { value: "Bi@NC" } })
-    expect(screen.getByRole("status")).toHaveTextContent("1 / 24")
+    expect(screen.getByRole("status")).toHaveTextContent(`1 / ${catalysisSearchDocuments.length}`)
     expect(screen.getByText(/新增文献 · 字段待核对/)).toBeInTheDocument()
     fireEvent.change(input, { target: { value: "no-such-publication-123" } })
     expect(screen.getByText("没有匹配的文献，请尝试题名或 DOI。")).toBeVisible()

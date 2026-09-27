@@ -1,9 +1,13 @@
 import fs from "node:fs"
+import { validateLiteratureAdditions } from "./catalysis-literature-validation.mjs"
 
 const read = path => JSON.parse(fs.readFileSync(path, "utf8"))
 const database = read("public/data/catalysis_v2/catalysis_reaction_database_v2.json")
 const queue = read("public/data/catalysis_v2/catalysis_candidate_queue_v1.json")
 const additions = read("data/curation/catalysis/literature-additions-v1.json")
+const batchDir = "data/curation/catalysis/literature-batches"
+const batches = fs.readdirSync(batchDir).filter(file => file.endsWith(".json")).map(file => read(`${batchDir}/${file}`))
+validateLiteratureAdditions(additions.records, batches)
 const entries = new Map()
 function add(source, layer, extra = {}) {
   const doi = source.doi.toLowerCase().replace(/^https?:\/\/(dx\.)?doi.org\//, "").trim()
@@ -37,7 +41,10 @@ for (const source of [...queue.candidates, ...(queue.navigationCandidates || [])
     verificationBasis: source.metadataVerification, checkedAt: source.doiVerification?.checkedAt || queue.generatedAt,
   })
 }
-for (const source of additions.records) add(source, "addition", source)
+for (const source of additions.records) {
+  if (entries.has(source.doi.toLowerCase())) throw new Error(`Addition already present in another layer: ${source.doi}`)
+  add(source, "addition", source)
+}
 const records = [...entries.values()].sort((a, b) => b.year - a.year || a.doi.localeCompare(b.doi))
 fs.writeFileSync("public/data/catalysis_v2/catalysis_literature_catalog_v1.json", JSON.stringify({ schemaVersion: "catalysis-literature-catalog-v1", records }, null, 2) + "\n")
 console.log(`Catalysis literature catalog: ${records.length} unique DOI entries`)

@@ -10,6 +10,7 @@ export function CatalysisLiteraturePreview({ paper, lang = "zh", showTitle = tru
     <p style={{ margin: 0 }}>{zh ? paper.summaryZh : paper.summaryEn}</p>
     <small>{zh ? "预览为编写的研究概述，并非原文摘要。文献收录不代表实验数值、结构身份或训练许可已核验。" : "This is an editorial research overview, not the original abstract. Inclusion does not verify numeric claims, structure identity or training permission."}</small>
     <small>{zh ? "概述依据：" : "Overview basis: "}{paper.verificationBasis === "curated-reaction-database" ? (zh ? "现有反应记录" : "Curated reaction records") : paper.verificationBasis?.includes("publisher") ? (zh ? "出版社页面或检索摘要" : "Publisher page or indexed abstract") : (zh ? "题名与元数据" : "Title and metadata")}{paper.checkedAt ? ` · ${String(paper.checkedAt).slice(0, 10)}` : ""}</small>
+    {paper.metadataUrl && <small><a href={paper.metadataUrl} target="_blank" rel="noreferrer">{zh ? "查看 DOI 登记题录" : "View DOI registration metadata"} ↗</a>{zh ? " · 出版更正与撤稿状态未做穷尽核查" : " · Corrections and retractions have not been exhaustively checked"}</small>}
     <a href={paper.doiUrl} target="_blank" rel="noreferrer">{zh ? "打开 DOI 原文" : "Open DOI source"} ↗</a>
   </div>
 }

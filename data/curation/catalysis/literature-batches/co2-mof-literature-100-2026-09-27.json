@@ -1,0 +1,4456 @@
+{
+  "schemaVersion": "catalysis-literature-metadata-batch-v1",
+  "batchId": "co2-mof-literature-100-2026-09-27",
+  "admission": "literature-only-awaiting-field-verification",
+  "recordCount": 100,
+  "baselineCatalogCount": 24,
+  "expectedCatalogCount": 124,
+  "queries": [
+    {
+      "queryGroup": "electro",
+      "requestUrl": "https://api.crossref.org/works?query.title=metal+organic+framework+electrochemical+CO2+reduction&filter=type%3Ajournal-article%2Cuntil-pub-date%3A2026-09-27&rows=150&select=DOI%2Ctitle%2Ccontainer-title%2Cpublished%2Cpublished-online%2Cpublished-print%2Ctype%2CURL%2Cresource%2Cupdate-to",
+      "retrievedAt": "2026-09-27T14:25:04Z",
+      "returnedCount": 150
+    },
+    {
+      "queryGroup": "photo",
+      "requestUrl": "https://api.crossref.org/works?query.title=metal+organic+framework+photocatalytic+CO2+reduction&filter=type%3Ajournal-article%2Cuntil-pub-date%3A2026-09-27&rows=150&select=DOI%2Ctitle%2Ccontainer-title%2Cpublished%2Cpublished-online%2Cpublished-print%2Ctype%2CURL%2Cresource%2Cupdate-to",
+      "retrievedAt": "2026-09-27T14:25:06Z",
+      "returnedCount": 150
+    },
+    {
+      "queryGroup": "derived",
+      "requestUrl": "https://api.crossref.org/works?query.title=MOF+derived+electrocatalytic+carbon+dioxide+reduction&filter=type%3Ajournal-article%2Cuntil-pub-date%3A2026-09-27&rows=150&select=DOI%2Ctitle%2Ccontainer-title%2Cpublished%2Cpublished-online%2Cpublished-print%2Ctype%2CURL%2Cresource%2Cupdate-to",
+      "retrievedAt": "2026-09-27T14:25:10Z",
+      "returnedCount": 150
+    },
+    {
+      "queryGroup": "formate",
+      "requestUrl": "https://api.crossref.org/works?query.title=metal+organic+framework+bismuth+formate+electrocatalyst&filter=type%3Ajournal-article%2Cuntil-pub-date%3A2026-09-27&rows=150&select=DOI%2Ctitle%2Ccontainer-title%2Cpublished%2Cpublished-online%2Cpublished-print%2Ctype%2CURL%2Cresource%2Cupdate-to",
+      "retrievedAt": "2026-09-27T14:25:08Z",
+      "returnedCount": 150
+    }
+  ],
+  "reviewScope": "Title relevance and DOI, journal, publication year, publisher landing URL. No full-text, numerical, licence or exhaustive publication-status verification.",
+  "records": [
+    {
+      "doi": "10.1016/j.jechem.2020.09.021",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jechem.2020.09.021",
+      "retrievedAt": "2026-09-27T14:27:05Z",
+      "rawResponseSha256": "faf6ba6a55a202eb05926cd1614188075ec2a1bc6172e43d0a6a1895bb0c4f6d",
+      "metadata": {
+        "DOI": "10.1016/j.jechem.2020.09.021",
+        "title": [
+          "Ultrathin two-dimensional metal–organic framework nanosheets for efficient electrochemical CO2 reduction"
+        ],
+        "container-title": [
+          "Journal of Energy Chemistry"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              6
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              6
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2095495620306562"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.electacta.2019.03.101",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.electacta.2019.03.101",
+      "retrievedAt": "2026-09-27T14:27:04Z",
+      "rawResponseSha256": "1e803c0c620e97b861b655d54d4aeaced155308cbaf4a7db19e064122baa076c",
+      "metadata": {
+        "DOI": "10.1016/j.electacta.2019.03.101",
+        "title": [
+          "Metal–organic framework-mediated strategy for enhanced methane production on copper nanoparticles in electrochemical CO2 reduction"
+        ],
+        "container-title": [
+          "Electrochimica Acta"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2019,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0013468619305171"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcou.2020.101299",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcou.2020.101299",
+      "retrievedAt": "2026-09-27T14:27:03Z",
+      "rawResponseSha256": "bd5d7341b719f58beaa3e80e6ef9d34e7570884d45ec19f76fc25279b3d04af0",
+      "metadata": {
+        "DOI": "10.1016/j.jcou.2020.101299",
+        "title": [
+          "Electrochemical preparation of Cu/Cu2O-Cu(BDC) metal-organic framework electrodes for photoelectrocatalytic reduction of CO2"
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2212982020301542"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/s1872-2067(21)63970-0",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fs1872-2067%2821%2963970-0",
+      "retrievedAt": "2026-09-27T14:27:05Z",
+      "rawResponseSha256": "f9555f2e7992565f7c6f25ce147e4b8ac1840ebc54f29b73c3d773b1e471c2cb",
+      "metadata": {
+        "DOI": "10.1016/s1872-2067(21)63970-0",
+        "title": [
+          "Metal organic framework-ionic liquid hybrid catalysts for the selective electrochemical reduction of CO2 to CH4"
+        ],
+        "container-title": [
+          "Chinese Journal of Catalysis"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1872206721639700"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.isci.2024.110924",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.isci.2024.110924",
+      "retrievedAt": "2026-09-27T14:27:09Z",
+      "rawResponseSha256": "22f10950061bf393fdc8ce20b6b581102bab8cf5a91f41b15f57eb67bee16fd7",
+      "metadata": {
+        "DOI": "10.1016/j.isci.2024.110924",
+        "title": [
+          "Synergistic metal halide perovskite@metal-organic framework hybrids for photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "iScience"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2589004224021497"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jallcom.2023.173053",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jallcom.2023.173053",
+      "retrievedAt": "2026-09-27T14:27:05Z",
+      "rawResponseSha256": "ea24a74dae3d2b5e2a8978f577edfcc49c8164adf4b2947c206be4115094fca2",
+      "metadata": {
+        "DOI": "10.1016/j.jallcom.2023.173053",
+        "title": [
+          "Facile synthesis of Cu-Zn bimetallic metal-organic framework for effective catalyst toward electrochemical reduction of CO2"
+        ],
+        "container-title": [
+          "Journal of Alloys and Compounds"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0925838823043566"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cap.2021.04.005",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cap.2021.04.005",
+      "retrievedAt": "2026-09-27T14:27:07Z",
+      "rawResponseSha256": "8a3dc004c4226cee574f01bcefcf9b1e1c8ae13ee44c20cb698fa3c4e173b280",
+      "metadata": {
+        "DOI": "10.1016/j.cap.2021.04.005",
+        "title": [
+          "Highly CO selective Ca and Zn hybrid metal-organic framework electrocatalyst for the electrochemical reduction of CO2"
+        ],
+        "container-title": [
+          "Current Applied Physics"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1567173921000900"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jechem.2020.06.038",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jechem.2020.06.038",
+      "retrievedAt": "2026-09-27T14:27:10Z",
+      "rawResponseSha256": "5b10750cbc3a24221e75bd34ddf4835d468c6c62408466633a0cc59ee2fe6e59",
+      "metadata": {
+        "DOI": "10.1016/j.jechem.2020.06.038",
+        "title": [
+          "Nitrogen-rich metal-organic framework mediated Cu–N–C composite catalysts for the electrochemical reduction of CO2"
+        ],
+        "container-title": [
+          "Journal of Energy Chemistry"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2095495620304514"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.fuel.2025.136382",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.fuel.2025.136382",
+      "retrievedAt": "2026-09-27T14:27:07Z",
+      "rawResponseSha256": "33ba3634bb58a08710b2c6fe8b3edd35deda790524e68dcc55c90538a73e11f3",
+      "metadata": {
+        "DOI": "10.1016/j.fuel.2025.136382",
+        "title": [
+          "Dual photo/electrocatalytic CO2 reduction by porphyrin based metal organic framework under visible light and electrochemical bias"
+        ],
+        "container-title": [
+          "Fuel"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0016236125021076"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcis.2025.138251",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcis.2025.138251",
+      "retrievedAt": "2026-09-27T14:27:10Z",
+      "rawResponseSha256": "2c6d4ae3860e8435c345665abccae31fb590d4302d482639b136ab1b05d8afa8",
+      "metadata": {
+        "DOI": "10.1016/j.jcis.2025.138251",
+        "title": [
+          "Bismuth oxide–loaded indium–organic framework catalysts for efficient electrochemical CO2 reduction"
+        ],
+        "container-title": [
+          "Journal of Colloid and Interface Science"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S002197972501642X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acscatal.5b01767",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facscatal.5b01767",
+      "retrievedAt": "2026-09-27T14:27:10Z",
+      "rawResponseSha256": "ded2d502af62933ea99b05415544ccb52a5ba90e5c4cb757d177569fb632e9df",
+      "metadata": {
+        "DOI": "10.1021/acscatal.5b01767",
+        "title": [
+          "Fe-Porphyrin-Based Metal–Organic Framework\nFilms as High-Surface Concentration, Heterogeneous Catalysts for Electrochemical\nReduction of CO2"
+        ],
+        "container-title": [
+          "ACS Catalysis"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              9,
+              18
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2015,
+              9,
+              18
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2015,
+              11,
+              6
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/accacs/article/5/11/6302/1293600/Fe-Porphyrin-Based-Metal-Organic-Framework-Films"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.electacta.2024.145389",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.electacta.2024.145389",
+      "retrievedAt": "2026-09-27T14:27:10Z",
+      "rawResponseSha256": "0a446311ef108876dc7f99d6c7f809b3e16c1c08343c668abf121660b17d83da",
+      "metadata": {
+        "DOI": "10.1016/j.electacta.2024.145389",
+        "title": [
+          "Electrochemical CO2 reduction by heterogeneous catalysts of 2D metal-organic frameworks comprising metal-coordinated porphyrins"
+        ],
+        "container-title": [
+          "Electrochimica Acta"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0013468624016256"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.micromeso.2026.114191",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.micromeso.2026.114191",
+      "retrievedAt": "2026-09-27T14:27:12Z",
+      "rawResponseSha256": "d197bf64d0746aee377900668705993bc82dc52ec7c3d7ee325e25c7b9b74755",
+      "metadata": {
+        "DOI": "10.1016/j.micromeso.2026.114191",
+        "title": [
+          "Perovskite nanocubes confined in mesoporous metal organic framework facilitates photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Microporous and Mesoporous Materials"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              6
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              6
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1387181126001666"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1149/2.001204eel",
+      "requestUrl": "https://api.crossref.org/works/10.1149%2F2.001204eel",
+      "retrievedAt": "2026-09-27T14:27:11Z",
+      "rawResponseSha256": "711448d41286b68b0309fa1f48d9ae65ebb009ffe1dd4c5192025836a86923b8",
+      "metadata": {
+        "DOI": "10.1149/2.001204eel",
+        "title": [
+          "Electrochemical Reduction of Carbon Dioxide Using a Copper Rubeanate Metal Organic Framework"
+        ],
+        "container-title": [
+          "ECS Electrochemistry Letters"
+        ],
+        "publisher": "The Electrochemical Society",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2012,
+              8,
+              24
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2012,
+              8,
+              24
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://iopscience.iop.org/article/10.1149/2.001204eel"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.matt.2024.06.008",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.matt.2024.06.008",
+      "retrievedAt": "2026-09-27T14:27:11Z",
+      "rawResponseSha256": "5cb2fc808a17cd7ad1d6098c821239a23edc6c73b4fb683c92e4a5b9f535b236",
+      "metadata": {
+        "DOI": "10.1016/j.matt.2024.06.008",
+        "title": [
+          "Metal-organic framework accumulator amplifies CO2 electroreduction"
+        ],
+        "container-title": [
+          "Matter"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              8
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              8
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2590238524003278"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.scp.2022.100786",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.scp.2022.100786",
+      "retrievedAt": "2026-09-27T14:27:12Z",
+      "rawResponseSha256": "9b23f09108384d1b6e1c061e4d6002e6bb2efe050dce16fec44ac947d71603ea",
+      "metadata": {
+        "DOI": "10.1016/j.scp.2022.100786",
+        "title": [
+          "Sonochemical synthesis of zinc adipate Metal-Organic Framework (MOF) for the electrochemical reduction of CO2: MOF and circular economy potential"
+        ],
+        "container-title": [
+          "Sustainable Chemistry and Pharmacy"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2352554122001905"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jelechem.2023.117704",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jelechem.2023.117704",
+      "retrievedAt": "2026-09-27T14:27:12Z",
+      "rawResponseSha256": "5bd4b16d8081de1441a46f79f52db89b04213d63891af6fb567a920a3570a0ae",
+      "metadata": {
+        "DOI": "10.1016/j.jelechem.2023.117704",
+        "title": [
+          "Nitrogen-doped carbon-encompassed Ni nanoparticles prepared from Ni (II) cation-exchanged metal organic framework for efficient electrochemical CO2 reduction"
+        ],
+        "container-title": [
+          "Journal of Electroanalytical Chemistry"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1572665723005647"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jallcom.2020.156942",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jallcom.2020.156942",
+      "retrievedAt": "2026-09-27T14:27:13Z",
+      "rawResponseSha256": "9ef1c7321f1f748bdeed74f2cd17ed020bbb5752221ed8852a60721612a4198f",
+      "metadata": {
+        "DOI": "10.1016/j.jallcom.2020.156942",
+        "title": [
+          "Novel Co3O4 @ CoFe2O4 double-shelled nanoboxes derived from Metal–Organic Framework for CO2 reduction"
+        ],
+        "container-title": [
+          "Journal of Alloys and Compounds"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0925838820333065"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.heliyon.2024.e26281",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.heliyon.2024.e26281",
+      "retrievedAt": "2026-09-27T14:27:16Z",
+      "rawResponseSha256": "ffe3a787717e3fee336e6010ad1d9339d992183acf02c810798c2999b133e0e2",
+      "metadata": {
+        "DOI": "10.1016/j.heliyon.2024.e26281",
+        "title": [
+          "A comparison between 2D and 3D cobalt–organic framework as catalysts for electrochemical CO2 reduction"
+        ],
+        "container-title": [
+          "Heliyon"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2405844024023120"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1117/1.jpe.10.023502",
+      "requestUrl": "https://api.crossref.org/works/10.1117%2F1.jpe.10.023502",
+      "retrievedAt": "2026-09-27T14:27:13Z",
+      "rawResponseSha256": "339c4788291cb636c1f2687d9bef71adbe5170354cac2d8c3f8be32ec95a03fd",
+      "metadata": {
+        "DOI": "10.1117/1.jpe.10.023502",
+        "title": [
+          "Metal–organic framework-templated synthesis of Ag/Ni-TiO2 for enhanced photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Journal of Photonics for Energy"
+        ],
+        "publisher": "SPIE-Intl Soc Optical Eng",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              11,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2019,
+              11,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.spiedigitallibrary.org/journals/journal-of-photonics-for-energy/volume-10/issue-02/023502/Metalorganic-framework-templated-synthesis-of-Ag-Ni-TiO2-for-enhanced/10.1117/1.JPE.10.023502.full"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1038/s41467-021-22991-7",
+      "requestUrl": "https://api.crossref.org/works/10.1038%2Fs41467-021-22991-7",
+      "retrievedAt": "2026-09-27T14:27:15Z",
+      "rawResponseSha256": "5a23e223e8dfd73e9ab9f75729ce7e10e0799133675e1a83976a8f33880603bc",
+      "metadata": {
+        "DOI": "10.1038/s41467-021-22991-7",
+        "title": [
+          "Metal-organic framework membranes with single-atomic centers for photocatalytic CO2 and O2 reduction"
+        ],
+        "container-title": [
+          "Nature Communications"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              5,
+              11
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2021,
+              5,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41467-021-22991-7"
+          }
+        },
+        "relation": {
+          "has-preprint": [
+            {
+              "id-type": "doi",
+              "id": "10.21203/rs.3.rs-73939/v1",
+              "asserted-by": "object"
+            }
+          ]
+        }
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcat.2019.09.013",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcat.2019.09.013",
+      "retrievedAt": "2026-09-27T14:27:17Z",
+      "rawResponseSha256": "827bce0d67dcb12a9cffb3cd42fb192dad8d6a27dc18026bdcaf81b8f8538e3b",
+      "metadata": {
+        "DOI": "10.1016/j.jcat.2019.09.013",
+        "title": [
+          "Structure-activity relationships in metal organic framework derived mesoporous nitrogen-doped carbon containing atomically dispersed iron sites for CO2 electrochemical reduction"
+        ],
+        "container-title": [
+          "Journal of Catalysis"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2019,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0021951719304439"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s12274-022-4728-1",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs12274-022-4728-1",
+      "retrievedAt": "2026-09-27T14:27:15Z",
+      "rawResponseSha256": "d743148af169248a953681a947bd311aa90d418979281e9d3a007d484807b2d3",
+      "metadata": {
+        "DOI": "10.1007/s12274-022-4728-1",
+        "title": [
+          "Atomically dispersed Co−Cu alloy reconstructed from metal-organic framework to promote electrochemical CO2 methanation"
+        ],
+        "container-title": [
+          "Nano Research"
+        ],
+        "publisher": "Tsinghua University Press",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              1
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s12274-022-4728-1"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.mtcomm.2024.110419",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.mtcomm.2024.110419",
+      "retrievedAt": "2026-09-27T14:27:17Z",
+      "rawResponseSha256": "e9c120f3e84f0521456dbde02186c6ebecab1b66ee80ab09ddc14d8b63e2c15e",
+      "metadata": {
+        "DOI": "10.1016/j.mtcomm.2024.110419",
+        "title": [
+          "Green synthesis of Cu-based metal organic framework for electrochemical CO2 conversion into formic acid"
+        ],
+        "container-title": [
+          "Materials Today Communications"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2352492824024000"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2019.01.014",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2019.01.014",
+      "retrievedAt": "2026-09-27T14:27:17Z",
+      "rawResponseSha256": "cbe6f2872d11fbcadec811213a17bba429fe0a90e5f1a4dbe0c8aad846b90892",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2019.01.014",
+        "title": [
+          "Photosensitizing single-site metal−organic framework enabling visible-light-driven CO2 reduction for syngas production"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2019,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337319300141"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1038/s41467-023-40117-z",
+      "requestUrl": "https://api.crossref.org/works/10.1038%2Fs41467-023-40117-z",
+      "retrievedAt": "2026-09-27T14:27:17Z",
+      "rawResponseSha256": "600a492d3a4eee91945cd1ef34d77e5580a5217e1a7d0bc1728d9b817aeb5aed",
+      "metadata": {
+        "DOI": "10.1038/s41467-023-40117-z",
+        "title": [
+          "Confining charge-transfer complex in a metal-organic framework for photocatalytic CO2 reduction in water"
+        ],
+        "container-title": [
+          "Nature Communications"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              26
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              26
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41467-023-40117-z"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.seppur.2023.125873",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.seppur.2023.125873",
+      "retrievedAt": "2026-09-27T14:27:19Z",
+      "rawResponseSha256": "9b4ee650c329c5ee0d52c3aab3da68d54c19463cba09e10565f2be6085159128",
+      "metadata": {
+        "DOI": "10.1016/j.seppur.2023.125873",
+        "title": [
+          "Enhanced photocatalytic CO2 reduction by integrating an iron based metal-organic framework and a photosensitizer"
+        ],
+        "container-title": [
+          "Separation and Purification Technology"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1383586623027818"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2021.120519",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2021.120519",
+      "retrievedAt": "2026-09-27T14:27:18Z",
+      "rawResponseSha256": "f636b07f2a55b20cd723a910b13302f0f4b94b1fa6a15b67e2467ad257b37142",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2021.120519",
+        "title": [
+          "Metal-organic framework-derived Ga-Cu/CeO2 catalyst for highly efficient photothermal catalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337321006457"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.ijhydene.2026.154803",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.ijhydene.2026.154803",
+      "retrievedAt": "2026-09-27T14:27:20Z",
+      "rawResponseSha256": "101b87292919a26882f75ae212d2436c7eb6af9e60c61db178f6f279e9e10ac6",
+      "metadata": {
+        "DOI": "10.1016/j.ijhydene.2026.154803",
+        "title": [
+          "Metal-organic framework-derived BiSn bimetallic oxides for the electrocatalytic reduction of CO2 to formate"
+        ],
+        "container-title": [
+          "International Journal of Hydrogen Energy"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0360319926014400"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcou.2019.05.025",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcou.2019.05.025",
+      "retrievedAt": "2026-09-27T14:27:26Z",
+      "rawResponseSha256": "aaf6500aa7a4c945f25d93daebbe5240ccc16aa68d1ce375edcb016a217e4861",
+      "metadata": {
+        "DOI": "10.1016/j.jcou.2019.05.025",
+        "title": [
+          "Cu/Bi metal-organic framework-based systems for an enhanced electrochemical transformation of CO2 to alcohols"
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2019,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2212982019300228"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.molstruc.2024.138556",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.molstruc.2024.138556",
+      "retrievedAt": "2026-09-27T14:27:19Z",
+      "rawResponseSha256": "910dcf60b0dc65238a55d4e7159a3f0b3cccfc97637b4a673fe7d6f428e173cb",
+      "metadata": {
+        "DOI": "10.1016/j.molstruc.2024.138556",
+        "title": [
+          "A bifunctional catalyst derived from copper metal−organic framework for highly selective photocatalytic CO2 reduction and CO2 cycloaddition reaction"
+        ],
+        "container-title": [
+          "Journal of Molecular Structure"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              9
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              9
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0022286024010755"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcou.2020.101159",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcou.2020.101159",
+      "retrievedAt": "2026-09-27T14:27:20Z",
+      "rawResponseSha256": "6bc2b6cc7b1f6779ef44f50eeb84366dde45d95cc0f54476a80d99f2726a11b4",
+      "metadata": {
+        "DOI": "10.1016/j.jcou.2020.101159",
+        "title": [
+          "Electrochemical carbon dioxide reduction to isopropanol using novel carbonized copper metal organic framework derived electrodes"
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2212982019311898"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cclet.2022.03.058",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cclet.2022.03.058",
+      "retrievedAt": "2026-09-27T14:27:21Z",
+      "rawResponseSha256": "3e454b1396c386df26f5585c257327f1f57528b1c9de8cb3a4acdad780287d16",
+      "metadata": {
+        "DOI": "10.1016/j.cclet.2022.03.058",
+        "title": [
+          "Thermal expansion-quench of nickel metal-organic framework into nanosheets for efficient visible light CO2 reduction"
+        ],
+        "container-title": [
+          "Chinese Chemical Letters"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1001841722002637"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.electacta.2023.141896",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.electacta.2023.141896",
+      "retrievedAt": "2026-09-27T14:27:21Z",
+      "rawResponseSha256": "5ff3f10d2801de48c4d523f76f7f14bb9922f098a14510019db51b2a975506a1",
+      "metadata": {
+        "DOI": "10.1016/j.electacta.2023.141896",
+        "title": [
+          "Assembly and electrocatalytic CO2 reduction of two-dimensional bimetallic porphyrin-based conjugated cobalt metal-organic framework"
+        ],
+        "container-title": [
+          "Electrochimica Acta"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S001346862300083X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cjche.2021.10.013",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cjche.2021.10.013",
+      "retrievedAt": "2026-09-27T14:27:23Z",
+      "rawResponseSha256": "7132b358079ecc33e023b3ba0778c8f2faa8fb645ff1e609d3dd2ceb1df65df1",
+      "metadata": {
+        "DOI": "10.1016/j.cjche.2021.10.013",
+        "title": [
+          "Cadmium-based metal−organic frameworks for high-performance electrochemical CO2 reduction to CO over wide potential range"
+        ],
+        "container-title": [
+          "Chinese Journal of Chemical Engineering"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1004954121005619"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cjsc.2026.100948",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cjsc.2026.100948",
+      "retrievedAt": "2026-09-27T14:27:23Z",
+      "rawResponseSha256": "9a308da6dfea64afcfd9bb381e2972f7fdc50dbe70743a27446bbbe4e1545b7e",
+      "metadata": {
+        "DOI": "10.1016/j.cjsc.2026.100948",
+        "title": [
+          "Boosting efficient electrocatalytic CO2 reduction by two-dimensional polyoxometalate@metal-organic framework composites with asymmetric sites"
+        ],
+        "container-title": [
+          "Chinese Journal of Structural Chemistry"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              8
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              8
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0254586126000851"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.matre.2023.100229",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.matre.2023.100229",
+      "retrievedAt": "2026-09-27T14:27:23Z",
+      "rawResponseSha256": "95f2132d398a674af7762fc2cac6f4e18a26372d8e570b7e34c657ae8e6bb932",
+      "metadata": {
+        "DOI": "10.1016/j.matre.2023.100229",
+        "title": [
+          "Metal-organic-frameworks passivated CuBi2O4 photocathodes boost CO2 reduction kinetics"
+        ],
+        "container-title": [
+          "Materials Reports: Energy"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              11
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2666935823000873"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.elecom.2012.09.018",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.elecom.2012.09.018",
+      "retrievedAt": "2026-09-27T14:27:24Z",
+      "rawResponseSha256": "74441ffc657a05f8db5b834f21449e5f587e1a4b31158e8a474adf2d92854ec4",
+      "metadata": {
+        "DOI": "10.1016/j.elecom.2012.09.018",
+        "title": [
+          "Highly selective electrochemical reduction of carbon dioxide using Cu based metal organic framework as an electrocatalyst"
+        ],
+        "container-title": [
+          "Electrochemistry Communications"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2012,
+              11
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2012,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1388248112003906"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcis.2024.09.124",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcis.2024.09.124",
+      "retrievedAt": "2026-09-27T14:27:26Z",
+      "rawResponseSha256": "acd9acf6d9c66da8b2ae0c1a4276e20a7d4dfa44a53c736cb4d15eacf7ea3130",
+      "metadata": {
+        "DOI": "10.1016/j.jcis.2024.09.124",
+        "title": [
+          "Increasing electrochemical carbon dioxide reduction to methane via a novel copper-based conductive metal organic framework"
+        ],
+        "container-title": [
+          "Journal of Colloid and Interface Science"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0021979724021908"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1038/s41586-020-2738-2",
+      "requestUrl": "https://api.crossref.org/works/10.1038%2Fs41586-020-2738-2",
+      "retrievedAt": "2026-09-27T14:27:26Z",
+      "rawResponseSha256": "61ee7cca53afeed29d5aad487325a22da5be2aea498cb10231a418d78157dc2e",
+      "metadata": {
+        "DOI": "10.1038/s41586-020-2738-2",
+        "title": [
+          "Filling metal–organic framework mesopores with TiO2 for CO2 photoreduction"
+        ],
+        "container-title": [
+          "Nature"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              9,
+              9
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2020,
+              9,
+              9
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              10,
+              22
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41586-020-2738-2"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1038/s41467-023-40418-3",
+      "requestUrl": "https://api.crossref.org/works/10.1038%2Fs41467-023-40418-3",
+      "retrievedAt": "2026-09-27T14:27:26Z",
+      "rawResponseSha256": "2dfe69e41dd60117621beca3da0edb3fdbaba56b044fa55b611f3a3e6f6f3d46",
+      "metadata": {
+        "DOI": "10.1038/s41467-023-40418-3",
+        "title": [
+          "Selective CO2 reduction to CH3OH over atomic dual-metal sites embedded in a metal-organic framework with high-energy radiation"
+        ],
+        "container-title": [
+          "Nature Communications"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              8,
+              8
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              8,
+              8
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.nature.com/articles/s41467-023-40418-3"
+          }
+        },
+        "relation": {
+          "has-preprint": [
+            {
+              "id-type": "doi",
+              "id": "10.21203/rs.3.rs-2525130/v1",
+              "asserted-by": "object"
+            }
+          ]
+        }
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acsaem.9b02210",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facsaem.9b02210",
+      "retrievedAt": "2026-09-27T14:27:30Z",
+      "rawResponseSha256": "e29cc1eff9653d420f3d8026e6e4935dea37927a0efec22e1ee3d9771f9ff39b",
+      "metadata": {
+        "DOI": "10.1021/acsaem.9b02210",
+        "title": [
+          "Aluminum Metal–Organic Framework Triggers Carbon Dioxide Reduction Activity"
+        ],
+        "container-title": [
+          "ACS Applied Energy Materials"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              1,
+              28
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2020,
+              1,
+              28
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              2,
+              24
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acsaem.9b02210"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s11164-026-06099-5",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs11164-026-06099-5",
+      "retrievedAt": "2026-09-27T14:27:30Z",
+      "rawResponseSha256": "a311cc880cbb5b359b22e8b4f87d932ff0970aeadcbf16bca661cfb192cf12a6",
+      "metadata": {
+        "DOI": "10.1007/s11164-026-06099-5",
+        "title": [
+          "Synthesis of core–shell SiO2@ZIF-71/Pd dielectric-based metal–organic framework for boosting CO2 reduction"
+        ],
+        "container-title": [
+          "Research on Chemical Intermediates"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              9,
+              15
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2026,
+              9,
+              15
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s11164-026-06099-5"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jpap.2022.100111",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jpap.2022.100111",
+      "retrievedAt": "2026-09-27T14:27:28Z",
+      "rawResponseSha256": "43aa6fe13925697e1a344ea570ff046fefcf805177f69947ae0243960b89d37d",
+      "metadata": {
+        "DOI": "10.1016/j.jpap.2022.100111",
+        "title": [
+          "An iron-porphyrin grafted metal–organic framework as a heterogeneous catalyst for the photochemical reduction of CO2"
+        ],
+        "container-title": [
+          "Journal of Photochemistry and Photobiology"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              6
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              6
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2666469022000045"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cjsc.2024.100301",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cjsc.2024.100301",
+      "retrievedAt": "2026-09-27T14:27:27Z",
+      "rawResponseSha256": "4050a518db7049684ee8422b563060a662caf3cf9cc98a517f0f2da066f2a188",
+      "metadata": {
+        "DOI": "10.1016/j.cjsc.2024.100301",
+        "title": [
+          "2D zirconium-based metal-organic framework/bismuth(III) oxide nanorods composite for electrocatalytic CO2-to-formate reduction"
+        ],
+        "container-title": [
+          "Chinese Journal of Structural Chemistry"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0254586124001181"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.matlet.2023.135669",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.matlet.2023.135669",
+      "retrievedAt": "2026-09-27T14:27:28Z",
+      "rawResponseSha256": "0ad3b31fbb8b63962d3c317a225d67fe9a23e621a51f93fab12971868b2db9ae",
+      "metadata": {
+        "DOI": "10.1016/j.matlet.2023.135669",
+        "title": [
+          "Linker-length dependency of unsaturated Ni-oxo clusters in metal hydroxide-organic framework for photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Materials Letters"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0167577X23018542"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1002/cssc.202101122",
+      "requestUrl": "https://api.crossref.org/works/10.1002%2Fcssc.202101122",
+      "retrievedAt": "2026-09-27T14:27:32Z",
+      "rawResponseSha256": "578cfc95707409eec7759d1be39efd2162a44755957091dc2ed8a4f7773b542f",
+      "metadata": {
+        "DOI": "10.1002/cssc.202101122",
+        "title": [
+          "Reconstructed Bismuth‐Based Metal−Organic Framework Nanofibers for Selective CO<sub>2</sub>‐to‐Formate Conversion: Morphology Engineering"
+        ],
+        "container-title": [
+          "ChemSusChem"
+        ],
+        "publisher": "Wiley",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              7,
+              29
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2021,
+              7,
+              29
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              8,
+              23
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/cssc.202101122"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.colsurfa.2021.127840",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.colsurfa.2021.127840",
+      "retrievedAt": "2026-09-27T14:27:31Z",
+      "rawResponseSha256": "fa68f460754b3b5ad9e2071a8e5cff9f3422639d5f2908c92681512fb33b4bd6",
+      "metadata": {
+        "DOI": "10.1016/j.colsurfa.2021.127840",
+        "title": [
+          "Bismuth metal-organic framework for electroreduction of carbon dioxide"
+        ],
+        "container-title": [
+          "Colloids and Surfaces A: Physicochemical and Engineering Aspects"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S092777572101709X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1002/anie.202000657",
+      "requestUrl": "https://api.crossref.org/works/10.1002%2Fanie.202000657",
+      "retrievedAt": "2026-09-27T14:27:31Z",
+      "rawResponseSha256": "36f4e6942c5296c7d0cf9d5a7f1ed9d2dd6a42cc78555fdfccf1e2581a35c29d",
+      "metadata": {
+        "DOI": "10.1002/anie.202000657",
+        "title": [
+          "Metal–Organic Framework‐Derived Carbon Nanorods Encapsulating Bismuth Oxides for Rapid and Selective CO\n                    <sub>2</sub>\n                    Electroreduction to Formate"
+        ],
+        "container-title": [
+          "Angewandte Chemie International Edition"
+        ],
+        "publisher": "Wiley",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              4,
+              28
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2020,
+              4,
+              28
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              6,
+              26
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://onlinelibrary.wiley.com/doi/10.1002/anie.202000657"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1002/anie.202107523",
+      "requestUrl": "https://api.crossref.org/works/10.1002%2Fanie.202107523",
+      "retrievedAt": "2026-09-27T14:27:31Z",
+      "rawResponseSha256": "a92df547c486bd07f3788b58a7e157da70107fbdf65dab577e177e5cd3ced173",
+      "metadata": {
+        "DOI": "10.1002/anie.202107523",
+        "title": [
+          "Efficient Electroconversion of Carbon Dioxide to Formate by a Reconstructed Amino‐Functionalized Indium–Organic Framework Electrocatalyst"
+        ],
+        "container-title": [
+          "Angewandte Chemie International Edition"
+        ],
+        "publisher": "Wiley",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              7,
+              21
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2021,
+              7,
+              21
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              8,
+              23
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://onlinelibrary.wiley.com/doi/10.1002/anie.202107523"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1002/cnl2.66",
+      "requestUrl": "https://api.crossref.org/works/10.1002%2Fcnl2.66",
+      "retrievedAt": "2026-09-27T14:27:32Z",
+      "rawResponseSha256": "e060d21d26a7b3d1af0a269f456fe194b55ba9269fdcc3e084edf5d5766851ac",
+      "metadata": {
+        "DOI": "10.1002/cnl2.66",
+        "title": [
+          "Metal‐organic framework (MOF) thickness control for carbon dioxide electroreduction to formate"
+        ],
+        "container-title": [
+          "Carbon Neutralization"
+        ],
+        "publisher": "Wiley",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              6,
+              8
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              6,
+              8
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://onlinelibrary.wiley.com/doi/10.1002/cnl2.66"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcis.2022.07.008",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcis.2022.07.008",
+      "retrievedAt": "2026-09-27T14:27:33Z",
+      "rawResponseSha256": "b3390966b888c84ab4e9a978af13ad210dcd8c5580b67291831f1f6490ff646e",
+      "metadata": {
+        "DOI": "10.1016/j.jcis.2022.07.008",
+        "title": [
+          "Tin-based metal organic framework catalysts for high-efficiency electrocatalytic CO2 conversion into formate"
+        ],
+        "container-title": [
+          "Journal of Colloid and Interface Science"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              11
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S002197972201178X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jallcom.2026.186681",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jallcom.2026.186681",
+      "retrievedAt": "2026-09-27T14:27:34Z",
+      "rawResponseSha256": "df28c49c726967c57538b8a4629cd72a3b1cd2f5724fd437d48bd996c76eb9cd",
+      "metadata": {
+        "DOI": "10.1016/j.jallcom.2026.186681",
+        "title": [
+          "Efficient electroreduction of CO2 to formate via stable cerium-doped indium-based metal-organic framework"
+        ],
+        "container-title": [
+          "Journal of Alloys and Compounds"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0925838826007498"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.31635/ccschem.020.202000589",
+      "requestUrl": "https://api.crossref.org/works/10.31635%2Fccschem.020.202000589",
+      "retrievedAt": "2026-09-27T14:27:32Z",
+      "rawResponseSha256": "40a4dd961bfc44b8225beb8d9b0e4a066c856592054c6d38b1bf2d358d88a784",
+      "metadata": {
+        "DOI": "10.31635/ccschem.020.202000589",
+        "title": [
+          "Metal–Organic Framework-Derived CuS Nanocages for Selective CO\n                    <sub>2</sub>\n                    Electroreduction to Formate"
+        ],
+        "container-title": [
+          "CCS Chemistry"
+        ],
+        "publisher": "Chinese Chemical Society",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "http://www.chinesechemsoc.org/doi/10.31635/ccschem.020.202000589"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s10008-023-05616-5",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs10008-023-05616-5",
+      "retrievedAt": "2026-09-27T14:27:34Z",
+      "rawResponseSha256": "3ae72451a99097aa8ce8e79cfdf00466bf46039eccff3bc41e82e821155d9a3a",
+      "metadata": {
+        "DOI": "10.1007/s10008-023-05616-5",
+        "title": [
+          "Zn-based metal–organic framework with intramolecular hydrogen bond for the electroreduction of CO2 to formate"
+        ],
+        "container-title": [
+          "Journal of Solid State Electrochemistry"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              20
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              20
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s10008-023-05616-5"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.3390/inorganics10030030",
+      "requestUrl": "https://api.crossref.org/works/10.3390%2Finorganics10030030",
+      "retrievedAt": "2026-09-27T14:27:34Z",
+      "rawResponseSha256": "7c71bfc4d990e10d5e31aec5e801bae71fcd5921b832ab753af24690d0fa76c7",
+      "metadata": {
+        "DOI": "10.3390/inorganics10030030",
+        "title": [
+          "Hydrogenation of Carbon Dioxide to Formate Using a Cadmium-Based Metal–Organic Framework Impregnated with Nanoparticles"
+        ],
+        "container-title": [
+          "Inorganics"
+        ],
+        "publisher": "MDPI AG",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              2,
+              25
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              2,
+              25
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.mdpi.com/2304-6740/10/3/30"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acs.inorgchem.0c00769",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facs.inorgchem.0c00769",
+      "retrievedAt": "2026-09-27T14:27:34Z",
+      "rawResponseSha256": "b229a7c54fe9c1aa9721eddb88aa2741b3706231a131752411122d75dbaf99ed",
+      "metadata": {
+        "DOI": "10.1021/acs.inorgchem.0c00769",
+        "title": [
+          "Indium-Based Metal–Organic Framework for High-Performance Electroreduction of CO<sub>2</sub> to Formate"
+        ],
+        "container-title": [
+          "Inorganic Chemistry"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              7,
+              29
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2020,
+              7,
+              29
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              8,
+              17
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.inorgchem.0c00769"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s12274-022-4199-4",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs12274-022-4199-4",
+      "retrievedAt": "2026-09-27T14:27:36Z",
+      "rawResponseSha256": "e57a413772a25b5557ef70f1f2a8f38bdf57904cdc82c7d591978246b8360f07",
+      "metadata": {
+        "DOI": "10.1007/s12274-022-4199-4",
+        "title": [
+          "Bimetallic MOF derived nickel nanoclusters supported by nitrogen-doped carbon for efficient electrocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Nano Research"
+        ],
+        "publisher": "Tsinghua University Press",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              3,
+              2
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              3,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s12274-022-4199-4"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.seppur.2024.126520",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.seppur.2024.126520",
+      "retrievedAt": "2026-09-27T14:27:37Z",
+      "rawResponseSha256": "a7e61b2b1a1d9700a8590f184d5430a1638282b7800875fbe94bf7c8e3fabd6b",
+      "metadata": {
+        "DOI": "10.1016/j.seppur.2024.126520",
+        "title": [
+          "Electrocatalytic CO2 reduction enhanced by Sb doping in MOF-derived carbon-supported Bi-based materials"
+        ],
+        "container-title": [
+          "Separation and Purification Technology"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1383586624002594"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.fuel.2024.133949",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.fuel.2024.133949",
+      "retrievedAt": "2026-09-27T14:27:36Z",
+      "rawResponseSha256": "f8a4c816794e798490a150068b1db0c047bddb50c6f5c7436b3ea9f3633b06c4",
+      "metadata": {
+        "DOI": "10.1016/j.fuel.2024.133949",
+        "title": [
+          "Evolutionary trends and photothermal catalytic reduction performance of carbon dioxide by MOF-derived MnOx"
+        ],
+        "container-title": [
+          "Fuel"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0016236124030990"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/jacs.5b08212",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Fjacs.5b08212",
+      "retrievedAt": "2026-09-27T14:27:36Z",
+      "rawResponseSha256": "c1990e136f1642e20d017bf15332a9a486d46e46bf55ed67e34b70ed598fe7aa",
+      "metadata": {
+        "DOI": "10.1021/jacs.5b08212",
+        "title": [
+          "Metal–Organic Frameworks for Electrocatalytic Reduction of Carbon Dioxide"
+        ],
+        "container-title": [
+          "Journal of the American Chemical Society"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              10,
+              28
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2015,
+              10,
+              28
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2015,
+              11,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/jacs.5b08212"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.materresbull.2025.113975",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.materresbull.2025.113975",
+      "retrievedAt": "2026-09-27T14:27:40Z",
+      "rawResponseSha256": "fef97a91b342467ee1432cc1026444361a872341685ceaa87e728eab515bba6b",
+      "metadata": {
+        "DOI": "10.1016/j.materresbull.2025.113975",
+        "title": [
+          "MOF-derived nitrogen-doped carbon nanotubes supported CuNi alloy for electrocatalytic reduction of CO2 to CO"
+        ],
+        "container-title": [
+          "Materials Research Bulletin"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0025540825006816"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acs.energyfuels.3c04956",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facs.energyfuels.3c04956",
+      "retrievedAt": "2026-09-27T14:27:38Z",
+      "rawResponseSha256": "a2571a8c6b1f5a09b18f5d4c6eb008b9c490446398d57ae2657f4fbe99d9b8aa",
+      "metadata": {
+        "DOI": "10.1021/acs.energyfuels.3c04956",
+        "title": [
+          "Cobalt Doping in MOF-Derived Carbon-Loaded Tin Nanomaterials for Enhanced Electrocatalytic CO<sub>2</sub> Reduction"
+        ],
+        "container-title": [
+          "Energy &amp; Fuels"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              3,
+              4
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2024,
+              3,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              3,
+              21
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.energyfuels.3c04956"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s10562-022-04089-x",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs10562-022-04089-x",
+      "retrievedAt": "2026-09-27T14:27:41Z",
+      "rawResponseSha256": "20638ca4612b1824d98f8624242d701662a63c625312d324cf11236e9e86c3d9",
+      "metadata": {
+        "DOI": "10.1007/s10562-022-04089-x",
+        "title": [
+          "Synthesis of MOF-Derived Hybrids for Efficient Electrocatalytic Reduction of CO2 to Syngas"
+        ],
+        "container-title": [
+          "Catalysis Letters"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              4
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s10562-022-04089-x"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acsami.2c19236",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facsami.2c19236",
+      "retrievedAt": "2026-09-27T14:27:39Z",
+      "rawResponseSha256": "5f53475da17c5dd88f0954484b4e319d7a531abec4ad9b1c636ce3ecdcb1cd21",
+      "metadata": {
+        "DOI": "10.1021/acsami.2c19236",
+        "title": [
+          "Facet-Dependent Photocatalytic Behavior of Fe-soc-MOF for Carbon Dioxide Reduction"
+        ],
+        "container-title": [
+          "ACS Applied Materials &amp; Interfaces"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              1,
+              5
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              1,
+              5
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              1,
+              18
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acsami.2c19236"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s11426-025-3312-7",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs11426-025-3312-7",
+      "retrievedAt": "2026-09-27T14:27:39Z",
+      "rawResponseSha256": "b6b67447b7cdf578a58dfecc9ddd5ca44b069db117a32d49e47e4d2206e95a24",
+      "metadata": {
+        "DOI": "10.1007/s11426-025-3312-7",
+        "title": [
+          "Synergistic bimetallic nanoparticle-MOF photocatalyst for ethanol production via carbon dioxide reduction"
+        ],
+        "container-title": [
+          "Science China Chemistry"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              5,
+              14
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2026,
+              5,
+              14
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s11426-025-3312-7"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1039/d2dt00906d",
+      "requestUrl": "https://api.crossref.org/works/10.1039%2Fd2dt00906d",
+      "retrievedAt": "2026-09-27T14:27:46Z",
+      "rawResponseSha256": "f463cdbfb2b8ed630753a5c91cc0b3e91d988b87a2ac6d183d092989c121e72c",
+      "metadata": {
+        "DOI": "10.1039/d2dt00906d",
+        "title": [
+          "Zeolitic imidazolate framework-derived composites with SnO\n                    <sub>2</sub>\n                    and ZnO phase components for electrocatalytic carbon dioxide reduction"
+        ],
+        "container-title": [
+          "Dalton Transactions"
+        ],
+        "publisher": "Royal Society of Chemistry (RSC)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.rsc.org/dt/article/51/18/7274-7283/765229"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcou.2017.06.011",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcou.2017.06.011",
+      "retrievedAt": "2026-09-27T14:27:47Z",
+      "rawResponseSha256": "106f9d0c9e85e2d25581c27c0f7c770ae931ad6b84af5b8d5f2e20204ab00597",
+      "metadata": {
+        "DOI": "10.1016/j.jcou.2017.06.011",
+        "title": [
+          "Fe-MOF-derived highly active catalysts for carbon dioxide hydrogenation to valuable hydrocarbons"
+        ],
+        "container-title": [
+          "Journal of CO2 Utilization"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2017,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2017,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2212982017302366"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.3390/molecules28135204",
+      "requestUrl": "https://api.crossref.org/works/10.3390%2Fmolecules28135204",
+      "retrievedAt": "2026-09-27T14:27:43Z",
+      "rawResponseSha256": "1922bbd9449a75bdefeca9bf1ce70ce583f1addbce981d00250cb24cfb7970aa",
+      "metadata": {
+        "DOI": "10.3390/molecules28135204",
+        "title": [
+          "Application of a Mixed-Ligand Metal–Organic Framework in Photocatalytic CO2 Reduction, Antibacterial Activity and Dye Adsorption"
+        ],
+        "container-title": [
+          "Molecules"
+        ],
+        "publisher": "MDPI AG",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              4
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              7,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.mdpi.com/1420-3049/28/13/5204"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.3389/fchem.2022.974907",
+      "requestUrl": "https://api.crossref.org/works/10.3389%2Ffchem.2022.974907",
+      "retrievedAt": "2026-09-27T14:27:42Z",
+      "rawResponseSha256": "fb4b8d609570908f903175760184b0d5f03bcffdfe7d66b3842dacec7e752824",
+      "metadata": {
+        "DOI": "10.3389/fchem.2022.974907",
+        "title": [
+          "High selectivity of photocatalytic reduction of CO2 to CO based on terpyridine ligand supported CuI metal organic framework"
+        ],
+        "container-title": [
+          "Frontiers in Chemistry"
+        ],
+        "publisher": "Frontiers Media SA",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              5
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              8,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.frontiersin.org/articles/10.3389/fchem.2022.974907/full"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jcis.2024.08.114",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jcis.2024.08.114",
+      "retrievedAt": "2026-09-27T14:27:44Z",
+      "rawResponseSha256": "20d61ca50404ea93f20385dba6f754a28f5dd67f948e086d19e79b198a0f3b7f",
+      "metadata": {
+        "DOI": "10.1016/j.jcis.2024.08.114",
+        "title": [
+          "Highly selective photocatalytic CO2 reduction into C2H4 enabled by metal–organic framework-derived catalysts with high Cu+ content"
+        ],
+        "container-title": [
+          "Journal of Colloid and Interface Science"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0021979724018964"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.compositesb.2026.113533",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.compositesb.2026.113533",
+      "retrievedAt": "2026-09-27T14:27:46Z",
+      "rawResponseSha256": "d18fd2ddf0e29c6ef3e2cd0835b6bfe74ac53ee3f4d211b966e7406e56754386",
+      "metadata": {
+        "DOI": "10.1016/j.compositesb.2026.113533",
+        "title": [
+          "Boosting interfacial electron transfer via short-range interactions in metal-organic framework encapsulated metal porphyrin catalysts for enhanced photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Composites Part B: Engineering"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              5
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S135983682600154X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cej.2023.148301",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cej.2023.148301",
+      "retrievedAt": "2026-09-27T14:27:46Z",
+      "rawResponseSha256": "7935aef310598ca655a85e8a87829b3cdb16bbba748e694162884e6d4824d3b8",
+      "metadata": {
+        "DOI": "10.1016/j.cej.2023.148301",
+        "title": [
+          "Porphyrin-Based Two-Dimensional Metal-Organic framework nanosheets for efficient photocatalytic CO2 transformation"
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S138589472307033X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.chempr.2020.10.017",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.chempr.2020.10.017",
+      "retrievedAt": "2026-09-27T14:27:50Z",
+      "rawResponseSha256": "534409c3b7f2752d260a52f296f398e44ba0b1941bc4b03d0efacc1d8fdd0f40",
+      "metadata": {
+        "DOI": "10.1016/j.chempr.2020.10.017",
+        "title": [
+          "A Robust Titanium Isophthalate Metal-Organic Framework for Visible-Light Photocatalytic CO2 Methanation"
+        ],
+        "container-title": [
+          "Chem"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S2451929420305386"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2021.120411",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2021.120411",
+      "retrievedAt": "2026-09-27T14:27:48Z",
+      "rawResponseSha256": "6024753cc7f5f4b68f57df6fd066db661004c59297f91f6ed54fa70889fc1481",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2021.120411",
+        "title": [
+          "Aspect ratio dependent photocatalytic enhancement of CsPbBr3 in CO2 reduction with two-dimensional metal organic framework as a cocatalyst"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              11
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337321005373"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cej.2022.138040",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cej.2022.138040",
+      "retrievedAt": "2026-09-27T14:27:52Z",
+      "rawResponseSha256": "bbae50fd9527c43fda8f45839f29194c97ad591ea4949418c092f288ec0d6ff6",
+      "metadata": {
+        "DOI": "10.1016/j.cej.2022.138040",
+        "title": [
+          "ZIF-8/covalent organic framework for enhanced CO2 photocatalytic reduction in gas-solid system"
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1385894722035264"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cclet.2021.09.035",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cclet.2021.09.035",
+      "retrievedAt": "2026-09-27T14:27:48Z",
+      "rawResponseSha256": "a52ccec0ec10470f8d28b6e5c682e0cb5d65817e4dcf91d0853b5687c47196ff",
+      "metadata": {
+        "DOI": "10.1016/j.cclet.2021.09.035",
+        "title": [
+          "Enhancing photocatalytic performance of metal-organic frameworks for CO2 reduction by a bimetallic strategy"
+        ],
+        "container-title": [
+          "Chinese Chemical Letters"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1001841721007476"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.3390/catal14090590",
+      "requestUrl": "https://api.crossref.org/works/10.3390%2Fcatal14090590",
+      "retrievedAt": "2026-09-27T14:27:49Z",
+      "rawResponseSha256": "ad8cfe6a044558ddff5b956c8a8ae1832667c53f278b57bf0d3cfe997750f137",
+      "metadata": {
+        "DOI": "10.3390/catal14090590",
+        "title": [
+          "Encapsulating Halide Perovskite Quantum Dots in Metal–Organic Frameworks for Efficient Photocatalytic CO2 Reduction"
+        ],
+        "container-title": [
+          "Catalysts"
+        ],
+        "publisher": "MDPI AG",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              9,
+              3
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2024,
+              9,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.mdpi.com/2073-4344/14/9/590"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cej.2025.163381",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cej.2025.163381",
+      "retrievedAt": "2026-09-27T14:27:51Z",
+      "rawResponseSha256": "6726213f4cf2104468a0ab4ff78a282a51f6609273a761458491d4d012d0634e",
+      "metadata": {
+        "DOI": "10.1016/j.cej.2025.163381",
+        "title": [
+          "Facilitated charge transfer of stable multivariate transition Metal-organic frameworks for photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1385894725042159"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cclet.2021.10.061",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cclet.2021.10.061",
+      "retrievedAt": "2026-09-27T14:27:50Z",
+      "rawResponseSha256": "b5578d3815fed14cb7c1b0e3c6e149a210691c6e449d7ec574f847653ad138d4",
+      "metadata": {
+        "DOI": "10.1016/j.cclet.2021.10.061",
+        "title": [
+          "Anchoring metal ions in amine-functionalized boron imidazolate framework for photocatalytic reduction of CO2"
+        ],
+        "container-title": [
+          "Chinese Chemical Letters"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              6
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              6
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1001841721009013"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2025.125872",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2025.125872",
+      "retrievedAt": "2026-09-27T14:27:52Z",
+      "rawResponseSha256": "8a00d9dd369d75a0879c040a3c5b17c096c071d9b4f982cc49dfeac3a3d0830b",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2025.125872",
+        "title": [
+          "Microenvironment engineering of metal−organic framework for near-unity photocatalytic CO2-to-methane conversion"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environment and Energy"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              2
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337325008550"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acsmaterialslett.5c00342",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facsmaterialslett.5c00342",
+      "retrievedAt": "2026-09-27T14:27:53Z",
+      "rawResponseSha256": "a9f08879c64e07d49f85a5a27df6690fa705ab690188db7cf53726f8543501d5",
+      "metadata": {
+        "DOI": "10.1021/acsmaterialslett.5c00342",
+        "title": [
+          "Cerium Metal–Organic Framework Incorporating Quinoline Sulfonic Acid for Photocatalytic Carbon Dioxide Reduction"
+        ],
+        "container-title": [
+          "ACS Materials Letters"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              5,
+              21
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2025,
+              5,
+              21
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acsmaterialslett.5c00342"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s10904-023-02860-0",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs10904-023-02860-0",
+      "retrievedAt": "2026-09-27T14:27:52Z",
+      "rawResponseSha256": "3902ee2aec87779de1c65f84bc88c6f57793eed47330bedeede0a4a657df0bf3",
+      "metadata": {
+        "DOI": "10.1007/s10904-023-02860-0",
+        "title": [
+          "Incorporating of Cobalt into UiO-67 Metal–Organic Framework for Catalysis CO2 Transformations: An Efficient Bi-functional Approach for CO2 Insertion and Photocatalytic Reduction"
+        ],
+        "container-title": [
+          "Journal of Inorganic and Organometallic Polymers and Materials"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              27
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              27
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s10904-023-02860-0"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.seppur.2022.122868",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.seppur.2022.122868",
+      "retrievedAt": "2026-09-27T14:27:53Z",
+      "rawResponseSha256": "89aa1b99f7005526a61573a638043f49b19069fca0fd801e8a9aef680c882672",
+      "metadata": {
+        "DOI": "10.1016/j.seppur.2022.122868",
+        "title": [
+          "Bimetallic metal-organic frameworks for efficient visible-light-driven photocatalytic CO2 reduction and H2 generation"
+        ],
+        "container-title": [
+          "Separation and Purification Technology"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S138358662202425X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acs.cgd.6c00191",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facs.cgd.6c00191",
+      "retrievedAt": "2026-09-27T14:27:53Z",
+      "rawResponseSha256": "df8ce23e6c38df3a2192b0fc9bd3e7afb2bdef9f8ee6006d96772dd2da90eaac",
+      "metadata": {
+        "DOI": "10.1021/acs.cgd.6c00191",
+        "title": [
+          "A Cu(II)-Based Metal–Organic Framework with\nAbundant Nitrogen-Rich Aromatic Rings for C3H6/C2H4 Separation and Photocatalytic CO2 Reduction"
+        ],
+        "container-title": [
+          "Crystal Growth &amp; Design"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              6,
+              3
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2026,
+              6,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              6,
+              17
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/cgdefu/article/26/12/4580/5233360/A-Cu-II-Based-Metal-Organic-Framework-with"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acsomega.6c03925",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facsomega.6c03925",
+      "retrievedAt": "2026-09-27T14:27:53Z",
+      "rawResponseSha256": "049b0bf78147ace9c81daf4b5e8091485f9889304077f328fb8104b030424899",
+      "metadata": {
+        "DOI": "10.1021/acsomega.6c03925",
+        "title": [
+          "In Situ Fabrication\nof Metal Chalcogenide on Metal–Organic\nFrameworks for Enhanced Photocatalytic CO2 Reduction to\nLiquid Fuel"
+        ],
+        "container-title": [
+          "ACS Omega"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              8,
+              19
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2026,
+              8,
+              19
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              9,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/acsodf/article/11/34/51202/5276313/In-Situ-Fabrication-of-Metal-Chalcogenide-on-Metal"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.cej.2021.134125",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.cej.2021.134125",
+      "retrievedAt": "2026-09-27T14:27:55Z",
+      "rawResponseSha256": "beaf59c126d35d8c1a0f1a505a1bae9cfed02491bdbb7fcfd675c67bc0efd0fd",
+      "metadata": {
+        "DOI": "10.1016/j.cej.2021.134125",
+        "title": [
+          "High-index facets exposed on metal–organic framework for boosting photocatalytic carbon dioxide reduction"
+        ],
+        "container-title": [
+          "Chemical Engineering Journal"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1385894721056989"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.jes.2022.10.037",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.jes.2022.10.037",
+      "retrievedAt": "2026-09-27T14:27:54Z",
+      "rawResponseSha256": "6e192f86247c772b44d1309be8f6c3ccc7e89ee90344e43d5f83a6caf541484f",
+      "metadata": {
+        "DOI": "10.1016/j.jes.2022.10.037",
+        "title": [
+          "Visible-light-induced photocatalytic CO2 reduction over zirconium metal organic frameworks modified with different functional groups"
+        ],
+        "container-title": [
+          "Journal of Environmental Sciences"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              10
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              10
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S100107422200540X"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.3390/polym15183848",
+      "requestUrl": "https://api.crossref.org/works/10.3390%2Fpolym15183848",
+      "retrievedAt": "2026-09-27T14:27:56Z",
+      "rawResponseSha256": "90d855090420ee12a814b83408be55385e76276d6fa03055e437f2963ed2cca9",
+      "metadata": {
+        "DOI": "10.3390/polym15183848",
+        "title": [
+          "Application of a Metal Cobalt Based on 4,6-Bis(imidazol-1-yl)isophthalicacid Metal-Organic -Framework Materials in Photocatalytic CO2 Reduction, Antibacterial, and Dye Adsorption"
+        ],
+        "container-title": [
+          "Polymers"
+        ],
+        "publisher": "MDPI AG",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              21
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              21
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://www.mdpi.com/2073-4360/15/18/3848"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s12274-023-5405-8",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs12274-023-5405-8",
+      "retrievedAt": "2026-09-27T14:27:55Z",
+      "rawResponseSha256": "b61e072ea8e16c6a42ee5eb794b2c5392e95c8d5824f08d830800b9cc2623ddb",
+      "metadata": {
+        "DOI": "10.1007/s12274-023-5405-8",
+        "title": [
+          "Large-scale synthesis of low-cost 2D metal-organic frameworks for highly selective photocatalytic CO2 reduction"
+        ],
+        "container-title": [
+          "Nano Research"
+        ],
+        "publisher": "Tsinghua University Press",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              2,
+              4
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              2,
+              4
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s12274-023-5405-8"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acs.inorgchem.3c02272",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facs.inorgchem.3c02272",
+      "retrievedAt": "2026-09-27T14:27:58Z",
+      "rawResponseSha256": "fe50da6c608cf867fae4228ed093c4f265279dfd862957d93598cc4a2267740d",
+      "metadata": {
+        "DOI": "10.1021/acs.inorgchem.3c02272",
+        "title": [
+          "Asymmetric Ligands of a Metal–Organic Framework on Enhanced Photocatalytic CO<sub>2</sub> Reduction"
+        ],
+        "container-title": [
+          "Inorganic Chemistry"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              18
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              18
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              10,
+              2
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.inorgchem.3c02272"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2018.01.028",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2018.01.028",
+      "retrievedAt": "2026-09-27T14:27:58Z",
+      "rawResponseSha256": "47ea3c27f12c6577c85047e2f2150f14a44196d64ee18a215a3866c22dea00c0",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2018.01.028",
+        "title": [
+          "Assembly of highly efficient photocatalytic CO2 conversion systems with ultrathin two-dimensional metal–organic framework nanosheets"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2018,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2018,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337318300365"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2020.119173",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2020.119173",
+      "retrievedAt": "2026-09-27T14:27:57Z",
+      "rawResponseSha256": "2b9f64299e1e331fb3f2dcb8b9eab1d4a3388dd0b2286b2afb45ccdb415fd479",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2020.119173",
+        "title": [
+          "Regulation of metal ions in smart metal-cluster nodes of metal-organic frameworks with open metal sites for improved photocatalytic CO2 reduction reaction"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              11
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2020,
+              11
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337320305889"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s12274-023-6258-x",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs12274-023-6258-x",
+      "retrievedAt": "2026-09-27T14:27:58Z",
+      "rawResponseSha256": "19cd9c7a3a9f2958be7bacc020250ed29b458ef13436148600132245e1658117",
+      "metadata": {
+        "DOI": "10.1007/s12274-023-6258-x",
+        "title": [
+          "Dimensional reduction enhances photocatalytic carbon dioxide reduction performance of metal-organic frameworks"
+        ],
+        "container-title": [
+          "Nano Research"
+        ],
+        "publisher": "Tsinghua University Press",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              11,
+              24
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              11,
+              24
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2024,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1007/s12274-023-6258-x"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2014.07.026",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2014.07.026",
+      "retrievedAt": "2026-09-27T14:27:58Z",
+      "rawResponseSha256": "aa0913556c46451535e2af09da48ead4d63131c8428ed5c786cea29494fc932e",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2014.07.026",
+        "title": [
+          "Photocatalytic CO2 reduction by CdS promoted with a zeolitic imidazolate framework"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              1
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2015,
+              1
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337314004342"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.apcatb.2022.121812",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.apcatb.2022.121812",
+      "retrievedAt": "2026-09-27T14:27:59Z",
+      "rawResponseSha256": "e368e14a6f8ae92c2937df11725a8c6156c6e2120c837e743284d441ee5cad5d",
+      "metadata": {
+        "DOI": "10.1016/j.apcatb.2022.121812",
+        "title": [
+          "Unraveling photocatalytic electron transfer mechanism in polyoxometalate-encapsulated metal-organic frameworks for high-efficient CO2 reduction reaction"
+        ],
+        "container-title": [
+          "Applied Catalysis B: Environmental"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0926337322007536"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acs.inorgchem.3c01142",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facs.inorgchem.3c01142",
+      "retrievedAt": "2026-09-27T14:28:00Z",
+      "rawResponseSha256": "9a768b69ea2285996bb92df89abab05f556028784bab1a3c6869bcb796ee5b8c",
+      "metadata": {
+        "DOI": "10.1021/acs.inorgchem.3c01142",
+        "title": [
+          "Exfoliation of a Two-Dimensional Metal–Organic Framework for Enhanced Photocatalytic CO<sub>2</sub> Reduction"
+        ],
+        "container-title": [
+          "Inorganic Chemistry"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              5,
+              24
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2023,
+              5,
+              24
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2023,
+              6,
+              5
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.inorgchem.3c01142"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1007/s43630-021-00027-9",
+      "requestUrl": "https://api.crossref.org/works/10.1007%2Fs43630-021-00027-9",
+      "retrievedAt": "2026-09-27T14:28:00Z",
+      "rawResponseSha256": "23da2b6c63dee62cc4d369cf660e1cf319741df2d8bf7b57b7893fb2951ced25",
+      "metadata": {
+        "DOI": "10.1007/s43630-021-00027-9",
+        "title": [
+          "High selective photocatalytic CO2 conversion into liquid solar fuel over a cobalt porphyrin-based metal–organic framework"
+        ],
+        "container-title": [
+          "Photochemical &amp; Photobiological Sciences"
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              3
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2021,
+              3,
+              12
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2021,
+              3
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "http://link.springer.com/10.1007/s43630-021-00027-9"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1021/acscatal.1c05984",
+      "requestUrl": "https://api.crossref.org/works/10.1021%2Facscatal.1c05984",
+      "retrievedAt": "2026-09-27T14:27:59Z",
+      "rawResponseSha256": "f1338b68fca62052ef6c65bb1b6872f2b1f93bf869e26efe444a7c8dbd62666e",
+      "metadata": {
+        "DOI": "10.1021/acscatal.1c05984",
+        "title": [
+          "Ultra-thin Two-Dimensional Trimetallic Metal–Organic Framework for Photocatalytic Reduction of CO<sub>2</sub>"
+        ],
+        "container-title": [
+          "ACS Catalysis"
+        ],
+        "publisher": "American Chemical Society (ACS)",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              2,
+              24
+            ]
+          ]
+        },
+        "published-online": {
+          "date-parts": [
+            [
+              2022,
+              2,
+              24
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2022,
+              3,
+              4
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://pubs.acs.org/doi/10.1021/acscatal.1c05984"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    },
+    {
+      "doi": "10.1016/j.seppur.2025.131490",
+      "requestUrl": "https://api.crossref.org/works/10.1016%2Fj.seppur.2025.131490",
+      "retrievedAt": "2026-09-27T14:28:00Z",
+      "rawResponseSha256": "6b3982397ae06dc6adf4083d791ec91a850e9892538e70425cca0afa87933d03",
+      "metadata": {
+        "DOI": "10.1016/j.seppur.2025.131490",
+        "title": [
+          "Engineered nickel-based metal − organic framework nanofiber membrane with fish-scale microstructure for enhanced photocatalytic CO2 conversion"
+        ],
+        "container-title": [
+          "Separation and Purification Technology"
+        ],
+        "publisher": "Elsevier BV",
+        "type": "journal-article",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              7
+            ]
+          ]
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2025,
+              7
+            ]
+          ]
+        },
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1383586625000875"
+          }
+        },
+        "relation": {}
+      },
+      "titleMatch": true,
+      "abstractPersisted": false
+    }
+  ]
+}
