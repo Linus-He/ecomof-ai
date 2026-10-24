@@ -34,8 +34,43 @@
       "sha256": "3e4dbbc7534ff7f4902f9fa5abd768f4b840a9fb3ec8a998344efc19f9d1edd0"
     }
   ],
+  "people": [
+    {
+      "name": "Kary B. Mullis",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1993/mullis/facts/",
+      "affiliations": [],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "278",
+      "image": "images/nobel/laureates/278.jpg"
+    },
+    {
+      "name": "Michael Smith",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1993/smith/facts/",
+      "affiliations": [
+        "University of British Columbia"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "279",
+      "image": "images/nobel/laureates/279.jpg"
+    }
+  ],
   "reading": {
     "title": "PCR 与定点突变",
+    "learningGuide": {
+      "topic": "dna",
+      "title": [
+        "信息怎样通过分子被读取和改写",
+        "Reading, copying and changing DNA"
+      ],
+      "definition": [
+        "DNA 以碱基顺序承载信息，复制、测序与改造则是不同化学任务。知道一段序列，不等于已经知道它在细胞中何时表达或产生什么功能。",
+        "DNA sequence carries information, while sequencing, amplification and editing perform different tasks. Sequence alone does not establish cellular function."
+      ],
+      "example": [
+        "测序把样品中的碱基顺序转成可读记录，扩增增加某段序列的数量，编辑则改变目标位置。三者可以在同一研究中配合，但不能当作同一种能力。",
+        "Sequencing reads an order, amplification increases copies, and editing changes a target. These methods can cooperate without being interchangeable."
+      ]
+    },
     "summary": "PCR 与定点突变。使稀少遗传材料可扩增，并能针对性改变编码信息。",
     "sections": [
       {
@@ -141,17 +176,62 @@
       "companyCases": [
         {
           "organizationId": "twist",
-          "role": "合成 DNA 与变体文库",
-          "status": "企业公开资料",
+          "id": "twist",
+          "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+          "status": "商业 DNA 合成服务与研究文库",
           "paragraphs": [
-            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+            "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+            "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+            "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+          ],
+          "products": [
+            {
+              "name": "Clonal Genes 与 Gene Fragments",
+              "application": "在已克隆基因和基因片段之间选择交付形式。",
+              "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "name": "Variant Libraries",
+              "application": "按组合变异和位点饱和等设计组织实验序列。",
+              "url": "https://www.twistbioscience.com/products/libraries"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Clonal Genes 与 Gene Fragments · 官方资料",
               "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "label": "Variant Libraries · 官方资料",
+              "url": "https://www.twistbioscience.com/products/libraries"
             }
-          ]
+          ],
+          "introduction": [
+            "Twist Bioscience 提供合成 DNA 与序列文库。",
+            "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+          ],
+          "en": {
+            "role": "Gene synthesis and variant libraries",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+              "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+              "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+            ],
+            "products": [
+              {
+                "name": "Clonal Genes and Gene Fragments",
+                "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+                "url": "https://www.twistbioscience.com/products/genes"
+              },
+              {
+                "name": "Variant Libraries",
+                "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+                "url": "https://www.twistbioscience.com/products/libraries"
+              }
+            ]
+          },
+          "relation": "Twist Bioscience 的 DNA 片段和变体文库服务可支持编辑构建与筛选，未据此声称公司采用了该 La 蛋白增强方案。"
         }
       ]
     },

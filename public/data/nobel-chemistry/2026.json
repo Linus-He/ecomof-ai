@@ -76,9 +76,56 @@
       "sha256": "159b0abc189e22d58320b50b02bab9d3ef48e257a09a30d97db9dc1dc7ebbe61"
     }
   ],
+  "people": [
+    {
+      "name": "Henri B. Kagan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/kagan/facts/",
+      "affiliations": [
+        "Université Paris-Sud"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1065",
+      "image": "images/nobel/laureates/1065.jpg"
+    },
+    {
+      "name": "Kenso Soai",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/soai/facts/",
+      "affiliations": [
+        "Tokyo University of Science"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1066",
+      "image": "images/nobel/laureates/1066.jpg"
+    }
+  ],
   "image": "images/nobel/chemistry-2026.jpg",
   "reading": {
     "title": "微小手性偏向怎样被放大",
+    "learningGuide": {
+      "topic": "chiral",
+      "title": [
+        "为什么分子也有左右手",
+        "Why molecules can be handed"
+      ],
+      "definition": [
+        "手性指一个物体与自己的镜像不能通过旋转而完全重合，左右手就是日常例子。分子即使具有相同的原子组成和连接顺序，也可能存在这样的镜像结构，称为对映体。生物体中的受体和酶本身具有空间结构，因此可能以不同方式识别它们。",
+        "A chiral object cannot be superimposed on its mirror image by rotation. Molecular enantiomers can have the same connectivity but different three-dimensional arrangements that biological systems distinguish."
+      ],
+      "example": [
+        "香芹酮就是具体例子：(R)-香芹酮具有留兰香薄荷的气味，(S)-香芹酮则呈葛缕子气味；前者可见于薄荷糖、牙膏等调香用途。同一分子骨架的空间排列变了，感知和配方用途也会不同。R/S 表示构型，不直接表示旋光方向，更不能当作安全性等级。",
+        "(R)-Carvone smells of spearmint; (S)-carvone smells of caraway. Their spatial arrangement matters to aroma applications. R/S labels do not specify optical-rotation direction or safety."
+      ],
+      "sources": [
+        {
+          "label": "美国化学会：香芹酮",
+          "url": "https://www.acs.org/molecule-of-the-week/archive/c/carvone.html"
+        },
+        {
+          "label": "CCDC：香芹酮的结构与用途",
+          "url": "https://www.ccdc.cam.ac.uk/media/Web-Structure-exploration.pdf"
+        }
+      ]
+    },
     "summary": "微小手性偏向怎样被放大。成果说明产物的镜像比例不仅由输入手性决定，也受催化物种分布和反应反馈控制，为理解同手性形成提供可实验研究的化学路径。它没有证明地球生命历史上实际发生过同一种反应。",
     "sections": [
       {
@@ -190,17 +237,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-soai",
+          "role": "不对称合成的底物、催化剂与手性配体",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "不对称合成要分别记录底物结构、催化剂或配体的手性组成，以及产物的对映体过量。非线性效应说明这些量不必按简单线性关系变化，试剂的标签纯度也不能直接替代反应后产物的手性分析。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "不对称合成的底物、催化剂与手性配体",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "不对称合成的底物、催化剂与手性配体 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Substrates and chiral catalysts for asymmetric synthesis",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Asymmetric synthesis records the substrate, catalyst or ligand composition and product enantiomeric excess separately. Nonlinear effects mean these quantities need not follow a simple proportional relationship.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的手性合成试剂和分析工具可用于此类研究；没有把 Soai 自催化包装成已经通用的工业不对称生产平台。"
         }
       ]
     },

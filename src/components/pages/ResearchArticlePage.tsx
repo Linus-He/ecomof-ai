@@ -24,7 +24,6 @@ export function ResearchArticlePage({ hash }: { hash: string }) {
       <p>{paper.journal} · <span>{paper.date.slice(0, 4)}</span> · <span className="research-article-field-keyword">{paper.fieldKeywords[i].join(" · ")}</span></p>
       {locale && ["ja", "ko", "es"].includes(locale) && <p lang="en">Full interpretation currently available in Chinese and English.</p>}
     </header>
-    <figure><img src={`${import.meta.env.BASE_URL}images/search-research-${index}.png`} alt={i === 0 ? "MOF 研究概念插图，非实验图" : "Conceptual MOF illustration, not experimental data"} /><figcaption>{i === 0 ? "概念插图，不代表论文实验数据" : "Conceptual illustration, not a figure from the paper"}</figcaption></figure>
     <div className="update-story-body">
       <nav className="research-article-contents" aria-label={i === 0 ? "文章目录" : "Article contents"}>{article.sections.map((s, n) => <a key={n} href={`#research-section-${id}-${n}`} onClick={event => { event.preventDefault(); document.getElementById(`research-section-${id}-${n}`)?.scrollIntoView({ block: "start" }) }}>{s.title[i]}</a>)}</nav>
       {article.sections.map((s, n) => <section id={`research-section-${id}-${n}`} key={n}><h2>{s.title[i]}</h2><p>{s.body[i]}</p></section>)}

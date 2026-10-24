@@ -46,8 +46,55 @@
       "sha256": "689fa2791f1f8a10a10ede5516f17162d73989bf587537fead5855e2e1bad7ad"
     }
   ],
+  "people": [
+    {
+      "name": "Paul J. Crutzen",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1995/crutzen/facts/",
+      "affiliations": [
+        "Max-Planck-Institut für Chemie"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "281",
+      "image": "images/nobel/laureates/281.jpg"
+    },
+    {
+      "name": "Mario J. Molina",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1995/molina/facts/",
+      "affiliations": [
+        "Massachusetts Institute of Technology (MIT)"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "282",
+      "image": "images/nobel/laureates/282.jpg"
+    },
+    {
+      "name": "F. Sherwood Rowland",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1995/rowland/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "283",
+      "image": "images/nobel/laureates/283.jpg"
+    }
+  ],
   "reading": {
     "title": "臭氧层的形成与破坏",
+    "learningGuide": {
+      "topic": "ozone",
+      "title": [
+        "同一个分子，在不同位置作用不同",
+        "Atmospheric context matters"
+      ],
+      "definition": [
+        "臭氧是由三个氧原子构成的分子。讨论大气化学时，必须说明位置、反应环境与时间尺度，不能只按一种物质名称判断整体影响。",
+        "Ozone has the same molecular formula in different atmospheric regions, but its role depends on location and chemistry."
+      ],
+      "example": [
+        "平流层臭氧参与吸收紫外辐射，近地面臭氧则属于空气质量问题。研究臭氧变化，需要追踪反应链及相关物种，而不只是测一个总浓度。",
+        "Stratospheric ozone contributes to ultraviolet absorption; ground-level ozone raises air-quality concerns. Reaction networks and conditions matter."
+      ]
+    },
     "summary": "臭氧层的形成与破坏。说明痕量物种能够经催化循环改变全球环境。",
     "sections": [
       {
@@ -153,17 +200,62 @@
       "companyCases": [
         {
           "organizationId": "chemours",
-          "role": "替代制冷剂",
-          "status": "企业公开资料",
+          "id": "chemours",
+          "role": "Opteon YF：替代冷媒需要同时比较分子性质与系统条件",
+          "status": "商业汽车空调制冷剂与技术说明",
           "paragraphs": [
-            "Chemours 的 Opteon 产品以 HFO 等含氟化学为基础，用于制冷及相关工业应用。臭氧消耗潜能与全球变暖潜能是两项不同指标，应对照具体配方的技术资料。"
+            "Chemours 的 Opteon YF 对应 R-1234yf，官方资料将它用于汽车空调。它属于氢氟烯烃类冷媒，与早期含氯制冷剂在分子组成及大气反应行为上不同；评价替代品时，臭氧消耗潜值和全球变暖潜值是不同指标。",
+            "产品技术公告还讨论润滑剂、材料相容性和物性。冷媒并非只要环境指标合适就可以直接灌入任意设备：压缩机、密封材料、维修连接及安全要求共同决定系统适配。厂商说明中的性能条件需要同实际设备一起核对。",
+            "与臭氧化学的联系在于替代物设计和大气影响评价。本文不把“无臭氧消耗”写成“没有环境影响”，也不据一份产品公告判断所有分解产物或全生命周期问题已经解决。"
+          ],
+          "products": [
+            {
+              "name": "Opteon YF / R-1234yf",
+              "application": "官方制造商的用途及系统适配说明。",
+              "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+            },
+            {
+              "name": "产品性质与技术公告",
+              "application": "查阅物性、润滑剂及使用条件。",
+              "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Opteon YF / R-1234yf · 官方资料",
               "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+            },
+            {
+              "label": "产品性质与技术公告 · 官方资料",
+              "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Chemours 生产制冷剂等高性能化学品与材料。",
+            "Chemours produces performance chemicals and materials, including refrigerants."
+          ],
+          "en": {
+            "role": "Opteon YF automotive refrigerant",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Opteon YF is R-1234yf, a refrigerant used in automotive air conditioning. Ozone-depletion potential and global-warming potential describe different environmental effects and should not be treated as one metric.",
+              "The technical bulletin also discusses physical properties, lubricant compatibility and materials. Compressor design, seals, servicing connections and safety requirements determine whether a refrigerant fits a system.",
+              "Non-ozone-depleting does not mean impact-free; the cited product material is not a complete lifecycle assessment."
+            ],
+            "products": [
+              {
+                "name": "Opteon YF / R-1234yf",
+                "application": "Check the refrigerant identity and intended automotive air-conditioning use.",
+                "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+              },
+              {
+                "name": "Product properties and technical bulletin",
+                "application": "Read physical properties, lubricant compatibility and system requirements together.",
+                "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
+              }
+            ]
+          },
+          "relation": "Chemours 的 Opteon 制冷剂系列以替代传统制冷剂为应用方向；应分别核查臭氧消耗潜能、全球变暖潜能和具体产品条件。"
         }
       ]
     },

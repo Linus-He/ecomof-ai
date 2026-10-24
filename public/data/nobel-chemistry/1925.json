@@ -22,8 +22,35 @@
       "sha256": "60fc015a16e0973f7a211f40f7b1507e89fae083cbeb002fb659aa3dfc0e0127"
     }
   ],
+  "people": [
+    {
+      "name": "Richard Zsigmondy",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1925/zsigmondy/facts/",
+      "affiliations": [
+        "Goettingen University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "182",
+      "image": "images/nobel/laureates/182.jpg"
+    }
+  ],
   "reading": {
     "title": "胶体的非均一性",
+    "learningGuide": {
+      "topic": "colloid",
+      "title": [
+        "介于分子溶液和大块物质之间",
+        "Particles and their interfaces"
+      ],
+      "definition": [
+        "胶体由分散在另一介质中的微小颗粒构成。粒径、表面状态及颗粒间作用影响分散、聚集和光学表现，不能只用总体化学组成解释。",
+        "A colloid contains small particles dispersed in another medium. Size, surface state and interactions affect aggregation and optical behavior."
+      ],
+      "example": [
+        "同一种材料做成大小不同的颗粒，可能形成透明、散射明显或容易沉降的分散体系。比较样品时，需要把浓度、粒径分布与聚集状态一起记录。",
+        "The same material in different particle sizes can scatter light and settle differently. Concentration alone does not describe the dispersion."
+      ]
+    },
     "summary": "胶体的非均一性。把胶体结构从争论变为可观察的颗粒证据。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-colloid",
+          "role": "胶体与自组装研究的合成原料",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "胶体样品的尺寸、表面化学和分散状态由制备与处理过程共同决定。原料目录提供成分选择，不能替代粒径分布、表面电荷、聚集和稳定性的实际表征。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "胶体与自组装研究的合成原料",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "胶体与自组装研究的合成原料 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Chemical inputs for colloid and assembly research",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Particle size, surface chemistry and dispersion depend on preparation and handling. The starting-material catalogue does not replace measurements of aggregation, size distribution and stability.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的胶体、聚合物微球与纳米材料是研究原料示例，不等于论文中复合超颗粒的商业成品。"
         }
       ]
     },

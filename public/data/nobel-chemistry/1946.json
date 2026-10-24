@@ -46,8 +46,55 @@
       "sha256": "f0dfdb9c98cc4145b7bd524fc4192ce1d3147d65920561dba5086a4e24728d51"
     }
   ],
+  "people": [
+    {
+      "name": "James B. Sumner",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1946/sumner/facts/",
+      "affiliations": [
+        "Cornell University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "204",
+      "image": "images/nobel/laureates/204.jpg"
+    },
+    {
+      "name": "John H. Northrop",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1946/northrop/facts/",
+      "affiliations": [
+        "Rockefeller Institute for Medical Research"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "205",
+      "image": "images/nobel/laureates/205.jpg"
+    },
+    {
+      "name": "Wendell M. Stanley",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1946/stanley/facts/",
+      "affiliations": [
+        "Rockefeller Institute for Medical Research"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "206",
+      "image": "images/nobel/laureates/206.jpg"
+    }
+  ],
   "reading": {
     "title": "酶和病毒蛋白的纯化",
+    "learningGuide": {
+      "topic": "protein",
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
     "summary": "酶和病毒蛋白的纯化。支持以分子实体研究生物催化。",
     "sections": [
       {
@@ -215,31 +262,121 @@
       "companyCases": [
         {
           "organizationId": "cytiva",
-          "role": "蛋白纯化系统与色谱材料",
-          "status": "企业公开资料",
+          "id": "cytiva",
+          "role": "ÄKTA 与色谱介质：把分离方法接到可运行的流程",
+          "status": "商业蛋白纯化系统与分离介质",
           "paragraphs": [
-            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+            "Cytiva 的 ÄKTA 系列面向蛋白质等生物分子的液相色谱纯化。泵、阀、检测器和收集装置控制液体流路，色谱柱中的介质决定样品怎样被保留、洗脱或按尺寸分开。因此，仪器平台和分离机理是两个需要分别选择的层次。",
+            "官方选型资料列出亲和、离子交换、疏水作用及尺寸排阻等柱型。Sephadex 用于凝胶过滤和脱盐，Superdex 等尺寸排阻介质则有不同的分级范围；“都是色谱柱”并不意味着它们可以完成同一种纯化任务。",
+            "放大实验时，需要一起考虑上样量、流速、压力、缓冲液及回收率。一个蛋白在小柱上得到清晰峰形，不自动说明高浓度或大批量样品仍能保持同样的分离效果。这里展示的是已有系统与介质的工作分工。"
+          ],
+          "products": [
+            {
+              "name": "ÄKTA pure 色谱系统",
+              "application": "组织自动化流路、检测与组分收集。",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "name": "Sephadex / Superdex 及预装柱选型",
+              "application": "按脱盐、尺寸排阻和结合机制比较不同柱型。",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+              "label": "ÄKTA pure 色谱系统 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "label": "Sephadex / Superdex 及预装柱选型 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Cytiva 提供生物分子研究与生物工艺所用系统和耗材。",
+            "Cytiva supplies technologies and consumables for biomolecular research and bioprocessing."
+          ],
+          "en": {
+            "role": "ÄKTA systems and chromatography media",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "ÄKTA chromatography systems combine pumps, valves, detection and collection for biomolecule purification. The instrument controls the flow, while the column medium determines how molecules bind, elute or separate by size.",
+              "The official selection guide distinguishes affinity, ion exchange, hydrophobic interaction and size exclusion. Sephadex and Superdex media serve different fractionation tasks and ranges; they are not interchangeable simply because both are chromatography media.",
+              "Loading, flow, pressure, buffer and recovery must be considered when a method is scaled."
+            ],
+            "products": [
+              {
+                "name": "ÄKTA pure chromatography",
+                "application": "Control liquid flow, detection and fraction collection during biomolecule purification.",
+                "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+              },
+              {
+                "name": "Sephadex / Superdex column selection",
+                "application": "Choose media and column formats for desalting, size exclusion or a specific binding mechanism.",
+                "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+              }
+            ]
+          },
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
         },
         {
           "organizationId": "novonesis",
-          "role": "工业酶与生物催化",
-          "status": "企业公开资料",
+          "id": "novonesis",
+          "role": "工业酶：先确定底物，再选择转化步骤",
+          "status": "商业生物加工方案",
           "paragraphs": [
-            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+            "Novonesis 的工业生物加工业务按酿造、油脂处理和工业水管理等场景提供酶方案。酶作用于特定化学键，适合用于原料处理、组分释放或杂质去除；选择产品首先取决于待处理原料中真正需要改变的组分。",
+            "酿造中的酶方案与油脂加工面对不同底物和工艺条件。工业上关心的不只是某个酶在试管中的活性，还包括配方稳定性、温度与酸碱条件、原料差异以及与既有设备的衔接。企业资料中的应用分类提供了选择入口，不能代替具体工艺评价。",
+            "这与酶催化及定向进化的联系，是把可选择的生物催化功能放入实际加工步骤。不能据此推断企业的每个产品都来自某一项获奖实验，或把一种酶的效果推广到所有发酵与合成反应。"
+          ],
+          "products": [
+            {
+              "name": "酿造用酶解决方案",
+              "application": "围绕谷物原料处理和酿造流程查阅应用。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "name": "油脂加工与工业水管理方案",
+              "application": "按不同原料、处理对象和工艺环节选择生物加工路线。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "酿造用酶解决方案 · 官方资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "label": "油脂加工与工业水管理方案 · 官方资料",
               "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
             }
-          ]
+          ],
+          "introduction": [
+            "Novonesis 开发用于工业加工的酶及微生物方案。",
+            "Novonesis develops enzyme and microbial solutions for industrial processing."
+          ],
+          "en": {
+            "role": "Enzymes for defined processing steps",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its industrial-bioprocessing portfolio groups enzyme solutions by applications including brewing, oils and fats, and industrial water management. An enzyme acts on particular substrates and bonds, so the raw material and desired conversion determine the choice.",
+              "Industrial application also depends on formulation stability, temperature, pH and compatibility with the process. Brewing and oils processing are distinct workflows even when both use enzymes.",
+              "The cited portfolio shows applications of biocatalysis; it does not establish that every product derives from a particular Nobel experiment."
+            ],
+            "products": [
+              {
+                "name": "Brewing enzyme solutions",
+                "application": "Select enzymes for the raw material and conversion required in a brewing process.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              },
+              {
+                "name": "Oils processing and industrial water",
+                "application": "Separate oils-processing and industrial-water tasks when choosing a bioprocessing application.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              }
+            ]
+          },
+          "relation": "Novonesis 的工业酶业务展示生物催化的产业用途；该公司的发酵与酶制剂产品并非这里这套无细胞肽平台的商业版本。"
         }
       ]
     },

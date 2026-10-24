@@ -34,8 +34,45 @@
       "sha256": "6c08bf4d53b0783cf339f490ba79d3fd7ad0361886c4e9946ec3e163279662e6"
     }
   ],
+  "people": [
+    {
+      "name": "Max F. Perutz",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1962/perutz/facts/",
+      "affiliations": [
+        "MRC Laboratory of Molecular Biology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "226",
+      "image": "images/nobel/laureates/226.jpg"
+    },
+    {
+      "name": "John C. Kendrew",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1962/kendrew/facts/",
+      "affiliations": [
+        "MRC Laboratory of Molecular Biology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "227",
+      "image": "images/nobel/laureates/227.jpg"
+    }
+  ],
   "reading": {
     "title": "球状蛋白的三维结构",
+    "learningGuide": {
+      "topic": "protein",
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
     "summary": "球状蛋白的三维结构。使复杂蛋白的三维构型成为可测对象。",
     "sections": [
       {
@@ -141,17 +178,62 @@
       "companyCases": [
         {
           "organizationId": "twist",
-          "role": "合成 DNA 与变体文库",
-          "status": "企业公开资料",
+          "id": "twist",
+          "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+          "status": "商业 DNA 合成服务与研究文库",
           "paragraphs": [
-            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+            "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+            "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+            "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+          ],
+          "products": [
+            {
+              "name": "Clonal Genes 与 Gene Fragments",
+              "application": "在已克隆基因和基因片段之间选择交付形式。",
+              "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "name": "Variant Libraries",
+              "application": "按组合变异和位点饱和等设计组织实验序列。",
+              "url": "https://www.twistbioscience.com/products/libraries"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Clonal Genes 与 Gene Fragments · 官方资料",
               "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "label": "Variant Libraries · 官方资料",
+              "url": "https://www.twistbioscience.com/products/libraries"
             }
-          ]
+          ],
+          "introduction": [
+            "Twist Bioscience 提供合成 DNA 与序列文库。",
+            "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+          ],
+          "en": {
+            "role": "Gene synthesis and variant libraries",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+              "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+              "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+            ],
+            "products": [
+              {
+                "name": "Clonal Genes and Gene Fragments",
+                "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+                "url": "https://www.twistbioscience.com/products/genes"
+              },
+              {
+                "name": "Variant Libraries",
+                "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+                "url": "https://www.twistbioscience.com/products/libraries"
+              }
+            ]
+          },
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
         }
       ]
     },

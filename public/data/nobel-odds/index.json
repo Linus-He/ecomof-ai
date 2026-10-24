@@ -1,7 +1,47 @@
 {
   "years": [
+    2022,
+    2023,
+    2024,
+    2025,
     2026
   ],
   "latestYear": 2026,
-  "source": "https://gamma-api.polymarket.com/public-search?q=Nobel&events_status=all&limit_per_type=100&keep_closed_markets=1"
+  "editions": [
+    {
+      "year": 2022,
+      "source": "Manifold",
+      "file": "2022.json"
+    },
+    {
+      "year": 2023,
+      "source": "Manifold",
+      "file": "2023.json"
+    },
+    {
+      "year": 2024,
+      "source": "Manifold",
+      "file": "2024.json"
+    },
+    {
+      "year": 2025,
+      "source": "Manifold",
+      "file": "2025.json"
+    },
+    {
+      "year": 2026,
+      "source": "Kalshi",
+      "file": "2026-kalshi.json"
+    },
+    {
+      "year": 2026,
+      "source": "Manifold",
+      "file": "2026-manifold.json"
+    },
+    {
+      "year": 2026,
+      "source": "Polymarket",
+      "file": "2026.json"
+    }
+  ]
 }

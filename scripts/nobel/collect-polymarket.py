@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Read public market metadata and pre-announcement price history. Never use settlement prices."""
+import subprocess
 import concurrent.futures, datetime, hashlib, json, pathlib, re, urllib.parse, urllib.request
 repo=pathlib.Path(__file__).resolve().parents[2]
 cache=pathlib.Path('/tmp/ecomof-polymarket');cache.mkdir(exist_ok=True)
@@ -46,5 +47,5 @@ for event in search.get('events',[]):
     record={'year':year,'title':'Nobel Chemistry Prize Winner','source':'Polymarket','eventUrl':'https://polymarket.com/event/'+event['slug'],'eventId':event['id'],'windowStart':start,'cutoff':cutoff,'cutoffSource':cutoffs[year]['source'],'method':'Last available Yes-token price in the 24 hours before the earliest official announcement time. Five-minute price-history samples; no settlement values. Independent binary markets may sum above 100%.','winners':winners,'unlistedWinners':[w for w in winners if not any(normalize(w)==normalize(m.get('groupItemTitle','')) for m in event['markets'])],'candidates':candidates}
     (out/f'{year}.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n');years.append(year)
     print(year,len(candidates),'markets with historical prices;',len(excluded),'excluded',flush=True)
-(out/'index.json').write_text(json.dumps({'years':sorted(years),'latestYear':max(years) if years else None,'source':search_url},indent=2)+'\n')
 (repo/'scripts/nobel/polymarket-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+subprocess.run(['node',str(repo/'scripts/nobel/rebuild-market-index.mjs')],check=True)

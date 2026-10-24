@@ -33,10 +33,13 @@ it('renders the same six-part reading and verified original for an early histori
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok:true, json:async () => url.endsWith('index.json') ? {firstYear:1901,latestYear:2026} : edition })))
   render(<NobelChemistryPage hash="nobel-chemistry-1901" />)
   await screen.findByRole('heading',{name:'研究概述'})
-  for (const section of edition.reading.sections) expect(screen.getByRole('heading',{name:section.title[0]})).toBeTruthy()
+  for (const section of edition.reading.sections) expect(screen.getByRole('heading',{name:section.id==='uses' ? '应用与产业' : section.id==='development' ? '研究进展' : section.title[0]})).toBeTruthy()
   const original = screen.getByRole('complementary',{name:'官网原文 · 继续阅读'})
   expect(original.querySelector('a')?.getAttribute('href')).toBe(edition.reading.officialSource.url)
   expect(document.querySelector('.katex')).toBeTruthy()
+  expect(document.querySelector('[data-reading-section=uses] .nobel-company-list')).toBeTruthy()
+  expect(document.querySelector('[data-reading-section=development] .nobel-company-list')).toBeNull()
+  expect(document.querySelector('[data-reading-section=development] .nobel-paper-list')).toBeTruthy()
 })
 
 it('ignores a slow previous-year response after navigating to another edition', async () => {

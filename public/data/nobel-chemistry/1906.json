@@ -22,8 +22,35 @@
       "sha256": "8e065885cb0c7709ee218a11f264babf49c66a0be1fb857cd99496692ec34918"
     }
   ],
+  "people": [
+    {
+      "name": "Henri Moissan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1906/moissan/facts/",
+      "affiliations": [
+        "Sorbonne University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "165",
+      "image": "images/nobel/laureates/165.jpg"
+    }
+  ],
   "reading": {
     "title": "氟的分离与电炉",
+    "learningGuide": {
+      "topic": "fluorine",
+      "title": [
+        "同一种元素，不同化学形式",
+        "Chemical form matters"
+      ],
+      "definition": [
+        "单质氟、氟离子和有机分子中的碳—氟键是不同化学形式，性质不能互相套用。化学研究既要问含有什么元素，也要问这些原子怎样连接、处在什么环境中。",
+        "Elemental fluorine, fluoride ions and carbon–fluorine bonds are different chemical forms. Elemental composition alone does not determine behavior."
+      ],
+      "example": [
+        "氟化钠与聚四氟乙烯都含氟，前者是离子化合物，后者是高分子材料，溶解性和材料用途截然不同。不能仅凭含氟二字推断反应性、安全性或加工方法。",
+        "Sodium fluoride and polytetrafluoroethylene both contain fluorine, but one is an ionic compound and the other a polymer, with different properties and uses."
+      ]
+    },
     "summary": "氟的分离与电炉。同时推进了元素分离方法与实验装置能力。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-fluorine",
+          "role": "含氟合成砌块与反应试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "含氟砌块把特定含氟片段带入合成路线。它们与生产单质氟、制造无机氟化物或制备含氟聚合物是不同业务。选型时应回到具体结构、官能团兼容性和反应条件，而不是把“含氟”视作统一性质。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "含氟合成砌块与反应试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "含氟合成砌块与反应试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Fluorinated synthesis building blocks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "A fluorinated building block introduces a defined fragment into a synthesis. Elemental fluorine, inorganic fluorides and fluoropolymers are different product and process categories.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的含氟砌块与合成试剂属于实验供给；具体氟化试剂的操作条件仍以原论文与产品资料为准。"
         }
       ]
     },

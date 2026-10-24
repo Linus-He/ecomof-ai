@@ -46,8 +46,56 @@
       "sha256": "906ea3ee796cb86e09f09d7aa3a6f8851df8dcbccc374e5bd5431d3092fb3061"
     }
   ],
+  "people": [
+    {
+      "name": "Johann Deisenhofer",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1988/deisenhofer/facts/",
+      "affiliations": [
+        "University of Texas Southwestern Medical Center at Dallas",
+        "Howard Hughes Medical Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "270",
+      "image": "images/nobel/laureates/270.jpg"
+    },
+    {
+      "name": "Robert Huber",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1988/huber/facts/",
+      "affiliations": [
+        "Max-Planck-Institut für Biochemie"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "271",
+      "image": "images/nobel/laureates/271.jpg"
+    },
+    {
+      "name": "Hartmut Michel",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1988/michel/facts/",
+      "affiliations": [
+        "Max-Planck-Institut für Biophysik"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "272",
+      "image": "images/nobel/laureates/272.jpg"
+    }
+  ],
   "reading": {
     "title": "光合反应中心结构",
+    "learningGuide": {
+      "topic": "photosynthesis",
+      "title": [
+        "追踪碳和能量走过的路径",
+        "Following carbon and energy"
+      ],
+      "definition": [
+        "光合作用把光能与化学转化联系起来。研究者需要区分能量怎样被吸收、电子怎样转移，以及碳原子最终进入哪些分子，不能只看总反应式。",
+        "Photosynthesis combines light absorption, electron transfer and carbon transformation. The overall equation does not reveal every step."
+      ],
+      "example": [
+        "给反应体系加入可追踪的碳标记，再分析中间产物，可以研究碳进入有机物的先后路径。人工光合作用装置则还需处理催化、电荷分离与产物收集。",
+        "Carbon labels help follow intermediates. Artificial systems additionally need controlled charge separation, catalysis and product collection."
+      ]
+    },
     "summary": "光合反应中心结构。将生物能量转换与可观察的原子空间组织联系起来。",
     "sections": [
       {
@@ -200,31 +248,121 @@
       "companyCases": [
         {
           "organizationId": "basf",
-          "role": "氨基化学品及化工原料",
-          "status": "企业公开资料",
+          "id": "basf",
+          "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+          "status": "商业化工原料与材料",
           "paragraphs": [
-            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+            "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+            "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+            "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+          ],
+          "products": [
+            {
+              "name": "氨基化学品",
+              "application": "氨、尿素及相关含氮产品的官方业务入口。",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "name": "Ultramid 与聚酰胺前体",
+              "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "氨基化学品 · 官方资料",
               "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "label": "Ultramid 与聚酰胺前体 · 官方资料",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
             }
-          ]
+          ],
+          "introduction": [
+            "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+            "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+          ],
+          "en": {
+            "role": "Ammonia, urea and polyamide value chains",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+              "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+              "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+            ],
+            "products": [
+              {
+                "name": "Ammonia-based chemicals",
+                "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+                "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+              },
+              {
+                "name": "Ultramid and polyamide precursors",
+                "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+                "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+              }
+            ]
+          },
+          "relation": "BASF 的合成气下游化工和氨基化学品展示了原料气的工业用途，不意味着其工厂已采用论文中的人工叶片。"
         },
         {
           "organizationId": "bruker",
-          "role": "磁共振与结构分析",
-          "status": "企业公开资料",
+          "id": "bruker",
+          "role": "核磁共振：结构、相互作用与分子运动",
+          "status": "商业 NMR 仪器与控制平台",
           "paragraphs": [
-            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+            "Bruker 的 AVANCE 系列核磁共振谱仪用于研究分子结构、动力学与相互作用。核磁共振不是给分子拍一张直接可读的照片：实验记录核自旋的响应，再利用化学位移、耦合以及多维相关信号判断局部化学环境和原子之间的联系。",
+            "产品体系把磁体、控制台、探头和软件组合为一套实验平台。官方列出的 AVANCE NEO-X 控制台支持液体、固体及微成像等实验方向；这些能力需要匹配探头、样品形式和脉冲序列。不能把同一控制台所支持的模式，当作任意配置都能达到的指标。",
+            "在蛋白质、配位化合物和有机合成研究中，NMR 解决的往往是“得到的是什么、在溶液中怎样运动”。样品浓度、溶解性、交换速度及信号重叠仍会影响判断。结构模型通常要与其他表征或计算互相核对。"
+          ],
+          "products": [
+            {
+              "name": "AVANCE NMR 谱仪",
+              "application": "结构解析、分子动力学与相互作用实验的仪器入口。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "name": "AVANCE NEO-X 控制台",
+              "application": "在同一产品体系中查阅液体、固体及微成像模式的配置。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "AVANCE NMR 谱仪 · 官方资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "label": "AVANCE NEO-X 控制台 · 官方资料",
               "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Bruker 开发磁共振及分子、材料分析仪器。",
+            "Bruker develops scientific instruments for magnetic resonance, molecular and materials analysis."
+          ],
+          "en": {
+            "role": "NMR for structure, interaction and motion",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "AVANCE NMR instruments measure nuclear-spin responses to study molecular structure, motion and interactions. Chemical shifts, couplings and multidimensional correlations provide evidence about local environments and connectivity.",
+              "The NMR portfolio includes the AVANCE NEO-X console for liquid, solid-state and microimaging workflows. Each requires suitable probes, sample forms and pulse sequences; a console capability is not a specification for every instrument configuration.",
+              "Concentration, exchange and spectral overlap can limit interpretation, so models often need complementary measurements."
+            ],
+            "products": [
+              {
+                "name": "AVANCE NMR spectrometers",
+                "application": "Use chemical shifts, couplings and multidimensional correlations to investigate structure and motion.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              },
+              {
+                "name": "AVANCE NEO-X console",
+                "application": "Match liquid, solid-state or microimaging experiments to the probe, sample and pulse sequence.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              }
+            ]
+          },
+          "relation": "Bruker 的光谱与结构分析设备是相关实验工具的产业示例；普通稳态光谱仪不等于论文使用的飞秒 X 射线设施。"
         }
       ]
     },

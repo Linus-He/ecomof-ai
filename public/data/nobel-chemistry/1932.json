@@ -22,8 +22,35 @@
       "sha256": "a290af63f47d905524de7538c644b06e632b901b3ee8652f12c31671ba6e67c3"
     }
   ],
+  "people": [
+    {
+      "name": "Irving Langmuir",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1932/langmuir/facts/",
+      "affiliations": [
+        "General Electric Company"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "191",
+      "image": "images/nobel/laureates/191.jpg"
+    }
+  ],
   "reading": {
     "title": "表面化学与吸附",
+    "learningGuide": {
+      "topic": "surface",
+      "title": [
+        "表面不是体相材料的简单缩小",
+        "A surface is a distinct chemical environment"
+      ],
+      "definition": [
+        "材料表面的原子具有不同于内部的邻近环境。分子在表面吸附后，其排列、电子状态和反应机会可能改变，因此表面组成与结构需要单独研究。",
+        "Surface atoms have environments different from the bulk. Adsorption can change molecular arrangement, electronic behavior and reactivity."
+      ],
+      "example": [
+        "同一种金属换一个表面取向，或被其他物种覆盖，反应表现也可能不同。把金属名称相同当作催化剂完全相同，会忽略位点、覆盖度和反应条件。",
+        "Crystal orientation and adsorbate coverage can change a metal’s behavior. A shared metal name does not establish identical catalytic sites or conditions."
+      ]
+    },
     "summary": "表面化学与吸附。使表面成为有明确位点和占据规律的化学系统。",
     "sections": [
       {
@@ -123,17 +150,62 @@
       "companyCases": [
         {
           "organizationId": "basf",
-          "role": "氨基化学品及化工原料",
-          "status": "企业公开资料",
+          "id": "basf",
+          "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+          "status": "商业化工原料与材料",
           "paragraphs": [
-            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+            "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+            "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+            "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+          ],
+          "products": [
+            {
+              "name": "氨基化学品",
+              "application": "氨、尿素及相关含氮产品的官方业务入口。",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "name": "Ultramid 与聚酰胺前体",
+              "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "氨基化学品 · 官方资料",
               "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "label": "Ultramid 与聚酰胺前体 · 官方资料",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
             }
-          ]
+          ],
+          "introduction": [
+            "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+            "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+          ],
+          "en": {
+            "role": "Ammonia, urea and polyamide value chains",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+              "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+              "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+            ],
+            "products": [
+              {
+                "name": "Ammonia-based chemicals",
+                "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+                "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+              },
+              {
+                "name": "Ultramid and polyamide precursors",
+                "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+                "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+              }
+            ]
+          },
+          "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
         }
       ]
     },

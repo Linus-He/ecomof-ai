@@ -153,3 +153,11 @@
   .unified-search-page .search-release-image img { animation:none; }
   .cover-motion-toggle { display:none; }
 }
+
+/* Release highlights are a compact penultimate section, separate from research covers. */
+.unified-search-page .search-release-compact{padding:28px 0 38px;border-top:1px solid #e1e4e6;margin-top:32px}.search-release-compact .search-release-heading{margin-bottom:20px}.search-release-compact .search-release-heading a,.search-release-compact h3 a,.search-research-editorial .search-release-heading a{display:inline-flex;align-items:center;gap:8px}.search-release-compact .search-release-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.search-release-compact .search-release-story{border-top:1px solid #e5e7e9;padding-top:14px}.search-release-compact .search-release-version{font-size:11px;color:#747c85}.search-release-compact .search-release-story h3{font-size:19px;line-height:1.5;margin:9px 0}.search-release-compact .search-release-story p{font-size:13px;line-height:1.8;margin:0;color:#6b737c}.search-release-compact h3 svg{flex-shrink:0}
+@media(max-width:700px){.search-release-compact .search-release-grid{grid-template-columns:1fr;gap:17px}.search-release-compact .search-release-story h3{font-size:17px}.unified-search-page .search-release-compact{padding:22px 0 28px}}
+
+.search-release-heading .search-research-motion-control{margin-left:auto;border:1px solid #dfe3e6;background:white;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;color:#69747a;cursor:pointer}.search-release-heading .search-research-motion-control+a{margin-left:12px}
+
+.search-research-editorial .search-release-story{border-top:1px solid #dce1e4;padding-top:20px}.search-research-editorial .search-release-story h3{margin-top:0;font-size:21px;line-height:1.5}.search-research-editorial .search-release-story p{font-size:14px;line-height:1.8}.search-research-editorial .search-research-grid{gap:26px}

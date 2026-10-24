@@ -22,8 +22,35 @@
       "sha256": "a630743cb39d1cadb13b62493ebaca0ece9c87a07624b7d534073cbd133ae456"
     }
   ],
+  "people": [
+    {
+      "name": "Roger D. Kornberg",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2006/kornberg/facts/",
+      "affiliations": [
+        "Stanford University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "806",
+      "image": "images/nobel/laureates/806.jpg"
+    }
+  ],
   "reading": {
     "title": "真核转录的分子基础",
+    "learningGuide": {
+      "topic": "rna",
+      "title": [
+        "RNA 不只是信息传递的副本",
+        "RNA has several chemical roles"
+      ],
+      "definition": [
+        "RNA 可以传递信息、折叠成特定结构，也可以参与调控或催化。讨论一种 RNA 的功能，需要同时考虑序列、空间状态和所在的分子环境。",
+        "RNA can carry information, fold, regulate or catalyze. Its function depends on sequence, structure and molecular context."
+      ],
+      "example": [
+        "同样叫 RNA，信使 RNA、转运 RNA 和催化性 RNA 的任务不同。合成出某条序列只是准备材料，还需要检测它在目标条件下是否执行相应功能。",
+        "Messenger, transfer and catalytic RNAs perform different tasks. Making a sequence is not itself demonstrating that function."
+      ]
+    },
     "summary": "真核转录的分子基础。把生命信息传递落实为可观察的分子过程。",
     "sections": [
       {
@@ -129,18 +156,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-rna",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "RNA 体外转录与功能研究",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+            "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+            "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+          ],
+          "products": [
+            {
+              "name": "MEGAscript T7 转录试剂盒",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "In-vitro RNA transcription",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "MEGAscript T7 synthesizes RNA for research, including transfection, translation and structure/function studies. The researcher supplies the sequence and template.",
+              "Template removal, purification and integrity checks follow transcription. Capping or modification depends on the purpose and workflow; the kit does not itself produce a clinically validated mRNA medicine.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "MEGAscript T7",
+                "application": "Prepare RNA from a designed template for downstream structure or function experiments.",
+                "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+              },
+              {
+                "name": "Transcription user guide",
+                "application": "Check template handling, transcription, purification and the intended experimental use.",
+                "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的转录、翻译和核酸分析试剂可用于相应实验流程；这里列的是研究工具，不是该细菌机制的治疗产品。"
         }
       ]
     },

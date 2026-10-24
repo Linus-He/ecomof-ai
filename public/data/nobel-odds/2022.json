@@ -1,0 +1,155 @@
+{
+  "year": 2022,
+  "title": "Who will win the 2022 Nobel Prize in Chemistry?",
+  "source": "Manifold",
+  "currency": "MANA",
+  "marketKind": "person",
+  "eventUrl": "https://manifold.markets/NcyRocks/who-will-win-the-2022-nobel-prize-i-682142da9dba",
+  "eventId": "X3nCLJkHitSmK0mukqGx",
+  "windowStart": 1652659285,
+  "cutoff": 1664963100,
+  "cutoffSource": "https://www.nobelprize.org/prizes/chemistry/2022/prize-announcement/",
+  "cutoffNote": "Earliest scheduled announcement.",
+  "marketRulesUrl": "https://api.manifold.markets/v0/market/X3nCLJkHitSmK0mukqGx",
+  "method": "Manifold play-money trade probabilities. Last directly recorded probAfter per answer; probabilities of other answers may also move without a direct trade. Quotes are not a complete simultaneous market snapshot. No settlement values and no interpolated history.",
+  "answersSumToOne": true,
+  "winners": [
+    "Carolyn Bertozzi",
+    "Morten Meldal",
+    "Barry Sharpless"
+  ],
+  "unlistedWinners": [],
+  "candidates": [
+    {
+      "id": "a070c86e92f2",
+      "name": "Other",
+      "kind": "other",
+      "winner": false,
+      "url": "https://manifold.markets/NcyRocks/who-will-win-the-2022-nobel-prize-i-682142da9dba",
+      "points": [
+        {
+          "t": 1652659285,
+          "p": 1
+        }
+      ],
+      "probability": 1,
+      "quoteAt": 1652659285,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "researchFocus": [
+        "原市场的其他选项",
+        "Other option in the original market"
+      ]
+    },
+    {
+      "id": "27c0f3db6fd3",
+      "name": "Someone not mentioned in any answer at close time",
+      "kind": "other",
+      "winner": false,
+      "url": "https://manifold.markets/NcyRocks/who-will-win-the-2022-nobel-prize-i-682142da9dba",
+      "points": [
+        {
+          "t": 1652659305,
+          "p": 0.01970395059307911
+        },
+        {
+          "t": 1652679916,
+          "p": 0.11000355998576007
+        },
+        {
+          "t": 1664312006,
+          "p": 0.10731244064577398
+        },
+        {
+          "t": 1664795849,
+          "p": 0.13706659134241933
+        },
+        {
+          "t": 1664804872,
+          "p": 0.15138888888888888
+        },
+        {
+          "t": 1664830145,
+          "p": 0.6614958448753463
+        },
+        {
+          "t": 1664855073,
+          "p": 0.6945000000000001
+        }
+      ],
+      "probability": 0.6945000000000001,
+      "quoteAt": 1664855073,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "researchFocus": [
+        "原市场的其他选项",
+        "Other option in the original market"
+      ]
+    },
+    {
+      "id": "49032f9d66af",
+      "name": "Omar Yaghi",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/NcyRocks/who-will-win-the-2022-nobel-prize-i-682142da9dba",
+      "points": [
+        {
+          "t": 1652732171,
+          "p": 0.08806103400697995
+        },
+        {
+          "t": 1652738227,
+          "p": 0.16498216409036864
+        }
+      ],
+      "probability": 0.16498216409036864,
+      "quoteAt": 1652738227,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "researchFocus": [
+        "网状化学与金属有机框架",
+        "Reticular chemistry and metal-organic frameworks"
+      ],
+      "profileUrl": "https://chemistry.berkeley.edu/faculty/chem/yaghi",
+      "institution": {
+        "id": "berkeley",
+        "name": "加州大学伯克利分校",
+        "englishName": "University of California, Berkeley",
+        "url": "https://chemistry.berkeley.edu/",
+        "logo": "images/nobel/organizations/berkeley.svg",
+        "logoKind": "wordmark",
+        "sourceUrl": "https://chemistry.berkeley.edu/faculty/chem/yaghi"
+      }
+    }
+  ],
+  "excluded": [],
+  "historySources": [
+    "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000"
+  ],
+  "historySha256": "a5b92dff4afeaf40b3cb451a0b0258e59ed0ed0d29207ee79903350574defc90",
+  "sparseHistory": true,
+  "winnerDetails": [
+    {
+      "name": "Carolyn Bertozzi",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2022/bertozzi/facts/",
+      "image": "images/nobel/laureates/1015.jpg",
+      "affiliations": [
+        "Stanford University",
+        "Howard Hughes Medical Institute"
+      ]
+    },
+    {
+      "name": "Morten Meldal",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2022/meldal/facts/",
+      "image": "images/nobel/laureates/1016.jpg",
+      "affiliations": [
+        "University of Copenhagen"
+      ]
+    },
+    {
+      "name": "Barry Sharpless",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2022/sharpless/facts/",
+      "image": "images/nobel/laureates/743.jpg",
+      "affiliations": [
+        "Scripps Research"
+      ]
+    }
+  ]
+}

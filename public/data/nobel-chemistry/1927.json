@@ -22,8 +22,35 @@
       "sha256": "4a33f74637384be617bb26cf6511022024821f8c0e88f3e5c70b2530bd9ff60b"
     }
   ],
+  "people": [
+    {
+      "name": "Heinrich Wieland",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1927/wieland/facts/",
+      "affiliations": [
+        "Munich University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "184",
+      "image": "images/nobel/laureates/184.jpg"
+    }
+  ],
   "reading": {
     "title": "胆汁酸的结构",
+    "learningGuide": {
+      "topic": "steroid",
+      "title": [
+        "相似骨架可以承载不同功能",
+        "A shared skeleton is not a shared function"
+      ],
+      "definition": [
+        "甾体研究需要区分共同的环状骨架、取代基位置与空间构型。结构上的小改变可以影响分子与蛋白的结合，但相似骨架不能直接证明相同生物作用。",
+        "Steroid chemistry distinguishes ring systems, substituents and stereochemistry. Similarity does not establish identical biological behavior."
+      ],
+      "example": [
+        "胆固醇和多种甾体分子共享结构特征，却承担不同的化学与生物学角色。不能把对一种分子的测量推广到整个甾体家族，更不能由结构相似直接判断制剂可互换。",
+        "Cholesterol and other steroid molecules share structural features but have different roles; one result cannot describe the whole family."
+      ]
+    },
     "summary": "胆汁酸的结构。揭示生理活性天然物质的具体化学身份。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-steroid",
+          "role": "有机砌块与甾体相关研究材料",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "甾体研究需要区分母核、取代基与立体构型。目标分子的生理作用与研究试剂的质量规格也是两回事；合成砌块用于路线开发，不能直接视作可给药的活性成分。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "有机砌块与甾体相关研究材料",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "有机砌块与甾体相关研究材料 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Steroid-related synthesis materials",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Steroid chemistry distinguishes the ring system, substituents and stereochemistry. A research building block is a route-development input, not automatically a formulated active pharmaceutical ingredient.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的胆汁酸、脂质和代谢物试剂用于标准品比对与机理实验；这里不把试剂供应写成论文机制的临床应用。"
         }
       ]
     },

@@ -46,8 +46,56 @@
       "sha256": "7343c5fa3c5eef91a900a72558d95e47946d632dc3a98d32266caab3d9354905"
     }
   ],
+  "people": [
+    {
+      "name": "John B. Goodenough",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/facts/",
+      "affiliations": [
+        "University of Texas"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "976",
+      "image": "images/nobel/laureates/976.jpg"
+    },
+    {
+      "name": "M. Stanley Whittingham",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2019/whittingham/facts/",
+      "affiliations": [
+        "Binghamton University, State University of New York"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "977",
+      "image": "images/nobel/laureates/977.jpg"
+    },
+    {
+      "name": "Akira Yoshino",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2019/yoshino/facts/",
+      "affiliations": [
+        "Asahi Kasei Corporation",
+        "Meijo University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "978",
+      "image": "images/nobel/laureates/978.jpg"
+    }
+  ],
   "reading": {
     "title": "锂离子电池",
+    "learningGuide": {
+      "topic": "battery",
+      "title": [
+        "电池要同时移动离子和电子",
+        "Ions, electrons and interfaces"
+      ],
+      "definition": [
+        "可充电电池让氧化还原反应与外电路中的电子流联系起来，离子则通过电解液等路径迁移。电极、电解液与界面共同决定实际表现。",
+        "Rechargeable batteries combine external electron flow with ion transport and reversible electrode reactions. Interfaces are part of the system."
+      ],
+      "example": [
+        "充电时把离子送回合适位置，并不意味着体系可以无限循环。界面副反应、结构变化和热管理会影响寿命与安全；材料容量也不等于电池包能量。",
+        "Charging does not guarantee unlimited cycling. Side reactions, structural changes and heat affect operation, while material capacity differs from pack energy."
+      ]
+    },
     "summary": "锂离子电池。让高能量密度、可反复使用的电池进入广泛应用。",
     "sections": [
       {
@@ -149,17 +197,62 @@
       "companyCases": [
         {
           "organizationId": "catl",
-          "role": "电池与储能系统",
-          "status": "企业公开资料",
+          "id": "catl",
+          "role": "神行与麒麟：电极化学和电池包工程的不同层次",
+          "status": "企业发布的商业电池产品系列",
           "paragraphs": [
-            "宁德时代开发商业动力电池与储能系统，并针对不同应用组织电芯材料、结构和充电技术。论文中的化成实验与商品电池属于不同验证层级，比较时需保留电芯体系及运行条件。"
+            "CATL 的神行和麒麟是面向车辆需求的电池产品系列。神行强调充电过程，麒麟强调电池系统集成；讨论它们时，要把正负极材料、电解液与界面控制，同电池包内的空间安排和热管理分开看。",
+            "企业技术资料列出不同化学体系下的系统设计，并讨论电解液添加剂和界面反应对热安全的影响。电芯中锂的可逆迁移提供储能基础，但充电速度还受离子与电子传输、热量排出及整车充电系统影响。不能由电极材料名称直接推算车辆表现。",
+            "本节不把不同代际或不同化学体系的宣传指标拼成一款电池。具体容量、倍率、温度和测试条件，应以相应产品发布资料为准。它们与获奖成果的联系在可充电锂电池的技术脉络，而非对上文某个实验协议的采用证明。"
+          ],
+          "products": [
+            {
+              "name": "神行快充电池产品发布",
+              "application": "查看充电相关的产品定位及对应版本说明。",
+              "url": "https://www.catl.com/en/news/6811.html"
+            },
+            {
+              "name": "麒麟与 CTP 系统技术",
+              "application": "查看不同电池化学体系与电池包设计。",
+              "url": "https://www.catl.com/en/research/technology/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "神行快充电池产品发布 · 官方资料",
               "url": "https://www.catl.com/en/news/6811.html"
+            },
+            {
+              "label": "麒麟与 CTP 系统技术 · 官方资料",
+              "url": "https://www.catl.com/en/research/technology/"
             }
-          ]
+          ],
+          "introduction": [
+            "宁德时代研发和制造动力电池及储能系统。",
+            "CATL develops and manufactures batteries and energy-storage systems."
+          ],
+          "en": {
+            "role": "Shenxing and Qilin battery systems",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Shenxing and Qilin address different aspects of vehicle-battery design. Charging behavior depends on electrodes, electrolyte and interfaces as well as heat removal; pack design also determines how cells and cooling components are arranged.",
+              "The official technology material discusses different chemistries and electrolyte additives. A material name alone cannot determine charging speed or vehicle range, which also depend on the system and test conditions.",
+              "Specifications from different generations or chemistries are not combined into a single imaginary battery here."
+            ],
+            "products": [
+              {
+                "name": "Shenxing battery series",
+                "application": "Read the charging-oriented product positioning and the conditions of the cited generation.",
+                "url": "https://www.catl.com/en/news/6811.html"
+              },
+              {
+                "name": "Qilin and CTP technology",
+                "application": "Examine pack integration, thermal design and the chemistry used in the relevant configuration.",
+                "url": "https://www.catl.com/en/research/technology/"
+              }
+            ]
+          },
+          "relation": "宁德时代提供商业电池及系统。它与论文的联系是电芯制造中的化成和界面管理，不表示研究采用了其某款电池或公司采用了该论文的协议。"
         }
       ]
     },

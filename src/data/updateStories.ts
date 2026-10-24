@@ -1,6 +1,8 @@
+import { scienceUpdateStories } from "./scienceUpdateStories"
 import { recentUpdateStories } from "./recentUpdateStories"
 
 export const updateStories = [
+  ...scienceUpdateStories,
   ...recentUpdateStories,
   {
     hash:"update-research-progress", version:"v3.5.1", date:"2026-08-20", image:0,

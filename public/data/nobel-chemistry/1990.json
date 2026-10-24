@@ -22,8 +22,35 @@
       "sha256": "d7cfbcaf1e44c4f379644e61c56e926c256ae2325cc14a772029df2aec2591c3"
     }
   ],
+  "people": [
+    {
+      "name": "Elias James Corey",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1990/corey/facts/",
+      "affiliations": [
+        "Harvard University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "275",
+      "image": "images/nobel/laureates/275.jpg"
+    }
+  ],
   "reading": {
     "title": "逆合成与合成方法学",
+    "learningGuide": {
+      "topic": "synthesis",
+      "title": [
+        "目标结构与合成路线是两回事",
+        "A structure is not a synthesis route"
+      ],
+      "definition": [
+        "有机合成不仅问能否画出目标分子，还要问哪些键先形成、哪些官能团需要保护，以及各步骤怎样避免互相干扰。逆合成是从目标向可能原料倒推的分析方法。",
+        "Synthesis plans bond formation, functional-group compatibility and sequence. Retrosynthetic analysis works backward from a target."
+      ],
+      "example": [
+        "同一个目标可能有多条路线。步数较少不一定总成本最低，还要考虑选择性、原料、分离、重复操作及放大条件，不能只比较纸面上的箭头数量。",
+        "A shorter route is not automatically cheaper or more practical; selectivity, purification and scale also matter."
+      ]
+    },
     "summary": "逆合成与合成方法学。让合成规划从经验积累转向系统分析。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-catalysis",
+          "role": "偶联、复分解与手性催化试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "官方目录按交叉偶联、烯烃复分解及手性催化组织催化剂和配体。选定某种体系后，仍要检查底物范围、催化剂负载量及副产物；试剂可购并不能证明该反应在所有目标分子上都有效。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "偶联、复分解与手性催化试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "偶联、复分解与手性催化试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Cross-coupling, metathesis and asymmetric catalysis",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "The official catalogue organizes catalysts and ligands by reaction families. Substrate scope, catalyst loading, by-products and product analysis still require evaluation in the chosen system.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
         }
       ]
     },

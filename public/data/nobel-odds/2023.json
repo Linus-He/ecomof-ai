@@ -1,0 +1,514 @@
+{
+  "year": 2023,
+  "title": "🏅Who will win the 2023 Nobel Prize in Chemistry?",
+  "source": "Manifold",
+  "currency": "MANA",
+  "marketKind": "person",
+  "eventUrl": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+  "eventId": "wLN9dUY4NH2gm72IdlM1",
+  "windowStart": 1694266166,
+  "cutoff": 1696397460,
+  "cutoffSource": "https://apnews.com/article/52e681abdb81943ca85c8438973f97a4",
+  "cutoffNote": "Truncated before the earliest reported leaked announcement.",
+  "marketRulesUrl": "https://api.manifold.markets/v0/market/wLN9dUY4NH2gm72IdlM1",
+  "method": "Manifold play-money trade probabilities. Last directly recorded probAfter per answer; probabilities of other answers may also move without a direct trade. Quotes are not a complete simultaneous market snapshot. No settlement values and no interpolated history.",
+  "answersSumToOne": true,
+  "winners": [
+    "Moungi Bawendi",
+    "Louis Brus",
+    "Aleksey Yekimov"
+  ],
+  "unlistedWinners": [],
+  "candidates": [
+    {
+      "id": "c2af6f284835",
+      "name": "Other",
+      "kind": "other",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1694266451,
+          "p": 0.35481285296663506
+        },
+        {
+          "t": 1695765650,
+          "p": 0.3938668266423753
+        },
+        {
+          "t": 1695765655,
+          "p": 0.4699838458141619
+        },
+        {
+          "t": 1695765664,
+          "p": 0.5326474910432716
+        },
+        {
+          "t": 1695843842,
+          "p": 0.5895382712794015
+        },
+        {
+          "t": 1695857388,
+          "p": 0.5045982837792721
+        },
+        {
+          "t": 1696046973,
+          "p": 0.5413959315177405
+        },
+        {
+          "t": 1696198575,
+          "p": 0.6044434936334255
+        },
+        {
+          "t": 1696243396,
+          "p": 0.6336652882747512
+        },
+        {
+          "t": 1696254412,
+          "p": 0.6485285099526771
+        },
+        {
+          "t": 1696262455,
+          "p": 0.6617818754838215
+        },
+        {
+          "t": 1696263278,
+          "p": 0.6484088748492477
+        },
+        {
+          "t": 1696278320,
+          "p": 0.47704396572435753
+        },
+        {
+          "t": 1696287707,
+          "p": 0.5054994193812058
+        },
+        {
+          "t": 1696287713,
+          "p": 0.550933219329295
+        },
+        {
+          "t": 1696307765,
+          "p": 0.5874868806987352
+        },
+        {
+          "t": 1696368986,
+          "p": 0.5401080773577124
+        },
+        {
+          "t": 1696382740,
+          "p": 0.56011588947125
+        },
+        {
+          "t": 1696385069,
+          "p": 0.36686750986802735
+        },
+        {
+          "t": 1696385117,
+          "p": 0.3241774788628646
+        },
+        {
+          "t": 1696392854,
+          "p": 0.45500829738801457
+        }
+      ],
+      "probability": 0.45500829738801457,
+      "quoteAt": 1696392854,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "原市场的其他选项",
+        "Other option in the original market"
+      ]
+    },
+    {
+      "id": "c4940060ea11",
+      "name": "Omar M. Yaghi",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1696272603,
+          "p": 0.5220504591608467
+        },
+        {
+          "t": 1696272607,
+          "p": 0.47651686172413477
+        },
+        {
+          "t": 1696332192,
+          "p": 0.2138861642976212
+        },
+        {
+          "t": 1696333978,
+          "p": 0.25158417897858354
+        },
+        {
+          "t": 1696345439,
+          "p": 0.2612703029095169
+        },
+        {
+          "t": 1696361686,
+          "p": 0.29014979174342
+        },
+        {
+          "t": 1696368926,
+          "p": 0.15980681851131548
+        },
+        {
+          "t": 1696384970,
+          "p": 0.3943801455072582
+        },
+        {
+          "t": 1696385016,
+          "p": 0.47529042455692616
+        },
+        {
+          "t": 1696385221,
+          "p": 0.17377102689256352
+        },
+        {
+          "t": 1696385227,
+          "p": 0.3158237946970275
+        },
+        {
+          "t": 1696390426,
+          "p": 0.31205062208528384
+        },
+        {
+          "t": 1696392811,
+          "p": 0.20782954038640583
+        },
+        {
+          "t": 1696397309,
+          "p": 0.2126785709975778
+        }
+      ],
+      "probability": 0.2126785709975778,
+      "quoteAt": 1696397309,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "网状化学与金属有机框架",
+        "Reticular chemistry and metal-organic frameworks"
+      ],
+      "profileUrl": "https://chemistry.berkeley.edu/faculty/chem/yaghi",
+      "institution": {
+        "id": "berkeley",
+        "name": "加州大学伯克利分校",
+        "englishName": "University of California, Berkeley",
+        "url": "https://chemistry.berkeley.edu/",
+        "logo": "images/nobel/organizations/berkeley.svg",
+        "logoKind": "wordmark",
+        "sourceUrl": "https://chemistry.berkeley.edu/faculty/chem/yaghi"
+      }
+    },
+    {
+      "id": "ebca1db21091",
+      "name": "Chi-Huey Wong",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1696278364,
+          "p": 0.034316724598395874
+        },
+        {
+          "t": 1696287704,
+          "p": 0.06124692458265678
+        },
+        {
+          "t": 1696370147,
+          "p": 0.06346346047487515
+        },
+        {
+          "t": 1696388395,
+          "p": 0.09688934379198091
+        },
+        {
+          "t": 1696388401,
+          "p": 0.12883984268032214
+        },
+        {
+          "t": 1696390432,
+          "p": 0.17212013776552204
+        }
+      ],
+      "probability": 0.17212013776552204,
+      "quoteAt": 1696390432,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "糖化学与化学酶法合成",
+        "Glycochemistry and chemoenzymatic synthesis"
+      ],
+      "profileUrl": "https://www.scripps.edu/wong/",
+      "institution": {
+        "id": "scripps",
+        "name": "斯克里普斯研究所",
+        "englishName": "Scripps Research",
+        "url": "https://magazine.scripps.edu/",
+        "logo": "images/nobel/organizations/scripps.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://magazine.scripps.edu/favicon.ico",
+        "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08",
+        "sourceUrl": "https://www.scripps.edu/wong/"
+      }
+    },
+    {
+      "id": "c9fa117578fc",
+      "name": "Omar Farha",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1696287382,
+          "p": 0.08835303815743366
+        },
+        {
+          "t": 1696287387,
+          "p": 0.17513908017916066
+        },
+        {
+          "t": 1696307792,
+          "p": 0.05481553180897041
+        },
+        {
+          "t": 1696368936,
+          "p": 0.07147843900974127
+        },
+        {
+          "t": 1696388455,
+          "p": 0.09100851904358842
+        },
+        {
+          "t": 1696392819,
+          "p": 0.11972073899545527
+        }
+      ],
+      "probability": 0.11972073899545527,
+      "quoteAt": 1696392819,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "多孔材料与金属有机框架",
+        "Porous materials and metal-organic frameworks"
+      ],
+      "profileUrl": "https://chemistry.northwestern.edu/people/faculty/profiles/omar-farha.html",
+      "institution": {
+        "id": "northwestern",
+        "name": "西北大学",
+        "englishName": "Northwestern University",
+        "url": "https://www.northwestern.edu/",
+        "logo": "images/nobel/organizations/northwestern.png",
+        "logoKind": "symbol",
+        "assetSource": "https://common.northwestern.edu/v8/icons/favicon-180.png",
+        "sha256": "6aafc0676f8eb750f8cfda2faba007a438bf66cd23f5bb00ff767b25604bb477",
+        "sourceUrl": "https://chemistry.northwestern.edu/people/faculty/profiles/omar-farha.html"
+      }
+    },
+    {
+      "id": "f8f8efe086ff",
+      "name": "Shankar Balasubramanian",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1696368907,
+          "p": 0.045788860825038705
+        }
+      ],
+      "probability": 0.045788860825038705,
+      "quoteAt": 1696368907,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "DNA 测序与核酸化学生物学",
+        "DNA sequencing and nucleic acid chemical biology"
+      ],
+      "profileUrl": "https://www.cruk.cam.ac.uk/research-groups/balasubramanian-group/",
+      "institution": {
+        "id": "cambridge",
+        "name": "剑桥大学",
+        "englishName": "University of Cambridge",
+        "url": "https://www.ceb.cam.ac.uk/",
+        "logo": "images/nobel/organizations/cambridge.png",
+        "logoKind": "symbol",
+        "sourceUrl": "https://www.cruk.cam.ac.uk/research-groups/balasubramanian-group/"
+      }
+    },
+    {
+      "id": "8cf8d4485197",
+      "name": "John Jumper",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1696368903,
+          "p": 0.047598885101189065
+        },
+        {
+          "t": 1696370162,
+          "p": 0.035078934684983194
+        },
+        {
+          "t": 1696392847,
+          "p": 0.03781060027048267
+        }
+      ],
+      "probability": 0.03781060027048267,
+      "quoteAt": 1696392847,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "蛋白质结构预测",
+        "Protein structure prediction"
+      ],
+      "profileUrl": "https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/",
+      "institution": {
+        "id": "DeepMind",
+        "name": "Google DeepMind",
+        "englishName": "Google DeepMind",
+        "url": "https://deepmind.google/",
+        "logo": "images/nobel/organizations/DeepMind.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://deepmind.google/favicon.ico",
+        "sha256": "0683e96941bf43306bdf6a3b7e59d239dfad03296c11ce54ae5be3a6d3063b4f",
+        "sourceUrl": "https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/"
+      }
+    },
+    {
+      "id": "92adbfa077f5",
+      "name": "Michele Parrinello",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1695922734,
+          "p": 0.08171340696313961
+        },
+        {
+          "t": 1696029769,
+          "p": 0.0900579509627759
+        },
+        {
+          "t": 1696278349,
+          "p": 0.029747377983536473
+        }
+      ],
+      "probability": 0.029747377983536473,
+      "quoteAt": 1696278349,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "分子动力学与增强采样",
+        "Molecular dynamics and enhanced sampling"
+      ],
+      "profileUrl": "https://www.iit.it/it-IT/people-profile/-/people/michele-parrinello",
+      "institution": {
+        "id": "iit",
+        "name": "意大利技术研究院",
+        "englishName": "Italian Institute of Technology",
+        "url": "https://www.iit.it/",
+        "logo": "images/nobel/organizations/iit.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.google.com/s2/favicons?domain=www.iit.it&sz=128",
+        "assetType": "website favicon served by Google favicon cache",
+        "sha256": "51e58ee300fc2be5912fab2e30c2d1da97fbbbea48ec3bc905d4055417fd1a3a",
+        "sourceUrl": "https://www.iit.it/it-IT/people-profile/-/people/michele-parrinello"
+      }
+    },
+    {
+      "id": "bd414341ba38",
+      "name": "Katalin Karikó",
+      "kind": "person",
+      "winner": false,
+      "url": "https://manifold.markets/Tossup/who-will-win-the-2023-nobel-prize-i-152231b93da2",
+      "points": [
+        {
+          "t": 1694266166,
+          "p": 0.16337627631691326
+        },
+        {
+          "t": 1695782884,
+          "p": 0.028605301383684622
+        },
+        {
+          "t": 1695943147,
+          "p": 0.08732077941788045
+        },
+        {
+          "t": 1696243349,
+          "p": 0.05168943777924189
+        },
+        {
+          "t": 1696243389,
+          "p": 0.02462003670077902
+        },
+        {
+          "t": 1696278342,
+          "p": 0.014379869326637514
+        }
+      ],
+      "probability": 0.014379869326637514,
+      "quoteAt": 1696278342,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "researchFocus": [
+        "核苷修饰与 mRNA 生物学",
+        "Nucleoside modification and mRNA biology"
+      ],
+      "profileUrl": "https://www.nobelprize.org/prizes/medicine/2023/kariko/facts/",
+      "institution": {
+        "id": "szeged",
+        "name": "塞格德大学",
+        "englishName": "University of Szeged",
+        "url": "https://u-szeged.hu/english",
+        "logo": "images/nobel/organizations/szeged.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://u-szeged.hu/site/img/design/favicon.ico",
+        "sha256": "9f417e1a8417d573374ec54cb6d3587963bca3ec3e11300ecb2154e318bf9aef",
+        "sourceUrl": "https://www.nobelprize.org/prizes/medicine/2023/kariko/facts/"
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "answer": "Muhammad Usman",
+      "reason": "Identity and institutional profile could not be verified unambiguously"
+    },
+    {
+      "answer": "Louis Brus",
+      "reason": "No verified pre-cutoff trade probability"
+    }
+  ],
+  "historySources": [
+    "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000"
+  ],
+  "historySha256": "124c087aa8593cbac0a995d21dc2a794260fcc430200651917f259bede47046f",
+  "sparseHistory": true,
+  "winnerDetails": [
+    {
+      "name": "Moungi Bawendi",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/bawendi/facts/",
+      "image": "images/nobel/laureates/1029.jpg",
+      "affiliations": [
+        "Massachusetts Institute of Technology (MIT)"
+      ]
+    },
+    {
+      "name": "Louis Brus",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/brus/facts/",
+      "image": "images/nobel/laureates/1030.jpg",
+      "affiliations": [
+        "Columbia University"
+      ]
+    },
+    {
+      "name": "Aleksey Yekimov",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/yekimov/facts/",
+      "image": "images/nobel/laureates/1031.jpg",
+      "affiliations": [
+        "Nanocrystals Technology Inc."
+      ]
+    }
+  ]
+}

@@ -46,8 +46,55 @@
       "sha256": "8a00651f8a693e272ac80fdc3195e73651e69a072e868bb8089c823989e66049"
     }
   ],
+  "people": [
+    {
+      "name": "Robert F. Curl Jr.",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1996/curl/facts/",
+      "affiliations": [
+        "Rice University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "284",
+      "image": "images/nobel/laureates/284.jpg"
+    },
+    {
+      "name": "Sir Harold Kroto",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1996/kroto/facts/",
+      "affiliations": [
+        "University of Sussex"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "285",
+      "image": "images/nobel/laureates/285.jpg"
+    },
+    {
+      "name": "Richard E. Smalley",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1996/smalley/facts/",
+      "affiliations": [
+        "Rice University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "286",
+      "image": "images/nobel/laureates/286.jpg"
+    }
+  ],
   "reading": {
     "title": "富勒烯",
+    "learningGuide": {
+      "topic": "fullerene",
+      "title": [
+        "碳可以组成封闭的分子笼",
+        "Carbon cages as molecules"
+      ],
+      "definition": [
+        "富勒烯是一类由碳组成的笼状分子。它与无限延展的碳材料不同，具有明确的分子组成和曲面结构，可以进一步发生衍生化反应。",
+        "Fullerenes are cage-like carbon molecules with defined compositions and curved structures, distinct from extended carbon solids."
+      ],
+      "example": [
+        "C60、石墨和金刚石都由碳构成，却有不同连接和形态。这个对比说明元素组成不足以预测溶解、导电或材料用途，还要了解具体结构。",
+        "C60, graphite and diamond share an element but differ in connectivity and form, leading to different properties."
+      ]
+    },
     "summary": "富勒烯。扩展碳的结构类型和可研究尺度。",
     "sections": [
       {
@@ -153,17 +200,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-fullerene",
+          "role": "富勒烯与碳纳米材料",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "富勒烯产品资料按不同组成和等级提供碳笼材料。作为研究样品，首先要核对碳笼身份、纯度、可溶性及杂质；研究人员再选择加成、衍生化或薄膜制备条件。购买到 C60 并不意味着已具备特定器件的性能。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "富勒烯与碳纳米材料",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "富勒烯与碳纳米材料 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Fullerene and carbon nanomaterials",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "The fullerene product material distinguishes compositions and grades. Cage identity, purity, solubility and impurities matter before derivatization or film fabrication; C60 availability does not establish device performance.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的富勒烯和纳米碳材料目录属于研究原料供给；未将其中商品与论文的新型手性碳笼混同。"
         }
       ]
     },

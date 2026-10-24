@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.3",
-  "generatedAt": "2026-09-08",
+  "currentAppVersion": "v3.5.6",
+  "generatedAt": "2026-10-24",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
@@ -9,9 +9,9 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.2",
-    "developmentVersion": "v3.5.3",
-    "recordedAt": "2026-09-08",
+    "baseAppVersion": "v3.5.5",
+    "developmentVersion": "v3.5.6",
+    "recordedAt": "2026-10-24",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
@@ -22,43 +22,31 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "让最新研究不止于一个外部链接：先理解研究解决了什么、意味着什么，再回到原论文核对证据。",
-      "en": "Read what a study addresses and why it matters before following its sources. Research now opens as an editorial article inside EcoMOF-AI."
+      "zh": "合并应用与企业阅读，补充概念实例、三个平台的历史预测、人物资料与具名致谢；首页去掉概念大图。",
+      "en": "Integrated application and company reading, concept examples, three forecast sources, person records and acknowledgements, with text-first home sections."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "阅读先于跳转",
-          "en": "Read before leaving"
+          "zh": "更完整的历史市场与产业资料",
+          "en": "Historical markets and product evidence"
         },
         "changes": [
           {
-            "zh": "上一轮的最新研究卡片直接打开论文。这一版将三条入口改为站内文章，围绕研究问题、核心进展、研究意义和证据边界组织内容。读者可以先把握研究脉络，再选择是否继续阅读原文，而不必在多个外部页面之间切换。",
-            "en": "Previously, research cards opened external papers. This version adds three in-site articles organized around the question, findings, significance and limitations. Readers can understand the context before deciding to consult the source."
-          }
-        ]
-      },
-      "methodsEvidence": {
-        "summary": {
-          "zh": "把来源放在最前面",
-          "en": "Sources at the top"
-        },
-        "changes": [
+            "zh": "预测市场已分别收录 Polymarket、Manifold 与 Kalshi。2022–2026 年合计七份年度/平台记录，保留真实成交、领域预测和稀疏历史的差异；提供平台切换、搜索、排序、曲线重置及数据下载。",
+            "en": "Polymarket, Manifold and Kalshi provide seven source/year editions across 2022–2026. Source, scope and sparse-history differences remain visible, with platform selection, search, sorting, chart reset and CSV export."
+          },
           {
-            "zh": "每篇解读顶部提供论文原文链接和 DOI，标明期刊、论文日期以及本站解读身份；能够提供机构档案时也保留入口。正文区分论文报告结果与本站分析，不把综述当作新实验，也不将文献结果冒充平台计算或独立验证。",
-            "en": "Each article begins with the original paper link and DOI, journal and date, and an editorial label. Institutional records are linked where available. Source findings and our interpretation remain distinct; reviews are not presented as new experiments or platform validation."
-          }
-        ]
-      },
-      "releaseNotes": {
-        "summary": {
-          "zh": "两个版本，一条连续的阅读路径",
-          "en": "Two versions, one reading path"
-        },
-        "changes": [
+            "zh": "历年企业部分补充产品、技术原理、用途及官方资料，区分研究工具、商业材料和研发项目；不根据论文结果推断企业采用、授权或产业化。人物信息补充获奖时机构与个人档案，致谢逐项列出实际来源平台。",
+            "en": "Annual company sections explain products, mechanisms, uses and official sources, distinguishing research tools, commercial materials and development programs. Person records and platform acknowledgements are expanded."
+          },
           {
-            "zh": "本轮补记上一轮的统一搜索与多语言首页变化，并将两篇版本总结放入最新动态。页脚在维护信息之后增加 since2025，维护行相对整个页脚居中；窄屏时单独占一行，避免被社交入口或语言按钮挤偏。本轮没有改动科研评分、材料数据或论文结论。",
-            "en": "Both the previous search release and this reading release now have update stories. The footer adds since2025 after maintenance text and centres that line across the footer, placing it on its own row on narrow screens. Scientific scoring and material data are unchanged."
+            "zh": "最新动态移至首页倒数第二，以紧凑文字摘要替代大图。站内入口使用横向箭头，外部资料继续保留外链标识。",
+            "en": "Updates move to the penultimate homepage section as compact summaries. Internal navigation uses horizontal arrows; source links retain external-link indicators."
+          },
+          {
+            "zh": "每个获奖年份补充基础概念与具体例子；2026 年用香芹酮的两种镜像结构解释手性与气味差异。企业简介、产品与技术支持中英文，长篇文章移除全局滚动淡入，修复切换年份后内容发灰。最新动态与最新研究的概念大图全部移除。",
+            "en": "Awarded years add foundational explanations and concrete examples. Carvone enantiomers illustrate chirality and aroma in 2026. Bilingual company profiles and products accompany a fix for faded long articles; update and research concept covers are removed."
           }
         ]
       }
@@ -199,6 +187,96 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.6",
+      "date": "2026-10-24",
+      "headline": {
+        "zh": "更完整的历史市场与产业资料",
+        "en": "Historical markets and product evidence"
+      },
+      "summary": {
+        "zh": "合并应用与企业阅读，补充概念实例、三个平台的历史预测、人物资料与具名致谢；首页去掉概念大图。",
+        "en": "Integrated application and company reading, concept examples, three forecast sources, person records and acknowledgements, with text-first home sections."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "更完整的历史市场与产业资料",
+            "en": "Historical markets and product evidence"
+          },
+          "changes": [
+            {
+              "zh": "预测市场已分别收录 Polymarket、Manifold 与 Kalshi。2022–2026 年合计七份年度/平台记录，保留真实成交、领域预测和稀疏历史的差异；提供平台切换、搜索、排序、曲线重置及数据下载。",
+              "en": "Polymarket, Manifold and Kalshi provide seven source/year editions across 2022–2026. Source, scope and sparse-history differences remain visible, with platform selection, search, sorting, chart reset and CSV export."
+            },
+            {
+              "zh": "历年企业部分补充产品、技术原理、用途及官方资料，区分研究工具、商业材料和研发项目；不根据论文结果推断企业采用、授权或产业化。人物信息补充获奖时机构与个人档案，致谢逐项列出实际来源平台。",
+              "en": "Annual company sections explain products, mechanisms, uses and official sources, distinguishing research tools, commercial materials and development programs. Person records and platform acknowledgements are expanded."
+            },
+            {
+              "zh": "最新动态移至首页倒数第二，以紧凑文字摘要替代大图。站内入口使用横向箭头，外部资料继续保留外链标识。",
+              "en": "Updates move to the penultimate homepage section as compact summaries. Internal navigation uses horizontal arrows; source links retain external-link indicators."
+            },
+            {
+              "zh": "每个获奖年份补充基础概念与具体例子；2026 年用香芹酮的两种镜像结构解释手性与气味差异。企业简介、产品与技术支持中英文，长篇文章移除全局滚动淡入，修复切换年份后内容发灰。最新动态与最新研究的概念大图全部移除。",
+              "en": "Awarded years add foundational explanations and concrete examples. Carvone enantiomers illustrate chirality and aroma in 2026. Bilingual company profiles and products accompany a fix for faded long articles; update and research concept covers are removed."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v3.5.5",
+      "date": "2026-10-24",
+      "headline": {
+        "zh": "在独立页面回看开奖前的判断",
+        "en": "A separate forecast archive"
+      },
+      "summary": {
+        "zh": "预测市场拥有首页、菜单和页脚入口；展示历史曲线、真实得主及候选人的研究方向与机构。",
+        "en": "A dedicated market page with history, actual laureates, research profiles and institutions."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "在独立页面回看开奖前的判断",
+            "en": "A separate forecast archive"
+          },
+          "changes": [
+            {
+              "zh": "预测市场从诺奖解读中分离，按年度加载。历史报价在公布前截断，缺失的市场和候选人不补造概率；每个候选人的研究方向和机构资料均附来源链接。",
+              "en": "Markets are loaded by year in a separate page. Histories stop before disclosure; missing markets and candidates are not assigned invented probabilities. Research and institution sources are linked."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v3.5.4",
+      "date": "2026-10-24",
+      "headline": {
+        "zh": "从年度获奖记录到化学成果解读",
+        "en": "From award records to Chemistry readings"
+      },
+      "summary": {
+        "zh": "补齐历年六部分解读、方程式、官方人物肖像与研究资料，统一白色页面和年份切换。",
+        "en": "Annual six-part readings, equations, official portraits and research evidence in a shared white layout."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "从年度获奖记录到化学成果解读",
+            "en": "From award records to Chemistry readings"
+          },
+          "changes": [
+            {
+              "zh": "118 个获奖年份采用同一阅读结构，八个未颁奖年份单独标明。解读连接大学论文、机构和企业资料，并在下方提供官网原文入口。历史人物肖像沿用官方图片和署名。",
+              "en": "All 118 awarded years share a reading structure; eight unawarded years are identified. Readings link papers, institutions and company evidence, followed by official originals and credited portraits."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.3",
       "date": "2026-09-08",

@@ -22,8 +22,35 @@
       "sha256": "c06240f6bf2201084ea2f8aaf8a68f906369456f47af47e7db704f7d05662995"
     }
   ],
+  "people": [
+    {
+      "name": "Linus Pauling",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1954/pauling/facts/",
+      "affiliations": [
+        "California Institute of Technology (Caltech)"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "217",
+      "image": "images/nobel/laureates/217.jpg"
+    }
+  ],
   "reading": {
     "title": "化学键与复杂物质结构",
+    "learningGuide": {
+      "topic": "bonding",
+      "title": [
+        "化学键不是静止的小棍子",
+        "Models of chemical bonding"
+      ],
+      "definition": [
+        "化学键是描述原子间电子与相互作用的模型。键长、方向及电子分布帮助解释结构和反应，但不同模型有各自适用范围，不能把示意图当作直接拍摄的原子照片。",
+        "Bonding models describe electronic interactions and help explain geometry and reactivity. A drawing is not a literal photograph."
+      ],
+      "example": [
+        "金刚石与石墨都由碳组成，连接方式不同，宏观性质也不同。这个例子说明组成相同不等于材料相同，结构组织本身就是化学信息。",
+        "Diamond and graphite both consist of carbon but have different connectivity and properties. Structure is information beyond composition."
+      ]
+    },
     "summary": "化学键与复杂物质结构。让化学键成为可以理论分析并实验检验的概念。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "schrodinger",
-          "role": "分子模拟与设计软件",
-          "status": "企业公开资料",
+          "id": "schrodinger",
+          "role": "Jaguar 与 Desmond：电子结构和分子运动分开计算",
+          "status": "商业分子模拟软件",
           "paragraphs": [
-            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+            "Schrödinger 的 Jaguar 用于量子化学和电子结构计算，官方材料列出密度泛函理论等方法，以及分子结构、反应和性质分析用途。它从电子层面处理化学问题；计算结果取决于模型、基组、泛函和所研究体系。",
+            "Desmond 面向分子动力学模拟，研究原子随时间的运动。它与电子结构计算的分工不同：经典分子动力学通常使用力场描述相互作用，能够探索结构变化，却不能自动把每一次化学成键和断键都当作电子结构问题求解。",
+            "商业软件使建模、运行和结果分析更容易衔接，但界面完整不等于物理假设已经得到验证。选择计算方法后仍需检查收敛、采样和适用范围。这里展示软件采用的方法类型，不声称它复现了上文论文的算法或精度。"
+          ],
+          "products": [
+            {
+              "name": "Jaguar 量子化学计算",
+              "application": "计算电子结构、分子性质与反应相关问题。",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "name": "Desmond 分子动力学",
+              "application": "研究分子构象、相互作用和运动过程。",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.schrodinger.com/platform/products/maestro/"
+              "label": "Jaguar 量子化学计算 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "label": "Desmond 分子动力学 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
             }
-          ]
+          ],
+          "introduction": [
+            "Schrödinger 开发分子建模与模拟软件。",
+            "Schrödinger develops molecular-modeling and simulation software."
+          ],
+          "en": {
+            "role": "Jaguar and Desmond: distinct modeling tasks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Jaguar addresses quantum chemistry and electronic structure, including molecular properties and reaction-related questions. Results depend on the model, basis and electronic-structure method chosen for the system.",
+              "Desmond addresses molecular dynamics: atomic motion and conformational change over time. Classical force-field simulation has a different role from explicit electronic-structure treatment of bond formation and breaking.",
+              "The software workflow does not remove the need to examine convergence, sampling and the physical assumptions."
+            ],
+            "products": [
+              {
+                "name": "Jaguar quantum chemistry",
+                "application": "Compute electronic structure, molecular properties or reaction-related questions.",
+                "url": "https://www.schrodinger.com/platform/products/jaguar/"
+              },
+              {
+                "name": "Desmond molecular dynamics",
+                "application": "Sample molecular motion and conformational behavior using a molecular-dynamics model.",
+                "url": "https://www.schrodinger.com/platform/products/desmond/"
+              }
+            ]
+          },
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
         }
       ]
     },

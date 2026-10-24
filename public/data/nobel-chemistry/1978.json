@@ -22,8 +22,35 @@
       "sha256": "0a2d681c62df90215444031bb52720aef6399bed563699f0d4d617fbcf911f51"
     }
   ],
+  "people": [
+    {
+      "name": "Peter Mitchell",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1978/mitchell/facts/",
+      "affiliations": [
+        "Glynn Research Laboratories"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "251",
+      "image": "images/nobel/laureates/251.jpg"
+    }
+  ],
   "reading": {
     "title": "化学渗透与生物能量",
+    "learningGuide": {
+      "topic": "atp",
+      "title": [
+        "细胞怎样把能量变化连接到化学工作",
+        "Coupling energy to chemical work"
+      ],
+      "definition": [
+        "ATP 等分子参与连接不同的能量转化过程。理解它不能只说分子储存了能量，还要看反应物、产物和环境共同决定的自由能变化，以及它怎样与其他过程耦合。",
+        "ATP-related reactions connect energy changes to other processes. Free-energy changes depend on the complete reaction and its conditions."
+      ],
+      "example": [
+        "ATP 合酶将跨膜条件与 ATP 的生成联系起来。测量 ATP 多少、测量酶活与观察旋转结构是不同证据，需要结合起来解释能量转化。",
+        "ATP synthase couples membrane conditions to ATP production. Abundance, enzyme activity and structural motion are distinct measurements."
+      ]
+    },
     "summary": "化学渗透与生物能量。把能量传递从假设的化学中间体转向跨膜梯度。",
     "sections": [
       {
@@ -130,18 +157,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-atp",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "ATP 的发光定量检测",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "Invitrogen 的 ATP Determination Kit 用荧光素酶体系产生发光信号，以定量检测 ATP。它把一个化学反应的输出转换为仪器可记录的光信号，用途包括生化反应和细胞活力相关实验。",
+            "检测值需要与 ATP 标准曲线比较，并核对样品背景和体系兼容性。发光强度不仅受 ATP 影响，也可能受样品组分和反应条件干扰，因此空白和对照应与待测样品采用相同处理流程。",
+            "这个试剂盒测量 ATP 的量，不直接测量 ATP 合酶的完整旋转机制。研究能量转化时，可以把它作为定量工具之一，再与酶活、膜电位或结构实验建立联系。"
+          ],
+          "products": [
+            {
+              "name": "ATP Determination Kit A22066",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+            },
+            {
+              "name": "ATP Determination Kit A22066 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Luminescent ATP measurement",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "The ATP Determination Kit uses a luciferase-based luminescence assay to quantify ATP in biochemical and cell-related experiments.",
+              "A standard curve, background controls and sample compatibility are part of the measurement. The assay measures ATP abundance; it does not directly reveal the full rotation mechanism of ATP synthase.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "ATP Determination Kit A22066",
+                "application": "Measure ATP abundance through a luciferase-based luminescence assay.",
+                "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+              },
+              {
+                "name": "ATP assay manual",
+                "application": "Plan standards and background controls, and check sample compatibility.",
+                "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的冷冻电镜设备属于结构研究工具供给；本条不把仪器生产商写成 ATP 合酶机理的药物开发方。"
         }
       ]
     },

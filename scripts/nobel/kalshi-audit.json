@@ -1,0 +1,80 @@
+{
+  "eventSource": "https://api.elections.kalshi.com/trade-api/v2/events/KXNOBELCHEM-26?with_nested_markets=true",
+  "candidates": 18,
+  "excluded": [
+    {
+      "excluded": "KXNOBELCHEM-26-JTAR",
+      "name": "Jean-Marie Tarascon",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JTAR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-KDOM",
+      "name": "Kazunari Domen",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-KDOM/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-ZBAO",
+      "name": "Zhenan Bao",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-ZBAO/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-MFUJ",
+      "name": "Makoto Fujita",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MFUJ/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-DNOC",
+      "name": "Daniel Nocera",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DNOC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-EJAC",
+      "name": "Eric Jacobsen",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-EJAC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JCOL",
+      "name": "James Collins",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JCOL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JNOR",
+      "name": "Jens Nørskov",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JNOR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-SLIP",
+      "name": "Stephen Lippard",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SLIP/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-HSUG",
+      "name": "Hiroaki Suga",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HSUG/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-TAID",
+      "name": "Takuzo Aida",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-TAID/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JKAS",
+      "name": "John Kasianowicz",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JKAS/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    }
+  ],
+  "cutoff": 1791366300,
+  "method": "One-minute candles with positive traded volume and a close_dollars trade price, strictly before announcement. Empty candles, previous-price carry-forward and settlement are excluded. Candle end times are aggregation boundaries, not exact trade timestamps."
+}

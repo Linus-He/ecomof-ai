@@ -46,8 +46,55 @@
       "sha256": "350ff9c30bf9ed0acea530261d49b643439267a7f152f14962f87984e669498f"
     }
   ],
+  "people": [
+    {
+      "name": "Aaron Ciechanover",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2004/ciechanover/facts/",
+      "affiliations": [
+        "Technion - Israel Institute of Technology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "779",
+      "image": "images/nobel/laureates/779.jpg"
+    },
+    {
+      "name": "Avram Hershko",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2004/hershko/facts/",
+      "affiliations": [
+        "Technion - Israel Institute of Technology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "780",
+      "image": "images/nobel/laureates/780.jpg"
+    },
+    {
+      "name": "Irwin Rose",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2004/rose/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "781",
+      "image": "images/nobel/laureates/781.jpg"
+    }
+  ],
   "reading": {
     "title": "泛素介导的蛋白降解",
+    "learningGuide": {
+      "topic": "ubiquitin",
+      "title": [
+        "蛋白质怎样被标记并交给降解系统",
+        "Tagging proteins for a cellular pathway"
+      ],
+      "definition": [
+        "泛素系统通过酶促过程给蛋白质添加分子标记，参与调控蛋白质命运。标记、识别和蛋白酶体降解是相互联系但不同的步骤。",
+        "Ubiquitination, recognition and proteasomal degradation are connected but distinct processes controlling protein fate."
+      ],
+      "example": [
+        "靶向蛋白降解分子试图把某个靶蛋白带近相关连接酶。能形成结合不等于一定发生有效降解，还需要合适的复合物、细胞可达性与后续过程。",
+        "A targeted degrader recruits proteins into proximity, but binding alone does not guarantee productive degradation."
+      ]
+    },
     "summary": "泛素介导的蛋白降解。揭示蛋白清除是受调控的信息过程。",
     "sections": [
       {
@@ -155,17 +202,62 @@
       "companyCases": [
         {
           "organizationId": "arvinas",
-          "role": "靶向蛋白降解",
-          "status": "企业公开资料",
+          "id": "arvinas",
+          "role": "PROTAC：借用细胞的蛋白降解系统",
+          "status": "企业蛋白降解技术平台与研发管线",
           "paragraphs": [
-            "Arvinas 的 PROTAC 技术通过同时接近靶蛋白与降解系统，探索定向去除蛋白的药物路线。公司技术与研发资料说明其研究对象；与某篇分子胶论文的直接合作或授权关系需要另行证据。"
+            "Arvinas 的 PROTAC 技术把靶蛋白结合端、连接部分和 E3 泛素连接酶结合端放入同一个双功能分子。目标不是仅占据一个活性位点，而是促使靶蛋白与细胞降解机器接近，随后经泛素化和蛋白酶体处理。",
+            "企业将靶点选择、E3 连接酶研究、分子设计以及临床开发组成一条研发流程。一个分子能同时结合两个蛋白，不保证一定高效降解；三元复合物的形成、细胞可达性和暴露水平也会影响结果。",
+            "平台介绍与具体药物状态应分别查阅。这里用 PROTAC 说明泛素系统研究怎样进入药物研发，具体适应证、试验及批准情况以企业管线和监管资料为准，不将某个项目的状态推广到整个蛋白降解领域。"
+          ],
+          "products": [
+            {
+              "name": "PROTAC Discovery Engine",
+              "application": "了解双功能降解分子与 E3 连接酶技术路线。",
+              "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+            },
+            {
+              "name": "研发管线",
+              "application": "逐项目查看研发方向及其公开状态。",
+              "url": "https://www.arvinas.com/research-and-development/pipeline/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "PROTAC Discovery Engine · 官方资料",
               "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+            },
+            {
+              "label": "研发管线 · 官方资料",
+              "url": "https://www.arvinas.com/research-and-development/pipeline/"
             }
-          ]
+          ],
+          "introduction": [
+            "Arvinas 研发靶向蛋白降解技术与药物项目。",
+            "Arvinas develops protein-degradation technologies and therapeutic programs."
+          ],
+          "en": {
+            "role": "PROTAC protein-degradation technology",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "A PROTAC combines a target-binding component, a linker and an E3-ligase-binding component. Bringing the target and ligase together can lead to ubiquitination and proteasomal degradation rather than simply blocking an active site.",
+              "The company connects target selection, E3 expertise, molecular design and development. Dual binding alone does not guarantee degradation: ternary-complex formation, cellular access and exposure also matter.",
+              "Platform information and the status of an individual program are read separately; a program’s status is not generalized to the whole field."
+            ],
+            "products": [
+              {
+                "name": "PROTAC Discovery Engine",
+                "application": "Examine how target binding and E3 recruitment are combined in a degrader molecule.",
+                "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+              },
+              {
+                "name": "Development pipeline",
+                "application": "Check the stated development stage of each specific program rather than generalizing platform claims.",
+                "url": "https://www.arvinas.com/research-and-development/pipeline/"
+              }
+            ]
+          },
+          "relation": "Arvinas 开发 PROTAC 类靶向蛋白降解技术。它与论文同属利用泛素—蛋白酶体系统的路线，但不据此将分子内双价胶写成该公司的产品。"
         }
       ]
     },

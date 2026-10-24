@@ -46,8 +46,55 @@
       "sha256": "322c5b07d24bc1d5e42da725652afe94e3a691a9c184aba7311862ddd743cac5"
     }
   ],
+  "people": [
+    {
+      "name": "Alan Heeger",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2000/heeger/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "729",
+      "image": "images/nobel/laureates/729.jpg"
+    },
+    {
+      "name": "Alan MacDiarmid",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2000/macdiarmid/facts/",
+      "affiliations": [
+        "University of Pennsylvania"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "730",
+      "image": "images/nobel/laureates/730.jpg"
+    },
+    {
+      "name": "Hideki Shirakawa",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/facts/",
+      "affiliations": [
+        "University of Tsukuba"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "731",
+      "image": "images/nobel/laureates/731.jpg"
+    }
+  ],
   "reading": {
     "title": "导电聚合物",
+    "learningGuide": {
+      "topic": "conductive",
+      "title": [
+        "高分子为什么也能导电",
+        "Polymers and charge transport"
+      ],
+      "definition": [
+        "导电聚合物的电子结构不同于许多常见绝缘塑料。共轭、掺杂和材料形态一起影响载流与输运，不能只凭存在长链就判断导电能力。",
+        "Conjugation, doping and morphology jointly affect electronic transport in conductive polymers. A long chain alone is insufficient."
+      ],
+      "example": [
+        "同一种聚合物改变掺杂或成膜条件，电学表现也可能变化。材料的电导率与器件最终表现之间，还隔着接触、电极和环境稳定性等问题。",
+        "Changing doping or film preparation can change electrical behavior; electrodes and contacts also affect a complete device."
+      ]
+    },
     "summary": "导电聚合物。打破塑料只能绝缘的材料观念。",
     "sections": [
       {
@@ -154,17 +201,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-conductive",
+          "role": "电子材料研究所用有机合成原料",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "导电聚合物研究依赖重复单元结构、掺杂和成膜条件。商业合成原料解决的是材料制备入口，电导率、稳定性和器件表现则需要对最终样品测量，不能由原料名称直接给出。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "电子材料研究所用有机合成原料",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "电子材料研究所用有机合成原料 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Synthesis inputs for electronic materials",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Repeat-unit chemistry, doping and film preparation affect conductive polymers. Conductivity and device behavior must be measured on the prepared material rather than inferred from a starting reagent.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的导电聚合物和电子材料属于原料供应；论文中的可植入放大器没有据此被列作商业医疗设备。"
         }
       ]
     },

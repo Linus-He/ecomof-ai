@@ -1,0 +1,278 @@
+{
+  "method": "Official product and technical URLs. Raw pages stay outside the repository. HTTP restrictions do not establish that a source is absent.",
+  "sources": [
+    {
+      "url": "https://atoco.com/",
+      "status": 200,
+      "bytes": 219097,
+      "sha256": "56169644cc9148b9d23200b0c5defc6a4f628eaced64bb88387c911bdc464bce"
+    },
+    {
+      "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/",
+      "status": 200,
+      "bytes": 189328,
+      "sha256": "eb2d6f08c306b597d917929db53f4d44b04dddab280e0f2851f0aa50033d6641"
+    },
+    {
+      "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf",
+      "status": 200,
+      "bytes": 1290148,
+      "sha256": "de886eda96f2be9c5717cbc0102e9cacdb4d741148c6477317189f7e41c510f3"
+    },
+    {
+      "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf",
+      "status": 200,
+      "bytes": 1647789,
+      "sha256": "9e4a3fd5e01b4620984509001a31da51c9fb5d00c8a95e98e994bf8d2d3f781d"
+    },
+    {
+      "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals",
+      "status": 200,
+      "bytes": 628928,
+      "sha256": "da1553bac67ce9ce937763ba7c54284039a3928a180cbe8d9d977ecfffa106a6"
+    },
+    {
+      "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771",
+      "status": 200,
+      "bytes": 3496,
+      "sha256": "32ca8885388b40ca14938e38eb698d49a55b220105c4f68cfb52aace814e692a"
+    },
+    {
+      "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf",
+      "status": 200,
+      "bytes": 696965,
+      "sha256": "5fb8fe80ecdabb8ad302185470c3fd845c25492ebe71be58e391d5bd050a2631"
+    },
+    {
+      "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf",
+      "status": 200,
+      "bytes": 103701,
+      "sha256": "fee495a44995fa3001fd57bf56b199e3b9c243858455e7d0b9b4b584d506af7c"
+    },
+    {
+      "url": "https://global.samsungdisplay.com/31114",
+      "status": 200,
+      "bytes": 78335,
+      "sha256": "544d567b6559407855573c7dd6dc1746a1dee502d5c4a9e939cd437f3c95206a"
+    },
+    {
+      "url": "https://global.samsungdisplay.com/31454?type=main",
+      "status": 200,
+      "bytes": 67658,
+      "sha256": "1137c79f757d1e9fceea9933ff67ebef9eb3dd646122cc7cd5fee2bef35a1d95"
+    },
+    {
+      "url": "https://immaterial.com/",
+      "status": 200,
+      "bytes": 339666,
+      "sha256": "52f3894222d5a09e646a58fd885b0e520ee227ec8160668772ac14715ea3bb28"
+    },
+    {
+      "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.arvinas.com/our-science/protac-discovery-engine/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.arvinas.com/research-and-development/pipeline/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers",
+      "status": 200,
+      "bytes": 411735,
+      "sha256": "affaf382df7d265bb967a7cbcf27f6a29ff12a4bb78391da8193f200f58796e4"
+    },
+    {
+      "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239",
+      "status": 200,
+      "bytes": 351798,
+      "sha256": "dc2a15028a81c7a17c3377784298ed805c5ccbf3611000840afb7235be6b8a57"
+    },
+    {
+      "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html",
+      "status": 200,
+      "bytes": 78056,
+      "sha256": "3aecd6036de1f817791d8afa3e5fc3627dff47fc6e6098a873c0f82957b41e4b"
+    },
+    {
+      "url": "https://www.catl.com/en/news/6811.html",
+      "status": 200,
+      "bytes": 71517,
+      "sha256": "3004a44705f32fcfe25b7c7f3cb668e02867a86006993336f1a5229af6e3c1cf"
+    },
+    {
+      "url": "https://www.catl.com/en/research/technology/",
+      "status": 200,
+      "bytes": 71352,
+      "sha256": "252e450d50a993b5055acb81d41ff47f528a55ea69b5ee1d2012e61a9c1ac1f9"
+    },
+    {
+      "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/",
+      "status": 200,
+      "bytes": 309275,
+      "sha256": "73bc1ca203558b3be8edf4f8bb8e8ee52c353d06cd2ed82500c5e0cf3fae9c67"
+    },
+    {
+      "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf",
+      "status": 200,
+      "bytes": 92964,
+      "sha256": "08d202fe47d586db5e1834df02c5221be06f5996edeb67f5fc54a034e39529c1"
+    },
+    {
+      "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html",
+      "status": 200,
+      "bytes": 112342,
+      "sha256": "c9be4fdc4c2fcfbc59278cb670b8d0482ebcfc9e47ee48f6ec2bf0e8f3f2ad89"
+    },
+    {
+      "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf",
+      "status": 200,
+      "bytes": 3359010,
+      "sha256": "dd1247cfc51b0671157b0f3ad2dc2a5e9387c8c34e868270fcd6fd246fd47abc"
+    },
+    {
+      "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing",
+      "status": 200,
+      "bytes": 716023,
+      "sha256": "e6a1bcdf6fc9e0d0268f67897ad77289bf1f93587ef048b7c065825e870abc6f"
+    },
+    {
+      "url": "https://www.novonordisk.com/our-products.html",
+      "status": 200,
+      "bytes": 44919,
+      "sha256": "6e09851beff0ce26a1240ab1f244c14457b7923cefd638c13eeb562cc5c9a84b"
+    },
+    {
+      "url": "https://www.novonordisk.com/science-and-technology/diabetes.html",
+      "status": "superseded-url",
+      "replacement": "https://www.novonordisk.com/science-and-technology/research-technologies.html",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://www.opteon.com/en/products/refrigerants/r1234yf",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.oxinst.com/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.schrodinger.com/platform/products/desmond/",
+      "status": 200,
+      "bytes": 179516,
+      "sha256": "b6bcc48d28c2c926413307b849541af6a269949bb093f2c36421769d1b820256"
+    },
+    {
+      "url": "https://www.schrodinger.com/platform/products/jaguar/",
+      "status": 200,
+      "bytes": 178556,
+      "sha256": "5fead05360ea0c0db55f3a1d967db756b8e499a8b85f9d561fc20e1db736d3ab"
+    },
+    {
+      "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://www.svanteinc.com/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html",
+      "status": 200,
+      "bytes": 554967,
+      "sha256": "0815de2a834e5727f1741171009b5f7a927991c103920a978cc217e6fc4035f7"
+    },
+    {
+      "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.thermofisher.com/order/catalog/product/A22066",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html",
+      "status": "fetch-restricted-or-unavailable",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.twistbioscience.com/products/genes",
+      "status": 200,
+      "bytes": 346131,
+      "sha256": "b929e5532bd3d914de13f6a4a59c530bd8871c019d0cf7b1be6ea5f9bd951423"
+    },
+    {
+      "url": "https://www.twistbioscience.com/products/libraries",
+      "status": 200,
+      "bytes": 507729,
+      "sha256": "061526c8f9e270ccaed0cb27b655043aa5cbf61d6eb54c21b6f6b17b5f740408"
+    }
+  ]
+}

@@ -22,8 +22,35 @@
       "sha256": "34acc2202358d1192d9ca1ddbb62a6e437844326d4b814f59c84ae6826d9aaf6"
     }
   ],
+  "people": [
+    {
+      "name": "Frederick Sanger",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1958/sanger/facts/",
+      "affiliations": [
+        "University of Cambridge"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "222",
+      "image": "images/nobel/laureates/222.jpg"
+    }
+  ],
   "reading": {
     "title": "胰岛素的氨基酸序列",
+    "learningGuide": {
+      "topic": "protein",
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
     "summary": "胰岛素的氨基酸序列。证明蛋白质具有可确定的化学序列。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "novo",
-          "role": "胰岛素研究与产品",
-          "status": "企业公开资料",
+          "id": "novo",
+          "role": "胰岛素产品研发：从分子作用到给药特征",
+          "status": "企业糖尿病研发与产品资料",
           "paragraphs": [
-            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+            "Novo Nordisk 的糖尿病研发以胰岛素及其他治疗方向为对象。胰岛素通过与受体相互作用参与血糖调节；制造可用产品还需要控制分子身份、杂质、制剂稳定性及给药后的暴露。分子有活性只是其中一个环节。",
+            "企业公开研发资料把分子设计和产品开发连接起来。对于胰岛素类产品，改变分子或制剂可能改变吸收和作用过程，评价需要同时考虑药代动力学、药效和临床证据。不能仅凭结构相似便推断两种制剂可以互换。",
+            "本节展示蛋白质化学研究通往药物开发的路径，不提供用药或剂量建议，也不把所有胰岛素产品归为同一种制备路线。具体产品信息应进入企业产品资料并核对相应监管说明。"
+          ],
+          "products": [
+            {
+              "name": "糖尿病科学与技术",
+              "application": "了解企业对分子作用、制剂和开发问题的介绍。",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "name": "企业产品资料",
+              "application": "从产品层面核对名称、用途和相应资料入口。",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+              "label": "糖尿病科学与技术 · 官方资料",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "label": "企业产品资料 · 官方资料",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Novo Nordisk 研发糖尿病等慢性疾病的药物产品。",
+            "Novo Nordisk researches and develops medicines for diabetes and other chronic diseases."
+          ],
+          "en": {
+            "role": "Insulin research and product development",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Insulin acts through receptor interactions, but an insulin product also requires control of identity, impurities, formulation and exposure after administration. Molecular activity is one part of development.",
+              "Changes in the molecule or formulation may alter absorption and duration of action. Structural similarity alone does not establish that formulations can be exchanged.",
+              "This is an industrial-development example, not prescribing or dosing advice."
+            ],
+            "products": [
+              {
+                "name": "Diabetes science and technology",
+                "application": "Connect insulin action to formulation, exposure and product-development questions.",
+                "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+              },
+              {
+                "name": "Official product information",
+                "application": "Check a named product against its own official information rather than inferring interchangeability.",
+                "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+              }
+            ]
+          },
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
         }
       ]
     },

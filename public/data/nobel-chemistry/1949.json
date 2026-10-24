@@ -22,8 +22,35 @@
       "sha256": "0f0d9e3e6b8949cd031c2c408f49950caf9bd8f346463472c2701b909e4b2fac"
     }
   ],
+  "people": [
+    {
+      "name": "William F. Giauque",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1949/giauque/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "209",
+      "image": "images/nobel/laureates/209.jpg"
+    }
+  ],
   "reading": {
     "title": "极低温热力学",
+    "learningGuide": {
+      "topic": "cold",
+      "title": [
+        "低温不是让所有运动同时停止",
+        "Cooling and state control"
+      ],
+      "definition": [
+        "温度与体系可占据的能量状态有关。降低温度能减少某些热运动，便于观察微弱效应；实际样品还可能受到热流、测量装置与非平衡状态影响。",
+        "Lower temperature reduces some thermal motion and makes weak effects accessible. Heat flow and measurement conditions still matter."
+      ],
+      "example": [
+        "一台制冷机提供低温环境，并不等于已经让分子进入某个指定量子态。制冷、激光操控和状态测量需要分别设计，不能用一个温度数字概括整项实验。",
+        "A refrigerator provides an environment; it does not automatically prepare a specified molecular quantum state."
+      ]
+    },
     "summary": "极低温热力学。通过精密低温测量检验热力学的极限规律。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "oxinst",
-          "role": "低温实验设备",
-          "status": "企业公开资料",
+          "id": "oxinst",
+          "role": "稀释制冷设备：提供低温环境，而非直接制备量子态",
+          "status": "低温实验设备与工程系统",
           "paragraphs": [
-            "Oxford Instruments 的 Proteox 稀释制冷系统提供低温实验环境，并围绕模块化及实验空间组织设备配置。制冷、激光冷却和分子量子态操控承担不同任务，应按实验要求分别选用。"
+            "Oxford Instruments 的 Proteox 产品及大型稀释制冷系统为低温实验提供工作空间。设备的任务是控制实验环境和热负载，让样品、线缆及测量部件能在低温下工作；实验要研究的分子或量子体系仍需另行制备。",
+            "企业的大型系统安装资料讨论设备配置与实验空间。这类工程关注样品装载、连接和可用空间，而原子或分子激光冷却关注光与物质的相互作用。两者都涉及低温，但不能把制冷机的存在写成已经完成分子态操控。",
+            "因此，设备与获奖工作的联系在实验条件和测量基础设施。本文不把厂商的设备能力当作某项独立物理实验的复现，也不对未给出配置和热负载的系统引用单一极限温度。"
+          ],
+          "products": [
+            {
+              "name": "Proteox 与大型稀释制冷系统",
+              "application": "了解系统安装、实验空间和模块化配置。",
+              "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+            },
+            {
+              "name": "Oxford Instruments 低温技术入口",
+              "application": "从企业技术资料继续查阅相应实验设备。",
+              "url": "https://www.oxinst.com/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Proteox 与大型稀释制冷系统 · 官方资料",
               "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+            },
+            {
+              "label": "Oxford Instruments 低温技术入口 · 官方资料",
+              "url": "https://www.oxinst.com/"
             }
-          ]
+          ],
+          "introduction": [
+            "Oxford Instruments 提供科学仪器与低温实验系统。",
+            "Oxford Instruments supplies scientific instruments and low-temperature experimental systems."
+          ],
+          "en": {
+            "role": "Low-temperature experimental infrastructure",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Proteox and large dilution-refrigeration systems provide an environment for low-temperature experiments. Cooling hardware, wiring, sample space and heat load must be considered together.",
+              "The cited installation report describes modular configuration and experimental access. Laser cooling of atoms or molecules uses a different physical mechanism and cannot be inferred merely from the presence of a cryostat.",
+              "The equipment supplies experimental infrastructure; it does not by itself prepare or verify a particular molecular quantum state."
+            ],
+            "products": [
+              {
+                "name": "Proteox and large dilution systems",
+                "application": "Plan low-temperature sample space, access and modular experimental configuration.",
+                "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+              },
+              {
+                "name": "Oxford Instruments technology",
+                "application": "Locate instrumentation suited to the experiment rather than equating refrigeration with laser cooling.",
+                "url": "https://www.oxinst.com/"
+              }
+            ]
+          },
+          "relation": "Oxford Instruments 的低温设备展示实验环境的产业供给；稀释制冷与激光冷却是不同技术，不能把一台制冷机写成完成了分子量子态制备。"
         }
       ]
     },

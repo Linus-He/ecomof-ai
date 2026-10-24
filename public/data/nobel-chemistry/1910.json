@@ -22,8 +22,35 @@
       "sha256": "0dd5743b9ca7da60e49bb0a51fddf8a979cb32c6d85fe54cea3f490546a41042"
     }
   ],
+  "people": [
+    {
+      "name": "Otto Wallach",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1910/wallach/facts/",
+      "affiliations": [
+        "Goettingen University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "169",
+      "image": "images/nobel/laureates/169.jpg"
+    }
+  ],
   "reading": {
     "title": "萜烯与脂环化合物",
+    "learningGuide": {
+      "topic": "terpene",
+      "title": [
+        "分子骨架可以相同，连接方式可以不同",
+        "Structure beyond a molecular formula"
+      ],
+      "definition": [
+        "萜类化合物的研究关心碳骨架怎样连接、有哪些官能团和空间结构。分子式相同只说明原子数量相同，不能代替结构式，也不能保证具有相同气味和反应性。",
+        "Terpene chemistry distinguishes carbon connectivity, functional groups and spatial arrangement. A formula alone does not identify a structure."
+      ],
+      "example": [
+        "柠檬烯与其他萜类分子可以共享部分构筑特征，却表现出不同挥发性和气味。天然香气往往又是混合物，不能把植物整体的味道全部归给其中一张分子结构图。",
+        "Terpene-related molecules can differ in aroma and volatility; a plant’s scent is also a mixture rather than the property of one structure alone."
+      ]
+    },
     "summary": "萜烯与脂环化合物。把复杂精油转化为有明确结构关系的有机化合物体系。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "dsm",
-          "role": "营养原料与香气业务",
-          "status": "企业公开资料",
+          "id": "dsm",
+          "role": "维生素原料：化学身份之外还有剂型与稳定性",
+          "status": "商业营养原料与产品资料",
           "paragraphs": [
-            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+            "dsm-firmenich 的维生素目录面向饲料、食品等不同用途。企业提供的并不只是一个维生素名称，还涉及活性成分的化学形式、载体及产品剂型。对于同一种营养素，配方和加工过程会影响它能否在目标产品中保持有效含量。",
+            "以官方目录中的 ROVIMIX STAY-C 35 为例，产品资料将其列为维生素 C 的稳定化产品形式。它解决的是配方和加工中的稳定性问题，与直接购买分析用抗坏血酸试剂属于不同使用场景。实际选型应核对产品说明所针对的动物、原料和工艺。",
+            "从分子结构研究到营养原料生产，中间还隔着合成或发酵、分离、制剂和质量控制。这里用维生素产品说明这条产业链的后端；目录没有提供的制造路线、菌株或成本信息，不据此推断。"
+          ],
+          "products": [
+            {
+              "name": "维生素产品目录",
+              "application": "查阅不同维生素及其对应的商业原料形式。",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            },
+            {
+              "name": "ROVIMIX 产品形式对照",
+              "application": "比较活性成分与产品剂型，包含 STAY-C 35。",
+              "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "维生素产品目录 · 官方资料",
               "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            },
+            {
+              "label": "ROVIMIX 产品形式对照 · 官方资料",
+              "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "dsm-firmenich 提供营养原料与相关制剂技术。",
+            "dsm-firmenich supplies nutritional ingredients and related formulation technologies."
+          ],
+          "en": {
+            "role": "Vitamin ingredients and product forms",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Commercial vitamin ingredients are specified by chemical form, carrier and formulation, rather than by the vitamin name alone. Processing and storage can affect the retained active content in a finished formulation.",
+              "The official product-form guide lists ROVIMIX STAY-C 35 as a stabilized vitamin C product. That formulation task differs from supplying analytical ascorbic acid for a laboratory experiment.",
+              "The catalogue does not disclose every synthesis route, production organism or manufacturing cost."
+            ],
+            "products": [
+              {
+                "name": "Vitamin product portfolio",
+                "application": "Identify the vitamin ingredient and formulation intended for a particular nutritional application.",
+                "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+              },
+              {
+                "name": "ROVIMIX product-form guide",
+                "application": "Compare active substances and commercial product forms, including stabilized vitamin C.",
+                "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+              }
+            ]
+          },
+          "relation": "dsm-firmenich 经营香气、风味与营养业务，展示萜类及相关天然产物的应用场景；未声称它使用这套蛋白质外壳通路。"
         }
       ]
     },

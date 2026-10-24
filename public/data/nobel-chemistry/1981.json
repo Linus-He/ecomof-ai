@@ -34,8 +34,45 @@
       "sha256": "51c3fd8e96c5d6e4112e83eee0331f7c99d64bf53f885d8f750de908dc69a863"
     }
   ],
+  "people": [
+    {
+      "name": "Kenichi Fukui",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1981/fukui/facts/",
+      "affiliations": [
+        "Kyoto University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "257",
+      "image": "images/nobel/laureates/257.jpg"
+    },
+    {
+      "name": "Roald Hoffmann",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/facts/",
+      "affiliations": [
+        "Cornell University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "258",
+      "image": "images/nobel/laureates/258.jpg"
+    }
+  ],
   "reading": {
     "title": "前线轨道与轨道对称性",
+    "learningGuide": {
+      "topic": "quantum",
+      "title": [
+        "计算分子时，究竟在计算什么",
+        "What electronic-structure calculations describe"
+      ],
+      "definition": [
+        "电子结构方法用量子力学模型研究电子分布、能量与性质。不同近似以不同计算成本处理体系，算得更复杂并不自动意味着在所有问题上更准确。",
+        "Quantum models estimate electronic distributions, energies and properties. Different approximations balance cost and suitability."
+      ],
+      "example": [
+        "研究一条反应路径时，可以比较反应物、中间体与过渡态的能量。分子环境、溶剂及模型选择都会影响结果，因此需要检查收敛并与可测量信息核对。",
+        "Comparing reactants, intermediates and transition states requires attention to environment, model choice and convergence."
+      ]
+    },
     "summary": "前线轨道与轨道对称性。把电子结构与反应允许性建立系统联系。",
     "sections": [
       {
@@ -192,31 +229,121 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-catalysis",
+          "role": "偶联、复分解与手性催化试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "官方目录按交叉偶联、烯烃复分解及手性催化组织催化剂和配体。选定某种体系后，仍要检查底物范围、催化剂负载量及副产物；试剂可购并不能证明该反应在所有目标分子上都有效。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "偶联、复分解与手性催化试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "偶联、复分解与手性催化试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Cross-coupling, metathesis and asymmetric catalysis",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "The official catalogue organizes catalysts and ligands by reaction families. Substrate scope, catalyst loading, by-products and product analysis still require evaluation in the chosen system.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
         },
         {
           "organizationId": "schrodinger",
-          "role": "分子模拟与设计软件",
-          "status": "企业公开资料",
+          "id": "schrodinger",
+          "role": "Jaguar 与 Desmond：电子结构和分子运动分开计算",
+          "status": "商业分子模拟软件",
           "paragraphs": [
-            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+            "Schrödinger 的 Jaguar 用于量子化学和电子结构计算，官方材料列出密度泛函理论等方法，以及分子结构、反应和性质分析用途。它从电子层面处理化学问题；计算结果取决于模型、基组、泛函和所研究体系。",
+            "Desmond 面向分子动力学模拟，研究原子随时间的运动。它与电子结构计算的分工不同：经典分子动力学通常使用力场描述相互作用，能够探索结构变化，却不能自动把每一次化学成键和断键都当作电子结构问题求解。",
+            "商业软件使建模、运行和结果分析更容易衔接，但界面完整不等于物理假设已经得到验证。选择计算方法后仍需检查收敛、采样和适用范围。这里展示软件采用的方法类型，不声称它复现了上文论文的算法或精度。"
+          ],
+          "products": [
+            {
+              "name": "Jaguar 量子化学计算",
+              "application": "计算电子结构、分子性质与反应相关问题。",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "name": "Desmond 分子动力学",
+              "application": "研究分子构象、相互作用和运动过程。",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.schrodinger.com/platform/products/maestro/"
+              "label": "Jaguar 量子化学计算 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "label": "Desmond 分子动力学 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
             }
-          ]
+          ],
+          "introduction": [
+            "Schrödinger 开发分子建模与模拟软件。",
+            "Schrödinger develops molecular-modeling and simulation software."
+          ],
+          "en": {
+            "role": "Jaguar and Desmond: distinct modeling tasks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Jaguar addresses quantum chemistry and electronic structure, including molecular properties and reaction-related questions. Results depend on the model, basis and electronic-structure method chosen for the system.",
+              "Desmond addresses molecular dynamics: atomic motion and conformational change over time. Classical force-field simulation has a different role from explicit electronic-structure treatment of bond formation and breaking.",
+              "The software workflow does not remove the need to examine convergence, sampling and the physical assumptions."
+            ],
+            "products": [
+              {
+                "name": "Jaguar quantum chemistry",
+                "application": "Compute electronic structure, molecular properties or reaction-related questions.",
+                "url": "https://www.schrodinger.com/platform/products/jaguar/"
+              },
+              {
+                "name": "Desmond molecular dynamics",
+                "application": "Sample molecular motion and conformational behavior using a molecular-dynamics model.",
+                "url": "https://www.schrodinger.com/platform/products/desmond/"
+              }
+            ]
+          },
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
         }
       ]
     },

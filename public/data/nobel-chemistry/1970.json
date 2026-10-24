@@ -22,8 +22,35 @@
       "sha256": "5c068aa12196ea04bfbb730f60f20133c90599e672e34820c7417c58880c3715"
     }
   ],
+  "people": [
+    {
+      "name": "Luis Leloir",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1970/leloir/facts/",
+      "affiliations": [
+        "Institute for Biochemical Research"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "239",
+      "image": "images/nobel/laureates/239.jpg"
+    }
+  ],
   "reading": {
     "title": "糖核苷酸与糖生物合成",
+    "learningGuide": {
+      "topic": "sugardonor",
+      "title": [
+        "糖分子怎样被接到指定位置",
+        "Activated sugar donors"
+      ],
+      "definition": [
+        "糖基化需要把糖基从供体转移到受体，并控制连接位置与空间构型。生物体系中的核苷酸糖是特定糖基转移反应的活化供体。",
+        "Glycosylation transfers a sugar unit from a donor to an acceptor with positional and stereochemical control. Nucleotide sugars are activated biological donors."
+      ],
+      "example": [
+        "两个糖都含有许多相似的羟基，连接在哪一个位置会改变最终结构。糖基转移酶提供选择性，但每一种酶的底物范围和反应条件都需要单独检查。",
+        "Similar hydroxyl groups can lead to different linkages. A glycosyltransferase’s selectivity does not establish an unlimited substrate range."
+      ]
+    },
     "summary": "糖核苷酸与糖生物合成。揭示复杂糖类由受控转移步骤组装。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-sugars",
+          "role": "糖类原料与糖生物学试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "单糖、寡糖、多糖和糖衍生物分别适合不同问题。糖合成关注连接位置和立体构型，糖生物学关注糖链与蛋白、细胞之间的关系。供应目录可以帮助选择已知底物和标准品，不能仅凭一个相同分子式判断糖的构型。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "糖类原料与糖生物学试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "糖类原料与糖生物学试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Carbohydrate reagents and building blocks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Monosaccharides, oligosaccharides, polysaccharides and derivatives address different experimental questions. Sugar synthesis requires control of linkage position and stereochemistry, while glycobiology studies interactions with proteins and cells.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
         }
       ]
     },

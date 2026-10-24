@@ -22,8 +22,35 @@
       "sha256": "c91bba0ab881f4b6aa87567c1d190980a567d483f41ae325991e22f7f42a0ee3"
     }
   ],
+  "people": [
+    {
+      "name": "Vincent du Vigneaud",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1955/vigneaud/facts/",
+      "affiliations": [
+        "Cornell University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "218",
+      "image": "images/nobel/laureates/218.jpg"
+    }
+  ],
   "reading": {
     "title": "多肽激素的合成",
+    "learningGuide": {
+      "topic": "peptide",
+      "title": [
+        "逐个连接氨基酸为什么仍然困难",
+        "Building a peptide in order"
+      ],
+      "definition": [
+        "肽合成要控制连接顺序和反应位置。氨基酸具有多个可反应部分，合成策略需要管理哪些位置参与反应、哪些位置暂时受到保护。",
+        "Peptide synthesis controls sequence and reactive sites. Protection strategies manage which groups react at each step."
+      ],
+      "example": [
+        "固相合成把增长中的链固定在载体上，便于反复执行反应和洗涤。它改善操作组织，但并不免除不完全反应、副产物、最终纯化与序列验证。",
+        "Solid-phase synthesis organizes repeated reaction and washing on a support, but incomplete reactions and final purification still matter."
+      ]
+    },
     "summary": "多肽激素的合成。证明特定生命活性分子可通过化学合成重建。",
     "sections": [
       {
@@ -191,31 +218,121 @@
       "companyCases": [
         {
           "organizationId": "novo",
-          "role": "胰岛素研究与产品",
-          "status": "企业公开资料",
+          "id": "novo",
+          "role": "胰岛素产品研发：从分子作用到给药特征",
+          "status": "企业糖尿病研发与产品资料",
           "paragraphs": [
-            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+            "Novo Nordisk 的糖尿病研发以胰岛素及其他治疗方向为对象。胰岛素通过与受体相互作用参与血糖调节；制造可用产品还需要控制分子身份、杂质、制剂稳定性及给药后的暴露。分子有活性只是其中一个环节。",
+            "企业公开研发资料把分子设计和产品开发连接起来。对于胰岛素类产品，改变分子或制剂可能改变吸收和作用过程，评价需要同时考虑药代动力学、药效和临床证据。不能仅凭结构相似便推断两种制剂可以互换。",
+            "本节展示蛋白质化学研究通往药物开发的路径，不提供用药或剂量建议，也不把所有胰岛素产品归为同一种制备路线。具体产品信息应进入企业产品资料并核对相应监管说明。"
+          ],
+          "products": [
+            {
+              "name": "糖尿病科学与技术",
+              "application": "了解企业对分子作用、制剂和开发问题的介绍。",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "name": "企业产品资料",
+              "application": "从产品层面核对名称、用途和相应资料入口。",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+              "label": "糖尿病科学与技术 · 官方资料",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "label": "企业产品资料 · 官方资料",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Novo Nordisk 研发糖尿病等慢性疾病的药物产品。",
+            "Novo Nordisk researches and develops medicines for diabetes and other chronic diseases."
+          ],
+          "en": {
+            "role": "Insulin research and product development",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Insulin acts through receptor interactions, but an insulin product also requires control of identity, impurities, formulation and exposure after administration. Molecular activity is one part of development.",
+              "Changes in the molecule or formulation may alter absorption and duration of action. Structural similarity alone does not establish that formulations can be exchanged.",
+              "This is an industrial-development example, not prescribing or dosing advice."
+            ],
+            "products": [
+              {
+                "name": "Diabetes science and technology",
+                "application": "Connect insulin action to formulation, exposure and product-development questions.",
+                "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+              },
+              {
+                "name": "Official product information",
+                "application": "Check a named product against its own official information rather than inferring interchangeability.",
+                "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+              }
+            ]
+          },
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
         },
         {
           "organizationId": "novonesis",
-          "role": "工业酶与生物催化",
-          "status": "企业公开资料",
+          "id": "novonesis",
+          "role": "工业酶：先确定底物，再选择转化步骤",
+          "status": "商业生物加工方案",
           "paragraphs": [
-            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+            "Novonesis 的工业生物加工业务按酿造、油脂处理和工业水管理等场景提供酶方案。酶作用于特定化学键，适合用于原料处理、组分释放或杂质去除；选择产品首先取决于待处理原料中真正需要改变的组分。",
+            "酿造中的酶方案与油脂加工面对不同底物和工艺条件。工业上关心的不只是某个酶在试管中的活性，还包括配方稳定性、温度与酸碱条件、原料差异以及与既有设备的衔接。企业资料中的应用分类提供了选择入口，不能代替具体工艺评价。",
+            "这与酶催化及定向进化的联系，是把可选择的生物催化功能放入实际加工步骤。不能据此推断企业的每个产品都来自某一项获奖实验，或把一种酶的效果推广到所有发酵与合成反应。"
+          ],
+          "products": [
+            {
+              "name": "酿造用酶解决方案",
+              "application": "围绕谷物原料处理和酿造流程查阅应用。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "name": "油脂加工与工业水管理方案",
+              "application": "按不同原料、处理对象和工艺环节选择生物加工路线。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "酿造用酶解决方案 · 官方资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "label": "油脂加工与工业水管理方案 · 官方资料",
               "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
             }
-          ]
+          ],
+          "introduction": [
+            "Novonesis 开发用于工业加工的酶及微生物方案。",
+            "Novonesis develops enzyme and microbial solutions for industrial processing."
+          ],
+          "en": {
+            "role": "Enzymes for defined processing steps",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its industrial-bioprocessing portfolio groups enzyme solutions by applications including brewing, oils and fats, and industrial water management. An enzyme acts on particular substrates and bonds, so the raw material and desired conversion determine the choice.",
+              "Industrial application also depends on formulation stability, temperature, pH and compatibility with the process. Brewing and oils processing are distinct workflows even when both use enzymes.",
+              "The cited portfolio shows applications of biocatalysis; it does not establish that every product derives from a particular Nobel experiment."
+            ],
+            "products": [
+              {
+                "name": "Brewing enzyme solutions",
+                "application": "Select enzymes for the raw material and conversion required in a brewing process.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              },
+              {
+                "name": "Oils processing and industrial water",
+                "application": "Separate oils-processing and industrial-water tasks when choosing a bioprocessing application.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              }
+            ]
+          },
+          "relation": "Novonesis 的工业酶业务展示生物催化的产业用途；该公司的发酵与酶制剂产品并非这里这套无细胞肽平台的商业版本。"
         }
       ]
     },

@@ -1,4 +1,5 @@
 // @ts-nocheck
+import platforms from "../../data/acknowledgementPlatforms.json"
 import { useLang } from "../../contexts"
 import "./AboutTextPages.css"
 
@@ -15,10 +16,20 @@ const people = [
   {
     name: "李新建",
     nameEn: "Li Xinjian",
+    institutionUrl: "https://www.xju.edu.cn/",
+    logo: "images/nobel/organizations/xinjiang.png",
     roleZh: "新疆大学 · 有机酸催化方向建议",
     roleEn: "Xinjiang University · Organic acid catalysis feedback",
     bodyZh: "感谢你从有机酸催化实验的角度提出建议，帮助催化模块更准确地理解真实实验记录、数据字段与可比性判断。",
     bodyEn: "Thank you for your suggestions from the perspective of organic-acid catalysis experiments. Your feedback helped the Catalysis workspace better represent experimental records, data fields, and comparability decisions.",
+  },
+  {
+    name: "李一凡", nameEn: "Li Yifan",
+    roleZh: "北京大学深圳研究院 · UI 方面建议",
+    roleEn: "Peking University Shenzhen Institute · UI feedback",
+    institutionUrl: "https://www.pku-sz.cn/", logo: "images/nobel/organizations/pku.png",
+    bodyZh: "感谢你对界面设计提出建议，帮助改进内容层级、页面排版与阅读体验。",
+    bodyEn: "Thank you for your interface-design feedback on content hierarchy, layout and reading."
   },
 ]
 
@@ -35,6 +46,7 @@ export function AcknowledgementsPage() {
           "EcoMOF-AI 的形成离不开长期的鼓励、实验方向建议，以及科研数据基础设施和开放学术资源的支持。",
           "EcoMOF-AI has been shaped by sustained encouragement, experimental feedback, research data infrastructure, and open scholarly resources.",
         )}</p>
+        <p className="acknowledgements-consent">{text(lang, "本页具名致谢均已获得本人同意。", "All named personal acknowledgements on this page are published with the individuals’ consent.")}</p>
       </header>
 
       <section className="about-text-list" aria-label={text(lang, "致谢名单", "Acknowledgement list")}>
@@ -46,48 +58,17 @@ export function AcknowledgementsPage() {
             </header>
             <div className="about-text-row-content">
               <h2>{text(lang, person.name, person.nameEn || person.name)}</h2>
+              {person.institutionUrl && <a className="acknowledgement-institution" href={person.institutionUrl} target="_blank" rel="noreferrer"><img src={`${import.meta.env.BASE_URL}${person.logo}`} alt="" loading="lazy" />{text(lang, person.roleZh.split(' · ')[0], person.roleEn.split(' · ')[0])} ↗</a>}
               <p>{text(lang, person.bodyZh, person.bodyEn)}</p>
             </div>
           </article>
         ))}
 
-        <article className="about-text-row">
-          <header className="about-text-row-label">
-            <span>03</span>
-            <strong>{text(lang, "研究数据基础设施", "Research data infrastructure")}</strong>
-          </header>
-          <div className="about-text-row-content">
-            <h2>Cambridge Crystallographic Data Centre (CCDC)</h2>
-            <p>{text(
-              lang,
-              "感谢 CCDC 长期维护 Cambridge Structural Database（CSD），并提供晶体结构标识、MOF 相关集合、下载说明与数据使用文档。这些资源为本项目的 MOF 身份核对、CSD Refcode／CCDC 编号记录和数据治理边界提供了重要基础。",
-              "We thank the CCDC for maintaining the Cambridge Structural Database (CSD) and for providing crystal-structure identifiers, MOF-related collections, download guidance, and data-use documentation. These resources support MOF identity checks, CSD Refcode and CCDC-number records, and the project's data-governance boundaries.",
-            )}</p>
-            <p>
-              <a href="https://www.ccdc.cam.ac.uk/" rel="noreferrer" target="_blank">{text(lang, "访问 CCDC 官方网站", "Visit the official CCDC website")}</a>
-            </p>
-            <p className="acknowledgements-boundary">{text(
-              lang,
-              "本致谢不表示 CCDC 对 EcoMOF-AI 的认可、背书或隶属关系。任何 CSD／CCDC 数据的使用仍以适用许可、机构协议和发布方原文为准。",
-              "This acknowledgement does not imply CCDC endorsement, affiliation, or approval of EcoMOF-AI. Any use of CSD or CCDC data remains governed by the applicable licence, institutional agreement, and publisher terms.",
-            )}</p>
-          </div>
-        </article>
-
-        <article className="about-text-row">
-          <header className="about-text-row-label">
-            <span>04</span>
-            <strong>{text(lang, "开放科研生态", "Open research ecosystem")}</strong>
-          </header>
-          <div className="about-text-row-content">
-            <h2>{text(lang, "数据集、文献元数据与开源工具维护者", "Dataset, scholarly metadata, and open-source maintainers")}</h2>
-            <p>{text(
-              lang,
-              "同时感谢 CoRE MOF、QMOF、FAIR-MOFs、NIST／ISODB、Crossref、OpenAlex 以及项目所使用开源软件的维护者。各来源的许可、适用范围和具体引用仍在条款与政策及字段来源中分别记录。",
-              "We also thank the maintainers of CoRE MOF, QMOF, FAIR-MOFs, NIST/ISODB, Crossref, OpenAlex, and the open-source software used by this project. Source-specific licences, scope, and citations remain documented separately in Terms and Policies and field-level provenance.",
-            )}</p>
-          </div>
-        </article>
+        {platforms.map((platform,index)=><article className="about-text-row" key={platform.id}>
+          <header className="about-text-row-label"><span>{String(people.length+index+1).padStart(2,'0')}</span><strong>{text(lang,'数据与学术资源平台','Data and scholarly resource platform')}</strong></header>
+          <div className="about-text-row-content"><a className="acknowledgement-platform" data-platform={platform.id} href={platform.url} target="_blank" rel="noreferrer"><img src={`${import.meta.env.BASE_URL}${platform.logo}`} alt={`${platform.name} logo`} loading="lazy"/><h2>{platform.name}</h2></a><p>{platform.use[lang==='zh'?0:1]}</p><a href={platform.url} target="_blank" rel="noreferrer">{text(lang,'访问官方网站','Official website')} ↗</a>
+          {platform.id==='ccdc' && <p className="acknowledgements-boundary">{text(lang,'本致谢不表示 CCDC 对 EcoMOF-AI 的认可、背书或隶属关系。CSD 数据使用以适用许可、机构协议和发布方原文为准。','This acknowledgement does not imply CCDC endorsement, affiliation, or approval of EcoMOF-AI. CSD use remains governed by applicable licences, institutional agreements and publisher terms.')}</p>}
+          </div></article>)}
       </section>
     </div>
   )

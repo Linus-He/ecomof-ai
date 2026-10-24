@@ -34,8 +34,46 @@
       "sha256": "38cb0fee40f561b86445d5b2e955ee2206f7a80ca0b25fe930641e2e0f9ca169"
     }
   ],
+  "people": [
+    {
+      "name": "Sir Cyril Hinshelwood",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1956/hinshelwood/facts/",
+      "affiliations": [
+        "University of Oxford"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "219",
+      "image": "images/nobel/laureates/219.jpg"
+    },
+    {
+      "name": "Nikolay Semenov",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1956/semenov/facts/",
+      "affiliations": [
+        "Institute for Chemical Physics of the Academy of Sciences of the USSR",
+        "Lomonosov Moscow State University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "220",
+      "image": "images/nobel/laureates/220.jpg"
+    }
+  ],
   "reading": {
     "title": "链式反应机理",
+    "learningGuide": {
+      "topic": "kinetics",
+      "title": [
+        "反应快慢与反应能否发生",
+        "Rate and possibility"
+      ],
+      "definition": [
+        "动力学研究体系怎样随时间变化，热力学讨论能量和可能达到的状态。一个反应在能量上有利，也可能因路径障碍而很慢。",
+        "Kinetics studies change over time; thermodynamics constrains states and energy. A favorable reaction may still be slow."
+      ],
+      "example": [
+        "同一反应改变温度、浓度或催化条件，速率可能改变。研究短寿命中间体时还要考虑仪器时间分辨率；测不到不等于这种状态一定不存在。",
+        "Temperature, concentration and catalytic conditions affect rates. Instrument time resolution limits which transient states can be observed."
+      ]
+    },
     "summary": "链式反应机理。解释宏观反应为何由少量活性中间体控制。",
     "sections": [
       {
@@ -141,17 +179,62 @@
       "companyCases": [
         {
           "organizationId": "bruker",
-          "role": "磁共振与结构分析",
-          "status": "企业公开资料",
+          "id": "bruker",
+          "role": "核磁共振：结构、相互作用与分子运动",
+          "status": "商业 NMR 仪器与控制平台",
           "paragraphs": [
-            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+            "Bruker 的 AVANCE 系列核磁共振谱仪用于研究分子结构、动力学与相互作用。核磁共振不是给分子拍一张直接可读的照片：实验记录核自旋的响应，再利用化学位移、耦合以及多维相关信号判断局部化学环境和原子之间的联系。",
+            "产品体系把磁体、控制台、探头和软件组合为一套实验平台。官方列出的 AVANCE NEO-X 控制台支持液体、固体及微成像等实验方向；这些能力需要匹配探头、样品形式和脉冲序列。不能把同一控制台所支持的模式，当作任意配置都能达到的指标。",
+            "在蛋白质、配位化合物和有机合成研究中，NMR 解决的往往是“得到的是什么、在溶液中怎样运动”。样品浓度、溶解性、交换速度及信号重叠仍会影响判断。结构模型通常要与其他表征或计算互相核对。"
+          ],
+          "products": [
+            {
+              "name": "AVANCE NMR 谱仪",
+              "application": "结构解析、分子动力学与相互作用实验的仪器入口。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "name": "AVANCE NEO-X 控制台",
+              "application": "在同一产品体系中查阅液体、固体及微成像模式的配置。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "AVANCE NMR 谱仪 · 官方资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "label": "AVANCE NEO-X 控制台 · 官方资料",
               "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Bruker 开发磁共振及分子、材料分析仪器。",
+            "Bruker develops scientific instruments for magnetic resonance, molecular and materials analysis."
+          ],
+          "en": {
+            "role": "NMR for structure, interaction and motion",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "AVANCE NMR instruments measure nuclear-spin responses to study molecular structure, motion and interactions. Chemical shifts, couplings and multidimensional correlations provide evidence about local environments and connectivity.",
+              "The NMR portfolio includes the AVANCE NEO-X console for liquid, solid-state and microimaging workflows. Each requires suitable probes, sample forms and pulse sequences; a console capability is not a specification for every instrument configuration.",
+              "Concentration, exchange and spectral overlap can limit interpretation, so models often need complementary measurements."
+            ],
+            "products": [
+              {
+                "name": "AVANCE NMR spectrometers",
+                "application": "Use chemical shifts, couplings and multidimensional correlations to investigate structure and motion.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              },
+              {
+                "name": "AVANCE NEO-X console",
+                "application": "Match liquid, solid-state or microimaging experiments to the probe, sample and pulse sequence.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              }
+            ]
+          },
+          "relation": "Bruker 的光谱与结构分析设备是相关实验工具的产业示例；普通稳态光谱仪不等于论文使用的飞秒 X 射线设施。"
         }
       ]
     },

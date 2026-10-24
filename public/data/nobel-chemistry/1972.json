@@ -46,8 +46,55 @@
       "sha256": "b6b30ae2f7492aa5f60997087e3ad9cf8223e4f0b64f07414c74f8925693d543"
     }
   ],
+  "people": [
+    {
+      "name": "Christian Anfinsen",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1972/anfinsen/facts/",
+      "affiliations": [
+        "National Institutes of Health"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "241",
+      "image": "images/nobel/laureates/241.jpg"
+    },
+    {
+      "name": "Stanford Moore",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1972/moore/facts/",
+      "affiliations": [
+        "Rockefeller University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "242",
+      "image": "images/nobel/laureates/242.jpg"
+    },
+    {
+      "name": "William H. Stein",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1972/stein/facts/",
+      "affiliations": [
+        "Rockefeller University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "243",
+      "image": "images/nobel/laureates/243.jpg"
+    }
+  ],
   "reading": {
     "title": "序列、折叠与酶活性",
+    "learningGuide": {
+      "topic": "protein",
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
     "summary": "序列、折叠与酶活性。把氨基酸顺序、三维结构和生物功能联系起来。",
     "sections": [
       {
@@ -204,31 +251,121 @@
       "companyCases": [
         {
           "organizationId": "twist",
-          "role": "合成 DNA 与变体文库",
-          "status": "企业公开资料",
+          "id": "twist",
+          "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+          "status": "商业 DNA 合成服务与研究文库",
           "paragraphs": [
-            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+            "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+            "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+            "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+          ],
+          "products": [
+            {
+              "name": "Clonal Genes 与 Gene Fragments",
+              "application": "在已克隆基因和基因片段之间选择交付形式。",
+              "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "name": "Variant Libraries",
+              "application": "按组合变异和位点饱和等设计组织实验序列。",
+              "url": "https://www.twistbioscience.com/products/libraries"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Clonal Genes 与 Gene Fragments · 官方资料",
               "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "label": "Variant Libraries · 官方资料",
+              "url": "https://www.twistbioscience.com/products/libraries"
             }
-          ]
+          ],
+          "introduction": [
+            "Twist Bioscience 提供合成 DNA 与序列文库。",
+            "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+          ],
+          "en": {
+            "role": "Gene synthesis and variant libraries",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+              "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+              "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+            ],
+            "products": [
+              {
+                "name": "Clonal Genes and Gene Fragments",
+                "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+                "url": "https://www.twistbioscience.com/products/genes"
+              },
+              {
+                "name": "Variant Libraries",
+                "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+                "url": "https://www.twistbioscience.com/products/libraries"
+              }
+            ]
+          },
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
         },
         {
           "organizationId": "cytiva",
-          "role": "蛋白纯化系统与色谱材料",
-          "status": "企业公开资料",
+          "id": "cytiva",
+          "role": "ÄKTA 与色谱介质：把分离方法接到可运行的流程",
+          "status": "商业蛋白纯化系统与分离介质",
           "paragraphs": [
-            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+            "Cytiva 的 ÄKTA 系列面向蛋白质等生物分子的液相色谱纯化。泵、阀、检测器和收集装置控制液体流路，色谱柱中的介质决定样品怎样被保留、洗脱或按尺寸分开。因此，仪器平台和分离机理是两个需要分别选择的层次。",
+            "官方选型资料列出亲和、离子交换、疏水作用及尺寸排阻等柱型。Sephadex 用于凝胶过滤和脱盐，Superdex 等尺寸排阻介质则有不同的分级范围；“都是色谱柱”并不意味着它们可以完成同一种纯化任务。",
+            "放大实验时，需要一起考虑上样量、流速、压力、缓冲液及回收率。一个蛋白在小柱上得到清晰峰形，不自动说明高浓度或大批量样品仍能保持同样的分离效果。这里展示的是已有系统与介质的工作分工。"
+          ],
+          "products": [
+            {
+              "name": "ÄKTA pure 色谱系统",
+              "application": "组织自动化流路、检测与组分收集。",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "name": "Sephadex / Superdex 及预装柱选型",
+              "application": "按脱盐、尺寸排阻和结合机制比较不同柱型。",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+              "label": "ÄKTA pure 色谱系统 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "label": "Sephadex / Superdex 及预装柱选型 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Cytiva 提供生物分子研究与生物工艺所用系统和耗材。",
+            "Cytiva supplies technologies and consumables for biomolecular research and bioprocessing."
+          ],
+          "en": {
+            "role": "ÄKTA systems and chromatography media",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "ÄKTA chromatography systems combine pumps, valves, detection and collection for biomolecule purification. The instrument controls the flow, while the column medium determines how molecules bind, elute or separate by size.",
+              "The official selection guide distinguishes affinity, ion exchange, hydrophobic interaction and size exclusion. Sephadex and Superdex media serve different fractionation tasks and ranges; they are not interchangeable simply because both are chromatography media.",
+              "Loading, flow, pressure, buffer and recovery must be considered when a method is scaled."
+            ],
+            "products": [
+              {
+                "name": "ÄKTA pure chromatography",
+                "application": "Control liquid flow, detection and fraction collection during biomolecule purification.",
+                "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+              },
+              {
+                "name": "Sephadex / Superdex column selection",
+                "application": "Choose media and column formats for desalting, size exclusion or a specific binding mechanism.",
+                "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+              }
+            ]
+          },
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
         }
       ]
     },

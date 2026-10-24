@@ -34,8 +34,47 @@
       "sha256": "0726be4c3900d407609b8b7d141f5ad92e66d369862fe1f109958d528502997e"
     }
   ],
+  "people": [
+    {
+      "name": "Carl Bosch",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1931/bosch/facts/",
+      "affiliations": [
+        "University of Heidelberg",
+        "I.G. Farbenindustrie A.G."
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "189",
+      "image": "images/nobel/laureates/189.jpg"
+    },
+    {
+      "name": "Friedrich Bergius",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1931/bergius/facts/",
+      "affiliations": [
+        "University of Heidelberg",
+        "I.G. Farbenindustrie A.G."
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "190",
+      "image": "images/nobel/laureates/190.jpg"
+    }
+  ],
   "reading": {
     "title": "化学高压方法",
+    "learningGuide": {
+      "topic": "equilibrium",
+      "title": [
+        "反应不停，组成却可以不再改变",
+        "Equilibrium is dynamic"
+      ],
+      "definition": [
+        "化学平衡并不是分子停止反应，而是正、逆反应的速率相等，整体组成不再持续变化。改变温度或压力可能改变平衡位置；催化剂主要改变接近平衡的速度，不能任意改变同一条件下的平衡组成。",
+        "At equilibrium, forward and reverse reactions continue at equal rates. A catalyst changes the approach to equilibrium rather than freely changing its composition."
+      ],
+      "example": [
+        "合成氨可以说明这种区别：氮和氢生成氨，同时氨也能分解。工业流程既要考虑平衡允许得到多少氨，也要考虑反应多快、热量怎样排出，以及如何分离产物和循环原料。",
+        "Ammonia manufacture combines equilibrium, reaction rate, heat removal, product separation and recycling. These are distinct process questions."
+      ]
+    },
     "summary": "化学高压方法。把高压化学从反应现象推进为可运行的生产技术。",
     "sections": [
       {
@@ -135,17 +174,62 @@
       "companyCases": [
         {
           "organizationId": "basf",
-          "role": "氨基化学品及化工原料",
-          "status": "企业公开资料",
+          "id": "basf",
+          "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+          "status": "商业化工原料与材料",
           "paragraphs": [
-            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+            "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+            "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+            "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+          ],
+          "products": [
+            {
+              "name": "氨基化学品",
+              "application": "氨、尿素及相关含氮产品的官方业务入口。",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "name": "Ultramid 与聚酰胺前体",
+              "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "氨基化学品 · 官方资料",
               "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "label": "Ultramid 与聚酰胺前体 · 官方资料",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
             }
-          ]
+          ],
+          "introduction": [
+            "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+            "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+          ],
+          "en": {
+            "role": "Ammonia, urea and polyamide value chains",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+              "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+              "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+            ],
+            "products": [
+              {
+                "name": "Ammonia-based chemicals",
+                "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+                "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+              },
+              {
+                "name": "Ultramid and polyamide precursors",
+                "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+                "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+              }
+            ]
+          },
+          "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
         }
       ]
     },

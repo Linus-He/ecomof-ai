@@ -13,12 +13,14 @@ const affiliations = new Map((await readFile(new URL('./candidate-affiliations.t
  return [`${year}:${name}`,{...organizations.get(organizationId),sourceUrl}]
 }))
 const index=JSON.parse(await readFile(new URL('index.json',root),'utf8'))
-for (const year of index.years) {
- const file=new URL(`${year}.json`,root);const market=JSON.parse(await readFile(file,'utf8'))
+for (const edition of index.editions || index.years.map(year=>({year,file:`${year}.json`}))) {
+ const year=edition.year
+ const file=new URL(edition.file || `${year}.json`,root);const market=JSON.parse(await readFile(file,'utf8'))
  const award=JSON.parse(await readFile(new URL(`../../public/data/nobel-chemistry/${year}.json`,import.meta.url),'utf8'))
  market.winners=award.names
- market.winnerDetails=award.names.map((name,i)=>({name,url:award.personUrls[i],image:award.portraits?.[i]?.image}))
+ market.winnerDetails=award.names.map((name,i)=>({name,url:award.people?.[i]?.url || award.personUrls[i],image:award.portraits?.[i]?.image,affiliations:award.people?.[i]?.affiliations || []}))
  market.candidates=market.candidates.map(candidate=>{
+  if (candidate.kind === 'field' || candidate.kind === 'other') return {...candidate,researchFocus: candidate.kind === 'field' ? ['研究领域预测，非个人获奖概率','Field prediction, not an individual forecast'] : ['原市场的其他选项','Other option in the original market']}
   if (!profiles.has(candidate.name)) throw new Error(`Author a sourced research focus for ${candidate.name}`)
   const institution=affiliations.get(`${year}:${candidate.name}`)
   if (!institution) throw new Error(`Verify an annual institution for ${year}: ${candidate.name}`)

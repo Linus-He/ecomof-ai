@@ -18,6 +18,8 @@ const sourceByYear = new Map(sourceAudit.map(source => [source.year, source]))
 const rows = (await readFile(new URL('./historical-readings.tsv', import.meta.url), 'utf8')).trim().split('\n')
 const enhancedEditions = new Map()
 const catalog = JSON.parse(await readFile(new URL('./research-catalog.json', import.meta.url), 'utf8'))
+const industryCases = JSON.parse(await readFile(new URL('./industry-cases.json', import.meta.url), 'utf8'))
+const personProfiles = JSON.parse(await readFile(new URL('./laureate-profiles.json', import.meta.url), 'utf8'))
 const annualResearch = (await readFile(new URL('./annual-research.tsv', import.meta.url), 'utf8')).trim().split('\n')
 for (const line of annualResearch) {
   const [yearText, studyIds, connection, ...extra] = line.split('\t')
@@ -28,11 +30,16 @@ for (const line of annualResearch) {
     if (!catalog.studies[id]) throw new Error(`Unknown study ${id}: ${year}`)
     return catalog.studies[id]
   })
-  const companyCases = [...new Map(researchCases.flatMap(study => study.relatedCompanyIds.map(id => [id, study.companyOverride?.organizationId === id ? study.companyOverride : catalog.companies[id]]))).values()]
+  const companyCases = [...new Map(researchCases.flatMap(study => study.relatedCompanyIds.map(id => [id, {...(industryCases[`${id}-${study.id}`] || industryCases[id] || study.companyOverride || catalog.companies[id]), relation: study.relation}]))).values()]
   const ids = new Set(researchCases.flatMap(study => [...study.organizationIds, ...study.relatedCompanyIds]))
   enhancedEditions.set(year, { year, sectionOverrides: { development: { body: connection } }, organizations: catalog.organizations.filter(org => ids.has(org.id)), researchCases, companyCases })
 }
 const mofEditorial = JSON.parse(await readFile(new URL('./2025-editorial.json', import.meta.url), 'utf8'))
+for (const company of mofEditorial.companyCases) {
+  const detail = industryCases[`${company.organizationId}-mof`] || industryCases[company.organizationId]
+  if (detail) Object.assign(company, detail)
+  else company.products = company.sources.map(source => ({name: company.role, application: company.paragraphs[0], url: source.url}))
+}
 enhancedEditions.set(mofEditorial.year, mofEditorial)
 for (const editorial of enhancedEditions.values()) {
 const organizationIds = new Set(editorial.organizations.map(item => item.id))
@@ -46,6 +53,7 @@ for (const paper of editorial.researchCases) {
 }
 for (const company of editorial.companyCases) if (!organizationIds.has(company.organizationId) || !company.sources.length) throw new Error('Missing company provenance')
 }
+const learning = JSON.parse(await readFile(new URL('./learning-guides.json',import.meta.url),'utf8'))
 const readings = new Map()
 for (const line of rows) {
   const columns = line.split('\t')
@@ -79,6 +87,7 @@ for (const line of rows) {
     ]
   readings.set(year, {
     title,
+    learningGuide: (()=>{const key=learning.years[year];if(!learning.concepts[key])throw new Error(`Missing concept for ${year}`);return {topic:key,...learning.concepts[key]}})(),
     summary: `${title}。${significance}`,
     sections: baseSections.map(section => ({ ...section, ...enhanced?.sectionOverrides?.[section.id] })),
     ...(enhanced?.summary ? { summary: enhanced.summary } : {}),
@@ -111,7 +120,11 @@ for (let year = 1901; year <= latestYear; year++) {
     motivations: (prize.laureates || []).map(person => person.motivation?.replace(/^"|"$/g, '') || ''),
     overallMotivation: prize.overallMotivation || '',
     ...rich,
-    ...(awarded ? { portraits: portraits[year] } : {}),
+    ...(awarded ? { portraits: portraits[year], people: prize.laureates.map(person => {
+      const profile=personProfiles[`${year}:${person.id}`]
+      if (!profile) throw new Error(`Missing annual person profile ${year}:${person.id}`)
+      return {...profile,id:person.id,image:portraits[year].find(p => p.id===person.id)?.image}
+    }) } : {}),
     ...(rich ? { image: `images/nobel/chemistry-${year}.jpg` } : {}),
     ...(reading ? { reading } : {}),
     source: api,

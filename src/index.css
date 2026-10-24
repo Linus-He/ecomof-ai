@@ -8369,3 +8369,7 @@ input[type="submit"] {
   color: #fff;
   cursor: pointer;
 }
+
+/* A long article may never reach the end of a viewport-based reveal. */
+.page-transition:is([data-tab="nobelChemistry"],[data-tab="predictionMarkets"])>*,
+.page-transition:is([data-tab="nobelChemistry"],[data-tab="predictionMarkets"])>*>:is(article,header,section,div){animation:none;animation-timeline:auto;opacity:1;transform:none}

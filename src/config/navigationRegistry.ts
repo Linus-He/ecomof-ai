@@ -30,6 +30,9 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-science-refinements", hash:"update-science-refinements", label:label("更完整的历史市场与产业资料","Historical markets and product evidence") },
+      { id:"update-prediction-archive", hash:"update-prediction-archive", label:label("在独立页面回看开奖前的判断","A separate forecast archive") },
+      { id:"update-nobel-archive", hash:"update-nobel-archive", label:label("从年度获奖记录到化学成果解读","From award records to Chemistry readings") },
       { id:"update-search-platform", hash:"update-search-platform", label:label("统一搜索与多语言研究首页", "Unified search and multilingual home") },
       { id:"update-research-reading", hash:"update-research-reading", label:label("从研究链接到研究解读", "From paper links to research interpretation") },
       { id:"update-research-canvas", hash:"update-research-canvas", label:label("连续研究画布", "Research canvas") },
@@ -648,7 +651,7 @@ export function resolveTabForHash(hash) {
   const normalized = String(hash || "").replace(/^#/, "").trim() || "overview"
   if (HASH_TO_TAB[normalized]) return HASH_TO_TAB[normalized]
   if (/^nobel-chemistry-\d{4}$/.test(normalized)) return "nobelChemistry"
-  if (/^prediction-markets-\d{4}$/.test(normalized)) return "predictionMarkets"
+  if (/^prediction-markets-\d{4}(?:-(?:polymarket|manifold|kalshi))?$/.test(normalized)) return "predictionMarkets"
   if (normalized.startsWith("mof-record-")) return "mofRecord"
   if (normalized.startsWith("literature-doi-")) return "literatureRecord"
   if (normalized.startsWith("algval-")) return "algorithmValidation"

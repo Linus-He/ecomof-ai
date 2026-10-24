@@ -22,8 +22,35 @@
       "sha256": "3d72e268076a23d9ebf3cf7f8bfe462768cdca346962287a04cf18b8e594725d"
     }
   ],
+  "people": [
+    {
+      "name": "George de Hevesy",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1943/hevesy/facts/",
+      "affiliations": [
+        "Stockholm University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "201",
+      "image": "images/nobel/laureates/201.jpg"
+    }
+  ],
   "reading": {
     "title": "同位素示踪",
+    "learningGuide": {
+      "topic": "isotope",
+      "title": [
+        "同一种元素为什么还有不同质量",
+        "Different masses within an element"
+      ],
+      "definition": [
+        "同位素具有相同质子数、不同中子数。它们属于同一种元素，许多化学性质接近，但质量差别可以被测量，也可能影响某些反应和运动过程。",
+        "Isotopes share a proton number but differ in neutron number. Mass differences can be measured and used as labels."
+      ],
+      "example": [
+        "用同位素标记一个分子中的特定原子，可以追踪它在反应后去了哪里。看到标记出现在产物某个位置，是机理证据之一；解释仍要考虑交换、副反应与检测方法。",
+        "An isotope label can reveal where an atom goes during a reaction, provided exchange and side reactions are considered."
+      ]
+    },
     "summary": "同位素示踪。使看不见的原子流向成为可测量证据。",
     "sections": [
       {
@@ -130,17 +157,62 @@
       "companyCases": [
         {
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "id": "thermo",
+          "role": "质谱分析：从样品离子到可解释的数据",
+          "status": "商业分析仪器与技术资料",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "Thermo Fisher 的分析产品覆盖元素、同位素和分子层面的测量。这些仪器的输出对象不同：元素分析关心样品组成，同位素比值分析关心特定同位素之间的相对丰度，分子质谱则从质荷比和碎片信息研究化合物身份。它们不能用一条“检测能力更强”概括。",
+            "Orbitrap Astral 的官方操作手册分别说明不同分析器的运行模式和性能条件。实际工作先要完成提取、分离、离子化和校准，再决定采集方法；看到一个质量峰并不等于完成结构鉴定。对于痕量样品，还需要空白、标准品和重复测量来识别背景及干扰。",
+            "同位素研究与这一产品体系的联系在测量环节。稳定同位素比值仪器不能代替所有放射性核素检测，仪器目录也不构成核素治疗或年代测定结论。这里给出的是设备和方法入口，具体研究仍应回到样品处理与校准方案。"
+          ],
+          "products": [
+            {
+              "name": "元素与同位素分析产品",
+              "application": "按元素含量、同位素比值及样品类型选择测量路径。",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "name": "Orbitrap Astral 操作与采集模式",
+              "application": "核对分析器、采集方式以及各项性能的适用条件。",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "元素与同位素分析产品 · 官方资料",
               "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "label": "Orbitrap Astral 操作与采集模式 · 官方资料",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Analytical instruments and measurement workflows",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its analytical portfolio covers elemental composition, isotope ratios and molecular mass spectrometry. These are different measurements: an isotope-ratio result does not answer the same question as a molecular mass spectrum.",
+              "The Orbitrap Astral operating manual describes analyzer modes and the conditions attached to performance specifications. Sample preparation, separation, ionization, calibration and controls remain part of the measurement.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "Elemental and isotope analysis",
+                "application": "Choose a measurement route for elemental composition or isotope ratios and a compatible sample form.",
+                "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              },
+              {
+                "name": "Orbitrap Astral operating modes",
+                "application": "Check analyzer modes and acquisition conditions before interpreting molecular mass spectra.",
+                "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的同位素与元素质谱仪是现行分析设备示例；具体实验所用型号与参数应以论文方法为准。"
         }
       ]
     },

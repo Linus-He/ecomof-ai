@@ -89,9 +89,56 @@
       "sha256": "369f6be45ea982b0d68ad3c73b38545267221c1d1c72913a034aa5f0821a7618"
     }
   ],
+  "people": [
+    {
+      "name": "Susumu Kitagawa",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/kitagawa/facts/",
+      "affiliations": [
+        "Kyoto University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1053",
+      "image": "images/nobel/laureates/1053.jpg"
+    },
+    {
+      "name": "Richard Robson",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/robson/facts/",
+      "affiliations": [
+        "University of Melbourne"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1054",
+      "image": "images/nobel/laureates/1054.jpg"
+    },
+    {
+      "name": "Omar M. Yaghi",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/yaghi/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1055",
+      "image": "images/nobel/laureates/1055.jpg"
+    }
+  ],
   "image": "images/nobel/chemistry-2025.jpg",
   "reading": {
     "title": "把分子空间变成可设计的材料",
+    "learningGuide": {
+      "topic": "mof",
+      "title": [
+        "材料内部的空间也能被设计",
+        "Designing the space inside a material"
+      ],
+      "definition": [
+        "MOF 用金属节点和有机连接体组织延展结构，留下分子尺度的孔道。节点、连接方式和孔壁化学一起影响哪些分子容易进入、停留和离开。",
+        "MOFs connect metal nodes and organic linkers into porous networks. Geometry and pore-wall chemistry jointly affect molecular uptake."
+      ],
+      "example": [
+        "吸附剂可以先从空气或混合气中富集目标分子，再改变条件释放。孔多只是起点，水竞争、成型、扩散和再生能耗也决定它能否进入取水或气体分离设备。",
+        "A sorbent must also handle competition, diffusion, shaping and regeneration before it functions in a complete device."
+      ]
+    },
     "summary": "MOF 的关键变化，是让孔壁的化学组成和孔道的几何形状可以一起调整。金属节点、配体长度和连接方式改变后，材料对水、CO₂ 或其他分子的吸附行为也会改变。不过，装置处理的是潮湿空气、混合烟气和反复运行的吸附床。下面以取水、碳捕集和材料成型三条路线，说明分子设计怎样走到可测试的设备与产品。",
     "sections": [
       {
@@ -346,7 +393,9 @@
           "role": "空气取水装置",
           "status": "公司原型演示 · 2026",
           "paragraphs": [
-            "Atoco 将网状材料与空气接触、加热再生和冷凝组件整合成取水装置。公司在 2026 年公布了并网原型演示，报道所述演示发生在其加州实验室。这里可以确认的是原型展示；公开页面中的目标产水规模不是本文核验过的用户现场运行数据。"
+            "Atoco 将网状材料与空气接触、加热再生和冷凝组件整合成取水装置。公司在 2026 年公布了并网原型演示，报道所述演示发生在其加州实验室。这里可以确认的是原型展示；公开页面中的目标产水规模不是本文核验过的用户现场运行数据。",
+            "空气取水装置需要经历水蒸气吸附、材料再生和水的回收。多孔材料提供可反复吸放水的位点，装置还要解决空气接触、热量供应与冷凝。材料的吸水能力只是设备产水表现的一部分。",
+            "官方页面明确区分并网和离网取水路线，并展示原型演示。这里保留原型所处阶段，不把计划中的日产水规模写成已经交付给客户的长期运行记录；实际产水还需对应湿度、气温和能耗条件。"
           ],
           "sources": [
             {
@@ -357,14 +406,54 @@
               "label": "2026 年并网原型演示",
               "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
             }
-          ]
+          ],
+          "id": "atoco-mof",
+          "products": [
+            {
+              "name": "并网空气取水原型",
+              "application": "将吸附材料、再生和冷凝整合为设备，公开资料所示阶段为原型演示。",
+              "url": "https://atoco.com/"
+            },
+            {
+              "name": "空气取水技术路线",
+              "application": "区分并网与离网方案，比较时需同时考虑温湿度、供热和冷凝条件。",
+              "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+            }
+          ],
+          "introduction": [
+            "Atoco 开发网状多孔材料及空气取水、碳捕集技术。",
+            "Atoco develops reticular materials and systems for water harvesting and carbon capture."
+          ],
+          "en": {
+            "role": "Atmospheric water-harvesting prototype",
+            "status": "Official technology and development-stage records",
+            "paragraphs": [
+              "The company demonstrated an on-grid atmospheric-water-harvesting prototype at its California headquarters. Its materials are integrated with air contact, regeneration and water-recovery components.",
+              "Water uptake by the material is one part of the device. Regeneration heat, airflow and condensation also determine production under a particular humidity and temperature.",
+              "The cited demonstration is a prototype report. A planned output is not treated as independently verified long-term customer operation."
+            ],
+            "products": [
+              {
+                "name": "On-grid water-harvesting prototype",
+                "application": "Read the documented on-grid prototype configuration and demonstration stage.",
+                "url": "https://atoco.com/"
+              },
+              {
+                "name": "Company and technology overview",
+                "application": "Distinguish on-grid and off-grid water harvesting, including regeneration and condensation.",
+                "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+              }
+            ]
+          }
         },
         {
           "organizationId": "basf",
           "role": "CALF-20 材料生产",
           "status": "商业材料制造 · 公司披露",
           "paragraphs": [
-            "BASF 在 2025 年的公告中写明，CALF-20 由其美国南卡罗来纳州 Seneca 工厂生产，Svante 用它从气流中分离 CO₂。BASF 的职责是吸附剂放大和制造，这与替客户运行整套捕集设施是两回事。产品页可核对其 MOF 生产服务和与 Svante 的合作。"
+            "BASF 在 2025 年的公告中写明，CALF-20 由其美国南卡罗来纳州 Seneca 工厂生产，Svante 用它从气流中分离 CO₂。BASF 的职责是吸附剂放大和制造，这与替客户运行整套捕集设施是两回事。产品页可核对其 MOF 生产服务和与 Svante 的合作。",
+            "CALF-20 的作用是选择性吸附 CO₂。材料被制造出来以后，还要经过成型、进入过滤器或接触器，并配合吸附与再生循环，才能构成分离流程。粉体的吸附性能不能独自代表整套设备的处理量和能耗。",
+            "BASF 的官方资料把自身定位为 MOF 材料制造方，并明确给出 Svante 使用 CALF-20 的关系。本节只记录这项有来源的供货与用途，不从同一企业的其他化学品业务推断 MOF 配方或设备运行指标。"
           ],
           "sources": [
             {
@@ -375,14 +464,54 @@
               "label": "2025 CALF-20 生产公告",
               "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
             }
-          ]
+          ],
+          "id": "basf-mof",
+          "products": [
+            {
+              "name": "CALF-20 吸附剂",
+              "application": "作为从混合气流分离 CO₂ 的材料，后续还需成型并集成入设备。",
+              "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+            },
+            {
+              "name": "MOF 放大与制造",
+              "application": "Seneca 工厂生产及对 Svante 的供货关系有官方记录。",
+              "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+            }
+          ],
+          "introduction": [
+            "BASF 提供工业材料，并制造用于气体分离的 MOF 吸附剂。",
+            "BASF supplies manufactured MOF sorbents and industrial materials."
+          ],
+          "en": {
+            "role": "CALF-20 sorbent manufacturing",
+            "status": "Official technology and development-stage records",
+            "paragraphs": [
+              "BASF identifies its Seneca site as a producer of CALF-20 and states that Svante uses the material to separate CO₂ from gas streams. This documents a specific supply and application relationship.",
+              "A sorbent must be shaped, incorporated into a filter or contactor and operated through adsorption/regeneration cycles. Powder uptake alone does not establish a whole capture process’s capacity or energy use.",
+              "The sources describe material manufacturing, not BASF operating every downstream capture facility."
+            ],
+            "products": [
+              {
+                "name": "MOF manufacturing services",
+                "application": "Examine CALF-20 as a sorbent that must be shaped and integrated into a separation device.",
+                "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+              },
+              {
+                "name": "CALF-20 manufacturing announcement",
+                "application": "Verify the stated manufacturing site and the supply relationship with Svante.",
+                "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+              }
+            ]
+          }
         },
         {
           "organizationId": "svante",
           "role": "结构化过滤器与捕集设备",
           "status": "过滤器工厂投产公告 · 2025",
           "paragraphs": [
-            "Svante 把吸附剂做成可装入接触器的结构化过滤器。公司在 2025 年宣布 Burnaby 的 Redwood 过滤器制造设施完成调试。该设施生产的是捕集过滤器，不是以工厂自身作为 CO₂ 去除装置；公告中的设计产能也不能记作已经实现的年捕集量。"
+            "Svante 把吸附剂做成可装入接触器的结构化过滤器。公司在 2025 年宣布 Burnaby 的 Redwood 过滤器制造设施完成调试。该设施生产的是捕集过滤器，不是以工厂自身作为 CO₂ 去除装置；公告中的设计产能也不能记作已经实现的年捕集量。",
+            "结构化吸附过滤器把吸附剂与可通气的结构结合起来，使材料能装入实际接触器。这个步骤不仅考虑单位质量吸附量，也要处理气流通过、传热、材料固定和反复再生的问题。",
+            "Redwood 公告说的是制造过滤器的设施与设计产能。过滤器最终能够支持多少捕集量，还取决于部署地点、气体组成和装置利用率，不能将制造设施的目标能力记作已经完成的碳去除。"
           ],
           "sources": [
             {
@@ -397,14 +526,64 @@
               "label": "CALF-20 与 BASF 供货协议",
               "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
             }
-          ]
+          ],
+          "id": "svante-mof",
+          "products": [
+            {
+              "name": "结构化吸附过滤器",
+              "application": "将 MOF 吸附剂固定于结构中，服务于气体通过和循环再生。",
+              "url": "https://www.svanteinc.com/"
+            },
+            {
+              "name": "Redwood 过滤器制造",
+              "application": "制造设施提供过滤器生产能力，设计产能不等于已经实现的碳捕集量。",
+              "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+            },
+            {
+              "name": "CALF-20 材料供货",
+              "application": "BASF 提供材料，Svante 将其用于过滤器，两个环节的职责不同。",
+              "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+            }
+          ],
+          "introduction": [
+            "Svante 开发结构化吸附过滤器与碳捕集技术。",
+            "Svante develops structured sorbent filters and carbon-capture technologies."
+          ],
+          "en": {
+            "role": "Structured MOF filters and manufacturing",
+            "status": "Official technology and development-stage records",
+            "paragraphs": [
+              "Svante incorporates sorbents into structured filters that can be installed in contactors. The geometry has to support gas passage, heat transfer and regeneration as well as material loading.",
+              "The company announced commissioning of its Redwood filter-manufacturing facility in Burnaby. The facility makes filters; it is not itself a carbon-removal installation.",
+              "Design production capacity is distinct from CO₂ actually captured after filters are deployed at customer sites."
+            ],
+            "products": [
+              {
+                "name": "Structured sorbent technology",
+                "application": "Connect a MOF sorbent to a gas-permeable, regenerable filter structure.",
+                "url": "https://www.svanteinc.com/"
+              },
+              {
+                "name": "Redwood manufacturing facility",
+                "application": "Separate filter-manufacturing design capacity from CO₂ actually captured after deployment.",
+                "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+              },
+              {
+                "name": "CALF-20 supply relationship",
+                "application": "Check the distinct responsibilities of the material supplier and filter manufacturer.",
+                "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+              }
+            ]
+          }
         },
         {
           "organizationId": "immaterial",
           "role": "整体式 MOF 成型与放大",
           "status": "中试制造设施 · 大学报道，2026",
           "paragraphs": [
-            "Immaterial 沿着剑桥团队的整体式材料路线，开发面向吸附设备的块体 MOF。2026 年的 Sawston 设施报道提供了从课题组走向中试制造的具体节点。可核对的内容包括公司来源、设施地点和材料形式；不同客户场景的捕集率、能耗与使用寿命仍需要相应装置测试。"
+            "Immaterial 沿着剑桥团队的整体式材料路线，开发面向吸附设备的块体 MOF。2026 年的 Sawston 设施报道提供了从课题组走向中试制造的具体节点。可核对的内容包括公司来源、设施地点和材料形式；不同客户场景的捕集率、能耗与使用寿命仍需要相应装置测试。",
+            "整体式 MOF 与松散粉体采用不同的材料形态，便于围绕设备空间和气体通过方式设计应用。企业公开方向包括碳捕集、储氢和空气净化；这些用途对应不同压力、气体组成与再生条件。",
+            "剑桥大学的报道确认了公司来源和 Sawston 中试制造设施。中试设施使材料研究进入制造环节，但不自动证明所有目标场景已经商业成熟；每一用途仍需相应装置的循环、稳定性及能耗数据。"
           ],
           "sources": [
             {
@@ -415,7 +594,45 @@
               "label": "剑桥大学中试设施报道",
               "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
             }
-          ]
+          ],
+          "id": "immaterial-mof",
+          "products": [
+            {
+              "name": "整体式 MOF 材料",
+              "application": "将多孔材料做成整体形态，面向碳捕集、储氢与空气净化等不同工况。",
+              "url": "https://immaterial.com/"
+            },
+            {
+              "name": "Sawston 中试制造",
+              "application": "剑桥大学报道确认了中试设施与材料制造节点。",
+              "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+            }
+          ],
+          "introduction": [
+            "Immaterial 是剑桥大学衍生企业，开发整体式 MOF 材料。",
+            "Immaterial is a University of Cambridge spinout developing monolithic MOF materials."
+          ],
+          "en": {
+            "role": "Monolithic MOFs and pilot manufacturing",
+            "status": "Official technology and development-stage records",
+            "paragraphs": [
+              "The Cambridge report identifies a pilot manufacturing facility in Sawston and describes monolithic MOFs for applications including carbon capture, hydrogen storage and air purification.",
+              "A monolith provides a different form from loose powder, affecting how material can be integrated into equipment and exposed to gas. Each application still has its own pressure, composition and regeneration requirements.",
+              "Pilot manufacturing is a concrete production step, but not proof that every target use has completed commercial validation."
+            ],
+            "products": [
+              {
+                "name": "Monolithic MOF technology",
+                "application": "Examine monolithic material forms for different gas-separation and storage applications.",
+                "url": "https://immaterial.com/"
+              },
+              {
+                "name": "Cambridge pilot-facility report",
+                "application": "Verify the university-reported pilot manufacturing facility and its documented stage.",
+                "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+              }
+            ]
+          }
         }
       ]
     },

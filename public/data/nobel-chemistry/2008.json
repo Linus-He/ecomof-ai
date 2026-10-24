@@ -46,8 +46,57 @@
       "sha256": "16a101e8dcf6a16b067b76b5d80e2712c8bc62aa0a361748a08c17b90e66c25a"
     }
   ],
+  "people": [
+    {
+      "name": "Osamu Shimomura",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2008/shimomura/facts/",
+      "affiliations": [
+        "Marine Biological Laboratory (MBL)",
+        "Boston University Medical School"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "829",
+      "image": "images/nobel/laureates/829.jpg"
+    },
+    {
+      "name": "Martin Chalfie",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2008/chalfie/facts/",
+      "affiliations": [
+        "Columbia University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "830",
+      "image": "images/nobel/laureates/830.jpg"
+    },
+    {
+      "name": "Roger Y. Tsien",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2008/tsien/facts/",
+      "affiliations": [
+        "University of California",
+        "Howard Hughes Medical Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "831",
+      "image": "images/nobel/laureates/831.jpg"
+    }
+  ],
   "reading": {
     "title": "绿色荧光蛋白",
+    "learningGuide": {
+      "topic": "imaging",
+      "title": [
+        "看见荧光，不等于直接看见分子全部结构",
+        "A fluorescent signal is a measurement"
+      ],
+      "definition": [
+        "荧光成像利用标记物发光来定位或追踪对象。信号反映标记和检测过程，样品处理、光物理行为与仪器都会影响图像。",
+        "Fluorescent labels connect emitted light to location or motion. Label behavior, sample preparation and detection shape the image."
+      ],
+      "example": [
+        "荧光蛋白提供生物标记，超分辨方法则利用不同采集和重建策略改善空间信息。标记物与成像方法不是同一层次，也不能把重建图像中的每个亮点都当作独立分子的完整结构。",
+        "A fluorescent protein supplies a label; super-resolution methods supply acquisition and reconstruction strategies. These are different layers of an imaging experiment."
+      ]
+    },
     "summary": "绿色荧光蛋白。使生命过程能够以分子特异性光信号持续观察。",
     "sections": [
       {
@@ -154,17 +203,62 @@
       "companyCases": [
         {
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "id": "thermo",
+          "role": "质谱分析：从样品离子到可解释的数据",
+          "status": "商业分析仪器与技术资料",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "Thermo Fisher 的分析产品覆盖元素、同位素和分子层面的测量。这些仪器的输出对象不同：元素分析关心样品组成，同位素比值分析关心特定同位素之间的相对丰度，分子质谱则从质荷比和碎片信息研究化合物身份。它们不能用一条“检测能力更强”概括。",
+            "Orbitrap Astral 的官方操作手册分别说明不同分析器的运行模式和性能条件。实际工作先要完成提取、分离、离子化和校准，再决定采集方法；看到一个质量峰并不等于完成结构鉴定。对于痕量样品，还需要空白、标准品和重复测量来识别背景及干扰。",
+            "同位素研究与这一产品体系的联系在测量环节。稳定同位素比值仪器不能代替所有放射性核素检测，仪器目录也不构成核素治疗或年代测定结论。这里给出的是设备和方法入口，具体研究仍应回到样品处理与校准方案。"
+          ],
+          "products": [
+            {
+              "name": "元素与同位素分析产品",
+              "application": "按元素含量、同位素比值及样品类型选择测量路径。",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "name": "Orbitrap Astral 操作与采集模式",
+              "application": "核对分析器、采集方式以及各项性能的适用条件。",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "元素与同位素分析产品 · 官方资料",
               "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "label": "Orbitrap Astral 操作与采集模式 · 官方资料",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Analytical instruments and measurement workflows",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its analytical portfolio covers elemental composition, isotope ratios and molecular mass spectrometry. These are different measurements: an isotope-ratio result does not answer the same question as a molecular mass spectrum.",
+              "The Orbitrap Astral operating manual describes analyzer modes and the conditions attached to performance specifications. Sample preparation, separation, ionization, calibration and controls remain part of the measurement.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "Elemental and isotope analysis",
+                "application": "Choose a measurement route for elemental composition or isotope ratios and a compatible sample form.",
+                "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              },
+              {
+                "name": "Orbitrap Astral operating modes",
+                "application": "Check analyzer modes and acquisition conditions before interpreting molecular mass spectra.",
+                "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的细胞成像及荧光标记产品是应用工具示例；没有将该处理方法写成其显微镜默认具备的功能。"
         }
       ]
     },

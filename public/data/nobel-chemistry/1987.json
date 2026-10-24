@@ -46,8 +46,56 @@
       "sha256": "d243d66d7a0b683da707706a6857340625406a3591377a882c0e796d274cca6e"
     }
   ],
+  "people": [
+    {
+      "name": "Donald J. Cram",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1987/cram/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "267",
+      "image": "images/nobel/laureates/267.jpg"
+    },
+    {
+      "name": "Jean-Marie Lehn",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1987/lehn/facts/",
+      "affiliations": [
+        "Université Louis Pasteur",
+        "Collège de France"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "268",
+      "image": "images/nobel/laureates/268.jpg"
+    },
+    {
+      "name": "Charles J. Pedersen",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1987/pedersen/facts/",
+      "affiliations": [
+        "Du Pont"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "269",
+      "image": "images/nobel/laureates/269.jpg"
+    }
+  ],
   "reading": {
     "title": "分子识别与主客体化学",
+    "learningGuide": {
+      "topic": "hostguest",
+      "title": [
+        "分子识别为什么像配对，又不只是配对",
+        "Recognition beyond a geometric fit"
+      ],
+      "definition": [
+        "主客体化学研究一个分子怎样选择性结合另一个分子或离子。尺寸和形状之外，电荷、氢键、溶剂以及结合后的结构变化也会影响选择。",
+        "Host–guest binding depends on size, charge, hydrogen bonding, solvent and structural change. Fit alone is insufficient."
+      ],
+      "example": [
+        "一个空腔能够容纳客体，并不等于它在溶液中一定优先结合该客体。真正的选择性要比较竞争条件下的结合与释放，不能只看一张尺寸合适的结构图。",
+        "A cavity that accommodates a guest need not preferentially bind it in solution; competition and release must be measured."
+      ]
+    },
     "summary": "分子识别与主客体化学。使分子间识别成为可设计的化学功能。",
     "sections": [
       {
@@ -153,17 +201,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-hostguest",
+          "role": "主客体化学所用分子砌块",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "主客体体系要同时考虑主体的空腔、客体的尺寸和两者在溶剂中的相互作用。有机砌块承担主体或客体的合成原料角色，真正的识别与结合强度仍需由滴定、光谱或其他实验测量。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "主客体化学所用分子砌块",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "主客体化学所用分子砌块 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Building blocks for host–guest chemistry",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Host–guest behavior depends on cavities, molecular dimensions, solvent and interactions. Building blocks supply starting materials; recognition and binding must be measured in the assembled system.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的环糊精及超分子研究试剂可用于主客体实验；并未把这些试剂列作该透明玻璃的现成商品。"
         }
       ]
     },

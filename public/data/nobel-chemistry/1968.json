@@ -22,8 +22,35 @@
       "sha256": "bcc56d2473a7df12fe67b7a34d31e6a2965b5908519051c24b5ff39df49d1f77"
     }
   ],
+  "people": [
+    {
+      "name": "Lars Onsager",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1968/onsager/facts/",
+      "affiliations": [
+        "Yale University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "236",
+      "image": "images/nobel/laureates/236.jpg"
+    }
+  ],
   "reading": {
     "title": "不可逆过程的互易关系",
+    "learningGuide": {
+      "topic": "geneticcode",
+      "title": [
+        "碱基顺序怎样对应氨基酸",
+        "From codons to amino acids"
+      ],
+      "definition": [
+        "遗传密码把核酸中的信息与蛋白质合成联系起来。信使 RNA 中的密码子以三个碱基为一个单位，但并不是每个密码子都对应一种不同的氨基酸。",
+        "The genetic code connects nucleic-acid information to protein synthesis. Codons consist of three bases, and different codons can specify the same amino acid."
+      ],
+      "example": [
+        "读取、翻译和合成是不同层次。研究某段序列编码什么，需要把核酸记录同翻译过程联系起来；仅知道总共有多少种碱基，无法判断蛋白质序列。",
+        "Reading a sequence and translating it are different tasks. Base composition alone does not determine the encoded protein sequence."
+      ]
+    },
     "summary": "不可逆过程的互易关系。为不可逆过程提供受约束的定量框架。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-motor",
+          "role": "分子机器合成所用砌块与催化剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "分子机器的合成需要先获得具有特定连接方式和立体结构的分子。这里列出原料和催化工具，不把目录中的普通分子当作可直接购买的完整分子马达；方向性运动与能量输入需在组装后的体系中验证。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "分子机器合成所用砌块与催化剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "分子机器合成所用砌块与催化剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Synthetic inputs for molecular machines",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Building blocks and catalysts support preparation of the required connectivity and stereochemistry. They are not complete molecular motors; directional motion must be demonstrated in the assembled, energy-driven system.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 供应有机合成与高分子研究原料；未核实到该凝胶马达的商品化设备，因此只列研究材料供给。"
         }
       ]
     },

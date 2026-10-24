@@ -1,0 +1,360 @@
+{
+  "year": 2025,
+  "title": "Chemistry Nobel 2025: Awarded Field(s) Multimarket",
+  "source": "Manifold",
+  "currency": "MANA",
+  "marketKind": "field",
+  "eventUrl": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+  "eventId": "0ElAsn8LS9",
+  "windowStart": 1759490575,
+  "cutoff": 1759916700,
+  "cutoffSource": "https://www.nobelprize.org/prizes/chemistry/2025/prize-announcement/",
+  "cutoffNote": "Earliest scheduled announcement.",
+  "marketRulesUrl": "https://api.manifold.markets/v0/market/0ElAsn8LS9",
+  "method": "Manifold play-money trade probabilities. Last directly recorded probAfter per answer; probabilities of other answers may also move without a direct trade. Quotes are not a complete simultaneous market snapshot. No settlement values and no interpolated history.",
+  "answersSumToOne": false,
+  "winners": [
+    "Susumu Kitagawa",
+    "Richard Robson",
+    "Omar M. Yaghi"
+  ],
+  "unlistedWinners": [],
+  "candidates": [
+    {
+      "id": "Pp000nRptz",
+      "name": "Catalysis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490605,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759776631,
+          "p": 0.3868377848075922
+        }
+      ],
+      "probability": 0.3868377848075922,
+      "quoteAt": 1759776631,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "ggNcZsuqzQ",
+      "name": "Biochemistry or Chemical Biology",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490593,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759776657,
+          "p": 0.3868377848075922
+        }
+      ],
+      "probability": 0.3868377848075922,
+      "quoteAt": 1759776657,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "q8tysqydUs",
+      "name": "Organic Synthesis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490610,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759776593,
+          "p": 0.3626298153967823
+        }
+      ],
+      "probability": 0.3626298153967823,
+      "quoteAt": 1759776593,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "lLgdugNIgq",
+      "name": "Inorganic Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490607,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490607,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "P9hnA5lnE5",
+      "name": "Metal Organic Frameworks (MOF)",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490603,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490603,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "NRdSA9Sgny",
+      "name": "Physical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490596,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490596,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "6CuPZRRyyQ",
+      "name": "Chemical Thermodynamics",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490591,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490591,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "p5AushdQ59",
+      "name": "Medicinal, Drug or Pharmacology-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490588,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490588,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "n65PuA5SZP",
+      "name": "Environmental or Climate-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490584,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490584,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "2z8pNAPPPQ",
+      "name": "Battery-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490582,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490582,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "9UPscl8C6t",
+      "name": "Polymer chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490575,
+          "p": 0.3378378378378378
+        }
+      ],
+      "probability": 0.3378378378378378,
+      "quoteAt": 1759490575,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "AOpOchRtPR",
+      "name": "Computational or Theoretical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490599,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759776579,
+          "p": 0.2808988764044943
+        }
+      ],
+      "probability": 0.2808988764044943,
+      "quoteAt": 1759776579,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "cLuL2lPd9q",
+      "name": "Analytical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490601,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759760837,
+          "p": 0.07961783439490451
+        }
+      ],
+      "probability": 0.07961783439490451,
+      "quoteAt": 1759760837,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "n6PCcyOzg2",
+      "name": "Nuclear chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2025-awarded-fields",
+      "points": [
+        {
+          "t": 1759490586,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1759760814,
+          "p": 0.07961783439490451
+        }
+      ],
+      "probability": 0.07961783439490451,
+      "quoteAt": 1759760814,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    }
+  ],
+  "excluded": [],
+  "historySources": [
+    "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000"
+  ],
+  "historySha256": "70ded95fe36a680c7cad23a73ce2d203310781c70a82f25488a513f23e1aba77",
+  "sparseHistory": true,
+  "winnerDetails": [
+    {
+      "name": "Susumu Kitagawa",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/kitagawa/facts/",
+      "image": "images/nobel/laureates/1053.jpg",
+      "affiliations": [
+        "Kyoto University"
+      ]
+    },
+    {
+      "name": "Richard Robson",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/robson/facts/",
+      "image": "images/nobel/laureates/1054.jpg",
+      "affiliations": [
+        "University of Melbourne"
+      ]
+    },
+    {
+      "name": "Omar M. Yaghi",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/yaghi/facts/",
+      "image": "images/nobel/laureates/1055.jpg",
+      "affiliations": [
+        "University of California"
+      ]
+    }
+  ]
+}

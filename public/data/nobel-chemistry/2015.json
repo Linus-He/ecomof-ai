@@ -46,8 +46,57 @@
       "sha256": "b11e732913925e6fd31407c87673cb35ac826f0ede63175f07acb71d14d7d452"
     }
   ],
+  "people": [
+    {
+      "name": "Tomas Lindahl",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2015/lindahl/facts/",
+      "affiliations": [
+        "Francis Crick Institute",
+        "Clare Hall Laboratory"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "921",
+      "image": "images/nobel/laureates/921.jpg"
+    },
+    {
+      "name": "Paul Modrich",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2015/modrich/facts/",
+      "affiliations": [
+        "Howard Hughes Medical Institute",
+        "Duke University School of Medicine"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "922",
+      "image": "images/nobel/laureates/922.jpg"
+    },
+    {
+      "name": "Aziz Sancar",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2015/sancar/facts/",
+      "affiliations": [
+        "University of North Carolina"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "923",
+      "image": "images/nobel/laureates/923.jpg"
+    }
+  ],
   "reading": {
     "title": "DNA 修复机理",
+    "learningGuide": {
+      "topic": "repair",
+      "title": [
+        "DNA 损伤怎样被识别和处理",
+        "Several pathways repair DNA"
+      ],
+      "definition": [
+        "DNA 修复不是一种万能反应，而是识别、切除、补合或重接等不同过程的组合。不同损伤需要不同处理路径，也需要避免破坏原有信息。",
+        "Repair involves distinct recognition, removal, synthesis and rejoining processes suited to different lesions."
+      ],
+      "example": [
+        "一个小的化学修饰与双链断裂提出的问题不同。用连接酶把体外 DNA 片段接起来，只展示其中一种化学能力，不能代表细胞已经完成所有修复。",
+        "A modified base and a double-strand break require different responses. In-vitro ligation demonstrates only one part of this chemistry."
+      ]
+    },
     "summary": "DNA 修复机理。说明 DNA 稳定不是静止不变，而是依赖持续维护。",
     "sections": [
       {
@@ -153,18 +202,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-repair",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "DNA 连接与体外修复研究",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "T4 DNA Ligase 催化相邻 DNA 末端之间的磷酸二酯键形成。官方说明列出粘性末端、平末端连接，以及具有相应末端基团的双链 DNA 缺口修复用途。不同末端形式的连接条件不能直接互换。",
+            "体外反应需要核对末端化学状态、DNA 浓度、缓冲液和酶量。生成连接产物后，仍需用电泳、测序或其他方法确认正确性，不能仅凭发生连接就判断目标构建已经完成。",
+            "这一产品展示 DNA 修复相关酶学怎样成为实验工具。细胞内的损伤识别、切除和修复涉及更多蛋白，单个连接酶试剂不能代表完整的 DNA 损伤应答。"
+          ],
+          "products": [
+            {
+              "name": "T4 DNA Ligase",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+            },
+            {
+              "name": "T4 DNA Ligase · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "DNA ligation as a research tool",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "T4 DNA Ligase forms phosphodiester bonds between suitable adjacent DNA ends. Its documentation distinguishes sticky ends, blunt ends and nick repair in double-stranded DNA.",
+              "End chemistry, concentration and reaction conditions matter. Product verification remains necessary, and one ligase reagent does not represent the cell’s entire DNA-damage response.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "T4 DNA Ligase",
+                "application": "Join appropriate DNA ends or seal suitable nicks under defined in-vitro conditions.",
+                "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+              },
+              {
+                "name": "T4 DNA Ligase specification",
+                "application": "Check end chemistry, reaction conditions and enzyme specifications.",
+                "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的核酸与细胞成像产品服务于检测和表征；没有把这项核膜机制直接列作商业 DNA 修复疗法。"
         }
       ]
     },

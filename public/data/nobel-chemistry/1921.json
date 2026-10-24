@@ -22,8 +22,35 @@
       "sha256": "7a437df0524fabb23dd8486173d52d4945c26d1a1ba6f3bb5366ee9368520a09"
     }
   ],
+  "people": [
+    {
+      "name": "Frederick Soddy",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1921/soddy/facts/",
+      "affiliations": [
+        "University of Oxford"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "179",
+      "image": "images/nobel/laureates/179.jpg"
+    }
+  ],
   "reading": {
     "title": "同位素与放射性元素",
+    "learningGuide": {
+      "topic": "isotope",
+      "title": [
+        "同一种元素为什么还有不同质量",
+        "Different masses within an element"
+      ],
+      "definition": [
+        "同位素具有相同质子数、不同中子数。它们属于同一种元素，许多化学性质接近，但质量差别可以被测量，也可能影响某些反应和运动过程。",
+        "Isotopes share a proton number but differ in neutron number. Mass differences can be measured and used as labels."
+      ],
+      "example": [
+        "用同位素标记一个分子中的特定原子，可以追踪它在反应后去了哪里。看到标记出现在产物某个位置，是机理证据之一；解释仍要考虑交换、副反应与检测方法。",
+        "An isotope label can reveal where an atom goes during a reaction, provided exchange and side reactions are considered."
+      ]
+    },
     "summary": "同位素与放射性元素。重新定义元素身份，解释质量不同却化学相似的现象。",
     "sections": [
       {
@@ -179,31 +206,121 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-radio",
+          "role": "配位化学与核素研究的材料入口",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "研究核素的配位环境需要把金属中心、配体及化学形态分开处理。这里展示的是化学研究原料及技术目录；稳定同位素材料与放射性核素不是一回事，普通试剂供应不能当作放射性药物生产或供应资质。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "配位化学与核素研究的材料入口",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "配位化学与核素研究的材料入口 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Coordination-chemistry research materials",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Coordination studies distinguish the metal center, ligand and chemical form. Stable-isotope reagents and radioactive isotopes are different materials, and a general reagent catalogue is not evidence of radiopharmaceutical manufacturing.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
         },
         {
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "id": "thermo",
+          "role": "质谱分析：从样品离子到可解释的数据",
+          "status": "商业分析仪器与技术资料",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "Thermo Fisher 的分析产品覆盖元素、同位素和分子层面的测量。这些仪器的输出对象不同：元素分析关心样品组成，同位素比值分析关心特定同位素之间的相对丰度，分子质谱则从质荷比和碎片信息研究化合物身份。它们不能用一条“检测能力更强”概括。",
+            "Orbitrap Astral 的官方操作手册分别说明不同分析器的运行模式和性能条件。实际工作先要完成提取、分离、离子化和校准，再决定采集方法；看到一个质量峰并不等于完成结构鉴定。对于痕量样品，还需要空白、标准品和重复测量来识别背景及干扰。",
+            "同位素研究与这一产品体系的联系在测量环节。稳定同位素比值仪器不能代替所有放射性核素检测，仪器目录也不构成核素治疗或年代测定结论。这里给出的是设备和方法入口，具体研究仍应回到样品处理与校准方案。"
+          ],
+          "products": [
+            {
+              "name": "元素与同位素分析产品",
+              "application": "按元素含量、同位素比值及样品类型选择测量路径。",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "name": "Orbitrap Astral 操作与采集模式",
+              "application": "核对分析器、采集方式以及各项性能的适用条件。",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "元素与同位素分析产品 · 官方资料",
               "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "label": "Orbitrap Astral 操作与采集模式 · 官方资料",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Analytical instruments and measurement workflows",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its analytical portfolio covers elemental composition, isotope ratios and molecular mass spectrometry. These are different measurements: an isotope-ratio result does not answer the same question as a molecular mass spectrum.",
+              "The Orbitrap Astral operating manual describes analyzer modes and the conditions attached to performance specifications. Sample preparation, separation, ionization, calibration and controls remain part of the measurement.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "Elemental and isotope analysis",
+                "application": "Choose a measurement route for elemental composition or isotope ratios and a compatible sample form.",
+                "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              },
+              {
+                "name": "Orbitrap Astral operating modes",
+                "application": "Check analyzer modes and acquisition conditions before interpreting molecular mass spectra.",
+                "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的同位素与元素质谱仪是现行分析设备示例；具体实验所用型号与参数应以论文方法为准。"
         }
       ]
     },

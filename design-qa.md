@@ -531,3 +531,26 @@ The independent Prediction Markets page has homepage, menu and footer entries. O
 Reference comparison: `qa/nobel/prediction-desktop-comparison.jpg` combines the supplied Polymarket screenshot with the implementation. New institution details: `qa/nobel/prediction-institutions-desktop.png`, `prediction-institutions-mobile.png`, `candidate-institutions.jpg`. Desktop 1280 and mobile 390 CSS pixels: all 30 institution badges present, no failed loaded images, no horizontal overflow. Actual quotations determine the curves; absolute timestamps are deliberately omitted per user instruction. Source links replace in-site trading controls.
 
 Verified: 6 focused test files / 25 tests, typecheck and production build passed; browser console had no errors. Candidate selection and range controls work; mobile wraps long institution names while keeping probabilities aligned. No remaining P0/P1/P2 issues in this scope.
+
+
+---
+
+## Annual archive and source-platform refinement
+
+final result: passed
+
+This revision follows the user's requested redesign: Applications and industry now contains company profiles, product roles, technical explanations and source links; university papers remain in Research progress. All 118 awarded editions contain bilingual company introductions/products and a foundational concept with a concrete example. The awarded-topic mapping is independent of the contemporary further-reading paper. The chiral-carvone example cites ACS and CCDC.
+
+Homepage order verified in the browser: search, Nobel feature, prediction markets, compact latest updates, latest research. At 1280 CSS pixels the update section is approximately 280 pixels tall. Both update and research concept covers are absent from the home and detail pages. Internal entry arrows are horizontal; external source links retain an external indicator.
+
+Seven platform/year editions are available across 2022–2026: Polymarket, Kalshi and Manifold. Kalshi displays 18 options with verified positive-volume trade candles; Manifold's 2024/2025 entries are field markets, clearly distinguished from individual forecasts. The 2023 history excludes trades after the early disclosure. Sparse periods remain empty. Browser verification covered platform and year selection, institution search, source labels and actual-laureate headers.
+
+The faded-history bug was caused by global viewport-timeline animation on long articles. Scoped exceptions now keep annual reading and market content at opacity 1. A real 2025 → 2024 Explore interaction showed opacity 1, white background and no horizontal overflow. The same layout is used for all years.
+
+Acknowledgements preserve HappyFlight without a logo, add Li Yifan at Peking University Shenzhen Institute, retain Li Xinjian with Xinjiang University, and state consent only for named personal acknowledgements. Twelve actual resource platforms have sourced logos and links. Asset existence and checksums verified. University affiliation or official person-profile links accompany laureates and candidates; cited-paper authors link to the paper's full affiliation record.
+
+Desktop and mobile captures are in `qa/nobel/refinement/`: `company-layout-final.png`, `industry-mobile-final.png`, `home-desktop-final.png`, `kalshi-desktop.png`, `acknowledgements-mobile.png`. Desktop 1280 × 1000 and mobile 390 × 844 have no horizontal overflow. English company introductions, products and concept explanations were verified through the language picker. Bibliography/award years remain; no new administrative timestamps are rendered.
+
+Validation: typecheck, production build, 8 focused test files / 37 tests, and code whitespace checks passed. Downloaded vendor SVG bytes and deliberate TSV empty fields preserve their original source format. No outstanding P0/P1/P2 findings in this scope.
+
+Reference and revised company layout are shown together in `qa/nobel/refinement/company-redesign-comparison.jpg`. The redesign intentionally adds a company-introduction rail and product-use details while retaining the white editorial surface.

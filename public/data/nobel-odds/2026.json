@@ -35397,13 +35397,19 @@
   "winnerDetails": [
     {
       "name": "Henri B. Kagan",
-      "url": "https://www.nobelprize.org/laureate/1065",
-      "image": "images/nobel/laureates/1065.jpg"
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/kagan/facts/",
+      "image": "images/nobel/laureates/1065.jpg",
+      "affiliations": [
+        "Université Paris-Sud"
+      ]
     },
     {
       "name": "Kenso Soai",
-      "url": "https://www.nobelprize.org/laureate/1066",
-      "image": "images/nobel/laureates/1066.jpg"
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/soai/facts/",
+      "image": "images/nobel/laureates/1066.jpg",
+      "affiliations": [
+        "Tokyo University of Science"
+      ]
     }
   ]
 }

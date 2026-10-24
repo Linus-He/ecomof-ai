@@ -188,5 +188,507 @@
     "logoKind": "symbol",
     "assetSource": "https://www.yale.edu/sites/all/themes/yale_blue/images/favicons/apple-touch-icon-180x180.png",
     "sha256": "74c08ab23865d84dbbb78786546116b4f329ef9f57606566e7c374984707f4f4"
+  },
+  {
+    "id": "aarhus",
+    "name": "奥胡斯大学",
+    "englishName": "Aarhus University",
+    "url": "https://www.au.dk/en/",
+    "logo": "images/nobel/organizations/aarhus.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://cdn.au.dk/favicon.ico",
+    "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+  },
+  {
+    "id": "arvinas",
+    "name": "Arvinas",
+    "englishName": "Arvinas",
+    "url": "https://www.arvinas.com/",
+    "logo": "images/nobel/organizations/arvinas.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.arvinas.com&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "eb7c3acb2519f38e400ce6e03cc8d61681e22d0497e816aa3f7ef406b480131c"
+  },
+  {
+    "id": "basf",
+    "name": "BASF",
+    "englishName": "BASF",
+    "url": "https://www.basf.com/",
+    "logo": "images/nobel/organizations/basf.svg",
+    "logoKind": "symbol"
+  },
+  {
+    "id": "beckman",
+    "name": "Beckman Coulter Life Sciences",
+    "englishName": "Beckman Coulter Life Sciences",
+    "url": "https://www.beckman.com/",
+    "logo": "images/nobel/organizations/beckman.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.beckman.com/favicon.ico",
+    "sha256": "c2ea6cae8c50a638ecc339fa3abeb998bb406c61f97f220642151816466a9bac"
+  },
+  {
+    "id": "berkeley",
+    "name": "加州大学伯克利分校",
+    "englishName": "University of California, Berkeley",
+    "url": "https://chemistry.berkeley.edu/",
+    "logo": "images/nobel/organizations/berkeley.svg",
+    "logoKind": "wordmark"
+  },
+  {
+    "id": "bern",
+    "name": "伯尔尼大学",
+    "englishName": "University of Bern",
+    "url": "https://www.unibe.ch/index_eng.html",
+    "logo": "images/nobel/organizations/bern.svg",
+    "logoKind": "symbol",
+    "assetSource": "https://www.unibe.ch/favicon.svg",
+    "sha256": "51eefb75911942003c249acba61fcf8757b61e5879d6b31341c2ba5eb6f2d09f"
+  },
+  {
+    "id": "bristol",
+    "name": "布里斯托大学",
+    "englishName": "University of Bristol",
+    "url": "https://www.bristol.ac.uk/",
+    "logo": "images/nobel/organizations/bristol.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.bristol.ac.uk/assets/responsive-web-project/2.7.5/favicons/apple-touch-icon.png",
+    "sha256": "9ffc77b56784dcd0c64df1219272454bdebbfacf82aafa85cda3b499cfde3b9a"
+  },
+  {
+    "id": "bruker",
+    "name": "Bruker",
+    "englishName": "Bruker",
+    "url": "https://www.bruker.com/",
+    "logo": "images/nobel/organizations/bruker.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+    "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+  },
+  {
+    "id": "catl",
+    "name": "宁德时代",
+    "englishName": "CATL",
+    "url": "https://www.catl.com/",
+    "logo": "images/nobel/organizations/catl.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.catl.com/favicon.ico",
+    "sha256": "5391100e6de4db5323f4d985996cf6b812126a074dff269e7b26ad66690d0b62"
+  },
+  {
+    "id": "chemours",
+    "name": "Chemours",
+    "englishName": "Chemours",
+    "url": "https://www.opteon.com/en/",
+    "logo": "images/nobel/organizations/chemours.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.opteon.com/html/assets/img/brand/favicon-opteon.ico",
+    "sha256": "1259c4a4ad1af5c4a5f630e09495e620e084c0be4b1c51a0a7cdb6eac1df2921"
+  },
+  {
+    "id": "columbia",
+    "name": "哥伦比亚大学",
+    "englishName": "Columbia University",
+    "url": "https://www.columbia.edu/",
+    "logo": "images/nobel/organizations/columbia.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.columbia.edu&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "87e7afa525e266f41873918972330598409e0cbabe2d2a58dd4f187aeea83a91"
+  },
+  {
+    "id": "cuhk",
+    "name": "香港中文大学",
+    "englishName": "The Chinese University of Hong Kong",
+    "url": "https://www.cuhk.edu.hk/english/",
+    "logo": "images/nobel/organizations/cuhk.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.cuhk.edu.hk/english/images/fav-icons/apple-touch-icon.png",
+    "sha256": "237924e88c064255b10c46e1a2a2a883eab83dc7a83172d1bb04b46e4fb2a070"
+  },
+  {
+    "id": "cytiva",
+    "name": "Cytiva",
+    "englishName": "Cytiva",
+    "url": "https://www.cytivalifesciences.com/",
+    "logo": "images/nobel/organizations/cytiva.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.cytivalifesciences.com/shared/favicon.ico?v=ps-app-shell-v1.20.3-PROD",
+    "sha256": "8b0b6d92d58cd4d5d1eed26db059a55354bf0a3146986921b32924f69bd4bcfa"
+  },
+  {
+    "id": "dsm",
+    "name": "帝斯曼–芬美意",
+    "englishName": "dsm-firmenich",
+    "url": "https://www.dsm-firmenich.com/",
+    "logo": "images/nobel/organizations/dsm.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+    "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+  },
+  {
+    "id": "dundee",
+    "name": "邓迪大学",
+    "englishName": "University of Dundee",
+    "url": "https://www.dundee.ac.uk/",
+    "logo": "images/nobel/organizations/dundee.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.dundee.ac.uk&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "0beb120ac481edf11c1a3d3ad845b2e708d04cda438bb2032eee5beb672c18c1"
+  },
+  {
+    "id": "fjnu",
+    "name": "福建师范大学",
+    "englishName": "Fujian Normal University",
+    "url": "https://www.fjnu.edu.cn/",
+    "logo": "images/nobel/organizations/fjnu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.fjnu.edu.cn/_upload/tpl/07/ed/2029/template2029/images/shida.ico",
+    "sha256": "093c3fd0a9aee84dfd70a85ccd04d8d216dd0ebb965cb10fe321439d561b3837"
+  },
+  {
+    "id": "gothenburg",
+    "name": "哥德堡大学",
+    "englishName": "University of Gothenburg",
+    "url": "https://www.gu.se/en",
+    "logo": "images/nobel/organizations/gothenburg.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.gu.se/themes/custom/gu_theme_ruby/dist/images/favicons/apple-touch-icon.png",
+    "sha256": "1fe421dd8370e44188d92dbb3f6fa2240e1d5da0f0d7bad915aaec3e50e5fafc"
+  },
+  {
+    "id": "greenwich",
+    "name": "格林尼治大学",
+    "englishName": "University of Greenwich",
+    "url": "https://www.gre.ac.uk/",
+    "logo": "images/nobel/organizations/greenwich.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.gre.ac.uk/__data/assets/image/0024/208914/varieties/v180.png",
+    "sha256": "7e9387c52f9247caf3e5d4bcec3bac0b891b370b76afdb23e2865b0627c541d4"
+  },
+  {
+    "id": "henu",
+    "name": "河南大学",
+    "englishName": "Henan University",
+    "url": "https://www.henu.edu.cn/",
+    "logo": "images/nobel/organizations/henu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.henu.edu.cn/favicon.ico",
+    "sha256": "1058c6b9b1e8093c544b3431aaa0667a169d3638fbbdd16a828d7a4fb3dfe4dd"
+  },
+  {
+    "id": "hunan",
+    "name": "湖南大学",
+    "englishName": "Hunan University",
+    "url": "https://www.hnu.edu.cn/",
+    "logo": "images/nobel/organizations/hunan.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.hnu.edu.cn/images/favicon.png",
+    "sha256": "f1adb4058335beb13f70e1d555acd0a05d8b89d947805592ff2b096f7ba9cace"
+  },
+  {
+    "id": "imperial",
+    "name": "帝国理工学院",
+    "englishName": "Imperial College London",
+    "url": "https://www.imperial.ac.uk/",
+    "logo": "images/nobel/organizations/imperial.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.imperial.ac.uk/assets/website/images/favicon/favicon-180.png",
+    "sha256": "ce653020d06485f61ed63320108b80996709a6195bb6af5c2e12975f18fd5fa4"
+  },
+  {
+    "id": "kyoto",
+    "name": "京都大学",
+    "englishName": "Kyoto University",
+    "url": "https://www.kyoto-u.ac.jp/en",
+    "logo": "images/nobel/organizations/kyoto.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.kyoto-u.ac.jp/themes/custom/camphor/images/apple-touch-icon.png",
+    "sha256": "64041b05bc15bee28659fc5e0ed0cf29f89335752166d92e41d6b9d4303d25b9"
+  },
+  {
+    "id": "lethbridge",
+    "name": "莱斯布里奇大学",
+    "englishName": "University of Lethbridge",
+    "url": "https://www.ulethbridge.ca/",
+    "logo": "images/nobel/organizations/lethbridge.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.ulethbridge.ca/themes/custom/novalux/images/icons/apple-touch-icon.png",
+    "sha256": "652074e07fb0ddd174698ae809fe5673f2001ebd7d80e53613514d58e240d333"
+  },
+  {
+    "id": "lmu",
+    "name": "慕尼黑大学",
+    "englishName": "Ludwig-Maximilians-Universität München",
+    "url": "https://www.lmu.de/en/",
+    "logo": "images/nobel/organizations/lmu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://cms-cdn.lmu.de/assets/img/favicon.ico",
+    "sha256": "0545fa3d831838e0049ca03dde3f36b8904f500d2963f34dcd54fc2d2fdd5497"
+  },
+  {
+    "id": "manchester",
+    "name": "曼彻斯特大学",
+    "englishName": "The University of Manchester",
+    "url": "https://www.manchester.ac.uk/",
+    "logo": "images/nobel/organizations/manchester.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+    "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+  },
+  {
+    "id": "merck",
+    "name": "Merck · Sigma-Aldrich",
+    "englishName": "Merck · Sigma-Aldrich",
+    "url": "https://www.sigmaaldrich.com/",
+    "logo": "images/nobel/organizations/merck.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+    "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+  },
+  {
+    "id": "msu",
+    "name": "密歇根州立大学",
+    "englishName": "Michigan State University",
+    "url": "https://brand.msu.edu/",
+    "logo": "images/nobel/organizations/msu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://brand.msu.edu/favicon.ico?favicon.2-x85vtqgh2hy.ico",
+    "sha256": "fec68c4d71e3cdcb6278a12f97dcaea1b9a6aee8c74ff993c807e04707f8c178"
+  },
+  {
+    "id": "nankai",
+    "name": "南开大学",
+    "englishName": "Nankai University",
+    "url": "https://www.nankai.edu.cn/",
+    "logo": "images/nobel/organizations/nankai.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.nankai.edu.cn&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "7fb3a64e49919f5c75bcdf3fb76c455415d7092286f56c225236fd1260f783b7"
+  },
+  {
+    "id": "newcastle",
+    "name": "纽卡斯尔大学",
+    "englishName": "Newcastle University",
+    "url": "https://www.ncl.ac.uk/",
+    "logo": "images/nobel/organizations/newcastle.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.ncl.ac.uk/favicon.ico",
+    "sha256": "126e8076845466afc5fbebc3bc3b2f9a66a02c4b6f6e3375564196d516d04901"
+  },
+  {
+    "id": "novo",
+    "name": "诺和诺德",
+    "englishName": "Novo Nordisk",
+    "url": "https://www.novonordisk.com/",
+    "logo": "images/nobel/organizations/novo.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.novonordisk.com/etc.clientlibs/nncorp/components/structure/page/clientlib/resources/favicon-v2.ico",
+    "sha256": "acfd54d8ab0a64557c0ab7b2e534c169b729da35d2923ec5f32d321772351891"
+  },
+  {
+    "id": "novonesis",
+    "name": "Novonesis",
+    "englishName": "Novonesis",
+    "url": "https://www.novonesis.com/",
+    "logo": "images/nobel/organizations/novonesis.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.novonesis.com/favicon.ico",
+    "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+  },
+  {
+    "id": "oviedo",
+    "name": "奥维耶多大学",
+    "englishName": "University of Oviedo",
+    "url": "https://www.uniovi.es/",
+    "logo": "images/nobel/organizations/oviedo.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.uniovi.es/documents/39158/648db59f-58a0-3152-6556-9a1329312d10",
+    "sha256": "f63016a9bffa4ee76d95503ce2a3942590ebcf0caf915c362fa8f569662c6ae7"
+  },
+  {
+    "id": "oxinst",
+    "name": "Oxford Instruments",
+    "englishName": "Oxford Instruments",
+    "url": "https://www.oxinst.com/",
+    "logo": "images/nobel/organizations/oxinst.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.oxinst.com/favicon.ico",
+    "sha256": "b73572b0d82e08ea7f16f29424916312e3b58fdfc0039ba9a980f425eefda4f4"
+  },
+  {
+    "id": "rug",
+    "name": "格罗宁根大学",
+    "englishName": "University of Groningen",
+    "url": "https://www.rug.nl/",
+    "logo": "images/nobel/organizations/rug.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+    "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+  },
+  {
+    "id": "samsung",
+    "name": "Samsung Display",
+    "englishName": "Samsung Display",
+    "url": "https://global.samsungdisplay.com/",
+    "logo": "images/nobel/organizations/samsung.svg",
+    "logoKind": "symbol",
+    "assetSource": "https://global.samsungdisplay.com/@resource/images/favicon.svg",
+    "sha256": "55a53dd4ea1bbc973680d4a634c0c0b3434abb58a476903514ae39cb0688e369"
+  },
+  {
+    "id": "schrodinger",
+    "name": "Schrödinger",
+    "englishName": "Schrödinger",
+    "url": "https://www.schrodinger.com/",
+    "logo": "images/nobel/organizations/schrodinger.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.schrodinger.com/wp-content/themes/bigdrop-theme/dist/images/favicon/apple-icon.png",
+    "sha256": "92ea40c562aef0c7af7593196285f4dca8e8ba35d622311b6f5630f683dd39e1"
+  },
+  {
+    "id": "shanghaitech",
+    "name": "上海科技大学",
+    "englishName": "ShanghaiTech University",
+    "url": "https://www.shanghaitech.edu.cn/",
+    "logo": "images/nobel/organizations/shanghaitech.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.shanghaitech.edu.cn/_upload/tpl/00/20/32/template32/images/favicon.ico",
+    "sha256": "3567e38416c89379838e8590a1800d423a58859898fa683edebd44207f9232e8"
+  },
+  {
+    "id": "slu",
+    "name": "圣路易斯大学",
+    "englishName": "Saint Louis University",
+    "url": "https://www.slu.edu/",
+    "logo": "images/nobel/organizations/slu.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+    "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+  },
+  {
+    "id": "thermo",
+    "name": "Thermo Fisher Scientific",
+    "englishName": "Thermo Fisher Scientific",
+    "url": "https://www.thermofisher.com/",
+    "logo": "images/nobel/organizations/thermo.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+  },
+  {
+    "id": "toronto",
+    "name": "多伦多大学",
+    "englishName": "University of Toronto",
+    "url": "https://www.utoronto.ca/",
+    "logo": "images/nobel/organizations/toronto.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.utoronto.ca/themes/custom/bootstrap_uoft/images/favicons/favicon.ico",
+    "sha256": "7698fa568caac7a6585bd62514f8703167029e47d153e3c3f9707511fa24e912"
+  },
+  {
+    "id": "tsinghua",
+    "name": "清华大学",
+    "englishName": "Tsinghua University",
+    "url": "https://www.tsinghua.edu.cn/",
+    "logo": "images/nobel/organizations/tsinghua.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.tsinghua.edu.cn/favicon.ico",
+    "sha256": "44983bc3ed23e86996e1fcabce6a70426cdc6e2c73627fb2e818afca55d38479"
+  },
+  {
+    "id": "tus",
+    "name": "东京理科大学",
+    "englishName": "Tokyo University of Science",
+    "url": "https://www.tus.ac.jp/en/",
+    "logo": "images/nobel/organizations/tus.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.tus.ac.jp/favicon.ico",
+    "sha256": "0dd402957dd30905223da6ae48d7858f9be06d9af190ba6dce79aa2606ee8457"
+  },
+  {
+    "id": "twist",
+    "name": "Twist Bioscience",
+    "englishName": "Twist Bioscience",
+    "url": "https://www.twistbioscience.com/",
+    "logo": "images/nobel/organizations/twist.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+    "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+  },
+  {
+    "id": "ucl",
+    "name": "伦敦大学学院",
+    "englishName": "University College London",
+    "url": "https://www.ucl.ac.uk/",
+    "logo": "images/nobel/organizations/ucl.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+    "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+  },
+  {
+    "id": "uiuc",
+    "name": "伊利诺伊大学厄巴纳–香槟分校",
+    "englishName": "University of Illinois Urbana-Champaign",
+    "url": "https://illinois.edu/",
+    "logo": "images/nobel/organizations/uiuc.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=illinois.edu&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "07510c4f9167548ae6136219ce62c5743dbb27b5bd4eda848ec706629c3c3558"
+  },
+  {
+    "id": "umich",
+    "name": "密歇根大学",
+    "englishName": "University of Michigan",
+    "url": "https://umich.edu/",
+    "logo": "images/nobel/organizations/umich.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://umich.edu/favicon.ico",
+    "sha256": "8202cd7a3d86d53f5fdd904ab714c0766e24f43b8d823786e51e50310345bf8c"
+  },
+  {
+    "id": "uw",
+    "name": "华盛顿大学",
+    "englishName": "University of Washington",
+    "url": "https://www.washington.edu/",
+    "logo": "images/nobel/organizations/uw.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+    "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+  },
+  {
+    "id": "northwestern",
+    "name": "西北大学",
+    "englishName": "Northwestern University",
+    "url": "https://www.northwestern.edu/",
+    "logo": "images/nobel/organizations/northwestern.png",
+    "logoKind": "symbol",
+    "assetSource": "https://common.northwestern.edu/v8/icons/favicon-180.png",
+    "sha256": "6aafc0676f8eb750f8cfda2faba007a438bf66cd23f5bb00ff767b25604bb477"
+  },
+  {
+    "id": "szeged",
+    "name": "塞格德大学",
+    "englishName": "University of Szeged",
+    "url": "https://u-szeged.hu/english",
+    "logo": "images/nobel/organizations/szeged.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://u-szeged.hu/site/img/design/favicon.ico",
+    "sha256": "9f417e1a8417d573374ec54cb6d3587963bca3ec3e11300ecb2154e318bf9aef"
+  },
+  {
+    "id": "DeepMind",
+    "name": "Google DeepMind",
+    "englishName": "Google DeepMind",
+    "url": "https://deepmind.google/",
+    "logo": "images/nobel/organizations/DeepMind.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://deepmind.google/favicon.ico",
+    "sha256": "0683e96941bf43306bdf6a3b7e59d239dfad03296c11ce54ae5be3a6d3063b4f"
   }
 ]

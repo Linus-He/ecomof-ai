@@ -34,8 +34,55 @@
       "sha256": "522f9d102f70cc82dc75dd352137ea515be73f662e24e7c279f6cb1aa96bdc2b"
     }
   ],
+  "people": [
+    {
+      "name": "John Cornforth",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1975/cornforth/facts/",
+      "affiliations": [
+        "University of Sussex"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "247",
+      "image": "images/nobel/laureates/247.jpg"
+    },
+    {
+      "name": "Vladimir Prelog",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1975/prelog/facts/",
+      "affiliations": [
+        "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "248",
+      "image": "images/nobel/laureates/248.jpg"
+    }
+  ],
   "reading": {
     "title": "酶反应与有机立体化学",
+    "learningGuide": {
+      "topic": "chiral",
+      "title": [
+        "为什么分子也有左右手",
+        "Why molecules can be handed"
+      ],
+      "definition": [
+        "手性指一个物体与自己的镜像不能通过旋转而完全重合，左右手就是日常例子。分子即使具有相同的原子组成和连接顺序，也可能存在这样的镜像结构，称为对映体。生物体中的受体和酶本身具有空间结构，因此可能以不同方式识别它们。",
+        "A chiral object cannot be superimposed on its mirror image by rotation. Molecular enantiomers can have the same connectivity but different three-dimensional arrangements that biological systems distinguish."
+      ],
+      "example": [
+        "香芹酮就是具体例子：(R)-香芹酮具有留兰香薄荷的气味，(S)-香芹酮则呈葛缕子气味；前者可见于薄荷糖、牙膏等调香用途。同一分子骨架的空间排列变了，感知和配方用途也会不同。R/S 表示构型，不直接表示旋光方向，更不能当作安全性等级。",
+        "(R)-Carvone smells of spearmint; (S)-carvone smells of caraway. Their spatial arrangement matters to aroma applications. R/S labels do not specify optical-rotation direction or safety."
+      ],
+      "sources": [
+        {
+          "label": "美国化学会：香芹酮",
+          "url": "https://www.acs.org/molecule-of-the-week/archive/c/carvone.html"
+        },
+        {
+          "label": "CCDC：香芹酮的结构与用途",
+          "url": "https://www.ccdc.cam.ac.uk/media/Web-Structure-exploration.pdf"
+        }
+      ]
+    },
     "summary": "酶反应与有机立体化学。说明立体化学是理解反应选择性的核心证据。",
     "sections": [
       {
@@ -141,17 +188,62 @@
       "companyCases": [
         {
           "organizationId": "novonesis",
-          "role": "工业酶与生物催化",
-          "status": "企业公开资料",
+          "id": "novonesis",
+          "role": "工业酶：先确定底物，再选择转化步骤",
+          "status": "商业生物加工方案",
           "paragraphs": [
-            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+            "Novonesis 的工业生物加工业务按酿造、油脂处理和工业水管理等场景提供酶方案。酶作用于特定化学键，适合用于原料处理、组分释放或杂质去除；选择产品首先取决于待处理原料中真正需要改变的组分。",
+            "酿造中的酶方案与油脂加工面对不同底物和工艺条件。工业上关心的不只是某个酶在试管中的活性，还包括配方稳定性、温度与酸碱条件、原料差异以及与既有设备的衔接。企业资料中的应用分类提供了选择入口，不能代替具体工艺评价。",
+            "这与酶催化及定向进化的联系，是把可选择的生物催化功能放入实际加工步骤。不能据此推断企业的每个产品都来自某一项获奖实验，或把一种酶的效果推广到所有发酵与合成反应。"
+          ],
+          "products": [
+            {
+              "name": "酿造用酶解决方案",
+              "application": "围绕谷物原料处理和酿造流程查阅应用。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "name": "油脂加工与工业水管理方案",
+              "application": "按不同原料、处理对象和工艺环节选择生物加工路线。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "酿造用酶解决方案 · 官方资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "label": "油脂加工与工业水管理方案 · 官方资料",
               "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
             }
-          ]
+          ],
+          "introduction": [
+            "Novonesis 开发用于工业加工的酶及微生物方案。",
+            "Novonesis develops enzyme and microbial solutions for industrial processing."
+          ],
+          "en": {
+            "role": "Enzymes for defined processing steps",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its industrial-bioprocessing portfolio groups enzyme solutions by applications including brewing, oils and fats, and industrial water management. An enzyme acts on particular substrates and bonds, so the raw material and desired conversion determine the choice.",
+              "Industrial application also depends on formulation stability, temperature, pH and compatibility with the process. Brewing and oils processing are distinct workflows even when both use enzymes.",
+              "The cited portfolio shows applications of biocatalysis; it does not establish that every product derives from a particular Nobel experiment."
+            ],
+            "products": [
+              {
+                "name": "Brewing enzyme solutions",
+                "application": "Select enzymes for the raw material and conversion required in a brewing process.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              },
+              {
+                "name": "Oils processing and industrial water",
+                "application": "Separate oils-processing and industrial-water tasks when choosing a bioprocessing application.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              }
+            ]
+          },
+          "relation": "Novonesis 的工业酶产品展示生物催化的产业路径；未核实到这套含硼人工酶的商品化配方。"
         }
       ]
     },

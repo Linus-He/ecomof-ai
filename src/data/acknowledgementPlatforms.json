@@ -1,0 +1,172 @@
+[
+  {
+    "id": "ccdc",
+    "name": "Cambridge Crystallographic Data Centre (CCDC)",
+    "englishName": "CCDC",
+    "url": "https://www.ccdc.cam.ac.uk/",
+    "logo": "images/nobel/organizations/ccdc.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.ccdc.cam.ac.uk/apple-touch-icon.png",
+    "sha256": "3699e09c303e6d2f3492a7852112e699bb0e8cee59b56a3381b4de33b2df3f58",
+    "use": [
+      "晶体结构标识与 CSD 来源核对",
+      "Crystal identifiers and CSD source checks"
+    ]
+  },
+  {
+    "id": "zenodo",
+    "name": "Zenodo",
+    "englishName": "Zenodo",
+    "url": "https://about.zenodo.org/",
+    "logo": "images/nobel/organizations/zenodo.png",
+    "logoKind": "symbol",
+    "assetSource": "https://about.zenodo.org/favicon.ico",
+    "sha256": "3976aac209cd8bf57da914758447ac3ebcb8728efdcc0c641008b3a8b5643273",
+    "use": [
+      "CoRE MOF 2024、FAIR-MOFs 数据集版本、文件与校验记录",
+      "Versioned CoRE MOF 2024 and FAIR-MOFs files and checksums"
+    ]
+  },
+  {
+    "id": "nist",
+    "name": "NIST / ISODB",
+    "englishName": "National Institute of Standards and Technology",
+    "url": "https://adsorption.nist.gov/isodb/",
+    "logo": "images/nobel/organizations/nist.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.nist.gov/themes/custom/nist_www/favicon.ico",
+    "sha256": "78eacb1a528cb29d29a908dec235826144799489ac4101848bb0686e38558655",
+    "use": [
+      "已发表吸附等温线、材料标识与原始文献入口",
+      "Published adsorption isotherms, material identifiers and references"
+    ]
+  },
+  {
+    "id": "mofanatomy",
+    "name": "MOF Anatomy",
+    "englishName": "MOF Anatomy",
+    "url": "https://mofanatomy.com/",
+    "logo": "images/nobel/organizations/mofanatomy.png",
+    "logoKind": "symbol",
+    "assetSource": "https://mofanatomy.com/home/wp-content/uploads/2024/07/cropped-favicon-180x180.png",
+    "sha256": "26c5a918c3d506dc72871396b865b8bb2bd1fa9a31980fb76527599060b21fec",
+    "use": [
+      "MOF 身份、结构组成与公开目录核对",
+      "Public MOF identity, composition and directory records"
+    ]
+  },
+  {
+    "id": "crossref",
+    "name": "Crossref",
+    "englishName": "Crossref",
+    "url": "https://www.crossref.org/",
+    "logo": "images/nobel/organizations/crossref.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.crossref.org/favicon.ico",
+    "sha256": "ce21cd6183be427a5693ccf3579365099e3a803ad2874bc6d277407954638bf2",
+    "use": [
+      "论文 DOI、书目与期刊元数据",
+      "DOI, bibliographic and journal metadata"
+    ]
+  },
+  {
+    "id": "openalex",
+    "name": "OpenAlex",
+    "englishName": "OpenAlex",
+    "url": "https://openalex.org/",
+    "logo": "images/nobel/organizations/openalex.png",
+    "logoKind": "symbol",
+    "assetSource": "https://openalex.org/tricon-outlined.png",
+    "sha256": "dfb2cd7139197fdfb98507802d762d4f9df8c363feb41adb38ab315a26e91a29",
+    "use": [
+      "公开学术记录与文献检索元数据",
+      "Public scholarly records and discovery metadata"
+    ]
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "englishName": "GitHub",
+    "url": "https://github.com/",
+    "logo": "images/nobel/organizations/github.svg",
+    "logoKind": "symbol",
+    "assetSource": "https://github.githubassets.com/favicons/favicon.svg",
+    "sha256": "6a9577cd4f7fa6b75bde1025af85b944e9dd1388373b55ccba6e9f80ac2eae60",
+    "use": [
+      "开源实现与数据集来源文档；QMOF 隔离条目不计入有效材料",
+      "Open-source implementations and dataset documentation; quarantined QMOF rows are excluded from active material counts"
+    ]
+  },
+  {
+    "id": "figshare",
+    "name": "Figshare",
+    "englishName": "Figshare",
+    "url": "https://figshare.com/",
+    "logo": "images/nobel/organizations/figshare.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=figshare.com&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "50f3bad6810cd286dcb39d96ba91e7cdbdf88f44e3fe33aa01f0055b6e2dc484",
+    "use": [
+      "文献关联数据的发布记录与版本出处",
+      "Publication-linked dataset records and version provenance"
+    ]
+  },
+  {
+    "id": "nobelprize",
+    "name": "NobelPrize.org",
+    "englishName": "NobelPrize.org",
+    "url": "https://www.nobelprize.org/",
+    "logo": "images/nobel/organizations/nobelprize.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.nobelprize.org/uploads/2018/08/Nobel-favicon-188x188.png",
+    "sha256": "59f35734b287194d62ee4fa7f33cf3e588ac71398957c8fb60c4b33c01cd3430",
+    "use": [
+      "历年授奖记录、获奖者资料、官方科普与署名肖像",
+      "Award records, laureate profiles, official science explanations and credited portraits"
+    ]
+  },
+  {
+    "id": "polymarket",
+    "name": "Polymarket",
+    "englishName": "Polymarket",
+    "url": "https://polymarket.com/",
+    "logo": "images/nobel/organizations/polymarket.png",
+    "logoKind": "symbol",
+    "assetSource": "https://polymarket.com/icons/apple-touch-icon.png",
+    "sha256": "b51374d55ac2e822d03a5c3e831e8f6537f44aa01e49570a8d60c246aa44445c",
+    "use": [
+      "Gamma 市场目录与 CLOB 开奖前历史价格",
+      "Gamma metadata and pre-announcement CLOB price history"
+    ]
+  },
+  {
+    "id": "manifold",
+    "name": "Manifold",
+    "englishName": "Manifold",
+    "url": "https://manifold.markets/",
+    "logo": "images/nobel/organizations/manifold.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://manifold.markets/favicon.ico",
+    "sha256": "07b42fd8b571552c02a47dd27c582fa3966232b0ba05caf3340c28989da80a58",
+    "use": [
+      "公开化学奖市场、规则与虚拟积分成交历史",
+      "Public Chemistry markets, rules and play-money trade histories"
+    ]
+  },
+  {
+    "id": "kalshi",
+    "name": "Kalshi",
+    "englishName": "Kalshi",
+    "url": "https://kalshi.com/",
+    "logo": "images/nobel/organizations/kalshi.svg",
+    "logoKind": "wordmark",
+    "assetSource": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Kalshi-logo-2026.svg",
+    "brandSource": "https://kalshi.com/brandkit",
+    "sha256": "f57196a116616fe7e51f548bbfca3fcb878221c90d17ad470b183b0703ed824d",
+    "use": [
+      "化学奖官方市场规则与有真实成交的历史价格柱",
+      "Chemistry market rules and historical candles with verified traded volume"
+    ]
+  }
+]

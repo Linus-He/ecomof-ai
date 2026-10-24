@@ -34,8 +34,45 @@
       "sha256": "b55af21b1b10992e38a542dd728c9a500aef18cee1d00817cfdb67012830f80c"
     }
   ],
+  "people": [
+    {
+      "name": "Archer J.P. Martin",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1952/martin/facts/",
+      "affiliations": [
+        "National Institute for Medical Research"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "214",
+      "image": "images/nobel/laureates/214.jpg"
+    },
+    {
+      "name": "Richard L.M. Synge",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1952/synge/facts/",
+      "affiliations": [
+        "Rowett Research Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "215",
+      "image": "images/nobel/laureates/215.jpg"
+    }
+  ],
   "reading": {
     "title": "分配色谱",
+    "learningGuide": {
+      "topic": "separation",
+      "title": [
+        "把混合物拆开，才能逐一研究",
+        "Separation before identification"
+      ],
+      "definition": [
+        "分离方法利用组分在尺寸、电荷、溶解性或相互作用上的差别。分开只是为鉴定创造条件，收集到一个峰或条带以后，仍需确认它是什么。",
+        "Separation exploits differences in size, charge, solubility or interactions. A separated band still needs identification."
+      ],
+      "example": [
+        "色谱柱里两个分子移动得不同快，可以形成不同洗脱峰。换柱材料或流动相可能改变分离效果；峰面积还要经过合适校准，才能用来判断含量。",
+        "Column and mobile-phase choices change chromatographic behavior, while calibrated peak areas are needed for quantitative interpretation."
+      ]
+    },
     "summary": "分配色谱。将分离变成可重复的分析过程。",
     "sections": [
       {
@@ -141,17 +178,62 @@
       "companyCases": [
         {
           "organizationId": "cytiva",
-          "role": "蛋白纯化系统与色谱材料",
-          "status": "企业公开资料",
+          "id": "cytiva",
+          "role": "ÄKTA 与色谱介质：把分离方法接到可运行的流程",
+          "status": "商业蛋白纯化系统与分离介质",
           "paragraphs": [
-            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+            "Cytiva 的 ÄKTA 系列面向蛋白质等生物分子的液相色谱纯化。泵、阀、检测器和收集装置控制液体流路，色谱柱中的介质决定样品怎样被保留、洗脱或按尺寸分开。因此，仪器平台和分离机理是两个需要分别选择的层次。",
+            "官方选型资料列出亲和、离子交换、疏水作用及尺寸排阻等柱型。Sephadex 用于凝胶过滤和脱盐，Superdex 等尺寸排阻介质则有不同的分级范围；“都是色谱柱”并不意味着它们可以完成同一种纯化任务。",
+            "放大实验时，需要一起考虑上样量、流速、压力、缓冲液及回收率。一个蛋白在小柱上得到清晰峰形，不自动说明高浓度或大批量样品仍能保持同样的分离效果。这里展示的是已有系统与介质的工作分工。"
+          ],
+          "products": [
+            {
+              "name": "ÄKTA pure 色谱系统",
+              "application": "组织自动化流路、检测与组分收集。",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "name": "Sephadex / Superdex 及预装柱选型",
+              "application": "按脱盐、尺寸排阻和结合机制比较不同柱型。",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+              "label": "ÄKTA pure 色谱系统 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+            },
+            {
+              "label": "Sephadex / Superdex 及预装柱选型 · 官方资料",
+              "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Cytiva 提供生物分子研究与生物工艺所用系统和耗材。",
+            "Cytiva supplies technologies and consumables for biomolecular research and bioprocessing."
+          ],
+          "en": {
+            "role": "ÄKTA systems and chromatography media",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "ÄKTA chromatography systems combine pumps, valves, detection and collection for biomolecule purification. The instrument controls the flow, while the column medium determines how molecules bind, elute or separate by size.",
+              "The official selection guide distinguishes affinity, ion exchange, hydrophobic interaction and size exclusion. Sephadex and Superdex media serve different fractionation tasks and ranges; they are not interchangeable simply because both are chromatography media.",
+              "Loading, flow, pressure, buffer and recovery must be considered when a method is scaled."
+            ],
+            "products": [
+              {
+                "name": "ÄKTA pure chromatography",
+                "application": "Control liquid flow, detection and fraction collection during biomolecule purification.",
+                "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+              },
+              {
+                "name": "Sephadex / Superdex column selection",
+                "application": "Choose media and column formats for desalting, size exclusion or a specific binding mechanism.",
+                "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+              }
+            ]
+          },
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
         }
       ]
     },

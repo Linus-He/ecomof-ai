@@ -34,8 +34,45 @@
       "sha256": "9b4eec2df0e914e9db511ce5d9bdaefb10d387029561edb2264fcfb4a7f5dfaa"
     }
   ],
+  "people": [
+    {
+      "name": "Norman Haworth",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1937/haworth/facts/",
+      "affiliations": [
+        "Birmingham University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "196",
+      "image": "images/nobel/laureates/196.jpg"
+    },
+    {
+      "name": "Paul Karrer",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1937/karrer/facts/",
+      "affiliations": [
+        "University of Zurich"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "197",
+      "image": "images/nobel/laureates/197.jpg"
+    }
+  ],
   "reading": {
     "title": "糖、维生素 C 与其他维生素",
+    "learningGuide": {
+      "topic": "vitamins",
+      "title": [
+        "发现分子与制成稳定原料",
+        "Identity and stability"
+      ],
+      "definition": [
+        "维生素研究既涉及物质的分离和结构，也涉及活性与化学稳定性。确认一种分子并不意味着它在所有温度、光照或配方中都能保持相同状态。",
+        "Vitamin research connects isolation, structure, activity and chemical stability. A molecular identity does not establish stability in every formulation."
+      ],
+      "example": [
+        "同一种维生素原料可以因氧化、光照或加工而发生变化。分析试剂、食品配料和饲料制剂还对应不同规格，不能仅凭相同名称互相替代。",
+        "Oxidation, light and processing can change an ingredient. Laboratory reagents and formulated nutritional products have different specifications."
+      ]
+    },
     "summary": "糖、维生素 C 与其他维生素。把生理效应与明确结构、官能团和化学转化联系起来。",
     "sections": [
       {
@@ -192,31 +229,121 @@
       "companyCases": [
         {
           "organizationId": "dsm",
-          "role": "营养原料与香气业务",
-          "status": "企业公开资料",
+          "id": "dsm",
+          "role": "维生素原料：化学身份之外还有剂型与稳定性",
+          "status": "商业营养原料与产品资料",
           "paragraphs": [
-            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+            "dsm-firmenich 的维生素目录面向饲料、食品等不同用途。企业提供的并不只是一个维生素名称，还涉及活性成分的化学形式、载体及产品剂型。对于同一种营养素，配方和加工过程会影响它能否在目标产品中保持有效含量。",
+            "以官方目录中的 ROVIMIX STAY-C 35 为例，产品资料将其列为维生素 C 的稳定化产品形式。它解决的是配方和加工中的稳定性问题，与直接购买分析用抗坏血酸试剂属于不同使用场景。实际选型应核对产品说明所针对的动物、原料和工艺。",
+            "从分子结构研究到营养原料生产，中间还隔着合成或发酵、分离、制剂和质量控制。这里用维生素产品说明这条产业链的后端；目录没有提供的制造路线、菌株或成本信息，不据此推断。"
+          ],
+          "products": [
+            {
+              "name": "维生素产品目录",
+              "application": "查阅不同维生素及其对应的商业原料形式。",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            },
+            {
+              "name": "ROVIMIX 产品形式对照",
+              "application": "比较活性成分与产品剂型，包含 STAY-C 35。",
+              "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "维生素产品目录 · 官方资料",
               "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            },
+            {
+              "label": "ROVIMIX 产品形式对照 · 官方资料",
+              "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "dsm-firmenich 提供营养原料与相关制剂技术。",
+            "dsm-firmenich supplies nutritional ingredients and related formulation technologies."
+          ],
+          "en": {
+            "role": "Vitamin ingredients and product forms",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Commercial vitamin ingredients are specified by chemical form, carrier and formulation, rather than by the vitamin name alone. Processing and storage can affect the retained active content in a finished formulation.",
+              "The official product-form guide lists ROVIMIX STAY-C 35 as a stabilized vitamin C product. That formulation task differs from supplying analytical ascorbic acid for a laboratory experiment.",
+              "The catalogue does not disclose every synthesis route, production organism or manufacturing cost."
+            ],
+            "products": [
+              {
+                "name": "Vitamin product portfolio",
+                "application": "Identify the vitamin ingredient and formulation intended for a particular nutritional application.",
+                "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+              },
+              {
+                "name": "ROVIMIX product-form guide",
+                "application": "Compare active substances and commercial product forms, including stabilized vitamin C.",
+                "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+              }
+            ]
+          },
+          "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
         },
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-sugars",
+          "role": "糖类原料与糖生物学试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "单糖、寡糖、多糖和糖衍生物分别适合不同问题。糖合成关注连接位置和立体构型，糖生物学关注糖链与蛋白、细胞之间的关系。供应目录可以帮助选择已知底物和标准品，不能仅凭一个相同分子式判断糖的构型。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "糖类原料与糖生物学试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "糖类原料与糖生物学试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Carbohydrate reagents and building blocks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Monosaccharides, oligosaccharides, polysaccharides and derivatives address different experimental questions. Sugar synthesis requires control of linkage position and stereochemistry, while glycobiology studies interactions with proteins and cells.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
         }
       ]
     },

@@ -46,8 +46,56 @@
       "sha256": "f764862c9a90aafe16e1f3228c84191531bc7268aa959b0531eb8c185275915e"
     }
   ],
+  "people": [
+    {
+      "name": "David Baker",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/",
+      "affiliations": [
+        "University of Washington",
+        "Howard Hughes Medical Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1039",
+      "image": "images/nobel/laureates/1039.jpg"
+    },
+    {
+      "name": "Demis Hassabis",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/",
+      "affiliations": [
+        "Google DeepMind"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1040",
+      "image": "images/nobel/laureates/1040.jpg"
+    },
+    {
+      "name": "John Jumper",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/",
+      "affiliations": [
+        "Google DeepMind"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1041",
+      "image": "images/nobel/laureates/1041.jpg"
+    }
+  ],
   "reading": {
     "title": "蛋白质设计与结构预测",
+    "learningGuide": {
+      "topic": "protein",
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
     "summary": "蛋白质设计与结构预测。显著扩展可分析和可设计的蛋白质空间。",
     "sections": [
       {
@@ -204,31 +252,121 @@
       "companyCases": [
         {
           "organizationId": "twist",
-          "role": "合成 DNA 与变体文库",
-          "status": "企业公开资料",
+          "id": "twist",
+          "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+          "status": "商业 DNA 合成服务与研究文库",
           "paragraphs": [
-            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+            "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+            "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+            "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+          ],
+          "products": [
+            {
+              "name": "Clonal Genes 与 Gene Fragments",
+              "application": "在已克隆基因和基因片段之间选择交付形式。",
+              "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "name": "Variant Libraries",
+              "application": "按组合变异和位点饱和等设计组织实验序列。",
+              "url": "https://www.twistbioscience.com/products/libraries"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Clonal Genes 与 Gene Fragments · 官方资料",
               "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "label": "Variant Libraries · 官方资料",
+              "url": "https://www.twistbioscience.com/products/libraries"
             }
-          ]
+          ],
+          "introduction": [
+            "Twist Bioscience 提供合成 DNA 与序列文库。",
+            "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+          ],
+          "en": {
+            "role": "Gene synthesis and variant libraries",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+              "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+              "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+            ],
+            "products": [
+              {
+                "name": "Clonal Genes and Gene Fragments",
+                "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+                "url": "https://www.twistbioscience.com/products/genes"
+              },
+              {
+                "name": "Variant Libraries",
+                "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+                "url": "https://www.twistbioscience.com/products/libraries"
+              }
+            ]
+          },
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
         },
         {
           "organizationId": "novo",
-          "role": "胰岛素研究与产品",
-          "status": "企业公开资料",
+          "id": "novo",
+          "role": "胰岛素产品研发：从分子作用到给药特征",
+          "status": "企业糖尿病研发与产品资料",
           "paragraphs": [
-            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+            "Novo Nordisk 的糖尿病研发以胰岛素及其他治疗方向为对象。胰岛素通过与受体相互作用参与血糖调节；制造可用产品还需要控制分子身份、杂质、制剂稳定性及给药后的暴露。分子有活性只是其中一个环节。",
+            "企业公开研发资料把分子设计和产品开发连接起来。对于胰岛素类产品，改变分子或制剂可能改变吸收和作用过程，评价需要同时考虑药代动力学、药效和临床证据。不能仅凭结构相似便推断两种制剂可以互换。",
+            "本节展示蛋白质化学研究通往药物开发的路径，不提供用药或剂量建议，也不把所有胰岛素产品归为同一种制备路线。具体产品信息应进入企业产品资料并核对相应监管说明。"
+          ],
+          "products": [
+            {
+              "name": "糖尿病科学与技术",
+              "application": "了解企业对分子作用、制剂和开发问题的介绍。",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "name": "企业产品资料",
+              "application": "从产品层面核对名称、用途和相应资料入口。",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+              "label": "糖尿病科学与技术 · 官方资料",
+              "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+            },
+            {
+              "label": "企业产品资料 · 官方资料",
+              "url": "https://www.novonordisk.com/our-products/our-medicines.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Novo Nordisk 研发糖尿病等慢性疾病的药物产品。",
+            "Novo Nordisk researches and develops medicines for diabetes and other chronic diseases."
+          ],
+          "en": {
+            "role": "Insulin research and product development",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Insulin acts through receptor interactions, but an insulin product also requires control of identity, impurities, formulation and exposure after administration. Molecular activity is one part of development.",
+              "Changes in the molecule or formulation may alter absorption and duration of action. Structural similarity alone does not establish that formulations can be exchanged.",
+              "This is an industrial-development example, not prescribing or dosing advice."
+            ],
+            "products": [
+              {
+                "name": "Diabetes science and technology",
+                "application": "Connect insulin action to formulation, exposure and product-development questions.",
+                "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+              },
+              {
+                "name": "Official product information",
+                "application": "Check a named product against its own official information rather than inferring interchangeability.",
+                "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+              }
+            ]
+          },
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
         }
       ]
     },

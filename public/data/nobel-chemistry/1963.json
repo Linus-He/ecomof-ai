@@ -34,8 +34,45 @@
       "sha256": "c80f1c161aa6e8253d8cf05d4a3b2b001e3a0d8758bcfe25e6a8ae8137f493aa"
     }
   ],
+  "people": [
+    {
+      "name": "Karl Ziegler",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1963/ziegler/facts/",
+      "affiliations": [
+        "Max-Planck-Institut für Kohlenforschung"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "228",
+      "image": "images/nobel/laureates/228.jpg"
+    },
+    {
+      "name": "Giulio Natta",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1963/natta/facts/",
+      "affiliations": [
+        "Institute of Technology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "229",
+      "image": "images/nobel/laureates/229.jpg"
+    }
+  ],
   "reading": {
     "title": "有规立构的高分子合成",
+    "learningGuide": {
+      "topic": "polymer",
+      "title": [
+        "长链结构怎样变成材料性质",
+        "From chains to materials"
+      ],
+      "definition": [
+        "聚合物由重复单元连接而成，但重复单元之外，链长、支化、立体排列和链间作用同样重要。相同单体名称并不能唯一确定材料性能。",
+        "Chain length, branching, stereochemistry and interactions matter alongside the repeat unit. One monomer name does not define a material."
+      ],
+      "example": [
+        "聚乙烯可以因支化和结晶情况不同而呈现不同加工与力学表现。把大分子拆回小分子或重新加工，也需要区分化学回收和物理再利用。",
+        "Polyethylene materials can differ through branching and crystallinity. Chemical recycling and physical reprocessing are also distinct."
+      ]
+    },
     "summary": "有规立构的高分子合成。把聚合物的微观链结构变成可设计变量。",
     "sections": [
       {
@@ -151,17 +188,62 @@
       "companyCases": [
         {
           "organizationId": "basf",
-          "role": "塑料循环与化工制造",
-          "status": "企业公开业务",
+          "id": "basf",
+          "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+          "status": "商业化工原料与材料",
           "paragraphs": [
-            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+            "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+            "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+          ],
+          "products": [
+            {
+              "name": "氨基化学品",
+              "application": "氨、尿素及相关含氮产品的官方业务入口。",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "name": "Ultramid 与聚酰胺前体",
+              "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+            }
           ],
           "sources": [
             {
-              "label": "公司循环经济资料",
-              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              "label": "氨基化学品 · 官方资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "label": "Ultramid 与聚酰胺前体 · 官方资料",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
             }
-          ]
+          ],
+          "introduction": [
+            "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+            "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+          ],
+          "en": {
+            "role": "Ammonia, urea and polyamide value chains",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+              "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+              "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+            ],
+            "products": [
+              {
+                "name": "Ammonia-based chemicals",
+                "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+                "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+              },
+              {
+                "name": "Ultramid and polyamide precursors",
+                "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+                "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+              }
+            ]
+          },
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。"
         }
       ]
     },

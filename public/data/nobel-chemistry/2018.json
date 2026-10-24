@@ -46,8 +46,55 @@
       "sha256": "23f1d9c80e1eb772c7d41864545e6a0c529dd46492bec114d2e6d2accee9c2d4"
     }
   ],
+  "people": [
+    {
+      "name": "Frances H. Arnold",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2018/arnold/facts/",
+      "affiliations": [
+        "California Institute of Technology (Caltech)"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "963",
+      "image": "images/nobel/laureates/963.jpg"
+    },
+    {
+      "name": "George P. Smith",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2018/smith/facts/",
+      "affiliations": [
+        "University of Missouri"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "964",
+      "image": "images/nobel/laureates/964.jpg"
+    },
+    {
+      "name": "Sir Gregory P. Winter",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2018/winter/facts/",
+      "affiliations": [
+        "MRC Laboratory of Molecular Biology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "965",
+      "image": "images/nobel/laureates/965.jpg"
+    }
+  ],
   "reading": {
     "title": "酶的定向进化与噬菌体展示",
+    "learningGuide": {
+      "topic": "directed",
+      "title": [
+        "用筛选引导分子功能变化",
+        "Selection defines an evolution experiment"
+      ],
+      "definition": [
+        "定向进化通过产生变体、测量或筛选功能、再选择下一轮起点，让分子在定义的目标下发生可积累变化。筛选方法决定了什么性质被保留下来。",
+        "Directed evolution combines variation, measurement and selection toward a defined objective. The assay determines which traits are retained."
+      ],
+      "example": [
+        "如果只筛选某一种底物的转化率，得到的变体不一定也具有更好的稳定性或更广的底物范围。目标和测量条件需要随结果一起报告。",
+        "Selecting conversion of one substrate does not automatically improve stability or substrate breadth. Conditions belong with the result."
+      ]
+    },
     "summary": "酶的定向进化与噬菌体展示。把进化过程转化为可操作的分子工程方法。",
     "sections": [
       {
@@ -153,17 +200,62 @@
       "companyCases": [
         {
           "organizationId": "novonesis",
-          "role": "工业酶与生物催化",
-          "status": "企业公开资料",
+          "id": "novonesis",
+          "role": "工业酶：先确定底物，再选择转化步骤",
+          "status": "商业生物加工方案",
           "paragraphs": [
-            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+            "Novonesis 的工业生物加工业务按酿造、油脂处理和工业水管理等场景提供酶方案。酶作用于特定化学键，适合用于原料处理、组分释放或杂质去除；选择产品首先取决于待处理原料中真正需要改变的组分。",
+            "酿造中的酶方案与油脂加工面对不同底物和工艺条件。工业上关心的不只是某个酶在试管中的活性，还包括配方稳定性、温度与酸碱条件、原料差异以及与既有设备的衔接。企业资料中的应用分类提供了选择入口，不能代替具体工艺评价。",
+            "这与酶催化及定向进化的联系，是把可选择的生物催化功能放入实际加工步骤。不能据此推断企业的每个产品都来自某一项获奖实验，或把一种酶的效果推广到所有发酵与合成反应。"
+          ],
+          "products": [
+            {
+              "name": "酿造用酶解决方案",
+              "application": "围绕谷物原料处理和酿造流程查阅应用。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "name": "油脂加工与工业水管理方案",
+              "application": "按不同原料、处理对象和工艺环节选择生物加工路线。",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "酿造用酶解决方案 · 官方资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            },
+            {
+              "label": "油脂加工与工业水管理方案 · 官方资料",
               "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
             }
-          ]
+          ],
+          "introduction": [
+            "Novonesis 开发用于工业加工的酶及微生物方案。",
+            "Novonesis develops enzyme and microbial solutions for industrial processing."
+          ],
+          "en": {
+            "role": "Enzymes for defined processing steps",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its industrial-bioprocessing portfolio groups enzyme solutions by applications including brewing, oils and fats, and industrial water management. An enzyme acts on particular substrates and bonds, so the raw material and desired conversion determine the choice.",
+              "Industrial application also depends on formulation stability, temperature, pH and compatibility with the process. Brewing and oils processing are distinct workflows even when both use enzymes.",
+              "The cited portfolio shows applications of biocatalysis; it does not establish that every product derives from a particular Nobel experiment."
+            ],
+            "products": [
+              {
+                "name": "Brewing enzyme solutions",
+                "application": "Select enzymes for the raw material and conversion required in a brewing process.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              },
+              {
+                "name": "Oils processing and industrial water",
+                "application": "Separate oils-processing and industrial-water tasks when choosing a bioprocessing application.",
+                "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+              }
+            ]
+          },
+          "relation": "Novonesis 的工业酶产品展示生物催化的产业路径；未核实到这套含硼人工酶的商品化配方。"
         }
       ]
     },

@@ -1,0 +1,413 @@
+{
+  "year": 2024,
+  "title": "Chemistry Nobel 2024: Awarded Field(s) Multimarket",
+  "source": "Manifold",
+  "currency": "MANA",
+  "marketKind": "field",
+  "eventUrl": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+  "eventId": "PSBYwxvrI53eVr01PO9L",
+  "windowStart": 1708182423,
+  "cutoff": 1728467100,
+  "cutoffSource": "https://www.nobelprize.org/prizes/chemistry/2024/prize-announcement/",
+  "cutoffNote": "Earliest scheduled announcement.",
+  "marketRulesUrl": "https://api.manifold.markets/v0/market/PSBYwxvrI53eVr01PO9L",
+  "method": "Manifold play-money trade probabilities. Last directly recorded probAfter per answer; probabilities of other answers may also move without a direct trade. Quotes are not a complete simultaneous market snapshot. No settlement values and no interpolated history.",
+  "answersSumToOne": false,
+  "winners": [
+    "David Baker",
+    "Demis Hassabis",
+    "John Jumper"
+  ],
+  "unlistedWinners": [],
+  "candidates": [
+    {
+      "id": "080c91549bfa",
+      "name": "Biochemistry or Chemical Biology",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182451,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131204,
+          "p": 0.327934469127148
+        },
+        {
+          "t": 1710815760,
+          "p": 0.4674732107483449
+        }
+      ],
+      "probability": 0.4674732107483449,
+      "quoteAt": 1710815760,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "ad0cbe8d4a6e",
+      "name": "Environmental or Climate-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182468,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131217,
+          "p": 0.22883512335093684
+        },
+        {
+          "t": 1710815745,
+          "p": 0.39143258475791487
+        }
+      ],
+      "probability": 0.39143258475791487,
+      "quoteAt": 1710815745,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "1ba2a18ec582",
+      "name": "Catalysis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182431,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131187,
+          "p": 0.22883512335093684
+        },
+        {
+          "t": 1710815768,
+          "p": 0.3914325847579147
+        }
+      ],
+      "probability": 0.3914325847579147,
+      "quoteAt": 1710815768,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "e00821d2cced",
+      "name": "Medicinal, Drug or Pharmacology-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182458,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131214,
+          "p": 0.30521301175236526
+        }
+      ],
+      "probability": 0.30521301175236526,
+      "quoteAt": 1709131214,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "641317857c4f",
+      "name": "Battery-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182471,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131221,
+          "p": 0.2822204054862727
+        }
+      ],
+      "probability": 0.2822204054862727,
+      "quoteAt": 1709131221,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "c78f54c5259e",
+      "name": "Metal Organic Frameworks (MOF)",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182434,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131194,
+          "p": 0.259059463037835
+        },
+        {
+          "t": 1710843866,
+          "p": 0.2810320344917982
+        }
+      ],
+      "probability": 0.2810320344917982,
+      "quoteAt": 1710843866,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "627f6658e4e4",
+      "name": "Organic Synthesis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182423,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131178,
+          "p": 0.259059463037835
+        }
+      ],
+      "probability": 0.259059463037835,
+      "quoteAt": 1709131178,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "d829451a99bf",
+      "name": "Computational or Theoretical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182444,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131190,
+          "p": 0.259059463037835
+        }
+      ],
+      "probability": 0.259059463037835,
+      "quoteAt": 1709131190,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "bebf68c25ed6",
+      "name": "Inorganic Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182427,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131183,
+          "p": 0.22883512335093684
+        }
+      ],
+      "probability": 0.22883512335093684,
+      "quoteAt": 1709131183,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "7a68786157f9",
+      "name": "Physical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182448,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131198,
+          "p": 0.22883512335093684
+        }
+      ],
+      "probability": 0.22883512335093684,
+      "quoteAt": 1709131198,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "da84d827362b",
+      "name": "Polymer chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182474,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131225,
+          "p": 0.22883512335093684
+        }
+      ],
+      "probability": 0.22883512335093684,
+      "quoteAt": 1709131225,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "0162c2e60c25",
+      "name": "Chemical Thermodynamics",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182454,
+          "p": 0.23584905660377364
+        },
+        {
+          "t": 1709131208,
+          "p": 0.22210019391186864
+        }
+      ],
+      "probability": 0.22210019391186864,
+      "quoteAt": 1709131208,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "0ba1ddd5969c",
+      "name": "Nuclear chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182464,
+          "p": 0.17123287671232876
+        },
+        {
+          "t": 1709131238,
+          "p": 0.16661925573625747
+        }
+      ],
+      "probability": 0.16661925573625747,
+      "quoteAt": 1709131238,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "92eae49d8eff",
+      "name": "Analytical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2024-awarded-fields",
+      "points": [
+        {
+          "t": 1708182440,
+          "p": 0.1479289940828403
+        },
+        {
+          "t": 1708183630,
+          "p": 0.13637960893657786
+        },
+        {
+          "t": 1709131234,
+          "p": 0.15351990645133456
+        }
+      ],
+      "probability": 0.15351990645133456,
+      "quoteAt": 1709131234,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    }
+  ],
+  "excluded": [],
+  "historySources": [
+    "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000"
+  ],
+  "historySha256": "92461f40de1187d6ce34e1f03ec260f722b144740eccdff19c05d6d4bcb87ad8",
+  "sparseHistory": true,
+  "winnerDetails": [
+    {
+      "name": "David Baker",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/",
+      "image": "images/nobel/laureates/1039.jpg",
+      "affiliations": [
+        "University of Washington",
+        "Howard Hughes Medical Institute"
+      ]
+    },
+    {
+      "name": "Demis Hassabis",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/",
+      "image": "images/nobel/laureates/1040.jpg",
+      "affiliations": [
+        "Google DeepMind"
+      ]
+    },
+    {
+      "name": "John Jumper",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/",
+      "image": "images/nobel/laureates/1041.jpg",
+      "affiliations": [
+        "Google DeepMind"
+      ]
+    }
+  ]
+}

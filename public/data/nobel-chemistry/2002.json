@@ -46,8 +46,56 @@
       "sha256": "b0982954962c2ed0905b5af3219e05e2b9e31e73a9aec3476cd41e06d2821250"
     }
   ],
+  "people": [
+    {
+      "name": "John B. Fenn",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2002/fenn/facts/",
+      "affiliations": [
+        "Virginia Commonwealth University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "756",
+      "image": "images/nobel/laureates/756.jpg"
+    },
+    {
+      "name": "Koichi Tanaka",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2002/tanaka/facts/",
+      "affiliations": [
+        "Shimadzu Corp."
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "757",
+      "image": "images/nobel/laureates/757.jpg"
+    },
+    {
+      "name": "Kurt Wüthrich",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/facts/",
+      "affiliations": [
+        "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)",
+        "The Scripps Research Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "758",
+      "image": "images/nobel/laureates/758.jpg"
+    }
+  ],
   "reading": {
     "title": "生物大分子的质谱与 NMR",
+    "learningGuide": {
+      "topic": "analysis",
+      "title": [
+        "怎样知道样品中真正有什么",
+        "From a signal to an identity"
+      ],
+      "definition": [
+        "分析化学把样品转化为可测信号，再通过标准、对照和模型解释组成。鉴定物质身份与测量它的含量是不同问题，常常需要多种证据互相支持。",
+        "Analytical chemistry relates measured signals to composition using standards, controls and models. Identity and quantity are different questions."
+      ],
+      "example": [
+        "一个质量峰可能对应不止一种候选结构。色谱先分开组分，质谱提供质量和碎片信息，再结合其他光谱，才能缩小判断；单一峰位通常不是完整结构证明。",
+        "A mass peak may fit several structures. Separation, fragmentation and complementary spectroscopy help distinguish them."
+      ]
+    },
     "summary": "生物大分子的质谱与 NMR。把生命大分子变为可分析、可定量的分子对象。",
     "sections": [
       {
@@ -205,31 +253,121 @@
       "companyCases": [
         {
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "id": "thermo",
+          "role": "质谱分析：从样品离子到可解释的数据",
+          "status": "商业分析仪器与技术资料",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "Thermo Fisher 的分析产品覆盖元素、同位素和分子层面的测量。这些仪器的输出对象不同：元素分析关心样品组成，同位素比值分析关心特定同位素之间的相对丰度，分子质谱则从质荷比和碎片信息研究化合物身份。它们不能用一条“检测能力更强”概括。",
+            "Orbitrap Astral 的官方操作手册分别说明不同分析器的运行模式和性能条件。实际工作先要完成提取、分离、离子化和校准，再决定采集方法；看到一个质量峰并不等于完成结构鉴定。对于痕量样品，还需要空白、标准品和重复测量来识别背景及干扰。",
+            "同位素研究与这一产品体系的联系在测量环节。稳定同位素比值仪器不能代替所有放射性核素检测，仪器目录也不构成核素治疗或年代测定结论。这里给出的是设备和方法入口，具体研究仍应回到样品处理与校准方案。"
+          ],
+          "products": [
+            {
+              "name": "元素与同位素分析产品",
+              "application": "按元素含量、同位素比值及样品类型选择测量路径。",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "name": "Orbitrap Astral 操作与采集模式",
+              "application": "核对分析器、采集方式以及各项性能的适用条件。",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "元素与同位素分析产品 · 官方资料",
               "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            },
+            {
+              "label": "Orbitrap Astral 操作与采集模式 · 官方资料",
+              "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Analytical instruments and measurement workflows",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its analytical portfolio covers elemental composition, isotope ratios and molecular mass spectrometry. These are different measurements: an isotope-ratio result does not answer the same question as a molecular mass spectrum.",
+              "The Orbitrap Astral operating manual describes analyzer modes and the conditions attached to performance specifications. Sample preparation, separation, ionization, calibration and controls remain part of the measurement.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "Elemental and isotope analysis",
+                "application": "Choose a measurement route for elemental composition or isotope ratios and a compatible sample form.",
+                "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              },
+              {
+                "name": "Orbitrap Astral operating modes",
+                "application": "Check analyzer modes and acquisition conditions before interpreting molecular mass spectra.",
+                "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的同位素与元素质谱仪是现行分析设备示例；具体实验所用型号与参数应以论文方法为准。"
         },
         {
           "organizationId": "bruker",
-          "role": "磁共振与结构分析",
-          "status": "企业公开资料",
+          "id": "bruker",
+          "role": "核磁共振：结构、相互作用与分子运动",
+          "status": "商业 NMR 仪器与控制平台",
           "paragraphs": [
-            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+            "Bruker 的 AVANCE 系列核磁共振谱仪用于研究分子结构、动力学与相互作用。核磁共振不是给分子拍一张直接可读的照片：实验记录核自旋的响应，再利用化学位移、耦合以及多维相关信号判断局部化学环境和原子之间的联系。",
+            "产品体系把磁体、控制台、探头和软件组合为一套实验平台。官方列出的 AVANCE NEO-X 控制台支持液体、固体及微成像等实验方向；这些能力需要匹配探头、样品形式和脉冲序列。不能把同一控制台所支持的模式，当作任意配置都能达到的指标。",
+            "在蛋白质、配位化合物和有机合成研究中，NMR 解决的往往是“得到的是什么、在溶液中怎样运动”。样品浓度、溶解性、交换速度及信号重叠仍会影响判断。结构模型通常要与其他表征或计算互相核对。"
+          ],
+          "products": [
+            {
+              "name": "AVANCE NMR 谱仪",
+              "application": "结构解析、分子动力学与相互作用实验的仪器入口。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "name": "AVANCE NEO-X 控制台",
+              "application": "在同一产品体系中查阅液体、固体及微成像模式的配置。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "AVANCE NMR 谱仪 · 官方资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "label": "AVANCE NEO-X 控制台 · 官方资料",
               "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Bruker 开发磁共振及分子、材料分析仪器。",
+            "Bruker develops scientific instruments for magnetic resonance, molecular and materials analysis."
+          ],
+          "en": {
+            "role": "NMR for structure, interaction and motion",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "AVANCE NMR instruments measure nuclear-spin responses to study molecular structure, motion and interactions. Chemical shifts, couplings and multidimensional correlations provide evidence about local environments and connectivity.",
+              "The NMR portfolio includes the AVANCE NEO-X console for liquid, solid-state and microimaging workflows. Each requires suitable probes, sample forms and pulse sequences; a console capability is not a specification for every instrument configuration.",
+              "Concentration, exchange and spectral overlap can limit interpretation, so models often need complementary measurements."
+            ],
+            "products": [
+              {
+                "name": "AVANCE NMR spectrometers",
+                "application": "Use chemical shifts, couplings and multidimensional correlations to investigate structure and motion.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              },
+              {
+                "name": "AVANCE NEO-X console",
+                "application": "Match liquid, solid-state or microimaging experiments to the probe, sample and pulse sequence.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              }
+            ]
+          },
+          "relation": "Bruker 的 AVANCE NMR 与相关磁体、探头构成现行仪器产品；论文中的信号处理方法与仪器硬件能力分别说明。"
         }
       ]
     },

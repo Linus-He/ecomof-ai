@@ -6,12 +6,23 @@ describe('published science evidence', () => {
   it('includes sourced university research, company links and portraits for every awarded year', () => {
     for (const edition of Object.values(editions).filter(e => e.status === 'awarded')) {
       expect(edition.portraits).toHaveLength(edition.names.length)
+      expect(edition.people).toHaveLength(edition.names.length)
+      expect(edition.reading.learningGuide.definition).toHaveLength(2)
+      expect(edition.reading.learningGuide.example[0].length).toBeGreaterThan(40)
+      for (const person of edition.people) expect(person.url).toMatch(/^https:\/\/www.nobelprize.org\/prizes\/chemistry\//)
       expect(edition.reading.developments.researchCases.length).toBeGreaterThan(0)
       expect(edition.reading.developments.companyCases.length).toBeGreaterThan(0)
       for (const paper of edition.reading.developments.researchCases) {
         expect(paper.paperUrl).toMatch(/^https:\/\/doi.org\//)
         expect(paper.organizationIds.length).toBeGreaterThan(0)
         expect(paper.sources.length).toBeGreaterThan(0)
+      }
+      for (const company of edition.reading.developments.companyCases) {
+        expect(company.introduction).toHaveLength(2)
+        expect(company.en.paragraphs.length).toBeGreaterThanOrEqual(2)
+        expect(company.products.length).toBeGreaterThanOrEqual(2)
+        expect(company.en.products).toHaveLength(company.products.length)
+        for (const product of company.products) expect(product.url).toMatch(/^https:\/\//)
       }
       for (const org of edition.reading.developments.organizations) expect(org.logo).toMatch(/^images\/nobel\/organizations\//)
     }

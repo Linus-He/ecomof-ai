@@ -46,8 +46,56 @@
       "sha256": "9a296af0c91a46fe28851ceaa6705732a9346fa1af082ec9024954fd541e523b"
     }
   ],
+  "people": [
+    {
+      "name": "Venkatraman Ramakrishnan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2009/ramakrishnan/facts/",
+      "affiliations": [
+        "MRC Laboratory of Molecular Biology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "841",
+      "image": "images/nobel/laureates/841.jpg"
+    },
+    {
+      "name": "Thomas A. Steitz",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2009/steitz/facts/",
+      "affiliations": [
+        "Yale University",
+        "Howard Hughes Medical Institute"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "842",
+      "image": "images/nobel/laureates/842.jpg"
+    },
+    {
+      "name": "Ada E. Yonath",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2009/yonath/facts/",
+      "affiliations": [
+        "Weizmann Institute of Science"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "843",
+      "image": "images/nobel/laureates/843.jpg"
+    }
+  ],
   "reading": {
     "title": "核糖体结构与功能",
+    "learningGuide": {
+      "topic": "ribosome",
+      "title": [
+        "把序列信息转换成蛋白质的分子装置",
+        "A molecular machine for protein synthesis"
+      ],
+      "definition": [
+        "核糖体组织 RNA、氨基酸和相关因子的相互作用，完成蛋白质合成。结构研究需要区分静态构象与翻译过程中多个不同状态。",
+        "The ribosome organizes RNA, amino acids and factors across multiple stages of translation. One structure represents one state."
+      ],
+      "example": [
+        "一张核糖体结构能显示关键组分如何排列，但完整翻译还涉及底物进入、肽链增长和转位。多个状态及功能测量有助于把结构连接到过程。",
+        "Substrate entry, peptide growth and translocation require evidence across states as well as functional measurements."
+      ]
+    },
     "summary": "核糖体结构与功能。把 RNA 的催化能力与蛋白生物合成联系起来。",
     "sections": [
       {
@@ -194,18 +242,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-rna",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "RNA 体外转录与功能研究",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+            "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+            "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+          ],
+          "products": [
+            {
+              "name": "MEGAscript T7 转录试剂盒",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "In-vitro RNA transcription",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "MEGAscript T7 synthesizes RNA for research, including transfection, translation and structure/function studies. The researcher supplies the sequence and template.",
+              "Template removal, purification and integrity checks follow transcription. Capping or modification depends on the purpose and workflow; the kit does not itself produce a clinically validated mRNA medicine.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "MEGAscript T7",
+                "application": "Prepare RNA from a designed template for downstream structure or function experiments.",
+                "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+              },
+              {
+                "name": "Transcription user guide",
+                "application": "Check template handling, transcription, purification and the intended experimental use.",
+                "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的转录、翻译和核酸分析试剂可用于相应实验流程；这里列的是研究工具，不是该细菌机制的治疗产品。"
         }
       ]
     },

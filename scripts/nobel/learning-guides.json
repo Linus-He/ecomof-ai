@@ -1,0 +1,1072 @@
+{
+  "concepts": {
+    "equilibrium": {
+      "title": [
+        "反应不停，组成却可以不再改变",
+        "Equilibrium is dynamic"
+      ],
+      "definition": [
+        "化学平衡并不是分子停止反应，而是正、逆反应的速率相等，整体组成不再持续变化。改变温度或压力可能改变平衡位置；催化剂主要改变接近平衡的速度，不能任意改变同一条件下的平衡组成。",
+        "At equilibrium, forward and reverse reactions continue at equal rates. A catalyst changes the approach to equilibrium rather than freely changing its composition."
+      ],
+      "example": [
+        "合成氨可以说明这种区别：氮和氢生成氨，同时氨也能分解。工业流程既要考虑平衡允许得到多少氨，也要考虑反应多快、热量怎样排出，以及如何分离产物和循环原料。",
+        "Ammonia manufacture combines equilibrium, reaction rate, heat removal, product separation and recycling. These are distinct process questions."
+      ]
+    },
+    "chiral": {
+      "title": [
+        "为什么分子也有左右手",
+        "Why molecules can be handed"
+      ],
+      "definition": [
+        "手性指一个物体与自己的镜像不能通过旋转而完全重合，左右手就是日常例子。分子即使具有相同的原子组成和连接顺序，也可能存在这样的镜像结构，称为对映体。生物体中的受体和酶本身具有空间结构，因此可能以不同方式识别它们。",
+        "A chiral object cannot be superimposed on its mirror image by rotation. Molecular enantiomers can have the same connectivity but different three-dimensional arrangements that biological systems distinguish."
+      ],
+      "example": [
+        "香芹酮就是具体例子：(R)-香芹酮具有留兰香薄荷的气味，(S)-香芹酮则呈葛缕子气味；前者可见于薄荷糖、牙膏等调香用途。同一分子骨架的空间排列变了，感知和配方用途也会不同。R/S 表示构型，不直接表示旋光方向，更不能当作安全性等级。",
+        "(R)-Carvone smells of spearmint; (S)-carvone smells of caraway. Their spatial arrangement matters to aroma applications. R/S labels do not specify optical-rotation direction or safety."
+      ],
+      "sources": [
+        {
+          "label": "美国化学会：香芹酮",
+          "url": "https://www.acs.org/molecule-of-the-week/archive/c/carvone.html"
+        },
+        {
+          "label": "CCDC：香芹酮的结构与用途",
+          "url": "https://www.ccdc.cam.ac.uk/media/Web-Structure-exploration.pdf"
+        }
+      ]
+    },
+    "ions": {
+      "title": [
+        "溶液中的带电粒子",
+        "Charged particles in solution"
+      ],
+      "definition": [
+        "离子是带有净电荷的原子或原子团。物质进入溶液后，可能解离或反应生成离子；离子的多少、迁移和周围溶剂分子的排列，会影响导电性及反应行为。",
+        "Ions carry net charge. Dissociation, motion and solvation affect electrical conduction and reactions in solution."
+      ],
+      "example": [
+        "食盐溶于水时形成可移动的钠离子和氯离子，蔗糖溶液则主要由中性分子组成。两者都可以是透明溶液，导电行为却不同。外观相似，不能说明溶液中存在同一种粒子。",
+        "Salt water contains mobile sodium and chloride ions; dissolved sucrose remains mainly neutral molecules. Similar appearance does not imply similar conduction."
+      ]
+    },
+    "noble": {
+      "title": [
+        "一种元素可以隐藏在空气里",
+        "Elements hidden in air"
+      ],
+      "definition": [
+        "稀有气体是一组在通常条件下反应性较低的元素。发现一种新的空气成分，需要把它与氮、氧等已知气体分开，再用独立性质判断它不是原有物质的混合或杂质。",
+        "Noble gases have relatively low reactivity under ordinary conditions. Separating an air component and establishing its distinct properties are separate tasks."
+      ],
+      "example": [
+        "氦和氖都是气体，却有不同的原子结构和光谱。放电发光的颜色可以帮助识别成分，但可靠的元素鉴定不能只凭肉眼看一种颜色，还需要测量与纯化。",
+        "Helium and neon have different spectra. Discharge color can aid identification, but purification and measurement are still needed."
+      ]
+    },
+    "pigment": {
+      "title": [
+        "颜色来自分子怎样吸收光",
+        "How molecules acquire color"
+      ],
+      "definition": [
+        "分子不是把所有可见光都同样吸收。电子结构、共轭范围以及周围环境会影响吸收的波长，留下的光形成我们看到的颜色；染料研究因此也推动了结构与反应的认识。",
+        "Electronic structure, conjugation and environment determine which wavelengths a molecule absorbs. Color therefore connects structure and light."
+      ],
+      "example": [
+        "改变染料中的取代基，可能同时改变颜色、溶解性及与纤维的相互作用。能在试管中呈现鲜艳颜色，不等于适合染布，还要看上色、耐洗和材料相容性。",
+        "Changing a dye substituent can change color, solubility and fiber interactions. Bright color alone does not establish textile suitability."
+      ]
+    },
+    "fluorine": {
+      "title": [
+        "同一种元素，不同化学形式",
+        "Chemical form matters"
+      ],
+      "definition": [
+        "单质氟、氟离子和有机分子中的碳—氟键是不同化学形式，性质不能互相套用。化学研究既要问含有什么元素，也要问这些原子怎样连接、处在什么环境中。",
+        "Elemental fluorine, fluoride ions and carbon–fluorine bonds are different chemical forms. Elemental composition alone does not determine behavior."
+      ],
+      "example": [
+        "氟化钠与聚四氟乙烯都含氟，前者是离子化合物，后者是高分子材料，溶解性和材料用途截然不同。不能仅凭含氟二字推断反应性、安全性或加工方法。",
+        "Sodium fluoride and polytetrafluoroethylene both contain fluorine, but one is an ionic compound and the other a polymer, with different properties and uses."
+      ]
+    },
+    "enzymes": {
+      "title": [
+        "催化反应不一定需要完整细胞",
+        "Catalysis beyond an intact cell"
+      ],
+      "definition": [
+        "酶通常通过特定空间结构帮助底物发生转化。完整细胞包含许多同时运行的反应；把其中的活性组分分离出来，可以进一步判断究竟是哪一步需要什么分子。",
+        "An enzyme helps transform particular substrates. Cell-free experiments separate chemical activity from the many processes occurring in a whole cell."
+      ],
+      "example": [
+        "酵母发酵把糖转化为包括乙醇和二氧化碳在内的产物。无细胞提取物仍能完成相关转化，说明反应能力可以由细胞中的化学组分承担，而不必把完整生命体当作不可拆分的黑箱。",
+        "Yeast extracts can carry out fermentation-related transformations without intact cells, allowing the responsible chemical components to be investigated."
+      ]
+    },
+    "radio": {
+      "title": [
+        "原子的变化与分子的变化",
+        "Nuclei and chemical bonds"
+      ],
+      "definition": [
+        "一般化学反应改变电子和化学键；放射性衰变涉及原子核，可能改变元素身份。这两种变化发生在不同层次，研究核素还需要同时记录它的核性质与所处化学形态。",
+        "Ordinary reactions rearrange electrons and bonds; radioactive decay changes the nucleus and may change elemental identity."
+      ],
+      "example": [
+        "碳的不同同位素具有相同的质子数，却有不同的中子数。稳定的碳-13可用于示踪和光谱研究，碳-14则具有放射性；同属碳元素并不意味着它们能在所有测量中互换。",
+        "Carbon-13 is stable while carbon-14 is radioactive. Sharing an element does not make isotopes interchangeable in every measurement."
+      ]
+    },
+    "catalysis": {
+      "title": [
+        "催化剂改变的是反应路径",
+        "Catalysts change pathways"
+      ],
+      "definition": [
+        "催化剂参与反应过程，并在一个催化循环中得到再生。它可以降低某条路径的动力学障碍，使反应更快或更有选择性，但不能把原子凭空创造出来，也不能免除产物分离。",
+        "A catalyst participates in a reaction cycle and is regenerated. It changes kinetic access and sometimes selectivity, not elemental conservation."
+      ],
+      "example": [
+        "同一组原料可能沿不同路径形成不同产物。更换金属、配体或有机催化剂，会改变中间体及其反应机会；因此筛选催化剂时，除了转化率，还要比较目标产物比例与副产物。",
+        "Changing a metal, ligand or organic catalyst can favor different intermediates and products, so conversion and selectivity must be distinguished."
+      ]
+    },
+    "terpene": {
+      "title": [
+        "分子骨架可以相同，连接方式可以不同",
+        "Structure beyond a molecular formula"
+      ],
+      "definition": [
+        "萜类化合物的研究关心碳骨架怎样连接、有哪些官能团和空间结构。分子式相同只说明原子数量相同，不能代替结构式，也不能保证具有相同气味和反应性。",
+        "Terpene chemistry distinguishes carbon connectivity, functional groups and spatial arrangement. A formula alone does not identify a structure."
+      ],
+      "example": [
+        "柠檬烯与其他萜类分子可以共享部分构筑特征，却表现出不同挥发性和气味。天然香气往往又是混合物，不能把植物整体的味道全部归给其中一张分子结构图。",
+        "Terpene-related molecules can differ in aroma and volatility; a plant’s scent is also a mixture rather than the property of one structure alone."
+      ]
+    },
+    "organometallic": {
+      "title": [
+        "把金属接到碳的反应网络中",
+        "Metals in carbon chemistry"
+      ],
+      "definition": [
+        "有机金属化学研究含金属—碳相互作用的化合物及其反应。金属可以改变碳附近的电子分布，让原来不容易发生的成键或重排获得可利用的路径。",
+        "Metal–carbon interactions alter electronic behavior and open useful routes to bond formation or rearrangement."
+      ],
+      "example": [
+        "在有机合成中，有机金属试剂可以把一个碳片段连接到另一个分子；金属催化循环则能反复执行成键步骤。消耗性的试剂与循环使用的催化剂承担不同角色，不能混为一谈。",
+        "A consumed organometallic reagent transfers a fragment; a catalyst can cycle through repeated transformations. These are distinct roles."
+      ]
+    },
+    "coordination": {
+      "title": [
+        "一个金属中心怎样组织周围的分子",
+        "Geometry around a metal"
+      ],
+      "definition": [
+        "配位化学研究金属中心与配体之间的连接。相同元素组成可以有不同配位数和空间排列，从而改变颜色、磁性、稳定性以及与其他分子的反应。",
+        "Coordination chemistry studies ligands around metal centers. Geometry and coordination number affect chemical and physical behavior."
+      ],
+      "example": [
+        "同一金属与同类配体可以形成不同几何结构。把配体换成能够连接多个金属的分子，还可能从单个配合物走向延展网络；组成相同并不能保证结构相同。",
+        "Changing ligand connections can lead from a discrete complex to an extended network. Composition alone does not fix structure."
+      ]
+    },
+    "analysis": {
+      "title": [
+        "怎样知道样品中真正有什么",
+        "From a signal to an identity"
+      ],
+      "definition": [
+        "分析化学把样品转化为可测信号，再通过标准、对照和模型解释组成。鉴定物质身份与测量它的含量是不同问题，常常需要多种证据互相支持。",
+        "Analytical chemistry relates measured signals to composition using standards, controls and models. Identity and quantity are different questions."
+      ],
+      "example": [
+        "一个质量峰可能对应不止一种候选结构。色谱先分开组分，质谱提供质量和碎片信息，再结合其他光谱，才能缩小判断；单一峰位通常不是完整结构证明。",
+        "A mass peak may fit several structures. Separation, fragmentation and complementary spectroscopy help distinguish them."
+      ]
+    },
+    "colloid": {
+      "title": [
+        "介于分子溶液和大块物质之间",
+        "Particles and their interfaces"
+      ],
+      "definition": [
+        "胶体由分散在另一介质中的微小颗粒构成。粒径、表面状态及颗粒间作用影响分散、聚集和光学表现，不能只用总体化学组成解释。",
+        "A colloid contains small particles dispersed in another medium. Size, surface state and interactions affect aggregation and optical behavior."
+      ],
+      "example": [
+        "同一种材料做成大小不同的颗粒，可能形成透明、散射明显或容易沉降的分散体系。比较样品时，需要把浓度、粒径分布与聚集状态一起记录。",
+        "The same material in different particle sizes can scatter light and settle differently. Concentration alone does not describe the dispersion."
+      ]
+    },
+    "steroid": {
+      "title": [
+        "相似骨架可以承载不同功能",
+        "A shared skeleton is not a shared function"
+      ],
+      "definition": [
+        "甾体研究需要区分共同的环状骨架、取代基位置与空间构型。结构上的小改变可以影响分子与蛋白的结合，但相似骨架不能直接证明相同生物作用。",
+        "Steroid chemistry distinguishes ring systems, substituents and stereochemistry. Similarity does not establish identical biological behavior."
+      ],
+      "example": [
+        "胆固醇和多种甾体分子共享结构特征，却承担不同的化学与生物学角色。不能把对一种分子的测量推广到整个甾体家族，更不能由结构相似直接判断制剂可互换。",
+        "Cholesterol and other steroid molecules share structural features but have different roles; one result cannot describe the whole family."
+      ]
+    },
+    "isotope": {
+      "title": [
+        "同一种元素为什么还有不同质量",
+        "Different masses within an element"
+      ],
+      "definition": [
+        "同位素具有相同质子数、不同中子数。它们属于同一种元素，许多化学性质接近，但质量差别可以被测量，也可能影响某些反应和运动过程。",
+        "Isotopes share a proton number but differ in neutron number. Mass differences can be measured and used as labels."
+      ],
+      "example": [
+        "用同位素标记一个分子中的特定原子，可以追踪它在反应后去了哪里。看到标记出现在产物某个位置，是机理证据之一；解释仍要考虑交换、副反应与检测方法。",
+        "An isotope label can reveal where an atom goes during a reaction, provided exchange and side reactions are considered."
+      ]
+    },
+    "vitamins": {
+      "title": [
+        "发现分子与制成稳定原料",
+        "Identity and stability"
+      ],
+      "definition": [
+        "维生素研究既涉及物质的分离和结构，也涉及活性与化学稳定性。确认一种分子并不意味着它在所有温度、光照或配方中都能保持相同状态。",
+        "Vitamin research connects isolation, structure, activity and chemical stability. A molecular identity does not establish stability in every formulation."
+      ],
+      "example": [
+        "同一种维生素原料可以因氧化、光照或加工而发生变化。分析试剂、食品配料和饲料制剂还对应不同规格，不能仅凭相同名称互相替代。",
+        "Oxidation, light and processing can change an ingredient. Laboratory reagents and formulated nutritional products have different specifications."
+      ]
+    },
+    "separation": {
+      "title": [
+        "把混合物拆开，才能逐一研究",
+        "Separation before identification"
+      ],
+      "definition": [
+        "分离方法利用组分在尺寸、电荷、溶解性或相互作用上的差别。分开只是为鉴定创造条件，收集到一个峰或条带以后，仍需确认它是什么。",
+        "Separation exploits differences in size, charge, solubility or interactions. A separated band still needs identification."
+      ],
+      "example": [
+        "色谱柱里两个分子移动得不同快，可以形成不同洗脱峰。换柱材料或流动相可能改变分离效果；峰面积还要经过合适校准，才能用来判断含量。",
+        "Column and mobile-phase choices change chromatographic behavior, while calibrated peak areas are needed for quantitative interpretation."
+      ]
+    },
+    "protein": {
+      "title": [
+        "蛋白质不只是一串字母",
+        "A sequence is not the whole protein"
+      ],
+      "definition": [
+        "蛋白质由氨基酸连接成长链，随后形成三维结构。序列、折叠、环境及相互作用共同影响功能；知道序列与知道在特定条件下怎样工作，是不同层次的问题。",
+        "Amino-acid sequence, folding, environment and interactions jointly affect protein function. Prediction and functional validation answer different questions."
+      ],
+      "example": [
+        "两条相近序列可能因关键位点不同而表现出不同活性。同一序列在不同环境中也可能改变构象或聚集。计算设计提出候选，表达、结构和功能实验负责逐步检验。",
+        "Related sequences can differ at a crucial site; even one sequence may adopt different states under different conditions."
+      ]
+    },
+    "cold": {
+      "title": [
+        "低温不是让所有运动同时停止",
+        "Cooling and state control"
+      ],
+      "definition": [
+        "温度与体系可占据的能量状态有关。降低温度能减少某些热运动，便于观察微弱效应；实际样品还可能受到热流、测量装置与非平衡状态影响。",
+        "Lower temperature reduces some thermal motion and makes weak effects accessible. Heat flow and measurement conditions still matter."
+      ],
+      "example": [
+        "一台制冷机提供低温环境，并不等于已经让分子进入某个指定量子态。制冷、激光操控和状态测量需要分别设计，不能用一个温度数字概括整项实验。",
+        "A refrigerator provides an environment; it does not automatically prepare a specified molecular quantum state."
+      ]
+    },
+    "element": {
+      "title": [
+        "怎样确认发现了新的元素",
+        "Establishing elemental identity"
+      ],
+      "definition": [
+        "元素身份由原子核中的质子数决定。发现新元素需要把核信号、衰变关系与化学分离等证据联系起来，不能把样品中出现一个新峰直接当作新元素。",
+        "Proton number defines an element. Nuclear signals, decay relationships and chemical evidence support identification."
+      ],
+      "example": [
+        "一个原子经过核变化后可能成为另一种元素，普通成键反应则通常不改变元素身份。把这两层变化分开，才能理解核化学为什么需要不同于常规有机合成的证据链。",
+        "Nuclear transformation may change an element, whereas ordinary bond-making usually does not. The evidence required differs."
+      ]
+    },
+    "polymer": {
+      "title": [
+        "长链结构怎样变成材料性质",
+        "From chains to materials"
+      ],
+      "definition": [
+        "聚合物由重复单元连接而成，但重复单元之外，链长、支化、立体排列和链间作用同样重要。相同单体名称并不能唯一确定材料性能。",
+        "Chain length, branching, stereochemistry and interactions matter alongside the repeat unit. One monomer name does not define a material."
+      ],
+      "example": [
+        "聚乙烯可以因支化和结晶情况不同而呈现不同加工与力学表现。把大分子拆回小分子或重新加工，也需要区分化学回收和物理再利用。",
+        "Polyethylene materials can differ through branching and crystallinity. Chemical recycling and physical reprocessing are also distinct."
+      ]
+    },
+    "bonding": {
+      "title": [
+        "化学键不是静止的小棍子",
+        "Models of chemical bonding"
+      ],
+      "definition": [
+        "化学键是描述原子间电子与相互作用的模型。键长、方向及电子分布帮助解释结构和反应，但不同模型有各自适用范围，不能把示意图当作直接拍摄的原子照片。",
+        "Bonding models describe electronic interactions and help explain geometry and reactivity. A drawing is not a literal photograph."
+      ],
+      "example": [
+        "金刚石与石墨都由碳组成，连接方式不同，宏观性质也不同。这个例子说明组成相同不等于材料相同，结构组织本身就是化学信息。",
+        "Diamond and graphite both consist of carbon but have different connectivity and properties. Structure is information beyond composition."
+      ]
+    },
+    "peptide": {
+      "title": [
+        "逐个连接氨基酸为什么仍然困难",
+        "Building a peptide in order"
+      ],
+      "definition": [
+        "肽合成要控制连接顺序和反应位置。氨基酸具有多个可反应部分，合成策略需要管理哪些位置参与反应、哪些位置暂时受到保护。",
+        "Peptide synthesis controls sequence and reactive sites. Protection strategies manage which groups react at each step."
+      ],
+      "example": [
+        "固相合成把增长中的链固定在载体上，便于反复执行反应和洗涤。它改善操作组织，但并不免除不完全反应、副产物、最终纯化与序列验证。",
+        "Solid-phase synthesis organizes repeated reaction and washing on a support, but incomplete reactions and final purification still matter."
+      ]
+    },
+    "kinetics": {
+      "title": [
+        "反应快慢与反应能否发生",
+        "Rate and possibility"
+      ],
+      "definition": [
+        "动力学研究体系怎样随时间变化，热力学讨论能量和可能达到的状态。一个反应在能量上有利，也可能因路径障碍而很慢。",
+        "Kinetics studies change over time; thermodynamics constrains states and energy. A favorable reaction may still be slow."
+      ],
+      "example": [
+        "同一反应改变温度、浓度或催化条件，速率可能改变。研究短寿命中间体时还要考虑仪器时间分辨率；测不到不等于这种状态一定不存在。",
+        "Temperature, concentration and catalytic conditions affect rates. Instrument time resolution limits which transient states can be observed."
+      ]
+    },
+    "carbondate": {
+      "title": [
+        "测出比例以后，怎样得到年代",
+        "From isotope ratios to age"
+      ],
+      "definition": [
+        "放射性碳年代测定比较样品中碳同位素信号，并结合衰变与校准模型推断年代。测量对象是特定样品，不是直接读取器物上一个现成的年份。",
+        "Radiocarbon dating combines an isotope measurement with decay and calibration models. It dates a sampled carbon history rather than reading a date from an object."
+      ],
+      "example": [
+        "木材的碳信号可能对应树木生长时吸收的碳；它与后来制成器物的时间未必一致。污染、样品来源和校准曲线都会影响年代解释。",
+        "Wood growth and later object manufacture need not coincide. Contamination and calibration also affect interpretation."
+      ]
+    },
+    "photosynthesis": {
+      "title": [
+        "追踪碳和能量走过的路径",
+        "Following carbon and energy"
+      ],
+      "definition": [
+        "光合作用把光能与化学转化联系起来。研究者需要区分能量怎样被吸收、电子怎样转移，以及碳原子最终进入哪些分子，不能只看总反应式。",
+        "Photosynthesis combines light absorption, electron transfer and carbon transformation. The overall equation does not reveal every step."
+      ],
+      "example": [
+        "给反应体系加入可追踪的碳标记，再分析中间产物，可以研究碳进入有机物的先后路径。人工光合作用装置则还需处理催化、电荷分离与产物收集。",
+        "Carbon labels help follow intermediates. Artificial systems additionally need controlled charge separation, catalysis and product collection."
+      ]
+    },
+    "crystal": {
+      "title": [
+        "从衍射图到原子排列",
+        "Inferring structure from diffraction"
+      ],
+      "definition": [
+        "晶体中的周期性排列会对入射波形成特定衍射信号。结构分析需要把这些信号与数学模型联系起来，衍射图本身不是一张可直接识别分子的照片。",
+        "Periodic atomic arrangements produce diffraction signals that must be interpreted through a model. The pattern is not a direct molecular photograph."
+      ],
+      "example": [
+        "同一化合物可能形成不同晶型，原子组成相同但堆积不同。结构信息可以帮助解释性质，样品是否代表实际使用状态仍需结合环境与其他实验判断。",
+        "Different crystal forms can share composition while differing in packing. Structure must be considered with the sample’s actual conditions."
+      ]
+    },
+    "synthesis": {
+      "title": [
+        "目标结构与合成路线是两回事",
+        "A structure is not a synthesis route"
+      ],
+      "definition": [
+        "有机合成不仅问能否画出目标分子，还要问哪些键先形成、哪些官能团需要保护，以及各步骤怎样避免互相干扰。逆合成是从目标向可能原料倒推的分析方法。",
+        "Synthesis plans bond formation, functional-group compatibility and sequence. Retrosynthetic analysis works backward from a target."
+      ],
+      "example": [
+        "同一个目标可能有多条路线。步数较少不一定总成本最低，还要考虑选择性、原料、分离、重复操作及放大条件，不能只比较纸面上的箭头数量。",
+        "A shorter route is not automatically cheaper or more practical; selectivity, purification and scale also matter."
+      ]
+    },
+    "conformation": {
+      "title": [
+        "不改变连接，也能改变空间姿态",
+        "Changing shape without changing connectivity"
+      ],
+      "definition": [
+        "构象是分子在保持主要连接关系时的空间姿态。单键转动、环的形变和分子间作用可以改变构象分布，进而影响反应与识别。",
+        "Conformations differ in spatial arrangement while retaining connectivity. Rotation and ring shape alter the populated states."
+      ],
+      "example": [
+        "环己烷可形成不同的椅式构象，取代基的位置影响相对稳定性。构象变化与断键后变成另一种连接结构不同，讨论机理时需要分清。",
+        "Chair conformations of cyclohexane illustrate shape changes distinct from reactions that change molecular connectivity."
+      ]
+    },
+    "quantum": {
+      "title": [
+        "计算分子时，究竟在计算什么",
+        "What electronic-structure calculations describe"
+      ],
+      "definition": [
+        "电子结构方法用量子力学模型研究电子分布、能量与性质。不同近似以不同计算成本处理体系，算得更复杂并不自动意味着在所有问题上更准确。",
+        "Quantum models estimate electronic distributions, energies and properties. Different approximations balance cost and suitability."
+      ],
+      "example": [
+        "研究一条反应路径时，可以比较反应物、中间体与过渡态的能量。分子环境、溶剂及模型选择都会影响结果，因此需要检查收敛并与可测量信息核对。",
+        "Comparing reactants, intermediates and transition states requires attention to environment, model choice and convergence."
+      ]
+    },
+    "electron": {
+      "title": [
+        "电子转移不只是带电粒子移动",
+        "Electron transfer and reorganization"
+      ],
+      "definition": [
+        "电子转移改变了供体和受体的电子状态，同时周围分子与溶剂也可能重新排列。研究过程需要区分热力学驱动力、相互作用和重组所需的能量。",
+        "Electron transfer changes donor and acceptor states and can reorganize their surroundings. Driving force and rate are distinct."
+      ],
+      "example": [
+        "一对氧化还原物种可以具有有利的能量差，却不一定立刻完成快速转移。距离、结构和介质会改变电子耦合及反应速率。",
+        "Favorable redox energetics do not guarantee an immediate transfer; distance, structure and medium affect coupling and reorganization."
+      ]
+    },
+    "dna": {
+      "title": [
+        "信息怎样通过分子被读取和改写",
+        "Reading, copying and changing DNA"
+      ],
+      "definition": [
+        "DNA 以碱基顺序承载信息，复制、测序与改造则是不同化学任务。知道一段序列，不等于已经知道它在细胞中何时表达或产生什么功能。",
+        "DNA sequence carries information, while sequencing, amplification and editing perform different tasks. Sequence alone does not establish cellular function."
+      ],
+      "example": [
+        "测序把样品中的碱基顺序转成可读记录，扩增增加某段序列的数量，编辑则改变目标位置。三者可以在同一研究中配合，但不能当作同一种能力。",
+        "Sequencing reads an order, amplification increases copies, and editing changes a target. These methods can cooperate without being interchangeable."
+      ]
+    },
+    "hostguest": {
+      "title": [
+        "分子识别为什么像配对，又不只是配对",
+        "Recognition beyond a geometric fit"
+      ],
+      "definition": [
+        "主客体化学研究一个分子怎样选择性结合另一个分子或离子。尺寸和形状之外，电荷、氢键、溶剂以及结合后的结构变化也会影响选择。",
+        "Host–guest binding depends on size, charge, hydrogen bonding, solvent and structural change. Fit alone is insufficient."
+      ],
+      "example": [
+        "一个空腔能够容纳客体，并不等于它在溶液中一定优先结合该客体。真正的选择性要比较竞争条件下的结合与释放，不能只看一张尺寸合适的结构图。",
+        "A cavity that accommodates a guest need not preferentially bind it in solution; competition and release must be measured."
+      ]
+    },
+    "rna": {
+      "title": [
+        "RNA 不只是信息传递的副本",
+        "RNA has several chemical roles"
+      ],
+      "definition": [
+        "RNA 可以传递信息、折叠成特定结构，也可以参与调控或催化。讨论一种 RNA 的功能，需要同时考虑序列、空间状态和所在的分子环境。",
+        "RNA can carry information, fold, regulate or catalyze. Its function depends on sequence, structure and molecular context."
+      ],
+      "example": [
+        "同样叫 RNA，信使 RNA、转运 RNA 和催化性 RNA 的任务不同。合成出某条序列只是准备材料，还需要检测它在目标条件下是否执行相应功能。",
+        "Messenger, transfer and catalytic RNAs perform different tasks. Making a sequence is not itself demonstrating that function."
+      ]
+    },
+    "ribozyme": {
+      "title": [
+        "核酸本身也可能催化反应",
+        "RNA as a catalyst"
+      ],
+      "definition": [
+        "核酶是具有催化功能的 RNA。这个发现把催化能力从仅属于蛋白质的简单印象中分离出来，也说明核酸的三维结构能形成特定反应环境。",
+        "A ribozyme is catalytic RNA. Its folded structure can create a selective reaction environment."
+      ],
+      "example": [
+        "某条 RNA 能切割或连接特定底物，不表示任何 RNA 都有同样能力。序列、折叠、离子和底物条件需要一起考虑，催化还要用速率和对照来判断。",
+        "Activity of one RNA does not imply activity of every sequence; folding, ions, substrates and kinetic controls matter."
+      ]
+    },
+    "nmr": {
+      "title": [
+        "听见核自旋，再推断结构",
+        "Nuclear-spin signals as structural evidence"
+      ],
+      "definition": [
+        "核磁共振测量原子核在磁场中的响应。周围电子环境和其他核的相互作用改变信号，研究者据此推断连接、距离和分子运动。",
+        "NMR relates nuclear responses to local electronic environments, interactions and motion."
+      ],
+      "example": [
+        "同一种原子核处在不同化学环境时，可以给出不同信号。多维实验把这些线索联系起来，但样品浓度、运动和信号重叠仍可能限制结构判断。",
+        "Different environments can produce different signals from the same isotope. Multidimensional correlations help, but overlap and sample behavior impose limits."
+      ]
+    },
+    "ozone": {
+      "title": [
+        "同一个分子，在不同位置作用不同",
+        "Atmospheric context matters"
+      ],
+      "definition": [
+        "臭氧是由三个氧原子构成的分子。讨论大气化学时，必须说明位置、反应环境与时间尺度，不能只按一种物质名称判断整体影响。",
+        "Ozone has the same molecular formula in different atmospheric regions, but its role depends on location and chemistry."
+      ],
+      "example": [
+        "平流层臭氧参与吸收紫外辐射，近地面臭氧则属于空气质量问题。研究臭氧变化，需要追踪反应链及相关物种，而不只是测一个总浓度。",
+        "Stratospheric ozone contributes to ultraviolet absorption; ground-level ozone raises air-quality concerns. Reaction networks and conditions matter."
+      ]
+    },
+    "fullerene": {
+      "title": [
+        "碳可以组成封闭的分子笼",
+        "Carbon cages as molecules"
+      ],
+      "definition": [
+        "富勒烯是一类由碳组成的笼状分子。它与无限延展的碳材料不同，具有明确的分子组成和曲面结构，可以进一步发生衍生化反应。",
+        "Fullerenes are cage-like carbon molecules with defined compositions and curved structures, distinct from extended carbon solids."
+      ],
+      "example": [
+        "C60、石墨和金刚石都由碳构成，却有不同连接和形态。这个对比说明元素组成不足以预测溶解、导电或材料用途，还要了解具体结构。",
+        "C60, graphite and diamond share an element but differ in connectivity and form, leading to different properties."
+      ]
+    },
+    "atp": {
+      "title": [
+        "细胞怎样把能量变化连接到化学工作",
+        "Coupling energy to chemical work"
+      ],
+      "definition": [
+        "ATP 等分子参与连接不同的能量转化过程。理解它不能只说分子储存了能量，还要看反应物、产物和环境共同决定的自由能变化，以及它怎样与其他过程耦合。",
+        "ATP-related reactions connect energy changes to other processes. Free-energy changes depend on the complete reaction and its conditions."
+      ],
+      "example": [
+        "ATP 合酶将跨膜条件与 ATP 的生成联系起来。测量 ATP 多少、测量酶活与观察旋转结构是不同证据，需要结合起来解释能量转化。",
+        "ATP synthase couples membrane conditions to ATP production. Abundance, enzyme activity and structural motion are distinct measurements."
+      ]
+    },
+    "conductive": {
+      "title": [
+        "高分子为什么也能导电",
+        "Polymers and charge transport"
+      ],
+      "definition": [
+        "导电聚合物的电子结构不同于许多常见绝缘塑料。共轭、掺杂和材料形态一起影响载流与输运，不能只凭存在长链就判断导电能力。",
+        "Conjugation, doping and morphology jointly affect electronic transport in conductive polymers. A long chain alone is insufficient."
+      ],
+      "example": [
+        "同一种聚合物改变掺杂或成膜条件，电学表现也可能变化。材料的电导率与器件最终表现之间，还隔着接触、电极和环境稳定性等问题。",
+        "Changing doping or film preparation can change electrical behavior; electrodes and contacts also affect a complete device."
+      ]
+    },
+    "aquaporin": {
+      "title": [
+        "膜上的孔道为什么具有选择性",
+        "Selectivity in membrane channels"
+      ],
+      "definition": [
+        "细胞膜中的通道为特定分子或离子提供通过路径。能否通过不只取决于大小，还与电荷、孔壁相互作用以及分子周围的水有关。",
+        "Transport through a channel depends on charge, interactions and hydration as well as dimensions."
+      ],
+      "example": [
+        "水通道和离子通道解决不同的运输任务。把膜打一个足够大的洞，可能同时破坏选择性；生物通道的关键是把通量与筛选结合起来。",
+        "Water and ion channels perform different tasks. A large opening alone does not reproduce selective biological transport."
+      ]
+    },
+    "ubiquitin": {
+      "title": [
+        "蛋白质怎样被标记并交给降解系统",
+        "Tagging proteins for a cellular pathway"
+      ],
+      "definition": [
+        "泛素系统通过酶促过程给蛋白质添加分子标记，参与调控蛋白质命运。标记、识别和蛋白酶体降解是相互联系但不同的步骤。",
+        "Ubiquitination, recognition and proteasomal degradation are connected but distinct processes controlling protein fate."
+      ],
+      "example": [
+        "靶向蛋白降解分子试图把某个靶蛋白带近相关连接酶。能形成结合不等于一定发生有效降解，还需要合适的复合物、细胞可达性与后续过程。",
+        "A targeted degrader recruits proteins into proximity, but binding alone does not guarantee productive degradation."
+      ]
+    },
+    "metathesis": {
+      "title": [
+        "交换双键片段的成键方式",
+        "Recombining alkene fragments"
+      ],
+      "definition": [
+        "烯烃复分解重新组合碳碳双键两侧的片段。它与简单加成或把双键完全氢化不同，催化剂通过特定中间体组织新的双键连接。",
+        "Olefin metathesis reorganizes fragments around carbon–carbon double bonds through a catalytic pathway. It differs from simple addition or hydrogenation."
+      ],
+      "example": [
+        "一个分子上合适位置的两个烯烃片段可以用于关环设计。环的大小、底物构象和副反应会影响结果，不能把画得出的闭环都当作容易实现的反应。",
+        "Ring-closing designs depend on ring size, conformation and competing reactions, not only on a drawn connection."
+      ]
+    },
+    "imaging": {
+      "title": [
+        "看见荧光，不等于直接看见分子全部结构",
+        "A fluorescent signal is a measurement"
+      ],
+      "definition": [
+        "荧光成像利用标记物发光来定位或追踪对象。信号反映标记和检测过程，样品处理、光物理行为与仪器都会影响图像。",
+        "Fluorescent labels connect emitted light to location or motion. Label behavior, sample preparation and detection shape the image."
+      ],
+      "example": [
+        "荧光蛋白提供生物标记，超分辨方法则利用不同采集和重建策略改善空间信息。标记物与成像方法不是同一层次，也不能把重建图像中的每个亮点都当作独立分子的完整结构。",
+        "A fluorescent protein supplies a label; super-resolution methods supply acquisition and reconstruction strategies. These are different layers of an imaging experiment."
+      ]
+    },
+    "ribosome": {
+      "title": [
+        "把序列信息转换成蛋白质的分子装置",
+        "A molecular machine for protein synthesis"
+      ],
+      "definition": [
+        "核糖体组织 RNA、氨基酸和相关因子的相互作用，完成蛋白质合成。结构研究需要区分静态构象与翻译过程中多个不同状态。",
+        "The ribosome organizes RNA, amino acids and factors across multiple stages of translation. One structure represents one state."
+      ],
+      "example": [
+        "一张核糖体结构能显示关键组分如何排列，但完整翻译还涉及底物进入、肽链增长和转位。多个状态及功能测量有助于把结构连接到过程。",
+        "Substrate entry, peptide growth and translocation require evidence across states as well as functional measurements."
+      ]
+    },
+    "quasicrystal": {
+      "title": [
+        "有秩序，不一定周期重复",
+        "Order without ordinary periodicity"
+      ],
+      "definition": [
+        "准晶具有长程有序，却不按普通晶体那样在空间中周期性重复。它改变了把有序固体简单等同于周期晶格的认识。",
+        "Quasicrystals possess long-range order without conventional spatial periodicity. Order and periodic repetition are not synonyms."
+      ],
+      "example": [
+        "有序图案可以有明确规则，却找不到一个小单元平移后铺满整个图案。这个几何类比帮助理解准晶，真正的材料判断仍需要衍射与结构证据。",
+        "A rule-based nonperiodic pattern is a useful analogy; actual material identification still relies on diffraction and structure."
+      ]
+    },
+    "gpcr": {
+      "title": [
+        "细胞怎样把外部结合转成内部信号",
+        "From binding to cellular signaling"
+      ],
+      "definition": [
+        "G 蛋白偶联受体把细胞外的分子识别与细胞内信号联系起来。结合、构象变化和下游响应是相关但不同的事件。",
+        "GPCR binding, conformational change and downstream responses are connected but distinct events."
+      ],
+      "example": [
+        "同一受体可能在不同配体或环境中偏向不同状态。报告细胞测得功能信号，结构实验研究原子排列，两类结果需要相互解释，不能互相替代。",
+        "Reporter cells measure a functional readout, while structures describe molecular arrangements. Different ligands can favor different states."
+      ]
+    },
+    "repair": {
+      "title": [
+        "DNA 损伤怎样被识别和处理",
+        "Several pathways repair DNA"
+      ],
+      "definition": [
+        "DNA 修复不是一种万能反应，而是识别、切除、补合或重接等不同过程的组合。不同损伤需要不同处理路径，也需要避免破坏原有信息。",
+        "Repair involves distinct recognition, removal, synthesis and rejoining processes suited to different lesions."
+      ],
+      "example": [
+        "一个小的化学修饰与双链断裂提出的问题不同。用连接酶把体外 DNA 片段接起来，只展示其中一种化学能力，不能代表细胞已经完成所有修复。",
+        "A modified base and a double-strand break require different responses. In-vitro ligation demonstrates only one part of this chemistry."
+      ]
+    },
+    "motor": {
+      "title": [
+        "运动不等于可控的分子机器",
+        "From motion to a molecular machine"
+      ],
+      "definition": [
+        "分子机器研究怎样把能量输入与可重复、可偏向某个方向的结构变化联系起来。随机热运动本来就存在，关键是怎样组织和利用运动。",
+        "Molecular machines connect energy input to organized, repeatable structural change. Random thermal motion is already present."
+      ],
+      "example": [
+        "一个分子受光后改变构型，可以成为开关；要讨论马达或定向循环，还需要证明能量输入、反应步骤和运动方向之间的关系，不能只凭两个不同结构。",
+        "A photoswitch changes state; a directional motor requires evidence linking input, cycle and direction beyond two different structures."
+      ]
+    },
+    "cryoem": {
+      "title": [
+        "把许多投影组合成三维结构",
+        "Reconstructing from many projections"
+      ],
+      "definition": [
+        "冷冻电镜通常通过低温固定的样品记录多个方向的投影，再进行分类、对齐和三维重建。它并不是对一整个分子直接拍一张清晰立体照。",
+        "Cryo-EM combines particle projections through classification, alignment and reconstruction rather than taking one complete three-dimensional photograph."
+      ],
+      "example": [
+        "样品可能同时含有不同构象，需要先区分状态再重建。冷冻方法、电子剂量与图像处理共同影响结果；分辨率数字也需要结合局部结构和验证指标理解。",
+        "Mixed conformations, sample preparation, electron exposure and validation all affect interpretation of a reconstruction."
+      ]
+    },
+    "directed": {
+      "title": [
+        "用筛选引导分子功能变化",
+        "Selection defines an evolution experiment"
+      ],
+      "definition": [
+        "定向进化通过产生变体、测量或筛选功能、再选择下一轮起点，让分子在定义的目标下发生可积累变化。筛选方法决定了什么性质被保留下来。",
+        "Directed evolution combines variation, measurement and selection toward a defined objective. The assay determines which traits are retained."
+      ],
+      "example": [
+        "如果只筛选某一种底物的转化率，得到的变体不一定也具有更好的稳定性或更广的底物范围。目标和测量条件需要随结果一起报告。",
+        "Selecting conversion of one substrate does not automatically improve stability or substrate breadth. Conditions belong with the result."
+      ]
+    },
+    "battery": {
+      "title": [
+        "电池要同时移动离子和电子",
+        "Ions, electrons and interfaces"
+      ],
+      "definition": [
+        "可充电电池让氧化还原反应与外电路中的电子流联系起来，离子则通过电解液等路径迁移。电极、电解液与界面共同决定实际表现。",
+        "Rechargeable batteries combine external electron flow with ion transport and reversible electrode reactions. Interfaces are part of the system."
+      ],
+      "example": [
+        "充电时把离子送回合适位置，并不意味着体系可以无限循环。界面副反应、结构变化和热管理会影响寿命与安全；材料容量也不等于电池包能量。",
+        "Charging does not guarantee unlimited cycling. Side reactions, structural changes and heat affect operation, while material capacity differs from pack energy."
+      ]
+    },
+    "editing": {
+      "title": [
+        "定位一段序列以后，怎样真正改变它",
+        "Targeting is only one part of editing"
+      ],
+      "definition": [
+        "基因编辑需要把识别、切割或化学改变以及后续修复联系起来。找到目标只是第一步，最终产物还要测序或用其他方法确认。",
+        "Editing combines recognition, a molecular change and downstream processing. The resulting sequence still needs verification."
+      ],
+      "example": [
+        "一把能够被引导到特定位置的分子工具，并不保证每个细胞都得到相同结果。递送、细胞状态和修复路径会改变产物分布，脱靶也需单独评价。",
+        "Delivery, cell state and repair can change product distributions. Target recognition does not guarantee identical outcomes in every cell."
+      ]
+    },
+    "click": {
+      "title": [
+        "把连接反应变成可靠的组装步骤",
+        "Reliable linking in different environments"
+      ],
+      "definition": [
+        "点击化学强调适合模块化连接的反应特征；生物正交化学进一步要求反应能在复杂生物环境中选择性进行，尽量避免干扰原有过程。",
+        "Click chemistry supports modular assembly; bioorthogonal chemistry additionally requires selective operation in complex biological environments."
+      ],
+      "example": [
+        "一个连接反应在纯溶剂中有效，不代表能直接用于细胞。催化条件、底物兼容性和背景反应都需要重新评价；两种研究目标有关联，但要求并不完全相同。",
+        "A reaction that works in a simple solvent may not work in cells. Compatibility, catalysts and background chemistry must be assessed."
+      ]
+    },
+    "qdot": {
+      "title": [
+        "纳米晶体的尺寸也会改变颜色",
+        "Size-dependent nanocrystal optics"
+      ],
+      "definition": [
+        "量子点是具有尺寸相关电子和光学性质的纳米晶体。在合适尺寸范围内，改变颗粒尺寸可以改变能级与发光行为，因此同类成分可能出现不同颜色。",
+        "Quantum dots show size-dependent electronic and optical behavior. Similar compositions can emit different colors in an appropriate size range."
+      ],
+      "example": [
+        "显示技术可以让量子点把蓝光转换为其他颜色。实验室发光性质要进入面板，还需要材料固定、封装和器件设计；不能把单颗粒数据直接当作整机指标。",
+        "Color-conversion displays integrate dots with excitation, packaging and device design. A particle measurement is not a complete display specification."
+      ]
+    },
+    "mof": {
+      "title": [
+        "材料内部的空间也能被设计",
+        "Designing the space inside a material"
+      ],
+      "definition": [
+        "MOF 用金属节点和有机连接体组织延展结构，留下分子尺度的孔道。节点、连接方式和孔壁化学一起影响哪些分子容易进入、停留和离开。",
+        "MOFs connect metal nodes and organic linkers into porous networks. Geometry and pore-wall chemistry jointly affect molecular uptake."
+      ],
+      "example": [
+        "吸附剂可以先从空气或混合气中富集目标分子，再改变条件释放。孔多只是起点，水竞争、成型、扩散和再生能耗也决定它能否进入取水或气体分离设备。",
+        "A sorbent must also handle competition, diffusion, shaping and regeneration before it functions in a complete device."
+      ]
+    },
+    "preservation": {
+      "title": [
+        "保存原料，也是在控制化学环境",
+        "Controlling a preservation environment"
+      ],
+      "definition": [
+        "饲料保存需要控制微生物活动和原料中的化学变化。酸度会影响酶与微生物的行为，因此化学条件可以成为减少贮存损失的一种手段。",
+        "Preservation controls chemical change and microbial activity. Acidity affects enzymes and organisms, linking chemistry to storage losses."
+      ],
+      "example": [
+        "青贮并不等于把原料简单放进容器。原料、水分、酸度和密封状态共同影响保存过程；讨论一种保存方法时，需要区分原料中养分的保留与某一种微生物的变化。",
+        "Silage depends on raw material, moisture, acidity and sealing. Nutrient retention and the behavior of a particular organism are different measurements."
+      ]
+    },
+    "sugardonor": {
+      "title": [
+        "糖分子怎样被接到指定位置",
+        "Activated sugar donors"
+      ],
+      "definition": [
+        "糖基化需要把糖基从供体转移到受体，并控制连接位置与空间构型。生物体系中的核苷酸糖是特定糖基转移反应的活化供体。",
+        "Glycosylation transfers a sugar unit from a donor to an acceptor with positional and stereochemical control. Nucleotide sugars are activated biological donors."
+      ],
+      "example": [
+        "两个糖都含有许多相似的羟基，连接在哪一个位置会改变最终结构。糖基转移酶提供选择性，但每一种酶的底物范围和反应条件都需要单独检查。",
+        "Similar hydroxyl groups can lead to different linkages. A glycosyltransferase’s selectivity does not establish an unlimited substrate range."
+      ]
+    },
+    "boron": {
+      "title": [
+        "有些化学键不能用一条线简单概括",
+        "Bonding across more than two atoms"
+      ],
+      "definition": [
+        "某些硼氢化合物具有缺电子成键特征，简单的两原子共享一对电子的图式不足以完整描述。需要把电子在多个原子之间的分布一起考虑。",
+        "Electron-deficient boranes require models beyond a simple two-center electron pair. Electron distribution across several atoms matters."
+      ],
+      "example": [
+        "乙硼烷中的桥式氢常用于介绍三中心两电子键。这是帮助理解成键的模型，不表示分子中所有键都具有相同性质，也不能把示意线条当成电子的实际轨迹。",
+        "Bridging hydrogen in diborane illustrates three-center two-electron bonding. This is a model, not a literal track followed by electrons."
+      ]
+    },
+    "carbocation": {
+      "title": [
+        "带正电的碳怎样参与反应",
+        "Positively charged carbon species"
+      ],
+      "definition": [
+        "碳正离子是讨论有机反应时的重要带正电物种。其稳定性、结构和反应机会取决于周围基团及介质，不能仅凭一个正号理解全部行为。",
+        "Carbocation structure and behavior depend on substituents and medium. A positive-charge symbol alone does not explain reactivity."
+      ],
+      "example": [
+        "一个反应可以经由短寿命的碳正离子相关中间体，再发生重排或与其他组分反应。能观察或稳定某类离子，有助于区分竞争机理，但不代表所有类似反应都走同一路径。",
+        "Short-lived ionic intermediates can rearrange or react further. Observing one species helps test mechanisms without proving every related reaction uses it."
+      ]
+    },
+    "geneticcode": {
+      "title": [
+        "碱基顺序怎样对应氨基酸",
+        "From codons to amino acids"
+      ],
+      "definition": [
+        "遗传密码把核酸中的信息与蛋白质合成联系起来。信使 RNA 中的密码子以三个碱基为一个单位，但并不是每个密码子都对应一种不同的氨基酸。",
+        "The genetic code connects nucleic-acid information to protein synthesis. Codons consist of three bases, and different codons can specify the same amino acid."
+      ],
+      "example": [
+        "读取、翻译和合成是不同层次。研究某段序列编码什么，需要把核酸记录同翻译过程联系起来；仅知道总共有多少种碱基，无法判断蛋白质序列。",
+        "Reading a sequence and translating it are different tasks. Base composition alone does not determine the encoded protein sequence."
+      ]
+    },
+    "electroanalysis": {
+      "title": [
+        "把电极响应变成化学信息",
+        "Chemical information from electrodes"
+      ],
+      "definition": [
+        "电化学分析研究电极电位、电流及相关过程如何反映溶液中的物质。响应不仅取决于组成，也可能受到传质、表面状态和反应速率影响。",
+        "Electrode potential and current reflect composition together with transport, surface state and reaction kinetics."
+      ],
+      "example": [
+        "改变电位时，某种物质可能在电极上发生氧化或还原，从而产生电流变化。要从曲线推断身份或含量，需要校准与对照，不能把所有峰都归给单一组分。",
+        "A species may oxidize or reduce as potential changes. Calibration and controls are needed before interpreting a current curve quantitatively."
+      ]
+    },
+    "nonequilibrium": {
+      "title": [
+        "保持有序，也可能需要持续输入",
+        "Order under sustained driving"
+      ],
+      "definition": [
+        "非平衡体系可以在持续交换物质或能量时维持特定状态。它不同于把体系放置足够久后得到的封闭平衡，分析时必须记录外部驱动和耗散。",
+        "A nonequilibrium system can maintain a state through ongoing exchanges of matter or energy. External driving and dissipation belong in the analysis."
+      ],
+      "example": [
+        "受热流体可以形成有组织的对流图样，停止驱动后原有图样可能消失。这个例子说明有序结构与能量流可以相关，并不意味着体系违反热力学规律。",
+        "Heated fluid can form organized convection patterns that disappear without driving. Such order does not imply a violation of thermodynamics."
+      ]
+    },
+    "cycloaddition": {
+      "title": [
+        "把两个反应片段一起组织成环",
+        "Organizing fragments into a ring"
+      ],
+      "definition": [
+        "环加成通过两个反应片段的结合建立新的环结构。狄尔斯—阿尔德反应是理解这类成键的经典例子，讨论它需要同时关注参与片段、空间接近方式和最终构型。",
+        "Cycloaddition combines reacting fragments to form a ring. The Diels–Alder reaction illustrates how fragment identity and approach geometry affect the outcome."
+      ],
+      "example": [
+        "一个新的六元环可以同时带来多个空间关系。换取代基或改变底物形状，可能改变反应是否容易发生以及得到哪些异构体；画出成环目标并不等于所有底物都同样适合。",
+        "Ring formation can establish several stereochemical relationships at once. Substitution and molecular shape affect both feasibility and isomer distribution."
+      ]
+    },
+    "nucleotide": {
+      "title": [
+        "核酸的构件怎样连接",
+        "How nucleic-acid building blocks connect"
+      ],
+      "definition": [
+        "核苷酸由含氮碱基、糖和磷酸相关部分组成，核苷则不含相应的磷酸部分。构件的连接方式影响核酸链的结构，相关化学也帮助理解核苷酸辅酶。",
+        "Nucleotides contain a base, a sugar and phosphate-related components; nucleosides lack the phosphate component. Their connections matter to nucleic acids and nucleotide coenzymes."
+      ],
+      "example": [
+        "知道碱基名称，只给出了构件身份的一部分。糖的结构、连接位置和磷酸连接方式也属于分子信息，不能把结构近似的构件在合成或功能讨论中直接互换。",
+        "A base name identifies only part of a building block. Sugar structure and phosphate connectivity also affect synthesis and function."
+      ]
+    },
+    "surface": {
+      "title": [
+        "表面不是体相材料的简单缩小",
+        "A surface is a distinct chemical environment"
+      ],
+      "definition": [
+        "材料表面的原子具有不同于内部的邻近环境。分子在表面吸附后，其排列、电子状态和反应机会可能改变，因此表面组成与结构需要单独研究。",
+        "Surface atoms have environments different from the bulk. Adsorption can change molecular arrangement, electronic behavior and reactivity."
+      ],
+      "example": [
+        "同一种金属换一个表面取向，或被其他物种覆盖，反应表现也可能不同。把金属名称相同当作催化剂完全相同，会忽略位点、覆盖度和反应条件。",
+        "Crystal orientation and adsorbate coverage can change a metal’s behavior. A shared metal name does not establish identical catalytic sites or conditions."
+      ]
+    }
+  },
+  "years": {
+    "1901": "equilibrium",
+    "1902": "chiral",
+    "1903": "ions",
+    "1904": "noble",
+    "1905": "pigment",
+    "1906": "fluorine",
+    "1907": "enzymes",
+    "1908": "radio",
+    "1909": "catalysis",
+    "1910": "terpene",
+    "1911": "radio",
+    "1912": "organometallic",
+    "1913": "coordination",
+    "1914": "analysis",
+    "1915": "pigment",
+    "1918": "equilibrium",
+    "1920": "equilibrium",
+    "1921": "isotope",
+    "1922": "analysis",
+    "1923": "analysis",
+    "1925": "colloid",
+    "1926": "colloid",
+    "1927": "steroid",
+    "1928": "steroid",
+    "1929": "enzymes",
+    "1930": "pigment",
+    "1931": "equilibrium",
+    "1932": "surface",
+    "1934": "isotope",
+    "1935": "radio",
+    "1936": "bonding",
+    "1937": "vitamins",
+    "1938": "vitamins",
+    "1939": "steroid",
+    "1943": "isotope",
+    "1944": "radio",
+    "1945": "preservation",
+    "1946": "protein",
+    "1947": "synthesis",
+    "1948": "separation",
+    "1949": "cold",
+    "1950": "cycloaddition",
+    "1951": "element",
+    "1952": "separation",
+    "1953": "polymer",
+    "1954": "bonding",
+    "1955": "peptide",
+    "1956": "kinetics",
+    "1957": "nucleotide",
+    "1958": "protein",
+    "1959": "electroanalysis",
+    "1960": "carbondate",
+    "1961": "photosynthesis",
+    "1962": "protein",
+    "1963": "polymer",
+    "1964": "crystal",
+    "1965": "synthesis",
+    "1966": "quantum",
+    "1967": "kinetics",
+    "1968": "geneticcode",
+    "1969": "conformation",
+    "1970": "sugardonor",
+    "1971": "quantum",
+    "1972": "protein",
+    "1973": "organometallic",
+    "1974": "polymer",
+    "1975": "chiral",
+    "1976": "boron",
+    "1977": "nonequilibrium",
+    "1978": "atp",
+    "1979": "organometallic",
+    "1980": "dna",
+    "1981": "quantum",
+    "1982": "crystal",
+    "1983": "electron",
+    "1984": "peptide",
+    "1985": "crystal",
+    "1986": "kinetics",
+    "1987": "hostguest",
+    "1988": "photosynthesis",
+    "1989": "ribozyme",
+    "1990": "synthesis",
+    "1991": "nmr",
+    "1992": "electron",
+    "1993": "dna",
+    "1994": "carbocation",
+    "1995": "ozone",
+    "1996": "fullerene",
+    "1997": "atp",
+    "1998": "quantum",
+    "1999": "kinetics",
+    "2000": "conductive",
+    "2001": "chiral",
+    "2002": "analysis",
+    "2003": "aquaporin",
+    "2004": "ubiquitin",
+    "2005": "metathesis",
+    "2006": "rna",
+    "2007": "surface",
+    "2008": "imaging",
+    "2009": "ribosome",
+    "2010": "catalysis",
+    "2011": "quasicrystal",
+    "2012": "gpcr",
+    "2013": "quantum",
+    "2014": "imaging",
+    "2015": "repair",
+    "2016": "motor",
+    "2017": "cryoem",
+    "2018": "directed",
+    "2019": "battery",
+    "2020": "editing",
+    "2021": "catalysis",
+    "2022": "click",
+    "2023": "qdot",
+    "2024": "protein",
+    "2025": "mof",
+    "2026": "chiral"
+  }
+}

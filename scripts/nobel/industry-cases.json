@@ -1,0 +1,2104 @@
+{
+  "merck": {
+    "organizationId": "merck",
+    "id": "merck",
+    "role": "合成原料、催化剂与分析标准品",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "Sigma-Aldrich 的有机化学目录按原料和反应类型组织。醛、炔、杂环等砌块负责提供分子骨架；催化剂与配体负责改变反应路径。研究人员可以分别筛选底物结构、催化金属和配体，比较收率及选择性，而不是把一套试剂当成适用于所有底物的通用配方。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "有机合成砌块",
+        "application": "按官能团与结构选择底物，用于目标分子的逐步组装。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "有机合成砌块 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Building blocks, catalysts and research materials",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Merck supplies catalysts, ligands and functional building blocks as separate inputs to synthesis. A substrate provides the molecular skeleton; a catalyst changes the reaction pathway. Selecting a compatible combination requires the actual structures and reaction conditions.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "thermo": {
+    "organizationId": "thermo",
+    "id": "thermo",
+    "role": "质谱分析：从样品离子到可解释的数据",
+    "status": "商业分析仪器与技术资料",
+    "paragraphs": [
+      "Thermo Fisher 的分析产品覆盖元素、同位素和分子层面的测量。这些仪器的输出对象不同：元素分析关心样品组成，同位素比值分析关心特定同位素之间的相对丰度，分子质谱则从质荷比和碎片信息研究化合物身份。它们不能用一条“检测能力更强”概括。",
+      "Orbitrap Astral 的官方操作手册分别说明不同分析器的运行模式和性能条件。实际工作先要完成提取、分离、离子化和校准，再决定采集方法；看到一个质量峰并不等于完成结构鉴定。对于痕量样品，还需要空白、标准品和重复测量来识别背景及干扰。",
+      "同位素研究与这一产品体系的联系在测量环节。稳定同位素比值仪器不能代替所有放射性核素检测，仪器目录也不构成核素治疗或年代测定结论。这里给出的是设备和方法入口，具体研究仍应回到样品处理与校准方案。"
+    ],
+    "products": [
+      {
+        "name": "元素与同位素分析产品",
+        "application": "按元素含量、同位素比值及样品类型选择测量路径。",
+        "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+      },
+      {
+        "name": "Orbitrap Astral 操作与采集模式",
+        "application": "核对分析器、采集方式以及各项性能的适用条件。",
+        "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+      }
+    ],
+    "sources": [
+      {
+        "label": "元素与同位素分析产品 · 官方资料",
+        "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+      },
+      {
+        "label": "Orbitrap Astral 操作与采集模式 · 官方资料",
+        "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "Analytical instruments and measurement workflows",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Its analytical portfolio covers elemental composition, isotope ratios and molecular mass spectrometry. These are different measurements: an isotope-ratio result does not answer the same question as a molecular mass spectrum.",
+        "The Orbitrap Astral operating manual describes analyzer modes and the conditions attached to performance specifications. Sample preparation, separation, ionization, calibration and controls remain part of the measurement.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "Elemental and isotope analysis",
+          "application": "Choose a measurement route for elemental composition or isotope ratios and a compatible sample form.",
+          "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+        },
+        {
+          "name": "Orbitrap Astral operating modes",
+          "application": "Check analyzer modes and acquisition conditions before interpreting molecular mass spectra.",
+          "url": "https://docs.thermofisher.com/r/Orbitrap-Astral-Operating-Manual/1980040587v1en-US2032197771"
+        }
+      ]
+    }
+  },
+  "bruker": {
+    "organizationId": "bruker",
+    "id": "bruker",
+    "role": "核磁共振：结构、相互作用与分子运动",
+    "status": "商业 NMR 仪器与控制平台",
+    "paragraphs": [
+      "Bruker 的 AVANCE 系列核磁共振谱仪用于研究分子结构、动力学与相互作用。核磁共振不是给分子拍一张直接可读的照片：实验记录核自旋的响应，再利用化学位移、耦合以及多维相关信号判断局部化学环境和原子之间的联系。",
+      "产品体系把磁体、控制台、探头和软件组合为一套实验平台。官方列出的 AVANCE NEO-X 控制台支持液体、固体及微成像等实验方向；这些能力需要匹配探头、样品形式和脉冲序列。不能把同一控制台所支持的模式，当作任意配置都能达到的指标。",
+      "在蛋白质、配位化合物和有机合成研究中，NMR 解决的往往是“得到的是什么、在溶液中怎样运动”。样品浓度、溶解性、交换速度及信号重叠仍会影响判断。结构模型通常要与其他表征或计算互相核对。"
+    ],
+    "products": [
+      {
+        "name": "AVANCE NMR 谱仪",
+        "application": "结构解析、分子动力学与相互作用实验的仪器入口。",
+        "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+      },
+      {
+        "name": "AVANCE NEO-X 控制台",
+        "application": "在同一产品体系中查阅液体、固体及微成像模式的配置。",
+        "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+      }
+    ],
+    "sources": [
+      {
+        "label": "AVANCE NMR 谱仪 · 官方资料",
+        "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+      },
+      {
+        "label": "AVANCE NEO-X 控制台 · 官方资料",
+        "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+      }
+    ],
+    "introduction": [
+      "Bruker 开发磁共振及分子、材料分析仪器。",
+      "Bruker develops scientific instruments for magnetic resonance, molecular and materials analysis."
+    ],
+    "en": {
+      "role": "NMR for structure, interaction and motion",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "AVANCE NMR instruments measure nuclear-spin responses to study molecular structure, motion and interactions. Chemical shifts, couplings and multidimensional correlations provide evidence about local environments and connectivity.",
+        "The NMR portfolio includes the AVANCE NEO-X console for liquid, solid-state and microimaging workflows. Each requires suitable probes, sample forms and pulse sequences; a console capability is not a specification for every instrument configuration.",
+        "Concentration, exchange and spectral overlap can limit interpretation, so models often need complementary measurements."
+      ],
+      "products": [
+        {
+          "name": "AVANCE NMR spectrometers",
+          "application": "Use chemical shifts, couplings and multidimensional correlations to investigate structure and motion.",
+          "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+        },
+        {
+          "name": "AVANCE NEO-X console",
+          "application": "Match liquid, solid-state or microimaging experiments to the probe, sample and pulse sequence.",
+          "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+        }
+      ]
+    }
+  },
+  "cytiva": {
+    "organizationId": "cytiva",
+    "id": "cytiva",
+    "role": "ÄKTA 与色谱介质：把分离方法接到可运行的流程",
+    "status": "商业蛋白纯化系统与分离介质",
+    "paragraphs": [
+      "Cytiva 的 ÄKTA 系列面向蛋白质等生物分子的液相色谱纯化。泵、阀、检测器和收集装置控制液体流路，色谱柱中的介质决定样品怎样被保留、洗脱或按尺寸分开。因此，仪器平台和分离机理是两个需要分别选择的层次。",
+      "官方选型资料列出亲和、离子交换、疏水作用及尺寸排阻等柱型。Sephadex 用于凝胶过滤和脱盐，Superdex 等尺寸排阻介质则有不同的分级范围；“都是色谱柱”并不意味着它们可以完成同一种纯化任务。",
+      "放大实验时，需要一起考虑上样量、流速、压力、缓冲液及回收率。一个蛋白在小柱上得到清晰峰形，不自动说明高浓度或大批量样品仍能保持同样的分离效果。这里展示的是已有系统与介质的工作分工。"
+    ],
+    "products": [
+      {
+        "name": "ÄKTA pure 色谱系统",
+        "application": "组织自动化流路、检测与组分收集。",
+        "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+      },
+      {
+        "name": "Sephadex / Superdex 及预装柱选型",
+        "application": "按脱盐、尺寸排阻和结合机制比较不同柱型。",
+        "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "ÄKTA pure 色谱系统 · 官方资料",
+        "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+      },
+      {
+        "label": "Sephadex / Superdex 及预装柱选型 · 官方资料",
+        "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+      }
+    ],
+    "introduction": [
+      "Cytiva 提供生物分子研究与生物工艺所用系统和耗材。",
+      "Cytiva supplies technologies and consumables for biomolecular research and bioprocessing."
+    ],
+    "en": {
+      "role": "ÄKTA systems and chromatography media",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "ÄKTA chromatography systems combine pumps, valves, detection and collection for biomolecule purification. The instrument controls the flow, while the column medium determines how molecules bind, elute or separate by size.",
+        "The official selection guide distinguishes affinity, ion exchange, hydrophobic interaction and size exclusion. Sephadex and Superdex media serve different fractionation tasks and ranges; they are not interchangeable simply because both are chromatography media.",
+        "Loading, flow, pressure, buffer and recovery must be considered when a method is scaled."
+      ],
+      "products": [
+        {
+          "name": "ÄKTA pure chromatography",
+          "application": "Control liquid flow, detection and fraction collection during biomolecule purification.",
+          "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-16276-pdf"
+        },
+        {
+          "name": "Sephadex / Superdex column selection",
+          "application": "Choose media and column formats for desalting, size exclusion or a specific binding mechanism.",
+          "url": "https://cdn.cytivalifesciences.com.cn/api/public/content/digi-17731-pdf"
+        }
+      ]
+    }
+  },
+  "novonesis": {
+    "organizationId": "novonesis",
+    "id": "novonesis",
+    "role": "工业酶：先确定底物，再选择转化步骤",
+    "status": "商业生物加工方案",
+    "paragraphs": [
+      "Novonesis 的工业生物加工业务按酿造、油脂处理和工业水管理等场景提供酶方案。酶作用于特定化学键，适合用于原料处理、组分释放或杂质去除；选择产品首先取决于待处理原料中真正需要改变的组分。",
+      "酿造中的酶方案与油脂加工面对不同底物和工艺条件。工业上关心的不只是某个酶在试管中的活性，还包括配方稳定性、温度与酸碱条件、原料差异以及与既有设备的衔接。企业资料中的应用分类提供了选择入口，不能代替具体工艺评价。",
+      "这与酶催化及定向进化的联系，是把可选择的生物催化功能放入实际加工步骤。不能据此推断企业的每个产品都来自某一项获奖实验，或把一种酶的效果推广到所有发酵与合成反应。"
+    ],
+    "products": [
+      {
+        "name": "酿造用酶解决方案",
+        "application": "围绕谷物原料处理和酿造流程查阅应用。",
+        "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+      },
+      {
+        "name": "油脂加工与工业水管理方案",
+        "application": "按不同原料、处理对象和工艺环节选择生物加工路线。",
+        "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+      }
+    ],
+    "sources": [
+      {
+        "label": "酿造用酶解决方案 · 官方资料",
+        "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+      },
+      {
+        "label": "油脂加工与工业水管理方案 · 官方资料",
+        "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+      }
+    ],
+    "introduction": [
+      "Novonesis 开发用于工业加工的酶及微生物方案。",
+      "Novonesis develops enzyme and microbial solutions for industrial processing."
+    ],
+    "en": {
+      "role": "Enzymes for defined processing steps",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Its industrial-bioprocessing portfolio groups enzyme solutions by applications including brewing, oils and fats, and industrial water management. An enzyme acts on particular substrates and bonds, so the raw material and desired conversion determine the choice.",
+        "Industrial application also depends on formulation stability, temperature, pH and compatibility with the process. Brewing and oils processing are distinct workflows even when both use enzymes.",
+        "The cited portfolio shows applications of biocatalysis; it does not establish that every product derives from a particular Nobel experiment."
+      ],
+      "products": [
+        {
+          "name": "Brewing enzyme solutions",
+          "application": "Select enzymes for the raw material and conversion required in a brewing process.",
+          "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+        },
+        {
+          "name": "Oils processing and industrial water",
+          "application": "Separate oils-processing and industrial-water tasks when choosing a bioprocessing application.",
+          "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+        }
+      ]
+    }
+  },
+  "dsm": {
+    "organizationId": "dsm",
+    "id": "dsm",
+    "role": "维生素原料：化学身份之外还有剂型与稳定性",
+    "status": "商业营养原料与产品资料",
+    "paragraphs": [
+      "dsm-firmenich 的维生素目录面向饲料、食品等不同用途。企业提供的并不只是一个维生素名称，还涉及活性成分的化学形式、载体及产品剂型。对于同一种营养素，配方和加工过程会影响它能否在目标产品中保持有效含量。",
+      "以官方目录中的 ROVIMIX STAY-C 35 为例，产品资料将其列为维生素 C 的稳定化产品形式。它解决的是配方和加工中的稳定性问题，与直接购买分析用抗坏血酸试剂属于不同使用场景。实际选型应核对产品说明所针对的动物、原料和工艺。",
+      "从分子结构研究到营养原料生产，中间还隔着合成或发酵、分离、制剂和质量控制。这里用维生素产品说明这条产业链的后端；目录没有提供的制造路线、菌株或成本信息，不据此推断。"
+    ],
+    "products": [
+      {
+        "name": "维生素产品目录",
+        "application": "查阅不同维生素及其对应的商业原料形式。",
+        "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+      },
+      {
+        "name": "ROVIMIX 产品形式对照",
+        "application": "比较活性成分与产品剂型，包含 STAY-C 35。",
+        "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "维生素产品目录 · 官方资料",
+        "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+      },
+      {
+        "label": "ROVIMIX 产品形式对照 · 官方资料",
+        "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+      }
+    ],
+    "introduction": [
+      "dsm-firmenich 提供营养原料与相关制剂技术。",
+      "dsm-firmenich supplies nutritional ingredients and related formulation technologies."
+    ],
+    "en": {
+      "role": "Vitamin ingredients and product forms",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Commercial vitamin ingredients are specified by chemical form, carrier and formulation, rather than by the vitamin name alone. Processing and storage can affect the retained active content in a finished formulation.",
+        "The official product-form guide lists ROVIMIX STAY-C 35 as a stabilized vitamin C product. That formulation task differs from supplying analytical ascorbic acid for a laboratory experiment.",
+        "The catalogue does not disclose every synthesis route, production organism or manufacturing cost."
+      ],
+      "products": [
+        {
+          "name": "Vitamin product portfolio",
+          "application": "Identify the vitamin ingredient and formulation intended for a particular nutritional application.",
+          "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+        },
+        {
+          "name": "ROVIMIX product-form guide",
+          "application": "Compare active substances and commercial product forms, including stabilized vitamin C.",
+          "url": "https://www.dsm.com/content/dam/dsm/anh/en/documents/BRO_ProductForms_EN_1222_KNA.pdf"
+        }
+      ]
+    }
+  },
+  "basf": {
+    "organizationId": "basf",
+    "id": "basf",
+    "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+    "status": "商业化工原料与材料",
+    "paragraphs": [
+      "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+      "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+      "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+    ],
+    "products": [
+      {
+        "name": "氨基化学品",
+        "application": "氨、尿素及相关含氮产品的官方业务入口。",
+        "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+      },
+      {
+        "name": "Ultramid 与聚酰胺前体",
+        "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+        "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+      }
+    ],
+    "sources": [
+      {
+        "label": "氨基化学品 · 官方资料",
+        "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+      },
+      {
+        "label": "Ultramid 与聚酰胺前体 · 官方资料",
+        "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+      }
+    ],
+    "introduction": [
+      "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+      "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+    ],
+    "en": {
+      "role": "Ammonia, urea and polyamide value chains",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+        "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+        "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+      ],
+      "products": [
+        {
+          "name": "Ammonia-based chemicals",
+          "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+          "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+        },
+        {
+          "name": "Ultramid and polyamide precursors",
+          "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+          "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+        }
+      ]
+    }
+  },
+  "catl": {
+    "organizationId": "catl",
+    "id": "catl",
+    "role": "神行与麒麟：电极化学和电池包工程的不同层次",
+    "status": "企业发布的商业电池产品系列",
+    "paragraphs": [
+      "CATL 的神行和麒麟是面向车辆需求的电池产品系列。神行强调充电过程，麒麟强调电池系统集成；讨论它们时，要把正负极材料、电解液与界面控制，同电池包内的空间安排和热管理分开看。",
+      "企业技术资料列出不同化学体系下的系统设计，并讨论电解液添加剂和界面反应对热安全的影响。电芯中锂的可逆迁移提供储能基础，但充电速度还受离子与电子传输、热量排出及整车充电系统影响。不能由电极材料名称直接推算车辆表现。",
+      "本节不把不同代际或不同化学体系的宣传指标拼成一款电池。具体容量、倍率、温度和测试条件，应以相应产品发布资料为准。它们与获奖成果的联系在可充电锂电池的技术脉络，而非对上文某个实验协议的采用证明。"
+    ],
+    "products": [
+      {
+        "name": "神行快充电池产品发布",
+        "application": "查看充电相关的产品定位及对应版本说明。",
+        "url": "https://www.catl.com/en/news/6811.html"
+      },
+      {
+        "name": "麒麟与 CTP 系统技术",
+        "application": "查看不同电池化学体系与电池包设计。",
+        "url": "https://www.catl.com/en/research/technology/"
+      }
+    ],
+    "sources": [
+      {
+        "label": "神行快充电池产品发布 · 官方资料",
+        "url": "https://www.catl.com/en/news/6811.html"
+      },
+      {
+        "label": "麒麟与 CTP 系统技术 · 官方资料",
+        "url": "https://www.catl.com/en/research/technology/"
+      }
+    ],
+    "introduction": [
+      "宁德时代研发和制造动力电池及储能系统。",
+      "CATL develops and manufactures batteries and energy-storage systems."
+    ],
+    "en": {
+      "role": "Shenxing and Qilin battery systems",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Shenxing and Qilin address different aspects of vehicle-battery design. Charging behavior depends on electrodes, electrolyte and interfaces as well as heat removal; pack design also determines how cells and cooling components are arranged.",
+        "The official technology material discusses different chemistries and electrolyte additives. A material name alone cannot determine charging speed or vehicle range, which also depend on the system and test conditions.",
+        "Specifications from different generations or chemistries are not combined into a single imaginary battery here."
+      ],
+      "products": [
+        {
+          "name": "Shenxing battery series",
+          "application": "Read the charging-oriented product positioning and the conditions of the cited generation.",
+          "url": "https://www.catl.com/en/news/6811.html"
+        },
+        {
+          "name": "Qilin and CTP technology",
+          "application": "Examine pack integration, thermal design and the chemistry used in the relevant configuration.",
+          "url": "https://www.catl.com/en/research/technology/"
+        }
+      ]
+    }
+  },
+  "twist": {
+    "organizationId": "twist",
+    "id": "twist",
+    "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+    "status": "商业 DNA 合成服务与研究文库",
+    "paragraphs": [
+      "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+      "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+      "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+    ],
+    "products": [
+      {
+        "name": "Clonal Genes 与 Gene Fragments",
+        "application": "在已克隆基因和基因片段之间选择交付形式。",
+        "url": "https://www.twistbioscience.com/products/genes"
+      },
+      {
+        "name": "Variant Libraries",
+        "application": "按组合变异和位点饱和等设计组织实验序列。",
+        "url": "https://www.twistbioscience.com/products/libraries"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Clonal Genes 与 Gene Fragments · 官方资料",
+        "url": "https://www.twistbioscience.com/products/genes"
+      },
+      {
+        "label": "Variant Libraries · 官方资料",
+        "url": "https://www.twistbioscience.com/products/libraries"
+      }
+    ],
+    "introduction": [
+      "Twist Bioscience 提供合成 DNA 与序列文库。",
+      "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+    ],
+    "en": {
+      "role": "Gene synthesis and variant libraries",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+        "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+        "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+      ],
+      "products": [
+        {
+          "name": "Clonal Genes and Gene Fragments",
+          "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+          "url": "https://www.twistbioscience.com/products/genes"
+        },
+        {
+          "name": "Variant Libraries",
+          "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+          "url": "https://www.twistbioscience.com/products/libraries"
+        }
+      ]
+    }
+  },
+  "schrodinger": {
+    "organizationId": "schrodinger",
+    "id": "schrodinger",
+    "role": "Jaguar 与 Desmond：电子结构和分子运动分开计算",
+    "status": "商业分子模拟软件",
+    "paragraphs": [
+      "Schrödinger 的 Jaguar 用于量子化学和电子结构计算，官方材料列出密度泛函理论等方法，以及分子结构、反应和性质分析用途。它从电子层面处理化学问题；计算结果取决于模型、基组、泛函和所研究体系。",
+      "Desmond 面向分子动力学模拟，研究原子随时间的运动。它与电子结构计算的分工不同：经典分子动力学通常使用力场描述相互作用，能够探索结构变化，却不能自动把每一次化学成键和断键都当作电子结构问题求解。",
+      "商业软件使建模、运行和结果分析更容易衔接，但界面完整不等于物理假设已经得到验证。选择计算方法后仍需检查收敛、采样和适用范围。这里展示软件采用的方法类型，不声称它复现了上文论文的算法或精度。"
+    ],
+    "products": [
+      {
+        "name": "Jaguar 量子化学计算",
+        "application": "计算电子结构、分子性质与反应相关问题。",
+        "url": "https://www.schrodinger.com/platform/products/jaguar/"
+      },
+      {
+        "name": "Desmond 分子动力学",
+        "application": "研究分子构象、相互作用和运动过程。",
+        "url": "https://www.schrodinger.com/platform/products/desmond/"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Jaguar 量子化学计算 · 官方资料",
+        "url": "https://www.schrodinger.com/platform/products/jaguar/"
+      },
+      {
+        "label": "Desmond 分子动力学 · 官方资料",
+        "url": "https://www.schrodinger.com/platform/products/desmond/"
+      }
+    ],
+    "introduction": [
+      "Schrödinger 开发分子建模与模拟软件。",
+      "Schrödinger develops molecular-modeling and simulation software."
+    ],
+    "en": {
+      "role": "Jaguar and Desmond: distinct modeling tasks",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Jaguar addresses quantum chemistry and electronic structure, including molecular properties and reaction-related questions. Results depend on the model, basis and electronic-structure method chosen for the system.",
+        "Desmond addresses molecular dynamics: atomic motion and conformational change over time. Classical force-field simulation has a different role from explicit electronic-structure treatment of bond formation and breaking.",
+        "The software workflow does not remove the need to examine convergence, sampling and the physical assumptions."
+      ],
+      "products": [
+        {
+          "name": "Jaguar quantum chemistry",
+          "application": "Compute electronic structure, molecular properties or reaction-related questions.",
+          "url": "https://www.schrodinger.com/platform/products/jaguar/"
+        },
+        {
+          "name": "Desmond molecular dynamics",
+          "application": "Sample molecular motion and conformational behavior using a molecular-dynamics model.",
+          "url": "https://www.schrodinger.com/platform/products/desmond/"
+        }
+      ]
+    }
+  },
+  "oxinst": {
+    "organizationId": "oxinst",
+    "id": "oxinst",
+    "role": "稀释制冷设备：提供低温环境，而非直接制备量子态",
+    "status": "低温实验设备与工程系统",
+    "paragraphs": [
+      "Oxford Instruments 的 Proteox 产品及大型稀释制冷系统为低温实验提供工作空间。设备的任务是控制实验环境和热负载，让样品、线缆及测量部件能在低温下工作；实验要研究的分子或量子体系仍需另行制备。",
+      "企业的大型系统安装资料讨论设备配置与实验空间。这类工程关注样品装载、连接和可用空间，而原子或分子激光冷却关注光与物质的相互作用。两者都涉及低温，但不能把制冷机的存在写成已经完成分子态操控。",
+      "因此，设备与获奖工作的联系在实验条件和测量基础设施。本文不把厂商的设备能力当作某项独立物理实验的复现，也不对未给出配置和热负载的系统引用单一极限温度。"
+    ],
+    "products": [
+      {
+        "name": "Proteox 与大型稀释制冷系统",
+        "application": "了解系统安装、实验空间和模块化配置。",
+        "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+      },
+      {
+        "name": "Oxford Instruments 低温技术入口",
+        "application": "从企业技术资料继续查阅相应实验设备。",
+        "url": "https://www.oxinst.com/"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Proteox 与大型稀释制冷系统 · 官方资料",
+        "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+      },
+      {
+        "label": "Oxford Instruments 低温技术入口 · 官方资料",
+        "url": "https://www.oxinst.com/"
+      }
+    ],
+    "introduction": [
+      "Oxford Instruments 提供科学仪器与低温实验系统。",
+      "Oxford Instruments supplies scientific instruments and low-temperature experimental systems."
+    ],
+    "en": {
+      "role": "Low-temperature experimental infrastructure",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Proteox and large dilution-refrigeration systems provide an environment for low-temperature experiments. Cooling hardware, wiring, sample space and heat load must be considered together.",
+        "The cited installation report describes modular configuration and experimental access. Laser cooling of atoms or molecules uses a different physical mechanism and cannot be inferred merely from the presence of a cryostat.",
+        "The equipment supplies experimental infrastructure; it does not by itself prepare or verify a particular molecular quantum state."
+      ],
+      "products": [
+        {
+          "name": "Proteox and large dilution systems",
+          "application": "Plan low-temperature sample space, access and modular experimental configuration.",
+          "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+        },
+        {
+          "name": "Oxford Instruments technology",
+          "application": "Locate instrumentation suited to the experiment rather than equating refrigeration with laser cooling.",
+          "url": "https://www.oxinst.com/"
+        }
+      ]
+    }
+  },
+  "arvinas": {
+    "organizationId": "arvinas",
+    "id": "arvinas",
+    "role": "PROTAC：借用细胞的蛋白降解系统",
+    "status": "企业蛋白降解技术平台与研发管线",
+    "paragraphs": [
+      "Arvinas 的 PROTAC 技术把靶蛋白结合端、连接部分和 E3 泛素连接酶结合端放入同一个双功能分子。目标不是仅占据一个活性位点，而是促使靶蛋白与细胞降解机器接近，随后经泛素化和蛋白酶体处理。",
+      "企业将靶点选择、E3 连接酶研究、分子设计以及临床开发组成一条研发流程。一个分子能同时结合两个蛋白，不保证一定高效降解；三元复合物的形成、细胞可达性和暴露水平也会影响结果。",
+      "平台介绍与具体药物状态应分别查阅。这里用 PROTAC 说明泛素系统研究怎样进入药物研发，具体适应证、试验及批准情况以企业管线和监管资料为准，不将某个项目的状态推广到整个蛋白降解领域。"
+    ],
+    "products": [
+      {
+        "name": "PROTAC Discovery Engine",
+        "application": "了解双功能降解分子与 E3 连接酶技术路线。",
+        "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+      },
+      {
+        "name": "研发管线",
+        "application": "逐项目查看研发方向及其公开状态。",
+        "url": "https://www.arvinas.com/research-and-development/pipeline/"
+      }
+    ],
+    "sources": [
+      {
+        "label": "PROTAC Discovery Engine · 官方资料",
+        "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+      },
+      {
+        "label": "研发管线 · 官方资料",
+        "url": "https://www.arvinas.com/research-and-development/pipeline/"
+      }
+    ],
+    "introduction": [
+      "Arvinas 研发靶向蛋白降解技术与药物项目。",
+      "Arvinas develops protein-degradation technologies and therapeutic programs."
+    ],
+    "en": {
+      "role": "PROTAC protein-degradation technology",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "A PROTAC combines a target-binding component, a linker and an E3-ligase-binding component. Bringing the target and ligase together can lead to ubiquitination and proteasomal degradation rather than simply blocking an active site.",
+        "The company connects target selection, E3 expertise, molecular design and development. Dual binding alone does not guarantee degradation: ternary-complex formation, cellular access and exposure also matter.",
+        "Platform information and the status of an individual program are read separately; a program’s status is not generalized to the whole field."
+      ],
+      "products": [
+        {
+          "name": "PROTAC Discovery Engine",
+          "application": "Examine how target binding and E3 recruitment are combined in a degrader molecule.",
+          "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+        },
+        {
+          "name": "Development pipeline",
+          "application": "Check the stated development stage of each specific program rather than generalizing platform claims.",
+          "url": "https://www.arvinas.com/research-and-development/pipeline/"
+        }
+      ]
+    }
+  },
+  "samsung": {
+    "organizationId": "samsung",
+    "id": "samsung",
+    "role": "QD-OLED：量子点承担颜色转换",
+    "status": "商业显示面板技术",
+    "paragraphs": [
+      "Samsung Display 的 QD-OLED 把蓝色 OLED 发出的光与量子点颜色转换相结合。蓝光为转换提供激发能，量子点产生所需的红、绿光分量。量子点在其中承担的是光转换材料的任务，不能把整块面板简称为纯量子点电致发光器件。",
+      "企业技术说明将颜色形成方式与传统使用滤色片的方案作比较。材料发光谱、转换层、像素结构和面板驱动共同影响显示表现；实验室里量子点的发光效率，不等于电视或显示器整机的能耗及寿命。",
+      "这一案例呈现了纳米晶体光学性质进入面板制造的路径。本文保留官方对工作原理的说明，不从中反推企业的具体纳米晶合成配方，也不把不同品牌终端的整机参数混作材料参数。"
+    ],
+    "products": [
+      {
+        "name": "QD-OLED 颜色形成机制",
+        "application": "查阅蓝色 OLED 光源与量子点的配合方式。",
+        "url": "https://global.samsungdisplay.com/31454?type=main"
+      },
+      {
+        "name": "QD-OLED 色彩技术说明",
+        "application": "区分色彩纯度、面板结构与终端显示表现。",
+        "url": "https://global.samsungdisplay.com/31114"
+      }
+    ],
+    "sources": [
+      {
+        "label": "QD-OLED 颜色形成机制 · 官方资料",
+        "url": "https://global.samsungdisplay.com/31454?type=main"
+      },
+      {
+        "label": "QD-OLED 色彩技术说明 · 官方资料",
+        "url": "https://global.samsungdisplay.com/31114"
+      }
+    ],
+    "introduction": [
+      "Samsung Display 开发和制造显示面板。",
+      "Samsung Display develops and manufactures display-panel technologies."
+    ],
+    "en": {
+      "role": "Quantum-dot color conversion in QD-OLED",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "QD-OLED combines blue OLED emission with quantum-dot color conversion. Quantum dots generate red and green components from the excitation light; the entire panel is not a purely quantum-dot electroluminescent device.",
+        "The company explains this color-production approach in contrast with conventional color filtering. Quantum-dot spectra, conversion layers, pixel structure and driving electronics all affect a display.",
+        "A nanocrystal’s laboratory optical performance is distinct from the power consumption and lifetime of a complete display."
+      ],
+      "products": [
+        {
+          "name": "QD-OLED color conversion",
+          "application": "Distinguish blue OLED excitation from red and green quantum-dot color conversion.",
+          "url": "https://global.samsungdisplay.com/31454?type=main"
+        },
+        {
+          "name": "QD-OLED color technology",
+          "application": "Read color-performance explanations together with panel architecture and driving conditions.",
+          "url": "https://global.samsungdisplay.com/31114"
+        }
+      ]
+    }
+  },
+  "beckman": {
+    "organizationId": "beckman",
+    "id": "beckman",
+    "role": "Optima AUC：在溶液中观察沉降与组装",
+    "status": "商业分析超离心仪器",
+    "paragraphs": [
+      "Beckman Coulter 的 Optima AUC 用分析超离心研究溶液中的颗粒和大分子。与把样品简单分离后取出不同，分析超离心通过光学检测跟踪浓度分布，让沉降过程成为研究分子状态的信号。",
+      "官方说明区分沉降速度、沉降平衡和密度梯度平衡实验。沉降速度提供水动力学信息，沉降平衡用于研究摩尔质量等热力学性质，密度梯度平衡则按浮力密度区分颗粒。这些实验不能仅凭相同的仪器名称互相替代。",
+      "它适合用于比较单体、聚集体及组装行为。解释结果需要考虑缓冲液、密度、黏度、转速与模型，得到一个沉降系数也不等于获得唯一三维结构。产品资料和实验方法应连在一起阅读。"
+    ],
+    "products": [
+      {
+        "name": "Optima AUC 分析超离心系统",
+        "application": "了解仪器检测和分析工作流程。",
+        "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+      },
+      {
+        "name": "沉降速度、平衡与密度梯度实验",
+        "application": "按待回答的问题选择分析方法。",
+        "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Optima AUC 分析超离心系统 · 官方资料",
+        "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+      },
+      {
+        "label": "沉降速度、平衡与密度梯度实验 · 官方资料",
+        "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
+      }
+    ],
+    "introduction": [
+      "Beckman Coulter Life Sciences 提供实验室分离和分析设备。",
+      "Beckman Coulter Life Sciences supplies laboratory separation and analysis systems."
+    ],
+    "en": {
+      "role": "Optima AUC sedimentation analysis",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Optima AUC follows the concentration distribution of particles and macromolecules during analytical ultracentrifugation. The sedimentation process itself becomes a measurement rather than only a separation step.",
+        "Official methods distinguish sedimentation velocity, sedimentation equilibrium and density-gradient equilibrium. They address hydrodynamic behavior, thermodynamic mass information and buoyant density respectively.",
+        "Buffer density, viscosity, speed and the analysis model affect interpretation; a sedimentation coefficient is not a unique three-dimensional structure."
+      ],
+      "products": [
+        {
+          "name": "Optima AUC",
+          "application": "Follow concentration distributions during analytical ultracentrifugation.",
+          "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+        },
+        {
+          "name": "Sedimentation experiment selection",
+          "application": "Choose velocity, equilibrium or density-gradient analysis for the physical question being asked.",
+          "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
+        }
+      ]
+    }
+  },
+  "chemours": {
+    "organizationId": "chemours",
+    "id": "chemours",
+    "role": "Opteon YF：替代冷媒需要同时比较分子性质与系统条件",
+    "status": "商业汽车空调制冷剂与技术说明",
+    "paragraphs": [
+      "Chemours 的 Opteon YF 对应 R-1234yf，官方资料将它用于汽车空调。它属于氢氟烯烃类冷媒，与早期含氯制冷剂在分子组成及大气反应行为上不同；评价替代品时，臭氧消耗潜值和全球变暖潜值是不同指标。",
+      "产品技术公告还讨论润滑剂、材料相容性和物性。冷媒并非只要环境指标合适就可以直接灌入任意设备：压缩机、密封材料、维修连接及安全要求共同决定系统适配。厂商说明中的性能条件需要同实际设备一起核对。",
+      "与臭氧化学的联系在于替代物设计和大气影响评价。本文不把“无臭氧消耗”写成“没有环境影响”，也不据一份产品公告判断所有分解产物或全生命周期问题已经解决。"
+    ],
+    "products": [
+      {
+        "name": "Opteon YF / R-1234yf",
+        "application": "官方制造商的用途及系统适配说明。",
+        "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+      },
+      {
+        "name": "产品性质与技术公告",
+        "application": "查阅物性、润滑剂及使用条件。",
+        "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Opteon YF / R-1234yf · 官方资料",
+        "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+      },
+      {
+        "label": "产品性质与技术公告 · 官方资料",
+        "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
+      }
+    ],
+    "introduction": [
+      "Chemours 生产制冷剂等高性能化学品与材料。",
+      "Chemours produces performance chemicals and materials, including refrigerants."
+    ],
+    "en": {
+      "role": "Opteon YF automotive refrigerant",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Opteon YF is R-1234yf, a refrigerant used in automotive air conditioning. Ozone-depletion potential and global-warming potential describe different environmental effects and should not be treated as one metric.",
+        "The technical bulletin also discusses physical properties, lubricant compatibility and materials. Compressor design, seals, servicing connections and safety requirements determine whether a refrigerant fits a system.",
+        "Non-ozone-depleting does not mean impact-free; the cited product material is not a complete lifecycle assessment."
+      ],
+      "products": [
+        {
+          "name": "Opteon YF / R-1234yf",
+          "application": "Check the refrigerant identity and intended automotive air-conditioning use.",
+          "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+        },
+        {
+          "name": "Product properties and technical bulletin",
+          "application": "Read physical properties, lubricant compatibility and system requirements together.",
+          "url": "https://www.chemours.com/en/-/media/files/opteon/opteon-yf-product-information-bulletin.pdf"
+        }
+      ]
+    }
+  },
+  "novo": {
+    "organizationId": "novo",
+    "id": "novo",
+    "role": "胰岛素产品研发：从分子作用到给药特征",
+    "status": "企业糖尿病研发与产品资料",
+    "paragraphs": [
+      "Novo Nordisk 的糖尿病研发以胰岛素及其他治疗方向为对象。胰岛素通过与受体相互作用参与血糖调节；制造可用产品还需要控制分子身份、杂质、制剂稳定性及给药后的暴露。分子有活性只是其中一个环节。",
+      "企业公开研发资料把分子设计和产品开发连接起来。对于胰岛素类产品，改变分子或制剂可能改变吸收和作用过程，评价需要同时考虑药代动力学、药效和临床证据。不能仅凭结构相似便推断两种制剂可以互换。",
+      "本节展示蛋白质化学研究通往药物开发的路径，不提供用药或剂量建议，也不把所有胰岛素产品归为同一种制备路线。具体产品信息应进入企业产品资料并核对相应监管说明。"
+    ],
+    "products": [
+      {
+        "name": "糖尿病科学与技术",
+        "application": "了解企业对分子作用、制剂和开发问题的介绍。",
+        "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+      },
+      {
+        "name": "企业产品资料",
+        "application": "从产品层面核对名称、用途和相应资料入口。",
+        "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+      }
+    ],
+    "sources": [
+      {
+        "label": "糖尿病科学与技术 · 官方资料",
+        "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+      },
+      {
+        "label": "企业产品资料 · 官方资料",
+        "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+      }
+    ],
+    "introduction": [
+      "Novo Nordisk 研发糖尿病等慢性疾病的药物产品。",
+      "Novo Nordisk researches and develops medicines for diabetes and other chronic diseases."
+    ],
+    "en": {
+      "role": "Insulin research and product development",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Insulin acts through receptor interactions, but an insulin product also requires control of identity, impurities, formulation and exposure after administration. Molecular activity is one part of development.",
+        "Changes in the molecule or formulation may alter absorption and duration of action. Structural similarity alone does not establish that formulations can be exchanged.",
+        "This is an industrial-development example, not prescribing or dosing advice."
+      ],
+      "products": [
+        {
+          "name": "Diabetes science and technology",
+          "application": "Connect insulin action to formulation, exposure and product-development questions.",
+          "url": "https://www.novonordisk.com/science-and-technology/research-technologies.html"
+        },
+        {
+          "name": "Official product information",
+          "application": "Check a named product against its own official information rather than inferring interchangeability.",
+          "url": "https://www.novonordisk.com/our-products/our-medicines.html"
+        }
+      ]
+    }
+  },
+  "merck-sugars": {
+    "organizationId": "merck",
+    "id": "merck-sugars",
+    "role": "糖类原料与糖生物学试剂",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "单糖、寡糖、多糖和糖衍生物分别适合不同问题。糖合成关注连接位置和立体构型，糖生物学关注糖链与蛋白、细胞之间的关系。供应目录可以帮助选择已知底物和标准品，不能仅凭一个相同分子式判断糖的构型。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "糖类原料与糖生物学试剂",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "糖类原料与糖生物学试剂 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Carbohydrate reagents and building blocks",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Monosaccharides, oligosaccharides, polysaccharides and derivatives address different experimental questions. Sugar synthesis requires control of linkage position and stereochemistry, while glycobiology studies interactions with proteins and cells.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-steroid": {
+    "organizationId": "merck",
+    "id": "merck-steroid",
+    "role": "有机砌块与甾体相关研究材料",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "甾体研究需要区分母核、取代基与立体构型。目标分子的生理作用与研究试剂的质量规格也是两回事；合成砌块用于路线开发，不能直接视作可给药的活性成分。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "有机砌块与甾体相关研究材料",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "有机砌块与甾体相关研究材料 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Steroid-related synthesis materials",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Steroid chemistry distinguishes the ring system, substituents and stereochemistry. A research building block is a route-development input, not automatically a formulated active pharmaceutical ingredient.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-fullerene": {
+    "organizationId": "merck",
+    "id": "merck-fullerene",
+    "role": "富勒烯与碳纳米材料",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "富勒烯产品资料按不同组成和等级提供碳笼材料。作为研究样品，首先要核对碳笼身份、纯度、可溶性及杂质；研究人员再选择加成、衍生化或薄膜制备条件。购买到 C60 并不意味着已具备特定器件的性能。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "富勒烯与碳纳米材料",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "富勒烯与碳纳米材料 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Fullerene and carbon nanomaterials",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "The fullerene product material distinguishes compositions and grades. Cage identity, purity, solubility and impurities matter before derivatization or film fabrication; C60 availability does not establish device performance.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/393/181/al_chemfile_v5_n3.pdf"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-fluorine": {
+    "organizationId": "merck",
+    "id": "merck-fluorine",
+    "role": "含氟合成砌块与反应试剂",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "含氟砌块把特定含氟片段带入合成路线。它们与生产单质氟、制造无机氟化物或制备含氟聚合物是不同业务。选型时应回到具体结构、官能团兼容性和反应条件，而不是把“含氟”视作统一性质。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "含氟合成砌块与反应试剂",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "含氟合成砌块与反应试剂 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Fluorinated synthesis building blocks",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "A fluorinated building block introduces a defined fragment into a synthesis. Elemental fluorine, inorganic fluorides and fluoropolymers are different product and process categories.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-hostguest": {
+    "organizationId": "merck",
+    "id": "merck-hostguest",
+    "role": "主客体化学所用分子砌块",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "主客体体系要同时考虑主体的空腔、客体的尺寸和两者在溶剂中的相互作用。有机砌块承担主体或客体的合成原料角色，真正的识别与结合强度仍需由滴定、光谱或其他实验测量。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "主客体化学所用分子砌块",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "主客体化学所用分子砌块 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Building blocks for host–guest chemistry",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Host–guest behavior depends on cavities, molecular dimensions, solvent and interactions. Building blocks supply starting materials; recognition and binding must be measured in the assembled system.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-motor": {
+    "organizationId": "merck",
+    "id": "merck-motor",
+    "role": "分子机器合成所用砌块与催化剂",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "分子机器的合成需要先获得具有特定连接方式和立体结构的分子。这里列出原料和催化工具，不把目录中的普通分子当作可直接购买的完整分子马达；方向性运动与能量输入需在组装后的体系中验证。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "分子机器合成所用砌块与催化剂",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "分子机器合成所用砌块与催化剂 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Synthetic inputs for molecular machines",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Building blocks and catalysts support preparation of the required connectivity and stereochemistry. They are not complete molecular motors; directional motion must be demonstrated in the assembled, energy-driven system.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-conductive": {
+    "organizationId": "merck",
+    "id": "merck-conductive",
+    "role": "电子材料研究所用有机合成原料",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "导电聚合物研究依赖重复单元结构、掺杂和成膜条件。商业合成原料解决的是材料制备入口，电导率、稳定性和器件表现则需要对最终样品测量，不能由原料名称直接给出。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "电子材料研究所用有机合成原料",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "电子材料研究所用有机合成原料 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Synthesis inputs for electronic materials",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Repeat-unit chemistry, doping and film preparation affect conductive polymers. Conductivity and device behavior must be measured on the prepared material rather than inferred from a starting reagent.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-radio": {
+    "organizationId": "merck",
+    "id": "merck-radio",
+    "role": "配位化学与核素研究的材料入口",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "研究核素的配位环境需要把金属中心、配体及化学形态分开处理。这里展示的是化学研究原料及技术目录；稳定同位素材料与放射性核素不是一回事，普通试剂供应不能当作放射性药物生产或供应资质。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "配位化学与核素研究的材料入口",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "配位化学与核素研究的材料入口 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Coordination-chemistry research materials",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Coordination studies distinguish the metal center, ligand and chemical form. Stable-isotope reagents and radioactive isotopes are different materials, and a general reagent catalogue is not evidence of radiopharmaceutical manufacturing.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-colloid": {
+    "organizationId": "merck",
+    "id": "merck-colloid",
+    "role": "胶体与自组装研究的合成原料",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "胶体样品的尺寸、表面化学和分散状态由制备与处理过程共同决定。原料目录提供成分选择，不能替代粒径分布、表面电荷、聚集和稳定性的实际表征。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "胶体与自组装研究的合成原料",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "胶体与自组装研究的合成原料 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Chemical inputs for colloid and assembly research",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Particle size, surface chemistry and dispersion depend on preparation and handling. The starting-material catalogue does not replace measurements of aggregation, size distribution and stability.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/building-blocks/organic-building-blocks"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-soai": {
+    "organizationId": "merck",
+    "id": "merck-soai",
+    "role": "不对称合成的底物、催化剂与手性配体",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "不对称合成要分别记录底物结构、催化剂或配体的手性组成，以及产物的对映体过量。非线性效应说明这些量不必按简单线性关系变化，试剂的标签纯度也不能直接替代反应后产物的手性分析。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "不对称合成的底物、催化剂与手性配体",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "不对称合成的底物、催化剂与手性配体 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Substrates and chiral catalysts for asymmetric synthesis",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "Asymmetric synthesis records the substrate, catalyst or ligand composition and product enantiomeric excess separately. Nonlinear effects mean these quantities need not follow a simple proportional relationship.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "merck-catalysis": {
+    "organizationId": "merck",
+    "id": "merck-catalysis",
+    "role": "偶联、复分解与手性催化试剂",
+    "status": "商业研究试剂与材料目录",
+    "paragraphs": [
+      "官方目录按交叉偶联、烯烃复分解及手性催化组织催化剂和配体。选定某种体系后，仍要检查底物范围、催化剂负载量及副产物；试剂可购并不能证明该反应在所有目标分子上都有效。",
+      "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+      "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+    ],
+    "products": [
+      {
+        "name": "偶联、复分解与手性催化试剂",
+        "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "name": "反应专用催化剂与配体",
+        "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "sources": [
+      {
+        "label": "偶联、复分解与手性催化试剂 · 官方目录",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      },
+      {
+        "label": "反应专用催化剂与配体 · 官方资料",
+        "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+      }
+    ],
+    "introduction": [
+      "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+      "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+    ],
+    "en": {
+      "role": "Cross-coupling, metathesis and asymmetric catalysis",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "The official catalogue organizes catalysts and ligands by reaction families. Substrate scope, catalyst loading, by-products and product analysis still require evaluation in the chosen system.",
+        "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+        "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+      ],
+      "products": [
+        {
+          "name": "Organic building blocks",
+          "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        },
+        {
+          "name": "Reaction-specific catalysts and ligands",
+          "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+        }
+      ]
+    }
+  },
+  "thermo-rna": {
+    "id": "thermo-rna",
+    "organizationId": "thermo",
+    "role": "RNA 体外转录与功能研究",
+    "status": "商业研究工具与方法文档",
+    "paragraphs": [
+      "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+      "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+      "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+    ],
+    "products": [
+      {
+        "name": "MEGAscript T7 转录试剂盒",
+        "application": "查阅具体用途、样品要求及反应或检测条件。",
+        "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+      },
+      {
+        "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+        "application": "结合方法文档核对测量信号、对照及操作边界。",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "官方产品资料",
+        "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+      },
+      {
+        "label": "官方方法文档",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "In-vitro RNA transcription",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "MEGAscript T7 synthesizes RNA for research, including transfection, translation and structure/function studies. The researcher supplies the sequence and template.",
+        "Template removal, purification and integrity checks follow transcription. Capping or modification depends on the purpose and workflow; the kit does not itself produce a clinically validated mRNA medicine.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "MEGAscript T7",
+          "application": "Prepare RNA from a designed template for downstream structure or function experiments.",
+          "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+        },
+        {
+          "name": "Transcription user guide",
+          "application": "Check template handling, transcription, purification and the intended experimental use.",
+          "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+        }
+      ]
+    }
+  },
+  "thermo-atp": {
+    "id": "thermo-atp",
+    "organizationId": "thermo",
+    "role": "ATP 的发光定量检测",
+    "status": "商业研究工具与方法文档",
+    "paragraphs": [
+      "Invitrogen 的 ATP Determination Kit 用荧光素酶体系产生发光信号，以定量检测 ATP。它把一个化学反应的输出转换为仪器可记录的光信号，用途包括生化反应和细胞活力相关实验。",
+      "检测值需要与 ATP 标准曲线比较，并核对样品背景和体系兼容性。发光强度不仅受 ATP 影响，也可能受样品组分和反应条件干扰，因此空白和对照应与待测样品采用相同处理流程。",
+      "这个试剂盒测量 ATP 的量，不直接测量 ATP 合酶的完整旋转机制。研究能量转化时，可以把它作为定量工具之一，再与酶活、膜电位或结构实验建立联系。"
+    ],
+    "products": [
+      {
+        "name": "ATP Determination Kit A22066",
+        "application": "查阅具体用途、样品要求及反应或检测条件。",
+        "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+      },
+      {
+        "name": "ATP Determination Kit A22066 · 方法说明",
+        "application": "结合方法文档核对测量信号、对照及操作边界。",
+        "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "官方产品资料",
+        "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+      },
+      {
+        "label": "官方方法文档",
+        "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "Luminescent ATP measurement",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "The ATP Determination Kit uses a luciferase-based luminescence assay to quantify ATP in biochemical and cell-related experiments.",
+        "A standard curve, background controls and sample compatibility are part of the measurement. The assay measures ATP abundance; it does not directly reveal the full rotation mechanism of ATP synthase.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "ATP Determination Kit A22066",
+          "application": "Measure ATP abundance through a luciferase-based luminescence assay.",
+          "url": "https://www.thermofisher.com/order/catalog/product/A22066"
+        },
+        {
+          "name": "ATP assay manual",
+          "application": "Plan standards and background controls, and check sample compatibility.",
+          "url": "https://tools.thermofisher.com/content/sfs/manuals/mp22066.pdf"
+        }
+      ]
+    }
+  },
+  "thermo-repair": {
+    "id": "thermo-repair",
+    "organizationId": "thermo",
+    "role": "DNA 连接与体外修复研究",
+    "status": "商业研究工具与方法文档",
+    "paragraphs": [
+      "T4 DNA Ligase 催化相邻 DNA 末端之间的磷酸二酯键形成。官方说明列出粘性末端、平末端连接，以及具有相应末端基团的双链 DNA 缺口修复用途。不同末端形式的连接条件不能直接互换。",
+      "体外反应需要核对末端化学状态、DNA 浓度、缓冲液和酶量。生成连接产物后，仍需用电泳、测序或其他方法确认正确性，不能仅凭发生连接就判断目标构建已经完成。",
+      "这一产品展示 DNA 修复相关酶学怎样成为实验工具。细胞内的损伤识别、切除和修复涉及更多蛋白，单个连接酶试剂不能代表完整的 DNA 损伤应答。"
+    ],
+    "products": [
+      {
+        "name": "T4 DNA Ligase",
+        "application": "查阅具体用途、样品要求及反应或检测条件。",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+      },
+      {
+        "name": "T4 DNA Ligase · 方法说明",
+        "application": "结合方法文档核对测量信号、对照及操作边界。",
+        "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "官方产品资料",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+      },
+      {
+        "label": "官方方法文档",
+        "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "DNA ligation as a research tool",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "T4 DNA Ligase forms phosphodiester bonds between suitable adjacent DNA ends. Its documentation distinguishes sticky ends, blunt ends and nick repair in double-stranded DNA.",
+        "End chemistry, concentration and reaction conditions matter. Product verification remains necessary, and one ligase reagent does not represent the cell’s entire DNA-damage response.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "T4 DNA Ligase",
+          "application": "Join appropriate DNA ends or seal suitable nicks under defined in-vitro conditions.",
+          "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/t4dnaligase_1U_man.pdf"
+        },
+        {
+          "name": "T4 DNA Ligase specification",
+          "application": "Check end chemistry, reaction conditions and enzyme specifications.",
+          "url": "https://tools.thermofisher.com/content/sfs/manuals/t4dnaligase_man.pdf"
+        }
+      ]
+    }
+  },
+  "thermo-gpcr": {
+    "id": "thermo-gpcr",
+    "organizationId": "thermo",
+    "role": "GPCR 细胞报告系统与功能筛查",
+    "status": "商业研究工具与方法文档",
+    "paragraphs": [
+      "SelectScreen 的细胞 GPCR 筛查使用 GeneBLAzer 和 Tango 等报告体系。它们把受体相关细胞事件转换成可测量信号，适合在规定条件下比较激动剂或拮抗剂的功能表现。",
+      "不同报告技术读取的信号环节不同。评价一组化合物时，需要核对细胞背景、受体表达、阳性对照及剂量反应曲线；某种报告信号的变化不能自动解释为化合物直接结合了目标受体。",
+      "与 GPCR 结构研究相比，报告细胞提供功能测量，结构方法提供分子构象信息。二者互补，但功能筛查本身不能给出受体的原子结构，也不能替代药物安全性和临床评价。"
+    ],
+    "products": [
+      {
+        "name": "SelectScreen GPCR 功能筛查",
+        "application": "查阅具体用途、样品要求及反应或检测条件。",
+        "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+      },
+      {
+        "name": "SelectScreen GPCR 功能筛查 · 方法说明",
+        "application": "结合方法文档核对测量信号、对照及操作边界。",
+        "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "官方产品资料",
+        "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+      },
+      {
+        "label": "官方方法文档",
+        "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "Cell-based GPCR functional screening",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "SelectScreen uses GeneBLAzer and Tango reporter systems to turn receptor-related cellular events into measurable signals for functional comparisons.",
+        "Reporter systems read different signaling steps. Cell background, controls and concentration-response data matter; a reporter response is neither proof of direct binding nor an atomic receptor structure.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "SelectScreen GPCR service",
+          "application": "Compare functional responses in reporter cells carrying a specified receptor assay.",
+          "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+        },
+        {
+          "name": "GPCR profiling protocol",
+          "application": "Check cell-line backgrounds, controls and the signaling readout used by the assay.",
+          "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+        }
+      ]
+    }
+  },
+  "thermo-ribozyme": {
+    "id": "thermo-ribozyme",
+    "organizationId": "thermo",
+    "role": "RNA 体外转录与功能研究",
+    "status": "商业研究工具与方法文档",
+    "paragraphs": [
+      "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+      "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+      "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+    ],
+    "products": [
+      {
+        "name": "MEGAscript T7 转录试剂盒",
+        "application": "查阅具体用途、样品要求及反应或检测条件。",
+        "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+      },
+      {
+        "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+        "application": "结合方法文档核对测量信号、对照及操作边界。",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+      }
+    ],
+    "sources": [
+      {
+        "label": "官方产品资料",
+        "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+      },
+      {
+        "label": "官方方法文档",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+      }
+    ],
+    "introduction": [
+      "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+      "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+    ],
+    "en": {
+      "role": "RNA preparation for functional experiments",
+      "status": "Official product and technical documentation",
+      "paragraphs": [
+        "MEGAscript T7 provides RNA by in-vitro transcription for structure and function studies. A transcribed sequence is an experimental material, not a demonstration of catalytic activity.",
+        "Template processing, purification and RNA-integrity checks precede functional tests. Ribozyme activity needs its own reaction controls and measurements.",
+        "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+      ],
+      "products": [
+        {
+          "name": "MEGAscript T7",
+          "application": "Prepare a defined RNA sequence before testing any catalytic function.",
+          "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+        },
+        {
+          "name": "Transcription user guide",
+          "application": "Check transcription and purification separately from the ribozyme activity experiment.",
+          "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+        }
+      ]
+    }
+  },
+  "atoco-mof": {
+    "organizationId": "atoco",
+    "role": "空气取水装置",
+    "status": "公司原型演示 · 2026",
+    "paragraphs": [
+      "Atoco 将网状材料与空气接触、加热再生和冷凝组件整合成取水装置。公司在 2026 年公布了并网原型演示，报道所述演示发生在其加州实验室。这里可以确认的是原型展示；公开页面中的目标产水规模不是本文核验过的用户现场运行数据。",
+      "空气取水装置需要经历水蒸气吸附、材料再生和水的回收。多孔材料提供可反复吸放水的位点，装置还要解决空气接触、热量供应与冷凝。材料的吸水能力只是设备产水表现的一部分。",
+      "官方页面明确区分并网和离网取水路线，并展示原型演示。这里保留原型所处阶段，不把计划中的日产水规模写成已经交付给客户的长期运行记录；实际产水还需对应湿度、气温和能耗条件。"
+    ],
+    "sources": [
+      {
+        "label": "公司与技术介绍",
+        "url": "https://atoco.com/"
+      },
+      {
+        "label": "2026 年并网原型演示",
+        "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+      }
+    ],
+    "id": "atoco-mof",
+    "products": [
+      {
+        "name": "并网空气取水原型",
+        "application": "将吸附材料、再生和冷凝整合为设备，公开资料所示阶段为原型演示。",
+        "url": "https://atoco.com/"
+      },
+      {
+        "name": "空气取水技术路线",
+        "application": "区分并网与离网方案，比较时需同时考虑温湿度、供热和冷凝条件。",
+        "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+      }
+    ],
+    "introduction": [
+      "Atoco 开发网状多孔材料及空气取水、碳捕集技术。",
+      "Atoco develops reticular materials and systems for water harvesting and carbon capture."
+    ],
+    "en": {
+      "role": "Atmospheric water-harvesting prototype",
+      "status": "Official technology and development-stage records",
+      "paragraphs": [
+        "The company demonstrated an on-grid atmospheric-water-harvesting prototype at its California headquarters. Its materials are integrated with air contact, regeneration and water-recovery components.",
+        "Water uptake by the material is one part of the device. Regeneration heat, airflow and condensation also determine production under a particular humidity and temperature.",
+        "The cited demonstration is a prototype report. A planned output is not treated as independently verified long-term customer operation."
+      ],
+      "products": [
+        {
+          "name": "On-grid water-harvesting prototype",
+          "application": "Read the documented on-grid prototype configuration and demonstration stage.",
+          "url": "https://atoco.com/"
+        },
+        {
+          "name": "Company and technology overview",
+          "application": "Distinguish on-grid and off-grid water harvesting, including regeneration and condensation.",
+          "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+        }
+      ]
+    }
+  },
+  "basf-mof": {
+    "organizationId": "basf",
+    "role": "CALF-20 材料生产",
+    "status": "商业材料制造 · 公司披露",
+    "paragraphs": [
+      "BASF 在 2025 年的公告中写明，CALF-20 由其美国南卡罗来纳州 Seneca 工厂生产，Svante 用它从气流中分离 CO₂。BASF 的职责是吸附剂放大和制造，这与替客户运行整套捕集设施是两回事。产品页可核对其 MOF 生产服务和与 Svante 的合作。",
+      "CALF-20 的作用是选择性吸附 CO₂。材料被制造出来以后，还要经过成型、进入过滤器或接触器，并配合吸附与再生循环，才能构成分离流程。粉体的吸附性能不能独自代表整套设备的处理量和能耗。",
+      "BASF 的官方资料把自身定位为 MOF 材料制造方，并明确给出 Svante 使用 CALF-20 的关系。本节只记录这项有来源的供货与用途，不从同一企业的其他化学品业务推断 MOF 配方或设备运行指标。"
+    ],
+    "sources": [
+      {
+        "label": "MOF 技术与供货页面",
+        "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+      },
+      {
+        "label": "2025 CALF-20 生产公告",
+        "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+      }
+    ],
+    "id": "basf-mof",
+    "products": [
+      {
+        "name": "CALF-20 吸附剂",
+        "application": "作为从混合气流分离 CO₂ 的材料，后续还需成型并集成入设备。",
+        "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+      },
+      {
+        "name": "MOF 放大与制造",
+        "application": "Seneca 工厂生产及对 Svante 的供货关系有官方记录。",
+        "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+      }
+    ],
+    "introduction": [
+      "BASF 提供工业材料，并制造用于气体分离的 MOF 吸附剂。",
+      "BASF supplies manufactured MOF sorbents and industrial materials."
+    ],
+    "en": {
+      "role": "CALF-20 sorbent manufacturing",
+      "status": "Official technology and development-stage records",
+      "paragraphs": [
+        "BASF identifies its Seneca site as a producer of CALF-20 and states that Svante uses the material to separate CO₂ from gas streams. This documents a specific supply and application relationship.",
+        "A sorbent must be shaped, incorporated into a filter or contactor and operated through adsorption/regeneration cycles. Powder uptake alone does not establish a whole capture process’s capacity or energy use.",
+        "The sources describe material manufacturing, not BASF operating every downstream capture facility."
+      ],
+      "products": [
+        {
+          "name": "MOF manufacturing services",
+          "application": "Examine CALF-20 as a sorbent that must be shaped and integrated into a separation device.",
+          "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+        },
+        {
+          "name": "CALF-20 manufacturing announcement",
+          "application": "Verify the stated manufacturing site and the supply relationship with Svante.",
+          "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+        }
+      ]
+    }
+  },
+  "svante-mof": {
+    "organizationId": "svante",
+    "role": "结构化过滤器与捕集设备",
+    "status": "过滤器工厂投产公告 · 2025",
+    "paragraphs": [
+      "Svante 把吸附剂做成可装入接触器的结构化过滤器。公司在 2025 年宣布 Burnaby 的 Redwood 过滤器制造设施完成调试。该设施生产的是捕集过滤器，不是以工厂自身作为 CO₂ 去除装置；公告中的设计产能也不能记作已经实现的年捕集量。",
+      "结构化吸附过滤器把吸附剂与可通气的结构结合起来，使材料能装入实际接触器。这个步骤不仅考虑单位质量吸附量，也要处理气流通过、传热、材料固定和反复再生的问题。",
+      "Redwood 公告说的是制造过滤器的设施与设计产能。过滤器最终能够支持多少捕集量，还取决于部署地点、气体组成和装置利用率，不能将制造设施的目标能力记作已经完成的碳去除。"
+    ],
+    "sources": [
+      {
+        "label": "公司官网",
+        "url": "https://www.svanteinc.com/"
+      },
+      {
+        "label": "Redwood 制造设施公告",
+        "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+      },
+      {
+        "label": "CALF-20 与 BASF 供货协议",
+        "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+      }
+    ],
+    "id": "svante-mof",
+    "products": [
+      {
+        "name": "结构化吸附过滤器",
+        "application": "将 MOF 吸附剂固定于结构中，服务于气体通过和循环再生。",
+        "url": "https://www.svanteinc.com/"
+      },
+      {
+        "name": "Redwood 过滤器制造",
+        "application": "制造设施提供过滤器生产能力，设计产能不等于已经实现的碳捕集量。",
+        "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+      },
+      {
+        "name": "CALF-20 材料供货",
+        "application": "BASF 提供材料，Svante 将其用于过滤器，两个环节的职责不同。",
+        "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+      }
+    ],
+    "introduction": [
+      "Svante 开发结构化吸附过滤器与碳捕集技术。",
+      "Svante develops structured sorbent filters and carbon-capture technologies."
+    ],
+    "en": {
+      "role": "Structured MOF filters and manufacturing",
+      "status": "Official technology and development-stage records",
+      "paragraphs": [
+        "Svante incorporates sorbents into structured filters that can be installed in contactors. The geometry has to support gas passage, heat transfer and regeneration as well as material loading.",
+        "The company announced commissioning of its Redwood filter-manufacturing facility in Burnaby. The facility makes filters; it is not itself a carbon-removal installation.",
+        "Design production capacity is distinct from CO₂ actually captured after filters are deployed at customer sites."
+      ],
+      "products": [
+        {
+          "name": "Structured sorbent technology",
+          "application": "Connect a MOF sorbent to a gas-permeable, regenerable filter structure.",
+          "url": "https://www.svanteinc.com/"
+        },
+        {
+          "name": "Redwood manufacturing facility",
+          "application": "Separate filter-manufacturing design capacity from CO₂ actually captured after deployment.",
+          "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+        },
+        {
+          "name": "CALF-20 supply relationship",
+          "application": "Check the distinct responsibilities of the material supplier and filter manufacturer.",
+          "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+        }
+      ]
+    }
+  },
+  "immaterial-mof": {
+    "organizationId": "immaterial",
+    "role": "整体式 MOF 成型与放大",
+    "status": "中试制造设施 · 大学报道，2026",
+    "paragraphs": [
+      "Immaterial 沿着剑桥团队的整体式材料路线，开发面向吸附设备的块体 MOF。2026 年的 Sawston 设施报道提供了从课题组走向中试制造的具体节点。可核对的内容包括公司来源、设施地点和材料形式；不同客户场景的捕集率、能耗与使用寿命仍需要相应装置测试。",
+      "整体式 MOF 与松散粉体采用不同的材料形态，便于围绕设备空间和气体通过方式设计应用。企业公开方向包括碳捕集、储氢和空气净化；这些用途对应不同压力、气体组成与再生条件。",
+      "剑桥大学的报道确认了公司来源和 Sawston 中试制造设施。中试设施使材料研究进入制造环节，但不自动证明所有目标场景已经商业成熟；每一用途仍需相应装置的循环、稳定性及能耗数据。"
+    ],
+    "sources": [
+      {
+        "label": "公司官网",
+        "url": "https://immaterial.com/"
+      },
+      {
+        "label": "剑桥大学中试设施报道",
+        "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+      }
+    ],
+    "id": "immaterial-mof",
+    "products": [
+      {
+        "name": "整体式 MOF 材料",
+        "application": "将多孔材料做成整体形态，面向碳捕集、储氢与空气净化等不同工况。",
+        "url": "https://immaterial.com/"
+      },
+      {
+        "name": "Sawston 中试制造",
+        "application": "剑桥大学报道确认了中试设施与材料制造节点。",
+        "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+      }
+    ],
+    "introduction": [
+      "Immaterial 是剑桥大学衍生企业，开发整体式 MOF 材料。",
+      "Immaterial is a University of Cambridge spinout developing monolithic MOF materials."
+    ],
+    "en": {
+      "role": "Monolithic MOFs and pilot manufacturing",
+      "status": "Official technology and development-stage records",
+      "paragraphs": [
+        "The Cambridge report identifies a pilot manufacturing facility in Sawston and describes monolithic MOFs for applications including carbon capture, hydrogen storage and air purification.",
+        "A monolith provides a different form from loose powder, affecting how material can be integrated into equipment and exposed to gas. Each application still has its own pressure, composition and regeneration requirements.",
+        "Pilot manufacturing is a concrete production step, but not proof that every target use has completed commercial validation."
+      ],
+      "products": [
+        {
+          "name": "Monolithic MOF technology",
+          "application": "Examine monolithic material forms for different gas-separation and storage applications.",
+          "url": "https://immaterial.com/"
+        },
+        {
+          "name": "Cambridge pilot-facility report",
+          "application": "Verify the university-reported pilot manufacturing facility and its documented stage.",
+          "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+        }
+      ]
+    }
+  }
+}

@@ -34,8 +34,45 @@
       "sha256": "5a0f7c1347d81b7cc5fa81b90f9d1338957b0083eaa2db257654ac616b7b809f"
     }
   ],
+  "people": [
+    {
+      "name": "Victor Grignard",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1912/grignard/facts/",
+      "affiliations": [
+        "Nancy University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "172",
+      "image": "images/nobel/laureates/172.jpg"
+    },
+    {
+      "name": "Paul Sabatier",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/",
+      "affiliations": [
+        "Toulouse University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "173",
+      "image": "images/nobel/laureates/173.jpg"
+    }
+  ],
   "reading": {
     "title": "格氏试剂与金属催化加氢",
+    "learningGuide": {
+      "topic": "organometallic",
+      "title": [
+        "把金属接到碳的反应网络中",
+        "Metals in carbon chemistry"
+      ],
+      "definition": [
+        "有机金属化学研究含金属—碳相互作用的化合物及其反应。金属可以改变碳附近的电子分布，让原来不容易发生的成键或重排获得可利用的路径。",
+        "Metal–carbon interactions alter electronic behavior and open useful routes to bond formation or rearrangement."
+      ],
+      "example": [
+        "在有机合成中，有机金属试剂可以把一个碳片段连接到另一个分子；金属催化循环则能反复执行成键步骤。消耗性的试剂与循环使用的催化剂承担不同角色，不能混为一谈。",
+        "A consumed organometallic reagent transfers a fragment; a catalyst can cycle through repeated transformations. These are distinct roles."
+      ]
+    },
     "summary": "格氏试剂与金属催化加氢。以两种反应方法显著扩大有机合成工具箱。",
     "sections": [
       {
@@ -202,31 +239,121 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-catalysis",
+          "role": "偶联、复分解与手性催化试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "官方目录按交叉偶联、烯烃复分解及手性催化组织催化剂和配体。选定某种体系后，仍要检查底物范围、催化剂负载量及副产物；试剂可购并不能证明该反应在所有目标分子上都有效。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "偶联、复分解与手性催化试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "偶联、复分解与手性催化试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Cross-coupling, metathesis and asymmetric catalysis",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "The official catalogue organizes catalysts and ligands by reaction families. Substrate scope, catalyst loading, by-products and product analysis still require evaluation in the chosen system.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
         },
         {
           "organizationId": "basf",
-          "role": "塑料循环与化工制造",
-          "status": "企业公开业务",
+          "id": "basf",
+          "role": "氨、尿素与聚酰胺：化学原料怎样进入产业链",
+          "status": "商业化工原料与材料",
           "paragraphs": [
-            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            "BASF 的单体业务列出氨、尿素、AdBlue 以及聚酰胺和相关前体。氨是继续制造含氮化学品的原料，尿素及车用尿素溶液对应不同下游用途；它们共享部分原料链，但产品规格、杂质控制和交付形式不同。",
+            "Ultramid 是 BASF 的聚酰胺材料品牌，相关前体包括己内酰胺、己二胺和己二酸。把单体连接成长链只是材料制造的一步，配方、加工及最终部件要求会继续决定材料表现。企业目录在这里提供了从小分子原料到聚合物材料的两个观察位置。",
+            "与历史化学发现的联系要按具体产品区分：氮活化研究对应氨原料链，聚合物化学对应单体及高分子材料。本文不把同一公司的不同业务混写成同一反应路线，也不推断当前产品采用了上文论文中的实验方法。"
+          ],
+          "products": [
+            {
+              "name": "氨基化学品",
+              "application": "氨、尿素及相关含氮产品的官方业务入口。",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "name": "Ultramid 与聚酰胺前体",
+              "application": "从聚酰胺材料回看己内酰胺、己二胺等原料链。",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+            }
           ],
           "sources": [
             {
-              "label": "公司循环经济资料",
-              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              "label": "氨基化学品 · 官方资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            },
+            {
+              "label": "Ultramid 与聚酰胺前体 · 官方资料",
+              "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
             }
-          ]
+          ],
+          "introduction": [
+            "BASF 生产化工中间体、聚合物、催化剂与工业材料。",
+            "BASF manufactures chemical intermediates, polymers, catalysts and other industrial materials."
+          ],
+          "en": {
+            "role": "Ammonia, urea and polyamide value chains",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Its monomer portfolio includes ammonia, urea and AdBlue, alongside polyamides and their precursors. These products occupy different positions in an industrial value chain and have different specifications and delivery requirements.",
+              "Ultramid is its polyamide-materials brand; the same business documentation identifies precursors such as caprolactam, hexamethylenediamine and adipic acid. Polymer formation is followed by formulation and processing for a specific application.",
+              "Ammonia and polyamide businesses illustrate different chemistry and do not demonstrate use of the experimental route discussed above."
+            ],
+            "products": [
+              {
+                "name": "Ammonia-based chemicals",
+                "application": "Follow ammonia into urea and other nitrogen-based chemical products.",
+                "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+              },
+              {
+                "name": "Ultramid and polyamide precursors",
+                "application": "Connect polyamide materials to their monomer and precursor supply chain.",
+                "url": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/materials/monomers"
+              }
+            ]
+          },
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。"
         }
       ]
     },

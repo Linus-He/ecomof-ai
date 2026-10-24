@@ -1,0 +1,1040 @@
+{
+  "year": 2026,
+  "source": "Kalshi",
+  "currency": "USD",
+  "marketKind": "person",
+  "eventId": "KXNOBELCHEM-26",
+  "eventUrl": "https://api.elections.kalshi.com/trade-api/v2/events/KXNOBELCHEM-26?with_nested_markets=true",
+  "windowStart": 1791279900,
+  "cutoff": 1791366300,
+  "cutoffSource": "https://www.nobelprize.org/prizes/chemistry/2026/press-release/",
+  "method": "One-minute candles with positive traded volume and a close_dollars trade price, strictly before announcement. Empty candles, previous-price carry-forward and settlement are excluded. Candle end times are aggregation boundaries, not exact trade timestamps.",
+  "unlistedWinners": [
+    "Henri Kagan",
+    "Kenso Soai"
+  ],
+  "winners": [
+    "Henri B. Kagan",
+    "Kenso Soai"
+  ],
+  "candidates": [
+    {
+      "id": "KXNOBELCHEM-26-TZHA",
+      "name": "Tao Zhang",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-TZHA",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-TZHA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791284160,
+          "p": 0.54
+        }
+      ],
+      "probability": 0.54,
+      "quoteAt": 1791284160,
+      "historySha256": "8ae5a5648c342c17f194d560e465c37ddfca8b0454760e506230f412a9f7beaf",
+      "researchFocus": [
+        "单原子催化与多相催化",
+        "Single-atom and heterogeneous catalysis"
+      ],
+      "profileUrl": "https://taozhang.dicp.ac.cn/",
+      "institution": {
+        "id": "dicp",
+        "name": "中科院大连化学物理研究所",
+        "englishName": "Dalian Institute of Chemical Physics, CAS",
+        "url": "https://www.dicp.ac.cn/",
+        "logo": "images/nobel/organizations/dicp.png",
+        "logoKind": "symbol",
+        "assetSource": "https://dicp.cas.cn/images/ico_dicp.png",
+        "sha256": "5d24dff394a8b1bb65f43dd7f7430d6a6786a68d91a86ba4c6f49b25edb8c3a7",
+        "sourceUrl": "https://taozhang.dicp.ac.cn/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-SBAL",
+      "name": "Shankar Balasubramanian",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-SBAL",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SBAL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791296520,
+          "p": 0.21
+        },
+        {
+          "t": 1791298920,
+          "p": 0.28
+        },
+        {
+          "t": 1791299520,
+          "p": 0.2
+        },
+        {
+          "t": 1791300420,
+          "p": 0.18
+        },
+        {
+          "t": 1791300540,
+          "p": 0.09
+        },
+        {
+          "t": 1791304020,
+          "p": 0.21
+        },
+        {
+          "t": 1791307560,
+          "p": 0.28
+        },
+        {
+          "t": 1791308520,
+          "p": 0.52
+        },
+        {
+          "t": 1791308700,
+          "p": 0.55
+        },
+        {
+          "t": 1791309000,
+          "p": 0.26
+        },
+        {
+          "t": 1791310440,
+          "p": 0.28
+        },
+        {
+          "t": 1791310500,
+          "p": 0.44
+        },
+        {
+          "t": 1791310560,
+          "p": 0.52
+        },
+        {
+          "t": 1791310620,
+          "p": 0.3
+        },
+        {
+          "t": 1791310740,
+          "p": 0.19
+        },
+        {
+          "t": 1791311580,
+          "p": 0.17
+        },
+        {
+          "t": 1791312540,
+          "p": 0.17
+        },
+        {
+          "t": 1791313320,
+          "p": 0.19
+        },
+        {
+          "t": 1791314040,
+          "p": 0.18
+        },
+        {
+          "t": 1791316140,
+          "p": 0.17
+        },
+        {
+          "t": 1791320460,
+          "p": 0.51
+        },
+        {
+          "t": 1791321540,
+          "p": 0.36
+        },
+        {
+          "t": 1791324660,
+          "p": 0.28
+        },
+        {
+          "t": 1791325020,
+          "p": 0.2
+        },
+        {
+          "t": 1791325740,
+          "p": 0.19
+        },
+        {
+          "t": 1791326760,
+          "p": 0.29
+        },
+        {
+          "t": 1791327720,
+          "p": 0.29
+        },
+        {
+          "t": 1791333540,
+          "p": 0.3
+        },
+        {
+          "t": 1791334140,
+          "p": 0.28
+        },
+        {
+          "t": 1791335280,
+          "p": 0.29
+        },
+        {
+          "t": 1791335700,
+          "p": 0.21
+        },
+        {
+          "t": 1791336000,
+          "p": 0.28
+        },
+        {
+          "t": 1791344880,
+          "p": 0.29
+        }
+      ],
+      "probability": 0.29,
+      "quoteAt": 1791344880,
+      "historySha256": "5db7a6dd972c5ccf4d1117c740ab8b357c71d5e21929b3589daaaa815bcca46f",
+      "researchFocus": [
+        "DNA 测序与核酸化学生物学",
+        "DNA sequencing and nucleic acid chemical biology"
+      ],
+      "profileUrl": "https://www.cruk.cam.ac.uk/research-groups/balasubramanian-group/",
+      "institution": {
+        "id": "cambridge",
+        "name": "剑桥大学",
+        "englishName": "University of Cambridge",
+        "url": "https://www.ceb.cam.ac.uk/",
+        "logo": "images/nobel/organizations/cambridge.png",
+        "logoKind": "symbol",
+        "sourceUrl": "https://www.cruk.cam.ac.uk/research-groups/balasubramanian-group/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-HGRA",
+      "name": "Harry Gray",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-HGRA",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HGRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791284460,
+          "p": 0.06
+        },
+        {
+          "t": 1791297840,
+          "p": 0.14
+        },
+        {
+          "t": 1791300000,
+          "p": 0.18
+        },
+        {
+          "t": 1791300480,
+          "p": 0.11
+        },
+        {
+          "t": 1791302820,
+          "p": 0.1
+        },
+        {
+          "t": 1791324420,
+          "p": 0.13
+        },
+        {
+          "t": 1791326220,
+          "p": 0.13
+        },
+        {
+          "t": 1791331200,
+          "p": 0.13
+        },
+        {
+          "t": 1791333600,
+          "p": 0.17
+        },
+        {
+          "t": 1791340200,
+          "p": 0.16
+        }
+      ],
+      "probability": 0.16,
+      "quoteAt": 1791340200,
+      "historySha256": "3cb4cad7c339bbc6ba31502b023ba7910953c197c7263d01897cc63d2bfba8a8",
+      "researchFocus": [
+        "生物无机化学与电子转移",
+        "Bioinorganic chemistry and electron transfer"
+      ],
+      "profileUrl": "https://cce.caltech.edu/faculty/harry-b-gray",
+      "institution": {
+        "id": "caltech",
+        "name": "加州理工学院",
+        "englishName": "California Institute of Technology",
+        "url": "https://www.caltech.edu/",
+        "logo": "images/nobel/organizations/caltech.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+        "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01",
+        "sourceUrl": "https://cce.caltech.edu/faculty/harry-b-gray"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-KMAT",
+      "name": "Krzysztof Matyjaszewski",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-KMAT",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-KMAT/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791290040,
+          "p": 0.05
+        },
+        {
+          "t": 1791323400,
+          "p": 0.08
+        },
+        {
+          "t": 1791335460,
+          "p": 0.16
+        }
+      ],
+      "probability": 0.16,
+      "quoteAt": 1791335460,
+      "historySha256": "e53277689d1d2798bdf654574e7b73e42db3e6391eccff7d1f7ffd5ec4278ab1",
+      "researchFocus": [
+        "原子转移自由基聚合（ATRP）",
+        "Atom transfer radical polymerization (ATRP)"
+      ],
+      "profileUrl": "https://www.cmu.edu/news/experts/krzysztof.matyjaszewski",
+      "institution": {
+        "id": "cmu",
+        "name": "卡内基梅隆大学",
+        "englishName": "Carnegie Mellon University",
+        "url": "https://www.cmu.edu/",
+        "logo": "images/nobel/organizations/cmu.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://www.cmu.edu/themes/custom/cmu_base/favicon.ico",
+        "sha256": "07e720a8d3afd981be56fb76aa146bd2b31c840765e81f89a8ccb7af93456d2a",
+        "sourceUrl": "https://www.cmu.edu/news/experts/krzysztof.matyjaszewski"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-DLIU",
+      "name": "David Liu",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-DLIU",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DLIU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791285120,
+          "p": 0.14
+        },
+        {
+          "t": 1791287280,
+          "p": 0.08
+        },
+        {
+          "t": 1791300540,
+          "p": 0.09
+        },
+        {
+          "t": 1791306540,
+          "p": 0.12
+        },
+        {
+          "t": 1791313020,
+          "p": 0.13
+        },
+        {
+          "t": 1791321120,
+          "p": 0.15
+        },
+        {
+          "t": 1791321300,
+          "p": 0.15
+        },
+        {
+          "t": 1791328740,
+          "p": 0.1
+        },
+        {
+          "t": 1791333600,
+          "p": 0.15
+        },
+        {
+          "t": 1791334560,
+          "p": 0.14
+        },
+        {
+          "t": 1791338100,
+          "p": 0.15
+        },
+        {
+          "t": 1791338700,
+          "p": 0.14
+        },
+        {
+          "t": 1791339180,
+          "p": 0.13
+        },
+        {
+          "t": 1791342120,
+          "p": 0.14
+        }
+      ],
+      "probability": 0.14,
+      "quoteAt": 1791342120,
+      "historySha256": "923fa87988b260b73dfbd8d6cd3a7c2e285a8df4b9a7efc2ffaa929574f671e0",
+      "researchFocus": [
+        "碱基编辑、先导编辑与定向进化",
+        "Base editing, prime editing and directed evolution"
+      ],
+      "profileUrl": "https://www.mcb.harvard.edu/directory/david-liu/",
+      "institution": {
+        "id": "harvard",
+        "name": "哈佛大学",
+        "englishName": "Harvard University",
+        "url": "https://www.harvard.edu/",
+        "logo": "images/nobel/organizations/harvard.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180",
+        "sha256": "5053428ee2bbeccd2cf9b96bd380d2f057d75656a9dfcb89b1a91666d30d426a",
+        "sourceUrl": "https://www.mcb.harvard.edu/directory/david-liu/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-CWON",
+      "name": "Chi-Huey Wong",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-CWON",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CWON/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791299580,
+          "p": 0.11
+        },
+        {
+          "t": 1791300540,
+          "p": 0.1
+        },
+        {
+          "t": 1791307980,
+          "p": 0.14
+        },
+        {
+          "t": 1791316560,
+          "p": 0.1
+        },
+        {
+          "t": 1791343440,
+          "p": 0.14
+        }
+      ],
+      "probability": 0.14,
+      "quoteAt": 1791343440,
+      "historySha256": "e46f6a33fa516964b151048af2a858a5f70dbadc80d1892b55329d7611fee04b",
+      "researchFocus": [
+        "糖化学与化学酶法合成",
+        "Glycochemistry and chemoenzymatic synthesis"
+      ],
+      "profileUrl": "https://www.scripps.edu/wong/",
+      "institution": {
+        "id": "scripps",
+        "name": "斯克里普斯研究所",
+        "englishName": "Scripps Research",
+        "url": "https://magazine.scripps.edu/",
+        "logo": "images/nobel/organizations/scripps.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://magazine.scripps.edu/favicon.ico",
+        "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08",
+        "sourceUrl": "https://www.scripps.edu/wong/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-CCRE",
+      "name": "Craig Crews",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-CCRE",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CCRE/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791333480,
+          "p": 0.14
+        }
+      ],
+      "probability": 0.14,
+      "quoteAt": 1791333480,
+      "historySha256": "499cbe9f606ab060b3951ee854f75e28bb1d40f11fffcf6d93826f8b6a74f407",
+      "researchFocus": [
+        "靶向蛋白降解与 PROTAC",
+        "Targeted protein degradation and PROTACs"
+      ],
+      "profileUrl": "https://chem.yale.edu/profile/craig-crews",
+      "institution": {
+        "id": "yale",
+        "name": "耶鲁大学",
+        "englishName": "Yale University",
+        "url": "https://www.yale.edu/",
+        "logo": "images/nobel/organizations/yale.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.yale.edu/sites/all/themes/yale_blue/images/favicons/apple-touch-icon-180x180.png",
+        "sha256": "74c08ab23865d84dbbb78786546116b4f329ef9f57606566e7c374984707f4f4",
+        "sourceUrl": "https://chem.yale.edu/profile/craig-crews"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-DALL",
+      "name": "David Allara",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-DALL",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DALL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791281760,
+          "p": 0.09
+        },
+        {
+          "t": 1791287940,
+          "p": 0.08
+        },
+        {
+          "t": 1791289320,
+          "p": 0.07
+        },
+        {
+          "t": 1791289860,
+          "p": 0.07
+        },
+        {
+          "t": 1791300540,
+          "p": 0.07
+        },
+        {
+          "t": 1791300720,
+          "p": 0.12
+        },
+        {
+          "t": 1791300780,
+          "p": 0.14
+        },
+        {
+          "t": 1791303180,
+          "p": 0.15
+        },
+        {
+          "t": 1791306000,
+          "p": 0.14
+        },
+        {
+          "t": 1791316440,
+          "p": 0.14
+        },
+        {
+          "t": 1791328680,
+          "p": 0.12
+        },
+        {
+          "t": 1791334620,
+          "p": 0.13
+        },
+        {
+          "t": 1791343200,
+          "p": 0.13
+        }
+      ],
+      "probability": 0.13,
+      "quoteAt": 1791343200,
+      "historySha256": "c70d9a0a4b3311d57bc756917f029fac4778aace5ccc31d53eac5220f1f5e46a",
+      "researchFocus": [
+        "分子自组装单层与表面化学",
+        "Self-assembled monolayers and surface chemistry"
+      ],
+      "profileUrl": "https://www.mri.psu.edu/mri/personnel-directory/dla3",
+      "institution": {
+        "id": "psu",
+        "name": "宾夕法尼亚州立大学",
+        "englishName": "Pennsylvania State University",
+        "url": "https://www.psu.edu/",
+        "logo": "images/nobel/organizations/psu.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.psu.edu/favicon.ico?favicon.17szk1izblhmq.ico",
+        "sha256": "f228d6a88c42d8b16f9138a3134e9eb1f3887896e39ef91687f0f44fed62497b",
+        "sourceUrl": "https://www.mri.psu.edu/mri/personnel-directory/dla3"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-MPAR",
+      "name": "Michele Parrinello",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-MPAR",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MPAR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791300840,
+          "p": 0.18
+        },
+        {
+          "t": 1791325020,
+          "p": 0.11
+        },
+        {
+          "t": 1791328740,
+          "p": 0.07
+        },
+        {
+          "t": 1791340800,
+          "p": 0.11
+        }
+      ],
+      "probability": 0.11,
+      "quoteAt": 1791340800,
+      "historySha256": "bb60f47f63dc817bd7d5fa860632def133919f842031f0d68da72237fccfa61c",
+      "researchFocus": [
+        "分子动力学与增强采样",
+        "Molecular dynamics and enhanced sampling"
+      ],
+      "profileUrl": "https://www.iit.it/it-IT/people-profile/-/people/michele-parrinello",
+      "institution": {
+        "id": "iit",
+        "name": "意大利技术研究院",
+        "englishName": "Italian Institute of Technology",
+        "url": "https://www.iit.it/",
+        "logo": "images/nobel/organizations/iit.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.google.com/s2/favicons?domain=www.iit.it&sz=128",
+        "assetType": "website favicon served by Google favicon cache",
+        "sha256": "51e58ee300fc2be5912fab2e30c2d1da97fbbbea48ec3bc905d4055417fd1a3a",
+        "sourceUrl": "https://www.iit.it/it-IT/people-profile/-/people/michele-parrinello"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-SBUC",
+      "name": "Stephen Buchwald",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-SBUC",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SBUC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791331800,
+          "p": 0.11
+        },
+        {
+          "t": 1791343500,
+          "p": 0.11
+        }
+      ],
+      "probability": 0.11,
+      "quoteAt": 1791343500,
+      "historySha256": "8841dab8603e0070f585dd75feb72bff8f1109fbe2fd5ccc22f731ba2377603f",
+      "researchFocus": [
+        "钯催化交叉偶联与有机合成",
+        "Palladium cross-coupling and organic synthesis"
+      ],
+      "profileUrl": "https://chemistry.mit.edu/profile/stephen-leffler-buchwald/",
+      "institution": {
+        "id": "mit",
+        "name": "麻省理工学院",
+        "englishName": "Massachusetts Institute of Technology",
+        "url": "https://www.mit.edu/",
+        "logo": "images/nobel/organizations/mit.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.mit.edu/themes/mit/assets/favicon/apple-touch-icon.png",
+        "sha256": "410ac5b7186d50ca8259742ac3f3778f3ddc750d76598232b061cc71efb086bf",
+        "sourceUrl": "https://chemistry.mit.edu/profile/stephen-leffler-buchwald/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-MGRA",
+      "name": "Michael Grätzel",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-MGRA",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MGRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791340200,
+          "p": 0.11
+        }
+      ],
+      "probability": 0.11,
+      "quoteAt": 1791340200,
+      "historySha256": "13d7f7dc915ba187c636f92f6ea9d3d648fd8412cd54d07e54edaaf7533b4d3b",
+      "researchFocus": [
+        "染料敏化与钙钛矿太阳能电池",
+        "Dye-sensitized and perovskite solar cells"
+      ],
+      "profileUrl": "https://www.epfl.ch/labs/lpi/graetzel/",
+      "institution": {
+        "id": "epfl",
+        "name": "洛桑联邦理工学院",
+        "englishName": "EPFL",
+        "url": "https://www.epfl.ch/en/",
+        "logo": "images/nobel/organizations/epfl.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.epfl.ch/wp-content/themes/wp-theme-2018/assets/favicons/favicon-180.png",
+        "sha256": "7e23b3c769ab60f8723daca54ca6970db2c2fb1426a0f84f505d03499be7244f",
+        "sourceUrl": "https://www.epfl.ch/labs/lpi/graetzel/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-PSCH",
+      "name": "Peter G. Schultz",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-PSCH",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-PSCH/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791340320,
+          "p": 0.09
+        }
+      ],
+      "probability": 0.09,
+      "quoteAt": 1791340320,
+      "historySha256": "d589c56821f520f409e68208b8468f8b5da454f6b65115dd0d2c62e180ad1b36",
+      "researchFocus": [
+        "扩展遗传密码与非天然氨基酸",
+        "Genetic code expansion and noncanonical amino acids"
+      ],
+      "profileUrl": "https://education.scripps.edu/faculty/schultz/",
+      "institution": {
+        "id": "scripps",
+        "name": "斯克里普斯研究所",
+        "englishName": "Scripps Research",
+        "url": "https://magazine.scripps.edu/",
+        "logo": "images/nobel/organizations/scripps.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://magazine.scripps.edu/favicon.ico",
+        "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08",
+        "sourceUrl": "https://education.scripps.edu/faculty/schultz/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-HSNA",
+      "name": "Henry Snaith",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-HSNA",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HSNA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791289200,
+          "p": 0.08
+        }
+      ],
+      "probability": 0.08,
+      "quoteAt": 1791289200,
+      "historySha256": "eeca02446e3c2258ef160894a72dec3a4ed54c6317e12c9b7d5f6cc760d604d9",
+      "researchFocus": [
+        "钙钛矿半导体与光伏器件",
+        "Perovskite semiconductors and photovoltaics"
+      ],
+      "profileUrl": "https://www.physics.ox.ac.uk/our-people/snaith",
+      "institution": {
+        "id": "oxford",
+        "name": "牛津大学",
+        "englishName": "University of Oxford",
+        "url": "https://www.ox.ac.uk/",
+        "logo": "images/nobel/organizations/oxford.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.google.com/s2/favicons?domain=www.ox.ac.uk&sz=128",
+        "assetType": "website favicon served by Google favicon cache",
+        "sha256": "280a2450edb5f8449f7cba92aa6cbd7e8d2f778f152f897464dd47da80158f0f",
+        "sourceUrl": "https://www.physics.ox.ac.uk/our-people/snaith"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-BBAS",
+      "name": "Bonnie Bassler",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-BBAS",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-BBAS/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791287220,
+          "p": 0.08
+        },
+        {
+          "t": 1791345240,
+          "p": 0.06
+        }
+      ],
+      "probability": 0.06,
+      "quoteAt": 1791345240,
+      "historySha256": "f230dd34fae2c8bfe5a49e96dbcdba86aa584d7652ac6bc003bd430915c6a3b6",
+      "researchFocus": [
+        "细菌群体感应与化学通讯",
+        "Bacterial quorum sensing and communication"
+      ],
+      "profileUrl": "https://molbio.princeton.edu/people/bonnie-l-bassler",
+      "institution": {
+        "id": "princeton",
+        "name": "普林斯顿大学",
+        "englishName": "Princeton University",
+        "url": "https://www.princeton.edu/",
+        "logo": "images/nobel/organizations/princeton.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://www.princeton.edu/favicon.ico",
+        "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307",
+        "sourceUrl": "https://molbio.princeton.edu/people/bonnie-l-bassler"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-PCUL",
+      "name": "Pieter Cullis",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-PCUL",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-PCUL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791299040,
+          "p": 0.18
+        },
+        {
+          "t": 1791300540,
+          "p": 0.06
+        }
+      ],
+      "probability": 0.06,
+      "quoteAt": 1791300540,
+      "historySha256": "33be16b00d8e03724b7cf605510085d8da619966f4b9dcce189506c382b0bdf6",
+      "researchFocus": [
+        "脂质纳米颗粒与核酸递送",
+        "Lipid nanoparticles and nucleic acid delivery"
+      ],
+      "profileUrl": "https://research.ubc.ca/dr-pieter-cullis-awarded-prince-mahidol-award-ground-breaking-work-lipid-nanoparticles",
+      "institution": {
+        "id": "ubc",
+        "name": "不列颠哥伦比亚大学",
+        "englishName": "University of British Columbia",
+        "url": "https://www.ubc.ca/",
+        "logo": "images/nobel/organizations/ubc.png",
+        "logoKind": "symbol",
+        "assetSource": "https://cdn.ubc.ca/clf/7.0.5/img/touch-icon-iphone-retina.png",
+        "sha256": "1d94f8a7bd5985e88bd3c869d9a28662698c67f641c84be449c47f56521005ea",
+        "sourceUrl": "https://research.ubc.ca/dr-pieter-cullis-awarded-prince-mahidol-award-ground-breaking-work-lipid-nanoparticles"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-JYU",
+      "name": "Jin-Quan Yu",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-JYU",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JYU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791311880,
+          "p": 0.02
+        },
+        {
+          "t": 1791313680,
+          "p": 0.04
+        }
+      ],
+      "probability": 0.04,
+      "quoteAt": 1791313680,
+      "historySha256": "7f62557f14f7ba79c8e5166f407bd379a9f7363097567fcdf93eab035227509d",
+      "researchFocus": [
+        "碳氢键活化与选择性官能化",
+        "C–H activation and selective functionalization"
+      ],
+      "profileUrl": "https://www.scripps.edu/faculty/yu/",
+      "institution": {
+        "id": "scripps",
+        "name": "斯克里普斯研究所",
+        "englishName": "Scripps Research",
+        "url": "https://magazine.scripps.edu/",
+        "logo": "images/nobel/organizations/scripps.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://magazine.scripps.edu/favicon.ico",
+        "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08",
+        "sourceUrl": "https://www.scripps.edu/faculty/yu/"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-CBRA",
+      "name": "Clifford Brangwynne",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-CBRA",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CBRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791340920,
+          "p": 0.02
+        }
+      ],
+      "probability": 0.02,
+      "quoteAt": 1791340920,
+      "historySha256": "107dea78da77f1b4cf835bed030571896a167cf973022b6f2f70f5715792a6c8",
+      "researchFocus": [
+        "细胞相分离与生物分子凝聚体",
+        "Cellular phase separation and biomolecular condensates"
+      ],
+      "profileUrl": "https://cbe.princeton.edu/people/clifford-brangwynne",
+      "institution": {
+        "id": "princeton",
+        "name": "普林斯顿大学",
+        "englishName": "Princeton University",
+        "url": "https://www.princeton.edu/",
+        "logo": "images/nobel/organizations/princeton.ico",
+        "logoKind": "symbol",
+        "assetSource": "https://www.princeton.edu/favicon.ico",
+        "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307",
+        "sourceUrl": "https://cbe.princeton.edu/people/clifford-brangwynne"
+      }
+    },
+    {
+      "id": "KXNOBELCHEM-26-JSTU",
+      "name": "JoAnne Stubbe",
+      "winner": false,
+      "kind": "person",
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNOBELCHEM-26-JSTU",
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JSTU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "points": [
+        {
+          "t": 1791289380,
+          "p": 0.02
+        },
+        {
+          "t": 1791322500,
+          "p": 0.04
+        },
+        {
+          "t": 1791324000,
+          "p": 0.03
+        },
+        {
+          "t": 1791324600,
+          "p": 0.02
+        },
+        {
+          "t": 1791344220,
+          "p": 0.02
+        }
+      ],
+      "probability": 0.02,
+      "quoteAt": 1791344220,
+      "historySha256": "15ed68dfbb7d7d602865a319061f8435677eef80bea31d32953a686cedd60a97",
+      "researchFocus": [
+        "自由基酶与核苷酸生物合成",
+        "Radical enzymes and nucleotide biosynthesis"
+      ],
+      "profileUrl": "https://chemistry.mit.edu/profile/joanne-stubbe/",
+      "institution": {
+        "id": "mit",
+        "name": "麻省理工学院",
+        "englishName": "Massachusetts Institute of Technology",
+        "url": "https://www.mit.edu/",
+        "logo": "images/nobel/organizations/mit.png",
+        "logoKind": "symbol",
+        "assetSource": "https://www.mit.edu/themes/mit/assets/favicon/apple-touch-icon.png",
+        "sha256": "410ac5b7186d50ca8259742ac3f3778f3ddc750d76598232b061cc71efb086bf",
+        "sourceUrl": "https://chemistry.mit.edu/profile/joanne-stubbe/"
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "excluded": "KXNOBELCHEM-26-JTAR",
+      "name": "Jean-Marie Tarascon",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JTAR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-KDOM",
+      "name": "Kazunari Domen",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-KDOM/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-ZBAO",
+      "name": "Zhenan Bao",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-ZBAO/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-MFUJ",
+      "name": "Makoto Fujita",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MFUJ/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-DNOC",
+      "name": "Daniel Nocera",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DNOC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-EJAC",
+      "name": "Eric Jacobsen",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-EJAC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JCOL",
+      "name": "James Collins",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JCOL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JNOR",
+      "name": "Jens Nørskov",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JNOR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-SLIP",
+      "name": "Stephen Lippard",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SLIP/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-HSUG",
+      "name": "Hiroaki Suga",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HSUG/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-TAID",
+      "name": "Takuzo Aida",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-TAID/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    },
+    {
+      "excluded": "KXNOBELCHEM-26-JKAS",
+      "name": "John Kasianowicz",
+      "reason": "No traded pre-announcement candle in the final day",
+      "source": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JKAS/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1"
+    }
+  ],
+  "winnerDetails": [
+    {
+      "name": "Henri B. Kagan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/kagan/facts/",
+      "image": "images/nobel/laureates/1065.jpg",
+      "affiliations": [
+        "Université Paris-Sud"
+      ]
+    },
+    {
+      "name": "Kenso Soai",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/soai/facts/",
+      "image": "images/nobel/laureates/1066.jpg",
+      "affiliations": [
+        "Tokyo University of Science"
+      ]
+    }
+  ]
+}

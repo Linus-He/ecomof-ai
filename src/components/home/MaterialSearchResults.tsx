@@ -72,7 +72,7 @@ export function MaterialSearchResults({ query, lang }) {
         {record.doi && <a href={`https://doi.org/${record.doi}`} target="_blank" rel="noreferrer">{l("Paper", "文献")} · {record.doi} ↗</a>}
         <a href={record.sourceUrl} target="_blank" rel="noreferrer">{l("Source / CIF", "数据库来源 / CIF")} ↗</a>
         <button aria-expanded={structureId === record.id} onClick={() => setStructureId(id => id === record.id ? null : record.id)}>{l("3D structure", "空间结构")}</button>
-        <a href={`#mof-record-${record.structureVariant === "FAIR" ? record.csdRefcode : record.id}`}>{l("Full record", "完整记录")} ↗</a>
+        <a href={`#mof-record-${record.structureVariant === "FAIR" ? record.csdRefcode : record.id}`}>{l("Full record", "完整记录")} →</a>
       </div>
       {structureId === record.id && <InlineStructure key={record.id} record={record} lang={lang} />}
     </article>)}

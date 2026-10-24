@@ -34,8 +34,45 @@
       "sha256": "4ae45c99d21ddbc5fd3aeb21e5e02fa3e4cd277630f64a79199f5d600482bc69"
     }
   ],
+  "people": [
+    {
+      "name": "Edwin M. McMillan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1951/mcmillan/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "212",
+      "image": "images/nobel/laureates/212.jpg"
+    },
+    {
+      "name": "Glenn T. Seaborg",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1951/seaborg/facts/",
+      "affiliations": [
+        "University of California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "213",
+      "image": "images/nobel/laureates/213.jpg"
+    }
+  ],
   "reading": {
     "title": "超铀元素化学",
+    "learningGuide": {
+      "topic": "element",
+      "title": [
+        "怎样确认发现了新的元素",
+        "Establishing elemental identity"
+      ],
+      "definition": [
+        "元素身份由原子核中的质子数决定。发现新元素需要把核信号、衰变关系与化学分离等证据联系起来，不能把样品中出现一个新峰直接当作新元素。",
+        "Proton number defines an element. Nuclear signals, decay relationships and chemical evidence support identification."
+      ],
+      "example": [
+        "一个原子经过核变化后可能成为另一种元素，普通成键反应则通常不改变元素身份。把这两层变化分开，才能理解核化学为什么需要不同于常规有机合成的证据链。",
+        "Nuclear transformation may change an element, whereas ordinary bond-making usually does not. The evidence required differs."
+      ]
+    },
     "summary": "超铀元素化学。将周期表扩展与核转化、化学性质联系起来。",
     "sections": [
       {
@@ -139,17 +176,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-radio",
+          "role": "配位化学与核素研究的材料入口",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "研究核素的配位环境需要把金属中心、配体及化学形态分开处理。这里展示的是化学研究原料及技术目录；稳定同位素材料与放射性核素不是一回事，普通试剂供应不能当作放射性药物生产或供应资质。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "配位化学与核素研究的材料入口",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "配位化学与核素研究的材料入口 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Coordination-chemistry research materials",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Coordination studies distinguish the metal center, ligand and chemical form. Stable-isotope reagents and radioactive isotopes are different materials, and a general reagent catalogue is not evidence of radiopharmaceutical manufacturing.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
         }
       ]
     },

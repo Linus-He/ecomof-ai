@@ -22,8 +22,45 @@
       "sha256": "e51eedf77492acf7b83f46bbf6305ef0df41039e9048fa595e6ef8a47c96eefb"
     }
   ],
+  "people": [
+    {
+      "name": "Emil Fischer",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1902/fischer/facts/",
+      "affiliations": [
+        "Berlin University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "161",
+      "image": "images/nobel/laureates/161.jpg"
+    }
+  ],
   "reading": {
     "title": "糖与嘌呤的结构和合成",
+    "learningGuide": {
+      "topic": "chiral",
+      "title": [
+        "为什么分子也有左右手",
+        "Why molecules can be handed"
+      ],
+      "definition": [
+        "手性指一个物体与自己的镜像不能通过旋转而完全重合，左右手就是日常例子。分子即使具有相同的原子组成和连接顺序，也可能存在这样的镜像结构，称为对映体。生物体中的受体和酶本身具有空间结构，因此可能以不同方式识别它们。",
+        "A chiral object cannot be superimposed on its mirror image by rotation. Molecular enantiomers can have the same connectivity but different three-dimensional arrangements that biological systems distinguish."
+      ],
+      "example": [
+        "香芹酮就是具体例子：(R)-香芹酮具有留兰香薄荷的气味，(S)-香芹酮则呈葛缕子气味；前者可见于薄荷糖、牙膏等调香用途。同一分子骨架的空间排列变了，感知和配方用途也会不同。R/S 表示构型，不直接表示旋光方向，更不能当作安全性等级。",
+        "(R)-Carvone smells of spearmint; (S)-carvone smells of caraway. Their spatial arrangement matters to aroma applications. R/S labels do not specify optical-rotation direction or safety."
+      ],
+      "sources": [
+        {
+          "label": "美国化学会：香芹酮",
+          "url": "https://www.acs.org/molecule-of-the-week/archive/c/carvone.html"
+        },
+        {
+          "label": "CCDC：香芹酮的结构与用途",
+          "url": "https://www.ccdc.cam.ac.uk/media/Web-Structure-exploration.pdf"
+        }
+      ]
+    },
     "summary": "糖与嘌呤的结构和合成。建立以化学转化验证复杂天然分子结构的路径。",
     "sections": [
       {
@@ -129,17 +166,62 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-sugars",
+          "role": "糖类原料与糖生物学试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "单糖、寡糖、多糖和糖衍生物分别适合不同问题。糖合成关注连接位置和立体构型，糖生物学关注糖链与蛋白、细胞之间的关系。供应目录可以帮助选择已知底物和标准品，不能仅凭一个相同分子式判断糖的构型。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "糖类原料与糖生物学试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "糖类原料与糖生物学试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Carbohydrate reagents and building blocks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Monosaccharides, oligosaccharides, polysaccharides and derivatives address different experimental questions. Sugar synthesis requires control of linkage position and stereochemistry, while glycobiology studies interactions with proteins and cells.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
         }
       ]
     },

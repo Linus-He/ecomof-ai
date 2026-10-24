@@ -1,0 +1,1638 @@
+{
+  "2004:779": {
+    "name": "Aaron Ciechanover",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2004/ciechanover/facts/",
+    "affiliations": [
+      "Technion - Israel Institute of Technology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1982:259": {
+    "name": "Aaron Klug",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1982/klug/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2009:843": {
+    "name": "Ada E. Yonath",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2009/yonath/facts/",
+    "affiliations": [
+      "Weizmann Institute of Science"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1939:199": {
+    "name": "Adolf Butenandt",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1939/butenandt/facts/",
+    "affiliations": [
+      "Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Biochemie",
+      "Berlin University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1905:164": {
+    "name": "Adolf von Baeyer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1905/baeyer/facts/",
+    "affiliations": [
+      "Munich University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1928:185": {
+    "name": "Adolf Windaus",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1928/windaus/facts/",
+    "affiliations": [
+      "Goettingen University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1999:292": {
+    "name": "Ahmed Zewail",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1999/zewail/facts/",
+    "affiliations": [
+      "California Institute of Technology (Caltech)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2010:853": {
+    "name": "Akira Suzuki",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2010/suzuki/facts/",
+    "affiliations": [
+      "Hokkaido University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2019:978": {
+    "name": "Akira Yoshino",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2019/yoshino/facts/",
+    "affiliations": [
+      "Asahi Kasei Corporation",
+      "Meijo University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2000:729": {
+    "name": "Alan Heeger",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2000/heeger/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2000:730": {
+    "name": "Alan MacDiarmid",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2000/macdiarmid/facts/",
+    "affiliations": [
+      "University of Pennsylvania"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2023:1031": {
+    "name": "Aleksey Yekimov ",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2023/yekimov/facts/",
+    "affiliations": [
+      "Nanocrystals Technology Inc."
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1913:174": {
+    "name": "Alfred Werner",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1913/werner/facts/",
+    "affiliations": [
+      "University of Zurich"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1952:214": {
+    "name": "Archer J.P. Martin",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1952/martin/facts/",
+    "affiliations": [
+      "National Institute for Medical Research"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2013:891": {
+    "name": "Arieh Warshel",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2013/warshel/facts/",
+    "affiliations": [
+      "University of Southern California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1948:208": {
+    "name": "Arne Tiselius",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1948/tiselius/facts/",
+    "affiliations": [
+      "Uppsala University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1929:186": {
+    "name": "Arthur Harden",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1929/harden/facts/",
+    "affiliations": [
+      "London University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1945:203": {
+    "name": "Artturi Virtanen",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1945/virtanen/facts/",
+    "affiliations": [
+      "University of Helsinki"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2004:780": {
+    "name": "Avram Hershko",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2004/hershko/facts/",
+    "affiliations": [
+      "Technion - Israel Institute of Technology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2015:923": {
+    "name": "Aziz Sancar",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2015/sancar/facts/",
+    "affiliations": [
+      "University of North Carolina"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2021:1002": {
+    "name": "Benjamin List",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2021/list/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Kohlenforschung"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2016:933": {
+    "name": "Bernard L. Feringa",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2016/feringa/facts/",
+    "affiliations": [
+      "University of Groningen"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2012:879": {
+    "name": "Brian Kobilka",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2012/kobilka/facts/",
+    "affiliations": [
+      "Stanford University School of Medicine"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1984:261": {
+    "name": "Bruce Merrifield",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1984/merrifield/facts/",
+    "affiliations": [
+      "Rockefeller University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1931:189": {
+    "name": "Carl Bosch",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1931/bosch/facts/",
+    "affiliations": [
+      "University of Heidelberg",
+      "I.G. Farbenindustrie A.G."
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2022:1015": {
+    "name": "Carolyn Bertozzi",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2022/bertozzi/facts/",
+    "affiliations": [
+      "Stanford University",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1987:269": {
+    "name": "Charles J. Pedersen",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1987/pedersen/facts/",
+    "affiliations": [
+      "Du Pont"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1972:241": {
+    "name": "Christian Anfinsen",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1972/anfinsen/facts/",
+    "affiliations": [
+      "National Institutes of Health"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2011:867": {
+    "name": "Dan Shechtman",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2011/shechtman/facts/",
+    "affiliations": [
+      "Technion - Israel Institute of Technology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2024:1039": {
+    "name": "David Baker",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/",
+    "affiliations": [
+      "University of Washington",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2021:1003": {
+    "name": "David W.C. MacMillan",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2021/macmillan/facts/",
+    "affiliations": [
+      "Princeton University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2024:1040": {
+    "name": "Demis Hassabis",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/",
+    "affiliations": [
+      "Google DeepMind"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1969:237": {
+    "name": "Derek Barton",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1969/barton/facts/",
+    "affiliations": [
+      "Imperial College"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1987:267": {
+    "name": "Donald J. Cram",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1987/cram/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1964:230": {
+    "name": "Dorothy Crowfoot Hodgkin",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1964/hodgkin/facts/",
+    "affiliations": [
+      "University of Oxford, Royal Society"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1986:264": {
+    "name": "Dudley R. Herschbach",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1986/herschbach/facts/",
+    "affiliations": [
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1907:166": {
+    "name": "Eduard Buchner",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1907/buchner/facts/",
+    "affiliations": [
+      "Landwirtschaftliche Hochschule (Agricultural College)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1951:212": {
+    "name": "Edwin M. McMillan",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1951/mcmillan/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2010:852": {
+    "name": "Ei-ichi Negishi",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2010/negishi/facts/",
+    "affiliations": [
+      "Purdue University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1990:275": {
+    "name": "Elias James Corey",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1990/corey/facts/",
+    "affiliations": [
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1902:161": {
+    "name": "Emil Fischer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1902/fischer/facts/",
+    "affiliations": [
+      "Berlin University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2020:991": {
+    "name": "Emmanuelle Charpentier",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2020/charpentier/facts/",
+    "affiliations": [
+      "Max Planck Unit for the Science of Pathogens"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2014:909": {
+    "name": "Eric Betzig",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2014/betzig/facts/",
+    "affiliations": [
+      "Janelia Research Campus, Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1908:167": {
+    "name": "Ernest Rutherford",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1908/rutherford/facts/",
+    "affiliations": [
+      "Victoria University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1973:244": {
+    "name": "Ernst Otto Fischer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1973/fischer/facts/",
+    "affiliations": [
+      "Technical University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1995:283": {
+    "name": "F. Sherwood Rowland",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1995/rowland/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2018:963": {
+    "name": "Frances H. Arnold",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2018/arnold/facts/",
+    "affiliations": [
+      "California Institute of Technology (Caltech)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1922:180": {
+    "name": "Francis W. Aston",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1922/aston/facts/",
+    "affiliations": [
+      "University of Cambridge"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1935:193": {
+    "name": "Frédéric Joliot",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1935/joliot-fred/facts/",
+    "affiliations": [
+      "Institut du Radium"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1958:222": {
+    "name": "Frederick Sanger",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1958/sanger/facts/",
+    "affiliations": [
+      "University of Cambridge"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1980:222": {
+    "name": "Frederick Sanger",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1980/sanger/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1921:179": {
+    "name": "Frederick Soddy",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1921/soddy/facts/",
+    "affiliations": [
+      "University of Oxford"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1931:190": {
+    "name": "Friedrich Bergius",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1931/bergius/facts/",
+    "affiliations": [
+      "University of Heidelberg",
+      "I.G. Farbenindustrie A.G."
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1918:177": {
+    "name": "Fritz Haber",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1918/haber/facts/",
+    "affiliations": [
+      "Kaiser-Wilhelm-Institut (now Fritz-Haber-Institut) für physikalische Chemie und Electrochemie"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1923:181": {
+    "name": "Fritz Pregl",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1923/pregl/facts/",
+    "affiliations": [
+      "Graz University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1973:245": {
+    "name": "Geoffrey Wilkinson",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1973/wilkinson/facts/",
+    "affiliations": [
+      "Imperial College"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1979:253": {
+    "name": "Georg Wittig",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1979/wittig/facts/",
+    "affiliations": [
+      "University of Heidelberg"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1994:280": {
+    "name": "George A. Olah",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1994/olah/facts/",
+    "affiliations": [
+      "University of Southern California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1943:201": {
+    "name": "George de Hevesy",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1943/hevesy/facts/",
+    "affiliations": [
+      "Stockholm University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2018:964": {
+    "name": "George P. Smith",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2018/smith/facts/",
+    "affiliations": [
+      "University of Missouri"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1967:235": {
+    "name": "George Porter",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1967/porter/facts/",
+    "affiliations": [
+      "Royal Institution of Great Britain"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2007:816": {
+    "name": "Gerhard Ertl",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2007/ertl/facts/",
+    "affiliations": [
+      "Fritz-Haber-Institut der Max-Planck-Gesellschaft"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1971:240": {
+    "name": "Gerhard Herzberg",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1971/herzberg/facts/",
+    "affiliations": [
+      "National Research Council of Canada"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1963:229": {
+    "name": "Giulio Natta",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1963/natta/facts/",
+    "affiliations": [
+      "Institute of Technology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1951:213": {
+    "name": "Glenn T. Seaborg",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1951/seaborg/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1930:188": {
+    "name": "Hans Fischer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1930/fischer/facts/",
+    "affiliations": [
+      "Technische Hochschule (Institute of Technology)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1929:187": {
+    "name": "Hans von Euler-Chelpin",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1929/euler-chelpin/facts/",
+    "affiliations": [
+      "Stockholm University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1934:192": {
+    "name": "Harold C. Urey",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1934/urey/facts/",
+    "affiliations": [
+      "Columbia University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1988:272": {
+    "name": "Hartmut Michel",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1988/michel/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Biophysik"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1927:184": {
+    "name": "Heinrich Wieland",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1927/wieland/facts/",
+    "affiliations": [
+      "Munich University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2026:1065": {
+    "name": "Henri B. Kagan",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2026/kagan/facts/",
+    "affiliations": [
+      "Université Paris-Sud"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1906:165": {
+    "name": "Henri Moissan",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1906/moissan/facts/",
+    "affiliations": [
+      "Sorbonne University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1983:260": {
+    "name": "Henry Taube",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1983/taube/facts/",
+    "affiliations": [
+      "Stanford University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1985:262": {
+    "name": "Herbert A. Hauptman",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1985/hauptman/facts/",
+    "affiliations": [
+      "The Medical Foundation of Buffalo"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1979:252": {
+    "name": "Herbert C. Brown",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1979/brown/facts/",
+    "affiliations": [
+      "Purdue University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1953:216": {
+    "name": "Hermann Staudinger",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1953/staudinger/facts/",
+    "affiliations": [
+      "University of Freiburg",
+      "Staatliches Institut für makromolekulare Chemie (State Research Institute for Macromolecular Chemistry), Freiburg"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2000:731": {
+    "name": "Hideki Shirakawa",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/facts/",
+    "affiliations": [
+      "University of Tsukuba"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1977:250": {
+    "name": "Ilya Prigogine",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1977/prigogine/facts/",
+    "affiliations": [
+      "Université Libre de Bruxelles",
+      "University of Texas"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1935:194": {
+    "name": "Irène Joliot-Curie",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1935/joliot-curie/facts/",
+    "affiliations": [
+      "Institut du Radium"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1932:191": {
+    "name": "Irving Langmuir",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1932/langmuir/facts/",
+    "affiliations": [
+      "General Electric Company"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2004:781": {
+    "name": "Irwin Rose",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2004/rose/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1901:160": {
+    "name": "Jacobus H. van 't Hoff",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1901/hoff/facts/",
+    "affiliations": [
+      "Berlin University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2017:944": {
+    "name": "Jacques Dubochet",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2017/dubochet/facts/",
+    "affiliations": [
+      "University of Lausanne"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1946:204": {
+    "name": "James B. Sumner",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1946/sumner/facts/",
+    "affiliations": [
+      "Cornell University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1959:223": {
+    "name": "Jaroslav Heyrovsky",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1959/heyrovsky/facts/",
+    "affiliations": [
+      "Polarographic Institute of the Czechoslovak Academy of Science"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1987:268": {
+    "name": "Jean-Marie Lehn",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1987/lehn/facts/",
+    "affiliations": [
+      "Université Louis Pasteur",
+      "Collège de France"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2016:931": {
+    "name": "Jean-Pierre Sauvage",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2016/sauvage/facts/",
+    "affiliations": [
+      "University of Strasbourg"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2020:992": {
+    "name": "Jennifer A. Doudna",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2020/doudna/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1997:289": {
+    "name": "Jens C. Skou",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1997/skou/facts/",
+    "affiliations": [
+      "Aarhus University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1985:263": {
+    "name": "Jerome Karle",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1985/karle/facts/",
+    "affiliations": [
+      "US Naval Research Laboratory"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2017:945": {
+    "name": "Joachim Frank",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2017/frank/facts/",
+    "affiliations": [
+      "Columbia University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1988:270": {
+    "name": "Johann Deisenhofer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1988/deisenhofer/facts/",
+    "affiliations": [
+      "University of Texas Southwestern Medical Center at Dallas",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2002:756": {
+    "name": "John B. Fenn",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2002/fenn/facts/",
+    "affiliations": [
+      "Virginia Commonwealth University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2019:976": {
+    "name": "John B. Goodenough",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/facts/",
+    "affiliations": [
+      "University of Texas"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1962:227": {
+    "name": "John C. Kendrew",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1962/kendrew/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1986:266": {
+    "name": "John C. Polanyi",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1986/polanyi/facts/",
+    "affiliations": [
+      "University of Toronto"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1975:247": {
+    "name": "John Cornforth",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1975/cornforth/facts/",
+    "affiliations": [
+      "University of Sussex"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1997:288": {
+    "name": "John E. Walker",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1997/walker/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1946:205": {
+    "name": "John H. Northrop",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1946/northrop/facts/",
+    "affiliations": [
+      "Rockefeller Institute for Medical Research"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2024:1041": {
+    "name": "John Jumper",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2024/jumper/facts/",
+    "affiliations": [
+      "Google DeepMind"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1998:291": {
+    "name": "John Pople",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1998/pople/facts/",
+    "affiliations": [
+      "Northwestern University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2001:743": {
+    "name": "K. Barry Sharpless",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2001/sharpless/facts/",
+    "affiliations": [
+      "The Scripps Research Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2022:743": {
+    "name": "K. Barry Sharpless",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2022/sharpless/facts/",
+    "affiliations": [
+      "Scripps Research"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1963:228": {
+    "name": "Karl Ziegler",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1963/ziegler/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Kohlenforschung"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1993:278": {
+    "name": "Kary B. Mullis",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1993/mullis/facts/",
+    "affiliations": [],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1981:257": {
+    "name": "Kenichi Fukui",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1981/fukui/facts/",
+    "affiliations": [
+      "Kyoto University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2026:1066": {
+    "name": "Kenso Soai",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2026/soai/facts/",
+    "affiliations": [
+      "Tokyo University of Science"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2002:757": {
+    "name": "Koichi Tanaka",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2002/tanaka/facts/",
+    "affiliations": [
+      "Shimadzu Corp."
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1950:211": {
+    "name": "Kurt Alder",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1950/alder/facts/",
+    "affiliations": [
+      "Cologne University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2002:758": {
+    "name": "Kurt Wüthrich",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/facts/",
+    "affiliations": [
+      "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)",
+      "The Scripps Research Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1968:236": {
+    "name": "Lars Onsager",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1968/onsager/facts/",
+    "affiliations": [
+      "Yale University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1939:200": {
+    "name": "Leopold Ruzicka",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1939/ruzicka/facts/",
+    "affiliations": [
+      "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1954:217": {
+    "name": "Linus Pauling",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1954/pauling/facts/",
+    "affiliations": [
+      "California Institute of Technology (Caltech)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1957:221": {
+    "name": "Lord Todd",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1957/todd/facts/",
+    "affiliations": [
+      "University of Cambridge"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2023:1030": {
+    "name": "Louis Brus",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2023/brus/facts/",
+    "affiliations": [
+      "Columbia University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1970:239": {
+    "name": "Luis Leloir",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1970/leloir/facts/",
+    "affiliations": [
+      "Institute for Biochemical Research"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2019:977": {
+    "name": "M. Stanley Whittingham",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2019/whittingham/facts/",
+    "affiliations": [
+      "Binghamton University, State University of New York"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1967:233": {
+    "name": "Manfred Eigen",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1967/eigen/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Physikalische Chemie"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1911:6": {
+    "name": "Marie Curie",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1911/marie-curie/facts/",
+    "affiliations": [
+      "Sorbonne University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1995:282": {
+    "name": "Mario J. Molina",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1995/molina/facts/",
+    "affiliations": [
+      "Massachusetts Institute of Technology (MIT)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2008:830": {
+    "name": "Martin Chalfie",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2008/chalfie/facts/",
+    "affiliations": [
+      "Columbia University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2013:889": {
+    "name": "Martin Karplus",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2013/karplus/facts/",
+    "affiliations": [
+      "Université de Strasbourg",
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1962:226": {
+    "name": "Max F. Perutz",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1962/perutz/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1961:225": {
+    "name": "Melvin Calvin",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1961/calvin/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2013:890": {
+    "name": "Michael Levitt",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2013/levitt/facts/",
+    "affiliations": [
+      "Stanford University School of Medicine"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1993:279": {
+    "name": "Michael Smith",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1993/smith/facts/",
+    "affiliations": [
+      "University of British Columbia"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2022:1016": {
+    "name": "Morten Meldal",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2022/meldal/facts/",
+    "affiliations": [
+      "University of Copenhagen"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2023:1029": {
+    "name": "Moungi Bawendi",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2023/bawendi/facts/",
+    "affiliations": [
+      "Massachusetts Institute of Technology (MIT)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1956:220": {
+    "name": "Nikolay Semenov",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1956/semenov/facts/",
+    "affiliations": [
+      "Institute for Chemical Physics of the Academy of Sciences of the USSR",
+      "Lomonosov Moscow State University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1937:196": {
+    "name": "Norman Haworth",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1937/haworth/facts/",
+    "affiliations": [
+      "Birmingham University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1969:238": {
+    "name": "Odd Hassel",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1969/hassel/facts/",
+    "affiliations": [
+      "University of Oslo"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2025:1055": {
+    "name": "Omar M. Yaghi",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2025/yaghi/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2008:829": {
+    "name": "Osamu Shimomura",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2008/shimomura/facts/",
+    "affiliations": [
+      "Marine Biological Laboratory (MBL)",
+      "Boston University Medical School"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1950:210": {
+    "name": "Otto Diels",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1950/diels/facts/",
+    "affiliations": [
+      "Kiel University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1944:202": {
+    "name": "Otto Hahn",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1944/hahn/facts/",
+    "affiliations": [
+      "Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Chemie"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1910:169": {
+    "name": "Otto Wallach",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1910/wallach/facts/",
+    "affiliations": [
+      "Goettingen University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1980:254": {
+    "name": "Paul Berg",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1980/berg/facts/",
+    "affiliations": [
+      "Stanford University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1997:287": {
+    "name": "Paul D. Boyer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1997/boyer/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1995:281": {
+    "name": "Paul J. Crutzen",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1995/crutzen/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Chemie"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1974:246": {
+    "name": "Paul J. Flory",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1974/flory/facts/",
+    "affiliations": [
+      "Stanford University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1937:197": {
+    "name": "Paul Karrer",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1937/karrer/facts/",
+    "affiliations": [
+      "University of Zurich"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2015:922": {
+    "name": "Paul Modrich",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2015/modrich/facts/",
+    "affiliations": [
+      "Howard Hughes Medical Institute",
+      "Duke University School of Medicine"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1912:173": {
+    "name": "Paul Sabatier",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1912/sabatier/facts/",
+    "affiliations": [
+      "Toulouse University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2003:769": {
+    "name": "Peter Agre",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2003/agre/facts/",
+    "affiliations": [
+      "Johns Hopkins University School of Medicine"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1936:195": {
+    "name": "Peter Debye",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1936/debye/facts/",
+    "affiliations": [
+      "Berlin University",
+      "Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Physik"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1978:251": {
+    "name": "Peter Mitchell",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1978/mitchell/facts/",
+    "affiliations": [
+      "Glynn Research Laboratories"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1996:286": {
+    "name": "Richard E. Smalley",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1996/smalley/facts/",
+    "affiliations": [
+      "Rice University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2010:851": {
+    "name": "Richard F. Heck",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2010/heck/facts/",
+    "affiliations": [
+      "University of Delaware"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2017:946": {
+    "name": "Richard Henderson",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2017/henderson/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1938:198": {
+    "name": "Richard Kuhn",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1938/kuhn/facts/",
+    "affiliations": [
+      "Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Medizinische Forschung",
+      "University of Heidelberg"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1952:215": {
+    "name": "Richard L.M. Synge",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1952/synge/facts/",
+    "affiliations": [
+      "Rowett Research Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1991:276": {
+    "name": "Richard R. Ernst",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1991/ernst/facts/",
+    "affiliations": [
+      "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2005:796": {
+    "name": "Richard R. Schrock",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2005/schrock/facts/",
+    "affiliations": [
+      "Massachusetts Institute of Technology (MIT)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2025:1054": {
+    "name": "Richard Robson",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2025/robson/facts/",
+    "affiliations": [
+      "University of Melbourne"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1915:176": {
+    "name": "Richard Willstätter",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1915/willstatter/facts/",
+    "affiliations": [
+      "Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Chemie",
+      "Friedrich-Wilhelms-Universität"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1925:182": {
+    "name": "Richard Zsigmondy",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1925/zsigmondy/facts/",
+    "affiliations": [
+      "Goettingen University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1981:258": {
+    "name": "Roald Hoffmann",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/facts/",
+    "affiliations": [
+      "Cornell University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1965:231": {
+    "name": "Robert B. Woodward",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1965/woodward/facts/",
+    "affiliations": [
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1996:284": {
+    "name": "Robert F. Curl Jr.",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1996/curl/facts/",
+    "affiliations": [
+      "Rice University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2005:795": {
+    "name": "Robert H. Grubbs",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2005/grubbs/facts/",
+    "affiliations": [
+      "California Institute of Technology (Caltech)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1988:271": {
+    "name": "Robert Huber",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1988/huber/facts/",
+    "affiliations": [
+      "Max-Planck-Institut für Biochemie"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2012:878": {
+    "name": "Robert J. Lefkowitz",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2012/lefkowitz/facts/",
+    "affiliations": [
+      "Howard Hughes Medical Institute",
+      "Duke University Medical Center"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1966:232": {
+    "name": "Robert S. Mulliken",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1966/mulliken/facts/",
+    "affiliations": [
+      "University of Chicago"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2003:770": {
+    "name": "Roderick MacKinnon",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2003/mackinnon/facts/",
+    "affiliations": [
+      "Rockefeller University",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2006:806": {
+    "name": "Roger D. Kornberg",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2006/kornberg/facts/",
+    "affiliations": [
+      "Stanford University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2008:831": {
+    "name": "Roger Y. Tsien",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2008/tsien/facts/",
+    "affiliations": [
+      "University of California",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1967:234": {
+    "name": "Ronald G.W. Norrish",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1967/norrish/facts/",
+    "affiliations": [
+      "Institute of Physical Chemistry"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1992:277": {
+    "name": "Rudolph A. Marcus",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1992/marcus/facts/",
+    "affiliations": [
+      "California Institute of Technology (Caltech)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2001:742": {
+    "name": "Ryoji Noyori",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2001/noyori/facts/",
+    "affiliations": [
+      "Nagoya University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1989:273": {
+    "name": "Sidney Altman",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1989/altman/facts/",
+    "affiliations": [
+      "Yale University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1956:219": {
+    "name": "Sir Cyril Hinshelwood",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1956/hinshelwood/facts/",
+    "affiliations": [
+      "University of Oxford"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2018:965": {
+    "name": "Sir Gregory P. Winter",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2018/winter/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1996:285": {
+    "name": "Sir Harold Kroto",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1996/kroto/facts/",
+    "affiliations": [
+      "University of Sussex"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2016:932": {
+    "name": "Sir J. Fraser Stoddart",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2016/stoddart/facts/",
+    "affiliations": [
+      "Northwestern University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1947:207": {
+    "name": "Sir Robert Robinson",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1947/robinson/facts/",
+    "affiliations": [
+      "University of Oxford"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1904:163": {
+    "name": "Sir William Ramsay",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1904/ramsay/facts/",
+    "affiliations": [
+      "University College"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1972:242": {
+    "name": "Stanford Moore",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1972/moore/facts/",
+    "affiliations": [
+      "Rockefeller University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2014:910": {
+    "name": "Stefan W. Hell",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2014/hell/facts/",
+    "affiliations": [
+      "Max Planck Institute for Biophysical Chemistry",
+      "German Cancer Research Center"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2025:1053": {
+    "name": "Susumu Kitagawa",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2025/kitagawa/facts/",
+    "affiliations": [
+      "Kyoto University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1903:162": {
+    "name": "Svante Arrhenius",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1903/arrhenius/facts/",
+    "affiliations": [
+      "Stockholm University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1926:183": {
+    "name": "The Svedberg",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1926/svedberg/facts/",
+    "affiliations": [
+      "Uppsala University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1914:175": {
+    "name": "Theodore W. Richards",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1914/richards/facts/",
+    "affiliations": [
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2009:842": {
+    "name": "Thomas A. Steitz",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2009/steitz/facts/",
+    "affiliations": [
+      "Yale University",
+      "Howard Hughes Medical Institute"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1989:274": {
+    "name": "Thomas R. Cech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1989/cech/facts/",
+    "affiliations": [
+      "University of Colorado"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2015:921": {
+    "name": "Tomas Lindahl",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2015/lindahl/facts/",
+    "affiliations": [
+      "Francis Crick Institute",
+      "Clare Hall Laboratory"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2009:841": {
+    "name": "Venkatraman Ramakrishnan",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2009/ramakrishnan/facts/",
+    "affiliations": [
+      "MRC Laboratory of Molecular Biology"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1912:172": {
+    "name": "Victor Grignard",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1912/grignard/facts/",
+    "affiliations": [
+      "Nancy University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1955:218": {
+    "name": "Vincent du Vigneaud",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1955/vigneaud/facts/",
+    "affiliations": [
+      "Cornell University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1975:248": {
+    "name": "Vladimir Prelog",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1975/prelog/facts/",
+    "affiliations": [
+      "Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1980:255": {
+    "name": "Walter Gilbert",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1980/gilbert/facts/",
+    "affiliations": [
+      "Harvard University, Biological Laboratories"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1998:290": {
+    "name": "Walter Kohn",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1998/kohn/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1920:178": {
+    "name": "Walther Nernst",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1920/nernst/facts/",
+    "affiliations": [
+      "Berlin University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1946:206": {
+    "name": "Wendell M. Stanley",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1946/stanley/facts/",
+    "affiliations": [
+      "Rockefeller Institute for Medical Research"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1909:168": {
+    "name": "Wilhelm Ostwald",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1909/ostwald/facts/",
+    "affiliations": [
+      "Leipzig University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1960:224": {
+    "name": "Willard F. Libby",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1960/libby/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2014:911": {
+    "name": "William E. Moerner",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2014/moerner/facts/",
+    "affiliations": [
+      "Stanford University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1949:209": {
+    "name": "William F. Giauque",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1949/giauque/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1972:243": {
+    "name": "William H. Stein",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1972/stein/facts/",
+    "affiliations": [
+      "Rockefeller University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2001:741": {
+    "name": "William Knowles",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2001/knowles/facts/",
+    "affiliations": [],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1976:249": {
+    "name": "William Lipscomb",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/facts/",
+    "affiliations": [
+      "Harvard University"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "1986:265": {
+    "name": "Yuan T. Lee",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1986/lee/facts/",
+    "affiliations": [
+      "University of California"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  },
+  "2005:794": {
+    "name": "Yves Chauvin",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2005/chauvin/facts/",
+    "affiliations": [
+      "Institut Français du Pétrole"
+    ],
+    "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che"
+  }
+}

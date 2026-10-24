@@ -34,8 +34,46 @@
       "sha256": "63df4def3dfd0da0a617ee6ab5e0a3bc06a7b70b2a9629555e242a9b7e04b7e1"
     }
   ],
+  "people": [
+    {
+      "name": "Robert J. Lefkowitz",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2012/lefkowitz/facts/",
+      "affiliations": [
+        "Howard Hughes Medical Institute",
+        "Duke University Medical Center"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "878",
+      "image": "images/nobel/laureates/878.jpg"
+    },
+    {
+      "name": "Brian Kobilka",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2012/kobilka/facts/",
+      "affiliations": [
+        "Stanford University School of Medicine"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "879",
+      "image": "images/nobel/laureates/879.jpg"
+    }
+  ],
   "reading": {
     "title": "G 蛋白偶联受体",
+    "learningGuide": {
+      "topic": "gpcr",
+      "title": [
+        "细胞怎样把外部结合转成内部信号",
+        "From binding to cellular signaling"
+      ],
+      "definition": [
+        "G 蛋白偶联受体把细胞外的分子识别与细胞内信号联系起来。结合、构象变化和下游响应是相关但不同的事件。",
+        "GPCR binding, conformational change and downstream responses are connected but distinct events."
+      ],
+      "example": [
+        "同一受体可能在不同配体或环境中偏向不同状态。报告细胞测得功能信号，结构实验研究原子排列，两类结果需要相互解释，不能互相替代。",
+        "Reporter cells measure a functional readout, while structures describe molecular arrangements. Different ligands can favor different states."
+      ]
+    },
     "summary": "G 蛋白偶联受体。把细胞通信与受体的具体分子结构联系起来。",
     "sections": [
       {
@@ -141,18 +179,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-gpcr",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "GPCR 细胞报告系统与功能筛查",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "SelectScreen 的细胞 GPCR 筛查使用 GeneBLAzer 和 Tango 等报告体系。它们把受体相关细胞事件转换成可测量信号，适合在规定条件下比较激动剂或拮抗剂的功能表现。",
+            "不同报告技术读取的信号环节不同。评价一组化合物时，需要核对细胞背景、受体表达、阳性对照及剂量反应曲线；某种报告信号的变化不能自动解释为化合物直接结合了目标受体。",
+            "与 GPCR 结构研究相比，报告细胞提供功能测量，结构方法提供分子构象信息。二者互补，但功能筛查本身不能给出受体的原子结构，也不能替代药物安全性和临床评价。"
+          ],
+          "products": [
+            {
+              "name": "SelectScreen GPCR 功能筛查",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+            },
+            {
+              "name": "SelectScreen GPCR 功能筛查 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Cell-based GPCR functional screening",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "SelectScreen uses GeneBLAzer and Tango reporter systems to turn receptor-related cellular events into measurable signals for functional comparisons.",
+              "Reporter systems read different signaling steps. Cell background, controls and concentration-response data matter; a reporter response is neither proof of direct binding nor an atomic receptor structure.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "SelectScreen GPCR service",
+                "application": "Compare functional responses in reporter cells carrying a specified receptor assay.",
+                "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+              },
+              {
+                "name": "GPCR profiling protocol",
+                "application": "Check cell-line backgrounds, controls and the signaling readout used by the assay.",
+                "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
         }
       ]
     },

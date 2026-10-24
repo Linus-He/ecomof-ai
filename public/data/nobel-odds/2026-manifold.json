@@ -1,0 +1,471 @@
+{
+  "year": 2026,
+  "title": "Chemistry Nobel 2026: Awarded Field(s) Multimarket",
+  "source": "Manifold",
+  "currency": "MANA",
+  "marketKind": "field",
+  "eventUrl": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+  "eventId": "zLAczO2CsI",
+  "windowStart": 1767370692,
+  "cutoff": 1791366300,
+  "cutoffSource": "https://www.nobelprize.org/prizes/chemistry/2026/prize-announcement/",
+  "cutoffNote": "Earliest scheduled announcement.",
+  "marketRulesUrl": "https://api.manifold.markets/v0/market/zLAczO2CsI",
+  "method": "Manifold play-money trade probabilities. Last directly recorded probAfter per answer; probabilities of other answers may also move without a direct trade. Quotes are not a complete simultaneous market snapshot. No settlement values and no interpolated history.",
+  "answersSumToOne": false,
+  "winners": [
+    "Henri B. Kagan",
+    "Kenso Soai"
+  ],
+  "unlistedWinners": [],
+  "candidates": [
+    {
+      "id": "hnutsAEZ5u",
+      "name": "Polymer chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370727,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375924,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375950,
+          "p": 0.3378378378378375
+        }
+      ],
+      "probability": 0.3378378378378375,
+      "quoteAt": 1767375950,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "QL8qPPAluy",
+      "name": "Computational or Theoretical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370705,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1791147854,
+          "p": 0.2808988764044943
+        }
+      ],
+      "probability": 0.2808988764044943,
+      "quoteAt": 1791147854,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "hyASpySL5L",
+      "name": "Physical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370708,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1791147860,
+          "p": 0.2808988764044943
+        }
+      ],
+      "probability": 0.2808988764044943,
+      "quoteAt": 1791147860,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "Olg2h5Pn6E",
+      "name": "Biochemistry or Chemical Biology",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370710,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1791147865,
+          "p": 0.2808988764044943
+        }
+      ],
+      "probability": 0.2808988764044943,
+      "quoteAt": 1791147865,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "LLPysEsSdn",
+      "name": "Analytical Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370703,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1791147846,
+          "p": 0.26680218869722166
+        }
+      ],
+      "probability": 0.26680218869722166,
+      "quoteAt": 1791147846,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "lgQ0q9gd58",
+      "name": "Medicinal, Drug or Pharmacology-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370715,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375930,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375943,
+          "p": 0.3378378378378375
+        },
+        {
+          "t": 1791147871,
+          "p": 0.2668021886972216
+        }
+      ],
+      "probability": 0.2668021886972216,
+      "quoteAt": 1791147871,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "RIQgZpZhpt",
+      "name": "Battery-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370724,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375926,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375947,
+          "p": 0.3378378378378375
+        },
+        {
+          "t": 1791147813,
+          "p": 0.21031252957155758
+        }
+      ],
+      "probability": 0.21031252957155758,
+      "quoteAt": 1791147813,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "g0PlZNcEO8",
+      "name": "Nuclear chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370720,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375929,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375944,
+          "p": 0.3378378378378375
+        },
+        {
+          "t": 1787606535,
+          "p": 0.23584905660377337
+        },
+        {
+          "t": 1791147884,
+          "p": 0.18200349446709363
+        }
+      ],
+      "probability": 0.18200349446709363,
+      "quoteAt": 1791147884,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "pPEqytP05l",
+      "name": "Organic Synthesis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370692,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767377721,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1783520332,
+          "p": 0.17123287671232873
+        },
+        {
+          "t": 1783520333,
+          "p": 0.17123287671232876
+        }
+      ],
+      "probability": 0.17123287671232876,
+      "quoteAt": 1783520333,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "uRd5hPC9S8",
+      "name": "Inorganic Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370695,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767377719,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1783520336,
+          "p": 0.17123287671232873
+        },
+        {
+          "t": 1783520337,
+          "p": 0.17123287671232876
+        }
+      ],
+      "probability": 0.17123287671232876,
+      "quoteAt": 1783520337,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "sPRdsI2ALh",
+      "name": "Catalysis",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370697,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767377716,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1783520341,
+          "p": 0.17123287671232873
+        }
+      ],
+      "probability": 0.17123287671232873,
+      "quoteAt": 1783520341,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "QhNZNA2A85",
+      "name": "Chemical Thermodynamics",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370712,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375932,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375941,
+          "p": 0.3378378378378375
+        },
+        {
+          "t": 1767377708,
+          "p": 0.23584905660377337
+        },
+        {
+          "t": 1783520349,
+          "p": 0.17123287671232865
+        }
+      ],
+      "probability": 0.17123287671232865,
+      "quoteAt": 1783520349,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "pgULq8A2OR",
+      "name": "Environmental or Climate-related Chemistry",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370722,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767375927,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1767375946,
+          "p": 0.3378378378378375
+        },
+        {
+          "t": 1767377711,
+          "p": 0.23584905660377337
+        },
+        {
+          "t": 1783520352,
+          "p": 0.17123287671232865
+        }
+      ],
+      "probability": 0.17123287671232865,
+      "quoteAt": 1783520352,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    },
+    {
+      "id": "p9ZugzphuU",
+      "name": "Metal Organic Frameworks (MOF)",
+      "kind": "field",
+      "winner": false,
+      "url": "https://manifold.markets/CamillePerrin/chemistry-nobel-2026-awarded-fields",
+      "points": [
+        {
+          "t": 1767370700,
+          "p": 0.3378378378378378
+        },
+        {
+          "t": 1767377715,
+          "p": 0.2358490566037735
+        },
+        {
+          "t": 1783520345,
+          "p": 0.17123287671232873
+        },
+        {
+          "t": 1790863106,
+          "p": 0.0599462881258392
+        },
+        {
+          "t": 1790863107,
+          "p": 0.07671628712326688
+        }
+      ],
+      "probability": 0.07671628712326688,
+      "quoteAt": 1790863107,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "researchFocus": [
+        "研究领域预测，非个人获奖概率",
+        "Field prediction, not an individual forecast"
+      ]
+    }
+  ],
+  "excluded": [],
+  "historySources": [
+    "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000"
+  ],
+  "historySha256": "055ce2066d1f7086d4d92582bcf2900d7946c7c7c3cd4b50248db77e1066ea60",
+  "sparseHistory": true,
+  "winnerDetails": [
+    {
+      "name": "Henri B. Kagan",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/kagan/facts/",
+      "image": "images/nobel/laureates/1065.jpg",
+      "affiliations": [
+        "Université Paris-Sud"
+      ]
+    },
+    {
+      "name": "Kenso Soai",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/soai/facts/",
+      "image": "images/nobel/laureates/1066.jpg",
+      "affiliations": [
+        "Tokyo University of Science"
+      ]
+    }
+  ]
+}

@@ -46,8 +46,55 @@
       "sha256": "4c43ba340b8e058370c0029ec016b6a1f85b66073b887a33f2c2299cdf4fa0dc"
     }
   ],
+  "people": [
+    {
+      "name": "Moungi Bawendi",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/bawendi/facts/",
+      "affiliations": [
+        "Massachusetts Institute of Technology (MIT)"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1029",
+      "image": "images/nobel/laureates/1029.jpg"
+    },
+    {
+      "name": "Louis Brus",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/brus/facts/",
+      "affiliations": [
+        "Columbia University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1030",
+      "image": "images/nobel/laureates/1030.jpg"
+    },
+    {
+      "name": "Aleksey Yekimov ",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/yekimov/facts/",
+      "affiliations": [
+        "Nanocrystals Technology Inc."
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "1031",
+      "image": "images/nobel/laureates/1031.jpg"
+    }
+  ],
   "reading": {
     "title": "量子点",
+    "learningGuide": {
+      "topic": "qdot",
+      "title": [
+        "纳米晶体的尺寸也会改变颜色",
+        "Size-dependent nanocrystal optics"
+      ],
+      "definition": [
+        "量子点是具有尺寸相关电子和光学性质的纳米晶体。在合适尺寸范围内，改变颗粒尺寸可以改变能级与发光行为，因此同类成分可能出现不同颜色。",
+        "Quantum dots show size-dependent electronic and optical behavior. Similar compositions can emit different colors in an appropriate size range."
+      ],
+      "example": [
+        "显示技术可以让量子点把蓝光转换为其他颜色。实验室发光性质要进入面板，还需要材料固定、封装和器件设计；不能把单颗粒数据直接当作整机指标。",
+        "Color-conversion displays integrate dots with excitation, packaging and device design. A particle measurement is not a complete display specification."
+      ]
+    },
     "summary": "量子点。使材料尺寸成为可调控电子和光学性质的设计参数。",
     "sections": [
       {
@@ -153,17 +200,62 @@
       "companyCases": [
         {
           "organizationId": "samsung",
-          "role": "量子点光转换显示",
-          "status": "企业公开资料",
+          "id": "samsung",
+          "role": "QD-OLED：量子点承担颜色转换",
+          "status": "商业显示面板技术",
           "paragraphs": [
-            "Samsung Display 的 QD-OLED 将有机发光源与量子点光转换层结合。它与直接注入电荷的 QD-LED 采用不同结构，因此不能把实验室蓝色 QD-LED 的测试数字直接用于解释商品 QD-OLED 面板。"
+            "Samsung Display 的 QD-OLED 把蓝色 OLED 发出的光与量子点颜色转换相结合。蓝光为转换提供激发能，量子点产生所需的红、绿光分量。量子点在其中承担的是光转换材料的任务，不能把整块面板简称为纯量子点电致发光器件。",
+            "企业技术说明将颜色形成方式与传统使用滤色片的方案作比较。材料发光谱、转换层、像素结构和面板驱动共同影响显示表现；实验室里量子点的发光效率，不等于电视或显示器整机的能耗及寿命。",
+            "这一案例呈现了纳米晶体光学性质进入面板制造的路径。本文保留官方对工作原理的说明，不从中反推企业的具体纳米晶合成配方，也不把不同品牌终端的整机参数混作材料参数。"
+          ],
+          "products": [
+            {
+              "name": "QD-OLED 颜色形成机制",
+              "application": "查阅蓝色 OLED 光源与量子点的配合方式。",
+              "url": "https://global.samsungdisplay.com/31454?type=main"
+            },
+            {
+              "name": "QD-OLED 色彩技术说明",
+              "application": "区分色彩纯度、面板结构与终端显示表现。",
+              "url": "https://global.samsungdisplay.com/31114"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://global.samsungdisplay.com/31363?type=main"
+              "label": "QD-OLED 颜色形成机制 · 官方资料",
+              "url": "https://global.samsungdisplay.com/31454?type=main"
+            },
+            {
+              "label": "QD-OLED 色彩技术说明 · 官方资料",
+              "url": "https://global.samsungdisplay.com/31114"
             }
-          ]
+          ],
+          "introduction": [
+            "Samsung Display 开发和制造显示面板。",
+            "Samsung Display develops and manufactures display-panel technologies."
+          ],
+          "en": {
+            "role": "Quantum-dot color conversion in QD-OLED",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "QD-OLED combines blue OLED emission with quantum-dot color conversion. Quantum dots generate red and green components from the excitation light; the entire panel is not a purely quantum-dot electroluminescent device.",
+              "The company explains this color-production approach in contrast with conventional color filtering. Quantum-dot spectra, conversion layers, pixel structure and driving electronics all affect a display.",
+              "A nanocrystal’s laboratory optical performance is distinct from the power consumption and lifetime of a complete display."
+            ],
+            "products": [
+              {
+                "name": "QD-OLED color conversion",
+                "application": "Distinguish blue OLED excitation from red and green quantum-dot color conversion.",
+                "url": "https://global.samsungdisplay.com/31454?type=main"
+              },
+              {
+                "name": "QD-OLED color technology",
+                "application": "Read color-performance explanations together with panel architecture and driving conditions.",
+                "url": "https://global.samsungdisplay.com/31114"
+              }
+            ]
+          },
+          "relation": "Samsung Display 的 QD-OLED 使用量子点进行光转换；论文研究的是电致发光 QD-LED，两种器件结构不同，不能混用名称和寿命指标。"
         }
       ]
     },

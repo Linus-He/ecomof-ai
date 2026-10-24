@@ -22,8 +22,35 @@
       "sha256": "0b7a59906d91ee9be114c5087d0894a446a3173c70dd27b86b146918a57a044b"
     }
   ],
+  "people": [
+    {
+      "name": "Aaron Klug",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1982/klug/facts/",
+      "affiliations": [
+        "MRC Laboratory of Molecular Biology"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "259",
+      "image": "images/nobel/laureates/259.jpg"
+    }
+  ],
   "reading": {
     "title": "晶体学电子显微术",
+    "learningGuide": {
+      "topic": "crystal",
+      "title": [
+        "从衍射图到原子排列",
+        "Inferring structure from diffraction"
+      ],
+      "definition": [
+        "晶体中的周期性排列会对入射波形成特定衍射信号。结构分析需要把这些信号与数学模型联系起来，衍射图本身不是一张可直接识别分子的照片。",
+        "Periodic atomic arrangements produce diffraction signals that must be interpreted through a model. The pattern is not a direct molecular photograph."
+      ],
+      "example": [
+        "同一化合物可能形成不同晶型，原子组成相同但堆积不同。结构信息可以帮助解释性质，样品是否代表实际使用状态仍需结合环境与其他实验判断。",
+        "Different crystal forms can share composition while differing in packing. Structure must be considered with the sample’s actual conditions."
+      ]
+    },
     "summary": "晶体学电子显微术。把图像与衍射信息结合，扩展复杂分子的结构分析。",
     "sections": [
       {
@@ -170,18 +197,63 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-ribozyme",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "RNA 体外转录与功能研究",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+            "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+            "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+          ],
+          "products": [
+            {
+              "name": "MEGAscript T7 转录试剂盒",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "RNA preparation for functional experiments",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "MEGAscript T7 provides RNA by in-vitro transcription for structure and function studies. A transcribed sequence is an experimental material, not a demonstration of catalytic activity.",
+              "Template processing, purification and RNA-integrity checks precede functional tests. Ribozyme activity needs its own reaction controls and measurements.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "MEGAscript T7",
+                "application": "Prepare a defined RNA sequence before testing any catalytic function.",
+                "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+              },
+              {
+                "name": "Transcription user guide",
+                "application": "Check transcription and purification separately from the ribozyme activity experiment.",
+                "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
         }
       ]
     },

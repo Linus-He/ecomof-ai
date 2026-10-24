@@ -22,8 +22,35 @@
       "sha256": "b1980b42ff6374e93f39b8b492a00bdb04072c35edb5d7b9363a2b90200c060f"
     }
   ],
+  "people": [
+    {
+      "name": "Lord Todd",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1957/todd/facts/",
+      "affiliations": [
+        "University of Cambridge"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "221",
+      "image": "images/nobel/laureates/221.jpg"
+    }
+  ],
   "reading": {
     "title": "核苷酸与核苷酸辅酶",
+    "learningGuide": {
+      "topic": "nucleotide",
+      "title": [
+        "核酸的构件怎样连接",
+        "How nucleic-acid building blocks connect"
+      ],
+      "definition": [
+        "核苷酸由含氮碱基、糖和磷酸相关部分组成，核苷则不含相应的磷酸部分。构件的连接方式影响核酸链的结构，相关化学也帮助理解核苷酸辅酶。",
+        "Nucleotides contain a base, a sugar and phosphate-related components; nucleosides lack the phosphate component. Their connections matter to nucleic acids and nucleotide coenzymes."
+      ],
+      "example": [
+        "知道碱基名称，只给出了构件身份的一部分。糖的结构、连接位置和磷酸连接方式也属于分子信息，不能把结构近似的构件在合成或功能讨论中直接互换。",
+        "A base name identifies only part of a building block. Sugar structure and phosphate connectivity also affect synthesis and function."
+      ]
+    },
     "summary": "核苷酸与核苷酸辅酶。为生命信息载体和代谢辅因子提供化学结构基础。",
     "sections": [
       {
@@ -181,31 +208,121 @@
       "companyCases": [
         {
           "organizationId": "merck",
-          "role": "合成试剂、标准品与研究材料",
-          "status": "企业公开资料",
+          "id": "merck-sugars",
+          "role": "糖类原料与糖生物学试剂",
+          "status": "商业研究试剂与材料目录",
           "paragraphs": [
-            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+            "单糖、寡糖、多糖和糖衍生物分别适合不同问题。糖合成关注连接位置和立体构型，糖生物学关注糖链与蛋白、细胞之间的关系。供应目录可以帮助选择已知底物和标准品，不能仅凭一个相同分子式判断糖的构型。",
+            "催化剂目录列出交叉偶联、烯烃复分解以及手性催化所用的不同体系。实际采购需要核对化学结构、纯度、配体组成和储存要求；反应评价还需要产物鉴定、对照与物料衡算。目录中的同类试剂通常承担不同任务，不能仅凭商品分类互相替换。",
+            "企业在这里承担试剂供应与技术资料提供的角色。所列产品支持相关化学研究，但目录本身没有证明某篇论文采用了这些产品，也没有证明某个教学反应已经进入工厂生产。"
+          ],
+          "products": [
+            {
+              "name": "糖类原料与糖生物学试剂",
+              "application": "核对具体原料的结构、规格及技术说明，再选择实验路线。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "name": "反应专用催化剂与配体",
+              "application": "按交叉偶联、复分解或手性转化查阅具体体系。",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+              "label": "糖类原料与糖生物学试剂 · 官方目录",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+            },
+            {
+              "label": "反应专用催化剂与配体 · 官方资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
             }
-          ]
+          ],
+          "introduction": [
+            "Merck 通过 Sigma-Aldrich 提供化学与生命科学研究试剂、标准品和材料。",
+            "Merck supplies research chemicals and materials through its Sigma-Aldrich portfolio."
+          ],
+          "en": {
+            "role": "Carbohydrate reagents and building blocks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Monosaccharides, oligosaccharides, polysaccharides and derivatives address different experimental questions. Sugar synthesis requires control of linkage position and stereochemistry, while glycobiology studies interactions with proteins and cells.",
+              "Its catalyst catalogue distinguishes cross-coupling, olefin metathesis and asymmetric transformations. Product specifications describe the reagent, while yield, selectivity and product identity must be established in the experiment.",
+              "A catalogue documents availability, not adoption by a particular paper or industrial plant."
+            ],
+            "products": [
+              {
+                "name": "Organic building blocks",
+                "application": "Choose functionalized substrates for assembling a target molecular skeleton.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/biochemicals/carbohydrates"
+              },
+              {
+                "name": "Reaction-specific catalysts and ligands",
+                "application": "Compare catalysts and ligands for a defined coupling, metathesis or asymmetric transformation.",
+                "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals/catalysts"
+              }
+            ]
+          },
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
         },
         {
+          "id": "thermo-ribozyme",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "RNA 体外转录与功能研究",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "MEGAscript T7 试剂盒利用体外转录制备 RNA。企业资料列出转染、体外翻译以及 RNA 结构和功能分析等研究用途。它提供的是 RNA 制备工具，具体序列和模板设计由研究者决定。",
+            "转录后还需根据用途处理 DNA 模板、纯化产物并检查 RNA 完整性。是否需要加帽、修饰或其他加工，要由实验目的及配套工艺决定；不能把试剂盒产物直接视作可用的临床 mRNA 制剂。",
+            "这与 RNA 化学及基因表达研究的联系在于材料供给。转录体系能生成 RNA，不证明该 RNA 具有特定催化活性；核酶或调控功能仍需另做功能实验。"
+          ],
+          "products": [
+            {
+              "name": "MEGAscript T7 转录试剂盒",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "name": "MEGAscript T7 转录试剂盒 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "RNA preparation for functional experiments",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "MEGAscript T7 provides RNA by in-vitro transcription for structure and function studies. A transcribed sequence is an experimental material, not a demonstration of catalytic activity.",
+              "Template processing, purification and RNA-integrity checks precede functional tests. Ribozyme activity needs its own reaction controls and measurements.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "MEGAscript T7",
+                "application": "Prepare a defined RNA sequence before testing any catalytic function.",
+                "url": "https://www.thermofisher.com/order/catalog/product/de/en/A57622"
+              },
+              {
+                "name": "Transcription user guide",
+                "application": "Check transcription and purification separately from the ribozyme activity experiment.",
+                "url": "https://documents.thermofisher.com/TFS-Assets/LSG/manuals/1330M_G.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
         }
       ]
     },

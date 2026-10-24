@@ -46,8 +46,56 @@
       "sha256": "78402bf94c3685252ee6c1e63de6f14cd130e88deefa65f7c89da2caf90d1532"
     }
   ],
+  "people": [
+    {
+      "name": "Martin Karplus",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2013/karplus/facts/",
+      "affiliations": [
+        "Université de Strasbourg",
+        "Harvard University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "889",
+      "image": "images/nobel/laureates/889.jpg"
+    },
+    {
+      "name": "Michael Levitt",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2013/levitt/facts/",
+      "affiliations": [
+        "Stanford University School of Medicine"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "890",
+      "image": "images/nobel/laureates/890.jpg"
+    },
+    {
+      "name": "Arieh Warshel",
+      "url": "https://www.nobelprize.org/prizes/chemistry/2013/warshel/facts/",
+      "affiliations": [
+        "University of Southern California"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "891",
+      "image": "images/nobel/laureates/891.jpg"
+    }
+  ],
   "reading": {
     "title": "复杂化学系统的多尺度模型",
+    "learningGuide": {
+      "topic": "quantum",
+      "title": [
+        "计算分子时，究竟在计算什么",
+        "What electronic-structure calculations describe"
+      ],
+      "definition": [
+        "电子结构方法用量子力学模型研究电子分布、能量与性质。不同近似以不同计算成本处理体系，算得更复杂并不自动意味着在所有问题上更准确。",
+        "Quantum models estimate electronic distributions, energies and properties. Different approximations balance cost and suitability."
+      ],
+      "example": [
+        "研究一条反应路径时，可以比较反应物、中间体与过渡态的能量。分子环境、溶剂及模型选择都会影响结果，因此需要检查收敛并与可测量信息核对。",
+        "Comparing reactants, intermediates and transition states requires attention to environment, model choice and convergence."
+      ]
+    },
     "summary": "复杂化学系统的多尺度模型。在可承受计算规模中保留关键反应的电子细节。",
     "sections": [
       {
@@ -204,32 +252,122 @@
       ],
       "companyCases": [
         {
+          "id": "thermo-gpcr",
           "organizationId": "thermo",
-          "role": "质谱、显微及分子研究工具",
-          "status": "企业公开资料",
+          "role": "GPCR 细胞报告系统与功能筛查",
+          "status": "商业研究工具与方法文档",
           "paragraphs": [
-            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+            "SelectScreen 的细胞 GPCR 筛查使用 GeneBLAzer 和 Tango 等报告体系。它们把受体相关细胞事件转换成可测量信号，适合在规定条件下比较激动剂或拮抗剂的功能表现。",
+            "不同报告技术读取的信号环节不同。评价一组化合物时，需要核对细胞背景、受体表达、阳性对照及剂量反应曲线；某种报告信号的变化不能自动解释为化合物直接结合了目标受体。",
+            "与 GPCR 结构研究相比，报告细胞提供功能测量，结构方法提供分子构象信息。二者互补，但功能筛查本身不能给出受体的原子结构，也不能替代药物安全性和临床评价。"
+          ],
+          "products": [
+            {
+              "name": "SelectScreen GPCR 功能筛查",
+              "application": "查阅具体用途、样品要求及反应或检测条件。",
+              "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+            },
+            {
+              "name": "SelectScreen GPCR 功能筛查 · 方法说明",
+              "application": "结合方法文档核对测量信号、对照及操作边界。",
+              "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+              "label": "官方产品资料",
+              "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+            },
+            {
+              "label": "官方方法文档",
+              "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
             }
-          ]
+          ],
+          "introduction": [
+            "Thermo Fisher Scientific 提供分析仪器、实验试剂与研究服务。",
+            "Thermo Fisher Scientific supplies analytical instruments, laboratory reagents and research services."
+          ],
+          "en": {
+            "role": "Cell-based GPCR functional screening",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "SelectScreen uses GeneBLAzer and Tango reporter systems to turn receptor-related cellular events into measurable signals for functional comparisons.",
+              "Reporter systems read different signaling steps. Cell background, controls and concentration-response data matter; a reporter response is neither proof of direct binding nor an atomic receptor structure.",
+              "The cited products provide measurement tools; they do not establish every structural or isotope-based conclusion by themselves."
+            ],
+            "products": [
+              {
+                "name": "SelectScreen GPCR service",
+                "application": "Compare functional responses in reporter cells carrying a specified receptor assay.",
+                "url": "https://www.thermofisher.cn/cn/zh/home/products-and-services/services/custom-services/screening-and-profiling-services/selectscreen-profiling-service/selectscreen-trade.html"
+              },
+              {
+                "name": "GPCR profiling protocol",
+                "application": "Check cell-line backgrounds, controls and the signaling readout used by the assay.",
+                "url": "https://www.thermofisher.com/TFS-Assets/LSG/brochures/selectscreen-cell-based-gpcr-profiling-protocol.pdf"
+              }
+            ]
+          },
+          "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
         },
         {
           "organizationId": "schrodinger",
-          "role": "分子模拟与设计软件",
-          "status": "企业公开资料",
+          "id": "schrodinger",
+          "role": "Jaguar 与 Desmond：电子结构和分子运动分开计算",
+          "status": "商业分子模拟软件",
           "paragraphs": [
-            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+            "Schrödinger 的 Jaguar 用于量子化学和电子结构计算，官方材料列出密度泛函理论等方法，以及分子结构、反应和性质分析用途。它从电子层面处理化学问题；计算结果取决于模型、基组、泛函和所研究体系。",
+            "Desmond 面向分子动力学模拟，研究原子随时间的运动。它与电子结构计算的分工不同：经典分子动力学通常使用力场描述相互作用，能够探索结构变化，却不能自动把每一次化学成键和断键都当作电子结构问题求解。",
+            "商业软件使建模、运行和结果分析更容易衔接，但界面完整不等于物理假设已经得到验证。选择计算方法后仍需检查收敛、采样和适用范围。这里展示软件采用的方法类型，不声称它复现了上文论文的算法或精度。"
+          ],
+          "products": [
+            {
+              "name": "Jaguar 量子化学计算",
+              "application": "计算电子结构、分子性质与反应相关问题。",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "name": "Desmond 分子动力学",
+              "application": "研究分子构象、相互作用和运动过程。",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
-              "url": "https://www.schrodinger.com/platform/products/maestro/"
+              "label": "Jaguar 量子化学计算 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/jaguar/"
+            },
+            {
+              "label": "Desmond 分子动力学 · 官方资料",
+              "url": "https://www.schrodinger.com/platform/products/desmond/"
             }
-          ]
+          ],
+          "introduction": [
+            "Schrödinger 开发分子建模与模拟软件。",
+            "Schrödinger develops molecular-modeling and simulation software."
+          ],
+          "en": {
+            "role": "Jaguar and Desmond: distinct modeling tasks",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Jaguar addresses quantum chemistry and electronic structure, including molecular properties and reaction-related questions. Results depend on the model, basis and electronic-structure method chosen for the system.",
+              "Desmond addresses molecular dynamics: atomic motion and conformational change over time. Classical force-field simulation has a different role from explicit electronic-structure treatment of bond formation and breaking.",
+              "The software workflow does not remove the need to examine convergence, sampling and the physical assumptions."
+            ],
+            "products": [
+              {
+                "name": "Jaguar quantum chemistry",
+                "application": "Compute electronic structure, molecular properties or reaction-related questions.",
+                "url": "https://www.schrodinger.com/platform/products/jaguar/"
+              },
+              {
+                "name": "Desmond molecular dynamics",
+                "application": "Sample molecular motion and conformational behavior using a molecular-dynamics model.",
+                "url": "https://www.schrodinger.com/platform/products/desmond/"
+              }
+            ]
+          },
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
         }
       ]
     },

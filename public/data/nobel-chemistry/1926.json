@@ -22,8 +22,35 @@
       "sha256": "2b7eeee0b16980bdc3c6f859c6a2b635f1c33ddbb68da858dbd6af78192d6b5a"
     }
   ],
+  "people": [
+    {
+      "name": "The Svedberg",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1926/svedberg/facts/",
+      "affiliations": [
+        "Uppsala University"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "183",
+      "image": "images/nobel/laureates/183.jpg"
+    }
+  ],
   "reading": {
     "title": "分散体系与超离心",
+    "learningGuide": {
+      "topic": "colloid",
+      "title": [
+        "介于分子溶液和大块物质之间",
+        "Particles and their interfaces"
+      ],
+      "definition": [
+        "胶体由分散在另一介质中的微小颗粒构成。粒径、表面状态及颗粒间作用影响分散、聚集和光学表现，不能只用总体化学组成解释。",
+        "A colloid contains small particles dispersed in another medium. Size, surface state and interactions affect aggregation and optical behavior."
+      ],
+      "example": [
+        "同一种材料做成大小不同的颗粒，可能形成透明、散射明显或容易沉降的分散体系。比较样品时，需要把浓度、粒径分布与聚集状态一起记录。",
+        "The same material in different particle sizes can scatter light and settle differently. Concentration alone does not describe the dispersion."
+      ]
+    },
     "summary": "分散体系与超离心。为大分子存在与性质提供实验测量工具。",
     "sections": [
       {
@@ -129,17 +156,62 @@
       "companyCases": [
         {
           "organizationId": "beckman",
-          "role": "分析超离心设备",
-          "status": "企业公开资料",
+          "id": "beckman",
+          "role": "Optima AUC：在溶液中观察沉降与组装",
+          "status": "商业分析超离心仪器",
           "paragraphs": [
-            "Beckman Coulter Life Sciences 的 Optima AUC 用于溶液中大分子的沉降分析。实验通过转速、光学检测和模型拟合获得信息，需要针对样品密度、浓度和组分设计协议。"
+            "Beckman Coulter 的 Optima AUC 用分析超离心研究溶液中的颗粒和大分子。与把样品简单分离后取出不同，分析超离心通过光学检测跟踪浓度分布，让沉降过程成为研究分子状态的信号。",
+            "官方说明区分沉降速度、沉降平衡和密度梯度平衡实验。沉降速度提供水动力学信息，沉降平衡用于研究摩尔质量等热力学性质，密度梯度平衡则按浮力密度区分颗粒。这些实验不能仅凭相同的仪器名称互相替代。",
+            "它适合用于比较单体、聚集体及组装行为。解释结果需要考虑缓冲液、密度、黏度、转速与模型，得到一个沉降系数也不等于获得唯一三维结构。产品资料和实验方法应连在一起阅读。"
+          ],
+          "products": [
+            {
+              "name": "Optima AUC 分析超离心系统",
+              "application": "了解仪器检测和分析工作流程。",
+              "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+            },
+            {
+              "name": "沉降速度、平衡与密度梯度实验",
+              "application": "按待回答的问题选择分析方法。",
+              "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Optima AUC 分析超离心系统 · 官方资料",
               "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+            },
+            {
+              "label": "沉降速度、平衡与密度梯度实验 · 官方资料",
+              "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
             }
-          ]
+          ],
+          "introduction": [
+            "Beckman Coulter Life Sciences 提供实验室分离和分析设备。",
+            "Beckman Coulter Life Sciences supplies laboratory separation and analysis systems."
+          ],
+          "en": {
+            "role": "Optima AUC sedimentation analysis",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Optima AUC follows the concentration distribution of particles and macromolecules during analytical ultracentrifugation. The sedimentation process itself becomes a measurement rather than only a separation step.",
+              "Official methods distinguish sedimentation velocity, sedimentation equilibrium and density-gradient equilibrium. They address hydrodynamic behavior, thermodynamic mass information and buoyant density respectively.",
+              "Buffer density, viscosity, speed and the analysis model affect interpretation; a sedimentation coefficient is not a unique three-dimensional structure."
+            ],
+            "products": [
+              {
+                "name": "Optima AUC",
+                "application": "Follow concentration distributions during analytical ultracentrifugation.",
+                "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+              },
+              {
+                "name": "Sedimentation experiment selection",
+                "application": "Choose velocity, equilibrium or density-gradient analysis for the physical question being asked.",
+                "url": "https://www.beckman.com/resources/technologies/analytical-ultracentrifugation/experiments"
+              }
+            ]
+          },
+          "relation": "Beckman Coulter 的 Optima AUC 是现行分析超离心仪示例，原文同时区分了较早的仪器系列与新的检测和分析方法。"
         }
       ]
     },

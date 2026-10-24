@@ -22,8 +22,35 @@
       "sha256": "9280b4cf62c5fed580d3c6474eafc62f153477b2d7cd56aa3eccd152cb79d125"
     }
   ],
+  "people": [
+    {
+      "name": "Dorothy Crowfoot Hodgkin",
+      "url": "https://www.nobelprize.org/prizes/chemistry/1964/hodgkin/facts/",
+      "affiliations": [
+        "University of Oxford, Royal Society"
+      ],
+      "source": "https://api.nobelprize.org/2.1/laureates?limit=1000&nobelPrizeCategory=che",
+      "id": "230",
+      "image": "images/nobel/laureates/230.jpg"
+    }
+  ],
   "reading": {
     "title": "重要生化分子的晶体结构",
+    "learningGuide": {
+      "topic": "crystal",
+      "title": [
+        "从衍射图到原子排列",
+        "Inferring structure from diffraction"
+      ],
+      "definition": [
+        "晶体中的周期性排列会对入射波形成特定衍射信号。结构分析需要把这些信号与数学模型联系起来，衍射图本身不是一张可直接识别分子的照片。",
+        "Periodic atomic arrangements produce diffraction signals that must be interpreted through a model. The pattern is not a direct molecular photograph."
+      ],
+      "example": [
+        "同一化合物可能形成不同晶型，原子组成相同但堆积不同。结构信息可以帮助解释性质，样品是否代表实际使用状态仍需结合环境与其他实验判断。",
+        "Different crystal forms can share composition while differing in packing. Structure must be considered with the sample’s actual conditions."
+      ]
+    },
     "summary": "重要生化分子的晶体结构。展示晶体学能够处理越来越复杂的生化结构。",
     "sections": [
       {
@@ -180,31 +207,121 @@
       "companyCases": [
         {
           "organizationId": "twist",
-          "role": "合成 DNA 与变体文库",
-          "status": "企业公开资料",
+          "id": "twist",
+          "role": "基因合成与变体文库：把序列设计变成可实验的材料",
+          "status": "商业 DNA 合成服务与研究文库",
           "paragraphs": [
-            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+            "Twist Bioscience 提供 Clonal Genes、Gene Fragments 和不同形式的 DNA 池。前两者分别对应已克隆的基因和未克隆片段；研究者需要根据后续表达、组装和筛选流程选择交付形式。序列设计与收到的 DNA 材料是实验链条的前后两个步骤。",
+            "变体文库可用于组合变异或位点饱和设计，让多个序列版本进入同一轮实验比较。文库提供的是序列多样性，并不预先保证蛋白能正确表达、折叠或完成目标反应；这些性质仍需通过表达与功能实验检验。",
+            "对蛋白设计、酶工程和基因编辑研究而言，这类服务承担材料制备环节。合成一段设计序列，不等于证实计算模型，也不等于一款治疗产品已获批准。本文不据供应商目录判断论文实际使用了哪家企业的合成服务。"
+          ],
+          "products": [
+            {
+              "name": "Clonal Genes 与 Gene Fragments",
+              "application": "在已克隆基因和基因片段之间选择交付形式。",
+              "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "name": "Variant Libraries",
+              "application": "按组合变异和位点饱和等设计组织实验序列。",
+              "url": "https://www.twistbioscience.com/products/libraries"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "Clonal Genes 与 Gene Fragments · 官方资料",
               "url": "https://www.twistbioscience.com/products/genes"
+            },
+            {
+              "label": "Variant Libraries · 官方资料",
+              "url": "https://www.twistbioscience.com/products/libraries"
             }
-          ]
+          ],
+          "introduction": [
+            "Twist Bioscience 提供合成 DNA 与序列文库。",
+            "Twist Bioscience supplies synthetic DNA and sequence libraries for research."
+          ],
+          "en": {
+            "role": "Gene synthesis and variant libraries",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "Clonal Genes, Gene Fragments and pooled DNA provide different physical starting points for expression, assembly and screening. A designed sequence still needs to become a verified experimental material.",
+              "Combinatorial and site-saturation variant libraries support comparisons between sequence variants. They supply diversity; expression, folding and function must still be measured in the resulting proteins or cells.",
+              "A synthesized sequence is not itself validation of a computational model or approval of a therapeutic product."
+            ],
+            "products": [
+              {
+                "name": "Clonal Genes and Gene Fragments",
+                "application": "Obtain cloned genes or gene fragments for downstream assembly and expression.",
+                "url": "https://www.twistbioscience.com/products/genes"
+              },
+              {
+                "name": "Variant Libraries",
+                "application": "Prepare sequence diversity for combinatorial or site-saturation screening experiments.",
+                "url": "https://www.twistbioscience.com/products/libraries"
+              }
+            ]
+          },
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
         },
         {
           "organizationId": "bruker",
-          "role": "磁共振与结构分析",
-          "status": "企业公开资料",
+          "id": "bruker",
+          "role": "核磁共振：结构、相互作用与分子运动",
+          "status": "商业 NMR 仪器与控制平台",
           "paragraphs": [
-            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+            "Bruker 的 AVANCE 系列核磁共振谱仪用于研究分子结构、动力学与相互作用。核磁共振不是给分子拍一张直接可读的照片：实验记录核自旋的响应，再利用化学位移、耦合以及多维相关信号判断局部化学环境和原子之间的联系。",
+            "产品体系把磁体、控制台、探头和软件组合为一套实验平台。官方列出的 AVANCE NEO-X 控制台支持液体、固体及微成像等实验方向；这些能力需要匹配探头、样品形式和脉冲序列。不能把同一控制台所支持的模式，当作任意配置都能达到的指标。",
+            "在蛋白质、配位化合物和有机合成研究中，NMR 解决的往往是“得到的是什么、在溶液中怎样运动”。样品浓度、溶解性、交换速度及信号重叠仍会影响判断。结构模型通常要与其他表征或计算互相核对。"
+          ],
+          "products": [
+            {
+              "name": "AVANCE NMR 谱仪",
+              "application": "结构解析、分子动力学与相互作用实验的仪器入口。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "name": "AVANCE NEO-X 控制台",
+              "application": "在同一产品体系中查阅液体、固体及微成像模式的配置。",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
           ],
           "sources": [
             {
-              "label": "产品与技术资料",
+              "label": "AVANCE NMR 谱仪 · 官方资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            },
+            {
+              "label": "AVANCE NEO-X 控制台 · 官方资料",
               "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
             }
-          ]
+          ],
+          "introduction": [
+            "Bruker 开发磁共振及分子、材料分析仪器。",
+            "Bruker develops scientific instruments for magnetic resonance, molecular and materials analysis."
+          ],
+          "en": {
+            "role": "NMR for structure, interaction and motion",
+            "status": "Official product and technical documentation",
+            "paragraphs": [
+              "AVANCE NMR instruments measure nuclear-spin responses to study molecular structure, motion and interactions. Chemical shifts, couplings and multidimensional correlations provide evidence about local environments and connectivity.",
+              "The NMR portfolio includes the AVANCE NEO-X console for liquid, solid-state and microimaging workflows. Each requires suitable probes, sample forms and pulse sequences; a console capability is not a specification for every instrument configuration.",
+              "Concentration, exchange and spectral overlap can limit interpretation, so models often need complementary measurements."
+            ],
+            "products": [
+              {
+                "name": "AVANCE NMR spectrometers",
+                "application": "Use chemical shifts, couplings and multidimensional correlations to investigate structure and motion.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              },
+              {
+                "name": "AVANCE NEO-X console",
+                "application": "Match liquid, solid-state or microimaging experiments to the probe, sample and pulse sequence.",
+                "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+              }
+            ]
+          },
+          "relation": "Bruker 的 AVANCE NMR 与相关磁体、探头构成现行仪器产品；论文中的信号处理方法与仪器硬件能力分别说明。"
         }
       ]
     },

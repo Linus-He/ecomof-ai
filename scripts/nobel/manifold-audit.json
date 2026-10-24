@@ -1,0 +1,71 @@
+[
+  {
+    "year": 2022,
+    "marketUrl": "https://api.manifold.markets/v0/market/X3nCLJkHitSmK0mukqGx",
+    "marketId": "X3nCLJkHitSmK0mukqGx",
+    "candidateCount": 3,
+    "excluded": [],
+    "cutoff": 1664963100,
+    "source": [
+      "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000"
+    ],
+    "historySha256": "a5b92dff4afeaf40b3cb451a0b0258e59ed0ed0d29207ee79903350574defc90"
+  },
+  {
+    "year": 2023,
+    "marketUrl": "https://api.manifold.markets/v0/market/wLN9dUY4NH2gm72IdlM1",
+    "marketId": "wLN9dUY4NH2gm72IdlM1",
+    "candidateCount": 8,
+    "excluded": [
+      {
+        "answer": "Muhammad Usman",
+        "reason": "Identity and institutional profile could not be verified unambiguously"
+      },
+      {
+        "answer": "Louis Brus",
+        "reason": "No verified pre-cutoff trade probability"
+      }
+    ],
+    "cutoff": 1696397460,
+    "source": [
+      "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000"
+    ],
+    "historySha256": "124c087aa8593cbac0a995d21dc2a794260fcc430200651917f259bede47046f"
+  },
+  {
+    "year": 2024,
+    "marketUrl": "https://api.manifold.markets/v0/market/PSBYwxvrI53eVr01PO9L",
+    "marketId": "PSBYwxvrI53eVr01PO9L",
+    "candidateCount": 14,
+    "excluded": [],
+    "cutoff": 1728467100,
+    "source": [
+      "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000"
+    ],
+    "historySha256": "92461f40de1187d6ce34e1f03ec260f722b144740eccdff19c05d6d4bcb87ad8"
+  },
+  {
+    "year": 2025,
+    "marketUrl": "https://api.manifold.markets/v0/market/0ElAsn8LS9",
+    "marketId": "0ElAsn8LS9",
+    "candidateCount": 14,
+    "excluded": [],
+    "cutoff": 1759916700,
+    "source": [
+      "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000"
+    ],
+    "historySha256": "70ded95fe36a680c7cad23a73ce2d203310781c70a82f25488a513f23e1aba77"
+  },
+  {
+    "year": 2026,
+    "marketUrl": "https://api.manifold.markets/v0/market/zLAczO2CsI",
+    "marketId": "zLAczO2CsI",
+    "candidateCount": 14,
+    "excluded": [],
+    "cutoff": 1791366300,
+    "source": [
+      "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000"
+    ],
+    "historySha256": "055ce2066d1f7086d4d92582bcf2900d7946c7c7c3cd4b50248db77e1066ea60"
+  }
+]
