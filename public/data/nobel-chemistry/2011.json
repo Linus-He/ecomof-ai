@@ -1,0 +1,170 @@
+{
+  "year": 2011,
+  "status": "awarded",
+  "names": [
+    "Dan Shechtman"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/867"
+  ],
+  "motivations": [
+    "for the discovery of quasicrystals"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "867",
+      "name": "Dan Shechtman",
+      "image": "images/nobel/laureates/867.jpg",
+      "source": "https://www.nobelprize.org/images/shechtman-15174-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2011/summary/",
+      "sha256": "b6ed1239d9a73d14d892a62765aa8c985542b04990f837b70901b636129932c1"
+    }
+  ],
+  "reading": {
+    "title": "准晶体",
+    "summary": "准晶体。改变晶体必须周期重复的传统定义。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "固体能否有长程有序，却没有普通晶体的平移周期？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "特殊衍射对称性与结构分析证明非周期有序结构的存在。",
+        "equation": "F_{n+1}=F_n+F_{n-1}",
+        "equationNote": "Fibonacci 序列是理解部分准周期排列的教学例子，不是所有准晶的唯一结构式。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于有序材料、衍射和结构数学研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "改变晶体必须周期重复的传统定义。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "准晶的鉴定依赖衍射中的长程有序。开放实验数据现在进一步汇总组成、制样和物性，供跨体系比较与计算研究使用。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "tus",
+          "name": "东京理科大学",
+          "englishName": "Tokyo University of Science",
+          "url": "https://www.tus.ac.jp/en/",
+          "logo": "images/nobel/organizations/tus.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.tus.ac.jp/favicon.ico",
+          "sha256": "0dd402957dd30905223da6ae48d7858f9be06d9af190ba6dce79aa2606ee8457"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "quasicrystal",
+          "heading": "准晶研究开始整理可复用的实验数据",
+          "organizationIds": [
+            "tus"
+          ],
+          "authors": "Erina Fujita、Chang Liu、Asuka Ishikawa 等",
+          "paperTitle": "Comprehensive experimental datasets of quasicrystals and their approximants",
+          "journal": "Scientific Data (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41597-024-04043-z",
+          "paperUrl": "https://doi.org/10.1038/s41597-024-04043-z",
+          "paragraphs": [
+            "东京理科大学等机构参与构建 HYPOD-X，将准晶及近似晶的组成、制样、结构和物性记录整理为开放数据。数据库让不同合金体系可以被系统比较，也为计算筛选提供实验约束。",
+            "“长程有序但不周期重复”是结构层面的判断。某一新材料是否属于准晶，仍要回到衍射及相结构证据；数据模型不能替代这些鉴定。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41597-024-04043-z"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.ism.ac.jp/ura/press/ISM2024-04_e.html"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的 X 射线衍射和结构分析工具可用于材料表征；未将商品仪器的销售与某种准晶合金的产业化混为一谈。",
+          "companyOverride": {
+            "organizationId": "bruker",
+            "role": "衍射与材料结构分析",
+            "status": "仪器产品",
+            "paragraphs": [
+              "Bruker 提供 X 射线衍射及相关结构分析产品，用于材料相与晶体结构研究。准晶的鉴定需要具体衍射证据，不能只根据合金组成或数据库分类判断。"
+            ],
+            "sources": [
+              {
+                "label": "X 射线衍射产品",
+                "url": "https://www.bruker.com/en/products-and-solutions/diffractometers-and-scattering-systems/x-ray-diffractometers.html"
+              }
+            ]
+          }
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "bruker",
+          "role": "衍射与材料结构分析",
+          "status": "仪器产品",
+          "paragraphs": [
+            "Bruker 提供 X 射线衍射及相关结构分析产品，用于材料相与晶体结构研究。准晶的鉴定需要具体衍射证据，不能只根据合金组成或数据库分类判断。"
+          ],
+          "sources": [
+            {
+              "label": "X 射线衍射产品",
+              "url": "https://www.bruker.com/en/products-and-solutions/diffractometers-and-scattering-systems/x-ray-diffractometers.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2011/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

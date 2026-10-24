@@ -1,0 +1,182 @@
+{
+  "year": 2004,
+  "status": "awarded",
+  "names": [
+    "Aaron Ciechanover",
+    "Avram Hershko",
+    "Irwin Rose"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/779",
+    "https://www.nobelprize.org/laureate/780",
+    "https://www.nobelprize.org/laureate/781"
+  ],
+  "motivations": [
+    "for the discovery of ubiquitin-mediated protein degradation",
+    "for the discovery of ubiquitin-mediated protein degradation",
+    "for the discovery of ubiquitin-mediated protein degradation"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "779",
+      "name": "Aaron Ciechanover",
+      "image": "images/nobel/laureates/779.jpg",
+      "source": "https://www.nobelprize.org/images/ciechanover-13692-portrait-medium.jpg",
+      "credit": "Photo: D. Porges",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "f875dbd7eefaa88ff6f90b41688b2c04fca60a5e57ff09354ae1380d416f4c07"
+    },
+    {
+      "id": "780",
+      "name": "Avram Hershko",
+      "image": "images/nobel/laureates/780.jpg",
+      "source": "https://www.nobelprize.org/images/hershko-13693-portrait-medium.jpg",
+      "credit": "Photo: D. Porges",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "2c7c1fb3ddfc5e6a078982b1741cac055e3bb0fe963cce36799b61fe6aad19bf"
+    },
+    {
+      "id": "781",
+      "name": "Irwin Rose",
+      "image": "images/nobel/laureates/781.jpg",
+      "source": "https://www.nobelprize.org/images/rose-13694-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "350ff9c30bf9ed0acea530261d49b643439267a7f152f14962f87984e669498f"
+    }
+  ],
+  "reading": {
+    "title": "泛素介导的蛋白降解",
+    "summary": "泛素介导的蛋白降解。揭示蛋白清除是受调控的信息过程。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "细胞不仅合成蛋白，也必须有选择地清除蛋白。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "E1、E2、E3 级联将泛素连接到目标，适当信号促使蛋白酶体处理底物。",
+        "equation": "\\mathrm{target\\xrightarrow{E1,E2,E3,Ub}ubiquitinated\\ target\\rightarrow peptides}",
+        "equationNote": "过程示意；并非所有泛素化都指向蛋白酶体，链型和位置会影响信号。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于蛋白稳态、细胞调控与选择性降解研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "揭示蛋白清除是受调控的信息过程。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "泛素系统提供了细胞自身的蛋白处理途径。分子胶和 PROTAC 进一步探索怎样使指定靶蛋白进入这条降解路径。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "arvinas",
+          "name": "Arvinas",
+          "englishName": "Arvinas",
+          "url": "https://www.arvinas.com/",
+          "logo": "images/nobel/organizations/arvinas.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.arvinas.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "eb7c3acb2519f38e400ce6e03cc8d61681e22d0497e816aa3f7ef406b480131c"
+        },
+        {
+          "id": "dundee",
+          "name": "邓迪大学",
+          "englishName": "University of Dundee",
+          "url": "https://www.dundee.ac.uk/",
+          "logo": "images/nobel/organizations/dundee.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.dundee.ac.uk&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "0beb120ac481edf11c1a3d3ad845b2e708d04cda438bb2032eee5beb672c18c1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ubiquitin",
+          "heading": "让细胞把指定蛋白送进降解途径",
+          "organizationIds": [
+            "dundee"
+          ],
+          "authors": "Oliver Hsia、Matthias Hinterndorfer、Angus D. Cowan 等",
+          "paperTitle": "Targeted protein degradation via intramolecular bivalent glues",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07089-6",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07089-6",
+          "paragraphs": [
+            "邓迪大学及合作者研究分子内双价胶：同一分子连接靶蛋白相邻结构域，改变其与泛素系统发生作用的方式。遗传筛选、生物物理和结构重构共同解释它怎样促进降解。",
+            "这一设计与典型 PROTAC 分别结合靶标和 E3 的连接方式不同。判断一个分子是否真正诱导降解，需要检查泛素化、蛋白酶体依赖性、选择性及细胞中的作用浓度。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07089-6"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://discovery.dundee.ac.uk/en/publications/targeted-protein-degradation-via-intramolecular-bivalent-glues/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "arvinas"
+          ],
+          "relation": "Arvinas 开发 PROTAC 类靶向蛋白降解技术。它与论文同属利用泛素—蛋白酶体系统的路线，但不据此将分子内双价胶写成该公司的产品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "arvinas",
+          "role": "靶向蛋白降解",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Arvinas 的 PROTAC 技术通过同时接近靶蛋白与降解系统，探索定向去除蛋白的药物路线。公司技术与研发资料说明其研究对象；与某篇分子胶论文的直接合作或授权关系需要另行证据。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2004/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

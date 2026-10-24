@@ -1,0 +1,169 @@
+{
+  "year": 2003,
+  "status": "awarded",
+  "names": [
+    "Peter Agre",
+    "Roderick MacKinnon"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/769",
+    "https://www.nobelprize.org/laureate/770"
+  ],
+  "motivations": [
+    "for the discovery of water channels",
+    "for structural and mechanistic studies of ion channels"
+  ],
+  "overallMotivation": "\"for discoveries concerning channels in cell membranes\"",
+  "portraits": [
+    {
+      "id": "769",
+      "name": "Peter Agre",
+      "image": "images/nobel/laureates/769.jpg",
+      "source": "https://www.nobelprize.org/images/agre-13682-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2003/summary/",
+      "sha256": "16c0c8010d2b5f2476659f7efd38c366a24a780f4a488725051b2b184038e07a"
+    },
+    {
+      "id": "770",
+      "name": "Roderick MacKinnon",
+      "image": "images/nobel/laureates/770.jpg",
+      "source": "https://www.nobelprize.org/images/mackinnon-13887-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2003/summary/",
+      "sha256": "408be910fa11275d9b2a598c732e9286f640ebb0ff3d454ee62f641f7ff3b24d"
+    }
+  ],
+  "reading": {
+    "title": "水通道与离子通道",
+    "summary": "水通道与离子通道。把宏观膜输运与具体蛋白通路联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "细胞膜如何快速传水，同时选择性控制离子？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "水通道提供受限水通路；离子通道的选择性过滤器与配位环境识别不同离子。",
+        "equation": "J_w=L_p(\\Delta P-\\Delta\\Pi)",
+        "equationNote": "膜水通量的简化关系，正方向依定义；不能据此直接解释单通道离子选择性。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于膜生理、细胞水盐平衡和通道结构研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把宏观膜输运与具体蛋白通路联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "水通道的选择性不仅与孔道结构有关，还取决于脂质膜和蛋白的动态。模拟结果需要与实际跨膜运输测量相互验证。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "uiuc",
+          "name": "伊利诺伊大学厄巴纳–香槟分校",
+          "englishName": "University of Illinois Urbana-Champaign",
+          "url": "https://illinois.edu/",
+          "logo": "images/nobel/organizations/uiuc.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=illinois.edu&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "07510c4f9167548ae6136219ce62c5743dbb27b5bd4eda848ec706629c3c3558"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "aquaporin",
+          "heading": "水通道还受周围脂质膜调节",
+          "organizationIds": [
+            "uiuc"
+          ],
+          "authors": "Anh T. P. Nguyen、Austin T. Weigle、Diwakar Shukla",
+          "paperTitle": "Functional regulation of aquaporin dynamics by lipid bilayer composition",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-46027-y",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-46027-y",
+          "paragraphs": [
+            "伊利诺伊大学厄巴纳–香槟分校团队利用分子动力学模拟改变膜环境，比较水通道蛋白的结构、热力学、动力学和预测水转运表现。结果将通道的功能从一条固定孔道，扩展为蛋白与脂质膜共同决定的行为。",
+            "这一方向延续的是选择性跨膜运输问题。蛋白的静态孔径、膜内运动和实际通水速率不是同一个指标，模拟预测仍需结构与输运实验检验。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-46027-y"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-46027-y"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的 NMR 和结构分析工具服务于膜蛋白研究；研究用仪器与利用水通道开发的分离膜产品属于不同环节。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "bruker",
+          "role": "磁共振与结构分析",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2003/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

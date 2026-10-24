@@ -59,7 +59,7 @@ export function GasSepDatabaseSummaryCard({ summary = null, exportRows = [], lan
       <div data-testid="gassep-source-distribution" style={{ color: t?.muted || "#475569", fontSize: 11.3, lineHeight: 1.5 }}>
         {zh ? "来源分布" : "Source distribution"}: experimental {dist.experimental ?? 0} · literature {dist.literature ?? 0} · simulation {dist.simulation ?? 0} · inferred {dist.inferred ?? 0}
       </div>
-      <span style={{ color: t?.faint || "#64748B", fontSize: 10 }}>generatedAt {summary.generatedAt} · {summary.gasPairCount} gas pairs</span>
+      <span style={{ color: t?.faint || "#64748B", fontSize: 10 }}>{summary.gasPairCount} gas pairs</span>
     </section>
   )
 }

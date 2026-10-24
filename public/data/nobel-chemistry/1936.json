@@ -1,0 +1,156 @@
+{
+  "year": 1936,
+  "status": "awarded",
+  "names": [
+    "Peter Debye"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/195"
+  ],
+  "motivations": [
+    "for his contributions to our knowledge of molecular structure through his investigations on dipole moments and on the diffraction of X-rays and electrons in gases"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "195",
+      "name": "Peter Debye",
+      "image": "images/nobel/laureates/195.jpg",
+      "source": "https://www.nobelprize.org/images/debye-13000-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1936/summary/",
+      "sha256": "78908fa914061553d78fc38b5a1c3be68917be82cab59cd596fa6f5b1b0b5a1b"
+    }
+  ],
+  "reading": {
+    "title": "分子偶极与衍射",
+    "summary": "分子偶极与衍射。引入直接物理测量来检验化学结构模型。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "仅凭化学组成不能确定空间结构与电荷分布。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "以偶极响应和气体衍射测量分子尺寸、几何及极性。",
+        "equation": "\\boldsymbol\\mu=\\sum_i q_i\\mathbf r_i",
+        "equationNote": "偶极矩定义；qi 与 ri 描述电荷及位置，实际分子需要包括电子分布。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于分子构型、极性与键结构研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "引入直接物理测量来检验化学结构模型。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "分子偶极与散射把结构带入可测的物理量；现代磁共振同样通过受理论约束的信号，推断溶液中的构型和动态。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "ucl",
+          "name": "伦敦大学学院",
+          "englishName": "University College London",
+          "url": "https://www.ucl.ac.uk/",
+          "logo": "images/nobel/organizations/ucl.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+          "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "nmr",
+          "heading": "让大蛋白的 NMR 少依赖全面氘代",
+          "organizationIds": [
+            "ucl"
+          ],
+          "authors": "Gogulan Karunanithy、Vaibhav Kumar Shukla、D. Flemming Hansen",
+          "paperTitle": "Solution-state methyl NMR spectroscopy of large non-deuterated proteins enabled by deep neural networks",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-49378-8",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-49378-8",
+          "paragraphs": [
+            "伦敦大学学院团队使用深度神经网络处理非氘代、均一 ¹³C 标记蛋白的溶液 NMR 数据，并以不同大小的蛋白检验谱图和 NOE 交叉峰是否保留结构信息。",
+            "重点并非让网络凭空补出一张谱图，而是检验处理后的信号与实验和已知结构约束是否一致。样品制备、训练适用域和弱峰失真仍是判断结果能否用于结构解释的关键。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-49378-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38871714/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的 AVANCE NMR 与相关磁体、探头构成现行仪器产品；论文中的信号处理方法与仪器硬件能力分别说明。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "bruker",
+          "role": "磁共振与结构分析",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1936/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

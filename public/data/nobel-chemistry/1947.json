@@ -1,0 +1,221 @@
+{
+  "year": 1947,
+  "status": "awarded",
+  "names": [
+    "Sir Robert Robinson"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/207"
+  ],
+  "motivations": [
+    "for his investigations on plant products of biological importance, especially the alkaloids"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "207",
+      "name": "Sir Robert Robinson",
+      "image": "images/nobel/laureates/207.jpg",
+      "source": "https://www.nobelprize.org/images/robinson-13049-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1947/summary/",
+      "sha256": "184312fed68b45558f31b634cb49bb56b1341ef6e888df3c10e572b472b162b9"
+    }
+  ],
+  "reading": {
+    "title": "生物碱与天然产物合成",
+    "summary": "生物碱与天然产物合成。显示简洁反应组合能够构建复杂天然分子。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "植物中活性物质结构复杂，需要合理的结构验证方法。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "结合降解与合成，并以生物合成思路组织反应，解释复杂生物碱骨架。",
+        "equation": "\\mathrm{amine+carbonyl\\rightleftharpoons iminium+H_2O}",
+        "equationNote": "Mannich 类反应中的概念步骤；完整托品酮合成还包括碳键形成及后续变化。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于生物碱合成、天然产物结构与药物化学研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "显示简洁反应组合能够构建复杂天然分子。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "天然产物的复杂环系需要可检验的构筑路线。化学双自由基关环与萜类生物合成，展示不同体系如何组织碳骨架。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        },
+        {
+          "id": "umich",
+          "name": "密歇根大学",
+          "englishName": "University of Michigan",
+          "url": "https://umich.edu/",
+          "logo": "images/nobel/organizations/umich.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://umich.edu/favicon.ico",
+          "sha256": "8202cd7a3d86d53f5fdd904ab714c0766e24f43b8d823786e51e50310345bf8c"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "catalysis",
+          "heading": "用双自由基拼接环系",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+          "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07181-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+          "paragraphs": [
+            "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+            "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07181-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://macmillan.princeton.edu/publications/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+        },
+        {
+          "id": "terpene",
+          "heading": "萜烯合成酶还需要一个反应空间",
+          "organizationIds": [
+            "umich"
+          ],
+          "authors": "Michael P. Andreas、Tobias W. Giessen",
+          "paperTitle": "The biosynthesis of the odorant 2-methylisoborneol is compartmentalized inside a protein shell",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-54175-4",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-54175-4",
+          "paragraphs": [
+            "密歇根大学团队研究有气味的萜类化合物 2-甲基异莰醇，发现其生物合成与蛋白质外壳组织有关。问题从酶怎样形成碳骨架，扩展到相关酶怎样在一个受限空间中协作。",
+            "这一类空间组织可改变中间体接触下一步酶的机会。论文中的气味分子是研究对象，不是可直接套用于所有香料和药物萜类的通用生产配方。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-54175-4"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-54175-4"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 经营香气、风味与营养业务，展示萜类及相关天然产物的应用场景；未声称它使用这套蛋白质外壳通路。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        },
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1947/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

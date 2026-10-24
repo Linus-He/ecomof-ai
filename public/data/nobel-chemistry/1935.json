@@ -1,0 +1,166 @@
+{
+  "year": 1935,
+  "status": "awarded",
+  "names": [
+    "Frédéric Joliot",
+    "Irène Joliot-Curie"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/193",
+    "https://www.nobelprize.org/laureate/194"
+  ],
+  "motivations": [
+    "in recognition of their synthesis of new radioactive elements",
+    "in recognition of their synthesis of new radioactive elements"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "193",
+      "name": "Frédéric Joliot",
+      "image": "images/nobel/laureates/193.jpg",
+      "source": "https://www.nobelprize.org/images/joliot-fred-12996-portrait-medium.jpg",
+      "credit": "Photo: Jaques Boyer. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1935/summary/",
+      "sha256": "2ae75bd8e72b3e9d475c88ed183c206238b0f60d33f381ccee6a155c5cd92fc9"
+    },
+    {
+      "id": "194",
+      "name": "Irène Joliot-Curie",
+      "image": "images/nobel/laureates/194.jpg",
+      "source": "https://www.nobelprize.org/images/joliot-curie-12995-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1935/summary/",
+      "sha256": "47203c3c255245286318753ede4924f64f95497c2d7a08daf4a2bad0423fb24a"
+    }
+  ],
+  "reading": {
+    "title": "人工放射性",
+    "summary": "人工放射性。把放射性从天然现象扩展到可设计的核素生成。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "天然核素以外，能否通过人为核反应产生新的放射性物质？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "粒子轰击改变核组成，生成的核素可在照射停止后继续衰变。",
+        "equation": "\\mathrm{^{27}_{13}Al+{}^{4}_{2}He\\rightarrow{}^{30}_{15}P+{}^{1}_{0}n}",
+        "equationNote": "代表性核反应；核质量数与电荷数守恒，生成的磷核素具有放射性。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于核素制备、放射示踪与核反应研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把放射性从天然现象扩展到可设计的核素生成。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "人工放射性扩展了可研究的核素种类。核素制备之后，如何稳定配位、分离和表征，仍是一组独立的化学问题。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "radio",
+          "heading": "给放射性金属找到可测的配位环境",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+          "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-50017-5",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+          "paragraphs": [
+            "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+            "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-50017-5"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-50017-5"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1935/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

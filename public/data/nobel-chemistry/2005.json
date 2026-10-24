@@ -1,0 +1,190 @@
+{
+  "year": 2005,
+  "status": "awarded",
+  "names": [
+    "Yves Chauvin",
+    "Robert H. Grubbs",
+    "Richard R. Schrock"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/794",
+    "https://www.nobelprize.org/laureate/795",
+    "https://www.nobelprize.org/laureate/796"
+  ],
+  "motivations": [
+    "for the development of the metathesis method in organic synthesis",
+    "for the development of the metathesis method in organic synthesis",
+    "for the development of the metathesis method in organic synthesis"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "794",
+      "name": "Yves Chauvin",
+      "image": "images/nobel/laureates/794.jpg",
+      "source": "https://www.nobelprize.org/images/chauvin-13704-portrait-medium.jpg",
+      "credit": "Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "49224f70e3cde5fc75c0752b326788285efb71a27a048c945cc7b37708e53fd8"
+    },
+    {
+      "id": "795",
+      "name": "Robert H. Grubbs",
+      "image": "images/nobel/laureates/795.jpg",
+      "source": "https://www.nobelprize.org/images/grubbs-13705-portrait-medium.jpg",
+      "credit": "Photo: R. Paz",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "fcf682eb02e816eed671e58a04896dbd7e0257f48c6d83917b284eb6460d4b93"
+    },
+    {
+      "id": "796",
+      "name": "Richard R. Schrock",
+      "image": "images/nobel/laureates/796.jpg",
+      "source": "https://www.nobelprize.org/images/schrock-13706-portrait-medium.jpg",
+      "credit": "Photo: L.B. Hetherington",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "a14b4ca58b483e15b4813d9a2abd89aea465a58f0bc815b8860588332b420805"
+    }
+  ],
+  "reading": {
+    "title": "烯烃复分解",
+    "summary": "烯烃复分解。提供重排碳骨架的通用催化策略。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "怎样交换碳双键两侧片段，以更灵活地构建分子？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "金属卡宾与烯烃形成金属杂环丁烷，再裂解并再生催化物种。",
+        "equation": "\\mathrm{R^1CH{=}CHR^2+R^3CH{=}CHR^4\\rightleftharpoons R^1CH{=}CHR^3+R^2CH{=}CHR^4}",
+        "equationNote": "一种片段重组的物料示意；实际产物比例与 E/Z 选择性由体系决定。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于成环、聚合和复杂有机合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "提供重排碳骨架的通用催化策略。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "烯烃复分解不只用于构筑分子，也进入聚烯烃解聚。结合其他催化步骤，研究者尝试将稳定碳链转回可用的小分子原料。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "polymer",
+          "heading": "长链聚合物怎样被重新拆成小分子原料",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+          "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adq7316",
+          "paperUrl": "https://doi.org/10.1126/science.adq7316",
+          "paragraphs": [
+            "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+            "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adq7316"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://chemistry.berkeley.edu/node/2629"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+          "companyOverride": {
+            "organizationId": "basf",
+            "role": "塑料循环与化工制造",
+            "status": "企业公开业务",
+            "paragraphs": [
+              "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            ],
+            "sources": [
+              {
+                "label": "公司循环经济资料",
+                "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              }
+            ]
+          }
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "塑料循环与化工制造",
+          "status": "企业公开业务",
+          "paragraphs": [
+            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+          ],
+          "sources": [
+            {
+              "label": "公司循环经济资料",
+              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2005/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

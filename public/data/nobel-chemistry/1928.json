@@ -1,0 +1,221 @@
+{
+  "year": 1928,
+  "status": "awarded",
+  "names": [
+    "Adolf Windaus"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/185"
+  ],
+  "motivations": [
+    "for the services rendered through his research into the constitution of the sterols and their connection with the vitamins"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "185",
+      "name": "Adolf Windaus",
+      "image": "images/nobel/laureates/185.jpg",
+      "source": "https://www.nobelprize.org/images/windaus-12957-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1928/summary/",
+      "sha256": "0d8c17b17802ec74e9fb46bb7a0eacff3692af860bcde10244e7b97a1609d65a"
+    }
+  ],
+  "reading": {
+    "title": "甾醇与维生素的联系",
+    "summary": "甾醇与维生素的联系。把营养效应与可鉴定的分子转化联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "营养因子的生理效应明确，化学来源与结构却不清楚。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "研究甾醇组成和光化学转化，建立甾醇与维生素 D 的联系。",
+        "equation": "\\mathrm{provitamin\\ D\\xrightarrow{UV}previtamin\\ D\\xrightarrow{\\Delta}vitamin\\ D}",
+        "equationNote": "光开环后热异构化的概念路径；不同前体形成不同维生素 D 形式。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于维生素化学、营养分析和甾体研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把营养效应与可鉴定的分子转化联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "甾醇与维生素研究让结构、代谢和生理作用连接起来。下面分别从维生素合成末步和甾体修饰追踪这一方向。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "msu",
+          "name": "密歇根州立大学",
+          "englishName": "Michigan State University",
+          "url": "https://brand.msu.edu/",
+          "logo": "images/nobel/organizations/msu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://brand.msu.edu/favicon.ico?favicon.2-x85vtqgh2hy.ico",
+          "sha256": "fec68c4d71e3cdcb6278a12f97dcaea1b9a6aee8c74ff993c807e04707f8c178"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "vitamin",
+          "heading": "维生素 C 的最后一步为什么存在不同酶路线",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Alessandro Boverio、Neelam Jamil、Barbara Mannucci 等",
+          "paperTitle": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48410-1",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48410-1",
+          "paragraphs": [
+            "格罗宁根大学与帕维亚大学研究维生素 C 生物合成末步的黄素酶，结合结构、动力学、突变和祖先序列重建，解释不同生物中的底物偏好与电子受体差别。",
+            "酶活性口袋中的少数侧链可以改变立体选择性；与黄素相邻的位点则影响酶使用氧还是其他受体。结构上的局部改变，因此能落到可测的产物与反应速度上。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48410-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48410-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
+        },
+        {
+          "id": "steroid",
+          "heading": "胆汁酸研究从主结构走向微生物修饰",
+          "organizationIds": [
+            "msu"
+          ],
+          "authors": "Douglas V. Guzior、Maxwell Okros、Madison Shivel 等",
+          "paperTitle": "Bile salt hydrolase acyltransferase activity expands bile acid diversity",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07017-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07017-8",
+          "paragraphs": [
+            "密歇根州立大学团队发现，胆盐水解酶还具有酰基转移活性，可将氨基酸连接到胆汁酸上，从而扩展肠道中胆汁酸的化学多样性。不同菌株对氨基酸的使用也存在差异。",
+            "认识甾体骨架之后，还必须区分它的具体修饰形式。相同母核上的连接基团可能改变溶解性、代谢和信号作用；研究不能将所有胆汁酸只合并成一个总量指标。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07017-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38326608/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的胆汁酸、脂质和代谢物试剂用于标准品比对与机理实验；这里不把试剂供应写成论文机制的临床应用。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1928/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

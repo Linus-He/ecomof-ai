@@ -1,0 +1,246 @@
+{
+  "year": 2022,
+  "status": "awarded",
+  "names": [
+    "Carolyn Bertozzi",
+    "Morten Meldal",
+    "Barry Sharpless"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/1015",
+    "https://www.nobelprize.org/laureate/1016",
+    "https://www.nobelprize.org/laureate/743"
+  ],
+  "motivations": [
+    "for the development of click chemistry and bioorthogonal chemistry",
+    "for the development of click chemistry and bioorthogonal chemistry",
+    "for the development of click chemistry and bioorthogonal chemistry"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "1015",
+      "name": "Carolyn Bertozzi",
+      "image": "images/nobel/laureates/1015.jpg",
+      "source": "https://www.nobelprize.org/images/143934-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "213ac3b5ef7dbc7681f9ab526e685ab62deae3c6eea11ce7358f69a10e9341c2"
+    },
+    {
+      "id": "1016",
+      "name": "Morten Meldal",
+      "image": "images/nobel/laureates/1016.jpg",
+      "source": "https://www.nobelprize.org/images/143952-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "2ed0ae14335fd837b9ae8c041bc744149bbc21bf367d756649c6bb858abf4f4c"
+    },
+    {
+      "id": "743",
+      "name": "Barry Sharpless",
+      "image": "images/nobel/laureates/743.jpg",
+      "source": "https://www.nobelprize.org/images/143950-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "57486870da71691b42688fde3cbe9d13c3a6037ebb1583d4767a87f4fc8b9061"
+    }
+  ],
+  "reading": {
+    "title": "点击化学与生物正交化学",
+    "summary": "点击化学与生物正交化学。使复杂环境中的选择性化学操作更可行。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "复杂体系中需要可靠连接分子，又不能大范围扰动周围化学。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "叠氮—炔反应提供高选择性连接；应变促进反应可减少对活体不友好的铜条件。",
+        "equation": "\\mathrm{R\\!\\!{-}N_3+HC{\\equiv}C\\!\\!{-}R'\\xrightarrow{Cu(I)}1,2,3\\!\\!{-}triazole}",
+        "equationNote": "CuAAC 反应示意；无铜应变促进反应使用不同炔结构，不等同于此催化条件。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于分子连接、糖链标记、材料和生物分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使复杂环境中的选择性化学操作更可行。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "点击化学把分子连接与可视化联系起来。自动化糖化学及低光照成像分别延伸材料制备和观察能力，不能据此替代生物正交性的实测。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "slu",
+          "name": "圣路易斯大学",
+          "englishName": "Saint Louis University",
+          "url": "https://www.slu.edu/",
+          "logo": "images/nobel/organizations/slu.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+          "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        },
+        {
+          "id": "tsinghua",
+          "name": "清华大学",
+          "englishName": "Tsinghua University",
+          "url": "https://www.tsinghua.edu.cn/",
+          "logo": "images/nobel/organizations/tsinghua.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.tsinghua.edu.cn/favicon.ico",
+          "sha256": "44983bc3ed23e86996e1fcabce6a70426cdc6e2c73627fb2e818afca55d38479"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "sugars",
+          "heading": "糖化学的自动化：合成之后还要完成纯化",
+          "organizationIds": [
+            "slu"
+          ],
+          "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+          "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+          "journal": "Chemistry – A European Journal (2024)",
+          "published": "2024",
+          "doi": "10.1002/chem.202401214",
+          "paperUrl": "https://doi.org/10.1002/chem.202401214",
+          "paragraphs": [
+            "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+            "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/chem.202401214"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+        },
+        {
+          "id": "imaging",
+          "heading": "超分辨图像的可信度也取决于处理流程",
+          "organizationIds": [
+            "tsinghua"
+          ],
+          "authors": "Chang Qiao、Yunmin Zeng、Quan Meng 等",
+          "paperTitle": "Zero-shot learning enables instant denoising and super-resolution in optical fluorescence microscopy",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48575-9",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48575-9",
+          "paragraphs": [
+            "清华大学团队提出不依赖成对真值训练数据的 ZS-DeconvNet，将去噪和反卷积用于多类荧光显微成像。研究关注低光照和活细胞条件下，分辨率、噪声与样品负担如何权衡。",
+            "计算处理可以改善可辨细节，但图像更锐利不自动代表出现了真实结构。需要结合成像物理、独立验证和不同样品测试，检查处理是否改变信号形态或弱结构。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48575-9"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://media.au.tsinghua.edu.cn/info/1016/1398.htm"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的细胞成像及荧光标记产品是应用工具示例；没有将该处理方法写成其显微镜默认具备的功能。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        },
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2022/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

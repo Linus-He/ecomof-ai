@@ -52,7 +52,7 @@ export function ScientificMilestonesPage() {
         <article className="milestone-roadmap-row" data-testid="scientific-milestone-current-release">
           <div className="milestone-roadmap-index">
             <strong>{latestRelease.appVersion}</strong>
-            <span>{latestRelease.date}</span>
+
           </div>
           <div className="milestone-roadmap-content">
             <h2>{text(lang, "当前设计与记录里程碑", "Current design and record milestone")}</h2>

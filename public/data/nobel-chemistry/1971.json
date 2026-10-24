@@ -1,0 +1,156 @@
+{
+  "year": 1971,
+  "status": "awarded",
+  "names": [
+    "Gerhard Herzberg"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/240"
+  ],
+  "motivations": [
+    "for his contributions to the knowledge of electronic structure and geometry of molecules, particularly free radicals"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "240",
+      "name": "Gerhard Herzberg",
+      "image": "images/nobel/laureates/240.jpg",
+      "source": "https://www.nobelprize.org/images/herzberg-13226-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1971/summary/",
+      "sha256": "679d852174a311adcecdd00ad818fbc27f815d39bbdf0d7ab609e2df5660ec90"
+    }
+  ],
+  "reading": {
+    "title": "分子与自由基光谱",
+    "summary": "分子与自由基光谱。使短寿命物种也能凭物理信号获得结构证据。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "不稳定分子难以分离，如何判断其电子结构与几何？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过分子能级跃迁的光谱测量，并结合量子解释推断结构。",
+        "equation": "\\Delta E=h\\nu",
+        "equationNote": "谱线对应能级差；必须区分电子、振动与转动贡献。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于自由基识别、分子结构与反应中间体分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使短寿命物种也能凭物理信号获得结构证据。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "光谱将分子与自由基的状态转换成可测信号。时间分辨结构手段补充了这些信号背后的几何变化及反应先后关系。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "gothenburg",
+          "name": "哥德堡大学",
+          "englishName": "University of Gothenburg",
+          "url": "https://www.gu.se/en",
+          "logo": "images/nobel/organizations/gothenburg.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.gu.se/themes/custom/gu_theme_ruby/dist/images/favicons/apple-touch-icon.png",
+          "sha256": "1fe421dd8370e44188d92dbb3f6fa2240e1d5da0f0d7bad915aaec3e50e5fafc"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "kinetics",
+          "heading": "电子转移发生时，蛋白结构也在响应",
+          "organizationIds": [
+            "gothenburg"
+          ],
+          "authors": "Andrea Cellini、Madan Kumar Shankar、Amke Nimmrich 等",
+          "paperTitle": "Directed ultrafast conformational changes accompany electron transfer in a photolyase as resolved by serial crystallography",
+          "journal": "Nature Chemistry (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41557-023-01413-9",
+          "paperUrl": "https://doi.org/10.1038/s41557-023-01413-9",
+          "paragraphs": [
+            "哥德堡大学等机构利用飞秒 X 射线晶体学研究光裂合酶，追踪电子沿色氨酸链转移时周围残基、水分子和盐桥的结构变化。测量把电子运动与核构型变化放到同一条反应序列中。",
+            "静态结构能说明哪些基团接近，却不能独自回答电子先转移还是结构先重排。时间分辨实验结合光谱与计算，才有机会比较这些先后关系及其对反应通道的影响。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41557-023-01413-9"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41557-023-01413-9"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的光谱与结构分析设备是相关实验工具的产业示例；普通稳态光谱仪不等于论文使用的飞秒 X 射线设施。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "bruker",
+          "role": "磁共振与结构分析",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1971/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

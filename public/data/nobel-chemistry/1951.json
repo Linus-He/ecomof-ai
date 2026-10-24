@@ -1,0 +1,166 @@
+{
+  "year": 1951,
+  "status": "awarded",
+  "names": [
+    "Edwin M. McMillan",
+    "Glenn T. Seaborg"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/212",
+    "https://www.nobelprize.org/laureate/213"
+  ],
+  "motivations": [
+    "for their discoveries in the chemistry of the transuranium elements",
+    "for their discoveries in the chemistry of the transuranium elements"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "212",
+      "name": "Edwin M. McMillan",
+      "image": "images/nobel/laureates/212.jpg",
+      "source": "https://www.nobelprize.org/images/mcmillan-13075-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1951/summary/",
+      "sha256": "48defdef650d53b936e746e158aa366ef7e7fdd0b0e611a09750fa9903169d32"
+    },
+    {
+      "id": "213",
+      "name": "Glenn T. Seaborg",
+      "image": "images/nobel/laureates/213.jpg",
+      "source": "https://www.nobelprize.org/images/seaborg-13076-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1951/summary/",
+      "sha256": "4ae45c99d21ddbc5fd3aeb21e5e02fa3e4cd277630f64a79199f5d600482bc69"
+    }
+  ],
+  "reading": {
+    "title": "超铀元素化学",
+    "summary": "超铀元素化学。将周期表扩展与核转化、化学性质联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "周期表能否在铀之后继续扩展，新的元素如何分离和归类？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用核反应生成超铀元素，再通过放射化学分离和电子结构判断其性质。",
+        "equation": "\\mathrm{^{238}U+n\\rightarrow{}^{239}U\\xrightarrow{\\beta^-}{}^{239}Np\\xrightarrow{\\beta^-}{}^{239}Pu}",
+        "equationNote": "示意中子俘获及两步 β 衰变；不是所有超铀元素的统一生成路线。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于核素分离、锕系化学与周期关系研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "将周期表扩展与核转化、化学性质联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "超铀元素研究拓宽了化学可涉及的元素范围；对稀少放射性金属的直接配位表征，仍是理解其反应性的必要步骤。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "radio",
+          "heading": "给放射性金属找到可测的配位环境",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+          "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-50017-5",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+          "paragraphs": [
+            "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+            "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-50017-5"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-50017-5"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1951/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

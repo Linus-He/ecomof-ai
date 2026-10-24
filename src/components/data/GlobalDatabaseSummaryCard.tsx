@@ -60,7 +60,7 @@ export function GlobalDatabaseSummaryCard({ summary = null, lang = "en", t, isMo
       ) : null}
 
       <span style={{ color: t?.faint || "#64748B", fontSize: 10 }}>
-        {zh ? "生成时间" : "generatedAt"}: {summary.generatedAt} · provenance share {safePercent(summary.provenanceShare)}
+        provenance share {safePercent(summary.provenanceShare)}
       </span>
     </section>
   )

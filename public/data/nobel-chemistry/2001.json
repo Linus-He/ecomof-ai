@@ -1,0 +1,245 @@
+{
+  "year": 2001,
+  "status": "awarded",
+  "names": [
+    "William Knowles",
+    "Ryoji Noyori",
+    "Barry Sharpless"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/741",
+    "https://www.nobelprize.org/laureate/742",
+    "https://www.nobelprize.org/laureate/743"
+  ],
+  "motivations": [
+    "for their work on chirally catalysed hydrogenation reactions",
+    "for their work on chirally catalysed hydrogenation reactions",
+    "for his work on chirally catalysed oxidation reactions"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "741",
+      "name": "William Knowles",
+      "image": "images/nobel/laureates/741.jpg",
+      "source": "https://www.nobelprize.org/images/knowles-13724-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "abdb24dc9b3520a55ff21488b2275361efb158c78f8627a0f7da01a0b033256c"
+    },
+    {
+      "id": "742",
+      "name": "Ryoji Noyori",
+      "image": "images/nobel/laureates/742.jpg",
+      "source": "https://www.nobelprize.org/images/noyori-13725-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "06989d744aea584e250d1b3b8cd9a2c33b883e202c9928644d39817778435241"
+    },
+    {
+      "id": "743",
+      "name": "Barry Sharpless",
+      "image": "images/nobel/laureates/743.jpg",
+      "source": "https://www.nobelprize.org/images/sharpless-13726-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "57486870da71691b42688fde3cbe9d13c3a6037ebb1583d4767a87f4fc8b9061"
+    }
+  ],
+  "reading": {
+    "title": "不对称催化",
+    "summary": "不对称催化。使少量手性催化剂能够控制大量产物的构型。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "药物等分子的两种镜像形式可能有不同作用，合成需要控制偏向。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "手性金属催化剂区别底物反应面，分别发展选择性加氢和氧化。",
+        "equation": "ee=\\frac{n_R-n_S}{n_R+n_S}\\times100\\%",
+        "equationNote": "对映体过量描述组成，不等于产率；加氢与氧化有不同催化循环。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于手性药物、精细化学品与天然产物合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使少量手性催化剂能够控制大量产物的构型。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "不对称催化关注如何选择一种镜像产物。人工酶与自催化分别展示催化口袋和反馈网络怎样组织这种选择性。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "lmu",
+          "name": "慕尼黑大学",
+          "englishName": "Ludwig-Maximilians-Universität München",
+          "url": "https://www.lmu.de/en/",
+          "logo": "images/nobel/organizations/lmu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cms-cdn.lmu.de/assets/img/favicon.ico",
+          "sha256": "0545fa3d831838e0049ca03dde3f36b8904f500d2963f34dcd54fc2d2fdd5497"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "novonesis",
+          "name": "Novonesis",
+          "englishName": "Novonesis",
+          "url": "https://www.novonesis.com/",
+          "logo": "images/nobel/organizations/novonesis.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonesis.com/favicon.ico",
+          "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "boronenzyme",
+          "heading": "把硼酸基放进蛋白质催化口袋",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Lars Longwitz、Reuben B. Leveson-Gower、Henriëtte J. Rozeboom 等",
+          "paperTitle": "Boron catalysis in a designer enzyme",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07391-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07391-3",
+          "paragraphs": [
+            "格罗宁根大学团队用扩展遗传密码，将带硼酸基团的非天然氨基酸引入蛋白，并通过定向进化改善催化效率和立体选择性。催化基团与蛋白口袋各自承担一部分化学控制。",
+            "这一实例把有机硼化学与酶工程连接起来。能催化一种新反应，是建立人工酶功能的起点；后续还要考察底物范围、稳定性和制备成本。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07391-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.rug.nl/news/2024/05/university-of-groningen-chemists-produce-new-to-nature-enzyme-containing-boron"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novonesis"
+          ],
+          "relation": "Novonesis 的工业酶产品展示生物催化的产业路径；未核实到这套含硼人工酶的商品化配方。"
+        },
+        {
+          "id": "soai",
+          "heading": "把手性放大的反馈拆成可检验的中间体",
+          "organizationIds": [
+            "lmu"
+          ],
+          "authors": "Patrick Möhler、Gloria Betzenbichler、Laura Huber 等",
+          "paperTitle": "Mechanistic analysis and kinetic profiling of Soai’s asymmetric autocatalysis for pyridyl and pyrimidyl substrates",
+          "journal": "Nature Communications (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41467-025-62591-3",
+          "paperUrl": "https://doi.org/10.1038/s41467-025-62591-3",
+          "paragraphs": [
+            "慕尼黑大学团队结合原位高分辨质谱、动力学及反应曲线模拟，比较吡啶与嘧啶底物的 Soai 自催化。研究指向暂态半缩醛盐有机锌配合物及其对选择性的作用。",
+            "非线性效应意味着产物与催化物种之间不是简单的一对一映射。拟合宏观速率曲线时，需要同时考虑聚集、配位和平衡；把净反应式写出，并不等于已经确定每一个活性物种。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-025-62591-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://epub.ub.uni-muenchen.de/133448/1/s41467-025-62591-3.pdf"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的手性合成试剂和分析工具可用于此类研究；没有把 Soai 自催化包装成已经通用的工业不对称生产平台。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "novonesis",
+          "role": "工业酶与生物催化",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2001/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

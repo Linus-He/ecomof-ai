@@ -1,0 +1,245 @@
+{
+  "year": 1972,
+  "status": "awarded",
+  "names": [
+    "Christian Anfinsen",
+    "Stanford Moore",
+    "William H. Stein"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/241",
+    "https://www.nobelprize.org/laureate/242",
+    "https://www.nobelprize.org/laureate/243"
+  ],
+  "motivations": [
+    "for his work on ribonuclease, especially concerning the connection between the amino acid sequence and the biologically active conformation",
+    "for their contribution to the understanding of the connection between chemical structure and catalytic activity of the active centre of the ribonuclease molecule",
+    "for their contribution to the understanding of the connection between chemical structure and catalytic activity of the active centre of the ribonuclease molecule"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "241",
+      "name": "Christian Anfinsen",
+      "image": "images/nobel/laureates/241.jpg",
+      "source": "https://www.nobelprize.org/images/anfinsen-13232-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "aef138276d9ad0d72c53d8ac34d5284456c8cf114268e77637678823d5fab675"
+    },
+    {
+      "id": "242",
+      "name": "Stanford Moore",
+      "image": "images/nobel/laureates/242.jpg",
+      "source": "https://www.nobelprize.org/images/moore-13233-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "765b01378026cac09c7388a7d51206096f7b541ed59397723bf31c8d442b67b6"
+    },
+    {
+      "id": "243",
+      "name": "William H. Stein",
+      "image": "images/nobel/laureates/243.jpg",
+      "source": "https://www.nobelprize.org/images/stein-13234-portrait-medium.jpg",
+      "credit": "Photo: Rockefeller University. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "b6b30ae2f7492aa5f60997087e3ad9cf8223e4f0b64f07414c74f8925693d543"
+    }
+  ],
+  "reading": {
+    "title": "序列、折叠与酶活性",
+    "summary": "序列、折叠与酶活性。把氨基酸顺序、三维结构和生物功能联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "蛋白质变性后能否恢复，序列怎样决定催化功能？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "核糖核酸酶的复性实验连接序列与构象，活性中心研究说明特定残基的作用。",
+        "equation": "\\mathrm{unfolded\\ protein\\rightleftharpoons folded\\ protein}",
+        "equationNote": "适当环境中的折叠示意；真实过程可有中间体、聚集和动力学限制。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于蛋白折叠、酶活性与结构功能研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把氨基酸顺序、三维结构和生物功能联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "序列、折叠与酶活性的关系仍需经过制备和表征。生成蛋白骨架之后，还要确认样品纯度、结构及实际功能。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "cytiva",
+          "name": "Cytiva",
+          "englishName": "Cytiva",
+          "url": "https://www.cytivalifesciences.com/",
+          "logo": "images/nobel/organizations/cytiva.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.cytivalifesciences.com/shared/favicon.ico?v=ps-app-shell-v1.20.3-PROD",
+          "sha256": "8b0b6d92d58cd4d5d1eed26db059a55354bf0a3146986921b32924f69bd4bcfa"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        },
+        {
+          "id": "ucl",
+          "name": "伦敦大学学院",
+          "englishName": "University College London",
+          "url": "https://www.ucl.ac.uk/",
+          "logo": "images/nobel/organizations/ucl.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+          "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+        },
+        {
+          "id": "uw",
+          "name": "华盛顿大学",
+          "englishName": "University of Washington",
+          "url": "https://www.washington.edu/",
+          "logo": "images/nobel/organizations/uw.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+          "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "protein",
+          "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+          "organizationIds": [
+            "uw"
+          ],
+          "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+          "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+          "journal": "Nature (2023)",
+          "published": "2023",
+          "doi": "10.1038/s41586-023-06415-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+          "paragraphs": [
+            "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+            "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-06415-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-06415-8"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+        },
+        {
+          "id": "chromatography",
+          "heading": "把蛋白 A 捕获与连续色谱的温度控制接起来",
+          "organizationIds": [
+            "ucl"
+          ],
+          "authors": "Alexander Armstrong、Jorge Aranda Hernandez、Felix Roth 等",
+          "paperTitle": "Development of temperature-controlled batch and 3-column counter-current protein A system for improved therapeutic purification",
+          "journal": "Journal of Chromatography A (2024)",
+          "published": "2024",
+          "doi": "10.1016/j.chroma.2024.465110",
+          "paperUrl": "https://doi.org/10.1016/j.chroma.2024.465110",
+          "paragraphs": [
+            "伦敦大学学院与产业合作者研究温度对单克隆抗体蛋白 A 纯化的影响，并把实验和模型用于三柱周期逆流流程。吸附、洗脱和树脂循环需要共同优化。",
+            "单次柱实验给出的容量，不等于连续流程中的实际生产率。目标蛋白收率、杂质去除、缓冲液消耗和树脂使用寿命都应纳入比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1016/j.chroma.2024.465110"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38941794/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "cytiva"
+          ],
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        },
+        {
+          "organizationId": "cytiva",
+          "role": "蛋白纯化系统与色谱材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1972/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

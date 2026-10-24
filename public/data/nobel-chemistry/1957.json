@@ -1,0 +1,222 @@
+{
+  "year": 1957,
+  "status": "awarded",
+  "names": [
+    "Lord Todd"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/221"
+  ],
+  "motivations": [
+    "for his work on nucleotides and nucleotide co-enzymes"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "221",
+      "name": "Lord Todd",
+      "image": "images/nobel/laureates/221.jpg",
+      "source": "https://www.nobelprize.org/images/todd-13117-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1957/summary/",
+      "sha256": "b1980b42ff6374e93f39b8b492a00bdb04072c35edb5d7b9363a2b90200c060f"
+    }
+  ],
+  "reading": {
+    "title": "核苷酸与核苷酸辅酶",
+    "summary": "核苷酸与核苷酸辅酶。为生命信息载体和代谢辅因子提供化学结构基础。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "生命过程中的含磷分子结构复杂，却承担信息和能量功能。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "解析并合成核苷酸，明确碱基、糖与磷酸之间的连接关系。",
+        "equation": "\\mathrm{ATP+H_2O\\rightarrow ADP+P_i}",
+        "equationNote": "ATP 水解的简化总式；质子和离子配位依 pH 与介质，不覆盖全部辅酶功能。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于核酸合成、辅酶结构与生物能量研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "为生命信息载体和代谢辅因子提供化学结构基础。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "核苷酸既是代谢辅因子的组成，也能成为 RNA 催化的底物。制备、结构与功能测量需要共同解释这些分子的反应作用。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "aarhus",
+          "name": "奥胡斯大学",
+          "englishName": "Aarhus University",
+          "url": "https://www.au.dk/en/",
+          "logo": "images/nobel/organizations/aarhus.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.au.dk/favicon.ico",
+          "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "slu",
+          "name": "圣路易斯大学",
+          "englishName": "Saint Louis University",
+          "url": "https://www.slu.edu/",
+          "logo": "images/nobel/organizations/slu.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+          "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "sugars",
+          "heading": "糖化学的自动化：合成之后还要完成纯化",
+          "organizationIds": [
+            "slu"
+          ],
+          "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+          "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+          "journal": "Chemistry – A European Journal (2024)",
+          "published": "2024",
+          "doi": "10.1002/chem.202401214",
+          "paperUrl": "https://doi.org/10.1002/chem.202401214",
+          "paragraphs": [
+            "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+            "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/chem.202401214"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+        },
+        {
+          "id": "ribozyme",
+          "heading": "RNA 催化：把活性位置与折叠结构对应起来",
+          "organizationIds": [
+            "aarhus"
+          ],
+          "authors": "Ewan K. S. McRae、Christopher J. K. Wan、Emil L. Kristoffersen 等",
+          "paperTitle": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+          "journal": "Proceedings of the National Academy of Sciences (2024)",
+          "published": "2024",
+          "doi": "10.1073/pnas.2313332121",
+          "paperUrl": "https://doi.org/10.1073/pnas.2313332121",
+          "paragraphs": [
+            "奥胡斯大学与 MRC 分子生物学实验室结合冷冻电镜和高通量突变分析，研究以三核苷酸为底物的 RNA 聚合酶核酶。结构中的亚基接触与功能筛选结果相互对照，用来识别哪些位置对催化必要。",
+            "RNA 能催化反应并不意味着已经在实验中重建了生命起源。模板依赖延伸的活性、保真度与条件兼容性，仍需要独立测量和改进。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1073/pnas.2313332121"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        },
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1957/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

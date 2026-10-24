@@ -1,0 +1,180 @@
+{
+  "year": 1987,
+  "status": "awarded",
+  "names": [
+    "Donald J. Cram",
+    "Jean-Marie Lehn",
+    "Charles J. Pedersen"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/267",
+    "https://www.nobelprize.org/laureate/268",
+    "https://www.nobelprize.org/laureate/269"
+  ],
+  "motivations": [
+    "for their development and use of molecules with structure-specific interactions of high selectivity",
+    "for their development and use of molecules with structure-specific interactions of high selectivity",
+    "for their development and use of molecules with structure-specific interactions of high selectivity"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "267",
+      "name": "Donald J. Cram",
+      "image": "images/nobel/laureates/267.jpg",
+      "source": "https://www.nobelprize.org/images/cram-13387-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "400312e8177feb336cf88eabc56d412efa3074c81b3717f9c44b4847642671ec"
+    },
+    {
+      "id": "268",
+      "name": "Jean-Marie Lehn",
+      "image": "images/nobel/laureates/268.jpg",
+      "source": "https://www.nobelprize.org/images/lehn-13388-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "d7783a95589bb21b80cf8000da51cc948c75d0cc0bfea98f136d95e844e3395b"
+    },
+    {
+      "id": "269",
+      "name": "Charles J. Pedersen",
+      "image": "images/nobel/laureates/269.jpg",
+      "source": "https://www.nobelprize.org/images/pedersen-13389-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "d243d66d7a0b683da707706a6857340625406a3591377a882c0e796d274cca6e"
+    }
+  ],
+  "reading": {
+    "title": "分子识别与主客体化学",
+    "summary": "分子识别与主客体化学。使分子间识别成为可设计的化学功能。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "人工分子能否像生物体系一样选择性结合目标？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "设计具有合适空腔和相互作用位点的主体，选择性结合客体。",
+        "equation": "\\mathrm{H+G\\rightleftharpoons HG};\\quad K_a=\\frac{a_{HG}}{a_Ha_G}",
+        "equationNote": "H 是主体、G 是客体；此处 Ka 是缔合常数，不是酸解离常数。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于离子识别、选择性结合与超分子组装。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使分子间识别成为可设计的化学功能。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "主客体识别已从溶液中的结合实验发展到块体材料设计。局部结合能否转化为透明、可加工的材料，需要进一步的物性验证。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "hunan",
+          "name": "湖南大学",
+          "englishName": "Hunan University",
+          "url": "https://www.hnu.edu.cn/",
+          "logo": "images/nobel/organizations/hunan.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.hnu.edu.cn/images/favicon.png",
+          "sha256": "f1adb4058335beb13f70e1d555acd0a05d8b89d947805592ff2b096f7ba9cace"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "hostguest",
+          "heading": "把主客体识别变成可加工的透明材料",
+          "organizationIds": [
+            "hunan"
+          ],
+          "authors": "Changyong Cai、Shuanggen Wu、Yunfei Zhang 等",
+          "paperTitle": "Bulk transparent supramolecular glass enabled by host–guest molecular recognition",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48089-4",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48089-4",
+          "paragraphs": [
+            "湖南大学团队利用甲基化 β-环糊精与对羟基苯甲酸的主客体作用和氢键，构筑透明块体超分子玻璃。局部识别提供组织单元，动态非共价作用使材料具备不同于永久交联网络的加工方式。",
+            "在这一体系中，短程有序与整体无序可以共存。主体和客体能结合，只是材料形成的起点；光学透明性、热加工和回收行为仍需在块体样品上测量。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48089-4"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48089-4"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的环糊精及超分子研究试剂可用于主客体实验；并未把这些试剂列作该透明玻璃的现成商品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1987/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

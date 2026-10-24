@@ -5,7 +5,7 @@ const copy: Record<string, [string, string, string]> = {
   "Review": ["総説", "리뷰", "Revisión"],
   "Loading crystal structure…": ["結晶構造を読み込み中…", "결정 구조를 불러오는 중…", "Cargando estructura cristalina…"],
   "No loadable 3D structure for this record. Consult the source database for its CIF.": ["この記録の立体構造は読み込めません。元のデータベースで CIF を確認してください。", "이 기록의 3차원 구조를 불러올 수 없습니다. 원본 데이터베이스에서 CIF를 확인하세요.", "No hay una estructura 3D disponible para este registro. Consulte su CIF en la fuente original."],
-  "Selected publications · Checked 2026-09-07 · Conceptual cover illustrations": ["文献選集 · 確認日 2026-09-07 · 表紙は概念イラスト", "선별 문헌 · 확인일 2026-09-07 · 표지는 개념 삽화", "Publicaciones seleccionadas · Revisadas el 2026-09-07 · Portadas conceptuales"],
+  "Selected publications · Conceptual cover illustrations": ["文献選集 · 表紙は概念イラスト", "선별 문헌 · 표지는 개념 삽화", "Publicaciones seleccionadas · Portadas conceptuales"],
   "Choose language": ["言語を選択", "언어 선택", "Seleccionar idioma"],
   "Choose a language": ["言語を選択", "언어 선택", "Seleccionar idioma"],
   "Close": ["閉じる", "닫기", "Cerrar"],

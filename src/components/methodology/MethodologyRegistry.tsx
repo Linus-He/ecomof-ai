@@ -288,7 +288,7 @@ function GovernanceView({ governance, lang, t, isMobile }) {
               <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.5 }}><strong style={{ color: t.warn }}>{text(lang, "局限：", "Tradeoff: ")}</strong>{text(lang, framework.tradeoffZh, framework.tradeoffEn)}</div>
               <div style={{ color: t.muted, fontSize: 11.2, lineHeight: 1.5 }}><strong style={{ color: t.textStrong }}>{text(lang, "本项目采用：", "Adopted here: ")}</strong>{text(lang, framework.adoptedZh, framework.adoptedEn)}</div>
               <div style={{ alignItems: "center", display: "flex", flexWrap: "wrap", gap: 6 }}>
-                <span style={{ color: t.faint, fontSize: 10 }}>{text(lang, "官方来源已核验", "Official source verified")} · {framework.verifiedAt}</span>
+                <span style={{ color: t.faint, fontSize: 10 }}>{text(lang, "官方来源已核验", "Official source verified")}</span>
                 <span style={{ color: framework.doi ? t.accentText : t.faint, fontSize: 10, fontWeight: 850 }}>{framework.doi ? `DOI ${framework.doi}` : text(lang, "DOI 不适用（官方网页）", "DOI not applicable (official webpage)")}</span>
               </div>
             </article>

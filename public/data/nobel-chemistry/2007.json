@@ -1,0 +1,203 @@
+{
+  "year": 2007,
+  "status": "awarded",
+  "names": [
+    "Gerhard Ertl"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/816"
+  ],
+  "motivations": [
+    "for his studies of chemical processes on solid surfaces"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "816",
+      "name": "Gerhard Ertl",
+      "image": "images/nobel/laureates/816.jpg",
+      "source": "https://www.nobelprize.org/images/ertl-15137-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2007/summary/",
+      "sha256": "e82a6d0e4ef084a961d854f87f22e10f039a2a0d0fe2cfcb1851c87f60a4cf4c"
+    }
+  ],
+  "reading": {
+    "title": "固体表面的化学过程",
+    "summary": "固体表面的化学过程。确立可用多种实验解析复杂表面反应的研究方式。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "工业催化依赖表面，平均反应速率却难以说明原子步骤。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "在可控表面上研究吸附、解离、反应和脱附，并关联宏观动力学。",
+        "equation": "\\mathrm{CO_{ads}+O_{ads}\\rightarrow CO_2+2*}",
+        "equationNote": "* 表示空表面位点；示意已吸附 CO 与 O 反应，氧的吸附解离是前置步骤。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于合成氨、尾气净化与异相催化机理。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "确立可用多种实验解析复杂表面反应的研究方式。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "表面化学持续处理吸附、活化和催化剂状态的问题。电化学界面膜与负载金属催化剂展示了两种不断变化的反应表面。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "caltech",
+          "name": "加州理工学院",
+          "englishName": "California Institute of Technology",
+          "url": "https://www.caltech.edu/",
+          "logo": "images/nobel/organizations/caltech.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+          "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ammonia",
+          "heading": "合成氨的界面：反应物怎样穿过保护层",
+          "organizationIds": [
+            "caltech"
+          ],
+          "authors": "Wesley Chang、Anukta Jain、Fateme Rezaie 等",
+          "paperTitle": "Lithium-mediated nitrogen reduction to ammonia via the catalytic solid–electrolyte interphase",
+          "journal": "Nature Catalysis (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41929-024-01115-6",
+          "paperUrl": "https://doi.org/10.1038/s41929-024-01115-6",
+          "paragraphs": [
+            "这篇综述把锂介导固氮的研究落在固体电解质界面膜上：膜既要允许氮和质子供体到达反应位点，又要抑制无效副反应。作者比较电解液、反应器及传质模型，说明选择性和反应速率为何必须放在同一组条件中讨论。",
+            "这条电化学路线与工业铁催化高压合成氨采用不同的活化方式。它延续的是氮分子如何被活化、供能和分离的问题，不能把温和反应条件直接等同于更低的全流程能耗。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41929-024-01115-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
+        },
+        {
+          "id": "polymer",
+          "heading": "长链聚合物怎样被重新拆成小分子原料",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+          "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adq7316",
+          "paperUrl": "https://doi.org/10.1126/science.adq7316",
+          "paragraphs": [
+            "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+            "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adq7316"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://chemistry.berkeley.edu/node/2629"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+          "companyOverride": {
+            "organizationId": "basf",
+            "role": "塑料循环与化工制造",
+            "status": "企业公开业务",
+            "paragraphs": [
+              "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            ],
+            "sources": [
+              {
+                "label": "公司循环经济资料",
+                "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              }
+            ]
+          }
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "塑料循环与化工制造",
+          "status": "企业公开业务",
+          "paragraphs": [
+            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+          ],
+          "sources": [
+            {
+              "label": "公司循环经济资料",
+              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2007/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

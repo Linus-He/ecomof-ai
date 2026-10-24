@@ -1,0 +1,256 @@
+{
+  "year": 1946,
+  "status": "awarded",
+  "names": [
+    "James B. Sumner",
+    "John H. Northrop",
+    "Wendell M. Stanley"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/204",
+    "https://www.nobelprize.org/laureate/205",
+    "https://www.nobelprize.org/laureate/206"
+  ],
+  "motivations": [
+    "for his discovery that enzymes can be crystallized",
+    "for their preparation of enzymes and virus proteins in a pure form",
+    "for their preparation of enzymes and virus proteins in a pure form"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "204",
+      "name": "James B. Sumner",
+      "image": "images/nobel/laureates/204.jpg",
+      "source": "https://www.nobelprize.org/images/sumner-13043-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "801ed176280c6b5d2a8a2d092048d384a57373d9c408e6c6e2f86b30586aa371"
+    },
+    {
+      "id": "205",
+      "name": "John H. Northrop",
+      "image": "images/nobel/laureates/205.jpg",
+      "source": "https://www.nobelprize.org/images/northrop-13041-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "caae6faf70cf0b2a07789533fbcc1fa22f95e48395c2d6c3f4e31a88501506c1"
+    },
+    {
+      "id": "206",
+      "name": "Wendell M. Stanley",
+      "image": "images/nobel/laureates/206.jpg",
+      "source": "https://www.nobelprize.org/images/stanley-13042-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "f0dfdb9c98cc4145b7bd524fc4192ce1d3147d65920561dba5086a4e24728d51"
+    }
+  ],
+  "reading": {
+    "title": "酶和病毒蛋白的纯化",
+    "summary": "酶和病毒蛋白的纯化。支持以分子实体研究生物催化。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "酶的化学身份难以确定，纯化程度也影响结论。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "获得酶晶体与高纯蛋白，将催化活性与可分离的分子组分对应。",
+        "equation": "\\mathrm{E+S\\rightleftharpoons ES\\rightarrow E+P}",
+        "equationNote": "基本酶反应示意；结晶是纯化与结构研究手段，不保证任意晶体样品都均一。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于酶化学、蛋白纯化和病毒组分研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "支持以分子实体研究生物催化。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "酶的纯化使催化性质能够单独研究。现代蛋白纯化流程与无细胞合成分别从分离和重构两端继续推进这种实验思路。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "cytiva",
+          "name": "Cytiva",
+          "englishName": "Cytiva",
+          "url": "https://www.cytivalifesciences.com/",
+          "logo": "images/nobel/organizations/cytiva.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.cytivalifesciences.com/shared/favicon.ico?v=ps-app-shell-v1.20.3-PROD",
+          "sha256": "8b0b6d92d58cd4d5d1eed26db059a55354bf0a3146986921b32924f69bd4bcfa"
+        },
+        {
+          "id": "novonesis",
+          "name": "Novonesis",
+          "englishName": "Novonesis",
+          "url": "https://www.novonesis.com/",
+          "logo": "images/nobel/organizations/novonesis.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonesis.com/favicon.ico",
+          "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+        },
+        {
+          "id": "shanghaitech",
+          "name": "上海科技大学",
+          "englishName": "ShanghaiTech University",
+          "url": "https://www.shanghaitech.edu.cn/",
+          "logo": "images/nobel/organizations/shanghaitech.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.shanghaitech.edu.cn/_upload/tpl/00/20/32/template32/images/favicon.ico",
+          "sha256": "3567e38416c89379838e8590a1800d423a58859898fa683edebd44207f9232e8"
+        },
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        },
+        {
+          "id": "ucl",
+          "name": "伦敦大学学院",
+          "englishName": "University College London",
+          "url": "https://www.ucl.ac.uk/",
+          "logo": "images/nobel/organizations/ucl.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+          "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "chromatography",
+          "heading": "把蛋白 A 捕获与连续色谱的温度控制接起来",
+          "organizationIds": [
+            "ucl"
+          ],
+          "authors": "Alexander Armstrong、Jorge Aranda Hernandez、Felix Roth 等",
+          "paperTitle": "Development of temperature-controlled batch and 3-column counter-current protein A system for improved therapeutic purification",
+          "journal": "Journal of Chromatography A (2024)",
+          "published": "2024",
+          "doi": "10.1016/j.chroma.2024.465110",
+          "paperUrl": "https://doi.org/10.1016/j.chroma.2024.465110",
+          "paragraphs": [
+            "伦敦大学学院与产业合作者研究温度对单克隆抗体蛋白 A 纯化的影响，并把实验和模型用于三柱周期逆流流程。吸附、洗脱和树脂循环需要共同优化。",
+            "单次柱实验给出的容量，不等于连续流程中的实际生产率。目标蛋白收率、杂质去除、缓冲液消耗和树脂使用寿命都应纳入比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1016/j.chroma.2024.465110"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38941794/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "cytiva"
+          ],
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
+        },
+        {
+          "id": "cellfree",
+          "heading": "把发酵中的一条通路搬出细胞",
+          "organizationIds": [
+            "shanghaitech",
+            "stanford"
+          ],
+          "authors": "Wan-Qiu Liu、Xiangyang Ji、Fang Ba 等",
+          "paperTitle": "Cell-free biosynthesis and engineering of ribosomally synthesized lanthipeptides",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48726-y",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48726-y",
+          "paragraphs": [
+            "上海科技大学与斯坦福大学的 UniBioCat 平台，将无细胞表达、翻译后修饰和肽成熟步骤组合，用于合成及筛选羊毛硫肽类天然产物。开放反应体系使酶量和底物条件更容易单独调节。",
+            "实验重点是绕开细胞毒性、表达和降解限制，同时保留产物活性测定。可在小体系中得到活性产物，不等于已经解决大规模生产的酶成本、供能与回收问题。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48726-y"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48726-y"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novonesis"
+          ],
+          "relation": "Novonesis 的工业酶业务展示生物催化的产业用途；该公司的发酵与酶制剂产品并非这里这套无细胞肽平台的商业版本。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "cytiva",
+          "role": "蛋白纯化系统与色谱材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+            }
+          ]
+        },
+        {
+          "organizationId": "novonesis",
+          "role": "工业酶与生物催化",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1946/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

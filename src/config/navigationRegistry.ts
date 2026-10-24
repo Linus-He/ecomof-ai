@@ -9,6 +9,13 @@ export const DEFAULT_ROUTE_META = meta(
 )
 
 export const NAVIGATION_ROUTES = [
+  { id: "predictionMarkets", tabId: "predictionMarkets", primary: false, domainId: "research", hash: "prediction-markets", label: label("预测市场", "Prediction Markets"), meta: meta("Prediction Markets | EcoMOF-AI", "按年份查看科学奖项的历史预测市场与开奖前隐含概率。"), component: { strategy: "lazy", exportName: "PredictionMarketsPage", load: () => import("../components/pages/PredictionMarketsPage") } },
+  {
+    id: "nobelChemistry", tabId: "nobelChemistry", primary: false, domainId: "research", hash: "nobel-chemistry-2026", aliases: ["nobel-chemistry"],
+    label: label("The Nobel Prize in Chemistry", "The Nobel Prize in Chemistry"), meta: meta("The Nobel Prize in Chemistry | EcoMOF-AI", "诺贝尔化学奖获奖者、成果解读与官方资料。"),
+    component: { strategy: "lazy", exportName: "NobelChemistryPage", load: () => import("../components/pages/NobelChemistryPage") },
+    children: [{ id: "nobel-chemistry-2025", hash: "nobel-chemistry-2025", label: label("The Nobel Prize in Chemistry 2025", "The Nobel Prize in Chemistry 2025") }],
+  },
   {
     id:"researchArticle", tabId:"researchArticle", primary:false, domainId:"research", hash:"research-article-molecular-fans",
     label:label("分子风扇与苯捕集解读", "Molecular fans and benzene capture"), meta:meta("研究解读 | EcoMOF-AI", "论文来源、研究进展、意义与证据边界。"),
@@ -555,7 +562,7 @@ export const NAVIGATION_DOMAINS = [
     label: label("研究", "Research"),
     groups: [
       { id: "research-workspaces", label: label("研究工作区", "Research workspaces"), itemIds: ["ecoscreen", "gassep", "catalysis", "organicAcid"] },
-      { id: "research-focus", label: label("专题与工具", "Focused tools"), itemIds: ["catalysisLiterature", "catalysis-organic-acid-final-screening", "organic-acid-graph-explorer"] },
+      { id: "research-focus", label: label("专题与工具", "Focused tools"), itemIds: ["nobelChemistry", "predictionMarkets", "catalysisLiterature", "catalysis-organic-acid-final-screening", "organic-acid-graph-explorer"] },
     ],
   },
   {
@@ -640,6 +647,8 @@ export function getNavigationItem(hashOrId) {
 export function resolveTabForHash(hash) {
   const normalized = String(hash || "").replace(/^#/, "").trim() || "overview"
   if (HASH_TO_TAB[normalized]) return HASH_TO_TAB[normalized]
+  if (/^nobel-chemistry-\d{4}$/.test(normalized)) return "nobelChemistry"
+  if (/^prediction-markets-\d{4}$/.test(normalized)) return "predictionMarkets"
   if (normalized.startsWith("mof-record-")) return "mofRecord"
   if (normalized.startsWith("literature-doi-")) return "literatureRecord"
   if (normalized.startsWith("algval-")) return "algorithmValidation"
@@ -659,6 +668,7 @@ export function getScrollTargetForHash(hash) {
 
 export function getNavigationMeta(hash) {
   const normalized = String(hash || "").replace(/^#/, "").trim() || "overview"
+  if (/^nobel-chemistry-\d{4}$/.test(normalized)) return { ...NAVIGATION_ROUTE_BY_TAB.nobelChemistry.meta, title: `The Nobel Prize in Chemistry ${normalized.slice(-4)} | EcoMOF-AI` }
   if (normalized.startsWith("mof-record-")) return NAVIGATION_ROUTE_BY_TAB.mofRecord.meta
   if (normalized.startsWith("literature-doi-")) return NAVIGATION_ROUTE_BY_TAB.literatureRecord.meta
   const item = NAVIGATION_ITEM_BY_HASH[normalized]

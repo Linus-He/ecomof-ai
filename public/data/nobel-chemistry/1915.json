@@ -1,0 +1,152 @@
+{
+  "year": 1915,
+  "status": "awarded",
+  "names": [
+    "Richard Willstätter"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/176"
+  ],
+  "motivations": [
+    "for his researches on plant pigments, especially chlorophyll"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "176",
+      "name": "Richard Willstätter",
+      "image": "images/nobel/laureates/176.jpg",
+      "source": "https://www.nobelprize.org/images/willstatter-12899-portrait-medium.jpg",
+      "credit": "Photo: Camille Ruf. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1915/summary/",
+      "sha256": "be035d54f21ea32883a4ba170c52fc91d0b5640eb12dd522e10e62b41df72614"
+    }
+  ],
+  "reading": {
+    "title": "叶绿素的化学组成",
+    "summary": "叶绿素的化学组成。使关键生命色素进入可检验的结构化学研究。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "光合作用十分重要，但叶绿素难以纯化和确定组成。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "提取并分离植物色素，利用化学转化与组成分析揭示叶绿素特征。",
+        "equation": "\\Delta E=h\\nu",
+        "equationNote": "示意色素吸收光子的能量；不能替代光合作用电子传递和碳固定机理。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于植物色素分析和理解光能捕获。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使关键生命色素进入可检验的结构化学研究。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "认识叶绿素的组成之后，研究继续追问如何将吸光、电子转移与化学反应连接。人工叶片采用另一套材料体系检验这些任务。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "cambridge",
+          "name": "剑桥大学",
+          "englishName": "University of Cambridge",
+          "url": "https://www.ceb.cam.ac.uk/",
+          "logo": "images/nobel/organizations/cambridge.png",
+          "logoKind": "symbol"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "photosynthesis",
+          "heading": "人工叶片：把吸光与碳转化连接到器件",
+          "organizationIds": [
+            "cambridge"
+          ],
+          "authors": "Virgil Andrei、Yu-Hsien Chiang、Motiar Rahaman 等",
+          "paperTitle": "Modular perovskite-BiVO 4 artificial leaves towards syngas synthesis on a m 2 scale",
+          "journal": "Energy &amp; Environmental Science (2025)",
+          "published": "2025",
+          "doi": "10.1039/d4ee05780e",
+          "paperUrl": "https://doi.org/10.1039/d4ee05780e",
+          "paragraphs": [
+            "剑桥团队将钙钛矿与 BiVO₄ 光吸收体系集成到人工叶片，研究无需外接电源的合成气制备，并通过多个器件组成阵列进行户外展示。它把单个光催化单元推进到需要考虑布线、面积和气体收集的装置。",
+            "天然光合作用的色素、电子传递链与碳固定酶不等同于这套人工器件。两者可以围绕吸光、分离电荷和保存化学能作比较，但催化位点与产物路线必须分别说明。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1039/d4ee05780e"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubs.rsc.org/en/content/articlehtml/2025/ee/d4ee05780e"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的合成气下游化工和氨基化学品展示了原料气的工业用途，不意味着其工厂已采用论文中的人工叶片。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "氨基化学品及化工原料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1915/press-release/",
+      "kind": "press-release",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

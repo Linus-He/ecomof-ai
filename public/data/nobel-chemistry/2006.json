@@ -1,0 +1,157 @@
+{
+  "year": 2006,
+  "status": "awarded",
+  "names": [
+    "Roger D. Kornberg"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/806"
+  ],
+  "motivations": [
+    "for his studies of the molecular basis of eukaryotic transcription"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "806",
+      "name": "Roger D. Kornberg",
+      "image": "images/nobel/laureates/806.jpg",
+      "source": "https://www.nobelprize.org/images/kornberg-13716-portrait-medium.jpg",
+      "credit": "Photo: Stanford University",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2006/summary/",
+      "sha256": "a630743cb39d1cadb13b62493ebaca0ece9c87a07624b7d534073cbd133ae456"
+    }
+  ],
+  "reading": {
+    "title": "真核转录的分子基础",
+    "summary": "真核转录的分子基础。把生命信息传递落实为可观察的分子过程。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "遗传信息如何从 DNA 精确传到 RNA，需要看清转录装置。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "RNA 聚合酶与模板和底物形成复合物，通过选择与延伸生成 RNA。",
+        "equation": "\\mathrm{RNA_n+NTP\\rightarrow RNA_{n+1}+PP_i}",
+        "equationNote": "链延伸的简式；起始、暂停、校对及调控还涉及其他结构与因素。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基因表达、转录调控与结构生化研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把生命信息传递落实为可观察的分子过程。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "真核转录研究揭示聚合酶的分子作用；细菌转录—翻译耦合则展示另一类系统如何处理停滞，不能将两者机制直接等同。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "newcastle",
+          "name": "纽卡斯尔大学",
+          "englishName": "Newcastle University",
+          "url": "https://www.ncl.ac.uk/",
+          "logo": "images/nobel/organizations/newcastle.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.ncl.ac.uk/favicon.ico",
+          "sha256": "126e8076845466afc5fbebc3bc3b2f9a66a02c4b6f6e3375564196d516d04901"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "rna",
+          "heading": "转录与翻译还会协同清除停滞复合物",
+          "organizationIds": [
+            "newcastle"
+          ],
+          "authors": "Jason Woodgate、Hamed Mosaei、Pavel Brazda 等",
+          "paperTitle": "Translation selectively destroys non-functional transcription complexes",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-023-07014-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-07014-3",
+          "paragraphs": [
+            "纽卡斯尔大学团队研究细菌转录—翻译耦合，发现核糖体能够区分暂时暂停与受损停滞的转录复合物：前者可能继续延伸，后者则需要从 DNA 模板上移走。",
+            "这将基因表达与损伤处理联系起来，但细菌中的耦合机制不能直接代入真核转录。比较两类系统时，需要保留聚合酶种类、细胞区室和模板环境这些差别。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-07014-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-07014-3"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的转录、翻译和核酸分析试剂可用于相应实验流程；这里列的是研究工具，不是该细菌机制的治疗产品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2006/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

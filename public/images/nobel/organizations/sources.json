@@ -1,0 +1,58 @@
+[
+  {
+    "id": "berkeley",
+    "url": "https://chemistry.berkeley.edu/profiles/openberkeley/themes/openberkeley_theme_brand/assets/images/logo-berkeley-gold.svg",
+    "file": "berkeley.svg",
+    "sha256": "e26edfb8ff8828026ebc7eb8a2fe1353c9d459021c703f159dc3dbce5116fab5",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "calgary",
+    "url": "https://ucalgary.ca/themes/ucalgary/ucws_theme/images/UCalgary_Anniversary.svg",
+    "file": "calgary.svg",
+    "sha256": "685681f298448448c8b64e01a91cf3ebcaab98bfc4c12775c351ad20dbfd2592",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "cambridge",
+    "url": "https://www.ceb.cam.ac.uk/wp-content/uploads/cropped-Cam-shield-favicon-2-192x192.png",
+    "file": "cambridge.png",
+    "sha256": "d276167157ce54d4321e11660e1eb110f3d7fff499f6a9ff0cb544d1510146bf",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "buct",
+    "url": "https://english.buct.edu.cn/_upload/site/00/1f/31/logo.png",
+    "file": "buct.png",
+    "sha256": "b43d814f9b1a7e94a2187c5c12a2c7802654ac7203869f9d03846ec63ea3b328",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "basf",
+    "url": "https://www.basf.com/assets/favicons.v1/basf.svg",
+    "file": "basf.svg",
+    "sha256": "8571563d82b8628e75be39908efea7012d1ed8a85c99b384b05bc92d46b60ba4",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "svante",
+    "url": "https://www.svanteinc.com/wp-content/uploads/2022/12/favicon.svg",
+    "file": "svante.svg",
+    "sha256": "8ed7fb5415b2cdd01afec6e3a306158193a8784a4a2a82a4587628406d27743a",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "atoco",
+    "url": "https://cdn-hnicp.nitrocdn.com/KsPFrvaqlnWDChuafpXrQoiUQhYTrYbz/assets/images/optimized/rev-915ce83/atoco.com/wp-content/themes/atoco/assets/favicons/apple-touch-icon.png",
+    "file": "atoco.png",
+    "sha256": "fba9eac61613d168ce3b3962456e8562dfa730ab8c96d120dd7f2063f2520552",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "immaterial",
+    "url": "https://i0.wp.com/immaterial.com/wp-content/uploads/2022/08/cropped-Untitled-1.jpg?fit=192%2C192&ssl=1",
+    "file": "immaterial.jpg",
+    "sha256": "49e66fd6e713270b89a3acc41e277b7867a6a19b35527b104a30f59f2dddf1c1",
+    "checked": "2026-10-24"
+  }
+]

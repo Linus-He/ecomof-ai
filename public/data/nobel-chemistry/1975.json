@@ -1,0 +1,168 @@
+{
+  "year": 1975,
+  "status": "awarded",
+  "names": [
+    "John Cornforth",
+    "Vladimir Prelog"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/247",
+    "https://www.nobelprize.org/laureate/248"
+  ],
+  "motivations": [
+    "for his work on the stereochemistry of enzyme-catalyzed reactions",
+    "for his research into the stereochemistry of organic molecules and reactions"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "247",
+      "name": "John Cornforth",
+      "image": "images/nobel/laureates/247.jpg",
+      "source": "https://www.nobelprize.org/images/cornforth-13267-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1975/summary/",
+      "sha256": "e0f0b92e6ad462f306882b58a646cf651e28c0deab9ac68055c503edd1c98487"
+    },
+    {
+      "id": "248",
+      "name": "Vladimir Prelog",
+      "image": "images/nobel/laureates/248.jpg",
+      "source": "https://www.nobelprize.org/images/prelog-13268-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1975/summary/",
+      "sha256": "522f9d102f70cc82dc75dd352137ea515be73f662e24e7c279f6cb1aa96bdc2b"
+    }
+  ],
+  "reading": {
+    "title": "酶反应与有机立体化学",
+    "summary": "酶反应与有机立体化学。说明立体化学是理解反应选择性的核心证据。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "镜像与看似等价的原子，在生物反应中可能被区别对待。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "利用同位素和立体分析追踪酶选择的原子位置，并建立构型的描述方法。",
+        "equation": "ee=\\frac{n_R-n_S}{n_R+n_S}\\times100\\%",
+        "equationNote": "带符号的对映体过量教学式；R/S 是构型，不等同于旋光方向。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于酶机理、手性鉴定与不对称合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "说明立体化学是理解反应选择性的核心证据。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "酶的立体选择性来自活性位点与底物的空间配合。引入非天然硼酸基团的人工酶，把这一思路扩展到新的反应类型。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "novonesis",
+          "name": "Novonesis",
+          "englishName": "Novonesis",
+          "url": "https://www.novonesis.com/",
+          "logo": "images/nobel/organizations/novonesis.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonesis.com/favicon.ico",
+          "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "boronenzyme",
+          "heading": "把硼酸基放进蛋白质催化口袋",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Lars Longwitz、Reuben B. Leveson-Gower、Henriëtte J. Rozeboom 等",
+          "paperTitle": "Boron catalysis in a designer enzyme",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07391-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07391-3",
+          "paragraphs": [
+            "格罗宁根大学团队用扩展遗传密码，将带硼酸基团的非天然氨基酸引入蛋白，并通过定向进化改善催化效率和立体选择性。催化基团与蛋白口袋各自承担一部分化学控制。",
+            "这一实例把有机硼化学与酶工程连接起来。能催化一种新反应，是建立人工酶功能的起点；后续还要考察底物范围、稳定性和制备成本。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07391-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.rug.nl/news/2024/05/university-of-groningen-chemists-produce-new-to-nature-enzyme-containing-boron"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novonesis"
+          ],
+          "relation": "Novonesis 的工业酶产品展示生物催化的产业路径；未核实到这套含硼人工酶的商品化配方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "novonesis",
+          "role": "工业酶与生物催化",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1975/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

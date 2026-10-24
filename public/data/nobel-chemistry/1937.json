@@ -1,0 +1,233 @@
+{
+  "year": 1937,
+  "status": "awarded",
+  "names": [
+    "Norman Haworth",
+    "Paul Karrer"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/196",
+    "https://www.nobelprize.org/laureate/197"
+  ],
+  "motivations": [
+    "for his investigations on carbohydrates and vitamin C",
+    "for his investigations on carotenoids, flavins and vitamins A and B2"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "196",
+      "name": "Norman Haworth",
+      "image": "images/nobel/laureates/196.jpg",
+      "source": "https://www.nobelprize.org/images/haworth-13007-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1937/summary/",
+      "sha256": "71f1f095e4f564c62c1e74d11f1b680ae3723f47d1f41fcd7cd81e51424cb0e5"
+    },
+    {
+      "id": "197",
+      "name": "Paul Karrer",
+      "image": "images/nobel/laureates/197.jpg",
+      "source": "https://www.nobelprize.org/images/karrer-13008-portrait-medium.jpg",
+      "credit": "Photo: Atelier Schmelhaus, Zurich. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1937/summary/",
+      "sha256": "9b4eec2df0e914e9db511ce5d9bdaefb10d387029561edb2264fcfb4a7f5dfaa"
+    }
+  ],
+  "reading": {
+    "title": "糖、维生素 C 与其他维生素",
+    "summary": "糖、维生素 C 与其他维生素。把生理效应与明确结构、官能团和化学转化联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "维生素功能已知，但结构与可重复制备仍待解决。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "借助结构鉴定和合成，明确糖、抗坏血酸、类胡萝卜素及核黄素等关系。",
+        "equation": "\\mathrm{C_6H_8O_6\\rightleftharpoons C_6H_6O_6+2H^++2e^-}",
+        "equationNote": "抗坏血酸氧化还原的简式；酸碱形式随 pH 变化，不覆盖其他维生素机理。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于营养因子分析与维生素合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把生理效应与明确结构、官能团和化学转化联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "糖与维生素的合成至今仍需要处理立体选择性。自动化糖化学和维生素酶结构研究分别从制备与机理推进这一问题。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        },
+        {
+          "id": "slu",
+          "name": "圣路易斯大学",
+          "englishName": "Saint Louis University",
+          "url": "https://www.slu.edu/",
+          "logo": "images/nobel/organizations/slu.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+          "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "vitamin",
+          "heading": "维生素 C 的最后一步为什么存在不同酶路线",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Alessandro Boverio、Neelam Jamil、Barbara Mannucci 等",
+          "paperTitle": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48410-1",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48410-1",
+          "paragraphs": [
+            "格罗宁根大学与帕维亚大学研究维生素 C 生物合成末步的黄素酶，结合结构、动力学、突变和祖先序列重建，解释不同生物中的底物偏好与电子受体差别。",
+            "酶活性口袋中的少数侧链可以改变立体选择性；与黄素相邻的位点则影响酶使用氧还是其他受体。结构上的局部改变，因此能落到可测的产物与反应速度上。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48410-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48410-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
+        },
+        {
+          "id": "sugars",
+          "heading": "糖化学的自动化：合成之后还要完成纯化",
+          "organizationIds": [
+            "slu"
+          ],
+          "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+          "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+          "journal": "Chemistry – A European Journal (2024)",
+          "published": "2024",
+          "doi": "10.1002/chem.202401214",
+          "paperUrl": "https://doi.org/10.1002/chem.202401214",
+          "paragraphs": [
+            "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+            "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/chem.202401214"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1937/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

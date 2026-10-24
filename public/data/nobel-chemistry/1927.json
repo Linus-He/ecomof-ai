@@ -1,0 +1,156 @@
+{
+  "year": 1927,
+  "status": "awarded",
+  "names": [
+    "Heinrich Wieland"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/184"
+  ],
+  "motivations": [
+    "for his investigations of the constitution of the bile acids and related substances"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "184",
+      "name": "Heinrich Wieland",
+      "image": "images/nobel/laureates/184.jpg",
+      "source": "https://www.nobelprize.org/images/wieland-12950-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1927/summary/",
+      "sha256": "4a33f74637384be617bb26cf6511022024821f8c0e88f3e5c70b2530bd9ff60b"
+    }
+  ],
+  "reading": {
+    "title": "胆汁酸的结构",
+    "summary": "胆汁酸的结构。揭示生理活性天然物质的具体化学身份。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "胆汁的生理作用已知，但复杂胆汁酸的化学骨架尚待确定。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过降解、衍生物和结构关系识别胆汁酸与相关甾体的联系。",
+        "equation": "\\mathrm{RCOOH\\rightleftharpoons RCOO^-+H^+}",
+        "equationNote": "示意羧酸官能团的酸碱行为；并不是胆汁酸骨架的合成路线。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于甾体结构、消化相关分子与天然产物研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "揭示生理活性天然物质的具体化学身份。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "胆汁酸主结构被厘清之后，研究转向肠道微生物怎样进一步修饰它，以及不同修饰形式为何需要分别检测。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "msu",
+          "name": "密歇根州立大学",
+          "englishName": "Michigan State University",
+          "url": "https://brand.msu.edu/",
+          "logo": "images/nobel/organizations/msu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://brand.msu.edu/favicon.ico?favicon.2-x85vtqgh2hy.ico",
+          "sha256": "fec68c4d71e3cdcb6278a12f97dcaea1b9a6aee8c74ff993c807e04707f8c178"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "steroid",
+          "heading": "胆汁酸研究从主结构走向微生物修饰",
+          "organizationIds": [
+            "msu"
+          ],
+          "authors": "Douglas V. Guzior、Maxwell Okros、Madison Shivel 等",
+          "paperTitle": "Bile salt hydrolase acyltransferase activity expands bile acid diversity",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07017-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07017-8",
+          "paragraphs": [
+            "密歇根州立大学团队发现，胆盐水解酶还具有酰基转移活性，可将氨基酸连接到胆汁酸上，从而扩展肠道中胆汁酸的化学多样性。不同菌株对氨基酸的使用也存在差异。",
+            "认识甾体骨架之后，还必须区分它的具体修饰形式。相同母核上的连接基团可能改变溶解性、代谢和信号作用；研究不能将所有胆汁酸只合并成一个总量指标。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07017-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38326608/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的胆汁酸、脂质和代谢物试剂用于标准品比对与机理实验；这里不把试剂供应写成论文机制的临床应用。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1927/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,157 @@
+{
+  "year": 1960,
+  "status": "awarded",
+  "names": [
+    "Willard F. Libby"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/224"
+  ],
+  "motivations": [
+    "for his method to use carbon-14 for age determination in archaeology, geology, geophysics, and other branches of science"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "224",
+      "name": "Willard F. Libby",
+      "image": "images/nobel/laureates/224.jpg",
+      "source": "https://www.nobelprize.org/images/libby-13139-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1960/summary/",
+      "sha256": "fb81358cb0918259e09a29f08e840e78c7ce8561b51d7c1496dce2869600d5a9"
+    }
+  ],
+  "reading": {
+    "title": "碳十四测年",
+    "summary": "碳十四测年。把核衰变转化为跨学科的定量年代工具。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "有机遗存的年代需要与物质本身关联的时钟。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "生物停止交换碳后，碳十四衰变使含量下降，以残留比例估算时间。",
+        "equation": "t=\\frac{1}{\\lambda}\\ln\\frac{N_0}{N}",
+        "equationNote": "N0 为初始含量估计；测年需校准环境碳变化、污染和样品适用性。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于考古、地质和有机遗存年代研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把核衰变转化为跨学科的定量年代工具。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "碳十四的衰变提供测年基础，年轮与大气同位素异常信号则提供额外约束，使具体样品的年代可以被更精细地校准。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bern",
+          "name": "伯尔尼大学",
+          "englishName": "University of Bern",
+          "url": "https://www.unibe.ch/index_eng.html",
+          "logo": "images/nobel/organizations/bern.svg",
+          "logoKind": "symbol",
+          "assetSource": "https://www.unibe.ch/favicon.svg",
+          "sha256": "51eefb75911942003c249acba61fcf8757b61e5879d6b31341c2ba5eb6f2d09f"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "carbondate",
+          "heading": "把碳十四突变信号与年轮顺序对齐",
+          "organizationIds": [
+            "bern"
+          ],
+          "authors": "Andrej Maczkowski、Charlotte Pearson、John Francuz 等",
+          "paperTitle": "Absolute dating of the European Neolithic using the 5259 BC rapid 14C excursion",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48402-1",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48402-1",
+          "paragraphs": [
+            "伯尔尼大学及合作者将树木年轮序列与碳十四异常信号结合，为史前木材建立更精细的年代锚点。测量不只依靠单个样品的放射性，还利用连续年轮之间的已知先后关系。",
+            "碳十四测年需要校准大气中同位素丰度的变化，也要控制样品污染。识别异常信号、确定年轮位置和给出日历年代是相互关联但各需证据的步骤。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48402-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48402-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的同位素分析业务展示相关测量技术的产业基础；其常规质谱产品不能直接替代论文采用的加速器质谱系统。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1960/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

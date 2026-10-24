@@ -1,0 +1,156 @@
+{
+  "year": 1958,
+  "status": "awarded",
+  "names": [
+    "Frederick Sanger"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/222"
+  ],
+  "motivations": [
+    "for his work on the structure of proteins, especially that of insulin"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "222",
+      "name": "Frederick Sanger",
+      "image": "images/nobel/laureates/222.jpg",
+      "source": "https://www.nobelprize.org/images/sanger-13123-portrait-medium.jpg",
+      "credit": "NobelPrize.org",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1958/summary/",
+      "sha256": "34acc2202358d1192d9ca1ddbb62a6e437844326d4b814f59c84ae6826d9aaf6"
+    }
+  ],
+  "reading": {
+    "title": "胰岛素的氨基酸序列",
+    "summary": "胰岛素的氨基酸序列。证明蛋白质具有可确定的化学序列。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "蛋白质是否有确定序列，而非随机组成，需要化学证明。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "切割肽链并鉴定重叠片段，拼接出胰岛素的氨基酸排列。",
+        "equation": "\\mathrm{peptide+H_2O\\rightarrow shorter\\ peptides}",
+        "equationNote": "酶解或水解的概念式；序列确定还需片段鉴定和重叠关系。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于蛋白序列、结构与功能研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "证明蛋白质具有可确定的化学序列。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "胰岛素序列的确定让分子结构可以被系统修改。葡萄糖响应设计进一步检验，怎样通过结构连接使激素活性随环境改变。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bristol",
+          "name": "布里斯托大学",
+          "englishName": "University of Bristol",
+          "url": "https://www.bristol.ac.uk/",
+          "logo": "images/nobel/organizations/bristol.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bristol.ac.uk/assets/responsive-web-project/2.7.5/favicons/apple-touch-icon.png",
+          "sha256": "9ffc77b56784dcd0c64df1219272454bdebbfacf82aafa85cda3b499cfde3b9a"
+        },
+        {
+          "id": "novo",
+          "name": "诺和诺德",
+          "englishName": "Novo Nordisk",
+          "url": "https://www.novonordisk.com/",
+          "logo": "images/nobel/organizations/novo.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonordisk.com/etc.clientlibs/nncorp/components/structure/page/clientlib/resources/favicon-v2.ico",
+          "sha256": "acfd54d8ab0a64557c0ab7b2e534c169b729da35d2923ec5f32d321772351891"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "insulin",
+          "heading": "胰岛素开始被设计成对葡萄糖浓度作出响应",
+          "organizationIds": [
+            "bristol"
+          ],
+          "authors": "Thomas Hoeg-Jensen、Thomas Kruse、Christian L. Brand 等",
+          "paperTitle": "Glucose-sensitive insulin with attenuation of hypoglycaemia",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-08042-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08042-3",
+          "paragraphs": [
+            "布里斯托大学与诺和诺德等合作者研究 NNC2215：将葡萄糖识别单元与胰岛素构建连接，使其活性随葡萄糖水平发生可逆改变。论文通过体外和动物实验检验这一分子开关。",
+            "这一工作延续了序列、构象与激素活性的关系，同时增加对环境信号的响应设计。论文中的实验性胰岛素不能与常规临床胰岛素产品混同，也不能据此推断人体治疗结果。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08042-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.bristol.ac.uk/chemistry/news/2024/gluhut.html"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novo"
+          ],
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "novo",
+          "role": "胰岛素研究与产品",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1958/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

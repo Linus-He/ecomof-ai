@@ -1,0 +1,181 @@
+{
+  "year": 2008,
+  "status": "awarded",
+  "names": [
+    "Osamu Shimomura",
+    "Martin Chalfie",
+    "Roger Y. Tsien"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/829",
+    "https://www.nobelprize.org/laureate/830",
+    "https://www.nobelprize.org/laureate/831"
+  ],
+  "motivations": [
+    "for the discovery and development of the green fluorescent protein, GFP",
+    "for the discovery and development of the green fluorescent protein, GFP",
+    "for the discovery and development of the green fluorescent protein, GFP"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "829",
+      "name": "Osamu Shimomura",
+      "image": "images/nobel/laureates/829.jpg",
+      "source": "https://www.nobelprize.org/images/shimomura-13557-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "3ff900ba9c39262ab3184680c4af13d4212a5ea7ce8a718d65a6edd89834636b"
+    },
+    {
+      "id": "830",
+      "name": "Martin Chalfie",
+      "image": "images/nobel/laureates/830.jpg",
+      "source": "https://www.nobelprize.org/images/chalfie-13556-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "5424b57a4e950e162884a0c007f9c66c876910c951bd2766784814e6bdd448b9"
+    },
+    {
+      "id": "831",
+      "name": "Roger Y. Tsien",
+      "image": "images/nobel/laureates/831.jpg",
+      "source": "https://www.nobelprize.org/images/tsien-13558-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "16a101e8dcf6a16b067b76b5d80e2712c8bc62aa0a361748a08c17b90e66c25a"
+    }
+  ],
+  "reading": {
+    "title": "绿色荧光蛋白",
+    "summary": "绿色荧光蛋白。使生命过程能够以分子特异性光信号持续观察。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "如何在活细胞中追踪特定蛋白，而不是只观察固定样品？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "把 GFP 与目标关联，利用蛋白内部形成的发色团发光，观测位置与动态。",
+        "equation": "\\mathrm{GFP+h\\nu_{ex}\\rightarrow GFP^*\\rightarrow GFP+h\\nu_{em}}",
+        "equationNote": "荧光过程示意；发色团成熟、氧和局部环境会影响信号，GFP 不需外加发光底物。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于活细胞标记、蛋白定位和相互作用研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使生命过程能够以分子特异性光信号持续观察。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "荧光蛋白提供可追踪的细胞标记。低光照成像与计算重建继续解决怎样在少扰动样品的条件下获得可信结构信息。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        },
+        {
+          "id": "tsinghua",
+          "name": "清华大学",
+          "englishName": "Tsinghua University",
+          "url": "https://www.tsinghua.edu.cn/",
+          "logo": "images/nobel/organizations/tsinghua.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.tsinghua.edu.cn/favicon.ico",
+          "sha256": "44983bc3ed23e86996e1fcabce6a70426cdc6e2c73627fb2e818afca55d38479"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "imaging",
+          "heading": "超分辨图像的可信度也取决于处理流程",
+          "organizationIds": [
+            "tsinghua"
+          ],
+          "authors": "Chang Qiao、Yunmin Zeng、Quan Meng 等",
+          "paperTitle": "Zero-shot learning enables instant denoising and super-resolution in optical fluorescence microscopy",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48575-9",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48575-9",
+          "paragraphs": [
+            "清华大学团队提出不依赖成对真值训练数据的 ZS-DeconvNet，将去噪和反卷积用于多类荧光显微成像。研究关注低光照和活细胞条件下，分辨率、噪声与样品负担如何权衡。",
+            "计算处理可以改善可辨细节，但图像更锐利不自动代表出现了真实结构。需要结合成像物理、独立验证和不同样品测试，检查处理是否改变信号形态或弱结构。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48575-9"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://media.au.tsinghua.edu.cn/info/1016/1398.htm"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的细胞成像及荧光标记产品是应用工具示例；没有将该处理方法写成其显微镜默认具备的功能。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2008/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

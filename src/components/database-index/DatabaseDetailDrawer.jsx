@@ -262,7 +262,6 @@ export function DatabaseDetailDrawer({ request, curationRecords = null, evidence
         <Row label="sourceDoi" value={record.sourceDoi} fallback={dbFallback(lang)} lang={lang} t={t} />
         <Row label="citation" value={record.citation} fallback={dbFallback(lang)} lang={lang} t={t} />
         <Row label="license" value={record.license} fallback={dbFallback(lang)} lang={lang} t={t} />
-        <Row label="retrievedAt" value={record.retrievedAt} fallback={text(lang, "不可用", "Not available")} lang={lang} t={t} />
         <Row label="dataQualityGate" value={dataQualityGate.status || record.dataQualityStatus} lang={lang} t={t} />
         <Row label="dataStatus" value={record.dataStatus?.label || record.dataStatus?.level || record.dataQualityStatus} lang={lang} t={t} />
       </div>

@@ -1,0 +1,156 @@
+{
+  "year": 1902,
+  "status": "awarded",
+  "names": [
+    "Emil Fischer"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/161"
+  ],
+  "motivations": [
+    "in recognition of the extraordinary services he has rendered by his work on sugar and purine syntheses"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "161",
+      "name": "Emil Fischer",
+      "image": "images/nobel/laureates/161.jpg",
+      "source": "https://www.nobelprize.org/images/fischer-13541-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1902/summary/",
+      "sha256": "e51eedf77492acf7b83f46bbf6305ef0df41039e9048fa595e6ef8a47c96eefb"
+    }
+  ],
+  "reading": {
+    "title": "糖与嘌呤的结构和合成",
+    "summary": "糖与嘌呤的结构和合成。建立以化学转化验证复杂天然分子结构的路径。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "糖的组成相近，却有不同反应性与空间排列，结构鉴定困难。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过衍生化、降解与重新合成比对结构；糖的手性配置决定不同异构体。",
+        "equation": "\\mathrm{RCHO+2[H]\\rightarrow RCH_2OH}",
+        "equationNote": "醛基还原为醇的功能团示意；不是全部糖合成路线，也不解释嘌呤反应。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于糖结构鉴定、核苷与相关有机分子合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "建立以化学转化验证复杂天然分子结构的路径。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "糖的构型与连接位置至今仍是合成难点。自动化平台把当年的结构问题转化为逐步构建、监测和纯化的流程。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "slu",
+          "name": "圣路易斯大学",
+          "englishName": "Saint Louis University",
+          "url": "https://www.slu.edu/",
+          "logo": "images/nobel/organizations/slu.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+          "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "sugars",
+          "heading": "糖化学的自动化：合成之后还要完成纯化",
+          "organizationIds": [
+            "slu"
+          ],
+          "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+          "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+          "journal": "Chemistry – A European Journal (2024)",
+          "published": "2024",
+          "doi": "10.1002/chem.202401214",
+          "paperUrl": "https://doi.org/10.1002/chem.202401214",
+          "paragraphs": [
+            "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+            "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/chem.202401214"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1902/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

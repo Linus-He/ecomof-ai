@@ -18,7 +18,6 @@ export function GasRecordSourcePanel({ record, lang = "en", t }) {
     ["doi", provenance.doi || "pending"],
     ["sourceUrl", provenance.sourceUrl || "pending"],
     ["license", provenance.license],
-    ["retrievedAt", provenance.retrievedAt],
     ["curationStatus", record.curationStatus],
     ["dataType", dataTypeLabel(record.dataType, lang)],
     ["evidenceLevel", evidenceLabel(record.evidenceLevel, lang)],

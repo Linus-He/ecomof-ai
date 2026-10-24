@@ -1,0 +1,192 @@
+[
+  {
+    "id": "caltech",
+    "name": "加州理工学院",
+    "englishName": "California Institute of Technology",
+    "url": "https://www.caltech.edu/",
+    "logo": "images/nobel/organizations/caltech.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+    "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01"
+  },
+  {
+    "id": "cambridge",
+    "name": "剑桥大学",
+    "englishName": "University of Cambridge",
+    "url": "https://www.ceb.cam.ac.uk/",
+    "logo": "images/nobel/organizations/cambridge.png",
+    "logoKind": "symbol"
+  },
+  {
+    "id": "cmu",
+    "name": "卡内基梅隆大学",
+    "englishName": "Carnegie Mellon University",
+    "url": "https://www.cmu.edu/",
+    "logo": "images/nobel/organizations/cmu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.cmu.edu/themes/custom/cmu_base/favicon.ico",
+    "sha256": "07e720a8d3afd981be56fb76aa146bd2b31c840765e81f89a8ccb7af93456d2a"
+  },
+  {
+    "id": "collegefrance",
+    "name": "法兰西公学院",
+    "englishName": "Collège de France",
+    "url": "https://www.college-de-france.fr/en",
+    "logo": "images/nobel/organizations/collegefrance.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.college-de-france.fr/themes/custom/cdf_theme/dist/images/favicons/apple-touch-icon.png",
+    "sha256": "e28302296f322f66ffaefb1b35a58c01f80a7f89587ff6aaec61d6bd69e4982e"
+  },
+  {
+    "id": "dicp",
+    "name": "中科院大连化学物理研究所",
+    "englishName": "Dalian Institute of Chemical Physics, CAS",
+    "url": "https://www.dicp.ac.cn/",
+    "logo": "images/nobel/organizations/dicp.png",
+    "logoKind": "symbol",
+    "assetSource": "https://dicp.cas.cn/images/ico_dicp.png",
+    "sha256": "5d24dff394a8b1bb65f43dd7f7430d6a6786a68d91a86ba4c6f49b25edb8c3a7"
+  },
+  {
+    "id": "dtu",
+    "name": "丹麦技术大学",
+    "englishName": "Technical University of Denmark",
+    "url": "https://www.dtu.dk/english/",
+    "logo": "images/nobel/organizations/dtu.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.dtu.dk/favicon.ico",
+    "sha256": "902a5e7e2f6781b042bc4ddb75dbfb9859f1c269b38005f7cd9154ae3c1df475"
+  },
+  {
+    "id": "epfl",
+    "name": "洛桑联邦理工学院",
+    "englishName": "EPFL",
+    "url": "https://www.epfl.ch/en/",
+    "logo": "images/nobel/organizations/epfl.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.epfl.ch/wp-content/themes/wp-theme-2018/assets/favicons/favicon-180.png",
+    "sha256": "7e23b3c769ab60f8723daca54ca6970db2c2fb1426a0f84f505d03499be7244f"
+  },
+  {
+    "id": "harvard",
+    "name": "哈佛大学",
+    "englishName": "Harvard University",
+    "url": "https://www.harvard.edu/",
+    "logo": "images/nobel/organizations/harvard.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180",
+    "sha256": "5053428ee2bbeccd2cf9b96bd380d2f057d75656a9dfcb89b1a91666d30d426a"
+  },
+  {
+    "id": "iit",
+    "name": "意大利技术研究院",
+    "englishName": "Italian Institute of Technology",
+    "url": "https://www.iit.it/",
+    "logo": "images/nobel/organizations/iit.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.iit.it&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "51e58ee300fc2be5912fab2e30c2d1da97fbbbea48ec3bc905d4055417fd1a3a"
+  },
+  {
+    "id": "mit",
+    "name": "麻省理工学院",
+    "englishName": "Massachusetts Institute of Technology",
+    "url": "https://www.mit.edu/",
+    "logo": "images/nobel/organizations/mit.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.mit.edu/themes/mit/assets/favicon/apple-touch-icon.png",
+    "sha256": "410ac5b7186d50ca8259742ac3f3778f3ddc750d76598232b061cc71efb086bf"
+  },
+  {
+    "id": "nist",
+    "name": "美国国家标准与技术研究院",
+    "englishName": "National Institute of Standards and Technology",
+    "url": "https://www.nist.gov/",
+    "logo": "images/nobel/organizations/nist.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.nist.gov/themes/custom/nist_www/favicon.ico",
+    "sha256": "78eacb1a528cb29d29a908dec235826144799489ac4101848bb0686e38558655"
+  },
+  {
+    "id": "oxford",
+    "name": "牛津大学",
+    "englishName": "University of Oxford",
+    "url": "https://www.ox.ac.uk/",
+    "logo": "images/nobel/organizations/oxford.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.google.com/s2/favicons?domain=www.ox.ac.uk&sz=128",
+    "assetType": "website favicon served by Google favicon cache",
+    "sha256": "280a2450edb5f8449f7cba92aa6cbd7e8d2f778f152f897464dd47da80158f0f"
+  },
+  {
+    "id": "princeton",
+    "name": "普林斯顿大学",
+    "englishName": "Princeton University",
+    "url": "https://www.princeton.edu/",
+    "logo": "images/nobel/organizations/princeton.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://www.princeton.edu/favicon.ico",
+    "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+  },
+  {
+    "id": "psu",
+    "name": "宾夕法尼亚州立大学",
+    "englishName": "Pennsylvania State University",
+    "url": "https://www.psu.edu/",
+    "logo": "images/nobel/organizations/psu.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.psu.edu/favicon.ico?favicon.17szk1izblhmq.ico",
+    "sha256": "f228d6a88c42d8b16f9138a3134e9eb1f3887896e39ef91687f0f44fed62497b"
+  },
+  {
+    "id": "scripps",
+    "name": "斯克里普斯研究所",
+    "englishName": "Scripps Research",
+    "url": "https://magazine.scripps.edu/",
+    "logo": "images/nobel/organizations/scripps.ico",
+    "logoKind": "symbol",
+    "assetSource": "https://magazine.scripps.edu/favicon.ico",
+    "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08"
+  },
+  {
+    "id": "stanford",
+    "name": "斯坦福大学",
+    "englishName": "Stanford University",
+    "url": "https://www.stanford.edu/",
+    "logo": "images/nobel/organizations/stanford.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+    "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+  },
+  {
+    "id": "ubc",
+    "name": "不列颠哥伦比亚大学",
+    "englishName": "University of British Columbia",
+    "url": "https://www.ubc.ca/",
+    "logo": "images/nobel/organizations/ubc.png",
+    "logoKind": "symbol",
+    "assetSource": "https://cdn.ubc.ca/clf/7.0.5/img/touch-icon-iphone-retina.png",
+    "sha256": "1d94f8a7bd5985e88bd3c869d9a28662698c67f641c84be449c47f56521005ea"
+  },
+  {
+    "id": "utokyo",
+    "name": "东京大学",
+    "englishName": "The University of Tokyo",
+    "url": "https://www.u-tokyo.ac.jp/en/",
+    "logo": "images/nobel/organizations/utokyo.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.u-tokyo.ac.jp/content/400130668.png",
+    "sha256": "4d84bac34e948d5666ab269ceddb29ca706cb30a472838ee5a15c2f95cffa247"
+  },
+  {
+    "id": "yale",
+    "name": "耶鲁大学",
+    "englishName": "Yale University",
+    "url": "https://www.yale.edu/",
+    "logo": "images/nobel/organizations/yale.png",
+    "logoKind": "symbol",
+    "assetSource": "https://www.yale.edu/sites/all/themes/yale_blue/images/favicons/apple-touch-icon-180x180.png",
+    "sha256": "74c08ab23865d84dbbb78786546116b4f329ef9f57606566e7c374984707f4f4"
+  }
+]

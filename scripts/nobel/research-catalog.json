@@ -1,0 +1,2044 @@
+{
+  "organizations": [
+    {
+      "id": "aarhus",
+      "name": "奥胡斯大学",
+      "englishName": "Aarhus University",
+      "url": "https://www.au.dk/en/",
+      "logo": "images/nobel/organizations/aarhus.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://cdn.au.dk/favicon.ico",
+      "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+    },
+    {
+      "id": "arvinas",
+      "name": "Arvinas",
+      "englishName": "Arvinas",
+      "url": "https://www.arvinas.com/",
+      "logo": "images/nobel/organizations/arvinas.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=www.arvinas.com&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "eb7c3acb2519f38e400ce6e03cc8d61681e22d0497e816aa3f7ef406b480131c"
+    },
+    {
+      "id": "basf",
+      "name": "BASF",
+      "englishName": "BASF",
+      "url": "https://www.basf.com/",
+      "logo": "images/nobel/organizations/basf.svg",
+      "logoKind": "symbol"
+    },
+    {
+      "id": "beckman",
+      "name": "Beckman Coulter Life Sciences",
+      "englishName": "Beckman Coulter Life Sciences",
+      "url": "https://www.beckman.com/",
+      "logo": "images/nobel/organizations/beckman.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.beckman.com/favicon.ico",
+      "sha256": "c2ea6cae8c50a638ecc339fa3abeb998bb406c61f97f220642151816466a9bac"
+    },
+    {
+      "id": "berkeley",
+      "name": "加州大学伯克利分校",
+      "englishName": "University of California, Berkeley",
+      "url": "https://chemistry.berkeley.edu/",
+      "logo": "images/nobel/organizations/berkeley.svg",
+      "logoKind": "wordmark"
+    },
+    {
+      "id": "bern",
+      "name": "伯尔尼大学",
+      "englishName": "University of Bern",
+      "url": "https://www.unibe.ch/index_eng.html",
+      "logo": "images/nobel/organizations/bern.svg",
+      "logoKind": "symbol",
+      "assetSource": "https://www.unibe.ch/favicon.svg",
+      "sha256": "51eefb75911942003c249acba61fcf8757b61e5879d6b31341c2ba5eb6f2d09f"
+    },
+    {
+      "id": "bristol",
+      "name": "布里斯托大学",
+      "englishName": "University of Bristol",
+      "url": "https://www.bristol.ac.uk/",
+      "logo": "images/nobel/organizations/bristol.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.bristol.ac.uk/assets/responsive-web-project/2.7.5/favicons/apple-touch-icon.png",
+      "sha256": "9ffc77b56784dcd0c64df1219272454bdebbfacf82aafa85cda3b499cfde3b9a"
+    },
+    {
+      "id": "bruker",
+      "name": "Bruker",
+      "englishName": "Bruker",
+      "url": "https://www.bruker.com/",
+      "logo": "images/nobel/organizations/bruker.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+      "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+    },
+    {
+      "id": "caltech",
+      "name": "加州理工学院",
+      "englishName": "California Institute of Technology",
+      "url": "https://www.caltech.edu/",
+      "logo": "images/nobel/organizations/caltech.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+      "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01"
+    },
+    {
+      "id": "cambridge",
+      "name": "剑桥大学",
+      "englishName": "University of Cambridge",
+      "url": "https://www.ceb.cam.ac.uk/",
+      "logo": "images/nobel/organizations/cambridge.png",
+      "logoKind": "symbol"
+    },
+    {
+      "id": "catl",
+      "name": "宁德时代",
+      "englishName": "CATL",
+      "url": "https://www.catl.com/",
+      "logo": "images/nobel/organizations/catl.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.catl.com/favicon.ico",
+      "sha256": "5391100e6de4db5323f4d985996cf6b812126a074dff269e7b26ad66690d0b62"
+    },
+    {
+      "id": "chemours",
+      "name": "Chemours",
+      "englishName": "Chemours",
+      "url": "https://www.opteon.com/en/",
+      "logo": "images/nobel/organizations/chemours.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.opteon.com/html/assets/img/brand/favicon-opteon.ico",
+      "sha256": "1259c4a4ad1af5c4a5f630e09495e620e084c0be4b1c51a0a7cdb6eac1df2921"
+    },
+    {
+      "id": "columbia",
+      "name": "哥伦比亚大学",
+      "englishName": "Columbia University",
+      "url": "https://www.columbia.edu/",
+      "logo": "images/nobel/organizations/columbia.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=www.columbia.edu&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "87e7afa525e266f41873918972330598409e0cbabe2d2a58dd4f187aeea83a91"
+    },
+    {
+      "id": "cuhk",
+      "name": "香港中文大学",
+      "englishName": "The Chinese University of Hong Kong",
+      "url": "https://www.cuhk.edu.hk/english/",
+      "logo": "images/nobel/organizations/cuhk.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.cuhk.edu.hk/english/images/fav-icons/apple-touch-icon.png",
+      "sha256": "237924e88c064255b10c46e1a2a2a883eab83dc7a83172d1bb04b46e4fb2a070"
+    },
+    {
+      "id": "cytiva",
+      "name": "Cytiva",
+      "englishName": "Cytiva",
+      "url": "https://www.cytivalifesciences.com/",
+      "logo": "images/nobel/organizations/cytiva.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.cytivalifesciences.com/shared/favicon.ico?v=ps-app-shell-v1.20.3-PROD",
+      "sha256": "8b0b6d92d58cd4d5d1eed26db059a55354bf0a3146986921b32924f69bd4bcfa"
+    },
+    {
+      "id": "dsm",
+      "name": "帝斯曼–芬美意",
+      "englishName": "dsm-firmenich",
+      "url": "https://www.dsm-firmenich.com/",
+      "logo": "images/nobel/organizations/dsm.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+      "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+    },
+    {
+      "id": "dundee",
+      "name": "邓迪大学",
+      "englishName": "University of Dundee",
+      "url": "https://www.dundee.ac.uk/",
+      "logo": "images/nobel/organizations/dundee.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=www.dundee.ac.uk&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "0beb120ac481edf11c1a3d3ad845b2e708d04cda438bb2032eee5beb672c18c1"
+    },
+    {
+      "id": "fjnu",
+      "name": "福建师范大学",
+      "englishName": "Fujian Normal University",
+      "url": "https://www.fjnu.edu.cn/",
+      "logo": "images/nobel/organizations/fjnu.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.fjnu.edu.cn/_upload/tpl/07/ed/2029/template2029/images/shida.ico",
+      "sha256": "093c3fd0a9aee84dfd70a85ccd04d8d216dd0ebb965cb10fe321439d561b3837"
+    },
+    {
+      "id": "gothenburg",
+      "name": "哥德堡大学",
+      "englishName": "University of Gothenburg",
+      "url": "https://www.gu.se/en",
+      "logo": "images/nobel/organizations/gothenburg.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.gu.se/themes/custom/gu_theme_ruby/dist/images/favicons/apple-touch-icon.png",
+      "sha256": "1fe421dd8370e44188d92dbb3f6fa2240e1d5da0f0d7bad915aaec3e50e5fafc"
+    },
+    {
+      "id": "greenwich",
+      "name": "格林尼治大学",
+      "englishName": "University of Greenwich",
+      "url": "https://www.gre.ac.uk/",
+      "logo": "images/nobel/organizations/greenwich.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.gre.ac.uk/__data/assets/image/0024/208914/varieties/v180.png",
+      "sha256": "7e9387c52f9247caf3e5d4bcec3bac0b891b370b76afdb23e2865b0627c541d4"
+    },
+    {
+      "id": "harvard",
+      "name": "哈佛大学",
+      "englishName": "Harvard University",
+      "url": "https://www.harvard.edu/",
+      "logo": "images/nobel/organizations/harvard.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180",
+      "sha256": "5053428ee2bbeccd2cf9b96bd380d2f057d75656a9dfcb89b1a91666d30d426a"
+    },
+    {
+      "id": "henu",
+      "name": "河南大学",
+      "englishName": "Henan University",
+      "url": "https://www.henu.edu.cn/",
+      "logo": "images/nobel/organizations/henu.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.henu.edu.cn/favicon.ico",
+      "sha256": "1058c6b9b1e8093c544b3431aaa0667a169d3638fbbdd16a828d7a4fb3dfe4dd"
+    },
+    {
+      "id": "hunan",
+      "name": "湖南大学",
+      "englishName": "Hunan University",
+      "url": "https://www.hnu.edu.cn/",
+      "logo": "images/nobel/organizations/hunan.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.hnu.edu.cn/images/favicon.png",
+      "sha256": "f1adb4058335beb13f70e1d555acd0a05d8b89d947805592ff2b096f7ba9cace"
+    },
+    {
+      "id": "imperial",
+      "name": "帝国理工学院",
+      "englishName": "Imperial College London",
+      "url": "https://www.imperial.ac.uk/",
+      "logo": "images/nobel/organizations/imperial.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.imperial.ac.uk/assets/website/images/favicon/favicon-180.png",
+      "sha256": "ce653020d06485f61ed63320108b80996709a6195bb6af5c2e12975f18fd5fa4"
+    },
+    {
+      "id": "kyoto",
+      "name": "京都大学",
+      "englishName": "Kyoto University",
+      "url": "https://www.kyoto-u.ac.jp/en",
+      "logo": "images/nobel/organizations/kyoto.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.kyoto-u.ac.jp/themes/custom/camphor/images/apple-touch-icon.png",
+      "sha256": "64041b05bc15bee28659fc5e0ed0cf29f89335752166d92e41d6b9d4303d25b9"
+    },
+    {
+      "id": "lethbridge",
+      "name": "莱斯布里奇大学",
+      "englishName": "University of Lethbridge",
+      "url": "https://www.ulethbridge.ca/",
+      "logo": "images/nobel/organizations/lethbridge.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.ulethbridge.ca/themes/custom/novalux/images/icons/apple-touch-icon.png",
+      "sha256": "652074e07fb0ddd174698ae809fe5673f2001ebd7d80e53613514d58e240d333"
+    },
+    {
+      "id": "lmu",
+      "name": "慕尼黑大学",
+      "englishName": "Ludwig-Maximilians-Universität München",
+      "url": "https://www.lmu.de/en/",
+      "logo": "images/nobel/organizations/lmu.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://cms-cdn.lmu.de/assets/img/favicon.ico",
+      "sha256": "0545fa3d831838e0049ca03dde3f36b8904f500d2963f34dcd54fc2d2fdd5497"
+    },
+    {
+      "id": "manchester",
+      "name": "曼彻斯特大学",
+      "englishName": "The University of Manchester",
+      "url": "https://www.manchester.ac.uk/",
+      "logo": "images/nobel/organizations/manchester.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+      "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+    },
+    {
+      "id": "merck",
+      "name": "Merck · Sigma-Aldrich",
+      "englishName": "Merck · Sigma-Aldrich",
+      "url": "https://www.sigmaaldrich.com/",
+      "logo": "images/nobel/organizations/merck.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+      "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+    },
+    {
+      "id": "msu",
+      "name": "密歇根州立大学",
+      "englishName": "Michigan State University",
+      "url": "https://brand.msu.edu/",
+      "logo": "images/nobel/organizations/msu.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://brand.msu.edu/favicon.ico?favicon.2-x85vtqgh2hy.ico",
+      "sha256": "fec68c4d71e3cdcb6278a12f97dcaea1b9a6aee8c74ff993c807e04707f8c178"
+    },
+    {
+      "id": "nankai",
+      "name": "南开大学",
+      "englishName": "Nankai University",
+      "url": "https://www.nankai.edu.cn/",
+      "logo": "images/nobel/organizations/nankai.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=www.nankai.edu.cn&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "7fb3a64e49919f5c75bcdf3fb76c455415d7092286f56c225236fd1260f783b7"
+    },
+    {
+      "id": "newcastle",
+      "name": "纽卡斯尔大学",
+      "englishName": "Newcastle University",
+      "url": "https://www.ncl.ac.uk/",
+      "logo": "images/nobel/organizations/newcastle.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.ncl.ac.uk/favicon.ico",
+      "sha256": "126e8076845466afc5fbebc3bc3b2f9a66a02c4b6f6e3375564196d516d04901"
+    },
+    {
+      "id": "novo",
+      "name": "诺和诺德",
+      "englishName": "Novo Nordisk",
+      "url": "https://www.novonordisk.com/",
+      "logo": "images/nobel/organizations/novo.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.novonordisk.com/etc.clientlibs/nncorp/components/structure/page/clientlib/resources/favicon-v2.ico",
+      "sha256": "acfd54d8ab0a64557c0ab7b2e534c169b729da35d2923ec5f32d321772351891"
+    },
+    {
+      "id": "novonesis",
+      "name": "Novonesis",
+      "englishName": "Novonesis",
+      "url": "https://www.novonesis.com/",
+      "logo": "images/nobel/organizations/novonesis.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.novonesis.com/favicon.ico",
+      "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+    },
+    {
+      "id": "oviedo",
+      "name": "奥维耶多大学",
+      "englishName": "University of Oviedo",
+      "url": "https://www.uniovi.es/",
+      "logo": "images/nobel/organizations/oviedo.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.uniovi.es/documents/39158/648db59f-58a0-3152-6556-9a1329312d10",
+      "sha256": "f63016a9bffa4ee76d95503ce2a3942590ebcf0caf915c362fa8f569662c6ae7"
+    },
+    {
+      "id": "oxinst",
+      "name": "Oxford Instruments",
+      "englishName": "Oxford Instruments",
+      "url": "https://www.oxinst.com/",
+      "logo": "images/nobel/organizations/oxinst.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.oxinst.com/favicon.ico",
+      "sha256": "b73572b0d82e08ea7f16f29424916312e3b58fdfc0039ba9a980f425eefda4f4"
+    },
+    {
+      "id": "princeton",
+      "name": "普林斯顿大学",
+      "englishName": "Princeton University",
+      "url": "https://www.princeton.edu/",
+      "logo": "images/nobel/organizations/princeton.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.princeton.edu/favicon.ico",
+      "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+    },
+    {
+      "id": "rug",
+      "name": "格罗宁根大学",
+      "englishName": "University of Groningen",
+      "url": "https://www.rug.nl/",
+      "logo": "images/nobel/organizations/rug.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+      "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+    },
+    {
+      "id": "samsung",
+      "name": "Samsung Display",
+      "englishName": "Samsung Display",
+      "url": "https://global.samsungdisplay.com/",
+      "logo": "images/nobel/organizations/samsung.svg",
+      "logoKind": "symbol",
+      "assetSource": "https://global.samsungdisplay.com/@resource/images/favicon.svg",
+      "sha256": "55a53dd4ea1bbc973680d4a634c0c0b3434abb58a476903514ae39cb0688e369"
+    },
+    {
+      "id": "schrodinger",
+      "name": "Schrödinger",
+      "englishName": "Schrödinger",
+      "url": "https://www.schrodinger.com/",
+      "logo": "images/nobel/organizations/schrodinger.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.schrodinger.com/wp-content/themes/bigdrop-theme/dist/images/favicon/apple-icon.png",
+      "sha256": "92ea40c562aef0c7af7593196285f4dca8e8ba35d622311b6f5630f683dd39e1"
+    },
+    {
+      "id": "shanghaitech",
+      "name": "上海科技大学",
+      "englishName": "ShanghaiTech University",
+      "url": "https://www.shanghaitech.edu.cn/",
+      "logo": "images/nobel/organizations/shanghaitech.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.shanghaitech.edu.cn/_upload/tpl/00/20/32/template32/images/favicon.ico",
+      "sha256": "3567e38416c89379838e8590a1800d423a58859898fa683edebd44207f9232e8"
+    },
+    {
+      "id": "slu",
+      "name": "圣路易斯大学",
+      "englishName": "Saint Louis University",
+      "url": "https://www.slu.edu/",
+      "logo": "images/nobel/organizations/slu.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+      "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+    },
+    {
+      "id": "stanford",
+      "name": "斯坦福大学",
+      "englishName": "Stanford University",
+      "url": "https://www.stanford.edu/",
+      "logo": "images/nobel/organizations/stanford.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+      "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+    },
+    {
+      "id": "thermo",
+      "name": "Thermo Fisher Scientific",
+      "englishName": "Thermo Fisher Scientific",
+      "url": "https://www.thermofisher.com/",
+      "logo": "images/nobel/organizations/thermo.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+    },
+    {
+      "id": "toronto",
+      "name": "多伦多大学",
+      "englishName": "University of Toronto",
+      "url": "https://www.utoronto.ca/",
+      "logo": "images/nobel/organizations/toronto.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.utoronto.ca/themes/custom/bootstrap_uoft/images/favicons/favicon.ico",
+      "sha256": "7698fa568caac7a6585bd62514f8703167029e47d153e3c3f9707511fa24e912"
+    },
+    {
+      "id": "tsinghua",
+      "name": "清华大学",
+      "englishName": "Tsinghua University",
+      "url": "https://www.tsinghua.edu.cn/",
+      "logo": "images/nobel/organizations/tsinghua.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.tsinghua.edu.cn/favicon.ico",
+      "sha256": "44983bc3ed23e86996e1fcabce6a70426cdc6e2c73627fb2e818afca55d38479"
+    },
+    {
+      "id": "tus",
+      "name": "东京理科大学",
+      "englishName": "Tokyo University of Science",
+      "url": "https://www.tus.ac.jp/en/",
+      "logo": "images/nobel/organizations/tus.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.tus.ac.jp/favicon.ico",
+      "sha256": "0dd402957dd30905223da6ae48d7858f9be06d9af190ba6dce79aa2606ee8457"
+    },
+    {
+      "id": "twist",
+      "name": "Twist Bioscience",
+      "englishName": "Twist Bioscience",
+      "url": "https://www.twistbioscience.com/",
+      "logo": "images/nobel/organizations/twist.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+      "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+    },
+    {
+      "id": "ucl",
+      "name": "伦敦大学学院",
+      "englishName": "University College London",
+      "url": "https://www.ucl.ac.uk/",
+      "logo": "images/nobel/organizations/ucl.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+      "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+    },
+    {
+      "id": "uiuc",
+      "name": "伊利诺伊大学厄巴纳–香槟分校",
+      "englishName": "University of Illinois Urbana-Champaign",
+      "url": "https://illinois.edu/",
+      "logo": "images/nobel/organizations/uiuc.png",
+      "logoKind": "symbol",
+      "assetSource": "https://www.google.com/s2/favicons?domain=illinois.edu&sz=128",
+      "assetType": "website favicon served by Google favicon cache",
+      "sha256": "07510c4f9167548ae6136219ce62c5743dbb27b5bd4eda848ec706629c3c3558"
+    },
+    {
+      "id": "umich",
+      "name": "密歇根大学",
+      "englishName": "University of Michigan",
+      "url": "https://umich.edu/",
+      "logo": "images/nobel/organizations/umich.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://umich.edu/favicon.ico",
+      "sha256": "8202cd7a3d86d53f5fdd904ab714c0766e24f43b8d823786e51e50310345bf8c"
+    },
+    {
+      "id": "uw",
+      "name": "华盛顿大学",
+      "englishName": "University of Washington",
+      "url": "https://www.washington.edu/",
+      "logo": "images/nobel/organizations/uw.ico",
+      "logoKind": "symbol",
+      "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+      "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+    }
+  ],
+  "studies": {
+    "ammonia": {
+      "id": "ammonia",
+      "heading": "合成氨的界面：反应物怎样穿过保护层",
+      "organizationIds": [
+        "caltech"
+      ],
+      "authors": "Wesley Chang、Anukta Jain、Fateme Rezaie 等",
+      "paperTitle": "Lithium-mediated nitrogen reduction to ammonia via the catalytic solid–electrolyte interphase",
+      "journal": "Nature Catalysis (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41929-024-01115-6",
+      "paperUrl": "https://doi.org/10.1038/s41929-024-01115-6",
+      "paragraphs": [
+        "这篇综述把锂介导固氮的研究落在固体电解质界面膜上：膜既要允许氮和质子供体到达反应位点，又要抑制无效副反应。作者比较电解液、反应器及传质模型，说明选择性和反应速率为何必须放在同一组条件中讨论。",
+        "这条电化学路线与工业铁催化高压合成氨采用不同的活化方式。它延续的是氮分子如何被活化、供能和分离的问题，不能把温和反应条件直接等同于更低的全流程能耗。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41929-024-01115-6"
+        }
+      ],
+      "relatedCompanyIds": [
+        "basf"
+      ],
+      "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
+    },
+    "sugars": {
+      "id": "sugars",
+      "heading": "糖化学的自动化：合成之后还要完成纯化",
+      "organizationIds": [
+        "slu"
+      ],
+      "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+      "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+      "journal": "Chemistry – A European Journal (2024)",
+      "published": "2024",
+      "doi": "10.1002/chem.202401214",
+      "paperUrl": "https://doi.org/10.1002/chem.202401214",
+      "paragraphs": [
+        "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+        "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1002/chem.202401214"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+    },
+    "battery": {
+      "id": "battery",
+      "heading": "电池化成：把首次充电当作材料加工步骤",
+      "organizationIds": [
+        "stanford"
+      ],
+      "authors": "Xiao Cui、Stephen Dongmin Kang、Sunny Wang 等",
+      "paperTitle": "Data-driven analysis of battery formation reveals the role of electrode utilization in extending cycle life",
+      "journal": "Joule (2024)",
+      "published": "2024",
+      "doi": "10.1016/j.joule.2024.07.024",
+      "paperUrl": "https://doi.org/10.1016/j.joule.2024.07.024",
+      "paragraphs": [
+        "斯坦福团队比较多组锂离子电池化成方案，研究首次充电怎样改变电极的可利用程度以及后续循环寿命。化成阶段损失的锂、界面膜形成和两极容量匹配，需要一起考察。",
+        "提高一次充电的速度是否有利，取决于电极、电解液和操作协议。论文给出的是特定电芯体系的实验比较，进入车辆或储能系统还需要热管理、安全和一致性验证。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1016/j.joule.2024.07.024"
+        }
+      ],
+      "relatedCompanyIds": [
+        "catl"
+      ],
+      "relation": "宁德时代提供商业电池及系统。它与论文的联系是电芯制造中的化成和界面管理，不表示研究采用了其某款电池或公司采用了该论文的协议。"
+    },
+    "cellfree": {
+      "id": "cellfree",
+      "heading": "把发酵中的一条通路搬出细胞",
+      "organizationIds": [
+        "shanghaitech",
+        "stanford"
+      ],
+      "authors": "Wan-Qiu Liu、Xiangyang Ji、Fang Ba 等",
+      "paperTitle": "Cell-free biosynthesis and engineering of ribosomally synthesized lanthipeptides",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48726-y",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48726-y",
+      "paragraphs": [
+        "上海科技大学与斯坦福大学的 UniBioCat 平台，将无细胞表达、翻译后修饰和肽成熟步骤组合，用于合成及筛选羊毛硫肽类天然产物。开放反应体系使酶量和底物条件更容易单独调节。",
+        "实验重点是绕开细胞毒性、表达和降解限制，同时保留产物活性测定。可在小体系中得到活性产物，不等于已经解决大规模生产的酶成本、供能与回收问题。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48726-y"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-48726-y"
+        }
+      ],
+      "relatedCompanyIds": [
+        "novonesis"
+      ],
+      "relation": "Novonesis 的工业酶业务展示生物催化的产业用途；该公司的发酵与酶制剂产品并非这里这套无细胞肽平台的商业版本。"
+    },
+    "radio": {
+      "id": "radio",
+      "heading": "给放射性金属找到可测的配位环境",
+      "organizationIds": [
+        "berkeley"
+      ],
+      "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+      "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-50017-5",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+      "paragraphs": [
+        "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+        "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-50017-5"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-50017-5"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+    },
+    "catalysis": {
+      "id": "catalysis",
+      "heading": "用双自由基拼接环系",
+      "organizationIds": [
+        "princeton"
+      ],
+      "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+      "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07181-x",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+      "paragraphs": [
+        "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+        "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07181-x"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://macmillan.princeton.edu/publications/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+    },
+    "terpene": {
+      "id": "terpene",
+      "heading": "萜烯合成酶还需要一个反应空间",
+      "organizationIds": [
+        "umich"
+      ],
+      "authors": "Michael P. Andreas、Tobias W. Giessen",
+      "paperTitle": "The biosynthesis of the odorant 2-methylisoborneol is compartmentalized inside a protein shell",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-54175-4",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-54175-4",
+      "paragraphs": [
+        "密歇根大学团队研究有气味的萜类化合物 2-甲基异莰醇，发现其生物合成与蛋白质外壳组织有关。问题从酶怎样形成碳骨架，扩展到相关酶怎样在一个受限空间中协作。",
+        "这一类空间组织可改变中间体接触下一步酶的机会。论文中的气味分子是研究对象，不是可直接套用于所有香料和药物萜类的通用生产配方。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-54175-4"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-54175-4"
+        }
+      ],
+      "relatedCompanyIds": [
+        "dsm"
+      ],
+      "relation": "dsm-firmenich 经营香气、风味与营养业务，展示萜类及相关天然产物的应用场景；未声称它使用这套蛋白质外壳通路。"
+    },
+    "isotope": {
+      "id": "isotope",
+      "heading": "同位素稀释：让肽含量测量可以追溯",
+      "organizationIds": [
+        "oviedo"
+      ],
+      "authors": "Jesús Nicolás Carcelén、Helí Potes Rodríguez、Adriana González-Gago 等",
+      "paperTitle": "Evaluation of different isotope dilution mass spectrometry strategies for the characterization of naturally abundant and isotopically labelled peptide standards",
+      "journal": "Analytical and Bioanalytical Chemistry (2024)",
+      "published": "2024",
+      "doi": "10.1007/s00216-024-05176-1",
+      "paperUrl": "https://doi.org/10.1007/s00216-024-05176-1",
+      "paragraphs": [
+        "奥维耶多大学团队比较天然丰度与同位素标记肽标准的定量方案，将肽水解、氨基酸测量和参考物质验证接起来。重点是用较少的认证肽材料完成可信的含量赋值。",
+        "同位素比值可以抵消一部分制样和仪器变化，但前提是标记物与待测物的混合、转化和检测行为得到控制。质谱峰分开并不自动意味着浓度已经可溯源。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1007/s00216-024-05176-1"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://portalinvestigacion.uniovi.es/documentos/65e422ef795b6b1f94c9b10b?lang=es"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的同位素与元素质谱仪是现行分析设备示例；具体实验所用型号与参数应以论文方法为准。"
+    },
+    "photosynthesis": {
+      "id": "photosynthesis",
+      "heading": "人工叶片：把吸光与碳转化连接到器件",
+      "organizationIds": [
+        "cambridge"
+      ],
+      "authors": "Virgil Andrei、Yu-Hsien Chiang、Motiar Rahaman 等",
+      "paperTitle": "Modular perovskite-BiVO 4 artificial leaves towards syngas synthesis on a m 2 scale",
+      "journal": "Energy &amp; Environmental Science (2025)",
+      "published": "2025",
+      "doi": "10.1039/d4ee05780e",
+      "paperUrl": "https://doi.org/10.1039/d4ee05780e",
+      "paragraphs": [
+        "剑桥团队将钙钛矿与 BiVO₄ 光吸收体系集成到人工叶片，研究无需外接电源的合成气制备，并通过多个器件组成阵列进行户外展示。它把单个光催化单元推进到需要考虑布线、面积和气体收集的装置。",
+        "天然光合作用的色素、电子传递链与碳固定酶不等同于这套人工器件。两者可以围绕吸光、分离电荷和保存化学能作比较，但催化位点与产物路线必须分别说明。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1039/d4ee05780e"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubs.rsc.org/en/content/articlehtml/2025/ee/d4ee05780e"
+        }
+      ],
+      "relatedCompanyIds": [
+        "basf"
+      ],
+      "relation": "BASF 的合成气下游化工和氨基化学品展示了原料气的工业用途，不意味着其工厂已采用论文中的人工叶片。"
+    },
+    "vitamin": {
+      "id": "vitamin",
+      "heading": "维生素 C 的最后一步为什么存在不同酶路线",
+      "organizationIds": [
+        "rug"
+      ],
+      "authors": "Alessandro Boverio、Neelam Jamil、Barbara Mannucci 等",
+      "paperTitle": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48410-1",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48410-1",
+      "paragraphs": [
+        "格罗宁根大学与帕维亚大学研究维生素 C 生物合成末步的黄素酶，结合结构、动力学、突变和祖先序列重建，解释不同生物中的底物偏好与电子受体差别。",
+        "酶活性口袋中的少数侧链可以改变立体选择性；与黄素相邻的位点则影响酶使用氧还是其他受体。结构上的局部改变，因此能落到可测的产物与反应速度上。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48410-1"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-48410-1"
+        }
+      ],
+      "relatedCompanyIds": [
+        "dsm"
+      ],
+      "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
+    },
+    "steroid": {
+      "id": "steroid",
+      "heading": "胆汁酸研究从主结构走向微生物修饰",
+      "organizationIds": [
+        "msu"
+      ],
+      "authors": "Douglas V. Guzior、Maxwell Okros、Madison Shivel 等",
+      "paperTitle": "Bile salt hydrolase acyltransferase activity expands bile acid diversity",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07017-8",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07017-8",
+      "paragraphs": [
+        "密歇根州立大学团队发现，胆盐水解酶还具有酰基转移活性，可将氨基酸连接到胆汁酸上，从而扩展肠道中胆汁酸的化学多样性。不同菌株对氨基酸的使用也存在差异。",
+        "认识甾体骨架之后，还必须区分它的具体修饰形式。相同母核上的连接基团可能改变溶解性、代谢和信号作用；研究不能将所有胆汁酸只合并成一个总量指标。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07017-8"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38326608/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的胆汁酸、脂质和代谢物试剂用于标准品比对与机理实验；这里不把试剂供应写成论文机制的临床应用。"
+    },
+    "cold": {
+      "id": "cold",
+      "heading": "低温化学走向分子量子态控制",
+      "organizationIds": [
+        "cuhk"
+      ],
+      "authors": "Tim Langen、Giacomo Valtolina、Dajun Wang 等",
+      "paperTitle": "Quantum state manipulation and cooling of ultracold molecules",
+      "journal": "Nature Physics (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41567-024-02423-1",
+      "paperUrl": "https://doi.org/10.1038/s41567-024-02423-1",
+      "paragraphs": [
+        "这篇由多机构研究者撰写的综述讨论两类冷却路线：从超冷原子缔合成分子，以及直接对分子进行激光冷却。降温之外，还要控制振动、转动与碰撞状态，才能分辨不同反应通道。",
+        "分子的内部自由度比原子复杂。热运动被压低后，量子态选择和相干性成为可调变量，也使实验对外场、真空和噪声控制提出更高要求。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41567-024-02423-1"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41567-024-02423-1"
+        }
+      ],
+      "relatedCompanyIds": [
+        "oxinst"
+      ],
+      "relation": "Oxford Instruments 的低温设备展示实验环境的产业供给；稀释制冷与激光冷却是不同技术，不能把一台制冷机写成完成了分子量子态制备。"
+    },
+    "protein": {
+      "id": "protein",
+      "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+      "organizationIds": [
+        "uw"
+      ],
+      "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+      "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+      "journal": "Nature (2023)",
+      "published": "2023",
+      "doi": "10.1038/s41586-023-06415-8",
+      "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+      "paragraphs": [
+        "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+        "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-023-06415-8"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41586-023-06415-8"
+        }
+      ],
+      "relatedCompanyIds": [
+        "twist"
+      ],
+      "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+    },
+    "quantum": {
+      "id": "quantum",
+      "heading": "神经网络波函数也开始处理激发态",
+      "organizationIds": [
+        "imperial"
+      ],
+      "authors": "David Pfau、Simon Axelrod、Halvard Sutterud 等",
+      "paperTitle": "Accurate computation of quantum excited states with neural networks",
+      "journal": "Science (2024)",
+      "published": "2024",
+      "doi": "10.1126/science.adn0137",
+      "paperUrl": "https://doi.org/10.1126/science.adn0137",
+      "paragraphs": [
+        "帝国理工学院与企业研究者等合作者，将激发态求解转化为扩展系统的基态优化，并结合神经网络波函数与变分蒙特卡洛，计算分子激发能和振子强度。",
+        "这一方向针对的是电子结构近似带来的误差。算法在给定分子上的精度、计算成本和适用范围需要一起比较，不能将少量基准中的准确结果推广到任意化学系统。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1126/science.adn0137"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.science.org/doi/10.1126/science.adn0137"
+        }
+      ],
+      "relatedCompanyIds": [
+        "schrodinger"
+      ],
+      "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
+    },
+    "kinetics": {
+      "id": "kinetics",
+      "heading": "电子转移发生时，蛋白结构也在响应",
+      "organizationIds": [
+        "gothenburg"
+      ],
+      "authors": "Andrea Cellini、Madan Kumar Shankar、Amke Nimmrich 等",
+      "paperTitle": "Directed ultrafast conformational changes accompany electron transfer in a photolyase as resolved by serial crystallography",
+      "journal": "Nature Chemistry (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41557-023-01413-9",
+      "paperUrl": "https://doi.org/10.1038/s41557-023-01413-9",
+      "paragraphs": [
+        "哥德堡大学等机构利用飞秒 X 射线晶体学研究光裂合酶，追踪电子沿色氨酸链转移时周围残基、水分子和盐桥的结构变化。测量把电子运动与核构型变化放到同一条反应序列中。",
+        "静态结构能说明哪些基团接近，却不能独自回答电子先转移还是结构先重排。时间分辨实验结合光谱与计算，才有机会比较这些先后关系及其对反应通道的影响。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41557-023-01413-9"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41557-023-01413-9"
+        }
+      ],
+      "relatedCompanyIds": [
+        "bruker"
+      ],
+      "relation": "Bruker 的光谱与结构分析设备是相关实验工具的产业示例；普通稳态光谱仪不等于论文使用的飞秒 X 射线设施。"
+    },
+    "motor": {
+      "id": "motor",
+      "heading": "分子马达怎样让凝胶收缩和重新展开",
+      "organizationIds": [
+        "manchester"
+      ],
+      "authors": "Peng-Lai Wang、Stefan Borsley、Martin J. Power 等",
+      "paperTitle": "Transducing chemical energy through catalysis by an artificial molecular motor",
+      "journal": "Nature (2025)",
+      "published": "2025",
+      "doi": "10.1038/s41586-024-08288-x",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-08288-x",
+      "paragraphs": [
+        "曼彻斯特大学及合作者将催化驱动的分子马达嵌入交联聚合物网络，使持续定向旋转改变链的缠绕和凝胶形变。观察对象由单个分子是否转动，扩展到化学能能否产生材料尺度的机械响应。",
+        "维持这一过程需要消耗燃料并形成产物。评价马达材料，既要看方向偏置和力学响应，也要追踪燃料消耗、废物积累与网络疲劳，不能把非平衡运动当作无能量输入的循环。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-08288-x"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41586-024-08288-x"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 供应有机合成与高分子研究原料；未核实到该凝胶马达的商品化设备，因此只列研究材料供给。"
+    },
+    "hostguest": {
+      "id": "hostguest",
+      "heading": "把主客体识别变成可加工的透明材料",
+      "organizationIds": [
+        "hunan"
+      ],
+      "authors": "Changyong Cai、Shuanggen Wu、Yunfei Zhang 等",
+      "paperTitle": "Bulk transparent supramolecular glass enabled by host–guest molecular recognition",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48089-4",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48089-4",
+      "paragraphs": [
+        "湖南大学团队利用甲基化 β-环糊精与对羟基苯甲酸的主客体作用和氢键，构筑透明块体超分子玻璃。局部识别提供组织单元，动态非共价作用使材料具备不同于永久交联网络的加工方式。",
+        "在这一体系中，短程有序与整体无序可以共存。主体和客体能结合，只是材料形成的起点；光学透明性、热加工和回收行为仍需在块体样品上测量。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48089-4"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-48089-4"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的环糊精及超分子研究试剂可用于主客体实验；并未把这些试剂列作该透明玻璃的现成商品。"
+    },
+    "nmr": {
+      "id": "nmr",
+      "heading": "让大蛋白的 NMR 少依赖全面氘代",
+      "organizationIds": [
+        "ucl"
+      ],
+      "authors": "Gogulan Karunanithy、Vaibhav Kumar Shukla、D. Flemming Hansen",
+      "paperTitle": "Solution-state methyl NMR spectroscopy of large non-deuterated proteins enabled by deep neural networks",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-49378-8",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-49378-8",
+      "paragraphs": [
+        "伦敦大学学院团队使用深度神经网络处理非氘代、均一 ¹³C 标记蛋白的溶液 NMR 数据，并以不同大小的蛋白检验谱图和 NOE 交叉峰是否保留结构信息。",
+        "重点并非让网络凭空补出一张谱图，而是检验处理后的信号与实验和已知结构约束是否一致。样品制备、训练适用域和弱峰失真仍是判断结果能否用于结构解释的关键。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-49378-8"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38871714/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "bruker"
+      ],
+      "relation": "Bruker 的 AVANCE NMR 与相关磁体、探头构成现行仪器产品；论文中的信号处理方法与仪器硬件能力分别说明。"
+    },
+    "editing": {
+      "id": "editing",
+      "heading": "精确编辑还取决于向导 RNA 能否保存下来",
+      "organizationIds": [
+        "princeton"
+      ],
+      "authors": "Jun Yan、Paul Oyler-Castrillo、Purnima Ravisankar 等",
+      "paperTitle": "Improving prime editing with an endogenous small RNA-binding protein",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07259-6",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07259-6",
+      "paragraphs": [
+        "普林斯顿大学及合作者通过全基因组筛选，发现 RNA 结合蛋白 La 能促进先导编辑；进一步研究指向其对延长向导 RNA 末端的保护作用。它说明编辑效率不只由 Cas 蛋白与目标序列决定。",
+        "这一研究把细胞内 RNA 稳定性带入编辑器设计。不同位点、细胞类型和编辑形式的表现需要分别测量；提高预期编辑率还需同时检查副产物和其他基因组变化。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07259-6"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41586-024-07259-6"
+        }
+      ],
+      "relatedCompanyIds": [
+        "twist"
+      ],
+      "relation": "Twist Bioscience 的 DNA 片段和变体文库服务可支持编辑构建与筛选，未据此声称公司采用了该 La 蛋白增强方案。"
+    },
+    "ozone": {
+      "id": "ozone",
+      "heading": "臭氧问题还需要区分大气层之间的输送",
+      "organizationIds": [
+        "fjnu"
+      ],
+      "authors": "Zhixiong Chen、Jane Liu、Xiushu Qie 等",
+      "paperTitle": "Stratospheric influence on surface ozone pollution in China",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48406-x",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48406-x",
+      "paragraphs": [
+        "福建师范大学等机构结合地面臭氧与一氧化碳观测，识别平流层空气影响地面臭氧的事件。研究提示，理解近地面污染不能只看本地光化学生成，还要分析高空输送。",
+        "保护平流层臭氧与降低地面臭氧污染是不同目标。前者涉及高空紫外屏障及消耗臭氧物质，后者涉及人体暴露和区域化学输送，指标与干预手段不能混用。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48406-x"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-48406-x"
+        }
+      ],
+      "relatedCompanyIds": [
+        "chemours"
+      ],
+      "relation": "Chemours 的 Opteon 制冷剂系列以替代传统制冷剂为应用方向；应分别核查臭氧消耗潜能、全球变暖潜能和具体产品条件。"
+    },
+    "fullerene": {
+      "id": "fullerene",
+      "heading": "从发现碳笼走向控制两个碳笼的连接",
+      "organizationIds": [
+        "kyoto"
+      ],
+      "authors": "Yoshifumi Hashikawa、Shu Okamoto、Yasujiro Murata",
+      "paperTitle": "Synthesis of inter-[60]fullerene conjugates with inherent chirality",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-44834-x",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-44834-x",
+      "paragraphs": [
+        "京都大学团队合成具有内禀手性的开口 C₆₀ 共轭结构，并用晶体学、吸收与手性光学表征研究笼间连接产生的性质。富勒烯在这里成为可以进一步组织和修饰的分子单元。",
+        "两个碳笼通过什么键相连、电子能否在笼间耦合，以及分子怎样继续组装，会共同改变光谱。发现新的碳形态之后，化学修饰提供了研究结构与功能联系的下一层尺度。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-44834-x"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-44834-x"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的富勒烯和纳米碳材料目录属于研究原料供给；未将其中商品与论文的新型手性碳笼混同。"
+    },
+    "atp": {
+      "id": "atp",
+      "heading": "ATP 合酶的结构把旋转与催化接起来",
+      "organizationIds": [
+        "nankai"
+      ],
+      "authors": "Yuezheng Lai、Yuying Zhang、Shan Zhou 等",
+      "paperTitle": "Structure of the human ATP synthase",
+      "journal": "Molecular Cell (2023)",
+      "published": "2023",
+      "doi": "10.1016/j.molcel.2023.04.029",
+      "paperUrl": "https://doi.org/10.1016/j.molcel.2023.04.029",
+      "paragraphs": [
+        "南开大学等机构解析人源 ATP 合酶结构，将膜内转子、中央轴与催化头部组织到同一个分子机器中。结构信息帮助追问质子通道和机械耦合怎样共同影响 ATP 合成。",
+        "结构提供的是特定状态下的约束。证明催化顺序和耦合效率，还需要生化活性、膜电位及不同构象的比较，不能由单一构象直接推出完整动力学。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1016/j.molcel.2023.04.029"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37244256/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的冷冻电镜设备属于结构研究工具供给；本条不把仪器生产商写成 ATP 合酶机理的药物开发方。"
+    },
+    "imaging": {
+      "id": "imaging",
+      "heading": "超分辨图像的可信度也取决于处理流程",
+      "organizationIds": [
+        "tsinghua"
+      ],
+      "authors": "Chang Qiao、Yunmin Zeng、Quan Meng 等",
+      "paperTitle": "Zero-shot learning enables instant denoising and super-resolution in optical fluorescence microscopy",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48575-9",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48575-9",
+      "paragraphs": [
+        "清华大学团队提出不依赖成对真值训练数据的 ZS-DeconvNet，将去噪和反卷积用于多类荧光显微成像。研究关注低光照和活细胞条件下，分辨率、噪声与样品负担如何权衡。",
+        "计算处理可以改善可辨细节，但图像更锐利不自动代表出现了真实结构。需要结合成像物理、独立验证和不同样品测试，检查处理是否改变信号形态或弱结构。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48575-9"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://media.au.tsinghua.edu.cn/info/1016/1398.htm"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的细胞成像及荧光标记产品是应用工具示例；没有将该处理方法写成其显微镜默认具备的功能。"
+    },
+    "rna": {
+      "id": "rna",
+      "heading": "转录与翻译还会协同清除停滞复合物",
+      "organizationIds": [
+        "newcastle"
+      ],
+      "authors": "Jason Woodgate、Hamed Mosaei、Pavel Brazda 等",
+      "paperTitle": "Translation selectively destroys non-functional transcription complexes",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-023-07014-3",
+      "paperUrl": "https://doi.org/10.1038/s41586-023-07014-3",
+      "paragraphs": [
+        "纽卡斯尔大学团队研究细菌转录—翻译耦合，发现核糖体能够区分暂时暂停与受损停滞的转录复合物：前者可能继续延伸，后者则需要从 DNA 模板上移走。",
+        "这将基因表达与损伤处理联系起来，但细菌中的耦合机制不能直接代入真核转录。比较两类系统时，需要保留聚合酶种类、细胞区室和模板环境这些差别。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-023-07014-3"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41586-023-07014-3"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的转录、翻译和核酸分析试剂可用于相应实验流程；这里列的是研究工具，不是该细菌机制的治疗产品。"
+    },
+    "ubiquitin": {
+      "id": "ubiquitin",
+      "heading": "让细胞把指定蛋白送进降解途径",
+      "organizationIds": [
+        "dundee"
+      ],
+      "authors": "Oliver Hsia、Matthias Hinterndorfer、Angus D. Cowan 等",
+      "paperTitle": "Targeted protein degradation via intramolecular bivalent glues",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07089-6",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07089-6",
+      "paragraphs": [
+        "邓迪大学及合作者研究分子内双价胶：同一分子连接靶蛋白相邻结构域，改变其与泛素系统发生作用的方式。遗传筛选、生物物理和结构重构共同解释它怎样促进降解。",
+        "这一设计与典型 PROTAC 分别结合靶标和 E3 的连接方式不同。判断一个分子是否真正诱导降解，需要检查泛素化、蛋白酶体依赖性、选择性及细胞中的作用浓度。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07089-6"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://discovery.dundee.ac.uk/en/publications/targeted-protein-degradation-via-intramolecular-bivalent-glues/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "arvinas"
+      ],
+      "relation": "Arvinas 开发 PROTAC 类靶向蛋白降解技术。它与论文同属利用泛素—蛋白酶体系统的路线，但不据此将分子内双价胶写成该公司的产品。"
+    },
+    "repair": {
+      "id": "repair",
+      "heading": "DNA 修复不只发生在一段游离 DNA 上",
+      "organizationIds": [
+        "toronto"
+      ],
+      "authors": "Mitra Shokrollahi、Mia Stanic、Anisha Hundal 等",
+      "paperTitle": "DNA double-strand break–capturing nuclear envelope tubules drive DNA repair",
+      "journal": "Nature Structural &amp; Molecular Biology (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41594-024-01286-7",
+      "paperUrl": "https://doi.org/10.1038/s41594-024-01286-7",
+      "paragraphs": [
+        "多伦多大学团队研究核膜管状结构怎样接近并捕获 DNA 双链断裂，将细胞核的空间组织与损伤应答联系起来。修复对象所处的位置和邻近结构，也成为可以实验检验的变量。",
+        "早期修复机制说明哪些酶识别和处理损伤，这类细胞研究进一步追问它们在哪里协作。观察到结构与修复相关，还需要通过扰动实验区分原因、结果和伴随变化。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41594-024-01286-7"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38632359/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的核酸与细胞成像产品服务于检测和表征；没有把这项核膜机制直接列作商业 DNA 修复疗法。"
+    },
+    "qdot": {
+      "id": "qdot",
+      "heading": "蓝色量子点器件的瓶颈在界面",
+      "organizationIds": [
+        "henu"
+      ],
+      "authors": "Wenjing Zhang、Bo Li、Chun Chang 等",
+      "paperTitle": "Stable and efficient pure blue quantum-dot LEDs enabled by inserting an anti-oxidation layer",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-44894-z",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-44894-z",
+      "paragraphs": [
+        "河南大学及合作者在蓝色量子点与空穴传输层之间加入抗氧化过渡层，缓解电荷积累引发的界面退化。研究把量子点的发光能力与整台器件中的电荷平衡、寿命联系起来。",
+        "材料在光激发下发亮，与在电极注入电荷后稳定发光，是两项不同要求。测试亮度、寿命条件和器件结构必须同时保留，才能比较不同量子点显示路线。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-44894-z"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38278797/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "samsung"
+      ],
+      "relation": "Samsung Display 的 QD-OLED 使用量子点进行光转换；论文研究的是电致发光 QD-LED，两种器件结构不同，不能混用名称和寿命指标。"
+    },
+    "quasicrystal": {
+      "id": "quasicrystal",
+      "heading": "准晶研究开始整理可复用的实验数据",
+      "organizationIds": [
+        "tus"
+      ],
+      "authors": "Erina Fujita、Chang Liu、Asuka Ishikawa 等",
+      "paperTitle": "Comprehensive experimental datasets of quasicrystals and their approximants",
+      "journal": "Scientific Data (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41597-024-04043-z",
+      "paperUrl": "https://doi.org/10.1038/s41597-024-04043-z",
+      "paragraphs": [
+        "东京理科大学等机构参与构建 HYPOD-X，将准晶及近似晶的组成、制样、结构和物性记录整理为开放数据。数据库让不同合金体系可以被系统比较，也为计算筛选提供实验约束。",
+        "“长程有序但不周期重复”是结构层面的判断。某一新材料是否属于准晶，仍要回到衍射及相结构证据；数据模型不能替代这些鉴定。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41597-024-04043-z"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.ism.ac.jp/ura/press/ISM2024-04_e.html"
+        }
+      ],
+      "relatedCompanyIds": [
+        "bruker"
+      ],
+      "relation": "Bruker 的 X 射线衍射和结构分析工具可用于材料表征；未将商品仪器的销售与某种准晶合金的产业化混为一谈。",
+      "companyOverride": {
+        "organizationId": "bruker",
+        "role": "衍射与材料结构分析",
+        "status": "仪器产品",
+        "paragraphs": [
+          "Bruker 提供 X 射线衍射及相关结构分析产品，用于材料相与晶体结构研究。准晶的鉴定需要具体衍射证据，不能只根据合金组成或数据库分类判断。"
+        ],
+        "sources": [
+          {
+            "label": "X 射线衍射产品",
+            "url": "https://www.bruker.com/en/products-and-solutions/diffractometers-and-scattering-systems/x-ray-diffractometers.html"
+          }
+        ]
+      }
+    },
+    "soai": {
+      "id": "soai",
+      "heading": "把手性放大的反馈拆成可检验的中间体",
+      "organizationIds": [
+        "lmu"
+      ],
+      "authors": "Patrick Möhler、Gloria Betzenbichler、Laura Huber 等",
+      "paperTitle": "Mechanistic analysis and kinetic profiling of Soai’s asymmetric autocatalysis for pyridyl and pyrimidyl substrates",
+      "journal": "Nature Communications (2025)",
+      "published": "2025",
+      "doi": "10.1038/s41467-025-62591-3",
+      "paperUrl": "https://doi.org/10.1038/s41467-025-62591-3",
+      "paragraphs": [
+        "慕尼黑大学团队结合原位高分辨质谱、动力学及反应曲线模拟，比较吡啶与嘧啶底物的 Soai 自催化。研究指向暂态半缩醛盐有机锌配合物及其对选择性的作用。",
+        "非线性效应意味着产物与催化物种之间不是简单的一对一映射。拟合宏观速率曲线时，需要同时考虑聚集、配位和平衡；把净反应式写出，并不等于已经确定每一个活性物种。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-025-62591-3"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://epub.ub.uni-muenchen.de/133448/1/s41467-025-62591-3.pdf"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的手性合成试剂和分析工具可用于此类研究；没有把 Soai 自催化包装成已经通用的工业不对称生产平台。"
+    },
+    "carbondate": {
+      "id": "carbondate",
+      "heading": "把碳十四突变信号与年轮顺序对齐",
+      "organizationIds": [
+        "bern"
+      ],
+      "authors": "Andrej Maczkowski、Charlotte Pearson、John Francuz 等",
+      "paperTitle": "Absolute dating of the European Neolithic using the 5259 BC rapid 14C excursion",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-48402-1",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-48402-1",
+      "paragraphs": [
+        "伯尔尼大学及合作者将树木年轮序列与碳十四异常信号结合，为史前木材建立更精细的年代锚点。测量不只依靠单个样品的放射性，还利用连续年轮之间的已知先后关系。",
+        "碳十四测年需要校准大气中同位素丰度的变化，也要控制样品污染。识别异常信号、确定年轮位置和给出日历年代是相互关联但各需证据的步骤。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-48402-1"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-48402-1"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的同位素分析业务展示相关测量技术的产业基础；其常规质谱产品不能直接替代论文采用的加速器质谱系统。"
+    },
+    "polymer": {
+      "id": "polymer",
+      "heading": "长链聚合物怎样被重新拆成小分子原料",
+      "organizationIds": [
+        "berkeley"
+      ],
+      "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+      "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+      "journal": "Science (2024)",
+      "published": "2024",
+      "doi": "10.1126/science.adq7316",
+      "paperUrl": "https://doi.org/10.1126/science.adq7316",
+      "paragraphs": [
+        "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+        "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1126/science.adq7316"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://chemistry.berkeley.edu/node/2629"
+        }
+      ],
+      "relatedCompanyIds": [
+        "basf"
+      ],
+      "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+      "companyOverride": {
+        "organizationId": "basf",
+        "role": "塑料循环与化工制造",
+        "status": "企业公开业务",
+        "paragraphs": [
+          "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+        ],
+        "sources": [
+          {
+            "label": "公司循环经济资料",
+            "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+          }
+        ]
+      }
+    },
+    "fluorine": {
+      "id": "fluorine",
+      "heading": "把含氟片段引入有机分子的电化学路线",
+      "organizationIds": [
+        "greenwich"
+      ],
+      "authors": "Matthew C. Leech、Dmitrii Nagornîi、Jamie M. Walsh 等",
+      "paperTitle": "eFluorination Using Cheap and Readily Available Tetrafluoroborate Salts",
+      "journal": "Organic Letters (2023)",
+      "published": "2023",
+      "doi": "10.1021/acs.orglett.2c04305",
+      "paperUrl": "https://doi.org/10.1021/acs.orglett.2c04305",
+      "paragraphs": [
+        "格林尼治大学团队使用易获得的四氟硼酸盐，在阳极过程里向有机底物引入氟。盐既参与支持电解液的导电，也提供氟来源，研究着眼于更便于操作的有机氟化路线。",
+        "这与从氟化物中制取单质氟是不同任务。研究含氟材料或药物时，应区分氟源的活性、目标键的选择性、电极反应和废物流，不能把所有含氟化学视作同一种过程。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1021/acs.orglett.2c04305"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://gala.gre.ac.uk/id/eprint/38717/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的含氟砌块与合成试剂属于实验供给；具体氟化试剂的操作条件仍以原论文与产品资料为准。"
+    },
+    "chromatography": {
+      "id": "chromatography",
+      "heading": "把蛋白 A 捕获与连续色谱的温度控制接起来",
+      "organizationIds": [
+        "ucl"
+      ],
+      "authors": "Alexander Armstrong、Jorge Aranda Hernandez、Felix Roth 等",
+      "paperTitle": "Development of temperature-controlled batch and 3-column counter-current protein A system for improved therapeutic purification",
+      "journal": "Journal of Chromatography A (2024)",
+      "published": "2024",
+      "doi": "10.1016/j.chroma.2024.465110",
+      "paperUrl": "https://doi.org/10.1016/j.chroma.2024.465110",
+      "paragraphs": [
+        "伦敦大学学院与产业合作者研究温度对单克隆抗体蛋白 A 纯化的影响，并把实验和模型用于三柱周期逆流流程。吸附、洗脱和树脂循环需要共同优化。",
+        "单次柱实验给出的容量，不等于连续流程中的实际生产率。目标蛋白收率、杂质去除、缓冲液消耗和树脂使用寿命都应纳入比较。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1016/j.chroma.2024.465110"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38941794/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "cytiva"
+      ],
+      "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
+    },
+    "gpcr": {
+      "id": "gpcr",
+      "heading": "把受体激活过程分成连续结构状态",
+      "organizationIds": [
+        "stanford"
+      ],
+      "authors": "Makaía M. Papasergi-Scott、Guillermo Pérez-Hernández、Hossein Batebi 等",
+      "paperTitle": "Time-resolved cryo-EM of G-protein activation by a GPCR",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07153-1",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07153-1",
+      "paragraphs": [
+        "斯坦福大学及合作者使用时间分辨冷冻电镜与分子动力学，追踪 GTP 结合后 G 蛋白构象变化及其脱离受体的过程。不同构象让核苷酸位点与受体接触界面的变化可以相互对照。",
+        "这类研究把静态受体结构推进到激活路径，但结构快照与完整反应速率仍需区分。样品制备、构象分类和模拟起点都会影响可观察的状态。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07153-1"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://cris.fau.de/publications/320053833/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
+    },
+    "colloid": {
+      "id": "colloid",
+      "heading": "让两类胶体颗粒在蒸发中共同组装",
+      "organizationIds": [
+        "harvard"
+      ],
+      "authors": "Anna V. Shneidman、Cathy T. Y. Zhang、Nikolaj K. Mandsberg 等",
+      "paperTitle": "Functional supraparticles produced by the evaporation of binary colloidal suspensions on superhydrophobic surfaces",
+      "journal": "Soft Matter (2024)",
+      "published": "2024",
+      "doi": "10.1039/d4sm00458b",
+      "paperUrl": "https://doi.org/10.1039/d4sm00458b",
+      "paragraphs": [
+        "哈佛大学等机构把不同尺寸和组成的胶体悬浮液在超疏水表面上干燥，得到可调组成和形貌的超颗粒。研究还利用模板去除后的多孔结构进行催化示例。",
+        "溶液中的颗粒怎样被液面、毛细力和粒子间作用组织起来，决定最终材料是否均匀。组装完成后的形状与性能，不能只从单个纳米颗粒的尺寸推出。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1039/d4sm00458b"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubs.rsc.org/en/content/articlelanding/2024/sm/d4sm00458b"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的胶体、聚合物微球与纳米材料是研究原料示例，不等于论文中复合超颗粒的商业成品。"
+    },
+    "auc": {
+      "id": "auc",
+      "heading": "超离心从“看见沉降”走向分析分子相互作用",
+      "organizationIds": [
+        "lethbridge"
+      ],
+      "authors": "Borries Demeler",
+      "paperTitle": "Methods for the Design and Analysis of Analytical Ultracentrifugation Experiments",
+      "journal": "Current Protocols (2024)",
+      "published": "2024",
+      "doi": "10.1002/cpz1.974",
+      "paperUrl": "https://doi.org/10.1002/cpz1.974",
+      "paragraphs": [
+        "莱斯布里奇大学与蒙大拿大学的这篇方法文章，讨论沉降速度、沉降平衡、光学检测和 UltraScan 数据分析。分子大小、浮力和相互作用的推断依赖合理的实验设计，而不是读取单一沉降峰。",
+        "不同检测器对吸收、折射率或荧光敏感，能看见的组分范围不同。多组分体系需要检查密度、非理想性与模型假设，避免把聚集或混合物误判成单一大分子。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1002/cpz1.974"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/cpz1.974"
+        }
+      ],
+      "relatedCompanyIds": [
+        "beckman"
+      ],
+      "relation": "Beckman Coulter 的 Optima AUC 是现行分析超离心仪示例，原文同时区分了较早的仪器系列与新的检测和分析方法。"
+    },
+    "boronenzyme": {
+      "id": "boronenzyme",
+      "heading": "把硼酸基放进蛋白质催化口袋",
+      "organizationIds": [
+        "rug"
+      ],
+      "authors": "Lars Longwitz、Reuben B. Leveson-Gower、Henriëtte J. Rozeboom 等",
+      "paperTitle": "Boron catalysis in a designer enzyme",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-07391-3",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-07391-3",
+      "paragraphs": [
+        "格罗宁根大学团队用扩展遗传密码，将带硼酸基团的非天然氨基酸引入蛋白，并通过定向进化改善催化效率和立体选择性。催化基团与蛋白口袋各自承担一部分化学控制。",
+        "这一实例把有机硼化学与酶工程连接起来。能催化一种新反应，是建立人工酶功能的起点；后续还要考察底物范围、稳定性和制备成本。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-07391-3"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.rug.nl/news/2024/05/university-of-groningen-chemists-produce-new-to-nature-enzyme-containing-boron"
+        }
+      ],
+      "relatedCompanyIds": [
+        "novonesis"
+      ],
+      "relation": "Novonesis 的工业酶产品展示生物催化的产业路径；未核实到这套含硼人工酶的商品化配方。"
+    },
+    "aquaporin": {
+      "id": "aquaporin",
+      "heading": "水通道还受周围脂质膜调节",
+      "organizationIds": [
+        "uiuc"
+      ],
+      "authors": "Anh T. P. Nguyen、Austin T. Weigle、Diwakar Shukla",
+      "paperTitle": "Functional regulation of aquaporin dynamics by lipid bilayer composition",
+      "journal": "Nature Communications (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41467-024-46027-y",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-46027-y",
+      "paragraphs": [
+        "伊利诺伊大学厄巴纳–香槟分校团队利用分子动力学模拟改变膜环境，比较水通道蛋白的结构、热力学、动力学和预测水转运表现。结果将通道的功能从一条固定孔道，扩展为蛋白与脂质膜共同决定的行为。",
+        "这一方向延续的是选择性跨膜运输问题。蛋白的静态孔径、膜内运动和实际通水速率不是同一个指标，模拟预测仍需结构与输运实验检验。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-46027-y"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-46027-y"
+        }
+      ],
+      "relatedCompanyIds": [
+        "bruker"
+      ],
+      "relation": "Bruker 的 NMR 和结构分析工具服务于膜蛋白研究；研究用仪器与利用水通道开发的分离膜产品属于不同环节。"
+    },
+    "conductive": {
+      "id": "conductive",
+      "heading": "导电高分子开始承担可植入电路功能",
+      "organizationIds": [
+        "columbia"
+      ],
+      "authors": "Duncan J. Wisniewski、Liang Ma、Onni J. Rauhala 等",
+      "paperTitle": "Spatial control of doping in conducting polymers enables complementary, conformable, implantable internal ion-gated organic electrochemical transistors",
+      "journal": "Nature Communications (2025)",
+      "published": "2025",
+      "doi": "10.1038/s41467-024-55284-w",
+      "paperUrl": "https://doi.org/10.1038/s41467-024-55284-w",
+      "paragraphs": [
+        "哥伦比亚大学等机构研究通过空间控制掺杂，在导电聚合物中构建互补、有柔性的有机电化学晶体管。材料的离子—电子混合传导与器件放大能力被放到同一个设计里。",
+        "导电性高只是一个条件。植入环境中的稳定性、柔顺性、噪声和长期电化学变化同样影响记录结果；材料指标需要落实到完整电路与组织界面。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41467-024-55284-w"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.nature.com/articles/s41467-024-55284-w"
+        }
+      ],
+      "relatedCompanyIds": [
+        "merck"
+      ],
+      "relation": "Sigma-Aldrich 的导电聚合物和电子材料属于原料供应；论文中的可植入放大器没有据此被列作商业医疗设备。"
+    },
+    "ribozyme": {
+      "id": "ribozyme",
+      "heading": "RNA 催化：把活性位置与折叠结构对应起来",
+      "organizationIds": [
+        "aarhus"
+      ],
+      "authors": "Ewan K. S. McRae、Christopher J. K. Wan、Emil L. Kristoffersen 等",
+      "paperTitle": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+      "journal": "Proceedings of the National Academy of Sciences (2024)",
+      "published": "2024",
+      "doi": "10.1073/pnas.2313332121",
+      "paperUrl": "https://doi.org/10.1073/pnas.2313332121",
+      "paragraphs": [
+        "奥胡斯大学与 MRC 分子生物学实验室结合冷冻电镜和高通量突变分析，研究以三核苷酸为底物的 RNA 聚合酶核酶。结构中的亚基接触与功能筛选结果相互对照，用来识别哪些位置对催化必要。",
+        "RNA 能催化反应并不意味着已经在实验中重建了生命起源。模板依赖延伸的活性、保真度与条件兼容性，仍需要独立测量和改进。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1073/pnas.2313332121"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+        }
+      ],
+      "relatedCompanyIds": [
+        "thermo"
+      ],
+      "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
+    },
+    "insulin": {
+      "id": "insulin",
+      "heading": "胰岛素开始被设计成对葡萄糖浓度作出响应",
+      "organizationIds": [
+        "bristol"
+      ],
+      "authors": "Thomas Hoeg-Jensen、Thomas Kruse、Christian L. Brand 等",
+      "paperTitle": "Glucose-sensitive insulin with attenuation of hypoglycaemia",
+      "journal": "Nature (2024)",
+      "published": "2024",
+      "doi": "10.1038/s41586-024-08042-3",
+      "paperUrl": "https://doi.org/10.1038/s41586-024-08042-3",
+      "paragraphs": [
+        "布里斯托大学与诺和诺德等合作者研究 NNC2215：将葡萄糖识别单元与胰岛素构建连接，使其活性随葡萄糖水平发生可逆改变。论文通过体外和动物实验检验这一分子开关。",
+        "这一工作延续了序列、构象与激素活性的关系，同时增加对环境信号的响应设计。论文中的实验性胰岛素不能与常规临床胰岛素产品混同，也不能据此推断人体治疗结果。"
+      ],
+      "sources": [
+        {
+          "label": "论文 DOI",
+          "url": "https://doi.org/10.1038/s41586-024-08042-3"
+        },
+        {
+          "label": "原始研究与机构资料",
+          "url": "https://www.bristol.ac.uk/chemistry/news/2024/gluhut.html"
+        }
+      ],
+      "relatedCompanyIds": [
+        "novo"
+      ],
+      "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
+    }
+  },
+  "companies": {
+    "merck": {
+      "organizationId": "merck",
+      "role": "合成试剂、标准品与研究材料",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+        }
+      ]
+    },
+    "thermo": {
+      "organizationId": "thermo",
+      "role": "质谱、显微及分子研究工具",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+        }
+      ]
+    },
+    "bruker": {
+      "organizationId": "bruker",
+      "role": "磁共振与结构分析",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+        }
+      ]
+    },
+    "cytiva": {
+      "organizationId": "cytiva",
+      "role": "蛋白纯化系统与色谱材料",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+        }
+      ]
+    },
+    "novonesis": {
+      "organizationId": "novonesis",
+      "role": "工业酶与生物催化",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+        }
+      ]
+    },
+    "dsm": {
+      "organizationId": "dsm",
+      "role": "营养原料与香气业务",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+        }
+      ]
+    },
+    "basf": {
+      "organizationId": "basf",
+      "role": "氨基化学品及化工原料",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+        }
+      ]
+    },
+    "catl": {
+      "organizationId": "catl",
+      "role": "电池与储能系统",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "宁德时代开发商业动力电池与储能系统，并针对不同应用组织电芯材料、结构和充电技术。论文中的化成实验与商品电池属于不同验证层级，比较时需保留电芯体系及运行条件。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.catl.com/en/news/6811.html"
+        }
+      ]
+    },
+    "twist": {
+      "organizationId": "twist",
+      "role": "合成 DNA 与变体文库",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.twistbioscience.com/products/genes"
+        }
+      ]
+    },
+    "schrodinger": {
+      "organizationId": "schrodinger",
+      "role": "分子模拟与设计软件",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.schrodinger.com/platform/products/maestro/"
+        }
+      ]
+    },
+    "oxinst": {
+      "organizationId": "oxinst",
+      "role": "低温实验设备",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Oxford Instruments 的 Proteox 稀释制冷系统提供低温实验环境，并围绕模块化及实验空间组织设备配置。制冷、激光冷却和分子量子态操控承担不同任务，应按实验要求分别选用。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+        }
+      ]
+    },
+    "arvinas": {
+      "organizationId": "arvinas",
+      "role": "靶向蛋白降解",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Arvinas 的 PROTAC 技术通过同时接近靶蛋白与降解系统，探索定向去除蛋白的药物路线。公司技术与研发资料说明其研究对象；与某篇分子胶论文的直接合作或授权关系需要另行证据。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.arvinas.com/our-science/protac-discovery-engine/"
+        }
+      ]
+    },
+    "samsung": {
+      "organizationId": "samsung",
+      "role": "量子点光转换显示",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Samsung Display 的 QD-OLED 将有机发光源与量子点光转换层结合。它与直接注入电荷的 QD-LED 采用不同结构，因此不能把实验室蓝色 QD-LED 的测试数字直接用于解释商品 QD-OLED 面板。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://global.samsungdisplay.com/31363?type=main"
+        }
+      ]
+    },
+    "beckman": {
+      "organizationId": "beckman",
+      "role": "分析超离心设备",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Beckman Coulter Life Sciences 的 Optima AUC 用于溶液中大分子的沉降分析。实验通过转速、光学检测和模型拟合获得信息，需要针对样品密度、浓度和组分设计协议。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+        }
+      ]
+    },
+    "chemours": {
+      "organizationId": "chemours",
+      "role": "替代制冷剂",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "Chemours 的 Opteon 产品以 HFO 等含氟化学为基础，用于制冷及相关工业应用。臭氧消耗潜能与全球变暖潜能是两项不同指标，应对照具体配方的技术资料。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+        }
+      ]
+    },
+    "novo": {
+      "organizationId": "novo",
+      "role": "胰岛素研究与产品",
+      "status": "企业公开资料",
+      "paragraphs": [
+        "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+      ],
+      "sources": [
+        {
+          "label": "产品与技术资料",
+          "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+        }
+      ]
+    }
+  }
+}

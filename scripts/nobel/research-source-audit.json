@@ -1,0 +1,454 @@
+[
+  {
+    "id": "ammonia",
+    "doi": "10.1038/s41929-024-01115-6",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41929-024-01115-6",
+    "title": "Lithium-mediated nitrogen reduction to ammonia via the catalytic solid–electrolyte interphase",
+    "year": "2024",
+    "institutions": [
+      "caltech"
+    ],
+    "source": "https://doi.org/10.1038/s41929-024-01115-6"
+  },
+  {
+    "id": "sugars",
+    "doi": "10.1002/chem.202401214",
+    "metadataUrl": "https://api.crossref.org/works/10.1002/chem.202401214",
+    "title": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+    "year": "2024",
+    "institutions": [
+      "slu"
+    ],
+    "source": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+  },
+  {
+    "id": "battery",
+    "doi": "10.1016/j.joule.2024.07.024",
+    "metadataUrl": "https://api.crossref.org/works/10.1016/j.joule.2024.07.024",
+    "title": "Data-driven analysis of battery formation reveals the role of electrode utilization in extending cycle life",
+    "year": "2024",
+    "institutions": [
+      "stanford"
+    ],
+    "source": "https://doi.org/10.1016/j.joule.2024.07.024"
+  },
+  {
+    "id": "cellfree",
+    "doi": "10.1038/s41467-024-48726-y",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48726-y",
+    "title": "Cell-free biosynthesis and engineering of ribosomally synthesized lanthipeptides",
+    "year": "2024",
+    "institutions": [
+      "shanghaitech",
+      "stanford"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-48726-y"
+  },
+  {
+    "id": "radio",
+    "doi": "10.1038/s41467-024-50017-5",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-50017-5",
+    "title": "Actinium chelation and crystallization in a macromolecular scaffold",
+    "year": "2024",
+    "institutions": [
+      "berkeley"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-50017-5"
+  },
+  {
+    "id": "catalysis",
+    "doi": "10.1038/s41586-024-07181-x",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07181-x",
+    "title": "Couple-close construction of polycyclic rings from diradicals",
+    "year": "2024",
+    "institutions": [
+      "princeton"
+    ],
+    "source": "https://macmillan.princeton.edu/publications/"
+  },
+  {
+    "id": "terpene",
+    "doi": "10.1038/s41467-024-54175-4",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-54175-4",
+    "title": "The biosynthesis of the odorant 2-methylisoborneol is compartmentalized inside a protein shell",
+    "year": "2024",
+    "institutions": [
+      "umich"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-54175-4"
+  },
+  {
+    "id": "isotope",
+    "doi": "10.1007/s00216-024-05176-1",
+    "metadataUrl": "https://api.crossref.org/works/10.1007/s00216-024-05176-1",
+    "title": "Evaluation of different isotope dilution mass spectrometry strategies for the characterization of naturally abundant and isotopically labelled peptide standards",
+    "year": "2024",
+    "institutions": [
+      "oviedo"
+    ],
+    "source": "https://portalinvestigacion.uniovi.es/documentos/65e422ef795b6b1f94c9b10b?lang=es"
+  },
+  {
+    "id": "photosynthesis",
+    "doi": "10.1039/d4ee05780e",
+    "metadataUrl": "https://api.crossref.org/works/10.1039/d4ee05780e",
+    "title": "Modular perovskite-BiVO 4 artificial leaves towards syngas synthesis on a m 2 scale",
+    "year": "2025",
+    "institutions": [
+      "cambridge"
+    ],
+    "source": "https://pubs.rsc.org/en/content/articlehtml/2025/ee/d4ee05780e"
+  },
+  {
+    "id": "vitamin",
+    "doi": "10.1038/s41467-024-48410-1",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48410-1",
+    "title": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+    "year": "2024",
+    "institutions": [
+      "rug"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-48410-1"
+  },
+  {
+    "id": "steroid",
+    "doi": "10.1038/s41586-024-07017-8",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07017-8",
+    "title": "Bile salt hydrolase acyltransferase activity expands bile acid diversity",
+    "year": "2024",
+    "institutions": [
+      "msu"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38326608/"
+  },
+  {
+    "id": "cold",
+    "doi": "10.1038/s41567-024-02423-1",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41567-024-02423-1",
+    "title": "Quantum state manipulation and cooling of ultracold molecules",
+    "year": "2024",
+    "institutions": [
+      "cuhk"
+    ],
+    "source": "https://www.nature.com/articles/s41567-024-02423-1"
+  },
+  {
+    "id": "protein",
+    "doi": "10.1038/s41586-023-06415-8",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-023-06415-8",
+    "title": "De novo design of protein structure and function with RFdiffusion",
+    "year": "2023",
+    "institutions": [
+      "uw"
+    ],
+    "source": "https://www.nature.com/articles/s41586-023-06415-8"
+  },
+  {
+    "id": "quantum",
+    "doi": "10.1126/science.adn0137",
+    "metadataUrl": "https://api.crossref.org/works/10.1126/science.adn0137",
+    "title": "Accurate computation of quantum excited states with neural networks",
+    "year": "2024",
+    "institutions": [
+      "imperial"
+    ],
+    "source": "https://www.science.org/doi/10.1126/science.adn0137"
+  },
+  {
+    "id": "kinetics",
+    "doi": "10.1038/s41557-023-01413-9",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41557-023-01413-9",
+    "title": "Directed ultrafast conformational changes accompany electron transfer in a photolyase as resolved by serial crystallography",
+    "year": "2024",
+    "institutions": [
+      "gothenburg"
+    ],
+    "source": "https://www.nature.com/articles/s41557-023-01413-9"
+  },
+  {
+    "id": "motor",
+    "doi": "10.1038/s41586-024-08288-x",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-08288-x",
+    "title": "Transducing chemical energy through catalysis by an artificial molecular motor",
+    "year": "2025",
+    "institutions": [
+      "manchester"
+    ],
+    "source": "https://www.nature.com/articles/s41586-024-08288-x"
+  },
+  {
+    "id": "hostguest",
+    "doi": "10.1038/s41467-024-48089-4",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48089-4",
+    "title": "Bulk transparent supramolecular glass enabled by host–guest molecular recognition",
+    "year": "2024",
+    "institutions": [
+      "hunan"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-48089-4"
+  },
+  {
+    "id": "nmr",
+    "doi": "10.1038/s41467-024-49378-8",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-49378-8",
+    "title": "Solution-state methyl NMR spectroscopy of large non-deuterated proteins enabled by deep neural networks",
+    "year": "2024",
+    "institutions": [
+      "ucl"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38871714/"
+  },
+  {
+    "id": "editing",
+    "doi": "10.1038/s41586-024-07259-6",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07259-6",
+    "title": "Improving prime editing with an endogenous small RNA-binding protein",
+    "year": "2024",
+    "institutions": [
+      "princeton"
+    ],
+    "source": "https://www.nature.com/articles/s41586-024-07259-6"
+  },
+  {
+    "id": "ozone",
+    "doi": "10.1038/s41467-024-48406-x",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48406-x",
+    "title": "Stratospheric influence on surface ozone pollution in China",
+    "year": "2024",
+    "institutions": [
+      "fjnu"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-48406-x"
+  },
+  {
+    "id": "fullerene",
+    "doi": "10.1038/s41467-024-44834-x",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-44834-x",
+    "title": "Synthesis of inter-[60]fullerene conjugates with inherent chirality",
+    "year": "2024",
+    "institutions": [
+      "kyoto"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-44834-x"
+  },
+  {
+    "id": "atp",
+    "doi": "10.1016/j.molcel.2023.04.029",
+    "metadataUrl": "https://api.crossref.org/works/10.1016/j.molcel.2023.04.029",
+    "title": "Structure of the human ATP synthase",
+    "year": "2023",
+    "institutions": [
+      "nankai"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/37244256/"
+  },
+  {
+    "id": "imaging",
+    "doi": "10.1038/s41467-024-48575-9",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48575-9",
+    "title": "Zero-shot learning enables instant denoising and super-resolution in optical fluorescence microscopy",
+    "year": "2024",
+    "institutions": [
+      "tsinghua"
+    ],
+    "source": "https://media.au.tsinghua.edu.cn/info/1016/1398.htm"
+  },
+  {
+    "id": "rna",
+    "doi": "10.1038/s41586-023-07014-3",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-023-07014-3",
+    "title": "Translation selectively destroys non-functional transcription complexes",
+    "year": "2024",
+    "institutions": [
+      "newcastle"
+    ],
+    "source": "https://www.nature.com/articles/s41586-023-07014-3"
+  },
+  {
+    "id": "ubiquitin",
+    "doi": "10.1038/s41586-024-07089-6",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07089-6",
+    "title": "Targeted protein degradation via intramolecular bivalent glues",
+    "year": "2024",
+    "institutions": [
+      "dundee"
+    ],
+    "source": "https://discovery.dundee.ac.uk/en/publications/targeted-protein-degradation-via-intramolecular-bivalent-glues/"
+  },
+  {
+    "id": "repair",
+    "doi": "10.1038/s41594-024-01286-7",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41594-024-01286-7",
+    "title": "DNA double-strand break–capturing nuclear envelope tubules drive DNA repair",
+    "year": "2024",
+    "institutions": [
+      "toronto"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38632359/"
+  },
+  {
+    "id": "qdot",
+    "doi": "10.1038/s41467-024-44894-z",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-44894-z",
+    "title": "Stable and efficient pure blue quantum-dot LEDs enabled by inserting an anti-oxidation layer",
+    "year": "2024",
+    "institutions": [
+      "henu"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38278797/"
+  },
+  {
+    "id": "quasicrystal",
+    "doi": "10.1038/s41597-024-04043-z",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41597-024-04043-z",
+    "title": "Comprehensive experimental datasets of quasicrystals and their approximants",
+    "year": "2024",
+    "institutions": [
+      "tus"
+    ],
+    "source": "https://www.ism.ac.jp/ura/press/ISM2024-04_e.html"
+  },
+  {
+    "id": "soai",
+    "doi": "10.1038/s41467-025-62591-3",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-025-62591-3",
+    "title": "Mechanistic analysis and kinetic profiling of Soai’s asymmetric autocatalysis for pyridyl and pyrimidyl substrates",
+    "year": "2025",
+    "institutions": [
+      "lmu"
+    ],
+    "source": "https://epub.ub.uni-muenchen.de/133448/1/s41467-025-62591-3.pdf"
+  },
+  {
+    "id": "carbondate",
+    "doi": "10.1038/s41467-024-48402-1",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-48402-1",
+    "title": "Absolute dating of the European Neolithic using the 5259 BC rapid 14C excursion",
+    "year": "2024",
+    "institutions": [
+      "bern"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-48402-1"
+  },
+  {
+    "id": "polymer",
+    "doi": "10.1126/science.adq7316",
+    "metadataUrl": "https://api.crossref.org/works/10.1126/science.adq7316",
+    "title": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+    "year": "2024",
+    "institutions": [
+      "berkeley"
+    ],
+    "source": "https://chemistry.berkeley.edu/node/2629"
+  },
+  {
+    "id": "fluorine",
+    "doi": "10.1021/acs.orglett.2c04305",
+    "metadataUrl": "https://api.crossref.org/works/10.1021/acs.orglett.2c04305",
+    "title": "eFluorination Using Cheap and Readily Available Tetrafluoroborate Salts",
+    "year": "2023",
+    "institutions": [
+      "greenwich"
+    ],
+    "source": "https://gala.gre.ac.uk/id/eprint/38717/"
+  },
+  {
+    "id": "chromatography",
+    "doi": "10.1016/j.chroma.2024.465110",
+    "metadataUrl": "https://api.crossref.org/works/10.1016/j.chroma.2024.465110",
+    "title": "Development of temperature-controlled batch and 3-column counter-current protein A system for improved therapeutic purification",
+    "year": "2024",
+    "institutions": [
+      "ucl"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38941794/"
+  },
+  {
+    "id": "gpcr",
+    "doi": "10.1038/s41586-024-07153-1",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07153-1",
+    "title": "Time-resolved cryo-EM of G-protein activation by a GPCR",
+    "year": "2024",
+    "institutions": [
+      "stanford"
+    ],
+    "source": "https://cris.fau.de/publications/320053833/"
+  },
+  {
+    "id": "colloid",
+    "doi": "10.1039/d4sm00458b",
+    "metadataUrl": "https://api.crossref.org/works/10.1039/d4sm00458b",
+    "title": "Functional supraparticles produced by the evaporation of binary colloidal suspensions on superhydrophobic surfaces",
+    "year": "2024",
+    "institutions": [
+      "harvard"
+    ],
+    "source": "https://pubs.rsc.org/en/content/articlelanding/2024/sm/d4sm00458b"
+  },
+  {
+    "id": "auc",
+    "doi": "10.1002/cpz1.974",
+    "metadataUrl": "https://api.crossref.org/works/10.1002/cpz1.974",
+    "title": "Methods for the Design and Analysis of Analytical Ultracentrifugation Experiments",
+    "year": "2024",
+    "institutions": [
+      "lethbridge"
+    ],
+    "source": "https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/cpz1.974"
+  },
+  {
+    "id": "boronenzyme",
+    "doi": "10.1038/s41586-024-07391-3",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-07391-3",
+    "title": "Boron catalysis in a designer enzyme",
+    "year": "2024",
+    "institutions": [
+      "rug"
+    ],
+    "source": "https://www.rug.nl/news/2024/05/university-of-groningen-chemists-produce-new-to-nature-enzyme-containing-boron"
+  },
+  {
+    "id": "aquaporin",
+    "doi": "10.1038/s41467-024-46027-y",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-46027-y",
+    "title": "Functional regulation of aquaporin dynamics by lipid bilayer composition",
+    "year": "2024",
+    "institutions": [
+      "uiuc"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-46027-y"
+  },
+  {
+    "id": "conductive",
+    "doi": "10.1038/s41467-024-55284-w",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41467-024-55284-w",
+    "title": "Spatial control of doping in conducting polymers enables complementary, conformable, implantable internal ion-gated organic electrochemical transistors",
+    "year": "2025",
+    "institutions": [
+      "columbia"
+    ],
+    "source": "https://www.nature.com/articles/s41467-024-55284-w"
+  },
+  {
+    "id": "ribozyme",
+    "doi": "10.1073/pnas.2313332121",
+    "metadataUrl": "https://api.crossref.org/works/10.1073/pnas.2313332121",
+    "title": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+    "year": "2024",
+    "institutions": [
+      "aarhus"
+    ],
+    "source": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+  },
+  {
+    "id": "insulin",
+    "doi": "10.1038/s41586-024-08042-3",
+    "metadataUrl": "https://api.crossref.org/works/10.1038/s41586-024-08042-3",
+    "title": "Glucose-sensitive insulin with attenuation of hypoglycaemia",
+    "year": "2024",
+    "institutions": [
+      "bristol"
+    ],
+    "source": "https://www.bristol.ac.uk/chemistry/news/2024/gluhut.html"
+  }
+]

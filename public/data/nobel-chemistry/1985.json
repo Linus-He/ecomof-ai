@@ -1,0 +1,168 @@
+{
+  "year": 1985,
+  "status": "awarded",
+  "names": [
+    "Herbert A. Hauptman",
+    "Jerome Karle"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/262",
+    "https://www.nobelprize.org/laureate/263"
+  ],
+  "motivations": [
+    "for their outstanding achievements in the development of direct methods for the determination of crystal structures",
+    "for their outstanding achievements in the development of direct methods for the determination of crystal structures"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "262",
+      "name": "Herbert A. Hauptman",
+      "image": "images/nobel/laureates/262.jpg",
+      "source": "https://www.nobelprize.org/images/hauptman-13368-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1985/summary/",
+      "sha256": "95ab4b0794c07b09b76a89b41b3a3651c878642aa60a047dff7c34c39924a4a7"
+    },
+    {
+      "id": "263",
+      "name": "Jerome Karle",
+      "image": "images/nobel/laureates/263.jpg",
+      "source": "https://www.nobelprize.org/images/karle-13369-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1985/summary/",
+      "sha256": "54023508be4fc3e32c93ab0c7f33036cad9a31e477fc346b0bd6e8d70b11e466"
+    }
+  ],
+  "reading": {
+    "title": "晶体结构的直接方法",
+    "summary": "晶体结构的直接方法。使从衍射数据直接求结构更具普适性。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "衍射测得强度，却缺少重建电子密度所需的相位。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "利用电子密度的物理约束和结构因子统计关系推定相位。",
+        "equation": "\\rho(\\mathbf r)=\\frac1V\\sum_{\\mathbf h}F_{\\mathbf h}e^{-2\\pi i\\mathbf h\\cdot\\mathbf r}",
+        "equationNote": "Fourier 重建关系；F 包含振幅和相位，强度数据不能直接给出全部相位。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于晶体结构解析与小分子结构测定。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使从衍射数据直接求结构更具普适性。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "结构的直接方法改变了晶体结构求解。新型碳笼连接研究仍依靠晶体学确定几何，再将几何与光谱及分子识别对应起来。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "kyoto",
+          "name": "京都大学",
+          "englishName": "Kyoto University",
+          "url": "https://www.kyoto-u.ac.jp/en",
+          "logo": "images/nobel/organizations/kyoto.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.kyoto-u.ac.jp/themes/custom/camphor/images/apple-touch-icon.png",
+          "sha256": "64041b05bc15bee28659fc5e0ed0cf29f89335752166d92e41d6b9d4303d25b9"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "fullerene",
+          "heading": "从发现碳笼走向控制两个碳笼的连接",
+          "organizationIds": [
+            "kyoto"
+          ],
+          "authors": "Yoshifumi Hashikawa、Shu Okamoto、Yasujiro Murata",
+          "paperTitle": "Synthesis of inter-[60]fullerene conjugates with inherent chirality",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-44834-x",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-44834-x",
+          "paragraphs": [
+            "京都大学团队合成具有内禀手性的开口 C₆₀ 共轭结构，并用晶体学、吸收与手性光学表征研究笼间连接产生的性质。富勒烯在这里成为可以进一步组织和修饰的分子单元。",
+            "两个碳笼通过什么键相连、电子能否在笼间耦合，以及分子怎样继续组装，会共同改变光谱。发现新的碳形态之后，化学修饰提供了研究结构与功能联系的下一层尺度。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-44834-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-44834-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的富勒烯和纳米碳材料目录属于研究原料供给；未将其中商品与论文的新型手性碳笼混同。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1985/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

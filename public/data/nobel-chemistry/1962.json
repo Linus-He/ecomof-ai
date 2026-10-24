@@ -1,0 +1,168 @@
+{
+  "year": 1962,
+  "status": "awarded",
+  "names": [
+    "Max F. Perutz",
+    "John C. Kendrew"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/226",
+    "https://www.nobelprize.org/laureate/227"
+  ],
+  "motivations": [
+    "for their studies of the structures of globular proteins",
+    "for their studies of the structures of globular proteins"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "226",
+      "name": "Max F. Perutz",
+      "image": "images/nobel/laureates/226.jpg",
+      "source": "https://www.nobelprize.org/images/perutz-13152-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1962/summary/",
+      "sha256": "939d5fd249b2d1b532dfc5179599a46ff1a8eb6122c8ad4cd7b567d71ccd8a5f"
+    },
+    {
+      "id": "227",
+      "name": "John C. Kendrew",
+      "image": "images/nobel/laureates/227.jpg",
+      "source": "https://www.nobelprize.org/images/kendrew-13151-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1962/summary/",
+      "sha256": "6c08bf4d53b0783cf339f490ba79d3fd7ad0361886c4e9946ec3e163279662e6"
+    }
+  ],
+  "reading": {
+    "title": "球状蛋白的三维结构",
+    "summary": "球状蛋白的三维结构。使复杂蛋白的三维构型成为可测对象。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "蛋白序列不能直接回答原子如何在空间排列。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "从晶体衍射强度、相位信息与电子密度重建血红蛋白和肌红蛋白结构。",
+        "equation": "2d\\sin\\theta=n\\lambda",
+        "equationNote": "Bragg 关系描述衍射几何；获得原子模型还需解决相位与精修问题。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于解释蛋白功能、配体结合与结构生物学。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使复杂蛋白的三维构型成为可测对象。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "球状蛋白结构让序列与折叠建立直接联系。生成式设计反过来提出目标骨架，再以表达、结构和功能实验检验。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        },
+        {
+          "id": "uw",
+          "name": "华盛顿大学",
+          "englishName": "University of Washington",
+          "url": "https://www.washington.edu/",
+          "logo": "images/nobel/organizations/uw.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+          "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "protein",
+          "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+          "organizationIds": [
+            "uw"
+          ],
+          "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+          "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+          "journal": "Nature (2023)",
+          "published": "2023",
+          "doi": "10.1038/s41586-023-06415-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+          "paragraphs": [
+            "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+            "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-06415-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-06415-8"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1962/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,245 @@
+{
+  "year": 2024,
+  "status": "awarded",
+  "names": [
+    "David Baker",
+    "Demis Hassabis",
+    "John Jumper"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/1039",
+    "https://www.nobelprize.org/laureate/1040",
+    "https://www.nobelprize.org/laureate/1041"
+  ],
+  "motivations": [
+    "for computational protein design",
+    "for protein structure prediction",
+    "for protein structure prediction"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "1039",
+      "name": "David Baker",
+      "image": "images/nobel/laureates/1039.jpg",
+      "source": "https://www.nobelprize.org/images/165767-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "839e6b3585e6af44f3979d3c432c6f76cb92ee2fcabb2779b56e98f198799adc"
+    },
+    {
+      "id": "1040",
+      "name": "Demis Hassabis",
+      "image": "images/nobel/laureates/1040.jpg",
+      "source": "https://www.nobelprize.org/images/165765-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "248445e8da95f5f03275c2c6de4d2e598c9e2a621feed6779254485836820c17"
+    },
+    {
+      "id": "1041",
+      "name": "John Jumper",
+      "image": "images/nobel/laureates/1041.jpg",
+      "source": "https://www.nobelprize.org/images/165766-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "f764862c9a90aafe16e1f3228c84191531bc7268aa959b0531eb8c185275915e"
+    }
+  ],
+  "reading": {
+    "title": "蛋白质设计与结构预测",
+    "summary": "蛋白质设计与结构预测。显著扩展可分析和可设计的蛋白质空间。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "序列如何对应空间折叠，能否反过来设计新序列？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "结构预测从序列推断构象，计算设计寻找符合目标结构和功能的序列。",
+        "equation": "\\mathrm{sequence\\xrightarrow{prediction}structure};\\quad\\mathrm{target\\ structure\\xrightarrow{design}sequence}",
+        "equationNote": "信息映射示意，不是化学反应；预测置信度不是实测功能、动力学或稳定性。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于结构假说、酶和结合蛋白设计。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "显著扩展可分析和可设计的蛋白质空间。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "蛋白设计从生成结构假说走向功能验证。RFdiffusion 与响应型胰岛素分别展示从头设计和改造已有激素的两类路线。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bristol",
+          "name": "布里斯托大学",
+          "englishName": "University of Bristol",
+          "url": "https://www.bristol.ac.uk/",
+          "logo": "images/nobel/organizations/bristol.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bristol.ac.uk/assets/responsive-web-project/2.7.5/favicons/apple-touch-icon.png",
+          "sha256": "9ffc77b56784dcd0c64df1219272454bdebbfacf82aafa85cda3b499cfde3b9a"
+        },
+        {
+          "id": "novo",
+          "name": "诺和诺德",
+          "englishName": "Novo Nordisk",
+          "url": "https://www.novonordisk.com/",
+          "logo": "images/nobel/organizations/novo.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonordisk.com/etc.clientlibs/nncorp/components/structure/page/clientlib/resources/favicon-v2.ico",
+          "sha256": "acfd54d8ab0a64557c0ab7b2e534c169b729da35d2923ec5f32d321772351891"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        },
+        {
+          "id": "uw",
+          "name": "华盛顿大学",
+          "englishName": "University of Washington",
+          "url": "https://www.washington.edu/",
+          "logo": "images/nobel/organizations/uw.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+          "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "protein",
+          "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+          "organizationIds": [
+            "uw"
+          ],
+          "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+          "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+          "journal": "Nature (2023)",
+          "published": "2023",
+          "doi": "10.1038/s41586-023-06415-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+          "paragraphs": [
+            "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+            "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-06415-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-06415-8"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+        },
+        {
+          "id": "insulin",
+          "heading": "胰岛素开始被设计成对葡萄糖浓度作出响应",
+          "organizationIds": [
+            "bristol"
+          ],
+          "authors": "Thomas Hoeg-Jensen、Thomas Kruse、Christian L. Brand 等",
+          "paperTitle": "Glucose-sensitive insulin with attenuation of hypoglycaemia",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-08042-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08042-3",
+          "paragraphs": [
+            "布里斯托大学与诺和诺德等合作者研究 NNC2215：将葡萄糖识别单元与胰岛素构建连接，使其活性随葡萄糖水平发生可逆改变。论文通过体外和动物实验检验这一分子开关。",
+            "这一工作延续了序列、构象与激素活性的关系，同时增加对环境信号的响应设计。论文中的实验性胰岛素不能与常规临床胰岛素产品混同，也不能据此推断人体治疗结果。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08042-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.bristol.ac.uk/chemistry/news/2024/gluhut.html"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novo"
+          ],
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        },
+        {
+          "organizationId": "novo",
+          "role": "胰岛素研究与产品",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2024/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

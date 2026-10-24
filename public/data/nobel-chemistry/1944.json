@@ -1,0 +1,154 @@
+{
+  "year": 1944,
+  "status": "awarded",
+  "names": [
+    "Otto Hahn"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/202"
+  ],
+  "motivations": [
+    "for his discovery of the fission of heavy nuclei"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "202",
+      "name": "Otto Hahn",
+      "image": "images/nobel/laureates/202.jpg",
+      "source": "https://www.nobelprize.org/images/hahn-13028-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1944/summary/",
+      "sha256": "b8228f417232803e0520048c4e8e3200274ff8ee39b4cfe95d2066dbd1ae6bb3"
+    }
+  ],
+  "reading": {
+    "title": "重原子核裂变",
+    "summary": "重原子核裂变。以化学证据确认重核能够分裂。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "中子轰击铀后的产物，为什么表现为较轻元素？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用化学分离确认裂变产物；重核分裂释放能量并可产生中子。",
+        "equation": "\\mathrm{^{235}U+n\\rightarrow{}^{141}Ba+{}^{92}Kr+3n};\\quad Q=\\Delta mc^2",
+        "equationNote": "仅示意一种裂变产物组合，真实裂变有多条分支；此式不是实验原始产物的唯一组合。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于核化学、裂变产物研究和核能理解。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "以化学证据确认重核能够分裂。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "核裂变与放射性金属化学分别研究核变化和分子行为。这里选取后者的现代实例，说明核素产生之后仍需完成的配位与表征工作。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "radio",
+          "heading": "给放射性金属找到可测的配位环境",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+          "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-50017-5",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+          "paragraphs": [
+            "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+            "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-50017-5"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-50017-5"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1944/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

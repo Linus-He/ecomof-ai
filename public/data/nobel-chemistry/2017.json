@@ -1,0 +1,222 @@
+{
+  "year": 2017,
+  "status": "awarded",
+  "names": [
+    "Jacques Dubochet",
+    "Joachim Frank",
+    "Richard Henderson"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/944",
+    "https://www.nobelprize.org/laureate/945",
+    "https://www.nobelprize.org/laureate/946"
+  ],
+  "motivations": [
+    "for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution",
+    "for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution",
+    "for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "944",
+      "name": "Jacques Dubochet",
+      "image": "images/nobel/laureates/944.jpg",
+      "source": "https://www.nobelprize.org/images/dubochet-15235-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "264a1f8bcec27ee284a675754e929964b7f504f737e123d9fe3a9ed16298de65"
+    },
+    {
+      "id": "945",
+      "name": "Joachim Frank",
+      "image": "images/nobel/laureates/945.jpg",
+      "source": "https://www.nobelprize.org/images/frank-15234-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "449f883a7c41cd6e9ec22e46cb73e62c8ebaf906c8d16f09c04bd1e14231f24a"
+    },
+    {
+      "id": "946",
+      "name": "Richard Henderson",
+      "image": "images/nobel/laureates/946.jpg",
+      "source": "https://www.nobelprize.org/images/henderson-15230-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "33ea6e15169089a2b79b68fe1078f3650e4f7cf346b1a2b28962ddbc56f9e7ce"
+    }
+  ],
+  "reading": {
+    "title": "冷冻电子显微镜",
+    "summary": "冷冻电子显微镜。把许多难结晶分子的高分辨率结构变成可行目标。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "生物分子在真空和电子束下容易损伤，需要保持接近水溶状态。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "快速玻璃化避免冰晶，低剂量成像与多颗粒重建得到结构。",
+        "equation": "I_j\\approx\\mathcal P_{\\Omega_j}[V]+\\epsilon_j",
+        "equationNote": "投影模型示意；真实图像还受成像传递、运动、剂量和异质性影响。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于蛋白、膜复合物和生物大分子结构。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把许多难结晶分子的高分辨率结构变成可行目标。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "冷冻电镜不仅解析单个稳定结构，也开始比较反应过程中的构象。蛋白受体和核酶实例展示了这类方法能回答的不同问题。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "aarhus",
+          "name": "奥胡斯大学",
+          "englishName": "Aarhus University",
+          "url": "https://www.au.dk/en/",
+          "logo": "images/nobel/organizations/aarhus.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.au.dk/favicon.ico",
+          "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+        },
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "gpcr",
+          "heading": "把受体激活过程分成连续结构状态",
+          "organizationIds": [
+            "stanford"
+          ],
+          "authors": "Makaía M. Papasergi-Scott、Guillermo Pérez-Hernández、Hossein Batebi 等",
+          "paperTitle": "Time-resolved cryo-EM of G-protein activation by a GPCR",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07153-1",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07153-1",
+          "paragraphs": [
+            "斯坦福大学及合作者使用时间分辨冷冻电镜与分子动力学，追踪 GTP 结合后 G 蛋白构象变化及其脱离受体的过程。不同构象让核苷酸位点与受体接触界面的变化可以相互对照。",
+            "这类研究把静态受体结构推进到激活路径，但结构快照与完整反应速率仍需区分。样品制备、构象分类和模拟起点都会影响可观察的状态。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07153-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://cris.fau.de/publications/320053833/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
+        },
+        {
+          "id": "ribozyme",
+          "heading": "RNA 催化：把活性位置与折叠结构对应起来",
+          "organizationIds": [
+            "aarhus"
+          ],
+          "authors": "Ewan K. S. McRae、Christopher J. K. Wan、Emil L. Kristoffersen 等",
+          "paperTitle": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+          "journal": "Proceedings of the National Academy of Sciences (2024)",
+          "published": "2024",
+          "doi": "10.1073/pnas.2313332121",
+          "paperUrl": "https://doi.org/10.1073/pnas.2313332121",
+          "paragraphs": [
+            "奥胡斯大学与 MRC 分子生物学实验室结合冷冻电镜和高通量突变分析，研究以三核苷酸为底物的 RNA 聚合酶核酶。结构中的亚基接触与功能筛选结果相互对照，用来识别哪些位置对催化必要。",
+            "RNA 能催化反应并不意味着已经在实验中重建了生命起源。模板依赖延伸的活性、保真度与条件兼容性，仍需要独立测量和改进。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1073/pnas.2313332121"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2017/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,181 @@
+{
+  "year": 2014,
+  "status": "awarded",
+  "names": [
+    "Eric Betzig",
+    "Stefan W. Hell",
+    "William E. Moerner"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/909",
+    "https://www.nobelprize.org/laureate/910",
+    "https://www.nobelprize.org/laureate/911"
+  ],
+  "motivations": [
+    "for the development of super-resolved fluorescence microscopy",
+    "for the development of super-resolved fluorescence microscopy",
+    "for the development of super-resolved fluorescence microscopy"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "909",
+      "name": "Eric Betzig",
+      "image": "images/nobel/laureates/909.jpg",
+      "source": "https://www.nobelprize.org/images/betzig-15197-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "cded0fd0d2fbebad668f194183c1e2d8906512c2b145379af91a0f38d8c3b0d1"
+    },
+    {
+      "id": "910",
+      "name": "Stefan W. Hell",
+      "image": "images/nobel/laureates/910.jpg",
+      "source": "https://www.nobelprize.org/images/hell-15196-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "8eef411288317c87ce687bf15cfe266841419dbb5d857b6eca395630c6e90ee7"
+    },
+    {
+      "id": "911",
+      "name": "William E. Moerner",
+      "image": "images/nobel/laureates/911.jpg",
+      "source": "https://www.nobelprize.org/images/moerner-15195-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "005950f01bc490179b3e68c78edb283ee9edc9a19c36fdb96d8cfedd56582b7b"
+    }
+  ],
+  "reading": {
+    "title": "超分辨率荧光显微术",
+    "summary": "超分辨率荧光显微术。通过控制荧光状态突破传统衍射图像的分辨限制。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "传统光学显微分辨率难以区分距离极近的分子。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "STED 控制发光区域，单分子定位方法在时间上分离信号并精确定位。",
+        "equation": "d_{\\rm STED}\\approx\\frac{\\lambda}{2NA\\sqrt{1+I/I_s}}",
+        "equationNote": "理想化 STED 分辨率关系；定位显微术采用不同统计模型，非共用此式。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于细胞纳米结构、蛋白分布与分子动态成像。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "通过控制荧光状态突破传统衍射图像的分辨限制。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "超分辨成像需要控制标记、光照和重建假设。低光照计算方法延伸成像能力，也增加了对伪影与弱信号真实性的验证要求。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        },
+        {
+          "id": "tsinghua",
+          "name": "清华大学",
+          "englishName": "Tsinghua University",
+          "url": "https://www.tsinghua.edu.cn/",
+          "logo": "images/nobel/organizations/tsinghua.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.tsinghua.edu.cn/favicon.ico",
+          "sha256": "44983bc3ed23e86996e1fcabce6a70426cdc6e2c73627fb2e818afca55d38479"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "imaging",
+          "heading": "超分辨图像的可信度也取决于处理流程",
+          "organizationIds": [
+            "tsinghua"
+          ],
+          "authors": "Chang Qiao、Yunmin Zeng、Quan Meng 等",
+          "paperTitle": "Zero-shot learning enables instant denoising and super-resolution in optical fluorescence microscopy",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48575-9",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48575-9",
+          "paragraphs": [
+            "清华大学团队提出不依赖成对真值训练数据的 ZS-DeconvNet，将去噪和反卷积用于多类荧光显微成像。研究关注低光照和活细胞条件下，分辨率、噪声与样品负担如何权衡。",
+            "计算处理可以改善可辨细节，但图像更锐利不自动代表出现了真实结构。需要结合成像物理、独立验证和不同样品测试，检查处理是否改变信号形态或弱结构。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48575-9"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://media.au.tsinghua.edu.cn/info/1016/1398.htm"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的细胞成像及荧光标记产品是应用工具示例；没有将该处理方法写成其显微镜默认具备的功能。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2014/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

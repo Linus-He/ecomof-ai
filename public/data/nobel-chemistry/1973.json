@@ -1,0 +1,243 @@
+{
+  "year": 1973,
+  "status": "awarded",
+  "names": [
+    "Ernst Otto Fischer",
+    "Geoffrey Wilkinson"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/244",
+    "https://www.nobelprize.org/laureate/245"
+  ],
+  "motivations": [
+    "for their pioneering work, performed independently, on the chemistry of the organometallic, so called sandwich compounds",
+    "for their pioneering work, performed independently, on the chemistry of the organometallic, so called sandwich compounds"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "244",
+      "name": "Ernst Otto Fischer",
+      "image": "images/nobel/laureates/244.jpg",
+      "source": "https://www.nobelprize.org/images/fischer-13243-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1973/summary/",
+      "sha256": "3fa001b6b8bfac1d38bea458ef8c8ae5703ff498bc73767de3c362e16a7e51f0"
+    },
+    {
+      "id": "245",
+      "name": "Geoffrey Wilkinson",
+      "image": "images/nobel/laureates/245.jpg",
+      "source": "https://www.nobelprize.org/images/wilkinson-13244-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1973/summary/",
+      "sha256": "cb9ddc160efad49d25f6d206c3a258b2a9c94ede89e8a7e5e377b0bb22b519f0"
+    }
+  ],
+  "reading": {
+    "title": "有机金属夹心化合物",
+    "summary": "有机金属夹心化合物。显示金属能够与整个共轭环协同成键。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "某些金属化合物的性质无法用传统局部键式解释。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "金属与环状 π 体系相互作用，形成夹心结构并扩展有机金属成键观。",
+        "equation": "\\mathrm{Fe^{2+}+2C_5H_5^-\\rightarrow Fe(C_5H_5)_2}",
+        "equationNote": "二茂铁组成示意；真实制备并不等同于自由离子的直接混合。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于有机金属结构、催化与配体设计。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "显示金属能够与整个共轭环协同成键。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "有机金属化学拓展了成键控制。现代碳链构筑与拆解既使用均相催化，也探索更易回收的非均相金属催化体系。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "polymer",
+          "heading": "长链聚合物怎样被重新拆成小分子原料",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+          "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adq7316",
+          "paperUrl": "https://doi.org/10.1126/science.adq7316",
+          "paragraphs": [
+            "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+            "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adq7316"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://chemistry.berkeley.edu/node/2629"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+          "companyOverride": {
+            "organizationId": "basf",
+            "role": "塑料循环与化工制造",
+            "status": "企业公开业务",
+            "paragraphs": [
+              "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            ],
+            "sources": [
+              {
+                "label": "公司循环经济资料",
+                "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              }
+            ]
+          }
+        },
+        {
+          "id": "catalysis",
+          "heading": "用双自由基拼接环系",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+          "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07181-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+          "paragraphs": [
+            "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+            "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07181-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://macmillan.princeton.edu/publications/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "塑料循环与化工制造",
+          "status": "企业公开业务",
+          "paragraphs": [
+            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+          ],
+          "sources": [
+            {
+              "label": "公司循环经济资料",
+              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1973/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

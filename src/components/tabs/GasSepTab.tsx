@@ -1517,7 +1517,6 @@ function EvidenceLimitations({ record, t, lang }) {
     ["Citation", record.citation],
     [text(lang, "数据类型", "Data type"), record.dataType],
     [text(lang, "证据等级", "Evidence level"), record.evidenceLevel],
-    [text(lang, "检索时间", "Retrieved at"), record.retrievedAt],
     [text(lang, "整理状态", "Curation status"), record.curationStatus],
     [text(lang, "已知限制", "Known limitations"), record.limitationNote],
   ] : []

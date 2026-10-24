@@ -1,0 +1,217 @@
+{
+  "year": 2026,
+  "status": "awarded",
+  "names": [
+    "Henri B. Kagan",
+    "Kenso Soai"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/1065",
+    "https://www.nobelprize.org/laureate/1066"
+  ],
+  "motivations": [
+    "for the discovery of non-linear effects and autocatalysis in asymmetric organic synthesis",
+    "for the discovery of non-linear effects and autocatalysis in asymmetric organic synthesis"
+  ],
+  "overallMotivation": "",
+  "theme": [
+    "让化学选择一种镜像",
+    "Making chemistry choose a mirror image"
+  ],
+  "slugs": [
+    "kagan",
+    "soai"
+  ],
+  "citation": [
+    "表彰在不对称有机合成中发现非线性效应与自催化的贡献。",
+    "Recognised for discovering non-linear effects and autocatalysis in asymmetric organic synthesis."
+  ],
+  "intro": [
+    "分子也有“左手”和“右手”。两种镜像形式可能具有不同的生物作用，而生命为何偏爱其中一种，一直是化学的重要问题。2026 年诺贝尔化学奖关注的，是微小的手性偏向如何被反应放大。",
+    "Molecules can have left- and right-handed forms. Their biological effects can differ. This year’s prize explores how a small chiral imbalance can grow through a chemical reaction."
+  ],
+  "contributions": [
+    [
+      "Kagan：不成比例的放大",
+      "Kagan: disproportionate amplification",
+      "Kagan 在 1986 年揭示：催化体系的手性组成与产物的手性组成，不一定呈简单线性关系。少量的手性偏向，可能带来更大的产物偏向。",
+      "In 1986, Kagan showed that catalyst and product chirality need not follow a simple linear relationship. A modest bias can produce a larger product imbalance."
+    ],
+    [
+      "Soai：产物推动自己的生成",
+      "Soai: a product catalyses its own formation",
+      "Soai 发展了不对称自催化反应：产物参与催化自身的继续生成，使初始的微小偏向得以持续放大。这为同手性的形成提供了化学路径。",
+      "Soai developed asymmetric autocatalysis: the product helps catalyse its own formation, amplifying an initial imbalance and providing a chemical route to homochirality."
+    ]
+  ],
+  "interpretation": [
+    "如何理解这项成果",
+    "Reading the chemistry",
+    "非线性效应强调“输入与输出不成比例”；自催化强调“输出反过来促进输入转化”。二者帮助理解手性放大，但并不意味着每种不对称反应都具有相同机制，也不能单凭这些实验确定生命起源的真实历史。",
+    "Non-linearity concerns the relationship between input and output; autocatalysis concerns feedback from product to reaction. These results illuminate chiral amplification without establishing the historical origin of life."
+  ],
+  "relevance": [
+    "对催化研究的启发",
+    "Implications for catalysis",
+    "评估催化选择性时，需要同时追踪催化剂组成、产物对映体比例与反应进程。不能把单一时刻的选择性，直接推广为所有条件下的表现。",
+    "Track catalyst composition, product enantiomer ratios and reaction progress together. Selectivity at one time point does not establish performance under all conditions."
+  ],
+  "portraits": [
+    {
+      "id": "1065",
+      "name": "Henri Kagan",
+      "image": "images/nobel/laureates/1065.jpg",
+      "source": "https://www.nobelprize.org/uploads/2026/10/1-2_3-6ac5fc622a9b2-scaled.jpg",
+      "credit": "Ill. Niklas Elmehed © Nobel Prize Outreach",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2026/summary/",
+      "sha256": "50b6aabf68e489e58ecbd22a8bf09beac0dd135db5adefb8a22623a67db92715"
+    },
+    {
+      "id": "1066",
+      "name": "Kenso Soai",
+      "image": "images/nobel/laureates/1066.jpg",
+      "source": "https://www.nobelprize.org/uploads/2026/10/2-2_3-6ac5fc699d670-scaled.jpg",
+      "credit": "Ill. Niklas Elmehed © Nobel Prize Outreach",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2026/summary/",
+      "sha256": "159b0abc189e22d58320b50b02bab9d3ef48e257a09a30d97db9dc1dc7ebbe61"
+    }
+  ],
+  "image": "images/nobel/chemistry-2026.jpg",
+  "reading": {
+    "title": "微小手性偏向怎样被放大",
+    "summary": "微小手性偏向怎样被放大。成果说明产物的镜像比例不仅由输入手性决定，也受催化物种分布和反应反馈控制，为理解同手性形成提供可实验研究的化学路径。它没有证明地球生命历史上实际发生过同一种反应。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "从 Pasteur 对镜像晶体的研究，到 Frank 关于对称破缺的模型，化学家一直追问：本来近乎相等的两种镜像产物，怎样形成显著偏向？Kagan 在 1986 年揭示非线性效应，Soai 在 1995 年报道不对称自催化，并持续提高放大能力。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "催化剂中同手性与异手性聚集体可以具有不同活性，因而产物 ee 不一定与催化剂 ee 成正比。Soai 体系让生成的手性产物参与进一步催化，初始微小偏向经反馈被放大。具体有机锌聚集体及其结构需要实验和计算研究，不能把一个最简反馈图式当作完整分子机理。",
+        "equation": "ee=\\frac{n_R-n_S}{n_R+n_S}\\times100\\%;\\quad A+R\\xrightarrow{R}2R,\\quad A+S\\xrightarrow{S}2S",
+        "equationNote": "ee 是带符号的对映体过量，不是产率，R/S 不等同于旋光方向。A、R、S 是教学反馈模型的占位符；真实 Soai 反应涉及醛、有机锌试剂及手性醇盐的聚集和催化，不是这两个简单基元步骤。",
+        "supplementalEquations": [
+          {
+            "math": "\\mathrm{ArCHO+Zn(iPr)_2\\longrightarrow ArCH(iPr)OZn(iPr)\\xrightarrow{workup}ArCH(iPr)OH}",
+            "sourceUrl": "https://www.nature.com/articles/s41467-025-62591-3",
+            "note": "Soai 类反应的有机锌加成与后处理简图，Ar 指相应杂芳基，iPr 指异丙基；省略聚集体、其他配位物种和后处理副产物。催化反馈主要在醇盐/有机锌体系中讨论，不能把游离醇与实际催化聚集体混同。"
+          }
+        ]
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "非线性效应可作为解析催化物种和优化手性选择性的线索，服务于药物、香料及农用化学品等研究。Soai 反应的重要性还在于展示手性放大与对称破缺；不能把这一人工模型直接说成通用工业制药反应。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "成果说明产物的镜像比例不仅由输入手性决定，也受催化物种分布和反应反馈控制，为理解同手性形成提供可实验研究的化学路径。它没有证明地球生命历史上实际发生过同一种反应。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "手性放大需要解释催化物种和平衡之间的反馈。原位质谱、速率分析和模拟让宏观非线性效应能够与具体中间体对应。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "lmu",
+          "name": "慕尼黑大学",
+          "englishName": "Ludwig-Maximilians-Universität München",
+          "url": "https://www.lmu.de/en/",
+          "logo": "images/nobel/organizations/lmu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cms-cdn.lmu.de/assets/img/favicon.ico",
+          "sha256": "0545fa3d831838e0049ca03dde3f36b8904f500d2963f34dcd54fc2d2fdd5497"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "soai",
+          "heading": "把手性放大的反馈拆成可检验的中间体",
+          "organizationIds": [
+            "lmu"
+          ],
+          "authors": "Patrick Möhler、Gloria Betzenbichler、Laura Huber 等",
+          "paperTitle": "Mechanistic analysis and kinetic profiling of Soai’s asymmetric autocatalysis for pyridyl and pyrimidyl substrates",
+          "journal": "Nature Communications (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41467-025-62591-3",
+          "paperUrl": "https://doi.org/10.1038/s41467-025-62591-3",
+          "paragraphs": [
+            "慕尼黑大学团队结合原位高分辨质谱、动力学及反应曲线模拟，比较吡啶与嘧啶底物的 Soai 自催化。研究指向暂态半缩醛盐有机锌配合物及其对选择性的作用。",
+            "非线性效应意味着产物与催化物种之间不是简单的一对一映射。拟合宏观速率曲线时，需要同时考虑聚集、配位和平衡；把净反应式写出，并不等于已经确定每一个活性物种。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-025-62591-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://epub.ub.uni-muenchen.de/133448/1/s41467-025-62591-3.pdf"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的手性合成试剂和分析工具可用于此类研究；没有把 Soai 自催化包装成已经通用的工业不对称生产平台。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2026/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

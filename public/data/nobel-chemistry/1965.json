@@ -1,0 +1,156 @@
+{
+  "year": 1965,
+  "status": "awarded",
+  "names": [
+    "Robert B. Woodward"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/231"
+  ],
+  "motivations": [
+    "for his outstanding achievements in the art of organic synthesis"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "231",
+      "name": "Robert B. Woodward",
+      "image": "images/nobel/laureates/231.jpg",
+      "source": "https://www.nobelprize.org/images/woodward-13178-portrait-medium.jpg",
+      "credit": "Photo: Louis Fabian Bachrach Jr. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1965/summary/",
+      "sha256": "7113151022c47b20cbddc84089da5140bf4d0d94d8b8893edbff7c9a31f6415d"
+    }
+  ],
+  "reading": {
+    "title": "复杂有机分子的合成",
+    "summary": "复杂有机分子的合成。使复杂分子的人工构建成为可以系统攻克的目标。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "天然产物结构复杂，合成需要同时安排碳骨架、官能团与立体化学。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "设计多步反应次序，用总合成验证结构并获得目标天然分子。",
+        "equation": "Y_{\\rm total}=\\prod_{i=1}^{n}Y_i",
+        "equationNote": "连续步骤收率乘积的教学关系；分支路线、回收与计量方式需另行处理。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于药物、天然产物与合成方法研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使复杂分子的人工构建成为可以系统攻克的目标。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "复杂分子全合成要求控制连接顺序与立体化学。新的多环构筑路线提供更多选择，也需要按底物范围和分离成本比较。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "catalysis",
+          "heading": "用双自由基拼接环系",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+          "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07181-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+          "paragraphs": [
+            "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+            "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07181-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://macmillan.princeton.edu/publications/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1965/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,181 @@
+{
+  "year": 2000,
+  "status": "awarded",
+  "names": [
+    "Alan Heeger",
+    "Alan MacDiarmid",
+    "Hideki Shirakawa"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/729",
+    "https://www.nobelprize.org/laureate/730",
+    "https://www.nobelprize.org/laureate/731"
+  ],
+  "motivations": [
+    "for the discovery and development of conductive polymers",
+    "for the discovery and development of conductive polymers",
+    "for the discovery and development of conductive polymers"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "729",
+      "name": "Alan Heeger",
+      "image": "images/nobel/laureates/729.jpg",
+      "source": "https://www.nobelprize.org/images/heeger-13522-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "3c85cf86f7f9ac850f783358192143b032a54f33e3e001ee237235e633b8e2dc"
+    },
+    {
+      "id": "730",
+      "name": "Alan MacDiarmid",
+      "image": "images/nobel/laureates/730.jpg",
+      "source": "https://www.nobelprize.org/images/macdiarmid-13523-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "573719f98581a0ae14a4271b363c04a10da27ef113f78f43d6dbc08b7d729092"
+    },
+    {
+      "id": "731",
+      "name": "Hideki Shirakawa",
+      "image": "images/nobel/laureates/731.jpg",
+      "source": "https://www.nobelprize.org/images/shirakawa-13524-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "322c5b07d24bc1d5e42da725652afe94e3a691a9c184aba7311862ddd743cac5"
+    }
+  ],
+  "reading": {
+    "title": "导电聚合物",
+    "summary": "导电聚合物。打破塑料只能绝缘的材料观念。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "聚合物通常被当作绝缘材料，哪些结构能使其导电？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "共轭链配合氧化或还原掺杂引入可迁移载流子，改变电导。",
+        "equation": "\\sigma=nq\\mu",
+        "equationNote": "n 为载流子密度、q 为电荷量、μ 为迁移率；真实聚合物可有多类载流与无序效应。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于导电薄膜、有机电子和功能聚合物研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "打破塑料只能绝缘的材料观念。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "导电高分子从材料电导走向柔性电化学器件。空间控制掺杂，让离子—电子混合传导可以承担电路中的放大功能。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "columbia",
+          "name": "哥伦比亚大学",
+          "englishName": "Columbia University",
+          "url": "https://www.columbia.edu/",
+          "logo": "images/nobel/organizations/columbia.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.columbia.edu&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "87e7afa525e266f41873918972330598409e0cbabe2d2a58dd4f187aeea83a91"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "conductive",
+          "heading": "导电高分子开始承担可植入电路功能",
+          "organizationIds": [
+            "columbia"
+          ],
+          "authors": "Duncan J. Wisniewski、Liang Ma、Onni J. Rauhala 等",
+          "paperTitle": "Spatial control of doping in conducting polymers enables complementary, conformable, implantable internal ion-gated organic electrochemical transistors",
+          "journal": "Nature Communications (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41467-024-55284-w",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-55284-w",
+          "paragraphs": [
+            "哥伦比亚大学等机构研究通过空间控制掺杂，在导电聚合物中构建互补、有柔性的有机电化学晶体管。材料的离子—电子混合传导与器件放大能力被放到同一个设计里。",
+            "导电性高只是一个条件。植入环境中的稳定性、柔顺性、噪声和长期电化学变化同样影响记录结果；材料指标需要落实到完整电路与组织界面。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-55284-w"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-55284-w"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的导电聚合物和电子材料属于原料供应；论文中的可植入放大器没有据此被列作商业医疗设备。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2000/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -22,6 +22,8 @@ export function AppFooter({
     {
       title: l("Research", "研究"),
       links: [
+        ["The Nobel Prize in Chemistry", "nobel-chemistry"],
+        [l("Prediction Markets", "预测市场"), "prediction-markets"],
         [l("EcoScreen", "生态筛选"), "ecoscreen"],
         [l("GasSep", "气体分离"), "gassep"],
         [l("Catalysis", "催化"), "catalysis"],
@@ -56,6 +58,7 @@ export function AppFooter({
       title: l("About", "关于"),
       links: [
         [l("Creator Statement", "创建者说明"), "creator-statement"],
+        [l("Open Source Licenses", "开源许可"), "open-source-licenses"],
         [l("Scientific Milestones", "科学里程碑"), "project-evolution-milestones"],
         [l("Research Roadmap", "科研路线图"), "project-evolution-roadmap"],
         [l("Changelog", "更新日志"), "release-notes"],

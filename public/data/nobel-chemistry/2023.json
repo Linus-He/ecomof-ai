@@ -1,0 +1,180 @@
+{
+  "year": 2023,
+  "status": "awarded",
+  "names": [
+    "Moungi Bawendi",
+    "Louis Brus",
+    "Aleksey Yekimov"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/1029",
+    "https://www.nobelprize.org/laureate/1030",
+    "https://www.nobelprize.org/laureate/1031"
+  ],
+  "motivations": [
+    "for the discovery and synthesis of quantum dots",
+    "for the discovery and synthesis of quantum dots",
+    "for the discovery and synthesis of quantum dots"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "1029",
+      "name": "Moungi Bawendi",
+      "image": "images/nobel/laureates/1029.jpg",
+      "source": "https://www.nobelprize.org/images/154020-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "def1895113ceb15f33faf276841faad9a4f230363d39723117fd91c24f81d358"
+    },
+    {
+      "id": "1030",
+      "name": "Louis Brus",
+      "image": "images/nobel/laureates/1030.jpg",
+      "source": "https://www.nobelprize.org/images/154026-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "8534b283cb2d97cf126380050773401b869ca519e31155b41996beeed2e7738d"
+    },
+    {
+      "id": "1031",
+      "name": "Aleksey Yekimov",
+      "image": "images/nobel/laureates/1031.jpg",
+      "source": "https://www.nobelprize.org/images/154024-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "4c43ba340b8e058370c0029ec016b6a1f85b66073b887a33f2c2299cdf4fa0dc"
+    }
+  ],
+  "reading": {
+    "title": "量子点",
+    "summary": "量子点。使材料尺寸成为可调控电子和光学性质的设计参数。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "相同半导体材料为什么在纳米尺度可以显示不同颜色？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "电子与空穴的空间限域改变能级，粒径及表面控制决定光学行为。",
+        "equation": "E(R)\\approx E_g+\\frac{\\hbar^2\\pi^2}{2R^2}\\left(\\frac1{m_e^*}+\\frac1{m_h^*}\\right)-\\frac{1.8e^2}{4\\pi\\epsilon R}",
+        "equationNote": "球形量子点的有效质量近似示意；需有效质量、介电参数和适用尺度，不能直接用于所有材料。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于显示、照明、生物标记及光化学研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使材料尺寸成为可调控电子和光学性质的设计参数。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "量子点的尺寸与表面影响发光，但显示器还要求电荷平衡和长期稳定。蓝色器件的界面设计正针对这些装置层面的限制。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "henu",
+          "name": "河南大学",
+          "englishName": "Henan University",
+          "url": "https://www.henu.edu.cn/",
+          "logo": "images/nobel/organizations/henu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.henu.edu.cn/favicon.ico",
+          "sha256": "1058c6b9b1e8093c544b3431aaa0667a169d3638fbbdd16a828d7a4fb3dfe4dd"
+        },
+        {
+          "id": "samsung",
+          "name": "Samsung Display",
+          "englishName": "Samsung Display",
+          "url": "https://global.samsungdisplay.com/",
+          "logo": "images/nobel/organizations/samsung.svg",
+          "logoKind": "symbol",
+          "assetSource": "https://global.samsungdisplay.com/@resource/images/favicon.svg",
+          "sha256": "55a53dd4ea1bbc973680d4a634c0c0b3434abb58a476903514ae39cb0688e369"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "qdot",
+          "heading": "蓝色量子点器件的瓶颈在界面",
+          "organizationIds": [
+            "henu"
+          ],
+          "authors": "Wenjing Zhang、Bo Li、Chun Chang 等",
+          "paperTitle": "Stable and efficient pure blue quantum-dot LEDs enabled by inserting an anti-oxidation layer",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-44894-z",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-44894-z",
+          "paragraphs": [
+            "河南大学及合作者在蓝色量子点与空穴传输层之间加入抗氧化过渡层，缓解电荷积累引发的界面退化。研究把量子点的发光能力与整台器件中的电荷平衡、寿命联系起来。",
+            "材料在光激发下发亮，与在电极注入电荷后稳定发光，是两项不同要求。测试亮度、寿命条件和器件结构必须同时保留，才能比较不同量子点显示路线。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-44894-z"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38278797/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "samsung"
+          ],
+          "relation": "Samsung Display 的 QD-OLED 使用量子点进行光转换；论文研究的是电致发光 QD-LED，两种器件结构不同，不能混用名称和寿命指标。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "samsung",
+          "role": "量子点光转换显示",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Samsung Display 的 QD-OLED 将有机发光源与量子点光转换层结合。它与直接注入电荷的 QD-LED 采用不同结构，因此不能把实验室蓝色 QD-LED 的测试数字直接用于解释商品 QD-OLED 面板。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://global.samsungdisplay.com/31363?type=main"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2023/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

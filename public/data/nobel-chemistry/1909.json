@@ -1,0 +1,150 @@
+{
+  "year": 1909,
+  "status": "awarded",
+  "names": [
+    "Wilhelm Ostwald"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/168"
+  ],
+  "motivations": [
+    "in recognition of his work on catalysis and for his investigations into the fundamental principles governing chemical equilibria and rates of reaction"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "168",
+      "name": "Wilhelm Ostwald",
+      "image": "images/nobel/laureates/168.jpg",
+      "source": "https://www.nobelprize.org/images/ostwald-12867-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1909/summary/",
+      "sha256": "26d9dadf7672fca2223ee34b9ecf84f4b478a5d216bfbe0e1cf47d109ea88a2f"
+    }
+  ],
+  "reading": {
+    "title": "催化、平衡与反应速率",
+    "summary": "催化、平衡与反应速率。把速度与平衡明确分开，为现代催化研究提供基本语言。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "催化剂为何改变反应速度，却不改变最终平衡，需要区分动力学与热力学。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "催化提供不同反应路径；反应前后催化剂可再生，平衡由自由能决定。",
+        "equation": "k=Ae^{-E_a/(RT)};\\quad \\Delta G^\\circ=-RT\\ln K",
+        "equationNote": "Arrhenius 与平衡关系用于教学；Ea 是活化能，催化不会任意改变 K。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于催化剂评价、工艺动力学和反应条件选择。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把速度与平衡明确分开，为现代催化研究提供基本语言。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "催化剂改变到达平衡的路径。合成氨的界面研究仍在比较活化、传质与副反应如何共同决定实际反应速率。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "caltech",
+          "name": "加州理工学院",
+          "englishName": "California Institute of Technology",
+          "url": "https://www.caltech.edu/",
+          "logo": "images/nobel/organizations/caltech.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+          "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ammonia",
+          "heading": "合成氨的界面：反应物怎样穿过保护层",
+          "organizationIds": [
+            "caltech"
+          ],
+          "authors": "Wesley Chang、Anukta Jain、Fateme Rezaie 等",
+          "paperTitle": "Lithium-mediated nitrogen reduction to ammonia via the catalytic solid–electrolyte interphase",
+          "journal": "Nature Catalysis (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41929-024-01115-6",
+          "paperUrl": "https://doi.org/10.1038/s41929-024-01115-6",
+          "paragraphs": [
+            "这篇综述把锂介导固氮的研究落在固体电解质界面膜上：膜既要允许氮和质子供体到达反应位点，又要抑制无效副反应。作者比较电解液、反应器及传质模型，说明选择性和反应速率为何必须放在同一组条件中讨论。",
+            "这条电化学路线与工业铁催化高压合成氨采用不同的活化方式。它延续的是氮分子如何被活化、供能和分离的问题，不能把温和反应条件直接等同于更低的全流程能耗。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41929-024-01115-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "氨基化学品及化工原料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1909/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

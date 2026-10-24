@@ -1,0 +1,158 @@
+{
+  "year": 1978,
+  "status": "awarded",
+  "names": [
+    "Peter Mitchell"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/251"
+  ],
+  "motivations": [
+    "for his contribution to the understanding of biological energy transfer through the formulation of the chemiosmotic theory"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "251",
+      "name": "Peter Mitchell",
+      "image": "images/nobel/laureates/251.jpg",
+      "source": "https://www.nobelprize.org/images/mitchell-13299-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1978/summary/",
+      "sha256": "0a2d681c62df90215444031bb52720aef6399bed563699f0d4d617fbcf911f51"
+    }
+  ],
+  "reading": {
+    "title": "化学渗透与生物能量",
+    "summary": "化学渗透与生物能量。把能量传递从假设的化学中间体转向跨膜梯度。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "呼吸或光合作用中的电子转移怎样驱动 ATP 合成？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "膜上的定向过程建立质子电化学梯度，以梯度驱动能量转换。",
+        "equation": "\\Delta\\mu_{H^+}=RT\\ln\\frac{a_{\\rm in}}{a_{\\rm out}}+F(\\psi_{\\rm in}-\\psi_{\\rm out})",
+        "equationNote": "质子从膜外到膜内的电化学势差定义；方向约定决定符号。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于理解呼吸链、光合作用与膜能量耦合。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把能量传递从假设的化学中间体转向跨膜梯度。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "质子梯度怎样转化成化学能，仍要回到膜蛋白的结构和运动。人源 ATP 合酶结构为旋转与催化之间的耦合提供约束。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "nankai",
+          "name": "南开大学",
+          "englishName": "Nankai University",
+          "url": "https://www.nankai.edu.cn/",
+          "logo": "images/nobel/organizations/nankai.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.nankai.edu.cn&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "7fb3a64e49919f5c75bcdf3fb76c455415d7092286f56c225236fd1260f783b7"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "atp",
+          "heading": "ATP 合酶的结构把旋转与催化接起来",
+          "organizationIds": [
+            "nankai"
+          ],
+          "authors": "Yuezheng Lai、Yuying Zhang、Shan Zhou 等",
+          "paperTitle": "Structure of the human ATP synthase",
+          "journal": "Molecular Cell (2023)",
+          "published": "2023",
+          "doi": "10.1016/j.molcel.2023.04.029",
+          "paperUrl": "https://doi.org/10.1016/j.molcel.2023.04.029",
+          "paragraphs": [
+            "南开大学等机构解析人源 ATP 合酶结构，将膜内转子、中央轴与催化头部组织到同一个分子机器中。结构信息帮助追问质子通道和机械耦合怎样共同影响 ATP 合成。",
+            "结构提供的是特定状态下的约束。证明催化顺序和耦合效率，还需要生化活性、膜电位及不同构象的比较，不能由单一构象直接推出完整动力学。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1016/j.molcel.2023.04.029"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/37244256/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的冷冻电镜设备属于结构研究工具供给；本条不把仪器生产商写成 ATP 合酶机理的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1978/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

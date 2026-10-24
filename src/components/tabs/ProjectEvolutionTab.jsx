@@ -562,7 +562,6 @@ function LegacyModuleHistory({ log, lang, t, isMobile }) {
             {rows.slice(-6).reverse().map(row => (
               <p key={`${key}-${row.version}`} style={{ color: t.muted, fontSize: 11, lineHeight: 1.5, margin: 0 }}>
                 <strong style={{ color: t.textStrong }}>{row.version}</strong>
-                {row.date ? <span style={{ color: t.faint }}> · {row.date}</span> : null}
                 <span> · {publicHistoryNote(row.note, lang)}</span>
               </p>
             ))}

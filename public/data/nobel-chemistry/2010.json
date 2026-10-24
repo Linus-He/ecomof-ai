@@ -1,0 +1,180 @@
+{
+  "year": 2010,
+  "status": "awarded",
+  "names": [
+    "Richard F. Heck",
+    "Ei-ichi Negishi",
+    "Akira Suzuki"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/851",
+    "https://www.nobelprize.org/laureate/852",
+    "https://www.nobelprize.org/laureate/853"
+  ],
+  "motivations": [
+    "for palladium-catalyzed cross couplings in organic synthesis",
+    "for palladium-catalyzed cross couplings in organic synthesis",
+    "for palladium-catalyzed cross couplings in organic synthesis"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "851",
+      "name": "Richard F. Heck",
+      "image": "images/nobel/laureates/851.jpg",
+      "source": "https://www.nobelprize.org/images/heck-15162-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "894ed26f69c56af70c9e2426ed67fc6727c0796abc936dbbac9d96b4bf9bf946"
+    },
+    {
+      "id": "852",
+      "name": "Ei-ichi Negishi",
+      "image": "images/nobel/laureates/852.jpg",
+      "source": "https://www.nobelprize.org/images/negishi-15161-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "2c28af731b7133a6527df0dcb416f76009dd615ff359ced0da39c01e7ecddf59"
+    },
+    {
+      "id": "853",
+      "name": "Akira Suzuki",
+      "image": "images/nobel/laureates/853.jpg",
+      "source": "https://www.nobelprize.org/images/suzuki-15160-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "91be9040d32dac642f9e9c1cd703baa4a6f477fa2967f987e3ba6a51fde3b376"
+    }
+  ],
+  "reading": {
+    "title": "钯催化交叉偶联",
+    "summary": "钯催化交叉偶联。大幅扩展可选择连接的碳片段范围。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "复杂碳骨架需要在温和、可控条件下连接特定碳片段。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "钯的氧化加成、转金属化与还原消除支持部分偶联；Heck 反应还包括插入及 β-H 消除。",
+        "equation": "\\mathrm{ArX+R\\!\\!{-}B(OH)_2\\xrightarrow{Pd,base}ArR}",
+        "equationNote": "Suzuki 偶联的省略副产物式；不能代表 Heck 或 Negishi 的全部机理。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于药物、天然产物和有机材料的碳键构建。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "大幅扩展可选择连接的碳片段范围。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "交叉偶联为连接分子片段提供方法。自由基偶联发展出不同反应路径，仍要分别检验金属、自由基与关环步骤承担的作用。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "catalysis",
+          "heading": "用双自由基拼接环系",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+          "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07181-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+          "paragraphs": [
+            "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+            "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07181-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://macmillan.princeton.edu/publications/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2010/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

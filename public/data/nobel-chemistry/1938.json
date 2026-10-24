@@ -1,0 +1,156 @@
+{
+  "year": 1938,
+  "status": "awarded",
+  "names": [
+    "Richard Kuhn"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/198"
+  ],
+  "motivations": [
+    "for his work on carotenoids and vitamins"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "198",
+      "name": "Richard Kuhn",
+      "image": "images/nobel/laureates/198.jpg",
+      "source": "https://www.nobelprize.org/images/kuhn-13014-portrait-medium.jpg",
+      "credit": "Photo supplied by archiv zur Geschichte der Max-Planck-Geschellschaft, Berlin-Dahlem",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1938/summary/",
+      "sha256": "42eb68b234988ee037de7257656f348ddfe876054d993ea548fdbec363679234"
+    }
+  ],
+  "reading": {
+    "title": "类胡萝卜素与维生素",
+    "summary": "类胡萝卜素与维生素。说明结构变化能够改变光学性质和生物相关性。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "天然色素的组成、共轭结构与营养活性需要区分。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过分离、结构研究与合成揭示多烯色素和维生素的化学特征。",
+        "equation": "\\Delta E=hc/\\lambda",
+        "equationNote": "解释共轭分子吸收的光子能量；颜色与活性还取决于完整结构及环境。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于色素、维生素和共轭分子研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "说明结构变化能够改变光学性质和生物相关性。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "辨认维生素与色素之后，研究还要厘清不同生物怎样合成它们，以及合成酶如何选择底物和电子受体。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "vitamin",
+          "heading": "维生素 C 的最后一步为什么存在不同酶路线",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Alessandro Boverio、Neelam Jamil、Barbara Mannucci 等",
+          "paperTitle": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48410-1",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48410-1",
+          "paragraphs": [
+            "格罗宁根大学与帕维亚大学研究维生素 C 生物合成末步的黄素酶，结合结构、动力学、突变和祖先序列重建，解释不同生物中的底物偏好与电子受体差别。",
+            "酶活性口袋中的少数侧链可以改变立体选择性；与黄素相邻的位点则影响酶使用氧还是其他受体。结构上的局部改变，因此能落到可测的产物与反应速度上。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48410-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48410-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1938/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

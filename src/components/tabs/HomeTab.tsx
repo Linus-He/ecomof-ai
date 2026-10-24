@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { NobelChemistryFeature } from "../home/NobelChemistryFeature"
+import { PredictionMarketsFeature } from "../home/PredictionMarketsFeature"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
   useT,
@@ -1174,6 +1176,8 @@ export function HomeTab({ setActiveTab, onContactOpen }) {
         />
       ) : null}
 
+      <NobelChemistryFeature />
+      <PredictionMarketsFeature />
       <section id="home-data-foundation" data-testid="home-data-foundation" data-home-reveal="data-foundation" className="home-immersive-panel home-deep-section" style={{ ...panelStyle, padding: isMobile ? "18px 16px" : "24px", background: t.panel }}>
         <SectionHeader
           eyebrow={zh ? "数据基础" : "Data Foundation"}

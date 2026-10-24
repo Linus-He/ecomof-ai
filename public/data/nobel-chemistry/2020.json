@@ -1,0 +1,168 @@
+{
+  "year": 2020,
+  "status": "awarded",
+  "names": [
+    "Emmanuelle Charpentier",
+    "Jennifer A. Doudna"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/991",
+    "https://www.nobelprize.org/laureate/992"
+  ],
+  "motivations": [
+    "for the development of a method for genome editing",
+    "for the development of a method for genome editing"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "991",
+      "name": "Emmanuelle Charpentier",
+      "image": "images/nobel/laureates/991.jpg",
+      "source": "https://www.nobelprize.org/images/charpentier-111763-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Bernhard Ludewig",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2020/summary/",
+      "sha256": "6b9cf0b25b3208999da3c3872648e9ee6ab5d3d008c5d565c4d16fe5e3d83879"
+    },
+    {
+      "id": "992",
+      "name": "Jennifer A. Doudna",
+      "image": "images/nobel/laureates/992.jpg",
+      "source": "https://www.nobelprize.org/uploads/2020/10/jennifer-doudna-by-christopher-michel-496x744.jpg",
+      "credit": "Photo: Christopher Michel",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2020/summary/",
+      "sha256": "c7918446deac951cbe36f63592f9e33009e49625e4494f6b5d9e64ba546fe56b"
+    }
+  ],
+  "reading": {
+    "title": "CRISPR/Cas9 基因编辑",
+    "summary": "CRISPR/Cas9 基因编辑。把可编程核酸识别转化为便于使用的分子工具。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "怎样按目标序列定位并切割 DNA，而非随机改变？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "引导 RNA 配对目标 DNA，Cas9 在满足识别条件后切割，细胞修复决定最终改变。",
+        "equation": "\\mathrm{gRNA+Cas9+target\\ DNA\\rightarrow targeted\\ cleavage}",
+        "equationNote": "复合物识别与切割示意；PAM、脱靶、递送和修复路径影响结果。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基因功能、模型构建与基因编辑研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把可编程核酸识别转化为便于使用的分子工具。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "CRISPR 提供可编程定位后，精确编辑仍受细胞中的 RNA 稳定性与修复过程限制。La 蛋白研究把其中一个限制转化为可测机制。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "editing",
+          "heading": "精确编辑还取决于向导 RNA 能否保存下来",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Jun Yan、Paul Oyler-Castrillo、Purnima Ravisankar 等",
+          "paperTitle": "Improving prime editing with an endogenous small RNA-binding protein",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07259-6",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07259-6",
+          "paragraphs": [
+            "普林斯顿大学及合作者通过全基因组筛选，发现 RNA 结合蛋白 La 能促进先导编辑；进一步研究指向其对延长向导 RNA 末端的保护作用。它说明编辑效率不只由 Cas 蛋白与目标序列决定。",
+            "这一研究把细胞内 RNA 稳定性带入编辑器设计。不同位点、细胞类型和编辑形式的表现需要分别测量；提高预期编辑率还需同时检查副产物和其他基因组变化。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07259-6"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-07259-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的 DNA 片段和变体文库服务可支持编辑构建与筛选，未据此声称公司采用了该 La 蛋白增强方案。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2020/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

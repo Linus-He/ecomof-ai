@@ -1,0 +1,181 @@
+{
+  "year": 2015,
+  "status": "awarded",
+  "names": [
+    "Tomas Lindahl",
+    "Paul Modrich",
+    "Aziz Sancar"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/921",
+    "https://www.nobelprize.org/laureate/922",
+    "https://www.nobelprize.org/laureate/923"
+  ],
+  "motivations": [
+    "for mechanistic studies of DNA repair",
+    "for mechanistic studies of DNA repair",
+    "for mechanistic studies of DNA repair"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "921",
+      "name": "Tomas Lindahl",
+      "image": "images/nobel/laureates/921.jpg",
+      "source": "https://www.nobelprize.org/images/lindahl-13641-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "177ca1fef8268c19e97cf240364bf42e73ba49e128ca6e0c5c36090f5be2257d"
+    },
+    {
+      "id": "922",
+      "name": "Paul Modrich",
+      "image": "images/nobel/laureates/922.jpg",
+      "source": "https://www.nobelprize.org/images/modrich-13642-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "dd517aea0b4ac046d156f284e16e549ccfc1e44590e2f620c9c2d5edc62ed13e"
+    },
+    {
+      "id": "923",
+      "name": "Aziz Sancar",
+      "image": "images/nobel/laureates/923.jpg",
+      "source": "https://www.nobelprize.org/images/sancar-15199-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "b11e732913925e6fd31407c87673cb35ac826f0ede63175f07acb71d14d7d452"
+    }
+  ],
+  "reading": {
+    "title": "DNA 修复机理",
+    "summary": "DNA 修复机理。说明 DNA 稳定不是静止不变，而是依赖持续维护。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "遗传物质会自发损伤并受环境侵害，细胞如何维持信息？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "不同通路识别并修复碱基损伤、核苷酸损伤或复制错配。",
+        "equation": "\\mathrm{damaged\\ DNA\\rightarrow excision\\rightarrow resynthesis\\rightarrow ligation}",
+        "equationNote": "切除类修复的概念路径；碱基切除、核苷酸切除和错配修复的识别及切除范围不同。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基因组稳定性、突变和疾病机制研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "说明 DNA 稳定不是静止不变，而是依赖持续维护。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "修复机制从识别损伤、切除和重建继续延伸到细胞核空间组织。核膜与断裂位点的动态联系提供了一组新的实验变量。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        },
+        {
+          "id": "toronto",
+          "name": "多伦多大学",
+          "englishName": "University of Toronto",
+          "url": "https://www.utoronto.ca/",
+          "logo": "images/nobel/organizations/toronto.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.utoronto.ca/themes/custom/bootstrap_uoft/images/favicons/favicon.ico",
+          "sha256": "7698fa568caac7a6585bd62514f8703167029e47d153e3c3f9707511fa24e912"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "repair",
+          "heading": "DNA 修复不只发生在一段游离 DNA 上",
+          "organizationIds": [
+            "toronto"
+          ],
+          "authors": "Mitra Shokrollahi、Mia Stanic、Anisha Hundal 等",
+          "paperTitle": "DNA double-strand break–capturing nuclear envelope tubules drive DNA repair",
+          "journal": "Nature Structural &amp; Molecular Biology (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41594-024-01286-7",
+          "paperUrl": "https://doi.org/10.1038/s41594-024-01286-7",
+          "paragraphs": [
+            "多伦多大学团队研究核膜管状结构怎样接近并捕获 DNA 双链断裂，将细胞核的空间组织与损伤应答联系起来。修复对象所处的位置和邻近结构，也成为可以实验检验的变量。",
+            "早期修复机制说明哪些酶识别和处理损伤，这类细胞研究进一步追问它们在哪里协作。观察到结构与修复相关，还需要通过扰动实验区分原因、结果和伴随变化。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41594-024-01286-7"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38632359/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的核酸与细胞成像产品服务于检测和表征；没有把这项核膜机制直接列作商业 DNA 修复疗法。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2015/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

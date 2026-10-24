@@ -1,0 +1,156 @@
+{
+  "year": 1920,
+  "status": "awarded",
+  "names": [
+    "Walther Nernst"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/178"
+  ],
+  "motivations": [
+    "in recognition of his work in thermochemistry"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "178",
+      "name": "Walther Nernst",
+      "image": "images/nobel/laureates/178.jpg",
+      "source": "https://www.nobelprize.org/images/nernst-12914-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1920/summary/",
+      "sha256": "40e470cfd2072aa304a50175ca59df74cafd146bb12ead4848a01c2b8165596e"
+    }
+  ],
+  "reading": {
+    "title": "低温热化学与热定理",
+    "summary": "低温热化学与热定理。为化学亲和力提供可计算的热力学框架。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "热数据怎样支持平衡计算，尤其在低温极限，是热力学的难题。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "热定理关联低温熵变，为从热容量和反应热计算自由能提供依据。",
+        "equation": "\\Delta G=\\Delta H-T\\Delta S",
+        "equationNote": "G 为自由能、H 为焓、S 为熵；低温极限须考虑相态和残余熵。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于热化学、平衡常数和低温物性计算。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "为化学亲和力提供可计算的热力学框架。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "低温热化学逐渐延伸到量子态分辨的分子研究。降低温度之后，分子的转动、振动和碰撞状态也成为可控制的变量。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "cuhk",
+          "name": "香港中文大学",
+          "englishName": "The Chinese University of Hong Kong",
+          "url": "https://www.cuhk.edu.hk/english/",
+          "logo": "images/nobel/organizations/cuhk.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.cuhk.edu.hk/english/images/fav-icons/apple-touch-icon.png",
+          "sha256": "237924e88c064255b10c46e1a2a2a883eab83dc7a83172d1bb04b46e4fb2a070"
+        },
+        {
+          "id": "oxinst",
+          "name": "Oxford Instruments",
+          "englishName": "Oxford Instruments",
+          "url": "https://www.oxinst.com/",
+          "logo": "images/nobel/organizations/oxinst.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.oxinst.com/favicon.ico",
+          "sha256": "b73572b0d82e08ea7f16f29424916312e3b58fdfc0039ba9a980f425eefda4f4"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "cold",
+          "heading": "低温化学走向分子量子态控制",
+          "organizationIds": [
+            "cuhk"
+          ],
+          "authors": "Tim Langen、Giacomo Valtolina、Dajun Wang 等",
+          "paperTitle": "Quantum state manipulation and cooling of ultracold molecules",
+          "journal": "Nature Physics (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41567-024-02423-1",
+          "paperUrl": "https://doi.org/10.1038/s41567-024-02423-1",
+          "paragraphs": [
+            "这篇由多机构研究者撰写的综述讨论两类冷却路线：从超冷原子缔合成分子，以及直接对分子进行激光冷却。降温之外，还要控制振动、转动与碰撞状态，才能分辨不同反应通道。",
+            "分子的内部自由度比原子复杂。热运动被压低后，量子态选择和相干性成为可调变量，也使实验对外场、真空和噪声控制提出更高要求。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41567-024-02423-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41567-024-02423-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "oxinst"
+          ],
+          "relation": "Oxford Instruments 的低温设备展示实验环境的产业供给；稀释制冷与激光冷却是不同技术，不能把一台制冷机写成完成了分子量子态制备。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "oxinst",
+          "role": "低温实验设备",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Oxford Instruments 的 Proteox 稀释制冷系统提供低温实验环境，并围绕模块化及实验空间组织设备配置。制冷、激光冷却和分子量子态操控承担不同任务，应按实验要求分别选用。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.oxinst.com/news/oxford-instruments-nanoscience-installs-two-of-its-largest-modular-dilution-refrigerators/?sbms=nanoscience"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1920/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

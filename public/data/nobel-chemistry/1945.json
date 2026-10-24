@@ -1,0 +1,156 @@
+{
+  "year": 1945,
+  "status": "awarded",
+  "names": [
+    "Artturi Virtanen"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/203"
+  ],
+  "motivations": [
+    "for his research and inventions in agricultural and nutrition chemistry, especially for his fodder preservation method"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "203",
+      "name": "Artturi Virtanen",
+      "image": "images/nobel/laureates/203.jpg",
+      "source": "https://www.nobelprize.org/images/virtanen-13034-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1945/summary/",
+      "sha256": "6086b9c597dd1df928598065f14b05e27f49b81cbe0d922c1630970ef43c883c"
+    }
+  ],
+  "reading": {
+    "title": "饲料保存中的化学",
+    "summary": "饲料保存中的化学。把反应环境控制直接用于减少食物链中的营养损失。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "收割后的饲料会因发酵、腐败损失营养。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "调节酸度抑制不需要的微生物过程，使保存条件进入可控制的化学范围。",
+        "equation": "pH=-\\log_{10}a_{H^+}",
+        "equationNote": "pH 用氢离子活度定义；所需酸度依饲料、菌群和工艺而变，非统一操作配方。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于青贮、农业营养和保存过程研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把反应环境控制直接用于减少食物链中的营养损失。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "饲料保存将酸碱条件与生化过程联系起来。维生素合成酶研究则追问，营养组分的形成怎样受分子环境和反应条件影响。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "rug",
+          "name": "格罗宁根大学",
+          "englishName": "University of Groningen",
+          "url": "https://www.rug.nl/",
+          "logo": "images/nobel/organizations/rug.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.rug.nl/_definition/shared/images/favicons/apple-touch-icon-152x152.png",
+          "sha256": "474aa42af04a2f230243789b4de8d7eb1c8b640ad3f48c167df63aacc534573f"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "vitamin",
+          "heading": "维生素 C 的最后一步为什么存在不同酶路线",
+          "organizationIds": [
+            "rug"
+          ],
+          "authors": "Alessandro Boverio、Neelam Jamil、Barbara Mannucci 等",
+          "paperTitle": "Structure, mechanism, and evolution of the last step in vitamin C biosynthesis",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48410-1",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48410-1",
+          "paragraphs": [
+            "格罗宁根大学与帕维亚大学研究维生素 C 生物合成末步的黄素酶，结合结构、动力学、突变和祖先序列重建，解释不同生物中的底物偏好与电子受体差别。",
+            "酶活性口袋中的少数侧链可以改变立体选择性；与黄素相邻的位点则影响酶使用氧还是其他受体。结构上的局部改变，因此能落到可测的产物与反应速度上。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48410-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48410-1"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 的 Quali-C 属于维生素 C 原料产品；下方产品入口与大学的酶演化研究分别对应制造和机理两个层次。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1945/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

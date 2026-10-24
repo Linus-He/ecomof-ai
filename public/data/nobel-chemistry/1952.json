@@ -1,0 +1,168 @@
+{
+  "year": 1952,
+  "status": "awarded",
+  "names": [
+    "Archer J.P. Martin",
+    "Richard L.M. Synge"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/214",
+    "https://www.nobelprize.org/laureate/215"
+  ],
+  "motivations": [
+    "for their invention of partition chromatography",
+    "for their invention of partition chromatography"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "214",
+      "name": "Archer J.P. Martin",
+      "image": "images/nobel/laureates/214.jpg",
+      "source": "https://www.nobelprize.org/images/martin-13082-portrait-medium.jpg",
+      "credit": "Photo: Elliot and Fry. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1952/summary/",
+      "sha256": "2fcf6f72f66c352da986af873427ca7ec9fc04bcf804e8e2c925bb6046524a0e"
+    },
+    {
+      "id": "215",
+      "name": "Richard L.M. Synge",
+      "image": "images/nobel/laureates/215.jpg",
+      "source": "https://www.nobelprize.org/images/synge-13083-portrait-medium.jpg",
+      "credit": "Photo: Elliot and Fry. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1952/summary/",
+      "sha256": "b55af21b1b10992e38a542dd728c9a500aef18cee1d00817cfdb67012830f80c"
+    }
+  ],
+  "reading": {
+    "title": "分配色谱",
+    "summary": "分配色谱。将分离变成可重复的分析过程。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "复杂混合物中结构相近的分子难以逐个分析。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "分子在两相间分配不同，反复分配产生不同迁移速度。",
+        "equation": "K=\\frac{c_{\\rm stationary}}{c_{\\rm mobile}}",
+        "equationNote": "分配系数的简化定义；真实保留还取决于流速、相体积和传质。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于氨基酸、天然产物和复杂样品分离。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "将分离变成可重复的分析过程。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "分配与吸附原理如今进入多柱连续纯化。判断流程是否更好，要同时比较回收率、杂质去除和溶剂及树脂消耗。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "cytiva",
+          "name": "Cytiva",
+          "englishName": "Cytiva",
+          "url": "https://www.cytivalifesciences.com/",
+          "logo": "images/nobel/organizations/cytiva.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.cytivalifesciences.com/shared/favicon.ico?v=ps-app-shell-v1.20.3-PROD",
+          "sha256": "8b0b6d92d58cd4d5d1eed26db059a55354bf0a3146986921b32924f69bd4bcfa"
+        },
+        {
+          "id": "ucl",
+          "name": "伦敦大学学院",
+          "englishName": "University College London",
+          "url": "https://www.ucl.ac.uk/",
+          "logo": "images/nobel/organizations/ucl.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+          "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "chromatography",
+          "heading": "把蛋白 A 捕获与连续色谱的温度控制接起来",
+          "organizationIds": [
+            "ucl"
+          ],
+          "authors": "Alexander Armstrong、Jorge Aranda Hernandez、Felix Roth 等",
+          "paperTitle": "Development of temperature-controlled batch and 3-column counter-current protein A system for improved therapeutic purification",
+          "journal": "Journal of Chromatography A (2024)",
+          "published": "2024",
+          "doi": "10.1016/j.chroma.2024.465110",
+          "paperUrl": "https://doi.org/10.1016/j.chroma.2024.465110",
+          "paragraphs": [
+            "伦敦大学学院与产业合作者研究温度对单克隆抗体蛋白 A 纯化的影响，并把实验和模型用于三柱周期逆流流程。吸附、洗脱和树脂循环需要共同优化。",
+            "单次柱实验给出的容量，不等于连续流程中的实际生产率。目标蛋白收率、杂质去除、缓冲液消耗和树脂使用寿命都应纳入比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1016/j.chroma.2024.465110"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38941794/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "cytiva"
+          ],
+          "relation": "Cytiva 的 ÄKTA 系统和色谱材料是蛋白纯化产品示例；某款产品是否用于该实验，应回到论文的材料与方法确认。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "cytiva",
+          "role": "蛋白纯化系统与色谱材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Cytiva 的 ÄKTA 系统覆盖实验室蛋白纯化，并提供配套柱、树脂和流程工具。仪器自动化能够控制进样、梯度和馏分收集，分离方案仍要根据目标蛋白与杂质选择。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.cytivalifesciences.com/en/us/products/items/akta-start-p-05773"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1952/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

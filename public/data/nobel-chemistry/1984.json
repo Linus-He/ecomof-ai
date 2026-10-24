@@ -1,0 +1,221 @@
+{
+  "year": 1984,
+  "status": "awarded",
+  "names": [
+    "Bruce Merrifield"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/261"
+  ],
+  "motivations": [
+    "for his development of methodology for chemical synthesis on a solid matrix"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "261",
+      "name": "Bruce Merrifield",
+      "image": "images/nobel/laureates/261.jpg",
+      "source": "https://www.nobelprize.org/images/merrifield-13359-portrait-medium.jpg",
+      "credit": "Photo: Ingbert Grüttner. The Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1984/summary/",
+      "sha256": "2469698ae06ca1cd73c703fe7c7cec177bf96ff009e37584073d05a963db1f97"
+    }
+  ],
+  "reading": {
+    "title": "固相化学合成",
+    "summary": "固相化学合成。用载体固定改变合成与纯化的组织方式。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "逐步合成多肽时，每步产物分离都很费力。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "把链固定在不溶载体上，重复脱保护、偶联与洗涤，最后切下产物。",
+        "equation": "\\mathrm{resin\\!\\!{-}NH_2+protected\\ amino\\ acid\\rightarrow resin\\!\\!{-}peptide}",
+        "equationNote": "固相肽链增长示意；真实偶联需活化与保护基，反应并不总能完全进行。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于多肽、组合化学与自动合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "用载体固定改变合成与纯化的组织方式。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "固相合成提高了重复构建链状分子的可操作性。修饰胰岛素与自动化糖化学说明，连接化学、保护策略和纯化仍需配套设计。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bristol",
+          "name": "布里斯托大学",
+          "englishName": "University of Bristol",
+          "url": "https://www.bristol.ac.uk/",
+          "logo": "images/nobel/organizations/bristol.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bristol.ac.uk/assets/responsive-web-project/2.7.5/favicons/apple-touch-icon.png",
+          "sha256": "9ffc77b56784dcd0c64df1219272454bdebbfacf82aafa85cda3b499cfde3b9a"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "novo",
+          "name": "诺和诺德",
+          "englishName": "Novo Nordisk",
+          "url": "https://www.novonordisk.com/",
+          "logo": "images/nobel/organizations/novo.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonordisk.com/etc.clientlibs/nncorp/components/structure/page/clientlib/resources/favicon-v2.ico",
+          "sha256": "acfd54d8ab0a64557c0ab7b2e534c169b729da35d2923ec5f32d321772351891"
+        },
+        {
+          "id": "slu",
+          "name": "圣路易斯大学",
+          "englishName": "Saint Louis University",
+          "url": "https://www.slu.edu/",
+          "logo": "images/nobel/organizations/slu.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.slu.edu/ico/apple-touch-icon.png",
+          "sha256": "4608845aeaed7f3a992059c2e1623540f3c689c2220943a4c11dece385c0c0b0"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "insulin",
+          "heading": "胰岛素开始被设计成对葡萄糖浓度作出响应",
+          "organizationIds": [
+            "bristol"
+          ],
+          "authors": "Thomas Hoeg-Jensen、Thomas Kruse、Christian L. Brand 等",
+          "paperTitle": "Glucose-sensitive insulin with attenuation of hypoglycaemia",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-08042-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08042-3",
+          "paragraphs": [
+            "布里斯托大学与诺和诺德等合作者研究 NNC2215：将葡萄糖识别单元与胰岛素构建连接，使其活性随葡萄糖水平发生可逆改变。论文通过体外和动物实验检验这一分子开关。",
+            "这一工作延续了序列、构象与激素活性的关系，同时增加对环境信号的响应设计。论文中的实验性胰岛素不能与常规临床胰岛素产品混同，也不能据此推断人体治疗结果。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08042-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.bristol.ac.uk/chemistry/news/2024/gluhut.html"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novo"
+          ],
+          "relation": "诺和诺德是这篇论文的研究参与方；公司已有胰岛素业务与该实验性葡萄糖响应分子的研究阶段分别列明。"
+        },
+        {
+          "id": "sugars",
+          "heading": "糖化学的自动化：合成之后还要完成纯化",
+          "organizationIds": [
+            "slu"
+          ],
+          "authors": "Gustavo A. Kashiwagi、Laura Petrosilli、Samira Escopy 等",
+          "paperTitle": "HPLC‐Based Automated Synthesis and Purification of Carbohydrates",
+          "journal": "Chemistry – A European Journal (2024)",
+          "published": "2024",
+          "doi": "10.1002/chem.202401214",
+          "paperUrl": "https://doi.org/10.1002/chem.202401214",
+          "paragraphs": [
+            "圣路易斯大学及合作者把温度受控反应与 HPLC 操作连接起来，让保护基变换、糖苷键形成和纯化在同一套自动化流程中衔接。示例覆盖糖苷、寡糖、糖肽、糖脂及核苷。",
+            "糖的连接位置和异头构型都影响产物身份。自动进样只能减少重复操作；每一阶段的选择性、保护基兼容性和分离结果仍要检验，不能仅凭分子量确认连接正确。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/chem.202401214"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://profiles.umsl.edu/en/publications/hplc-based-automated-synthesis-and-purification-of-carbohydrates/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的糖类、核苷和合成试剂属于这一研究链条的供给环节；未据此建立与该自动化平台的许可关系。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "novo",
+          "role": "胰岛素研究与产品",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "诺和诺德参与葡萄糖响应胰岛素 NNC2215 的研究，并拥有现行胰岛素业务。该论文讨论的是实验性分子的体外和动物研究；商业产品与研究候选物的阶段需要分别辨认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonordisk.com/science-and-technology/diabetes.html"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1984/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

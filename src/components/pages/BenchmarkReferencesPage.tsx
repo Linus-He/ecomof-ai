@@ -114,7 +114,7 @@ export function BenchmarkReferencesPage() {
                         </div>
                         <div className="benchmark-reference-source">
                           {href ? <a href={href} rel="noreferrer" target="_blank">{text(lang, reference.sourceLabelZh, reference.sourceLabelEn)}<ArrowUpRight aria-hidden size={14} /></a> : <span>{text(lang, reference.sourceLabelZh, reference.sourceLabelEn)}</span>}
-                          <small>{text(lang, "核对：", "Checked: ")}{reference.verifiedAt}</small>
+
                         </div>
                       </article>
                     )

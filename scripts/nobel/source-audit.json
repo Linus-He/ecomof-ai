@@ -1,0 +1,946 @@
+[
+  {
+    "year": 1901,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1901/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "b0fe1a6ef776f029173f009c0eea7fbd4fc9fef7723de42255669625c8c1eec2",
+    "characters": 3282
+  },
+  {
+    "year": 1902,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1902/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "d88b2f05997dbe623e4086c624717d206830569acf222d921b96c1aae84cb7e1",
+    "characters": 8270
+  },
+  {
+    "year": 1903,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1903/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "b0fd801b1a87811726e11160cdf39bd04e12b44d997daf049b5a9ac047c29d47",
+    "characters": 5013
+  },
+  {
+    "year": 1904,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1904/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "8a0ea7d0228e4ed87d69844b993944e034ce46f9b40ba6dc55bbb4d51f7ccfa2",
+    "characters": 7442
+  },
+  {
+    "year": 1905,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1905/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "1be185859fa59db748c342539e65c1a894243f27d0b7f74bc9ac4d791ca05bc9",
+    "characters": 7174
+  },
+  {
+    "year": 1906,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1906/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c868f3b5b0740788e0c943a120895790f9d904c344aa8be71439cea1dca22e95",
+    "characters": 5828
+  },
+  {
+    "year": 1907,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1907/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "ae4dd1d787aab00bce5d59020edb08a245e3bd37230b913691c0dcec3077a3a1",
+    "characters": 10686
+  },
+  {
+    "year": 1908,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1908/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "5a64883b5bfe52502316ce49a4ef4fde81ab95bdfb6088f070ac67da31c16dcb",
+    "characters": 8595
+  },
+  {
+    "year": 1909,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1909/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c59bb32a6aa59adaedc71202947067d96fbfa09ab601ffeff1b830dbe389d774",
+    "characters": 7034
+  },
+  {
+    "year": 1910,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1910/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "bfe2bdb1028be0542fae333b87586ee4aee686f84e6f02b1da131685b7c653d1",
+    "characters": 6899
+  },
+  {
+    "year": 1911,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1911/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c2f3752cc73b6b42915aa84d39a73aea19b6a6f050b82ed30acf2fd40bea5101",
+    "characters": 7591
+  },
+  {
+    "year": 1912,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1912/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "82e6675d1bee4855f3889fdad481f607bfd2d04cf9ef983d2f89f061ba06cbcd",
+    "characters": 8568
+  },
+  {
+    "year": 1913,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1913/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "7b51fe8421f14b2c02c80f8758cf1ecd600bc0927b8aa4b2edf183241bda84db",
+    "characters": 5729
+  },
+  {
+    "year": 1914,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1914/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "3808742bc4395a742b936dd3bffee9ae80773806de8ec224798fa5f075ec4a88",
+    "characters": 12757
+  },
+  {
+    "year": 1915,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1915/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "0552d50fe021d478a12b4ccaf00a7438e8b37b2fc66fa30ab194a640a46171ab",
+    "characters": 9983
+  },
+  {
+    "year": 1918,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1918/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "d9cc8fafc36d0d92e95b9cf43e9a7b7d7289aab84d1f331c5e31afb337c1a2d5",
+    "characters": 11332
+  },
+  {
+    "year": 1920,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1920/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c35e7eb1507e4d721f629d598f538caf12fb734ed0815e7234365bb58a160e1e",
+    "characters": 9810
+  },
+  {
+    "year": 1921,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1921/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "4fb1b1343777ebdfb21742e5d8f27573409fe10be96b3f067e19315fa6c7edd6",
+    "characters": 9510
+  },
+  {
+    "year": 1922,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1922/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c42fdd7ccb60ebb311fd8060cce9b0bdd9540d9bec29568312f239c7a6e0ed18",
+    "characters": 10090
+  },
+  {
+    "year": 1923,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1923/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "dfc885b9f7b0fa0da6913280badab129de630b39cc43129eafa64d94917bac13",
+    "characters": 7694
+  },
+  {
+    "year": 1925,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1925/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c84d6322b31a65edc3c7d5dddf848dc8836fd1c6ac944126cadf0956792977d3",
+    "characters": 9264
+  },
+  {
+    "year": 1926,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1926/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "0e32dfa078dad029bb54db1898522bf713fb350ba3d03fe2adad33c4e7c0508c",
+    "characters": 9087
+  },
+  {
+    "year": 1927,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1927/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "6cad1e6a8bd69390eafa4e8e3e40368b8e6bdbc29f7aaf3bd21a73ad915e1609",
+    "characters": 10646
+  },
+  {
+    "year": 1928,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1928/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "d821bf75cb974ce37227b9a5c4a4f47f74d09139ac8b6e0f3ca3fe170de315ad",
+    "characters": 10574
+  },
+  {
+    "year": 1929,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1929/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "2b59b0db932920a2d4163bf80e90a49830e8305c5c1e5a6bd033300ffbe60349",
+    "characters": 9337
+  },
+  {
+    "year": 1930,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1930/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "fc736311bdd771d71e14cbf20e05848cf8c845838b78eaf1d0b868d35a5f91c0",
+    "characters": 8239
+  },
+  {
+    "year": 1931,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1931/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c58ae3b7a34d98e3ab1b435a45c9a214ca7f91217e2621f31b7ea6caa8c0a894",
+    "characters": 21011
+  },
+  {
+    "year": 1932,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1932/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "082be7889dcc22b25cecfa18e41ef20c79274a7640ca2e1abeb5abf5bbcbab04",
+    "characters": 8650
+  },
+  {
+    "year": 1934,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1934/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "a801ff0b74eda9e34ff7d549461a12f3321a2bddfa3db2337ca80bb26f94b05f",
+    "characters": 15509
+  },
+  {
+    "year": 1935,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1935/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c6e89dbd98ee38a8e798b3c99b52347b81bfcff54928803d2f37cef400d82cf5",
+    "characters": 16004
+  },
+  {
+    "year": 1936,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1936/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "5e69e056016cfc610f5ea3d535a433384491ea7933a7ac1f2ade0ee93ab3b883",
+    "characters": 9536
+  },
+  {
+    "year": 1937,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1937/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "4150398aee3b01a0fb5f06b1198f89a7a3c6f4a3a5528396dff02ca3ca6d2b53",
+    "characters": 17877
+  },
+  {
+    "year": 1938,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1938/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "4a15a924b20c849f2a88d546330e754eb5b30425e6185a35d3d5c21537116cde",
+    "characters": 5217
+  },
+  {
+    "year": 1939,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1939/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "1599cf10b260dfb2a9393967b1332708ff87610d435cd08fa0da565f32e3b6dd",
+    "characters": 8322
+  },
+  {
+    "year": 1943,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1943/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "924e5b60056862d9f9fbf1a0ed26325e61dd886feb01a669aab1bc1aef569716",
+    "characters": 8691
+  },
+  {
+    "year": 1944,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1944/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "68e47776cf2683340b2f06f976de6f75e02ceb895513188ba62a871d2c934f57",
+    "characters": 9114
+  },
+  {
+    "year": 1945,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1945/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "9bf901d1def9d1440eb5bb3e79a911f530a63242529e966b2a2b70beff706c4a",
+    "characters": 7186
+  },
+  {
+    "year": 1946,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1946/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "50dec586c033f80c248fd65309af239edcbb1ce1098ebb071ac928758b37037c",
+    "characters": 12619
+  },
+  {
+    "year": 1947,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1947/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "01b1245c924b3271e950946001271c297aea99f7d6e48cec6f2f0e21f1372345",
+    "characters": 6568
+  },
+  {
+    "year": 1948,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1948/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "3f0e60f5f09f2b425382488760db69b8c484c06ab81f96ee61eaf365b29be7d3",
+    "characters": 10336
+  },
+  {
+    "year": 1949,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1949/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "3baa16dc1651f94ea703e8b5638bc0e1864a2782b86d7d47dd5712a82b53d4ee",
+    "characters": 13621
+  },
+  {
+    "year": 1950,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1950/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "a9698ef566830eab41786a14b042476d37f32b46724fffc716f455fa9d096180",
+    "characters": 8339
+  },
+  {
+    "year": 1951,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1951/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "f3220c8ec90667d8643502139d4e599d80dff1db21648609a41f968421038231",
+    "characters": 11793
+  },
+  {
+    "year": 1952,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1952/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c1735155f9b2666b110f6583cfa978a46e257c220ab660efb7e29b99895634d8",
+    "characters": 8771
+  },
+  {
+    "year": 1953,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1953/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "9556c10379e61a9bcef90d3d706eec457354dc8848acb267b3f897cb1995f72a",
+    "characters": 8104
+  },
+  {
+    "year": 1954,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1954/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "b9147a197a6c28a6c368f5146fa47c27e30ce4fd5dad00891a3a4dc60cf26522",
+    "characters": 9718
+  },
+  {
+    "year": 1955,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1955/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "8ab7a5d6533c07234325684069b43c959b43f6775b4ea7ff0543082d15a4942f",
+    "characters": 6818
+  },
+  {
+    "year": 1956,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1956/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "fd01f5d0fee597fbfa6714faac0cd6253fbf02959b480a8e9c3f4c7a450959b5",
+    "characters": 7427
+  },
+  {
+    "year": 1957,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1957/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "23bf89577feb7bda6d197ae8d88a0c5a880276777690bf8a9449b19f513c7ea4",
+    "characters": 7217
+  },
+  {
+    "year": 1958,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1958/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "f5a593e9c3ee4175c06c8d05ebd9b6b6dc613a9865a73a55b6c7626b6941d97f",
+    "characters": 7931
+  },
+  {
+    "year": 1959,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1959/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "a11cd7e4e5a0cab0ac013988e50f9ef5f4c0a63781e64f5bf57cf6fffd39a6b8",
+    "characters": 6496
+  },
+  {
+    "year": 1960,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1960/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "21402aaa32e62133e74ded160065de5749707df6ccc1cbdbe5ce497361dd4cd4",
+    "characters": 8878
+  },
+  {
+    "year": 1961,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1961/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "57a2b6d9f9b729ca3f193745eb289b0a8e83d57319016c922245a4a9c5ef81d6",
+    "characters": 7447
+  },
+  {
+    "year": 1962,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1962/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "36834f3ba64143054dce267f37b6c7f203d1cebbdd555e852761ffda056fc837",
+    "characters": 9316
+  },
+  {
+    "year": 1963,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1963/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "21d51f9967add79edce6efebda92b8314d1a58e981df0e3e2088c94736d1b8d0",
+    "characters": 5517
+  },
+  {
+    "year": 1964,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1964/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "8a48dbfd9e1c1a93be7f56e90b9f066c125ea41ad403102c040e91ad6f8e9480",
+    "characters": 8879
+  },
+  {
+    "year": 1965,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1965/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "7628c2bb83e6f1cf181a76cb0535a2688bee9e0f9f7dea3137fd33bfb57c0270",
+    "characters": 6374
+  },
+  {
+    "year": 1966,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1966/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "ef18dc6366c7d9b4bce5dec15475fc6d579b1ba481005799e6087ee851915fd2",
+    "characters": 8232
+  },
+  {
+    "year": 1967,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1967/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "aa79c29680e3470354a005e2de9a119c06ca01dc7ba809cc7bbfc93087b8ff9d",
+    "characters": 12788
+  },
+  {
+    "year": 1968,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1968/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "8acc3d933d6cc13f2226b5354bf4bb734e787e9d9871bcd08ae1950aff38e3ca",
+    "characters": 5996
+  },
+  {
+    "year": 1969,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1969/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "3989475c92af61d790961663cc5d9ad6a3d80bd394129c55c342910f5d87dc7f",
+    "characters": 6197
+  },
+  {
+    "year": 1970,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1970/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "062ac97ecc337b2e161d65c0fa386d06ce6f62e953ac19a99caaef9ade7f0eb1",
+    "characters": 6445
+  },
+  {
+    "year": 1971,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1971/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "83c25b66165aa93e846ec8f0a60bade4b68cdbaddbc6c5b341ce80d48f59c9f6",
+    "characters": 4009
+  },
+  {
+    "year": 1972,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1972/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "b429931e19119a879a31d025f9ec7ce6220aff182f546291b529e79627f931d0",
+    "characters": 5583
+  },
+  {
+    "year": 1973,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1973/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c48a81f44883af68731c9c63c184debda7a86ea4a0b4b475fb1676ca6483bec8",
+    "characters": 5254
+  },
+  {
+    "year": 1974,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1974/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "2014bf4d44733a6a23dc335097c99ab3eb2a656cf9e3ed414963dca837862739",
+    "characters": 5094
+  },
+  {
+    "year": 1975,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1975/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "73ff5b66b8afd4637c32a9bb0e3f2dde36508614ee33afe621cd437c44cce79d",
+    "characters": 6947
+  },
+  {
+    "year": 1976,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1976/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "e328ce801a2176bfb084ad7165829f7956096c0e1488dc3835a7762995bfef8f",
+    "characters": 5007
+  },
+  {
+    "year": 1977,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1977/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "56813b738d136a9ca4e401109ce8dd756a3b1136b6dd0e4104e77c92809c8b1b",
+    "characters": 5579
+  },
+  {
+    "year": 1978,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1978/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "581a304db6dce8d305a3a40c859eaf976daa8f27a1c8c0e44d5c16f0b2742782",
+    "characters": 7011
+  },
+  {
+    "year": 1979,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1979/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "e8d267e437c4919f5b7a2bb78474b03405fabf1653b243bd1445cc78d024543d",
+    "characters": 4005
+  },
+  {
+    "year": 1980,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1980/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "c31e50138942a5bd422bdb61faa95cc6c017f9d7c883be64268ba90e46027348",
+    "characters": 5464
+  },
+  {
+    "year": 1981,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1981/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "cdb19ef1f211d633a3f351f6cba4734eccfa683fb57f9b813d1b20fc06edf05e",
+    "characters": 5580
+  },
+  {
+    "year": 1982,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1982/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "d1c29b0012ec276e9f26d23d68dcb1cd67955bc0af9c609da5d22087e85d7b47",
+    "characters": 5920
+  },
+  {
+    "year": 1983,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1983/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "2156437affb3ba4a2a5e04bd16c8ec220c28fa0c9d19a3cc91adc2da814c3655",
+    "characters": 4975
+  },
+  {
+    "year": 1984,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1984/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "641c2fc2583b6dd2faabe522d9b939ebcb414cdfe907dc96950b1b4289cff215",
+    "characters": 5050
+  },
+  {
+    "year": 1985,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1985/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "af4fa7a87f0831bbacbdb4619522198a1ddfcfb652bc975c7415d0f7dda80155",
+    "characters": 5076
+  },
+  {
+    "year": 1986,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1986/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "9a4f00751cc2d1987761b8dbd1273e8b0fef9cd7dd71eb61e8897e40870f877b",
+    "characters": 5140
+  },
+  {
+    "year": 1987,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1987/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "b05239d109f5f95a6e88ee3a55ab15fa10920cc1cc9fb189a89888b6ca499666",
+    "characters": 5380
+  },
+  {
+    "year": 1988,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1988/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "915244776449d1cc9d54cad98c9b7af606aa250d75cdb3487f507111a719fb66",
+    "characters": 5406
+  },
+  {
+    "year": 1989,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1989/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "8339c59956dea88233464367814cd24640034ae5ad657dd67001edf43770517f",
+    "characters": 5964
+  },
+  {
+    "year": 1990,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1990/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "f294c904cb80ea3b0f48b8b13b21ad2a7ce87ffcbb214e363934fd69cfd4ca71",
+    "characters": 6542
+  },
+  {
+    "year": 1991,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1991/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "a4798538a933da4d51222cf084d067018eca8f52c34e716f1b4627df2aecbac0",
+    "characters": 6657
+  },
+  {
+    "year": 1992,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1992/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "2d26f9a44596d234e63948d147f164cc609c01a980a6922b1c14134b4bd85245",
+    "characters": 5254
+  },
+  {
+    "year": 1993,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1993/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "da68d03a56e207568a100b1e0e21e9b6a9f9897c704022158f49d544c26c5d71",
+    "characters": 4625
+  },
+  {
+    "year": 1994,
+    "kind": "ceremony-speech",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1994/ceremony-speech/",
+    "checked": "2026-10-24",
+    "sha256": "4cb189c207c38ea0ce5936a7b335274cac87a7addfa1e4bc1059d4e47928bb91",
+    "characters": 5984
+  },
+  {
+    "year": 1995,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1995/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "6f66e2dbc8537389ceaf012180f202e8a9498f7c488e002fc47fe912571692b2",
+    "characters": 12099
+  },
+  {
+    "year": 1996,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1996/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "7683c814d2f9ece817b52ce6387f781dcadc21117cb8e21845dff5c147e7c388",
+    "characters": 14329
+  },
+  {
+    "year": 1997,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1997/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "951e566c420da97d3cdf7e4fae513c02100ff27fde5b9c8fa3aad22f273c2366",
+    "characters": 17959
+  },
+  {
+    "year": 1998,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1998/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "99f13bcdbdbdad08761c7835a3f8263fcc8f0678a11287efe45484239b6cc21f",
+    "characters": 11760
+  },
+  {
+    "year": 1999,
+    "kind": "press-release",
+    "url": "https://www.nobelprize.org/prizes/chemistry/1999/press-release/",
+    "checked": "2026-10-24",
+    "sha256": "cd5e0b7d8b5da6f8f4554ad73336e49fc93dfa4d22107e693006f854a9aeeaf2",
+    "characters": 14290
+  },
+  {
+    "year": 2000,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2000/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "8a2318631be57925b60841428c91c7fc0f4eca0828d613cffe04c5ad2e54c62b",
+    "characters": 11776
+  },
+  {
+    "year": 2001,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2001/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "cd5a044714c376348b40876eabb98327a0ad1342143288d28e7056894fce4061",
+    "characters": 15963
+  },
+  {
+    "year": 2002,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2002/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "29ff8986d8d238ceff1222aadc985ddd8cb48abb20ca461ae408ad838bb617ec",
+    "characters": 17750
+  },
+  {
+    "year": 2003,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2003/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "2e84d81d370e5137619ecba53df1fa2482e7f7ea5bdaac79f5801e3cb1c857e7",
+    "characters": 14476
+  },
+  {
+    "year": 2004,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2004/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "cdcc1180bcbc0f781144a6ab92c7b1158115bb2da2b981feef8baa01b5e601b6",
+    "characters": 16987
+  },
+  {
+    "year": 2005,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2005/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "64bfa19e96d3db1616552e8a2d665a0a3a1f4e5da2febba8bfb76b8f1ad19720",
+    "characters": 14483
+  },
+  {
+    "year": 2006,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2006/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "318fc1d3bd822c2bb6535c570f2a32b41875d2500cc750c47527aa7be85964d8",
+    "characters": 13309
+  },
+  {
+    "year": 2007,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2007/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "995e0d505d30ff5eb9febffdbb6829e2a38ac7e18a972ca88313c7fa11c1bb28",
+    "characters": 12667
+  },
+  {
+    "year": 2008,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2008/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "307e32809ee8f3acee59e298ebccd256a30f593d374c8d0ae8959dd25bb3490c",
+    "characters": 17540
+  },
+  {
+    "year": 2009,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2009/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "848878c6b68a8cb14a5f7f7a3dcb92fc25bb9d6aa231bf3c29ec079f1ec5d150",
+    "characters": 19618
+  },
+  {
+    "year": 2010,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2010/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "4e509412108d759e7e70effed92142ef0c165beba8345de66ef7c819ca022ca8",
+    "characters": 14022
+  },
+  {
+    "year": 2011,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2011/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "34d1d6da3a3f71a62f0fca49d2e27cc6dfbecfbf59d85eccef88397721649bea",
+    "characters": 16268
+  },
+  {
+    "year": 2012,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2012/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "88ec0547fc7f657eebac1f7cfb4998b54c4ded7c4acb3477816466288201071d",
+    "characters": 15318
+  },
+  {
+    "year": 2013,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2013/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "43528a65fad40661ca3bea886c171783dbe7ecfc188bad2e6fea21edc2f2d05e",
+    "characters": 13739
+  },
+  {
+    "year": 2014,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2014/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "c4defdca88f13f791818de969b62441c9260a48c31076a891591386b87a93930",
+    "characters": 16779
+  },
+  {
+    "year": 2015,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2015/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "58a65a6c2876b440fb29b1a17f17eb0cd52ecb4957a58dbddb3c28a5404ebd8c",
+    "characters": 18030
+  },
+  {
+    "year": 2016,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2016/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "d753994459caf22ebe3872202acd07749428e23aaa477a50c1c6dd1037d2a910",
+    "characters": 17032
+  },
+  {
+    "year": 2017,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2017/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "57d572c8bae6cb47a5407994930da0091bc273f5d17c900640da1f649298ff8d",
+    "characters": 18669
+  },
+  {
+    "year": 2018,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2018/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "867f26f1b37b197743ac4a63d7b3066e47fe55820647fae4471a331578f4584d",
+    "characters": 20199
+  },
+  {
+    "year": 2019,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2019/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "04908419c246487671736361008f78c2e717ef897419832d7abb777dd45b6e11",
+    "characters": 15791
+  },
+  {
+    "year": 2020,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2020/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "64a1d2fba859806a650200366fd67a7da28be3c73194ed32bed1a18100ed165b",
+    "characters": 18130
+  },
+  {
+    "year": 2021,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2021/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "b48cb9e423adb4750d39fe30d981cd709cebdc6d630d9e049b58fdb544826a5a",
+    "characters": 17226
+  },
+  {
+    "year": 2022,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2022/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "f29aca79068c588711afe803b3f7b5329ef5a8f7ca23306c74c2bac13ec5cc96",
+    "characters": 18361
+  },
+  {
+    "year": 2023,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2023/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "99723064ce1c7750f8d53a135efaa7fa003e9427e821ef2eccbb230fd010ed24",
+    "characters": 16428
+  },
+  {
+    "year": 2024,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2024/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "3cdd939681956cef388dfa52e2adb157fc46f1523ac8af383ec9a8da6fc67818",
+    "characters": 17749
+  },
+  {
+    "year": 2025,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2025/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "74589254eda323ca79435d38ecf09e6376b118129d80b574eec3291274ed3059",
+    "characters": 16991
+  },
+  {
+    "year": 2026,
+    "kind": "popular-information",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2026/popular-information/",
+    "checked": "2026-10-24",
+    "sha256": "edac660896633f6bb26b82c4ee24f8e485e369050f711d4bd239bed2332b1f11",
+    "characters": 14763
+  }
+]

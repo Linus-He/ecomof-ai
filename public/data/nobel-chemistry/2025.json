@@ -1,0 +1,432 @@
+{
+  "year": 2025,
+  "status": "awarded",
+  "names": [
+    "Susumu Kitagawa",
+    "Richard Robson",
+    "Omar M. Yaghi"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/1053",
+    "https://www.nobelprize.org/laureate/1054",
+    "https://www.nobelprize.org/laureate/1055"
+  ],
+  "motivations": [
+    "for the development of metal–organic frameworks",
+    "for the development of metal–organic frameworks",
+    "for the development of metal–organic frameworks"
+  ],
+  "overallMotivation": "",
+  "theme": [
+    "为化学创造新的空间",
+    "Creating new spaces for chemistry"
+  ],
+  "slugs": [
+    "kitagawa",
+    "robson",
+    "yaghi"
+  ],
+  "citation": [
+    "表彰金属有机框架（MOF）的发展。",
+    "Recognised for the development of metal–organic frameworks."
+  ],
+  "intro": [
+    "把金属节点与有机连接体组装成开放的网络，就能在材料内部创造分子尺度的空间。2025 年诺贝尔化学奖聚焦 MOF：孔隙可以被设计，化学功能也可以随结构调整。",
+    "Metal nodes and organic linkers form open networks with molecular-scale spaces. The 2025 prize celebrates MOFs, where pore architecture and chemical function can be designed together."
+  ],
+  "contributions": [
+    [
+      "Robson：从连接规则到网络",
+      "Robson: from connectivity to networks",
+      "Robson 的工作展示了利用金属与有机组分构建开放网络的思路，让空间结构成为材料设计的起点。",
+      "Robson demonstrated an approach to building open networks from metal and organic components, making spatial architecture a starting point for design."
+    ],
+    [
+      "Kitagawa 与 Yaghi：走向可设计的多孔材料",
+      "Kitagawa and Yaghi: designable porous materials",
+      "Kitagawa 推进了配位网络的孔隙与气体容纳研究；Yaghi 发展了稳定框架与网状化学。相关工作让开放网络成为可系统研究的材料家族。",
+      "Kitagawa advanced porous coordination networks and gas accommodation; Yaghi developed robust frameworks and reticular chemistry. Open networks became a systematically studied material family."
+    ]
+  ],
+  "interpretation": [
+    "孔隙为什么重要",
+    "Why the spaces matter",
+    "孔径、连接方式和孔壁化学环境共同影响分子如何进入、吸附和离开。材料的潜力来自这些结构变量的组合，不能用比表面积一项概括。",
+    "Pore size, connectivity and pore-wall chemistry influence how molecules enter, adsorb and leave. Surface area alone cannot describe this combination."
+  ],
+  "relevance": [
+    "与 EcoMOF-AI 的联系",
+    "Connections to EcoMOF-AI",
+    "MOF 筛选需要把结构描述符与具体应用条件放在一起：气体分离看混合物与等温线，催化看活性位点和稳定性。诺奖认可的是材料领域的发展，不是对任意候选性能的保证。",
+    "MOF screening links descriptors to operating conditions: mixtures and isotherms for separation, active sites and stability for catalysis. The prize does not guarantee any individual candidate’s performance."
+  ],
+  "portraits": [
+    {
+      "id": "1053",
+      "name": "Susumu Kitagawa",
+      "image": "images/nobel/laureates/1053.jpg",
+      "source": "https://www.nobelprize.org/images/186048-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "a9a921968de897c1b1c5087b54094387cb297621a76cccb5aec31af557d3aa65"
+    },
+    {
+      "id": "1054",
+      "name": "Richard Robson",
+      "image": "images/nobel/laureates/1054.jpg",
+      "source": "https://www.nobelprize.org/images/186047-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "c9a91b26dc6e6f35859d8fa82c0ba2aa0c6e67e79e94070c2e90ab9debc7cd88"
+    },
+    {
+      "id": "1055",
+      "name": "Omar M. Yaghi",
+      "image": "images/nobel/laureates/1055.jpg",
+      "source": "https://www.nobelprize.org/images/186052-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "369f6be45ea982b0d68ad3c73b38545267221c1d1c72913a034aa5f0821a7618"
+    }
+  ],
+  "image": "images/nobel/chemistry-2025.jpg",
+  "reading": {
+    "title": "把分子空间变成可设计的材料",
+    "summary": "MOF 的关键变化，是让孔壁的化学组成和孔道的几何形状可以一起调整。金属节点、配体长度和连接方式改变后，材料对水、CO₂ 或其他分子的吸附行为也会改变。不过，装置处理的是潮湿空气、混合烟气和反复运行的吸附床。下面以取水、碳捕集和材料成型三条路线，说明分子设计怎样走到可测试的设备与产品。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "传统多孔材料的孔道和组成受到限制。Robson 展示开放配位网络的设计，Kitagawa 推进脱去客体后仍可容纳气体的网络，Yaghi 发展稳定骨架与网状化学，逐步解决空腔设计与结构保持问题。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "金属离子或金属簇与多齿有机配体配位，形成延展网络。孔道开放后，分子通过扩散进入，在孔壁相互作用下吸附，并可由温度、压力等条件调节释放。连接拓扑、孔径和孔壁官能团共同影响行为；刚性、柔性以及不同稳定性的 MOF 不能用一个模型概括。",
+        "equation": "\\mathrm{metal\\ nodes+organic\\ linkers\\rightleftharpoons extended\\ network};\\quad q=\\frac{q_{\\max}bP}{1+bP}",
+        "equationNote": "第一式是配位组装的概念图式，不是配平合成方程；第二式是均一位点、单层吸附的 Langmuir 教学模型，q 为吸附量、qmax 为容量、b 为亲和参数。真实多组分、柔性或水吸附过程可能明显偏离它。",
+        "supplementalEquations": [
+          {
+            "math": "\\mathrm{Zn_4O(BDC)_3};\\quad \\mathrm{BDC^{2-}=terephthalate}",
+            "sourceUrl": "https://www.nobelprize.org/uploads/2025/10/advanced-chemistryprize2025-1.pdf",
+            "note": "MOF-5 的理想框架组成；Zn₄O 节点与对苯二甲酸根连接体组织网络。它描述组成，不是配平的溶剂热合成式，也不说明材料在水中必然稳定。"
+          }
+        ]
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "空气取水利用的是水蒸气的吸附与释放。材料先从空气中富集水分，再由热量驱动解吸，最后在冷凝器中收集液态水。真正需要比较的是每天能取出多少水、每千克吸附剂和每单位集热面积的产水量，以及在当地温湿度下能完成多少次循环。伯克利的沙漠取水装置已有室外实测，具体地点与产水量见下方论文。\n\n碳捕集则要求材料从混合气中优先留下 CO₂，并在再生时把它释放为更浓的气流。CALF-20 的研究不只测纯 CO₂ 等温线，还考察了水蒸气竞争、成型后的分离表现和合成放大。这些测试直接对应工业吸附床要处理的问题：进气不能总是预先干燥，材料也不能只以松散粉末存在。\n\n储气关注的另一项指标是单位装置体积能够装入多少气体。高比表面积粉末若堆积疏松，装进容器后仍可能浪费空间；压实又可能堵孔或损坏骨架。剑桥团队的整体式 MOF 研究把孔隙保持、密度和机械性能放在同一个样品上检验，讨论的已经是材料如何被装进设备。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "这项工作的科学价值，可以从一次材料修改怎样改变分离行为来理解。更换配体会改变孔壁的极性和与客体分子的相互作用；改变节点和连接方式，会影响孔道尺寸、连通性与骨架的形变。研究者因此可以提出具体假说，例如调整某一位点能否让材料在低湿度下吸水，或让 CO₂ 在水蒸气存在时仍优先占据吸附位点，再用结构和吸附实验检验。\n\nMOF 还把合成化学与过程工程拉得更近。同一种粉体做成颗粒、薄层或整体块体后，气体流过它的阻力、热量进出的速度、可利用孔容和循环寿命都可能变化。CALF-20 的工业供应与整体式 MOF 的中试生产说明，材料组成之外，制备批次、形状和装置连接方式已经成为这条技术路线的重要部分。评价应用时，把这些环节接起来，比单列一个最大吸附量更有用。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "研究沿着取水、碳捕集和材料成型展开：大学论文给出材料结构与测试条件，企业资料说明原型、材料供应和中试制造各自走到了哪一步。下列案例将实验结果与产业进展分别说明，并附上原始来源。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "calgary",
+          "name": "卡尔加里大学",
+          "englishName": "University of Calgary",
+          "url": "https://www.ucalgary.ca/",
+          "logo": "images/nobel/organizations/calgary.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "buct",
+          "name": "北京化工大学",
+          "englishName": "Beijing University of Chemical Technology",
+          "url": "https://english.buct.edu.cn/",
+          "logo": "images/nobel/organizations/buct.png",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "cambridge",
+          "name": "剑桥大学",
+          "englishName": "University of Cambridge",
+          "url": "https://www.ceb.cam.ac.uk/",
+          "logo": "images/nobel/organizations/cambridge.png",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "atoco",
+          "name": "Atoco",
+          "englishName": "Atoco",
+          "url": "https://atoco.com/",
+          "logo": "images/nobel/organizations/atoco.png",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "svante",
+          "name": "Svante",
+          "englishName": "Svante Technologies",
+          "url": "https://www.svanteinc.com/",
+          "logo": "images/nobel/organizations/svante.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "immaterial",
+          "name": "Immaterial",
+          "englishName": "Immaterial",
+          "url": "https://immaterial.com/",
+          "logo": "images/nobel/organizations/immaterial.jpg",
+          "logoKind": "symbol"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "berkeley-water",
+          "heading": "把 MOF-303 带到死亡谷，测量实际能收集的水",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Woochul Song、Zhiling Zheng、Ali H. Alawadhi、Omar M. Yaghi",
+          "paperTitle": "MOF water harvester produces water from Death Valley desert air in ambient sunlight",
+          "journal": "Nature Water 1, 626–634 (2023)",
+          "published": "2023-07-06",
+          "doi": "10.1038/s44221-023-00103-7",
+          "paperUrl": "https://doi.org/10.1038/s44221-023-00103-7",
+          "paragraphs": [
+            "这篇论文把吸附剂、承载它的 cartridge 和冷凝器做成一台被动装置，仅以环境日照提供运行能量。团队分别在死亡谷和伯克利测试，报告的产水量依次为每千克 MOF-303 每天 210 g 和 285 g。这两个数值对应不同地点的实测条件，不能互换，也不是每平方米装置的产水量。",
+            "实验说明低湿度环境下可以完成吸附、解吸和冷凝这一整套过程。下一步的工程比较要看收集器面积、空气接触方式、日夜温差以及多日天气变化；把吸附剂加倍，不会自动使冷凝器收水量也加倍。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s44221-023-00103-7"
+            },
+            {
+              "label": "伯克利大学研究说明",
+              "url": "https://chemistry.berkeley.edu/news/hand-held-water-harvester-powered-sunlight-could-combat-water-scarcity"
+            }
+          ],
+          "relatedCompanyIds": [
+            "atoco"
+          ],
+          "relation": "Atoco 由 Yaghi 创办，开发网状材料取水装置。公司原型不能直接按这篇论文的 MOF 用量和产水量推算。"
+        },
+        {
+          "id": "calf20-carbon",
+          "heading": "CALF-20：同时检查湿气竞争、耐受性和合成放大",
+          "organizationIds": [
+            "calgary"
+          ],
+          "authors": "Jian-Bin Lin 等；George K. H. Shimizu 团队与多机构合作者",
+          "paperTitle": "A scalable metal-organic framework as a durable physisorbent for carbon dioxide capture",
+          "journal": "Science 374, 1464–1469 (2021)",
+          "published": "2021-12-17",
+          "doi": "10.1126/science.abi7281",
+          "paperUrl": "https://doi.org/10.1126/science.abi7281",
+          "paragraphs": [
+            "CALF-20 是锌基 MOF。论文将结构研究、混合气分离、计算和放大制备放在一起，检验它是否能从含水气流中捕集 CO₂，而不只是测一条干气吸附曲线。在文中所测的相对湿度低于 40% 条件下，成型 CALF-20 表现出优先吸附 CO₂ 的行为，CO₂ 也会抑制部分水吸附。这个湿度范围属于论文结果的一部分，不能删去。",
+            "研究还报告了蒸汽和湿酸性气体耐受测试，以及多千克批量制备。原论文的长时间蒸汽耐受实验与完整捕集—再生循环是不同测试，不能把前者的次数直接写成设备寿命。BASF 与 Svante 的后续合作则提供了材料供应和过滤器制造层面的进展。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.abi7281"
+            },
+            {
+              "label": "论文摘要与完整机构名单",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/34914501/"
+            },
+            {
+              "label": "阿尔伯塔大学研究说明",
+              "url": "https://www.ualberta.ca/en/folio/2021/12/carbon-capturing-material-invented-in-alberta-could-help-industry-reduce-emissions-and-costs.html"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf",
+            "svante"
+          ],
+          "relation": "官方资料明确记载 BASF 生产 CALF-20，Svante 将其用于碳捕集过滤器；材料生产和过滤器制造分别由不同环节承担。"
+        },
+        {
+          "id": "buct-2026",
+          "heading": "2026 年的改性 CALF-20：把问题转向低浓度气流和制备方式",
+          "organizationIds": [
+            "buct"
+          ],
+          "authors": "Shunlong Xu 等；通讯作者 Junteng Liu、Jianguo Mi",
+          "paperTitle": "Scalable and Green Mechanochemical Synthesis of (dtz)CALF-20 for Enhanced Low-Concentration CO₂ Capture",
+          "journal": "Industrial & Engineering Chemistry Research 65, 15687–15698 (2026)",
+          "published": "2026-07-18",
+          "doi": "10.1021/acs.iecr.6c01754",
+          "paperUrl": "https://doi.org/10.1021/acs.iecr.6c01754",
+          "paragraphs": [
+            "北京化工大学及合作者研究了用富氮配体构建的 (dtz)CALF-20，目标是封闭空间等场景中的低浓度 CO₂。论文将常规水热制备与室温机械化学球磨路线比较，考察制备效率和吸附性能如何一起变化。",
+            "作者报告球磨路线的收率为 98%，时空产率为 4,600 kg·m⁻³·d⁻¹。时空产率把制备量按反应体积和时间归一化，它不是现有工厂的日产量，也不是碳捕集通量。该研究使用的 (dtz) 衍生物与商业 CALF-20 的配方不同；公开论文没有据此建立与下列公司的供货关系。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI 与摘要",
+              "url": "https://doi.org/10.1021/acs.iecr.6c01754"
+            }
+          ],
+          "relatedCompanyIds": [],
+          "relation": "当前条目为大学论文结果，未核实到这套衍生配方的商业供货方。"
+        },
+        {
+          "id": "cambridge-shaping",
+          "heading": "整体式 MOF：除了孔多，还要能装进一台设备",
+          "organizationIds": [
+            "cambridge"
+          ],
+          "authors": "Tian Tian 等；David Fairen-Jimenez 团队与合作者",
+          "paperTitle": "A sol–gel monolithic metal–organic framework with enhanced methane uptake",
+          "journal": "Nature Materials 17, 174–179 (2018；2017 在线发表)",
+          "published": "2017-12-11",
+          "doi": "10.1038/nmat5050",
+          "paperUrl": "https://doi.org/10.1038/nmat5050",
+          "paragraphs": [
+            "这项较早的工作用溶胶—凝胶路线制备致密整体式 MOF，同时考察体积储气量和机械性能。它所解决的是粉末装填后的空隙、压实后孔隙损失以及机械强度问题；论文研究的是甲烷储存，不能把结果直接换成 CO₂ 捕集量。",
+            "这条材料成型路线有较新的产业节点。剑桥大学在 2026 年报道，Fairen-Jimenez 创办的 Immaterial 已在 Sawston 开设中试制造设施，面向整体式 MOF 的生产。大学披露的用途包括碳捕集、储氢和空气净化，尚不能由这一则设施公告推算客户设备的长期性能。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/nmat5050"
+            },
+            {
+              "label": "剑桥课题组论文页",
+              "url": "https://aam.ceb.cam.ac.uk/synthesis.html"
+            },
+            {
+              "label": "剑桥大学 2026 年中试设施报道",
+              "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "immaterial"
+          ],
+          "relation": "大学明确将 Immaterial 列为 Fairen-Jimenez 创办的衍生公司；本条把基础论文与 2026 年中试设施分别注明。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "atoco",
+          "role": "空气取水装置",
+          "status": "公司原型演示 · 2026",
+          "paragraphs": [
+            "Atoco 将网状材料与空气接触、加热再生和冷凝组件整合成取水装置。公司在 2026 年公布了并网原型演示，报道所述演示发生在其加州实验室。这里可以确认的是原型展示；公开页面中的目标产水规模不是本文核验过的用户现场运行数据。"
+          ],
+          "sources": [
+            {
+              "label": "公司与技术介绍",
+              "url": "https://atoco.com/"
+            },
+            {
+              "label": "2026 年并网原型演示",
+              "url": "https://atoco.com/press/atoco-unveils-atmospheric-water-harvesting-on-grid-prototype/"
+            }
+          ]
+        },
+        {
+          "organizationId": "basf",
+          "role": "CALF-20 材料生产",
+          "status": "商业材料制造 · 公司披露",
+          "paragraphs": [
+            "BASF 在 2025 年的公告中写明，CALF-20 由其美国南卡罗来纳州 Seneca 工厂生产，Svante 用它从气流中分离 CO₂。BASF 的职责是吸附剂放大和制造，这与替客户运行整套捕集设施是两回事。产品页可核对其 MOF 生产服务和与 Svante 的合作。"
+          ],
+          "sources": [
+            {
+              "label": "MOF 技术与供货页面",
+              "url": "https://chemical-catalysts-and-adsorbents.basf.com/global/en/custom-catalysts/MOF"
+            },
+            {
+              "label": "2025 CALF-20 生产公告",
+              "url": "https://www.basf.com/global/en/media/news-releases/2025/12/p-25-239"
+            }
+          ]
+        },
+        {
+          "organizationId": "svante",
+          "role": "结构化过滤器与捕集设备",
+          "status": "过滤器工厂投产公告 · 2025",
+          "paragraphs": [
+            "Svante 把吸附剂做成可装入接触器的结构化过滤器。公司在 2025 年宣布 Burnaby 的 Redwood 过滤器制造设施完成调试。该设施生产的是捕集过滤器，不是以工厂自身作为 CO₂ 去除装置；公告中的设计产能也不能记作已经实现的年捕集量。"
+          ],
+          "sources": [
+            {
+              "label": "公司官网",
+              "url": "https://www.svanteinc.com/"
+            },
+            {
+              "label": "Redwood 制造设施公告",
+              "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+            },
+            {
+              "label": "CALF-20 与 BASF 供货协议",
+              "url": "https://www.svanteinc.com/coverage/svante-and-basf-enter-agreement/"
+            }
+          ]
+        },
+        {
+          "organizationId": "immaterial",
+          "role": "整体式 MOF 成型与放大",
+          "status": "中试制造设施 · 大学报道，2026",
+          "paragraphs": [
+            "Immaterial 沿着剑桥团队的整体式材料路线，开发面向吸附设备的块体 MOF。2026 年的 Sawston 设施报道提供了从课题组走向中试制造的具体节点。可核对的内容包括公司来源、设施地点和材料形式；不同客户场景的捕集率、能耗与使用寿命仍需要相应装置测试。"
+          ],
+          "sources": [
+            {
+              "label": "公司官网",
+              "url": "https://immaterial.com/"
+            },
+            {
+              "label": "剑桥大学中试设施报道",
+              "url": "https://www.ceb.cam.ac.uk/blog/2026/06/26/ceb-spinout-opens-pilot-manufacturing-facility/"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2025/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

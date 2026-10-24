@@ -1,0 +1,156 @@
+{
+  "year": 1994,
+  "status": "awarded",
+  "names": [
+    "George A. Olah"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/280"
+  ],
+  "motivations": [
+    "for his contribution to carbocation chemistry"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "280",
+      "name": "George A. Olah",
+      "image": "images/nobel/laureates/280.jpg",
+      "source": "https://www.nobelprize.org/images/olah-13455-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1994/summary/",
+      "sha256": "29d3317ec8093feaaa5cbd2e459127bc2de0b8cd239575c764ce97d74d8cf3a6"
+    }
+  ],
+  "reading": {
+    "title": "碳正离子化学",
+    "summary": "碳正离子化学。让原先主要凭推断的中间体获得实验研究途径。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "许多有机反应经过极短寿命的带电中间体，难以直接观察。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "利用超强酸介质等方法稳定并研究碳正离子，解析结构与重排。",
+        "equation": "\\mathrm{R_3COH+H^+\\rightarrow R_3C^++H_2O}",
+        "equationNote": "适当体系中的离解示意；碳正离子稳定性、介质及反离子作用不可省略。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于酸催化、重排与有机反应机理。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "让原先主要凭推断的中间体获得实验研究途径。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "碳正离子帮助解释复杂骨架的生成。萜烯生物合成把这些高反应性中间体放在酶与受限空间中进行选择性转化。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "umich",
+          "name": "密歇根大学",
+          "englishName": "University of Michigan",
+          "url": "https://umich.edu/",
+          "logo": "images/nobel/organizations/umich.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://umich.edu/favicon.ico",
+          "sha256": "8202cd7a3d86d53f5fdd904ab714c0766e24f43b8d823786e51e50310345bf8c"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "terpene",
+          "heading": "萜烯合成酶还需要一个反应空间",
+          "organizationIds": [
+            "umich"
+          ],
+          "authors": "Michael P. Andreas、Tobias W. Giessen",
+          "paperTitle": "The biosynthesis of the odorant 2-methylisoborneol is compartmentalized inside a protein shell",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-54175-4",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-54175-4",
+          "paragraphs": [
+            "密歇根大学团队研究有气味的萜类化合物 2-甲基异莰醇，发现其生物合成与蛋白质外壳组织有关。问题从酶怎样形成碳骨架，扩展到相关酶怎样在一个受限空间中协作。",
+            "这一类空间组织可改变中间体接触下一步酶的机会。论文中的气味分子是研究对象，不是可直接套用于所有香料和药物萜类的通用生产配方。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-54175-4"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-54175-4"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 经营香气、风味与营养业务，展示萜类及相关天然产物的应用场景；未声称它使用这套蛋白质外壳通路。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1994/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

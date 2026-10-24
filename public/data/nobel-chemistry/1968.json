@@ -1,0 +1,156 @@
+{
+  "year": 1968,
+  "status": "awarded",
+  "names": [
+    "Lars Onsager"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/236"
+  ],
+  "motivations": [
+    "for the discovery of the reciprocal relations bearing his name, which are fundamental for the thermodynamics of irreversible processes"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "236",
+      "name": "Lars Onsager",
+      "image": "images/nobel/laureates/236.jpg",
+      "source": "https://www.nobelprize.org/images/onsager-13200-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1968/summary/",
+      "sha256": "bcc56d2473a7df12fe67b7a34d31e6a2965b5908519051c24b5ff39df49d1f77"
+    }
+  ],
+  "reading": {
+    "title": "不可逆过程的互易关系",
+    "summary": "不可逆过程的互易关系。为不可逆过程提供受约束的定量框架。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "热、电和物质输运会耦合，平衡热力学不足以描述。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "近乎平衡时以热力学力驱动通量，交叉响应系数满足互易关系。",
+        "equation": "J_i=\\sum_jL_{ij}X_j;\\quad L_{ij}=L_{ji}",
+        "equationNote": "线性响应及适用微观可逆条件下的互易形式；磁场等情形需更一般关系。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于耦合输运、热电与非平衡过程分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "为不可逆过程提供受约束的定量框架。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "互易关系适用于近热平衡的线性响应。燃料驱动分子马达是另一类远离平衡的实例，两者的适用范围必须区分。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "manchester",
+          "name": "曼彻斯特大学",
+          "englishName": "The University of Manchester",
+          "url": "https://www.manchester.ac.uk/",
+          "logo": "images/nobel/organizations/manchester.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+          "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "motor",
+          "heading": "分子马达怎样让凝胶收缩和重新展开",
+          "organizationIds": [
+            "manchester"
+          ],
+          "authors": "Peng-Lai Wang、Stefan Borsley、Martin J. Power 等",
+          "paperTitle": "Transducing chemical energy through catalysis by an artificial molecular motor",
+          "journal": "Nature (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41586-024-08288-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08288-x",
+          "paragraphs": [
+            "曼彻斯特大学及合作者将催化驱动的分子马达嵌入交联聚合物网络，使持续定向旋转改变链的缠绕和凝胶形变。观察对象由单个分子是否转动，扩展到化学能能否产生材料尺度的机械响应。",
+            "维持这一过程需要消耗燃料并形成产物。评价马达材料，既要看方向偏置和力学响应，也要追踪燃料消耗、废物积累与网络疲劳，不能把非平衡运动当作无能量输入的循环。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08288-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-08288-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成与高分子研究原料；未核实到该凝胶马达的商品化设备，因此只列研究材料供给。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1968/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

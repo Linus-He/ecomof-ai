@@ -1,0 +1,180 @@
+{
+  "year": 1986,
+  "status": "awarded",
+  "names": [
+    "Dudley R. Herschbach",
+    "Yuan T. Lee",
+    "John C. Polanyi"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/264",
+    "https://www.nobelprize.org/laureate/265",
+    "https://www.nobelprize.org/laureate/266"
+  ],
+  "motivations": [
+    "for their contributions concerning the dynamics of chemical elementary processes",
+    "for their contributions concerning the dynamics of chemical elementary processes",
+    "for their contributions concerning the dynamics of chemical elementary processes"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "264",
+      "name": "Dudley R. Herschbach",
+      "image": "images/nobel/laureates/264.jpg",
+      "source": "https://www.nobelprize.org/images/herschbach-13376-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "88ab6bee790a93210bec541d2b6781152d1317626329a567a17de953a4f85847"
+    },
+    {
+      "id": "265",
+      "name": "Yuan T. Lee",
+      "image": "images/nobel/laureates/265.jpg",
+      "source": "https://www.nobelprize.org/images/lee-13377-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "b26334ff94b27c9dc11433961c3ecb4f67dc83c4371bcc5f0a31b4cd2afb3e10"
+    },
+    {
+      "id": "266",
+      "name": "John C. Polanyi",
+      "image": "images/nobel/laureates/266.jpg",
+      "source": "https://www.nobelprize.org/images/polanyi-13378-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "3ebc23dbd015f4b254ad2dd59177d2949342eb00d38952b8dc18a80682fa8cec"
+    }
+  ],
+  "reading": {
+    "title": "化学基元反应动力学",
+    "summary": "化学基元反应动力学。把化学变化推进到单次碰撞层面的实验描述。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "宏观速率不能告诉我们一次分子碰撞中发生了什么。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "交叉分子束及产物能量分析揭示散射方向、能量分配与反应路径。",
+        "equation": "E_{\\rm coll}+E_{\\rm int}^{\\rm in}=E_{\\rm trans}^{\\rm out}+E_{\\rm int}^{\\rm out}+\\Delta E_{\\rm rxn}",
+        "equationNote": "以相同能量零点定义的能量收支示意；内能包括振动和转动。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基元反应、燃烧机理与势能面研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把化学变化推进到单次碰撞层面的实验描述。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "基元反应动力学关心反应物如何通过中间状态变成产物。超快结构测量为其中电子和核运动的耦合补上了空间信息。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "gothenburg",
+          "name": "哥德堡大学",
+          "englishName": "University of Gothenburg",
+          "url": "https://www.gu.se/en",
+          "logo": "images/nobel/organizations/gothenburg.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.gu.se/themes/custom/gu_theme_ruby/dist/images/favicons/apple-touch-icon.png",
+          "sha256": "1fe421dd8370e44188d92dbb3f6fa2240e1d5da0f0d7bad915aaec3e50e5fafc"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "kinetics",
+          "heading": "电子转移发生时，蛋白结构也在响应",
+          "organizationIds": [
+            "gothenburg"
+          ],
+          "authors": "Andrea Cellini、Madan Kumar Shankar、Amke Nimmrich 等",
+          "paperTitle": "Directed ultrafast conformational changes accompany electron transfer in a photolyase as resolved by serial crystallography",
+          "journal": "Nature Chemistry (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41557-023-01413-9",
+          "paperUrl": "https://doi.org/10.1038/s41557-023-01413-9",
+          "paragraphs": [
+            "哥德堡大学等机构利用飞秒 X 射线晶体学研究光裂合酶，追踪电子沿色氨酸链转移时周围残基、水分子和盐桥的结构变化。测量把电子运动与核构型变化放到同一条反应序列中。",
+            "静态结构能说明哪些基团接近，却不能独自回答电子先转移还是结构先重排。时间分辨实验结合光谱与计算，才有机会比较这些先后关系及其对反应通道的影响。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41557-023-01413-9"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41557-023-01413-9"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的光谱与结构分析设备是相关实验工具的产业示例；普通稳态光谱仪不等于论文使用的飞秒 X 射线设施。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "bruker",
+          "role": "磁共振与结构分析",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1986/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

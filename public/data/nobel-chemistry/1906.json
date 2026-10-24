@@ -1,0 +1,156 @@
+{
+  "year": 1906,
+  "status": "awarded",
+  "names": [
+    "Henri Moissan"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/165"
+  ],
+  "motivations": [
+    "in recognition of the great services rendered by him in his investigation and isolation of the element fluorine, and for the adoption in the service of science of the electric furnace called after him"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "165",
+      "name": "Henri Moissan",
+      "image": "images/nobel/laureates/165.jpg",
+      "source": "https://www.nobelprize.org/images/moissan-12848-portrait-medium.jpg",
+      "credit": "Photo: Eugène Pirou. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1906/summary/",
+      "sha256": "8e065885cb0c7709ee218a11f264babf49c66a0be1fb857cd99496692ec34918"
+    }
+  ],
+  "reading": {
+    "title": "氟的分离与电炉",
+    "summary": "氟的分离与电炉。同时推进了元素分离方法与实验装置能力。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "氟极强的反应性使其难以从化合物中分离，耐高温研究也受设备限制。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过无水含氟体系电解制得氟；电炉提供高温反应条件。",
+        "equation": "\\mathrm{2F^-\\rightarrow F_2+2e^-}",
+        "equationNote": "仅为氟生成的阳极半反应；不构成可直接执行的制备方案。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于元素研究、高温无机材料与含氟化学。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "同时推进了元素分离方法与实验装置能力。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "单质氟的制取与向有机分子引入氟分别发展成不同技术。下面的电化学实例说明，氟源和电极条件如何共同影响合成路线。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "greenwich",
+          "name": "格林尼治大学",
+          "englishName": "University of Greenwich",
+          "url": "https://www.gre.ac.uk/",
+          "logo": "images/nobel/organizations/greenwich.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.gre.ac.uk/__data/assets/image/0024/208914/varieties/v180.png",
+          "sha256": "7e9387c52f9247caf3e5d4bcec3bac0b891b370b76afdb23e2865b0627c541d4"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "fluorine",
+          "heading": "把含氟片段引入有机分子的电化学路线",
+          "organizationIds": [
+            "greenwich"
+          ],
+          "authors": "Matthew C. Leech、Dmitrii Nagornîi、Jamie M. Walsh 等",
+          "paperTitle": "eFluorination Using Cheap and Readily Available Tetrafluoroborate Salts",
+          "journal": "Organic Letters (2023)",
+          "published": "2023",
+          "doi": "10.1021/acs.orglett.2c04305",
+          "paperUrl": "https://doi.org/10.1021/acs.orglett.2c04305",
+          "paragraphs": [
+            "格林尼治大学团队使用易获得的四氟硼酸盐，在阳极过程里向有机底物引入氟。盐既参与支持电解液的导电，也提供氟来源，研究着眼于更便于操作的有机氟化路线。",
+            "这与从氟化物中制取单质氟是不同任务。研究含氟材料或药物时，应区分氟源的活性、目标键的选择性、电极反应和废物流，不能把所有含氟化学视作同一种过程。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1021/acs.orglett.2c04305"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://gala.gre.ac.uk/id/eprint/38717/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的含氟砌块与合成试剂属于实验供给；具体氟化试剂的操作条件仍以原论文与产品资料为准。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1906/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

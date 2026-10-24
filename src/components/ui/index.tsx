@@ -1246,7 +1246,6 @@ function FieldSourcePanel({ fieldLabel, source, lang, t, anchorRef, isMobile, on
     sourceUrl            && ["sourceUrl", lang === "zh" ? "来源链接" : "Source URL", sourceUrl],
     source?.citation      && ["citation", lang === "zh" ? "引用" : "Citation", source.citation],
     source?.license       && ["license", lang === "zh" ? "许可证" : "License", source.license],
-    source?.retrievedAt   && ["retrievedAt", lang === "zh" ? "获取时间" : "Retrieved at", source.retrievedAt],
     source?.derivedFrom   && ["derivedFrom", lang === "zh" ? "派生自" : "Derived from", Array.isArray(source.derivedFrom) ? source.derivedFrom.join(", ") : source.derivedFrom],
     source?.normalizationMethod && ["normalizationMethod", lang === "zh" ? "归一化方法" : "Normalization method", source.normalizationMethod],
     source?.missingReason && ["missingReason", lang === "zh" ? "缺失原因" : "Missing reason", source.missingReason],

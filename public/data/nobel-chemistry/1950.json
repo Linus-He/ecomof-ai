@@ -1,0 +1,168 @@
+{
+  "year": 1950,
+  "status": "awarded",
+  "names": [
+    "Otto Diels",
+    "Kurt Alder"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/210",
+    "https://www.nobelprize.org/laureate/211"
+  ],
+  "motivations": [
+    "for their discovery and development of the diene synthesis",
+    "for their discovery and development of the diene synthesis"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "210",
+      "name": "Otto Diels",
+      "image": "images/nobel/laureates/210.jpg",
+      "source": "https://www.nobelprize.org/images/diels-13068-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1950/summary/",
+      "sha256": "56ab7c3cf656602af2b475ef556198873b6cb9e9fc798ab5524842d85be23cc8"
+    },
+    {
+      "id": "211",
+      "name": "Kurt Alder",
+      "image": "images/nobel/laureates/211.jpg",
+      "source": "https://www.nobelprize.org/images/alder-13067-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1950/summary/",
+      "sha256": "b03efb5da3e7b84f3c9812a08a60f8c6f7cd65ad689a0b98032010c81417bb5d"
+    }
+  ],
+  "reading": {
+    "title": "双烯合成",
+    "summary": "双烯合成。提供直接构建碳环且保留立体信息的反应。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "复杂六元环怎样通过少量步骤构建，是有机合成的重要问题。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "共轭双烯与亲双烯体发生协同成环，通常形成两个新 σ 键。",
+        "equation": "\\mathrm{diene+dienophile\\xrightarrow{[4+2]}cyclohexene\\ derivative}",
+        "equationNote": "[4+2] 是参与 π 电子的计数；反应需合适构象，立体选择性依底物和条件而变。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于环状天然产物、药物中间体与材料单体合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "提供直接构建碳环且保留立体信息的反应。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "环加成让多个键在一次转化中建立。现代环系构筑发展出更多逐步路线，其机理与经典协同反应需要分别判断。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        },
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "catalysis",
+          "heading": "用双自由基拼接环系",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Alice Long、Christian J. Oswood、Christopher B. Kelly 等",
+          "paperTitle": "Couple-close construction of polycyclic rings from diradicals",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07181-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07181-x",
+          "paragraphs": [
+            "普林斯顿团队研究先偶联、再关环的构筑方式，利用双自由基中间体组装部分饱和的多环结构。它把复杂骨架的形成分解为可比较的反应步骤，并用底物范围检验路线能覆盖哪些结构。",
+            "与只改变官能团相比，直接构筑或编辑碳骨架可以改变药物候选分子的三维形状。真正选择合成路线时，还需比较区域选择性、非对映选择性、分离难度和原料可得性。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07181-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://macmillan.princeton.edu/publications/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成砌块与催化剂；本条展示可获得的研究工具，没有把供货目录写成该反应的专利转化。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1950/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

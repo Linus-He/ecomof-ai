@@ -1,0 +1,157 @@
+{
+  "year": 1934,
+  "status": "awarded",
+  "names": [
+    "Harold C. Urey"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/192"
+  ],
+  "motivations": [
+    "for his discovery of heavy hydrogen"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "192",
+      "name": "Harold C. Urey",
+      "image": "images/nobel/laureates/192.jpg",
+      "source": "https://www.nobelprize.org/images/urey-12989-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1934/summary/",
+      "sha256": "8afd149f8ff871b2f25e4bd9659c2dcb1b609e66e994db8ed5b4a4c589449361"
+    }
+  ],
+  "reading": {
+    "title": "重氢的发现",
+    "summary": "重氢的发现。扩展同位素概念并提供质量可控的化学探针。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "氢是否只含一种质量的原子，需要实验分离与光谱判据。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "通过富集和谱线观察确认氢的重同位素氘。",
+        "equation": "\\mathrm{^{2}_{1}H= D}",
+        "equationNote": "氘核含一个质子和一个中子；D 与普通氢的核质量不同，但同属氢元素。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于同位素示踪、重水和动力学同位素效应研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "扩展同位素概念并提供质量可控的化学探针。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "重氢让同位素不仅是质量差别，也成为可用于追踪和定量的实验工具；标记物的纯度和交换行为仍需控制。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "oviedo",
+          "name": "奥维耶多大学",
+          "englishName": "University of Oviedo",
+          "url": "https://www.uniovi.es/",
+          "logo": "images/nobel/organizations/oviedo.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.uniovi.es/documents/39158/648db59f-58a0-3152-6556-9a1329312d10",
+          "sha256": "f63016a9bffa4ee76d95503ce2a3942590ebcf0caf915c362fa8f569662c6ae7"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "isotope",
+          "heading": "同位素稀释：让肽含量测量可以追溯",
+          "organizationIds": [
+            "oviedo"
+          ],
+          "authors": "Jesús Nicolás Carcelén、Helí Potes Rodríguez、Adriana González-Gago 等",
+          "paperTitle": "Evaluation of different isotope dilution mass spectrometry strategies for the characterization of naturally abundant and isotopically labelled peptide standards",
+          "journal": "Analytical and Bioanalytical Chemistry (2024)",
+          "published": "2024",
+          "doi": "10.1007/s00216-024-05176-1",
+          "paperUrl": "https://doi.org/10.1007/s00216-024-05176-1",
+          "paragraphs": [
+            "奥维耶多大学团队比较天然丰度与同位素标记肽标准的定量方案，将肽水解、氨基酸测量和参考物质验证接起来。重点是用较少的认证肽材料完成可信的含量赋值。",
+            "同位素比值可以抵消一部分制样和仪器变化，但前提是标记物与待测物的混合、转化和检测行为得到控制。质谱峰分开并不自动意味着浓度已经可溯源。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1007/s00216-024-05176-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://portalinvestigacion.uniovi.es/documentos/65e422ef795b6b1f94c9b10b?lang=es"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的同位素与元素质谱仪是现行分析设备示例；具体实验所用型号与参数应以论文方法为准。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1934/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

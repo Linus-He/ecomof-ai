@@ -1,0 +1,156 @@
+{
+  "year": 1954,
+  "status": "awarded",
+  "names": [
+    "Linus Pauling"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/217"
+  ],
+  "motivations": [
+    "for his research into the nature of the chemical bond and its application to the elucidation of the structure of complex substances"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "217",
+      "name": "Linus Pauling",
+      "image": "images/nobel/laureates/217.jpg",
+      "source": "https://www.nobelprize.org/images/pauling-13095-portrait-medium.jpg",
+      "credit": "NobelPrize.org",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1954/summary/",
+      "sha256": "c06240f6bf2201084ea2f8aaf8a68f906369456f47af47e7db704f7d05662995"
+    }
+  ],
+  "reading": {
+    "title": "化学键与复杂物质结构",
+    "summary": "化学键与复杂物质结构。让化学键成为可以理论分析并实验检验的概念。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "原子的连接、方向和稳定性需要统一的理论解释。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "把量子力学、键型与结构测量结合，解释共价键、共振和分子构型。",
+        "equation": "\\psi=c_1\\phi_1+c_2\\phi_2",
+        "equationNote": "波函数线性组合用于说明量子态；系数和基函数依模型，不是经典键在结构间跳动。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于分子结构、材料性质和蛋白构象理解。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "让化学键成为可以理论分析并实验检验的概念。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "化学键的解释不断被更精细的电子结构方法检验。神经网络波函数尝试处理激发态，但仍需在明确体系中比较误差和成本。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "imperial",
+          "name": "帝国理工学院",
+          "englishName": "Imperial College London",
+          "url": "https://www.imperial.ac.uk/",
+          "logo": "images/nobel/organizations/imperial.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.imperial.ac.uk/assets/website/images/favicon/favicon-180.png",
+          "sha256": "ce653020d06485f61ed63320108b80996709a6195bb6af5c2e12975f18fd5fa4"
+        },
+        {
+          "id": "schrodinger",
+          "name": "Schrödinger",
+          "englishName": "Schrödinger",
+          "url": "https://www.schrodinger.com/",
+          "logo": "images/nobel/organizations/schrodinger.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.schrodinger.com/wp-content/themes/bigdrop-theme/dist/images/favicon/apple-icon.png",
+          "sha256": "92ea40c562aef0c7af7593196285f4dca8e8ba35d622311b6f5630f683dd39e1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "quantum",
+          "heading": "神经网络波函数也开始处理激发态",
+          "organizationIds": [
+            "imperial"
+          ],
+          "authors": "David Pfau、Simon Axelrod、Halvard Sutterud 等",
+          "paperTitle": "Accurate computation of quantum excited states with neural networks",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adn0137",
+          "paperUrl": "https://doi.org/10.1126/science.adn0137",
+          "paragraphs": [
+            "帝国理工学院与企业研究者等合作者，将激发态求解转化为扩展系统的基态优化，并结合神经网络波函数与变分蒙特卡洛，计算分子激发能和振子强度。",
+            "这一方向针对的是电子结构近似带来的误差。算法在给定分子上的精度、计算成本和适用范围需要一起比较，不能将少量基准中的准确结果推广到任意化学系统。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adn0137"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.science.org/doi/10.1126/science.adn0137"
+            }
+          ],
+          "relatedCompanyIds": [
+            "schrodinger"
+          ],
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "schrodinger",
+          "role": "分子模拟与设计软件",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.schrodinger.com/platform/products/maestro/"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1954/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

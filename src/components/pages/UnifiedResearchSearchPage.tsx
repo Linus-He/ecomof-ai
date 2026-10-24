@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { NobelChemistryFeature } from "../home/NobelChemistryFeature"
+import { PredictionMarketsFeature } from "../home/PredictionMarketsFeature"
 import { interfaceText } from "../../utils/interfaceLocale"
 import { UnifiedResearchSearch } from "../home"
 import { useLang } from "../../contexts"
@@ -38,23 +40,25 @@ export function UnifiedResearchSearchPage({ onNavigate }) {
               <button className="cover-motion-toggle" type="button" aria-label={paused ? l("Play cover animation", "播放封面动画") : l("Pause cover animation", "暂停封面动画")} onClick={() => setPaused(value => !value)}>{paused ? <Play weight="fill" /> : <Pause weight="fill" />}</button>
               </div>
               <h3><a href={`#${release.hash}`} onClick={event => { event.preventDefault(); onNavigate(release.hash, { resetScroll: true }) }}>{storyText(release, "title")}</a></h3>
-              <div className="search-release-meta"><span>{release.version}</span><time dateTime={release.date}>{release.date}</time></div>
+              <div className="search-release-meta"><span>{release.version}</span></div>
               {index === 0 && <p>{storyText(release, "intro")}</p>}
             </article>
           ))}
         </div>
       </section>
+      <NobelChemistryFeature />
+      <PredictionMarketsFeature />
       <section className="search-research-editorial" aria-labelledby="latest-research-title">
         <div className="search-release-heading"><h2 id="latest-research-title">{l("Latest research", "最新研究")}</h2><a href="https://www.nature.com/subjects/metal-organic-frameworks" target="_blank" rel="noreferrer">{l("View all", "查看全部")} ↗</a></div>
         <div className="search-research-grid">
           {recentMofResearch.map((paper, index) => <article className="search-release-story" key={paper.id}>
             <a className="search-release-image" href={`#research-article-${paper.id}`} onClick={event => { event.preventDefault(); onNavigate(`research-article-${paper.id}`, { resetScroll: true }) }}><img src={`${import.meta.env.BASE_URL}images/search-research-${index}.png`} alt={l("Conceptual MOF illustration, not experimental data", "MOF 研究概念插图，非实验图")} loading="lazy" /></a>
             <h3><a href={`#research-article-${paper.id}`} onClick={event => { event.preventDefault(); onNavigate(`research-article-${paper.id}`, { resetScroll: true }) }}>{local?.research[index][0] || paper.title[zh ? 0 : 1]}</a></h3>
-            <div className="search-release-meta"><span>{l(paper.kind[1], paper.kind[0])}</span><time dateTime={paper.date}>{paper.date}</time><span className="research-field-keywords">{paper.fieldKeywords[zh ? 0 : 1].join(" · ")}</span></div>
+            <div className="search-release-meta"><span>{l(paper.kind[1], paper.kind[0])}</span><span>{paper.date.slice(0, 4)}</span><span className="research-field-keywords">{paper.fieldKeywords[zh ? 0 : 1].join(" · ")}</span></div>
             <p>{local?.research[index][1] || paper.summary[zh ? 0 : 1]}</p><small>{paper.journal}</small>
           </article>)}
         </div>
-        <p className="research-edition-note">{l("Selected publications · Checked 2026-09-07 · Conceptual cover illustrations", "文献精选 · 核对日期 2026-09-07 · 封面为概念插图")}</p>
+        <p className="research-edition-note">{l("Selected publications · Conceptual cover illustrations", "文献精选 · 封面为概念插图")}</p>
       </section>
     </div>
   )

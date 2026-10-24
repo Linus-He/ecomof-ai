@@ -1,0 +1,156 @@
+{
+  "year": 1910,
+  "status": "awarded",
+  "names": [
+    "Otto Wallach"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/169"
+  ],
+  "motivations": [
+    "in recognition of his services to organic chemistry and the chemical industry by his pioneer work in the field of alicyclic compounds"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "169",
+      "name": "Otto Wallach",
+      "image": "images/nobel/laureates/169.jpg",
+      "source": "https://www.nobelprize.org/images/wallach-12874-portrait-medium.jpg",
+      "credit": "Photo: Peter Matzen. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1910/summary/",
+      "sha256": "0dd5743b9ca7da60e49bb0a51fddf8a979cb32c6d85fe54cea3f490546a41042"
+    }
+  ],
+  "reading": {
+    "title": "萜烯与脂环化合物",
+    "summary": "萜烯与脂环化合物。把复杂精油转化为有明确结构关系的有机化合物体系。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "精油中许多成分组成相似，气味与反应性却不同。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "利用分离、衍生反应与结构比较，识别萜烯中的碳环骨架和异构关系。",
+        "equation": "\\mathrm{C_{10}H_{16}+H_2\\rightarrow C_{10}H_{18}}",
+        "equationNote": "仅示意一个不饱和键的加氢；不是全部萜烯的结构或反应式。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于香料、天然产物鉴定与环状分子合成。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把复杂精油转化为有明确结构关系的有机化合物体系。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "萜类的环化与重排不只取决于底物骨架，酶的口袋和通路所处空间也会影响中间体被怎样转化。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "dsm",
+          "name": "帝斯曼–芬美意",
+          "englishName": "dsm-firmenich",
+          "url": "https://www.dsm-firmenich.com/",
+          "logo": "images/nobel/organizations/dsm.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/logos/Favicon-DSMF-16px.png",
+          "sha256": "d19c1cf11ec7e1aba2c853cecbf17099872423e01abbd21b0dd8d496177d33b0"
+        },
+        {
+          "id": "umich",
+          "name": "密歇根大学",
+          "englishName": "University of Michigan",
+          "url": "https://umich.edu/",
+          "logo": "images/nobel/organizations/umich.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://umich.edu/favicon.ico",
+          "sha256": "8202cd7a3d86d53f5fdd904ab714c0766e24f43b8d823786e51e50310345bf8c"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "terpene",
+          "heading": "萜烯合成酶还需要一个反应空间",
+          "organizationIds": [
+            "umich"
+          ],
+          "authors": "Michael P. Andreas、Tobias W. Giessen",
+          "paperTitle": "The biosynthesis of the odorant 2-methylisoborneol is compartmentalized inside a protein shell",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-54175-4",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-54175-4",
+          "paragraphs": [
+            "密歇根大学团队研究有气味的萜类化合物 2-甲基异莰醇，发现其生物合成与蛋白质外壳组织有关。问题从酶怎样形成碳骨架，扩展到相关酶怎样在一个受限空间中协作。",
+            "这一类空间组织可改变中间体接触下一步酶的机会。论文中的气味分子是研究对象，不是可直接套用于所有香料和药物萜类的通用生产配方。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-54175-4"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-54175-4"
+            }
+          ],
+          "relatedCompanyIds": [
+            "dsm"
+          ],
+          "relation": "dsm-firmenich 经营香气、风味与营养业务，展示萜类及相关天然产物的应用场景；未声称它使用这套蛋白质外壳通路。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "dsm",
+          "role": "营养原料与香气业务",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "dsm-firmenich 的业务覆盖营养、风味与香气，维生素产品包括 Quali-C 等原料形式。大学论文用于解释分子及酶的机制，产品页则说明可供给的原料及规格，二者需要分别查阅。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.dsm.com/anh/products-and-services/products/vitamins.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1910/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

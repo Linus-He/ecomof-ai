@@ -1,0 +1,167 @@
+{
+  "year": 1907,
+  "status": "awarded",
+  "names": [
+    "Eduard Buchner"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/166"
+  ],
+  "motivations": [
+    "for his biochemical researches and his discovery of cell-free fermentation"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "166",
+      "name": "Eduard Buchner",
+      "image": "images/nobel/laureates/166.jpg",
+      "source": "https://www.nobelprize.org/images/buchner-12854-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1907/summary/",
+      "sha256": "a5a1c9d42cc7c9402e396f734faaef8d6e420a4ea770b41e63d1664113c38aa3"
+    }
+  ],
+  "reading": {
+    "title": "无细胞发酵",
+    "summary": "无细胞发酵。把生命过程转化为能够离体研究的化学过程。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "发酵是否必须依赖完整活细胞，曾是生物化学的重要争论。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "酵母的无细胞提取液仍能发酵，说明催化能力可由可提取组分承担。",
+        "equation": "\\mathrm{C_6H_{12}O_6\\rightarrow 2C_2H_5OH+2CO_2}",
+        "equationNote": "这是酒精发酵的总物料式；内部包含多个酶促步骤。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于理解发酵、生物催化与代谢反应。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把生命过程转化为能够离体研究的化学过程。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "无细胞发酵证明化学转化不必依赖完整细胞。无细胞表达平台进一步将通路中的表达、修饰和活性筛选组合起来。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "novonesis",
+          "name": "Novonesis",
+          "englishName": "Novonesis",
+          "url": "https://www.novonesis.com/",
+          "logo": "images/nobel/organizations/novonesis.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.novonesis.com/favicon.ico",
+          "sha256": "3f595c8e7142a0a3240ce5d9dbeca1397d9a8f54ec37794755bcbece77f1d1d9"
+        },
+        {
+          "id": "shanghaitech",
+          "name": "上海科技大学",
+          "englishName": "ShanghaiTech University",
+          "url": "https://www.shanghaitech.edu.cn/",
+          "logo": "images/nobel/organizations/shanghaitech.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.shanghaitech.edu.cn/_upload/tpl/00/20/32/template32/images/favicon.ico",
+          "sha256": "3567e38416c89379838e8590a1800d423a58859898fa683edebd44207f9232e8"
+        },
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "cellfree",
+          "heading": "把发酵中的一条通路搬出细胞",
+          "organizationIds": [
+            "shanghaitech",
+            "stanford"
+          ],
+          "authors": "Wan-Qiu Liu、Xiangyang Ji、Fang Ba 等",
+          "paperTitle": "Cell-free biosynthesis and engineering of ribosomally synthesized lanthipeptides",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48726-y",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48726-y",
+          "paragraphs": [
+            "上海科技大学与斯坦福大学的 UniBioCat 平台，将无细胞表达、翻译后修饰和肽成熟步骤组合，用于合成及筛选羊毛硫肽类天然产物。开放反应体系使酶量和底物条件更容易单独调节。",
+            "实验重点是绕开细胞毒性、表达和降解限制，同时保留产物活性测定。可在小体系中得到活性产物，不等于已经解决大规模生产的酶成本、供能与回收问题。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48726-y"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48726-y"
+            }
+          ],
+          "relatedCompanyIds": [
+            "novonesis"
+          ],
+          "relation": "Novonesis 的工业酶业务展示生物催化的产业用途；该公司的发酵与酶制剂产品并非这里这套无细胞肽平台的商业版本。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "novonesis",
+          "role": "工业酶与生物催化",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Novonesis 向工业生物加工等行业提供酶和微生物解决方案。产业关注的不只是单次催化活性，还包括原料适配、制剂稳定、重复使用和与现有生产流程的连接。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.novonesis.com/en/biosolutions/industrial-bioprocessing"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1907/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,152 @@
+{
+  "year": 1959,
+  "status": "awarded",
+  "names": [
+    "Jaroslav Heyrovsky"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/223"
+  ],
+  "motivations": [
+    "for his discovery and development of the polarographic methods of analysis"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "223",
+      "name": "Jaroslav Heyrovsky",
+      "image": "images/nobel/laureates/223.jpg",
+      "source": "https://www.nobelprize.org/images/heyrovsky-13132-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1959/summary/",
+      "sha256": "67b3a61bbe97a4621195c8fd16341867874e4e5cae11cec516c92e5fb880bd75"
+    }
+  ],
+  "reading": {
+    "title": "极谱分析",
+    "summary": "极谱分析。把电极反应变成定量化学分析工具。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "如何从溶液中的电信号识别并定量微量化学组分？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "在滴汞电极上扫描电位，利用还原电流与半波电位分析物质。",
+        "equation": "i_d\\propto nD^{1/2}c",
+        "equationNote": "扩散电流的定性关系；还依滴汞流速和滴寿命，非任意电极的通用式。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于微量金属及可电活性物质分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把电极反应变成定量化学分析工具。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "电流与电位让化学反应变得可测。电池化成研究把电化学测量用于判断界面膜和电极利用率怎样影响循环表现。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "catl",
+          "name": "宁德时代",
+          "englishName": "CATL",
+          "url": "https://www.catl.com/",
+          "logo": "images/nobel/organizations/catl.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.catl.com/favicon.ico",
+          "sha256": "5391100e6de4db5323f4d985996cf6b812126a074dff269e7b26ad66690d0b62"
+        },
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "battery",
+          "heading": "电池化成：把首次充电当作材料加工步骤",
+          "organizationIds": [
+            "stanford"
+          ],
+          "authors": "Xiao Cui、Stephen Dongmin Kang、Sunny Wang 等",
+          "paperTitle": "Data-driven analysis of battery formation reveals the role of electrode utilization in extending cycle life",
+          "journal": "Joule (2024)",
+          "published": "2024",
+          "doi": "10.1016/j.joule.2024.07.024",
+          "paperUrl": "https://doi.org/10.1016/j.joule.2024.07.024",
+          "paragraphs": [
+            "斯坦福团队比较多组锂离子电池化成方案，研究首次充电怎样改变电极的可利用程度以及后续循环寿命。化成阶段损失的锂、界面膜形成和两极容量匹配，需要一起考察。",
+            "提高一次充电的速度是否有利，取决于电极、电解液和操作协议。论文给出的是特定电芯体系的实验比较，进入车辆或储能系统还需要热管理、安全和一致性验证。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1016/j.joule.2024.07.024"
+            }
+          ],
+          "relatedCompanyIds": [
+            "catl"
+          ],
+          "relation": "宁德时代提供商业电池及系统。它与论文的联系是电芯制造中的化成和界面管理，不表示研究采用了其某款电池或公司采用了该论文的协议。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "catl",
+          "role": "电池与储能系统",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "宁德时代开发商业动力电池与储能系统，并针对不同应用组织电芯材料、结构和充电技术。论文中的化成实验与商品电池属于不同验证层级，比较时需保留电芯体系及运行条件。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.catl.com/en/news/6811.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1959/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

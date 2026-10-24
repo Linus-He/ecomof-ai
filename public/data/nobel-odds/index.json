@@ -1,0 +1,7 @@
+{
+  "years": [
+    2026
+  ],
+  "latestYear": 2026,
+  "source": "https://gamma-api.polymarket.com/public-search?q=Nobel&events_status=all&limit_per_type=100&keep_closed_markets=1"
+}

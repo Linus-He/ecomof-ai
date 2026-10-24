@@ -381,7 +381,6 @@ export function LiteratureRecordPage() {
             { label: text(lang, "许可", "License"), value: record.license?.name },
             { label: text(lang, "关联反应", "Linked reactions"), value: reactions.length },
             { label: text(lang, "催化剂状态", "Catalyst states"), value: catalystStates.length },
-            { label: text(lang, "核验时间", "Checked at"), value: verification?.checkedAt },
           ]} />
           <section className="priority-source-block">
             <h2>{text(lang, "许可证据与关联对象", "License Evidence & Linked Objects")}</h2>

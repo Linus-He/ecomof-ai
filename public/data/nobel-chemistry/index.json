@@ -1,0 +1,637 @@
+{
+  "firstYear": 1901,
+  "latestYear": 2026,
+  "years": [
+    {
+      "year": 1901,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1902,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1903,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1904,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1905,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1906,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1907,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1908,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1909,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1910,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1911,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1912,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1913,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1914,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1915,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1916,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1917,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1918,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1919,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1920,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1921,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1922,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1923,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1924,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1925,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1926,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1927,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1928,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1929,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1930,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1931,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1932,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1933,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1934,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1935,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1936,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1937,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1938,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1939,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1940,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1941,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1942,
+      "status": "not-awarded",
+      "editorial": false
+    },
+    {
+      "year": 1943,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1944,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1945,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1946,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1947,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1948,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1949,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1950,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1951,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1952,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1953,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1954,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1955,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1956,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1957,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1958,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1959,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1960,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1961,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1962,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1963,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1964,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1965,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1966,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1967,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1968,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1969,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1970,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1971,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1972,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1973,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1974,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1975,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1976,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1977,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1978,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1979,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1980,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1981,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1982,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1983,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1984,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1985,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1986,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1987,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1988,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1989,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1990,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1991,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1992,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1993,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1994,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1995,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1996,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1997,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1998,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 1999,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2000,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2001,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2002,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2003,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2004,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2005,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2006,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2007,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2008,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2009,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2010,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2011,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2012,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2013,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2014,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2015,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2016,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2017,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2018,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2019,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2020,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2021,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2022,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2023,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2024,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2025,
+      "status": "awarded",
+      "editorial": true
+    },
+    {
+      "year": 2026,
+      "status": "awarded",
+      "editorial": true
+    }
+  ],
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry"
+}

@@ -1,0 +1,154 @@
+{
+  "year": 1913,
+  "status": "awarded",
+  "names": [
+    "Alfred Werner"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/174"
+  ],
+  "motivations": [
+    "in recognition of his work on the linkage of atoms in molecules by which he has thrown new light on earlier investigations and opened up new fields of research especially in inorganic chemistry"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "174",
+      "name": "Alfred Werner",
+      "image": "images/nobel/laureates/174.jpg",
+      "source": "https://www.nobelprize.org/images/werner-12891-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1913/summary/",
+      "sha256": "8cb25cabb2c3826246e708f1523a613ad6cbfd1dc626e2f50fd9ce1af0e5f0b8"
+    }
+  ],
+  "reading": {
+    "title": "配位化合物的空间结构",
+    "summary": "配位化合物的空间结构。使无机化学获得空间结构语言。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "经典价键观难以解释金属配合物的组成、颜色和异构现象。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "区分中心金属的配位环境与外层离子，利用几何构型解释异构体。",
+        "equation": "\\mathrm{M+nL\\rightleftharpoons ML_n}",
+        "equationNote": "M 为金属中心、L 为配体；示意配位平衡，不指定某一配合物的真实配位数。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于配位化学、金属催化与晶体结构设计。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使无机化学获得空间结构语言。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "配位化学的空间结构问题仍在向难获取的放射性金属扩展：周期表中的相邻位置不能替代直接的结构测定。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "radio",
+          "heading": "给放射性金属找到可测的配位环境",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+          "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-50017-5",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+          "paragraphs": [
+            "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+            "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-50017-5"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-50017-5"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1913/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

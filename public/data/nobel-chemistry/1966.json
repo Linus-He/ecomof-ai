@@ -1,0 +1,156 @@
+{
+  "year": 1966,
+  "status": "awarded",
+  "names": [
+    "Robert S. Mulliken"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/232"
+  ],
+  "motivations": [
+    "for his fundamental work concerning chemical bonds and the electronic structure of molecules by the molecular orbital method"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "232",
+      "name": "Robert S. Mulliken",
+      "image": "images/nobel/laureates/232.jpg",
+      "source": "https://www.nobelprize.org/images/mulliken-13187-portrait-medium.jpg",
+      "credit": "Photo: Harris & Ewing. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1966/summary/",
+      "sha256": "fde28d34c1bfcc6126a413017b8627e9e3ef5ed2cf70a0e58ed651e0fe54f0d5"
+    }
+  ],
+  "reading": {
+    "title": "分子轨道与电子结构",
+    "summary": "分子轨道与电子结构。让电子结构在整个分子尺度上得到统一描述。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "把电子归属于局部原子或键，难以解释全部分子性质。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用跨越多个原子核的分子轨道描述电子，并由轨道占据解释成键。",
+        "equation": "\\psi_i=\\sum_\\mu c_{\\mu i}\\phi_\\mu",
+        "equationNote": "分子轨道的基函数展开；基组和近似决定结果，不是直接观测的经典轨迹。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于光谱、成键、反应性和量子化学计算。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "让电子结构在整个分子尺度上得到统一描述。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "分子轨道理论把电子分布与成键、光谱联系起来。新的激发态计算方法继续检验这些电子结构描述能精确到什么程度。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "imperial",
+          "name": "帝国理工学院",
+          "englishName": "Imperial College London",
+          "url": "https://www.imperial.ac.uk/",
+          "logo": "images/nobel/organizations/imperial.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.imperial.ac.uk/assets/website/images/favicon/favicon-180.png",
+          "sha256": "ce653020d06485f61ed63320108b80996709a6195bb6af5c2e12975f18fd5fa4"
+        },
+        {
+          "id": "schrodinger",
+          "name": "Schrödinger",
+          "englishName": "Schrödinger",
+          "url": "https://www.schrodinger.com/",
+          "logo": "images/nobel/organizations/schrodinger.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.schrodinger.com/wp-content/themes/bigdrop-theme/dist/images/favicon/apple-icon.png",
+          "sha256": "92ea40c562aef0c7af7593196285f4dca8e8ba35d622311b6f5630f683dd39e1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "quantum",
+          "heading": "神经网络波函数也开始处理激发态",
+          "organizationIds": [
+            "imperial"
+          ],
+          "authors": "David Pfau、Simon Axelrod、Halvard Sutterud 等",
+          "paperTitle": "Accurate computation of quantum excited states with neural networks",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adn0137",
+          "paperUrl": "https://doi.org/10.1126/science.adn0137",
+          "paragraphs": [
+            "帝国理工学院与企业研究者等合作者，将激发态求解转化为扩展系统的基态优化，并结合神经网络波函数与变分蒙特卡洛，计算分子激发能和振子强度。",
+            "这一方向针对的是电子结构近似带来的误差。算法在给定分子上的精度、计算成本和适用范围需要一起比较，不能将少量基准中的准确结果推广到任意化学系统。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adn0137"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.science.org/doi/10.1126/science.adn0137"
+            }
+          ],
+          "relatedCompanyIds": [
+            "schrodinger"
+          ],
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "schrodinger",
+          "role": "分子模拟与设计软件",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.schrodinger.com/platform/products/maestro/"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1966/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

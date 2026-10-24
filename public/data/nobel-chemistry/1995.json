@@ -1,0 +1,180 @@
+{
+  "year": 1995,
+  "status": "awarded",
+  "names": [
+    "Paul J. Crutzen",
+    "Mario J. Molina",
+    "F. Sherwood Rowland"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/281",
+    "https://www.nobelprize.org/laureate/282",
+    "https://www.nobelprize.org/laureate/283"
+  ],
+  "motivations": [
+    "for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone",
+    "for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone",
+    "for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "281",
+      "name": "Paul J. Crutzen",
+      "image": "images/nobel/laureates/281.jpg",
+      "source": "https://www.nobelprize.org/images/crutzen-13467-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "c47e891ad65e16987f01a9e46b5103dc7eea1aed137dc03e6df644897079fb9b"
+    },
+    {
+      "id": "282",
+      "name": "Mario J. Molina",
+      "image": "images/nobel/laureates/282.jpg",
+      "source": "https://www.nobelprize.org/images/molina-13468-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "4d54b745ca69ed2d64e3f2c507ac79b1861c660c321b97d366b9893ef6e6f6ae"
+    },
+    {
+      "id": "283",
+      "name": "F. Sherwood Rowland",
+      "image": "images/nobel/laureates/283.jpg",
+      "source": "https://www.nobelprize.org/images/rowland-13469-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "689fa2791f1f8a10a10ede5516f17162d73989bf587537fead5855e2e1bad7ad"
+    }
+  ],
+  "reading": {
+    "title": "臭氧层的形成与破坏",
+    "summary": "臭氧层的形成与破坏。说明痕量物种能够经催化循环改变全球环境。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "人类排放怎样影响高空臭氧，需要跨越反应与大气输运尺度。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "含氯物种和氮氧化物参与催化循环，极地粒子表面过程可加速臭氧损耗。",
+        "equation": "\\mathrm{Cl+O_3\\rightarrow ClO+O_2};\\quad\\mathrm{ClO+O\\rightarrow Cl+O_2}",
+        "equationNote": "示意一种气相循环；极地臭氧损耗还有不同循环及异相活化，不可只用此式解释。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于大气化学、污染影响与环境评估。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "说明痕量物种能够经催化循环改变全球环境。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "臭氧化学的环境意义需要区分平流层与地面。下面的输送研究和制冷剂应用分别涉及大气诊断与化学品替代。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "chemours",
+          "name": "Chemours",
+          "englishName": "Chemours",
+          "url": "https://www.opteon.com/en/",
+          "logo": "images/nobel/organizations/chemours.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.opteon.com/html/assets/img/brand/favicon-opteon.ico",
+          "sha256": "1259c4a4ad1af5c4a5f630e09495e620e084c0be4b1c51a0a7cdb6eac1df2921"
+        },
+        {
+          "id": "fjnu",
+          "name": "福建师范大学",
+          "englishName": "Fujian Normal University",
+          "url": "https://www.fjnu.edu.cn/",
+          "logo": "images/nobel/organizations/fjnu.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.fjnu.edu.cn/_upload/tpl/07/ed/2029/template2029/images/shida.ico",
+          "sha256": "093c3fd0a9aee84dfd70a85ccd04d8d216dd0ebb965cb10fe321439d561b3837"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ozone",
+          "heading": "臭氧问题还需要区分大气层之间的输送",
+          "organizationIds": [
+            "fjnu"
+          ],
+          "authors": "Zhixiong Chen、Jane Liu、Xiushu Qie 等",
+          "paperTitle": "Stratospheric influence on surface ozone pollution in China",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-48406-x",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-48406-x",
+          "paragraphs": [
+            "福建师范大学等机构结合地面臭氧与一氧化碳观测，识别平流层空气影响地面臭氧的事件。研究提示，理解近地面污染不能只看本地光化学生成，还要分析高空输送。",
+            "保护平流层臭氧与降低地面臭氧污染是不同目标。前者涉及高空紫外屏障及消耗臭氧物质，后者涉及人体暴露和区域化学输送，指标与干预手段不能混用。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-48406-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-48406-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "chemours"
+          ],
+          "relation": "Chemours 的 Opteon 制冷剂系列以替代传统制冷剂为应用方向；应分别核查臭氧消耗潜能、全球变暖潜能和具体产品条件。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "chemours",
+          "role": "替代制冷剂",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Chemours 的 Opteon 产品以 HFO 等含氟化学为基础，用于制冷及相关工业应用。臭氧消耗潜能与全球变暖潜能是两项不同指标，应对照具体配方的技术资料。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.opteon.com/en/products/refrigerants/r1234yf"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1995/press-release/",
+      "kind": "press-release",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

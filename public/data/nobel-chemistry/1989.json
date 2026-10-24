@@ -1,0 +1,169 @@
+{
+  "year": 1989,
+  "status": "awarded",
+  "names": [
+    "Sidney Altman",
+    "Thomas R. Cech"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/273",
+    "https://www.nobelprize.org/laureate/274"
+  ],
+  "motivations": [
+    "for their discovery of catalytic properties of RNA",
+    "for their discovery of catalytic properties of RNA"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "273",
+      "name": "Sidney Altman",
+      "image": "images/nobel/laureates/273.jpg",
+      "source": "https://www.nobelprize.org/images/altman-13409-portrait-medium.jpg",
+      "credit": "Photo: Yale University. From the Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1989/summary/",
+      "sha256": "ac3c5a029542e33e1865de7ef59b1c944a6f135ad7fa986f332bf1c41bd267b6"
+    },
+    {
+      "id": "274",
+      "name": "Thomas R. Cech",
+      "image": "images/nobel/laureates/274.jpg",
+      "source": "https://www.nobelprize.org/images/cech-13410-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1989/summary/",
+      "sha256": "0dc8d5cc59cd00dea8942c29bb2ca3b8765266b660a1166bc8872b810a008d88"
+    }
+  ],
+  "reading": {
+    "title": "RNA 的催化性质",
+    "summary": "RNA 的催化性质。证明核酸除携带信息外也可承担催化功能。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "酶是否只能是蛋白质，是生化研究中的基本问题。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "某些 RNA 能通过折叠与化学基团协同催化切割或加工反应。",
+        "equation": "\\mathrm{RNA\\ substrate\\xrightarrow{ribozyme}cleaved\\ RNA}",
+        "equationNote": "核酶反应类型的示意，具体反应可为转酯或水解，需区分不同体系。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于 RNA 加工、核酶与生命起源模型研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "证明核酸除携带信息外也可承担催化功能。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "RNA 催化的发现使核酸不再只是信息载体。核酶结构与突变筛选进一步检验哪些折叠接触真正支撑了聚合活性。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "aarhus",
+          "name": "奥胡斯大学",
+          "englishName": "Aarhus University",
+          "url": "https://www.au.dk/en/",
+          "logo": "images/nobel/organizations/aarhus.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.au.dk/favicon.ico",
+          "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ribozyme",
+          "heading": "RNA 催化：把活性位置与折叠结构对应起来",
+          "organizationIds": [
+            "aarhus"
+          ],
+          "authors": "Ewan K. S. McRae、Christopher J. K. Wan、Emil L. Kristoffersen 等",
+          "paperTitle": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+          "journal": "Proceedings of the National Academy of Sciences (2024)",
+          "published": "2024",
+          "doi": "10.1073/pnas.2313332121",
+          "paperUrl": "https://doi.org/10.1073/pnas.2313332121",
+          "paragraphs": [
+            "奥胡斯大学与 MRC 分子生物学实验室结合冷冻电镜和高通量突变分析，研究以三核苷酸为底物的 RNA 聚合酶核酶。结构中的亚基接触与功能筛选结果相互对照，用来识别哪些位置对催化必要。",
+            "RNA 能催化反应并不意味着已经在实验中重建了生命起源。模板依赖延伸的活性、保真度与条件兼容性，仍需要独立测量和改进。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1073/pnas.2313332121"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1989/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

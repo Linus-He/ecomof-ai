@@ -1,0 +1,10 @@
+{
+  "year": 1942,
+  "status": "not-awarded",
+  "names": [],
+  "personUrls": [],
+  "motivations": [],
+  "overallMotivation": "\"No Nobel Prize was awarded this year. 1/3 of the prize money was allocated to the main fund and 2/3 was allocated to the special fund of this prize section.\"",
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-07"
+}

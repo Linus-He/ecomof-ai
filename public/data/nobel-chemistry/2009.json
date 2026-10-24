@@ -1,0 +1,222 @@
+{
+  "year": 2009,
+  "status": "awarded",
+  "names": [
+    "Venkatraman Ramakrishnan",
+    "Thomas A. Steitz",
+    "Ada E. Yonath"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/841",
+    "https://www.nobelprize.org/laureate/842",
+    "https://www.nobelprize.org/laureate/843"
+  ],
+  "motivations": [
+    "for studies of the structure and function of the ribosome",
+    "for studies of the structure and function of the ribosome",
+    "for studies of the structure and function of the ribosome"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "841",
+      "name": "Venkatraman Ramakrishnan",
+      "image": "images/nobel/laureates/841.jpg",
+      "source": "https://www.nobelprize.org/images/ramakrishnan-15152-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "c8a8c3b20beb5e7a0ca2b83d910db30a7dce266209500cf7ca482f326741a2ba"
+    },
+    {
+      "id": "842",
+      "name": "Thomas A. Steitz",
+      "image": "images/nobel/laureates/842.jpg",
+      "source": "https://www.nobelprize.org/images/steitz-15151-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "87a2881146dddccbdf9fdc08c60c1726062a3bfeeca617871d3f11b53ee320b1"
+    },
+    {
+      "id": "843",
+      "name": "Ada E. Yonath",
+      "image": "images/nobel/laureates/843.jpg",
+      "source": "https://www.nobelprize.org/images/yonath-15150-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "9a296af0c91a46fe28851ceaa6705732a9346fa1af082ec9024954fd541e523b"
+    }
+  ],
+  "reading": {
+    "title": "核糖体结构与功能",
+    "summary": "核糖体结构与功能。把 RNA 的催化能力与蛋白生物合成联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "遗传密码如何被转成蛋白链，需要明确翻译装置的结构。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "核糖体定位 mRNA 与 tRNA，核糖体 RNA 主导的中心促进肽键形成。",
+        "equation": "\\mathrm{peptidyl\\!\\!{-}tRNA+aminoacyl\\!\\!{-}tRNA\\rightarrow extended\\ peptidyl\\!\\!{-}tRNA+tRNA}",
+        "equationNote": "肽基转移简式；tRNA 的进入、易位与释放属于后续或前置步骤。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于翻译机理、抗生素识别与结构生物学。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把 RNA 的催化能力与蛋白生物合成联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "核糖体结构把 RNA、蛋白质和催化定位连接起来。RNA 聚合酶核酶及转录—翻译研究分别延伸催化 RNA 与表达耦合问题。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "aarhus",
+          "name": "奥胡斯大学",
+          "englishName": "Aarhus University",
+          "url": "https://www.au.dk/en/",
+          "logo": "images/nobel/organizations/aarhus.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.au.dk/favicon.ico",
+          "sha256": "258eaa476170665a59f34f2ba30c8724f33a12fedde6b5bda7b16da4bdd478bf"
+        },
+        {
+          "id": "newcastle",
+          "name": "纽卡斯尔大学",
+          "englishName": "Newcastle University",
+          "url": "https://www.ncl.ac.uk/",
+          "logo": "images/nobel/organizations/newcastle.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.ncl.ac.uk/favicon.ico",
+          "sha256": "126e8076845466afc5fbebc3bc3b2f9a66a02c4b6f6e3375564196d516d04901"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ribozyme",
+          "heading": "RNA 催化：把活性位置与折叠结构对应起来",
+          "organizationIds": [
+            "aarhus"
+          ],
+          "authors": "Ewan K. S. McRae、Christopher J. K. Wan、Emil L. Kristoffersen 等",
+          "paperTitle": "Cryo-EM structure and functional landscape of an RNA polymerase ribozyme",
+          "journal": "Proceedings of the National Academy of Sciences (2024)",
+          "published": "2024",
+          "doi": "10.1073/pnas.2313332121",
+          "paperUrl": "https://doi.org/10.1073/pnas.2313332121",
+          "paragraphs": [
+            "奥胡斯大学与 MRC 分子生物学实验室结合冷冻电镜和高通量突变分析，研究以三核苷酸为底物的 RNA 聚合酶核酶。结构中的亚基接触与功能筛选结果相互对照，用来识别哪些位置对催化必要。",
+            "RNA 能催化反应并不意味着已经在实验中重建了生命起源。模板依赖延伸的活性、保真度与条件兼容性，仍需要独立测量和改进。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1073/pnas.2313332121"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38207080/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的核酸试剂与冷冻电镜工具分别支持功能和结构研究，未把这项核酶写成已商业化的自复制系统。"
+        },
+        {
+          "id": "rna",
+          "heading": "转录与翻译还会协同清除停滞复合物",
+          "organizationIds": [
+            "newcastle"
+          ],
+          "authors": "Jason Woodgate、Hamed Mosaei、Pavel Brazda 等",
+          "paperTitle": "Translation selectively destroys non-functional transcription complexes",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-023-07014-3",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-07014-3",
+          "paragraphs": [
+            "纽卡斯尔大学团队研究细菌转录—翻译耦合，发现核糖体能够区分暂时暂停与受损停滞的转录复合物：前者可能继续延伸，后者则需要从 DNA 模板上移走。",
+            "这将基因表达与损伤处理联系起来，但细菌中的耦合机制不能直接代入真核转录。比较两类系统时，需要保留聚合酶种类、细胞区室和模板环境这些差别。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-07014-3"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-07014-3"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的转录、翻译和核酸分析试剂可用于相应实验流程；这里列的是研究工具，不是该细菌机制的治疗产品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2009/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

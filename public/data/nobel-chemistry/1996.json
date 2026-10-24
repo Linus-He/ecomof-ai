@@ -1,0 +1,180 @@
+{
+  "year": 1996,
+  "status": "awarded",
+  "names": [
+    "Robert F. Curl Jr.",
+    "Sir Harold Kroto",
+    "Richard E. Smalley"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/284",
+    "https://www.nobelprize.org/laureate/285",
+    "https://www.nobelprize.org/laureate/286"
+  ],
+  "motivations": [
+    "for their discovery of fullerenes",
+    "for their discovery of fullerenes",
+    "for their discovery of fullerenes"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "284",
+      "name": "Robert F. Curl Jr.",
+      "image": "images/nobel/laureates/284.jpg",
+      "source": "https://www.nobelprize.org/images/curl-13479-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "9c6f29d4645e241a458103e10eea6f18e6427a5800557ab4427b06990eef901a"
+    },
+    {
+      "id": "285",
+      "name": "Sir Harold Kroto",
+      "image": "images/nobel/laureates/285.jpg",
+      "source": "https://www.nobelprize.org/images/kroto-13480-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "0bfc8f66a693f45f3b4871cc2e65ca6748c6bb6ccf7a913482d6847d8e6db920"
+    },
+    {
+      "id": "286",
+      "name": "Richard E. Smalley",
+      "image": "images/nobel/laureates/286.jpg",
+      "source": "https://www.nobelprize.org/images/smalley-13481-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "8a00651f8a693e272ac80fdc3195e73651e69a072e868bb8089c823989e66049"
+    }
+  ],
+  "reading": {
+    "title": "富勒烯",
+    "summary": "富勒烯。扩展碳的结构类型和可研究尺度。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "碳除了石墨和金刚石，还能形成怎样的稳定结构？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "在碳簇研究中发现稳定的 C60，并提出由五边形和六边形组成的闭合笼。",
+        "equation": "\\mathrm{C_{60}}:\\quad 12\\ pentagons+20\\ hexagons",
+        "equationNote": "描述常见 C60 笼的拓扑构型；不是富勒烯全部成员的统一结构。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于碳纳米材料、电子受体与分子笼研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "扩展碳的结构类型和可研究尺度。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "发现富勒烯之后，研究逐渐转向碳笼间连接、手性与电子耦合。新的衍生结构需要与商品 C₆₀ 原料分别辨认。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "kyoto",
+          "name": "京都大学",
+          "englishName": "Kyoto University",
+          "url": "https://www.kyoto-u.ac.jp/en",
+          "logo": "images/nobel/organizations/kyoto.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.kyoto-u.ac.jp/themes/custom/camphor/images/apple-touch-icon.png",
+          "sha256": "64041b05bc15bee28659fc5e0ed0cf29f89335752166d92e41d6b9d4303d25b9"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "fullerene",
+          "heading": "从发现碳笼走向控制两个碳笼的连接",
+          "organizationIds": [
+            "kyoto"
+          ],
+          "authors": "Yoshifumi Hashikawa、Shu Okamoto、Yasujiro Murata",
+          "paperTitle": "Synthesis of inter-[60]fullerene conjugates with inherent chirality",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-44834-x",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-44834-x",
+          "paragraphs": [
+            "京都大学团队合成具有内禀手性的开口 C₆₀ 共轭结构，并用晶体学、吸收与手性光学表征研究笼间连接产生的性质。富勒烯在这里成为可以进一步组织和修饰的分子单元。",
+            "两个碳笼通过什么键相连、电子能否在笼间耦合，以及分子怎样继续组装，会共同改变光谱。发现新的碳形态之后，化学修饰提供了研究结构与功能联系的下一层尺度。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-44834-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-44834-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的富勒烯和纳米碳材料目录属于研究原料供给；未将其中商品与论文的新型手性碳笼混同。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1996/press-release/",
+      "kind": "press-release",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

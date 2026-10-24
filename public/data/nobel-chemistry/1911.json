@@ -1,0 +1,154 @@
+{
+  "year": 1911,
+  "status": "awarded",
+  "names": [
+    "Marie Curie"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/6"
+  ],
+  "motivations": [
+    "in recognition of her services to the advancement of chemistry by the discovery of the elements radium and polonium, by the isolation of radium and the study of the nature and compounds of this remarkable element"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "6",
+      "name": "Marie Curie",
+      "image": "images/nobel/laureates/6.jpg",
+      "source": "https://www.nobelprize.org/images/marie-curie-12879-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1911/summary/",
+      "sha256": "b4ddbee09ce5f40817a6196cad9426df7abeb04d5e99255318380301ba79399a"
+    }
+  ],
+  "reading": {
+    "title": "镭与钋的发现及镭分离",
+    "summary": "镭与钋的发现及镭分离。证明放射性物质也能进行定量化学分析与元素鉴定。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "矿石中的放射性强度提示存在尚未识别的元素。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用放射性作为分离线索，反复化学富集并结合谱线和组成确认元素。",
+        "equation": "A=\\lambda N",
+        "equationNote": "A 为放射性活度；以活度追踪分离，不等于仅凭活度即可确认新元素。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于放射性元素研究与放射化学分离。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "证明放射性物质也能进行定量化学分析与元素鉴定。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "从分离放射性元素走向研究其分子配位，需要在极少量样品条件下辨认结构、稳定性和与配体的相互作用。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "radio",
+          "heading": "给放射性金属找到可测的配位环境",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Jennifer N. Wacker、Joshua J. Woods、Peter B. Rupert 等",
+          "paperTitle": "Actinium chelation and crystallization in a macromolecular scaffold",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-50017-5",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-50017-5",
+          "paragraphs": [
+            "伯克利及合作者利用蛋白质支架研究锕的配位和晶体结构。将金属约束在可解析的环境中，可以直接追问配位数、配体距离及其与邻近元素的差别，而不只根据元素周期表类推。",
+            "论文研究的是锕的基础配位化学。锕系核素用于放射性药物时还涉及核素纯度、螯合稳定性和体内分布；一张晶体结构不能替代这些测试，也不是癌症疗效证据。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-50017-5"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41467-024-50017-5"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的螯合剂、金属标准和分析试剂对应化学研究环节；未将其列作该锕配合物的药物开发方。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1911/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

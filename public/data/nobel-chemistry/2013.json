@@ -1,0 +1,246 @@
+{
+  "year": 2013,
+  "status": "awarded",
+  "names": [
+    "Martin Karplus",
+    "Michael Levitt",
+    "Arieh Warshel"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/889",
+    "https://www.nobelprize.org/laureate/890",
+    "https://www.nobelprize.org/laureate/891"
+  ],
+  "motivations": [
+    "for the development of multiscale models for complex chemical systems",
+    "for the development of multiscale models for complex chemical systems",
+    "for the development of multiscale models for complex chemical systems"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "889",
+      "name": "Martin Karplus",
+      "image": "images/nobel/laureates/889.jpg",
+      "source": "https://www.nobelprize.org/images/karplus-13615-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "bb157723235fa2e819238f329321dccc3760e55c32cc7c9563861cefc531dc5b"
+    },
+    {
+      "id": "890",
+      "name": "Michael Levitt",
+      "image": "images/nobel/laureates/890.jpg",
+      "source": "https://www.nobelprize.org/images/levitt-13616-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "fb5f849ff40e993e4016251c517936669e38f1f31713072294bb495dca2f063f"
+    },
+    {
+      "id": "891",
+      "name": "Arieh Warshel",
+      "image": "images/nobel/laureates/891.jpg",
+      "source": "https://www.nobelprize.org/images/warshel-13617-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "78402bf94c3685252ee6c1e63de6f14cd130e88deefa65f7c89da2caf90d1532"
+    }
+  ],
+  "reading": {
+    "title": "复杂化学系统的多尺度模型",
+    "summary": "复杂化学系统的多尺度模型。在可承受计算规模中保留关键反应的电子细节。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "量子计算精细但昂贵，经典模型高效却难以描述化学键变化。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "把反应区域的量子描述与周围环境的经典描述耦合。",
+        "equation": "E_{\\rm QM/MM}=E_{\\rm QM}+E_{\\rm MM}+E_{\\rm coupling}",
+        "equationNote": "QM/MM 的概念性分解；边界、嵌入方式和耦合项随实现而变。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于酶反应、溶液过程与大分子模拟。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "在可承受计算规模中保留关键反应的电子细节。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "多尺度模型的价值在于连接可观测的不同层次。结构约束下的分子动力学与更精细的电子计算，分别处理不同时间和能量尺度。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "imperial",
+          "name": "帝国理工学院",
+          "englishName": "Imperial College London",
+          "url": "https://www.imperial.ac.uk/",
+          "logo": "images/nobel/organizations/imperial.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.imperial.ac.uk/assets/website/images/favicon/favicon-180.png",
+          "sha256": "ce653020d06485f61ed63320108b80996709a6195bb6af5c2e12975f18fd5fa4"
+        },
+        {
+          "id": "schrodinger",
+          "name": "Schrödinger",
+          "englishName": "Schrödinger",
+          "url": "https://www.schrodinger.com/",
+          "logo": "images/nobel/organizations/schrodinger.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.schrodinger.com/wp-content/themes/bigdrop-theme/dist/images/favicon/apple-icon.png",
+          "sha256": "92ea40c562aef0c7af7593196285f4dca8e8ba35d622311b6f5630f683dd39e1"
+        },
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "gpcr",
+          "heading": "把受体激活过程分成连续结构状态",
+          "organizationIds": [
+            "stanford"
+          ],
+          "authors": "Makaía M. Papasergi-Scott、Guillermo Pérez-Hernández、Hossein Batebi 等",
+          "paperTitle": "Time-resolved cryo-EM of G-protein activation by a GPCR",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07153-1",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07153-1",
+          "paragraphs": [
+            "斯坦福大学及合作者使用时间分辨冷冻电镜与分子动力学，追踪 GTP 结合后 G 蛋白构象变化及其脱离受体的过程。不同构象让核苷酸位点与受体接触界面的变化可以相互对照。",
+            "这类研究把静态受体结构推进到激活路径，但结构快照与完整反应速率仍需区分。样品制备、构象分类和模拟起点都会影响可观察的状态。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07153-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://cris.fau.de/publications/320053833/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
+        },
+        {
+          "id": "quantum",
+          "heading": "神经网络波函数也开始处理激发态",
+          "organizationIds": [
+            "imperial"
+          ],
+          "authors": "David Pfau、Simon Axelrod、Halvard Sutterud 等",
+          "paperTitle": "Accurate computation of quantum excited states with neural networks",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adn0137",
+          "paperUrl": "https://doi.org/10.1126/science.adn0137",
+          "paragraphs": [
+            "帝国理工学院与企业研究者等合作者，将激发态求解转化为扩展系统的基态优化，并结合神经网络波函数与变分蒙特卡洛，计算分子激发能和振子强度。",
+            "这一方向针对的是电子结构近似带来的误差。算法在给定分子上的精度、计算成本和适用范围需要一起比较，不能将少量基准中的准确结果推广到任意化学系统。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adn0137"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.science.org/doi/10.1126/science.adn0137"
+            }
+          ],
+          "relatedCompanyIds": [
+            "schrodinger"
+          ],
+          "relation": "Schrödinger 提供商业分子建模工具；商业平台中的具体理论方法与这篇神经网络波函数算法需要分别核对。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        },
+        {
+          "organizationId": "schrodinger",
+          "role": "分子模拟与设计软件",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Schrödinger 的建模平台整合结构准备、分子模拟和候选分析工具。计算结果需要结合所用理论方法、参数和实验对照判断；软件中能运行一个模型，并不意味着模型适用于任意反应或分子。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.schrodinger.com/platform/products/maestro/"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2013/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

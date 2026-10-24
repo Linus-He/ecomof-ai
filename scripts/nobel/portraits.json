@@ -1,0 +1,2056 @@
+{
+  "2024": [
+    {
+      "id": "1039",
+      "name": "David Baker",
+      "image": "images/nobel/laureates/1039.jpg",
+      "source": "https://www.nobelprize.org/images/165767-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "839e6b3585e6af44f3979d3c432c6f76cb92ee2fcabb2779b56e98f198799adc"
+    },
+    {
+      "id": "1040",
+      "name": "Demis Hassabis",
+      "image": "images/nobel/laureates/1040.jpg",
+      "source": "https://www.nobelprize.org/images/165765-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "248445e8da95f5f03275c2c6de4d2e598c9e2a621feed6779254485836820c17"
+    },
+    {
+      "id": "1041",
+      "name": "John Jumper",
+      "image": "images/nobel/laureates/1041.jpg",
+      "source": "https://www.nobelprize.org/images/165766-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2024/summary/",
+      "sha256": "f764862c9a90aafe16e1f3228c84191531bc7268aa959b0531eb8c185275915e"
+    }
+  ],
+  "2026": [
+    {
+      "id": "1065",
+      "name": "Henri Kagan",
+      "image": "images/nobel/laureates/1065.jpg",
+      "source": "https://www.nobelprize.org/uploads/2026/10/1-2_3-6ac5fc622a9b2-scaled.jpg",
+      "credit": "Ill. Niklas Elmehed © Nobel Prize Outreach",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2026/summary/",
+      "sha256": "50b6aabf68e489e58ecbd22a8bf09beac0dd135db5adefb8a22623a67db92715"
+    },
+    {
+      "id": "1066",
+      "name": "Kenso Soai",
+      "image": "images/nobel/laureates/1066.jpg",
+      "source": "https://www.nobelprize.org/uploads/2026/10/2-2_3-6ac5fc699d670-scaled.jpg",
+      "credit": "Ill. Niklas Elmehed © Nobel Prize Outreach",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2026/summary/",
+      "sha256": "159b0abc189e22d58320b50b02bab9d3ef48e257a09a30d97db9dc1dc7ebbe61"
+    }
+  ],
+  "2025": [
+    {
+      "id": "1053",
+      "name": "Susumu Kitagawa",
+      "image": "images/nobel/laureates/1053.jpg",
+      "source": "https://www.nobelprize.org/images/186048-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "a9a921968de897c1b1c5087b54094387cb297621a76cccb5aec31af557d3aa65"
+    },
+    {
+      "id": "1054",
+      "name": "Richard Robson",
+      "image": "images/nobel/laureates/1054.jpg",
+      "source": "https://www.nobelprize.org/images/186047-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "c9a91b26dc6e6f35859d8fa82c0ba2aa0c6e67e79e94070c2e90ab9debc7cd88"
+    },
+    {
+      "id": "1055",
+      "name": "Omar M. Yaghi",
+      "image": "images/nobel/laureates/1055.jpg",
+      "source": "https://www.nobelprize.org/images/186052-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+      "sha256": "369f6be45ea982b0d68ad3c73b38545267221c1d1c72913a034aa5f0821a7618"
+    }
+  ],
+  "2023": [
+    {
+      "id": "1029",
+      "name": "Moungi Bawendi",
+      "image": "images/nobel/laureates/1029.jpg",
+      "source": "https://www.nobelprize.org/images/154020-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "def1895113ceb15f33faf276841faad9a4f230363d39723117fd91c24f81d358"
+    },
+    {
+      "id": "1030",
+      "name": "Louis Brus",
+      "image": "images/nobel/laureates/1030.jpg",
+      "source": "https://www.nobelprize.org/images/154026-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "8534b283cb2d97cf126380050773401b869ca519e31155b41996beeed2e7738d"
+    },
+    {
+      "id": "1031",
+      "name": "Aleksey Yekimov",
+      "image": "images/nobel/laureates/1031.jpg",
+      "source": "https://www.nobelprize.org/images/154024-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Clément Morin",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2023/summary/",
+      "sha256": "4c43ba340b8e058370c0029ec016b6a1f85b66073b887a33f2c2299cdf4fa0dc"
+    }
+  ],
+  "2022": [
+    {
+      "id": "1015",
+      "name": "Carolyn Bertozzi",
+      "image": "images/nobel/laureates/1015.jpg",
+      "source": "https://www.nobelprize.org/images/143934-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "213ac3b5ef7dbc7681f9ab526e685ab62deae3c6eea11ce7358f69a10e9341c2"
+    },
+    {
+      "id": "1016",
+      "name": "Morten Meldal",
+      "image": "images/nobel/laureates/1016.jpg",
+      "source": "https://www.nobelprize.org/images/143952-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "2ed0ae14335fd837b9ae8c041bc744149bbc21bf367d756649c6bb858abf4f4c"
+    },
+    {
+      "id": "743",
+      "name": "Barry Sharpless",
+      "image": "images/nobel/laureates/743.jpg",
+      "source": "https://www.nobelprize.org/images/143950-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2022/summary/",
+      "sha256": "57486870da71691b42688fde3cbe9d13c3a6037ebb1583d4767a87f4fc8b9061"
+    }
+  ],
+  "2021": [
+    {
+      "id": "1002",
+      "name": "Benjamin List",
+      "image": "images/nobel/laureates/1002.jpg",
+      "source": "https://www.nobelprize.org/images/143931-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Stefan Bladh.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2021/summary/",
+      "sha256": "2af027f1f4440d228dc1ec9c79e1c28d7a52cbaa077f8692d089ef838aaf36c9"
+    },
+    {
+      "id": "1003",
+      "name": "David MacMillan",
+      "image": "images/nobel/laureates/1003.jpg",
+      "source": "https://www.nobelprize.org/images/124482-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Risdon Photography",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2021/summary/",
+      "sha256": "ec68a9397289c7d23bcb1064715d63236e5373095eda955bd5eb3d9a1a7eb47a"
+    }
+  ],
+  "2020": [
+    {
+      "id": "991",
+      "name": "Emmanuelle Charpentier",
+      "image": "images/nobel/laureates/991.jpg",
+      "source": "https://www.nobelprize.org/images/charpentier-111763-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: Bernhard Ludewig",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2020/summary/",
+      "sha256": "6b9cf0b25b3208999da3c3872648e9ee6ab5d3d008c5d565c4d16fe5e3d83879"
+    },
+    {
+      "id": "992",
+      "name": "Jennifer A. Doudna",
+      "image": "images/nobel/laureates/992.jpg",
+      "source": "https://www.nobelprize.org/uploads/2020/10/jennifer-doudna-by-christopher-michel-496x744.jpg",
+      "credit": "Photo: Christopher Michel",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2020/summary/",
+      "sha256": "c7918446deac951cbe36f63592f9e33009e49625e4494f6b5d9e64ba546fe56b"
+    }
+  ],
+  "2019": [
+    {
+      "id": "976",
+      "name": "John Goodenough",
+      "image": "images/nobel/laureates/976.jpg",
+      "source": "https://www.nobelprize.org/images/goodenough-99991-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2019/summary/",
+      "sha256": "4e6b3f9a89ec3f8d92467c68cbed7b7d5b0f33ff80354fb274d56f1821861c62"
+    },
+    {
+      "id": "977",
+      "name": "M. Stanley Whittingham",
+      "image": "images/nobel/laureates/977.jpg",
+      "source": "https://www.nobelprize.org/images/whittingham-99990-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2019/summary/",
+      "sha256": "c1dd9087239ea345e56ca63c83bc4ff8b2cdf2fc1a79797afc45694a9b6737f3"
+    },
+    {
+      "id": "978",
+      "name": "Akira Yoshino",
+      "image": "images/nobel/laureates/978.jpg",
+      "source": "https://www.nobelprize.org/images/yoshino-100428-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2019/summary/",
+      "sha256": "7343c5fa3c5eef91a900a72558d95e47946d632dc3a98d32266caab3d9354905"
+    }
+  ],
+  "2018": [
+    {
+      "id": "963",
+      "name": "Frances H. Arnold",
+      "image": "images/nobel/laureates/963.jpg",
+      "source": "https://www.nobelprize.org/images/arnold-57918-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2018/summary/",
+      "sha256": "f12d64fc21d026c3804a453772fdb5711e22f25bf639866a3ea6e1879ad7b0c1"
+    },
+    {
+      "id": "964",
+      "name": "George P. Smith",
+      "image": "images/nobel/laureates/964.jpg",
+      "source": "https://www.nobelprize.org/images/smith-57911-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2018/summary/",
+      "sha256": "e2e30ae4dd64f5efb28cdda7241c92daf81ddda4ea386c8b37115787bd1b9092"
+    },
+    {
+      "id": "965",
+      "name": "Sir Gregory P. Winter",
+      "image": "images/nobel/laureates/965.jpg",
+      "source": "https://www.nobelprize.org/images/winter-57917-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2018/summary/",
+      "sha256": "23f1d9c80e1eb772c7d41864545e6a0c529dd46492bec114d2e6d2accee9c2d4"
+    }
+  ],
+  "2017": [
+    {
+      "id": "944",
+      "name": "Jacques Dubochet",
+      "image": "images/nobel/laureates/944.jpg",
+      "source": "https://www.nobelprize.org/images/dubochet-15235-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "264a1f8bcec27ee284a675754e929964b7f504f737e123d9fe3a9ed16298de65"
+    },
+    {
+      "id": "945",
+      "name": "Joachim Frank",
+      "image": "images/nobel/laureates/945.jpg",
+      "source": "https://www.nobelprize.org/images/frank-15234-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "449f883a7c41cd6e9ec22e46cb73e62c8ebaf906c8d16f09c04bd1e14231f24a"
+    },
+    {
+      "id": "946",
+      "name": "Richard Henderson",
+      "image": "images/nobel/laureates/946.jpg",
+      "source": "https://www.nobelprize.org/images/henderson-15230-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2017/summary/",
+      "sha256": "33ea6e15169089a2b79b68fe1078f3650e4f7cf346b1a2b28962ddbc56f9e7ce"
+    }
+  ],
+  "2016": [
+    {
+      "id": "931",
+      "name": "Jean-Pierre Sauvage",
+      "image": "images/nobel/laureates/931.jpg",
+      "source": "https://www.nobelprize.org/images/sauvage-15210-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "e83f9d13197c6d65acacf5c252c5c75d4845d3ae2d4d49081069d304119f5d46"
+    },
+    {
+      "id": "932",
+      "name": "Sir J. Fraser Stoddart",
+      "image": "images/nobel/laureates/932.jpg",
+      "source": "https://www.nobelprize.org/images/stoddart-15208-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "151aec173b89a680b35b1a3fc27382c782136a505eb1b1d15e0676bbdb8cbb9f"
+    },
+    {
+      "id": "933",
+      "name": "Bernard L. Feringa",
+      "image": "images/nobel/laureates/933.jpg",
+      "source": "https://www.nobelprize.org/images/feringa-15204-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "ed1a02d96279bb611c18276147da4d7c3e62dde61d060028305807904426cde5"
+    }
+  ],
+  "2015": [
+    {
+      "id": "921",
+      "name": "Tomas Lindahl",
+      "image": "images/nobel/laureates/921.jpg",
+      "source": "https://www.nobelprize.org/images/lindahl-13641-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "177ca1fef8268c19e97cf240364bf42e73ba49e128ca6e0c5c36090f5be2257d"
+    },
+    {
+      "id": "922",
+      "name": "Paul Modrich",
+      "image": "images/nobel/laureates/922.jpg",
+      "source": "https://www.nobelprize.org/images/modrich-13642-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "dd517aea0b4ac046d156f284e16e549ccfc1e44590e2f620c9c2d5edc62ed13e"
+    },
+    {
+      "id": "923",
+      "name": "Aziz Sancar",
+      "image": "images/nobel/laureates/923.jpg",
+      "source": "https://www.nobelprize.org/images/sancar-15199-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2015/summary/",
+      "sha256": "b11e732913925e6fd31407c87673cb35ac826f0ede63175f07acb71d14d7d452"
+    }
+  ],
+  "2014": [
+    {
+      "id": "909",
+      "name": "Eric Betzig",
+      "image": "images/nobel/laureates/909.jpg",
+      "source": "https://www.nobelprize.org/images/betzig-15197-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "cded0fd0d2fbebad668f194183c1e2d8906512c2b145379af91a0f38d8c3b0d1"
+    },
+    {
+      "id": "910",
+      "name": "Stefan W. Hell",
+      "image": "images/nobel/laureates/910.jpg",
+      "source": "https://www.nobelprize.org/images/hell-15196-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "8eef411288317c87ce687bf15cfe266841419dbb5d857b6eca395630c6e90ee7"
+    },
+    {
+      "id": "911",
+      "name": "William E. Moerner",
+      "image": "images/nobel/laureates/911.jpg",
+      "source": "https://www.nobelprize.org/images/moerner-15195-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2014/summary/",
+      "sha256": "005950f01bc490179b3e68c78edb283ee9edc9a19c36fdb96d8cfedd56582b7b"
+    }
+  ],
+  "2013": [
+    {
+      "id": "889",
+      "name": "Martin Karplus",
+      "image": "images/nobel/laureates/889.jpg",
+      "source": "https://www.nobelprize.org/images/karplus-13615-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "bb157723235fa2e819238f329321dccc3760e55c32cc7c9563861cefc531dc5b"
+    },
+    {
+      "id": "890",
+      "name": "Michael Levitt",
+      "image": "images/nobel/laureates/890.jpg",
+      "source": "https://www.nobelprize.org/images/levitt-13616-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "fb5f849ff40e993e4016251c517936669e38f1f31713072294bb495dca2f063f"
+    },
+    {
+      "id": "891",
+      "name": "Arieh Warshel",
+      "image": "images/nobel/laureates/891.jpg",
+      "source": "https://www.nobelprize.org/images/warshel-13617-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2013/summary/",
+      "sha256": "78402bf94c3685252ee6c1e63de6f14cd130e88deefa65f7c89da2caf90d1532"
+    }
+  ],
+  "2012": [
+    {
+      "id": "878",
+      "name": "Robert J. Lefkowitz",
+      "image": "images/nobel/laureates/878.jpg",
+      "source": "https://www.nobelprize.org/images/lefkowitz-15182-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2012/summary/",
+      "sha256": "32e405610271783fe170f7ebee1c326150d434bb36c03f59f908e5dbab0e1a67"
+    },
+    {
+      "id": "879",
+      "name": "Brian Kobilka",
+      "image": "images/nobel/laureates/879.jpg",
+      "source": "https://www.nobelprize.org/images/kobilka-15183-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2012/summary/",
+      "sha256": "63df4def3dfd0da0a617ee6ab5e0a3bc06a7b70b2a9629555e242a9b7e04b7e1"
+    }
+  ],
+  "2011": [
+    {
+      "id": "867",
+      "name": "Dan Shechtman",
+      "image": "images/nobel/laureates/867.jpg",
+      "source": "https://www.nobelprize.org/images/shechtman-15174-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2011/summary/",
+      "sha256": "b6ed1239d9a73d14d892a62765aa8c985542b04990f837b70901b636129932c1"
+    }
+  ],
+  "2010": [
+    {
+      "id": "851",
+      "name": "Richard F. Heck",
+      "image": "images/nobel/laureates/851.jpg",
+      "source": "https://www.nobelprize.org/images/heck-15162-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "894ed26f69c56af70c9e2426ed67fc6727c0796abc936dbbac9d96b4bf9bf946"
+    },
+    {
+      "id": "852",
+      "name": "Ei-ichi Negishi",
+      "image": "images/nobel/laureates/852.jpg",
+      "source": "https://www.nobelprize.org/images/negishi-15161-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "2c28af731b7133a6527df0dcb416f76009dd615ff359ced0da39c01e7ecddf59"
+    },
+    {
+      "id": "853",
+      "name": "Akira Suzuki",
+      "image": "images/nobel/laureates/853.jpg",
+      "source": "https://www.nobelprize.org/images/suzuki-15160-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2010/summary/",
+      "sha256": "91be9040d32dac642f9e9c1cd703baa4a6f477fa2967f987e3ba6a51fde3b376"
+    }
+  ],
+  "2009": [
+    {
+      "id": "841",
+      "name": "Venkatraman Ramakrishnan",
+      "image": "images/nobel/laureates/841.jpg",
+      "source": "https://www.nobelprize.org/images/ramakrishnan-15152-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "c8a8c3b20beb5e7a0ca2b83d910db30a7dce266209500cf7ca482f326741a2ba"
+    },
+    {
+      "id": "842",
+      "name": "Thomas A. Steitz",
+      "image": "images/nobel/laureates/842.jpg",
+      "source": "https://www.nobelprize.org/images/steitz-15151-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "87a2881146dddccbdf9fdc08c60c1726062a3bfeeca617871d3f11b53ee320b1"
+    },
+    {
+      "id": "843",
+      "name": "Ada E. Yonath",
+      "image": "images/nobel/laureates/843.jpg",
+      "source": "https://www.nobelprize.org/images/yonath-15150-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2009/summary/",
+      "sha256": "9a296af0c91a46fe28851ceaa6705732a9346fa1af082ec9024954fd541e523b"
+    }
+  ],
+  "2008": [
+    {
+      "id": "829",
+      "name": "Osamu Shimomura",
+      "image": "images/nobel/laureates/829.jpg",
+      "source": "https://www.nobelprize.org/images/shimomura-13557-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "3ff900ba9c39262ab3184680c4af13d4212a5ea7ce8a718d65a6edd89834636b"
+    },
+    {
+      "id": "830",
+      "name": "Martin Chalfie",
+      "image": "images/nobel/laureates/830.jpg",
+      "source": "https://www.nobelprize.org/images/chalfie-13556-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "5424b57a4e950e162884a0c007f9c66c876910c951bd2766784814e6bdd448b9"
+    },
+    {
+      "id": "831",
+      "name": "Roger Y. Tsien",
+      "image": "images/nobel/laureates/831.jpg",
+      "source": "https://www.nobelprize.org/images/tsien-13558-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2008/summary/",
+      "sha256": "16a101e8dcf6a16b067b76b5d80e2712c8bc62aa0a361748a08c17b90e66c25a"
+    }
+  ],
+  "2007": [
+    {
+      "id": "816",
+      "name": "Gerhard Ertl",
+      "image": "images/nobel/laureates/816.jpg",
+      "source": "https://www.nobelprize.org/images/ertl-15137-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2007/summary/",
+      "sha256": "e82a6d0e4ef084a961d854f87f22e10f039a2a0d0fe2cfcb1851c87f60a4cf4c"
+    }
+  ],
+  "2006": [
+    {
+      "id": "806",
+      "name": "Roger D. Kornberg",
+      "image": "images/nobel/laureates/806.jpg",
+      "source": "https://www.nobelprize.org/images/kornberg-13716-portrait-medium.jpg",
+      "credit": "Photo: Stanford University",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2006/summary/",
+      "sha256": "a630743cb39d1cadb13b62493ebaca0ece9c87a07624b7d534073cbd133ae456"
+    }
+  ],
+  "2005": [
+    {
+      "id": "794",
+      "name": "Yves Chauvin",
+      "image": "images/nobel/laureates/794.jpg",
+      "source": "https://www.nobelprize.org/images/chauvin-13704-portrait-medium.jpg",
+      "credit": "Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "49224f70e3cde5fc75c0752b326788285efb71a27a048c945cc7b37708e53fd8"
+    },
+    {
+      "id": "795",
+      "name": "Robert H. Grubbs",
+      "image": "images/nobel/laureates/795.jpg",
+      "source": "https://www.nobelprize.org/images/grubbs-13705-portrait-medium.jpg",
+      "credit": "Photo: R. Paz",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "fcf682eb02e816eed671e58a04896dbd7e0257f48c6d83917b284eb6460d4b93"
+    },
+    {
+      "id": "796",
+      "name": "Richard R. Schrock",
+      "image": "images/nobel/laureates/796.jpg",
+      "source": "https://www.nobelprize.org/images/schrock-13706-portrait-medium.jpg",
+      "credit": "Photo: L.B. Hetherington",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2005/summary/",
+      "sha256": "a14b4ca58b483e15b4813d9a2abd89aea465a58f0bc815b8860588332b420805"
+    }
+  ],
+  "2004": [
+    {
+      "id": "779",
+      "name": "Aaron Ciechanover",
+      "image": "images/nobel/laureates/779.jpg",
+      "source": "https://www.nobelprize.org/images/ciechanover-13692-portrait-medium.jpg",
+      "credit": "Photo: D. Porges",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "f875dbd7eefaa88ff6f90b41688b2c04fca60a5e57ff09354ae1380d416f4c07"
+    },
+    {
+      "id": "780",
+      "name": "Avram Hershko",
+      "image": "images/nobel/laureates/780.jpg",
+      "source": "https://www.nobelprize.org/images/hershko-13693-portrait-medium.jpg",
+      "credit": "Photo: D. Porges",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "2c7c1fb3ddfc5e6a078982b1741cac055e3bb0fe963cce36799b61fe6aad19bf"
+    },
+    {
+      "id": "781",
+      "name": "Irwin Rose",
+      "image": "images/nobel/laureates/781.jpg",
+      "source": "https://www.nobelprize.org/images/rose-13694-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2004/summary/",
+      "sha256": "350ff9c30bf9ed0acea530261d49b643439267a7f152f14962f87984e669498f"
+    }
+  ],
+  "2003": [
+    {
+      "id": "769",
+      "name": "Peter Agre",
+      "image": "images/nobel/laureates/769.jpg",
+      "source": "https://www.nobelprize.org/images/agre-13682-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2003/summary/",
+      "sha256": "16c0c8010d2b5f2476659f7efd38c366a24a780f4a488725051b2b184038e07a"
+    },
+    {
+      "id": "770",
+      "name": "Roderick MacKinnon",
+      "image": "images/nobel/laureates/770.jpg",
+      "source": "https://www.nobelprize.org/images/mackinnon-13887-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2003/summary/",
+      "sha256": "408be910fa11275d9b2a598c732e9286f640ebb0ff3d454ee62f641f7ff3b24d"
+    }
+  ],
+  "2002": [
+    {
+      "id": "756",
+      "name": "John B. Fenn",
+      "image": "images/nobel/laureates/756.jpg",
+      "source": "https://www.nobelprize.org/images/fenn-13670-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2002/summary/",
+      "sha256": "d35775fb252a7419594fa78a9400cd8c4202a75e17f5812683207d49ecfd143b"
+    },
+    {
+      "id": "757",
+      "name": "Koichi Tanaka",
+      "image": "images/nobel/laureates/757.jpg",
+      "source": "https://www.nobelprize.org/images/tanaka-13671-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2002/summary/",
+      "sha256": "a728790ff2876cb240ee5604ce7372048b9f69a7e896075f07933aa103b44f1b"
+    },
+    {
+      "id": "758",
+      "name": "Kurt Wüthrich",
+      "image": "images/nobel/laureates/758.jpg",
+      "source": "https://www.nobelprize.org/images/wuthrich-13672-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2002/summary/",
+      "sha256": "b0982954962c2ed0905b5af3219e05e2b9e31e73a9aec3476cd41e06d2821250"
+    }
+  ],
+  "2001": [
+    {
+      "id": "741",
+      "name": "William Knowles",
+      "image": "images/nobel/laureates/741.jpg",
+      "source": "https://www.nobelprize.org/images/knowles-13724-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "abdb24dc9b3520a55ff21488b2275361efb158c78f8627a0f7da01a0b033256c"
+    },
+    {
+      "id": "742",
+      "name": "Ryoji Noyori",
+      "image": "images/nobel/laureates/742.jpg",
+      "source": "https://www.nobelprize.org/images/noyori-13725-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "06989d744aea584e250d1b3b8cd9a2c33b883e202c9928644d39817778435241"
+    },
+    {
+      "id": "743",
+      "name": "Barry Sharpless",
+      "image": "images/nobel/laureates/743.jpg",
+      "source": "https://www.nobelprize.org/images/sharpless-13726-portrait-medium.jpg",
+      "credit": "Photo: Pressens Bild. Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2001/summary/",
+      "sha256": "57486870da71691b42688fde3cbe9d13c3a6037ebb1583d4767a87f4fc8b9061"
+    }
+  ],
+  "2000": [
+    {
+      "id": "729",
+      "name": "Alan Heeger",
+      "image": "images/nobel/laureates/729.jpg",
+      "source": "https://www.nobelprize.org/images/heeger-13522-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "3c85cf86f7f9ac850f783358192143b032a54f33e3e001ee237235e633b8e2dc"
+    },
+    {
+      "id": "730",
+      "name": "Alan MacDiarmid",
+      "image": "images/nobel/laureates/730.jpg",
+      "source": "https://www.nobelprize.org/images/macdiarmid-13523-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "573719f98581a0ae14a4271b363c04a10da27ef113f78f43d6dbc08b7d729092"
+    },
+    {
+      "id": "731",
+      "name": "Hideki Shirakawa",
+      "image": "images/nobel/laureates/731.jpg",
+      "source": "https://www.nobelprize.org/images/shirakawa-13524-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2000/summary/",
+      "sha256": "322c5b07d24bc1d5e42da725652afe94e3a691a9c184aba7311862ddd743cac5"
+    }
+  ],
+  "1999": [
+    {
+      "id": "292",
+      "name": "Ahmed Zewail",
+      "image": "images/nobel/laureates/292.jpg",
+      "source": "https://www.nobelprize.org/images/zewail-13516-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1999/summary/",
+      "sha256": "a48b01b2daa5875656c95c340df6bef7d8cd64db392e39d26605caaddf950bc6"
+    }
+  ],
+  "1998": [
+    {
+      "id": "290",
+      "name": "Walter Kohn",
+      "image": "images/nobel/laureates/290.jpg",
+      "source": "https://www.nobelprize.org/images/kohn-13504-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1998/summary/",
+      "sha256": "6771e565a89e570bb434705bfa592144629ae888634dc3521c05611b46a7b28d"
+    },
+    {
+      "id": "291",
+      "name": "John Pople",
+      "image": "images/nobel/laureates/291.jpg",
+      "source": "https://www.nobelprize.org/images/pople-13505-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1998/summary/",
+      "sha256": "ac9d5a614fa67cc00cae414d0c86d7886c7ea2a53e59089f5e8ed6b08199c658"
+    }
+  ],
+  "1997": [
+    {
+      "id": "287",
+      "name": "Paul D. Boyer",
+      "image": "images/nobel/laureates/287.jpg",
+      "source": "https://www.nobelprize.org/images/boyer-13492-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1997/summary/",
+      "sha256": "f04e1c1c0a64865b01039ccfdea0899c5b2ec0a8bcc702b38e005ddc14e9213e"
+    },
+    {
+      "id": "288",
+      "name": "John E. Walker",
+      "image": "images/nobel/laureates/288.jpg",
+      "source": "https://www.nobelprize.org/images/walker-13494-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1997/summary/",
+      "sha256": "0b3cd51c06320b665629d2acd43d5b8be830d3a2b9018644d2a95c2504790e97"
+    },
+    {
+      "id": "289",
+      "name": "Jens C. Skou",
+      "image": "images/nobel/laureates/289.jpg",
+      "source": "https://www.nobelprize.org/images/skou-13493-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1997/summary/",
+      "sha256": "aabe45e7aa83c582b4e97a61d1115150672b0d38581ae50491b4d14ab3a1317a"
+    }
+  ],
+  "1996": [
+    {
+      "id": "284",
+      "name": "Robert F. Curl Jr.",
+      "image": "images/nobel/laureates/284.jpg",
+      "source": "https://www.nobelprize.org/images/curl-13479-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "9c6f29d4645e241a458103e10eea6f18e6427a5800557ab4427b06990eef901a"
+    },
+    {
+      "id": "285",
+      "name": "Sir Harold Kroto",
+      "image": "images/nobel/laureates/285.jpg",
+      "source": "https://www.nobelprize.org/images/kroto-13480-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "0bfc8f66a693f45f3b4871cc2e65ca6748c6bb6ccf7a913482d6847d8e6db920"
+    },
+    {
+      "id": "286",
+      "name": "Richard E. Smalley",
+      "image": "images/nobel/laureates/286.jpg",
+      "source": "https://www.nobelprize.org/images/smalley-13481-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1996/summary/",
+      "sha256": "8a00651f8a693e272ac80fdc3195e73651e69a072e868bb8089c823989e66049"
+    }
+  ],
+  "1995": [
+    {
+      "id": "281",
+      "name": "Paul J. Crutzen",
+      "image": "images/nobel/laureates/281.jpg",
+      "source": "https://www.nobelprize.org/images/crutzen-13467-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "c47e891ad65e16987f01a9e46b5103dc7eea1aed137dc03e6df644897079fb9b"
+    },
+    {
+      "id": "282",
+      "name": "Mario J. Molina",
+      "image": "images/nobel/laureates/282.jpg",
+      "source": "https://www.nobelprize.org/images/molina-13468-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "4d54b745ca69ed2d64e3f2c507ac79b1861c660c321b97d366b9893ef6e6f6ae"
+    },
+    {
+      "id": "283",
+      "name": "F. Sherwood Rowland",
+      "image": "images/nobel/laureates/283.jpg",
+      "source": "https://www.nobelprize.org/images/rowland-13469-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1995/summary/",
+      "sha256": "689fa2791f1f8a10a10ede5516f17162d73989bf587537fead5855e2e1bad7ad"
+    }
+  ],
+  "1994": [
+    {
+      "id": "280",
+      "name": "George A. Olah",
+      "image": "images/nobel/laureates/280.jpg",
+      "source": "https://www.nobelprize.org/images/olah-13455-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1994/summary/",
+      "sha256": "29d3317ec8093feaaa5cbd2e459127bc2de0b8cd239575c764ce97d74d8cf3a6"
+    }
+  ],
+  "1993": [
+    {
+      "id": "278",
+      "name": "Kary B. Mullis",
+      "image": "images/nobel/laureates/278.jpg",
+      "source": "https://www.nobelprize.org/images/mullis-13444-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1993/summary/",
+      "sha256": "b3ad27b5b88150496f23c04c095f0890c8d6bb75e1427da73f1321e385ea58f6"
+    },
+    {
+      "id": "279",
+      "name": "Michael Smith",
+      "image": "images/nobel/laureates/279.jpg",
+      "source": "https://www.nobelprize.org/images/smith-13445-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1993/summary/",
+      "sha256": "3e4dbbc7534ff7f4902f9fa5abd768f4b840a9fb3ec8a998344efc19f9d1edd0"
+    }
+  ],
+  "1992": [
+    {
+      "id": "277",
+      "name": "Rudolph A. Marcus",
+      "image": "images/nobel/laureates/277.jpg",
+      "source": "https://www.nobelprize.org/images/marcus-13437-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1992/summary/",
+      "sha256": "c1241f4806d24fd1a8cc24b0964b05d2d502c178ae14561f57939d387d6e7a6c"
+    }
+  ],
+  "1991": [
+    {
+      "id": "276",
+      "name": "Richard R. Ernst",
+      "image": "images/nobel/laureates/276.jpg",
+      "source": "https://www.nobelprize.org/images/ernst-13430-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1991/summary/",
+      "sha256": "3990a179066ff5386883c8d5a91731fec643b0d04f1071af34ec3e103ee0b4d3"
+    }
+  ],
+  "1990": [
+    {
+      "id": "275",
+      "name": "Elias James Corey",
+      "image": "images/nobel/laureates/275.jpg",
+      "source": "https://www.nobelprize.org/images/corey-13419-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1990/summary/",
+      "sha256": "d7cfbcaf1e44c4f379644e61c56e926c256ae2325cc14a772029df2aec2591c3"
+    }
+  ],
+  "1989": [
+    {
+      "id": "273",
+      "name": "Sidney Altman",
+      "image": "images/nobel/laureates/273.jpg",
+      "source": "https://www.nobelprize.org/images/altman-13409-portrait-medium.jpg",
+      "credit": "Photo: Yale University. From the Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1989/summary/",
+      "sha256": "ac3c5a029542e33e1865de7ef59b1c944a6f135ad7fa986f332bf1c41bd267b6"
+    },
+    {
+      "id": "274",
+      "name": "Thomas R. Cech",
+      "image": "images/nobel/laureates/274.jpg",
+      "source": "https://www.nobelprize.org/images/cech-13410-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1989/summary/",
+      "sha256": "0dc8d5cc59cd00dea8942c29bb2ca3b8765266b660a1166bc8872b810a008d88"
+    }
+  ],
+  "1988": [
+    {
+      "id": "270",
+      "name": "Johann Deisenhofer",
+      "image": "images/nobel/laureates/270.jpg",
+      "source": "https://www.nobelprize.org/images/deisenhofer-13396-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1988/summary/",
+      "sha256": "7e192be4d21967ae2f157ec99c4b41988ca2fccb81e33d4bc823ff54570009b2"
+    },
+    {
+      "id": "271",
+      "name": "Robert Huber",
+      "image": "images/nobel/laureates/271.jpg",
+      "source": "https://www.nobelprize.org/images/huber-13397-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1988/summary/",
+      "sha256": "b0244bddcbd7e088c2c8519f7a43d345d21b46460fd5c0eaab03b4cb56516336"
+    },
+    {
+      "id": "272",
+      "name": "Hartmut Michel",
+      "image": "images/nobel/laureates/272.jpg",
+      "source": "https://www.nobelprize.org/images/michel-13398-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1988/summary/",
+      "sha256": "906ea3ee796cb86e09f09d7aa3a6f8851df8dcbccc374e5bd5431d3092fb3061"
+    }
+  ],
+  "1987": [
+    {
+      "id": "267",
+      "name": "Donald J. Cram",
+      "image": "images/nobel/laureates/267.jpg",
+      "source": "https://www.nobelprize.org/images/cram-13387-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "400312e8177feb336cf88eabc56d412efa3074c81b3717f9c44b4847642671ec"
+    },
+    {
+      "id": "268",
+      "name": "Jean-Marie Lehn",
+      "image": "images/nobel/laureates/268.jpg",
+      "source": "https://www.nobelprize.org/images/lehn-13388-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "d7783a95589bb21b80cf8000da51cc948c75d0cc0bfea98f136d95e844e3395b"
+    },
+    {
+      "id": "269",
+      "name": "Charles J. Pedersen",
+      "image": "images/nobel/laureates/269.jpg",
+      "source": "https://www.nobelprize.org/images/pedersen-13389-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1987/summary/",
+      "sha256": "d243d66d7a0b683da707706a6857340625406a3591377a882c0e796d274cca6e"
+    }
+  ],
+  "1986": [
+    {
+      "id": "264",
+      "name": "Dudley R. Herschbach",
+      "image": "images/nobel/laureates/264.jpg",
+      "source": "https://www.nobelprize.org/images/herschbach-13376-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "88ab6bee790a93210bec541d2b6781152d1317626329a567a17de953a4f85847"
+    },
+    {
+      "id": "265",
+      "name": "Yuan T. Lee",
+      "image": "images/nobel/laureates/265.jpg",
+      "source": "https://www.nobelprize.org/images/lee-13377-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "b26334ff94b27c9dc11433961c3ecb4f67dc83c4371bcc5f0a31b4cd2afb3e10"
+    },
+    {
+      "id": "266",
+      "name": "John C. Polanyi",
+      "image": "images/nobel/laureates/266.jpg",
+      "source": "https://www.nobelprize.org/images/polanyi-13378-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1986/summary/",
+      "sha256": "3ebc23dbd015f4b254ad2dd59177d2949342eb00d38952b8dc18a80682fa8cec"
+    }
+  ],
+  "1985": [
+    {
+      "id": "262",
+      "name": "Herbert A. Hauptman",
+      "image": "images/nobel/laureates/262.jpg",
+      "source": "https://www.nobelprize.org/images/hauptman-13368-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1985/summary/",
+      "sha256": "95ab4b0794c07b09b76a89b41b3a3651c878642aa60a047dff7c34c39924a4a7"
+    },
+    {
+      "id": "263",
+      "name": "Jerome Karle",
+      "image": "images/nobel/laureates/263.jpg",
+      "source": "https://www.nobelprize.org/images/karle-13369-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1985/summary/",
+      "sha256": "54023508be4fc3e32c93ab0c7f33036cad9a31e477fc346b0bd6e8d70b11e466"
+    }
+  ],
+  "1984": [
+    {
+      "id": "261",
+      "name": "Bruce Merrifield",
+      "image": "images/nobel/laureates/261.jpg",
+      "source": "https://www.nobelprize.org/images/merrifield-13359-portrait-medium.jpg",
+      "credit": "Photo: Ingbert Grüttner. The Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1984/summary/",
+      "sha256": "2469698ae06ca1cd73c703fe7c7cec177bf96ff009e37584073d05a963db1f97"
+    }
+  ],
+  "1983": [
+    {
+      "id": "260",
+      "name": "Henry Taube",
+      "image": "images/nobel/laureates/260.jpg",
+      "source": "https://www.nobelprize.org/images/taube-13352-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1983/summary/",
+      "sha256": "c5244d199f5e24c09f0a406d884ef67d7bf2e95488543c1a251f89c2eb0e2b1b"
+    }
+  ],
+  "1982": [
+    {
+      "id": "259",
+      "name": "Aaron Klug",
+      "image": "images/nobel/laureates/259.jpg",
+      "source": "https://www.nobelprize.org/images/klug-13343-portrait-medium.jpg",
+      "credit": "© MRC Laboratory of Molecular Biology. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1982/summary/",
+      "sha256": "0b7a59906d91ee9be114c5087d0894a446a3173c70dd27b86b146918a57a044b"
+    }
+  ],
+  "1981": [
+    {
+      "id": "257",
+      "name": "Kenichi Fukui",
+      "image": "images/nobel/laureates/257.jpg",
+      "source": "https://www.nobelprize.org/images/fukui-13332-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1981/summary/",
+      "sha256": "d94b89a86098cd46058bd2422a95772ecf37cfe3a8db30b2a27ceebe43804bed"
+    },
+    {
+      "id": "258",
+      "name": "Roald Hoffmann",
+      "image": "images/nobel/laureates/258.jpg",
+      "source": "https://www.nobelprize.org/images/hoffmann-13333-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1981/summary/",
+      "sha256": "51c3fd8e96c5d6e4112e83eee0331f7c99d64bf53f885d8f750de908dc69a863"
+    }
+  ],
+  "1980": [
+    {
+      "id": "254",
+      "name": "Paul Berg",
+      "image": "images/nobel/laureates/254.jpg",
+      "source": "https://www.nobelprize.org/images/berg-13321-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "a83ac8b4cdd2b5dabf082608c9866ddf5506a1322ed0b9905876fe10a309f1d6"
+    },
+    {
+      "id": "255",
+      "name": "Walter Gilbert",
+      "image": "images/nobel/laureates/255.jpg",
+      "source": "https://www.nobelprize.org/images/gilbert-13322-portrait-medium.jpg",
+      "credit": "Photo: Harvard University News Office. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "cb895476cefc8d44605f72ae9ce09c7c48dd133f99e8b58ce3a0cfbc0fb86401"
+    },
+    {
+      "id": "222",
+      "name": "Frederick Sanger",
+      "image": "images/nobel/laureates/222.jpg",
+      "source": "https://www.nobelprize.org/images/sanger-13323-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "34acc2202358d1192d9ca1ddbb62a6e437844326d4b814f59c84ae6826d9aaf6"
+    }
+  ],
+  "1979": [
+    {
+      "id": "252",
+      "name": "Herbert C. Brown",
+      "image": "images/nobel/laureates/252.jpg",
+      "source": "https://www.nobelprize.org/images/brown-13310-portrait-medium.jpg",
+      "credit": "Photo: Purdue University. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1979/summary/",
+      "sha256": "b2a9d0ad94f3d663f1ba90c81d0b85534876d6960100d59b4fd7c5627c812dad"
+    },
+    {
+      "id": "253",
+      "name": "Georg Wittig",
+      "image": "images/nobel/laureates/253.jpg",
+      "source": "https://www.nobelprize.org/images/wittig-13311-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1979/summary/",
+      "sha256": "b801b83b6c1a830f8c47e44795c74885391af634e26d004702ed2933391943e2"
+    }
+  ],
+  "1978": [
+    {
+      "id": "251",
+      "name": "Peter Mitchell",
+      "image": "images/nobel/laureates/251.jpg",
+      "source": "https://www.nobelprize.org/images/mitchell-13299-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1978/summary/",
+      "sha256": "0a2d681c62df90215444031bb52720aef6399bed563699f0d4d617fbcf911f51"
+    }
+  ],
+  "1977": [
+    {
+      "id": "250",
+      "name": "Ilya Prigogine",
+      "image": "images/nobel/laureates/250.jpg",
+      "source": "https://www.nobelprize.org/images/prigogine-13288-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1977/summary/",
+      "sha256": "a981fd8fd695ac1bf51ad9af306ceda02c8fe163fe7c8926b4ea2d3607f65f22"
+    }
+  ],
+  "1976": [
+    {
+      "id": "249",
+      "name": "William Lipscomb",
+      "image": "images/nobel/laureates/249.jpg",
+      "source": "https://www.nobelprize.org/images/lipscomb-13279-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1976/summary/",
+      "sha256": "4b21cbe56fdb804e3b722279c3292bc70bdeb082bf491b9584f514fdd4b0d70d"
+    }
+  ],
+  "1975": [
+    {
+      "id": "247",
+      "name": "John Cornforth",
+      "image": "images/nobel/laureates/247.jpg",
+      "source": "https://www.nobelprize.org/images/cornforth-13267-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1975/summary/",
+      "sha256": "e0f0b92e6ad462f306882b58a646cf651e28c0deab9ac68055c503edd1c98487"
+    },
+    {
+      "id": "248",
+      "name": "Vladimir Prelog",
+      "image": "images/nobel/laureates/248.jpg",
+      "source": "https://www.nobelprize.org/images/prelog-13268-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1975/summary/",
+      "sha256": "522f9d102f70cc82dc75dd352137ea515be73f662e24e7c279f6cb1aa96bdc2b"
+    }
+  ],
+  "1974": [
+    {
+      "id": "246",
+      "name": "Paul J. Flory",
+      "image": "images/nobel/laureates/246.jpg",
+      "source": "https://www.nobelprize.org/images/flory-13255-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1974/summary/",
+      "sha256": "c94f558d1318001d627cd9d3f305fa38da71378a8d583562b02dbdfdb90266a3"
+    }
+  ],
+  "1973": [
+    {
+      "id": "244",
+      "name": "Ernst Otto Fischer",
+      "image": "images/nobel/laureates/244.jpg",
+      "source": "https://www.nobelprize.org/images/fischer-13243-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1973/summary/",
+      "sha256": "3fa001b6b8bfac1d38bea458ef8c8ae5703ff498bc73767de3c362e16a7e51f0"
+    },
+    {
+      "id": "245",
+      "name": "Geoffrey Wilkinson",
+      "image": "images/nobel/laureates/245.jpg",
+      "source": "https://www.nobelprize.org/images/wilkinson-13244-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1973/summary/",
+      "sha256": "cb9ddc160efad49d25f6d206c3a258b2a9c94ede89e8a7e5e377b0bb22b519f0"
+    }
+  ],
+  "1972": [
+    {
+      "id": "241",
+      "name": "Christian Anfinsen",
+      "image": "images/nobel/laureates/241.jpg",
+      "source": "https://www.nobelprize.org/images/anfinsen-13232-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "aef138276d9ad0d72c53d8ac34d5284456c8cf114268e77637678823d5fab675"
+    },
+    {
+      "id": "242",
+      "name": "Stanford Moore",
+      "image": "images/nobel/laureates/242.jpg",
+      "source": "https://www.nobelprize.org/images/moore-13233-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "765b01378026cac09c7388a7d51206096f7b541ed59397723bf31c8d442b67b6"
+    },
+    {
+      "id": "243",
+      "name": "William H. Stein",
+      "image": "images/nobel/laureates/243.jpg",
+      "source": "https://www.nobelprize.org/images/stein-13234-portrait-medium.jpg",
+      "credit": "Photo: Rockefeller University. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1972/summary/",
+      "sha256": "b6b30ae2f7492aa5f60997087e3ad9cf8223e4f0b64f07414c74f8925693d543"
+    }
+  ],
+  "1971": [
+    {
+      "id": "240",
+      "name": "Gerhard Herzberg",
+      "image": "images/nobel/laureates/240.jpg",
+      "source": "https://www.nobelprize.org/images/herzberg-13226-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1971/summary/",
+      "sha256": "679d852174a311adcecdd00ad818fbc27f815d39bbdf0d7ab609e2df5660ec90"
+    }
+  ],
+  "1970": [
+    {
+      "id": "239",
+      "name": "Luis Leloir",
+      "image": "images/nobel/laureates/239.jpg",
+      "source": "https://www.nobelprize.org/images/leloir-13217-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1970/summary/",
+      "sha256": "5c068aa12196ea04bfbb730f60f20133c90599e672e34820c7417c58880c3715"
+    }
+  ],
+  "1969": [
+    {
+      "id": "237",
+      "name": "Derek Barton",
+      "image": "images/nobel/laureates/237.jpg",
+      "source": "https://www.nobelprize.org/images/barton-13207-portrait-medium.jpg",
+      "credit": "Photo: Walter Bird. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1969/summary/",
+      "sha256": "61d55ec6f53f1e888aa0c46139062db992ab24943cf36eb2e947cc26a4bd43f5"
+    },
+    {
+      "id": "238",
+      "name": "Odd Hassel",
+      "image": "images/nobel/laureates/238.jpg",
+      "source": "https://www.nobelprize.org/images/hassel-13208-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1969/summary/",
+      "sha256": "351173c91e500b5a3783d0045de5534f6bb5d4e4d7ef9e83e058a9a6cc1750ed"
+    }
+  ],
+  "1968": [
+    {
+      "id": "236",
+      "name": "Lars Onsager",
+      "image": "images/nobel/laureates/236.jpg",
+      "source": "https://www.nobelprize.org/images/onsager-13200-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1968/summary/",
+      "sha256": "bcc56d2473a7df12fe67b7a34d31e6a2965b5908519051c24b5ff39df49d1f77"
+    }
+  ],
+  "1967": [
+    {
+      "id": "233",
+      "name": "Manfred Eigen",
+      "image": "images/nobel/laureates/233.jpg",
+      "source": "https://www.nobelprize.org/images/eigen-13192-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1967/summary/",
+      "sha256": "f3cc98cfee5c3d22c1abcf7baddee3dfd06e90ccf1b1302361836ba1a063b9fe"
+    },
+    {
+      "id": "234",
+      "name": "Ronald G.W. Norrish",
+      "image": "images/nobel/laureates/234.jpg",
+      "source": "https://www.nobelprize.org/images/norrish-13193-portrait-medium.jpg",
+      "credit": "Photo: Ramsey & Muspratt. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1967/summary/",
+      "sha256": "ece9de6de445ceafdb5e2f38d7455a22c967f4403e368d0df07bf2a04ba793a8"
+    },
+    {
+      "id": "235",
+      "name": "George Porter",
+      "image": "images/nobel/laureates/235.jpg",
+      "source": "https://www.nobelprize.org/images/porter-13194-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1967/summary/",
+      "sha256": "7339afefb70e4bfef8bfe659f16d6c745ac073f133b9fba6e1c8e7b93f1d3179"
+    }
+  ],
+  "1966": [
+    {
+      "id": "232",
+      "name": "Robert S. Mulliken",
+      "image": "images/nobel/laureates/232.jpg",
+      "source": "https://www.nobelprize.org/images/mulliken-13187-portrait-medium.jpg",
+      "credit": "Photo: Harris & Ewing. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1966/summary/",
+      "sha256": "fde28d34c1bfcc6126a413017b8627e9e3ef5ed2cf70a0e58ed651e0fe54f0d5"
+    }
+  ],
+  "1965": [
+    {
+      "id": "231",
+      "name": "Robert B. Woodward",
+      "image": "images/nobel/laureates/231.jpg",
+      "source": "https://www.nobelprize.org/images/woodward-13178-portrait-medium.jpg",
+      "credit": "Photo: Louis Fabian Bachrach Jr. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1965/summary/",
+      "sha256": "7113151022c47b20cbddc84089da5140bf4d0d94d8b8893edbff7c9a31f6415d"
+    }
+  ],
+  "1964": [
+    {
+      "id": "230",
+      "name": "Dorothy Crowfoot Hodgkin",
+      "image": "images/nobel/laureates/230.jpg",
+      "source": "https://www.nobelprize.org/images/hodgkin-13170-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1964/summary/",
+      "sha256": "9280b4cf62c5fed580d3c6474eafc62f153477b2d7cd56aa3eccd152cb79d125"
+    }
+  ],
+  "1963": [
+    {
+      "id": "228",
+      "name": "Karl Ziegler",
+      "image": "images/nobel/laureates/228.jpg",
+      "source": "https://www.nobelprize.org/images/ziegler-13160-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1963/summary/",
+      "sha256": "0c9c49795b45cd356c91167923dbb66d93a2c7e7ca80c5b529c6d9b42e4968e4"
+    },
+    {
+      "id": "229",
+      "name": "Giulio Natta",
+      "image": "images/nobel/laureates/229.jpg",
+      "source": "https://www.nobelprize.org/images/natta-13159-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1963/summary/",
+      "sha256": "c80f1c161aa6e8253d8cf05d4a3b2b001e3a0d8758bcfe25e6a8ae8137f493aa"
+    }
+  ],
+  "1962": [
+    {
+      "id": "226",
+      "name": "Max F. Perutz",
+      "image": "images/nobel/laureates/226.jpg",
+      "source": "https://www.nobelprize.org/images/perutz-13152-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1962/summary/",
+      "sha256": "939d5fd249b2d1b532dfc5179599a46ff1a8eb6122c8ad4cd7b567d71ccd8a5f"
+    },
+    {
+      "id": "227",
+      "name": "John C. Kendrew",
+      "image": "images/nobel/laureates/227.jpg",
+      "source": "https://www.nobelprize.org/images/kendrew-13151-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1962/summary/",
+      "sha256": "6c08bf4d53b0783cf339f490ba79d3fd7ad0361886c4e9946ec3e163279662e6"
+    }
+  ],
+  "1961": [
+    {
+      "id": "225",
+      "name": "Melvin Calvin",
+      "image": "images/nobel/laureates/225.jpg",
+      "source": "https://www.nobelprize.org/images/calvin-13145-portrait-medium.jpg",
+      "credit": "Photo: Berkeley, CA. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1961/summary/",
+      "sha256": "ca144c9bc56c7f55273c9524b26f12ed71f82ec984b56eacb982da28baf42872"
+    }
+  ],
+  "1960": [
+    {
+      "id": "224",
+      "name": "Willard F. Libby",
+      "image": "images/nobel/laureates/224.jpg",
+      "source": "https://www.nobelprize.org/images/libby-13139-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1960/summary/",
+      "sha256": "fb81358cb0918259e09a29f08e840e78c7ce8561b51d7c1496dce2869600d5a9"
+    }
+  ],
+  "1959": [
+    {
+      "id": "223",
+      "name": "Jaroslav Heyrovsky",
+      "image": "images/nobel/laureates/223.jpg",
+      "source": "https://www.nobelprize.org/images/heyrovsky-13132-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1959/summary/",
+      "sha256": "67b3a61bbe97a4621195c8fd16341867874e4e5cae11cec516c92e5fb880bd75"
+    }
+  ],
+  "1958": [
+    {
+      "id": "222",
+      "name": "Frederick Sanger",
+      "image": "images/nobel/laureates/222.jpg",
+      "source": "https://www.nobelprize.org/images/sanger-13123-portrait-medium.jpg",
+      "credit": "NobelPrize.org",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1958/summary/",
+      "sha256": "34acc2202358d1192d9ca1ddbb62a6e437844326d4b814f59c84ae6826d9aaf6"
+    }
+  ],
+  "1957": [
+    {
+      "id": "221",
+      "name": "Lord Todd",
+      "image": "images/nobel/laureates/221.jpg",
+      "source": "https://www.nobelprize.org/images/todd-13117-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1957/summary/",
+      "sha256": "b1980b42ff6374e93f39b8b492a00bdb04072c35edb5d7b9363a2b90200c060f"
+    }
+  ],
+  "1956": [
+    {
+      "id": "219",
+      "name": "Sir Cyril Hinshelwood",
+      "image": "images/nobel/laureates/219.jpg",
+      "source": "https://www.nobelprize.org/images/hinshelwood-13108-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1956/summary/",
+      "sha256": "72f8ef7fdf5138681588e90ef3d3c8204a53a7e10c7d11efba3e70b5eaad6ab9"
+    },
+    {
+      "id": "220",
+      "name": "Nikolay Semenov",
+      "image": "images/nobel/laureates/220.jpg",
+      "source": "https://www.nobelprize.org/images/semenov-13109-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1956/summary/",
+      "sha256": "38cb0fee40f561b86445d5b2e955ee2206f7a80ca0b25fe930641e2e0f9ca169"
+    }
+  ],
+  "1955": [
+    {
+      "id": "218",
+      "name": "Vincent du Vigneaud",
+      "image": "images/nobel/laureates/218.jpg",
+      "source": "https://www.nobelprize.org/images/vigneaud-13103-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1955/summary/",
+      "sha256": "c91bba0ab881f4b6aa87567c1d190980a567d483f41ae325991e22f7f42a0ee3"
+    }
+  ],
+  "1954": [
+    {
+      "id": "217",
+      "name": "Linus Pauling",
+      "image": "images/nobel/laureates/217.jpg",
+      "source": "https://www.nobelprize.org/images/pauling-13095-portrait-medium.jpg",
+      "credit": "NobelPrize.org",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1954/summary/",
+      "sha256": "c06240f6bf2201084ea2f8aaf8a68f906369456f47af47e7db704f7d05662995"
+    }
+  ],
+  "1953": [
+    {
+      "id": "216",
+      "name": "Hermann Staudinger",
+      "image": "images/nobel/laureates/216.jpg",
+      "source": "https://www.nobelprize.org/images/staudinger-13089-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1953/summary/",
+      "sha256": "8494645319d91dd6ff769b55b058b176039c445cf34c31cf05f1d40e077f929b"
+    }
+  ],
+  "1952": [
+    {
+      "id": "214",
+      "name": "Archer J.P. Martin",
+      "image": "images/nobel/laureates/214.jpg",
+      "source": "https://www.nobelprize.org/images/martin-13082-portrait-medium.jpg",
+      "credit": "Photo: Elliot and Fry. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1952/summary/",
+      "sha256": "2fcf6f72f66c352da986af873427ca7ec9fc04bcf804e8e2c925bb6046524a0e"
+    },
+    {
+      "id": "215",
+      "name": "Richard L.M. Synge",
+      "image": "images/nobel/laureates/215.jpg",
+      "source": "https://www.nobelprize.org/images/synge-13083-portrait-medium.jpg",
+      "credit": "Photo: Elliot and Fry. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1952/summary/",
+      "sha256": "b55af21b1b10992e38a542dd728c9a500aef18cee1d00817cfdb67012830f80c"
+    }
+  ],
+  "1951": [
+    {
+      "id": "212",
+      "name": "Edwin M. McMillan",
+      "image": "images/nobel/laureates/212.jpg",
+      "source": "https://www.nobelprize.org/images/mcmillan-13075-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1951/summary/",
+      "sha256": "48defdef650d53b936e746e158aa366ef7e7fdd0b0e611a09750fa9903169d32"
+    },
+    {
+      "id": "213",
+      "name": "Glenn T. Seaborg",
+      "image": "images/nobel/laureates/213.jpg",
+      "source": "https://www.nobelprize.org/images/seaborg-13076-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1951/summary/",
+      "sha256": "4ae45c99d21ddbc5fd3aeb21e5e02fa3e4cd277630f64a79199f5d600482bc69"
+    }
+  ],
+  "1950": [
+    {
+      "id": "210",
+      "name": "Otto Diels",
+      "image": "images/nobel/laureates/210.jpg",
+      "source": "https://www.nobelprize.org/images/diels-13068-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1950/summary/",
+      "sha256": "56ab7c3cf656602af2b475ef556198873b6cb9e9fc798ab5524842d85be23cc8"
+    },
+    {
+      "id": "211",
+      "name": "Kurt Alder",
+      "image": "images/nobel/laureates/211.jpg",
+      "source": "https://www.nobelprize.org/images/alder-13067-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1950/summary/",
+      "sha256": "b03efb5da3e7b84f3c9812a08a60f8c6f7cd65ad689a0b98032010c81417bb5d"
+    }
+  ],
+  "1949": [
+    {
+      "id": "209",
+      "name": "William F. Giauque",
+      "image": "images/nobel/laureates/209.jpg",
+      "source": "https://www.nobelprize.org/images/giauque-13061-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1949/summary/",
+      "sha256": "0f0d9e3e6b8949cd031c2c408f49950caf9bd8f346463472c2701b909e4b2fac"
+    }
+  ],
+  "1948": [
+    {
+      "id": "208",
+      "name": "Arne Tiselius",
+      "image": "images/nobel/laureates/208.jpg",
+      "source": "https://www.nobelprize.org/images/tiselius-13057-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1948/summary/",
+      "sha256": "cdbbf166951c468c6d7e1bf7613b86764fb36ddedb4fe4f00bf7f8fb756a14e7"
+    }
+  ],
+  "1947": [
+    {
+      "id": "207",
+      "name": "Sir Robert Robinson",
+      "image": "images/nobel/laureates/207.jpg",
+      "source": "https://www.nobelprize.org/images/robinson-13049-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1947/summary/",
+      "sha256": "184312fed68b45558f31b634cb49bb56b1341ef6e888df3c10e572b472b162b9"
+    }
+  ],
+  "1946": [
+    {
+      "id": "204",
+      "name": "James B. Sumner",
+      "image": "images/nobel/laureates/204.jpg",
+      "source": "https://www.nobelprize.org/images/sumner-13043-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "801ed176280c6b5d2a8a2d092048d384a57373d9c408e6c6e2f86b30586aa371"
+    },
+    {
+      "id": "205",
+      "name": "John H. Northrop",
+      "image": "images/nobel/laureates/205.jpg",
+      "source": "https://www.nobelprize.org/images/northrop-13041-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "caae6faf70cf0b2a07789533fbcc1fa22f95e48395c2d6c3f4e31a88501506c1"
+    },
+    {
+      "id": "206",
+      "name": "Wendell M. Stanley",
+      "image": "images/nobel/laureates/206.jpg",
+      "source": "https://www.nobelprize.org/images/stanley-13042-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1946/summary/",
+      "sha256": "f0dfdb9c98cc4145b7bd524fc4192ce1d3147d65920561dba5086a4e24728d51"
+    }
+  ],
+  "1945": [
+    {
+      "id": "203",
+      "name": "Artturi Virtanen",
+      "image": "images/nobel/laureates/203.jpg",
+      "source": "https://www.nobelprize.org/images/virtanen-13034-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1945/summary/",
+      "sha256": "6086b9c597dd1df928598065f14b05e27f49b81cbe0d922c1630970ef43c883c"
+    }
+  ],
+  "1944": [
+    {
+      "id": "202",
+      "name": "Otto Hahn",
+      "image": "images/nobel/laureates/202.jpg",
+      "source": "https://www.nobelprize.org/images/hahn-13028-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1944/summary/",
+      "sha256": "b8228f417232803e0520048c4e8e3200274ff8ee39b4cfe95d2066dbd1ae6bb3"
+    }
+  ],
+  "1943": [
+    {
+      "id": "201",
+      "name": "George de Hevesy",
+      "image": "images/nobel/laureates/201.jpg",
+      "source": "https://www.nobelprize.org/images/hevesy-13024-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1943/summary/",
+      "sha256": "3d72e268076a23d9ebf3cf7f8bfe462768cdca346962287a04cf18b8e594725d"
+    }
+  ],
+  "1939": [
+    {
+      "id": "199",
+      "name": "Adolf Butenandt",
+      "image": "images/nobel/laureates/199.jpg",
+      "source": "https://www.nobelprize.org/images/butenandt-13019-portrait-medium.jpg",
+      "credit": "Photo: Fritz Eschen. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1939/summary/",
+      "sha256": "3e654edaa771de2008800eff73dc93c07148edbb25e47be037b09686ef74f7a2"
+    },
+    {
+      "id": "200",
+      "name": "Leopold Ruzicka",
+      "image": "images/nobel/laureates/200.jpg",
+      "source": "https://www.nobelprize.org/images/ruzicka-13020-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1939/summary/",
+      "sha256": "6b99c844a6f85e89ae9d08defe3c960eff5a36b909db2387257f43768727df38"
+    }
+  ],
+  "1938": [
+    {
+      "id": "198",
+      "name": "Richard Kuhn",
+      "image": "images/nobel/laureates/198.jpg",
+      "source": "https://www.nobelprize.org/images/kuhn-13014-portrait-medium.jpg",
+      "credit": "Photo supplied by archiv zur Geschichte der Max-Planck-Geschellschaft, Berlin-Dahlem",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1938/summary/",
+      "sha256": "42eb68b234988ee037de7257656f348ddfe876054d993ea548fdbec363679234"
+    }
+  ],
+  "1937": [
+    {
+      "id": "196",
+      "name": "Norman Haworth",
+      "image": "images/nobel/laureates/196.jpg",
+      "source": "https://www.nobelprize.org/images/haworth-13007-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1937/summary/",
+      "sha256": "71f1f095e4f564c62c1e74d11f1b680ae3723f47d1f41fcd7cd81e51424cb0e5"
+    },
+    {
+      "id": "197",
+      "name": "Paul Karrer",
+      "image": "images/nobel/laureates/197.jpg",
+      "source": "https://www.nobelprize.org/images/karrer-13008-portrait-medium.jpg",
+      "credit": "Photo: Atelier Schmelhaus, Zurich. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1937/summary/",
+      "sha256": "9b4eec2df0e914e9db511ce5d9bdaefb10d387029561edb2264fcfb4a7f5dfaa"
+    }
+  ],
+  "1936": [
+    {
+      "id": "195",
+      "name": "Peter Debye",
+      "image": "images/nobel/laureates/195.jpg",
+      "source": "https://www.nobelprize.org/images/debye-13000-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1936/summary/",
+      "sha256": "78908fa914061553d78fc38b5a1c3be68917be82cab59cd596fa6f5b1b0b5a1b"
+    }
+  ],
+  "1935": [
+    {
+      "id": "193",
+      "name": "Frédéric Joliot",
+      "image": "images/nobel/laureates/193.jpg",
+      "source": "https://www.nobelprize.org/images/joliot-fred-12996-portrait-medium.jpg",
+      "credit": "Photo: Jaques Boyer. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1935/summary/",
+      "sha256": "2ae75bd8e72b3e9d475c88ed183c206238b0f60d33f381ccee6a155c5cd92fc9"
+    },
+    {
+      "id": "194",
+      "name": "Irène Joliot-Curie",
+      "image": "images/nobel/laureates/194.jpg",
+      "source": "https://www.nobelprize.org/images/joliot-curie-12995-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1935/summary/",
+      "sha256": "47203c3c255245286318753ede4924f64f95497c2d7a08daf4a2bad0423fb24a"
+    }
+  ],
+  "1934": [
+    {
+      "id": "192",
+      "name": "Harold C. Urey",
+      "image": "images/nobel/laureates/192.jpg",
+      "source": "https://www.nobelprize.org/images/urey-12989-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1934/summary/",
+      "sha256": "8afd149f8ff871b2f25e4bd9659c2dcb1b609e66e994db8ed5b4a4c589449361"
+    }
+  ],
+  "1932": [
+    {
+      "id": "191",
+      "name": "Irving Langmuir",
+      "image": "images/nobel/laureates/191.jpg",
+      "source": "https://www.nobelprize.org/images/langmuir-12979-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1932/summary/",
+      "sha256": "a290af63f47d905524de7538c644b06e632b901b3ee8652f12c31671ba6e67c3"
+    }
+  ],
+  "1931": [
+    {
+      "id": "189",
+      "name": "Carl Bosch",
+      "image": "images/nobel/laureates/189.jpg",
+      "source": "https://www.nobelprize.org/images/bosch-12974-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1931/summary/",
+      "sha256": "f61eeb86a1466a2b542f82c67e8e69c92b6eb05ab2c3277347121b14e8ce3b7b"
+    },
+    {
+      "id": "190",
+      "name": "Friedrich Bergius",
+      "image": "images/nobel/laureates/190.jpg",
+      "source": "https://www.nobelprize.org/images/bergius-12973-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1931/summary/",
+      "sha256": "0726be4c3900d407609b8b7d141f5ad92e66d369862fe1f109958d528502997e"
+    }
+  ],
+  "1930": [
+    {
+      "id": "188",
+      "name": "Hans Fischer",
+      "image": "images/nobel/laureates/188.jpg",
+      "source": "https://www.nobelprize.org/images/fischer-12968-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1930/summary/",
+      "sha256": "63297f90332c5dafbbbdb01d3fd03d6b676c8ce5e8b19915833972917c8ab6dc"
+    }
+  ],
+  "1929": [
+    {
+      "id": "186",
+      "name": "Arthur Harden",
+      "image": "images/nobel/laureates/186.jpg",
+      "source": "https://www.nobelprize.org/images/harden-12962-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1929/summary/",
+      "sha256": "7a2d486fafb2aba199b3a345d3fcd0217b4685e6d2678eb8798ef78cb519d3d0"
+    },
+    {
+      "id": "187",
+      "name": "Hans von Euler-Chelpin",
+      "image": "images/nobel/laureates/187.jpg",
+      "source": "https://www.nobelprize.org/images/euler-chelpin-12961-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1929/summary/",
+      "sha256": "7cc54454727568a6c762d191ce005bc346eb23e8a4ee43d1a3ff3e0546fca2ad"
+    }
+  ],
+  "1928": [
+    {
+      "id": "185",
+      "name": "Adolf Windaus",
+      "image": "images/nobel/laureates/185.jpg",
+      "source": "https://www.nobelprize.org/images/windaus-12957-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1928/summary/",
+      "sha256": "0d8c17b17802ec74e9fb46bb7a0eacff3692af860bcde10244e7b97a1609d65a"
+    }
+  ],
+  "1927": [
+    {
+      "id": "184",
+      "name": "Heinrich Wieland",
+      "image": "images/nobel/laureates/184.jpg",
+      "source": "https://www.nobelprize.org/images/wieland-12950-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1927/summary/",
+      "sha256": "4a33f74637384be617bb26cf6511022024821f8c0e88f3e5c70b2530bd9ff60b"
+    }
+  ],
+  "1926": [
+    {
+      "id": "183",
+      "name": "The Svedberg",
+      "image": "images/nobel/laureates/183.jpg",
+      "source": "https://www.nobelprize.org/images/svedberg-12944-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1926/summary/",
+      "sha256": "2b7eeee0b16980bdc3c6f859c6a2b635f1c33ddbb68da858dbd6af78192d6b5a"
+    }
+  ],
+  "1925": [
+    {
+      "id": "182",
+      "name": "Richard Zsigmondy",
+      "image": "images/nobel/laureates/182.jpg",
+      "source": "https://www.nobelprize.org/images/zsigmondy-12938-portrait-medium.jpg",
+      "credit": "Photo: Bain News Service. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1925/summary/",
+      "sha256": "60fc015a16e0973f7a211f40f7b1507e89fae083cbeb002fb659aa3dfc0e0127"
+    }
+  ],
+  "1923": [
+    {
+      "id": "181",
+      "name": "Fritz Pregl",
+      "image": "images/nobel/laureates/181.jpg",
+      "source": "https://www.nobelprize.org/images/pregl-12930-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1923/summary/",
+      "sha256": "15d3b02bc8e597ee72fcb72eac39b93e13f7f9cc6abdd7c6881d31f8d340a92f"
+    }
+  ],
+  "1922": [
+    {
+      "id": "180",
+      "name": "Francis W. Aston",
+      "image": "images/nobel/laureates/180.jpg",
+      "source": "https://www.nobelprize.org/images/aston-12924-portrait-medium.jpg",
+      "credit": "Photo: Bain News Service. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1922/summary/",
+      "sha256": "b17911dd7f138775a420df221900091af28b04592840b383b762276e0b9a5e76"
+    }
+  ],
+  "1921": [
+    {
+      "id": "179",
+      "name": "Frederick Soddy",
+      "image": "images/nobel/laureates/179.jpg",
+      "source": "https://www.nobelprize.org/images/soddy-12919-portrait-medium.jpg",
+      "credit": "Photo: Bain News Service. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1921/summary/",
+      "sha256": "7a437df0524fabb23dd8486173d52d4945c26d1a1ba6f3bb5366ee9368520a09"
+    }
+  ],
+  "1920": [
+    {
+      "id": "178",
+      "name": "Walther Nernst",
+      "image": "images/nobel/laureates/178.jpg",
+      "source": "https://www.nobelprize.org/images/nernst-12914-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1920/summary/",
+      "sha256": "40e470cfd2072aa304a50175ca59df74cafd146bb12ead4848a01c2b8165596e"
+    }
+  ],
+  "1918": [
+    {
+      "id": "177",
+      "name": "Fritz Haber",
+      "image": "images/nobel/laureates/177.jpg",
+      "source": "https://www.nobelprize.org/images/haber-12908-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1918/summary/",
+      "sha256": "46573328d1d4caa496f29a0bb80b27d976bb9568bb7850991394d64d21195c56"
+    }
+  ],
+  "1915": [
+    {
+      "id": "176",
+      "name": "Richard Willstätter",
+      "image": "images/nobel/laureates/176.jpg",
+      "source": "https://www.nobelprize.org/images/willstatter-12899-portrait-medium.jpg",
+      "credit": "Photo: Camille Ruf. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1915/summary/",
+      "sha256": "be035d54f21ea32883a4ba170c52fc91d0b5640eb12dd522e10e62b41df72614"
+    }
+  ],
+  "1914": [
+    {
+      "id": "175",
+      "name": "Theodore W. Richards",
+      "image": "images/nobel/laureates/175.jpg",
+      "source": "https://www.nobelprize.org/images/richards-12896-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1914/summary/",
+      "sha256": "d772075992fcdb87067ef14f90f598b7d6c71754408e0254a6387604dbe44833"
+    }
+  ],
+  "1913": [
+    {
+      "id": "174",
+      "name": "Alfred Werner",
+      "image": "images/nobel/laureates/174.jpg",
+      "source": "https://www.nobelprize.org/images/werner-12891-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1913/summary/",
+      "sha256": "8cb25cabb2c3826246e708f1523a613ad6cbfd1dc626e2f50fd9ce1af0e5f0b8"
+    }
+  ],
+  "1912": [
+    {
+      "id": "172",
+      "name": "Victor Grignard",
+      "image": "images/nobel/laureates/172.jpg",
+      "source": "https://www.nobelprize.org/images/grignard-12885-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1912/summary/",
+      "sha256": "5ea58db8b2b3d77ec8a8782eef78c89a3da947b96964ce817c1569a6290d774d"
+    },
+    {
+      "id": "173",
+      "name": "Paul Sabatier",
+      "image": "images/nobel/laureates/173.jpg",
+      "source": "https://www.nobelprize.org/images/sabatier-12886-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1912/summary/",
+      "sha256": "5a0f7c1347d81b7cc5fa81b90f9d1338957b0083eaa2db257654ac616b7b809f"
+    }
+  ],
+  "1911": [
+    {
+      "id": "6",
+      "name": "Marie Curie",
+      "image": "images/nobel/laureates/6.jpg",
+      "source": "https://www.nobelprize.org/images/marie-curie-12879-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1911/summary/",
+      "sha256": "b4ddbee09ce5f40817a6196cad9426df7abeb04d5e99255318380301ba79399a"
+    }
+  ],
+  "1910": [
+    {
+      "id": "169",
+      "name": "Otto Wallach",
+      "image": "images/nobel/laureates/169.jpg",
+      "source": "https://www.nobelprize.org/images/wallach-12874-portrait-medium.jpg",
+      "credit": "Photo: Peter Matzen. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1910/summary/",
+      "sha256": "0dd5743b9ca7da60e49bb0a51fddf8a979cb32c6d85fe54cea3f490546a41042"
+    }
+  ],
+  "1909": [
+    {
+      "id": "168",
+      "name": "Wilhelm Ostwald",
+      "image": "images/nobel/laureates/168.jpg",
+      "source": "https://www.nobelprize.org/images/ostwald-12867-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1909/summary/",
+      "sha256": "26d9dadf7672fca2223ee34b9ecf84f4b478a5d216bfbe0e1cf47d109ea88a2f"
+    }
+  ],
+  "1908": [
+    {
+      "id": "167",
+      "name": "Ernest Rutherford",
+      "image": "images/nobel/laureates/167.jpg",
+      "source": "https://www.nobelprize.org/images/rutherford-12860-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1908/summary/",
+      "sha256": "b68222618437a84f8ba05f3b9c7787a1e7cc4b0687fcff19e86943f5c3a016a2"
+    }
+  ],
+  "1907": [
+    {
+      "id": "166",
+      "name": "Eduard Buchner",
+      "image": "images/nobel/laureates/166.jpg",
+      "source": "https://www.nobelprize.org/images/buchner-12854-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1907/summary/",
+      "sha256": "a5a1c9d42cc7c9402e396f734faaef8d6e420a4ea770b41e63d1664113c38aa3"
+    }
+  ],
+  "1906": [
+    {
+      "id": "165",
+      "name": "Henri Moissan",
+      "image": "images/nobel/laureates/165.jpg",
+      "source": "https://www.nobelprize.org/images/moissan-12848-portrait-medium.jpg",
+      "credit": "Photo: Eugène Pirou. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1906/summary/",
+      "sha256": "8e065885cb0c7709ee218a11f264babf49c66a0be1fb857cd99496692ec34918"
+    }
+  ],
+  "1905": [
+    {
+      "id": "164",
+      "name": "Adolf von Baeyer",
+      "image": "images/nobel/laureates/164.jpg",
+      "source": "https://www.nobelprize.org/images/baeyer-12843-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1905/summary/",
+      "sha256": "1b5fdc8b72b80de2adf666fa7a0fc17d99aa9ca62be455ceaff7d3fd4bba20e7"
+    }
+  ],
+  "1904": [
+    {
+      "id": "163",
+      "name": "Sir William Ramsay",
+      "image": "images/nobel/laureates/163.jpg",
+      "source": "https://www.nobelprize.org/images/ramsay-12837-portrait-medium.jpg",
+      "credit": "Photo: Elliot and Fry. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1904/summary/",
+      "sha256": "fd1b02b1dc79b37ff70004c60a0a055e481e007df6261051b84f4e5ccffe9d21"
+    }
+  ],
+  "1903": [
+    {
+      "id": "162",
+      "name": "Svante Arrhenius",
+      "image": "images/nobel/laureates/162.jpg",
+      "source": "https://www.nobelprize.org/images/arrhenius-13548-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1903/summary/",
+      "sha256": "d2833be28833ce5597f95948c24e5a4f4aaa02b7071e7939d00a65a132fda1d4"
+    }
+  ],
+  "1902": [
+    {
+      "id": "161",
+      "name": "Emil Fischer",
+      "image": "images/nobel/laureates/161.jpg",
+      "source": "https://www.nobelprize.org/images/fischer-13541-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1902/summary/",
+      "sha256": "e51eedf77492acf7b83f46bbf6305ef0df41039e9048fa595e6ef8a47c96eefb"
+    }
+  ],
+  "1901": [
+    {
+      "id": "160",
+      "name": "Jacobus H. van 't Hoff",
+      "image": "images/nobel/laureates/160.jpg",
+      "source": "https://www.nobelprize.org/images/hoff-13535-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1901/summary/",
+      "sha256": "2f8ed24c3a8acd991f327abeeba315123e0db6d6a721eeaea8898a9d7f8affb6"
+    }
+  ]
+}

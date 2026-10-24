@@ -1,0 +1,162 @@
+{
+  "year": 1931,
+  "status": "awarded",
+  "names": [
+    "Carl Bosch",
+    "Friedrich Bergius"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/189",
+    "https://www.nobelprize.org/laureate/190"
+  ],
+  "motivations": [
+    "in recognition of their contributions to the invention and development of chemical high pressure methods",
+    "in recognition of their contributions to the invention and development of chemical high pressure methods"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "189",
+      "name": "Carl Bosch",
+      "image": "images/nobel/laureates/189.jpg",
+      "source": "https://www.nobelprize.org/images/bosch-12974-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1931/summary/",
+      "sha256": "f61eeb86a1466a2b542f82c67e8e69c92b6eb05ab2c3277347121b14e8ce3b7b"
+    },
+    {
+      "id": "190",
+      "name": "Friedrich Bergius",
+      "image": "images/nobel/laureates/190.jpg",
+      "source": "https://www.nobelprize.org/images/bergius-12973-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1931/summary/",
+      "sha256": "0726be4c3900d407609b8b7d141f5ad92e66d369862fe1f109958d528502997e"
+    }
+  ],
+  "reading": {
+    "title": "化学高压方法",
+    "summary": "化学高压方法。把高压化学从反应现象推进为可运行的生产技术。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "实验室反应转向工业规模，需要解决材料、压力和热传递难题。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "高压改变反应平衡及接触条件，耐压设备和催化工艺共同实现放大。",
+        "equation": "\\mathrm{CO+2H_2\\rightleftharpoons CH_3OH}",
+        "equationNote": "高压合成的代表总式，不是两位获奖者全部成果；放大必须考虑传热和催化寿命。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于氨、甲醇及高压转化工艺。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把高压化学从反应现象推进为可运行的生产技术。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "高压化学的工业价值来自反应条件、催化剂和设备的协同。新固氮路线也需要跨过同样的过程工程比较。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "caltech",
+          "name": "加州理工学院",
+          "englishName": "California Institute of Technology",
+          "url": "https://www.caltech.edu/",
+          "logo": "images/nobel/organizations/caltech.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.caltech.edu/static/core/img/apple-touch-icon.png?v=7.14.13",
+          "sha256": "f38b4564d77b0257144593b64f45ab600b30232bad1dbced6cca8abe0f953b01"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "ammonia",
+          "heading": "合成氨的界面：反应物怎样穿过保护层",
+          "organizationIds": [
+            "caltech"
+          ],
+          "authors": "Wesley Chang、Anukta Jain、Fateme Rezaie 等",
+          "paperTitle": "Lithium-mediated nitrogen reduction to ammonia via the catalytic solid–electrolyte interphase",
+          "journal": "Nature Catalysis (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41929-024-01115-6",
+          "paperUrl": "https://doi.org/10.1038/s41929-024-01115-6",
+          "paragraphs": [
+            "这篇综述把锂介导固氮的研究落在固体电解质界面膜上：膜既要允许氮和质子供体到达反应位点，又要抑制无效副反应。作者比较电解液、反应器及传质模型，说明选择性和反应速率为何必须放在同一组条件中讨论。",
+            "这条电化学路线与工业铁催化高压合成氨采用不同的活化方式。它延续的是氮分子如何被活化、供能和分离的问题，不能把温和反应条件直接等同于更低的全流程能耗。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41929-024-01115-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的氨及尿素产品属于成熟化工供应；此处展示产业端处理氮与氢的路径，不表示其采用了论文中的锂介导电化学工艺。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "氨基化学品及化工原料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1931/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

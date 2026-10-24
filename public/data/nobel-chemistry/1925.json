@@ -1,0 +1,156 @@
+{
+  "year": 1925,
+  "status": "awarded",
+  "names": [
+    "Richard Zsigmondy"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/182"
+  ],
+  "motivations": [
+    "for his demonstration of the heterogenous nature of colloid solutions and for the methods he used, which have since become fundamental in modern colloid chemistry"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "182",
+      "name": "Richard Zsigmondy",
+      "image": "images/nobel/laureates/182.jpg",
+      "source": "https://www.nobelprize.org/images/zsigmondy-12938-portrait-medium.jpg",
+      "credit": "Photo: Bain News Service. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1925/summary/",
+      "sha256": "60fc015a16e0973f7a211f40f7b1507e89fae083cbeb002fb659aa3dfc0e0127"
+    }
+  ],
+  "reading": {
+    "title": "胶体的非均一性",
+    "summary": "胶体的非均一性。把胶体结构从争论变为可观察的颗粒证据。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "外观看似均匀的胶体究竟是真溶液，还是包含微小颗粒？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "超显微镜利用散射光识别难以直接成像的颗粒，支持胶体颗粒模型。",
+        "equation": "I_{\\rm scatter}\\propto r^6/\\lambda^4",
+        "equationNote": "Rayleigh 极限下的定性标度；要求颗粒远小于波长，不能普遍用于所有胶体。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于金溶胶、胶体分散和颗粒分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把胶体结构从争论变为可观察的颗粒证据。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "胶体的非均一性从需要识别的对象，变成可以设计的颗粒层级；混合颗粒如何共同组装决定最终材料形貌。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "harvard",
+          "name": "哈佛大学",
+          "englishName": "Harvard University",
+          "url": "https://www.harvard.edu/",
+          "logo": "images/nobel/organizations/harvard.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180",
+          "sha256": "5053428ee2bbeccd2cf9b96bd380d2f057d75656a9dfcb89b1a91666d30d426a"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "colloid",
+          "heading": "让两类胶体颗粒在蒸发中共同组装",
+          "organizationIds": [
+            "harvard"
+          ],
+          "authors": "Anna V. Shneidman、Cathy T. Y. Zhang、Nikolaj K. Mandsberg 等",
+          "paperTitle": "Functional supraparticles produced by the evaporation of binary colloidal suspensions on superhydrophobic surfaces",
+          "journal": "Soft Matter (2024)",
+          "published": "2024",
+          "doi": "10.1039/d4sm00458b",
+          "paperUrl": "https://doi.org/10.1039/d4sm00458b",
+          "paragraphs": [
+            "哈佛大学等机构把不同尺寸和组成的胶体悬浮液在超疏水表面上干燥，得到可调组成和形貌的超颗粒。研究还利用模板去除后的多孔结构进行催化示例。",
+            "溶液中的颗粒怎样被液面、毛细力和粒子间作用组织起来，决定最终材料是否均匀。组装完成后的形状与性能，不能只从单个纳米颗粒的尺寸推出。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1039/d4sm00458b"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubs.rsc.org/en/content/articlelanding/2024/sm/d4sm00458b"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的胶体、聚合物微球与纳米材料是研究原料示例，不等于论文中复合超颗粒的商业成品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1925/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -219,7 +219,7 @@ export function ScoreExplanationDrawer({ open, onClose, model, candidateId, cand
           <div>{text(lang, "Descriptors", "Descriptors")}: {model?.metadata?.descriptorCount || 0}/{model?.metadata?.requestedDescriptorCount || model?.metadata?.descriptorCount || 0}</div>
           <div>{text(lang, "Descriptor coverage", "Descriptor coverage")}: {Number.isFinite(Number(descriptorCoverage)) ? pct(descriptorCoverage) : "—"}</div>
           <div>{text(lang, "Missing strategy", "Missing strategy")}: {model?.missingValueStrategy || "—"} · alpha {num(model?.hybridAlpha, 2)}</div>
-          <div>{text(lang, "Generated", "Generated")}: {model?.metadata?.generatedAt || "—"}</div>
+
         </section>
       </aside>
     </>

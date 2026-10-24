@@ -1,0 +1,231 @@
+{
+  "year": 1974,
+  "status": "awarded",
+  "names": [
+    "Paul J. Flory"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/246"
+  ],
+  "motivations": [
+    "for his fundamental achievements, both theoretical and experimental, in the physical chemistry of the macromolecules"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "246",
+      "name": "Paul J. Flory",
+      "image": "images/nobel/laureates/246.jpg",
+      "source": "https://www.nobelprize.org/images/flory-13255-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1974/summary/",
+      "sha256": "c94f558d1318001d627cd9d3f305fa38da71378a8d583562b02dbdfdb90266a3"
+    }
+  ],
+  "reading": {
+    "title": "高分子的物理化学",
+    "summary": "高分子的物理化学。让高分子行为获得统计物理和化学的共同解释。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "长链分子的尺寸与溶液性质无法由小分子模型直接解释。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用统计链与聚合物热力学描述链构象、溶剂相互作用和分子量效应。",
+        "equation": "R_g\\propto N^\\nu",
+        "equationNote": "回转半径的尺度关系；ν 随理想链、良溶剂等条件改变，非统一常数。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于聚合物溶液、链尺寸与材料性质分析。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "让高分子行为获得统计物理和化学的共同解释。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "高分子的统计构象与多尺度组织影响材料性质。回收反应和胶体组装分别考察链结构及颗粒层级如何限制工艺。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        },
+        {
+          "id": "harvard",
+          "name": "哈佛大学",
+          "englishName": "Harvard University",
+          "url": "https://www.harvard.edu/",
+          "logo": "images/nobel/organizations/harvard.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180",
+          "sha256": "5053428ee2bbeccd2cf9b96bd380d2f057d75656a9dfcb89b1a91666d30d426a"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "polymer",
+          "heading": "长链聚合物怎样被重新拆成小分子原料",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+          "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adq7316",
+          "paperUrl": "https://doi.org/10.1126/science.adq7316",
+          "paragraphs": [
+            "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+            "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adq7316"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://chemistry.berkeley.edu/node/2629"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+          "companyOverride": {
+            "organizationId": "basf",
+            "role": "塑料循环与化工制造",
+            "status": "企业公开业务",
+            "paragraphs": [
+              "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            ],
+            "sources": [
+              {
+                "label": "公司循环经济资料",
+                "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              }
+            ]
+          }
+        },
+        {
+          "id": "colloid",
+          "heading": "让两类胶体颗粒在蒸发中共同组装",
+          "organizationIds": [
+            "harvard"
+          ],
+          "authors": "Anna V. Shneidman、Cathy T. Y. Zhang、Nikolaj K. Mandsberg 等",
+          "paperTitle": "Functional supraparticles produced by the evaporation of binary colloidal suspensions on superhydrophobic surfaces",
+          "journal": "Soft Matter (2024)",
+          "published": "2024",
+          "doi": "10.1039/d4sm00458b",
+          "paperUrl": "https://doi.org/10.1039/d4sm00458b",
+          "paragraphs": [
+            "哈佛大学等机构把不同尺寸和组成的胶体悬浮液在超疏水表面上干燥，得到可调组成和形貌的超颗粒。研究还利用模板去除后的多孔结构进行催化示例。",
+            "溶液中的颗粒怎样被液面、毛细力和粒子间作用组织起来，决定最终材料是否均匀。组装完成后的形状与性能，不能只从单个纳米颗粒的尺寸推出。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1039/d4sm00458b"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubs.rsc.org/en/content/articlelanding/2024/sm/d4sm00458b"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 的胶体、聚合物微球与纳米材料是研究原料示例，不等于论文中复合超颗粒的商业成品。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "塑料循环与化工制造",
+          "status": "企业公开业务",
+          "paragraphs": [
+            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+          ],
+          "sources": [
+            {
+              "label": "公司循环经济资料",
+              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+            }
+          ]
+        },
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1974/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,152 @@
+{
+  "year": 1961,
+  "status": "awarded",
+  "names": [
+    "Melvin Calvin"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/225"
+  ],
+  "motivations": [
+    "for his research on the carbon dioxide assimilation in plants"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "225",
+      "name": "Melvin Calvin",
+      "image": "images/nobel/laureates/225.jpg",
+      "source": "https://www.nobelprize.org/images/calvin-13145-portrait-medium.jpg",
+      "credit": "Photo: Berkeley, CA. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1961/summary/",
+      "sha256": "ca144c9bc56c7f55273c9524b26f12ed71f82ec984b56eacb982da28baf42872"
+    }
+  ],
+  "reading": {
+    "title": "植物固定二氧化碳",
+    "summary": "植物固定二氧化碳。把光合作用的碳转化路径拆解为可追踪步骤。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "光合作用总式已知，但碳如何进入有机分子仍不清楚。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "用同位素脉冲标记和分离追踪中间体，建立碳固定循环。",
+        "equation": "\\mathrm{RuBP+CO_2+H_2O\\rightarrow 2\\,3\\!\\!-PGA}",
+        "equationNote": "碳固定的起始净反应，RuBP 为五碳糖二磷酸；完整循环还消耗 ATP 和还原力。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于碳代谢、植物生化与固定碳研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把光合作用的碳转化路径拆解为可追踪步骤。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "碳固定研究解释生物如何将 CO₂ 纳入代谢。人工光合装置采用不同催化路径，检验光能驱动碳转化在器件中的实现条件。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "cambridge",
+          "name": "剑桥大学",
+          "englishName": "University of Cambridge",
+          "url": "https://www.ceb.cam.ac.uk/",
+          "logo": "images/nobel/organizations/cambridge.png",
+          "logoKind": "symbol"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "photosynthesis",
+          "heading": "人工叶片：把吸光与碳转化连接到器件",
+          "organizationIds": [
+            "cambridge"
+          ],
+          "authors": "Virgil Andrei、Yu-Hsien Chiang、Motiar Rahaman 等",
+          "paperTitle": "Modular perovskite-BiVO 4 artificial leaves towards syngas synthesis on a m 2 scale",
+          "journal": "Energy &amp; Environmental Science (2025)",
+          "published": "2025",
+          "doi": "10.1039/d4ee05780e",
+          "paperUrl": "https://doi.org/10.1039/d4ee05780e",
+          "paragraphs": [
+            "剑桥团队将钙钛矿与 BiVO₄ 光吸收体系集成到人工叶片，研究无需外接电源的合成气制备，并通过多个器件组成阵列进行户外展示。它把单个光催化单元推进到需要考虑布线、面积和气体收集的装置。",
+            "天然光合作用的色素、电子传递链与碳固定酶不等同于这套人工器件。两者可以围绕吸光、分离电荷和保存化学能作比较，但催化位点与产物路线必须分别说明。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1039/d4ee05780e"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubs.rsc.org/en/content/articlehtml/2025/ee/d4ee05780e"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的合成气下游化工和氨基化学品展示了原料气的工业用途，不意味着其工厂已采用论文中的人工叶片。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "氨基化学品及化工原料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "BASF 的氨及尿素等产品连接合成气、氮化学和下游制造。公司产品资料可用于了解原料与工业用途；新型催化路线是否被采用，应另有具体工艺或合作资料支持。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://chemicals.basf.com/global/en/Monomers/ammonia-based-chemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1961/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

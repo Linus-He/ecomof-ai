@@ -58,7 +58,6 @@ export function GasFieldProvenanceButton({ record, field, currentValue, unit, la
     [text(lang, "来源记录ID", "Source record id"), source.sourceRecordId || provenance.sourceRecordId],
     [text(lang, "引用", "Citation"), source.citation],
     ["DOI / URL", sourceLink || "pending"],
-    [text(lang, "检索日期", "Retrieved date"), source.retrievedAt || provenance.retrievedAt],
     [text(lang, "表格/图/页码", "Table / figure / page"), [source.tableOrFigure, source.page].filter(Boolean).join(" · ") || "pending"],
     [text(lang, "整理状态", "Curation status"), source.curationStatus],
     [text(lang, "置信度", "Confidence"), source.confidence == null ? "pending" : formatPercent(source.confidence, { lang, normalized: true })],

@@ -1,0 +1,178 @@
+{
+  "year": 1963,
+  "status": "awarded",
+  "names": [
+    "Karl Ziegler",
+    "Giulio Natta"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/228",
+    "https://www.nobelprize.org/laureate/229"
+  ],
+  "motivations": [
+    "for their discoveries in the field of the chemistry and technology of high polymers",
+    "for their discoveries in the field of the chemistry and technology of high polymers"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "228",
+      "name": "Karl Ziegler",
+      "image": "images/nobel/laureates/228.jpg",
+      "source": "https://www.nobelprize.org/images/ziegler-13160-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1963/summary/",
+      "sha256": "0c9c49795b45cd356c91167923dbb66d93a2c7e7ca80c5b529c6d9b42e4968e4"
+    },
+    {
+      "id": "229",
+      "name": "Giulio Natta",
+      "image": "images/nobel/laureates/229.jpg",
+      "source": "https://www.nobelprize.org/images/natta-13159-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1963/summary/",
+      "sha256": "c80f1c161aa6e8253d8cf05d4a3b2b001e3a0d8758bcfe25e6a8ae8137f493aa"
+    }
+  ],
+  "reading": {
+    "title": "有规立构的高分子合成",
+    "summary": "有规立构的高分子合成。把聚合物的微观链结构变成可设计变量。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "塑料性能不仅取决于组成，还取决于链的排列方式。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "配位催化使单体连续插入金属—碳键，控制聚合及立体规整性。",
+        "equation": "\\mathrm{M\\!\\!-R+CH_2{=}CHR'\\rightarrow M\\!\\!-CH_2CH(R')R}",
+        "equationNote": "链增长插入步骤的示意；区域和立体选择性受催化位点及配体影响。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于聚乙烯、聚丙烯与聚合工艺。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把聚合物的微观链结构变成可设计变量。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "有规立构聚合控制链怎样形成；化学回收则需要选择链怎样断裂。两类过程都依赖对结构和催化选择性的理解。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "basf",
+          "name": "BASF",
+          "englishName": "BASF",
+          "url": "https://www.basf.com/",
+          "logo": "images/nobel/organizations/basf.svg",
+          "logoKind": "symbol"
+        },
+        {
+          "id": "berkeley",
+          "name": "加州大学伯克利分校",
+          "englishName": "University of California, Berkeley",
+          "url": "https://chemistry.berkeley.edu/",
+          "logo": "images/nobel/organizations/berkeley.svg",
+          "logoKind": "wordmark"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "polymer",
+          "heading": "长链聚合物怎样被重新拆成小分子原料",
+          "organizationIds": [
+            "berkeley"
+          ],
+          "authors": "Richard J. Conk、Jules F. Stahler、Jake X. Shi 等",
+          "paperTitle": "Polyolefin waste to light olefins with ethylene and base-metal heterogeneous catalysts",
+          "journal": "Science (2024)",
+          "published": "2024",
+          "doi": "10.1126/science.adq7316",
+          "paperUrl": "https://doi.org/10.1126/science.adq7316",
+          "paragraphs": [
+            "伯克利团队将负载于氧化铝上的钠与二氧化硅上的氧化钨组合，利用乙烯参与的催化过程，把聚乙烯、聚丙烯及两者的混合物转化为轻烯烃。研究尝试用可回收的非均相催化剂处理难断裂的碳链。",
+            "塑料的添加剂和混入树脂会改变结果，分选和预处理仍不可省略。这条路线的实验产物、进料条件及催化剂寿命，必须与工业装置的物料、能源和杂质负荷分开比较。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1126/science.adq7316"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://chemistry.berkeley.edu/node/2629"
+            }
+          ],
+          "relatedCompanyIds": [
+            "basf"
+          ],
+          "relation": "BASF 的循环塑料与化学回收业务属于相关工业方向；没有证据表明其商业装置采用的正是论文中的双催化剂配方。",
+          "companyOverride": {
+            "organizationId": "basf",
+            "role": "塑料循环与化工制造",
+            "status": "企业公开业务",
+            "paragraphs": [
+              "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+            ],
+            "sources": [
+              {
+                "label": "公司循环经济资料",
+                "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+              }
+            ]
+          }
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "basf",
+          "role": "塑料循环与化工制造",
+          "status": "企业公开业务",
+          "paragraphs": [
+            "BASF 的化工制造和循环经济业务涉及塑料原料与回收路径。论文所研究的钠/氧化钨催化路线属于独立研究实例；没有依据将其写作公司已采用的商业工艺。"
+          ],
+          "sources": [
+            {
+              "label": "公司循环经济资料",
+              "url": "https://www.basf.com/global/en/who-we-are/sustainability/we-drive-sustainable-solutions/circular-economy"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1963/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

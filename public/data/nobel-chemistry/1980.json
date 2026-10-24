@@ -1,0 +1,221 @@
+{
+  "year": 1980,
+  "status": "awarded",
+  "names": [
+    "Paul Berg",
+    "Walter Gilbert",
+    "Frederick Sanger"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/254",
+    "https://www.nobelprize.org/laureate/255",
+    "https://www.nobelprize.org/laureate/222"
+  ],
+  "motivations": [
+    "for his fundamental studies of the biochemistry of nucleic acids, with particular regard to recombinant-DNA",
+    "for their contributions concerning the determination of base sequences in nucleic acids",
+    "for their contributions concerning the determination of base sequences in nucleic acids"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "254",
+      "name": "Paul Berg",
+      "image": "images/nobel/laureates/254.jpg",
+      "source": "https://www.nobelprize.org/images/berg-13321-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "a83ac8b4cdd2b5dabf082608c9866ddf5506a1322ed0b9905876fe10a309f1d6"
+    },
+    {
+      "id": "255",
+      "name": "Walter Gilbert",
+      "image": "images/nobel/laureates/255.jpg",
+      "source": "https://www.nobelprize.org/images/gilbert-13322-portrait-medium.jpg",
+      "credit": "Photo: Harvard University News Office. Nobel Foundation archive",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "cb895476cefc8d44605f72ae9ce09c7c48dd133f99e8b58ce3a0cfbc0fb86401"
+    },
+    {
+      "id": "222",
+      "name": "Frederick Sanger",
+      "image": "images/nobel/laureates/222.jpg",
+      "source": "https://www.nobelprize.org/images/sanger-13323-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1980/summary/",
+      "sha256": "34acc2202358d1192d9ca1ddbb62a6e437844326d4b814f59c84ae6826d9aaf6"
+    }
+  ],
+  "reading": {
+    "title": "重组 DNA 与核酸测序",
+    "summary": "重组 DNA 与核酸测序。让生命信息能够被读出和重新组合。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "遗传信息的化学顺序及不同来源 DNA 的连接，需要直接操作工具。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "重组技术连接 DNA 片段；终止链延伸或化学切割后，通过片段长度读出碱基顺序。",
+        "equation": "\\mathrm{DNA_n+dNTP\\rightarrow DNA_{n+1}+PP_i}",
+        "equationNote": "聚合酶延伸的简式；双脱氧终止测序以缺少可继续延伸的 3′-OH 实现终止，Berg 的重组 DNA 是另一项成果。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基因分析、重组分子与蛋白表达研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "让生命信息能够被读出和重新组合。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "核酸序列读取和重组使遗传信息可以被操作。精确编辑与蛋白设计分别继续探索怎样修改信息、再验证其分子结果。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        },
+        {
+          "id": "uw",
+          "name": "华盛顿大学",
+          "englishName": "University of Washington",
+          "url": "https://www.washington.edu/",
+          "logo": "images/nobel/organizations/uw.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+          "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "editing",
+          "heading": "精确编辑还取决于向导 RNA 能否保存下来",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Jun Yan、Paul Oyler-Castrillo、Purnima Ravisankar 等",
+          "paperTitle": "Improving prime editing with an endogenous small RNA-binding protein",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07259-6",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07259-6",
+          "paragraphs": [
+            "普林斯顿大学及合作者通过全基因组筛选，发现 RNA 结合蛋白 La 能促进先导编辑；进一步研究指向其对延长向导 RNA 末端的保护作用。它说明编辑效率不只由 Cas 蛋白与目标序列决定。",
+            "这一研究把细胞内 RNA 稳定性带入编辑器设计。不同位点、细胞类型和编辑形式的表现需要分别测量；提高预期编辑率还需同时检查副产物和其他基因组变化。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07259-6"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-07259-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的 DNA 片段和变体文库服务可支持编辑构建与筛选，未据此声称公司采用了该 La 蛋白增强方案。"
+        },
+        {
+          "id": "protein",
+          "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+          "organizationIds": [
+            "uw"
+          ],
+          "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+          "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+          "journal": "Nature (2023)",
+          "published": "2023",
+          "doi": "10.1038/s41586-023-06415-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+          "paragraphs": [
+            "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+            "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-06415-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-06415-8"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1980/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

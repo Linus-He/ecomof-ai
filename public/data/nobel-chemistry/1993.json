@@ -1,0 +1,168 @@
+{
+  "year": 1993,
+  "status": "awarded",
+  "names": [
+    "Kary B. Mullis",
+    "Michael Smith"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/278",
+    "https://www.nobelprize.org/laureate/279"
+  ],
+  "motivations": [
+    "for his invention of the polymerase chain reaction (PCR) method",
+    "for his fundamental contributions to the establishment of oligonucleotide-based, site-directed mutagenesis and its development for protein studies"
+  ],
+  "overallMotivation": "\"for contributions to the developments of methods within DNA-based chemistry\"",
+  "portraits": [
+    {
+      "id": "278",
+      "name": "Kary B. Mullis",
+      "image": "images/nobel/laureates/278.jpg",
+      "source": "https://www.nobelprize.org/images/mullis-13444-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1993/summary/",
+      "sha256": "b3ad27b5b88150496f23c04c095f0890c8d6bb75e1427da73f1321e385ea58f6"
+    },
+    {
+      "id": "279",
+      "name": "Michael Smith",
+      "image": "images/nobel/laureates/279.jpg",
+      "source": "https://www.nobelprize.org/images/smith-13445-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1993/summary/",
+      "sha256": "3e4dbbc7534ff7f4902f9fa5abd768f4b840a9fb3ec8a998344efc19f9d1edd0"
+    }
+  ],
+  "reading": {
+    "title": "PCR 与定点突变",
+    "summary": "PCR 与定点突变。使稀少遗传材料可扩增，并能针对性改变编码信息。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "少量 DNA 如何被复制研究，蛋白结构假说如何通过改变序列检验？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "PCR 循环完成变性、引物退火与延伸；定点突变引入预定序列改变。",
+        "equation": "N_n=N_0(1+E)^n",
+        "equationNote": "E 为每轮扩增效率，理想 E=1；定点突变是独立方法，不由此扩增式描述。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于基因检测、序列研究与蛋白功能实验。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "使稀少遗传材料可扩增，并能针对性改变编码信息。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "PCR 与定点突变使核酸能够扩增和定向改变。先导编辑研究进一步追问，细胞环境和 RNA 稳定性怎样限制预期修改的实现。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "princeton",
+          "name": "普林斯顿大学",
+          "englishName": "Princeton University",
+          "url": "https://www.princeton.edu/",
+          "logo": "images/nobel/organizations/princeton.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.princeton.edu/favicon.ico",
+          "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "editing",
+          "heading": "精确编辑还取决于向导 RNA 能否保存下来",
+          "organizationIds": [
+            "princeton"
+          ],
+          "authors": "Jun Yan、Paul Oyler-Castrillo、Purnima Ravisankar 等",
+          "paperTitle": "Improving prime editing with an endogenous small RNA-binding protein",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07259-6",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07259-6",
+          "paragraphs": [
+            "普林斯顿大学及合作者通过全基因组筛选，发现 RNA 结合蛋白 La 能促进先导编辑；进一步研究指向其对延长向导 RNA 末端的保护作用。它说明编辑效率不只由 Cas 蛋白与目标序列决定。",
+            "这一研究把细胞内 RNA 稳定性带入编辑器设计。不同位点、细胞类型和编辑形式的表现需要分别测量；提高预期编辑率还需同时检查副产物和其他基因组变化。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07259-6"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-07259-6"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的 DNA 片段和变体文库服务可支持编辑构建与筛选，未据此声称公司采用了该 La 蛋白增强方案。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1993/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

@@ -1,0 +1,156 @@
+{
+  "year": 1926,
+  "status": "awarded",
+  "names": [
+    "The Svedberg"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/183"
+  ],
+  "motivations": [
+    "for his work on disperse systems"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "183",
+      "name": "The Svedberg",
+      "image": "images/nobel/laureates/183.jpg",
+      "source": "https://www.nobelprize.org/images/svedberg-12944-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1926/summary/",
+      "sha256": "2b7eeee0b16980bdc3c6f859c6a2b635f1c33ddbb68da858dbd6af78192d6b5a"
+    }
+  ],
+  "reading": {
+    "title": "分散体系与超离心",
+    "summary": "分散体系与超离心。为大分子存在与性质提供实验测量工具。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "如何区分胶体粒子大小并测量大分子，需要新的分离尺度。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "高速旋转增强沉降，以沉降和扩散信息研究分散颗粒及大分子。",
+        "equation": "s=\\frac{v}{\\omega^2r}",
+        "equationNote": "沉降系数 s；v 为径向沉降速度，ω 为角速度，r 为径向位置，受溶剂与形状影响。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于蛋白质、胶体和大分子的质量与聚集研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "为大分子存在与性质提供实验测量工具。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "超离心仍在通过沉降行为研究分子大小与相互作用。新的分析方法尤其强调多组分、非理想性和检测方式的区别。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "beckman",
+          "name": "Beckman Coulter Life Sciences",
+          "englishName": "Beckman Coulter Life Sciences",
+          "url": "https://www.beckman.com/",
+          "logo": "images/nobel/organizations/beckman.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.beckman.com/favicon.ico",
+          "sha256": "c2ea6cae8c50a638ecc339fa3abeb998bb406c61f97f220642151816466a9bac"
+        },
+        {
+          "id": "lethbridge",
+          "name": "莱斯布里奇大学",
+          "englishName": "University of Lethbridge",
+          "url": "https://www.ulethbridge.ca/",
+          "logo": "images/nobel/organizations/lethbridge.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.ulethbridge.ca/themes/custom/novalux/images/icons/apple-touch-icon.png",
+          "sha256": "652074e07fb0ddd174698ae809fe5673f2001ebd7d80e53613514d58e240d333"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "auc",
+          "heading": "超离心从“看见沉降”走向分析分子相互作用",
+          "organizationIds": [
+            "lethbridge"
+          ],
+          "authors": "Borries Demeler",
+          "paperTitle": "Methods for the Design and Analysis of Analytical Ultracentrifugation Experiments",
+          "journal": "Current Protocols (2024)",
+          "published": "2024",
+          "doi": "10.1002/cpz1.974",
+          "paperUrl": "https://doi.org/10.1002/cpz1.974",
+          "paragraphs": [
+            "莱斯布里奇大学与蒙大拿大学的这篇方法文章，讨论沉降速度、沉降平衡、光学检测和 UltraScan 数据分析。分子大小、浮力和相互作用的推断依赖合理的实验设计，而不是读取单一沉降峰。",
+            "不同检测器对吸收、折射率或荧光敏感，能看见的组分范围不同。多组分体系需要检查密度、非理想性与模型假设，避免把聚集或混合物误判成单一大分子。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1002/cpz1.974"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://currentprotocols.onlinelibrary.wiley.com/doi/10.1002/cpz1.974"
+            }
+          ],
+          "relatedCompanyIds": [
+            "beckman"
+          ],
+          "relation": "Beckman Coulter 的 Optima AUC 是现行分析超离心仪示例，原文同时区分了较早的仪器系列与新的检测和分析方法。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "beckman",
+          "role": "分析超离心设备",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Beckman Coulter Life Sciences 的 Optima AUC 用于溶液中大分子的沉降分析。实验通过转速、光学检测和模型拟合获得信息，需要针对样品密度、浓度和组分设计协议。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.beckman.com/centrifuges/analytical-ultracentrifuges/optima-auc"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1926/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

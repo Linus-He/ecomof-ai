@@ -1,0 +1,156 @@
+{
+  "year": 1977,
+  "status": "awarded",
+  "names": [
+    "Ilya Prigogine"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/250"
+  ],
+  "motivations": [
+    "for his contributions to non-equilibrium thermodynamics, particularly the theory of dissipative structures"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "250",
+      "name": "Ilya Prigogine",
+      "image": "images/nobel/laureates/250.jpg",
+      "source": "https://www.nobelprize.org/images/prigogine-13288-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1977/summary/",
+      "sha256": "a981fd8fd695ac1bf51ad9af306ceda02c8fe163fe7c8926b4ea2d3607f65f22"
+    }
+  ],
+  "reading": {
+    "title": "耗散结构",
+    "summary": "耗散结构。说明动态有序可以由持续耗散维持。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "持续输入能量的系统为何能够形成有序图案或振荡？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "开放系统的物质和能量交换可维持远离平衡的有序状态。",
+        "equation": "\\frac{dS}{dt}=\\frac{d_eS}{dt}+\\frac{d_iS}{dt};\\quad \\frac{d_iS}{dt}\\ge0",
+        "equationNote": "系统熵变化由交换与内部产生组成；局部有序不违背总熵产生非负。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于非平衡反应、振荡与自组织模型。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "说明动态有序可以由持续耗散维持。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "耗散结构需要持续的物质或能量输入。催化驱动凝胶马达提供分子尺度实例，让燃料消耗和机械响应能够同时被追踪。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "manchester",
+          "name": "曼彻斯特大学",
+          "englishName": "The University of Manchester",
+          "url": "https://www.manchester.ac.uk/",
+          "logo": "images/nobel/organizations/manchester.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+          "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "motor",
+          "heading": "分子马达怎样让凝胶收缩和重新展开",
+          "organizationIds": [
+            "manchester"
+          ],
+          "authors": "Peng-Lai Wang、Stefan Borsley、Martin J. Power 等",
+          "paperTitle": "Transducing chemical energy through catalysis by an artificial molecular motor",
+          "journal": "Nature (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41586-024-08288-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08288-x",
+          "paragraphs": [
+            "曼彻斯特大学及合作者将催化驱动的分子马达嵌入交联聚合物网络，使持续定向旋转改变链的缠绕和凝胶形变。观察对象由单个分子是否转动，扩展到化学能能否产生材料尺度的机械响应。",
+            "维持这一过程需要消耗燃料并形成产物。评价马达材料，既要看方向偏置和力学响应，也要追踪燃料消耗、废物积累与网络疲劳，不能把非平衡运动当作无能量输入的循环。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08288-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-08288-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成与高分子研究原料；未核实到该凝胶马达的商品化设备，因此只列研究材料供给。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1977/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

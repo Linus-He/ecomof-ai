@@ -1,0 +1,169 @@
+{
+  "year": 2012,
+  "status": "awarded",
+  "names": [
+    "Robert J. Lefkowitz",
+    "Brian Kobilka"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/878",
+    "https://www.nobelprize.org/laureate/879"
+  ],
+  "motivations": [
+    "for studies of G-protein-coupled receptors",
+    "for studies of G-protein-coupled receptors"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "878",
+      "name": "Robert J. Lefkowitz",
+      "image": "images/nobel/laureates/878.jpg",
+      "source": "https://www.nobelprize.org/images/lefkowitz-15182-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2012/summary/",
+      "sha256": "32e405610271783fe170f7ebee1c326150d434bb36c03f59f908e5dbab0e1a67"
+    },
+    {
+      "id": "879",
+      "name": "Brian Kobilka",
+      "image": "images/nobel/laureates/879.jpg",
+      "source": "https://www.nobelprize.org/images/kobilka-15183-portrait-medium.jpg",
+      "credit": "© The Nobel Foundation. Photo: U. Montan",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2012/summary/",
+      "sha256": "63df4def3dfd0da0a617ee6ab5e0a3bc06a7b70b2a9629555e242a9b7e04b7e1"
+    }
+  ],
+  "reading": {
+    "title": "G 蛋白偶联受体",
+    "summary": "G 蛋白偶联受体。把细胞通信与受体的具体分子结构联系起来。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "细胞怎样识别外界信号并把信息传进内部？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "配体结合改变七跨膜受体构象，影响 G 蛋白的核苷酸交换与下游信号。",
+        "equation": "\\mathrm{G\\alpha\\!\\!{-}GDP\\xrightarrow{activated\\ GPCR}G\\alpha\\!\\!{-}GTP}",
+        "equationNote": "表示 GDP 释放并由 GTP 结合替换，不是 GDP 在受体上被直接磷酸化。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于受体信号、配体识别与药物作用研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把细胞通信与受体的具体分子结构联系起来。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "受体与 G 蛋白的静态结构已扩展到激活过程的连续状态。核苷酸结合和受体界面变化之间的联系，可以用结构和模拟交叉检验。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "stanford",
+          "name": "斯坦福大学",
+          "englishName": "Stanford University",
+          "url": "https://www.stanford.edu/",
+          "logo": "images/nobel/organizations/stanford.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=e269585a260c91a54b81a8c27aec30eb9f650bf5d78a3deb966fbc1957bcfe3f366164626530346331343261303532626262333732346435",
+          "sha256": "d21f50b715ff8829645529aeceabf2b4168c200db9b068078bd9a0f7084ce3e8"
+        },
+        {
+          "id": "thermo",
+          "name": "Thermo Fisher Scientific",
+          "englishName": "Thermo Fisher Scientific",
+          "url": "https://www.thermofisher.com/",
+          "logo": "images/nobel/organizations/thermo.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.google.com/s2/favicons?domain=www.thermofisher.com&sz=128",
+          "assetType": "website favicon served by Google favicon cache",
+          "sha256": "744b001b4bb9ad66b75f3ab411d2ea0acc93f92f5434a3fe711ebca1d32dd938"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "gpcr",
+          "heading": "把受体激活过程分成连续结构状态",
+          "organizationIds": [
+            "stanford"
+          ],
+          "authors": "Makaía M. Papasergi-Scott、Guillermo Pérez-Hernández、Hossein Batebi 等",
+          "paperTitle": "Time-resolved cryo-EM of G-protein activation by a GPCR",
+          "journal": "Nature (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41586-024-07153-1",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-07153-1",
+          "paragraphs": [
+            "斯坦福大学及合作者使用时间分辨冷冻电镜与分子动力学，追踪 GTP 结合后 G 蛋白构象变化及其脱离受体的过程。不同构象让核苷酸位点与受体接触界面的变化可以相互对照。",
+            "这类研究把静态受体结构推进到激活路径，但结构快照与完整反应速率仍需区分。样品制备、构象分类和模拟起点都会影响可观察的状态。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-07153-1"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://cris.fau.de/publications/320053833/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "thermo"
+          ],
+          "relation": "Thermo Fisher 的冷冻电镜设备提供相关结构表征能力；没有由此推断该仪器品牌或论文已产生某一种获批 GPCR 药物。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "thermo",
+          "role": "质谱、显微及分子研究工具",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Thermo Fisher Scientific 提供同位素与元素分析、冷冻电镜、荧光成像及核酸实验产品。仪器和试剂把测量、制样与分析连接起来，具体能力应与样品类型和测试配置对应。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.thermofisher.com/us/en/home/industrial/spectroscopy-elemental-isotope-analysis.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2012/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

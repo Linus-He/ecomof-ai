@@ -932,7 +932,6 @@ function OpenMofSeedDetailPanel({ item, lang, t, isMobile }) {
     [text(lang, "来源链接", "Source URL"), item.sourceUrl],
     [text(lang, "引用", "Citation"), item.citation],
     [text(lang, "许可证", "License"), item.license],
-    [text(lang, "获取时间", "Retrieved at"), item.retrievedAt],
     [text(lang, "整理状态", "Curation status"), normalizeStatus(item.curationStatus, lang)],
   ]
   const descriptorRows = [

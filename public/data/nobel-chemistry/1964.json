@@ -1,0 +1,221 @@
+{
+  "year": 1964,
+  "status": "awarded",
+  "names": [
+    "Dorothy Crowfoot Hodgkin"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/230"
+  ],
+  "motivations": [
+    "for her determinations by X-ray techniques of the structures of important biochemical substances"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "230",
+      "name": "Dorothy Crowfoot Hodgkin",
+      "image": "images/nobel/laureates/230.jpg",
+      "source": "https://www.nobelprize.org/images/hodgkin-13170-portrait-medium.jpg",
+      "credit": "Photo from the Nobel Foundation archive.",
+      "page": "https://www.nobelprize.org/prizes/chemistry/1964/summary/",
+      "sha256": "9280b4cf62c5fed580d3c6474eafc62f153477b2d7cd56aa3eccd152cb79d125"
+    }
+  ],
+  "reading": {
+    "title": "重要生化分子的晶体结构",
+    "summary": "重要生化分子的晶体结构。展示晶体学能够处理越来越复杂的生化结构。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "复杂维生素和药物的结构难以仅靠降解反应确定。"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "利用 X 射线衍射确定青霉素、维生素 B12 等生化物质的空间结构。",
+        "equation": "I_{hkl}\\propto|F_{hkl}|^2",
+        "equationNote": "强度对应结构因子模平方；缺失相位是从数据到电子密度的主要问题。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于天然产物结构、药物化学与生物分子研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "展示晶体学能够处理越来越复杂的生化结构。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "复杂生物分子的结构解析已扩展到计算设计和溶液动态。单一结构、构象集合与实际活性需要分别用实验约束。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "bruker",
+          "name": "Bruker",
+          "englishName": "Bruker",
+          "url": "https://www.bruker.com/",
+          "logo": "images/nobel/organizations/bruker.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.bruker.com/etc.clientlibs/bruker/clientlibs/clientlib-favicons/resources/apple-touch-icon-180x180.png",
+          "sha256": "14496904ca2a50628286fc30223970cf75d233ad1cd1ffaa46060aac2c3e25d9"
+        },
+        {
+          "id": "twist",
+          "name": "Twist Bioscience",
+          "englishName": "Twist Bioscience",
+          "url": "https://www.twistbioscience.com/",
+          "logo": "images/nobel/organizations/twist.png",
+          "logoKind": "symbol",
+          "assetSource": "https://www.twistbioscience.com/content/dam/twistbioscience/themes/custom/twist_barrio/favicon.png",
+          "sha256": "378af15585e5a54ea8e50337ccf7697bb80c57fa89aa2fcd183b28775c463809"
+        },
+        {
+          "id": "ucl",
+          "name": "伦敦大学学院",
+          "englishName": "University College London",
+          "url": "https://www.ucl.ac.uk/",
+          "logo": "images/nobel/organizations/ucl.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://cdn.ucl.ac.uk/favicons/favicon.ico",
+          "sha256": "d1e5b46900b0fb0aaeec099372345203863caae5365e07be725a18a51b77ed20"
+        },
+        {
+          "id": "uw",
+          "name": "华盛顿大学",
+          "englishName": "University of Washington",
+          "url": "https://www.washington.edu/",
+          "logo": "images/nobel/organizations/uw.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.washington.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico",
+          "sha256": "db50254289030326387be82d1fd73f214750a82b71fa95053e1742453d33c1f1"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "protein",
+          "heading": "RFdiffusion：先提出蛋白骨架，再做实验",
+          "organizationIds": [
+            "uw"
+          ],
+          "authors": "Joseph L. Watson、David Juergens、Nathaniel R. Bennett 等",
+          "paperTitle": "De novo design of protein structure and function with RFdiffusion",
+          "journal": "Nature (2023)",
+          "published": "2023",
+          "doi": "10.1038/s41586-023-06415-8",
+          "paperUrl": "https://doi.org/10.1038/s41586-023-06415-8",
+          "paragraphs": [
+            "华盛顿大学及合作者把结构去噪训练用于生成蛋白质骨架，支持结合蛋白和对称组装等设计任务。设计给出的首先是可合成和测试的序列、结构假说，不是自动完成的功能证明。",
+            "研究将计算设计与实验表征连接。结构接近设计、能够结合靶标和在细胞中发挥作用，是不同层次的问题；筛选时需要保留失败设计以及相应测定条件。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-023-06415-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-023-06415-8"
+            }
+          ],
+          "relatedCompanyIds": [
+            "twist"
+          ],
+          "relation": "Twist Bioscience 的合成基因和变体文库服务可用于把设计序列变成实验材料；未将该供给环节等同于对所有生成蛋白的功能验证。"
+        },
+        {
+          "id": "nmr",
+          "heading": "让大蛋白的 NMR 少依赖全面氘代",
+          "organizationIds": [
+            "ucl"
+          ],
+          "authors": "Gogulan Karunanithy、Vaibhav Kumar Shukla、D. Flemming Hansen",
+          "paperTitle": "Solution-state methyl NMR spectroscopy of large non-deuterated proteins enabled by deep neural networks",
+          "journal": "Nature Communications (2024)",
+          "published": "2024",
+          "doi": "10.1038/s41467-024-49378-8",
+          "paperUrl": "https://doi.org/10.1038/s41467-024-49378-8",
+          "paragraphs": [
+            "伦敦大学学院团队使用深度神经网络处理非氘代、均一 ¹³C 标记蛋白的溶液 NMR 数据，并以不同大小的蛋白检验谱图和 NOE 交叉峰是否保留结构信息。",
+            "重点并非让网络凭空补出一张谱图，而是检验处理后的信号与实验和已知结构约束是否一致。样品制备、训练适用域和弱峰失真仍是判断结果能否用于结构解释的关键。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41467-024-49378-8"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38871714/"
+            }
+          ],
+          "relatedCompanyIds": [
+            "bruker"
+          ],
+          "relation": "Bruker 的 AVANCE NMR 与相关磁体、探头构成现行仪器产品；论文中的信号处理方法与仪器硬件能力分别说明。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "twist",
+          "role": "合成 DNA 与变体文库",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Twist Bioscience 提供合成基因、基因片段和变体文库等产品，用于将设计序列转为可表达、可筛选的实验材料。获得序列或构建完成之后，功能仍需通过独立测定确认。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.twistbioscience.com/products/genes"
+            }
+          ]
+        },
+        {
+          "organizationId": "bruker",
+          "role": "磁共振与结构分析",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Bruker 的 NMR 产品包括 AVANCE 系列、磁体和固态 DNP 等配置，用于分子结构、反应和动态研究；公司还提供衍射与其他光谱分析工具。不同技术的可观测量和适用样品不能互相替代。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.bruker.com/en/products-and-solutions/mr/nmr.html"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/1964/ceremony-speech/",
+      "kind": "ceremony-speech",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

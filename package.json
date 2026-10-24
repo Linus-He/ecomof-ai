@@ -28,7 +28,9 @@
     "visual:check:final": "node scripts/final-ui-qa.mjs",
     "visual:check:gassep": "node scripts/visual-check-gassep.mjs",
     "build:catalysis-literature": "node scripts/catalysis/build-catalysis-literature-catalog.mjs",
-    "prebuild": "npm run build:catalysis-literature"
+    "prebuild": "npm run build:catalysis-literature && npm run build:nobel-chemistry && node scripts/nobel/enrich-polymarket.mjs",
+    "build:nobel-chemistry": "node scripts/nobel/build-nobel-chemistry.mjs",
+    "verify:nobel-sources": "python3 scripts/nobel/check-official-sources.py"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

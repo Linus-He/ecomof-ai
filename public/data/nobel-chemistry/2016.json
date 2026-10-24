@@ -1,0 +1,180 @@
+{
+  "year": 2016,
+  "status": "awarded",
+  "names": [
+    "Jean-Pierre Sauvage",
+    "Sir J. Fraser Stoddart",
+    "Bernard L. Feringa"
+  ],
+  "personUrls": [
+    "https://www.nobelprize.org/laureate/931",
+    "https://www.nobelprize.org/laureate/932",
+    "https://www.nobelprize.org/laureate/933"
+  ],
+  "motivations": [
+    "for the design and synthesis of molecular machines",
+    "for the design and synthesis of molecular machines",
+    "for the design and synthesis of molecular machines"
+  ],
+  "overallMotivation": "",
+  "portraits": [
+    {
+      "id": "931",
+      "name": "Jean-Pierre Sauvage",
+      "image": "images/nobel/laureates/931.jpg",
+      "source": "https://www.nobelprize.org/images/sauvage-15210-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "e83f9d13197c6d65acacf5c252c5c75d4845d3ae2d4d49081069d304119f5d46"
+    },
+    {
+      "id": "932",
+      "name": "Sir J. Fraser Stoddart",
+      "image": "images/nobel/laureates/932.jpg",
+      "source": "https://www.nobelprize.org/images/stoddart-15208-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "151aec173b89a680b35b1a3fc27382c782136a505eb1b1d15e0676bbdb8cbb9f"
+    },
+    {
+      "id": "933",
+      "name": "Bernard L. Feringa",
+      "image": "images/nobel/laureates/933.jpg",
+      "source": "https://www.nobelprize.org/images/feringa-15204-portrait-medium.jpg",
+      "credit": "© Nobel Prize Outreach. Photo: A. Mahmoud",
+      "page": "https://www.nobelprize.org/prizes/chemistry/2016/summary/",
+      "sha256": "ed1a02d96279bb611c18276147da4d7c3e62dde61d060028305807904426cde5"
+    }
+  ],
+  "reading": {
+    "title": "分子机器",
+    "summary": "分子机器。把合成目标从静态结构扩展到可执行动作。",
+    "sections": [
+      {
+        "id": "background",
+        "title": [
+          "研究背景",
+          "Background"
+        ],
+        "body": "分子运动普遍存在，怎样让运动被设计与控制？"
+      },
+      {
+        "id": "principle",
+        "title": [
+          "原理与机理",
+          "Principles and mechanisms"
+        ],
+        "body": "机械互锁提供可相对移动的组分，外部刺激和非对称循环实现状态切换或方向偏好。",
+        "equation": "\\mathrm{M_1\\xrightarrow{light\\ or\\ fuel}M_2\\xrightarrow{cycle}M_1}",
+        "equationNote": "功能循环示意；回到化学初态也可能产生净机械位移，具体体系需独立说明。",
+        "supplementalEquations": []
+      },
+      {
+        "id": "uses",
+        "title": [
+          "应用",
+          "Applications"
+        ],
+        "body": "用于分子开关、转子与受控运动研究。"
+      },
+      {
+        "id": "significance",
+        "title": [
+          "科学意义",
+          "Significance"
+        ],
+        "body": "把合成目标从静态结构扩展到可执行动作。"
+      },
+      {
+        "id": "development",
+        "title": [
+          "研究与产业进展",
+          "Research and industrial progress"
+        ],
+        "body": "分子机器逐渐从单个转动单元走向集体材料响应。燃料驱动凝胶把分子旋转与可见形变联系起来，也需要核算能量和废物。"
+      }
+    ],
+    "developments": {
+      "organizations": [
+        {
+          "id": "manchester",
+          "name": "曼彻斯特大学",
+          "englishName": "The University of Manchester",
+          "url": "https://www.manchester.ac.uk/",
+          "logo": "images/nobel/organizations/manchester.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+          "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+        },
+        {
+          "id": "merck",
+          "name": "Merck · Sigma-Aldrich",
+          "englishName": "Merck · Sigma-Aldrich",
+          "url": "https://www.sigmaaldrich.com/",
+          "logo": "images/nobel/organizations/merck.ico",
+          "logoKind": "symbol",
+          "assetSource": "https://www.sigmaaldrich.com/favicon.ico",
+          "sha256": "8065d536ef9a8ea6e91f910f7ee10ce80ca9cff7138ee8d079e63855e085be56"
+        }
+      ],
+      "researchCases": [
+        {
+          "id": "motor",
+          "heading": "分子马达怎样让凝胶收缩和重新展开",
+          "organizationIds": [
+            "manchester"
+          ],
+          "authors": "Peng-Lai Wang、Stefan Borsley、Martin J. Power 等",
+          "paperTitle": "Transducing chemical energy through catalysis by an artificial molecular motor",
+          "journal": "Nature (2025)",
+          "published": "2025",
+          "doi": "10.1038/s41586-024-08288-x",
+          "paperUrl": "https://doi.org/10.1038/s41586-024-08288-x",
+          "paragraphs": [
+            "曼彻斯特大学及合作者将催化驱动的分子马达嵌入交联聚合物网络，使持续定向旋转改变链的缠绕和凝胶形变。观察对象由单个分子是否转动，扩展到化学能能否产生材料尺度的机械响应。",
+            "维持这一过程需要消耗燃料并形成产物。评价马达材料，既要看方向偏置和力学响应，也要追踪燃料消耗、废物积累与网络疲劳，不能把非平衡运动当作无能量输入的循环。"
+          ],
+          "sources": [
+            {
+              "label": "论文 DOI",
+              "url": "https://doi.org/10.1038/s41586-024-08288-x"
+            },
+            {
+              "label": "原始研究与机构资料",
+              "url": "https://www.nature.com/articles/s41586-024-08288-x"
+            }
+          ],
+          "relatedCompanyIds": [
+            "merck"
+          ],
+          "relation": "Sigma-Aldrich 供应有机合成与高分子研究原料；未核实到该凝胶马达的商品化设备，因此只列研究材料供给。"
+        }
+      ],
+      "companyCases": [
+        {
+          "organizationId": "merck",
+          "role": "合成试剂、标准品与研究材料",
+          "status": "企业公开资料",
+          "paragraphs": [
+            "Merck 旗下 Sigma-Aldrich 提供有机合成砌块、催化剂、糖类、脂质、标记化合物及分析标准。目录中的产品是研究材料；一种试剂能够购买，并不说明与它相关的新反应或器件已经产业化。"
+          ],
+          "sources": [
+            {
+              "label": "产品与技术资料",
+              "url": "https://www.sigmaaldrich.com/US/en/products/chemistry-and-biochemicals"
+            }
+          ]
+        }
+      ]
+    },
+    "officialSource": {
+      "url": "https://www.nobelprize.org/prizes/chemistry/2016/popular-information/",
+      "kind": "popular-information",
+      "checked": "2026-10-24"
+    },
+    "language": "zh",
+    "reviewed": "2026-10-24"
+  },
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-24"
+}

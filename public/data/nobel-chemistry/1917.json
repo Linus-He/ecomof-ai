@@ -1,0 +1,10 @@
+{
+  "year": 1917,
+  "status": "not-awarded",
+  "names": [],
+  "personUrls": [],
+  "motivations": [],
+  "overallMotivation": "\"No Nobel Prize was awarded this year. The prize money was allocated to the Special Fund of this prize section.\"",
+  "source": "https://api.nobelprize.org/v1/prize.json?category=chemistry",
+  "checked": "2026-10-07"
+}
