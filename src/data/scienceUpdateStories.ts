@@ -1,4 +1,62 @@
 export const scienceUpdateStories = [
+{
+  "hash": "update-methodology-reader",
+  "version": "v3.5.7",
+  "date": "2026-10-25",
+  "image": 0,
+  "title": [
+    "方法论重绘与市场入口修复",
+    "A clearer methodology and reliable market entry"
+  ],
+  "intro": [
+    "用八组中英教学例解释材料身份、权重、评分、分离、催化、溯源与验证，重绘白色阅读页面，并修复进入预测市场时的滚动定位与加载状态。",
+    "Eight bilingual teaching examples explain identity, weights, scores, separation, catalysis, provenance and validation, with a white editorial layout and fixes to market entry scrolling and loading states."
+  ],
+  "sections": [
+    {
+      "title": [
+        "清晰的阅读层次",
+        "A clearer reading path"
+      ],
+      "body": [
+        "方法论采用与诺奖专栏一致的白底、深青标题与分隔线；减少嵌套卡片，目录改为简洁侧栏，方法索引和治理依据可以展开查阅。",
+        "Methodology adopts the Nobel column’s white background, deep teal headings and fine rules. A simpler directory and expandable reference index accompany flatter method sections."
+      ]
+    },
+    {
+      "title": [
+        "逐步算一次",
+        "Work through an example"
+      ],
+      "body": [
+        "新增八组中英示例，逐项解释输入、假设、计算结果和缺失条件时的停止位置；综合评分示例可调整证据系数，所有教学数字均明确为构造输入。",
+        "Eight bilingual examples explain inputs, assumptions, results and stopping conditions. The scoring example recalculates with an adjustable evidence factor; all teaching numbers are explicitly constructed."
+      ]
+    },
+    {
+      "title": [
+        "完整方法与来源",
+        "Methods and sources"
+      ],
+      "body": [
+        "保留完整公式、交互工作台、方法步骤与来源入口。新增说明链接至 NIST、W3C、IUPAC 和 CRITIC 原始方法，区分教学简化与完整计算。",
+        "Complete formulas, interactive workbenches, method steps and source links remain available. Examples link NIST, W3C, IUPAC and the original CRITIC method and distinguish simplified teaching from full calculations."
+      ]
+    },
+    {
+      "title": [
+        "稳定进入市场",
+        "Reliable market entry"
+      ],
+      "body": [
+        "预测市场进入时回到页面顶部，避免沿用首页或页脚的滚动位置；年份索引加载完成前不再显示空数据提示，索引和报价请求超时或失败时均可重试。",
+        "Market entry resets inherited scroll positions. Loading the year index no longer flashes an unavailable-year message; failed or timed-out index and quote requests can be retried."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "依据本轮界面修复和现有方法实现编写；示例不代表实测性能。"
+},
   {
     "hash": "update-science-refinements",
     "version": "v3.5.6",

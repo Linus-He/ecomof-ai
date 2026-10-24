@@ -554,3 +554,34 @@ Desktop and mobile captures are in `qa/nobel/refinement/`: `company-layout-final
 Validation: typecheck, production build, 8 focused test files / 37 tests, and code whitespace checks passed. Downloaded vendor SVG bytes and deliberate TSV empty fields preserve their original source format. No outstanding P0/P1/P2 findings in this scope.
 
 Reference and revised company layout are shown together in `qa/nobel/refinement/company-redesign-comparison.jpg`. The redesign intentionally adds a company-introduction rail and product-use details while retaining the white editorial surface.
+
+## Methodology reader and prediction-market entry refinement
+
+Source visual truth: `qa/methodology-refresh/nobel-reference.png`, the existing Nobel column selected by the user as the style reference. Implementation: `qa/methodology-refresh/methodology-desktop.png`; full-view comparison: `qa/methodology-refresh/reference-comparison.jpg`. Both final paired images are 1018 × 764 physical pixels at the same 1024 × 768 CSS viewport, device scale factor 1. Native browser capture omits its scrollbar/frame pixels equally; no image stretching was used. This is an adaptation of the reference's white, teal, serif-reading and fine-rule language to methodology, not a copy of its year selector or portraits.
+
+Focused evidence: `score-control-fixed.png` shows the working evidence-factor slider and computed output. `methodology-example.png` shows the worked-example reading layout. `methodology-mobile.png` and `methodology-english-mobile.png` cover Chinese and English at 390 × 844 CSS pixels. Mobile document width was 384 pixels, with one 344-pixel reading column and no document-level horizontal overflow. Formulas may scroll inside their own container. The temporary viewport override is reset at handoff.
+
+### Findings and comparison history
+
+- P1, market entry: starting from a lower home/footer position retained an approximately 801-pixel scroll offset on the new market page. Added an entry/year-hash layout reset. Post-fix DOM observation: scrollY = 0, year controls visible, 30 original Polymarket candidates rendered. Evidence: `market-entry-fixed.png`.
+- P1, worked-example control: the global range-input reset hid the new native slider thumb and collapsed its height to zero. Restored native appearance and a 28-pixel hit area within this component only. Re-tested pointer and keyboard interaction; Q = 0.01 produced 0.006. Evidence: `score-control-fixed.png`. Final result no longer contains this issue.
+- P2, typography: replaced an invalid mixed `inherit` font shorthand with explicit family, size, weight and line-height declarations; final capture uses consistent body/control typography.
+- P2, scientific typesetting: corrected unit spacing in the provenance formula. All eight examples render through KaTeX in the regression check; no fallback formula text replaces the math.
+
+### Required fidelity surfaces
+
+- Fonts: deep teal display headings, sans-serif controls and serif explanatory reading match the selected column's hierarchy; full-method summary and group headings are enlarged. English wraps naturally and Chinese retains comfortable line height.
+- Spacing: centered opening, generous section rhythm, two-column worked examples, fine horizontal rules and a compact directory replace the dense initial registry. Below the mobile breakpoint examples become a single column and eight chapter controls form two rows.
+- Colors: white background confirmed as rgb(255,255,255); teal #063641, blue #2672b8, muted gold selection rule and pale separators. Existing method warning semantics remain visible.
+- Assets: no illustration is required by this methodology design. Existing official Nobel portraits remain in the reference only; standard action icons use the existing Phosphor library. No invented logo or generated scientific image was introduced.
+- Copy: eight bilingual teaching examples distinguish assumptions, numerical results, missing inputs and scientific limitations. The simplified Henry example is explicitly not a full IAST run; Q is not a success probability; teaching MAE is not measured platform accuracy. Existing complete methods, source links, registry, governance references and interactive workbenches remain accessible.
+
+### Interaction and verification
+
+Tested home/menu/footer market entry, latest default edition, retry after failed index loading, stalled-index timeout, original 30-candidate coverage, example chapter switching, missing-condition state, Q adjustment, complete-method anchors, Chinese/English locale switching and mobile reading. Existing registry search/coverage/governance tests remain passing. Browser error log was empty during the final local interaction pass.
+
+TypeScript, seven focused test files with 32 tests, production build and `git diff --check` passed. Existing bundle-size warnings remain; no new compilation failures. The online preview was not updated: source publication was stopped after automatic approval rejected credential delivery to an elevated network process. Local browser QA and compiled artifacts are complete; this publication boundary is separate from the visual gate.
+
+Final comparison contains no actionable P0/P1/P2 finding. Future polish: larger illustrative datasets could be added only with separately verified provenance; none are implied by these teaching inputs.
+
+final result: passed

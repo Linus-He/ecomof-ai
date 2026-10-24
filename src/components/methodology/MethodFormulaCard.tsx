@@ -139,7 +139,7 @@ function DetailLine({ labelZh, label, valueZh, value, lang, t }) {
 export function MethodFormulaCard({ formula, lang, t }) {
   const details = detailFor(formula)
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, minWidth: 0, padding: 11 }}>
+    <article className="method-formula-card" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 9, display: "grid", gap: 9, minWidth: 0, padding: 11 }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "space-between" }}>
         <strong style={{ color: t.textStrong, fontSize: 13, lineHeight: 1.3 }}>
           {text(lang, formula.labelZh, formula.label)}

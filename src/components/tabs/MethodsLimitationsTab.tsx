@@ -1,17 +1,15 @@
 // @ts-nocheck
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   BasisBadge,
   BlockFormula,
   ChemFormula,
   CopyLinkButton,
-  PageHeader,
   SCIENTIFIC_TOKEN_FONT,
   chemText,
   fetchDataJson,
   toolbarBtn,
   useLang,
-  useT,
   useViewport,
 } from "../../shared"
 import { MethodologySidebar } from "../methodology/MethodologySidebar"
@@ -20,7 +18,8 @@ import { MethodModuleSection } from "../methodology/MethodModuleSection"
 import { CurrentOrganicAcidMethodology } from "../methodology/CurrentOrganicAcidMethodology"
 import { MethodArchitectureDetails, MethodArchitectureOverview } from "../methodology/MethodArchitectureDetails"
 import { MethodologyRegistry } from "../methodology/MethodologyRegistry"
-import { ArrowsOutLineHorizontal } from "@phosphor-icons/react"
+import { MethodologyReader } from "../methodology/MethodologyReader"
+import { THEME_LIGHT } from "../../constants/theme"
 
 const MODULE_ORDER = [
   "platform-overview",
@@ -48,7 +47,11 @@ const text = (lang, zh, en) => (lang === "zh" ? zh : en)
 function scrollToSection(id) {
   if (typeof document === "undefined") return
   const target = document.getElementById(id)
-  if (target) target.scrollIntoView({ behavior: "smooth", block: "start" })
+  if (target) {
+    let ancestor = target.parentElement
+    while (ancestor) { if (ancestor.tagName === "DETAILS") ancestor.open = true; ancestor = ancestor.parentElement }
+    target.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
   if (typeof window !== "undefined") {
     window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`)
     window.dispatchEvent(new Event("hashchange"))
@@ -424,7 +427,7 @@ function CatalysisEnergyPlaygroundMethod({ lang, t, isMobile }) {
 }
 
 export function MethodsLimitationsTab() {
-  const t = useT()
+  const t = THEME_LIGHT
   const { lang } = useLang()
   const { width, isNarrow, isMobile } = useViewport()
   const compactMethods = isNarrow || width < 1120
@@ -432,17 +435,15 @@ export function MethodsLimitationsTab() {
   const [literatureRecords, setLiteratureRecords] = useState({ categories: [], sources: [] })
   const [governanceFrameworks, setGovernanceFrameworks] = useState({ standardFields: [], frameworks: [] })
   const [activeId, setActiveId] = useState("methodology-platform-overview")
-  const [sidebarWidth, setSidebarWidth] = useState(276)
-  const sidebarResizeRef = useRef(null)
   const methodTheme = useMemo(() => ({
     ...t,
-    accent: t.textStrong,
-    accentStrong: t.textStrong,
-    accentSoft: t.surface,
-    accentText: t.textStrong,
-    badgeCalcBg: t.surface,
+    accent: "#063641",
+    accentStrong: "#063641",
+    accentSoft: "#ffffff",
+    accentText: "#063641",
+    badgeCalcBg: "#ffffff",
     badgeCalcText: t.textStrong,
-    badgeInfoBg: t.surface,
+    badgeInfoBg: "#ffffff",
     badgeInfoText: t.textStrong,
     buttonText: t.bg,
     info: t.textStrong,
@@ -502,40 +503,6 @@ export function MethodsLimitationsTab() {
     ]
   }, [orderedModules, lang, literatureRecords])
 
-  const stopSidebarResize = useCallback(() => {
-    const resizeState = sidebarResizeRef.current
-    if (!resizeState) return
-    resizeState.handle?.releasePointerCapture?.(resizeState.pointerId)
-    window.removeEventListener("pointermove", resizeState.onMove)
-    window.removeEventListener("pointerup", resizeState.onStop)
-    window.removeEventListener("pointercancel", resizeState.onStop)
-    window.removeEventListener("blur", resizeState.onStop)
-    sidebarResizeRef.current = null
-  }, [])
-
-  const startSidebarResize = useCallback((event) => {
-    if (typeof window === "undefined") return
-    event.preventDefault()
-    stopSidebarResize()
-    const handle = event.currentTarget
-    const pointerId = event.pointerId
-    handle.setPointerCapture?.(pointerId)
-    const startX = event.clientX
-    const startWidth = sidebarWidth
-    const onMove = moveEvent => {
-      moveEvent.preventDefault()
-      setSidebarWidth(Math.min(440, Math.max(220, startWidth + moveEvent.clientX - startX)))
-    }
-    const onStop = () => stopSidebarResize()
-    sidebarResizeRef.current = { handle, pointerId, onMove, onStop }
-    window.addEventListener("pointermove", onMove, { passive: false })
-    window.addEventListener("pointerup", onStop)
-    window.addEventListener("pointercancel", onStop)
-    window.addEventListener("blur", onStop)
-  }, [sidebarWidth, stopSidebarResize])
-
-  useEffect(() => stopSidebarResize, [stopSidebarResize])
-
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return undefined
     const ids = directoryItems.flatMap(item => [item.id, ...(item.children || []).map(child => child.id)])
@@ -559,6 +526,8 @@ export function MethodsLimitationsTab() {
     const timers = delays.map((delay, index) => window.setTimeout(() => {
       const target = document.getElementById(targetId)
       if (target) {
+        let ancestor = target.parentElement
+        while (ancestor) { if (ancestor.tagName === "DETAILS") ancestor.open = true; ancestor = ancestor.parentElement }
         target.scrollIntoView({ behavior: index === 0 ? "smooth" : "auto", block: "start" })
       }
     }, delay))
@@ -566,25 +535,10 @@ export function MethodsLimitationsTab() {
   }, [directoryItems])
 
   return (
-    <div className="methodology-page" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
-      <PageHeader
-        title={text(lang, "方法论", "Methodology")}
-        subtitle={text(
-          lang,
-          "本页按网站功能逐项说明数据来源、索引结构、字段级溯源、计算方法、停止条件和结果边界。",
-          "This page explains each feature in practical terms: where data come from, how indexes and provenance work, how calculations run, when processing stops, and how results should be interpreted."
-        )}
-        meta={text(lang, "科学方法中心 · 证据感知 · 决策支持原型", "scientific methods hub · evidence-aware · decision-support prototype")}
-        action={
-          <>
-            <span style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, color: t.textStrong, fontSize: 10.5, fontWeight: 850, padding: "5px 8px" }}>
-              {text(lang, "不是验证排名", "not validated ranking")}
-            </span>
-            <CopyLinkButton hash="methodology" ariaLabel={text(lang, "复制方法论链接", "Copy methodology link")} />
-          </>
-        }
-      />
-
+    <div className="methodology-page methodology-editorial" style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+      <MethodologyReader lang={lang} onJump={scrollToSection} />
+      <details className="methodology-reference-index">
+        <summary>{text(lang, "方法索引、覆盖矩阵与治理依据", "Method index, coverage matrix and governance")}</summary>
       <MethodologyRegistry
         modules={orderedModules}
         literatureRecords={literatureRecords}
@@ -595,7 +549,8 @@ export function MethodsLimitationsTab() {
         onJump={scrollToSection}
       />
 
-      <div style={{ alignItems: "start", display: "grid", gap: compactMethods ? 16 : 0, gridTemplateColumns: compactMethods ? "1fr" : `${sidebarWidth}px 14px minmax(0, 1fr)` }}>
+      </details>
+      <div className="methodology-workspace" style={{ alignItems: "start", display: "grid", gap: compactMethods ? 16 : 0, gridTemplateColumns: compactMethods ? "1fr" : "230px minmax(0, 1fr)" }}>
         <MethodologySidebar
           items={directoryItems}
           activeId={activeId}
@@ -604,20 +559,6 @@ export function MethodsLimitationsTab() {
           t={methodTheme}
           isMobile={isMobile || compactMethods}
         />
-        {!compactMethods ? (
-          <button
-            type="button"
-            aria-label={text(lang, "拖动调整方法目录宽度", "Drag to resize the methods directory")}
-            title={text(lang, "拖动调整目录宽度", "Drag to resize directory")}
-            onPointerDown={startSidebarResize}
-            style={{ alignItems: "center", alignSelf: "stretch", background: "transparent", border: 0, color: t.faint, cursor: "col-resize", display: "inline-flex", justifyContent: "center", minHeight: 240, padding: 0, touchAction: "none", width: 14 }}
-          >
-            <span style={{ alignItems: "center", background: t.surface, border: `1px solid ${t.border}`, borderRadius: 6, display: "inline-flex", height: 42, justifyContent: "center", position: "sticky", top: 118, width: 12 }}>
-              <ArrowsOutLineHorizontal aria-hidden="true" size={11} weight="bold" />
-            </span>
-          </button>
-        ) : null}
-
         <main style={{ display: "grid", gap: 16, minWidth: 0 }}>
           <section id="methodology-platform-overview" style={{ display: "grid", gap: 16, scrollMarginTop: 118 }}>
             <PlatformFlowCard lang={lang} t={methodTheme} isMobile={isMobile} />

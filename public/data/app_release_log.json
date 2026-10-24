@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.6",
-  "generatedAt": "2026-10-24",
+  "currentAppVersion": "v3.5.7",
+  "generatedAt": "2026-10-25",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
@@ -9,9 +9,9 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.5",
-    "developmentVersion": "v3.5.6",
-    "recordedAt": "2026-10-24",
+    "baseAppVersion": "v3.5.6",
+    "developmentVersion": "v3.5.7",
+    "recordedAt": "2026-10-25",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
@@ -22,31 +22,31 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "合并应用与企业阅读，补充概念实例、三个平台的历史预测、人物资料与具名致谢；首页去掉概念大图。",
-      "en": "Integrated application and company reading, concept examples, three forecast sources, person records and acknowledgements, with text-first home sections."
+      "zh": "用八组中英教学例解释材料身份、权重、评分、分离、催化、溯源与验证，重绘白色阅读页面，并修复进入预测市场时的滚动定位与加载状态。",
+      "en": "Eight bilingual teaching examples explain identity, weights, scores, separation, catalysis, provenance and validation, with a white editorial layout and fixes to market entry scrolling and loading states."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "更完整的历史市场与产业资料",
-          "en": "Historical markets and product evidence"
+          "zh": "方法论重绘与市场入口修复",
+          "en": "A clearer methodology and reliable market entry"
         },
         "changes": [
           {
-            "zh": "预测市场已分别收录 Polymarket、Manifold 与 Kalshi。2022–2026 年合计七份年度/平台记录，保留真实成交、领域预测和稀疏历史的差异；提供平台切换、搜索、排序、曲线重置及数据下载。",
-            "en": "Polymarket, Manifold and Kalshi provide seven source/year editions across 2022–2026. Source, scope and sparse-history differences remain visible, with platform selection, search, sorting, chart reset and CSV export."
+            "zh": "方法论采用与诺奖专栏一致的白底、深青标题与分隔线；减少嵌套卡片，目录改为简洁侧栏，方法索引和治理依据可以展开查阅。",
+            "en": "Methodology adopts the Nobel column’s white background, deep teal headings and fine rules. A simpler directory and expandable reference index accompany flatter method sections."
           },
           {
-            "zh": "历年企业部分补充产品、技术原理、用途及官方资料，区分研究工具、商业材料和研发项目；不根据论文结果推断企业采用、授权或产业化。人物信息补充获奖时机构与个人档案，致谢逐项列出实际来源平台。",
-            "en": "Annual company sections explain products, mechanisms, uses and official sources, distinguishing research tools, commercial materials and development programs. Person records and platform acknowledgements are expanded."
+            "zh": "新增八组中英示例，逐项解释输入、假设、计算结果和缺失条件时的停止位置；综合评分示例可调整证据系数，所有教学数字均明确为构造输入。",
+            "en": "Eight bilingual examples explain inputs, assumptions, results and stopping conditions. The scoring example recalculates with an adjustable evidence factor; all teaching numbers are explicitly constructed."
           },
           {
-            "zh": "最新动态移至首页倒数第二，以紧凑文字摘要替代大图。站内入口使用横向箭头，外部资料继续保留外链标识。",
-            "en": "Updates move to the penultimate homepage section as compact summaries. Internal navigation uses horizontal arrows; source links retain external-link indicators."
+            "zh": "保留完整公式、交互工作台、方法步骤与来源入口。新增说明链接至 NIST、W3C、IUPAC 和 CRITIC 原始方法，区分教学简化与完整计算。",
+            "en": "Complete formulas, interactive workbenches, method steps and source links remain available. Examples link NIST, W3C, IUPAC and the original CRITIC method and distinguish simplified teaching from full calculations."
           },
           {
-            "zh": "每个获奖年份补充基础概念与具体例子；2026 年用香芹酮的两种镜像结构解释手性与气味差异。企业简介、产品与技术支持中英文，长篇文章移除全局滚动淡入，修复切换年份后内容发灰。最新动态与最新研究的概念大图全部移除。",
-            "en": "Awarded years add foundational explanations and concrete examples. Carvone enantiomers illustrate chirality and aroma in 2026. Bilingual company profiles and products accompany a fix for faded long articles; update and research concept covers are removed."
+            "zh": "预测市场进入时回到页面顶部，避免沿用首页或页脚的滚动位置；年份索引加载完成前不再显示空数据提示，索引和报价请求超时或失败时均可重试。",
+            "en": "Market entry resets inherited scroll positions. Loading the year index no longer flashes an unavailable-year message; failed or timed-out index and quote requests can be retried."
           }
         ]
       }
@@ -187,6 +187,44 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.7",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "方法论重绘与市场入口修复",
+        "en": "A clearer methodology and reliable market entry"
+      },
+      "summary": {
+        "zh": "用八组中英教学例解释材料身份、权重、评分、分离、催化、溯源与验证，重绘白色阅读页面，并修复进入预测市场时的滚动定位与加载状态。",
+        "en": "Eight bilingual teaching examples explain identity, weights, scores, separation, catalysis, provenance and validation, with a white editorial layout and fixes to market entry scrolling and loading states."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "方法论重绘与市场入口修复",
+            "en": "A clearer methodology and reliable market entry"
+          },
+          "changes": [
+            {
+              "zh": "方法论采用与诺奖专栏一致的白底、深青标题与分隔线；减少嵌套卡片，目录改为简洁侧栏，方法索引和治理依据可以展开查阅。",
+              "en": "Methodology adopts the Nobel column’s white background, deep teal headings and fine rules. A simpler directory and expandable reference index accompany flatter method sections."
+            },
+            {
+              "zh": "新增八组中英示例，逐项解释输入、假设、计算结果和缺失条件时的停止位置；综合评分示例可调整证据系数，所有教学数字均明确为构造输入。",
+              "en": "Eight bilingual examples explain inputs, assumptions, results and stopping conditions. The scoring example recalculates with an adjustable evidence factor; all teaching numbers are explicitly constructed."
+            },
+            {
+              "zh": "保留完整公式、交互工作台、方法步骤与来源入口。新增说明链接至 NIST、W3C、IUPAC 和 CRITIC 原始方法，区分教学简化与完整计算。",
+              "en": "Complete formulas, interactive workbenches, method steps and source links remain available. Examples link NIST, W3C, IUPAC and the original CRITIC method and distinguish simplified teaching from full calculations."
+            },
+            {
+              "zh": "预测市场进入时回到页面顶部，避免沿用首页或页脚的滚动位置；年份索引加载完成前不再显示空数据提示，索引和报价请求超时或失败时均可重试。",
+              "en": "Market entry resets inherited scroll positions. Loading the year index no longer flashes an unavailable-year message; failed or timed-out index and quote requests can be retried."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.6",
       "date": "2026-10-24",

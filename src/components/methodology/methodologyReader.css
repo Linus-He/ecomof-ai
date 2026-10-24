@@ -1,0 +1,57 @@
+.methodology-page.methodology-editorial{--method-ink:#063641;--method-body:#3d413e;--method-rule:#d9dede;background:#fff;color:var(--method-body);max-width:1280px;margin:0 auto;padding:0 20px 70px;gap:0!important}
+.method-reader-hero{position:relative;text-align:center;padding:78px 20px 72px;border-bottom:1px solid var(--method-rule)}
+.method-reader-back{position:absolute;top:13px;left:0;display:inline-flex;align-items:center;gap:8px;color:#61767c;font-size:12px;text-decoration:none}
+.method-reader-eyebrow{color:var(--method-ink);font:600 11px/1.6 Arial,'PingFang SC',sans-serif;letter-spacing:2px}
+.method-reader-hero h1{color:var(--method-ink);font-size:clamp(34px,4.8vw,66px);font-weight:500;line-height:1.25;letter-spacing:-1.6px;margin:27px 0 24px;overflow-wrap:anywhere}
+.method-reader-subtitle{font:22px/1.8 Georgia,'Songti SC',serif;margin:0;color:#51544f}
+.method-reader-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:36px}
+.method-reader-actions button{display:inline-flex;gap:24px;align-items:center;justify-content:center;background:#2672b8;color:#fff;border:1px solid #2672b8;font-family:inherit;font-weight:500;font-size:15px;line-height:1.6;padding:15px 24px;cursor:pointer;border-radius:0}
+.method-reader-actions button+button{background:#fff;color:var(--method-ink);border-color:var(--method-rule)}
+.method-reader-intro{display:grid;grid-template-columns:1fr 1.7fr;gap:64px;padding:48px 0;border-bottom:1px solid var(--method-rule)}
+.methodology-editorial .method-reader-intro h2,.methodology-editorial .method-reader-section-heading h2{font-size:29px;font-weight:500;color:var(--method-ink);line-height:1.4;margin:14px 0 0}
+.method-reader-intro p{font:17px/1.95 Georgia,'Songti SC',serif;margin:0 0 18px}
+.method-reader-examples{scroll-margin-top:100px;padding:48px 0 52px}
+.method-reader-section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
+.method-reader-section-heading>span{color:#788184;font-size:11px;line-height:1.8}
+.method-reader-tabs{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border-bottom:1px solid var(--method-rule);margin-bottom:35px}
+.method-reader-tabs button{border:0;border-bottom:3px solid transparent;background:#fff;color:#6b7476;text-align:left;padding:12px 10px 16px;font-size:14px;line-height:1.6;cursor:pointer;border-radius:0}
+.method-reader-tabs small{display:block;color:#8d9595;font-size:10px;margin-bottom:5px}
+.method-reader-tabs button[aria-selected=true]{color:var(--method-ink);border-bottom-color:#b08c4d}
+.method-reader-example{display:grid;grid-template-columns:1fr 1fr;gap:52px;min-width:0}
+.method-reader-example>div{min-width:0}
+.method-reader-explanation h3{font-size:28px;font-weight:500;line-height:1.5;color:var(--method-ink);margin:0 0 20px}
+.method-reader-example p{font:17px/1.95 Georgia,'Songti SC',serif;margin:0 0 20px;overflow-wrap:anywhere}
+.method-reader-equation{padding:18px 0;margin:20px 0;border-block:1px solid var(--method-rule);overflow-x:auto;max-width:100%}
+.method-reader-equation>*{background:#fff!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+.method-reader-example .method-reader-lesson{font-size:14px;line-height:1.9;color:#697577}
+.method-reader-explanation>a{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#2672b8;text-decoration:none}
+.method-reader-worked{border-left:1px solid var(--method-rule);padding-left:32px}
+.method-reader-worked h4{font-size:15px;font-weight:600;color:var(--method-ink);margin:18px 0 12px}
+.method-reader-worked p{font-size:16px}
+.method-reader-scenarios{display:flex;gap:9px;flex-wrap:wrap;margin:24px 0}
+.method-reader-scenarios button{background:#fff;border:1px solid var(--method-rule);color:#607176;padding:9px 12px;font-family:inherit;font-size:12px;line-height:1.5;cursor:pointer;border-radius:0}
+.method-reader-scenarios button[aria-pressed=true]{border-color:var(--method-ink);color:var(--method-ink)}
+.method-reader-detail-link{display:inline-flex;align-items:center;gap:14px;color:var(--method-ink);background:none;border:0;border-bottom:1px solid var(--method-rule);padding:10px 0;font-size:13px;cursor:pointer}
+.method-reader-calculator{border-block:1px solid var(--method-rule);padding:18px 0;margin-bottom:16px;display:grid;gap:14px;font-size:14px}
+.method-reader-calculator label{display:flex;justify-content:space-between}.method-reader-calculator input{width:100%;accent-color:#2672b8}.method-reader-calculator output{font-variant-numeric:tabular-nums;color:var(--method-ink)}
+.methodology-reference-index{border-block:1px solid var(--method-rule);margin:0 0 44px;padding:20px 0;scroll-margin-top:110px}
+.methodology-reference-index>summary{cursor:pointer;font-size:17px;color:var(--method-ink);padding:8px 0;line-height:1.6}.methodology-reference-index[open]>summary{margin-bottom:24px}
+.methodology-editorial .methodology-workspace{gap:30px!important;grid-template-columns:230px minmax(0,1fr)!important}
+.methodology-editorial .methodology-workspace>aside{border:0!important;border-right:1px solid var(--method-rule)!important;padding:0 18px 0 0!important;background:#fff!important}
+.methodology-editorial .methodology-workspace>main{gap:52px!important}
+.methodology-editorial .methodology-workspace>main>section,.methodology-editorial .methodology-workspace>main>div{border-top:1px solid var(--method-rule);padding-top:30px}
+.methodology-editorial .methodology-workspace section,.methodology-editorial .methodology-workspace article{background:#fff!important;border-color:var(--method-rule)!important;border-radius:0!important;box-shadow:none!important}
+.methodology-editorial .method-summary{border:0!important;border-bottom:1px solid var(--method-rule)!important;padding:0 0 26px!important}
+.methodology-editorial .method-summary h2{font-size:32px!important;font-weight:500!important;color:var(--method-ink)!important;line-height:1.4!important}
+.methodology-editorial .method-summary>p{font:18px/1.95 Georgia,'Songti SC',serif!important}
+.methodology-editorial .method-group{padding:25px 0!important;border-width:1px 0 0!important;gap:20px!important}
+.methodology-editorial .method-group>header>h3{font-size:23px!important;font-weight:500!important;color:var(--method-ink)!important}
+.methodology-editorial .method-group>header>p{font:16px/1.9 Georgia,'Songti SC',serif!important}
+.methodology-editorial .method-implementation{padding:25px 0!important;border-width:1px 0 0!important}
+.methodology-editorial .method-formula-card{padding:20px!important}
+.methodology-editorial button:focus-visible,.methodology-editorial a:focus-visible,.methodology-editorial summary:focus-visible{outline:2px solid #2672b8;outline-offset:4px}
+@media(max-width:1119px){.methodology-editorial .methodology-workspace{grid-template-columns:minmax(0,1fr)!important}.methodology-editorial .methodology-workspace>aside{border-right:0!important;border-bottom:1px solid var(--method-rule)!important;padding:0 0 18px!important}.method-reader-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.method-reader-example{gap:28px}.method-reader-intro{gap:30px}}
+@media(max-width:680px){.methodology-page.methodology-editorial{padding:0 8px 40px}.method-reader-hero{padding:65px 0 42px}.method-reader-hero h1{font-size:35px;letter-spacing:-.7px;margin:24px 0 20px}.method-reader-subtitle{font-size:18px}.method-reader-actions{gap:10px;margin-top:26px}.method-reader-actions button{padding:12px 15px;gap:10px;font-size:13px}.method-reader-intro{grid-template-columns:1fr;gap:20px;padding:32px 0}.method-reader-intro p{font-size:16px}.method-reader-examples{padding:32px 0}.method-reader-section-heading{display:block}.method-reader-section-heading>span{display:block;margin-top:13px}.methodology-editorial .method-reader-section-heading h2,.methodology-editorial .method-reader-intro h2{font-size:25px}.method-reader-tabs{margin-bottom:26px}.method-reader-tabs button{font-size:12px;padding:10px 6px}.method-reader-example{grid-template-columns:1fr;gap:25px}.method-reader-explanation h3{font-size:24px}.method-reader-example p{font-size:16px}.method-reader-worked{border-left:0;border-top:1px solid var(--method-rule);padding:22px 0 0}.methodology-editorial .method-summary h2{font-size:27px!important}.methodology-editorial .methodology-workspace *{min-width:0}.methodology-editorial .method-group>div[style*="minmax(300px"]{grid-template-columns:minmax(0,1fr)!important}}
+/* Restore the native control: the global workbench reset hides range thumbs. */
+.method-reader-calculator input[type="range"]{appearance:auto;-webkit-appearance:auto;height:28px;cursor:pointer}
+.method-reader-calculator input[type="range"]::-webkit-slider-thumb{appearance:auto;-webkit-appearance:auto;width:16px;height:16px}

@@ -30,6 +30,7 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-methodology-reader", hash:"update-methodology-reader", label:label("方法论重绘与市场入口修复","A clearer methodology and reliable market entry") },
       { id:"update-science-refinements", hash:"update-science-refinements", label:label("更完整的历史市场与产业资料","Historical markets and product evidence") },
       { id:"update-prediction-archive", hash:"update-prediction-archive", label:label("在独立页面回看开奖前的判断","A separate forecast archive") },
       { id:"update-nobel-archive", hash:"update-nobel-archive", label:label("从年度获奖记录到化学成果解读","From award records to Chemistry readings") },
@@ -676,6 +677,8 @@ export function getNavigationMeta(hash) {
   if (normalized.startsWith("literature-doi-")) return NAVIGATION_ROUTE_BY_TAB.literatureRecord.meta
   const item = NAVIGATION_ITEM_BY_HASH[normalized]
   if (item?.meta) return item.meta
+  if (normalized.startsWith("methodology-")) return NAVIGATION_ROUTE_BY_TAB.about.meta
+  if (/^prediction-markets-\d{4}(?:-(?:polymarket|manifold|kalshi))?$/.test(normalized)) return NAVIGATION_ROUTE_BY_TAB.predictionMarkets.meta
   if (item?.label) {
     return {
       title: `${item.label.zh || item.label.en} | EcoMOF-AI`,

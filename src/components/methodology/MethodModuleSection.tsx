@@ -51,7 +51,7 @@ function MethodReferences({ references = [], lang, t }) {
 function MethodSummaryCard({ item, lang, t }) {
   const example = item.example
   return (
-    <article style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 13 }}>
+    <article className="method-summary" style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, display: "grid", gap: 11, padding: 13 }}>
       <div style={{ alignItems: "start", display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "space-between" }}>
         <div style={{ display: "grid", gap: 4, minWidth: 0 }}>
           <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>
@@ -83,7 +83,7 @@ function MethodGroup({ group, lang, t }) {
   const visualizations = group.visualizations || []
   const limits = lang === "zh" ? group.limitationsZh : group.limitations
   return (
-    <article id={`methodology-${group.id}`} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 12, padding: 13, scrollMarginTop: 118 }}>
+    <article className="method-group" id={`methodology-${group.id}`} style={{ background: t.panel, border: `1px solid ${t.border}`, borderRadius: 11, display: "grid", gap: 12, padding: 13, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 5 }}>
         <h3 style={{ color: t.textStrong, fontSize: 17, fontWeight: 930, lineHeight: 1.2, margin: 0 }}>
           {text(lang, group.titleZh, group.title)}
@@ -125,7 +125,7 @@ function ImplementationLogic({ item, lang, t }) {
   }))
   if (!rows.length) return null
   return (
-    <section id={`methodology-${item.id}-implementation`} style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 11, display: "grid", gap: 11, padding: 13, scrollMarginTop: 118 }}>
+    <section className="method-implementation" id={`methodology-${item.id}-implementation`} style={{ background: t.panel, border: `1px solid ${t.borderStrong || t.border}`, borderRadius: 11, display: "grid", gap: 11, padding: 13, scrollMarginTop: 118 }}>
       <header style={{ display: "grid", gap: 4 }}>
         <div style={{ color: t.accentText, fontSize: 10.5, fontWeight: 900, textTransform: "uppercase" }}>{text(lang, "功能实现逻辑", "Implementation logic")}</div>
         <h3 style={{ color: t.textStrong, fontSize: 17, margin: 0 }}>{text(lang, "从操作到结果的完整执行链", "Complete execution chain from action to result")}</h3>

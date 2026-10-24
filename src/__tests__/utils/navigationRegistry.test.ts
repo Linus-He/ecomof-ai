@@ -50,6 +50,15 @@ describe("navigation registry", () => {
     }
   })
 
+  it("keeps market editions and methodology examples on their own routes", () => {
+    for (const hash of ["prediction-markets", "prediction-markets-2026", "prediction-markets-2026-kalshi", "prediction-markets-2023-manifold"]) {
+      expect(resolveTabForHash(hash)).toBe("predictionMarkets")
+      expect(getNavigationMeta(hash).title).toContain("Prediction Markets")
+    }
+    expect(resolveTabForHash("methodology-worked-examples")).toBe("about")
+    expect(getNavigationMeta("methodology-worked-examples")).toEqual(getNavigationMeta("methodology"))
+  })
+
   it("resolves legacy aliases and nested scroll targets without duplicating maps", () => {
     expect(resolveTabForHash("gas-separation")).toBe("gassep")
     expect(resolveTabForHash("methodology-gassep")).toBe("about")

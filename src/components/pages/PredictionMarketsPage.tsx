@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { ArrowSquareOut, ArrowLeft, DownloadSimple, Flask, LinkSimple } from '@phosphor-icons/react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { useLang } from '../../contexts'
@@ -28,6 +28,7 @@ export function PredictionMarketsPage({ hash }: { hash: string }) {
   const [years, setYears] = useState<number[]>([])
   const [edition, setEdition] = useState<MarketEdition | null>(null)
   const [error, setError] = useState(false)
+  const [indexStatus, setIndexStatus] = useState<'loading'|'ready'|'error'>('loading')
   const [selected, setSelected] = useState<string[]>([])
   const [range, setRange] = useState(24)
   const [attempt, setAttempt] = useState(0)
@@ -35,19 +36,50 @@ export function PredictionMarketsPage({ hash }: { hash: string }) {
   const requestedYear = Number(hash.match(/prediction-markets-(\d{4})(?:-(?:polymarket|manifold|kalshi))?$/)?.[1]) || null
   const year = requestedYear || years[years.length - 1]
   useEffect(()=>setPlatform(platformFromHash),[platformFromHash])
-  const editionFile=editions.find(e=>e.year===year && (platform==='all' ? !e.file || e.file===`${year}.json` : e.source===platform))?.file || (platform==='all' ? `${year}.json` : editions.find(e=>e.year===year && e.source===platform) ? `${year}.json` : null)
+  const matchingEditions = editions.filter(e => e.year === year && (platform === 'all' || e.source === platform))
+  const matchingEdition = (platform === 'all' && matchingEditions.find(e => e.source === 'Polymarket')) || matchingEditions[0]
+  const editionFile = matchingEdition ? (matchingEdition.file || `${year}.json`) : null
+  // Hash navigation does not reset scroll. Entry links near the home/footer bottom
+  // otherwise land halfway through the market, often below its year controls.
+  useLayoutEffect(() => { window.scrollTo({top:0,left:0,behavior:'instant' as ScrollBehavior}) }, [hash])
   useEffect(() => {
     const controller = new AbortController()
-    fetch(`${import.meta.env.BASE_URL}data/nobel-odds/index.json`, { signal: controller.signal }).then(r => { if (!r.ok) throw Error(); return r.json() }).then(data => {setYears(data.years); setEditions(data.editions || data.years.map((year:number)=>({year,source:'Polymarket'})))}).catch(e => { if (e.name !== 'AbortError') setError(true) })
-    return () => controller.abort()
+    setIndexStatus('loading')
+    let active = true
+    const timeout = window.setTimeout(() => controller.abort(), 15000)
+    fetch(`${import.meta.env.BASE_URL}data/nobel-odds/index.json`, { signal: controller.signal })
+      .then(r => { if (!r.ok) throw Error(); return r.json() })
+      .then(data => {
+        if (!Array.isArray(data.years) || !data.years.every((y: unknown) => Number.isInteger(y))) throw Error('Invalid market index')
+        if (controller.signal.aborted) return
+        setYears([...data.years].sort((a:number,b:number)=>a-b))
+        setEditions(Array.isArray(data.editions) ? data.editions : data.years.map((year:number)=>({year,source:'Polymarket'})))
+        setIndexStatus('ready')
+      })
+      .catch(() => { if (active) setIndexStatus('error') })
+      .finally(() => window.clearTimeout(timeout))
+    return () => { active = false; controller.abort(); window.clearTimeout(timeout) }
   }, [attempt])
   useEffect(() => {
     setEdition(null); setError(false); setSelected([]); setRange(24); setQuery('')
-    if (!year || !years.includes(year) || !editionFile) return
+    if (indexStatus !== 'ready' || !year || !years.includes(year) || !editionFile) return
     const controller = new AbortController()
-    fetch(`${import.meta.env.BASE_URL}data/nobel-odds/${editionFile}`, { signal: controller.signal }).then(r => { if (!r.ok) throw Error(); return r.json() }).then(data => { if(data.year!==year) throw Error('Wrong market year'); if (!controller.signal.aborted) { setEdition(data); if(data.sparseHistory) setRange(Math.max(24,Math.ceil((data.cutoff-data.windowStart)/3600))); setSelected(preAnnouncementCandidates(data).slice(0, 4).map(c => c.id)) } }).catch(e => { if (e.name !== 'AbortError') setError(true) })
-    return () => controller.abort()
-  }, [year, years, editionFile, attempt])
+    let active = true
+    const timeout = window.setTimeout(() => controller.abort(), 15000)
+    fetch(`${import.meta.env.BASE_URL}data/nobel-odds/${editionFile}`, { signal: controller.signal })
+      .then(r => { if (!r.ok) throw Error(); return r.json() })
+      .then(data => {
+        if(data.year!==year || !Array.isArray(data.candidates)) throw Error('Invalid market edition')
+        if (!active || controller.signal.aborted) return
+        const next = {...data, unlistedWinners: data.unlistedWinners || []}
+        setEdition(next)
+        if(data.sparseHistory) setRange(Math.max(24,Math.ceil((data.cutoff-data.windowStart)/3600)))
+        setSelected(preAnnouncementCandidates(next).slice(0, 4).map(c => c.id))
+      })
+      .catch(() => { if (active) setError(true) })
+      .finally(() => window.clearTimeout(timeout))
+    return () => { active = false; controller.abort(); window.clearTimeout(timeout) }
+  }, [year, years, editionFile, attempt, indexStatus])
   const candidates = useMemo(() => edition ? preAnnouncementCandidates(edition) : [], [edition])
   const displayed = candidates.filter(candidate => selected.includes(candidate.id))
   const chartData = useMemo(() => {
@@ -79,7 +111,7 @@ export function PredictionMarketsPage({ hash }: { hash: string }) {
       <div className="prediction-year" aria-label={zh ? '切换市场年份' : 'Market year'}><button disabled={currentIndex <= 0} onClick={() => navigate(availableYears[currentIndex - 1])} aria-label={zh ? '上一年' : 'Previous year'}>−</button><select aria-label={zh ? '市场年份' : 'Market year'} value={year || ''} onChange={e => navigate(Number(e.target.value))}>{year && !availableYears.includes(year) && <option disabled value={year}>{year}</option>}{availableYears.map(y => <option key={y}>{y}</option>)}</select><button disabled={currentIndex < 0 || currentIndex >= availableYears.length - 1} onClick={() => navigate(availableYears[currentIndex + 1])} aria-label={zh ? '下一年' : 'Next year'}>+</button></div>
     </div>
     <div className="prediction-platforms" aria-label={zh ? '数据来源平台' : 'Data platform'}>{['all',...['Polymarket','Kalshi','Manifold'].filter(name=>editions.some(e=>e.source===name))].map(value=><button key={value} aria-pressed={platform===value} onClick={()=>{setPlatform(value);const next=[...new Set(editions.filter(e=>value==='all'||e.source===value).map(e=>e.year))];navigate(next.includes(year)?year:next[next.length-1],value)}}>{value==='all' ? (zh?'全部平台':'All platforms') : value}</button>)}</div>
-    {error ? <div className="prediction-state" role="alert"><p>{zh ? '历史市场暂时无法加载。' : 'The historical market could not be loaded.'}</p><button onClick={() => setAttempt(a => a + 1)}>{zh ? '重试' : 'Retry'}</button></div> : !year ? <p role="status">{zh ? '正在加载可用年份…' : 'Loading available years…'}</p> : (!years.includes(year) || !editionFile) ? <div className="prediction-state"><h2>{year}</h2><p>{zh ? '这个年份尚无可核验的 Chemistry 市场历史。请从上方选择已有数据的年份。' : 'No verified Chemistry market history is available for this year. Select an available year above.'}</p></div> : !edition ? <p role="status">{zh ? '正在加载历史报价…' : 'Loading historical prices…'}</p> : <section className="prediction-market" aria-labelledby="prediction-event-title">
+    {error || indexStatus==='error' ? <div className="prediction-state" role="alert"><p>{zh ? '历史市场暂时无法加载。' : 'The historical market could not be loaded.'}</p><button onClick={() => setAttempt(a => a + 1)}>{zh ? '重试' : 'Retry'}</button></div> : indexStatus==='loading' || !year ? <p role="status">{zh ? '正在加载可用年份…' : 'Loading available years…'}</p> : (!years.includes(year) || !editionFile) ? <div className="prediction-state"><h2>{year}</h2><p>{zh ? '这个年份尚无可核验的 Chemistry 市场历史。请从上方选择已有数据的年份。' : 'No verified Chemistry market history is available for this year. Select an available year above.'}</p></div> : !edition ? <p role="status">{zh ? '正在加载历史报价…' : 'Loading historical prices…'}</p> : <section className="prediction-market" aria-labelledby="prediction-event-title">
       <header className="prediction-market-header"><div className="prediction-category-icon"><Flask size={34} weight="duotone" /></div><div><p>{zh ? '科学 · 年度获奖预测' : 'Science · Annual award predictions'}</p><h2 id="prediction-event-title">The Nobel Prize in Chemistry {edition.year}</h2></div><div className="prediction-actions"><button onClick={copyLink} aria-label={zh ? '复制本页链接' : 'Copy page link'} title={copied ? (zh ? '已复制' : 'Copied') : (zh ? '复制链接' : 'Copy link')}><LinkSimple size={23} /></button><a href={edition.eventUrl} target="_blank" rel="noreferrer" aria-label={`Open event on ${source}`}><ArrowSquareOut size={23} /></a></div></header>
       <div className="prediction-winners" aria-label={zh ? '本年度实际得主' : 'Actual laureates'}><span>{zh ? '实际获奖者' : 'ACTUAL LAUREATES'}</span><div>{edition.winnerDetails?.map(person => <a key={person.name} href={person.url} target="_blank" rel="noreferrer">{person.image && <img src={`${import.meta.env.BASE_URL}${person.image}`} alt="" loading="lazy" />}<span><strong>{person.name}</strong>{person.affiliations?.length ? <small>{person.affiliations.join(' · ')}</small> : null}</span><ArrowSquareOut size={13} /></a>) || edition.winners?.map(name => <strong key={name}>{name}</strong>)}</div><a className="prediction-winner-source" href={`https://www.nobelprize.org/prizes/chemistry/${edition.year}/summary/`} target="_blank" rel="noreferrer">NobelPrize.org ↗</a></div>
       {source==='Kalshi' && <p className="prediction-coverage">{zh ? 'Kalshi · 使用有真实成交的一分钟柱收盘价，空柱与前值填充不计入；停盘后的空白时段不补画报价。柱的结束时刻是统计边界，不是精确成交时刻；官方市场记录入口保留规则原文。没有可核实成交的候选人未填入零概率。' : 'Kalshi · One-minute closes with positive traded volume. Empty candles and carried previous prices are excluded. Candle boundaries are not exact trade timestamps; the source record retains the rules.'}</p>}
