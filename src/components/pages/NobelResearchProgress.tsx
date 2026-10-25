@@ -46,7 +46,8 @@ function OrganizationMark({ organization, zh = true }: { organization: NobelOrga
   </a>
 }
 function SourceLinks({ sources, zh = true }: { sources: SourceLink[]; zh?:boolean }) {
-  return <div className="nobel-case-sources">{sources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{zh ? source.label : `Official source ${sources.indexOf(source)+1}`} ↗</a>)}</div>
+  const uniqueSources = sources.filter((source, index) => sources.findIndex(item => item.url === source.url) === index)
+  return <div className="nobel-case-sources">{uniqueSources.map((source, index) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{zh ? source.label : `Official source ${index+1}`} ↗</a>)}</div>
 }
 export function NobelResearchProgress({ data, section = 'all' }: { data: NobelDevelopments; section?: 'all' | 'research' | 'companies' }) {
   const {lang}=useLang();const zh=lang==='zh'

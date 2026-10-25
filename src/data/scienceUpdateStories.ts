@@ -62,6 +62,16 @@ export const scienceUpdateStories = [
         "新增机构与企业标识、PubChem 致谢及 RDKit 构建期工具许可说明。发现并补标 Toyota 原题期限与 API 停盘字段差异；同类市场分开比较，保留稀疏历史、取消及规则冲突。",
         "Additional institution/company marks, PubChem attribution and RDKit build-time licensing accompany a newly flagged Toyota deadline/close-field discrepancy. Related contracts retain separate scopes, sparse histories, cancellation and rule conflicts."
       ]
+    },
+    {
+      "title": [
+        "补齐手机端与英文核查",
+        "Complete phone and English checks"
+      ],
+      "body": [
+        "补齐中英文手机端核查，确认结构放大与历史表格在各自区域滚动；修复年度企业资料的重复来源入口，保留不同文献并连续编号。",
+        "Completed Chinese/English phone checks for locally scrolling enlarged structures and trade tables; duplicate annual company-source links are removed while distinct references retain consecutive numbering."
+      ]
     }
   ],
   "comparison": [],

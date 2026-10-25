@@ -2,9 +2,20 @@ import historicalEdition from '../../../public/data/nobel-chemistry/1901.json'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { NobelChemistryPage } from '../../components/pages/NobelChemistryPage'
+import { NobelResearchProgress, type NobelDevelopments } from '../../components/pages/NobelResearchProgress'
 import { resolveTabForHash } from '../../config/navigationRegistry'
 vi.mock('../../contexts', () => ({ useLang: () => ({ lang: 'zh' }) }))
 afterEach(() => { vi.unstubAllGlobals(); window.location.hash = '' })
+it('lists a shared company source only once while preserving distinct references', () => {
+  const data = structuredClone(historicalEdition.reading.developments) as NobelDevelopments
+  data.companyCases = [data.companyCases[0]]
+  const source = data.companyCases[0].sources[0]
+  data.companyCases[0].sources = [source, {...source, label: '重复来源'}, {label:'另一份资料',url:'https://example.org/other-reference'}]
+  const {container} = render(<NobelResearchProgress data={data} section="companies" />)
+  const links = container.querySelectorAll('.nobel-case-sources a')
+  expect([...links].map(link=>link.getAttribute('href'))).toEqual([source.url,'https://example.org/other-reference'])
+  expect(screen.queryByText('重复来源 ↗')).toBeNull()
+})
 describe('Nobel annual exploration', () => {
   it('waits for Explore instead of fetching on year edits', async () => {
     const fetcher = vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('index.json') ? { firstYear: 1901, latestYear: 2026 } : { year: 2026, names: ['Henri Kagan'], motivations: ['Official motivation'], status: 'awarded' } }))
