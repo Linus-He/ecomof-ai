@@ -7,6 +7,7 @@ if(arg<0) throw Error('Use --input with the public API projection produced by co
 const input=JSON.parse(fs.readFileSync(process.argv[arg+1],'utf8'))
 const curation=JSON.parse(fs.readFileSync(path.join(root,'scripts/science-forecasts/curation.json'),'utf8'))
 const editorial=JSON.parse(fs.readFileSync(path.join(root,'scripts/science-forecasts/topics.json'),'utf8'))
+const contexts=JSON.parse(fs.readFileSync(path.join(root,'scripts/science-forecasts/contexts.json'),'utf8'))
 const assets=JSON.parse(fs.readFileSync(path.join(root,'scripts/science-forecasts/assets.json'),'utf8'))
 const previous=JSON.parse(fs.readFileSync(path.join(root,'scripts/nobel/candidate-organizations.json'),'utf8'))
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'scripts/nobel/research-catalog.json'),'utf8'))
@@ -32,9 +33,14 @@ const events=input.map(record=>{
  const quality=[]
  if(curation.quality[record.id])quality.push({code:'rules',label:curation.quality[record.id][0],detail:curation.quality[record.id][1]})
  if(record.participants<10)quality.push({code:'thin',label:['参与较少','Few participants'],detail:['概率来自少量参与者；查看成交数量与原始规则。','Few participants contribute; review activity and source rules.']})
- const event={...record,...copy,quality,tradePoints:record.points.length,detailFile:`events/${record.id}.json`}
+ if(!contexts[copy.briefing?.contextId])throw Error('Missing technical context '+record.id)
+ for(const id of copy.evidence)if(!editorial.evidence.some(e=>e.id===id))throw Error('Missing primary evidence '+id)
+ for(const id of copy.relatedIds)if(!curation.markets.some(m=>m.id===id)||id===record.id)throw Error('Broken related market '+id)
+ const first=record.points[0],last=record.points[record.points.length-1]
+ const historySummary=first&&last?{first,last,change:(last.p-first.p)*100,low:Math.min(...record.points.map(p=>p.p)),high:Math.max(...record.points.map(p=>p.p)),staleDays:(record.historyCutoff-last.t)/86400000}:null
+ const event={...record,...copy,context:contexts[copy.briefing.contextId],historySummary,quality,tradePoints:record.points.length,detailFile:`events/${record.id}.json`}
  fs.writeFileSync(path.join(output,event.detailFile),JSON.stringify(event,null,2)+'\n');pointCount+=event.points.length
- const {points,provenance,...summary}=event
+ const {points,provenance,context,industry,...summary}=event
  return summary
 })
 const nobel=JSON.parse(fs.readFileSync(path.join(root,'public/data/nobel-odds/index.json'),'utf8'))
@@ -42,6 +48,6 @@ const topics=editorial.topics.map(t=>({...t,marketCount:events.filter(e=>e.topic
 const searches=['solid state battery','LK-99','superconductor','metal organic framework','direct air capture','MOF','carbon capture','carbon removal','Svante','Atoco','room temperature superconductor commercial','room temperature superconductors before 2033']
 const index={schemaVersion:'1.0',snapshot:true,topics,events,entities,evidence:editorial.evidence,nobel:{years:nobel.years,editions:nobel.editions,sources:[...new Set(nobel.editions.map(e=>e.source))]},method:{source:'Manifold',currency:'MANA',apiDocs:'https://docs.manifold.markets/api',history:'actual-trades-before-close-and-resolution',points:pointCount,counts:{markets:events.length,resolved:events.filter(e=>e.status==='resolved').length,cancelled:events.filter(e=>e.resolution==='CANCEL').length,ruleFlags:events.filter(e=>e.quality.some(q=>q.code==='rules')).length},discoveryQueries:searches}}
 fs.writeFileSync(path.join(output,'index.json'),JSON.stringify(index,null,2)+'\n')
-const audit={schemaVersion:'1.0',grain:'one source market; one observation per distinct actual-trade timestamp',marketCount:events.length,pointCount,checks:['unique market ids','strictly increasing timestamps','finite probabilities in [0,1]','trades strictly before close/resolution/capture boundary','no resolved price substituted for history','cancelled outcomes kept distinct from No','only curated topic joins','logo checksums','no account identities in public projection'],sourceProjectionSha256:crypto.createHash('sha256').update(fs.readFileSync(process.argv[arg+1])).digest('hex'),markets:input.map(m=>({id:m.id,sourceApi:m.sourceApi,status:m.status,resolution:m.resolution,historyCutoff:m.historyCutoff,observedAt:m.observedAt,points:m.points.length,...m.provenance})),discovery:searches.map(q=>({query:q,source:'Manifold',url:`https://api.manifold.markets/v0/search-markets?term=${encodeURIComponent(q)}&limit=30&sort=liquidity&filter=all`}))}
+const audit={schemaVersion:'1.0',editorialReview:{eventBriefs:events.length,industryCases:events.length,evidenceCount:editorial.evidence.length,contexts:Object.keys(contexts).length,sourceFiles:['scripts/science-forecasts/curation.json','scripts/science-forecasts/contexts.json','scripts/science-forecasts/topics.json'].map(file=>({file,sha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}))},grain:'one source market; one observation per distinct actual-trade timestamp',marketCount:events.length,pointCount,checks:['unique market ids','strictly increasing timestamps','finite probabilities in [0,1]','trades strictly before close/resolution/capture boundary','no resolved price substituted for history','cancelled outcomes kept distinct from No','only curated topic joins','logo checksums','no account identities in public projection'],sourceProjectionSha256:crypto.createHash('sha256').update(fs.readFileSync(process.argv[arg+1])).digest('hex'),markets:input.map(m=>({id:m.id,sourceApi:m.sourceApi,status:m.status,resolution:m.resolution,historyCutoff:m.historyCutoff,observedAt:m.observedAt,points:m.points.length,...m.provenance})),discovery:searches.map(q=>({query:q,source:'Manifold',url:`https://api.manifold.markets/v0/search-markets?term=${encodeURIComponent(q)}&limit=30&sort=liquidity&filter=all`}))}
 fs.writeFileSync(path.join(root,'scripts/science-forecasts/source-audit.json'),JSON.stringify(audit,null,2)+'\n')
 console.log(`Published ${events.length} source-labelled technical markets, ${pointCount} genuine history points and ${nobel.editions.length} preserved Nobel editions.`)

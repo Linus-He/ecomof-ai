@@ -1,3 +1,4 @@
+import {ScientificStructures} from '../science/ScientificStructures'
 import { useLang } from '../../contexts'
 import { useEffect, useState } from 'react'
 import katex from 'katex'
@@ -139,7 +140,7 @@ export function NobelChemistryPage({ hash }: { hash: string }) {
           <section className="nobel-summary" aria-labelledby="nobel-summary-title">
             <span className="nobel-kicker">{zh ? '科普解读' : 'SCIENCE READING · CHINESE'}</span>
             <h2 id="nobel-summary-title">{zh ? '研究概述' : 'Research overview'}</h2><p><PersonText text={reading.summary} people={edition.people || []}/></p>
-            {reading.learningGuide && <div className="nobel-learning-example"><h3>{zh ? '一个具体例子' : 'A concrete example'}</h3><p>{reading.learningGuide.example[i]}</p>{reading.learningGuide.sources?.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{zh ? source.label : 'Example source'} ↗</a>)}</div>}
+            {reading.learningGuide && <div className="nobel-learning-example"><h3>{zh ? '一个具体例子' : 'A concrete example'}</h3><p>{reading.learningGuide.example[i]}</p><ScientificStructures concept={reading.learningGuide.topic} zh={zh}/>{reading.learningGuide.sources?.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{zh ? source.label : 'Example source'} ↗</a>)}</div>}
             <p className="nobel-section-meta">{zh ? '依据当年诺奖官方资料编写的独立中文总结；方程式含明确标注的教学模型。' : 'Independent Chinese commentary based on official Nobel material; teaching models are identified explicitly.'} <a href={reading.officialSource.url} target="_blank" rel="noreferrer">{sourceLabels[reading.officialSource.kind]?.[i] || 'NobelPrize.org'} ↗</a></p>
           </section>
           {reading.sections.map(section => <section className="nobel-science-section" key={section.id} data-reading-section={section.id}>

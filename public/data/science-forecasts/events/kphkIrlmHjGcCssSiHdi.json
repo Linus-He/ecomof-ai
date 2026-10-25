@@ -2287,8 +2287,95 @@
     "manchester"
   ],
   "evidence": [
-    "lk99-replication"
+    "lk99-replication",
+    "lk99-impurity",
+    "superconductivity-doe",
+    "superpower-products"
   ],
+  "briefing": {
+    "contextId": "lk99",
+    "summary": [
+      "这是后续复现判定题，平台判 No；原规则引用另一市场，不能只凭标题的年份理解它。",
+      "A later replication contract resolved No; its dependence on another market makes the title’s year insufficient."
+    ],
+    "checklist": [
+      [
+        "先查看关联市场和创建者澄清。",
+        "Inspect the dependent contract and creator clarifications."
+      ],
+      [
+        "核对零电阻、排磁及物相证据。",
+        "Check zero resistance, magnetic response and phase identity."
+      ],
+      [
+        "不把独立论文出现或阻值突降当成成功复现。",
+        "Do not equate a paper or resistance drop with successful replication."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "xsHh9WCTD1PRuvZwTYqA",
+    "S1JzUyhBphhmBZF6UTLr",
+    "tV8TUnUEXherIZzyoywQ"
+  ],
+  "industry": {
+    "entities": [
+      "superpower",
+      "manchester",
+      "casphysics"
+    ],
+    "evidence": [
+      "superpower-products",
+      "lk99-replication",
+      "lk99-impurity"
+    ],
+    "stage": [
+      "材料复现 → 导体加工 → 器件商品",
+      "Material replication → conductor processing → device"
+    ],
+    "impact": [
+      "SuperPower 已有低温 REBCO 线材产品，说明超导产业存在制造和客户应用链条；但官网条件仍需低温。独立实验对材料前提的检验，比把既有“高温超导”产品误读成常温突破更贴近这些题目。",
+      "SuperPower demonstrates an existing cryogenic REBCO supply chain, not an ambient-temperature breakthrough. Independent material tests are more relevant to these premises than the label high-temperature."
+    ],
+    "gap": [
+      "没有资料表明该企业采用 LK-99，或其线材符合原题高于 0 °C、常压、无需主动冷却条件。论文出现、复现成功、商品销售和条件市场取消分别判断。",
+      "No cited source establishes LK-99 adoption or above-0 °C uncooled operation. Paper appearance, replication, sales and conditional cancellation remain separate outcomes."
+    ]
+  },
+  "context": {
+    "id": "lk99",
+    "title": [
+      "复现实验出现，不等于超导结果被复现",
+      "A replication paper can appear without replicating superconductivity"
+    ],
+    "principle": [
+      "原始宣称、独立实验论文、独立成功复现和商业应用是四类事件。一篇实验论文报告未发现超导，仍可让“有没有独立实验论文”判 Yes，同时让“是否复现成功”判 No。",
+      "An original claim, an independent experimental paper, a successful replication and a commercial device are different events. A negative experimental paper can satisfy the paper-appearance contract while failing a superconductivity-replication contract."
+    ],
+    "example": [
+      "曼彻斯特相关实验未在其样品中观察到超导；中国科学院物理所相关工作检验了 Cu₂S 杂相带来的电阻突变。阅读市场时，应核对材料物相、零电阻的测量下限与磁性证据，而不是将一条电阻曲线的形状当作完整验证。",
+      "The Manchester-linked study found no superconducting signatures in its samples; the Institute of Physics study examined Cu₂S-related transitions. Market interpretation should track sample phases, resistance limits and magnetic evidence, not just the shape of a resistance curve."
+    ],
+    "evidence": [
+      "lk99-replication",
+      "lk99-impurity",
+      "superconductivity-doe"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1690903836464,
+      "p": 0.2808988764044944
+    },
+    "last": {
+      "t": 1704148431758,
+      "p": 0.0013915790560056307
+    },
+    "change": -27.950729734848878,
+    "low": 0.0013915790560056307,
+    "high": 0.39999999999999974,
+    "staleDays": 0.2674565046296296
+  },
   "quality": [
     {
       "code": "rules",

@@ -151,7 +151,90 @@
     "A laboratory sample does not automatically establish commercial availability. Settlement is not a technical review of every battery product."
   ],
   "entities": [],
-  "evidence": [],
+  "evidence": [
+    "donut-energy",
+    "toyota-sulfide"
+  ],
+  "briefing": {
+    "contextId": "battery-commercial",
+    "summary": [
+      "这是已判 No 的历史商业发布题。它同时要求比能量超过 400 Wh/kg 和原窗口内可商业购买或订购。",
+      "A resolved-No historical release contract required both over 400 Wh/kg and commercial availability within its window."
+    ],
+    "checklist": [
+      [
+        "查当时商品的测试条件与电芯质量口径。",
+        "Check contemporaneous test conditions and cell-mass basis."
+      ],
+      [
+        "查截止前真实商业购买／订购的证据。",
+        "Check actual commercial purchase or ordering before the deadline."
+      ],
+      [
+        "把后来的 VTT 报告作为技术后续阅读，不回填成旧窗口的 Yes。",
+        "Treat the later VTT report as subsequent context, not a retroactive Yes."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "jVXPWByYV1uHFNzjULf6"
+  ],
+  "industry": {
+    "entities": [
+      "donutlab",
+      "vtt",
+      "toyota"
+    ],
+    "evidence": [
+      "donut-energy",
+      "toyota-sulfide"
+    ],
+    "stage": [
+      "实验指标 → 可购买产品 → 截止内交付",
+      "Lab metric → purchasable product → timely delivery"
+    ],
+    "impact": [
+      "测试和合作公告解释技术后续发展，但这两份历史合同在更早窗口已结束。后来超过某个实验指标，不能替代原截止前商业可购或交付的证据。",
+      "Tests and partnerships explain subsequent development, but these historical contracts ended earlier. A later laboratory metric cannot establish timely availability or delivery."
+    ],
+    "gap": [
+      "对已经结算的市场，保留当时价格和结果；把后续企业发展单独阅读，不回填历史信息集。",
+      "Keep historical prices and resolutions, with later corporate progress outside the original information window."
+    ]
+  },
+  "context": {
+    "id": "battery-commercial",
+    "title": [
+      "400 Wh/kg 与“商业可购”，需要两套证据",
+      "400 Wh/kg and commercial availability require different evidence"
+    ],
+    "principle": [
+      "比能量是放电得到的 Wh 除以质量 kg；体积能量密度则用 Wh/L。电芯、电池包与整车层级不能混用。放电倍率、温度和电压窗口也会影响测得能量。",
+      "Specific energy divides discharged Wh by mass in kg; volumetric energy density uses Wh/L. Cell, pack and vehicle measures cannot be interchanged. Rate, temperature and voltage window affect measured discharge energy."
+    ],
+    "example": [
+      "VTT 的 DL6 数据提供了单电芯、低倍率下的测量实例。对较早截止的商业发布市场，还要另核对当时能否订购或收货，以及商品是否为同一电芯；后来的实验结果不能改写较早的结算记录。",
+      "VTT’s DL6 report illustrates single-cell low-rate measurement. An earlier commercial-release contract additionally needs contemporaneous ordering or delivery evidence for that product. Later measurements do not rewrite the earlier market resolution."
+    ],
+    "evidence": [
+      "donut-energy",
+      "toyota-sulfide"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1700028748773,
+      "p": 0.4098360655737706
+    },
+    "last": {
+      "t": 1735654327817,
+      "p": 0.04796995850514755
+    },
+    "change": -36.186610706862304,
+    "low": 0.04796995850514755,
+    "high": 0.4328832892060639,
+    "staleDays": 0.03254841435185185
+  },
   "quality": [],
   "tradePoints": 25,
   "detailFile": "events/yTnpOcsEjYIa0GcasRVg.json"

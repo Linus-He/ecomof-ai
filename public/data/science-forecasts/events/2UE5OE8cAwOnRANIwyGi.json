@@ -79,10 +79,102 @@
     "All conditions require review. Range test cycles and charging intervals are underspecified; separate promotional measurements must not be combined."
   ],
   "entities": [
-    "toyota"
+    "toyota",
+    "idemitsu"
   ],
-  "evidence": [],
+  "evidence": [
+    "toyota-roadmap",
+    "toyota-sulfide"
+  ],
+  "briefing": {
+    "contextId": "toyota",
+    "summary": [
+      "原题把 2030 年前销售、至少 1000 km、少于 15 分钟充电和固态电池放在同一条件里；平台停盘字段早于题目期限。",
+      "The question combines pre-2030 sales, ≥1,000 km, <15-minute charging and solid-state chemistry; the API close field is earlier than the textual deadline."
+    ],
+    "checklist": [
+      [
+        "同一款量产车同时满足原题的所有条件。",
+        "Verify all conditions for the same production vehicle."
+      ],
+      [
+        "核对续航测试工况及充电起止 SOC、温度与功率。",
+        "Check range cycle and charge SOC, temperature and power."
+      ],
+      [
+        "停盘字段与题目期限不一致，不能将其中一个直接当成另一个。",
+        "Keep the API-close/textual-deadline mismatch explicit."
+      ]
+    ]
+  },
+  "relatedIds": [],
+  "industry": {
+    "entities": [
+      "toyota",
+      "idemitsu"
+    ],
+    "evidence": [
+      "toyota-sulfide",
+      "toyota-roadmap"
+    ],
+    "stage": [
+      "材料供应 → 耐久性 → 车型认证与销售",
+      "Material supply → durability → vehicle qualification/sales"
+    ],
+    "impact": [
+      "出光合作触及硫化物材料供应和大型中试，能说明供应链如何为整车开发做准备。路线图提供性能目标，但只有同一款销售车辆的规格和实测工况，才能同时对应本题的三项要求。",
+      "Idemitsu cooperation addresses sulfide supply and pilots. A roadmap explains targets; evidence for one sold model is needed to connect the contract’s combined performance requirements."
+    ],
+    "gap": [
+      "未据这些公告确认已经销售符合全部条件的车型。另有停盘字段与文本期限的差异，不能把商业计划或市场元数据误写成完成日期。",
+      "These announcements do not establish a qualifying vehicle sale. The API-close/text mismatch remains distinct from any corporate target."
+    ]
+  },
+  "context": {
+    "id": "toyota",
+    "title": [
+      "整车续航与快充，不能只看电芯的一项数字",
+      "Vehicle range and charging are system-level conditions"
+    ],
+    "principle": [
+      "续航与可用电量、车辆能耗共同相关；快充时间还取决于起止荷电状态、温度及充电功率。固体电解质路线的突破并不自动给出某一辆量产车的续航，也不能把 10–80% 充电时间读成 0–100%。",
+      "Range depends on usable energy and vehicle consumption. Charge duration also depends on starting/ending state of charge, temperature and power. An electrolyte advance does not establish a production vehicle’s range, and a 10–80% charge is not a 0–100% charge."
+    ],
+    "example": [
+      "Toyota 的公开路线区分多类液态与固态电池；出光合作聚焦硫化物电解质。判断这个同时含有续航、时间与销售条件的市场，必须让证据落到同一款实际车型，而非从不同项目中各挑一个数字。",
+      "Toyota’s roadmap separates liquid and solid electrolytes, while its Idemitsu collaboration focuses on sulfides. Evidence for this combined range/time/sales question must identify the same actual vehicle rather than combine figures from different projects."
+    ],
+    "evidence": [
+      "toyota-roadmap",
+      "toyota-sulfide"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1688541603842,
+      "p": 0.3378378378378379
+    },
+    "last": {
+      "t": 1779772793864,
+      "p": 0.18037808112362425
+    },
+    "change": -15.745975671421364,
+    "low": 0.1590891784740037,
+    "high": 0.3378378378378379,
+    "staleDays": 152.04992025462963
+  },
   "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "停盘与题目期限不同",
+        "API close differs from textual deadline"
+      ],
+      "detail": [
+        "API closeTime 位于 2027 年初，原题说 2030 年前。页面保留两者，不据此替原题改写期限。",
+        "The API closeTime is in early 2027; the question says before 2030. Both are retained without silently rewriting the contract."
+      ]
+    },
     {
       "code": "thin",
       "label": [

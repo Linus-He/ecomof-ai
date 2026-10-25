@@ -95,7 +95,90 @@
     "The API description supplies no further rules. No all-solid-state, customer-type or production threshold has been invented."
   ],
   "entities": [],
-  "evidence": [],
+  "evidence": [
+    "donut-energy",
+    "toyota-sulfide"
+  ],
+  "briefing": {
+    "contextId": "battery-commercial",
+    "summary": [
+      "这是美国汽车／卡车交付的历史题，平台已判 No。原始描述为空，无法替平台补出一套详细验收标准。",
+      "This resolved-No US vehicle-delivery contract has an empty source description; detailed acceptance rules cannot be invented."
+    ],
+    "checklist": [
+      [
+        "保留原题标题、平台判定和规则缺口一起阅读。",
+        "Read the title, resolution and missing-rule caveat together."
+      ],
+      [
+        "区分研发样车、展示车与面向客户的实际交付。",
+        "Distinguish prototypes, displays and actual customer delivery."
+      ],
+      [
+        "后续比较时单独标记该题的规则缺失。",
+        "Keep its missing-rule status visible in any comparison."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "yTnpOcsEjYIa0GcasRVg"
+  ],
+  "industry": {
+    "entities": [
+      "donutlab",
+      "vtt",
+      "toyota"
+    ],
+    "evidence": [
+      "donut-energy",
+      "toyota-sulfide"
+    ],
+    "stage": [
+      "实验指标 → 可购买产品 → 截止内交付",
+      "Lab metric → purchasable product → timely delivery"
+    ],
+    "impact": [
+      "测试和合作公告解释技术后续发展，但这两份历史合同在更早窗口已结束。后来超过某个实验指标，不能替代原截止前商业可购或交付的证据。",
+      "Tests and partnerships explain subsequent development, but these historical contracts ended earlier. A later laboratory metric cannot establish timely availability or delivery."
+    ],
+    "gap": [
+      "对已经结算的市场，保留当时价格和结果；把后续企业发展单独阅读，不回填历史信息集。",
+      "Keep historical prices and resolutions, with later corporate progress outside the original information window."
+    ]
+  },
+  "context": {
+    "id": "battery-commercial",
+    "title": [
+      "400 Wh/kg 与“商业可购”，需要两套证据",
+      "400 Wh/kg and commercial availability require different evidence"
+    ],
+    "principle": [
+      "比能量是放电得到的 Wh 除以质量 kg；体积能量密度则用 Wh/L。电芯、电池包与整车层级不能混用。放电倍率、温度和电压窗口也会影响测得能量。",
+      "Specific energy divides discharged Wh by mass in kg; volumetric energy density uses Wh/L. Cell, pack and vehicle measures cannot be interchanged. Rate, temperature and voltage window affect measured discharge energy."
+    ],
+    "example": [
+      "VTT 的 DL6 数据提供了单电芯、低倍率下的测量实例。对较早截止的商业发布市场，还要另核对当时能否订购或收货，以及商品是否为同一电芯；后来的实验结果不能改写较早的结算记录。",
+      "VTT’s DL6 report illustrates single-cell low-rate measurement. An earlier commercial-release contract additionally needs contemporaneous ordering or delivery evidence for that product. Later measurements do not rewrite the earlier market resolution."
+    ],
+    "evidence": [
+      "donut-energy",
+      "toyota-sulfide"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1706129566196,
+      "p": 0.4708984742889434
+    },
+    "last": {
+      "t": 1712762098520,
+      "p": 0.07624674800851618
+    },
+    "change": -39.46517262804272,
+    "low": 0.07624674800851618,
+    "high": 0.4708984742889434,
+    "staleDays": 265.69723935185186
+  },
   "quality": [
     {
       "code": "rules",

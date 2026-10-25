@@ -44,3 +44,21 @@ describe('source-backed science forecasts',()=>{
   for(const e of index.entities){const p=resolve('public',e.logo);expect(existsSync(p)).toBe(true);expect(createHash('sha256').update(readFileSync(p)).digest('hex')).toBe(e.sha256)}
  })
 })
+
+it('gives every event a specific brief, technology explanation, industry pathway and complete source joins',()=>{
+ for(const summary of index.events){
+  const event=load(summary.detailFile)
+  expect(event.briefing.summary.every(s=>s.length>25)).toBe(true)
+  expect(event.briefing.checklist).toHaveLength(3)
+  expect(event.context.principle).toHaveLength(2);expect(event.context.example).toHaveLength(2)
+  expect(event.industry.impact.every(s=>s.length>60)).toBe(true)
+  expect(event.industry.gap.every(s=>s.trim().length>0)).toBe(true)
+  expect(event.evidence.length).toBeGreaterThan(0)
+  for(const id of [...event.context.evidence,...event.industry.evidence])expect(event.evidence).toContain(id)
+  for(const id of event.industry.entities)expect(index.entities.some(e=>e.id===id)).toBe(true)
+  for(const id of event.relatedIds){expect(id).not.toBe(event.id);expect(index.events.some(e=>e.id===id)).toBe(true)}
+ }
+ const report=index.evidence.find(e=>e.id==='donut-energy')
+ expect(report.documentDate).toBe('2026-09-01');expect(report.publishedDate).toBeUndefined()
+ expect(index.evidence.find(e=>e.id==='donut-elements').publishedDate).toBe('2026-09-23')
+})

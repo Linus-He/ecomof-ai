@@ -1,0 +1,18 @@
+.scientific-structures{margin:28px 0;padding:23px 0;border-block:1px solid #dfe6eb;color:#264b60}
+.scientific-structure-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 0 18px}
+.scientific-structure-heading h4{font-family:inherit;font-size:17px;font-weight:550;line-height:1.5;margin:0!important;color:#063641}
+.scientific-structure-heading button{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #dae3e9;border-radius:6px;font-family:inherit;font-size:12px;padding:7px 10px;color:#347196;cursor:pointer}
+.scientific-structure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}
+.scientific-structure-grid>figure{min-width:0;margin:0!important;border:0;padding:12px 0}
+.scientific-structure-grid>figure:only-child{grid-column:1/-1;max-width:880px;width:100%;justify-self:center}
+.scientific-structure-grid h5{font-family:inherit;font-size:15px;font-weight:500;color:#264b60;line-height:1.7;text-align:center;margin:0 0 10px}
+.scientific-structure-image{overflow-x:auto;background:#fff}
+.scientific-structure-image img{display:block;width:100%;max-width:680px;height:auto;max-height:none!important;aspect-ratio:auto;object-fit:contain;margin:0 auto;border-radius:0!important}
+.scientific-structure-grid figcaption{font-family:inherit;font-size:12px;line-height:1.9;color:#70818e;margin:12px 0!important}
+.scientific-structure-grid .scientific-formula{font-family:inherit!important;font-size:13px!important;text-align:center;line-height:1.6!important;color:#486578;margin:8px 0!important}
+.scientific-structure-sources{display:flex;gap:15px;flex-wrap:wrap}
+.scientific-structure-sources>a{font-size:11px!important;display:inline-flex!important;align-items:center;gap:5px;color:#2672b8;margin:0!important}
+.scientific-structures .scientific-stereo-note{font-family:inherit!important;font-size:13px!important;line-height:1.95!important;color:#4e6b7e;margin:20px 0 0!important}
+.scientific-structures--expanded .scientific-structure-grid{grid-template-columns:1fr}
+.scientific-structures--expanded .scientific-structure-image img{min-width:620px;max-width:900px}
+@media(max-width:680px){.scientific-structure-grid{grid-template-columns:1fr;gap:15px}.scientific-structure-heading h4{font-size:16px}.scientific-structure-heading button{font-size:11px;flex-shrink:0}.scientific-structure-grid h5{font-size:14px}.scientific-structure-grid figcaption{font-size:11px}}

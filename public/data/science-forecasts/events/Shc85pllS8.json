@@ -318,7 +318,88 @@
     "quantumscape",
     "powerco"
   ],
-  "evidence": [],
+  "evidence": [
+    "qs-eagle"
+  ],
+  "briefing": {
+    "contextId": "qs",
+    "summary": [
+      "预测 QS 陶瓷隔膜进入 PowerCo Unified Cell 格式并产出样品的官方确认；原题标题和描述年份冲突仍需查看。",
+      "This asks for confirmation of a QS separator in PowerCo Unified Cell samples; the title/body year conflict remains material."
+    ],
+    "checklist": [
+      [
+        "回到原市场确认适用的年份和澄清。",
+        "Resolve the applicable year through source clarifications."
+      ],
+      [
+        "找双方明确提及 Unified Cell 格式与隔膜集成的文件。",
+        "Find both parties’ explicit format and integration disclosures."
+      ],
+      [
+        "区分中试线设备安装、样品生产和客户格式确认。",
+        "Distinguish equipment installation, samples and customer-format confirmation."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "hznAd5Sh0S",
+    "E6A6gylOZq",
+    "2UE5OE8cAwOnRANIwyGi"
+  ],
+  "industry": {
+    "entities": [
+      "quantumscape",
+      "powerco"
+    ],
+    "evidence": [
+      "qs-eagle"
+    ],
+    "stage": [
+      "工艺设备 → 样品 → 客户格式确认",
+      "Process equipment → sample → format confirmation"
+    ],
+    "impact": [
+      "Eagle Line 设备安装与 Cobra 工艺说明 QS 正在推进制造链条。对这个市场，真正相关的下一道信息是双方是否明确把陶瓷隔膜、Unified Cell 格式和实物样品联系起来。",
+      "Eagle Line/Cobra progress concerns manufacturing. The contract-relevant next disclosure would explicitly connect the separator, Unified Cell format and an actual sample from both parties."
+    ],
+    "gap": [
+      "设备、QSE-5 样品与 PowerCo 客户格式确认不能互相代替。并且原题存在年份冲突，应先核对澄清，不能根据产线新闻自行延后截止。",
+      "Equipment, QSE-5 samples and customer-format confirmation are different. The year conflict also requires source clarification rather than moving the deadline to suit later news."
+    ]
+  },
+  "context": {
+    "id": "qs",
+    "title": [
+      "从隔膜工艺到客户电芯，中间还有产品确认",
+      "Separator process, customer cell and product confirmation"
+    ],
+    "principle": [
+      "QuantumScape 的路线使用固态陶瓷隔膜。制造工艺、QSE-5 样品和 PowerCo 的 Unified Cell 是相互关联但不同的对象：一条中试线设备安装完成，并不能证明特定客户格式的样品已通过合同要求的确认。",
+      "QuantumScape uses a solid ceramic separator. Manufacturing processes, QSE-5 samples and PowerCo’s Unified Cell are related but distinct. Installing pilot-line equipment does not by itself establish confirmation of the customer-specific cell format required by a contract."
+    ],
+    "example": [
+      "Eagle Line 公告的对象是中试制造与后续放大基础。读这个市场，应另找双方明确提到 Unified Cell 格式、陶瓷隔膜集成与实际样品的原始文件，避免把生产设施进展误认成产品交付。",
+      "The Eagle Line announcement concerns pilot manufacturing and a foundation for scale-up. This market instead needs source documents explicitly identifying the Unified Cell format, separator integration and an actual sample, rather than inferring delivery from equipment progress."
+    ],
+    "evidence": [
+      "qs-eagle"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1766340962775,
+      "p": 0.44800860176515395
+    },
+    "last": {
+      "t": 1777467904422,
+      "p": 0.10791955880124117
+    },
+    "change": -34.00890429639128,
+    "low": 0.09657830272054456,
+    "high": 0.8135329519307073,
+    "staleDays": 178.72682880787036
+  },
   "quality": [
     {
       "code": "rules",

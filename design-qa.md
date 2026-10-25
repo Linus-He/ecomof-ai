@@ -614,3 +614,30 @@ Validation: 295 test files / 1,010 tests passed; after the criterion-title corre
 No remaining actionable P0/P1/P2 finding within this revision. The technical-source archive is a curated snapshot, not an exhaustive or live platform feed.
 
 final result: passed
+
+
+## Source evidence, company relevance and scientific structures (v3.5.9)
+
+Reference: the user's sparse-history screenshot and R/S-carvone example, together with the existing white Nobel editorial and Polymarket-style market surfaces. This revision retains the white background, teal headings, blue probability line, thin rules and concise internal actions. Scientific diagrams appear beside explanations; they are not homepage concept covers.
+
+### Completed scope and source review
+
+All 19 technical contracts now have a specific bilingual explanation, three evidence questions, related contracts, a company-to-evidence-to-market reading and an explicit bibliography. The company section appears before the historical chart. Twenty-one primary-source entries cover laboratory reports, university/institute papers, manufacturers' disclosures and technical references. Actual trade observations remain 7,803; this revision adds interpretation rather than inventing additional market activity. Company progress is matched to the contractual milestone and its limits, not presented as a stock forecast or a demonstrated cause of price changes.
+
+Publication-day comparison uses only actual observations within seven days on each side and excludes the publication day when no release time is established. Intertek's document date is distinct from the company's public announcement. VTT's report date is retained as a document date; an unverified public-release date is not invented. Sparse or out-of-archive comparisons retain missing values. Toyota's original before-2030 wording and conflicting API close boundary are both visible, bringing the source-rule flags to seven.
+
+The chart now uses real UTC dates and timestamps (explicitly authorized by the user), window first/last/low/high values, percentage-point changes, count, largest trade gap and largest adjacent-observation moves. A native keyboard slider inspects actual records. Window controls can anchor to the last actual trade or the archive boundary; custom inclusive UTC dates, optional labelled vertical zoom, paginated records and selected-window CSV share the same observed rows. Empty windows remain empty. Lines between samples are connectors, not inferred intervening prices. Platform snapshots and historical last trades remain separate.
+
+Sixty-seven annual learning-concept mappings and ten market contexts now have inline structures. Ninety-three checked-in SVG assets include source-record molecular graphs, one explicitly calculated conformer and labelled teaching schematics. PubChem-record connectivity controls identity; formulas and the carvone pair's R/S configurations are checked with fixed-version RDKit. RNA and DNA examples use distinct nucleotide records. ATP synthase, olivine, MOF and superconductivity diagrams do not claim experimental atomic coordinates; undisclosed battery chemistry is labelled with generic ions. PubChem is acknowledged with its sourced mark; RDKit's BSD notice is included as build-time software. No generated logo is used.
+
+### Desktop evidence and interaction checks
+
+Captures in `qa/science-forecast-detail/`: `industry-desktop.png`, `history-desktop.png`, `history-week-focused.png`, `carvone-desktop.png`, `carvone-structures.png`. Desktop captures were visually inspected. The carvone pair shows identical connectivity and opposite wedge stereochemistry, with a highlighted stereocentre and configuration labels. The company section displays the company/institute marks, milestone explanation and primary-source cards on the same white reading surface. The chart's actual date axis, selected-window statistics, one-week filter and explicitly focused vertical scale were checked in the browser. The native range control has a 28-pixel interaction height. Subsequent polish renders molecular-formula digits as subscripts and widens wordmark logos.
+
+A 390-pixel Chinese phone capture, `carvone-mobile-expanded.png`, was saved before the automation interruption and was inspected from disk: the explanation wraps in one column and the enlarged structure uses its own horizontal viewport. The subsequent full phone/English interaction pass was interrupted by the Mac lock. Native automation explicitly reported that automatic unlock was unavailable; the user has been asked to unlock the Mac. **This round does not claim a completed mobile/English visual pass.** Wrapping company profiles and bilingual content are implemented, but their final phone visual check remains pending. Existing previous-round mobile captures do not substitute for verification of the new surfaces.
+
+### Validation and remaining limits
+
+All 298 test files / 1,018 tests passed with four workers. The first unrestricted full-suite attempt had a GasSep timeout; its focused seven tests passed and the complete bounded-worker rerun passed. The seven affected post-diagram tests passed again. TypeScript and the final production build passed after the last figure and CSS changes. New checks cover all annual concept mappings, SVG checksums, molecular stereochemistry, event/context/evidence joins, publication-day gaps, historical window statistics, row inspection and matching filtered exports. Existing Vite deprecation/bundle-size notices and jsdom full-navigation notices are not test failures.
+
+Release v3.5.9 and the text-only homepage update story describe the completed scope and its evidence limits. No online publication is claimed. Final mobile/English visual verification is pending user unlock; desktop verification and automated checks are complete.

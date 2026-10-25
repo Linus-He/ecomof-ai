@@ -173,6 +173,11 @@
       "body": [
         "曼彻斯特大学相关研究的原始论文报告了合成、表征与输运测量，并未在其 LK-99 样品中观察到超导信号。结论适用于论文中的样品和方法；它与“是否出现独立实验论文”的市场可以同时成立。",
         "The original study reports synthesis, characterization and transport measurements without observing superconductivity in its LK-99 samples. Its sample-specific finding can coexist with a Yes outcome on whether an independent experimental paper appeared."
+      ],
+      "publishedDate": "2023-08-07",
+      "citation": [
+        "arXiv:2308.03823v2 (2023). DOI: 10.48550/arXiv.2308.03823。完整作者和机构见论文。",
+        "arXiv:2308.03823v2 (2023). DOI: 10.48550/arXiv.2308.03823. Full authors and affiliations are in the paper."
       ]
     },
     {
@@ -218,6 +223,481 @@
       "body": [
         "BASF 的资料说明其 MOF 放大与生产工作及 Svante 合作关系。材料制造能力有助于讨论工程放大；若要比较过程成本、寿命或减排量，还需要对应装置和工况的独立数据。",
         "BASF describes MOF scale-up and its Svante relationship. Manufacturing capability informs scale-up assessment; process cost, lifetime and avoided emissions require plant-specific operating data."
+      ]
+    },
+    {
+      "id": "donut-elements",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "Intertek：送检软包电池组分的锂、钠定量",
+        "Intertek: lithium and sodium in submitted pouch-cell parts"
+      ],
+      "kind": [
+        "实验室报告 · 企业公开的原文件",
+        "Laboratory report · original file published by customer"
+      ],
+      "url": "https://pub-3f15a9a74c904192ade59d264aec1584.r2.dev/IWTN-W000020339RLM002.pdf",
+      "entities": [
+        "intertek",
+        "donutlab"
+      ],
+      "body": [
+        "报告分析一个电芯的阳极、阴极及集流体组分，未分析外包装。ICP-OES 得到 Li 3.4 ppm、Na 632 ppm（质量比）。这能回答送检组分的元素含量，不能直接证明全部量产电池具有相同配方；与市场的质量分数门槛比较时还须核对取样与分母。",
+        "ICP-OES measured one cell’s anode, cathode and current-collector parts, excluding its pouch. Reported lithium is 3.4 ppm w/w and sodium 632 ppm. These results concern submitted material, not every production cell; sampling and the mass denominator matter to the contract."
+      ],
+      "facts": [
+        {
+          "label": [
+            "锂含量",
+            "Lithium"
+          ],
+          "value": [
+            "3.4 ppm w/w = 0.00034%",
+            "3.4 ppm w/w = 0.00034%"
+          ]
+        },
+        {
+          "label": [
+            "报告范围",
+            "Scope"
+          ],
+          "value": [
+            "1 个电芯的送检活性组分；不含外包装",
+            "Submitted active parts from one cell; pouch excluded"
+          ]
+        },
+        {
+          "label": [
+            "方法",
+            "Method"
+          ],
+          "value": [
+            "ICP-OES；报告号 IWTN/W000020339RLM002",
+            "ICP-OES; report IWTN/W000020339RLM002"
+          ]
+        }
+      ],
+      "publishedDate": "2026-09-23",
+      "documentDate": "2026-09-22",
+      "dateSource": "https://www.donutlab.com/elemental-analysis-announcement/",
+      "citation": [
+        "Intertek Wilton, IWTN/W000020339RLM002。原文件由送检企业公开；公开日期依据另链接的企业披露。",
+        "Intertek Wilton, IWTN/W000020339RLM002. Original file published by the customer; public-release date follows the separately linked company disclosure."
+      ]
+    },
+    {
+      "id": "donut-energy",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "VTT：DL6 电芯的质量与体积能量密度",
+        "VTT: gravimetric and volumetric energy density of cell DL6"
+      ],
+      "kind": [
+        "客户委托测试报告",
+        "Commissioned test report"
+      ],
+      "url": "https://pub-01c7ea9972fc472b971b53522518cfc0.r2.dev/VTT-CR-00391-26_Energy_Density_Test.pdf",
+      "entities": [
+        "vtt",
+        "donutlab"
+      ],
+      "body": [
+        "VTT 对客户提供的一个 V1.5／DL6 电芯在 +25 °C、0.1C 放电条件下测得 409.3 Wh/kg 与 804.7 Wh/L。结果来自第二次放电。它不是快充循环寿命测试，也不直接确定电解质配方；这份报告不能回填成此前历史市场已在截止前达标的证据。",
+        "One customer-supplied V1.5/DL6 cell yielded 409.3 Wh/kg and 804.7 Wh/L at +25 °C and 0.1C discharge, calculated from the second discharge. This is neither a fast-charge lifetime test nor a chemistry identification. A later report cannot establish eligibility before an earlier contract deadline."
+      ],
+      "facts": [
+        {
+          "label": [
+            "质量比能量",
+            "Specific energy"
+          ],
+          "value": [
+            "409.3 Wh/kg",
+            "409.3 Wh/kg"
+          ]
+        },
+        {
+          "label": [
+            "体积能量密度",
+            "Volumetric energy density"
+          ],
+          "value": [
+            "804.7 Wh/L",
+            "804.7 Wh/L"
+          ]
+        },
+        {
+          "label": [
+            "测试条件",
+            "Conditions"
+          ],
+          "value": [
+            "+25 °C · 0.1C 放电 · 1 个电芯",
+            "+25 °C · 0.1C discharge · one cell"
+          ]
+        }
+      ],
+      "documentDate": "2026-09-01",
+      "citation": [
+        "VTT-CR-00391-26，Donut Battery V1.5 Energy Density Test。报告签发日不代表首次公开日。",
+        "VTT-CR-00391-26, Donut Battery V1.5 Energy Density Test. Report date is not treated as the first public-release date."
+      ]
+    },
+    {
+      "id": "llzo-interface",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "ETH Zürich／Empa：LLZO 与锂金属的界面问题",
+        "ETH Zürich / Empa: the LLZO–lithium interface"
+      ],
+      "kind": [
+        "研究评论 · Communications Chemistry",
+        "Research Comment · Communications Chemistry"
+      ],
+      "url": "https://www.nature.com/articles/s42004-024-01350-9",
+      "entities": [
+        "ethzurich",
+        "empa"
+      ],
+      "body": [
+        "论文讨论表面清洁和界面层如何影响润湿、界面阻抗与锂沉积／剥离。改善一个实验电池的界面，并不等于已经解决大面积薄片制造、装配和良率；文献也指出部分作用机理仍缺乏共识。它解释 LLZO 商业化题目的技术障碍，不提供某家工厂已达 1 GWh 的证据。",
+        "The Comment examines cleaning and interlayers in wettability, interface resistance and lithium plating/stripping, noting unresolved mechanisms. A laboratory interface improvement does not establish large-area manufacturing yield or a facility’s 1 GWh output."
+      ],
+      "publishedDate": "2024-11-09",
+      "citation": [
+        "Communications Chemistry 7, 257 (2024). DOI: 10.1038/s42004-024-01350-9。作者机构：ETH Zürich、Empa。",
+        "Communications Chemistry 7, 257 (2024). DOI: 10.1038/s42004-024-01350-9. Affiliations: ETH Zürich and Empa."
+      ]
+    },
+    {
+      "id": "qs-eagle",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "QuantumScape：Eagle Line 关键设备安装",
+        "QuantumScape: installation of key Eagle Line equipment"
+      ],
+      "kind": [
+        "企业原始公告 · 中试制造",
+        "Company announcement · pilot manufacturing"
+      ],
+      "url": "https://www.quantumscape.com/quantumscape-announces-completion-of-key-annual-goal-and-inauguration-event-for-eagle-line/",
+      "entities": [
+        "quantumscape",
+        "powerco"
+      ],
+      "body": [
+        "公司公告称已安装用于提高 QSE-5 电芯产量的关键设备，Eagle Line 结合 Cobra 隔膜工艺和自动化电芯生产。公告把它定位为中试线，以及未来许可伙伴放大的基础。它不是“PowerCo Unified Cell 格式样品已得到双方确认”的同义说法，也不代表已达到吉瓦时商业产量。",
+        "QS reports installing equipment for higher-volume QSE-5 production, combining Cobra separators and automation in a pilot line. It describes a basis for future licensee scale-up, not proof of a jointly confirmed PowerCo Unified Cell sample or gigawatt-hour commercial output."
+      ],
+      "publishedDate": "2025-12-09"
+    },
+    {
+      "id": "toyota-sulfide",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "Toyota／出光：从硫化物电解质到整车的三阶段路线",
+        "Toyota / Idemitsu: a three-stage sulfide-to-vehicle pathway"
+      ],
+      "kind": [
+        "联合企业公告 · 研发与量产计划",
+        "Joint company announcement · development plan"
+      ],
+      "url": "https://global.toyota/en/newsroom/corporate/39865919.html",
+      "entities": [
+        "toyota",
+        "idemitsu"
+      ],
+      "body": [
+        "双方合作以硫化物固体电解质为重点：先完善材料和大型中试准备，再推进中试制造及车型开发，最后研究全面量产。材料软、易黏附有利于加工，但循环中的界面开裂与耐久性仍是工程问题。公告中的 2027–2028 目标是计划，不是客户已收车的记录。",
+        "The partnership focuses on sulfide electrolytes, progressing from material/pilot preparation to pilot manufacturing and vehicle development, then full-scale production studies. Interfacial durability remains an engineering issue. Its 2027–2028 target is a plan rather than a retail delivery record."
+      ],
+      "publishedDate": "2023-10-12"
+    },
+    {
+      "id": "toyota-roadmap",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "Toyota：区分液态电解质电池与固态路线的性能目标",
+        "Toyota: separate liquid-electrolyte and solid-state targets"
+      ],
+      "kind": [
+        "技术路线说明",
+        "Technology roadmap"
+      ],
+      "url": "https://newsroom.toyota.eu/toyotas-advanced-battery-technology-roadmap/",
+      "entities": [
+        "toyota"
+      ],
+      "body": [
+        "路线图同时讨论液态与固态方案。“约 1000 km”等整车目标还受车辆效率影响，快充目标则注明荷电状态区间。比较原市场的 1000 km 与少于 15 分钟条件，需要确认同一车型、同一电池路线和充电区间，不能把不同方案的最佳数字拼到一起。",
+        "The roadmap covers liquid and solid electrolytes. Range also depends on vehicle efficiency; charge-time targets specify a state-of-charge interval. The contract’s range and charging conditions must apply to the same vehicle and chemistry, not a mixture of targets from different programs."
+      ],
+      "publishedDate": "2023-09-14"
+    },
+    {
+      "id": "apple-battery",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "Apple：当前电池原理说明与快充阶段",
+        "Apple: battery explanation and charging stages"
+      ],
+      "kind": [
+        "产品方技术说明",
+        "Manufacturer’s technical explanation"
+      ],
+      "url": "https://www.apple.com/batteries/why-lithium-ion/",
+      "entities": [
+        "apple"
+      ],
+      "body": [
+        "Apple 的说明使用锂离子电池框架，并解释快充至约 80% 后转为较慢充电。快充、循环优化或更高能量密度本身都不能证明手机换用了固态电解质。判断这一市场要查具体发布产品的电池技术资料；这份说明不是对所有未来型号的承诺。",
+        "Apple explains lithium-ion charging, including a fast phase followed by slower charging around 80%. Faster charging and better endurance alone do not establish solid electrolytes. The market requires product-specific battery evidence; this general page does not promise every future model’s chemistry."
+      ]
+    },
+    {
+      "id": "superconductivity-doe",
+      "topics": [
+        "superconductors"
+      ],
+      "title": [
+        "DOE：零电阻、排磁与临界条件",
+        "DOE: zero resistance, field expulsion and critical conditions"
+      ],
+      "kind": [
+        "研究机构科普",
+        "Scientific agency explanation"
+      ],
+      "url": "https://www.energy.gov/science/doe-explainssuperconductivity",
+      "entities": [
+        "doe"
+      ],
+      "body": [
+        "超导体在临界温度以下可无直流电阻地传输电流，并呈现排磁行为；超过临界电流会破坏超导态。已经应用于 MRI 等装置的超导体并不因此满足“常压、0 °C 以上、无需主动冷却”的合同条件。材料发现与可销售器件是两道门槛。",
+        "Superconductors have zero DC resistance and field-expulsion behavior below critical conditions; excessive current destroys the state. Existing MRI applications do not satisfy a contract requiring ambient pressure, above 0 °C and no active cooling. Material discovery and a saleable device are separate milestones."
+      ]
+    },
+    {
+      "id": "lk99-impurity",
+      "topics": [
+        "superconductors"
+      ],
+      "title": [
+        "中国科学院物理研究所：Cu₂S 杂相与电阻突变",
+        "Institute of Physics, CAS: Cu₂S impurities and resistance transitions"
+      ],
+      "kind": [
+        "原始实验研究 · Matter / arXiv",
+        "Experimental research · Matter / arXiv"
+      ],
+      "url": "https://arxiv.org/abs/2308.04353",
+      "entities": [
+        "casphysics"
+      ],
+      "body": [
+        "研究比较 Cu₂S 与含 Cu₂S 的 LK-99 样品，观测到类似超导转变的电阻变化和热滞后，却未观察到零电阻。论文提出，约 385 K 的硫化亚铜结构转变可以解释该类异常。这说明电阻曲线出现骤降，需要连同物相、磁性和测量下限一起判断。",
+        "The study finds resistance transitions and thermal hysteresis in Cu₂S and Cu₂S-containing LK-99, without zero resistivity. It attributes the anomaly to a structural transition around 385 K. A sharp resistance drop therefore needs phase, magnetic and measurement-limit checks."
+      ],
+      "publishedDate": "2023-08-08",
+      "citation": [
+        "arXiv:2308.04353 (2023)；Matter 6, 4401 (2023). DOI: 10.1016/j.matt.2023.11.001。",
+        "arXiv:2308.04353 (2023); Matter 6, 4401 (2023). DOI: 10.1016/j.matt.2023.11.001."
+      ]
+    },
+    {
+      "id": "enzyme-membrane",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Sandia 等机构：碳酸酐酶辅助的 CO₂ 分离膜",
+        "Sandia and collaborators: carbonic-anhydrase separation membranes"
+      ],
+      "kind": [
+        "原始研究 · Nature Communications",
+        "Original research · Nature Communications"
+      ],
+      "url": "https://www.nature.com/articles/s41467-018-03285-x",
+      "entities": [
+        "sandia"
+      ],
+      "body": [
+        "研究将碳酸酐酶置于亲水纳米孔结构中，在论文条件下提高 CO₂ 分离通量和选择性。这证明酶可以参与分离材料设计；它不证明该方法使用了 AlphaFold，也不等同于已完成低浓度空气的工业碳移除。完整作者与合作机构见原论文。",
+        "Carbonic anhydrase confined in hydrophilic nanopores supports CO₂ separation under the paper’s conditions. This establishes an enzyme-based material approach, not AlphaFold involvement or deployed industrial direct-air removal. The paper lists all authors and collaborating institutions."
+      ],
+      "publishedDate": "2018-03-07",
+      "citation": [
+        "Nature Communications 9, 990 (2018). DOI: 10.1038/s41467-018-03285-x。完整合作机构见原文。",
+        "Nature Communications 9, 990 (2018). DOI: 10.1038/s41467-018-03285-x. Full collaborating affiliations are in the paper."
+      ]
+    },
+    {
+      "id": "alphafold-role",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Google DeepMind：AlphaFold 输出的是什么",
+        "Google DeepMind: what AlphaFold predicts"
+      ],
+      "kind": [
+        "开发方技术说明",
+        "Developer’s technical explanation"
+      ],
+      "url": "https://deepmind.google/science/alphafold/",
+      "entities": [
+        "deepmind"
+      ],
+      "body": [
+        "AlphaFold 用于预测生物分子结构及相互作用。结构预测可以为酶的实验设计提供起点，但催化速率、溶剂稳定性和捕集过程的能耗仍需实验或过程数据。仅在论文中使用一次模型，与原市场所说的“参与领先空气捕集方法”，不是相同证据门槛。",
+        "AlphaFold predicts biomolecular structures and interactions. That can guide enzyme experiments, but catalytic rates, solvent stability and process energy still require measurements or process data. A single model use is not the same as the contract’s leading-DAC criterion."
+      ]
+    },
+    {
+      "id": "olivine-noaa",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "NOAA：海洋增碱与碳移除的测量边界",
+        "NOAA: measurement boundaries in ocean alkalinity enhancement"
+      ],
+      "kind": [
+        "研究机构综述说明",
+        "Scientific agency overview"
+      ],
+      "url": "https://oceanacidification.noaa.gov/carbon-dioxide-removal/",
+      "entities": [
+        "noaa"
+      ],
+      "body": [
+        "海洋增碱改变海水化学，使其有能力吸收更多空气 CO₂；碱度变化与已经发生的净大气移除需要分别测量。NOAA 将可扩展性、成本、生态影响等列为研究问题。因此，橄榄石溶解、矿物投放量和每年净移除十亿吨并不是同一个量。",
+        "Ocean alkalinity enhancement increases seawater’s capacity to absorb atmospheric CO₂. Alkalinity change and realized net atmospheric removal require separate measurement. NOAA identifies scale, cost and ecological effects as research questions; mineral dissolution or deployment tonnage is not annual net carbon removal."
+      ]
+    },
+    {
+      "id": "olivine-ecology",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "NOAA Fisheries：橄榄石的短期生态实验",
+        "NOAA Fisheries: short-term olivine ecology experiments"
+      ],
+      "kind": [
+        "研究机构实验报道",
+        "Institutional experimental report"
+      ],
+      "url": "https://www.fisheries.noaa.gov/science-blog/collaborating-canadian-scientists-marine-carbon-dioxide-removal-research",
+      "entities": [
+        "noaa"
+      ],
+      "body": [
+        "短期实验观察到海水碱度和 pH 增加，未见浮游植物过量积累重金属；同时发现矿物带来的氮需要控制。报道明确保留长期生态效应的不确定性。这里的样品和实验范围不能外推成全球部署规模或长期安全结论。",
+        "The short-term experiment observed higher alkalinity and pH without excess heavy-metal accumulation in phytoplankton, while identifying nitrogen addition as a concern. Long-term effects remain unresolved. These experimental conditions do not establish global deployment or long-term safety."
+      ]
+    },
+    {
+      "id": "svante-redwood",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Svante：Redwood 过滤器工厂的产能口径",
+        "Svante: what Redwood filter capacity measures"
+      ],
+      "kind": [
+        "企业原始公告 · 制造设施",
+        "Company announcement · manufacturing facility"
+      ],
+      "url": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/",
+      "entities": [
+        "svante",
+        "basf"
+      ],
+      "body": [
+        "Svante 宣布 Redwood 过滤器制造设施完成调试，称其年产过滤器可支持最高约 1000 万吨 CO₂ 的年捕集能力。这是按过滤器用途表述的制造能力，不是工厂自身每年已经从空气移除了 1000 万吨。要核实减排或碳移除，需要下游装置的运行量、能源与永久封存记录。",
+        "Svante reports commissioning Redwood and describes annual filter output sufficient to support up to 10 million tonnes of annual CO₂ capture capacity. That is filter-manufacturing capacity, not CO₂ already removed by the factory. Downstream operation, energy and permanent-storage records are needed for removal claims."
+      ],
+      "publishedDate": "2025-05-13"
+    },
+    {
+      "id": "superpower-products",
+      "topics": [
+        "superconductors"
+      ],
+      "title": [
+        "SuperPower：已商业供应的 REBCO 超导线材",
+        "SuperPower: commercially supplied REBCO conductors"
+      ],
+      "kind": [
+        "企业产品与研究资料",
+        "Company product and research source"
+      ],
+      "url": "https://www.superpower-inc.com/",
+      "entities": [
+        "superpower"
+      ],
+      "body": [
+        "公司供应第二代高温超导线材，官网说明的运行例子仍在 77 K、30 K、4.2 K 等低温条件下。“高温超导”是相对传统超导体的术语，并不表示高于 0 °C。该产品说明既有制造和应用链条，但不是 LK-99 被采用或原题常温商品条件已经实现的证据。",
+        "The supplier describes second-generation HTS conductors operating at cryogenic temperatures such as 77 K, 30 K and 4.2 K. High-temperature does not mean above 0 °C. Its product establishes an existing manufacturing chain, not LK-99 adoption or satisfaction of these ambient-temperature contracts."
+      ]
+    },
+    {
+      "id": "saipem-enzyme",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Saipem：CO₂ Solutions 的工业酶法捕集路线",
+        "Saipem: industrial enzymatic capture with CO₂ Solutions"
+      ],
+      "kind": [
+        "企业产品与研究资料",
+        "Company product and research source"
+      ],
+      "url": "https://www.saipem.com/en/solutions-energy-transition/reduce-co2-emissions/co2-capture-storage/carbon-capture/co2-solutions",
+      "entities": [
+        "saipem"
+      ],
+      "body": [
+        "Saipem 介绍以碳酸盐溶剂和酶为基础的工业排放捕集技术，并讨论余热利用与过程集成。这是判断“酶法有没有工程应用”的一份企业资料。页面没有据此证明 AlphaFold 的参与，也没有将其定义为从空气中移除 CO₂ 的领先方法，不能替原题补齐这两个条件。",
+        "Saipem describes enzyme/carbonate-solvent capture of industrial emissions and process integration. It supplies industrial context for enzymes, without establishing AlphaFold involvement or leadership in direct air capture. Those extra contract conditions remain separate."
+      ]
+    },
+    {
+      "id": "vesta-pilots",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Vesta：橄榄石沿岸试验与监测",
+        "Vesta: coastal olivine pilots and monitoring"
+      ],
+      "kind": [
+        "企业产品与研究资料",
+        "Company product and research source"
+      ],
+      "url": "https://www.projectvesta.org/science",
+      "entities": [
+        "vesta"
+      ],
+      "body": [
+        "Vesta 的科学资料介绍沿岸增强风化试验，目标包括测量天然条件下的橄榄石溶解速率、碳移除效率与生态影响。公开试验说明路线在实地研究，并不等于已实现原题要求的每年十亿吨。公司提出的长期愿景与实际项目监测结果须分开读。",
+        "Vesta describes coastal trials studying olivine dissolution, carbon-removal efficiency and ecology. A field pilot shows research under natural conditions, not achievement of the contract’s annual gigatonne threshold. Ambition and measured project results remain separate."
       ]
     }
   ],
@@ -320,6 +800,116 @@
       "intro": [
         "AlphaFold 的开发机构；相关碳捕集题目预测的是该技术的参与，而非某种 MOF 的表现。",
         "The AlphaFold developer; the carbon-capture contract concerns technology involvement rather than a MOF’s performance."
+      ]
+    },
+    "ethzurich": {
+      "name": [
+        "苏黎世联邦理工学院",
+        "ETH Zürich"
+      ],
+      "intro": [
+        "LLZO 界面评论的作者机构；研究关注无机电池材料与固态界面。",
+        "An author institution of the LLZO Comment, working on inorganic battery materials and interfaces."
+      ]
+    },
+    "empa": {
+      "name": [
+        "Empa 瑞士联邦材料科学与技术研究所",
+        "Empa"
+      ],
+      "intro": [
+        "LLZO 界面评论的作者机构；以原文所列实验和计算讨论为范围。",
+        "An author institution of the LLZO Comment; consult the original for the reviewed experimental and computational scope."
+      ]
+    },
+    "doe": {
+      "name": [
+        "美国能源部",
+        "U.S. Department of Energy"
+      ],
+      "intro": [
+        "提供超导临界条件与器件应用的基础解释；未为此处市场报价背书。",
+        "Provides scientific explanations of superconductivity and applications, separate from these market prices."
+      ]
+    },
+    "noaa": {
+      "name": [
+        "美国国家海洋和大气管理局",
+        "NOAA"
+      ],
+      "intro": [
+        "开展海洋碳移除、碳酸盐体系与生态效应研究；公开说明测量和放大的未知项。",
+        "Researches marine carbon removal, carbonate chemistry and ecology, including measurement and scale-up uncertainties."
+      ]
+    },
+    "sandia": {
+      "name": [
+        "桑迪亚国家实验室",
+        "Sandia National Laboratories"
+      ],
+      "intro": [
+        "碳酸酐酶纳米孔分离膜论文的合作机构之一，完整合作名单见论文。",
+        "One of the collaborating institutions on the carbonic-anhydrase membrane paper; full affiliations are in the paper."
+      ]
+    },
+    "casphysics": {
+      "name": [
+        "中国科学院物理研究所",
+        "Institute of Physics, CAS"
+      ],
+      "intro": [
+        "开展凝聚态物理研究；所引 LK-99 工作检验杂相与输运异常的关系。",
+        "A condensed-matter research institute; the cited work investigates impurities and transport anomalies in LK-99."
+      ]
+    },
+    "intertek": {
+      "name": [
+        "Intertek 天祥集团",
+        "Intertek"
+      ],
+      "intro": [
+        "提供检测、检验等服务；本页链接的是特定送检电芯组分的元素定量报告。",
+        "A testing and inspection provider; the linked report concerns specified submitted cell components."
+      ]
+    },
+    "idemitsu": {
+      "name": [
+        "出光兴产",
+        "Idemitsu Kosan"
+      ],
+      "intro": [
+        "能源与材料企业，与 Toyota 合作开发硫化物固体电解质及相关制造路线。",
+        "An energy and materials company collaborating with Toyota on sulfide electrolytes and manufacturing."
+      ]
+    },
+    "superpower": {
+      "name": [
+        "SuperPower",
+        "SuperPower"
+      ],
+      "intro": [
+        "第二代高温超导线材供应商；本页将低温产品与常温市场条件区分。",
+        "A second-generation HTS conductor supplier; cryogenic products remain distinct from ambient-temperature contract conditions."
+      ]
+    },
+    "saipem": {
+      "name": [
+        "Saipem",
+        "Saipem"
+      ],
+      "intro": [
+        "能源与工业工程企业，提供 CO₂ Solutions 酶法捕集等技术；没有据此认定其使用 AlphaFold。",
+        "An energy and industrial engineering company offering enzymatic CO₂ capture; no AlphaFold use is inferred."
+      ]
+    },
+    "vesta": {
+      "name": [
+        "Vesta",
+        "Vesta"
+      ],
+      "intro": [
+        "从事沿岸增强风化研究的公益型企业；开展橄榄石试验与监测。",
+        "A public benefit corporation researching coastal enhanced weathering through olivine pilots and monitoring."
       ]
     }
   }

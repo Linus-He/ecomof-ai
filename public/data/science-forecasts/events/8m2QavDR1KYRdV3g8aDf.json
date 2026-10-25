@@ -2184,8 +2184,93 @@
   ],
   "entities": [],
   "evidence": [
-    "lk99-replication"
+    "lk99-replication",
+    "superconductivity-doe",
+    "superpower-products",
+    "lk99-impurity"
   ],
+  "briefing": {
+    "contextId": "superconductor",
+    "summary": [
+      "这是材料发现、合成与测量题，原规则把室温定为 0–30 °C、常压定为 0.5–2 atm，并非商品销售题。",
+      "A material discovery/synthesis/measurement contract defines 0–30 °C and 0.5–2 atm; it is not a product-sales forecast."
+    ],
+    "checklist": [
+      [
+        "确认实验温度、压力落在原规则区间。",
+        "Check temperature and pressure against the defined ranges."
+      ],
+      [
+        "核对材料身份、电输运与磁学证据的完整性。",
+        "Review material identity, transport and magnetic evidence."
+      ],
+      [
+        "区分一项实验结果、独立复现和可销售器件。",
+        "Distinguish a result, independent replication and a saleable device."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "GJf5q3WjqIIiArUkpxbl",
+    "H5nCcUUDsH556qedFoUn"
+  ],
+  "industry": {
+    "entities": [
+      "superpower",
+      "manchester",
+      "casphysics"
+    ],
+    "evidence": [
+      "superpower-products",
+      "lk99-replication",
+      "lk99-impurity"
+    ],
+    "stage": [
+      "材料复现 → 导体加工 → 器件商品",
+      "Material replication → conductor processing → device"
+    ],
+    "impact": [
+      "SuperPower 已有低温 REBCO 线材产品，说明超导产业存在制造和客户应用链条；但官网条件仍需低温。独立实验对材料前提的检验，比把既有“高温超导”产品误读成常温突破更贴近这些题目。",
+      "SuperPower demonstrates an existing cryogenic REBCO supply chain, not an ambient-temperature breakthrough. Independent material tests are more relevant to these premises than the label high-temperature."
+    ],
+    "gap": [
+      "没有资料表明该企业采用 LK-99，或其线材符合原题高于 0 °C、常压、无需主动冷却条件。论文出现、复现成功、商品销售和条件市场取消分别判断。",
+      "No cited source establishes LK-99 adoption or above-0 °C uncooled operation. Paper appearance, replication, sales and conditional cancellation remain separate outcomes."
+    ]
+  },
+  "context": {
+    "id": "superconductor",
+    "title": [
+      "材料发现与无需冷却的商品，是不同终点",
+      "A material discovery and an uncooled commercial device are different endpoints"
+    ],
+    "principle": [
+      "超导验证需要在约定温度、压力下审查电输运与磁响应，不能只看“电阻降低”或悬浮视频。器件还需要可用电流、磁场范围、机械加工和稳定运行；临界条件一旦超过，材料可能退出超导态。",
+      "Evidence must address transport and magnetic response at the specified temperature and pressure, rather than a resistance decrease or levitation video alone. Devices also need usable current/field ranges, processing and stable operation; exceeding critical conditions can destroy superconductivity."
+    ],
+    "example": [
+      "DOE 所介绍的超导磁体应用说明超导已有实际用途，但原市场额外要求常压、0 °C 以上和无需主动冷却，既有低温设备不能直接满足它。基础发现题的 No 或短期器件题的 No，也不是“此后永远不可能”的结论。",
+      "Existing superconducting magnets demonstrate real applications, but do not satisfy the extra ambient-pressure, above-0 °C and no-active-cooling requirements here. A No on a short-deadline contract is not a claim of permanent impossibility."
+    ],
+    "evidence": [
+      "superconductivity-doe",
+      "lk99-replication"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1704474769656,
+      "p": 0.4098360655737706
+    },
+    "last": {
+      "t": 1790666910351,
+      "p": 0.21512758631850704
+    },
+    "change": -19.470847925526357,
+    "low": 0.04998958574055266,
+    "high": 0.6452026037952339,
+    "staleDays": 25.96066340277778
+  },
   "quality": [],
   "tradePoints": 533,
   "detailFile": "events/8m2QavDR1KYRdV3g8aDf.json"

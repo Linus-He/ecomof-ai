@@ -1,0 +1,135 @@
+{
+  "carvone-r": {
+    "cid": 439570,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/439570/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 439570,
+    "MolecularFormula": "C10H14O",
+    "SMILES": "CC1=CC[C@H](CC1=O)C(=C)C"
+  },
+  "carvone-s": {
+    "cid": 16724,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/16724/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 16724,
+    "MolecularFormula": "C10H14O",
+    "SMILES": "CC1=CC[C@@H](CC1=O)C(=C)C"
+  },
+  "limonene": {
+    "cid": 22311,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/22311/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 22311,
+    "MolecularFormula": "C10H16",
+    "SMILES": "CC1=CCC(CC1)C(=C)C"
+  },
+  "cholesterol": {
+    "cid": 5997,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5997/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 5997,
+    "MolecularFormula": "C27H46O",
+    "SMILES": "C[C@H](CCCC(C)C)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC=C4[C@@]3(CC[C@@H](C4)O)C)C"
+  },
+  "sucrose": {
+    "cid": 5988,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5988/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 5988,
+    "MolecularFormula": "C12H22O11",
+    "SMILES": "C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O[C@]2([C@H]([C@@H]([C@H](O2)CO)O)O)CO)O)O)O)O"
+  },
+  "ascorbic-acid": {
+    "cid": 54670067,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/54670067/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 54670067,
+    "MolecularFormula": "C6H8O6",
+    "SMILES": "C([C@@H]([C@@H]1C(=C(C(=O)O1)O)O)O)O"
+  },
+  "glucose": {
+    "cid": 5793,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5793/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 5793,
+    "MolecularFormula": "C6H12O6",
+    "SMILES": "C([C@@H]1[C@H]([C@@H]([C@H](C(O1)O)O)O)O)O"
+  },
+  "glycine": {
+    "cid": 750,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/750/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 750,
+    "MolecularFormula": "C2H5NO2",
+    "SMILES": "C(C(=O)O)N"
+  },
+  "alanine": {
+    "cid": 5950,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5950/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 5950,
+    "MolecularFormula": "C3H7NO2",
+    "SMILES": "C[C@@H](C(=O)O)N"
+  },
+  "adenosine-monophosphate": {
+    "cid": 6083,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6083/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 6083,
+    "MolecularFormula": "C10H14N5O7P",
+    "SMILES": "C1=NC(=C2C(=N1)N(C=N2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)O)O)O)N"
+  },
+  "atp": {
+    "cid": 5957,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5957/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 5957,
+    "MolecularFormula": "C10H16N5O13P3",
+    "SMILES": "C1=NC(=C2C(=N1)N(C=N2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)OP(=O)(O)OP(=O)(O)O)O)O)N"
+  },
+  "benzene": {
+    "cid": 241,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/241/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 241,
+    "MolecularFormula": "C6H6",
+    "SMILES": "C1=CC=CC=C1"
+  },
+  "ethanol": {
+    "cid": 702,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/702/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 702,
+    "MolecularFormula": "C2H6O",
+    "SMILES": "CCO"
+  },
+  "cyclohexane": {
+    "cid": 8078,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8078/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 8078,
+    "MolecularFormula": "C6H12",
+    "SMILES": "C1CCCCC1"
+  },
+  "fullerene": {
+    "cid": 123591,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/123591/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 123591,
+    "MolecularFormula": "C60",
+    "SMILES": "C12=C3C4=C5C6=C1C7=C8C9=C1C%10=C%11C(=C29)C3=C2C3=C4C4=C5C5=C9C6=C7C6=C7C8=C1C1=C8C%10=C%10C%11=C2C2=C3C3=C4C4=C5C5=C%11C%12=C(C6=C95)C7=C1C1=C%12C5=C%11C4=C3C3=C5C(=C81)C%10=C23"
+  },
+  "indigo": {
+    "cid": 10215,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/10215/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 10215,
+    "MolecularFormula": "C16H10N2O2",
+    "SMILES": "C1=CC=C2C(=C1)C(=C(N2)C3=NC4=CC=CC=C4C3=O)O"
+  },
+  "ethylene": {
+    "cid": 6325,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6325/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 6325,
+    "MolecularFormula": "C2H4",
+    "SMILES": "C=C"
+  },
+  "deoxy-amp": {
+    "cid": 12599,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/2%27-deoxyadenosine%205%27-monophosphate/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 12599,
+    "MolecularFormula": "C10H14N5O6P",
+    "SMILES": "C1[C@@H]([C@H](O[C@H]1N2C=NC3=C(N=CN=C32)N)COP(=O)(O)O)O"
+  },
+  "triazole": {
+    "cid": 67516,
+    "source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1H-1%2C2%2C3-triazole/property/IsomericSMILES,MolecularFormula/JSON",
+    "CID": 67516,
+    "MolecularFormula": "C2H3N3",
+    "SMILES": "C1=NNN=C1"
+  }
+}

@@ -105,7 +105,83 @@
   "entities": [
     "apple"
   ],
-  "evidence": [],
+  "evidence": [
+    "apple-battery"
+  ],
+  "briefing": {
+    "contextId": "phone",
+    "summary": [
+      "预测的是已发布 iPhone 的电池路线，不能用续航提升或快充宣传证明固态化。",
+      "This predicts the battery chemistry of a released iPhone, not a general improvement in endurance or charging."
+    ],
+    "checklist": [
+      [
+        "查看具体型号的产品技术说明与可复核电芯资料。",
+        "Review model-specific technical and cell evidence."
+      ],
+      [
+        "向原市场核对固态定义及“发布”的验收含义。",
+        "Check the source definition of solid-state and release."
+      ],
+      [
+        "保留 2026 期限；下一代型号传闻不作为已完成事件。",
+        "Respect the 2026 condition; rumors about later models are not completed events."
+      ]
+    ]
+  },
+  "relatedIds": [],
+  "industry": {
+    "entities": [
+      "apple"
+    ],
+    "evidence": [
+      "apple-battery"
+    ],
+    "stage": [
+      "产品宣传 → 型号技术披露 → 可复核电芯",
+      "Product messaging → model disclosure → verifiable cell"
+    ],
+    "impact": [
+      "对 Apple 这类产品题，材料是否进入已发布型号，比专利、供应商传闻或更长续航更直接。官方电池说明能解释充电控制，却不能单凭这份通用资料判定新型号已改用固态。",
+      "For this Apple question, adoption in a released model is more direct than patents, rumors or endurance improvements. General charging guidance does not establish a model’s electrolyte."
+    ],
+    "gap": [
+      "还缺少对应型号和固态定义的完整验收资料。若企业没有公开化学路线，应保留未知，不根据续航数字反推配方。",
+      "Model-specific evidence and an acceptance definition are still needed. Undisclosed chemistry remains unknown rather than inferred from endurance."
+    ]
+  },
+  "context": {
+    "id": "phone",
+    "title": [
+      "手机电池升级，不等于更换电解质路线",
+      "An improved phone battery does not establish a new electrolyte"
+    ],
+    "principle": [
+      "“锂离子”描述离子参与充放电的体系，“固态”描述电解质状态，两者不是互斥的标签。电池更薄、续航更长、充电更快，都不足以单独辨认电解质配方。",
+      "Lithium-ion identifies the charge-carrier system; solid-state identifies electrolyte form. The terms are not mutually exclusive. Thickness, endurance and charging speed alone do not identify electrolyte chemistry."
+    ],
+    "example": [
+      "Apple 的现行电池说明解释了分阶段充电，却没有把这一点作为固态电池的证据。这个题目需要已发布 iPhone 的明确技术资料或可复核电池分析，不能从供应链传闻或快充宣传直接推出 Yes。",
+      "Apple’s battery explanation describes staged charging, not evidence of solid electrolytes. This question needs product-specific technical disclosure or reproducible cell analysis rather than supply-chain rumors or fast-charge marketing."
+    ],
+    "evidence": [
+      "apple-battery"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1719269314452,
+      "p": 0.4329214339639101
+    },
+    "last": {
+      "t": 1789830773634,
+      "p": 0.07865809393443293
+    },
+    "change": -35.42633400294771,
+    "low": 0.07865809393443293,
+    "high": 0.4329214339639101,
+    "staleDays": 35.63813462962963
+  },
   "quality": [
     {
       "code": "rules",

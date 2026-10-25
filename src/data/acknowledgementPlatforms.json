@@ -168,5 +168,19 @@
       "化学奖官方市场规则与有真实成交的历史价格柱",
       "Chemistry market rules and historical candles with verified traded volume"
     ]
+  },
+  {
+    "id": "pubchem",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/",
+    "logo": "images/science-forecasts/pubchem.png",
+    "assetSource": "https://pubchem.ncbi.nlm.nih.gov/pcfe/favicon/apple-touch-icon.png",
+    "sha256": "d0b1968fc33066c50843c986396255f5a47f884a39172268480a3254fdb74fcc",
+    "name": "PubChem · NCBI",
+    "englishName": "PubChem / NCBI",
+    "logoKind": "symbol",
+    "use": [
+      "分子连接、分子式、立体化学记录与结构图来源",
+      "Molecular connectivity, formulas, stereochemical records and structure-figure sources"
+    ]
   }
 ]

@@ -40,5 +40,85 @@
     "logo": "images/science-forecasts/apple.ico",
     "assetSource": "https://www.apple.com/favicon.ico",
     "sha256": "5493c61cf725cf3a1d63cd9d07de75b0d6faa5564e772f7d0a6074f341442938"
+  },
+  {
+    "id": "ethzurich",
+    "url": "https://ethz.ch/en.html",
+    "logo": "images/science-forecasts/ethzurich.png",
+    "assetSource": "https://ethz.ch/etc/designs/ethz/img/icons/ETH-APP-Icons-Theme-white/192-xxxhpdi.png",
+    "sha256": "888099b7f5eeb07003841f18b2b0ca25e3076ab7fbde962bfe8a0ee1d4e57a62"
+  },
+  {
+    "id": "doe",
+    "url": "https://www.energy.gov/",
+    "logo": "images/science-forecasts/doe.ico",
+    "assetSource": "https://www.energy.gov/themes/custom/energy_gov/favicon.ico",
+    "sha256": "13844b27e01aaa1d91d082bbb35ebbfd5d5957ed39056a1f4d9b3d3c8418b1ca"
+  },
+  {
+    "id": "sandia",
+    "url": "https://www.sandia.gov/",
+    "logo": "images/science-forecasts/sandia.png",
+    "assetSource": "https://www.sandia.gov/app/themes/thunderberg/favicon.png",
+    "sha256": "10255838033be8c19856070a97e979ee62dd29bdff80cc8753aa3789ac5b38f3"
+  },
+  {
+    "id": "intertek",
+    "url": "https://www.intertek.com/",
+    "logo": "images/science-forecasts/intertek.png",
+    "assetSource": "https://cdn.intertek.com/intranet-intertek-com/images/global/roundel-favicon-x.png",
+    "sha256": "e038516833a454b0bf4887bee7fe30b234ce81d208cf981e52b820953bc2fb90"
+  },
+  {
+    "id": "idemitsu",
+    "url": "https://www.idemitsu.com/en/",
+    "logo": "images/science-forecasts/idemitsu.ico",
+    "assetSource": "https://www.idemitsu.com/jp/favicon.ico",
+    "sha256": "7b7e4266930e133950e3979936aac53cfb714d10fd1154d37d4c12db8f684a72"
+  },
+  {
+    "id": "noaa",
+    "url": "https://www.noaa.gov/",
+    "logo": "images/science-forecasts/noaa.png",
+    "assetSource": "https://oceanacidification.noaa.gov/wp-content/uploads/2023/01/NOAA_FavIcon.png",
+    "sha256": "22823b27356998d730b889dfa439437d98e5b252191aead79cf10c5201a1e9fc"
+  },
+  {
+    "id": "casphysics",
+    "url": "https://www.iop.cas.cn/",
+    "logo": "images/science-forecasts/casphysics.png",
+    "assetSource": "https://www.iop.cas.cn/images/iop3-menu-logo.png",
+    "sha256": "9cd85722d17bd46981adb5f17f8027e1ed89d45d963900f65215d20aa3d0c672"
+  },
+  {
+    "id": "empa",
+    "url": "https://www.empa.ch/",
+    "logo": "images/science-forecasts/empa.png",
+    "assetSource": "https://swircular.ethz.ch/_jcr_content/par/sponsors/imagesSponsors/item3.imageformat.1564x880l.1531551893.png",
+    "assetPage": "https://swircular.ethz.ch/",
+    "sha256": "281412be87e395ef985cea62d9681bf8f2fea5b0943ece61c4a917280a6f7361"
+  },
+  {
+    "id": "saipem",
+    "url": "https://www.saipem.com/en/",
+    "logo": "images/science-forecasts/saipem.ico",
+    "assetSource": "https://www.saipem.com/themes/custom/saipem_theme/favicon.ico",
+    "sha256": "ab763556dbbedc5b4a3d861b696908905ff1cda75b7012f3ea9554386e005dc6"
+  },
+  {
+    "id": "vesta",
+    "url": "https://www.projectvesta.org/",
+    "logo": "images/science-forecasts/vesta.png",
+    "assetSource": "https://cdn.prod.website-files.com/62cdeb1bba413b560d960de7/62cdeb1bba413b7530960ef8_Vesta%20Browser%20Icon.png",
+    "sha256": "17f12b24cfc89fbbe80245675189bb6fea7e904dd44e7b98f5250f81bf8b3cb0"
+  },
+  {
+    "id": "superpower",
+    "url": "https://www.superpower-inc.com/",
+    "logo": "images/science-forecasts/superpower.svg",
+    "assetSource": "https://uhrxvhovvmfwhbchjbab.supabase.co/storage/v1/object/public/company-logos/cand_85d1ce90ffcc57e39dd9131ddf6ec2ed/38252f14e855ee95264221071d2fd6fcdf76f0b17d4f83a07ca5b1e1b1940aa1.svg",
+    "assetPage": "https://supplychain.wemakeithere.org/manufacturers/superpower-inc-t3ym2ogb",
+    "note": "Manufacturer directory logo; company host certificate expired; no TLS bypass used.",
+    "sha256": "38252f14e855ee95264221071d2fd6fcdf76f0b17d4f83a07ca5b1e1b1940aa1"
   }
 ]

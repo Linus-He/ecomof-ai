@@ -1,5 +1,25 @@
 {
   "schemaVersion": "1.0",
+  "editorialReview": {
+    "eventBriefs": 19,
+    "industryCases": 19,
+    "evidenceCount": 21,
+    "contexts": 10,
+    "sourceFiles": [
+      {
+        "file": "scripts/science-forecasts/curation.json",
+        "sha256": "2c5202c80b73a9dabf1727f9b21762c87c1a50b06797d7f460ed23bd021cab6a"
+      },
+      {
+        "file": "scripts/science-forecasts/contexts.json",
+        "sha256": "b27a4489d4162a0e3f6aef5415ff8b7a4a24a157e4ae3ca86c0287474fe72d1c"
+      },
+      {
+        "file": "scripts/science-forecasts/topics.json",
+        "sha256": "887475bd4b78541bb1b38a26027b4286f68c13fb8517bb08e40da0fdd9a80163"
+      }
+    ]
+  },
   "grain": "one source market; one observation per distinct actual-trade timestamp",
   "marketCount": 19,
   "pointCount": 7803,

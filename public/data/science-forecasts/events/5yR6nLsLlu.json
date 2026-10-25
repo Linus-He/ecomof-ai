@@ -86,8 +86,92 @@
     "donutlab"
   ],
   "evidence": [
-    "battery-testing"
+    "battery-testing",
+    "donut-elements",
+    "donut-energy"
   ],
+  "briefing": {
+    "contextId": "donut",
+    "summary": [
+      "预测价格低于 5 万美元的固态电池摩托车能否在原题期限内买到；仅七位参与者，规则细节有限。",
+      "This asks whether a sub-US$50,000 solid-state motorcycle becomes purchasable by the deadline; activity and rule detail are limited."
+    ],
+    "checklist": [
+      [
+        "查价格是否包含原题要求的配置、市场和币种。",
+        "Check configuration, jurisdiction and currency against the source rule."
+      ],
+      [
+        "分清可下单、可交付和客户已收到。",
+        "Distinguish ordering, availability and receipt."
+      ],
+      [
+        "核实商品所用电池，不能只引用供应商实验样品。",
+        "Verify the product’s battery rather than only a supplier’s laboratory cell."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "SAIUNdCI8U",
+    "URnpyLNL6s"
+  ],
+  "industry": {
+    "entities": [
+      "donutlab",
+      "intertek",
+      "vtt"
+    ],
+    "evidence": [
+      "donut-elements",
+      "donut-energy"
+    ],
+    "stage": [
+      "送检数据 → 商品验证 → 客户交付",
+      "Submitted tests → product validation → delivery"
+    ],
+    "impact": [
+      "企业检测资料能减少对实验样品性能的疑问，但本题最终关心商品可得性或客户交付。进展只有在对应到实际车型、电池型号和原题所指购买行为后，才触及交付门槛。",
+      "Tests inform sample performance, while this contract concerns availability or delivery. The relevant link requires an identified vehicle, battery and qualifying purchase or receipt."
+    ],
+    "gap": [
+      "当前引用的元素和能量密度测试没有提供非员工客户收车凭证，也不确定交付车型一定采用同一电池。不能把实验确认直接写成商业交付已经完成。",
+      "The cited tests do not establish customer receipt or that delivered vehicles use the tested cell. Experimental evidence does not complete the delivery condition."
+    ]
+  },
+  "context": {
+    "id": "donut",
+    "title": [
+      "“固态”“无锂”和“能量密度高”，是三个问题",
+      "Solid-state, lithium-free and high specific energy are different questions"
+    ],
+    "principle": [
+      "固态描述电解质的物态；锂含量是元素组成；Wh/kg 则是放电能量除以质量。锂金属固态电池仍然可以含锂，所以不能从“固态”推出“无锂”。元素分析、充放电测试与材料物相鉴定各自回答不同问题。",
+      "Solid-state describes the electrolyte’s physical form; lithium content is elemental composition; Wh/kg is discharge energy divided by mass. A solid-state lithium-metal cell still contains lithium. Composition analysis, electrical tests and phase identification answer different questions."
+    ],
+    "example": [
+      "读 Intertek 报告时，3.4 ppm w/w 可换算为 0.00034%；但样品来自一个电芯的特定组分。读 VTT 报告时，409.3 Wh/kg 对应 +25 °C、0.1C 放电条件。这两组数据不能互相替代，也不能自动外推到整包和批量产品。",
+      "The reported 3.4 ppm w/w converts to 0.00034%, for specified parts of one cell. VTT’s 409.3 Wh/kg refers to +25 °C and 0.1C discharge. These measurements are not interchangeable and do not automatically generalize to packs or production batches."
+    ],
+    "evidence": [
+      "donut-elements",
+      "donut-energy",
+      "battery-testing"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1767658104572,
+      "p": 0.49453024818989566
+    },
+    "last": {
+      "t": 1782317100750,
+      "p": 0.45441216721592986
+    },
+    "change": -4.01180809739658,
+    "low": 0.45441216721592986,
+    "high": 0.5168896664228323,
+    "staleDays": 122.60180309027778
+  },
   "quality": [
     {
       "code": "rules",

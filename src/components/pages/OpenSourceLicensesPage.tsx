@@ -7,6 +7,15 @@ const text = (lang, zh, en) => lang === "zh" ? zh : en
 
 const softwareLicenses = [
   {
+    name: "RDKit 2025.3.6 (figure generation only)",
+    license: "BSD 3-Clause License",
+    scopeZh: "构建期生成二维分子结构图、验证分子式与 R/S 构型，并生成明确标注的计算构象；浏览器不加载 RDKit。",
+    scopeEn: "Build-time 2D molecular drawing, formula/CIP checks and labelled computed conformers; RDKit is not loaded in the browser.",
+    boundaryZh: "保留 RDKit 的 BSD 声明。连接记录来自 PubChem；绘图布局与计算构象不代表实验坐标，也不证明企业配方或材料性能。",
+    boundaryEn: "Retain RDKit’s BSD notice. PubChem supplies connectivity; drawings and computed conformers are not experimental coordinates or proof of proprietary chemistry or performance.",
+    url: "https://github.com/rdkit/rdkit/blob/master/license.txt",
+  },
+  {
     name: "EcoMOF-AI source code",
     license: "MIT License",
     scopeZh: "本仓库中由 EcoMOF-AI 项目维护的前端源代码、脚本和项目自有实现。",

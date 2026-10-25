@@ -85,7 +85,90 @@
   "entities": [
     "deepmind"
   ],
-  "evidence": [],
+  "evidence": [
+    "enzyme-membrane",
+    "alphafold-role",
+    "saipem-enzyme"
+  ],
+  "briefing": {
+    "contextId": "enzyme",
+    "summary": [
+      "预测 AlphaFold 或后继技术是否参与领先的空气捕集方法，已判 No；不是判断酶能不能捕集 CO₂。",
+      "Resolved No on AlphaFold involvement in a leading DAC method, not on whether enzymes can capture CO₂."
+    ],
+    "checklist": [
+      [
+        "找到模型实际用于哪一步设计的可核验记录。",
+        "Identify documented model use in a specific design step."
+      ],
+      [
+        "查空气 CO₂ 条件和完整过程表现，不能以烟气实验替代。",
+        "Check atmospheric-CO₂ conditions and full-process performance, rather than flue-gas results."
+      ],
+      [
+        "原规则的“领先”口径有限，比较效率必须回到原条件。",
+        "The source’s leading-method definition is limited; compare performance under explicit conditions."
+      ]
+    ]
+  },
+  "relatedIds": [],
+  "industry": {
+    "entities": [
+      "deepmind",
+      "saipem",
+      "sandia"
+    ],
+    "evidence": [
+      "saipem-enzyme",
+      "enzyme-membrane",
+      "alphafold-role"
+    ],
+    "stage": [
+      "结构工具 → 酶材料 → 工业过程 → 空气移除",
+      "Structure tool → enzyme material → process → DAC"
+    ],
+    "impact": [
+      "Saipem 的酶法工业捕集资料使“酶有无工程用途”变得具体。它并不能证明 AlphaFold 参与其中；工业烟气与空气的 CO₂ 浓度也不同。因此企业产品不能替原题补上算法参与和领先 DAC 两个条件。",
+      "Saipem makes industrial enzyme capture concrete, but does not establish AlphaFold use. Industrial emissions and air also differ. A product cannot fill the model-involvement and leading-DAC conditions by implication."
+    ],
+    "gap": [
+      "要影响本题判定，需要明确的软件使用、空气工况及可比较过程表现。当前引用资料未把这些条件连接成同一条已证实的项目链。",
+      "Contract-relevant evidence would connect documented model use, atmospheric feed and comparable process performance in one project; the cited sources do not do so."
+    ]
+  },
+  "context": {
+    "id": "enzyme",
+    "title": [
+      "AlphaFold、酶催化和空气捕集之间有多道验证",
+      "Several validation steps separate AlphaFold, enzymes and direct air capture"
+    ],
+    "principle": [
+      "碳酸酐酶可加速 CO₂ 与水、碳酸氢根之间的转化：CO₂ + H₂O ⇌ HCO₃⁻ + H⁺。加速反应不等于改变平衡，也不自动给出净捕集量。蛋白结构预测能帮助设计实验，但不能代替催化效率、寿命及再生能耗测量。",
+      "Carbonic anhydrase accelerates CO₂ + H₂O ⇌ HCO₃⁻ + H⁺. Faster kinetics do not by themselves establish net capture. Structure prediction can guide experiments but does not replace activity, lifetime and regeneration-energy measurements."
+    ],
+    "example": [
+      "Sandia 等机构的酶膜研究是真实的分离工作，但不能因此称其使用了 AlphaFold，也不能把烟气条件下的 CO₂ 分离直接等同于从空气净移除。本题还额外要求算法参与及“领先方法”的判定依据。",
+      "The enzyme-membrane paper is real separation research, but does not thereby establish AlphaFold use or net atmospheric removal. This contract additionally needs evidence of model involvement and a definition of a leading method."
+    ],
+    "evidence": [
+      "enzyme-membrane",
+      "alphafold-role"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1717390558038,
+      "p": 0.48806376504514315
+    },
+    "last": {
+      "t": 1782882512385,
+      "p": 0.056214329963830086
+    },
+    "change": -43.184943508131305,
+    "low": 0.056214329963830086,
+    "high": 0.48806376504514315,
+    "staleDays": 0.7017085069444444
+  },
   "quality": [
     {
       "code": "rules",

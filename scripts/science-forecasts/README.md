@@ -27,3 +27,13 @@ Use the public [Manifold API documentation](https://docs.manifold.markets/api). 
 4. Run the component/data tests, typecheck, build, browser checks, and update the release log before committing.
 
 Builds do not refresh these sources over the network. This preserves a reviewable snapshot and avoids exposing third-party API availability to page entry.
+
+## Event explanation and company evidence
+
+Every technical event has a bilingual brief, a technology-context reference, a three-item evidence checklist, an industry pathway and a visible primary-source bibliography. `contexts.json` owns shared scientific explanation; `curation.json` owns event-specific interpretation and remaining conditions. Related market prices are displayed separately without pooling or a synthetic technology-success score.
+
+The history reader uses actual UTC calendar coordinates, selected-window statistics, a keyboard-accessible observation index, scoped table/export, and a labelled optional focused vertical scale. Recent ranges default to the last actual trade; the archive-boundary anchor preserves empty windows and reveals inactivity. No boundary prices or intermediate observations are interpolated into the data.
+
+Company/source-date comparisons exclude the whole publication day where the time of day is unknown and use actual trades no more than seven days before/after that day. Missing sides remain missing; material published after the historical cutoff is subsequent context. A report issue date is **not** assumed to be the public-release date. Price differences are descriptive and are not attributed causally to a company or announcement.
+
+Scientific figures use `scripts/scientific-figures/` and checked-in SVGs. They distinguish recorded molecular graphs, computed conformers and authored schematics. The same mechanism supplies the annual Nobel learning examples. Proprietary undisclosed chemistry and atomic coordinates are not invented.

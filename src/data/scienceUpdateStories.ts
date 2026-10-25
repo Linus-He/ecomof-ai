@@ -1,5 +1,73 @@
 export const scienceUpdateStories = [
 {
+  "hash": "update-market-evidence-structures",
+  "version": "v3.5.9",
+  "date": "2026-10-25",
+  "image": 0,
+  "title": [
+    "把企业进展、市场历史与科学结构连起来",
+    "Connect company progress, market history and scientific structures"
+  ],
+  "intro": [
+    "全部技术事件补充企业与证据说明，历史曲线改用真实日期和可查明细；年度解读加入来源可核对的分子结构与明确标注的示意图。",
+    "Every technical event gains company/evidence reading. Histories use real dates and inspectable observations; annual readings add source-linked molecular structures and labelled schematics."
+  ],
+  "sections": [
+    {
+      "title": [
+        "每个事件都能继续查证",
+        "Make every event inspectable"
+      ],
+      "body": [
+        "19 个技术事件逐项补齐预测对象、判定条件、三项核对清单、技术解释与产业影响路径。资料扩充为 21 份原始来源，包含论文、检测报告、产品资料和企业公告，参考条目保留机构、来源链接及可用的 DOI。",
+        "All 19 technical events gain specific questions, conditions, three-item checklists, technical explanations and industry pathways. Twenty-one primary sources cover papers, tests, products and announcements, with institutions, links and available DOIs."
+      ]
+    },
+    {
+      "title": [
+        "把企业动作对到市场条件",
+        "Map company actions to contract conditions"
+      ],
+      "body": [
+        "企业与市场放在事件正文前部：说明检测、材料、产线、样品、客户认证和交付分别触及哪道门槛。公开日期附近仅使用真实成交作日期级对照；报告日期不冒充公开日期，缺少近邻成交不补价，价格变化不写成因果结论。",
+        "Company evidence leads the event reading, distinguishing tests, materials, lines, samples, qualification and delivery. Date-level comparisons use real nearby trades; report dates are not assumed public dates, missing prices stay missing and differences do not establish causation."
+      ]
+    },
+    {
+      "title": [
+        "从曲线读到具体成交",
+        "From a curve to actual trades"
+      ],
+      "body": [
+        "历史图显示真实 UTC 日期、首末笔涨跌、最低最高值、采样数量与最大成交间隔。支持近期／自定日期、最后成交或存档基准、明确标注的纵轴放大、键盘逐笔查看、分页明细和当前窗口 CSV 下载。",
+        "Histories show UTC dates, first-to-last change, extremes, counts and gaps. Recent/custom windows, last-trade/archive anchors, labelled vertical zoom, keyboard inspection, paginated data and scoped CSV exports remain tied to actual observations."
+      ]
+    },
+    {
+      "title": [
+        "结构就在解释旁边",
+        "Structures beside the explanation"
+      ],
+      "body": [
+        "67 类年度概念与 10 类市场技术解释接入结构图。根据公开分子记录核对连接、分子式和立体化学，R／S 香芹酮并列展示；拓扑示意与计算构象单独标注，不杜撰晶胞、蛋白原子坐标或企业配方。",
+        "Sixty-seven annual concepts and ten market contexts gain figures. Recorded graphs, formulas and stereochemistry are checked, including paired R/S carvone. Schematics and computed conformers are labelled; unit cells, protein coordinates and proprietary formulations are not invented."
+      ]
+    },
+    {
+      "title": [
+        "来源与缺口一同保留",
+        "Keep sources and gaps visible"
+      ],
+      "body": [
+        "新增机构与企业标识、PubChem 致谢及 RDKit 构建期工具许可说明。发现并补标 Toyota 原题期限与 API 停盘字段差异；同类市场分开比较，保留稀疏历史、取消及规则冲突。",
+        "Additional institution/company marks, PubChem attribution and RDKit build-time licensing accompany a newly flagged Toyota deadline/close-field discrepancy. Related contracts retain separate scopes, sparse histories, cancellation and rule conflicts."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "依据本轮已核对的公开资料、真实成交存档与结构记录编写；结构示意、资料公开节点与市场反应的边界分别标明。"
+},
+{
   "hash": "update-science-forecasts",
   "version": "v3.5.8",
   "date": "2026-10-25",

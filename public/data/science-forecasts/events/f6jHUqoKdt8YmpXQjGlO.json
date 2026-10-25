@@ -59,7 +59,92 @@
     "This mineral-weathering contract is not a MOF market. Activity is thin; its probability is not described as scientific consensus."
   ],
   "entities": [],
-  "evidence": [],
+  "evidence": [
+    "olivine-noaa",
+    "olivine-ecology",
+    "vesta-pilots",
+    "svante-redwood"
+  ],
+  "briefing": {
+    "contextId": "olivine",
+    "summary": [
+      "预测 2050 年前人为橄榄石路线超过每年十亿吨 CO₂；只有两位参与者、两个采样点，无法支持细致走势判断。",
+      "This asks about >1 Gt CO₂/year from human-enhanced olivine before 2050. Two participants and two observations cannot support a detailed trend."
+    ],
+    "checklist": [
+      [
+        "核查是年度净大气移除量，而非矿物投放量或累计量。",
+        "Check annual net atmospheric removal, not mineral deployment or cumulative totals."
+      ],
+      [
+        "核算溶解、空气—海洋交换、过程排放和额外性。",
+        "Account for dissolution, air–sea exchange, process emissions and additionality."
+      ],
+      [
+        "同时查生态风险与监测数据；理论潜力不代表实际规模。",
+        "Review ecology and monitoring alongside scale; theoretical potential is not deployment."
+      ]
+    ]
+  },
+  "relatedIds": [],
+  "industry": {
+    "entities": [
+      "vesta",
+      "noaa",
+      "svante",
+      "basf"
+    ],
+    "evidence": [
+      "vesta-pilots",
+      "olivine-ecology",
+      "svante-redwood"
+    ],
+    "stage": [
+      "现场试验 → 监测核证 → 可复制净移除",
+      "Field pilot → MRV → repeatable net removal"
+    ],
+    "impact": [
+      "Vesta 的沿岸试验直接关联橄榄石溶解和监测问题；工程化能否复制，要看现场数据与净移除核证。Svante 的过滤器工厂属于另一条捕集路线，仅用来说明“制造能力”与“已完成移除量”为什么要分开。",
+      "Vesta’s pilots address olivine dissolution and monitoring. Repeatable deployment needs field results and verified net removal. Svante is a different capture pathway, included to distinguish manufacturing capacity from realized removal."
+    ],
+    "gap": [
+      "这些资料没有建立每年十亿吨的人为橄榄石净移除。原题只有两个采样点，无法据价格曲线分析某次企业消息的反应。",
+      "These sources do not establish annual gigatonne removal by human-enhanced olivine. Two observations cannot support a market-response analysis of a corporate announcement."
+    ]
+  },
+  "context": {
+    "id": "olivine",
+    "title": [
+      "矿物溶解与净大气碳移除，口径不同",
+      "Dissolved mineral and net atmospheric removal are different quantities"
+    ],
+    "principle": [
+      "橄榄石风化可向海水提供碱度，使其有能力吸收更多 CO₂。投放多少矿石、溶解多少矿石，以及最终多吸收了多少大气 CO₂，需要分别核算；磨矿、运输与过程排放也影响净值。",
+      "Olivine weathering can add alkalinity, increasing seawater’s capacity to absorb CO₂. Deployed mineral, dissolved mineral and additional atmospheric uptake are distinct quantities, with grinding, transport and process emissions affecting net removal."
+    ],
+    "example": [
+      "原题的 10⁹ 吨/年是年度规模门槛，不能用累计投放量或整个海洋增碱领域的理论潜力替代。NOAA 的短期实验提供了化学和生态线索，仍没有建立全球十亿吨级部署或长期安全结论。",
+      "The 10⁹-tonne/year threshold is an annual scale, not cumulative mineral deployment or the theoretical potential of all ocean alkalinity methods. NOAA’s short-term work informs chemistry and ecology without establishing gigatonne deployment or long-term safety."
+    ],
+    "evidence": [
+      "olivine-noaa",
+      "olivine-ecology"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1691631523012,
+      "p": 0.4098360655737706
+    },
+    "last": {
+      "t": 1695752074884,
+      "p": 0.41806998054496264
+    },
+    "change": 0.8233914971192025,
+    "low": 0.4098360655737706,
+    "high": 0.41806998054496264,
+    "staleDays": 1124.5121748495371
+  },
   "quality": [
     {
       "code": "thin",

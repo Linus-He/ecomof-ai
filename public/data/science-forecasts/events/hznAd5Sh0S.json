@@ -366,8 +366,94 @@
     "两个期限的事件是独立市场，不能合并为一条概率，也不能把它们的成交额重复计作同一订单。",
     "The two horizons are separate contracts, not one probability series or a shared order-volume measure."
   ],
-  "entities": [],
-  "evidence": [],
+  "entities": [
+    "ethzurich",
+    "empa"
+  ],
+  "evidence": [
+    "llzo-interface",
+    "qs-eagle"
+  ],
+  "briefing": {
+    "contextId": "llzo",
+    "summary": [
+      "预测较早的 2027 年 LLZO 放大门槛。材料界面论文能解释难点，不能证明工厂已经过关。",
+      "This asks about the earlier 2027 LLZO threshold. Interface research explains obstacles but does not certify factory output."
+    ],
+    "checklist": [
+      [
+        "核查 2027 时间条件及一个设施的实际产量。",
+        "Check the 2027 condition and output of one facility."
+      ],
+      [
+        "核实工艺、电芯路线与商业交付对象。",
+        "Verify process, cell chemistry and commercial recipients."
+      ],
+      [
+        "比较 2029 题的宽限时间，但不要把不同市场概率当作同一分布。",
+        "Compare the later deadline without treating separate market prices as one coherent distribution."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "E6A6gylOZq"
+  ],
+  "industry": {
+    "entities": [
+      "ethzurich",
+      "empa",
+      "quantumscape",
+      "powerco"
+    ],
+    "evidence": [
+      "llzo-interface",
+      "qs-eagle"
+    ],
+    "stage": [
+      "界面研究 → 连续制造 → 单设施商业产出",
+      "Interface studies → manufacturing → facility output"
+    ],
+    "impact": [
+      "界面研究影响循环与制造难度，产线和客户认证则影响可量产性。QS 的中试进展可作为放大环节的产业对照；它没有在这份公告中证明采用 LLZO，不能据此计入本题产量。",
+      "Interface work informs cycling/manufacturing constraints; production and customer qualification matter to scale. QS is an industrial scale-up comparator, not verified LLZO output."
+    ],
+    "gap": [
+      "仍需要一家满足 LLZO 路线的设施给出至少 1 GWh/年的实际运行和商业交付证据。不能合并多个工厂、不同电解质路线或计划中的容量。",
+      "The threshold still needs actual operation and commercial evidence for one qualifying LLZO facility at ≥1 GWh/year, not combined factories or planned capacity."
+    ]
+  },
+  "context": {
+    "id": "llzo",
+    "title": [
+      "LLZO：传得动离子，还要做得出电池",
+      "LLZO: ionic transport is only one manufacturing requirement"
+    ],
+    "principle": [
+      "LLZO 是石榴石型氧化物固体电解质，常写作 Li₇La₃Zr₂O₁₂。电解质要让 Li⁺ 通过并隔开两极；真实电池还需要与锂金属形成稳定接触。表面污染、接触不足和循环中界面变化会影响电阻与电流分布。",
+      "LLZO is a garnet oxide electrolyte, commonly written Li₇La₃Zr₂O₁₂. It must conduct Li⁺ while separating electrodes and maintaining stable contact with lithium. Surface contamination, incomplete contact and evolving interfaces affect resistance and current distribution."
+    ],
+    "example": [
+      "论文中的界面处理即使降低了阻抗，仍没有给出工厂年产量。原市场的 1 GWh/年相当于每年 10⁹ Wh 的电池产出，还必须来自规定的单一设施、指定路线及商业生产证据，不能用实验室一片材料或未来产能规划替代。",
+      "An interlayer that lowers laboratory resistance does not measure factory output. The contract’s 1 GWh/year means 10⁹ Wh of annual battery production under its specified facility, chemistry and commercial conditions. A laboratory membrane or announced future capacity cannot establish that threshold."
+    ],
+    "evidence": [
+      "llzo-interface"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1775620656977,
+      "p": 0.16996921426207887
+    },
+    "last": {
+      "t": 1787140936370,
+      "p": 0.7109923694269784
+    },
+    "change": 54.10231551648995,
+    "low": 0.13260871353887388,
+    "high": 0.8679842555559922,
+    "staleDays": 66.7704348263889
+  },
   "quality": [
     {
       "code": "thin",

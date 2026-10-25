@@ -1,0 +1,191 @@
+{
+  "donut": {
+    "id": "donut",
+    "title": [
+      "“固态”“无锂”和“能量密度高”，是三个问题",
+      "Solid-state, lithium-free and high specific energy are different questions"
+    ],
+    "principle": [
+      "固态描述电解质的物态；锂含量是元素组成；Wh/kg 则是放电能量除以质量。锂金属固态电池仍然可以含锂，所以不能从“固态”推出“无锂”。元素分析、充放电测试与材料物相鉴定各自回答不同问题。",
+      "Solid-state describes the electrolyte’s physical form; lithium content is elemental composition; Wh/kg is discharge energy divided by mass. A solid-state lithium-metal cell still contains lithium. Composition analysis, electrical tests and phase identification answer different questions."
+    ],
+    "example": [
+      "读 Intertek 报告时，3.4 ppm w/w 可换算为 0.00034%；但样品来自一个电芯的特定组分。读 VTT 报告时，409.3 Wh/kg 对应 +25 °C、0.1C 放电条件。这两组数据不能互相替代，也不能自动外推到整包和批量产品。",
+      "The reported 3.4 ppm w/w converts to 0.00034%, for specified parts of one cell. VTT’s 409.3 Wh/kg refers to +25 °C and 0.1C discharge. These measurements are not interchangeable and do not automatically generalize to packs or production batches."
+    ],
+    "evidence": [
+      "donut-elements",
+      "donut-energy",
+      "battery-testing"
+    ]
+  },
+  "llzo": {
+    "id": "llzo",
+    "title": [
+      "LLZO：传得动离子，还要做得出电池",
+      "LLZO: ionic transport is only one manufacturing requirement"
+    ],
+    "principle": [
+      "LLZO 是石榴石型氧化物固体电解质，常写作 Li₇La₃Zr₂O₁₂。电解质要让 Li⁺ 通过并隔开两极；真实电池还需要与锂金属形成稳定接触。表面污染、接触不足和循环中界面变化会影响电阻与电流分布。",
+      "LLZO is a garnet oxide electrolyte, commonly written Li₇La₃Zr₂O₁₂. It must conduct Li⁺ while separating electrodes and maintaining stable contact with lithium. Surface contamination, incomplete contact and evolving interfaces affect resistance and current distribution."
+    ],
+    "example": [
+      "论文中的界面处理即使降低了阻抗，仍没有给出工厂年产量。原市场的 1 GWh/年相当于每年 10⁹ Wh 的电池产出，还必须来自规定的单一设施、指定路线及商业生产证据，不能用实验室一片材料或未来产能规划替代。",
+      "An interlayer that lowers laboratory resistance does not measure factory output. The contract’s 1 GWh/year means 10⁹ Wh of annual battery production under its specified facility, chemistry and commercial conditions. A laboratory membrane or announced future capacity cannot establish that threshold."
+    ],
+    "evidence": [
+      "llzo-interface"
+    ]
+  },
+  "qs": {
+    "id": "qs",
+    "title": [
+      "从隔膜工艺到客户电芯，中间还有产品确认",
+      "Separator process, customer cell and product confirmation"
+    ],
+    "principle": [
+      "QuantumScape 的路线使用固态陶瓷隔膜。制造工艺、QSE-5 样品和 PowerCo 的 Unified Cell 是相互关联但不同的对象：一条中试线设备安装完成，并不能证明特定客户格式的样品已通过合同要求的确认。",
+      "QuantumScape uses a solid ceramic separator. Manufacturing processes, QSE-5 samples and PowerCo’s Unified Cell are related but distinct. Installing pilot-line equipment does not by itself establish confirmation of the customer-specific cell format required by a contract."
+    ],
+    "example": [
+      "Eagle Line 公告的对象是中试制造与后续放大基础。读这个市场，应另找双方明确提到 Unified Cell 格式、陶瓷隔膜集成与实际样品的原始文件，避免把生产设施进展误认成产品交付。",
+      "The Eagle Line announcement concerns pilot manufacturing and a foundation for scale-up. This market instead needs source documents explicitly identifying the Unified Cell format, separator integration and an actual sample, rather than inferring delivery from equipment progress."
+    ],
+    "evidence": [
+      "qs-eagle"
+    ]
+  },
+  "toyota": {
+    "id": "toyota",
+    "title": [
+      "整车续航与快充，不能只看电芯的一项数字",
+      "Vehicle range and charging are system-level conditions"
+    ],
+    "principle": [
+      "续航与可用电量、车辆能耗共同相关；快充时间还取决于起止荷电状态、温度及充电功率。固体电解质路线的突破并不自动给出某一辆量产车的续航，也不能把 10–80% 充电时间读成 0–100%。",
+      "Range depends on usable energy and vehicle consumption. Charge duration also depends on starting/ending state of charge, temperature and power. An electrolyte advance does not establish a production vehicle’s range, and a 10–80% charge is not a 0–100% charge."
+    ],
+    "example": [
+      "Toyota 的公开路线区分多类液态与固态电池；出光合作聚焦硫化物电解质。判断这个同时含有续航、时间与销售条件的市场，必须让证据落到同一款实际车型，而非从不同项目中各挑一个数字。",
+      "Toyota’s roadmap separates liquid and solid electrolytes, while its Idemitsu collaboration focuses on sulfides. Evidence for this combined range/time/sales question must identify the same actual vehicle rather than combine figures from different projects."
+    ],
+    "evidence": [
+      "toyota-roadmap",
+      "toyota-sulfide"
+    ]
+  },
+  "phone": {
+    "id": "phone",
+    "title": [
+      "手机电池升级，不等于更换电解质路线",
+      "An improved phone battery does not establish a new electrolyte"
+    ],
+    "principle": [
+      "“锂离子”描述离子参与充放电的体系，“固态”描述电解质状态，两者不是互斥的标签。电池更薄、续航更长、充电更快，都不足以单独辨认电解质配方。",
+      "Lithium-ion identifies the charge-carrier system; solid-state identifies electrolyte form. The terms are not mutually exclusive. Thickness, endurance and charging speed alone do not identify electrolyte chemistry."
+    ],
+    "example": [
+      "Apple 的现行电池说明解释了分阶段充电，却没有把这一点作为固态电池的证据。这个题目需要已发布 iPhone 的明确技术资料或可复核电池分析，不能从供应链传闻或快充宣传直接推出 Yes。",
+      "Apple’s battery explanation describes staged charging, not evidence of solid electrolytes. This question needs product-specific technical disclosure or reproducible cell analysis rather than supply-chain rumors or fast-charge marketing."
+    ],
+    "evidence": [
+      "apple-battery"
+    ]
+  },
+  "battery-commercial": {
+    "id": "battery-commercial",
+    "title": [
+      "400 Wh/kg 与“商业可购”，需要两套证据",
+      "400 Wh/kg and commercial availability require different evidence"
+    ],
+    "principle": [
+      "比能量是放电得到的 Wh 除以质量 kg；体积能量密度则用 Wh/L。电芯、电池包与整车层级不能混用。放电倍率、温度和电压窗口也会影响测得能量。",
+      "Specific energy divides discharged Wh by mass in kg; volumetric energy density uses Wh/L. Cell, pack and vehicle measures cannot be interchanged. Rate, temperature and voltage window affect measured discharge energy."
+    ],
+    "example": [
+      "VTT 的 DL6 数据提供了单电芯、低倍率下的测量实例。对较早截止的商业发布市场，还要另核对当时能否订购或收货，以及商品是否为同一电芯；后来的实验结果不能改写较早的结算记录。",
+      "VTT’s DL6 report illustrates single-cell low-rate measurement. An earlier commercial-release contract additionally needs contemporaneous ordering or delivery evidence for that product. Later measurements do not rewrite the earlier market resolution."
+    ],
+    "evidence": [
+      "donut-energy",
+      "toyota-sulfide"
+    ]
+  },
+  "superconductor": {
+    "id": "superconductor",
+    "title": [
+      "材料发现与无需冷却的商品，是不同终点",
+      "A material discovery and an uncooled commercial device are different endpoints"
+    ],
+    "principle": [
+      "超导验证需要在约定温度、压力下审查电输运与磁响应，不能只看“电阻降低”或悬浮视频。器件还需要可用电流、磁场范围、机械加工和稳定运行；临界条件一旦超过，材料可能退出超导态。",
+      "Evidence must address transport and magnetic response at the specified temperature and pressure, rather than a resistance decrease or levitation video alone. Devices also need usable current/field ranges, processing and stable operation; exceeding critical conditions can destroy superconductivity."
+    ],
+    "example": [
+      "DOE 所介绍的超导磁体应用说明超导已有实际用途，但原市场额外要求常压、0 °C 以上和无需主动冷却，既有低温设备不能直接满足它。基础发现题的 No 或短期器件题的 No，也不是“此后永远不可能”的结论。",
+      "Existing superconducting magnets demonstrate real applications, but do not satisfy the extra ambient-pressure, above-0 °C and no-active-cooling requirements here. A No on a short-deadline contract is not a claim of permanent impossibility."
+    ],
+    "evidence": [
+      "superconductivity-doe",
+      "lk99-replication"
+    ]
+  },
+  "lk99": {
+    "id": "lk99",
+    "title": [
+      "复现实验出现，不等于超导结果被复现",
+      "A replication paper can appear without replicating superconductivity"
+    ],
+    "principle": [
+      "原始宣称、独立实验论文、独立成功复现和商业应用是四类事件。一篇实验论文报告未发现超导，仍可让“有没有独立实验论文”判 Yes，同时让“是否复现成功”判 No。",
+      "An original claim, an independent experimental paper, a successful replication and a commercial device are different events. A negative experimental paper can satisfy the paper-appearance contract while failing a superconductivity-replication contract."
+    ],
+    "example": [
+      "曼彻斯特相关实验未在其样品中观察到超导；中国科学院物理所相关工作检验了 Cu₂S 杂相带来的电阻突变。阅读市场时，应核对材料物相、零电阻的测量下限与磁性证据，而不是将一条电阻曲线的形状当作完整验证。",
+      "The Manchester-linked study found no superconducting signatures in its samples; the Institute of Physics study examined Cu₂S-related transitions. Market interpretation should track sample phases, resistance limits and magnetic evidence, not just the shape of a resistance curve."
+    ],
+    "evidence": [
+      "lk99-replication",
+      "lk99-impurity",
+      "superconductivity-doe"
+    ]
+  },
+  "enzyme": {
+    "id": "enzyme",
+    "title": [
+      "AlphaFold、酶催化和空气捕集之间有多道验证",
+      "Several validation steps separate AlphaFold, enzymes and direct air capture"
+    ],
+    "principle": [
+      "碳酸酐酶可加速 CO₂ 与水、碳酸氢根之间的转化：CO₂ + H₂O ⇌ HCO₃⁻ + H⁺。加速反应不等于改变平衡，也不自动给出净捕集量。蛋白结构预测能帮助设计实验，但不能代替催化效率、寿命及再生能耗测量。",
+      "Carbonic anhydrase accelerates CO₂ + H₂O ⇌ HCO₃⁻ + H⁺. Faster kinetics do not by themselves establish net capture. Structure prediction can guide experiments but does not replace activity, lifetime and regeneration-energy measurements."
+    ],
+    "example": [
+      "Sandia 等机构的酶膜研究是真实的分离工作，但不能因此称其使用了 AlphaFold，也不能把烟气条件下的 CO₂ 分离直接等同于从空气净移除。本题还额外要求算法参与及“领先方法”的判定依据。",
+      "The enzyme-membrane paper is real separation research, but does not thereby establish AlphaFold use or net atmospheric removal. This contract additionally needs evidence of model involvement and a definition of a leading method."
+    ],
+    "evidence": [
+      "enzyme-membrane",
+      "alphafold-role"
+    ]
+  },
+  "olivine": {
+    "id": "olivine",
+    "title": [
+      "矿物溶解与净大气碳移除，口径不同",
+      "Dissolved mineral and net atmospheric removal are different quantities"
+    ],
+    "principle": [
+      "橄榄石风化可向海水提供碱度，使其有能力吸收更多 CO₂。投放多少矿石、溶解多少矿石，以及最终多吸收了多少大气 CO₂，需要分别核算；磨矿、运输与过程排放也影响净值。",
+      "Olivine weathering can add alkalinity, increasing seawater’s capacity to absorb CO₂. Deployed mineral, dissolved mineral and additional atmospheric uptake are distinct quantities, with grinding, transport and process emissions affecting net removal."
+    ],
+    "example": [
+      "原题的 10⁹ 吨/年是年度规模门槛，不能用累计投放量或整个海洋增碱领域的理论潜力替代。NOAA 的短期实验提供了化学和生态线索，仍没有建立全球十亿吨级部署或长期安全结论。",
+      "The 10⁹-tonne/year threshold is an annual scale, not cumulative mineral deployment or the theoretical potential of all ocean alkalinity methods. NOAA’s short-term work informs chemistry and ecology without establishing gigatonne deployment or long-term safety."
+    ],
+    "evidence": [
+      "olivine-noaa",
+      "olivine-ecology"
+    ]
+  }
+}

@@ -16848,11 +16848,96 @@
   ],
   "entities": [
     "donutlab",
+    "intertek",
     "vtt"
   ],
   "evidence": [
-    "battery-testing"
+    "battery-testing",
+    "donut-elements",
+    "donut-energy"
   ],
+  "briefing": {
+    "contextId": "donut",
+    "summary": [
+      "预测的是锂含量，不是测试会不会发生。原题的 Yes 门槛为质量分数低于 0.1%。",
+      "This predicts lithium content, not whether testing occurs: Yes requires less than 0.1% by weight."
+    ],
+    "checklist": [
+      [
+        "核对 Intertek 原报告的取样范围与质量分母。",
+        "Check the Intertek report’s sample scope and mass denominator."
+      ],
+      [
+        "区分送检组分、完整电芯与量产批次，确认它们和题目对象的对应关系。",
+        "Match submitted parts, complete cells and production batches to the contract subject."
+      ],
+      [
+        "对照原市场的后续澄清；报告结果不自动替代平台结算。",
+        "Review source clarifications; laboratory results do not substitute for platform resolution."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "URnpyLNL6s",
+    "5yR6nLsLlu"
+  ],
+  "industry": {
+    "entities": [
+      "donutlab",
+      "intertek",
+      "vtt"
+    ],
+    "evidence": [
+      "donut-elements",
+      "donut-energy"
+    ],
+    "stage": [
+      "送检数据 → 商品验证 → 客户交付",
+      "Submitted tests → product validation → delivery"
+    ],
+    "impact": [
+      "锂含量报告直接关联本题的化学门槛，比快充或能量密度宣传更贴近 Yes／No 条件。市场解读应从“哪种组分被测、是否对应题目电池”开始，而不是只看公司宣称使用了新技术。",
+      "The elemental report bears directly on the chemical threshold, unlike charge-rate or energy-density marketing. Interpretation starts with sample scope and correspondence to the contract battery."
+    ],
+    "gap": [
+      "一份送检组分报告仍需与题目对象、质量分母和创建者澄清对应。下方消息附近的价格对照只能描述成交，不能证明市场为何没有接受或采纳某项材料。",
+      "The report must match the contract subject, mass denominator and clarifications. Nearby prices describe trades, not why traders accepted or rejected evidence."
+    ]
+  },
+  "context": {
+    "id": "donut",
+    "title": [
+      "“固态”“无锂”和“能量密度高”，是三个问题",
+      "Solid-state, lithium-free and high specific energy are different questions"
+    ],
+    "principle": [
+      "固态描述电解质的物态；锂含量是元素组成；Wh/kg 则是放电能量除以质量。锂金属固态电池仍然可以含锂，所以不能从“固态”推出“无锂”。元素分析、充放电测试与材料物相鉴定各自回答不同问题。",
+      "Solid-state describes the electrolyte’s physical form; lithium content is elemental composition; Wh/kg is discharge energy divided by mass. A solid-state lithium-metal cell still contains lithium. Composition analysis, electrical tests and phase identification answer different questions."
+    ],
+    "example": [
+      "读 Intertek 报告时，3.4 ppm w/w 可换算为 0.00034%；但样品来自一个电芯的特定组分。读 VTT 报告时，409.3 Wh/kg 对应 +25 °C、0.1C 放电条件。这两组数据不能互相替代，也不能自动外推到整包和批量产品。",
+      "The reported 3.4 ppm w/w converts to 0.00034%, for specified parts of one cell. VTT’s 409.3 Wh/kg refers to +25 °C and 0.1C discharge. These measurements are not interchangeable and do not automatically generalize to packs or production batches."
+    ],
+    "evidence": [
+      "donut-elements",
+      "donut-energy",
+      "battery-testing"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1772593278863,
+      "p": 0.4997500624999922
+    },
+    "last": {
+      "t": 1792709168357,
+      "p": 0.20398575498542273
+    },
+    "change": -29.57643075145695,
+    "low": 0.05899692378313067,
+    "high": 0.4997500624999922,
+    "staleDays": 2.3242500578703704
+  },
   "quality": [],
   "tradePoints": 4164,
   "detailFile": "events/SAIUNdCI8U.json"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.8",
+  "currentAppVersion": "v3.5.9",
   "generatedAt": "2026-10-25",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.7",
-    "developmentVersion": "v3.5.8",
+    "baseAppVersion": "v3.5.8",
+    "developmentVersion": "v3.5.9",
     "recordedAt": "2026-10-25",
     "status": "archived",
     "statusLabel": {
@@ -22,35 +22,35 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "将预测市场扩展为科学预测统一入口，保留诺奖档案，新增电池、超导与碳捕集的可核验技术事件，并修复二级页面正文发灰。",
-      "en": "A unified Science Forecasts entry preserves Nobel archives and adds source-backed battery, superconductor and carbon-capture events, with a global fix for faded secondary pages."
+      "zh": "全部技术事件补充企业与证据说明，历史曲线改用真实日期和可查明细；年度解读加入来源可核对的分子结构与明确标注的示意图。",
+      "en": "Every technical event gains company/evidence reading. Histories use real dates and inspectable observations; annual readings add source-linked molecular structures and labelled schematics."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "科学预测专题与全局页面显示修复",
-          "en": "Science Forecasts and reliable secondary pages"
+          "zh": "把企业进展、市场历史与科学结构连起来",
+          "en": "Connect company progress, market history and scientific structures"
         },
         "changes": [
           {
-            "zh": "首页、菜单和页脚统一改为“科学预测”。诺奖市场成为独立专题，原有七份年度／平台记录与旧链接继续可用；新增全固态电池、超导材料、碳捕集与 MOF 三个技术专题。",
-            "en": "Home, menu and footer now use Science Forecasts. Nobel markets retain all seven year/source editions and legacy links as a dedicated topic, alongside batteries, superconductors and carbon capture / MOFs."
+            "zh": "19 个技术事件逐项补齐预测对象、判定条件、三项核对清单、技术解释与产业影响路径。资料扩充为 21 份原始来源，包含论文、检测报告、产品资料和企业公告，参考条目保留机构、来源链接及可用的 DOI。",
+            "en": "All 19 technical events gain specific questions, conditions, three-item checklists, technical explanations and industry pathways. Twenty-one primary sources cover papers, tests, products and announcements, with institutions, links and available DOIs."
           },
           {
-            "zh": "从 Manifold 公共 API 收录 19 个具体事件、7,803 个真实成交后采样点，分别标明虚拟积分、存档概率、停盘前成交及平台判定。六条规则冲突或不足单独提示，取消不视为 No。",
-            "en": "Public Manifold API records supply 19 specific events and 7,803 actual post-trade observations. Play money, archived snapshots, pre-close trades and resolution are distinct. Six rule issues are flagged; cancellation is not No."
+            "zh": "企业与市场放在事件正文前部：说明检测、材料、产线、样品、客户认证和交付分别触及哪道门槛。公开日期附近仅使用真实成交作日期级对照；报告日期不冒充公开日期，缺少近邻成交不补价，价格变化不写成因果结论。",
+            "en": "Company evidence leads the event reading, distinguishing tests, materials, lines, samples, qualification and delivery. Date-level comparisons use real nearby trades; report dates are not assumed public dates, missing prices stay missing and differences do not establish causation."
           },
           {
-            "zh": "专题提供搜索、阶段与状态筛选、排序、本机关注、事件目录与历史 CSV 下载。事件详情按需加载，包含规则摘要、判定边界、真实历史曲线及中英机构简介和官方图标。",
-            "en": "Topics offer search, stage/status filters, sorting, device-local watchlists and CSV exports. Event details load on demand with rule summaries, resolution boundaries, actual history and bilingual institution profiles with official icons."
+            "zh": "历史图显示真实 UTC 日期、首末笔涨跌、最低最高值、采样数量与最大成交间隔。支持近期／自定日期、最后成交或存档基准、明确标注的纵轴放大、键盘逐笔查看、分页明细和当前窗口 CSV 下载。",
+            "en": "Histories show UTC dates, first-to-last change, extremes, counts and gaps. Recent/custom windows, last-trade/archive anchors, labelled vertical zoom, keyboard inspection, paginated data and scoped CSV exports remain tied to actual observations."
           },
           {
-            "zh": "补充 VTT 测量说明、LK-99 实验论文及 Svante／BASF 的 MOF 材料供应资料。市场预测与科学证据分别呈现；未找到可核验的 MOF 产业专属市场，不以其他碳捕集路线的概率代替。",
-            "en": "Evidence links cover VTT measurements, an LK-99 experimental paper and Svante/BASF MOF supply documents. Market prices and evidence remain separate; other capture pathways do not stand in for an unverified MOF industry market."
+            "zh": "67 类年度概念与 10 类市场技术解释接入结构图。根据公开分子记录核对连接、分子式和立体化学，R／S 香芹酮并列展示；拓扑示意与计算构象单独标注，不杜撰晶胞、蛋白原子坐标或企业配方。",
+            "en": "Sixty-seven annual concepts and ten market contexts gain figures. Recorded graphs, formulas and stereochemistry are checked, including paired R/S carvone. Schematics and computed conformers are labelled; unit cells, protein coordinates and proprietary formulations are not invented."
           },
           {
-            "zh": "移除全局正文容器的滚动透明度动画，二级页面在进入、滚动及异步加载后保持完整显示。致谢同步说明 Manifold 的新增数据用途；本轮提交记录与动态详情保持一致。",
-            "en": "Global content containers no longer use scroll-driven opacity, keeping secondary pages readable on entry, scroll and lazy loading. Acknowledgements cover the expanded Manifold use; release and update stories describe the same completed work."
+            "zh": "新增机构与企业标识、PubChem 致谢及 RDKit 构建期工具许可说明。发现并补标 Toyota 原题期限与 API 停盘字段差异；同类市场分开比较，保留稀疏历史、取消及规则冲突。",
+            "en": "Additional institution/company marks, PubChem attribution and RDKit build-time licensing accompany a newly flagged Toyota deadline/close-field discrepancy. Related contracts retain separate scopes, sparse histories, cancellation and rule conflicts."
           }
         ]
       }
@@ -191,6 +191,48 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.9",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "把企业进展、市场历史与科学结构连起来",
+        "en": "Connect company progress, market history and scientific structures"
+      },
+      "summary": {
+        "zh": "全部技术事件补充企业与证据说明，历史曲线改用真实日期和可查明细；年度解读加入来源可核对的分子结构与明确标注的示意图。",
+        "en": "Every technical event gains company/evidence reading. Histories use real dates and inspectable observations; annual readings add source-linked molecular structures and labelled schematics."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "把企业进展、市场历史与科学结构连起来",
+            "en": "Connect company progress, market history and scientific structures"
+          },
+          "changes": [
+            {
+              "zh": "19 个技术事件逐项补齐预测对象、判定条件、三项核对清单、技术解释与产业影响路径。资料扩充为 21 份原始来源，包含论文、检测报告、产品资料和企业公告，参考条目保留机构、来源链接及可用的 DOI。",
+              "en": "All 19 technical events gain specific questions, conditions, three-item checklists, technical explanations and industry pathways. Twenty-one primary sources cover papers, tests, products and announcements, with institutions, links and available DOIs."
+            },
+            {
+              "zh": "企业与市场放在事件正文前部：说明检测、材料、产线、样品、客户认证和交付分别触及哪道门槛。公开日期附近仅使用真实成交作日期级对照；报告日期不冒充公开日期，缺少近邻成交不补价，价格变化不写成因果结论。",
+              "en": "Company evidence leads the event reading, distinguishing tests, materials, lines, samples, qualification and delivery. Date-level comparisons use real nearby trades; report dates are not assumed public dates, missing prices stay missing and differences do not establish causation."
+            },
+            {
+              "zh": "历史图显示真实 UTC 日期、首末笔涨跌、最低最高值、采样数量与最大成交间隔。支持近期／自定日期、最后成交或存档基准、明确标注的纵轴放大、键盘逐笔查看、分页明细和当前窗口 CSV 下载。",
+              "en": "Histories show UTC dates, first-to-last change, extremes, counts and gaps. Recent/custom windows, last-trade/archive anchors, labelled vertical zoom, keyboard inspection, paginated data and scoped CSV exports remain tied to actual observations."
+            },
+            {
+              "zh": "67 类年度概念与 10 类市场技术解释接入结构图。根据公开分子记录核对连接、分子式和立体化学，R／S 香芹酮并列展示；拓扑示意与计算构象单独标注，不杜撰晶胞、蛋白原子坐标或企业配方。",
+              "en": "Sixty-seven annual concepts and ten market contexts gain figures. Recorded graphs, formulas and stereochemistry are checked, including paired R/S carvone. Schematics and computed conformers are labelled; unit cells, protein coordinates and proprietary formulations are not invented."
+            },
+            {
+              "zh": "新增机构与企业标识、PubChem 致谢及 RDKit 构建期工具许可说明。发现并补标 Toyota 原题期限与 API 停盘字段差异；同类市场分开比较，保留稀疏历史、取消及规则冲突。",
+              "en": "Additional institution/company marks, PubChem attribution and RDKit build-time licensing accompany a newly flagged Toyota deadline/close-field discrepancy. Related contracts retain separate scopes, sparse histories, cancellation and rule conflicts."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.8",
       "date": "2026-10-25",

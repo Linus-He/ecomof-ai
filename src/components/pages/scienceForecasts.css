@@ -141,3 +141,116 @@
 .science-results-status{font-size:10px}
 .science-chart-caption{font-size:11px}
 }
+
+/* Detailed event reading and source-backed history. */
+.forecast-anchor{scroll-margin-top:100px}
+.forecast-brief{max-width:1000px;padding:4px 0 20px}
+.forecast-brief>p{font:19px/1.9 Georgia,'Songti SC',serif;color:#354c57;margin:13px 0}
+.forecast-event-nav{display:flex;flex-wrap:wrap;gap:12px 25px;border-block:1px solid #e1e6eb;padding:13px 0;margin-bottom:25px}
+.forecast-event-nav button,.forecast-inline-references button{border:0;background:#fff;color:#286dba;font-family:inherit;font-size:13px;line-height:1.8;padding:3px 0;cursor:pointer;text-align:left}
+.forecast-event-nav button:hover{text-decoration:underline}
+.forecast-history{padding:20px 0 0}
+.forecast-history-intro{font-size:14px;line-height:1.9;color:#667581;max-width:920px;margin:10px 0 24px}
+.forecast-source{display:inline-flex;align-items:center;gap:8px;color:#67758a;font-size:13px}
+.forecast-source img{width:25px;height:25px;object-fit:contain}
+.forecast-chart-controls{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:22px 0 16px}
+.forecast-chart-controls label,.forecast-custom-dates label{display:grid;gap:7px;font-size:12px;color:#667581}
+.forecast-chart-controls select,.forecast-custom-dates input{border:1px solid #dce2e8;background:#fff;border-radius:6px;height:36px;color:#334550;padding:5px 9px;font-family:inherit;font-size:13px;line-height:1.6;min-width:0}
+.forecast-scale-toggle,.forecast-custom-dates button,.forecast-pagination button,.forecast-data-table td button{border:1px solid #dce2e8;background:#fff;border-radius:6px;padding:8px 11px;color:#405e76;font-family:inherit;font-size:12px;line-height:1.6;cursor:pointer}
+.forecast-scale-toggle[aria-pressed=true]{color:#2156ff;border-color:#9bb4fc}
+.forecast-custom-dates{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:25px}
+.forecast-custom-dates>span{font-size:11px;color:#7a8791;max-width:420px;line-height:1.8}
+.forecast-window-stats{display:grid;grid-template-columns:1.45fr 1.3fr .85fr 1fr;gap:20px;border-block:1px solid #e1e6eb;padding:21px 0;margin:22px 0 25px}
+.forecast-window-stats span,.forecast-selected-point span{display:block;color:#71808d;font-size:12px;line-height:1.7;margin-bottom:9px}
+.forecast-window-stats strong{font-size:19px;font-weight:550;color:#153d50;white-space:nowrap}
+.forecast-window-stats small{display:block;color:#7a8791;font-size:11px;line-height:1.8;margin-top:8px}
+.forecast-plot-label{display:flex;justify-content:space-between;gap:15px;font-size:12px;color:#667581;margin:22px 0 4px}
+.forecast-probability-chart{height:350px!important}
+.forecast-chart-note,.forecast-recency{font-size:12px;color:#647585;line-height:1.9;margin:14px 0 20px}
+.forecast-recency{padding:16px 0;border-bottom:1px solid #e1e6eb}
+.forecast-point-reader{padding:20px 0;border-block:1px solid #e1e6eb;margin:20px 0}
+.forecast-selected-point{display:grid;grid-template-columns:1.5fr .6fr 1.2fr;gap:25px;margin-bottom:18px}
+.forecast-selected-point strong{font-size:16px;font-weight:500;color:#25485d;line-height:1.7;overflow-wrap:anywhere}
+.forecast-point-slider{display:grid;gap:8px;font-size:12px;color:#667581}
+.forecast-point-slider input{appearance:auto!important;-webkit-appearance:auto!important;height:28px!important;block-size:28px;width:100%;accent-color:#2156ff;padding:0;cursor:pointer;background:transparent;border:0;box-shadow:none}
+.forecast-point-slider input::-webkit-slider-thumb{appearance:auto!important;-webkit-appearance:auto!important}
+.forecast-moves,.forecast-data-table{border-bottom:1px solid #e1e6eb;padding:18px 0;font-size:13px;color:#596e7e}
+.forecast-moves summary,.forecast-data-table summary{color:#2d4d61;cursor:pointer;line-height:1.8}
+.forecast-moves>p{line-height:1.8;color:#7a8791;font-size:12px}
+.forecast-moves>button{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:14px;width:100%;text-align:left;background:#fff;border:0;border-top:1px solid #eef0f2;padding:14px 0;font-family:inherit;font-size:12px;line-height:1.8;color:#627584;cursor:pointer}
+.forecast-moves>button strong{color:#2156ff;font-weight:500}
+.forecast-table-scroll{overflow-x:auto;margin-top:18px}
+.forecast-data-table table{border-collapse:collapse;width:100%;font-size:12px;min-width:590px}
+.forecast-data-table th{text-align:left;font-weight:500;color:#6b7b88;background:#fff}
+.forecast-data-table th,.forecast-data-table td{padding:12px 10px;border-bottom:1px solid #e7ebee;white-space:nowrap}
+.forecast-pagination{display:flex;align-items:center;justify-content:flex-end;gap:18px;margin-top:18px}
+.forecast-pagination button:disabled{opacity:.4;cursor:default}
+.forecast-technology{border-top:1px solid #dce2e7;margin-top:45px;padding-top:35px}
+.forecast-technology article{max-width:1050px;padding:5px 0 24px}
+.forecast-technology h3{font-size:24px;font-weight:500;color:#063641;line-height:1.5;margin:20px 0}
+.forecast-technology article>p,.forecast-criteria p{font:17px/2 Georgia,'Songti SC',serif;color:#405663;margin:14px 0 20px}
+.forecast-inline-references{display:grid;gap:7px;max-width:900px;margin-top:25px}
+.forecast-inline-references button{font-size:12px;line-height:1.9}
+.forecast-inline-references svg{vertical-align:middle;margin-left:4px}
+.forecast-criteria{display:grid;grid-template-columns:1fr 1fr;gap:45px;border-top:1px solid #e1e6eb;padding-top:22px}
+.forecast-criteria h3{font-size:19px;margin:12px 0 20px}
+.forecast-criteria p{font-size:16px}
+.forecast-criteria ol{padding-left:21px;font-size:15px;line-height:1.95;color:#405663}
+.forecast-criteria li{padding-left:5px;margin-bottom:15px}
+.forecast-criteria small{font-size:12px;line-height:1.9;color:#7a8791}
+.forecast-criteria a{font-size:12px;color:#2672b8;display:inline-flex;align-items:center;gap:8px}
+.forecast-source-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;border-top:1px solid #e1e6eb;padding-top:20px;margin-top:24px}
+.forecast-source-facts dt{font-size:12px;color:#71808d;line-height:1.8;margin-bottom:8px}
+.forecast-source-facts dd{font-size:15px;color:#25485d;line-height:1.8;margin:0}
+.forecast-reference-url{display:inline-flex;align-items:center;gap:8px;color:#2672b8;font-size:12px;margin-top:18px}
+.forecast-related{margin-top:45px;border-top:1px solid #dce2e7;padding-top:30px}
+.forecast-related>h2{font-size:26px;font-weight:500;color:#063641;margin:17px 0}
+.forecast-related>p{font-size:13px;color:#71808d;line-height:1.9;max-width:900px}
+.forecast-related>article{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:35px;border-bottom:1px solid #e1e6eb;padding:23px 0}
+.forecast-related article a{font-size:17px;line-height:1.7;color:#24495e}
+.forecast-related article p{font-size:13px;line-height:1.9;color:#73818b;margin:12px 0}
+.forecast-related article small{font-size:11px;line-height:1.8;color:#7a8791;display:block}
+.forecast-related article>div:last-child{text-align:right}
+.forecast-related article strong{font-size:25px;color:#234a60;display:block;font-weight:500;margin-bottom:8px}
+.forecast-row-brief{font-size:13px;line-height:1.9;color:#677a87;max-width:820px;margin:12px 0}
+.forecast-row-history{display:flex;gap:8px 18px;flex-wrap:wrap;margin:12px 0 5px;font-size:11px;line-height:1.8;color:#647b8c}
+@media(max-width:760px){
+ .forecast-brief>p{font-size:17px}.forecast-event-nav{gap:9px 18px}.forecast-event-nav button{font-size:12px}
+ .forecast-chart-controls{gap:15px;align-items:flex-end}.forecast-chart-controls .prediction-ranges{width:100%;justify-content:space-between;gap:5px}.forecast-chart-controls .prediction-ranges button{padding:7px 5px;font-size:11px}
+ .forecast-chart-controls label{flex:1}.forecast-chart-controls select{width:100%}.forecast-scale-toggle{font-size:11px;padding:8px}
+ .forecast-custom-dates{gap:10px}.forecast-custom-dates label{min-width:0;flex:1}.forecast-custom-dates input{width:100%;font-size:12px}.forecast-custom-dates>span{flex-basis:100%}
+ .forecast-window-stats{grid-template-columns:1fr 1fr;gap:20px 15px}.forecast-window-stats strong{font-size:15px;white-space:normal}.forecast-window-stats span{font-size:11px}
+ .forecast-probability-chart{height:285px!important}.forecast-selected-point{grid-template-columns:1fr 1fr;gap:15px}.forecast-selected-point>div:first-child{grid-column:1/-1}.forecast-selected-point strong{font-size:14px}
+ .forecast-moves>button{grid-template-columns:1fr 1fr;gap:5px 15px}.forecast-moves>button>span:last-child{grid-column:1/-1}
+ .forecast-technology h3{font-size:21px}.forecast-technology article>p,.forecast-criteria p{font-size:16px}.forecast-criteria{grid-template-columns:1fr;gap:20px}.forecast-criteria h3{font-size:19px}
+ .forecast-source-facts{grid-template-columns:1fr;gap:17px}.forecast-source-facts dd{font-size:14px}
+ .forecast-related>article{grid-template-columns:minmax(0,1fr) 75px;gap:16px}.forecast-related article a{font-size:15px}.forecast-related article strong{font-size:22px}.forecast-related article p{font-size:12px}
+ .forecast-row-brief{font-size:12px}.forecast-row-history{font-size:10px}
+}
+.forecast-industry{padding:24px 0 35px;border-bottom:1px solid #dce2e7;margin:20px 0 30px}
+.forecast-industry-stage{color:#2c6c9f;font-size:14px;line-height:1.9;padding:13px 0;border-block:1px solid #e1e6eb;margin:22px 0}
+.forecast-industry-reading{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:25px 0 30px}
+.forecast-industry-reading h3{font-size:19px;line-height:1.6;color:#063641;font-weight:500;margin:0 0 15px}
+.forecast-industry-reading p{font:16px/1.95 Georgia,'Songti SC',serif;color:#415b6a;margin:0}
+.forecast-industry .science-entity-profiles{padding:25px 0;border-block:1px solid #e1e6eb;gap:20px 30px}
+.forecast-industry .science-entity-profiles p{color:#6e808d;font-size:12px;margin:8px 0 0}
+.forecast-company-evidence>article{display:grid;grid-template-columns:1.7fr 1fr;gap:45px;border-bottom:1px solid #e1e6eb;padding:29px 0}
+.forecast-company-evidence small{font-size:11px;color:#748694;line-height:1.8}
+.forecast-company-evidence h3{font-size:20px;font-weight:500;color:#063641;line-height:1.6;margin:10px 0 15px}
+.forecast-company-evidence p{font-size:14px;color:#577080;line-height:1.95;margin:12px 0}
+.forecast-company-evidence button{background:#fff;border:0;color:#2672b8;font-family:inherit;font-size:12px;padding:7px 0;cursor:pointer}
+.forecast-news-prices{border-top:1px solid #e1e6eb;padding-top:13px}
+.forecast-news-prices h4{font-size:13px;line-height:1.7;color:#4e6778;font-weight:500;margin:0 0 16px}
+.forecast-news-prices>div{margin:14px 0}
+.forecast-news-prices span{font-size:11px;color:#718390;line-height:1.8;display:block}
+.forecast-news-prices strong{font-size:24px;color:#2156ff;font-weight:500;display:block;margin:6px 0}
+.forecast-news-prices small{font-size:10px;overflow-wrap:anywhere}
+.forecast-news-prices p{font-size:12px;color:#778792}
+.forecast-company-note{font-size:12px;color:#70818e;line-height:1.95;margin:20px 0 0}
+@media(max-width:760px){.forecast-industry-reading{grid-template-columns:1fr;gap:25px}.forecast-company-evidence>article{grid-template-columns:1fr;gap:18px}.forecast-industry-stage{font-size:12px}.forecast-industry-reading p{font-size:15px}.forecast-company-evidence h3{font-size:18px}.forecast-news-prices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.forecast-news-prices>h4,.forecast-news-prices>p{grid-column:1/-1}.forecast-news-prices>div{margin:0}.forecast-news-prices strong{font-size:22px}}
+.forecast-date-source{display:inline-flex;align-items:center;gap:6px;margin:8px 18px 8px 0;font-size:12px;color:#2672b8}
+.science-evidence p.forecast-bibliographic{font-family:inherit;font-size:12px;line-height:1.9;color:#71828f;margin:8px 0 14px}
+.science-entities a,.science-entity-profiles a{max-width:100%}
+.science-entities a>span,.science-entity-profiles a>span{min-width:0;overflow-wrap:anywhere}
+.science-entities img[src*="casphysics"],.science-entity-profiles img[src*="casphysics"]{width:110px;height:28px;flex-shrink:0}
+.science-entity-profiles img[src*="empa"]{width:80px;height:30px;flex-shrink:0}

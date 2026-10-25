@@ -36,6 +36,7 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-market-evidence-structures", hash:"update-market-evidence-structures", label:label("企业进展、市场历史与科学结构","Company evidence, market history and structures") },
       { id:"update-science-forecasts", hash:"update-science-forecasts", label:label("科学预测专题与全局页面显示修复","Science Forecasts and reliable secondary pages") },
       { id:"update-methodology-reader", hash:"update-methodology-reader", label:label("方法论重绘与市场入口修复","A clearer methodology and reliable market entry") },
       { id:"update-science-refinements", hash:"update-science-refinements", label:label("更完整的历史市场与产业资料","Historical markets and product evidence") },

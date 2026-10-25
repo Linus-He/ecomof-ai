@@ -1,0 +1,2102 @@
+{
+  "schemaVersion": "1.0",
+  "generator": "scripts/scientific-figures/build.py",
+  "rdkitVersion": "2025.3.6",
+  "figures": {
+    "carvone-r": {
+      "id": "carvone-r",
+      "image": "images/scientific-structures/carvone-r.svg",
+      "title": [
+        "(R)-香芹酮",
+        "(R)-Carvone"
+      ],
+      "caption": [
+        "按公开连接与立体化学记录绘制的二维结构式；楔线表示空间构型，不表示旋光方向。",
+        "2D depiction from recorded connectivity and stereochemistry; wedges indicate configuration, not optical rotation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/439570"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "6173b17cf784a02dc5d1998dc958c413ee16b3a3b64cf41c6455c0d9abe1d2a2",
+      "smiles": "C=C(C)[C@@H]1CC=C(C)C(=O)C1",
+      "formula": "C10H14O",
+      "chiralCenters": [
+        [
+          4,
+          "R"
+        ]
+      ]
+    },
+    "carvone-s": {
+      "id": "carvone-s",
+      "image": "images/scientific-structures/carvone-s.svg",
+      "title": [
+        "(S)-香芹酮",
+        "(S)-Carvone"
+      ],
+      "caption": [
+        "按公开连接与立体化学记录绘制的二维结构式；楔线表示空间构型，不表示旋光方向。",
+        "2D depiction from recorded connectivity and stereochemistry; wedges indicate configuration, not optical rotation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/16724"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "68b9f43046b0b033fa03f69d7c68d4c6d39f3aa82b82193ae50986e3a3f2dcd4",
+      "smiles": "C=C(C)[C@H]1CC=C(C)C(=O)C1",
+      "formula": "C10H14O",
+      "chiralCenters": [
+        [
+          4,
+          "S"
+        ]
+      ]
+    },
+    "limonene": {
+      "id": "limonene",
+      "image": "images/scientific-structures/limonene.svg",
+      "title": [
+        "柠檬烯（未指定构型）",
+        "Limonene (unspecified stereochemistry)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/22311"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "3c3ad112399edd3a212c3ed43d1647e9e05cba2daa453436ce6c236b638885e8",
+      "smiles": "C=C(C)C1CC=C(C)CC1",
+      "formula": "C10H16",
+      "chiralCenters": [
+        [
+          4,
+          "?"
+        ]
+      ]
+    },
+    "cholesterol": {
+      "id": "cholesterol",
+      "image": "images/scientific-structures/cholesterol.svg",
+      "title": [
+        "胆固醇",
+        "Cholesterol"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5997"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "6d687b9eaec3d4bb423ac26305f503a1c06b6414ecd1342167723ff721b2c624",
+      "smiles": "CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C",
+      "formula": "C27H46O",
+      "chiralCenters": [
+        [
+          1,
+          "R"
+        ],
+        [
+          8,
+          "R"
+        ],
+        [
+          11,
+          "S"
+        ],
+        [
+          12,
+          "R"
+        ],
+        [
+          15,
+          "S"
+        ],
+        [
+          16,
+          "S"
+        ],
+        [
+          20,
+          "R"
+        ],
+        [
+          23,
+          "S"
+        ]
+      ]
+    },
+    "sucrose": {
+      "id": "sucrose",
+      "image": "images/scientific-structures/sucrose.svg",
+      "title": [
+        "蔗糖",
+        "Sucrose"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5988"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "a736d34eb5d84ebf9fee417e41c01bf6675a2b42597af7f8071bbb083d0ef04d",
+      "smiles": "OC[C@H]1O[C@@](CO)(O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@@H]1O",
+      "formula": "C12H22O11",
+      "chiralCenters": [
+        [
+          1,
+          "R"
+        ],
+        [
+          2,
+          "S"
+        ],
+        [
+          3,
+          "S"
+        ],
+        [
+          4,
+          "R"
+        ],
+        [
+          5,
+          "R"
+        ],
+        [
+          8,
+          "S"
+        ],
+        [
+          9,
+          "S"
+        ],
+        [
+          10,
+          "S"
+        ],
+        [
+          11,
+          "R"
+        ]
+      ]
+    },
+    "ascorbic-acid": {
+      "id": "ascorbic-acid",
+      "image": "images/scientific-structures/ascorbic-acid.svg",
+      "title": [
+        "抗坏血酸（维生素 C）",
+        "Ascorbic acid (vitamin C)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/54670067"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "4f06f397956d63c985ea6d120f0863a06f84a6011d3067d52e5db995eca0f35e",
+      "smiles": "O=C1O[C@H]([C@@H](O)CO)C(O)=C1O",
+      "formula": "C6H8O6",
+      "chiralCenters": [
+        [
+          1,
+          "S"
+        ],
+        [
+          2,
+          "R"
+        ]
+      ]
+    },
+    "glucose": {
+      "id": "glucose",
+      "image": "images/scientific-structures/glucose.svg",
+      "title": [
+        "葡萄糖记录（异头位未指定）",
+        "Glucose record (anomer unspecified)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5793"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "5fcc4234f677484594d7ae94f7f752f2c43c027661d43393e8e2d02c5b947414",
+      "smiles": "OC[C@H]1OC(O)[C@H](O)[C@@H](O)[C@@H]1O",
+      "formula": "C6H12O6",
+      "chiralCenters": [
+        [
+          1,
+          "R"
+        ],
+        [
+          2,
+          "S"
+        ],
+        [
+          3,
+          "S"
+        ],
+        [
+          4,
+          "R"
+        ],
+        [
+          5,
+          "?"
+        ]
+      ]
+    },
+    "glycine": {
+      "id": "glycine",
+      "image": "images/scientific-structures/glycine.svg",
+      "title": [
+        "甘氨酸",
+        "Glycine"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/750"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "723b22dd0562202b458235c602b29a0bbd9618a9bcef65e9e43c63086ca4c1ac",
+      "smiles": "NCC(=O)O",
+      "formula": "C2H5NO2",
+      "chiralCenters": []
+    },
+    "alanine": {
+      "id": "alanine",
+      "image": "images/scientific-structures/alanine.svg",
+      "title": [
+        "L-丙氨酸",
+        "L-Alanine"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5950"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "2a4b2b38a9348764ce3e142b645a194296f0284a0f5652bb2072ae8ad7f6215d",
+      "smiles": "C[C@H](N)C(=O)O",
+      "formula": "C3H7NO2",
+      "chiralCenters": [
+        [
+          1,
+          "S"
+        ]
+      ]
+    },
+    "adenosine-monophosphate": {
+      "id": "adenosine-monophosphate",
+      "image": "images/scientific-structures/adenosine-monophosphate.svg",
+      "title": [
+        "腺苷单磷酸（AMP）",
+        "Adenosine monophosphate (AMP)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6083"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "2fe158cf272e275761e318afd2933b81e7de815621261b3c72fda0afc9b256fb",
+      "smiles": "Nc1ncnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O",
+      "formula": "C10H14N5O7P",
+      "chiralCenters": [
+        [
+          9,
+          "R"
+        ],
+        [
+          10,
+          "R"
+        ],
+        [
+          11,
+          "S"
+        ],
+        [
+          12,
+          "R"
+        ]
+      ]
+    },
+    "atp": {
+      "id": "atp",
+      "image": "images/scientific-structures/atp.svg",
+      "title": [
+        "ATP（记录中的酸形式）",
+        "ATP (recorded acid form)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5957"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "9c07d4f4a44e9dae3dade5e71a3df21e9d2b22fd2246f44f280599b511771c1a",
+      "smiles": "Nc1ncnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)OP(=O)(O)OP(=O)(O)O)[C@@H](O)[C@H]1O",
+      "formula": "C10H16N5O13P3",
+      "chiralCenters": [
+        [
+          9,
+          "R"
+        ],
+        [
+          10,
+          "R"
+        ],
+        [
+          11,
+          "S"
+        ],
+        [
+          12,
+          "R"
+        ],
+        [
+          16,
+          "?"
+        ],
+        [
+          20,
+          "?"
+        ]
+      ]
+    },
+    "benzene": {
+      "id": "benzene",
+      "image": "images/scientific-structures/benzene.svg",
+      "title": [
+        "苯",
+        "Benzene"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/241"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "6407f54b4b7377cbcc472d93664966f8063d5ef9fa48903d5c3c4d5e7e67a589",
+      "smiles": "c1ccccc1",
+      "formula": "C6H6",
+      "chiralCenters": []
+    },
+    "ethanol": {
+      "id": "ethanol",
+      "image": "images/scientific-structures/ethanol.svg",
+      "title": [
+        "乙醇",
+        "Ethanol"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/702"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "49a4a392b3add5fffd4ac853a8fd1408e424c989257dbf5eda54f1ae3fa888f2",
+      "smiles": "CCO",
+      "formula": "C2H6O",
+      "chiralCenters": []
+    },
+    "cyclohexane": {
+      "id": "cyclohexane",
+      "image": "images/scientific-structures/cyclohexane.svg",
+      "title": [
+        "环己烷连接结构",
+        "Cyclohexane connectivity"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8078"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "28e5846933d9a3c1d612721a092e4d66d44c35bb3bb96594c85fee9e500c695c",
+      "smiles": "C1CCCCC1",
+      "formula": "C6H12",
+      "chiralCenters": []
+    },
+    "fullerene": {
+      "id": "fullerene",
+      "image": "images/scientific-structures/fullerene.svg",
+      "title": [
+        "C₆₀ 富勒烯",
+        "C₆₀ fullerene"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/123591"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "9d9ccab667609fda6edfa69e288da07c497beaf847b2d7e05a9aa5b0f75ac4bf",
+      "smiles": "c12c3c4c5c1c1c6c7c2c2c8c3c3c9c4c4c%10c5c5c1c1c6c6c%11c7c2c2c7c8c3c3c8c9c4c4c9c%10c5c5c1c1c6c6c%11c2c2c7c3c3c8c4c4c9c5c1c1c6c2c3c41",
+      "formula": "C60",
+      "chiralCenters": []
+    },
+    "indigo": {
+      "id": "indigo",
+      "image": "images/scientific-structures/indigo.svg",
+      "title": [
+        "靛蓝（所引记录的互变异构形式）",
+        "Indigo (tautomer in cited record)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/10215"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "d6c0866e19b505850128672301dc668109e331e0f20f59ea8695c9f0038e7de4",
+      "smiles": "O=C1C(c2[nH]c3ccccc3c2O)=Nc2ccccc21",
+      "formula": "C16H10N2O2",
+      "chiralCenters": []
+    },
+    "ethylene": {
+      "id": "ethylene",
+      "image": "images/scientific-structures/ethylene.svg",
+      "title": [
+        "乙烯",
+        "Ethene"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6325"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "a70017d23bc419e41c7a3709fdee385d0df36db0b49e16c2a93cc28973a70501",
+      "smiles": "C=C",
+      "formula": "C2H4",
+      "chiralCenters": []
+    },
+    "deoxy-amp": {
+      "id": "deoxy-amp",
+      "image": "images/scientific-structures/deoxy-amp.svg",
+      "title": [
+        "脱氧腺苷单磷酸（dAMP）",
+        "Deoxyadenosine monophosphate (dAMP)"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/12599"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "5dda8a8d45eb9c146a7e49a645c6f3aea7d669b0d8b357e060ffe9cca84cf352",
+      "smiles": "Nc1ncnc2c1ncn2[C@H]1C[C@H](O)[C@@H](COP(=O)(O)O)O1",
+      "formula": "C10H14N5O6P",
+      "chiralCenters": [
+        [
+          1,
+          "S"
+        ],
+        [
+          2,
+          "R"
+        ],
+        [
+          4,
+          "R"
+        ]
+      ]
+    },
+    "triazole": {
+      "id": "triazole",
+      "image": "images/scientific-structures/triazole.svg",
+      "title": [
+        "1,2,3-三唑骨架",
+        "1,2,3-Triazole scaffold"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/67516"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "3f66f3e08557ada268523d027d441247a5b8a516b45db5740f6e5bdc82bb7b6d",
+      "smiles": "c1cn[nH]n1",
+      "formula": "C2H3N3",
+      "chiralCenters": []
+    },
+    "sodium-fluoride": {
+      "id": "sodium-fluoride",
+      "image": "images/scientific-structures/sodium-fluoride.svg",
+      "title": [
+        "氟化钠的离子表示",
+        "Sodium fluoride: ionic representation"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5235"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "d0ca2fc64d80efb556cb4f7d761d49036627d96a9f450d5370f9a5669751a4bf",
+      "smiles": "[F-].[Na+]",
+      "formula": "FNa",
+      "chiralCenters": []
+    },
+    "ammonia": {
+      "id": "ammonia",
+      "image": "images/scientific-structures/ammonia.svg",
+      "title": [
+        "氨",
+        "Ammonia"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/222"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "19817e7aacd25d4b085b31a9ce7fca8e3588b82c79c131ba4763f2493add9f87",
+      "smiles": "N",
+      "formula": "H3N",
+      "chiralCenters": []
+    },
+    "carbon-dioxide": {
+      "id": "carbon-dioxide",
+      "image": "images/scientific-structures/carbon-dioxide.svg",
+      "title": [
+        "二氧化碳",
+        "Carbon dioxide"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/280"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "281397402edc6e23a909c098d25dc38e1ee91f3fa99a981952ff26ad65b0bda7",
+      "smiles": "O=C=O",
+      "formula": "CO2",
+      "chiralCenters": []
+    },
+    "dimethyl-ether": {
+      "id": "dimethyl-ether",
+      "image": "images/scientific-structures/dimethyl-ether.svg",
+      "title": [
+        "二甲醚",
+        "Dimethyl ether"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8254"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "0aceee62951cfe281174c44768663da915214e01e115487feb3a614c0fe22938",
+      "smiles": "COC",
+      "formula": "C2H6O",
+      "chiralCenters": []
+    },
+    "peptide": {
+      "id": "peptide",
+      "image": "images/scientific-structures/peptide.svg",
+      "title": [
+        "甘氨酰-L-丙氨酸：肽键实例",
+        "Glycyl-L-alanine: a peptide bond"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://goldbook.iupac.org/terms/view/P04479"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "8dab0fb23f4d910108be5079e854029c703a89b624852dc651e4b7a5b53d47c9",
+      "smiles": "C[C@H](NC(=O)CN)C(=O)O",
+      "formula": "C5H10N2O3",
+      "chiralCenters": [
+        [
+          5,
+          "S"
+        ]
+      ]
+    },
+    "octadiene": {
+      "id": "octadiene",
+      "image": "images/scientific-structures/octadiene.svg",
+      "title": [
+        "1,7-辛二烯：闭环复分解底物示例",
+        "1,7-Octadiene: a ring-closing substrate"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://www.nobelprize.org/prizes/chemistry/2005/advanced-information/"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "b4e71bd15d74c58cd371d939aaa51f03084a197f39a615ecc800490d576b0311",
+      "smiles": "C=CCCCCC=C",
+      "formula": "C8H14",
+      "chiralCenters": []
+    },
+    "cyclohexene": {
+      "id": "cyclohexene",
+      "image": "images/scientific-structures/cyclohexene.svg",
+      "title": [
+        "环己烯：六元环烯烃",
+        "Cyclohexene: a six-membered alkene"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8079"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "efc26b66bc0f21426c0c06141dd5184ef5ee8416fd239f715aca5e7b9cfcd264",
+      "smiles": "C1=CCCCC1",
+      "formula": "C6H10",
+      "chiralCenters": []
+    },
+    "ozone": {
+      "id": "ozone",
+      "image": "images/scientific-structures/ozone.svg",
+      "title": [
+        "臭氧：一个形式电荷共振式",
+        "Ozone: one formal-charge resonance contributor"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/Ozone"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "285b07175af9bab5846a5ea95c470864609e45021458d616ecd7d33a8bd3cf08",
+      "smiles": "O=[O+][O-]",
+      "formula": "O3",
+      "chiralCenters": []
+    },
+    "tert-butyl-cation": {
+      "id": "tert-butyl-cation",
+      "image": "images/scientific-structures/tert-butyl-cation.svg",
+      "title": [
+        "叔丁基碳正离子",
+        "tert-Butyl cation"
+      ],
+      "caption": [
+        "按公开分子记录绘制的二维连接结构；二维布局不代表实验测得的三维构象。",
+        "2D depiction of recorded connectivity, not a measured 3D conformation."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://goldbook.iupac.org/terms/view/C00812"
+        }
+      ],
+      "kind": "molecular",
+      "sha256": "832ddbe3973579c8986727066509656f98958bfef52066a4f5a967b201c49e5e",
+      "smiles": "C[C+](C)C",
+      "formula": "C4H9+",
+      "chiralCenters": []
+    },
+    "chair-model": {
+      "id": "chair-model",
+      "image": "images/scientific-structures/chair-model.svg",
+      "title": [
+        "环己烷的计算构象",
+        "Calculated cyclohexane conformation"
+      ],
+      "caption": [
+        "由连接结构生成并经 UFF 优化的教学构象，隐去氢；不是实验坐标，也未据图计算构象能量差。",
+        "A generated, UFF-optimized teaching conformer with hydrogens omitted; not experimental coordinates or a measured conformational energy difference."
+      ],
+      "sources": [
+        {
+          "label": "PubChem",
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8078"
+        }
+      ],
+      "kind": "computed-conformer",
+      "sha256": "9bdb2e95f4a6f97dee0458efe760919bd6230ff066d7a6216e2d3ba6bc626a46"
+    },
+    "ions-zh": {
+      "id": "ions-zh",
+      "image": "images/scientific-structures/ions-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "c2ec618cbdac57efca848498c637132213038bca6b0bda6a2c0d2b11f6b30aea"
+    },
+    "ions-en": {
+      "id": "ions-en",
+      "image": "images/scientific-structures/ions-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "1a034399a09dc151248b9607f9687a1054eb8b884ec06b142493aa7047530679"
+    },
+    "atomic-zh": {
+      "id": "atomic-zh",
+      "image": "images/scientific-structures/atomic-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "3b45605f079d60fd132eae078056dc1b7a353364c614e621b545de5d152549d8"
+    },
+    "atomic-en": {
+      "id": "atomic-en",
+      "image": "images/scientific-structures/atomic-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "4032429260623763353d4b9fdf1326dd9cca5bc4c9aed1c8213ca160a184669d"
+    },
+    "isotope-zh": {
+      "id": "isotope-zh",
+      "image": "images/scientific-structures/isotope-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "404796ae616581980ea22c8b3f9fed8c503de087d4b2eb783bfff95d97960b85"
+    },
+    "isotope-en": {
+      "id": "isotope-en",
+      "image": "images/scientific-structures/isotope-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "04ad1a059434b70cee1ab46b7052003fec020fc1f8db0435758d2d6c5a0b007e"
+    },
+    "polymer-zh": {
+      "id": "polymer-zh",
+      "image": "images/scientific-structures/polymer-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "680b800ace34255aee96bdf4a19bb635adb808f36cb64a9e96fff35784c33a40"
+    },
+    "polymer-en": {
+      "id": "polymer-en",
+      "image": "images/scientific-structures/polymer-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "680b800ace34255aee96bdf4a19bb635adb808f36cb64a9e96fff35784c33a40"
+    },
+    "coordination-zh": {
+      "id": "coordination-zh",
+      "image": "images/scientific-structures/coordination-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "40a5b90857939dc0db415d3d4afb789750c809490f9edf62f0ef4a15811c1cc7"
+    },
+    "coordination-en": {
+      "id": "coordination-en",
+      "image": "images/scientific-structures/coordination-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "91f9642ed105ba0edf57e776f1f83ccbd73c6af7d575a2f04041d607e86bd0f0"
+    },
+    "lattice-zh": {
+      "id": "lattice-zh",
+      "image": "images/scientific-structures/lattice-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "b4a72b9365030c7d167cf860900ec0d57661c6c64cbb3c2139dcbcaef6e027c7"
+    },
+    "lattice-en": {
+      "id": "lattice-en",
+      "image": "images/scientific-structures/lattice-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "64acea114a7c6977799fdd2d2a10586b99381322401832577d5489a453abd29f"
+    },
+    "mof-zh": {
+      "id": "mof-zh",
+      "image": "images/scientific-structures/mof-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "7a0e9f1509139f24304f48c55e3ba5c9a93b8816c60e00f4fee50dff1f202d08"
+    },
+    "mof-en": {
+      "id": "mof-en",
+      "image": "images/scientific-structures/mof-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "3bd54632a5f62b13d1cbba0cb7e77ec8b44304a1778b9511658bb9b86959ab67"
+    },
+    "host-zh": {
+      "id": "host-zh",
+      "image": "images/scientific-structures/host-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "4299fa3089641f7c72b7714b88c46976199f524a8b01d751635b734ce13e35ae"
+    },
+    "host-en": {
+      "id": "host-en",
+      "image": "images/scientific-structures/host-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "a73890cb21bf45f8e0919462e1c0b8fdc159ed1eefa07d3b911eb1ffb799232e"
+    },
+    "dna-zh": {
+      "id": "dna-zh",
+      "image": "images/scientific-structures/dna-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "2ba646241c78d503a0bec0e0e4aaee469ccc65dfa180656e20bef8b5dd2e6e70"
+    },
+    "dna-en": {
+      "id": "dna-en",
+      "image": "images/scientific-structures/dna-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "ab3a9f08a8b50c9cb85084322ccffec0d886646544797219fc2eb5d54acf0cb0"
+    },
+    "membrane-zh": {
+      "id": "membrane-zh",
+      "image": "images/scientific-structures/membrane-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "9fcee7d401978ec368b3be3559311fab028ed06a75c7526bb5e72120970f2d3d"
+    },
+    "membrane-en": {
+      "id": "membrane-en",
+      "image": "images/scientific-structures/membrane-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "c78ac254430b8304e576bf5237bee93025191518bd1db81f608d310e97c1e4c7"
+    },
+    "peptide-zh": {
+      "id": "peptide-zh",
+      "image": "images/scientific-structures/peptide-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "cc073a8ff2309c9dc7a3f6e23605b418c877e5b08c9679c5423c95df895a8ac2"
+    },
+    "peptide-en": {
+      "id": "peptide-en",
+      "image": "images/scientific-structures/peptide-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "697b70346e5aba944afff396a5de5d4c69693e410599e816c3d837f770eb4d97"
+    },
+    "protein-zh": {
+      "id": "protein-zh",
+      "image": "images/scientific-structures/protein-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "00506e6c0ba1dcffea2c61696720fab75de29fd98408249d064fe3c30100f0de"
+    },
+    "protein-en": {
+      "id": "protein-en",
+      "image": "images/scientific-structures/protein-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "96b648f9acd737a959b73dd62c1adffeef35b881aee440be85ed664bacb4f157"
+    },
+    "catenane-zh": {
+      "id": "catenane-zh",
+      "image": "images/scientific-structures/catenane-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "b681ded08075a77d96255d9e0019e176b0de2cf8211503ea36fcab2b6940bc8e"
+    },
+    "catenane-en": {
+      "id": "catenane-en",
+      "image": "images/scientific-structures/catenane-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "6f32989bd6e2b525ca9ef6fedf84876f87d565c2a598cf94c4349c6dd6ce855d"
+    },
+    "ribosome-zh": {
+      "id": "ribosome-zh",
+      "image": "images/scientific-structures/ribosome-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "57af956cf068e27c8e57b509e324df4ac75857a532b8ca90067291d1b426d386"
+    },
+    "ribosome-en": {
+      "id": "ribosome-en",
+      "image": "images/scientific-structures/ribosome-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "32673c57b3699a2a845960d50ef01a53a01e8b352a32bf32c42351bd22ffc538"
+    },
+    "degradation-zh": {
+      "id": "degradation-zh",
+      "image": "images/scientific-structures/degradation-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "d34fa1b540d956143b76c265761cd64a8226d21230a9e9fcf29abdd598e78fa5"
+    },
+    "degradation-en": {
+      "id": "degradation-en",
+      "image": "images/scientific-structures/degradation-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "5f5c1457393aa68dfd17adf61c637ec058710b8245ba8b2c36eed50e8d884d3b"
+    },
+    "colloid-zh": {
+      "id": "colloid-zh",
+      "image": "images/scientific-structures/colloid-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "541f42b102f67c6b69975a36b5ff30d299fdbb6cce5a608a310f984d893866d0"
+    },
+    "colloid-en": {
+      "id": "colloid-en",
+      "image": "images/scientific-structures/colloid-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "c28bae8db2218fb2c48fa12d16cf0ac57f65a7f5e55f9e4ff2d122826c900e36"
+    },
+    "boron-zh": {
+      "id": "boron-zh",
+      "image": "images/scientific-structures/boron-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "293188a7ef9c144fa9ee0ce53a1f4f1e2b86c63b1f09b451cb2a91e28255dacc"
+    },
+    "boron-en": {
+      "id": "boron-en",
+      "image": "images/scientific-structures/boron-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "6000377eaef83127ca0fa51b8dee7bf8385df6963c5fb2c22430a3b30374a473"
+    },
+    "electrode-zh": {
+      "id": "electrode-zh",
+      "image": "images/scientific-structures/electrode-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "3cba18c6fbfba50847a89fa547b5d867f71c23b50fb56cf6a4e9aea9ab5cc3aa"
+    },
+    "electrode-en": {
+      "id": "electrode-en",
+      "image": "images/scientific-structures/electrode-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "8e56212aa58a9af25c9b9d01997c24db5de668fc1362bac66b02ede4c0e3ed4e"
+    },
+    "surface-zh": {
+      "id": "surface-zh",
+      "image": "images/scientific-structures/surface-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "03bcaae0ba5252f36d05172c77e0f89ad651013b9210c6d3b3ed0b3edd217587"
+    },
+    "surface-en": {
+      "id": "surface-en",
+      "image": "images/scientific-structures/surface-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "214e22c50c6119596bee05e0e523183dace1769d7c24fbaeac1df30823b2e1c0"
+    },
+    "periodic-zh": {
+      "id": "periodic-zh",
+      "image": "images/scientific-structures/periodic-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "10dd47592206ec539a04665ecf0bd77e8811789b4fe37b8ca8f74fc52342b1a7"
+    },
+    "periodic-en": {
+      "id": "periodic-en",
+      "image": "images/scientific-structures/periodic-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "008ff4483410680c6904ff39387f6102ec2b2c56aecada280f74b86e95dc9f77"
+    },
+    "qdot-zh": {
+      "id": "qdot-zh",
+      "image": "images/scientific-structures/qdot-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "5658cb99d9392a2d28ecbaedf83d2da0397f1a36b8598006367a8fc5beda385a"
+    },
+    "qdot-en": {
+      "id": "qdot-en",
+      "image": "images/scientific-structures/qdot-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "1e91644133b7f292b5974a70c3a42485d38c37774a08c4367e5099b56eebae22"
+    },
+    "battery-zh": {
+      "id": "battery-zh",
+      "image": "images/scientific-structures/battery-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "553f1bb86e1e7bf2ce72ed123b02991749751f89bd1982d5bb7ea2a8ba1dae26"
+    },
+    "battery-en": {
+      "id": "battery-en",
+      "image": "images/scientific-structures/battery-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "8ec9a494ed3d58f93e8d777df9c55a620efff91ec32d5f88bbaaff3e1514c635"
+    },
+    "unknown-battery-zh": {
+      "id": "unknown-battery-zh",
+      "image": "images/scientific-structures/unknown-battery-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "a274bfc2d95585437b0ea52ea2e9b527afcfa7ac276f9812d24aae66f29c0a9c"
+    },
+    "unknown-battery-en": {
+      "id": "unknown-battery-en",
+      "image": "images/scientific-structures/unknown-battery-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "67d1aa7d152035cddb24c7ccb4b384a035f79af8affd7b6cbbd20ebdf8f5011e"
+    },
+    "atpase-zh": {
+      "id": "atpase-zh",
+      "image": "images/scientific-structures/atpase-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "1671f5b352a9f169bc28c7cb7dae0f7398a33f15b3daef4f985657fe01718e00"
+    },
+    "atpase-en": {
+      "id": "atpase-en",
+      "image": "images/scientific-structures/atpase-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "3346ba69ed7445d71b505f49fd20b9a052de0078d110fcc839a36d486971ca73"
+    },
+    "enzyme-zh": {
+      "id": "enzyme-zh",
+      "image": "images/scientific-structures/enzyme-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "5ca6d2aeb1bcf6df41af6c30a9277f9bc827d83ee2c94cf591f7d5b21ce90630"
+    },
+    "enzyme-en": {
+      "id": "enzyme-en",
+      "image": "images/scientific-structures/enzyme-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "19f9589fa9a8cbb008f4aec04a833e050d3f34f095ae9ce9f9ca87b579ad0845"
+    },
+    "energy-zh": {
+      "id": "energy-zh",
+      "image": "images/scientific-structures/energy-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "19abc00117c77ba6e06ca37b9cdbdfc821b93850054b2d23f4ae4ec1384f5319"
+    },
+    "energy-en": {
+      "id": "energy-en",
+      "image": "images/scientific-structures/energy-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "adc9adbc9008d769e2d78ac3ae7b3eaa8499a756312c6f7d389472f23e12e6f3"
+    },
+    "thermal-zh": {
+      "id": "thermal-zh",
+      "image": "images/scientific-structures/thermal-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "9ecd003aab09c2dc292da7d6ad2f47354dde827383e4db1cdc5be9c8a3299007"
+    },
+    "thermal-en": {
+      "id": "thermal-en",
+      "image": "images/scientific-structures/thermal-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "72667df535876929614020a18123470f76d802c1e037347bc39b5a14de5d6ac0"
+    },
+    "convection-zh": {
+      "id": "convection-zh",
+      "image": "images/scientific-structures/convection-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "4b87e3871d8972bc342206250e4bf1d594c2f28b235a0954ad559b5edf998ea7"
+    },
+    "convection-en": {
+      "id": "convection-en",
+      "image": "images/scientific-structures/convection-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "4d4435508d92b7a3b3f7718982903b87d1a84ed8e4e782704854f980e18166f3"
+    },
+    "rna-zh": {
+      "id": "rna-zh",
+      "image": "images/scientific-structures/rna-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "b26b38e075c303b30dd743b09afc91d64504657812a2b9f1b664d65620d656c8"
+    },
+    "rna-en": {
+      "id": "rna-en",
+      "image": "images/scientific-structures/rna-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "3c91c7a7dd3686db75dac0df408c991565158abe7da8cf1776e6868e9c5d8c79"
+    },
+    "aquaporin-zh": {
+      "id": "aquaporin-zh",
+      "image": "images/scientific-structures/aquaporin-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "98d438fefc2e6dc9dc0532e9afb04f8f9770e89e49e6d46051644a98314c0308"
+    },
+    "aquaporin-en": {
+      "id": "aquaporin-en",
+      "image": "images/scientific-structures/aquaporin-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "61be136be6626deebe0684ffa1ee267b64d1c8930aafccb563771561dfb54a93"
+    },
+    "olivine-zh": {
+      "id": "olivine-zh",
+      "image": "images/scientific-structures/olivine-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "fd263b47bff365b100ceaa73983526ee5ba4983b431e00caa7f298dd22b97ab2"
+    },
+    "olivine-en": {
+      "id": "olivine-en",
+      "image": "images/scientific-structures/olivine-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "e0d70f64c819e639e7b987ed04c048eb90d80860d714790951b0995ef60963f8"
+    },
+    "superconductor-zh": {
+      "id": "superconductor-zh",
+      "image": "images/scientific-structures/superconductor-zh.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "7c741e8691a583ab69f97bf9e3ba5f7d80b1071faa19882a8b321cfbba806035"
+    },
+    "superconductor-en": {
+      "id": "superconductor-en",
+      "image": "images/scientific-structures/superconductor-en.svg",
+      "title": [
+        "结构与连接示意",
+        "Structure and connectivity schematic"
+      ],
+      "caption": [
+        "教学示意图：突出连接、空间层次或组分关系；不代表某个企业未公开的配方，也不是实验原子坐标。",
+        "Teaching schematic of connectivity, organization or component relationships; not proprietary chemistry or experimental atomic coordinates."
+      ],
+      "sources": [],
+      "kind": "schematic",
+      "sha256": "19984be5d90eb758d8e8b430fc53e9d35e6df890380ceb39a8a752dcb244b408"
+    }
+  },
+  "concepts": {
+    "equilibrium": [
+      "ammonia"
+    ],
+    "chiral": [
+      "carvone-r",
+      "carvone-s"
+    ],
+    "ions": [
+      "ions",
+      "sucrose"
+    ],
+    "noble": [
+      "atomic"
+    ],
+    "pigment": [
+      "indigo"
+    ],
+    "fluorine": [
+      "sodium-fluoride",
+      "polymer"
+    ],
+    "enzymes": [
+      "glucose",
+      "ethanol",
+      "enzyme"
+    ],
+    "radio": [
+      "isotope"
+    ],
+    "catalysis": [
+      "energy",
+      "surface"
+    ],
+    "terpene": [
+      "limonene"
+    ],
+    "organometallic": [
+      "coordination"
+    ],
+    "coordination": [
+      "coordination",
+      "mof"
+    ],
+    "analysis": [
+      "ethanol",
+      "dimethyl-ether"
+    ],
+    "colloid": [
+      "colloid"
+    ],
+    "steroid": [
+      "cholesterol"
+    ],
+    "isotope": [
+      "isotope"
+    ],
+    "vitamins": [
+      "ascorbic-acid"
+    ],
+    "separation": [
+      "ethanol",
+      "dimethyl-ether"
+    ],
+    "protein": [
+      "peptide",
+      "protein"
+    ],
+    "cold": [
+      "thermal"
+    ],
+    "element": [
+      "isotope"
+    ],
+    "polymer": [
+      "polymer"
+    ],
+    "bonding": [
+      "lattice"
+    ],
+    "peptide": [
+      "peptide"
+    ],
+    "kinetics": [
+      "energy"
+    ],
+    "carbondate": [
+      "isotope"
+    ],
+    "photosynthesis": [
+      "carbon-dioxide",
+      "glucose"
+    ],
+    "crystal": [
+      "periodic"
+    ],
+    "synthesis": [
+      "peptide"
+    ],
+    "conformation": [
+      "cyclohexane",
+      "chair-model"
+    ],
+    "quantum": [
+      "energy"
+    ],
+    "electron": [
+      "electrode"
+    ],
+    "dna": [
+      "dna",
+      "deoxy-amp"
+    ],
+    "hostguest": [
+      "host"
+    ],
+    "rna": [
+      "adenosine-monophosphate",
+      "rna"
+    ],
+    "ribozyme": [
+      "rna",
+      "enzyme"
+    ],
+    "nmr": [
+      "ethanol",
+      "dimethyl-ether"
+    ],
+    "ozone": [
+      "ozone"
+    ],
+    "fullerene": [
+      "fullerene",
+      "lattice"
+    ],
+    "atp": [
+      "atp",
+      "atpase"
+    ],
+    "conductive": [
+      "polymer"
+    ],
+    "aquaporin": [
+      "aquaporin"
+    ],
+    "ubiquitin": [
+      "degradation"
+    ],
+    "metathesis": [
+      "octadiene",
+      "cyclohexene",
+      "ethylene"
+    ],
+    "imaging": [
+      "protein"
+    ],
+    "ribosome": [
+      "ribosome"
+    ],
+    "quasicrystal": [
+      "periodic"
+    ],
+    "gpcr": [
+      "membrane"
+    ],
+    "repair": [
+      "dna"
+    ],
+    "motor": [
+      "catenane"
+    ],
+    "cryoem": [
+      "protein"
+    ],
+    "directed": [
+      "protein",
+      "enzyme"
+    ],
+    "battery": [
+      "battery"
+    ],
+    "editing": [
+      "dna"
+    ],
+    "click": [
+      "triazole"
+    ],
+    "qdot": [
+      "qdot"
+    ],
+    "mof": [
+      "mof"
+    ],
+    "preservation": [
+      "glucose"
+    ],
+    "sugardonor": [
+      "sucrose"
+    ],
+    "boron": [
+      "boron"
+    ],
+    "carbocation": [
+      "tert-butyl-cation"
+    ],
+    "geneticcode": [
+      "dna",
+      "peptide"
+    ],
+    "electroanalysis": [
+      "electrode"
+    ],
+    "nonequilibrium": [
+      "convection"
+    ],
+    "cycloaddition": [
+      "cyclohexene"
+    ],
+    "nucleotide": [
+      "adenosine-monophosphate"
+    ],
+    "surface": [
+      "surface"
+    ]
+  },
+  "contexts": {
+    "donut": [
+      "unknown-battery"
+    ],
+    "llzo": [
+      "battery"
+    ],
+    "qs": [
+      "battery"
+    ],
+    "toyota": [
+      "battery"
+    ],
+    "phone": [
+      "battery"
+    ],
+    "battery-commercial": [
+      "unknown-battery"
+    ],
+    "superconductor": [
+      "superconductor"
+    ],
+    "lk99": [
+      "superconductor"
+    ],
+    "enzyme": [
+      "enzyme"
+    ],
+    "olivine": [
+      "olivine"
+    ]
+  },
+  "families": [
+    "ions",
+    "atomic",
+    "isotope",
+    "polymer",
+    "coordination",
+    "lattice",
+    "mof",
+    "host",
+    "dna",
+    "membrane",
+    "peptide",
+    "protein",
+    "catenane",
+    "ribosome",
+    "degradation",
+    "colloid",
+    "boron",
+    "electrode",
+    "surface",
+    "periodic",
+    "qdot",
+    "battery",
+    "unknown-battery",
+    "atpase",
+    "enzyme",
+    "energy",
+    "thermal",
+    "convection",
+    "rna",
+    "aquaporin",
+    "olivine",
+    "superconductor"
+  ]
+}
