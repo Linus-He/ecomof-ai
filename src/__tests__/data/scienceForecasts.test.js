@@ -62,3 +62,69 @@ it('gives every event a specific brief, technology explanation, industry pathway
  expect(report.documentDate).toBe('2026-09-01');expect(report.publishedDate).toBeUndefined()
  expect(index.evidence.find(e=>e.id==='donut-elements').publishedDate).toBe('2026-09-23')
 })
+
+it('keeps new topics source-backed with country basis and no synthetic resolution',()=>{
+ for(const id of ['fusion-energy','quantum-computing','perovskite-solar']){
+  const topic=index.topics.find(t=>t.id===id)
+  expect(topic.marketCount).toBe(2)
+  expect(topic.sections).toHaveLength(2)
+  expect(topic.evidenceIds.length).toBeGreaterThanOrEqual(2)
+ }
+ for(const entity of index.entities){
+  expect(entity.country.code).toMatch(/^[A-Z]{2}$/)
+  expect(entity.country.name).toHaveLength(2)
+  expect(entity.country.basis).toHaveLength(2)
+  expect(entity.country.source).toMatch(/^https:/)
+ }
+ expect(index.entities.find(e=>e.id==='oxfordpv').country.code).toBe('GB')
+ expect(index.events.find(e=>e.id==='oocJB7zxHwURka0HYfbo').status).toBe('closed')
+ expect(index.events.find(e=>e.id==='oocJB7zxHwURka0HYfbo').resolution).toBeNull()
+})
+
+it('verifies indicator types, source scope and topic coverage against actual histories',()=>{
+ const ids=new Set()
+ for(const topic of index.topics){
+  const events=index.events.filter(e=>e.topicId===topic.id)
+  expect(topic.coverage.historyPoints).toBe(events.reduce((sum,e)=>sum+e.tradePoints,0))
+  expect(topic.coverage.marketsWithHistory).toBe(events.filter(e=>e.historySummary).length)
+  expect(topic.coverage.thinMarkets).toBe(events.filter(e=>e.quality.some(q=>q.code==='thin')).length)
+  for(const metric of topic.metrics||[]){
+   expect(ids.has(metric.id)).toBe(false);ids.add(metric.id)
+   expect(['measurement','reported','company','model','target','pipeline']).toContain(metric.kind)
+   for(const field of ['label','value','period','scope'])expect(metric[field].length===2&&metric[field].every(s=>s.trim().length>0)).toBe(true)
+   const source=index.evidence.find(e=>e.id===metric.evidenceId)
+   expect(source?.topics).toContain(topic.id)
+  }
+ }
+ expect(ids.size).toBe(50)
+ expect(index.events.filter(e=>['solid-state-batteries','sodium-ion-batteries','battery-scale-storage'].includes(e.topicId))).toHaveLength(19)
+ expect(index.events.find(e=>e.id==='S2ghII2gLd').quality.some(q=>q.code==='rules')).toBe(true)
+ expect(index.events.find(e=>e.id==='jcYZt1lNCMgX4LHHqgoq').quality.some(q=>q.code==='rules')).toBe(true)
+ const hydrogen=index.topics.find(t=>t.id==='clean-hydrogen')
+ expect(hydrogen.metrics.find(m=>m.id==='hydrogen-shot-goal').kind).toBe('target')
+ expect(index.topics.find(t=>t.id==='battery-scale-storage').metrics.find(m=>m.id==='eia-bess-power').value[0]).toContain('GW')
+})
+
+it('keeps organic literature separate from forecasts and joins every reported reaction to its sources',()=>{
+ const literature=index.topics.filter(t=>t.mode==='literature')
+ expect(literature).toHaveLength(4)
+ const seen=new Set()
+ for(const topic of literature){
+  expect(topic.marketCount).toBe(0)
+  expect(topic.coverage.historyPoints).toBe(0)
+  expect(topic.marketNote).toHaveLength(2)
+  expect(topic.metrics.length).toBeGreaterThan(0)
+  for(const reaction of topic.reactionCases){
+   expect(seen.has(reaction.id)).toBe(false);seen.add(reaction.id)
+   for(const key of ['title','transformation','catalyst','conditions','outcome','limits','locator'])expect(reaction[key].length===2&&reaction[key].every(s=>s.trim())).toBe(true)
+   for(const id of reaction.evidenceIds)expect(index.evidence.find(e=>e.id===id)?.topics).toContain(topic.id)
+  }
+ }
+ expect(seen.size).toBe(9)
+ expect(index.events).toHaveLength(41)
+ expect(index.method.points).toBe(11011)
+ const da=literature.find(t=>t.id==='asymmetric-organocatalysis').reactionCases.find(c=>c.id==='iminium-diels-alder')
+ expect(da.outcome[0]).toContain('exo:endo 1.3:1');expect(da.outcome[0]).toContain('exo 为 93% ee')
+ expect(audit.organicDiscoveryReview.acceptedNewMarkets).toBe(0)
+ expect(audit.organicDiscoveryReview.queries).toHaveLength(8)
+})

@@ -1,0 +1,199 @@
+{
+  "id": "mH5EaioxqUT22N2MZg7B",
+  "topicId": "perovskite-solar",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/SimoneRomeo/will-perovskite-or-siliconperoskite",
+  "originalTitle": "Will perovskite or silicon-peroskite pairs be the most common material for solar panels by 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.2946052201224893,
+  "volume": 147.93052052220793,
+  "participants": 11,
+  "createdTime": 1706593725214,
+  "closeTime": 1925049540000,
+  "resolutionTime": null,
+  "observedAt": 1792928668862,
+  "historyCutoff": 1792928668862,
+  "points": [
+    {
+      "t": 1706599813471,
+      "p": 0.4098360655737706
+    },
+    {
+      "t": 1706610388489,
+      "p": 0.4180699805449624
+    },
+    {
+      "t": 1706635792491,
+      "p": 0.47920604487371166
+    },
+    {
+      "t": 1706719512735,
+      "p": 0.4375285132115401
+    },
+    {
+      "t": 1706973773831,
+      "p": 0.4792521908826653
+    },
+    {
+      "t": 1707042954749,
+      "p": 0.3930738744127214
+    },
+    {
+      "t": 1707924135065,
+      "p": 0.3961762590890276
+    },
+    {
+      "t": 1709738647292,
+      "p": 0.39962909975044897
+    },
+    {
+      "t": 1743191851806,
+      "p": 0.31179901951960254
+    },
+    {
+      "t": 1745662513941,
+      "p": 0.308840972960003
+    },
+    {
+      "t": 1774283727670,
+      "p": 0.2946052201224893
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.2946052201224893,
+  "lastTradeAt": 1774283727670,
+  "sourceApi": "https://api.manifold.markets/v0/market/mH5EaioxqUT22N2MZg7B",
+  "provenance": {
+    "marketSha256": "541cb147657a6fcf7023a637f02cfd5a84b252723a70a6b9cd691acbcf9249bb",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=mH5EaioxqUT22N2MZg7B&limit=1000",
+        "sha256": "e6390cfd20ecdd8680b732a31d19c15d07f8bc9bb42c4894bf0c7b83f449f6ad",
+        "rows": 12
+      }
+    ],
+    "fetchedTradeRows": 12,
+    "acceptedTradeRows": 11,
+    "excludedTradeRows": 1
+  },
+  "stage": "engineering",
+  "title": [
+    "2030 年全球部署的光伏组件会以钙钛矿或硅叠层为主吗？",
+    "Will perovskite or silicon tandems form a majority of solar panels deployed in 2030?"
+  ],
+  "rules": [
+    [
+      "正文要求 2030 年全球部署的光伏组件中，多数采用钙钛矿或硅／钙钛矿叠层；未说明按组件数、面积还是额定功率统计。",
+      "The description requires a majority of panels deployed globally in 2030 to use perovskite or silicon/perovskite tandems; it does not specify module count, area or rated-power weighting."
+    ]
+  ],
+  "interpretation": [
+    "这是行业部署份额，不能由单一制造商出货或效率纪录推定。",
+    "This is an industry deployment share, not one manufacturer’s sales or an efficiency record."
+  ],
+  "entities": [
+    "oxfordpv",
+    "doe"
+  ],
+  "evidence": [
+    "oxford-first-shipment",
+    "perovskite-doe"
+  ],
+  "briefing": {
+    "contextId": "perovskite-scale",
+    "summary": [
+      "题目关注 2030 年全球部署材料的多数份额，需要全行业统计以及明确的计量分母。",
+      "This concerns a majority share of materials in global 2030 deployment and needs industry-wide data with a defined denominator."
+    ],
+    "checklist": [
+      [
+        "核对部署而非累计制造的统计范围。",
+        "Distinguish deployment from manufacturing."
+      ],
+      [
+        "确认多数份额按什么指标计量。",
+        "Clarify the majority-share weighting."
+      ],
+      [
+        "查看全球年度行业统计与原题澄清。",
+        "Review global annual statistics and source clarifications."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "88clPLgu5E"
+  ],
+  "industry": {
+    "entities": [
+      "oxfordpv",
+      "doe"
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ],
+    "stage": [
+      "研究验证与商业交付",
+      "Research validation and commercial delivery"
+    ],
+    "impact": [
+      "早期商业交付可以表明技术开始进入市场，但全球多数份额还需要跨企业的制造、安装、长期性能与成本竞争力。单个项目不能代表全球采用程度。",
+      "Early deliveries show market entry, while a global majority additionally needs broad manufacturing, installations, lifetime performance and competitive costs across suppliers. One project does not represent global adoption."
+    ],
+    "gap": [
+      "原题未定义份额分母，本站不擅自选取组件数或 GW 作为标准。",
+      "The denominator is undefined; this archive does not choose module count or GW on the creator’s behalf."
+    ]
+  },
+  "context": {
+    "id": "perovskite-scale",
+    "title": [
+      "叠层效率、制造产能与实际出货",
+      "Tandem efficiency, factory capacity and shipments"
+    ],
+    "principle": [
+      "钙钛矿层与硅层吸收不同波段，以提高入射光的利用率。电池效率经过互联、封装和有效面积损失后，才形成组件效率。制造线的额定能力还要经过良率与利用率，才能转为可销售出货。",
+      "Perovskite and silicon absorb different spectral bands. Module efficiency includes interconnection, encapsulation and area losses; nameplate factory capacity becomes sales only through yield and utilization."
+    ],
+    "example": [
+      "Oxford PV 首批商业组件的 24.5% 效率说明了产品性能，年度 1 GW 则考查累计交付的额定功率。全球多数部署使用哪种材料，还需要统计整个行业的年度装机。",
+      "Oxford PV’s first modules had 24.5% efficiency; annual 1 GW concerns cumulative delivered rated power. A global-majority contract needs industry-wide annual deployment data."
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1706599813471,
+      "p": 0.4098360655737706
+    },
+    "last": {
+      "t": 1774283727670,
+      "p": 0.2946052201224893
+    },
+    "change": -11.523084545128132,
+    "low": 0.2946052201224893,
+    "high": 0.4792521908826653,
+    "staleDays": 215.79793046296297
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      "detail": [
+        "2030 年全球部署多数份额未明确按组件数、面积或功率统计。",
+        "The 2030 global majority is not defined by module count, area or power."
+      ]
+    }
+  ],
+  "tradePoints": 11,
+  "detailFile": "events/mH5EaioxqUT22N2MZg7B.json"
+}

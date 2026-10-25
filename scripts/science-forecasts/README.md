@@ -8,7 +8,7 @@ This is a read-only, curated archive, not a live feed. `index.json` carries ligh
 - Open contracts show the archived platform probability. Closed/resolved contracts show the last actual trade **strictly before** the minimum of close, resolution and capture time. Platform resolution is displayed separately. `CANCEL` is never converted to `NO`.
 - History includes filled, non-redemption trades with shares and bounded `probAfter`, sorted by millisecond timestamp. Identical timestamps collapse to one observed price. No fabricated observations, settlement-price substitution or forward filling.
 - Participant count and volume are source aggregates. Full pagination is requested until fewer than 1,000 rows return. Raw account identities are not published. Public files expose market metadata, aggregates and probability observations only.
-- Six source-rule issues are reviewed in `curation.json`, including inconsistent title/body deadlines and underspecified outcomes. Low participation is labelled independently. These flags are preserved, rather than silently repairing source rules.
+- Source-rule issues are reviewed in `curation.json`, including inconsistent title/body deadlines and underspecified outcomes. Low participation is labelled independently. These flags are preserved, rather than silently repairing source rules.
 - Dates in the underlying contracts are substantive deadlines. Administrative capture timestamps stay in provenance/downloads rather than article headers.
 
 ## Evidence and discovery
@@ -37,3 +37,31 @@ The history reader uses actual UTC calendar coordinates, selected-window statist
 Company/source-date comparisons exclude the whole publication day where the time of day is unknown and use actual trades no more than seven days before/after that day. Missing sides remain missing; material published after the historical cutoff is subsequent context. A report issue date is **not** assumed to be the public-release date. Price differences are descriptive and are not attributed causally to a company or announcement.
 
 Scientific figures use `scripts/scientific-figures/` and checked-in SVGs. They distinguish recorded molecular graphs, computed conformers and authored schematics. The same mechanism supplies the annual Nobel learning examples. Proprietary undisclosed chemistry and atomic coordinates are not invented.
+
+## October 25 expansion
+
+Seven topics now include fusion electricity, quantum error-corrected computing and perovskite photovoltaics. Six new binary contracts are independently captured; previous event snapshots are preserved. Every event retains its own observedAt boundary. Closed/unresolved contracts are not resolved editorially. Missing denominator, gate-definition and deadline details remain visible rule flags.
+
+Institution flags use the institution location or company headquarters, as specified in each entity country.basis and country.source; they do not represent all operating sites or parent-company ownership. Oxford PV is marked UK while its German production site remains explained in the announcement. Official favicon sources and checksums are registered for new institutions.
+
+Topic histories precede background reading, and event reading follows history, technology/criteria, announcements, references, then related events. Expanded editorial commentary accompanies existing primary links and does not turn plans, factory capacity or laboratory results into completed deliveries.
+
+## Battery and chemistry expansion
+
+The next pass adds four topic workbenches: sodium-ion batteries, EV batteries/grid storage, clean hydrogen/electrolysis and AI drug discovery/clinical validation. Sixteen new source contracts retain their own API capture boundary while the earlier 25 snapshots remain unchanged. Two battery additions bring the battery collection to three topics and 19 events.
+
+Twenty-five source-backed indicators span six topics. Every row has bilingual value, reference period, scope, source ID and a kind: measurement, reported statistic, company disclosure, model estimate, development target or under-construction pipeline. These rows are independently scoped records, not a pooled benchmark. Trial primary/secondary endpoints, sample/follow-up and sponsor interests are retained. Source-rule constants such as 130/260 GWh never become observed industry statistics.
+
+Build validation rejects broken metric-to-topic source joins, missing bilingual conditions, unknown indicator kinds and broken related-topic links. Topic coverage counts history observations and flagged contracts; it does not sum participants into a claimed unique population or label sparse sources complete. Chemistry filtering includes battery materials. Indicator CSVs retain the same source/condition fields as the table.
+
+IEA's French country cue identifies the international agency's secretariat. Insilico Medicine Shanghai identifies the paper's author affiliation rather than a guessed global headquarters. Sources without redistributed brand icons are still cited by their own titles and URLs. All additions are based on public metadata and aggregate market histories, without account identifiers.
+
+## Organic chemistry literature topics
+
+Four mode=literature workbenches cover asymmetric organocatalysis, visible-light photoredox, click/bioorthogonal chemistry and PET enzymatic recycling. They add nine source-located reaction cases, 25 indicators and 13 papers/official documents. Eight curated public-market searches are recorded in organic-discovery-review.json; no directly appropriate new contracts were selected. Literature-only topics do not receive invented probabilities, zero-value markets or synthetic price histories.
+
+Each case includes bilingual transformation, catalyst, reported conditions, outcome, scope, source IDs and source location. Source joins, unique case/metric IDs, complete fields and literature/market separation are validated at build. Reported data now uses a broad label suitable for institutional scientific summaries as well as industry statistics.
+
+The source review keeps scope ranges distinct from single experiments, er from ee, exo/endo ratios from exo ee, lamp wattage from photon flux, mass-based PET loading from concentration per litre, and enzyme mass from catalyst mole fraction. Current-looking project pages do not replace dated historical disclosures. Experimental summaries point to original papers/SI rather than presenting a complete laboratory protocol.
+
+The new navigation is within Science Forecasts. The independent Catalysis/Organic Acid workspace remains separate. Author affiliations follow the publication period (e.g., Berkeley for the 2000 Diels–Alder study; Princeton for the 2008 photoredox study).

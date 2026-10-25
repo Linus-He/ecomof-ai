@@ -1,0 +1,403 @@
+{
+  "id": "jqEkQKsK0FxFNXDN0lBy",
+  "topicId": "fusion-energy",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MatthewBarnett/will-helion-energy-deliver-50-mw-of",
+  "originalTitle": "Will Helion Energy deliver 50 MW of fusion-generated electricity to Microsoft before 2029?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.11438341780406554,
+  "volume": 5832.391922969762,
+  "participants": 45,
+  "createdTime": 1683751952565,
+  "closeTime": 1861948800000,
+  "resolutionTime": null,
+  "observedAt": 1792928664459,
+  "historyCutoff": 1792928664459,
+  "points": [
+    {
+      "t": 1683752222475,
+      "p": 0.3378378378378379
+    },
+    {
+      "t": 1683752371820,
+      "p": 0.21691973969631242
+    },
+    {
+      "t": 1683756287845,
+      "p": 0.3551701468372032
+    },
+    {
+      "t": 1683780879944,
+      "p": 0.4743188067013193
+    },
+    {
+      "t": 1683789725267,
+      "p": 0.4661082797692711
+    },
+    {
+      "t": 1683811392640,
+      "p": 0.44652257824493574
+    },
+    {
+      "t": 1683816046753,
+      "p": 0.4427743942621691
+    },
+    {
+      "t": 1683830900856,
+      "p": 0.44735507706198474
+    },
+    {
+      "t": 1683860196834,
+      "p": 0.4437365003614309
+    },
+    {
+      "t": 1683885858904,
+      "p": 0.42642836872686
+    },
+    {
+      "t": 1683886461098,
+      "p": 0.3942741890194992
+    },
+    {
+      "t": 1684043229269,
+      "p": 0.2640824833497052
+    },
+    {
+      "t": 1684043904566,
+      "p": 0.2316249306322821
+    },
+    {
+      "t": 1684044247328,
+      "p": 0.21085071686874096
+    },
+    {
+      "t": 1684045992518,
+      "p": 0.1927067123752256
+    },
+    {
+      "t": 1684051969505,
+      "p": 0.19365223259169242
+    },
+    {
+      "t": 1684052414778,
+      "p": 0.19539029437060848
+    },
+    {
+      "t": 1684052866199,
+      "p": 0.19424461005264398
+    },
+    {
+      "t": 1684053049975,
+      "p": 0.1886719187044199
+    },
+    {
+      "t": 1684073830031,
+      "p": 0.16886377585809667
+    },
+    {
+      "t": 1684087352524,
+      "p": 0.1679683435284614
+    },
+    {
+      "t": 1684088377365,
+      "p": 0.1553688846592859
+    },
+    {
+      "t": 1684102376435,
+      "p": 0.15459011333475223
+    },
+    {
+      "t": 1684111971417,
+      "p": 0.14287851180984693
+    },
+    {
+      "t": 1684185362670,
+      "p": 0.14219076642073647
+    },
+    {
+      "t": 1684192981453,
+      "p": 0.13757633600757982
+    },
+    {
+      "t": 1684203505731,
+      "p": 0.13146506135390953
+    },
+    {
+      "t": 1684485509627,
+      "p": 0.1309361600719112
+    },
+    {
+      "t": 1684535994750,
+      "p": 0.13484759961325718
+    },
+    {
+      "t": 1684576274004,
+      "p": 0.13639925300564765
+    },
+    {
+      "t": 1684695941170,
+      "p": 0.14030565056969027
+    },
+    {
+      "t": 1685146993655,
+      "p": 0.14419174793753936
+    },
+    {
+      "t": 1685990339067,
+      "p": 0.1595221649393993
+    },
+    {
+      "t": 1687895025390,
+      "p": 0.1390763882348652
+    },
+    {
+      "t": 1687898796852,
+      "p": 0.1378569958737777
+    },
+    {
+      "t": 1687898797074,
+      "p": 0.1319975232465516
+    },
+    {
+      "t": 1687908446774,
+      "p": 0.13569825903405625
+    },
+    {
+      "t": 1689529822716,
+      "p": 0.15445624455058615
+    },
+    {
+      "t": 1690579746666,
+      "p": 0.17377283332553023
+    },
+    {
+      "t": 1690913544107,
+      "p": 0.1729584215647237
+    },
+    {
+      "t": 1691530445513,
+      "p": 0.18262118282735892
+    },
+    {
+      "t": 1695508623169,
+      "p": 0.1743195249527102
+    },
+    {
+      "t": 1695740055045,
+      "p": 0.15284504979358993
+    },
+    {
+      "t": 1695745653171,
+      "p": 0.1425058858739819
+    },
+    {
+      "t": 1697698412031,
+      "p": 0.1428997574363166
+    },
+    {
+      "t": 1698309524285,
+      "p": 0.16054928047126207
+    },
+    {
+      "t": 1702502708519,
+      "p": 0.18241314886881912
+    },
+    {
+      "t": 1709238728200,
+      "p": 0.18614497013047793
+    },
+    {
+      "t": 1709664264882,
+      "p": 0.18606034373393152
+    },
+    {
+      "t": 1717642287254,
+      "p": 0.20362270459629092
+    },
+    {
+      "t": 1717671477065,
+      "p": 0.21438142796216497
+    },
+    {
+      "t": 1717742053266,
+      "p": 0.20449668061239792
+    },
+    {
+      "t": 1717742110062,
+      "p": 0.19528735422691598
+    },
+    {
+      "t": 1717780118082,
+      "p": 0.17485112715846596
+    },
+    {
+      "t": 1717780119257,
+      "p": 0.18201996137745755
+    },
+    {
+      "t": 1719273958212,
+      "p": 0.16361895670554
+    },
+    {
+      "t": 1719275312125,
+      "p": 0.18047078301383454
+    },
+    {
+      "t": 1719277763711,
+      "p": 0.176595034457001
+    },
+    {
+      "t": 1782215550585,
+      "p": 0.16913087358269074
+    },
+    {
+      "t": 1783146965465,
+      "p": 0.16734118616876767
+    },
+    {
+      "t": 1789063823574,
+      "p": 0.11438341780406552
+    },
+    {
+      "t": 1789063823690,
+      "p": 0.11681762717364334
+    },
+    {
+      "t": 1789063823740,
+      "p": 0.1192746608792008
+    },
+    {
+      "t": 1789063824156,
+      "p": 0.11676643573352151
+    },
+    {
+      "t": 1789063824213,
+      "p": 0.11438341780406554
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.11438341780406554,
+  "lastTradeAt": 1789063824213,
+  "sourceApi": "https://api.manifold.markets/v0/market/jqEkQKsK0FxFNXDN0lBy",
+  "provenance": {
+    "marketSha256": "a1b2274473eee565d7a486ee3e3f231b4ac44a577d81b887a8090b7a27dc9ed7",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=jqEkQKsK0FxFNXDN0lBy&limit=1000",
+        "sha256": "9af6b7cc8b7f8370bc97470f0ef46bd5e642611fe06700f4dfb0ffa5e3f2051b",
+        "rows": 80
+      }
+    ],
+    "fetchedTradeRows": 80,
+    "acceptedTradeRows": 65,
+    "excludedTradeRows": 15
+  },
+  "stage": "engineering",
+  "title": [
+    "Helion 能否在 2029 年前向 Microsoft 交付至少 50 MW 聚变电力？",
+    "Will Helion deliver at least 50 MW of fusion electricity to Microsoft before 2029?"
+  ],
+  "rules": [
+    [
+      "原题要求在 2029-01-01 前，可信公开资料确认至少 50 MW 商业聚变发电机运行、在华盛顿州并网向 Microsoft 供电，以及净能量增益。",
+      "Before 2029-01-01, credible public records must establish operation of a commercial fusion generator of at least 50 MW, Washington grid delivery to Microsoft and net energy gain."
+    ]
+  ],
+  "interpretation": [
+    "购电协议或计划开工不能替代发电与客户交付。原题保留创建者判定裁量。",
+    "An agreement or planned construction is not generated and delivered electricity. The creator retains resolution discretion."
+  ],
+  "entities": [
+    "helion",
+    "doe"
+  ],
+  "evidence": [
+    "fusion-ignition",
+    "helion-ppa"
+  ],
+  "briefing": {
+    "contextId": "fusion-grid",
+    "summary": [
+      "这项预测考查特定客户的聚变电力交付，要求至少 50 MW、净增益与 2029 年前的期限同时满足。",
+      "This predicts delivery to a named customer, requiring at least 50 MW, net gain and a pre-2029 deadline together."
+    ],
+    "checklist": [
+      [
+        "核对发电装置的净电力和输入计量边界。",
+        "Verify net-electricity output and the input boundary."
+      ],
+      [
+        "查验并网、输送与 Microsoft 接收记录。",
+        "Check grid, transmission and Microsoft receipt records."
+      ],
+      [
+        "对照交付日期、50 MW 门槛及创建者澄清。",
+        "Compare delivery date, the 50 MW threshold and creator clarifications."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "BGT0eBN2kmD6FmsXEvFt"
+  ],
+  "industry": {
+    "entities": [
+      "helion",
+      "doe"
+    ],
+    "evidence": [
+      "fusion-ignition",
+      "helion-ppa"
+    ],
+    "stage": [
+      "研究验证与商业交付",
+      "Research validation and commercial delivery"
+    ],
+    "impact": [
+      "购电协议使研究路线对应到明确客户和目标规模；下一步应核实发电、并网和交付记录，并与原题的 50 MW 门槛及期限同时对应。投资或建设消息不能替代实际供电。",
+      "The agreement links a research path to a named customer and capacity target; generation, connection and delivery evidence must follow rather than inferring completion from funding or construction."
+    ],
+    "gap": [
+      "2028 年上线和一年爬坡的公告表述与市场交付期限要逐项核对。",
+      "Compare the announcement’s 2028 start and one-year ramp with the contract deadline."
+    ]
+  },
+  "context": {
+    "id": "fusion-grid",
+    "title": [
+      "靶增益、净电力与电网供电",
+      "Target gain, net electricity and grid supply"
+    ],
+    "principle": [
+      "聚变反应放出的能量，需要经过装置能量回收或发电系统才能成为电力。谈“净增益”必须说明计量边界：只计到靶激光，还是计入磁体、驱动、冷却与辅助设施的全部输入。",
+      "Fusion energy must be recovered as electricity. A gain claim needs an explicit boundary: target laser energy or all drive, magnet, cooling and auxiliary inputs."
+    ],
+    "example": [
+      "NIF 的 3.15 MJ／2.05 MJ 比较针对一次实验的到靶激光，不是整机净电力。Helion 的 50 MW 供电事件则需要发电、并网和客户交付证据，二者不能互相替代。",
+      "NIF’s 3.15 MJ/2.05 MJ comparison concerns target laser energy in one shot. Helion’s 50 MW contract needs generation, grid connection and delivery evidence instead."
+    ],
+    "evidence": [
+      "fusion-ignition",
+      "helion-ppa"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1683752222475,
+      "p": 0.3378378378378379
+    },
+    "last": {
+      "t": 1789063824213,
+      "p": 0.11438341780406554
+    },
+    "change": -22.345442003377237,
+    "low": 0.11438341780406552,
+    "high": 0.4743188067013193,
+    "staleDays": 44.731947291666664
+  },
+  "quality": [],
+  "tradePoints": 65,
+  "detailFile": "events/jqEkQKsK0FxFNXDN0lBy.json"
+}

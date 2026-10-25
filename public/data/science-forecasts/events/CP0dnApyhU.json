@@ -1,0 +1,185 @@
+{
+  "id": "CP0dnApyhU",
+  "topicId": "battery-scale-storage",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/deletedaccount001/us-battery-energy-storage-doubles-o",
+  "originalTitle": "US battery energy storage doubles over 2025–2029?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.8395856167879494,
+  "volume": 151.22379997662108,
+  "participants": 6,
+  "createdTime": 1764517802944,
+  "closeTime": 1893455940000,
+  "resolutionTime": null,
+  "observedAt": 1792930014680,
+  "historyCutoff": 1792930014680,
+  "points": [
+    {
+      "t": 1764522252733,
+      "p": 0.5475113122171946
+    },
+    {
+      "t": 1764527319534,
+      "p": 0.6621621621621623
+    },
+    {
+      "t": 1764531618637,
+      "p": 0.7191011235955057
+    },
+    {
+      "t": 1764555446483,
+      "p": 0.7429305912596401
+    },
+    {
+      "t": 1764587705630,
+      "p": 0.7641509433962264
+    },
+    {
+      "t": 1764608481996,
+      "p": 0.8520710059171598
+    },
+    {
+      "t": 1768078435770,
+      "p": 0.8395856167879494
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.8395856167879494,
+  "lastTradeAt": 1768078435770,
+  "sourceApi": "https://api.manifold.markets/v0/market/CP0dnApyhU",
+  "provenance": {
+    "marketSha256": "eaeb88aa9bd31fe95d36c08bdc3e19e19747a4ff8a3db8e56f9035d6f58b5ba8",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=CP0dnApyhU&limit=1000",
+        "sha256": "c2e3c865899c5e21e0fb9e47e28d7b126bbe63ffe1b5e7d55240250992ca48ed",
+        "rows": 7
+      }
+    ],
+    "fetchedTradeRows": 7,
+    "acceptedTradeRows": 7,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "美国并网电池储能能量会在 2029 年底达到 260 GWh 吗？",
+    "Will US grid-connected battery energy reach 260 GWh by end-2029?"
+  ],
+  "rules": [
+    [
+      "原题固定 2025 基线为 130 GWh，要求截至 2029-12-31 的并网电化学储能 ≥260 GWh，涵盖选定统计里的公用事业、工商和住宅；优先使用统一全国能量序列。",
+      "The contract fixes a 130 GWh 2025 baseline and requires ≥260 GWh by 2029-12-31 across the selected national series, including utility, commercial and residential segments."
+    ]
+  ],
+  "interpretation": [
+    "130 GWh 是创建者固定的判定常数，不根据事后 2025 实际统计调整；GW 功率不能替代此 GWh 能量。",
+    "130 GWh is a fixed rule constant, not revised to match ex-post 2025 statistics; GW power cannot substitute for GWh."
+  ],
+  "entities": [
+    "eia",
+    "iea"
+  ],
+  "evidence": [
+    "eia-storage-2024",
+    "iea-batteries-2026"
+  ],
+  "briefing": {
+    "contextId": "storage-energy",
+    "summary": [
+      "本题实际门槛为 260 GWh，标题的“翻倍”相对于规则固定值。统计覆盖与能量单位比字面增速更重要。",
+      "The actual threshold is 260 GWh; “doubling” refers to a fixed rule baseline. Coverage and energy units matter more than the headline growth wording."
+    ],
+    "checklist": [
+      [
+        "使用能量 MWh/GWh，而非功率 MW/GW。",
+        "Use energy MWh/GWh, not power MW/GW."
+      ],
+      [
+        "保持部门、地理和修订版本一致。",
+        "Keep sector, geography and revisions consistent."
+      ],
+      [
+        "按容量参考日期而非出版日期核对截止。",
+        "Use capacity reference date, not publication date."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "S2ghII2gLd",
+    "b2npwzsZCGtn8aQ47PNO",
+    "hOt5P568Iz"
+  ],
+  "industry": {
+    "entities": [
+      "eia",
+      "iea"
+    ],
+    "evidence": [
+      "eia-storage-2024",
+      "iea-batteries-2026"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "EIA 公用事业级功率数据说明部署背景，却不覆盖此题所有部门和能量指标。项目清单与行业全国序列需要统一，不能靠把不同来源各自总量相加来补齐 260 GWh。",
+      "EIA utility power provides context but not the all-sector energy series. Project and national statistics need alignment; totals from differing sources cannot simply be added to reach 260 GWh."
+    ],
+    "gap": [
+      "优先全国统一序列；原题基线不标为已核实测量。",
+      "Use a consistent national series; the baseline is not a verified measurement."
+    ]
+  },
+  "context": {
+    "id": "storage-energy",
+    "title": [
+      "电池储能的 GW 与 GWh",
+      "Battery storage in GW and GWh"
+    ],
+    "principle": [
+      "电堆或变流器限制功率，电极或电解液总量影响能量。并网储能统计还需区分公用事业级与住宅工商等范围，不能把功率与能量相加。",
+      "Stacks and converters limit power while electrode or electrolyte inventory affects energy. Statistics distinguish utility and distributed sectors; power and energy are not additive."
+    ],
+    "example": [
+      "EIA 记录的超过 26 GW 是公用事业级功率，市场 260 GWh 则是多部门能量阈值，原题固定的 130 GWh 只作为规则常数显示。",
+      "EIA’s over 26 GW measures utility-scale power; the market’s 260 GWh is a multisector energy threshold, with 130 GWh retained solely as a rule constant."
+    ],
+    "evidence": [
+      "eia-storage-2024",
+      "iea-batteries-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1764522252733,
+      "p": 0.5475113122171946
+    },
+    "last": {
+      "t": 1768078435770,
+      "p": 0.8395856167879494
+    },
+    "change": 29.20743045707548,
+    "low": 0.5475113122171946,
+    "high": 0.8520710059171598,
+    "staleDays": 287.63401516203703
+  },
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 7,
+  "detailFile": "events/CP0dnApyhU.json"
+}

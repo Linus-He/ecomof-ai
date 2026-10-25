@@ -1,0 +1,443 @@
+{
+  "id": "e3ah02wnqsS2hwQYTgQs",
+  "topicId": "sodium-ion-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/citrinitas/will-someone-sell-a-nonlithium-ev-b",
+  "originalTitle": "Will someone sell a non-lithium EV before 2025?",
+  "status": "resolved",
+  "resolution": "NO",
+  "resolutionProbability": 0.5499586968196792,
+  "snapshotProbability": null,
+  "volume": 3383.818047083902,
+  "participants": 44,
+  "createdTime": 1671423577628,
+  "closeTime": 1735718340000,
+  "resolutionTime": 1735859921430,
+  "observedAt": 1792930011712,
+  "historyCutoff": 1735718340000,
+  "points": [
+    {
+      "t": 1671424719694,
+      "p": 0.4098360655737706
+    },
+    {
+      "t": 1671432257143,
+      "p": 0.5976758825417855
+    },
+    {
+      "t": 1671433228670,
+      "p": 0.4087995217090064
+    },
+    {
+      "t": 1671433248246,
+      "p": 0.3568637744753829
+    },
+    {
+      "t": 1671441035675,
+      "p": 0.41464514993229906
+    },
+    {
+      "t": 1671462543858,
+      "p": 0.42553309375606674
+    },
+    {
+      "t": 1671475096295,
+      "p": 0.44869165978391584
+    },
+    {
+      "t": 1671485902619,
+      "p": 0.4226392151669479
+    },
+    {
+      "t": 1671521328696,
+      "p": 0.38088418533380924
+    },
+    {
+      "t": 1671531280569,
+      "p": 0.4185328306735859
+    },
+    {
+      "t": 1671575835340,
+      "p": 0.3389716841693671
+    },
+    {
+      "t": 1671617431395,
+      "p": 0.3843401848385083
+    },
+    {
+      "t": 1671617433813,
+      "p": 0.4082151165353859
+    },
+    {
+      "t": 1671642597394,
+      "p": 0.3829711929160919
+    },
+    {
+      "t": 1671642609112,
+      "p": 0.3900000000000001
+    },
+    {
+      "t": 1671642611926,
+      "p": 0.40107289890121206
+    },
+    {
+      "t": 1671642672027,
+      "p": 0.4227745837479049
+    },
+    {
+      "t": 1671896356477,
+      "p": 0.40931453242549426
+    },
+    {
+      "t": 1671988914351,
+      "p": 0.4270250095401521
+    },
+    {
+      "t": 1672023967005,
+      "p": 0.4433999960698498
+    },
+    {
+      "t": 1672023970829,
+      "p": 0.4307147952197813
+    },
+    {
+      "t": 1672115007892,
+      "p": 0.4537354784409558
+    },
+    {
+      "t": 1672409979798,
+      "p": 0.4679265648222033
+    },
+    {
+      "t": 1672568486959,
+      "p": 0.48113744315656815
+    },
+    {
+      "t": 1672798190368,
+      "p": 0.4780173984561335
+    },
+    {
+      "t": 1677230100699,
+      "p": 0.46329510277688846
+    },
+    {
+      "t": 1677482424329,
+      "p": 0.4821993421145638
+    },
+    {
+      "t": 1678316876581,
+      "p": 0.4880958682019357
+    },
+    {
+      "t": 1679067490514,
+      "p": 0.4880958682019361
+    },
+    {
+      "t": 1679067490873,
+      "p": 0.4880958682019361
+    },
+    {
+      "t": 1679067491800,
+      "p": 0.4880958682019361
+    },
+    {
+      "t": 1687824568729,
+      "p": 0.44116182518824765
+    },
+    {
+      "t": 1687825362935,
+      "p": 0.4370008597123725
+    },
+    {
+      "t": 1687930147774,
+      "p": 0.45837849082156773
+    },
+    {
+      "t": 1689718146543,
+      "p": 0.44969104444755603
+    },
+    {
+      "t": 1690216443041,
+      "p": 0.48659283977342177
+    },
+    {
+      "t": 1695679362008,
+      "p": 0.4613752041460442
+    },
+    {
+      "t": 1696942067651,
+      "p": 0.462334785853823
+    },
+    {
+      "t": 1697180550311,
+      "p": 0.5070212730475617
+    },
+    {
+      "t": 1698326103191,
+      "p": 0.5060883693389336
+    },
+    {
+      "t": 1698998890603,
+      "p": 0.4973381094047564
+    },
+    {
+      "t": 1701371420939,
+      "p": 0.4890484062671265
+    },
+    {
+      "t": 1701387399037,
+      "p": 0.49502322085012257
+    },
+    {
+      "t": 1701814274881,
+      "p": 0.4890484062671265
+    },
+    {
+      "t": 1701969014346,
+      "p": 0.538272417374196
+    },
+    {
+      "t": 1703698285487,
+      "p": 0.5457720363566388
+    },
+    {
+      "t": 1704689146770,
+      "p": 0.5849711163496403
+    },
+    {
+      "t": 1704710103192,
+      "p": 0.5650181113433105
+    },
+    {
+      "t": 1704732318549,
+      "p": 0.5714556249926874
+    },
+    {
+      "t": 1704732325222,
+      "p": 0.6020847008155045
+    },
+    {
+      "t": 1705352175099,
+      "p": 0.5522019874667442
+    },
+    {
+      "t": 1705935187683,
+      "p": 0.5120373847596691
+    },
+    {
+      "t": 1707261684036,
+      "p": 0.49343793843201134
+    },
+    {
+      "t": 1714251832817,
+      "p": 0.46308742071723874
+    },
+    {
+      "t": 1714855376984,
+      "p": 0.48123973780563184
+    },
+    {
+      "t": 1714856275690,
+      "p": 0.5486438276512265
+    },
+    {
+      "t": 1716976483022,
+      "p": 0.6437865856525467
+    },
+    {
+      "t": 1716983647111,
+      "p": 0.661615874515552
+    },
+    {
+      "t": 1716983659236,
+      "p": 0.6613989220228071
+    },
+    {
+      "t": 1723248991640,
+      "p": 0.6552892214903986
+    },
+    {
+      "t": 1728716317860,
+      "p": 0.5936502022312502
+    },
+    {
+      "t": 1730480530902,
+      "p": 0.5600576630009289
+    },
+    {
+      "t": 1733637500614,
+      "p": 0.5324872718280638
+    },
+    {
+      "t": 1733694386962,
+      "p": 0.5298025935557035
+    },
+    {
+      "t": 1733694622876,
+      "p": 0.4122478989581676
+    },
+    {
+      "t": 1733730582845,
+      "p": 0.37383328838109
+    },
+    {
+      "t": 1733758919026,
+      "p": 0.3772413449723308
+    },
+    {
+      "t": 1734618724824,
+      "p": 0.3664592934424773
+    },
+    {
+      "t": 1735431104290,
+      "p": 0.4255828316888273
+    },
+    {
+      "t": 1735431458763,
+      "p": 0.4535456970165062
+    },
+    {
+      "t": 1735431466069,
+      "p": 0.7006530866577614
+    },
+    {
+      "t": 1735432368513,
+      "p": 0.7099555138135618
+    },
+    {
+      "t": 1735435372100,
+      "p": 0.7033407232848069
+    },
+    {
+      "t": 1735490671613,
+      "p": 0.6080100170929844
+    },
+    {
+      "t": 1735490703426,
+      "p": 0.5499586968196792
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5499586968196792,
+  "lastTradeAt": 1735490703426,
+  "sourceApi": "https://api.manifold.markets/v0/market/e3ah02wnqsS2hwQYTgQs",
+  "provenance": {
+    "marketSha256": "d3470e097cfeeadc11abd165da4d338d9eedc7cf6efcb877d6eed1a1bcc381d6",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=e3ah02wnqsS2hwQYTgQs&limit=1000",
+        "sha256": "30e8bc45cfff60b776da78681ce8a59b1c622ce99270e3bdf8776c9475bee391",
+        "rows": 106
+      }
+    ],
+    "fetchedTradeRows": 106,
+    "acceptedTradeRows": 75,
+    "excludedTradeRows": 31
+  },
+  "stage": "engineering",
+  "title": [
+    "主流车企能否在 2025 年前交付非锂主动力乘用车？",
+    "Will a major automaker deliver a non-lithium traction EV before 2025?"
+  ],
+  "rules": [
+    [
+      "要求普通公众在 2024 年底前可购买并收车，来自主流车企且外形用途接近典型乘用车；概念车、编号限量车、旧铅酸或镍系技术不算。辅助供电可含锂，主要驱动需来自非锂部分。",
+      "Public purchase and delivery by end-2024 must involve a major manufacturer and a typical passenger vehicle. Concepts, numbered limited editions and old lead/nickel systems are excluded; auxiliary lithium is permitted."
+    ]
+  ],
+  "interpretation": [
+    "平台结算为 No，与其他钠离子商品题的 Yes 并不矛盾，车辆与制造商范围不同。",
+    "Its No outcome can coexist with Yes on broader sodium-product contracts because vehicle/manufacturer scope differs."
+  ],
+  "entities": [
+    "catl"
+  ],
+  "evidence": [
+    "catl-naxtra-vehicle",
+    "catl-sodium-safety"
+  ],
+  "briefing": {
+    "contextId": "sodium-materials",
+    "summary": [
+      "此题比“出现钠离子商品”更窄，限定主流车企、典型乘用车和公众实际交付，存档保留 No。",
+      "This narrower question requires a major automaker, typical passenger car and public delivery; the archive retains No."
+    ],
+    "checklist": [
+      [
+        "核对主流车企与车型适用范围。",
+        "Check manufacturer and vehicle scope."
+      ],
+      [
+        "核对主动力非锂，而非仅辅助电池。",
+        "Verify non-lithium traction, not auxiliaries."
+      ],
+      [
+        "核对 2024 年底前实际收车。",
+        "Check receipt before end-2024."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "hnzy6pqlNZ",
+    "xLCfrvBWLH5BBYsgA4TX",
+    "gLKepA3Jdl3lmiRXc32K"
+  ],
+  "industry": {
+    "entities": [
+      "catl"
+    ],
+    "evidence": [
+      "catl-naxtra-vehicle",
+      "catl-sodium-safety"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "2026 年 Naxtra 车型资料用于说明后续产业路线，不能倒填到 2024 年期限内。多个历史原题的差别有助于辨认技术发布、普通商品与主流车型交付的不同含义。",
+      "The 2026 Naxtra release is subsequent context, not evidence backdated into 2024. Different historical contracts clarify the distinction between launches, commercial products and major-model deliveries."
+    ],
+    "gap": [
+      "保留原题边界和平台判定，不以后续新闻改写历史。",
+      "Retain scope and resolution; do not rewrite history using later news."
+    ]
+  },
+  "context": {
+    "id": "sodium-materials",
+    "title": [
+      "钠离子材料、性能与实际交付",
+      "Sodium chemistry, performance and delivery"
+    ],
+    "principle": [
+      "载流离子与正负极结构决定电池体系；电芯、整包与车型性能有不同分母。安全测试、技术发布和客户交付分别回答不同的问题。",
+      "Charge carriers and electrode structure define the chemistry. Cell, pack and vehicle metrics use different boundaries; safety tests, launches and delivery establish different facts."
+    ],
+    "example": [
+      "CATL 公告的 175 Wh/kg 是比能量指标，超过 400 km 是车型续航表述；原题还要求零售客户交车。两者不能替代交付凭证。",
+      "CATL’s 175 Wh/kg is a specific-energy claim and over 400 km a vehicle claim. The contract additionally requires customer delivery records."
+    ],
+    "evidence": [
+      "catl-naxtra-vehicle",
+      "catl-sodium-safety"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1671424719694,
+      "p": 0.4098360655737706
+    },
+    "last": {
+      "t": 1735490703426,
+      "p": 0.5499586968196792
+    },
+    "change": 14.012263124590863,
+    "low": 0.3389716841693671,
+    "high": 0.7099555138135618,
+    "staleDays": 2.6346825694444442
+  },
+  "quality": [],
+  "tradePoints": 75,
+  "detailFile": "events/e3ah02wnqsS2hwQYTgQs.json"
+}

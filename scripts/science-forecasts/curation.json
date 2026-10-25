@@ -1391,6 +1391,1599 @@
           "These sources do not establish annual gigatonne removal by human-enhanced olivine. Two observations cannot support a market-response analysis of a corporate announcement."
         ]
       }
+    },
+    {
+      "id": "jqEkQKsK0FxFNXDN0lBy",
+      "stage": "engineering",
+      "title": [
+        "Helion 能否在 2029 年前向 Microsoft 交付至少 50 MW 聚变电力？",
+        "Will Helion deliver at least 50 MW of fusion electricity to Microsoft before 2029?"
+      ],
+      "rules": [
+        [
+          "原题要求在 2029-01-01 前，可信公开资料确认至少 50 MW 商业聚变发电机运行、在华盛顿州并网向 Microsoft 供电，以及净能量增益。",
+          "Before 2029-01-01, credible public records must establish operation of a commercial fusion generator of at least 50 MW, Washington grid delivery to Microsoft and net energy gain."
+        ]
+      ],
+      "interpretation": [
+        "购电协议或计划开工不能替代发电与客户交付。原题保留创建者判定裁量。",
+        "An agreement or planned construction is not generated and delivered electricity. The creator retains resolution discretion."
+      ],
+      "entities": [
+        "helion",
+        "doe"
+      ],
+      "evidence": [
+        "fusion-ignition",
+        "helion-ppa"
+      ],
+      "briefing": {
+        "contextId": "fusion-grid",
+        "summary": [
+          "这项预测考查特定客户的聚变电力交付，要求至少 50 MW、净增益与 2029 年前的期限同时满足。",
+          "This predicts delivery to a named customer, requiring at least 50 MW, net gain and a pre-2029 deadline together."
+        ],
+        "checklist": [
+          [
+            "核对发电装置的净电力和输入计量边界。",
+            "Verify net-electricity output and the input boundary."
+          ],
+          [
+            "查验并网、输送与 Microsoft 接收记录。",
+            "Check grid, transmission and Microsoft receipt records."
+          ],
+          [
+            "对照交付日期、50 MW 门槛及创建者澄清。",
+            "Compare delivery date, the 50 MW threshold and creator clarifications."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "BGT0eBN2kmD6FmsXEvFt"
+      ],
+      "industry": {
+        "entities": [
+          "helion",
+          "doe"
+        ],
+        "evidence": [
+          "fusion-ignition",
+          "helion-ppa"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "购电协议使研究路线对应到明确客户和目标规模；下一步应核实发电、并网和交付记录，并与原题的 50 MW 门槛及期限同时对应。投资或建设消息不能替代实际供电。",
+          "The agreement links a research path to a named customer and capacity target; generation, connection and delivery evidence must follow rather than inferring completion from funding or construction."
+        ],
+        "gap": [
+          "2028 年上线和一年爬坡的公告表述与市场交付期限要逐项核对。",
+          "Compare the announcement’s 2028 start and one-year ramp with the contract deadline."
+        ]
+      }
+    },
+    {
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "stage": "engineering",
+      "title": [
+        "聚变能否在 2050 年前提供超过 2% 的美国电力？",
+        "Will fusion provide over 2% of US electricity before 2050?"
+      ],
+      "rules": [
+        [
+          "题名以 2050 年前、超过美国电力 2% 为条件；原文仅补充了停盘日期，未详细定义统计周期与分母。",
+          "The title asks for over 2% of US electricity before 2050; the description only updates closing time and does not define the reporting period or denominator."
+        ]
+      ],
+      "interpretation": [
+        "需等待官方发电统计与原题澄清；不能用单座设施装机容量代替全国发电占比。",
+        "Official generation statistics and source clarification are needed; plant capacity is not a national electricity share."
+      ],
+      "entities": [
+        "doe",
+        "helion"
+      ],
+      "evidence": [
+        "fusion-ignition",
+        "helion-ppa"
+      ],
+      "briefing": {
+        "contextId": "fusion-grid",
+        "summary": [
+          "这是美国电力结构的长期预测，所需规模远超单次点火或单个客户的供电协议。",
+          "This long-horizon US power-share forecast concerns a scale beyond one ignition shot or a single customer agreement."
+        ],
+        "checklist": [
+          [
+            "核对“美国电力”的统计分母。",
+            "Verify the US electricity denominator."
+          ],
+          [
+            "核对年度或其他统计周期。",
+            "Check the reporting period."
+          ],
+          [
+            "使用真实发电量，排除仅有规划的项目。",
+            "Use measured generation, excluding merely planned capacity."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "jqEkQKsK0FxFNXDN0lBy"
+      ],
+      "industry": {
+        "entities": [
+          "doe",
+          "helion"
+        ],
+        "evidence": [
+          "fusion-ignition",
+          "helion-ppa"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "点火实验和购电协议可追踪技术与客户需求，但全国份额还需要多设施运行、维护、许可和电网接入。单个项目进展只能作为背景，其中装机功率与年度发电量尤其需要分开统计。",
+          "Ignition and purchase agreements track technology and customer demand; a national share additionally needs plant fleets, operation, maintenance, permitting and grid access. Individual projects provide context only."
+        ],
+        "gap": [
+          "原题缺少统计定义，本站不补设分母或替创建者判定。",
+          "Statistical definitions are missing; this archive does not invent a denominator or resolve the market."
+        ]
+      }
+    },
+    {
+      "id": "cwtbzjfk9j",
+      "stage": "validation",
+      "title": [
+        "2030 年前会出现可执行一亿个门的纠错量子计算机吗？",
+        "Will an error-corrected quantum computer capable of 100 million gates exist before 2030?"
+      ],
+      "rules": [
+        [
+          "原文要求在 2030-01-01 当日或之前，公告具备有效纠错和一亿门能力的量子计算机，并有非零第三方验证；未附加其他性能要求。",
+          "The description requires an announcement on or before 2030-01-01 of effective error correction and 100-million-gate capability, with nonzero third-party verification and no further performance conditions."
+        ]
+      ],
+      "interpretation": [
+        "标题写“2030 年前”，正文含 1 月 1 日当日；门的种类与验证强度并未完整量化。",
+        "The title says before 2030; the description includes 1 January. Gate type and verification strength are not fully quantified."
+      ],
+      "entities": [
+        "googlequantum"
+      ],
+      "evidence": [
+        "quantum-willow",
+        "quantum-google-explanation"
+      ],
+      "briefing": {
+        "contextId": "quantum-correction",
+        "summary": [
+          "原题把有效纠错、长电路能力和第三方验证放在一起；逻辑存储器突破并不单独满足这些条件。",
+          "The question combines effective correction, long-circuit capability and third-party verification; a logical-memory result alone is insufficient."
+        ],
+        "checklist": [
+          [
+            "核对门数是物理门还是逻辑门。",
+            "Check whether counts refer to physical or logical gates."
+          ],
+          [
+            "查看纠错是否在长电路中有效运行。",
+            "Verify effective correction during long circuits."
+          ],
+          [
+            "核实公告、独立验证及截止日期。",
+            "Verify the announcement, third-party checks and deadline."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "oocJB7zxHwURka0HYfbo"
+      ],
+      "industry": {
+        "entities": [
+          "googlequantum"
+        ],
+        "evidence": [
+          "quantum-willow",
+          "quantum-google-explanation"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "Willow 的阈值以下存储实验提供了纠错可扩展性的具体证据。评估一亿门目标还需看逻辑运算、解码和长程序错误，而非只比较物理比特数量。",
+          "Willow provides specific evidence for scalable correction in a memory. The 100-million-gate target additionally requires logical operations, decoding and long-program error evidence rather than physical-qubit counts alone."
+        ],
+        "gap": [
+          "原题对门数与第三方验证定义较宽，保留规则不足提示。",
+          "The gate and verification definitions remain broad and are flagged."
+        ]
+      }
+    },
+    {
+      "id": "oocJB7zxHwURka0HYfbo",
+      "stage": "engineering",
+      "title": [
+        "纠错量子计算机会在 2025 年前后进入商业供应吗？",
+        "Will error-correcting quantum computers be commercially available by 2025?"
+      ],
+      "rules": [
+        [
+          "原题仅有“by 2025 商业可用”的标题，未附详细描述；具体截止解释与商用标准应以原市场澄清为准。",
+          "Only the title specifies commercially available “by 2025”; no detailed description is present. Deadline interpretation and commercial criteria require source clarification."
+        ]
+      ],
+      "interpretation": [
+        "存档为已停盘、未判定，不能按截止年份自行改为 No。",
+        "The archive is closed and unresolved; the year alone does not establish a No outcome."
+      ],
+      "entities": [
+        "googlequantum"
+      ],
+      "evidence": [
+        "quantum-willow",
+        "quantum-google-explanation"
+      ],
+      "briefing": {
+        "contextId": "quantum-correction",
+        "summary": [
+          "此题关注商业可用性。原规则简略且仍未判定，产品访问与纠错性能需要分别查证。",
+          "This concerns commercial availability. Sparse rules and an unresolved record require separate checks of product access and correction performance."
+        ],
+        "checklist": [
+          [
+            "查看可购买或付费使用的产品记录。",
+            "Check purchasable or paid-access product records."
+          ],
+          [
+            "确认所提供的是实际纠错能力。",
+            "Verify actual error-correcting capability."
+          ],
+          [
+            "查看创建者对日期和商用标准的澄清。",
+            "Review creator clarifications on dates and availability."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "cwtbzjfk9j"
+      ],
+      "industry": {
+        "entities": [
+          "googlequantum"
+        ],
+        "evidence": [
+          "quantum-willow",
+          "quantum-google-explanation"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "研究论文能够说明纠错实验，但商业可用性还涉及访问方式、使用条件和用户运行记录。研究机构的技术公告不自动构成可购买产品的证明。",
+          "A paper establishes an experiment; commercial availability additionally concerns access, terms and user execution records. Research announcements alone do not establish a purchasable product."
+        ],
+        "gap": [
+          "缺少完整结算规则，本站保留原状态与最后真实成交。",
+          "Without full resolution rules, source status and last actual trades are retained."
+        ]
+      }
+    },
+    {
+      "id": "88clPLgu5E",
+      "stage": "engineering",
+      "title": [
+        "2028 年底前会有制造商实现年度 1 GW 钙钛矿组件出货吗？",
+        "Will a manufacturer ship 1 GW of perovskite modules in a year by end-2028?"
+      ],
+      "rules": [
+        [
+          "单一制造商须在 2026、2027 或 2028 年某一日历年商业交付至少 1000 MW 钙钛矿或钙钛矿／硅叠层组件，且有可获融资认可的质保。研究组件、无相应质保的 BIPV 试点和室内光伏不计。",
+          "One manufacturer must commercially ship at least 1,000 MW of perovskite or perovskite/silicon modules in calendar 2026, 2027 or 2028 with bankable warranties. Research modules and unqualified BIPV pilots or indoor PV do not count."
+        ]
+      ],
+      "interpretation": [
+        "年产能、签约订单与实际出货不同；不能跨制造商或跨年份累加。",
+        "Capacity, orders and shipments differ; do not aggregate across manufacturers or years."
+      ],
+      "entities": [
+        "oxfordpv",
+        "doe"
+      ],
+      "evidence": [
+        "oxford-first-shipment",
+        "perovskite-doe"
+      ],
+      "briefing": {
+        "contextId": "perovskite-scale",
+        "summary": [
+          "原题要求单一制造商在一个日历年达到商业交付门槛，并保留质保条件，考查的并非实验室效率。",
+          "This requires one manufacturer to reach an annual commercial shipment threshold with warranty conditions, rather than a laboratory efficiency record."
+        ],
+        "checklist": [
+          [
+            "核对单一制造商与日历年份。",
+            "Verify manufacturer and calendar year."
+          ],
+          [
+            "核对已出货组件额定功率与技术类别。",
+            "Check shipped rated module power and technology."
+          ],
+          [
+            "查验质保及独立行业统计。",
+            "Verify warranties and independent deployment statistics."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "mH5EaioxqUT22N2MZg7B"
+      ],
+      "industry": {
+        "entities": [
+          "oxfordpv",
+          "doe"
+        ],
+        "evidence": [
+          "oxford-first-shipment",
+          "perovskite-doe"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "Oxford PV 的首批交付说明叠层组件进入商业应用。年度 1 GW 还取决于扩产、良率、质保与客户接收，不能将 MW 级试验线或未来工厂计划直接视为达标。",
+          "Oxford PV’s first delivery shows commercial use. Annual 1 GW still depends on scale-up, yield, warranties and customer receipt; MW-scale pilot output or factory plans do not meet the threshold."
+        ],
+        "gap": [
+          "首次出货公告未给出年度 GW 级交付与对应质保证明。",
+          "The first-shipment announcement does not establish annual GW-scale delivery and qualifying warranties."
+        ]
+      }
+    },
+    {
+      "id": "mH5EaioxqUT22N2MZg7B",
+      "stage": "engineering",
+      "title": [
+        "2030 年全球部署的光伏组件会以钙钛矿或硅叠层为主吗？",
+        "Will perovskite or silicon tandems form a majority of solar panels deployed in 2030?"
+      ],
+      "rules": [
+        [
+          "正文要求 2030 年全球部署的光伏组件中，多数采用钙钛矿或硅／钙钛矿叠层；未说明按组件数、面积还是额定功率统计。",
+          "The description requires a majority of panels deployed globally in 2030 to use perovskite or silicon/perovskite tandems; it does not specify module count, area or rated-power weighting."
+        ]
+      ],
+      "interpretation": [
+        "这是行业部署份额，不能由单一制造商出货或效率纪录推定。",
+        "This is an industry deployment share, not one manufacturer’s sales or an efficiency record."
+      ],
+      "entities": [
+        "oxfordpv",
+        "doe"
+      ],
+      "evidence": [
+        "oxford-first-shipment",
+        "perovskite-doe"
+      ],
+      "briefing": {
+        "contextId": "perovskite-scale",
+        "summary": [
+          "题目关注 2030 年全球部署材料的多数份额，需要全行业统计以及明确的计量分母。",
+          "This concerns a majority share of materials in global 2030 deployment and needs industry-wide data with a defined denominator."
+        ],
+        "checklist": [
+          [
+            "核对部署而非累计制造的统计范围。",
+            "Distinguish deployment from manufacturing."
+          ],
+          [
+            "确认多数份额按什么指标计量。",
+            "Clarify the majority-share weighting."
+          ],
+          [
+            "查看全球年度行业统计与原题澄清。",
+            "Review global annual statistics and source clarifications."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "88clPLgu5E"
+      ],
+      "industry": {
+        "entities": [
+          "oxfordpv",
+          "doe"
+        ],
+        "evidence": [
+          "oxford-first-shipment",
+          "perovskite-doe"
+        ],
+        "stage": [
+          "研究验证与商业交付",
+          "Research validation and commercial delivery"
+        ],
+        "impact": [
+          "早期商业交付可以表明技术开始进入市场，但全球多数份额还需要跨企业的制造、安装、长期性能与成本竞争力。单个项目不能代表全球采用程度。",
+          "Early deliveries show market entry, while a global majority additionally needs broad manufacturing, installations, lifetime performance and competitive costs across suppliers. One project does not represent global adoption."
+        ],
+        "gap": [
+          "原题未定义份额分母，本站不擅自选取组件数或 GW 作为标准。",
+          "The denominator is undefined; this archive does not choose module count or GW on the creator’s behalf."
+        ]
+      }
+    },
+    {
+      "id": "hnzy6pqlNZ",
+      "stage": "engineering",
+      "title": [
+        "Naxtra 钠离子乘用车能否在 2026 年底前向客户交付？",
+        "Will a Naxtra sodium-ion EV reach customers by end-2026?"
+      ],
+      "rules": [
+        [
+          "截至 2026-12-31，至少一个消费者可购买的 Naxtra EV 车型开始向客户交付；原型和有限试点不算。若企业澄清使 EV 承诺无效，原题允许 N/A。",
+          "By 2026-12-31 at least one consumer-available Naxtra EV must reach customers; prototypes and limited pilots do not count. A retraction invalidating the EV premise may resolve N/A."
+        ]
+      ],
+      "interpretation": [
+        "原题背景混有不同产品指标；判定以 Naxtra 车型交付条件为准，不照单采纳其背景性能数字。",
+        "Background mixes product claims; resolution requires Naxtra delivery, not acceptance of every background performance number."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-naxtra-vehicle",
+        "catl-sodium-safety"
+      ],
+      "briefing": {
+        "contextId": "sodium-materials",
+        "summary": [
+          "预测要求 Naxtra 商业车型开始向客户交付。2026 年 2 月的车型发布不能单独满足交付条件。",
+          "The forecast requires commercial Naxtra customer delivery; the February 2026 launch alone does not establish it."
+        ],
+        "checklist": [
+          [
+            "核对车型是否明确采用 Naxtra 主动力电池。",
+            "Verify Naxtra as the traction battery."
+          ],
+          [
+            "核对零售客户实际收车和交付日期。",
+            "Verify retail receipt and date."
+          ],
+          [
+            "区分发布、试点与商业交付。",
+            "Distinguish launch, pilot and delivery."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "e3ah02wnqsS2hwQYTgQs",
+        "xLCfrvBWLH5BBYsgA4TX",
+        "gLKepA3Jdl3lmiRXc32K"
+      ],
+      "industry": {
+        "entities": [
+          "catl"
+        ],
+        "evidence": [
+          "catl-naxtra-vehicle",
+          "catl-sodium-safety"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "车型发布将电池技术对应到汽车产品，安全认证提供另一类测试依据。原题下一步需要消费者可购买性、实际交付及准确的电池型号，不能由发布会或供应计划代替。",
+          "A vehicle launch connects chemistry to a product, while certification supplies a different test. Purchase access, actual delivery and battery identification still require evidence beyond launch or supply plans."
+        ],
+        "gap": [
+          "核实客户交付；原题背景中快充等数字不可直接归到 Naxtra。",
+          "Verify delivery; do not assign all charging claims in the background to Naxtra."
+        ]
+      }
+    },
+    {
+      "id": "e3ah02wnqsS2hwQYTgQs",
+      "stage": "engineering",
+      "title": [
+        "主流车企能否在 2025 年前交付非锂主动力乘用车？",
+        "Will a major automaker deliver a non-lithium traction EV before 2025?"
+      ],
+      "rules": [
+        [
+          "要求普通公众在 2024 年底前可购买并收车，来自主流车企且外形用途接近典型乘用车；概念车、编号限量车、旧铅酸或镍系技术不算。辅助供电可含锂，主要驱动需来自非锂部分。",
+          "Public purchase and delivery by end-2024 must involve a major manufacturer and a typical passenger vehicle. Concepts, numbered limited editions and old lead/nickel systems are excluded; auxiliary lithium is permitted."
+        ]
+      ],
+      "interpretation": [
+        "平台结算为 No，与其他钠离子商品题的 Yes 并不矛盾，车辆与制造商范围不同。",
+        "Its No outcome can coexist with Yes on broader sodium-product contracts because vehicle/manufacturer scope differs."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-naxtra-vehicle",
+        "catl-sodium-safety"
+      ],
+      "briefing": {
+        "contextId": "sodium-materials",
+        "summary": [
+          "此题比“出现钠离子商品”更窄，限定主流车企、典型乘用车和公众实际交付，存档保留 No。",
+          "This narrower question requires a major automaker, typical passenger car and public delivery; the archive retains No."
+        ],
+        "checklist": [
+          [
+            "核对主流车企与车型适用范围。",
+            "Check manufacturer and vehicle scope."
+          ],
+          [
+            "核对主动力非锂，而非仅辅助电池。",
+            "Verify non-lithium traction, not auxiliaries."
+          ],
+          [
+            "核对 2024 年底前实际收车。",
+            "Check receipt before end-2024."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "hnzy6pqlNZ",
+        "xLCfrvBWLH5BBYsgA4TX",
+        "gLKepA3Jdl3lmiRXc32K"
+      ],
+      "industry": {
+        "entities": [
+          "catl"
+        ],
+        "evidence": [
+          "catl-naxtra-vehicle",
+          "catl-sodium-safety"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "2026 年 Naxtra 车型资料用于说明后续产业路线，不能倒填到 2024 年期限内。多个历史原题的差别有助于辨认技术发布、普通商品与主流车型交付的不同含义。",
+          "The 2026 Naxtra release is subsequent context, not evidence backdated into 2024. Different historical contracts clarify the distinction between launches, commercial products and major-model deliveries."
+        ],
+        "gap": [
+          "保留原题边界和平台判定，不以后续新闻改写历史。",
+          "Retain scope and resolution; do not rewrite history using later news."
+        ]
+      }
+    },
+    {
+      "id": "xLCfrvBWLH5BBYsgA4TX",
+      "stage": "engineering",
+      "title": [
+        "2024 年是否开始向付费客户交付钠离子汽车？",
+        "Did sodium-ion EV deliveries to paying customers begin in 2024?"
+      ],
+      "rules": [
+        [
+          "正文以 FY2024 向付费客户交付、使用钠离子主电池为 Yes；原文将主电池要求写作“>10 kW”，12 V 辅助电池不算。",
+          "The description requires FY2024 paid-customer deliveries with sodium-ion traction; its primary-pack condition is written as “>10 kW”, excluding 12 V auxiliaries."
+        ]
+      ],
+      "interpretation": [
+        "原文没有清楚定义 FY2024 的日历范围，且 kW 是功率单位，本站不擅自改成 kWh。",
+        "FY2024 dates are not fully defined and kW is power; this archive does not silently change it to kWh."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-naxtra-vehicle",
+        "catl-sodium-safety"
+      ],
+      "briefing": {
+        "contextId": "sodium-materials",
+        "summary": [
+          "平台记录为 Yes，但原题对会计年度和主电池单位存在不够明确之处，适用范围与非锂主流车型题不同。",
+          "The source resolved Yes, while fiscal-year and pack-unit definitions remain imperfect and differ from the non-lithium major-model question."
+        ],
+        "checklist": [
+          [
+            "查看原市场交付与结算依据。",
+            "Review source delivery/resolution evidence."
+          ],
+          [
+            "核对钠离子用于主动力。",
+            "Verify sodium-ion traction."
+          ],
+          [
+            "保留 FY2024 和 >10 kW 原文疑点。",
+            "Retain FY2024 and >10 kW ambiguities."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "hnzy6pqlNZ",
+        "e3ah02wnqsS2hwQYTgQs",
+        "gLKepA3Jdl3lmiRXc32K"
+      ],
+      "industry": {
+        "entities": [
+          "catl"
+        ],
+        "evidence": [
+          "catl-naxtra-vehicle",
+          "catl-sodium-safety"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "后续 CATL 资料解释钠离子产品路线，并不证明这道历史题涉及同一厂家或车型。页面将两种时间与对象并列，便于继续核对原市场的客户交付证据。",
+          "Later CATL material explains the technology, not that this historical contract concerned the same supplier or model. The page keeps object and time distinct for source-delivery review."
+        ],
+        "gap": [
+          "后续资料不是历史交付凭证。",
+          "Later material is not historical delivery evidence."
+        ]
+      }
+    },
+    {
+      "id": "gLKepA3Jdl3lmiRXc32K",
+      "stage": "engineering",
+      "title": [
+        "2024 年底前是否出现量产并用于商品的钠离子电池？",
+        "Were mass-produced sodium-ion cells used in a commercial product by end-2024?"
+      ],
+      "rules": [
+        [
+          "至少一家企业在 2024 年底前量产钠离子电池，并用于可购买商品；汽车、家庭储能或手机可计入，仅航天或研究用途不算。",
+          "At least one company must mass-produce sodium-ion cells and use them in a purchasable product by end-2024; EV, home storage or phones qualify, research-only/space uses do not."
+        ]
+      ],
+      "interpretation": [
+        "原市场 Yes 表示其商品范围内达标，不必然涉及乘用车客户交付。",
+        "Yes applies to this broader commercial-product scope, not necessarily passenger-car delivery."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-naxtra-vehicle",
+        "catl-sodium-safety"
+      ],
+      "briefing": {
+        "contextId": "sodium-materials",
+        "summary": [
+          "这道题覆盖多类商品，平台判定为 Yes。它与限定汽车或指定厂商的题目分开呈现。",
+          "This broader product-scope contract resolved Yes and remains separate from vehicle-specific or named-supplier questions."
+        ],
+        "checklist": [
+          [
+            "核对电芯量产与商品采用两项条件。",
+            "Check cell production and product adoption."
+          ],
+          [
+            "排除仅研究和航天的专用产品。",
+            "Exclude research-only and space products."
+          ],
+          [
+            "核对原平台的证据与时间。",
+            "Review source evidence and timing."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "hnzy6pqlNZ",
+        "e3ah02wnqsS2hwQYTgQs",
+        "xLCfrvBWLH5BBYsgA4TX"
+      ],
+      "industry": {
+        "entities": [
+          "catl"
+        ],
+        "evidence": [
+          "catl-naxtra-vehicle",
+          "catl-sodium-safety"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "广义商品市场可以在乘用车之前出现。后续安全与车型资料提供产业背景，但不被用于重建原平台的判断；消费者可购买性与量产范围仍按原规则检查。",
+          "Commercial products can precede passenger cars. Later safety and vehicle sources supply context, not a reconstruction of the original resolution; purchase access and production scope follow source rules."
+        ],
+        "gap": [
+          "不同商品类别和截止日期不能混为一个结论。",
+          "Product categories and deadlines remain distinct."
+        ]
+      }
+    },
+    {
+      "id": "S2ghII2gLd",
+      "stage": "engineering",
+      "title": [
+        "2026 年 LFP 会占全球动力电池出货至少 65% 吗？",
+        "Will LFP reach at least 65% of global EV battery shipments in 2026?"
+      ],
+      "rules": [
+        [
+          "统计 2026 年乘用车和轻型商用车动力电池出货 GWh，排除固定储能。正文 Yes 条件为 LFP ≥65%，题名与开头则写 >65%；结算时间留到 2027 年以等待年度数据。",
+          "Uses 2026 passenger/light-commercial battery GWh shipments, excluding stationary storage. The Yes list says ≥65% while title/opening says >65%; resolution allows 2027 publication."
+        ]
+      ],
+      "interpretation": [
+        "65% 边界有源内冲突；IEA 注册部署数据也不能直接替代指定出货分母。",
+        "The 65% boundary conflicts internally, and registered deployment is not the specified shipment denominator."
+      ],
+      "entities": [
+        "iea"
+      ],
+      "evidence": [
+        "iea-batteries-2026",
+        "doe-pack-cost"
+      ],
+      "briefing": {
+        "contextId": "lfp-production",
+        "summary": [
+          "预测的是全年生产出货结构。需先统一车型、化学分类和 GWh 分母，再核对 65% 的原题表述差异。",
+          "The forecast concerns full-year production shipments. Vehicle scope, chemistry category and GWh denominator need alignment before the conflicting 65% wording."
+        ],
+        "checklist": [
+          [
+            "排除固定储能，核对乘用及轻型商用范围。",
+            "Exclude storage and check vehicle scope."
+          ],
+          [
+            "统一 LFP／LMFP 分类及年度出货数据。",
+            "Align LFP/LMFP and annual shipments."
+          ],
+          [
+            "查看创建者对 >65% 与 ≥65% 的澄清。",
+            "Review clarification of >65% versus ≥65%."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "b2npwzsZCGtn8aQ47PNO",
+        "CP0dnApyhU",
+        "hOt5P568Iz"
+      ],
+      "industry": {
+        "entities": [
+          "iea"
+        ],
+        "evidence": [
+          "iea-batteries-2026",
+          "doe-pack-cost"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "IEA 给出 LFP 扩大的行业背景，但其新车注册容量与原题出货 GWh 不同。企业产能扩张也不能当作已生产且已交付的 LFP 份额，需要原题指定行业数据。",
+          "IEA provides sector context, but registered capacity differs from shipment GWh. Factory expansion also does not establish produced/delivered LFP share; the designated industry statistics are needed."
+        ],
+        "gap": [
+          "保留阈值冲突，未自行决定恰好 65% 的结算。",
+          "Retain the boundary conflict without resolving exactly 65% editorially."
+        ]
+      }
+    },
+    {
+      "id": "b2npwzsZCGtn8aQ47PNO",
+      "stage": "engineering",
+      "title": [
+        "2030 年前，200 英里续航车型的电池包成本会降至 1000 美元吗？",
+        "Will a 200-mile EV pack cost at most $1,000 before 2030?"
+      ],
+      "rules": [
+        [
+          "正文最终条件为到 2030-01-01，200 英里续航 EV 的整包成本 ≤1000 美元。背景用约 40 kWh 作推演，但不是实测数据。",
+          "The final condition is a ≤$1,000 pack for a 200-mile EV by 2030-01-01. The roughly 40 kWh background is an illustrative extrapolation, not measured data."
+        ]
+      ],
+      "interpretation": [
+        "题名写 2030 年，正文截止在 1 月 1 日；成本、币值和车型统计口径也未充分定义。",
+        "The title says in 2030 while the body cuts off on 1 January; cost, currency-year and model scope are incompletely defined."
+      ],
+      "entities": [
+        "doe",
+        "iea"
+      ],
+      "evidence": [
+        "doe-pack-cost",
+        "iea-batteries-2026"
+      ],
+      "briefing": {
+        "contextId": "battery-economics",
+        "summary": [
+          "这是整包总成本门槛，不能只看单体每 kWh 报价；背景中的未来成本路径不作为本站观测数据。",
+          "This is a total-pack cost threshold, not a cell quote; its extrapolated future cost path is not archive observation data."
+        ],
+        "checklist": [
+          [
+            "核对整包、可用容量与 200 英里工况。",
+            "Check pack, usable capacity and 200-mile conditions."
+          ],
+          [
+            "区分生产成本、售价和更换成本。",
+            "Separate production, sale and replacement costs."
+          ],
+          [
+            "核对币值年份及 2030-01-01 截止。",
+            "Check currency year and 2030-01-01 cutoff."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "S2ghII2gLd",
+        "CP0dnApyhU",
+        "hOt5P568Iz"
+      ],
+      "industry": {
+        "entities": [
+          "doe",
+          "iea"
+        ],
+        "evidence": [
+          "doe-pack-cost",
+          "iea-batteries-2026"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "DOE 历史模型帮助理解制造成本与规模，但不能外推成指定车型的未来报价。电芯材料降价、系统组成和制造效率都可能影响整包成本，仍需符合原题对象的证据。",
+          "DOE’s historical model explains manufacturing economics but cannot predict a specific future quote. Materials, pack composition and manufacturing efficiency matter; evidence must match the contract vehicle and boundary."
+        ],
+        "gap": [
+          "不发布原题背景推演为实际成本时间序列。",
+          "Do not publish the background extrapolation as an observed cost series."
+        ]
+      }
+    },
+    {
+      "id": "CP0dnApyhU",
+      "stage": "engineering",
+      "title": [
+        "美国并网电池储能能量会在 2029 年底达到 260 GWh 吗？",
+        "Will US grid-connected battery energy reach 260 GWh by end-2029?"
+      ],
+      "rules": [
+        [
+          "原题固定 2025 基线为 130 GWh，要求截至 2029-12-31 的并网电化学储能 ≥260 GWh，涵盖选定统计里的公用事业、工商和住宅；优先使用统一全国能量序列。",
+          "The contract fixes a 130 GWh 2025 baseline and requires ≥260 GWh by 2029-12-31 across the selected national series, including utility, commercial and residential segments."
+        ]
+      ],
+      "interpretation": [
+        "130 GWh 是创建者固定的判定常数，不根据事后 2025 实际统计调整；GW 功率不能替代此 GWh 能量。",
+        "130 GWh is a fixed rule constant, not revised to match ex-post 2025 statistics; GW power cannot substitute for GWh."
+      ],
+      "entities": [
+        "eia",
+        "iea"
+      ],
+      "evidence": [
+        "eia-storage-2024",
+        "iea-batteries-2026"
+      ],
+      "briefing": {
+        "contextId": "storage-energy",
+        "summary": [
+          "本题实际门槛为 260 GWh，标题的“翻倍”相对于规则固定值。统计覆盖与能量单位比字面增速更重要。",
+          "The actual threshold is 260 GWh; “doubling” refers to a fixed rule baseline. Coverage and energy units matter more than the headline growth wording."
+        ],
+        "checklist": [
+          [
+            "使用能量 MWh/GWh，而非功率 MW/GW。",
+            "Use energy MWh/GWh, not power MW/GW."
+          ],
+          [
+            "保持部门、地理和修订版本一致。",
+            "Keep sector, geography and revisions consistent."
+          ],
+          [
+            "按容量参考日期而非出版日期核对截止。",
+            "Use capacity reference date, not publication date."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "S2ghII2gLd",
+        "b2npwzsZCGtn8aQ47PNO",
+        "hOt5P568Iz"
+      ],
+      "industry": {
+        "entities": [
+          "eia",
+          "iea"
+        ],
+        "evidence": [
+          "eia-storage-2024",
+          "iea-batteries-2026"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "EIA 公用事业级功率数据说明部署背景，却不覆盖此题所有部门和能量指标。项目清单与行业全国序列需要统一，不能靠把不同来源各自总量相加来补齐 260 GWh。",
+          "EIA utility power provides context but not the all-sector energy series. Project and national statistics need alignment; totals from differing sources cannot simply be added to reach 260 GWh."
+        ],
+        "gap": [
+          "优先全国统一序列；原题基线不标为已核实测量。",
+          "Use a consistent national series; the baseline is not a verified measurement."
+        ]
+      }
+    },
+    {
+      "id": "hOt5P568Iz",
+      "stage": "engineering",
+      "title": [
+        "2030 年钒液流电池会占全球用钒量至少 20% 吗？",
+        "Will vanadium flow batteries reach 20% of global vanadium use in 2030?"
+      ],
+      "rules": [
+        [
+          "至少两家独立可靠行业来源，按钒元素质量估算 2030 年 VRFB 用钒占全球消费 ≥20%；一致低于为 No，估计分歧过大或 2032-12-31 仍不可得可 N/A。",
+          "At least two independent reputable sources must place 2030 VRFB consumption at ≥20% of global contained-V use. Consistently lower means No; unavailable/conflicting estimates by 2032-12-31 may yield N/A."
+        ]
+      ],
+      "interpretation": [
+        "分母为消费而非矿产量或储能装机；原题背景预测不作为本站验证数据。",
+        "The denominator is consumption, not mine production or installed storage; background projections are not verified here."
+      ],
+      "entities": [
+        "eia"
+      ],
+      "evidence": [
+        "vanadium-electrolyte",
+        "eia-storage-2024"
+      ],
+      "briefing": {
+        "contextId": "vanadium-flow",
+        "summary": [
+          "这是关键材料消费结构预测，需要两家独立行业来源。液流电池电解液测量与全球用钒份额属于不同层次的数据。",
+          "This material-consumption forecast needs two independent industry sources; electrolyte measurements and global use shares concern different levels."
+        ],
+        "checklist": [
+          [
+            "核对钒元素质量而非 V₂O₅ 总质量。",
+            "Check contained V, not total V₂O₅ mass."
+          ],
+          [
+            "区分当年消费、电解液库存与产量。",
+            "Separate annual use, electrolyte inventory and output."
+          ],
+          [
+            "核实两家独立来源及 2030 统计年。",
+            "Verify two independent sources and 2030 reference year."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "S2ghII2gLd",
+        "b2npwzsZCGtn8aQ47PNO",
+        "CP0dnApyhU"
+      ],
+      "industry": {
+        "entities": [
+          "eia"
+        ],
+        "evidence": [
+          "vanadium-electrolyte",
+          "eia-storage-2024"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "液流装机可能增加电解液需求，但需求并非简单等于矿山产量。浓度、能量时长、库存周转与回收都会影响材料核算，因此市场结算仍需全球消费统计与独立来源。",
+          "Flow deployment can raise electrolyte demand, but that is not mine output. Concentration, duration, inventory and recycling affect accounting, so global consumption statistics and independent sources remain necessary."
+        ],
+        "gap": [
+          "不将原题长期需求预测写成已发生的钒消费。",
+          "Do not report long-term demand projections as observed consumption."
+        ]
+      }
+    },
+    {
+      "id": "02b1E538uZEMM5tv6i0H",
+      "stage": "engineering",
+      "title": [
+        "CATL 500 Wh/kg 电池是否在 2023 年实现商业可用？",
+        "Did CATL’s 500 Wh/kg battery become commercially available in 2023?"
+      ],
+      "rules": [
+        [
+          "可信来源须确认商业产品或供应渠道使用该电池，并证明达到 500+ Wh/kg；年份来自题名，正文未详细列出测试协议。",
+          "A credible source must identify a commercial product/source and proven 500+ Wh/kg. The year is in the title; the body does not define a detailed test protocol."
+        ]
+      ],
+      "interpretation": [
+        "平台判定 No；保留发布、性能主张与可购买产品的区别。",
+        "The source resolved No; launch, performance claim and purchasable product remain distinct."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-condensed",
+        "doe-pack-cost"
+      ],
+      "briefing": {
+        "contextId": "condensed-density",
+        "summary": [
+          "这道历史题同时要求商业来源与比能量验证，CATL 当年的技术公告只回答其中一部分。",
+          "This historical contract combines commercial sourcing and energy verification; the technology announcement addresses only part of that evidence."
+        ],
+        "checklist": [
+          [
+            "核对实际商品和供应渠道。",
+            "Verify product and supply access."
+          ],
+          [
+            "核对样品边界与 500+ Wh/kg 测试。",
+            "Verify sample boundary and 500+ Wh/kg testing."
+          ],
+          [
+            "核对证据是否在 2023 年内成立。",
+            "Check whether evidence holds within 2023."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "S2ghII2gLd",
+        "b2npwzsZCGtn8aQ47PNO",
+        "CP0dnApyhU"
+      ],
+      "industry": {
+        "entities": [
+          "catl"
+        ],
+        "evidence": [
+          "catl-condensed",
+          "doe-pack-cost"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "企业公告提出单体高比能路线，但整包、可采购性和独立性能测试还需要产品级证据。本站不将“可快速量产”的表述写成商业交付完成，并保留原市场 No。",
+          "The announcement proposes high cell energy, while packs, procurement and verified performance need product evidence. “Can mass-produce soon” is not recorded as completed delivery, and No is retained."
+        ],
+        "gap": [
+          "技术公告不能单独建立商业可用。",
+          "A technical announcement alone does not establish commercial availability."
+        ]
+      }
+    },
+    {
+      "id": "jcYZt1lNCMgX4LHHqgoq",
+      "stage": "engineering",
+      "title": [
+        "2030 年底前，可再生氢价格会达到 1 美元/kg 吗？",
+        "Will renewable hydrogen reach $1/kg by end-2030?"
+      ],
+      "rules": [
+        [
+          "原文要求到 2030 年底，可信美国或全球平准化可再生氢价格指数 ≤1 美元/kg。",
+          "By end-2030 a credible US or global levelized renewable-hydrogen price index must be ≤$1/kg."
+        ]
+      ],
+      "interpretation": [
+        "原题将成本目标与价格指数混用；DOE 2023 年文件写 2031 年、清洁氢目标，不能据此替原市场更改年份或路线。",
+        "The source mixes cost goals with a price index; DOE’s 2023 release uses 2031 and clean hydrogen, which do not amend the contract."
+      ],
+      "entities": [
+        "doe",
+        "iea"
+      ],
+      "evidence": [
+        "doe-hydrogen-shot",
+        "iea-hydrogen-2026"
+      ],
+      "briefing": {
+        "contextId": "hydrogen-electrolysis",
+        "summary": [
+          "预测使用可再生氢的价格门槛，原题背景提到的 DOE 目标与实际判定范围有差别。",
+          "The forecast sets a renewable-hydrogen price threshold, differing from the DOE goal cited in its background."
+        ],
+        "checklist": [
+          [
+            "核对价格或平准化成本定义与币值。",
+            "Verify price/levelized-cost definition and currency."
+          ],
+          [
+            "核对可再生氢路线及地理范围。",
+            "Verify renewable pathway and geography."
+          ],
+          [
+            "区分 2030 市场截止与 2031 官方目标。",
+            "Separate the 2030 contract from the 2031 target."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "CqS0hc8NOI"
+      ],
+      "industry": {
+        "entities": [
+          "doe",
+          "iea"
+        ],
+        "evidence": [
+          "doe-hydrogen-shot",
+          "iea-hydrogen-2026"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "催化、电解槽寿命与廉价电力有助于成本改善，但政策目标不是观测价格。IEA 行业规模资料与 DOE 目标分别提供部署和研发背景，不能直接替代符合原题的价格指数。",
+          "Catalysis, stack life and electricity can improve cost, but a policy target is not an observed price. IEA deployment and DOE goals provide context rather than the contract’s qualifying price index."
+        ],
+        "gap": [
+          "保留年份与成本／价格定义差异。",
+          "Retain timing and cost/price differences."
+        ]
+      }
+    },
+    {
+      "id": "CqS0hc8NOI",
+      "stage": "engineering",
+      "title": [
+        "2033 年前全球投运制氢电解容量会达到 100 GW 吗？",
+        "Will operating hydrogen electrolysis reach 100 GW globally before 2033?"
+      ],
+      "rules": [
+        [
+          "截至 2032 年底，全球已安装／调试且可制氢的水电解额定电输入容量 ≥100 GW；优先 IEA，若口径中断则用两家独立可靠跟踪机构。",
+          "By end-2032 global installed/commissioned water-electrolysis electrical input capacity must reach ≥100 GW; use IEA first or two independent trackers if unavailable."
+        ]
+      ],
+      "interpretation": [
+        "排除仅宣布、在建及制造商 GW/年制造能力；标题年份不表示包含 2033 全年。",
+        "Exclude announcements, construction and manufacturing GW/year; the title does not include all of 2033."
+      ],
+      "entities": [
+        "iea",
+        "doe"
+      ],
+      "evidence": [
+        "doe-hydrogen-shot",
+        "iea-hydrogen-2026"
+      ],
+      "briefing": {
+        "contextId": "hydrogen-electrolysis",
+        "summary": [
+          "原题针对已投运电解设备的电输入能力。制造产能与项目管线规模另行统计，不能计入 100 GW。",
+          "The question concerns commissioned electrical input capability; manufacturing and project-pipeline totals do not count toward 100 GW."
+        ],
+        "checklist": [
+          [
+            "核对装机可运行状态及水电解用途。",
+            "Verify operating water-electrolysis status."
+          ],
+          [
+            "按额定电输入 GW 汇总，排除 GW/年。",
+            "Aggregate electrical-input GW, excluding GW/year."
+          ],
+          [
+            "核对 2032 年底前的统计参考期。",
+            "Check reference dates through end-2032."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "jcYZt1lNCMgX4LHHqgoq"
+      ],
+      "industry": {
+        "entities": [
+          "iea",
+          "doe"
+        ],
+        "evidence": [
+          "doe-hydrogen-shot",
+          "iea-hydrogen-2026"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "IEA 记录已安装、在建和已宣布项目，能够帮助检查范围。某家公司宣布设备产能或拿到项目订单，并不意味着电解系统已投运并满足原题装机条件。",
+          "IEA distinguishes installed, construction and announced projects. A manufacturer’s capacity or order book does not establish commissioned electrolysis meeting the contract."
+        ],
+        "gap": [
+          "仅统计符合投运定义的容量，不用项目管线填数。",
+          "Count only operational capacity, without substituting project pipelines."
+        ]
+      }
+    },
+    {
+      "id": "fHSDwgZnxcJ7wTAw5AiR",
+      "stage": "validation",
+      "title": [
+        "2022 年 AI 是否发现了值得进入临床试验的新药？",
+        "Did AI discover a clinical-trial-worthy new drug in 2022?"
+      ],
+      "rules": [
+        [
+          "原题采用 Vox 对其 2022 年预测的后续判断作为结算依据，并未自设统一临床性能阈值。",
+          "The source delegates resolution to Vox’s follow-up judgment on its 2022 prediction, without its own uniform clinical threshold."
+        ]
+      ],
+      "interpretation": [
+        "平台 Yes 与临床启动判断有关，不等于药物疗效或 FDA 批准。后续论文仅作背景。",
+        "Yes concerns a clinical-entry judgment, not efficacy or FDA approval; later papers are context."
+      ],
+      "entities": [
+        "insilico-shanghai"
+      ],
+      "evidence": [
+        "rentosertib-phase2",
+        "fda-clinical-phases"
+      ],
+      "briefing": {
+        "contextId": "ai-clinical",
+        "summary": [
+          "这道早期历史题由外部预测者的判断结算。它与完成 I 期、得到上市批准的题目分别保留。",
+          "This early historical contract resolves via an external forecaster’s judgment and remains distinct from phase-I completion and approval."
+        ],
+        "checklist": [
+          [
+            "查阅 Vox 后续判断与原平台依据。",
+            "Review Vox’s follow-up and market evidence."
+          ],
+          [
+            "确认具体 AI 参与和临床启动对象。",
+            "Verify AI contribution and trial candidate."
+          ],
+          [
+            "不将后续批准或试验数据倒填至 2022 年。",
+            "Do not backdate later trials or approvals to 2022."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "mkMY7rbB02MWY1MKf9Vu",
+        "cy4il0tvgl",
+        "AvggE9WsHv51pVkA26wx"
+      ],
+      "industry": {
+        "entities": [
+          "insilico-shanghai"
+        ],
+        "evidence": [
+          "rentosertib-phase2",
+          "fda-clinical-phases"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "早期市场反映临床进入的关注，并没有统一测试 AI 的贡献。后来的随机试验为如何阅读样本、终点和对照提供实例，但不能用于重写这项 2022 年判断。",
+          "The early contract tracks clinical-entry interest without a uniform AI test. Later randomized trials illustrate sample/endpoints/controls but do not rewrite this 2022 judgment."
+        ],
+        "gap": [
+          "原题判定依赖外部编辑判断。",
+          "Resolution relies on an external editorial judgment."
+        ]
+      }
+    },
+    {
+      "id": "mkMY7rbB02MWY1MKf9Vu",
+      "stage": "validation",
+      "title": [
+        "AI 参与设计的新药是否在 2025 年底前获得 FDA 批准？",
+        "Did an AI-designed new drug gain FDA approval by end-2025?"
+      ],
+      "rules": [
+        [
+          "要求非人类智能对新药设计有重要贡献，排除单纯老药新用；在 2025 年底前得到 FDA 批准，不要求全部由生成式 AI 完成。",
+          "Requires significant non-human design contribution, excludes mere repurposing, and FDA approval by end-2025; fully generative design is not required."
+        ]
+      ],
+      "interpretation": [
+        "存档原平台为 No；临床结果、监管认定或受理申请不是上市批准。",
+        "The archive retains No; trial results, designations or application acceptance are not marketing approval."
+      ],
+      "entities": [
+        "insilico-shanghai"
+      ],
+      "evidence": [
+        "rentosertib-phase2",
+        "fda-clinical-phases"
+      ],
+      "briefing": {
+        "contextId": "ai-clinical",
+        "summary": [
+          "这是上市批准事件。AI 候选药进入或完成某期临床，均不能单独满足 FDA 批准条件。",
+          "This concerns marketing approval, which is not established by entry to or completion of a clinical phase alone."
+        ],
+        "checklist": [
+          [
+            "核对 FDA 实际批准记录与日期。",
+            "Verify FDA approval record and date."
+          ],
+          [
+            "核对新分子与重要 AI 设计贡献。",
+            "Verify novelty and material AI design contribution."
+          ],
+          [
+            "排除仅老药新用、试验启动或认定。",
+            "Exclude repurposing, trial starts or designations."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "fHSDwgZnxcJ7wTAw5AiR",
+        "cy4il0tvgl",
+        "AvggE9WsHv51pVkA26wx"
+      ],
+      "industry": {
+        "entities": [
+          "insilico-shanghai"
+        ],
+        "evidence": [
+          "rentosertib-phase2",
+          "fda-clinical-phases"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "Rentosertib 的 IIa 期研究提供临床数据实例，FDA 资料说明监管流程。二者均不构成某药已被批准的证明，因此本站保留原题 No 与药物研究结果的不同含义。",
+          "Rentosertib illustrates clinical evidence and FDA explains process. Neither establishes that a drug was approved, so the source No and research results remain distinct."
+        ],
+        "gap": [
+          "不得将 IIa 期论文或市场报价写成上市批准。",
+          "Do not report a phase-2a paper or market quote as approval."
+        ]
+      }
+    },
+    {
+      "id": "cy4il0tvgl",
+      "stage": "validation",
+      "title": [
+        "AlphaFold 类系统重要参与的药物是否在 2025 年底前完成 I 期？",
+        "Did a drug substantially aided by an AlphaFold-like system complete phase I by end-2025?"
+      ],
+      "rules": [
+        [
+          "原题要求结构预测／蛋白设计系统的重要参与由论文、专利或开发方确认；2025 年底前完成可接受安全耐受的 I 期，满足原文地区要求，并有至少 10 亿美元终身收入预测。",
+          "Requires documented material use of a structure/protein-design system, acceptable phase-I safety completed by end-2025, specified jurisdictions and at least $1bn projected lifetime revenue."
+        ],
+        [
+          "相关公开证据须在 2026-01-31 前出现；商业收入是预测门槛，不是实测收入。",
+          "Qualifying public evidence must appear by 2026-01-31; projected commercial revenue is not observed revenue."
+        ]
+      ],
+      "interpretation": [
+        "原平台记录 Yes，但原题还包含地区、商业预期及公开时间条件。它不能简化成“任何 AI 药物完成 I 期”。",
+        "The source records Yes but includes geography, commercial expectations and disclosure timing; it is not any AI drug finishing phase I."
+      ],
+      "entities": [
+        "deepmind",
+        "insilico-shanghai"
+      ],
+      "evidence": [
+        "rentosertib-phase2",
+        "fda-clinical-phases"
+      ],
+      "briefing": {
+        "contextId": "ai-clinical",
+        "summary": [
+          "这道题把工具参与、I 期、地区、收入预测与公开日期共同作为门槛，页面保留全部条件和原平台 Yes。",
+          "This combines tool involvement, phase I, jurisdiction, revenue projections and disclosure timing; all remain visible beside Yes."
+        ],
+        "checklist": [
+          [
+            "核对结构或蛋白设计工具的重要参与证据。",
+            "Verify material structure/protein-design involvement."
+          ],
+          [
+            "核对 I 期安全耐受、地区与完成日期。",
+            "Verify phase-I safety, location and completion date."
+          ],
+          [
+            "核对收入预测及 2026-01-31 前公开证据。",
+            "Verify revenue projection and disclosure before 2026-01-31."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "fHSDwgZnxcJ7wTAw5AiR",
+        "mkMY7rbB02MWY1MKf9Vu",
+        "AvggE9WsHv51pVkA26wx"
+      ],
+      "industry": {
+        "entities": [
+          "deepmind",
+          "insilico-shanghai"
+        ],
+        "evidence": [
+          "rentosertib-phase2",
+          "fda-clinical-phases"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "AI 在药物发现中可能承担不同角色，不能只凭“AI 设计”一词满足原题工具要求。原平台 Yes 作为平台记录展示，所引通用临床资料不被冒充为每一项结算条件的独立证明。",
+          "AI plays varied discovery roles; an AI label does not establish the specified tool. Yes is a platform record, while general clinical references are not represented as independent proof of every condition."
+        ],
+        "gap": [
+          "原题的商业价值属于预测，I 期也不等于批准。",
+          "Commercial value is projected; phase I is not approval."
+        ]
+      }
+    },
+    {
+      "id": "AvggE9WsHv51pVkA26wx",
+      "stage": "validation",
+      "title": [
+        "原题所称 INS018_055 会在 2030 年前后获得 FDA 批准吗？",
+        "Will the drug called INS018_055 in the source gain FDA approval by 2030?"
+      ],
+      "rules": [
+        [
+          "题名写“INS018_055 by 2030”，正文仅介绍进入 II 期，未明确具体日历截止与完整批准证据口径。",
+          "The title says “INS018_055 by 2030”; the description only discusses phase-II entry and leaves the precise cutoff and approval evidence underspecified."
+        ]
+      ],
+      "interpretation": [
+        "论文使用 ISM001-055／rentosertib 名称，原题拼写差异保持可见；不能仅凭题名自动认定身份。",
+        "The paper uses ISM001-055/rentosertib; the market’s differing spelling remains visible and requires identity confirmation."
+      ],
+      "entities": [
+        "insilico-shanghai"
+      ],
+      "evidence": [
+        "rentosertib-phase2",
+        "fda-clinical-phases"
+      ],
+      "briefing": {
+        "contextId": "ai-clinical",
+        "summary": [
+          "此题关注指定候选药的未来批准。首先需核对原题名称，再区分已有 IIa 期结果与未来 FDA 决定。",
+          "This predicts approval of a named candidate; first confirm the source spelling, then distinguish phase-2a results from a future FDA decision."
+        ],
+        "checklist": [
+          [
+            "核对 INS018_055 与论文药物名称及注册号。",
+            "Verify the source spelling against paper and registry."
+          ],
+          [
+            "查看 FDA 实际批准决定，而非试验阶段。",
+            "Check actual FDA decisions, not trial stage."
+          ],
+          [
+            "查看创建者对 2030 截止的澄清。",
+            "Review clarification of the 2030 deadline."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "fHSDwgZnxcJ7wTAw5AiR",
+        "mkMY7rbB02MWY1MKf9Vu",
+        "cy4il0tvgl"
+      ],
+      "industry": {
+        "entities": [
+          "insilico-shanghai"
+        ],
+        "evidence": [
+          "rentosertib-phase2",
+          "fda-clinical-phases"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "论文和注册号能够帮助核对候选药身份与已有临床试验，但并不保证后续成功或批准。原题参与较少且日期简略，页面同时保留这些限制与真实历史成交。",
+          "The paper and registry help identify candidate and trials but do not guarantee later success or approval. Thin participation and an imprecise deadline accompany the actual history."
+        ],
+        "gap": [
+          "保留名称与截止不明确的提示，不由本站修补规则。",
+          "Retain naming/deadline ambiguity rather than repairing source rules."
+        ]
+      }
+    },
+    {
+      "id": "HB3a6kWAhptJg8Ill8yT",
+      "stage": "engineering",
+      "title": [
+        "永久碳移除会在减缓气候变化中发挥关键作用吗？",
+        "Will permanent carbon removal play a pivotal climate role?"
+      ],
+      "rules": [
+        [
+          "排除仅避免排放的烟气捕集；要求永久移除已有大气 CO₂。原题曾用相当于少升温 0.5 °C 描述作用，更新又改为大气浓度，并称最迟 2050 年按科学共识判定未来路径，而不要求全部移除已完成。",
+          "Excludes avoided flue emissions and requires durable atmospheric removal. Original wording used 0.5 °C avoided warming, later changed to CO₂ concentration; by 2050 it assesses consensus on the path, not completed removal."
+        ]
+      ],
+      "interpretation": [
+        "原文保留改动前后的指标，最终浓度门槛没有完整量化，不能以单项目产能判定。",
+        "Original and revised metrics coexist without a fully quantified concentration threshold; one plant’s capacity cannot resolve it."
+      ],
+      "entities": [
+        "svante",
+        "noaa"
+      ],
+      "evidence": [
+        "climeworks-mammoth",
+        "svante-redwood",
+        "olivine-noaa"
+      ],
+      "briefing": {
+        "contextId": "removal-scale",
+        "summary": [
+          "本题讨论长期气候贡献，参与较多但指标仍有历史改动。永久净移除、名义捕集和工业减排需要分开。",
+          "This widely participated long-term question retains changing criteria. Durable net removal, nameplate capture and avoided emissions are separate."
+        ],
+        "checklist": [
+          [
+            "核对永久净移除与避免排放的范围。",
+            "Separate durable removal and avoided emissions."
+          ],
+          [
+            "阅读创建者对浓度／温度指标的更新。",
+            "Review concentration/temperature clarifications."
+          ],
+          [
+            "核对未来科学共识而非单项目产能。",
+            "Check future consensus, not plant nameplate."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "u1hCf24lNpTqWYEpM2Uq",
+        "f6jHUqoKdt8YmpXQjGlO"
+      ],
+      "industry": {
+        "entities": [
+          "svante",
+          "noaa"
+        ],
+        "evidence": [
+          "climeworks-mammoth",
+          "svante-redwood",
+          "olivine-noaa"
+        ],
+        "stage": [
+          "材料与试验 → 产品验证 → 实际应用",
+          "Materials and tests → product verification → application"
+        ],
+        "impact": [
+          "工厂运行与吸附材料供应说明工程推进，但全球气候作用还需要实际净移除、永久性和部署规模。不同路线的项目公告不会自动给出原题所需的大气浓度或气候贡献。",
+          "Plant operation and sorbent supply show engineering progress. Global climate effects additionally need net removal, permanence and scale; announcements do not establish the required concentration or climate impact."
+        ],
+        "gap": [
+          "保留原题指标改动，不生成统一成功率。",
+          "Keep the criterion changes without a synthetic success estimate."
+        ]
+      }
     }
   ],
   "quality": {
@@ -1462,6 +3055,136 @@
       [
         "API closeTime 位于 2027 年初，原题说 2030 年前。页面保留两者，不据此替原题改写期限。",
         "The API closeTime is in early 2027; the question says before 2030. Both are retained without silently rewriting the contract."
+      ]
+    ],
+    "BGT0eBN2kmD6FmsXEvFt": [
+      [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      [
+        "统计口径未完整定义：题目没有写明美国电力占比的统计周期与分母。",
+        "The reporting period and denominator for US electricity share are undefined."
+      ]
+    ],
+    "cwtbzjfk9j": [
+      [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      [
+        "标题与正文的截止表述略有差异；门类型与第三方验证强度未量化。",
+        "Title/body deadline wording differs; gate type and verification strength are not quantified."
+      ]
+    ],
+    "oocJB7zxHwURka0HYfbo": [
+      [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      [
+        "缺少正文规则；“by 2025”与商业可用的定义待原市场澄清，已停盘未判定。",
+        "No detailed rules define “by 2025” or commercial availability; the source is closed and unresolved."
+      ]
+    ],
+    "mH5EaioxqUT22N2MZg7B": [
+      [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      [
+        "2030 年全球部署多数份额未明确按组件数、面积或功率统计。",
+        "The 2030 global majority is not defined by module count, area or power."
+      ]
+    ],
+    "hnzy6pqlNZ": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "原题背景部分性能数字可能混用产品口径；本站仅引用 CATL 对应 Naxtra 页面。",
+        "Some background claims mix product scopes; the archive uses the matching Naxtra source."
+      ]
+    ],
+    "xLCfrvBWLH5BBYsgA4TX": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "正文使用 FY2024 但未定义年度；主电池原文为 >10 kW，未替换成能量单位。",
+        "FY2024 is undefined and the primary pack uses >10 kW, not an assumed energy unit."
+      ]
+    ],
+    "S2ghII2gLd": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "题名及开头写 >65%，Yes 条款写 ≥65%；阈值边界待原市场澄清。",
+        "Title/opening use >65% but the Yes condition uses ≥65%; clarification is required."
+      ]
+    ],
+    "b2npwzsZCGtn8aQ47PNO": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "题名“in 2030”与正文“by Jan 1, 2030”不同；成本范围和币值年份不完整。",
+        "Title “in 2030” differs from “by Jan 1, 2030”; cost boundary/currency year are incomplete."
+      ]
+    ],
+    "02b1E538uZEMM5tv6i0H": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "正文未明确测试协议和完整年限；保留题名年份及原平台判定。",
+        "The body does not define a test protocol/full deadline; the title year and source resolution are retained."
+      ]
+    ],
+    "jcYZt1lNCMgX4LHHqgoq": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "原题 2030／可再生氢价格与 DOE 资料 2031／清洁氢成本目标不同。",
+        "Contract 2030/renewable price differs from DOE 2031/clean-hydrogen cost target."
+      ]
+    ],
+    "fHSDwgZnxcJ7wTAw5AiR": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "原题以 Vox 的后续判断结算，未设统一实验指标。",
+        "The source delegates resolution to Vox rather than a uniform experimental metric."
+      ]
+    ],
+    "AvggE9WsHv51pVkA26wx": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "原题写 INS018_055，论文为 ISM001-055／rentosertib；“by 2030”日历范围未定义。",
+        "Source INS018_055 differs from paper ISM001-055/rentosertib; “by 2030” is undefined."
+      ]
+    ],
+    "HB3a6kWAhptJg8Ill8yT": [
+      [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      [
+        "原文由温度指标改为 CO₂ 浓度，但未完整量化最终浓度门槛；保留原规则更新。",
+        "Temperature was replaced by CO₂ concentration without a fully quantified final threshold."
       ]
     ]
   }

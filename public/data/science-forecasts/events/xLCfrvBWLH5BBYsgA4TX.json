@@ -1,0 +1,194 @@
+{
+  "id": "xLCfrvBWLH5BBYsgA4TX",
+  "topicId": "sodium-ion-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/quantizor/will-the-first-evs-using-sodiumion",
+  "originalTitle": "Will the first EVs using sodium-ion battery technology ship in 2024?",
+  "status": "resolved",
+  "resolution": "YES",
+  "resolutionProbability": 0.78,
+  "snapshotProbability": null,
+  "volume": 287.80271653474733,
+  "participants": 7,
+  "createdTime": 1701609579585,
+  "closeTime": 1704663440833,
+  "resolutionTime": 1704663440833,
+  "observedAt": 1792930009461,
+  "historyCutoff": 1704663440833,
+  "points": [
+    {
+      "t": 1701609598881,
+      "p": 0.4708984742889434
+    },
+    {
+      "t": 1701614374044,
+      "p": 0.26626903823623393
+    },
+    {
+      "t": 1701615001979,
+      "p": 0.5002927348147761
+    },
+    {
+      "t": 1701629113552,
+      "p": 0.7315789852927476
+    },
+    {
+      "t": 1703736290372,
+      "p": 0.6032388940040282
+    },
+    {
+      "t": 1703736335692,
+      "p": 0.7571460525739361
+    },
+    {
+      "t": 1703742763967,
+      "p": 0.8502402580065646
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.8502402580065646,
+  "lastTradeAt": 1703742763967,
+  "sourceApi": "https://api.manifold.markets/v0/market/xLCfrvBWLH5BBYsgA4TX",
+  "provenance": {
+    "marketSha256": "8e20d2419af0c88590be8a470dd087fba792f25985dfb1fbea59fb3e1773d155",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=xLCfrvBWLH5BBYsgA4TX&limit=1000",
+        "sha256": "be8168877604b9221f2427c2013850bab8aac8956da4311a78455051f0a07160",
+        "rows": 15
+      }
+    ],
+    "fetchedTradeRows": 15,
+    "acceptedTradeRows": 7,
+    "excludedTradeRows": 8
+  },
+  "stage": "engineering",
+  "title": [
+    "2024 年是否开始向付费客户交付钠离子汽车？",
+    "Did sodium-ion EV deliveries to paying customers begin in 2024?"
+  ],
+  "rules": [
+    [
+      "正文以 FY2024 向付费客户交付、使用钠离子主电池为 Yes；原文将主电池要求写作“>10 kW”，12 V 辅助电池不算。",
+      "The description requires FY2024 paid-customer deliveries with sodium-ion traction; its primary-pack condition is written as “>10 kW”, excluding 12 V auxiliaries."
+    ]
+  ],
+  "interpretation": [
+    "原文没有清楚定义 FY2024 的日历范围，且 kW 是功率单位，本站不擅自改成 kWh。",
+    "FY2024 dates are not fully defined and kW is power; this archive does not silently change it to kWh."
+  ],
+  "entities": [
+    "catl"
+  ],
+  "evidence": [
+    "catl-naxtra-vehicle",
+    "catl-sodium-safety"
+  ],
+  "briefing": {
+    "contextId": "sodium-materials",
+    "summary": [
+      "平台记录为 Yes，但原题对会计年度和主电池单位存在不够明确之处，适用范围与非锂主流车型题不同。",
+      "The source resolved Yes, while fiscal-year and pack-unit definitions remain imperfect and differ from the non-lithium major-model question."
+    ],
+    "checklist": [
+      [
+        "查看原市场交付与结算依据。",
+        "Review source delivery/resolution evidence."
+      ],
+      [
+        "核对钠离子用于主动力。",
+        "Verify sodium-ion traction."
+      ],
+      [
+        "保留 FY2024 和 >10 kW 原文疑点。",
+        "Retain FY2024 and >10 kW ambiguities."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "hnzy6pqlNZ",
+    "e3ah02wnqsS2hwQYTgQs",
+    "gLKepA3Jdl3lmiRXc32K"
+  ],
+  "industry": {
+    "entities": [
+      "catl"
+    ],
+    "evidence": [
+      "catl-naxtra-vehicle",
+      "catl-sodium-safety"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "后续 CATL 资料解释钠离子产品路线，并不证明这道历史题涉及同一厂家或车型。页面将两种时间与对象并列，便于继续核对原市场的客户交付证据。",
+      "Later CATL material explains the technology, not that this historical contract concerned the same supplier or model. The page keeps object and time distinct for source-delivery review."
+    ],
+    "gap": [
+      "后续资料不是历史交付凭证。",
+      "Later material is not historical delivery evidence."
+    ]
+  },
+  "context": {
+    "id": "sodium-materials",
+    "title": [
+      "钠离子材料、性能与实际交付",
+      "Sodium chemistry, performance and delivery"
+    ],
+    "principle": [
+      "载流离子与正负极结构决定电池体系；电芯、整包与车型性能有不同分母。安全测试、技术发布和客户交付分别回答不同的问题。",
+      "Charge carriers and electrode structure define the chemistry. Cell, pack and vehicle metrics use different boundaries; safety tests, launches and delivery establish different facts."
+    ],
+    "example": [
+      "CATL 公告的 175 Wh/kg 是比能量指标，超过 400 km 是车型续航表述；原题还要求零售客户交车。两者不能替代交付凭证。",
+      "CATL’s 175 Wh/kg is a specific-energy claim and over 400 km a vehicle claim. The contract additionally requires customer delivery records."
+    ],
+    "evidence": [
+      "catl-naxtra-vehicle",
+      "catl-sodium-safety"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1701609598881,
+      "p": 0.4708984742889434
+    },
+    "last": {
+      "t": 1703742763967,
+      "p": 0.8502402580065646
+    },
+    "change": 37.934178371762115,
+    "low": 0.26626903823623393,
+    "high": 0.8502402580065646,
+    "staleDays": 10.655982245370371
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      "detail": [
+        "正文使用 FY2024 但未定义年度；主电池原文为 >10 kW，未替换成能量单位。",
+        "FY2024 is undefined and the primary pack uses >10 kW, not an assumed energy unit."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 7,
+  "detailFile": "events/xLCfrvBWLH5BBYsgA4TX.json"
+}

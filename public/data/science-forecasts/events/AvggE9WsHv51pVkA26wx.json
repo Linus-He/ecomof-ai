@@ -1,0 +1,178 @@
+{
+  "id": "AvggE9WsHv51pVkA26wx",
+  "topicId": "ai-drug-discovery",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/Tossup/will-ins018055-be-fdaapproved-by-20",
+  "originalTitle": "💊Will INS018_055 be FDA-approved by 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.47775265919657195,
+  "volume": 47.64293420349865,
+  "participants": 3,
+  "createdTime": 1699992471707,
+  "closeTime": 1893473940000,
+  "resolutionTime": null,
+  "observedAt": 1792930019964,
+  "historyCutoff": 1792930019964,
+  "points": [
+    {
+      "t": 1699992803342,
+      "p": 0.3378378378378379
+    },
+    {
+      "t": 1700228763740,
+      "p": 0.45180722891566283
+    },
+    {
+      "t": 1714349317059,
+      "p": 0.47775265919657245
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.47775265919657245,
+  "lastTradeAt": 1714349317059,
+  "sourceApi": "https://api.manifold.markets/v0/market/AvggE9WsHv51pVkA26wx",
+  "provenance": {
+    "marketSha256": "0cd23ab7ef2248616013692105a5876d3fe267b0b607bedc8b3676dcecab6cc3",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=AvggE9WsHv51pVkA26wx&limit=1000",
+        "sha256": "d547d348bf9638adfdfa3ace554ef9117936160ddee63537beea454d73df3793",
+        "rows": 4
+      }
+    ],
+    "fetchedTradeRows": 4,
+    "acceptedTradeRows": 3,
+    "excludedTradeRows": 1
+  },
+  "stage": "validation",
+  "title": [
+    "原题所称 INS018_055 会在 2030 年前后获得 FDA 批准吗？",
+    "Will the drug called INS018_055 in the source gain FDA approval by 2030?"
+  ],
+  "rules": [
+    [
+      "题名写“INS018_055 by 2030”，正文仅介绍进入 II 期，未明确具体日历截止与完整批准证据口径。",
+      "The title says “INS018_055 by 2030”; the description only discusses phase-II entry and leaves the precise cutoff and approval evidence underspecified."
+    ]
+  ],
+  "interpretation": [
+    "论文使用 ISM001-055／rentosertib 名称，原题拼写差异保持可见；不能仅凭题名自动认定身份。",
+    "The paper uses ISM001-055/rentosertib; the market’s differing spelling remains visible and requires identity confirmation."
+  ],
+  "entities": [
+    "insilico-shanghai"
+  ],
+  "evidence": [
+    "rentosertib-phase2",
+    "fda-clinical-phases"
+  ],
+  "briefing": {
+    "contextId": "ai-clinical",
+    "summary": [
+      "此题关注指定候选药的未来批准。首先需核对原题名称，再区分已有 IIa 期结果与未来 FDA 决定。",
+      "This predicts approval of a named candidate; first confirm the source spelling, then distinguish phase-2a results from a future FDA decision."
+    ],
+    "checklist": [
+      [
+        "核对 INS018_055 与论文药物名称及注册号。",
+        "Verify the source spelling against paper and registry."
+      ],
+      [
+        "查看 FDA 实际批准决定，而非试验阶段。",
+        "Check actual FDA decisions, not trial stage."
+      ],
+      [
+        "查看创建者对 2030 截止的澄清。",
+        "Review clarification of the 2030 deadline."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "fHSDwgZnxcJ7wTAw5AiR",
+    "mkMY7rbB02MWY1MKf9Vu",
+    "cy4il0tvgl"
+  ],
+  "industry": {
+    "entities": [
+      "insilico-shanghai"
+    ],
+    "evidence": [
+      "rentosertib-phase2",
+      "fda-clinical-phases"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "论文和注册号能够帮助核对候选药身份与已有临床试验，但并不保证后续成功或批准。原题参与较少且日期简略，页面同时保留这些限制与真实历史成交。",
+      "The paper and registry help identify candidate and trials but do not guarantee later success or approval. Thin participation and an imprecise deadline accompany the actual history."
+    ],
+    "gap": [
+      "保留名称与截止不明确的提示，不由本站修补规则。",
+      "Retain naming/deadline ambiguity rather than repairing source rules."
+    ]
+  },
+  "context": {
+    "id": "ai-clinical",
+    "title": [
+      "AI 分子设计与临床证据",
+      "AI molecular design and clinical evidence"
+    ],
+    "principle": [
+      "AI 参与需要论文、专利或开发方记录支持。先导化合物、候选药、临床试验与上市批准是不同阶段；主要终点、对照和随访决定试验可回答的问题。",
+      "AI contribution needs papers, patents or developer records. Leads, candidates, trials and approval are separate stages; endpoints, controls and follow-up define trial evidence."
+    ],
+    "example": [
+      "Rentosertib IIa 期随机入组 71 人并观察 12 周，主要终点为治疗期间不良事件。它既不是全部 AI 药物的验证，也不是 FDA 批准证明。",
+      "Rentosertib’s phase 2a randomized 71 people over 12 weeks, with treatment-emergent adverse events primary. It does not validate all AI drugs or establish FDA approval."
+    ],
+    "evidence": [
+      "rentosertib-phase2",
+      "fda-clinical-phases"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1699992803342,
+      "p": 0.3378378378378379
+    },
+    "last": {
+      "t": 1714349317059,
+      "p": 0.47775265919657245
+    },
+    "change": 13.991482135873456,
+    "low": 0.3378378378378379,
+    "high": 0.47775265919657245,
+    "staleDays": 909.4988762152777
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      "detail": [
+        "原题写 INS018_055，论文为 ISM001-055／rentosertib；“by 2030”日历范围未定义。",
+        "Source INS018_055 differs from paper ISM001-055/rentosertib; “by 2030” is undefined."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 3,
+  "detailFile": "events/AvggE9WsHv51pVkA26wx.json"
+}

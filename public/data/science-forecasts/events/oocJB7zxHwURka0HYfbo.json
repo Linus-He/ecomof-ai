@@ -1,0 +1,217 @@
+{
+  "id": "oocJB7zxHwURka0HYfbo",
+  "topicId": "quantum-computing",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/XanLor/an-errorcorrecting-quantum-computer",
+  "originalTitle": "An error-correcting quantum computer will be commercially available by 2025.",
+  "status": "closed",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": null,
+  "volume": 532.1581692103993,
+  "participants": 13,
+  "createdTime": 1710170964564,
+  "closeTime": 1712786340000,
+  "resolutionTime": null,
+  "observedAt": 1792928666483,
+  "historyCutoff": 1712786340000,
+  "points": [
+    {
+      "t": 1710172244525,
+      "p": 0.4524886877828055
+    },
+    {
+      "t": 1710173730491,
+      "p": 0.3605800483976577
+    },
+    {
+      "t": 1710174991001,
+      "p": 0.33412197042364744
+    },
+    {
+      "t": 1710187938722,
+      "p": 0.24352280768532264
+    },
+    {
+      "t": 1710337144666,
+      "p": 0.20934400197514463
+    },
+    {
+      "t": 1710372522895,
+      "p": 0.1922816135193781
+    },
+    {
+      "t": 1710832977494,
+      "p": 0.18523835590907195
+    },
+    {
+      "t": 1710833093501,
+      "p": 0.17858349612686755
+    },
+    {
+      "t": 1710833311867,
+      "p": 0.3371637768946833
+    },
+    {
+      "t": 1710860359072,
+      "p": 0.33766526925997464
+    },
+    {
+      "t": 1710937906766,
+      "p": 0.28083803682644587
+    },
+    {
+      "t": 1711117865610,
+      "p": 0.2711898897746777
+    },
+    {
+      "t": 1711471514490,
+      "p": 0.19719042445510748
+    },
+    {
+      "t": 1712748443018,
+      "p": 0.17279249417030348
+    },
+    {
+      "t": 1712760842904,
+      "p": 0.21105272015173598
+    },
+    {
+      "t": 1712779419273,
+      "p": 0.2131816345638145
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.2131816345638145,
+  "lastTradeAt": 1712779419273,
+  "sourceApi": "https://api.manifold.markets/v0/market/oocJB7zxHwURka0HYfbo",
+  "provenance": {
+    "marketSha256": "1c11ae59d53e061e63cdc4aea3cca9c5816c5b49d8d0127e48d6cb81f36ebbb3",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=oocJB7zxHwURka0HYfbo&limit=1000",
+        "sha256": "e13ba583937bce6aed4ad106c75f37e9c8fe5f9d1e78aa4c3847aa3bc31ff470",
+        "rows": 17
+      }
+    ],
+    "fetchedTradeRows": 17,
+    "acceptedTradeRows": 16,
+    "excludedTradeRows": 1
+  },
+  "stage": "engineering",
+  "title": [
+    "纠错量子计算机会在 2025 年前后进入商业供应吗？",
+    "Will error-correcting quantum computers be commercially available by 2025?"
+  ],
+  "rules": [
+    [
+      "原题仅有“by 2025 商业可用”的标题，未附详细描述；具体截止解释与商用标准应以原市场澄清为准。",
+      "Only the title specifies commercially available “by 2025”; no detailed description is present. Deadline interpretation and commercial criteria require source clarification."
+    ]
+  ],
+  "interpretation": [
+    "存档为已停盘、未判定，不能按截止年份自行改为 No。",
+    "The archive is closed and unresolved; the year alone does not establish a No outcome."
+  ],
+  "entities": [
+    "googlequantum"
+  ],
+  "evidence": [
+    "quantum-willow",
+    "quantum-google-explanation"
+  ],
+  "briefing": {
+    "contextId": "quantum-correction",
+    "summary": [
+      "此题关注商业可用性。原规则简略且仍未判定，产品访问与纠错性能需要分别查证。",
+      "This concerns commercial availability. Sparse rules and an unresolved record require separate checks of product access and correction performance."
+    ],
+    "checklist": [
+      [
+        "查看可购买或付费使用的产品记录。",
+        "Check purchasable or paid-access product records."
+      ],
+      [
+        "确认所提供的是实际纠错能力。",
+        "Verify actual error-correcting capability."
+      ],
+      [
+        "查看创建者对日期和商用标准的澄清。",
+        "Review creator clarifications on dates and availability."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "cwtbzjfk9j"
+  ],
+  "industry": {
+    "entities": [
+      "googlequantum"
+    ],
+    "evidence": [
+      "quantum-willow",
+      "quantum-google-explanation"
+    ],
+    "stage": [
+      "研究验证与商业交付",
+      "Research validation and commercial delivery"
+    ],
+    "impact": [
+      "研究论文能够说明纠错实验，但商业可用性还涉及访问方式、使用条件和用户运行记录。研究机构的技术公告不自动构成可购买产品的证明。",
+      "A paper establishes an experiment; commercial availability additionally concerns access, terms and user execution records. Research announcements alone do not establish a purchasable product."
+    ],
+    "gap": [
+      "缺少完整结算规则，本站保留原状态与最后真实成交。",
+      "Without full resolution rules, source status and last actual trades are retained."
+    ]
+  },
+  "context": {
+    "id": "quantum-correction",
+    "title": [
+      "物理比特、逻辑存储与逻辑运算",
+      "Physical qubits, logical memory and logical operations"
+    ],
+    "principle": [
+      "逻辑比特由多个物理比特编码，并通过重复测量和解码识别错误。逻辑存储器保持信息，与执行长串通用逻辑门是不同任务；门数也必须说明是物理门还是逻辑门。",
+      "Logical qubits encode information across physical qubits using repeated measurement and decoding. Preserving a memory differs from executing long general circuits; gate counts must identify physical or logical operations."
+    ],
+    "example": [
+      "Willow 研究通过增大表面码距离观察逻辑错误的抑制。一亿门市场还要求对具备纠错能力的计算机进行公告和第三方验证，不能仅用芯片比特数或随机线路基准替代。",
+      "Willow tests logical-error suppression as code distance increases. The 100-million-gate contract additionally requires an announcement and third-party verification, rather than chip size or a random-circuit benchmark."
+    ],
+    "evidence": [
+      "quantum-willow",
+      "quantum-google-explanation"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1710172244525,
+      "p": 0.4524886877828055
+    },
+    "last": {
+      "t": 1712779419273,
+      "p": 0.2131816345638145
+    },
+    "change": -23.930705321899097,
+    "low": 0.17279249417030348,
+    "high": 0.4524886877828055,
+    "staleDays": 0.08010100694444444
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      "detail": [
+        "缺少正文规则；“by 2025”与商业可用的定义待原市场澄清，已停盘未判定。",
+        "No detailed rules define “by 2025” or commercial availability; the source is closed and unresolved."
+      ]
+    }
+  ],
+  "tradePoints": 16,
+  "detailFile": "events/oocJB7zxHwURka0HYfbo.json"
+}

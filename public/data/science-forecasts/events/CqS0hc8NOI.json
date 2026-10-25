@@ -1,0 +1,171 @@
+{
+  "id": "CqS0hc8NOI",
+  "topicId": "clean-hydrogen",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/deletedaccount001/100gw-of-operational-hydrogen-elect",
+  "originalTitle": "100GW of hydrogen electrolyzer capacity by 2033?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.5131556171023023,
+  "volume": 86,
+  "participants": 3,
+  "createdTime": 1765644044583,
+  "closeTime": 1988150340000,
+  "resolutionTime": null,
+  "observedAt": 1792930018276,
+  "historyCutoff": 1792930018276,
+  "points": [
+    {
+      "t": 1765644099474,
+      "p": 0.3076923076923077
+    },
+    {
+      "t": 1766162401309,
+      "p": 0.31407144326989767
+    },
+    {
+      "t": 1766168110943,
+      "p": 0.3455687734504523
+    },
+    {
+      "t": 1791738206602,
+      "p": 0.5131556171023023
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5131556171023023,
+  "lastTradeAt": 1791738206602,
+  "sourceApi": "https://api.manifold.markets/v0/market/CqS0hc8NOI",
+  "provenance": {
+    "marketSha256": "a34838a0d769173a95ae813a2a14a83ac0b5095a0fb58763719dcdcecbc24a6f",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=CqS0hc8NOI&limit=1000",
+        "sha256": "39014b9103a974bac204ee3e5ef24568cb502b2233d4671f927d38b1f539fae2",
+        "rows": 4
+      }
+    ],
+    "fetchedTradeRows": 4,
+    "acceptedTradeRows": 4,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "2033 年前全球投运制氢电解容量会达到 100 GW 吗？",
+    "Will operating hydrogen electrolysis reach 100 GW globally before 2033?"
+  ],
+  "rules": [
+    [
+      "截至 2032 年底，全球已安装／调试且可制氢的水电解额定电输入容量 ≥100 GW；优先 IEA，若口径中断则用两家独立可靠跟踪机构。",
+      "By end-2032 global installed/commissioned water-electrolysis electrical input capacity must reach ≥100 GW; use IEA first or two independent trackers if unavailable."
+    ]
+  ],
+  "interpretation": [
+    "排除仅宣布、在建及制造商 GW/年制造能力；标题年份不表示包含 2033 全年。",
+    "Exclude announcements, construction and manufacturing GW/year; the title does not include all of 2033."
+  ],
+  "entities": [
+    "iea",
+    "doe"
+  ],
+  "evidence": [
+    "doe-hydrogen-shot",
+    "iea-hydrogen-2026"
+  ],
+  "briefing": {
+    "contextId": "hydrogen-electrolysis",
+    "summary": [
+      "原题针对已投运电解设备的电输入能力。制造产能与项目管线规模另行统计，不能计入 100 GW。",
+      "The question concerns commissioned electrical input capability; manufacturing and project-pipeline totals do not count toward 100 GW."
+    ],
+    "checklist": [
+      [
+        "核对装机可运行状态及水电解用途。",
+        "Verify operating water-electrolysis status."
+      ],
+      [
+        "按额定电输入 GW 汇总，排除 GW/年。",
+        "Aggregate electrical-input GW, excluding GW/year."
+      ],
+      [
+        "核对 2032 年底前的统计参考期。",
+        "Check reference dates through end-2032."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "jcYZt1lNCMgX4LHHqgoq"
+  ],
+  "industry": {
+    "entities": [
+      "iea",
+      "doe"
+    ],
+    "evidence": [
+      "doe-hydrogen-shot",
+      "iea-hydrogen-2026"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "IEA 记录已安装、在建和已宣布项目，能够帮助检查范围。某家公司宣布设备产能或拿到项目订单，并不意味着电解系统已投运并满足原题装机条件。",
+      "IEA distinguishes installed, construction and announced projects. A manufacturer’s capacity or order book does not establish commissioned electrolysis meeting the contract."
+    ],
+    "gap": [
+      "仅统计符合投运定义的容量，不用项目管线填数。",
+      "Count only operational capacity, without substituting project pipelines."
+    ]
+  },
+  "context": {
+    "id": "hydrogen-electrolysis",
+    "title": [
+      "电解装机、氢产量与成本",
+      "Electrolysis capacity, hydrogen output and cost"
+    ],
+    "principle": [
+      "电解水的产氢与产氧反应由电力驱动。效率、利用小时、电价、设备寿命和系统边界共同决定平准化成本，GW 装机不能单独给出年产量。",
+      "Electricity drives hydrogen and oxygen evolution. Efficiency, utilization, price, life and system boundaries determine levelized cost; GW capacity alone does not give annual output."
+    ],
+    "example": [
+      "IEA 的 2025 年超过 4 GW 是已安装电解容量；接近 1 Mt 低排放氢包含其他路径。DOE 2031 年目标也不同于原题 2030 年价格条件。",
+      "IEA’s over 4 GW is 2025 installed electrolysis; almost 1 Mt low-emissions hydrogen includes other routes. DOE’s 2031 target differs from the market’s 2030 condition."
+    ],
+    "evidence": [
+      "doe-hydrogen-shot",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1765644099474,
+      "p": 0.3076923076923077
+    },
+    "last": {
+      "t": 1791738206602,
+      "p": 0.5131556171023023
+    },
+    "change": 20.546330940999457,
+    "low": 0.3076923076923077,
+    "high": 0.5131556171023023,
+    "staleDays": 13.794116597222223
+  },
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 4,
+  "detailFile": "events/CqS0hc8NOI.json"
+}

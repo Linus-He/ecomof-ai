@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect, useMemo, useRef, lazy, Suspense } from "react"
-import { CaretRight, EnvelopeSimple, GearSix, GlobeHemisphereEast, MagnifyingGlass, Moon, Sun, Translate } from "@phosphor-icons/react"
+import { Moon, Sun } from "@phosphor-icons/react"
 import { COPY } from "./i18n"
 import { ThemeCtx, LangCtx, ViewportCtx } from "./contexts"
 import { THEME_DARK, THEME_LIGHT, FONT_SANS } from "./constants/theme"
@@ -183,10 +183,7 @@ function AppShell({
 }) {
   const [homeComparisonOpen, setHomeComparisonOpen] = useState(false)
   const [comparisonBuilderContext, setComparisonBuilderContext] = useState(null)
-  const [settingsOpen, setSettingsOpen] = useState(false)
-  const [globalSearchOpen, setGlobalSearchOpen] = useState(false)
   const [propertyOpen, setPropertyOpen] = useState(false)
-  const settingsRef = useRef(null)
   const appShellRef = useRef(null)
   const compactHeader = viewport.width < 1320
   const veryCompactHeader = viewport.width < 760
@@ -240,26 +237,6 @@ function AppShell({
       restore?.()
     }
   }, [locale])
-  useEffect(() => {
-    if (!settingsOpen && !globalSearchOpen) return undefined
-    const close = event => {
-      if (event.key === "Escape") {
-        setSettingsOpen(false)
-        setGlobalSearchOpen(false)
-        return
-      }
-      if (event.type === "pointerdown" && !settingsRef.current?.contains(event.target)) {
-        setSettingsOpen(false)
-        setGlobalSearchOpen(false)
-      }
-    }
-    window.addEventListener("keydown", close)
-    window.addEventListener("pointerdown", close)
-    return () => {
-      window.removeEventListener("keydown", close)
-      window.removeEventListener("pointerdown", close)
-    }
-  }, [settingsOpen, globalSearchOpen])
   return (
     <div
       ref={appShellRef}
@@ -340,7 +317,7 @@ function AppShell({
               />
             </div>
 
-            <div ref={settingsRef} className="settings-control-cluster" style={{
+            <div className="settings-control-cluster" style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -352,174 +329,17 @@ function AppShell({
               zIndex: 2,
               background: "transparent",
             }}>
-              <div className="user-menu-control" style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  aria-expanded={settingsOpen}
-                  aria-haspopup="menu"
-                  onClick={() => {
-                    setSettingsOpen(open => !open)
-                    setGlobalSearchOpen(false)
-                  }}
-                  title={lang === "zh" ? "打开设置" : "Open settings"}
-                  aria-label={lang === "zh" ? "打开设置" : "Open settings"}
-                  className="settings-trigger nav-action-button nav-user-trigger"
-                  data-open={settingsOpen ? "true" : "false"}
-                  style={{
-                    alignItems: "center",
-                    background: "transparent",
-                    border: "1px solid transparent",
-                    boxShadow: "none",
-                    color: settingsOpen ? chromeTheme.textStrong : chromeTheme.subtle,
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    fontFamily: FONT_SANS,
-                    justifyContent: "center",
-                    gap: 4,
-                    transition: "background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease",
-                  }}
-                >
-                  <GearSix aria-hidden="true" size={18} weight={settingsOpen ? "fill" : "regular"} />
-                </button>
-                {settingsOpen ? (
-                  <div
-                    role="menu"
-                    aria-label={lang === "zh" ? "用户与设置菜单" : "User and settings menu"}
-                    className="settings-menu"
-                    onPointerDown={event => event.stopPropagation()}
-                    style={{
-                      display: "grid",
-                      overflow: "hidden",
-                      padding: 6,
-                      position: "absolute",
-                      right: 0,
-                      top: "calc(100% + 8px)",
-                      zIndex: 180,
-                    }}
-                  >
-                    <div role="none" className="settings-menu-row settings-menu-row--select">
-                      <Translate aria-hidden="true" size={17} weight="regular" />
-                      <label htmlFor="user-menu-language">{lang === "zh" ? "语言" : "Language"}</label>
-                      <select
-                        id="user-menu-language"
-                        aria-label={lang === "zh" ? "语言" : "Language"}
-                        className="settings-language-select"
-                        onChange={event => {
-                          setLang(event.target.value)
-                          setSettingsOpen(false)
-                        }}
-                        value={locale}
-                      >
-                        <option value="zh-CN">简体中文</option>
-                        <option value="zh-TW">繁體中文 · 台灣（中國）</option>
-                        <option value="zh-HK">繁體中文 · 香港（中國）</option>
-                        <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                        <option value="ko">한국어</option>
-                        <option value="es">Español</option>
-                      </select>
-                    </div>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      aria-pressed={darkMode}
-                      className="settings-menu-row"
-                      onClick={() => setDarkMode(!darkMode)}
-                    >
-                      {darkMode ? <Moon aria-hidden="true" size={17} weight="regular" /> : <Sun aria-hidden="true" size={17} weight="regular" />}
-                      <span>{lang === "zh" ? "外观" : "Appearance"}</span>
-                      <span className="settings-menu-value">{darkMode ? (lang === "zh" ? "深色" : "Dark") : (lang === "zh" ? "浅色" : "Light")}</span>
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className="settings-menu-row"
-                      onClick={() => {
-                        setSettingsOpen(false)
-                        navigateTab("compliance-hosting-notice")
-                      }}
-                    >
-                      <GlobeHemisphereEast aria-hidden="true" size={17} weight="regular" />
-                      <span>{lang === "zh" ? "数据托管与跨境访问" : "Data hosting & access"}</span>
-                      <CaretRight aria-hidden="true" size={14} weight="bold" />
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className="settings-menu-row"
-                      onClick={() => {
-                        setSettingsOpen(false)
-                        navigateTab("contact")
-                      }}
-                    >
-                      <EnvelopeSimple aria-hidden="true" size={17} weight="regular" />
-                      <span>{lang === "zh" ? "联系与合作" : "Contact & collaboration"}</span>
-                      <CaretRight aria-hidden="true" size={14} weight="bold" />
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-              <div className="global-search-control" style={{ position: "relative" }}>
-                <button
-                  type="button"
-                  aria-label={lang === "zh" ? "打开搜索页" : "Open search page"}
-                  className="nav-action-button nav-search-trigger"
-                  onClick={() => {
-                    setGlobalSearchOpen(false)
-                    setSettingsOpen(false)
-                    navigateTab("unified-search", { resetScroll: true })
-                  }}
-                  style={{
-                    background: "transparent",
-                    border: "1px solid transparent",
-                    color: chromeTheme.textStrong,
-                  }}
-                >
-                  <MagnifyingGlass aria-hidden="true" size={18} weight="regular" />
-                </button>
-                {globalSearchOpen ? (
-                  <div
-                    aria-label={lang === "zh" ? "全局 MOF 检索" : "Global MOF search"}
-                    className="global-search-popover"
-                    role="dialog"
-                    style={{ background: chromeTheme.panel, border: `1px solid ${chromeTheme.border}`, boxShadow: "0 18px 46px rgba(15, 23, 42, 0.16)" }}
-                  >
-                    <label style={{ color: chromeTheme.faint, fontSize: 10.5, fontWeight: 820 }}>
-                      {lang === "zh" ? "跨来源检索 MOF" : "Search MOFs across sources"}
-                    </label>
-                    <input
-                      aria-label={lang === "zh" ? "全局检索 MOF 候选材料" : "Global MOF candidate search"}
-                      autoFocus
-                      onChange={event => { setSearchQuery(event.target.value); setSearchStatus(null); setSearchOpen(true) }}
-                      onKeyDown={event => {
-                        if (event.key === "Escape") setGlobalSearchOpen(false)
-                        if (event.key === "Enter" && presetSuggestions[0]) {
-                          applyPreset(typeof presetSuggestions[0] === "object" ? presetSuggestions[0].value : presetSuggestions[0])
-                          setGlobalSearchOpen(false)
-                        }
-                      }}
-                      placeholder={copy.header.searchPlaceholder}
-                      value={searchQuery}
-                      style={{ background: chromeTheme.surface, border: `1px solid ${chromeTheme.borderStrong}`, borderRadius: 10, color: chromeTheme.textStrong, fontFamily: FONT_SANS, fontSize: 12, minHeight: 40, outline: "none", padding: "9px 12px", width: "100%" }}
-                    />
-                    {searchQuery && presetSuggestions.length ? (
-                      <div className="global-search-results" role="listbox">
-                        {presetSuggestions.slice(0, 5).map(suggestion => {
-                          const value = typeof suggestion === "object" ? suggestion.value : suggestion
-                          const label = typeof suggestion === "object" ? suggestion.label : suggestion
-                          const meta = typeof suggestion === "object" ? suggestion.meta : ""
-                          return (
-                            <button key={value} type="button" onClick={() => { applyPreset(value); setGlobalSearchOpen(false) }} role="option" style={{ background: "transparent", border: 0, borderRadius: 8, color: chromeTheme.textStrong, cursor: "pointer", display: "grid", fontFamily: FONT_SANS, gap: 2, padding: "8px 9px", textAlign: "left", width: "100%" }}>
-                              <strong style={{ fontSize: 11.5 }}>{label}</strong>
-                              {meta ? <span style={{ color: chromeTheme.faint, fontSize: 10 }}>{meta}</span> : null}
-                            </button>
-                          )
-                        })}
-                      </div>
-                    ) : searchQuery ? <span style={{ color: chromeTheme.faint, fontSize: 10.5 }}>{lang === "zh" ? "继续输入材料名、Refcode 或 DOI" : "Keep typing a material name, Refcode, or DOI"}</span> : null}
-                  </div>
-                ) : null}
-              </div>
+              <button
+                type="button"
+                className="nav-action-button nav-theme-trigger"
+                aria-label={darkMode ? (lang === "zh" ? "切换浅色模式" : "Switch to light mode") : (lang === "zh" ? "切换深色模式" : "Switch to dark mode")}
+                title={darkMode ? (lang === "zh" ? "切换浅色模式" : "Switch to light mode") : (lang === "zh" ? "切换深色模式" : "Switch to dark mode")}
+                aria-pressed={darkMode}
+                onClick={() => setDarkMode(value => !value)}
+                style={{ background: "transparent", border: 0, color: chromeTheme.textStrong, cursor: "pointer" }}
+              >
+                {darkMode ? <Sun aria-hidden="true" size={20} /> : <Moon aria-hidden="true" size={20} />}
+              </button>
             </div>
           </div>
           <ContextualHeaderBar

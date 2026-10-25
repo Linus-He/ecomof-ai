@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.9",
+  "currentAppVersion": "v3.5.12",
   "generatedAt": "2026-10-25",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.8",
-    "developmentVersion": "v3.5.9",
+    "baseAppVersion": "v3.5.11",
+    "developmentVersion": "v3.5.12",
     "recordedAt": "2026-10-25",
     "status": "archived",
     "statusLabel": {
@@ -22,39 +22,35 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "全部技术事件补充企业与证据说明，历史曲线改用真实日期和可查明细；年度解读加入来源可核对的分子结构与明确标注的示意图。",
-      "en": "Every technical event gains company/evidence reading. Histories use real dates and inspectable observations; annual readings add source-linked molecular structures and labelled schematics."
+      "zh": "新增不对称有机催化、可见光光氧化还原、点击与生物正交、PET 解聚四个文献专题，补充反应条件、选择性数据与来源。",
+      "en": "Four literature topics add asymmetric organocatalysis, visible-light photoredox, click/bioorthogonal chemistry and PET depolymerization with conditions, selectivity and sources."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "把企业进展、市场历史与科学结构连起来",
-          "en": "Connect company progress, market history and scientific structures"
+          "zh": "有机化学专题与反应证据",
+          "en": "Organic chemistry topics and reaction evidence"
         },
         "changes": [
           {
-            "zh": "19 个技术事件逐项补齐预测对象、判定条件、三项核对清单、技术解释与产业影响路径。资料扩充为 21 份原始来源，包含论文、检测报告、产品资料和企业公告，参考条目保留机构、来源链接及可用的 DOI。",
-            "en": "All 19 technical events gain specific questions, conditions, three-item checklists, technical explanations and industry pathways. Twenty-one primary sources cover papers, tests, products and announcements, with institutions, links and available DOIs."
+            "zh": "新增四个文献专题、9 个代表反应和 25 项数据：覆盖烯胺与亚胺离子活化、光氧化还原／有机协同催化、染料路线、CuAAC、SPAAC 及 PET 酯键水解与再聚合。每个反应分别列出转化、催化体系、条件摘要、结果、适用范围与原文位置。",
+            "en": "Four literature topics add nine reaction cases and 25 indicators covering enamine/iminium activation, dual photoredox, dyes, CuAAC, SPAAC and PET hydrolysis/repolymerization. Each case lists transformation, catalyst, conditions, outcome, scope and source location."
           },
           {
-            "zh": "企业与市场放在事件正文前部：说明检测、材料、产线、样品、客户认证和交付分别触及哪道门槛。公开日期附近仅使用真实成交作日期级对照；报告日期不冒充公开日期，缺少近邻成交不补价，价格变化不写成因果结论。",
-            "en": "Company evidence leads the event reading, distinguishing tests, materials, lines, samples, qualification and delivery. Date-level comparisons use real nearby trades; report dates are not assumed public dates, missing prices stay missing and differences do not establish causation."
+            "zh": "保留收率、ee、er、exo:endo、实验规模、灯泡功率、酶质量用量、底物形态与预处理差别。Diels–Alder 的 exo 93% ee 不写成非对映比；15 W 灯泡不写成光子通量；PET 投料 g/kg 不擅自换成 g/L。反应与指标均支持带来源的 CSV 下载。",
+            "en": "Yield, ee, er, exo:endo, scale, lamp power, enzyme dose, feed morphology and pretreatment remain distinct. Exo 93% ee is not a diastereomer ratio; 15 W is not photon flux; g/kg is not silently converted to g/L. Reactions and indicators export with sources."
           },
           {
-            "zh": "历史图显示真实 UTC 日期、首末笔涨跌、最低最高值、采样数量与最大成交间隔。支持近期／自定日期、最后成交或存档基准、明确标注的纵轴放大、键盘逐笔查看、分页明细和当前窗口 CSV 下载。",
-            "en": "Histories show UTC dates, first-to-last change, extremes, counts and gaps. Recent/custom windows, last-trade/archive anchors, labelled vertical zoom, keyboard inspection, paginated data and scoped CSV exports remain tied to actual observations."
+            "zh": "本轮检索未选入直接对应、规则适当的有机反应预测市场，记录八组公共 API 检索范围。新增专题显示文献数据与反应，不补造概率或成交曲线；原有 41 个事件和 11,011 个 UTC 历史采样保持不变，取消仍与 No 分开。",
+            "en": "Eight public-API searches selected no suitable directly matching organic-reaction contracts. New topics show literature evidence without invented probabilities; the existing 41 events and 11,011 UTC observations remain unchanged, with cancellation separate from No."
           },
           {
-            "zh": "67 类年度概念与 10 类市场技术解释接入结构图。根据公开分子记录核对连接、分子式和立体化学，R／S 香芹酮并列展示；拓扑示意与计算构象单独标注，不杜撰晶胞、蛋白原子坐标或企业配方。",
-            "en": "Sixty-seven annual concepts and ten market contexts gain figures. Recorded graphs, formulas and stereochemistry are checked, including paired R/S carvone. Schematics and computed conformers are labelled; unit cells, protein coordinates and proprietary formulations are not invented."
+            "zh": "新增 13 份原始论文与官方资料，资料总数增至 52 份；专题共 15 个，指标共 50 项。论文时期机构与任职地点分别核对；CARBIOS 50 kt/年保留为历史项目目标，并附后续报告中的暂停建设记录，不称为当前实测产量或最新施工状态。",
+            "en": "Thirteen papers/official documents bring sources to 52, topics to 15 and indicators to 50. Historical affiliations are checked. CARBIOS 50 kt/year remains a historical project target, with a later suspension record, not measured output or the latest construction status."
           },
           {
-            "zh": "新增机构与企业标识、PubChem 致谢及 RDKit 构建期工具许可说明。发现并补标 Toyota 原题期限与 API 停盘字段差异；同类市场分开比较，保留稀疏历史、取消及规则冲突。",
-            "en": "Additional institution/company marks, PubChem attribution and RDKit build-time licensing accompany a newly flagged Toyota deadline/close-field discrepancy. Related contracts retain separate scopes, sparse histories, cancellation and rule conflicts."
-          },
-          {
-            "zh": "补齐中英文手机端核查，确认结构放大与历史表格在各自区域滚动；修复年度企业资料的重复来源入口，保留不同文献并连续编号。",
-            "en": "Completed Chinese/English phone checks for locally scrolling enlarged structures and trade tables; duplicate annual company-source links are removed while distinct references retain consecutive numbering."
+            "zh": "目录增加有机化学筛选，连到四个新专题和已有药物化学；文献页不显示空市场筛选。构建时检查双语反应字段、指标与反应的来源关联、编号唯一性及文献／市场类型，修复连续切换专题时反应与数据区重复的问题，保留手机与深色排版。",
+            "en": "An organic filter connects four new topics and existing medicinal chemistry; literature pages omit empty market filters. Build checks validate bilingual cases, source joins, unique identifiers and literature/market types, fixing duplicate reaction/data sections during consecutive topic navigation and preserving phone/dark layouts."
           }
         ]
       }
@@ -195,6 +191,132 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.12",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "有机化学专题与反应证据",
+        "en": "Organic chemistry topics and reaction evidence"
+      },
+      "summary": {
+        "zh": "新增不对称有机催化、可见光光氧化还原、点击与生物正交、PET 解聚四个文献专题，补充反应条件、选择性数据与来源。",
+        "en": "Four literature topics add asymmetric organocatalysis, visible-light photoredox, click/bioorthogonal chemistry and PET depolymerization with conditions, selectivity and sources."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "有机化学专题与反应证据",
+            "en": "Organic chemistry topics and reaction evidence"
+          },
+          "changes": [
+            {
+              "zh": "新增四个文献专题、9 个代表反应和 25 项数据：覆盖烯胺与亚胺离子活化、光氧化还原／有机协同催化、染料路线、CuAAC、SPAAC 及 PET 酯键水解与再聚合。每个反应分别列出转化、催化体系、条件摘要、结果、适用范围与原文位置。",
+              "en": "Four literature topics add nine reaction cases and 25 indicators covering enamine/iminium activation, dual photoredox, dyes, CuAAC, SPAAC and PET hydrolysis/repolymerization. Each case lists transformation, catalyst, conditions, outcome, scope and source location."
+            },
+            {
+              "zh": "保留收率、ee、er、exo:endo、实验规模、灯泡功率、酶质量用量、底物形态与预处理差别。Diels–Alder 的 exo 93% ee 不写成非对映比；15 W 灯泡不写成光子通量；PET 投料 g/kg 不擅自换成 g/L。反应与指标均支持带来源的 CSV 下载。",
+              "en": "Yield, ee, er, exo:endo, scale, lamp power, enzyme dose, feed morphology and pretreatment remain distinct. Exo 93% ee is not a diastereomer ratio; 15 W is not photon flux; g/kg is not silently converted to g/L. Reactions and indicators export with sources."
+            },
+            {
+              "zh": "本轮检索未选入直接对应、规则适当的有机反应预测市场，记录八组公共 API 检索范围。新增专题显示文献数据与反应，不补造概率或成交曲线；原有 41 个事件和 11,011 个 UTC 历史采样保持不变，取消仍与 No 分开。",
+              "en": "Eight public-API searches selected no suitable directly matching organic-reaction contracts. New topics show literature evidence without invented probabilities; the existing 41 events and 11,011 UTC observations remain unchanged, with cancellation separate from No."
+            },
+            {
+              "zh": "新增 13 份原始论文与官方资料，资料总数增至 52 份；专题共 15 个，指标共 50 项。论文时期机构与任职地点分别核对；CARBIOS 50 kt/年保留为历史项目目标，并附后续报告中的暂停建设记录，不称为当前实测产量或最新施工状态。",
+              "en": "Thirteen papers/official documents bring sources to 52, topics to 15 and indicators to 50. Historical affiliations are checked. CARBIOS 50 kt/year remains a historical project target, with a later suspension record, not measured output or the latest construction status."
+            },
+            {
+              "zh": "目录增加有机化学筛选，连到四个新专题和已有药物化学；文献页不显示空市场筛选。构建时检查双语反应字段、指标与反应的来源关联、编号唯一性及文献／市场类型，修复连续切换专题时反应与数据区重复的问题，保留手机与深色排版。",
+              "en": "An organic filter connects four new topics and existing medicinal chemistry; literature pages omit empty market filters. Build checks validate bilingual cases, source joins, unique identifiers and literature/market types, fixing duplicate reaction/data sections during consecutive topic navigation and preserving phone/dark layouts."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v3.5.11",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "电池体系扩充与化学专题数据",
+        "en": "Expanded battery chemistries and source-backed chemistry data"
+      },
+      "summary": {
+        "zh": "新增钠离子、动力电池与规模储能、清洁制氢及 AI 药物研发四个专题，补充真实市场历史与带条件的关键数据。",
+        "en": "Four new topics cover sodium-ion batteries, EV/grid storage, clean hydrogen and AI drug discovery, with actual market histories and scoped indicators."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "电池体系扩充与化学专题数据",
+            "en": "Expanded battery chemistries and source-backed chemistry data"
+          },
+          "changes": [
+            {
+              "zh": "电池部分新增 9 个市场，三个电池专题共收录 19 个事件：固态电池、钠离子，以及动力电池与规模储能。内容覆盖 Naxtra 客户交付、LFP 出货份额、凝聚态单体比能量、整包成本、并网储能能量与钒液流用料。",
+              "en": "Nine markets expand the three battery topics to 19 events, covering sodium-ion delivery, LFP shipments, condensed cells, pack cost, grid-storage energy and vanadium-flow materials."
+            },
+            {
+              "zh": "新增清洁制氢与电解水、AI 药物研发与临床验证，扩充永久碳移除阅读。原题中的 2030／2031 年目标差异、LFP >65%／≥65% 冲突、非锂与钠离子商品范围、药物名称及临床／批准条件分别说明；平台取消仍独立于 No。",
+              "en": "Clean hydrogen/electrolysis and AI drug discovery/clinical validation join expanded permanent-removal reading. Timing, LFP threshold conflicts, sodium/non-lithium product scope, drug names and clinical/approval conditions remain distinct; cancellation stays separate from No."
+            },
+            {
+              "zh": "六个专题加入 25 项关键数据，逐项列明数值、年份或报告日期、适用条件及来源。实验测量、机构统计、模型估计、企业披露、在建规模和研发目标分开标注；支持下载指标与来源 CSV。药物试验保留主要与次要终点、样本量、随访和利益关系信息。",
+              "en": "Six topics gain 25 indicators with values, reference periods, conditions and sources. Measurements, statistics, models, company claims, construction and targets are labelled, with source-linked CSV export. Clinical reading retains endpoint hierarchy, sample, follow-up and interests."
+            },
+            {
+              "zh": "全站科学预测共 11 个专题、41 个技术事件、11,011 个真实成交后采样与 39 份原始资料。本轮只新增 16 个市场的公共 API 快照，保留此前 25 个事件历史。专题显示成交覆盖日期、采样和来源数量、参与较少及规则提示；UTC 日期与原始规则继续可查。",
+              "en": "Science Forecasts now contains 11 topics, 41 technical events, 11,011 actual post-trade observations and 39 primary sources. Sixteen new API snapshots preserve the previous 25 histories. Topic coverage shows dates, counts, thin participation and rule flags, with UTC dates and original rules."
+            },
+            {
+              "zh": "专题目录增加电池与储能、化学与材料筛选，电池工作台之间提供相关专题入口。新增机构沿用官方标识和低强调国旗；国际能源署国旗注明秘书处所在地。市场曲线继续放在正文前部。",
+              "en": "Directory filters surface batteries/storage and chemistry/materials, with links among battery workbenches. New institutions use official marks and restrained flags; IEA identifies secretariat location. Market histories continue to lead topic reading."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "appVersion": "v3.5.10",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "科学预测扩充与阅读顺序调整",
+        "en": "More science topics and a history-first reading order"
+      },
+      "summary": {
+        "zh": "新增聚变发电、量子纠错计算和钙钛矿光伏专题；市场曲线置顶，扩写企业和机构公告，并将顶部操作简化为明暗切换。",
+        "en": "Added fusion power, quantum error correction and perovskite photovoltaics; histories lead, announcements are expanded and the header has one theme switch."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "科学预测扩充与阅读顺序调整",
+            "en": "More science topics and a history-first reading order"
+          },
+          "changes": [
+            {
+              "zh": "专题页新增可切换事件的历史曲线；事件详情按市场历史、技术与判定、企业和机构公告、参考资料、相关事件排列，目录同步调整。图表沿用真实 UTC 日期、逐笔查看及 CSV 下载。",
+              "en": "Topic pages add selectable event histories. Event reading follows history, technology and criteria, announcements, references, then related events, with matching contents. Charts retain real UTC dates, observation inspection and CSV exports."
+            },
+            {
+              "zh": "新增三个专题及六个 Manifold 原始市场，技术事件共 25 个，真实历史采样共 8,051 个。新事件单独收录，原有 19 个事件快照保留。缺少规则、统计分母不清、成交稀疏和停盘未判定均明确标注；取消仍独立于 No。",
+              "en": "Three topics and six Manifold source markets bring the archive to 25 technical events and 8,051 actual observations. Original 19-event snapshots are preserved. Missing definitions, ambiguous denominators, thin trading, closed unresolved records and cancellation remain visible."
+            },
+            {
+              "zh": "原始资料从 21 份增至 27 份，新增 DOE、Helion、Google Quantum AI 与 Oxford PV 资料。扩写十份既有资料，并为六个技术专题补充双语解读。采购协议、制造产能、首批出货和实验结果各按原文范围说明，目标年份不写成已完成交付。",
+              "en": "Primary sources increase from 21 to 27, adding DOE, Helion, Google Quantum AI and Oxford PV. Ten existing entries are expanded and six technical topics gain bilingual background reading. Agreements, capacity, first shipments and experimental results retain their stated scope; targets are not reported as completed delivery."
+            },
+            {
+              "zh": "24 家相关机构和企业补充小尺寸国旗，按机构所在地或企业总部标注，并记录归属依据。顶部删除设置与搜索，保留一个明暗切换按钮及主题记忆；科学预测阅读页同步适配深色背景。“把相近的问题放在一起读”等标题改为简洁的栏目名称。",
+              "en": "Small flags accompany 24 institutions and companies, with location or headquarters basis recorded. Settings and search give way to one persistent theme switch; science forecast pages support dark backgrounds. Conversational headings are replaced with concise section names."
+            },
+            {
+              "zh": "个人致谢在原 03 与机构列表之间加入 Michael Li（HKU，UI 设计建议）及 Wilson（UCL，美学建议），保留机构标识与官网链接；明确个人姓名和相关致谢内容均经当事人同意，机构信息不代表背书。",
+              "en": "Added Michael Li (HKU, UI design feedback) and Wilson (UCL, aesthetic feedback) after personal entry 03 and before the institutions, with institution marks and official links. The consent notice covers personal names and acknowledgements without implying institutional endorsement."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.9",
       "date": "2026-10-25",

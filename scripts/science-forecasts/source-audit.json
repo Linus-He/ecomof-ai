@@ -1,28 +1,87 @@
 {
   "schemaVersion": "1.0",
   "editorialReview": {
-    "eventBriefs": 19,
-    "industryCases": 19,
-    "evidenceCount": 21,
-    "contexts": 10,
+    "eventBriefs": 41,
+    "industryCases": 41,
+    "evidenceCount": 52,
+    "contexts": 22,
+    "literatureTopics": 4,
+    "reactionCases": 9,
+    "topicIndicators": 50,
     "sourceFiles": [
       {
         "file": "scripts/science-forecasts/curation.json",
-        "sha256": "2c5202c80b73a9dabf1727f9b21762c87c1a50b06797d7f460ed23bd021cab6a"
+        "sha256": "b66e9f058460fb5c7dd0c645990621fd45019c519c11ecb2ea5ee39bf3744e80"
       },
       {
         "file": "scripts/science-forecasts/contexts.json",
-        "sha256": "b27a4489d4162a0e3f6aef5415ff8b7a4a24a157e4ae3ca86c0287474fe72d1c"
+        "sha256": "fdec3efd6ac55379468639906e9e6cbee71d1131daa39a84179024e8494f4478"
       },
       {
         "file": "scripts/science-forecasts/topics.json",
-        "sha256": "887475bd4b78541bb1b38a26027b4286f68c13fb8517bb08e40da0fdd9a80163"
+        "sha256": "5fcf34ddd04c4255b7d74874c174b5a7173091bd2e43ec64e478847488d0cd9f"
+      }
+    ]
+  },
+  "organicDiscoveryReview": {
+    "reviewedAt": "2026-10-25",
+    "source": "Manifold public search API",
+    "scope": "Curated search, not an exhaustive platform-wide claim",
+    "acceptedNewMarkets": 0,
+    "queries": [
+      {
+        "term": "organic chemistry",
+        "returnedCount": 12,
+        "url": "https://api.manifold.markets/v0/search-markets?term=organic%20chemistry&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "AI chemist",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=AI%20chemist&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "PET recycling",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=PET%20recycling&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "retrosynthesis",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=retrosynthesis&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "organocatalysis",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=organocatalysis&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "chemical synthesis",
+        "returnedCount": 8,
+        "url": "https://api.manifold.markets/v0/search-markets?term=chemical%20synthesis&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "photoredox",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=photoredox&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+      },
+      {
+        "term": "biodegradable plastic",
+        "returnedCount": 0,
+        "url": "https://api.manifold.markets/v0/search-markets?term=biodegradable%20plastic&limit=15&sort=liquidity&filter=all",
+        "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
       }
     ]
   },
   "grain": "one source market; one observation per distinct actual-trade timestamp",
-  "marketCount": 19,
-  "pointCount": 7803,
+  "marketCount": 41,
+  "pointCount": 11011,
   "checks": [
     "unique market ids",
     "strictly increasing timestamps",
@@ -34,7 +93,7 @@
     "logo checksums",
     "no account identities in public projection"
   ],
-  "sourceProjectionSha256": "6c2ec3758af7d6af2a952e248bf55dc0893c6034aca8bbe90a1860febd947804",
+  "sourceProjectionSha256": "b4a11071185ca14fb5b7c4610fd996c2fa9f3a875711b20406b9a1460f7b3a64",
   "markets": [
     {
       "id": "SAIUNdCI8U",
@@ -570,6 +629,451 @@
       "fetchedTradeRows": 2,
       "acceptedTradeRows": 2,
       "excludedTradeRows": 0
+    },
+    {
+      "id": "jqEkQKsK0FxFNXDN0lBy",
+      "sourceApi": "https://api.manifold.markets/v0/market/jqEkQKsK0FxFNXDN0lBy",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792928664459,
+      "observedAt": 1792928664459,
+      "points": 65,
+      "marketSha256": "a1b2274473eee565d7a486ee3e3f231b4ac44a577d81b887a8090b7a27dc9ed7",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=jqEkQKsK0FxFNXDN0lBy&limit=1000",
+          "sha256": "9af6b7cc8b7f8370bc97470f0ef46bd5e642611fe06700f4dfb0ffa5e3f2051b",
+          "rows": 80
+        }
+      ],
+      "fetchedTradeRows": 80,
+      "acceptedTradeRows": 65,
+      "excludedTradeRows": 15
+    },
+    {
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "sourceApi": "https://api.manifold.markets/v0/market/BGT0eBN2kmD6FmsXEvFt",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792928665807,
+      "observedAt": 1792928665807,
+      "points": 139,
+      "marketSha256": "9dc72245b04aa77d69d656bda7252c83495738d73162fb8ec5ca099099b6bd58",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=BGT0eBN2kmD6FmsXEvFt&limit=1000",
+          "sha256": "714d6e7559ae66707f3dad9f2547c6bbd5bfe3dcb8db2c1ef60c9536973e65ba",
+          "rows": 412
+        }
+      ],
+      "fetchedTradeRows": 412,
+      "acceptedTradeRows": 139,
+      "excludedTradeRows": 273
+    },
+    {
+      "id": "cwtbzjfk9j",
+      "sourceApi": "https://api.manifold.markets/v0/market/cwtbzjfk9j",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792928664898,
+      "observedAt": 1792928664898,
+      "points": 4,
+      "marketSha256": "ab718d8898c4bf5d277d4a542be759180ca173f12e0bf938db0b8cb19f945cec",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=cwtbzjfk9j&limit=1000",
+          "sha256": "2f96e3ac8f9f1036875acc63207bfe6fe8ac0180dc6ef68ca39f7825eb9ffb43",
+          "rows": 5
+        }
+      ],
+      "fetchedTradeRows": 5,
+      "acceptedTradeRows": 4,
+      "excludedTradeRows": 1
+    },
+    {
+      "id": "oocJB7zxHwURka0HYfbo",
+      "sourceApi": "https://api.manifold.markets/v0/market/oocJB7zxHwURka0HYfbo",
+      "status": "closed",
+      "resolution": null,
+      "historyCutoff": 1712786340000,
+      "observedAt": 1792928666483,
+      "points": 16,
+      "marketSha256": "1c11ae59d53e061e63cdc4aea3cca9c5816c5b49d8d0127e48d6cb81f36ebbb3",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=oocJB7zxHwURka0HYfbo&limit=1000",
+          "sha256": "e13ba583937bce6aed4ad106c75f37e9c8fe5f9d1e78aa4c3847aa3bc31ff470",
+          "rows": 17
+        }
+      ],
+      "fetchedTradeRows": 17,
+      "acceptedTradeRows": 16,
+      "excludedTradeRows": 1
+    },
+    {
+      "id": "88clPLgu5E",
+      "sourceApi": "https://api.manifold.markets/v0/market/88clPLgu5E",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792928667800,
+      "observedAt": 1792928667800,
+      "points": 13,
+      "marketSha256": "145901b29b496d8db12c5d1185d9152d967571b17ad2bd23a19dfc586d3944de",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=88clPLgu5E&limit=1000",
+          "sha256": "884858ec2499873793076700c1cc35007713ae8961072a8f544e8116d02905f4",
+          "rows": 15
+        }
+      ],
+      "fetchedTradeRows": 15,
+      "acceptedTradeRows": 13,
+      "excludedTradeRows": 2
+    },
+    {
+      "id": "mH5EaioxqUT22N2MZg7B",
+      "sourceApi": "https://api.manifold.markets/v0/market/mH5EaioxqUT22N2MZg7B",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792928668862,
+      "observedAt": 1792928668862,
+      "points": 11,
+      "marketSha256": "541cb147657a6fcf7023a637f02cfd5a84b252723a70a6b9cd691acbcf9249bb",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=mH5EaioxqUT22N2MZg7B&limit=1000",
+          "sha256": "e6390cfd20ecdd8680b732a31d19c15d07f8bc9bb42c4894bf0c7b83f449f6ad",
+          "rows": 12
+        }
+      ],
+      "fetchedTradeRows": 12,
+      "acceptedTradeRows": 11,
+      "excludedTradeRows": 1
+    },
+    {
+      "id": "hnzy6pqlNZ",
+      "sourceApi": "https://api.manifold.markets/v0/market/hnzy6pqlNZ",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930012852,
+      "observedAt": 1792930012852,
+      "points": 525,
+      "marketSha256": "609bad1f52e780eaea6c03e4c7f5f9c075288ab61ba4951959269da677ac8298",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hnzy6pqlNZ&limit=1000",
+          "sha256": "36325a03ae677ee83211a6de95533cca4949728becf6caf1527d4d985129b850",
+          "rows": 902
+        }
+      ],
+      "fetchedTradeRows": 902,
+      "acceptedTradeRows": 525,
+      "excludedTradeRows": 377
+    },
+    {
+      "id": "e3ah02wnqsS2hwQYTgQs",
+      "sourceApi": "https://api.manifold.markets/v0/market/e3ah02wnqsS2hwQYTgQs",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1735718340000,
+      "observedAt": 1792930011712,
+      "points": 75,
+      "marketSha256": "d3470e097cfeeadc11abd165da4d338d9eedc7cf6efcb877d6eed1a1bcc381d6",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=e3ah02wnqsS2hwQYTgQs&limit=1000",
+          "sha256": "30e8bc45cfff60b776da78681ce8a59b1c622ce99270e3bdf8776c9475bee391",
+          "rows": 106
+        }
+      ],
+      "fetchedTradeRows": 106,
+      "acceptedTradeRows": 75,
+      "excludedTradeRows": 31
+    },
+    {
+      "id": "xLCfrvBWLH5BBYsgA4TX",
+      "sourceApi": "https://api.manifold.markets/v0/market/xLCfrvBWLH5BBYsgA4TX",
+      "status": "resolved",
+      "resolution": "YES",
+      "historyCutoff": 1704663440833,
+      "observedAt": 1792930009461,
+      "points": 7,
+      "marketSha256": "8e20d2419af0c88590be8a470dd087fba792f25985dfb1fbea59fb3e1773d155",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=xLCfrvBWLH5BBYsgA4TX&limit=1000",
+          "sha256": "be8168877604b9221f2427c2013850bab8aac8956da4311a78455051f0a07160",
+          "rows": 15
+        }
+      ],
+      "fetchedTradeRows": 15,
+      "acceptedTradeRows": 7,
+      "excludedTradeRows": 8
+    },
+    {
+      "id": "gLKepA3Jdl3lmiRXc32K",
+      "sourceApi": "https://api.manifold.markets/v0/market/gLKepA3Jdl3lmiRXc32K",
+      "status": "resolved",
+      "resolution": "YES",
+      "historyCutoff": 1716574992984,
+      "observedAt": 1792930009620,
+      "points": 16,
+      "marketSha256": "81d12e9ca7ae7bf472ef9052bae23bbdbe64e6113dae612e7cec8bd16eaae383",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=gLKepA3Jdl3lmiRXc32K&limit=1000",
+          "sha256": "2da2e8d4084342d981d00e4b632eef0ac9097c516a4d9cc3867bb1175c310764",
+          "rows": 43
+        }
+      ],
+      "fetchedTradeRows": 43,
+      "acceptedTradeRows": 16,
+      "excludedTradeRows": 27
+    },
+    {
+      "id": "S2ghII2gLd",
+      "sourceApi": "https://api.manifold.markets/v0/market/S2ghII2gLd",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930014675,
+      "observedAt": 1792930014675,
+      "points": 558,
+      "marketSha256": "65c53dcafa9b0439129d59ee5720812c0f93736760606414e3208c9a920c6b61",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=S2ghII2gLd&limit=1000",
+          "sha256": "5f94008a570ac657ea0ffa9510b2179aff47ff3251679081ad483e6b496f757e",
+          "rows": 564
+        }
+      ],
+      "fetchedTradeRows": 564,
+      "acceptedTradeRows": 558,
+      "excludedTradeRows": 6
+    },
+    {
+      "id": "b2npwzsZCGtn8aQ47PNO",
+      "sourceApi": "https://api.manifold.markets/v0/market/b2npwzsZCGtn8aQ47PNO",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930014360,
+      "observedAt": 1792930014360,
+      "points": 220,
+      "marketSha256": "20e56fbb681e1852c457a1ac6855cf87f581372d3766834b01fb765c9bb40da2",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=b2npwzsZCGtn8aQ47PNO&limit=1000",
+          "sha256": "c194e9e80de4f31c2dbe4efb406356e976bce88c8ec66a2086e73b984afffc30",
+          "rows": 256
+        }
+      ],
+      "fetchedTradeRows": 256,
+      "acceptedTradeRows": 220,
+      "excludedTradeRows": 36
+    },
+    {
+      "id": "CP0dnApyhU",
+      "sourceApi": "https://api.manifold.markets/v0/market/CP0dnApyhU",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930014680,
+      "observedAt": 1792930014680,
+      "points": 7,
+      "marketSha256": "eaeb88aa9bd31fe95d36c08bdc3e19e19747a4ff8a3db8e56f9035d6f58b5ba8",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=CP0dnApyhU&limit=1000",
+          "sha256": "c2e3c865899c5e21e0fb9e47e28d7b126bbe63ffe1b5e7d55240250992ca48ed",
+          "rows": 7
+        }
+      ],
+      "fetchedTradeRows": 7,
+      "acceptedTradeRows": 7,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "hOt5P568Iz",
+      "sourceApi": "https://api.manifold.markets/v0/market/hOt5P568Iz",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930018101,
+      "observedAt": 1792930018101,
+      "points": 799,
+      "marketSha256": "0bf47df3cfd62ea60ee798f8cd75ced9bcadd0cf0e22e5928de4dbf12688a690",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hOt5P568Iz&limit=1000",
+          "sha256": "3787851cd2bc6424865c04050e552fd27fe343f870816cdd98ef136c08f3fc58",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hOt5P568Iz&limit=1000&before=Il9llSCuyu92",
+          "sha256": "b5f1286bd6ca1322089f8f29ed0442f62d02c411ad062991fc6c835dda0f089a",
+          "rows": 437
+        }
+      ],
+      "fetchedTradeRows": 1437,
+      "acceptedTradeRows": 799,
+      "excludedTradeRows": 638
+    },
+    {
+      "id": "02b1E538uZEMM5tv6i0H",
+      "sourceApi": "https://api.manifold.markets/v0/market/02b1E538uZEMM5tv6i0H",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1704078090740,
+      "observedAt": 1792930017373,
+      "points": 8,
+      "marketSha256": "afd2abdd87e53b786e196d687697081775fd44cc92885b999c973cbf674ca030",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=02b1E538uZEMM5tv6i0H&limit=1000",
+          "sha256": "05c47548d70d0332aa06e015098ee42258d7571c56be00abf79e70b7bd1dca23",
+          "rows": 8
+        }
+      ],
+      "fetchedTradeRows": 8,
+      "acceptedTradeRows": 8,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "jcYZt1lNCMgX4LHHqgoq",
+      "sourceApi": "https://api.manifold.markets/v0/market/jcYZt1lNCMgX4LHHqgoq",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930016961,
+      "observedAt": 1792930016961,
+      "points": 13,
+      "marketSha256": "0c9bbea4e3066610d05af3afa3905a38d3a496981182c585ef473178be6a8650",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=jcYZt1lNCMgX4LHHqgoq&limit=1000",
+          "sha256": "161392d52bee1b427686723fe47c371a6fdd96ae3b91dc53793218501064ba9c",
+          "rows": 24
+        }
+      ],
+      "fetchedTradeRows": 24,
+      "acceptedTradeRows": 13,
+      "excludedTradeRows": 11
+    },
+    {
+      "id": "CqS0hc8NOI",
+      "sourceApi": "https://api.manifold.markets/v0/market/CqS0hc8NOI",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930018276,
+      "observedAt": 1792930018276,
+      "points": 4,
+      "marketSha256": "a34838a0d769173a95ae813a2a14a83ac0b5095a0fb58763719dcdcecbc24a6f",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=CqS0hc8NOI&limit=1000",
+          "sha256": "39014b9103a974bac204ee3e5ef24568cb502b2233d4671f927d38b1f539fae2",
+          "rows": 4
+        }
+      ],
+      "fetchedTradeRows": 4,
+      "acceptedTradeRows": 4,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "fHSDwgZnxcJ7wTAw5AiR",
+      "sourceApi": "https://api.manifold.markets/v0/market/fHSDwgZnxcJ7wTAw5AiR",
+      "status": "resolved",
+      "resolution": "YES",
+      "historyCutoff": 1672552740000,
+      "observedAt": 1792930019225,
+      "points": 68,
+      "marketSha256": "85069a09f80f3b3cb446797e1c535f8ff99d739031ad63536abc270e64f94565",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=fHSDwgZnxcJ7wTAw5AiR&limit=1000",
+          "sha256": "2f5fd26084f357e08e714d68c34015511e62aba5bc94f10a502998eb41439109",
+          "rows": 267
+        }
+      ],
+      "fetchedTradeRows": 267,
+      "acceptedTradeRows": 69,
+      "excludedTradeRows": 198
+    },
+    {
+      "id": "mkMY7rbB02MWY1MKf9Vu",
+      "sourceApi": "https://api.manifold.markets/v0/market/mkMY7rbB02MWY1MKf9Vu",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1767243540000,
+      "observedAt": 1792930020167,
+      "points": 44,
+      "marketSha256": "ed503adcec367c0ade94ba92b01a619977ee2ffe280a9fb2de4c6b3e30815a9c",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=mkMY7rbB02MWY1MKf9Vu&limit=1000",
+          "sha256": "3a72fc1f2398d2a819a923cfbc0cd22bf2b1c8abbf1d673cbe695624554a1264",
+          "rows": 57
+        }
+      ],
+      "fetchedTradeRows": 57,
+      "acceptedTradeRows": 44,
+      "excludedTradeRows": 13
+    },
+    {
+      "id": "cy4il0tvgl",
+      "sourceApi": "https://api.manifold.markets/v0/market/cy4il0tvgl",
+      "status": "resolved",
+      "resolution": "YES",
+      "historyCutoff": 1765799298654,
+      "observedAt": 1792930020310,
+      "points": 115,
+      "marketSha256": "ca84c6f7f4e684806374ad09632723cf0a87b8038039a923a7768430317ab50d",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=cy4il0tvgl&limit=1000",
+          "sha256": "ffbeff7dc162539902acaef82a74c9044341f372f0eb5f804d3ffb893212c0af",
+          "rows": 120
+        }
+      ],
+      "fetchedTradeRows": 120,
+      "acceptedTradeRows": 115,
+      "excludedTradeRows": 5
+    },
+    {
+      "id": "AvggE9WsHv51pVkA26wx",
+      "sourceApi": "https://api.manifold.markets/v0/market/AvggE9WsHv51pVkA26wx",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930019964,
+      "observedAt": 1792930019964,
+      "points": 3,
+      "marketSha256": "0cd23ab7ef2248616013692105a5876d3fe267b0b607bedc8b3676dcecab6cc3",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=AvggE9WsHv51pVkA26wx&limit=1000",
+          "sha256": "d547d348bf9638adfdfa3ace554ef9117936160ddee63537beea454d73df3793",
+          "rows": 4
+        }
+      ],
+      "fetchedTradeRows": 4,
+      "acceptedTradeRows": 3,
+      "excludedTradeRows": 1
+    },
+    {
+      "id": "HB3a6kWAhptJg8Ill8yT",
+      "sourceApi": "https://api.manifold.markets/v0/market/HB3a6kWAhptJg8Ill8yT",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1792930022816,
+      "observedAt": 1792930022816,
+      "points": 498,
+      "marketSha256": "2effe8c53198be3d7683aee8ee202ce8c23df955719c5f853da3048e6abf9d06",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=HB3a6kWAhptJg8Ill8yT&limit=1000",
+          "sha256": "c35d4bf8c82ad279a011553a868282f518f804e7a9c9c2373e8e898b0208373f",
+          "rows": 668
+        }
+      ],
+      "fetchedTradeRows": 668,
+      "acceptedTradeRows": 498,
+      "excludedTradeRows": 170
     }
   ],
   "discovery": [
@@ -632,6 +1136,141 @@
       "query": "room temperature superconductors before 2033",
       "source": "Manifold",
       "url": "https://api.manifold.markets/v0/search-markets?term=room%20temperature%20superconductors%20before%202033&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "fusion electricity",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=fusion%20electricity&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "quantum error correction",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=quantum%20error%20correction&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "perovskite",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=perovskite&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "sodium ion",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=sodium%20ion&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "battery cost",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=battery%20cost&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "battery price",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=battery%20price&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "batteries",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=batteries&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "battery energy density",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=battery%20energy%20density&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "battery storage",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=battery%20storage&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "lithium sulfur",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=lithium%20sulfur&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "battery recycling",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=battery%20recycling&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "green hydrogen",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=green%20hydrogen&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "hydrogen",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=hydrogen&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "electrolysis",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=electrolysis&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "plastic recycling",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=plastic%20recycling&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "PFAS",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=PFAS&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "AI drug",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=AI%20drug&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "AI-designed drug",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=AI-designed%20drug&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "protein design",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=protein%20design&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "organic chemistry",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=organic%20chemistry&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "chemical synthesis",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=chemical%20synthesis&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "retrosynthesis",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=retrosynthesis&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "organocatalysis",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=organocatalysis&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "photoredox",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=photoredox&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "PET recycling",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=PET%20recycling&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "biodegradable plastic",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=biodegradable%20plastic&limit=30&sort=liquidity&filter=all"
+    },
+    {
+      "query": "AI chemist",
+      "source": "Manifold",
+      "url": "https://api.manifold.markets/v0/search-markets?term=AI%20chemist&limit=30&sort=liquidity&filter=all"
     }
   ]
 }

@@ -1,0 +1,427 @@
+{
+  "id": "fHSDwgZnxcJ7wTAw5AiR",
+  "topicId": "ai-drug-discovery",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/Manifold/will-ai-will-discover-a-new-drug-pr",
+  "originalTitle": "Will AI will discover a new drug promising enough for clinical trials in 2022?",
+  "status": "resolved",
+  "resolution": "YES",
+  "resolutionProbability": 0.51,
+  "snapshotProbability": null,
+  "volume": 3085.8462479180193,
+  "participants": 52,
+  "createdTime": 1643783662068,
+  "closeTime": 1672552740000,
+  "resolutionTime": 1672606581434,
+  "observedAt": 1792930019225,
+  "historyCutoff": 1672552740000,
+  "points": [
+    {
+      "t": 1643783662068,
+      "p": 0.85
+    },
+    {
+      "t": 1643829805964,
+      "p": 0.9625
+    },
+    {
+      "t": 1644171304799,
+      "p": 0.957705486906176
+    },
+    {
+      "t": 1644215476649,
+      "p": 0.9116687682407753
+    },
+    {
+      "t": 1644240561299,
+      "p": 0.9158151894877596
+    },
+    {
+      "t": 1644577411597,
+      "p": 0.9196763583314043
+    },
+    {
+      "t": 1644658842305,
+      "p": 0.6058993974343969
+    },
+    {
+      "t": 1644777497458,
+      "p": 0.7052462095088541
+    },
+    {
+      "t": 1644878389494,
+      "p": 0.6058993974343969
+    },
+    {
+      "t": 1644878661211,
+      "p": 0.7531966213650023
+    },
+    {
+      "t": 1644882073765,
+      "p": 0.8081212734471727
+    },
+    {
+      "t": 1645505533148,
+      "p": 0.8116031222873265
+    },
+    {
+      "t": 1645542401450,
+      "p": 0.8011376853675721
+    },
+    {
+      "t": 1645998662708,
+      "p": 0.7808050707156711
+    },
+    {
+      "t": 1646201655416,
+      "p": 0.7915878965709225
+    },
+    {
+      "t": 1647276295665,
+      "p": 0.8351919098268477
+    },
+    {
+      "t": 1647960247116,
+      "p": 0.8422568077856254
+    },
+    {
+      "t": 1648041560881,
+      "p": 0.8488769737160233
+    },
+    {
+      "t": 1650293331357,
+      "p": 0.8457426295302747
+    },
+    {
+      "t": 1652549397098,
+      "p": 0.758468183960703
+    },
+    {
+      "t": 1659038773739,
+      "p": 0.7883098956400636
+    },
+    {
+      "t": 1661667481163,
+      "p": 0.6764258879091399
+    },
+    {
+      "t": 1661716867755,
+      "p": 0.6876363943533628
+    },
+    {
+      "t": 1661717593180,
+      "p": 0.675606313526626
+    },
+    {
+      "t": 1662240460908,
+      "p": 0.7256806834501378
+    },
+    {
+      "t": 1664327726643,
+      "p": 0.6044300363617316
+    },
+    {
+      "t": 1665257553625,
+      "p": 0.4441388891774512
+    },
+    {
+      "t": 1667243859788,
+      "p": 0.46850822599093034
+    },
+    {
+      "t": 1667245323144,
+      "p": 0.4455045686877217
+    },
+    {
+      "t": 1667594203704,
+      "p": 0.5114262730319173
+    },
+    {
+      "t": 1667659115443,
+      "p": 0.44268355365052453
+    },
+    {
+      "t": 1667716989943,
+      "p": 0.3936288209283518
+    },
+    {
+      "t": 1667764584242,
+      "p": 0.5455902116214579
+    },
+    {
+      "t": 1667838908719,
+      "p": 0.4503329771272794
+    },
+    {
+      "t": 1668189869794,
+      "p": 0.46117881658212573
+    },
+    {
+      "t": 1668227145167,
+      "p": 0.4293570946925905
+    },
+    {
+      "t": 1668251355954,
+      "p": 0.33536591194516835
+    },
+    {
+      "t": 1668253492447,
+      "p": 0.4064441080046947
+    },
+    {
+      "t": 1668255006182,
+      "p": 0.39912040843965546
+    },
+    {
+      "t": 1668255054082,
+      "p": 0.32842717530072224
+    },
+    {
+      "t": 1668255054277,
+      "p": 0.33949768098205696
+    },
+    {
+      "t": 1668276156196,
+      "p": 0.44380971499476973
+    },
+    {
+      "t": 1668290351952,
+      "p": 0.3178012207583374
+    },
+    {
+      "t": 1668299409010,
+      "p": 0.3463119744713143
+    },
+    {
+      "t": 1668324760840,
+      "p": 0.39161335514296475
+    },
+    {
+      "t": 1668336716831,
+      "p": 0.3674663849289776
+    },
+    {
+      "t": 1668370405975,
+      "p": 0.3554752787292082
+    },
+    {
+      "t": 1668411657284,
+      "p": 0.344721571572291
+    },
+    {
+      "t": 1668413992232,
+      "p": 0.33462175270726036
+    },
+    {
+      "t": 1668419976936,
+      "p": 0.3256149121668691
+    },
+    {
+      "t": 1668424369588,
+      "p": 0.34359122201218517
+    },
+    {
+      "t": 1668442828266,
+      "p": 0.3602200136224487
+    },
+    {
+      "t": 1668574775636,
+      "p": 0.37578452982122407
+    },
+    {
+      "t": 1669907640868,
+      "p": 0.3670624356177812
+    },
+    {
+      "t": 1669907657524,
+      "p": 0.32714045581338214
+    },
+    {
+      "t": 1669929742206,
+      "p": 0.2605990414337607
+    },
+    {
+      "t": 1669975142633,
+      "p": 0.3239585753475316
+    },
+    {
+      "t": 1670085375247,
+      "p": 0.09050989473945983
+    },
+    {
+      "t": 1671392715386,
+      "p": 0.2730308742944299
+    },
+    {
+      "t": 1671515480428,
+      "p": 0.23264791813013064
+    },
+    {
+      "t": 1671568065780,
+      "p": 0.2455903139252468
+    },
+    {
+      "t": 1671750278702,
+      "p": 0.2354570726321874
+    },
+    {
+      "t": 1672063974950,
+      "p": 0.2315709136144236
+    },
+    {
+      "t": 1672198020217,
+      "p": 0.2279223650320356
+    },
+    {
+      "t": 1672236032846,
+      "p": 0.22448704962525518
+    },
+    {
+      "t": 1672551032892,
+      "p": 0.45101872313500413
+    },
+    {
+      "t": 1672551042648,
+      "p": 0.45101872313500413
+    },
+    {
+      "t": 1672551948429,
+      "p": 0.5005888471693775
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5005888471693775,
+  "lastTradeAt": 1672551948429,
+  "sourceApi": "https://api.manifold.markets/v0/market/fHSDwgZnxcJ7wTAw5AiR",
+  "provenance": {
+    "marketSha256": "85069a09f80f3b3cb446797e1c535f8ff99d739031ad63536abc270e64f94565",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=fHSDwgZnxcJ7wTAw5AiR&limit=1000",
+        "sha256": "2f5fd26084f357e08e714d68c34015511e62aba5bc94f10a502998eb41439109",
+        "rows": 267
+      }
+    ],
+    "fetchedTradeRows": 267,
+    "acceptedTradeRows": 69,
+    "excludedTradeRows": 198
+  },
+  "stage": "validation",
+  "title": [
+    "2022 年 AI 是否发现了值得进入临床试验的新药？",
+    "Did AI discover a clinical-trial-worthy new drug in 2022?"
+  ],
+  "rules": [
+    [
+      "原题采用 Vox 对其 2022 年预测的后续判断作为结算依据，并未自设统一临床性能阈值。",
+      "The source delegates resolution to Vox’s follow-up judgment on its 2022 prediction, without its own uniform clinical threshold."
+    ]
+  ],
+  "interpretation": [
+    "平台 Yes 与临床启动判断有关，不等于药物疗效或 FDA 批准。后续论文仅作背景。",
+    "Yes concerns a clinical-entry judgment, not efficacy or FDA approval; later papers are context."
+  ],
+  "entities": [
+    "insilico-shanghai"
+  ],
+  "evidence": [
+    "rentosertib-phase2",
+    "fda-clinical-phases"
+  ],
+  "briefing": {
+    "contextId": "ai-clinical",
+    "summary": [
+      "这道早期历史题由外部预测者的判断结算。它与完成 I 期、得到上市批准的题目分别保留。",
+      "This early historical contract resolves via an external forecaster’s judgment and remains distinct from phase-I completion and approval."
+    ],
+    "checklist": [
+      [
+        "查阅 Vox 后续判断与原平台依据。",
+        "Review Vox’s follow-up and market evidence."
+      ],
+      [
+        "确认具体 AI 参与和临床启动对象。",
+        "Verify AI contribution and trial candidate."
+      ],
+      [
+        "不将后续批准或试验数据倒填至 2022 年。",
+        "Do not backdate later trials or approvals to 2022."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "mkMY7rbB02MWY1MKf9Vu",
+    "cy4il0tvgl",
+    "AvggE9WsHv51pVkA26wx"
+  ],
+  "industry": {
+    "entities": [
+      "insilico-shanghai"
+    ],
+    "evidence": [
+      "rentosertib-phase2",
+      "fda-clinical-phases"
+    ],
+    "stage": [
+      "材料与试验 → 产品验证 → 实际应用",
+      "Materials and tests → product verification → application"
+    ],
+    "impact": [
+      "早期市场反映临床进入的关注，并没有统一测试 AI 的贡献。后来的随机试验为如何阅读样本、终点和对照提供实例，但不能用于重写这项 2022 年判断。",
+      "The early contract tracks clinical-entry interest without a uniform AI test. Later randomized trials illustrate sample/endpoints/controls but do not rewrite this 2022 judgment."
+    ],
+    "gap": [
+      "原题判定依赖外部编辑判断。",
+      "Resolution relies on an external editorial judgment."
+    ]
+  },
+  "context": {
+    "id": "ai-clinical",
+    "title": [
+      "AI 分子设计与临床证据",
+      "AI molecular design and clinical evidence"
+    ],
+    "principle": [
+      "AI 参与需要论文、专利或开发方记录支持。先导化合物、候选药、临床试验与上市批准是不同阶段；主要终点、对照和随访决定试验可回答的问题。",
+      "AI contribution needs papers, patents or developer records. Leads, candidates, trials and approval are separate stages; endpoints, controls and follow-up define trial evidence."
+    ],
+    "example": [
+      "Rentosertib IIa 期随机入组 71 人并观察 12 周，主要终点为治疗期间不良事件。它既不是全部 AI 药物的验证，也不是 FDA 批准证明。",
+      "Rentosertib’s phase 2a randomized 71 people over 12 weeks, with treatment-emergent adverse events primary. It does not validate all AI drugs or establish FDA approval."
+    ],
+    "evidence": [
+      "rentosertib-phase2",
+      "fda-clinical-phases"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1643783662068,
+      "p": 0.85
+    },
+    "last": {
+      "t": 1672551948429,
+      "p": 0.5005888471693775
+    },
+    "change": -34.94111528306225,
+    "low": 0.09050989473945983,
+    "high": 0.9625,
+    "staleDays": 0.00916170138888889
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "原题口径说明",
+        "Source-rule scope"
+      ],
+      "detail": [
+        "原题以 Vox 的后续判断结算，未设统一实验指标。",
+        "The source delegates resolution to Vox rather than a uniform experimental metric."
+      ]
+    }
+  ],
+  "tradePoints": 68,
+  "detailFile": "events/fHSDwgZnxcJ7wTAw5AiR.json"
+}

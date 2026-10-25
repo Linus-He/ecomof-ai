@@ -187,5 +187,234 @@
       "olivine-noaa",
       "olivine-ecology"
     ]
+  },
+  "fusion-grid": {
+    "id": "fusion-grid",
+    "title": [
+      "靶增益、净电力与电网供电",
+      "Target gain, net electricity and grid supply"
+    ],
+    "principle": [
+      "聚变反应放出的能量，需要经过装置能量回收或发电系统才能成为电力。谈“净增益”必须说明计量边界：只计到靶激光，还是计入磁体、驱动、冷却与辅助设施的全部输入。",
+      "Fusion energy must be recovered as electricity. A gain claim needs an explicit boundary: target laser energy or all drive, magnet, cooling and auxiliary inputs."
+    ],
+    "example": [
+      "NIF 的 3.15 MJ／2.05 MJ 比较针对一次实验的到靶激光，不是整机净电力。Helion 的 50 MW 供电事件则需要发电、并网和客户交付证据，二者不能互相替代。",
+      "NIF’s 3.15 MJ/2.05 MJ comparison concerns target laser energy in one shot. Helion’s 50 MW contract needs generation, grid connection and delivery evidence instead."
+    ],
+    "evidence": [
+      "fusion-ignition",
+      "helion-ppa"
+    ]
+  },
+  "quantum-correction": {
+    "id": "quantum-correction",
+    "title": [
+      "物理比特、逻辑存储与逻辑运算",
+      "Physical qubits, logical memory and logical operations"
+    ],
+    "principle": [
+      "逻辑比特由多个物理比特编码，并通过重复测量和解码识别错误。逻辑存储器保持信息，与执行长串通用逻辑门是不同任务；门数也必须说明是物理门还是逻辑门。",
+      "Logical qubits encode information across physical qubits using repeated measurement and decoding. Preserving a memory differs from executing long general circuits; gate counts must identify physical or logical operations."
+    ],
+    "example": [
+      "Willow 研究通过增大表面码距离观察逻辑错误的抑制。一亿门市场还要求对具备纠错能力的计算机进行公告和第三方验证，不能仅用芯片比特数或随机线路基准替代。",
+      "Willow tests logical-error suppression as code distance increases. The 100-million-gate contract additionally requires an announcement and third-party verification, rather than chip size or a random-circuit benchmark."
+    ],
+    "evidence": [
+      "quantum-willow",
+      "quantum-google-explanation"
+    ]
+  },
+  "perovskite-scale": {
+    "id": "perovskite-scale",
+    "title": [
+      "叠层效率、制造产能与实际出货",
+      "Tandem efficiency, factory capacity and shipments"
+    ],
+    "principle": [
+      "钙钛矿层与硅层吸收不同波段，以提高入射光的利用率。电池效率经过互联、封装和有效面积损失后，才形成组件效率。制造线的额定能力还要经过良率与利用率，才能转为可销售出货。",
+      "Perovskite and silicon absorb different spectral bands. Module efficiency includes interconnection, encapsulation and area losses; nameplate factory capacity becomes sales only through yield and utilization."
+    ],
+    "example": [
+      "Oxford PV 首批商业组件的 24.5% 效率说明了产品性能，年度 1 GW 则考查累计交付的额定功率。全球多数部署使用哪种材料，还需要统计整个行业的年度装机。",
+      "Oxford PV’s first modules had 24.5% efficiency; annual 1 GW concerns cumulative delivered rated power. A global-majority contract needs industry-wide annual deployment data."
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ]
+  },
+  "sodium-materials": {
+    "id": "sodium-materials",
+    "title": [
+      "钠离子材料、性能与实际交付",
+      "Sodium chemistry, performance and delivery"
+    ],
+    "principle": [
+      "载流离子与正负极结构决定电池体系；电芯、整包与车型性能有不同分母。安全测试、技术发布和客户交付分别回答不同的问题。",
+      "Charge carriers and electrode structure define the chemistry. Cell, pack and vehicle metrics use different boundaries; safety tests, launches and delivery establish different facts."
+    ],
+    "example": [
+      "CATL 公告的 175 Wh/kg 是比能量指标，超过 400 km 是车型续航表述；原题还要求零售客户交车。两者不能替代交付凭证。",
+      "CATL’s 175 Wh/kg is a specific-energy claim and over 400 km a vehicle claim. The contract additionally requires customer delivery records."
+    ],
+    "evidence": [
+      "catl-naxtra-vehicle",
+      "catl-sodium-safety"
+    ]
+  },
+  "battery-economics": {
+    "id": "battery-economics",
+    "title": [
+      "电池成本与制造边界",
+      "Battery costs and manufacturing boundaries"
+    ],
+    "principle": [
+      "单位成本必须给出币值、产量、部件和能量分母。单体到整包增加结构、热管理及连接，制造成本也不同于销售与售后更换价格。",
+      "Unit costs need currency year, scale, component and energy basis. Packs add structure, cooling and connections; manufacturing cost differs from selling or replacement price."
+    ],
+    "example": [
+      "DOE 的 139 美元/kWh 是 2023 年币值、可用能量及规模生产模型。原题讨论 200 英里车型整包不超过 1000 美元，必须核对其实际容量与成本口径。",
+      "DOE’s $139/kWh is a constant-2023-dollar, usable-energy production model. The market’s $1,000 pack for a 200-mile vehicle needs its own capacity and cost basis."
+    ],
+    "evidence": [
+      "doe-pack-cost",
+      "iea-batteries-2026"
+    ]
+  },
+  "lfp-production": {
+    "id": "lfp-production",
+    "title": [
+      "LFP 材料份额与统计分母",
+      "LFP chemistry shares and denominators"
+    ],
+    "principle": [
+      "LFP 为磷酸铁锂体系，部分行业分类包含 LMFP。生产出货、装车注册与工厂名义能力不同，份额必须在同一范围与年份内计算。",
+      "LFP is lithium iron phosphate; some categories include LMFP. Production shipments, registered deployment and nameplate capacity differ; shares need consistent scope and year."
+    ],
+    "example": [
+      "IEA 的 2025 年超过 55% 是注册部署容量口径；原题是 2026 年乘用及轻型商用车出货 GWh。不能用前者直接判定后者。",
+      "IEA’s over-55% figure uses registered deployment in 2025. The contract uses 2026 passenger/light-commercial shipments in GWh, so the former cannot settle it."
+    ],
+    "evidence": [
+      "iea-batteries-2026",
+      "doe-pack-cost"
+    ]
+  },
+  "storage-energy": {
+    "id": "storage-energy",
+    "title": [
+      "电池储能的 GW 与 GWh",
+      "Battery storage in GW and GWh"
+    ],
+    "principle": [
+      "电堆或变流器限制功率，电极或电解液总量影响能量。并网储能统计还需区分公用事业级与住宅工商等范围，不能把功率与能量相加。",
+      "Stacks and converters limit power while electrode or electrolyte inventory affects energy. Statistics distinguish utility and distributed sectors; power and energy are not additive."
+    ],
+    "example": [
+      "EIA 记录的超过 26 GW 是公用事业级功率，市场 260 GWh 则是多部门能量阈值，原题固定的 130 GWh 只作为规则常数显示。",
+      "EIA’s over 26 GW measures utility-scale power; the market’s 260 GWh is a multisector energy threshold, with 130 GWh retained solely as a rule constant."
+    ],
+    "evidence": [
+      "eia-storage-2024",
+      "iea-batteries-2026"
+    ]
+  },
+  "vanadium-flow": {
+    "id": "vanadium-flow",
+    "title": [
+      "钒价态、电解液与全球消费",
+      "Vanadium states, electrolyte and global use"
+    ],
+    "principle": [
+      "全钒液流负极和正极分别利用 V(II)/V(III) 与 V(IV)/V(V) 反应。储罐、电堆和泵耗决定系统能力，但行业份额需要钒元素质量统计。",
+      "All-vanadium flow uses V(II)/V(III) and V(IV)/V(V) couples. Tanks, stacks and pumping affect systems; market shares require contained-V statistics."
+    ],
+    "example": [
+      "测得电解液浓度和荷电状态可以评估单套系统；判断 2030 年用钒占比至少 20%，还须核对两家独立行业来源与全球消费分母。",
+      "Electrolyte measurements characterize a system. The 2030 20% threshold additionally requires two independent industry sources and a global consumption denominator."
+    ],
+    "evidence": [
+      "vanadium-electrolyte",
+      "eia-storage-2024"
+    ]
+  },
+  "condensed-density": {
+    "id": "condensed-density",
+    "title": [
+      "凝聚态单体性能与可购买产品",
+      "Condensed-cell performance and purchasable products"
+    ],
+    "principle": [
+      "比能量为可释放能量与样品质量之比，需给出温度、倍率与样品边界。企业称凝聚态的路线并不自动等于全固态。",
+      "Specific energy divides released energy by sample mass and needs temperature, rate and boundary information. A condensed-state label does not automatically imply all-solid-state."
+    ],
+    "example": [
+      "2023 年 500 Wh/kg 公告说明技术发布；原市场同时要求商业来源和 500+ Wh/kg 被证明。本站保留原平台 No，不把公告最高值当作商业验证。",
+      "The 2023 500 Wh/kg release is a launch. The contract also requires a commercial source and proven 500+ Wh/kg; its No outcome is retained."
+    ],
+    "evidence": [
+      "catl-condensed",
+      "doe-pack-cost"
+    ]
+  },
+  "hydrogen-electrolysis": {
+    "id": "hydrogen-electrolysis",
+    "title": [
+      "电解装机、氢产量与成本",
+      "Electrolysis capacity, hydrogen output and cost"
+    ],
+    "principle": [
+      "电解水的产氢与产氧反应由电力驱动。效率、利用小时、电价、设备寿命和系统边界共同决定平准化成本，GW 装机不能单独给出年产量。",
+      "Electricity drives hydrogen and oxygen evolution. Efficiency, utilization, price, life and system boundaries determine levelized cost; GW capacity alone does not give annual output."
+    ],
+    "example": [
+      "IEA 的 2025 年超过 4 GW 是已安装电解容量；接近 1 Mt 低排放氢包含其他路径。DOE 2031 年目标也不同于原题 2030 年价格条件。",
+      "IEA’s over 4 GW is 2025 installed electrolysis; almost 1 Mt low-emissions hydrogen includes other routes. DOE’s 2031 target differs from the market’s 2030 condition."
+    ],
+    "evidence": [
+      "doe-hydrogen-shot",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "ai-clinical": {
+    "id": "ai-clinical",
+    "title": [
+      "AI 分子设计与临床证据",
+      "AI molecular design and clinical evidence"
+    ],
+    "principle": [
+      "AI 参与需要论文、专利或开发方记录支持。先导化合物、候选药、临床试验与上市批准是不同阶段；主要终点、对照和随访决定试验可回答的问题。",
+      "AI contribution needs papers, patents or developer records. Leads, candidates, trials and approval are separate stages; endpoints, controls and follow-up define trial evidence."
+    ],
+    "example": [
+      "Rentosertib IIa 期随机入组 71 人并观察 12 周，主要终点为治疗期间不良事件。它既不是全部 AI 药物的验证，也不是 FDA 批准证明。",
+      "Rentosertib’s phase 2a randomized 71 people over 12 weeks, with treatment-emergent adverse events primary. It does not validate all AI drugs or establish FDA approval."
+    ],
+    "evidence": [
+      "rentosertib-phase2",
+      "fda-clinical-phases"
+    ]
+  },
+  "removal-scale": {
+    "id": "removal-scale",
+    "title": [
+      "永久移除与气候作用",
+      "Permanent removal and climate impact"
+    ],
+    "principle": [
+      "从空气移除并永久储存 CO₂，需要计入捕集、能源、运输和封存全过程。烟气减排与大气净移除不同，设计产能不能代替核证交付。",
+      "Atmospheric removal and durable storage require capture, energy, transport and storage accounting. Avoided flue emissions differ from net removal, and nameplate is not verified delivery."
+    ],
+    "example": [
+      "Mammoth 启动公告的 36,000 吨/年为名义能力，不能由此推出全球气候贡献。原题的“关键作用”与未来科学共识需要回到其完整规则。",
+      "Mammoth’s startup 36,000 t/year nameplate does not establish global climate impact. The contract’s pivotal-role and consensus language needs its own rule review."
+    ],
+    "evidence": [
+      "climeworks-mammoth",
+      "svante-redwood",
+      "olivine-noaa"
+    ]
   }
 }

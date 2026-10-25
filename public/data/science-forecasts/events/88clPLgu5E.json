@@ -1,0 +1,207 @@
+{
+  "id": "88clPLgu5E",
+  "topicId": "perovskite-solar",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MikhailTal/will-any-manufacturer-ship-1-gw-or",
+  "originalTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2028?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.5755486645016148,
+  "volume": 64.43566459305697,
+  "participants": 3,
+  "createdTime": 1775499787060,
+  "closeTime": 1861851600000,
+  "resolutionTime": null,
+  "observedAt": 1792928667800,
+  "historyCutoff": 1792928667800,
+  "points": [
+    {
+      "t": 1775722614297,
+      "p": 0.22351634979970383
+    },
+    {
+      "t": 1776709303113,
+      "p": 0.27153540462572107
+    },
+    {
+      "t": 1776737625766,
+      "p": 0.3230277053052184
+    },
+    {
+      "t": 1777897410337,
+      "p": 0.3767302605436963
+    },
+    {
+      "t": 1780428126157,
+      "p": 0.43127254291540446
+    },
+    {
+      "t": 1780428127049,
+      "p": 0.37000000000000005
+    },
+    {
+      "t": 1783415797525,
+      "p": 0.41448308059726335
+    },
+    {
+      "t": 1783430640892,
+      "p": 0.3786793563039804
+    },
+    {
+      "t": 1786947022219,
+      "p": 0.4332262548940333
+    },
+    {
+      "t": 1786965008206,
+      "p": 0.4872244820297309
+    },
+    {
+      "t": 1786983082907,
+      "p": 0.5394855980679453
+    },
+    {
+      "t": 1786986727688,
+      "p": 0.5890528571581038
+    },
+    {
+      "t": 1787413340276,
+      "p": 0.5755486645016148
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5755486645016148,
+  "lastTradeAt": 1787413340276,
+  "sourceApi": "https://api.manifold.markets/v0/market/88clPLgu5E",
+  "provenance": {
+    "marketSha256": "145901b29b496d8db12c5d1185d9152d967571b17ad2bd23a19dfc586d3944de",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=88clPLgu5E&limit=1000",
+        "sha256": "884858ec2499873793076700c1cc35007713ae8961072a8f544e8116d02905f4",
+        "rows": 15
+      }
+    ],
+    "fetchedTradeRows": 15,
+    "acceptedTradeRows": 13,
+    "excludedTradeRows": 2
+  },
+  "stage": "engineering",
+  "title": [
+    "2028 年底前会有制造商实现年度 1 GW 钙钛矿组件出货吗？",
+    "Will a manufacturer ship 1 GW of perovskite modules in a year by end-2028?"
+  ],
+  "rules": [
+    [
+      "单一制造商须在 2026、2027 或 2028 年某一日历年商业交付至少 1000 MW 钙钛矿或钙钛矿／硅叠层组件，且有可获融资认可的质保。研究组件、无相应质保的 BIPV 试点和室内光伏不计。",
+      "One manufacturer must commercially ship at least 1,000 MW of perovskite or perovskite/silicon modules in calendar 2026, 2027 or 2028 with bankable warranties. Research modules and unqualified BIPV pilots or indoor PV do not count."
+    ]
+  ],
+  "interpretation": [
+    "年产能、签约订单与实际出货不同；不能跨制造商或跨年份累加。",
+    "Capacity, orders and shipments differ; do not aggregate across manufacturers or years."
+  ],
+  "entities": [
+    "oxfordpv",
+    "doe"
+  ],
+  "evidence": [
+    "oxford-first-shipment",
+    "perovskite-doe"
+  ],
+  "briefing": {
+    "contextId": "perovskite-scale",
+    "summary": [
+      "原题要求单一制造商在一个日历年达到商业交付门槛，并保留质保条件，考查的并非实验室效率。",
+      "This requires one manufacturer to reach an annual commercial shipment threshold with warranty conditions, rather than a laboratory efficiency record."
+    ],
+    "checklist": [
+      [
+        "核对单一制造商与日历年份。",
+        "Verify manufacturer and calendar year."
+      ],
+      [
+        "核对已出货组件额定功率与技术类别。",
+        "Check shipped rated module power and technology."
+      ],
+      [
+        "查验质保及独立行业统计。",
+        "Verify warranties and independent deployment statistics."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "mH5EaioxqUT22N2MZg7B"
+  ],
+  "industry": {
+    "entities": [
+      "oxfordpv",
+      "doe"
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ],
+    "stage": [
+      "研究验证与商业交付",
+      "Research validation and commercial delivery"
+    ],
+    "impact": [
+      "Oxford PV 的首批交付说明叠层组件进入商业应用。年度 1 GW 还取决于扩产、良率、质保与客户接收，不能将 MW 级试验线或未来工厂计划直接视为达标。",
+      "Oxford PV’s first delivery shows commercial use. Annual 1 GW still depends on scale-up, yield, warranties and customer receipt; MW-scale pilot output or factory plans do not meet the threshold."
+    ],
+    "gap": [
+      "首次出货公告未给出年度 GW 级交付与对应质保证明。",
+      "The first-shipment announcement does not establish annual GW-scale delivery and qualifying warranties."
+    ]
+  },
+  "context": {
+    "id": "perovskite-scale",
+    "title": [
+      "叠层效率、制造产能与实际出货",
+      "Tandem efficiency, factory capacity and shipments"
+    ],
+    "principle": [
+      "钙钛矿层与硅层吸收不同波段，以提高入射光的利用率。电池效率经过互联、封装和有效面积损失后，才形成组件效率。制造线的额定能力还要经过良率与利用率，才能转为可销售出货。",
+      "Perovskite and silicon absorb different spectral bands. Module efficiency includes interconnection, encapsulation and area losses; nameplate factory capacity becomes sales only through yield and utilization."
+    ],
+    "example": [
+      "Oxford PV 首批商业组件的 24.5% 效率说明了产品性能，年度 1 GW 则考查累计交付的额定功率。全球多数部署使用哪种材料，还需要统计整个行业的年度装机。",
+      "Oxford PV’s first modules had 24.5% efficiency; annual 1 GW concerns cumulative delivered rated power. A global-majority contract needs industry-wide annual deployment data."
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1775722614297,
+      "p": 0.22351634979970383
+    },
+    "last": {
+      "t": 1787413340276,
+      "p": 0.5755486645016148
+    },
+    "change": 35.2032314701911,
+    "low": 0.22351634979970383,
+    "high": 0.5890528571581038,
+    "staleDays": 63.83480930555555
+  },
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 13,
+  "detailFile": "events/88clPLgu5E.json"
+}

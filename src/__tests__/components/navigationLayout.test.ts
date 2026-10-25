@@ -16,36 +16,20 @@ describe("top navigation layout", () => {
     expect(source).toContain('"170px minmax(0, 1fr) auto"')
     expect(source).toContain('position: "relative"')
     expect(source).not.toContain('position: compactHeader && !veryCompactHeader ? "fixed" : "static"')
-    expect(source).toContain('width: "100%"')
     expect(navigation).toContain('className="nav-primary-rail"')
   })
 
-  it("keeps search and settings controls outside the tab capsule", () => {
+  it("keeps only one persistent theme control in the header", () => {
     const source = readFileSync(resolve(process.cwd(), "src/App.tsx"), "utf8")
-
-    expect(source).toContain("<MagnifyingGlass")
-    expect(source).toContain("<GearSix")
-    expect(source).not.toContain("<User")
-    expect(source).not.toContain("<CaretDown")
-    expect(source).toContain('className="nav-action-button nav-search-trigger"')
-    expect(source).toContain('className="settings-trigger nav-action-button nav-user-trigger"')
-    expect(source).toContain('aria-haspopup="menu"')
-    expect(source).toContain('className="settings-menu-row"')
-    expect(source).toContain('className="settings-language-select"')
-    expect(source).toContain("语言")
-    expect(source).toContain('<option value="zh-TW">繁體中文 · 台灣（中國）</option>')
-    expect(source).toContain('<option value="zh-HK">繁體中文 · 香港（中國）</option>')
-    for (const locale of ["ja", "ko", "es"]) expect(source).toContain(`<option value="${locale}">`)
-    expect(source).toContain("外观")
-    expect(source).toContain("浅色")
-    expect(source).toContain("深色")
+    expect(source).not.toContain("<MagnifyingGlass")
+    expect(source).not.toContain("<GearSix")
+    expect(source).not.toContain('aria-haspopup="menu"')
+    expect(source).toContain('className="nav-action-button nav-theme-trigger"')
+    expect(source).toContain('aria-pressed={darkMode}')
+    expect(source).toContain('setDarkMode(value => !value)')
+    expect(source).toContain("切换浅色模式")
+    expect(source).toContain("切换深色模式")
     expect(source).toContain('window.localStorage.setItem("ecomof-theme"')
-    expect(source).toContain('onPointerDown={event => event.stopPropagation()}')
-    expect(source).toContain("数据托管与跨境访问")
-    expect(source).toContain('navigateTab("compliance-hosting-notice")')
-    expect(source).not.toContain("GitHub 仓库")
-    expect(source).toContain("联系与合作")
-    expect(source).not.toContain("settingsSection")
   })
 
   it("keeps search and user triggers unframed", () => {
@@ -55,15 +39,6 @@ describe("top navigation layout", () => {
     expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*border-radius:\s*0\s*!important/s)
     expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*box-shadow:\s*none\s*!important/s)
     expect(css).toMatch(/\.settings-control-cluster \.nav-action-button\s*\{[^}]*backdrop-filter:\s*none/s)
-  })
-
-  it("keeps the user menu compact, vertical, rounded, and glass-backed", () => {
-    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
-
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*width:\s*min\(272px,/s)
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s)
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*border-radius:\s*16px/s)
-    expect(css).toMatch(/\.settings-menu\s*\{[^}]*backdrop-filter:\s*blur\(20px\) saturate\(130%\)/s)
   })
 
   it("keeps brand and action controls outside the text navigation rail", () => {

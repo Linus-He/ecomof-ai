@@ -41,8 +41,20 @@ export function ForecastHistoryChart({ id, points, cutoff, snapshot, zh, sourceU
   const pages = Math.max(1, Math.ceil(rows.length / 10))
 
   return <section className="forecast-history" aria-label={zh ? '概率与成交历史' : 'Probability and trade history'}>
-    <div className="science-section-heading"><div><span className="prediction-eyebrow">MARKET HISTORY</span><h2>{zh ? '这条曲线在说什么？' : 'Read the market history'}</h2></div><a className="forecast-source" href={sourceUrl} target="_blank" rel="noreferrer"><img src={`${import.meta.env.BASE_URL}images/nobel/organizations/manifold.ico`} alt=""/>Manifold <ArrowSquareOut size={12}/></a></div>
+    <div className="science-section-heading"><div><span className="prediction-eyebrow">MARKET HISTORY</span><h2>{zh ? '市场概率与成交历史' : 'Market probability & trade history'}</h2></div><a className="forecast-source" href={sourceUrl} target="_blank" rel="noreferrer"><img src={`${import.meta.env.BASE_URL}images/nobel/organizations/manifold.ico`} alt=""/>Manifold <ArrowSquareOut size={12}/></a></div>
     <p className="forecast-history-intro">{zh ? '横轴是真实成交日期，纵轴是成交后 Yes 概率。先看所选窗口的变化，再逐点核对；平台存档概率和最后成交不一定相同。' : 'Dates locate actual trades; the vertical axis shows post-trade Yes probability. Inspect the selected window and individual observations. A platform snapshot may differ from the last trade.'}</p>
+    <div className="forecast-plot-label"><span>{zh ? 'Yes 概率 · UTC 日期' : 'Yes probability · UTC dates'}</span><span>{zoom ? `${zh ? '局部纵轴' : 'Focused vertical scale'} ${domain[0]}–${domain[1]}%` : '0–100%'}</span></div>
+    <div className="prediction-chart forecast-probability-chart" role="img" aria-label={zh ? '事件历史成交概率曲线，横轴为真实日期' : 'Historical probability by actual trade date'}>
+      {rows.length ? <ResponsiveContainer width="100%" height="100%"><LineChart data={data} margin={{ top: 18, right: 0, left: 12, bottom: 18 }} onMouseMove={(state: any) => { const i = state?.activePayload?.[0]?.payload?.index; if (Number.isInteger(i)) setFocused(i) }}>
+        <CartesianGrid stroke="#d8dde5" strokeDasharray="2 6" vertical={false}/>
+        <XAxis dataKey="t" type="number" domain={xDomain} ticks={ticks} tickFormatter={dateTick} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={24} tick={{ fill: '#667586', fontSize: 11 }}/>
+        <YAxis orientation="right" domain={domain} allowDataOverflow tickFormatter={v => `${v}%`} axisLine={false} tickLine={false} width={50} tick={{ fill: '#667586', fontSize: 12 }}/>
+        <Tooltip labelFormatter={t => formatHistoryDate(Number(t), true)} formatter={(value: number) => [`${value.toFixed(2)}%`, 'Yes']} contentStyle={{ border: '1px solid #e1e5e9', borderRadius: 6, fontSize: 12 }}/>
+        <Line dataKey="p" type="linear" stroke="#2156ff" strokeWidth={2.2} dot={rows.length < 20 ? { r: 3 } : false} isAnimationActive={false}/>
+        {selected && <ReferenceDot x={selected.t} y={selected.p * 100} r={4} fill="#2156ff" stroke="#fff" isFront/>}
+        {stats && <ReferenceLine y={stats.first.p * 100} stroke="#9ea7b1" strokeDasharray="4 5"/>}
+      </LineChart></ResponsiveContainer> : <div className="prediction-empty-chart">{zh ? '这个范围没有真实成交采样。可改为“最后实际成交”基准，或查看“全部记录”。' : 'No actual trades in this range. Use the last-trade anchor or select all history.'}</div>}
+    </div>
     <div className="forecast-chart-controls">
       <div className="prediction-ranges">{[[24, zh ? '近一天' : '1 day'], [168, zh ? '近一周' : '1 week'], [720, zh ? '近一月' : '1 month'], [2160, zh ? '近三月' : '3 months'], [0, zh ? '全部记录' : 'All history']].map(([n, label]) => <button key={n} aria-pressed={!from && !to && hours === n} onClick={() => chooseRange(Number(n))}>{label}</button>)}</div>
       <label>{zh ? '时间窗口基准' : 'Window anchor'}<select value={anchor} onChange={e => setAnchor(e.target.value as 'trade' | 'archive')}><option value="trade">{zh ? '最后实际成交' : 'Last actual trade'}</option><option value="archive">{zh ? '存档截止' : 'Archive boundary'}</option></select></label>
@@ -56,18 +68,6 @@ export function ForecastHistoryChart({ id, points, cutoff, snapshot, zh, sourceU
       <div><span>{zh ? '窗口成交采样' : 'Window observations'}</span><strong>{stats.count.toLocaleString()}</strong><small>{zh ? '不是独立参与人数' : 'Not unique participants'}</small></div>
       <div><span>{zh ? '最大无成交间隔' : 'Largest gap between trades'}</span><strong>{stats.count<2?'—':duration(stats.maxGap, zh)}</strong><small>{stats.count < 2 ? (zh ? '仅一笔，无法计算间隔' : 'One observation; no interval') : (zh ? '间隔期间没有新价格观测' : 'No intervening observations')}</small></div>
     </div>}
-    <div className="forecast-plot-label"><span>{zh ? 'Yes 概率 · UTC 日期' : 'Yes probability · UTC dates'}</span><span>{zoom ? `${zh ? '局部纵轴' : 'Focused vertical scale'} ${domain[0]}–${domain[1]}%` : '0–100%'}</span></div>
-    <div className="prediction-chart forecast-probability-chart" role="img" aria-label={zh ? '事件历史成交概率曲线，横轴为真实日期' : 'Historical probability by actual trade date'}>
-      {rows.length ? <ResponsiveContainer width="100%" height="100%"><LineChart data={data} margin={{ top: 18, right: 0, left: 12, bottom: 18 }} onMouseMove={(state: any) => { const i = state?.activePayload?.[0]?.payload?.index; if (Number.isInteger(i)) setFocused(i) }}>
-        <CartesianGrid stroke="#d8dde5" strokeDasharray="2 6" vertical={false}/>
-        <XAxis dataKey="t" type="number" domain={xDomain} ticks={ticks} tickFormatter={dateTick} axisLine={false} tickLine={false} interval="preserveStartEnd" minTickGap={24} tick={{ fill: '#667586', fontSize: 11 }}/>
-        <YAxis orientation="right" domain={domain} allowDataOverflow tickFormatter={v => `${v}%`} axisLine={false} tickLine={false} width={50} tick={{ fill: '#667586', fontSize: 12 }}/>
-        <Tooltip labelFormatter={t => formatHistoryDate(Number(t), true)} formatter={(value: number) => [`${value.toFixed(2)}%`, 'Yes']} contentStyle={{ border: '1px solid #e1e5e9', borderRadius: 6, fontSize: 12 }}/>
-        <Line dataKey="p" type="linear" stroke="#2156ff" strokeWidth={2.2} dot={rows.length < 20 ? { r: 3 } : false} isAnimationActive={false}/>
-        {selected && <ReferenceDot x={selected.t} y={selected.p * 100} r={4} fill="#2156ff" stroke="#fff" isFront/>}
-        {stats && <ReferenceLine y={stats.first.p * 100} stroke="#9ea7b1" strokeDasharray="4 5"/>}
-      </LineChart></ResponsiveContainer> : <div className="prediction-empty-chart">{zh ? '这个范围没有真实成交采样。可改为“最后实际成交”基准，或查看“全部记录”。' : 'No actual trades in this range. Use the last-trade anchor or select all history.'}</div>}
-    </div>
     <p className="forecast-chart-note">{zh ? '灰虚线为窗口首笔概率。相邻采样仅以直线连接，不能据此推断间隔中的报价；没有补造交易点。' : 'The grey dashed line marks the first trade. Straight connectors do not establish prices between observations; no trades are synthesized.'}</p>
     {selected && <div className="forecast-point-reader">
       <div className="forecast-selected-point" aria-live="polite"><div><span>{zh ? '选中成交时间' : 'Selected trade time'}</span><strong>{formatHistoryDate(selected.t, true)}</strong></div><div><span>Yes</span><strong>{percent(selected.p)}</strong></div><div><span>{zh ? '较窗口内前一笔' : 'Versus previous trade in window'}</span><strong>{previous ? percentagePoints((selected.p - previous.p) * 100, zh) : '—'}</strong></div></div>

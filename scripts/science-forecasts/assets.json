@@ -120,5 +120,75 @@
     "assetPage": "https://supplychain.wemakeithere.org/manufacturers/superpower-inc-t3ym2ogb",
     "note": "Manufacturer directory logo; company host certificate expired; no TLS bypass used.",
     "sha256": "38252f14e855ee95264221071d2fd6fcdf76f0b17d4f83a07ca5b1e1b1940aa1"
+  },
+  {
+    "id": "helion",
+    "url": "https://www.helionenergy.com/",
+    "logo": "images/science-forecasts/helion.png",
+    "assetSource": "https://cdn.prod.website-files.com/6995dc80c8af0e2cfe2a7e86/699cba3ba161166f540b1b2f_helion_transparent_favicon_32x32%201.png",
+    "sha256": "a9c28c868d6cadceb4fff10396d9b2a5b5192a2deb13bb146be59ace36bc2b2f"
+  },
+  {
+    "id": "googlequantum",
+    "url": "https://quantumai.google/",
+    "logo": "images/science-forecasts/googlequantum.png",
+    "assetSource": "https://www.gstatic.com/devrel-devsite/prod/v5a0f9ff8b593048661361a49e11ab98a8b1ac025e19e60e6189f2b56796f8a43/quantum/images/favicon.png",
+    "sha256": "b8b50837a11ba0ef28d5e55f6937043f10d5ff812f77a25e7909dee4995c4645"
+  },
+  {
+    "id": "oxfordpv",
+    "url": "https://www.oxfordpv.com/",
+    "logo": "images/science-forecasts/oxfordpv.png",
+    "assetSource": "https://cdn.prod.website-files.com/6889d6b022777c95d667f7cb/6889df31076b290e05a77497_Favicon.png",
+    "sha256": "e6695d0d23559084e2dc85ce5de20640788c7b78050bb778b165f6ccabb90fc0"
+  },
+  {
+    "id": "catl",
+    "url": "https://www.catl.com/en/",
+    "logo": "images/science-forecasts/catl.ico",
+    "assetSource": "https://www.catl.com/favicon.ico",
+    "sha256": "5391100e6de4db5323f4d985996cf6b812126a074dff269e7b26ad66690d0b62"
+  },
+  {
+    "id": "eia",
+    "url": "https://www.eia.gov/",
+    "logo": "images/science-forecasts/eia.ico",
+    "assetSource": "https://www.eia.gov/favicon.ico",
+    "sha256": "9f6c640f1d856d682b33c43270e486ad481508bda3a39438185cb8a3508b8df5"
+  },
+  {
+    "id": "iea",
+    "url": "https://www.iea.org/",
+    "logo": "images/science-forecasts/iea.ico",
+    "assetSource": "https://www.iea.org/assets/front/images/favicon.ico",
+    "sha256": "a9f24d3b341f4ef6e6d346833b54d09423a2af74447969ab7c782b10aa03f4e3"
+  },
+  {
+    "id": "insilico-shanghai",
+    "url": "https://insilico.com/",
+    "logo": "images/science-forecasts/insilico-shanghai.ico",
+    "assetSource": "https://insilico.com/favicon.ico",
+    "sha256": "bbff5b1bb1a1be9847ec026f4e80dc704edc42c214ec53ce34bd59d365fd60ce"
+  },
+  {
+    "id": "scripps",
+    "url": "https://magazine.scripps.edu/",
+    "logo": "images/nobel/organizations/scripps.ico",
+    "assetSource": "https://magazine.scripps.edu/favicon.ico",
+    "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08"
+  },
+  {
+    "id": "princeton",
+    "url": "https://www.princeton.edu/",
+    "logo": "images/nobel/organizations/princeton.ico",
+    "assetSource": "https://www.princeton.edu/favicon.ico",
+    "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
+  },
+  {
+    "id": "berkeley",
+    "url": "https://chemistry.berkeley.edu/",
+    "logo": "images/nobel/organizations/berkeley.svg",
+    "assetSource": "https://chemistry.berkeley.edu/",
+    "sha256": "e26edfb8ff8828026ebc7eb8a2fe1353c9d459021c703f159dc3dbce5116fab5"
   }
 ]

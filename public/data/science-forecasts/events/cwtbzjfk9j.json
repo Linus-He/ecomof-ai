@@ -1,0 +1,180 @@
+{
+  "id": "cwtbzjfk9j",
+  "topicId": "quantum-computing",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/cyberhype55/will-a-fully-error-corrected-quantu",
+  "originalTitle": "Will a fully error corrected quantum computer capable of running 100 million gates be created before 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.13540781445577457,
+  "volume": 195,
+  "participants": 4,
+  "createdTime": 1722605625314,
+  "closeTime": 1893481140000,
+  "resolutionTime": null,
+  "observedAt": 1792928664898,
+  "historyCutoff": 1792928664898,
+  "points": [
+    {
+      "t": 1722610869552,
+      "p": 0.3415018549518627
+    },
+    {
+      "t": 1722620776115,
+      "p": 0.22070121846295698
+    },
+    {
+      "t": 1722637819323,
+      "p": 0.10837840951929209
+    },
+    {
+      "t": 1723594797763,
+      "p": 0.13540781445577457
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.13540781445577457,
+  "lastTradeAt": 1723594797763,
+  "sourceApi": "https://api.manifold.markets/v0/market/cwtbzjfk9j",
+  "provenance": {
+    "marketSha256": "ab718d8898c4bf5d277d4a542be759180ca173f12e0bf938db0b8cb19f945cec",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=cwtbzjfk9j&limit=1000",
+        "sha256": "2f96e3ac8f9f1036875acc63207bfe6fe8ac0180dc6ef68ca39f7825eb9ffb43",
+        "rows": 5
+      }
+    ],
+    "fetchedTradeRows": 5,
+    "acceptedTradeRows": 4,
+    "excludedTradeRows": 1
+  },
+  "stage": "validation",
+  "title": [
+    "2030 年前会出现可执行一亿个门的纠错量子计算机吗？",
+    "Will an error-corrected quantum computer capable of 100 million gates exist before 2030?"
+  ],
+  "rules": [
+    [
+      "原文要求在 2030-01-01 当日或之前，公告具备有效纠错和一亿门能力的量子计算机，并有非零第三方验证；未附加其他性能要求。",
+      "The description requires an announcement on or before 2030-01-01 of effective error correction and 100-million-gate capability, with nonzero third-party verification and no further performance conditions."
+    ]
+  ],
+  "interpretation": [
+    "标题写“2030 年前”，正文含 1 月 1 日当日；门的种类与验证强度并未完整量化。",
+    "The title says before 2030; the description includes 1 January. Gate type and verification strength are not fully quantified."
+  ],
+  "entities": [
+    "googlequantum"
+  ],
+  "evidence": [
+    "quantum-willow",
+    "quantum-google-explanation"
+  ],
+  "briefing": {
+    "contextId": "quantum-correction",
+    "summary": [
+      "原题把有效纠错、长电路能力和第三方验证放在一起；逻辑存储器突破并不单独满足这些条件。",
+      "The question combines effective correction, long-circuit capability and third-party verification; a logical-memory result alone is insufficient."
+    ],
+    "checklist": [
+      [
+        "核对门数是物理门还是逻辑门。",
+        "Check whether counts refer to physical or logical gates."
+      ],
+      [
+        "查看纠错是否在长电路中有效运行。",
+        "Verify effective correction during long circuits."
+      ],
+      [
+        "核实公告、独立验证及截止日期。",
+        "Verify the announcement, third-party checks and deadline."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "oocJB7zxHwURka0HYfbo"
+  ],
+  "industry": {
+    "entities": [
+      "googlequantum"
+    ],
+    "evidence": [
+      "quantum-willow",
+      "quantum-google-explanation"
+    ],
+    "stage": [
+      "研究验证与商业交付",
+      "Research validation and commercial delivery"
+    ],
+    "impact": [
+      "Willow 的阈值以下存储实验提供了纠错可扩展性的具体证据。评估一亿门目标还需看逻辑运算、解码和长程序错误，而非只比较物理比特数量。",
+      "Willow provides specific evidence for scalable correction in a memory. The 100-million-gate target additionally requires logical operations, decoding and long-program error evidence rather than physical-qubit counts alone."
+    ],
+    "gap": [
+      "原题对门数与第三方验证定义较宽，保留规则不足提示。",
+      "The gate and verification definitions remain broad and are flagged."
+    ]
+  },
+  "context": {
+    "id": "quantum-correction",
+    "title": [
+      "物理比特、逻辑存储与逻辑运算",
+      "Physical qubits, logical memory and logical operations"
+    ],
+    "principle": [
+      "逻辑比特由多个物理比特编码，并通过重复测量和解码识别错误。逻辑存储器保持信息，与执行长串通用逻辑门是不同任务；门数也必须说明是物理门还是逻辑门。",
+      "Logical qubits encode information across physical qubits using repeated measurement and decoding. Preserving a memory differs from executing long general circuits; gate counts must identify physical or logical operations."
+    ],
+    "example": [
+      "Willow 研究通过增大表面码距离观察逻辑错误的抑制。一亿门市场还要求对具备纠错能力的计算机进行公告和第三方验证，不能仅用芯片比特数或随机线路基准替代。",
+      "Willow tests logical-error suppression as code distance increases. The 100-million-gate contract additionally requires an announcement and third-party verification, rather than chip size or a random-circuit benchmark."
+    ],
+    "evidence": [
+      "quantum-willow",
+      "quantum-google-explanation"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1722610869552,
+      "p": 0.3415018549518627
+    },
+    "last": {
+      "t": 1723594797763,
+      "p": 0.13540781445577457
+    },
+    "change": -20.609404049608813,
+    "low": 0.10837840951929209,
+    "high": 0.3415018549518627,
+    "staleDays": 802.4753140625
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则定义待补充",
+        "Incomplete rule definitions"
+      ],
+      "detail": [
+        "标题与正文的截止表述略有差异；门类型与第三方验证强度未量化。",
+        "Title/body deadline wording differs; gate type and verification strength are not quantified."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 4,
+  "detailFile": "events/cwtbzjfk9j.json"
+}

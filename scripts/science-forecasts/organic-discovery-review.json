@@ -1,0 +1,56 @@
+{
+  "reviewedAt": "2026-10-25",
+  "source": "Manifold public search API",
+  "scope": "Curated search, not an exhaustive platform-wide claim",
+  "acceptedNewMarkets": 0,
+  "queries": [
+    {
+      "term": "organic chemistry",
+      "returnedCount": 12,
+      "url": "https://api.manifold.markets/v0/search-markets?term=organic%20chemistry&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "AI chemist",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=AI%20chemist&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "PET recycling",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=PET%20recycling&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "retrosynthesis",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=retrosynthesis&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "organocatalysis",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=organocatalysis&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "chemical synthesis",
+      "returnedCount": 8,
+      "url": "https://api.manifold.markets/v0/search-markets?term=chemical%20synthesis&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "photoredox",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=photoredox&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    },
+    {
+      "term": "biodegradable plastic",
+      "returnedCount": 0,
+      "url": "https://api.manifold.markets/v0/search-markets?term=biodegradable%20plastic&limit=15&sort=liquidity&filter=all",
+      "decision": "No directly matching, sufficiently defined market selected; unrelated, subjective and poorly specified automation contracts were excluded."
+    }
+  ]
+}
