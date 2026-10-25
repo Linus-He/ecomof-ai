@@ -1,0 +1,168 @@
+{
+  "id": "GJf5q3WjqIIiArUkpxbl",
+  "topicId": "superconductors",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/LivInTheLookingGlass/will-a-commercially-available-devic-f2595895809b",
+  "originalTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.05260296552958812,
+  "volume": 2521.702154801023,
+  "participants": 19,
+  "createdTime": 1691047537239,
+  "closeTime": 1893560340000,
+  "resolutionTime": null,
+  "observedAt": 1792909922706,
+  "historyCutoff": 1792909922706,
+  "points": [
+    {
+      "t": 1691047614442,
+      "p": 0.5901639344262294
+    },
+    {
+      "t": 1691048530105,
+      "p": 0.3966505068312033
+    },
+    {
+      "t": 1691056088175,
+      "p": 0.3446282429394025
+    },
+    {
+      "t": 1691440955002,
+      "p": 0.35831394296889707
+    },
+    {
+      "t": 1691480850501,
+      "p": 0.2790889016526586
+    },
+    {
+      "t": 1691512531885,
+      "p": 0.258124435691556
+    },
+    {
+      "t": 1691537671579,
+      "p": 0.27892052045026433
+    },
+    {
+      "t": 1691555167699,
+      "p": 0.21598618209695464
+    },
+    {
+      "t": 1691565508940,
+      "p": 0.20496425794537976
+    },
+    {
+      "t": 1691577756028,
+      "p": 0.18547618689130918
+    },
+    {
+      "t": 1691620475725,
+      "p": 0.1500638420124062
+    },
+    {
+      "t": 1691979269952,
+      "p": 0.2615943755924777
+    },
+    {
+      "t": 1691983204355,
+      "p": 0.24700728974968078
+    },
+    {
+      "t": 1692300444404,
+      "p": 0.27748761418959744
+    },
+    {
+      "t": 1696002984587,
+      "p": 0.24554444132589787
+    },
+    {
+      "t": 1714005058493,
+      "p": 0.23384421786997242
+    },
+    {
+      "t": 1714625267305,
+      "p": 0.22397586003935419
+    },
+    {
+      "t": 1714657574252,
+      "p": 0.18311232373923
+    },
+    {
+      "t": 1714714416872,
+      "p": 0.1763397865869655
+    },
+    {
+      "t": 1714816523497,
+      "p": 0.17057513778381286
+    },
+    {
+      "t": 1714833478116,
+      "p": 0.1645109778988646
+    },
+    {
+      "t": 1714843314979,
+      "p": 0.16392332260782694
+    },
+    {
+      "t": 1717326698800,
+      "p": 0.13887248179594058
+    },
+    {
+      "t": 1720866525455,
+      "p": 0.13364356845885866
+    },
+    {
+      "t": 1725883869211,
+      "p": 0.1287526173265984
+    },
+    {
+      "t": 1744010067766,
+      "p": 0.08112146070452249
+    },
+    {
+      "t": 1754859081888,
+      "p": 0.05260296552958812
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.05260296552958812,
+  "lastTradeAt": 1754859081888,
+  "sourceApi": "https://api.manifold.markets/v0/market/GJf5q3WjqIIiArUkpxbl",
+  "provenance": {
+    "marketSha256": "98f37653303ac17026e08ab667c32698407badec966ff69cd5653e9f4162e035",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=GJf5q3WjqIIiArUkpxbl&limit=1000",
+        "sha256": "9f9be0e6622b7e8a090759e070a76c5f968c6a9aa3f88c9c4fd58d4b5eb18fcf",
+        "rows": 41
+      }
+    ],
+    "fetchedTradeRows": 41,
+    "acceptedTradeRows": 27,
+    "excludedTradeRows": 14
+  },
+  "stage": "engineering",
+  "title": [
+    "2030 年前是否出现常压高于 0 °C 的超导商品？",
+    "Will a commercial device use ambient-pressure superconductivity above 0 °C before 2030?"
+  ],
+  "rules": [
+    [
+      "要求可商业获得的设备使用常压、高于 0 °C、无需主动冷却的超导体。",
+      "Requires a commercially available device using ambient-pressure superconductors above 0 °C without active cooling."
+    ]
+  ],
+  "interpretation": [
+    "这是商业器件事件，不限 LK-99。高于 0 °C 也与另一个市场的 0–30 °C 范围不同。",
+    "This device contract is not limited to LK-99; above 0 °C differs from another contract’s 0–30 °C range."
+  ],
+  "entities": [],
+  "evidence": [
+    "lk99-replication"
+  ],
+  "quality": [],
+  "tradePoints": 27,
+  "detailFile": "events/GJf5q3WjqIIiArUkpxbl.json"
+}

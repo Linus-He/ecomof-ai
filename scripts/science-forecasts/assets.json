@@ -1,0 +1,44 @@
+[
+  {
+    "id": "donutlab",
+    "url": "https://www.donutlab.com/",
+    "logo": "images/science-forecasts/donutlab.png",
+    "assetSource": "https://mlaygxxmuaqg.i.optimole.com/w:32/h:32/q:mauto/f:best/dpr:2/https://www.donutlab.com/wp-content/uploads/2025/09/cropped-cropped-DonutLab-Logo-Symbol-contrast.png",
+    "sha256": "870747b06f92e0b836ddad5cd2f12f2cd5d897f167e735e479a2f651b30aa783"
+  },
+  {
+    "id": "vtt",
+    "url": "https://www.vttresearch.com/en",
+    "logo": "images/science-forecasts/vtt.png",
+    "assetSource": "https://www.vttresearch.com/themes/custom/vtt/images/favicons/favicon-16x16.png",
+    "sha256": "b5c34537ea150fa0561022e964f68ab556bd922d42e956465b4123d842720635"
+  },
+  {
+    "id": "quantumscape",
+    "url": "https://www.quantumscape.com/",
+    "logo": "images/science-forecasts/quantumscape.png",
+    "assetSource": "https://www.quantumscape.com/wp-content/uploads/2021/10/cropped-qs-bug-new-blk-32x32.png",
+    "sha256": "7745adfe5c9f855a9ec73e51f95775e8e52c4b0818a853f6b9e0c88f650dd8c7"
+  },
+  {
+    "id": "powerco",
+    "url": "https://www.powerco.de/en.html",
+    "logo": "images/science-forecasts/powerco.png",
+    "assetSource": "https://static-p131402-e1278943.adobeaemcloud.com/6faa1a4f9f24521ba487565406681abba07ca9cccd464a6f62af036778c572c1/resources/images/favicon.png",
+    "sha256": "09ae0620b3886890fc1e27a05b55944e5c1b70d28ce7b05d68ab5c45301997ac"
+  },
+  {
+    "id": "toyota",
+    "url": "https://global.toyota/en/",
+    "logo": "images/science-forecasts/toyota.png",
+    "assetSource": "https://global.toyota/apple-touch-icon-precomposed.png",
+    "sha256": "bf2771b5efcb96aa89d775d120f19a087691c948b4b77f35d851bd934ae65990"
+  },
+  {
+    "id": "apple",
+    "url": "https://www.apple.com/",
+    "logo": "images/science-forecasts/apple.ico",
+    "assetSource": "https://www.apple.com/favicon.ico",
+    "sha256": "5493c61cf725cf3a1d63cd9d07de75b0d6faa5564e772f7d0a6074f341442938"
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "id": "2UE5OE8cAwOnRANIwyGi",
+  "topicId": "solid-state-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/B/before-2030-toyota-will-be-selling",
+  "originalTitle": "Before 2030, Toyota will be selling cars with solid-state batteries with a >=1000km range chargeable in under 15 minutes",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.19999999999999987,
+  "volume": 139.6009214748521,
+  "participants": 8,
+  "createdTime": 1688539333250,
+  "closeTime": 1798876740000,
+  "resolutionTime": null,
+  "observedAt": 1792909906974,
+  "historyCutoff": 1792909906974,
+  "points": [
+    {
+      "t": 1688541603842,
+      "p": 0.3378378378378379
+    },
+    {
+      "t": 1688542206800,
+      "p": 0.21691973969631242
+    },
+    {
+      "t": 1688564720476,
+      "p": 0.16832590583991658
+    },
+    {
+      "t": 1689066997497,
+      "p": 0.16829224327580458
+    },
+    {
+      "t": 1703394816899,
+      "p": 0.1590891784740037
+    },
+    {
+      "t": 1713209679815,
+      "p": 0.18037808112362408
+    },
+    {
+      "t": 1779772793864,
+      "p": 0.18037808112362425
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.18037808112362425,
+  "lastTradeAt": 1779772793864,
+  "sourceApi": "https://api.manifold.markets/v0/market/2UE5OE8cAwOnRANIwyGi",
+  "provenance": {
+    "marketSha256": "385593f88c16ddefd1c394c9f005acd0534d6eed2263fca3e202d42209ebf5a5",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=2UE5OE8cAwOnRANIwyGi&limit=1000",
+        "sha256": "4413b4cc4caf18995dacebc1bfe2d0a4743e027b4e08657e8920452b04a0af47",
+        "rows": 11
+      }
+    ],
+    "fetchedTradeRows": 11,
+    "acceptedTradeRows": 7,
+    "excludedTradeRows": 4
+  },
+  "stage": "engineering",
+  "title": [
+    "Toyota 固态电池汽车能否同时达到续航与充电目标？",
+    "Will Toyota’s solid-state cars meet both range and charging targets?"
+  ],
+  "rules": [
+    [
+      "原题要求 2030 年前销售、续航至少 1000 km、充电少于 15 分钟，并采用固态电池。",
+      "The question combines sales before 2030, at least 1,000 km range, charging under 15 minutes and solid-state batteries."
+    ]
+  ],
+  "interpretation": [
+    "四个条件需要同时核对。原题未充分给出续航测试工况和充电区间，不把宣传中的不同测试数字拼成一次验证。",
+    "All conditions require review. Range test cycles and charging intervals are underspecified; separate promotional measurements must not be combined."
+  ],
+  "entities": [
+    "toyota"
+  ],
+  "evidence": [],
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 7,
+  "detailFile": "events/2UE5OE8cAwOnRANIwyGi.json"
+}

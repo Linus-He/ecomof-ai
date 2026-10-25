@@ -1,0 +1,486 @@
+{
+  "markets": [
+    {
+      "id": "SAIUNdCI8U",
+      "stage": "validation",
+      "title": [
+        "Donut Battery 的锂质量分数会低于 0.1% 吗？",
+        "Will the Donut Battery contain less than 0.1% lithium by weight?"
+      ],
+      "rules": [
+        [
+          "规则以锂质量分数低于 0.1% 为 Yes，达到或超过该值为 No。",
+          "Yes requires lithium below 0.1% by weight; at least 0.1% resolves No."
+        ]
+      ],
+      "interpretation": [
+        "需要能对应到被测电池的第三方成分证据；快充、能量密度或公司“无锂”说法不能替代成分分析。",
+        "Independent composition evidence must identify the tested battery. Charging speed, energy density and company descriptions do not establish elemental composition."
+      ],
+      "entities": [
+        "donutlab",
+        "vtt"
+      ],
+      "evidence": [
+        "battery-testing"
+      ]
+    },
+    {
+      "id": "URnpyLNL6s",
+      "stage": "engineering",
+      "title": [
+        "指定车企能否在 2030 年内完成 Donut 电池乘用车交付？",
+        "Will a listed automaker deliver a Donut-powered passenger vehicle by the end of 2030?"
+      ],
+      "rules": [
+        [
+          "限原规则列出的 19 家车企、合法上路的量产乘用车，以及明确使用 Donut 主动力电池的车型。至少一名非员工零售客户须实际收车。",
+          "Restricted to the 19 named automakers, road-legal production passenger vehicles and an explicitly identified Donut traction battery. A non-employee retail customer must receive a vehicle."
+        ]
+      ],
+      "interpretation": [
+        "预订、概念车和测试样车不算交付；Verge 摩托车也不在这一乘用车市场的适用范围内。",
+        "Preorders, concept cars and test vehicles do not qualify. Verge motorcycles fall outside this passenger-car contract."
+      ],
+      "entities": [
+        "donutlab"
+      ],
+      "evidence": [
+        "battery-testing"
+      ]
+    },
+    {
+      "id": "5yR6nLsLlu",
+      "stage": "engineering",
+      "title": [
+        "消费者能否购买低于 5 万美元的固态电池摩托车？",
+        "Will a solid-state motorcycle be purchasable below US$50,000?"
+      ],
+      "rules": [
+        [
+          "原题以 2026 年结束前可以买到符合条件的摩托车为判断对象，价格门槛为 5 万美元。",
+          "The original question asks about availability before the end of 2026 with a US$50,000 price ceiling."
+        ]
+      ],
+      "interpretation": [
+        "购买资格、订单与实际交付并不相同；原描述细则有限，判断前须查看市场创建者的解释。",
+        "Availability, ordering and physical delivery differ. The description supplies limited detail; review the creator’s clarifications."
+      ],
+      "entities": [
+        "donutlab"
+      ],
+      "evidence": [
+        "battery-testing"
+      ]
+    },
+    {
+      "id": "E6A6gylOZq",
+      "stage": "engineering",
+      "title": [
+        "LLZO 固态电池能否达到 2029 年商业生产门槛？",
+        "Will LLZO solid-state packs reach the 2029 commercial-production threshold?"
+      ],
+      "rules": [
+        [
+          "要求 LLZO 石榴石电解质路线，单个设施年化至少 1 GWh，并核对商业交付及生产运行证据。",
+          "Requires LLZO garnet chemistry, at least 1 GWh annualized at a single facility, with commercial-delivery and production evidence."
+        ]
+      ],
+      "interpretation": [
+        "公告中的未来产能不等于实际运行；硫化物路线或低于门槛的中试生产不满足同一标准。",
+        "Announced future capacity is not an operating run rate. Sulfide chemistry and below-threshold pilots do not meet this contract."
+      ],
+      "entities": [],
+      "evidence": []
+    },
+    {
+      "id": "hznAd5Sh0S",
+      "stage": "engineering",
+      "title": [
+        "LLZO 固态电池能否达到 2027 年商业生产门槛？",
+        "Will LLZO solid-state packs reach the 2027 commercial-production threshold?"
+      ],
+      "rules": [
+        [
+          "核对单个设施至少 1 GWh 年化产量和 LLZO 电解质路线；时间边界与 2029 年市场不同。",
+          "Checks a single-facility annualized 1 GWh threshold and LLZO chemistry, with a different horizon from the 2029 market."
+        ]
+      ],
+      "interpretation": [
+        "两个期限的事件是独立市场，不能合并为一条概率，也不能把它们的成交额重复计作同一订单。",
+        "The two horizons are separate contracts, not one probability series or a shared order-volume measure."
+      ],
+      "entities": [],
+      "evidence": []
+    },
+    {
+      "id": "Shc85pllS8",
+      "stage": "engineering",
+      "title": [
+        "QuantumScape 与 PowerCo 的 Unified Cell 样品确认",
+        "QuantumScape and PowerCo Unified Cell sample confirmation"
+      ],
+      "rules": [
+        [
+          "要求双方通过官方材料确认 QS 陶瓷隔膜进入 PowerCo Unified Cell 格式，且至少产出一个样品。",
+          "Requires official confirmation that QS ceramic separators enter PowerCo’s Unified Cell format and at least one sample exists."
+        ]
+      ],
+      "interpretation": [
+        "原题标题写 2026，正文截止写 2025，存在实质冲突。这里保留异常，不按某一个年份替创建者作解释。",
+        "The title names 2026 while the rule text specifies 2025. This conflict is preserved rather than resolved on the creator’s behalf."
+      ],
+      "entities": [
+        "quantumscape",
+        "powerco"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "yTnpOcsEjYIa0GcasRVg",
+      "stage": "engineering",
+      "title": [
+        "超过 400 Wh/kg 的固态电池能否在 2024 年商业发布？",
+        "Would a solid-state battery above 400 Wh/kg be commercially released in 2024?"
+      ],
+      "rules": [
+        [
+          "原规则要求超过能量密度门槛，并能商业购买或订购；平台已判定 No。",
+          "The rule requires exceeding the energy-density threshold and commercial purchase or ordering; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "单个实验样品达到数值，不自动满足商业可购条件；平台结算也不能替代所有电池产品的技术审查。",
+        "A laboratory sample does not automatically establish commercial availability. Settlement is not a technical review of every battery product."
+      ],
+      "entities": [],
+      "evidence": []
+    },
+    {
+      "id": "jVXPWByYV1uHFNzjULf6",
+      "stage": "engineering",
+      "title": [
+        "美国能否在 2024 年收到固态电池汽车或卡车？",
+        "Would a solid-state car or truck be delivered in the US in 2024?"
+      ],
+      "rules": [
+        [
+          "原题关注美国境内汽车或卡车交付，平台已判定 No。",
+          "The question concerns car or truck delivery in the US; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "API 描述未提供进一步规则细则。保留原题和判定，不补写“全固态”、客户类型或产量门槛。",
+        "The API description supplies no further rules. No all-solid-state, customer-type or production threshold has been invented."
+      ],
+      "entities": [],
+      "evidence": []
+    },
+    {
+      "id": "n0dowx6m17",
+      "stage": "engineering",
+      "title": [
+        "Apple 是否推出使用固态电池的 iPhone？",
+        "Will Apple release an iPhone using a solid-state battery?"
+      ],
+      "rules": [
+        [
+          "原题期限为 2026 年结束前，指向使用固态电池的 iPhone 产品发布。",
+          "The question concerns an iPhone release using a solid-state battery before the end of 2026."
+        ]
+      ],
+      "interpretation": [
+        "描述仅提供电池概念链接，没有完整定义固态比例、样机与零售版本的区别。相关缺口保持可见。",
+        "The description links a general battery definition without defining solid fraction or prototype versus retail release."
+      ],
+      "entities": [
+        "apple"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "2UE5OE8cAwOnRANIwyGi",
+      "stage": "engineering",
+      "title": [
+        "Toyota 固态电池汽车能否同时达到续航与充电目标？",
+        "Will Toyota’s solid-state cars meet both range and charging targets?"
+      ],
+      "rules": [
+        [
+          "原题要求 2030 年前销售、续航至少 1000 km、充电少于 15 分钟，并采用固态电池。",
+          "The question combines sales before 2030, at least 1,000 km range, charging under 15 minutes and solid-state batteries."
+        ]
+      ],
+      "interpretation": [
+        "四个条件需要同时核对。原题未充分给出续航测试工况和充电区间，不把宣传中的不同测试数字拼成一次验证。",
+        "All conditions require review. Range test cycles and charging intervals are underspecified; separate promotional measurements must not be combined."
+      ],
+      "entities": [
+        "toyota"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "8m2QavDR1KYRdV3g8aDf",
+      "stage": "validation",
+      "title": [
+        "2033 年前能否发现并测得室温常压超导？",
+        "Will a room-temperature ambient-pressure superconductor be demonstrated before 2033?"
+      ],
+      "rules": [
+        [
+          "原规则要求发现、合成和测量；其室温定义为 0–30 °C，常压为 0.5–2 atm。",
+          "Requires discovery, synthesis and measurement; this contract defines room temperature as 0–30 °C and ambient pressure as 0.5–2 atm."
+        ]
+      ],
+      "interpretation": [
+        "这些范围属于这个市场的定义。其他题目可能用不同温度、压力或证据标准，概率不应直接混合。",
+        "These are contract-specific definitions. Other markets may use different temperature, pressure or evidential requirements."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "tV8TUnUEXherIZzyoywQ",
+      "stage": "validation",
+      "title": [
+        "LK-99 能否在最初的短期窗口得到复现？",
+        "Would LK-99 replicate in the initial short-term window?"
+      ],
+      "rules": [
+        [
+          "原题截止为 2023 年 8 月中旬；平台判定 No，保留结算及停盘前的成交历史。",
+          "The original horizon is mid-August 2023; the platform resolved No and pre-close/pre-resolution trades are retained."
+        ]
+      ],
+      "interpretation": [
+        "市场描述没有一套完整的复现验收清单。研究论文、市场创建者的判断与最后成交概率需要分别阅读。",
+        "The description does not provide a complete replication checklist. Papers, creator judgments and last-trade probabilities remain separate."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "kphkIrlmHjGcCssSiHdi",
+      "stage": "validation",
+      "title": [
+        "LK-99 室温常压超导的后续复现判断",
+        "Subsequent replication assessment of LK-99 superconductivity"
+      ],
+      "rules": [
+        [
+          "描述提出零电阻、迈斯纳效应及相变相关证据，并要求核对合成材料身份。",
+          "The description discusses zero resistance, the Meissner effect, phase-transition evidence and synthesized material identity."
+        ]
+      ],
+      "interpretation": [
+        "规则末尾又引用另一年份市场的判定，标题与关联市场边界需要人工核对；本站不把最后成交当作科学定论。",
+        "A later rule delegates resolution to another-year market. That dependency needs manual review; the last trade is not a scientific verdict."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "S1JzUyhBphhmBZF6UTLr",
+      "stage": "validation",
+      "title": [
+        "是否出现独立团队的 LK-99 实验论文？",
+        "Would an independent team publish an LK-99 experimental paper?"
+      ],
+      "rules": [
+        [
+          "原规则判断是否由另一研究组在 arXiv 发布 LK-99 实验论文，结果可以支持也可以不支持超导。",
+          "The rule concerns an experimental arXiv paper by a separate group, whether its findings support superconductivity or not."
+        ]
+      ],
+      "interpretation": [
+        "“出现复现实验”与“成功复现超导”是两个不同事件；保留这个题目以显示它们的区别。",
+        "A replication experiment appearing is distinct from superconductivity successfully replicating."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "GJf5q3WjqIIiArUkpxbl",
+      "stage": "engineering",
+      "title": [
+        "2030 年前是否出现常压高于 0 °C 的超导商品？",
+        "Will a commercial device use ambient-pressure superconductivity above 0 °C before 2030?"
+      ],
+      "rules": [
+        [
+          "要求可商业获得的设备使用常压、高于 0 °C、无需主动冷却的超导体。",
+          "Requires a commercially available device using ambient-pressure superconductors above 0 °C without active cooling."
+        ]
+      ],
+      "interpretation": [
+        "这是商业器件事件，不限 LK-99。高于 0 °C 也与另一个市场的 0–30 °C 范围不同。",
+        "This device contract is not limited to LK-99; above 0 °C differs from another contract’s 0–30 °C range."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "H5nCcUUDsH556qedFoUn",
+      "stage": "engineering",
+      "title": [
+        "2025 年前超导商品的历史预测",
+        "Historical prediction of a superconducting commercial device before 2025"
+      ],
+      "rules": [
+        [
+          "与后续器件市场采用相近的常压、温度和冷却条件，时间边界为 2025 年前；平台判定 No。",
+          "Uses similar pressure, temperature and cooling conditions to the later device market, with a pre-2025 horizon; resolved No."
+        ]
+      ],
+      "interpretation": [
+        "保留历史期限，不能用后续发生的结果改写当年市场，也不能把判定 No 解释为技术永远不可行。",
+        "The historical horizon is preserved. Later events cannot rewrite it, and No does not mean permanent technical impossibility."
+      ],
+      "entities": [],
+      "evidence": []
+    },
+    {
+      "id": "xsHh9WCTD1PRuvZwTYqA",
+      "stage": "engineering",
+      "title": [
+        "以 LK-99 复现为前提的商业应用预测",
+        "Commercial adoption conditional on LK-99 replication"
+      ],
+      "rules": [
+        [
+          "这是条件市场；原规则规定，若所依赖的 LK-99 复现市场判 No，则本市场不适用。",
+          "This is conditional: if the referenced LK-99 replication contract resolves No, this contract becomes inapplicable."
+        ]
+      ],
+      "interpretation": [
+        "平台已取消结算。取消不等于 No，历史曲线也不应改成 0%。",
+        "The platform cancelled this market. Cancellation is not No, and history must not be replaced with 0%."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "u1hCf24lNpTqWYEpM2Uq",
+      "stage": "validation",
+      "title": [
+        "AlphaFold 是否参与领先的空气碳捕集方法？",
+        "Would AlphaFold contribute to a leading direct-air-capture method?"
+      ],
+      "rules": [
+        [
+          "原题关注 2026 年中前的 AlphaFold 或其后继技术参与；平台已判定 No。",
+          "The question concerns AlphaFold or a successor contributing before mid-2026; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "原描述对“领先方法”的量化定义有限；这不是 MOF 专用市场，也不能从这次判定推出蛋白质路线没有研究价值。",
+        "The description gives limited quantitative meaning to leading performance. This is not MOF-specific, and settlement does not rule out protein-based research."
+      ],
+      "entities": [
+        "deepmind"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "f6jHUqoKdt8YmpXQjGlO",
+      "stage": "engineering",
+      "title": [
+        "橄榄石碳移除能否达到每年十亿吨量级？",
+        "Will olivine-based carbon removal exceed one billion tonnes per year?"
+      ],
+      "rules": [
+        [
+          "原题要求人为增加的橄榄石路线 CO₂ 捕集量，在 2050 年前超过每年 10⁹ 吨。",
+          "The question requires human-induced olivine-based CO₂ capture above 10⁹ tonnes per year before 2050."
+        ]
+      ],
+      "interpretation": [
+        "这是矿物风化相关市场，不是 MOF 市场；成交和参与者很少，展示原始数量，不把概率称为科学界共识。",
+        "This mineral-weathering contract is not a MOF market. Activity is thin; its probability is not described as scientific consensus."
+      ],
+      "entities": [],
+      "evidence": []
+    }
+  ],
+  "quality": {
+    "Shc85pllS8": [
+      [
+        "规则冲突",
+        "Rule conflict"
+      ],
+      [
+        "标题为 2026，正文截止为 2025。",
+        "Title: 2026; rule-text deadline: 2025."
+      ]
+    ],
+    "kphkIrlmHjGcCssSiHdi": [
+      [
+        "关联规则待核对",
+        "Dependent rule needs review"
+      ],
+      [
+        "规则引用另一年份市场。",
+        "Resolution depends on another-year market."
+      ]
+    ],
+    "jVXPWByYV1uHFNzjULf6": [
+      [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      [
+        "API 描述为空。",
+        "The API description is empty."
+      ]
+    ],
+    "n0dowx6m17": [
+      [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      [
+        "缺少固态电池与产品发布的完整验收定义。",
+        "No full acceptance definition for chemistry or release."
+      ]
+    ],
+    "5yR6nLsLlu": [
+      [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      [
+        "购买和交付边界需要查看原市场澄清。",
+        "Availability versus delivery needs source clarification."
+      ]
+    ],
+    "u1hCf24lNpTqWYEpM2Uq": [
+      [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      [
+        "“领先”的验收标准未充分量化。",
+        "Leading performance is not sufficiently quantified."
+      ]
+    ]
+  }
+}

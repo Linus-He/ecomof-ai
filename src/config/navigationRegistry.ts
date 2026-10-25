@@ -9,7 +9,13 @@ export const DEFAULT_ROUTE_META = meta(
 )
 
 export const NAVIGATION_ROUTES = [
-  { id: "predictionMarkets", tabId: "predictionMarkets", primary: false, domainId: "research", hash: "prediction-markets", label: label("预测市场", "Prediction Markets"), meta: meta("Prediction Markets | EcoMOF-AI", "按年份查看科学奖项的历史预测市场与开奖前隐含概率。"), component: { strategy: "lazy", exportName: "PredictionMarketsPage", load: () => import("../components/pages/PredictionMarketsPage") } },
+  { id: "predictionMarkets", tabId: "predictionMarkets", primary: false, domainId: "research", hash: "science-forecasts", label: label("科学预测", "Science Forecasts"), meta: meta("Science Forecasts | EcoMOF-AI", "查看科学奖项、材料验证与技术落地的原始市场、规则、历史概率及研究证据。"), component: { strategy: "lazy", exportName: "ScienceForecastsPage", load: () => import("../components/pages/ScienceForecastsPage") }, children: [
+    {id:"predictionMarketsLegacy",hash:"prediction-markets",label:label("科学预测","Science Forecasts"),hidden:true},
+    {id:"scienceForecastsNobel",hash:"science-forecasts-nobel",label:label("The Nobel Prize in Chemistry","The Nobel Prize in Chemistry")},
+    {id:"scienceForecastsBatteries",hash:"science-forecasts-solid-state-batteries",label:label("全固态电池预测","Solid-state battery forecasts")},
+    {id:"scienceForecastsSuperconductors",hash:"science-forecasts-superconductors",label:label("室温超导预测","Superconductor forecasts")},
+    {id:"scienceForecastsCarbon",hash:"science-forecasts-carbon-capture",label:label("碳捕集与 MOF 预测","Carbon capture and MOF forecasts")},
+  ] },
   {
     id: "nobelChemistry", tabId: "nobelChemistry", primary: false, domainId: "research", hash: "nobel-chemistry-2026", aliases: ["nobel-chemistry"],
     label: label("The Nobel Prize in Chemistry", "The Nobel Prize in Chemistry"), meta: meta("The Nobel Prize in Chemistry | EcoMOF-AI", "诺贝尔化学奖获奖者、成果解读与官方资料。"),
@@ -30,6 +36,7 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-science-forecasts", hash:"update-science-forecasts", label:label("科学预测专题与全局页面显示修复","Science Forecasts and reliable secondary pages") },
       { id:"update-methodology-reader", hash:"update-methodology-reader", label:label("方法论重绘与市场入口修复","A clearer methodology and reliable market entry") },
       { id:"update-science-refinements", hash:"update-science-refinements", label:label("更完整的历史市场与产业资料","Historical markets and product evidence") },
       { id:"update-prediction-archive", hash:"update-prediction-archive", label:label("在独立页面回看开奖前的判断","A separate forecast archive") },
@@ -652,6 +659,7 @@ export function resolveTabForHash(hash) {
   const normalized = String(hash || "").replace(/^#/, "").trim() || "overview"
   if (HASH_TO_TAB[normalized]) return HASH_TO_TAB[normalized]
   if (/^nobel-chemistry-\d{4}$/.test(normalized)) return "nobelChemistry"
+  if (normalized.startsWith("science-forecasts-")) return "predictionMarkets"
   if (/^prediction-markets-\d{4}(?:-(?:polymarket|manifold|kalshi))?$/.test(normalized)) return "predictionMarkets"
   if (normalized.startsWith("mof-record-")) return "mofRecord"
   if (normalized.startsWith("literature-doi-")) return "literatureRecord"
@@ -678,6 +686,7 @@ export function getNavigationMeta(hash) {
   const item = NAVIGATION_ITEM_BY_HASH[normalized]
   if (item?.meta) return item.meta
   if (normalized.startsWith("methodology-")) return NAVIGATION_ROUTE_BY_TAB.about.meta
+  if (normalized.startsWith("science-forecasts-")) return NAVIGATION_ROUTE_BY_TAB.predictionMarkets.meta
   if (/^prediction-markets-\d{4}(?:-(?:polymarket|manifold|kalshi))?$/.test(normalized)) return NAVIGATION_ROUTE_BY_TAB.predictionMarkets.meta
   if (item?.label) {
     return {

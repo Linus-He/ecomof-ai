@@ -1,0 +1,1483 @@
+{
+  "schemaVersion": "1.0",
+  "snapshot": true,
+  "topics": [
+    {
+      "id": "nobel",
+      "category": [
+        "科学奖项",
+        "Scientific awards"
+      ],
+      "title": [
+        "The Nobel Prize in Chemistry",
+        "The Nobel Prize in Chemistry"
+      ],
+      "deck": [
+        "回看授奖之前的候选人与研究领域预测。",
+        "Candidate and research-field forecasts before the award."
+      ],
+      "about": [
+        "这一专题保留既有的年度档案、真实得主、候选人的研究方向和所属机构。各平台分别展示，个人预测与领域预测明确区分。",
+        "This topic retains the annual archive, actual laureates, candidate research and affiliations. Sources and individual versus field predictions remain distinct."
+      ],
+      "questions": [
+        [
+          "当时哪些人或研究方向受到关注？",
+          "Which people or fields attracted attention?"
+        ],
+        [
+          "不同平台如何判断，最终结果是什么？",
+          "How did sources differ, and what happened?"
+        ]
+      ],
+      "marketCount": 0,
+      "evidenceIds": []
+    },
+    {
+      "id": "solid-state-batteries",
+      "category": [
+        "电池与储能",
+        "Batteries & storage"
+      ],
+      "title": [
+        "全固态电池",
+        "Solid-state batteries"
+      ],
+      "deck": [
+        "成分验证、样品生产与客户交付，各自需要什么证据？",
+        "Composition tests, sample production and customer delivery require different evidence."
+      ],
+      "about": [
+        "“固态”描述电解质体系，并不直接回答电芯中是否含锂、能量密度有多高，或是否已进入量产。本专题把检测指标与工程事件分开。涉及 Donut Lab 的题目反映各自创建者的规则；受委托的测试结果只覆盖报告实际测量的项目。",
+        "Solid-state refers to the electrolyte system; it does not establish lithium content, energy density or production readiness. This topic separates measurements from engineering milestones. Commissioned testing covers the measurements actually reported."
+      ],
+      "questions": [
+        [
+          "被测电池能否与商品或交付样品对应？",
+          "Can the tested cell be linked to the product?"
+        ],
+        [
+          "电芯指标、电池包指标和整车表现有没有混用？",
+          "Are cell, pack and vehicle measures being conflated?"
+        ],
+        [
+          "宣布产能、开始生产、实际交付分别到了哪一步？",
+          "What is announced capacity, operating production or delivery?"
+        ]
+      ],
+      "marketCount": 10,
+      "evidenceIds": [
+        "battery-testing"
+      ]
+    },
+    {
+      "id": "superconductors",
+      "category": [
+        "超导与量子材料",
+        "Superconductors & quantum materials"
+      ],
+      "title": [
+        "室温超导",
+        "Room-temperature superconductors"
+      ],
+      "deck": [
+        "从独立复现实验，到常压器件的商业应用。",
+        "From independent replication to commercial ambient-pressure devices."
+      ],
+      "about": [
+        "零电阻、磁响应、相变和样品成分共同构成核对线索，悬浮视频本身不足以替代完整表征。LK-99 的历史题目还展示了“有人做了复现实验”“实验支持超导”和“商品采用超导体”之间的区别。这里保留各题不同的温度、压力、时间边界和取消状态。",
+        "Zero resistance, magnetic response, transitions and sample composition need joint review; levitation alone is insufficient. LK-99 contracts distinguish replication attempts, successful replication and commercial adoption. Contract-specific definitions and cancellations remain visible."
+      ],
+      "questions": [
+        [
+          "题目要求的是实验发表，还是成功复现？",
+          "Does the contract ask for publication or successful replication?"
+        ],
+        [
+          "室温与常压的数值范围如何定义？",
+          "How are temperature and pressure defined?"
+        ],
+        [
+          "条件市场的前提失败后，是 No 还是取消？",
+          "Does a failed condition mean No or cancellation?"
+        ]
+      ],
+      "marketCount": 7,
+      "evidenceIds": [
+        "lk99-replication"
+      ]
+    },
+    {
+      "id": "carbon-capture",
+      "category": [
+        "吸附与分离",
+        "Adsorption & separation"
+      ],
+      "title": [
+        "碳捕集与 MOF",
+        "Carbon capture & MOFs"
+      ],
+      "deck": [
+        "把材料供应、捕集过程和实际运行区分开来看。",
+        "Distinguish material supply, capture processes and operating deployment."
+      ],
+      "about": [
+        "MOF 的开放孔隙可以通过节点与配体化学进行调节，但过程表现还取决于成型、湿度、再生和循环条件。BASF 与 Svante 的 CALF-20 供应合作是可查的产业资料，不等于某个装置已经实现公告中的所有目标。本次 Manifold 检索未找到可核验的 Svante、Atoco 或 MOF 专用产业事件；下列相关市场分别涉及生物分子与矿物风化，不被标成 MOF 赔率。",
+        "MOF pores are chemically tunable, while process performance also depends on shaping, humidity, regeneration and cycling. The BASF–Svante CALF-20 supply agreement is documented industrial evidence, not proof of every deployment target. This Manifold search found no verified Svante, Atoco or MOF-specific industrial contract. Related protein and mineral-weathering contracts below are not labelled MOF odds."
+      ],
+      "questions": [
+        [
+          "供应材料或建成产线，是否等于实际捕集量？",
+          "Does material supply or a factory establish captured tonnage?"
+        ],
+        [
+          "捕集的 CO₂ 是否进一步储存，边界是否相同？",
+          "Is captured CO₂ stored, and are boundaries comparable?"
+        ],
+        [
+          "相关预测究竟涉及哪一种材料路线？",
+          "Which material pathway does each forecast concern?"
+        ]
+      ],
+      "marketCount": 2,
+      "evidenceIds": [
+        "mof-supply",
+        "mof-manufacturer"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "SAIUNdCI8U",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/donut-battery-is-essentially-lithiu",
+      "originalTitle": "Donut Battery is essentially Lithium free?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.20398575498542273,
+      "volume": 774332.3211781754,
+      "participants": 179,
+      "createdTime": 1772593247994,
+      "closeTime": 1798775400000,
+      "resolutionTime": null,
+      "observedAt": 1792909983562,
+      "historyCutoff": 1792909983562,
+      "historyComplete": true,
+      "lastTradeProbability": 0.20398575498542273,
+      "lastTradeAt": 1792709168357,
+      "sourceApi": "https://api.manifold.markets/v0/market/SAIUNdCI8U",
+      "stage": "validation",
+      "title": [
+        "Donut Battery 的锂质量分数会低于 0.1% 吗？",
+        "Will the Donut Battery contain less than 0.1% lithium by weight?"
+      ],
+      "rules": [
+        [
+          "规则以锂质量分数低于 0.1% 为 Yes，达到或超过该值为 No。",
+          "Yes requires lithium below 0.1% by weight; at least 0.1% resolves No."
+        ]
+      ],
+      "interpretation": [
+        "需要能对应到被测电池的第三方成分证据；快充、能量密度或公司“无锂”说法不能替代成分分析。",
+        "Independent composition evidence must identify the tested battery. Charging speed, energy density and company descriptions do not establish elemental composition."
+      ],
+      "entities": [
+        "donutlab",
+        "vtt"
+      ],
+      "evidence": [
+        "battery-testing"
+      ],
+      "quality": [],
+      "tradePoints": 4164,
+      "detailFile": "events/SAIUNdCI8U.json"
+    },
+    {
+      "id": "URnpyLNL6s",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/donut-battery-powered-car-delivered",
+      "originalTitle": "Donut Battery powered car delivered by EOY 2030?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.08941020255397115,
+      "volume": 55131.65176198026,
+      "participants": 39,
+      "createdTime": 1767665801472,
+      "closeTime": 1927688340000,
+      "resolutionTime": null,
+      "observedAt": 1792909899997,
+      "historyCutoff": 1792909899997,
+      "historyComplete": true,
+      "lastTradeProbability": 0.08941020255397115,
+      "lastTradeAt": 1790518239200,
+      "sourceApi": "https://api.manifold.markets/v0/market/URnpyLNL6s",
+      "stage": "engineering",
+      "title": [
+        "指定车企能否在 2030 年内完成 Donut 电池乘用车交付？",
+        "Will a listed automaker deliver a Donut-powered passenger vehicle by the end of 2030?"
+      ],
+      "rules": [
+        [
+          "限原规则列出的 19 家车企、合法上路的量产乘用车，以及明确使用 Donut 主动力电池的车型。至少一名非员工零售客户须实际收车。",
+          "Restricted to the 19 named automakers, road-legal production passenger vehicles and an explicitly identified Donut traction battery. A non-employee retail customer must receive a vehicle."
+        ]
+      ],
+      "interpretation": [
+        "预订、概念车和测试样车不算交付；Verge 摩托车也不在这一乘用车市场的适用范围内。",
+        "Preorders, concept cars and test vehicles do not qualify. Verge motorcycles fall outside this passenger-car contract."
+      ],
+      "entities": [
+        "donutlab"
+      ],
+      "evidence": [
+        "battery-testing"
+      ],
+      "quality": [],
+      "tradePoints": 485,
+      "detailFile": "events/URnpyLNL6s.json"
+    },
+    {
+      "id": "5yR6nLsLlu",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MichaelBlume/by-the-end-of-2026-will-it-be-possi",
+      "originalTitle": "By the end of 2026, will it be possible to purchase a motorcycle with a solid state battery for <$50k",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.45441216721592986,
+      "volume": 186.63036843403722,
+      "participants": 7,
+      "createdTime": 1767658103646,
+      "closeTime": 1798790340000,
+      "resolutionTime": null,
+      "observedAt": 1792909896537,
+      "historyCutoff": 1792909896537,
+      "historyComplete": true,
+      "lastTradeProbability": 0.45441216721592986,
+      "lastTradeAt": 1782317100750,
+      "sourceApi": "https://api.manifold.markets/v0/market/5yR6nLsLlu",
+      "stage": "engineering",
+      "title": [
+        "消费者能否购买低于 5 万美元的固态电池摩托车？",
+        "Will a solid-state motorcycle be purchasable below US$50,000?"
+      ],
+      "rules": [
+        [
+          "原题以 2026 年结束前可以买到符合条件的摩托车为判断对象，价格门槛为 5 万美元。",
+          "The original question asks about availability before the end of 2026 with a US$50,000 price ceiling."
+        ]
+      ],
+      "interpretation": [
+        "购买资格、订单与实际交付并不相同；原描述细则有限，判断前须查看市场创建者的解释。",
+        "Availability, ordering and physical delivery differ. The description supplies limited detail; review the creator’s clarifications."
+      ],
+      "entities": [
+        "donutlab"
+      ],
+      "evidence": [
+        "battery-testing"
+      ],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "规则细节不足",
+            "Limited rule detail"
+          ],
+          "detail": [
+            "购买和交付边界需要查看原市场澄清。",
+            "Availability versus delivery needs source clarification."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 8,
+      "detailFile": "events/5yR6nLsLlu.json"
+    },
+    {
+      "id": "E6A6gylOZq",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/will-any-oem-be-producing-llzo-soli-Nsdln0tQUS",
+      "originalTitle": "Will any OEM be producing LLZO solid-state battery packs at commercial scale (≥1 GWh/year) by December 31, 2029?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.9157438801660845,
+      "volume": 751.0636592874483,
+      "participants": 4,
+      "createdTime": 1775573809691,
+      "closeTime": 1893387600000,
+      "resolutionTime": null,
+      "observedAt": 1792909898804,
+      "historyCutoff": 1792909898804,
+      "historyComplete": true,
+      "lastTradeProbability": 0.9157438801660845,
+      "lastTradeAt": 1791528731345,
+      "sourceApi": "https://api.manifold.markets/v0/market/E6A6gylOZq",
+      "stage": "engineering",
+      "title": [
+        "LLZO 固态电池能否达到 2029 年商业生产门槛？",
+        "Will LLZO solid-state packs reach the 2029 commercial-production threshold?"
+      ],
+      "rules": [
+        [
+          "要求 LLZO 石榴石电解质路线，单个设施年化至少 1 GWh，并核对商业交付及生产运行证据。",
+          "Requires LLZO garnet chemistry, at least 1 GWh annualized at a single facility, with commercial-delivery and production evidence."
+        ]
+      ],
+      "interpretation": [
+        "公告中的未来产能不等于实际运行；硫化物路线或低于门槛的中试生产不满足同一标准。",
+        "Announced future capacity is not an operating run rate. Sulfide chemistry and below-threshold pilots do not meet this contract."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 59,
+      "detailFile": "events/E6A6gylOZq.json"
+    },
+    {
+      "id": "hznAd5Sh0S",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/will-any-oem-be-producing-llzo-soli",
+      "originalTitle": "Will any OEM be producing LLZO solid-state battery packs at commercial scale (≥1 GWh/year) by December 31, 2027?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.7109923694269784,
+      "volume": 820.7809532874372,
+      "participants": 9,
+      "createdTime": 1775573809571,
+      "closeTime": 1830229200000,
+      "resolutionTime": null,
+      "observedAt": 1792909901939,
+      "historyCutoff": 1792909901939,
+      "historyComplete": true,
+      "lastTradeProbability": 0.7109923694269784,
+      "lastTradeAt": 1787140936370,
+      "sourceApi": "https://api.manifold.markets/v0/market/hznAd5Sh0S",
+      "stage": "engineering",
+      "title": [
+        "LLZO 固态电池能否达到 2027 年商业生产门槛？",
+        "Will LLZO solid-state packs reach the 2027 commercial-production threshold?"
+      ],
+      "rules": [
+        [
+          "核对单个设施至少 1 GWh 年化产量和 LLZO 电解质路线；时间边界与 2029 年市场不同。",
+          "Checks a single-facility annualized 1 GWh threshold and LLZO chemistry, with a different horizon from the 2029 market."
+        ]
+      ],
+      "interpretation": [
+        "两个期限的事件是独立市场，不能合并为一条概率，也不能把它们的成交额重复计作同一订单。",
+        "The two horizons are separate contracts, not one probability series or a shared order-volume measure."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 79,
+      "detailFile": "events/hznAd5Sh0S.json"
+    },
+    {
+      "id": "Shc85pllS8",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/beerion/will-quantumscape-powerco-confirm-i",
+      "originalTitle": "Will Quantumscape & PowerCo confirm initial sample production of QS-enabled Unified Cell in 2026?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.10791955880124117,
+      "volume": 755.0225769394127,
+      "participants": 11,
+      "createdTime": 1766340961977,
+      "closeTime": 1798761540000,
+      "resolutionTime": null,
+      "observedAt": 1792909902431,
+      "historyCutoff": 1792909902431,
+      "historyComplete": true,
+      "lastTradeProbability": 0.10791955880124117,
+      "lastTradeAt": 1777467904422,
+      "sourceApi": "https://api.manifold.markets/v0/market/Shc85pllS8",
+      "stage": "engineering",
+      "title": [
+        "QuantumScape 与 PowerCo 的 Unified Cell 样品确认",
+        "QuantumScape and PowerCo Unified Cell sample confirmation"
+      ],
+      "rules": [
+        [
+          "要求双方通过官方材料确认 QS 陶瓷隔膜进入 PowerCo Unified Cell 格式，且至少产出一个样品。",
+          "Requires official confirmation that QS ceramic separators enter PowerCo’s Unified Cell format and at least one sample exists."
+        ]
+      ],
+      "interpretation": [
+        "原题标题写 2026，正文截止写 2025，存在实质冲突。这里保留异常，不按某一个年份替创建者作解释。",
+        "The title names 2026 while the rule text specifies 2025. This conflict is preserved rather than resolved on the creator’s behalf."
+      ],
+      "entities": [
+        "quantumscape",
+        "powerco"
+      ],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "规则冲突",
+            "Rule conflict"
+          ],
+          "detail": [
+            "标题为 2026，正文截止为 2025。",
+            "Title: 2026; rule-text deadline: 2025."
+          ]
+        }
+      ],
+      "tradePoints": 66,
+      "detailFile": "events/Shc85pllS8.json"
+    },
+    {
+      "id": "yTnpOcsEjYIa0GcasRVg",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/ThiagoBach/will-a-new-solidstate-battery-with",
+      "originalTitle": "Will a new solid-state battery with an energy density exceeding 400 Wh/kg be commercially released by the end of 2024?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.04796995850514755,
+      "snapshotProbability": null,
+      "volume": 3863.005477444409,
+      "participants": 20,
+      "createdTime": 1700027089950,
+      "closeTime": 1735657140000,
+      "resolutionTime": 1737825108651,
+      "observedAt": 1792909904594,
+      "historyCutoff": 1735657140000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.04796995850514755,
+      "lastTradeAt": 1735654327817,
+      "sourceApi": "https://api.manifold.markets/v0/market/yTnpOcsEjYIa0GcasRVg",
+      "stage": "engineering",
+      "title": [
+        "超过 400 Wh/kg 的固态电池能否在 2024 年商业发布？",
+        "Would a solid-state battery above 400 Wh/kg be commercially released in 2024?"
+      ],
+      "rules": [
+        [
+          "原规则要求超过能量密度门槛，并能商业购买或订购；平台已判定 No。",
+          "The rule requires exceeding the energy-density threshold and commercial purchase or ordering; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "单个实验样品达到数值，不自动满足商业可购条件；平台结算也不能替代所有电池产品的技术审查。",
+        "A laboratory sample does not automatically establish commercial availability. Settlement is not a technical review of every battery product."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [],
+      "tradePoints": 25,
+      "detailFile": "events/yTnpOcsEjYIa0GcasRVg.json"
+    },
+    {
+      "id": "jVXPWByYV1uHFNzjULf6",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/tr/will-any-car-or-truck-with-a-solid",
+      "originalTitle": "Will any car or truck with a solid state battery be delivered in the US before EOY 2024",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.07624674800851618,
+      "snapshotProbability": null,
+      "volume": 289.1971993082816,
+      "participants": 8,
+      "createdTime": 1706129440350,
+      "closeTime": 1735718340000,
+      "resolutionTime": 1738024529935,
+      "observedAt": 1792909904891,
+      "historyCutoff": 1735718340000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.07624674800851618,
+      "lastTradeAt": 1712762098520,
+      "sourceApi": "https://api.manifold.markets/v0/market/jVXPWByYV1uHFNzjULf6",
+      "stage": "engineering",
+      "title": [
+        "美国能否在 2024 年收到固态电池汽车或卡车？",
+        "Would a solid-state car or truck be delivered in the US in 2024?"
+      ],
+      "rules": [
+        [
+          "原题关注美国境内汽车或卡车交付，平台已判定 No。",
+          "The question concerns car or truck delivery in the US; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "API 描述未提供进一步规则细则。保留原题和判定，不补写“全固态”、客户类型或产量门槛。",
+        "The API description supplies no further rules. No all-solid-state, customer-type or production threshold has been invented."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "规则细节不足",
+            "Limited rule detail"
+          ],
+          "detail": [
+            "API 描述为空。",
+            "The API description is empty."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 11,
+      "detailFile": "events/jVXPWByYV1uHFNzjULf6.json"
+    },
+    {
+      "id": "n0dowx6m17",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/strutheo/will-apple-release-an-iphone-that-u-e8w9fbr8pz",
+      "originalTitle": "Will Apple release an iPhone that uses a solid-state battery by the end of 2026?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.07865809393443293,
+      "volume": 865,
+      "participants": 10,
+      "createdTime": 1719268228256,
+      "closeTime": 1798779540000,
+      "resolutionTime": null,
+      "observedAt": 1792909908466,
+      "historyCutoff": 1792909908466,
+      "historyComplete": true,
+      "lastTradeProbability": 0.07865809393443293,
+      "lastTradeAt": 1789830773634,
+      "sourceApi": "https://api.manifold.markets/v0/market/n0dowx6m17",
+      "stage": "engineering",
+      "title": [
+        "Apple 是否推出使用固态电池的 iPhone？",
+        "Will Apple release an iPhone using a solid-state battery?"
+      ],
+      "rules": [
+        [
+          "原题期限为 2026 年结束前，指向使用固态电池的 iPhone 产品发布。",
+          "The question concerns an iPhone release using a solid-state battery before the end of 2026."
+        ]
+      ],
+      "interpretation": [
+        "描述仅提供电池概念链接，没有完整定义固态比例、样机与零售版本的区别。相关缺口保持可见。",
+        "The description links a general battery definition without defining solid fraction or prototype versus retail release."
+      ],
+      "entities": [
+        "apple"
+      ],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "规则细节不足",
+            "Limited rule detail"
+          ],
+          "detail": [
+            "缺少固态电池与产品发布的完整验收定义。",
+            "No full acceptance definition for chemistry or release."
+          ]
+        }
+      ],
+      "tradePoints": 13,
+      "detailFile": "events/n0dowx6m17.json"
+    },
+    {
+      "id": "2UE5OE8cAwOnRANIwyGi",
+      "topicId": "solid-state-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/B/before-2030-toyota-will-be-selling",
+      "originalTitle": "Before 2030, Toyota will be selling cars with solid-state batteries with a >=1000km range chargeable in under 15 minutes",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.19999999999999987,
+      "volume": 139.6009214748521,
+      "participants": 8,
+      "createdTime": 1688539333250,
+      "closeTime": 1798876740000,
+      "resolutionTime": null,
+      "observedAt": 1792909906974,
+      "historyCutoff": 1792909906974,
+      "historyComplete": true,
+      "lastTradeProbability": 0.18037808112362425,
+      "lastTradeAt": 1779772793864,
+      "sourceApi": "https://api.manifold.markets/v0/market/2UE5OE8cAwOnRANIwyGi",
+      "stage": "engineering",
+      "title": [
+        "Toyota 固态电池汽车能否同时达到续航与充电目标？",
+        "Will Toyota’s solid-state cars meet both range and charging targets?"
+      ],
+      "rules": [
+        [
+          "原题要求 2030 年前销售、续航至少 1000 km、充电少于 15 分钟，并采用固态电池。",
+          "The question combines sales before 2030, at least 1,000 km range, charging under 15 minutes and solid-state batteries."
+        ]
+      ],
+      "interpretation": [
+        "四个条件需要同时核对。原题未充分给出续航测试工况和充电区间，不把宣传中的不同测试数字拼成一次验证。",
+        "All conditions require review. Range test cycles and charging intervals are underspecified; separate promotional measurements must not be combined."
+      ],
+      "entities": [
+        "toyota"
+      ],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 7,
+      "detailFile": "events/2UE5OE8cAwOnRANIwyGi.json"
+    },
+    {
+      "id": "8m2QavDR1KYRdV3g8aDf",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/RemNi/will-we-get-room-temperature-superc",
+      "originalTitle": "Will we get room temperature superconductors before 2033?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.21512758631850704,
+      "volume": 14470.972222923154,
+      "participants": 60,
+      "createdTime": 1704474745339,
+      "closeTime": 1993330740000,
+      "resolutionTime": null,
+      "observedAt": 1792909911669,
+      "historyCutoff": 1792909911669,
+      "historyComplete": true,
+      "lastTradeProbability": 0.21512758631850704,
+      "lastTradeAt": 1790666910351,
+      "sourceApi": "https://api.manifold.markets/v0/market/8m2QavDR1KYRdV3g8aDf",
+      "stage": "validation",
+      "title": [
+        "2033 年前能否发现并测得室温常压超导？",
+        "Will a room-temperature ambient-pressure superconductor be demonstrated before 2033?"
+      ],
+      "rules": [
+        [
+          "原规则要求发现、合成和测量；其室温定义为 0–30 °C，常压为 0.5–2 atm。",
+          "Requires discovery, synthesis and measurement; this contract defines room temperature as 0–30 °C and ambient pressure as 0.5–2 atm."
+        ]
+      ],
+      "interpretation": [
+        "这些范围属于这个市场的定义。其他题目可能用不同温度、压力或证据标准，概率不应直接混合。",
+        "These are contract-specific definitions. Other markets may use different temperature, pressure or evidential requirements."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [],
+      "tradePoints": 533,
+      "detailFile": "events/8m2QavDR1KYRdV3g8aDf.json"
+    },
+    {
+      "id": "tV8TUnUEXherIZzyoywQ",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/hiAndrewQuinn/will-the-lk99-room-temp-ambient-pre-a3f48bd3c4a8",
+      "originalTitle": "Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before August 15, 2023?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0,
+      "snapshotProbability": null,
+      "volume": 376189.5570348066,
+      "participants": 469,
+      "createdTime": 1690399840171,
+      "closeTime": 1692046740000,
+      "resolutionTime": 1692067957056,
+      "observedAt": 1792909918001,
+      "historyCutoff": 1692046740000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.003501730945979671,
+      "lastTradeAt": 1692042319494,
+      "sourceApi": "https://api.manifold.markets/v0/market/tV8TUnUEXherIZzyoywQ",
+      "stage": "validation",
+      "title": [
+        "LK-99 能否在最初的短期窗口得到复现？",
+        "Would LK-99 replicate in the initial short-term window?"
+      ],
+      "rules": [
+        [
+          "原题截止为 2023 年 8 月中旬；平台判定 No，保留结算及停盘前的成交历史。",
+          "The original horizon is mid-August 2023; the platform resolved No and pre-close/pre-resolution trades are retained."
+        ]
+      ],
+      "interpretation": [
+        "市场描述没有一套完整的复现验收清单。研究论文、市场创建者的判断与最后成交概率需要分别阅读。",
+        "The description does not provide a complete replication checklist. Papers, creator judgments and last-trade probabilities remain separate."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [],
+      "tradePoints": 1500,
+      "detailFile": "events/tV8TUnUEXherIZzyoywQ.json"
+    },
+    {
+      "id": "kphkIrlmHjGcCssSiHdi",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/8/will-the-lk99-room-temp-ambient-pre-99f305b31e29",
+      "originalTitle": "(M1000 SUBSIDY) Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before 2024?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0,
+      "snapshotProbability": null,
+      "volume": 189471.2578493978,
+      "participants": 57,
+      "createdTime": 1690903753245,
+      "closeTime": 1704171540000,
+      "resolutionTime": 1704175365667,
+      "observedAt": 1792909921381,
+      "historyCutoff": 1704171540000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.0013915790560056307,
+      "lastTradeAt": 1704148431758,
+      "sourceApi": "https://api.manifold.markets/v0/market/kphkIrlmHjGcCssSiHdi",
+      "stage": "validation",
+      "title": [
+        "LK-99 室温常压超导的后续复现判断",
+        "Subsequent replication assessment of LK-99 superconductivity"
+      ],
+      "rules": [
+        [
+          "描述提出零电阻、迈斯纳效应及相变相关证据，并要求核对合成材料身份。",
+          "The description discusses zero resistance, the Meissner effect, phase-transition evidence and synthesized material identity."
+        ]
+      ],
+      "interpretation": [
+        "规则末尾又引用另一年份市场的判定，标题与关联市场边界需要人工核对；本站不把最后成交当作科学定论。",
+        "A later rule delegates resolution to another-year market. That dependency needs manual review; the last trade is not a scientific verdict."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "关联规则待核对",
+            "Dependent rule needs review"
+          ],
+          "detail": [
+            "规则引用另一年份市场。",
+            "Resolution depends on another-year market."
+          ]
+        }
+      ],
+      "tradePoints": 557,
+      "detailFile": "events/kphkIrlmHjGcCssSiHdi.json"
+    },
+    {
+      "id": "S1JzUyhBphhmBZF6UTLr",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/CoryStephenson/will-another-lab-post-results-testi",
+      "originalTitle": "Will another lab post results testing superconductivity (or lack of superconductivity) in LK-99 within a week?",
+      "status": "resolved",
+      "resolution": "YES",
+      "resolutionProbability": 0.86,
+      "snapshotProbability": null,
+      "volume": 7693.997707715725,
+      "participants": 79,
+      "createdTime": 1690392124225,
+      "closeTime": 1690855572137,
+      "resolutionTime": 1690859213470,
+      "observedAt": 1792909919912,
+      "historyCutoff": 1690855572137,
+      "historyComplete": true,
+      "lastTradeProbability": 0.8637201396694087,
+      "lastTradeAt": 1690855421666,
+      "sourceApi": "https://api.manifold.markets/v0/market/S1JzUyhBphhmBZF6UTLr",
+      "stage": "validation",
+      "title": [
+        "是否出现独立团队的 LK-99 实验论文？",
+        "Would an independent team publish an LK-99 experimental paper?"
+      ],
+      "rules": [
+        [
+          "原规则判断是否由另一研究组在 arXiv 发布 LK-99 实验论文，结果可以支持也可以不支持超导。",
+          "The rule concerns an experimental arXiv paper by a separate group, whether its findings support superconductivity or not."
+        ]
+      ],
+      "interpretation": [
+        "“出现复现实验”与“成功复现超导”是两个不同事件；保留这个题目以显示它们的区别。",
+        "A replication experiment appearing is distinct from superconductivity successfully replicating."
+      ],
+      "entities": [
+        "manchester"
+      ],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [],
+      "tradePoints": 102,
+      "detailFile": "events/S1JzUyhBphhmBZF6UTLr.json"
+    },
+    {
+      "id": "GJf5q3WjqIIiArUkpxbl",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/LivInTheLookingGlass/will-a-commercially-available-devic-f2595895809b",
+      "originalTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2030?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.05260296552958812,
+      "volume": 2521.702154801023,
+      "participants": 19,
+      "createdTime": 1691047537239,
+      "closeTime": 1893560340000,
+      "resolutionTime": null,
+      "observedAt": 1792909922706,
+      "historyCutoff": 1792909922706,
+      "historyComplete": true,
+      "lastTradeProbability": 0.05260296552958812,
+      "lastTradeAt": 1754859081888,
+      "sourceApi": "https://api.manifold.markets/v0/market/GJf5q3WjqIIiArUkpxbl",
+      "stage": "engineering",
+      "title": [
+        "2030 年前是否出现常压高于 0 °C 的超导商品？",
+        "Will a commercial device use ambient-pressure superconductivity above 0 °C before 2030?"
+      ],
+      "rules": [
+        [
+          "要求可商业获得的设备使用常压、高于 0 °C、无需主动冷却的超导体。",
+          "Requires a commercially available device using ambient-pressure superconductors above 0 °C without active cooling."
+        ]
+      ],
+      "interpretation": [
+        "这是商业器件事件，不限 LK-99。高于 0 °C 也与另一个市场的 0–30 °C 范围不同。",
+        "This device contract is not limited to LK-99; above 0 °C differs from another contract’s 0–30 °C range."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [],
+      "tradePoints": 27,
+      "detailFile": "events/GJf5q3WjqIIiArUkpxbl.json"
+    },
+    {
+      "id": "H5nCcUUDsH556qedFoUn",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/eccentricity/will-a-commercially-available-devic",
+      "originalTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2025?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.010000000000000007,
+      "snapshotProbability": null,
+      "volume": 18840.919198395688,
+      "participants": 58,
+      "createdTime": 1690698898288,
+      "closeTime": 1735793940000,
+      "resolutionTime": 1735850975468,
+      "observedAt": 1792909924429,
+      "historyCutoff": 1735793940000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.010000000000000009,
+      "lastTradeAt": 1730973260790,
+      "sourceApi": "https://api.manifold.markets/v0/market/H5nCcUUDsH556qedFoUn",
+      "stage": "engineering",
+      "title": [
+        "2025 年前超导商品的历史预测",
+        "Historical prediction of a superconducting commercial device before 2025"
+      ],
+      "rules": [
+        [
+          "与后续器件市场采用相近的常压、温度和冷却条件，时间边界为 2025 年前；平台判定 No。",
+          "Uses similar pressure, temperature and cooling conditions to the later device market, with a pre-2025 horizon; resolved No."
+        ]
+      ],
+      "interpretation": [
+        "保留历史期限，不能用后续发生的结果改写当年市场，也不能把判定 No 解释为技术永远不可行。",
+        "The historical horizon is preserved. Later events cannot rewrite it, and No does not mean permanent technical impossibility."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [],
+      "tradePoints": 110,
+      "detailFile": "events/H5nCcUUDsH556qedFoUn.json"
+    },
+    {
+      "id": "xsHh9WCTD1PRuvZwTYqA",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/Paul/conditional-on-lk99-replicating-wil",
+      "originalTitle": "Conditional on LK-99 replicating, will a RTSC be used commercially by 2026?",
+      "status": "resolved",
+      "resolution": "CANCEL",
+      "resolutionProbability": 0.5659389457003561,
+      "snapshotProbability": null,
+      "volume": 1441.0940387582984,
+      "participants": 29,
+      "createdTime": 1691259454204,
+      "closeTime": 1749438405759,
+      "resolutionTime": 1749438405759,
+      "observedAt": 1792909924443,
+      "historyCutoff": 1749438405759,
+      "historyComplete": true,
+      "lastTradeProbability": 0.5659389457003559,
+      "lastTradeAt": 1701945761897,
+      "sourceApi": "https://api.manifold.markets/v0/market/xsHh9WCTD1PRuvZwTYqA",
+      "stage": "engineering",
+      "title": [
+        "以 LK-99 复现为前提的商业应用预测",
+        "Commercial adoption conditional on LK-99 replication"
+      ],
+      "rules": [
+        [
+          "这是条件市场；原规则规定，若所依赖的 LK-99 复现市场判 No，则本市场不适用。",
+          "This is conditional: if the referenced LK-99 replication contract resolves No, this contract becomes inapplicable."
+        ]
+      ],
+      "interpretation": [
+        "平台已取消结算。取消不等于 No，历史曲线也不应改成 0%。",
+        "The platform cancelled this market. Cancellation is not No, and history must not be replaced with 0%."
+      ],
+      "entities": [],
+      "evidence": [
+        "lk99-replication"
+      ],
+      "quality": [],
+      "tradePoints": 47,
+      "detailFile": "events/xsHh9WCTD1PRuvZwTYqA.json"
+    },
+    {
+      "id": "u1hCf24lNpTqWYEpM2Uq",
+      "topicId": "carbon-capture",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/Guillaume/alphafold-involved-in-a-sota-c02-di",
+      "originalTitle": "Alphafold involved in a SOTA C02 direct air capture method by mid 2026 ?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.05621432996383009,
+      "snapshotProbability": null,
+      "volume": 3227,
+      "participants": 7,
+      "createdTime": 1717360429017,
+      "closeTime": 1782943140000,
+      "resolutionTime": 1782955558414,
+      "observedAt": 1792909925603,
+      "historyCutoff": 1782943140000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.056214329963830086,
+      "lastTradeAt": 1782882512385,
+      "sourceApi": "https://api.manifold.markets/v0/market/u1hCf24lNpTqWYEpM2Uq",
+      "stage": "validation",
+      "title": [
+        "AlphaFold 是否参与领先的空气碳捕集方法？",
+        "Would AlphaFold contribute to a leading direct-air-capture method?"
+      ],
+      "rules": [
+        [
+          "原题关注 2026 年中前的 AlphaFold 或其后继技术参与；平台已判定 No。",
+          "The question concerns AlphaFold or a successor contributing before mid-2026; the platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "原描述对“领先方法”的量化定义有限；这不是 MOF 专用市场，也不能从这次判定推出蛋白质路线没有研究价值。",
+        "The description gives limited quantitative meaning to leading performance. This is not MOF-specific, and settlement does not rule out protein-based research."
+      ],
+      "entities": [
+        "deepmind"
+      ],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "规则细节不足",
+            "Limited rule detail"
+          ],
+          "detail": [
+            "“领先”的验收标准未充分量化。",
+            "Leading performance is not sufficiently quantified."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 8,
+      "detailFile": "events/u1hCf24lNpTqWYEpM2Uq.json"
+    },
+    {
+      "id": "f6jHUqoKdt8YmpXQjGlO",
+      "topicId": "carbon-capture",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/JonathanRay/anthropogenic-olivinebased-direct-a",
+      "originalTitle": "Anthropogenic olivine-based direct air capture of CO2 at >10^9 tons CO2/year before 2050?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.41806998054496247,
+      "volume": 11,
+      "participants": 2,
+      "createdTime": 1691628659001,
+      "closeTime": 2524636740000,
+      "resolutionTime": null,
+      "observedAt": 1792909926791,
+      "historyCutoff": 1792909926791,
+      "historyComplete": true,
+      "lastTradeProbability": 0.41806998054496264,
+      "lastTradeAt": 1695752074884,
+      "sourceApi": "https://api.manifold.markets/v0/market/f6jHUqoKdt8YmpXQjGlO",
+      "stage": "engineering",
+      "title": [
+        "橄榄石碳移除能否达到每年十亿吨量级？",
+        "Will olivine-based carbon removal exceed one billion tonnes per year?"
+      ],
+      "rules": [
+        [
+          "原题要求人为增加的橄榄石路线 CO₂ 捕集量，在 2050 年前超过每年 10⁹ 吨。",
+          "The question requires human-induced olivine-based CO₂ capture above 10⁹ tonnes per year before 2050."
+        ]
+      ],
+      "interpretation": [
+        "这是矿物风化相关市场，不是 MOF 市场；成交和参与者很少，展示原始数量，不把概率称为科学界共识。",
+        "This mineral-weathering contract is not a MOF market. Activity is thin; its probability is not described as scientific consensus."
+      ],
+      "entities": [],
+      "evidence": [],
+      "quality": [
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 2,
+      "detailFile": "events/f6jHUqoKdt8YmpXQjGlO.json"
+    }
+  ],
+  "entities": [
+    {
+      "id": "donutlab",
+      "name": [
+        "Donut Lab",
+        "Donut Lab"
+      ],
+      "intro": [
+        "电动交通技术企业；本专题涉及其电池产品主张、受委托测量和可能的车辆应用。",
+        "An electric-mobility technology company; these contracts concern its battery claims, commissioned measurements and possible vehicle use."
+      ],
+      "url": "https://www.donutlab.com/",
+      "logo": "images/science-forecasts/donutlab.png",
+      "assetSource": "https://mlaygxxmuaqg.i.optimole.com/w:32/h:32/q:mauto/f:best/dpr:2/https://www.donutlab.com/wp-content/uploads/2025/09/cropped-cropped-DonutLab-Logo-Symbol-contrast.png",
+      "sha256": "870747b06f92e0b836ddad5cd2f12f2cd5d897f167e735e479a2f651b30aa783"
+    },
+    {
+      "id": "vtt",
+      "name": [
+        "芬兰 VTT 技术研究中心",
+        "VTT Technical Research Centre of Finland"
+      ],
+      "intro": [
+        "提供研究与测试服务；此处链接其对 Donut Lab 委托测量范围的官方说明。",
+        "A research and testing organization; its linked statement explains the scope of Donut Lab’s commissioned measurements."
+      ],
+      "url": "https://www.vttresearch.com/en",
+      "logo": "images/science-forecasts/vtt.png",
+      "assetSource": "https://www.vttresearch.com/themes/custom/vtt/images/favicons/favicon-16x16.png",
+      "sha256": "b5c34537ea150fa0561022e964f68ab556bd922d42e956465b4123d842720635"
+    },
+    {
+      "id": "quantumscape",
+      "name": [
+        "QuantumScape",
+        "QuantumScape"
+      ],
+      "intro": [
+        "固态锂金属电池技术开发企业；相关事件关注陶瓷隔膜技术进入具体电芯格式和样品生产。",
+        "A solid-state lithium-metal battery developer; the linked contract concerns separator integration and sample production."
+      ],
+      "url": "https://www.quantumscape.com/",
+      "logo": "images/science-forecasts/quantumscape.png",
+      "assetSource": "https://www.quantumscape.com/wp-content/uploads/2021/10/cropped-qs-bug-new-blk-32x32.png",
+      "sha256": "7745adfe5c9f855a9ec73e51f95775e8e52c4b0818a853f6b9e0c88f650dd8c7"
+    },
+    {
+      "id": "powerco",
+      "name": [
+        "PowerCo",
+        "PowerCo"
+      ],
+      "intro": [
+        "大众集团电池业务企业；此处关注其 Unified Cell 格式与 QS 技术结合的确认条件。",
+        "Volkswagen Group’s battery company; the event concerns confirmation of QS technology in its Unified Cell format."
+      ],
+      "url": "https://www.powerco.de/en.html",
+      "logo": "images/science-forecasts/powerco.png",
+      "assetSource": "https://static-p131402-e1278943.adobeaemcloud.com/6faa1a4f9f24521ba487565406681abba07ca9cccd464a6f62af036778c572c1/resources/images/favicon.png",
+      "sha256": "09ae0620b3886890fc1e27a05b55944e5c1b70d28ce7b05d68ab5c45301997ac"
+    },
+    {
+      "id": "toyota",
+      "name": [
+        "Toyota",
+        "Toyota"
+      ],
+      "intro": [
+        "汽车制造商；相关预测把固态电池、整车销售、续航与充电要求写在同一事件中。",
+        "An automaker; the listed contract combines solid-state chemistry, vehicle sales, range and charging requirements."
+      ],
+      "url": "https://global.toyota/en/",
+      "logo": "images/science-forecasts/toyota.png",
+      "assetSource": "https://global.toyota/apple-touch-icon-precomposed.png",
+      "sha256": "bf2771b5efcb96aa89d775d120f19a087691c948b4b77f35d851bd934ae65990"
+    },
+    {
+      "id": "apple",
+      "name": [
+        "Apple",
+        "Apple"
+      ],
+      "intro": [
+        "消费电子产品企业；相关事件关注 iPhone 的电池技术与产品发布。",
+        "A consumer-electronics company; this contract concerns iPhone battery technology and product release."
+      ],
+      "url": "https://www.apple.com/",
+      "logo": "images/science-forecasts/apple.ico",
+      "assetSource": "https://www.apple.com/favicon.ico",
+      "sha256": "5493c61cf725cf3a1d63cd9d07de75b0d6faa5564e772f7d0a6074f341442938"
+    },
+    {
+      "id": "basf",
+      "name": [
+        "BASF",
+        "BASF"
+      ],
+      "intro": [
+        "化工与材料企业；CALF-20 资料涉及 MOF 吸附剂放大和商业供应。",
+        "A chemicals and materials company; the CALF-20 sources concern MOF scale-up and commercial supply."
+      ],
+      "url": "https://www.basf.com/",
+      "logo": "images/nobel/organizations/basf.svg",
+      "assetSource": "https://www.basf.com/",
+      "sha256": "8571563d82b8628e75be39908efea7012d1ed8a85c99b384b05bc92d46b60ba4"
+    },
+    {
+      "id": "svante",
+      "name": [
+        "Svante",
+        "Svante"
+      ],
+      "intro": [
+        "开发固体吸附剂碳捕集技术，采用结构化过滤器；本页区分材料供应与装置实际运行。",
+        "A solid-sorbent carbon-capture developer using structured filters; supply and operating deployment are distinguished here."
+      ],
+      "url": "https://www.svanteinc.com/",
+      "logo": "images/nobel/organizations/svante.svg",
+      "assetSource": "https://www.svanteinc.com/",
+      "sha256": "8ed7fb5415b2cdd01afec6e3a306158193a8784a4a2a82a4587628406d27743a"
+    },
+    {
+      "id": "manchester",
+      "name": [
+        "曼彻斯特大学",
+        "The University of Manchester"
+      ],
+      "intro": [
+        "相关研究机构；具体作者、合作机构和实验条件以链接论文为准。",
+        "A related research institution; consult the paper for complete authors, affiliations and experimental conditions."
+      ],
+      "url": "https://www.manchester.ac.uk/",
+      "logo": "images/nobel/organizations/manchester.ico",
+      "assetSource": "https://www.manchester.ac.uk/medialibrary/assets/corporate/images/design/favicon.ico",
+      "sha256": "7a8c4b2097e341dc02010981d7627cb9aa6fda7096c11d615cd769f0206e02e2"
+    },
+    {
+      "id": "deepmind",
+      "name": [
+        "Google DeepMind",
+        "Google DeepMind"
+      ],
+      "intro": [
+        "AlphaFold 的开发机构；相关碳捕集题目预测的是该技术的参与，而非某种 MOF 的表现。",
+        "The AlphaFold developer; the carbon-capture contract concerns technology involvement rather than a MOF’s performance."
+      ],
+      "url": "https://deepmind.google/science/alphafold/",
+      "logo": "images/nobel/organizations/DeepMind.ico",
+      "assetSource": "https://deepmind.google/science/alphafold/",
+      "sha256": "0683e96941bf43306bdf6a3b7e59d239dfad03296c11ce54ae5be3a6d3063b4f"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "battery-testing",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "VTT：受委托测试的范围",
+        "VTT: scope of commissioned measurements"
+      ],
+      "kind": [
+        "检测机构说明",
+        "Testing institution statement"
+      ],
+      "url": "https://www.vttresearch.com/en/news-and-ideas/donut-lab-commissioned-vtt-carry-out-battery-measurements-support-its-product",
+      "entities": [
+        "vtt",
+        "donutlab"
+      ],
+      "body": [
+        "VTT 说明其接受委托，在实验室测量 Donut Lab 所提供电池的性能。核对时应回到具体报告：测了什么、由谁提供样品、哪些结论没有涵盖；测试机构名称不等于对企业全部产品主张的认证。",
+        "VTT describes commissioned laboratory measurements on customer-supplied batteries. Read each report for its measurements, sample provenance and scope; the institution’s name does not certify every product claim."
+      ]
+    },
+    {
+      "id": "lk99-replication",
+      "topics": [
+        "superconductors"
+      ],
+      "title": [
+        "LK-99 的合成、表征与输运测量",
+        "LK-99 synthesis, characterization and transport measurements"
+      ],
+      "kind": [
+        "原始研究 · 预印本",
+        "Original research · preprint"
+      ],
+      "url": "https://arxiv.org/abs/2308.03823",
+      "entities": [
+        "manchester"
+      ],
+      "body": [
+        "曼彻斯特大学相关研究的原始论文报告了合成、表征与输运测量，并未在其 LK-99 样品中观察到超导信号。结论适用于论文中的样品和方法；它与“是否出现独立实验论文”的市场可以同时成立。",
+        "The original study reports synthesis, characterization and transport measurements without observing superconductivity in its LK-99 samples. Its sample-specific finding can coexist with a Yes outcome on whether an independent experimental paper appeared."
+      ]
+    },
+    {
+      "id": "mof-supply",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "CALF-20：从吸附材料到供应合作",
+        "CALF-20: from sorbent to a supply agreement"
+      ],
+      "kind": [
+        "企业原始公告",
+        "Company announcement"
+      ],
+      "url": "https://www.svanteinc.com/press-releases/svante-secures-commercial-supply-of-mof-advanced-sorbent-materials-with-basf-for-carbon-capture-market/",
+      "entities": [
+        "basf",
+        "svante"
+      ],
+      "body": [
+        "Svante 公告与 BASF 签订 CALF-20 MOF 吸附材料商业供应协议，支持其结构化吸附过滤器路线。供应与制造规模是这一公告的重点；计划中的装置、未来产能和实际运行捕集量仍应分别核查。",
+        "Svante reports a BASF commercial supply agreement for CALF-20 MOF sorbent used in structured filters. Material supply and manufacturing are distinct from planned facilities, future capacity and measured operating capture."
+      ]
+    },
+    {
+      "id": "mof-manufacturer",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "BASF：MOF 生产与碳捕集用途",
+        "BASF: MOF production for carbon capture"
+      ],
+      "kind": [
+        "制造方原始资料",
+        "Manufacturer’s primary source"
+      ],
+      "url": "https://www.basf.com/dam/jcr%3A8a7014d3-f79a-37e4-bcb2-3cc73b80833b/basf/www/global/documents/en/news-and-media/news-releases/2023/10/P327e_MOFs_Svante.pdf",
+      "entities": [
+        "basf"
+      ],
+      "body": [
+        "BASF 的资料说明其 MOF 放大与生产工作及 Svante 合作关系。材料制造能力有助于讨论工程放大；若要比较过程成本、寿命或减排量，还需要对应装置和工况的独立数据。",
+        "BASF describes MOF scale-up and its Svante relationship. Manufacturing capability informs scale-up assessment; process cost, lifetime and avoided emissions require plant-specific operating data."
+      ]
+    }
+  ],
+  "nobel": {
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "editions": [
+      {
+        "year": 2022,
+        "source": "Manifold",
+        "file": "2022.json"
+      },
+      {
+        "year": 2023,
+        "source": "Manifold",
+        "file": "2023.json"
+      },
+      {
+        "year": 2024,
+        "source": "Manifold",
+        "file": "2024.json"
+      },
+      {
+        "year": 2025,
+        "source": "Manifold",
+        "file": "2025.json"
+      },
+      {
+        "year": 2026,
+        "source": "Kalshi",
+        "file": "2026-kalshi.json"
+      },
+      {
+        "year": 2026,
+        "source": "Manifold",
+        "file": "2026-manifold.json"
+      },
+      {
+        "year": 2026,
+        "source": "Polymarket",
+        "file": "2026.json"
+      }
+    ],
+    "sources": [
+      "Manifold",
+      "Kalshi",
+      "Polymarket"
+    ]
+  },
+  "method": {
+    "source": "Manifold",
+    "currency": "MANA",
+    "apiDocs": "https://docs.manifold.markets/api",
+    "history": "actual-trades-before-close-and-resolution",
+    "points": 7803,
+    "counts": {
+      "markets": 19,
+      "resolved": 8,
+      "cancelled": 1,
+      "ruleFlags": 6
+    },
+    "discoveryQueries": [
+      "solid state battery",
+      "LK-99",
+      "superconductor",
+      "metal organic framework",
+      "direct air capture",
+      "MOF",
+      "carbon capture",
+      "carbon removal",
+      "Svante",
+      "Atoco",
+      "room temperature superconductor commercial",
+      "room temperature superconductors before 2033"
+    ]
+  }
+}

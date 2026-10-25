@@ -1,0 +1,326 @@
+{
+  "topics": [
+    {
+      "id": "nobel",
+      "category": [
+        "科学奖项",
+        "Scientific awards"
+      ],
+      "title": [
+        "The Nobel Prize in Chemistry",
+        "The Nobel Prize in Chemistry"
+      ],
+      "deck": [
+        "回看授奖之前的候选人与研究领域预测。",
+        "Candidate and research-field forecasts before the award."
+      ],
+      "about": [
+        "这一专题保留既有的年度档案、真实得主、候选人的研究方向和所属机构。各平台分别展示，个人预测与领域预测明确区分。",
+        "This topic retains the annual archive, actual laureates, candidate research and affiliations. Sources and individual versus field predictions remain distinct."
+      ],
+      "questions": [
+        [
+          "当时哪些人或研究方向受到关注？",
+          "Which people or fields attracted attention?"
+        ],
+        [
+          "不同平台如何判断，最终结果是什么？",
+          "How did sources differ, and what happened?"
+        ]
+      ]
+    },
+    {
+      "id": "solid-state-batteries",
+      "category": [
+        "电池与储能",
+        "Batteries & storage"
+      ],
+      "title": [
+        "全固态电池",
+        "Solid-state batteries"
+      ],
+      "deck": [
+        "成分验证、样品生产与客户交付，各自需要什么证据？",
+        "Composition tests, sample production and customer delivery require different evidence."
+      ],
+      "about": [
+        "“固态”描述电解质体系，并不直接回答电芯中是否含锂、能量密度有多高，或是否已进入量产。本专题把检测指标与工程事件分开。涉及 Donut Lab 的题目反映各自创建者的规则；受委托的测试结果只覆盖报告实际测量的项目。",
+        "Solid-state refers to the electrolyte system; it does not establish lithium content, energy density or production readiness. This topic separates measurements from engineering milestones. Commissioned testing covers the measurements actually reported."
+      ],
+      "questions": [
+        [
+          "被测电池能否与商品或交付样品对应？",
+          "Can the tested cell be linked to the product?"
+        ],
+        [
+          "电芯指标、电池包指标和整车表现有没有混用？",
+          "Are cell, pack and vehicle measures being conflated?"
+        ],
+        [
+          "宣布产能、开始生产、实际交付分别到了哪一步？",
+          "What is announced capacity, operating production or delivery?"
+        ]
+      ]
+    },
+    {
+      "id": "superconductors",
+      "category": [
+        "超导与量子材料",
+        "Superconductors & quantum materials"
+      ],
+      "title": [
+        "室温超导",
+        "Room-temperature superconductors"
+      ],
+      "deck": [
+        "从独立复现实验，到常压器件的商业应用。",
+        "From independent replication to commercial ambient-pressure devices."
+      ],
+      "about": [
+        "零电阻、磁响应、相变和样品成分共同构成核对线索，悬浮视频本身不足以替代完整表征。LK-99 的历史题目还展示了“有人做了复现实验”“实验支持超导”和“商品采用超导体”之间的区别。这里保留各题不同的温度、压力、时间边界和取消状态。",
+        "Zero resistance, magnetic response, transitions and sample composition need joint review; levitation alone is insufficient. LK-99 contracts distinguish replication attempts, successful replication and commercial adoption. Contract-specific definitions and cancellations remain visible."
+      ],
+      "questions": [
+        [
+          "题目要求的是实验发表，还是成功复现？",
+          "Does the contract ask for publication or successful replication?"
+        ],
+        [
+          "室温与常压的数值范围如何定义？",
+          "How are temperature and pressure defined?"
+        ],
+        [
+          "条件市场的前提失败后，是 No 还是取消？",
+          "Does a failed condition mean No or cancellation?"
+        ]
+      ]
+    },
+    {
+      "id": "carbon-capture",
+      "category": [
+        "吸附与分离",
+        "Adsorption & separation"
+      ],
+      "title": [
+        "碳捕集与 MOF",
+        "Carbon capture & MOFs"
+      ],
+      "deck": [
+        "把材料供应、捕集过程和实际运行区分开来看。",
+        "Distinguish material supply, capture processes and operating deployment."
+      ],
+      "about": [
+        "MOF 的开放孔隙可以通过节点与配体化学进行调节，但过程表现还取决于成型、湿度、再生和循环条件。BASF 与 Svante 的 CALF-20 供应合作是可查的产业资料，不等于某个装置已经实现公告中的所有目标。本次 Manifold 检索未找到可核验的 Svante、Atoco 或 MOF 专用产业事件；下列相关市场分别涉及生物分子与矿物风化，不被标成 MOF 赔率。",
+        "MOF pores are chemically tunable, while process performance also depends on shaping, humidity, regeneration and cycling. The BASF–Svante CALF-20 supply agreement is documented industrial evidence, not proof of every deployment target. This Manifold search found no verified Svante, Atoco or MOF-specific industrial contract. Related protein and mineral-weathering contracts below are not labelled MOF odds."
+      ],
+      "questions": [
+        [
+          "供应材料或建成产线，是否等于实际捕集量？",
+          "Does material supply or a factory establish captured tonnage?"
+        ],
+        [
+          "捕集的 CO₂ 是否进一步储存，边界是否相同？",
+          "Is captured CO₂ stored, and are boundaries comparable?"
+        ],
+        [
+          "相关预测究竟涉及哪一种材料路线？",
+          "Which material pathway does each forecast concern?"
+        ]
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "battery-testing",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "VTT：受委托测试的范围",
+        "VTT: scope of commissioned measurements"
+      ],
+      "kind": [
+        "检测机构说明",
+        "Testing institution statement"
+      ],
+      "url": "https://www.vttresearch.com/en/news-and-ideas/donut-lab-commissioned-vtt-carry-out-battery-measurements-support-its-product",
+      "entities": [
+        "vtt",
+        "donutlab"
+      ],
+      "body": [
+        "VTT 说明其接受委托，在实验室测量 Donut Lab 所提供电池的性能。核对时应回到具体报告：测了什么、由谁提供样品、哪些结论没有涵盖；测试机构名称不等于对企业全部产品主张的认证。",
+        "VTT describes commissioned laboratory measurements on customer-supplied batteries. Read each report for its measurements, sample provenance and scope; the institution’s name does not certify every product claim."
+      ]
+    },
+    {
+      "id": "lk99-replication",
+      "topics": [
+        "superconductors"
+      ],
+      "title": [
+        "LK-99 的合成、表征与输运测量",
+        "LK-99 synthesis, characterization and transport measurements"
+      ],
+      "kind": [
+        "原始研究 · 预印本",
+        "Original research · preprint"
+      ],
+      "url": "https://arxiv.org/abs/2308.03823",
+      "entities": [
+        "manchester"
+      ],
+      "body": [
+        "曼彻斯特大学相关研究的原始论文报告了合成、表征与输运测量，并未在其 LK-99 样品中观察到超导信号。结论适用于论文中的样品和方法；它与“是否出现独立实验论文”的市场可以同时成立。",
+        "The original study reports synthesis, characterization and transport measurements without observing superconductivity in its LK-99 samples. Its sample-specific finding can coexist with a Yes outcome on whether an independent experimental paper appeared."
+      ]
+    },
+    {
+      "id": "mof-supply",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "CALF-20：从吸附材料到供应合作",
+        "CALF-20: from sorbent to a supply agreement"
+      ],
+      "kind": [
+        "企业原始公告",
+        "Company announcement"
+      ],
+      "url": "https://www.svanteinc.com/press-releases/svante-secures-commercial-supply-of-mof-advanced-sorbent-materials-with-basf-for-carbon-capture-market/",
+      "entities": [
+        "basf",
+        "svante"
+      ],
+      "body": [
+        "Svante 公告与 BASF 签订 CALF-20 MOF 吸附材料商业供应协议，支持其结构化吸附过滤器路线。供应与制造规模是这一公告的重点；计划中的装置、未来产能和实际运行捕集量仍应分别核查。",
+        "Svante reports a BASF commercial supply agreement for CALF-20 MOF sorbent used in structured filters. Material supply and manufacturing are distinct from planned facilities, future capacity and measured operating capture."
+      ]
+    },
+    {
+      "id": "mof-manufacturer",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "BASF：MOF 生产与碳捕集用途",
+        "BASF: MOF production for carbon capture"
+      ],
+      "kind": [
+        "制造方原始资料",
+        "Manufacturer’s primary source"
+      ],
+      "url": "https://www.basf.com/dam/jcr%3A8a7014d3-f79a-37e4-bcb2-3cc73b80833b/basf/www/global/documents/en/news-and-media/news-releases/2023/10/P327e_MOFs_Svante.pdf",
+      "entities": [
+        "basf"
+      ],
+      "body": [
+        "BASF 的资料说明其 MOF 放大与生产工作及 Svante 合作关系。材料制造能力有助于讨论工程放大；若要比较过程成本、寿命或减排量，还需要对应装置和工况的独立数据。",
+        "BASF describes MOF scale-up and its Svante relationship. Manufacturing capability informs scale-up assessment; process cost, lifetime and avoided emissions require plant-specific operating data."
+      ]
+    }
+  ],
+  "entities": {
+    "donutlab": {
+      "name": [
+        "Donut Lab",
+        "Donut Lab"
+      ],
+      "intro": [
+        "电动交通技术企业；本专题涉及其电池产品主张、受委托测量和可能的车辆应用。",
+        "An electric-mobility technology company; these contracts concern its battery claims, commissioned measurements and possible vehicle use."
+      ]
+    },
+    "vtt": {
+      "name": [
+        "芬兰 VTT 技术研究中心",
+        "VTT Technical Research Centre of Finland"
+      ],
+      "intro": [
+        "提供研究与测试服务；此处链接其对 Donut Lab 委托测量范围的官方说明。",
+        "A research and testing organization; its linked statement explains the scope of Donut Lab’s commissioned measurements."
+      ]
+    },
+    "quantumscape": {
+      "name": [
+        "QuantumScape",
+        "QuantumScape"
+      ],
+      "intro": [
+        "固态锂金属电池技术开发企业；相关事件关注陶瓷隔膜技术进入具体电芯格式和样品生产。",
+        "A solid-state lithium-metal battery developer; the linked contract concerns separator integration and sample production."
+      ]
+    },
+    "powerco": {
+      "name": [
+        "PowerCo",
+        "PowerCo"
+      ],
+      "intro": [
+        "大众集团电池业务企业；此处关注其 Unified Cell 格式与 QS 技术结合的确认条件。",
+        "Volkswagen Group’s battery company; the event concerns confirmation of QS technology in its Unified Cell format."
+      ]
+    },
+    "toyota": {
+      "name": [
+        "Toyota",
+        "Toyota"
+      ],
+      "intro": [
+        "汽车制造商；相关预测把固态电池、整车销售、续航与充电要求写在同一事件中。",
+        "An automaker; the listed contract combines solid-state chemistry, vehicle sales, range and charging requirements."
+      ]
+    },
+    "apple": {
+      "name": [
+        "Apple",
+        "Apple"
+      ],
+      "intro": [
+        "消费电子产品企业；相关事件关注 iPhone 的电池技术与产品发布。",
+        "A consumer-electronics company; this contract concerns iPhone battery technology and product release."
+      ]
+    },
+    "basf": {
+      "name": [
+        "BASF",
+        "BASF"
+      ],
+      "intro": [
+        "化工与材料企业；CALF-20 资料涉及 MOF 吸附剂放大和商业供应。",
+        "A chemicals and materials company; the CALF-20 sources concern MOF scale-up and commercial supply."
+      ]
+    },
+    "svante": {
+      "name": [
+        "Svante",
+        "Svante"
+      ],
+      "intro": [
+        "开发固体吸附剂碳捕集技术，采用结构化过滤器；本页区分材料供应与装置实际运行。",
+        "A solid-sorbent carbon-capture developer using structured filters; supply and operating deployment are distinguished here."
+      ]
+    },
+    "manchester": {
+      "name": [
+        "曼彻斯特大学",
+        "The University of Manchester"
+      ],
+      "intro": [
+        "相关研究机构；具体作者、合作机构和实验条件以链接论文为准。",
+        "A related research institution; consult the paper for complete authors, affiliations and experimental conditions."
+      ]
+    },
+    "deepmind": {
+      "name": [
+        "Google DeepMind",
+        "Google DeepMind"
+      ],
+      "intro": [
+        "AlphaFold 的开发机构；相关碳捕集题目预测的是该技术的参与，而非某种 MOF 的表现。",
+        "The AlphaFold developer; the carbon-capture contract concerns technology involvement rather than a MOF’s performance."
+      ]
+    }
+  }
+}

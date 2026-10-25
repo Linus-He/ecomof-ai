@@ -1,0 +1,115 @@
+{
+  "id": "u1hCf24lNpTqWYEpM2Uq",
+  "topicId": "carbon-capture",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/Guillaume/alphafold-involved-in-a-sota-c02-di",
+  "originalTitle": "Alphafold involved in a SOTA C02 direct air capture method by mid 2026 ?",
+  "status": "resolved",
+  "resolution": "NO",
+  "resolutionProbability": 0.05621432996383009,
+  "snapshotProbability": null,
+  "volume": 3227,
+  "participants": 7,
+  "createdTime": 1717360429017,
+  "closeTime": 1782943140000,
+  "resolutionTime": 1782955558414,
+  "observedAt": 1792909925603,
+  "historyCutoff": 1782943140000,
+  "points": [
+    {
+      "t": 1717390558038,
+      "p": 0.48806376504514315
+    },
+    {
+      "t": 1717397994110,
+      "p": 0.4026048739423587
+    },
+    {
+      "t": 1717785057509,
+      "p": 0.4302360375606613
+    },
+    {
+      "t": 1718052100702,
+      "p": 0.3910094224123409
+    },
+    {
+      "t": 1720086654370,
+      "p": 0.3558436213739676
+    },
+    {
+      "t": 1778438477036,
+      "p": 0.10993167542856563
+    },
+    {
+      "t": 1782498901339,
+      "p": 0.05626615760627966
+    },
+    {
+      "t": 1782882512385,
+      "p": 0.056214329963830086
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.056214329963830086,
+  "lastTradeAt": 1782882512385,
+  "sourceApi": "https://api.manifold.markets/v0/market/u1hCf24lNpTqWYEpM2Uq",
+  "provenance": {
+    "marketSha256": "eeff2bd9d5f251089ae82516c3763d2b7d8a50398b33e263c0796df0f05b0638",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=u1hCf24lNpTqWYEpM2Uq&limit=1000",
+        "sha256": "98b3b8ed82a2a784a4acf1b2e7498a6fbd0ae4f01580ccf62f82bc627e509c16",
+        "rows": 8
+      }
+    ],
+    "fetchedTradeRows": 8,
+    "acceptedTradeRows": 8,
+    "excludedTradeRows": 0
+  },
+  "stage": "validation",
+  "title": [
+    "AlphaFold 是否参与领先的空气碳捕集方法？",
+    "Would AlphaFold contribute to a leading direct-air-capture method?"
+  ],
+  "rules": [
+    [
+      "原题关注 2026 年中前的 AlphaFold 或其后继技术参与；平台已判定 No。",
+      "The question concerns AlphaFold or a successor contributing before mid-2026; the platform resolved No."
+    ]
+  ],
+  "interpretation": [
+    "原描述对“领先方法”的量化定义有限；这不是 MOF 专用市场，也不能从这次判定推出蛋白质路线没有研究价值。",
+    "The description gives limited quantitative meaning to leading performance. This is not MOF-specific, and settlement does not rule out protein-based research."
+  ],
+  "entities": [
+    "deepmind"
+  ],
+  "evidence": [],
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      "detail": [
+        "“领先”的验收标准未充分量化。",
+        "Leading performance is not sufficiently quantified."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 8,
+  "detailFile": "events/u1hCf24lNpTqWYEpM2Uq.json"
+}

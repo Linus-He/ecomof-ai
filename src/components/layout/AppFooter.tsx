@@ -23,7 +23,7 @@ export function AppFooter({
       title: l("Research", "研究"),
       links: [
         ["The Nobel Prize in Chemistry", "nobel-chemistry"],
-        [l("Prediction Markets", "预测市场"), "prediction-markets"],
+        [l("Science Forecasts", "科学预测"), "science-forecasts"],
         [l("EcoScreen", "生态筛选"), "ecoscreen"],
         [l("GasSep", "气体分离"), "gassep"],
         [l("Catalysis", "催化"), "catalysis"],

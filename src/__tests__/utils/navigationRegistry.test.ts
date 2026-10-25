@@ -51,9 +51,9 @@ describe("navigation registry", () => {
   })
 
   it("keeps market editions and methodology examples on their own routes", () => {
-    for (const hash of ["prediction-markets", "prediction-markets-2026", "prediction-markets-2026-kalshi", "prediction-markets-2023-manifold"]) {
+    for (const hash of ["science-forecasts", "science-forecasts-nobel", "science-forecasts-nobel-2026-kalshi", "science-forecasts-solid-state-batteries", "science-forecasts-event-SAIUNdCI8U", "prediction-markets", "prediction-markets-2026", "prediction-markets-2026-kalshi", "prediction-markets-2023-manifold"]) {
       expect(resolveTabForHash(hash)).toBe("predictionMarkets")
-      expect(getNavigationMeta(hash).title).toContain("Prediction Markets")
+      expect(getNavigationMeta(hash).title).toMatch(/科学预测|Science Forecasts/)
     }
     expect(resolveTabForHash("methodology-worked-examples")).toBe("about")
     expect(getNavigationMeta("methodology-worked-examples")).toEqual(getNavigationMeta("methodology"))

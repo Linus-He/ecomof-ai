@@ -1,0 +1,124 @@
+{
+  "id": "n0dowx6m17",
+  "topicId": "solid-state-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/strutheo/will-apple-release-an-iphone-that-u-e8w9fbr8pz",
+  "originalTitle": "Will Apple release an iPhone that uses a solid-state battery by the end of 2026?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.07865809393443293,
+  "volume": 865,
+  "participants": 10,
+  "createdTime": 1719268228256,
+  "closeTime": 1798779540000,
+  "resolutionTime": null,
+  "observedAt": 1792909908466,
+  "historyCutoff": 1792909908466,
+  "points": [
+    {
+      "t": 1719269314452,
+      "p": 0.4329214339639101
+    },
+    {
+      "t": 1720613073490,
+      "p": 0.3313387762005229
+    },
+    {
+      "t": 1726514946203,
+      "p": 0.25845369703611343
+    },
+    {
+      "t": 1752978207778,
+      "p": 0.18801446616327838
+    },
+    {
+      "t": 1767699576839,
+      "p": 0.15342543351474427
+    },
+    {
+      "t": 1769633376667,
+      "p": 0.15048678262495443
+    },
+    {
+      "t": 1771843984622,
+      "p": 0.14762960758695093
+    },
+    {
+      "t": 1771852788771,
+      "p": 0.12296540264241272
+    },
+    {
+      "t": 1772805703431,
+      "p": 0.11876740467147513
+    },
+    {
+      "t": 1776768806378,
+      "p": 0.1167474998591168
+    },
+    {
+      "t": 1779772847212,
+      "p": 0.11575657316531503
+    },
+    {
+      "t": 1789399565929,
+      "p": 0.08449545808575015
+    },
+    {
+      "t": 1789830773634,
+      "p": 0.07865809393443293
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.07865809393443293,
+  "lastTradeAt": 1789830773634,
+  "sourceApi": "https://api.manifold.markets/v0/market/n0dowx6m17",
+  "provenance": {
+    "marketSha256": "ae1d19f3aba48dd99f2c199ffefecd8e0e11d1ab261193cfe323ec4e562fcb2b",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=n0dowx6m17&limit=1000",
+        "sha256": "b4f814e9ffd518b8a62db6ab8f8f34e23844cbb5d7c72ce4f2d4095a1d64514a",
+        "rows": 13
+      }
+    ],
+    "fetchedTradeRows": 13,
+    "acceptedTradeRows": 13,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "Apple 是否推出使用固态电池的 iPhone？",
+    "Will Apple release an iPhone using a solid-state battery?"
+  ],
+  "rules": [
+    [
+      "原题期限为 2026 年结束前，指向使用固态电池的 iPhone 产品发布。",
+      "The question concerns an iPhone release using a solid-state battery before the end of 2026."
+    ]
+  ],
+  "interpretation": [
+    "描述仅提供电池概念链接，没有完整定义固态比例、样机与零售版本的区别。相关缺口保持可见。",
+    "The description links a general battery definition without defining solid fraction or prototype versus retail release."
+  ],
+  "entities": [
+    "apple"
+  ],
+  "evidence": [],
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      "detail": [
+        "缺少固态电池与产品发布的完整验收定义。",
+        "No full acceptance definition for chemistry or release."
+      ]
+    }
+  ],
+  "tradePoints": 13,
+  "detailFile": "events/n0dowx6m17.json"
+}

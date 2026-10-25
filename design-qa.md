@@ -585,3 +585,32 @@ TypeScript, seven focused test files with 32 tests, production build and `git di
 Final comparison contains no actionable P0/P1/P2 finding. Future polish: larger illustrative datasets could be added only with separately verified provenance; none are implied by these teaching inputs.
 
 final result: passed
+
+## Science Forecasts umbrella and global secondary-page readability
+
+Source visual truth: the existing Polymarket-style Nobel market page (`qa/science-forecasts/nobel-reference-desktop.png`) and the user's white Nobel editorial reference. This revision keeps white backgrounds, deep teal headings, blue probability curves, thin rules and existing Phosphor actions. It adds a topic directory rather than copying candidate trading controls onto unrelated technical events.
+
+### Scope and source checks
+
+The entry is now **科学预测 / Science Forecasts** in home, navigation and footer. Four topics cover Nobel Chemistry, solid-state batteries, superconductors, and carbon capture / MOFs. Nobel's seven existing year/source editions remain intact, including canonical topic/year/source routes and old `prediction-markets-*` links. Nineteen new Manifold binary contracts contain 7,803 actual pre-boundary trade observations. Rules, cancelled outcomes, play-money units, archived platform snapshots and historical last trades remain distinct. Six source-rule concerns and low-participation flags remain visible. No dedicated industrial MOF odds are invented; related protein/mineral markets are labelled separately from documented Svante/BASF materials evidence.
+
+The inspection artifact is `scripts/science-forecasts/source-audit.json`. It records pagination hashes/counts, capture/close/resolution boundaries and discovery scope. Asset sources and checksums accompany ten company/institution profiles. Raw account identities are not published. New official website icons were visually reviewed together in `qa/science-forecasts/company-icons.jpg`; reused BASF, Svante, Manchester and DeepMind assets retain their previous provenance. The README documents the read-only refresh procedure and review boundaries.
+
+### Findings and repairs
+
+- P1, global faded pages: scroll-timeline reveal applied opacity from 0.18 to 1 to long article containers. A container could remain partly transparent because it never completed the viewport progression. Removed the global descendant reveal and its fallback, leaving only the short time-based outer page transition. All content wrappers remain opacity 1 at entry and after scrolling. The old Nobel-only exception is replaced by the global rule. Evidence: `secondary-before.png`, `secondary-after.png`, and the 17-route `secondary-page-opacity-audit.json` covering method, update, research, data, project, about, annual Nobel, market, MOF and literature detail surfaces.
+- P2, mobile event heading: action icons initially left the title a narrow column. The mobile header now puts actions on their own row and gives the title the full reading width. Evidence: `event-mobile.png`.
+- P2, source interpretation: the lithium contract title now states the actual <0.1% mass-fraction criterion, rather than implying a probability of testing in general. Original title, rule summary and original source/API links remain adjacent.
+- P2, consistency: colored side-emphasis blocks on the related Nobel, market and worked-example surfaces became horizontal rules. Symmetric year-control separators remain symmetric. Legacy release tests were updated to respect the user's administrative-date removal.
+
+### Visual and interaction gate
+
+Desktop evidence: `hub-desktop.png`, `hub-final.png`, `hub-topics.png`, `event-desktop.png`, `event-rules.png` and the Nobel reference. Chinese/English phone evidence: `hub-mobile.png`, `hub-english-mobile.png`, `event-mobile.png`, `cancelled-english-mobile.png`. CSS viewport widths 390 and 1024 were checked with 384 and 1018-pixel content widths respectively; no document overflow or offscreen content columns. Native captures crop to the host browser frame, so tall virtual viewports do not imply every below-fold pixel is in a screenshot. `hub-topics.png` explicitly scrolls the four topic cards into view. No conceptual covers or invented logos were introduced.
+
+Verified topic entry, stage filtering, institution search, persisted local follow/unfollow, event navigation, source links, year change to 2023, source-specific Nobel routes, missing-event recovery, cancelled outcome display, empty recent-history state, Chinese/English switching, and mobile title/control wrapping. Component tests additionally cover failed/retry/loading states in the retained Nobel page. The browser error log was empty during the final local interaction pass.
+
+Validation: 295 test files / 1,010 tests passed; after the criterion-title correction, both affected files / 8 tests passed again. TypeScript, production build and whitespace checks passed. Existing Vite deprecation/bundle-size warnings and jsdom's unsupported full-navigation notice are separate from test failures. Release v3.5.8 and its text-only update story describe the same completed scope. This is a local implementation and commit; no online publication is claimed.
+
+No remaining actionable P0/P1/P2 finding within this revision. The technical-source archive is a curated snapshot, not an exhaustive or live platform feed.
+
+final result: passed

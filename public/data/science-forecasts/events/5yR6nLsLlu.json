@@ -1,0 +1,117 @@
+{
+  "id": "5yR6nLsLlu",
+  "topicId": "solid-state-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MichaelBlume/by-the-end-of-2026-will-it-be-possi",
+  "originalTitle": "By the end of 2026, will it be possible to purchase a motorcycle with a solid state battery for <$50k",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.45441216721592986,
+  "volume": 186.63036843403722,
+  "participants": 7,
+  "createdTime": 1767658103646,
+  "closeTime": 1798790340000,
+  "resolutionTime": null,
+  "observedAt": 1792909896537,
+  "historyCutoff": 1792909896537,
+  "points": [
+    {
+      "t": 1767658104572,
+      "p": 0.49453024818989566
+    },
+    {
+      "t": 1767659579151,
+      "p": 0.5040433599648295
+    },
+    {
+      "t": 1767743570338,
+      "p": 0.5114262466975474
+    },
+    {
+      "t": 1767831035554,
+      "p": 0.5168896664228323
+    },
+    {
+      "t": 1768806613066,
+      "p": 0.4916841239441227
+    },
+    {
+      "t": 1771593375356,
+      "p": 0.49219211971267623
+    },
+    {
+      "t": 1779772575464,
+      "p": 0.47765269879869565
+    },
+    {
+      "t": 1782317100750,
+      "p": 0.45441216721592986
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.45441216721592986,
+  "lastTradeAt": 1782317100750,
+  "sourceApi": "https://api.manifold.markets/v0/market/5yR6nLsLlu",
+  "provenance": {
+    "marketSha256": "c820b0e097c02e651f9b511afee6efc710d8b8eb71d43a3c585291544a1de460",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=5yR6nLsLlu&limit=1000",
+        "sha256": "782102b4b8338c5f9352625b71980fc748d4745a9e7eea6c0e864145d0eefe3f",
+        "rows": 8
+      }
+    ],
+    "fetchedTradeRows": 8,
+    "acceptedTradeRows": 8,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "消费者能否购买低于 5 万美元的固态电池摩托车？",
+    "Will a solid-state motorcycle be purchasable below US$50,000?"
+  ],
+  "rules": [
+    [
+      "原题以 2026 年结束前可以买到符合条件的摩托车为判断对象，价格门槛为 5 万美元。",
+      "The original question asks about availability before the end of 2026 with a US$50,000 price ceiling."
+    ]
+  ],
+  "interpretation": [
+    "购买资格、订单与实际交付并不相同；原描述细则有限，判断前须查看市场创建者的解释。",
+    "Availability, ordering and physical delivery differ. The description supplies limited detail; review the creator’s clarifications."
+  ],
+  "entities": [
+    "donutlab"
+  ],
+  "evidence": [
+    "battery-testing"
+  ],
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      "detail": [
+        "购买和交付边界需要查看原市场澄清。",
+        "Availability versus delivery needs source clarification."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 8,
+  "detailFile": "events/5yR6nLsLlu.json"
+}

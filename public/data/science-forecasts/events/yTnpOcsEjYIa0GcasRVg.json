@@ -1,0 +1,158 @@
+{
+  "id": "yTnpOcsEjYIa0GcasRVg",
+  "topicId": "solid-state-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/ThiagoBach/will-a-new-solidstate-battery-with",
+  "originalTitle": "Will a new solid-state battery with an energy density exceeding 400 Wh/kg be commercially released by the end of 2024?",
+  "status": "resolved",
+  "resolution": "NO",
+  "resolutionProbability": 0.04796995850514755,
+  "snapshotProbability": null,
+  "volume": 3863.005477444409,
+  "participants": 20,
+  "createdTime": 1700027089950,
+  "closeTime": 1735657140000,
+  "resolutionTime": 1737825108651,
+  "observedAt": 1792909904594,
+  "historyCutoff": 1735657140000,
+  "points": [
+    {
+      "t": 1700028748773,
+      "p": 0.4098360655737706
+    },
+    {
+      "t": 1700033422593,
+      "p": 0.3977155038485611
+    },
+    {
+      "t": 1700040198243,
+      "p": 0.3711458242813702
+    },
+    {
+      "t": 1700051757497,
+      "p": 0.286297653959724
+    },
+    {
+      "t": 1700054558852,
+      "p": 0.3022098059708904
+    },
+    {
+      "t": 1700062350871,
+      "p": 0.14876112534565789
+    },
+    {
+      "t": 1700062353467,
+      "p": 0.11805677457083552
+    },
+    {
+      "t": 1702751246061,
+      "p": 0.17471078025520895
+    },
+    {
+      "t": 1703096209603,
+      "p": 0.3946689593802327
+    },
+    {
+      "t": 1703698378442,
+      "p": 0.4328832892060639
+    },
+    {
+      "t": 1708073227654,
+      "p": 0.3750408850915353
+    },
+    {
+      "t": 1710878092883,
+      "p": 0.30983949360804564
+    },
+    {
+      "t": 1713801887414,
+      "p": 0.339962144178579
+    },
+    {
+      "t": 1713814565709,
+      "p": 0.30026818645738074
+    },
+    {
+      "t": 1719367609812,
+      "p": 0.25514859058361045
+    },
+    {
+      "t": 1722492261703,
+      "p": 0.2440047044868433
+    },
+    {
+      "t": 1722510299472,
+      "p": 0.2148407351967602
+    },
+    {
+      "t": 1722590891528,
+      "p": 0.20309615276267995
+    },
+    {
+      "t": 1731062300190,
+      "p": 0.10646163207056654
+    },
+    {
+      "t": 1731064114856,
+      "p": 0.10634963719738598
+    },
+    {
+      "t": 1732691116608,
+      "p": 0.10639965351271756
+    },
+    {
+      "t": 1735331257209,
+      "p": 0.08350048797458842
+    },
+    {
+      "t": 1735585776034,
+      "p": 0.06780315597884069
+    },
+    {
+      "t": 1735608508837,
+      "p": 0.06767169858407315
+    },
+    {
+      "t": 1735654327817,
+      "p": 0.04796995850514755
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.04796995850514755,
+  "lastTradeAt": 1735654327817,
+  "sourceApi": "https://api.manifold.markets/v0/market/yTnpOcsEjYIa0GcasRVg",
+  "provenance": {
+    "marketSha256": "6033959ac0443e9a443ababbe55518fb71147d1afb2d8655fc12a4d9940946a5",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=yTnpOcsEjYIa0GcasRVg&limit=1000",
+        "sha256": "00eee7a8038bf2e14cbd7d66c05ceb3fa265c747777f4c37823f09cb1a60ae7d",
+        "rows": 33
+      }
+    ],
+    "fetchedTradeRows": 33,
+    "acceptedTradeRows": 25,
+    "excludedTradeRows": 8
+  },
+  "stage": "engineering",
+  "title": [
+    "超过 400 Wh/kg 的固态电池能否在 2024 年商业发布？",
+    "Would a solid-state battery above 400 Wh/kg be commercially released in 2024?"
+  ],
+  "rules": [
+    [
+      "原规则要求超过能量密度门槛，并能商业购买或订购；平台已判定 No。",
+      "The rule requires exceeding the energy-density threshold and commercial purchase or ordering; the platform resolved No."
+    ]
+  ],
+  "interpretation": [
+    "单个实验样品达到数值，不自动满足商业可购条件；平台结算也不能替代所有电池产品的技术审查。",
+    "A laboratory sample does not automatically establish commercial availability. Settlement is not a technical review of every battery product."
+  ],
+  "entities": [],
+  "evidence": [],
+  "quality": [],
+  "tradePoints": 25,
+  "detailFile": "events/yTnpOcsEjYIa0GcasRVg.json"
+}

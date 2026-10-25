@@ -8,7 +8,8 @@ describe("Unified release context", () => {
     render(<ReleaseNotesPage />)
     const page = screen.getByTestId("release-notes-page")
     expect(page.textContent).toMatch(/v3\.5\.1/)
-    expect(page.textContent).toMatch(/2026-08-20/)
+    expect(page.querySelector("time")).toBeNull()
+    expect(page.textContent).not.toMatch(/2026-08-20/)
     expect(page.textContent).toMatch(/Scientific Milestones|科学里程碑/)
   })
 

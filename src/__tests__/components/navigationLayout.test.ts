@@ -143,3 +143,13 @@ describe("top navigation layout", () => {
     expect(css).toContain("min-inline-size: max-content")
   })
 })
+
+
+describe("secondary page readability", () => {
+  it("keeps article opacity independent of scroll timelines across every route", () => {
+    const css = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
+    expect(css).not.toContain("animation-timeline: view()")
+    expect(css).not.toContain("page-scroll-reveal")
+    expect(css).toMatch(/\.page-transition > \* > :is\(section, article, header, div\)\s*\{[^}]*opacity: 1;/s)
+  })
+})

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.7",
+  "currentAppVersion": "v3.5.8",
   "generatedAt": "2026-10-25",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.6",
-    "developmentVersion": "v3.5.7",
+    "baseAppVersion": "v3.5.7",
+    "developmentVersion": "v3.5.8",
     "recordedAt": "2026-10-25",
     "status": "archived",
     "statusLabel": {
@@ -22,31 +22,35 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "用八组中英教学例解释材料身份、权重、评分、分离、催化、溯源与验证，重绘白色阅读页面，并修复进入预测市场时的滚动定位与加载状态。",
-      "en": "Eight bilingual teaching examples explain identity, weights, scores, separation, catalysis, provenance and validation, with a white editorial layout and fixes to market entry scrolling and loading states."
+      "zh": "将预测市场扩展为科学预测统一入口，保留诺奖档案，新增电池、超导与碳捕集的可核验技术事件，并修复二级页面正文发灰。",
+      "en": "A unified Science Forecasts entry preserves Nobel archives and adds source-backed battery, superconductor and carbon-capture events, with a global fix for faded secondary pages."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "方法论重绘与市场入口修复",
-          "en": "A clearer methodology and reliable market entry"
+          "zh": "科学预测专题与全局页面显示修复",
+          "en": "Science Forecasts and reliable secondary pages"
         },
         "changes": [
           {
-            "zh": "方法论采用与诺奖专栏一致的白底、深青标题与分隔线；减少嵌套卡片，目录改为简洁侧栏，方法索引和治理依据可以展开查阅。",
-            "en": "Methodology adopts the Nobel column’s white background, deep teal headings and fine rules. A simpler directory and expandable reference index accompany flatter method sections."
+            "zh": "首页、菜单和页脚统一改为“科学预测”。诺奖市场成为独立专题，原有七份年度／平台记录与旧链接继续可用；新增全固态电池、超导材料、碳捕集与 MOF 三个技术专题。",
+            "en": "Home, menu and footer now use Science Forecasts. Nobel markets retain all seven year/source editions and legacy links as a dedicated topic, alongside batteries, superconductors and carbon capture / MOFs."
           },
           {
-            "zh": "新增八组中英示例，逐项解释输入、假设、计算结果和缺失条件时的停止位置；综合评分示例可调整证据系数，所有教学数字均明确为构造输入。",
-            "en": "Eight bilingual examples explain inputs, assumptions, results and stopping conditions. The scoring example recalculates with an adjustable evidence factor; all teaching numbers are explicitly constructed."
+            "zh": "从 Manifold 公共 API 收录 19 个具体事件、7,803 个真实成交后采样点，分别标明虚拟积分、存档概率、停盘前成交及平台判定。六条规则冲突或不足单独提示，取消不视为 No。",
+            "en": "Public Manifold API records supply 19 specific events and 7,803 actual post-trade observations. Play money, archived snapshots, pre-close trades and resolution are distinct. Six rule issues are flagged; cancellation is not No."
           },
           {
-            "zh": "保留完整公式、交互工作台、方法步骤与来源入口。新增说明链接至 NIST、W3C、IUPAC 和 CRITIC 原始方法，区分教学简化与完整计算。",
-            "en": "Complete formulas, interactive workbenches, method steps and source links remain available. Examples link NIST, W3C, IUPAC and the original CRITIC method and distinguish simplified teaching from full calculations."
+            "zh": "专题提供搜索、阶段与状态筛选、排序、本机关注、事件目录与历史 CSV 下载。事件详情按需加载，包含规则摘要、判定边界、真实历史曲线及中英机构简介和官方图标。",
+            "en": "Topics offer search, stage/status filters, sorting, device-local watchlists and CSV exports. Event details load on demand with rule summaries, resolution boundaries, actual history and bilingual institution profiles with official icons."
           },
           {
-            "zh": "预测市场进入时回到页面顶部，避免沿用首页或页脚的滚动位置；年份索引加载完成前不再显示空数据提示，索引和报价请求超时或失败时均可重试。",
-            "en": "Market entry resets inherited scroll positions. Loading the year index no longer flashes an unavailable-year message; failed or timed-out index and quote requests can be retried."
+            "zh": "补充 VTT 测量说明、LK-99 实验论文及 Svante／BASF 的 MOF 材料供应资料。市场预测与科学证据分别呈现；未找到可核验的 MOF 产业专属市场，不以其他碳捕集路线的概率代替。",
+            "en": "Evidence links cover VTT measurements, an LK-99 experimental paper and Svante/BASF MOF supply documents. Market prices and evidence remain separate; other capture pathways do not stand in for an unverified MOF industry market."
+          },
+          {
+            "zh": "移除全局正文容器的滚动透明度动画，二级页面在进入、滚动及异步加载后保持完整显示。致谢同步说明 Manifold 的新增数据用途；本轮提交记录与动态详情保持一致。",
+            "en": "Global content containers no longer use scroll-driven opacity, keeping secondary pages readable on entry, scroll and lazy loading. Acknowledgements cover the expanded Manifold use; release and update stories describe the same completed work."
           }
         ]
       }
@@ -187,6 +191,48 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.8",
+      "date": "2026-10-25",
+      "headline": {
+        "zh": "科学预测专题与全局页面显示修复",
+        "en": "Science Forecasts and reliable secondary pages"
+      },
+      "summary": {
+        "zh": "将预测市场扩展为科学预测统一入口，保留诺奖档案，新增电池、超导与碳捕集的可核验技术事件，并修复二级页面正文发灰。",
+        "en": "A unified Science Forecasts entry preserves Nobel archives and adds source-backed battery, superconductor and carbon-capture events, with a global fix for faded secondary pages."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "科学预测专题与全局页面显示修复",
+            "en": "Science Forecasts and reliable secondary pages"
+          },
+          "changes": [
+            {
+              "zh": "首页、菜单和页脚统一改为“科学预测”。诺奖市场成为独立专题，原有七份年度／平台记录与旧链接继续可用；新增全固态电池、超导材料、碳捕集与 MOF 三个技术专题。",
+              "en": "Home, menu and footer now use Science Forecasts. Nobel markets retain all seven year/source editions and legacy links as a dedicated topic, alongside batteries, superconductors and carbon capture / MOFs."
+            },
+            {
+              "zh": "从 Manifold 公共 API 收录 19 个具体事件、7,803 个真实成交后采样点，分别标明虚拟积分、存档概率、停盘前成交及平台判定。六条规则冲突或不足单独提示，取消不视为 No。",
+              "en": "Public Manifold API records supply 19 specific events and 7,803 actual post-trade observations. Play money, archived snapshots, pre-close trades and resolution are distinct. Six rule issues are flagged; cancellation is not No."
+            },
+            {
+              "zh": "专题提供搜索、阶段与状态筛选、排序、本机关注、事件目录与历史 CSV 下载。事件详情按需加载，包含规则摘要、判定边界、真实历史曲线及中英机构简介和官方图标。",
+              "en": "Topics offer search, stage/status filters, sorting, device-local watchlists and CSV exports. Event details load on demand with rule summaries, resolution boundaries, actual history and bilingual institution profiles with official icons."
+            },
+            {
+              "zh": "补充 VTT 测量说明、LK-99 实验论文及 Svante／BASF 的 MOF 材料供应资料。市场预测与科学证据分别呈现；未找到可核验的 MOF 产业专属市场，不以其他碳捕集路线的概率代替。",
+              "en": "Evidence links cover VTT measurements, an LK-99 experimental paper and Svante/BASF MOF supply documents. Market prices and evidence remain separate; other capture pathways do not stand in for an unverified MOF industry market."
+            },
+            {
+              "zh": "移除全局正文容器的滚动透明度动画，二级页面在进入、滚动及异步加载后保持完整显示。致谢同步说明 Manifold 的新增数据用途；本轮提交记录与动态详情保持一致。",
+              "en": "Global content containers no longer use scroll-driven opacity, keeping secondary pages readable on entry, scroll and lazy loading. Acknowledgements cover the expanded Manifold use; release and update stories describe the same completed work."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.7",
       "date": "2026-10-25",

@@ -1,0 +1,125 @@
+{
+  "id": "jVXPWByYV1uHFNzjULf6",
+  "topicId": "solid-state-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/tr/will-any-car-or-truck-with-a-solid",
+  "originalTitle": "Will any car or truck with a solid state battery be delivered in the US before EOY 2024",
+  "status": "resolved",
+  "resolution": "NO",
+  "resolutionProbability": 0.07624674800851618,
+  "snapshotProbability": null,
+  "volume": 289.1971993082816,
+  "participants": 8,
+  "createdTime": 1706129440350,
+  "closeTime": 1735718340000,
+  "resolutionTime": 1738024529935,
+  "observedAt": 1792909904891,
+  "historyCutoff": 1735718340000,
+  "points": [
+    {
+      "t": 1706129566196,
+      "p": 0.4708984742889434
+    },
+    {
+      "t": 1706129807167,
+      "p": 0.20654329147389297
+    },
+    {
+      "t": 1706135382528,
+      "p": 0.16611027975729062
+    },
+    {
+      "t": 1706135766202,
+      "p": 0.15111102802201615
+    },
+    {
+      "t": 1706140504130,
+      "p": 0.15010988617691265
+    },
+    {
+      "t": 1706191813047,
+      "p": 0.1421042219320329
+    },
+    {
+      "t": 1706199216208,
+      "p": 0.12949454733821456
+    },
+    {
+      "t": 1706268941102,
+      "p": 0.11514970490910113
+    },
+    {
+      "t": 1706459900660,
+      "p": 0.10764187789239746
+    },
+    {
+      "t": 1706810167123,
+      "p": 0.10950882254460619
+    },
+    {
+      "t": 1712762098520,
+      "p": 0.07624674800851618
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.07624674800851618,
+  "lastTradeAt": 1712762098520,
+  "sourceApi": "https://api.manifold.markets/v0/market/jVXPWByYV1uHFNzjULf6",
+  "provenance": {
+    "marketSha256": "4acb440fab6256f7348e3ddbdb10344458f07b1a7dd56816db4a3eac7ebf50fa",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=jVXPWByYV1uHFNzjULf6&limit=1000",
+        "sha256": "c4c10c84e44701a65f9ef5521cef8c39d432e8ef560ccc9719ae2461617c94ea",
+        "rows": 11
+      }
+    ],
+    "fetchedTradeRows": 11,
+    "acceptedTradeRows": 11,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "美国能否在 2024 年收到固态电池汽车或卡车？",
+    "Would a solid-state car or truck be delivered in the US in 2024?"
+  ],
+  "rules": [
+    [
+      "原题关注美国境内汽车或卡车交付，平台已判定 No。",
+      "The question concerns car or truck delivery in the US; the platform resolved No."
+    ]
+  ],
+  "interpretation": [
+    "API 描述未提供进一步规则细则。保留原题和判定，不补写“全固态”、客户类型或产量门槛。",
+    "The API description supplies no further rules. No all-solid-state, customer-type or production threshold has been invented."
+  ],
+  "entities": [],
+  "evidence": [],
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "规则细节不足",
+        "Limited rule detail"
+      ],
+      "detail": [
+        "API 描述为空。",
+        "The API description is empty."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 11,
+  "detailFile": "events/jVXPWByYV1uHFNzjULf6.json"
+}

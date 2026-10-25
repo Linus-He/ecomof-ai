@@ -48,7 +48,7 @@ const lazyNamed = (loader, exportName) => lazy(async () => {
 const routeComponent = tabId => getNavigationRoute(tabId)?.component
 const UpdateStoryPage = lazyNamed(() => import("./components/pages/UpdateStoryPage"), "UpdateStoryPage")
 const NobelChemistryPage = lazyNamed(() => import("./components/pages/NobelChemistryPage"), "NobelChemistryPage")
-const PredictionMarketsPage = lazyNamed(() => import("./components/pages/PredictionMarketsPage"), "PredictionMarketsPage")
+const PredictionMarketsPage = lazyNamed(() => import("./components/pages/ScienceForecastsPage"), "ScienceForecastsPage")
 const ResearchArticlePage = lazyNamed(() => import("./components/pages/ResearchArticlePage"), "ResearchArticlePage")
 
 const EcoScreenTab = lazyNamed(routeComponent("ecoscreen").load, routeComponent("ecoscreen").exportName)

@@ -1,0 +1,78 @@
+{
+  "id": "f6jHUqoKdt8YmpXQjGlO",
+  "topicId": "carbon-capture",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/JonathanRay/anthropogenic-olivinebased-direct-a",
+  "originalTitle": "Anthropogenic olivine-based direct air capture of CO2 at >10^9 tons CO2/year before 2050?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.41806998054496247,
+  "volume": 11,
+  "participants": 2,
+  "createdTime": 1691628659001,
+  "closeTime": 2524636740000,
+  "resolutionTime": null,
+  "observedAt": 1792909926791,
+  "historyCutoff": 1792909926791,
+  "points": [
+    {
+      "t": 1691631523012,
+      "p": 0.4098360655737706
+    },
+    {
+      "t": 1695752074884,
+      "p": 0.41806998054496264
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.41806998054496264,
+  "lastTradeAt": 1695752074884,
+  "sourceApi": "https://api.manifold.markets/v0/market/f6jHUqoKdt8YmpXQjGlO",
+  "provenance": {
+    "marketSha256": "d1f27af32826c821e19a62e3a10667f4987c3c1f2441a0da15b721ae001e4f4b",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=f6jHUqoKdt8YmpXQjGlO&limit=1000",
+        "sha256": "0aa0399bed8ce17eed4185b8ceb6f88f59e443a6a8152ff08ba8be8abf9ef16b",
+        "rows": 2
+      }
+    ],
+    "fetchedTradeRows": 2,
+    "acceptedTradeRows": 2,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "橄榄石碳移除能否达到每年十亿吨量级？",
+    "Will olivine-based carbon removal exceed one billion tonnes per year?"
+  ],
+  "rules": [
+    [
+      "原题要求人为增加的橄榄石路线 CO₂ 捕集量，在 2050 年前超过每年 10⁹ 吨。",
+      "The question requires human-induced olivine-based CO₂ capture above 10⁹ tonnes per year before 2050."
+    ]
+  ],
+  "interpretation": [
+    "这是矿物风化相关市场，不是 MOF 市场；成交和参与者很少，展示原始数量，不把概率称为科学界共识。",
+    "This mineral-weathering contract is not a MOF market. Activity is thin; its probability is not described as scientific consensus."
+  ],
+  "entities": [],
+  "evidence": [],
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 2,
+  "detailFile": "events/f6jHUqoKdt8YmpXQjGlO.json"
+}

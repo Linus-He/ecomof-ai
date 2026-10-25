@@ -1,0 +1,650 @@
+[
+  {
+    "route": "creator-statement",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "about-text-page creator-statement-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "creator-statement-hero",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "creator-statement-sections",
+          "opacity": "1"
+        }
+      ],
+      "tab": "creatorStatement",
+      "title": "为什么建立 EcoMOF-AI"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 1600
+    }
+  },
+  {
+    "route": "acknowledgements",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "about-text-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "about-text-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "about-text-list",
+          "opacity": "1"
+        }
+      ],
+      "tab": "acknowledgements",
+      "title": "致谢"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 2400
+    }
+  },
+  {
+    "route": "open-source-licenses",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "about-text-page open-source-licenses-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "about-text-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-summary-strip",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        }
+      ],
+      "tab": "openSourceLicenses",
+      "title": "开源许可"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 3067.5
+    }
+  },
+  {
+    "route": "research-charter",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "about-text-page open-source-licenses-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "about-text-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-summary-strip",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "license-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "DIV",
+          "opacity": "1"
+        }
+      ],
+      "tab": "openSourceLicenses",
+      "title": "开源许可"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 4001.5
+    }
+  },
+  {
+    "route": "release-notes",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "release-notes-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "release-notes-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "release-notes-list",
+          "opacity": "1"
+        }
+      ],
+      "tab": "releaseNotes",
+      "title": "更新日志"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 17629.5
+    }
+  },
+  {
+    "route": "project-evolution-milestones",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-hero",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-list",
+          "opacity": "1"
+        }
+      ],
+      "tab": "scientificMilestones",
+      "title": "科学里程碑"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 5326
+    }
+  },
+  {
+    "route": "project-evolution-roadmap",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-hero",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "milestone-roadmap-list",
+          "opacity": "1"
+        }
+      ],
+      "tab": "researchRoadmap",
+      "title": "科研路线图"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 3391
+    }
+  },
+  {
+    "route": "contact",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "about-text-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "about-text-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "contact-page-layout",
+          "opacity": "1"
+        }
+      ],
+      "tab": "contact",
+      "title": "联系与合作"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 1342.5
+    }
+  },
+  {
+    "route": "methodology",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "methodology-page methodology-editorial",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "method-reader-hero",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "method-reader-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "method-reader-examples",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "methodology-workspace",
+          "opacity": "1"
+        }
+      ],
+      "tab": "about",
+      "title": "方法与证据"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 800
+    }
+  },
+  {
+    "route": "update-methodology-reader",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "update-story-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "HEADER",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "update-story-body",
+          "opacity": "1"
+        }
+      ],
+      "tab": "updateStory",
+      "title": "方法论重绘与市场入口修复"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 1600
+    }
+  },
+  {
+    "route": "research-article-molecular-fans",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "update-story-page research-article-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "HEADER",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "update-story-body",
+          "opacity": "1"
+        }
+      ],
+      "tab": "researchArticle",
+      "title": "在 MOF 孔道中安装分子风扇，改善痕量苯捕集"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 3587
+    }
+  },
+  {
+    "route": "data-quality-provenance",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "priority-research-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-page-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "research-center-boundary",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "data-quality-openai-center",
+          "opacity": "1"
+        }
+      ],
+      "tab": "dataQuality",
+      "title": "数据质量与来源中心"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 2954
+    }
+  },
+  {
+    "route": "benchmark-references",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "priority-research-page benchmark-reference-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-page-intro benchmark-reference-hero",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "benchmark-boundary",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "benchmark-module-list",
+          "opacity": "1"
+        }
+      ],
+      "tab": "benchmarkReferences",
+      "title": "基准参考"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 4572.5
+    }
+  },
+  {
+    "route": "nobel-chemistry-2024",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "nobel-editorial nobel-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "nobel-masthead",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "ARTICLE",
+          "opacity": "1"
+        }
+      ],
+      "tab": "nobelChemistry",
+      "title": "The Nobel Prize in Chemistry"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 5043.5
+    }
+  },
+  {
+    "route": "science-forecasts-event-SAIUNdCI8U",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "prediction-page science-forecasts",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-event-header",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-event-outcome",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-chart-caption",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "prediction-chart",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "prediction-chart-toolbar",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-event-tools",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-rules",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-company-section",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "science-evidence",
+          "opacity": "1"
+        }
+      ],
+      "tab": "predictionMarkets",
+      "title": "Donut Battery 的锂含量能否通过独立验证？"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 800
+    }
+  },
+  {
+    "route": "mof-record-coremof2024-csdm-00001",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "priority-research-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-page-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-record-detail",
+          "opacity": "1"
+        }
+      ],
+      "tab": "mofRecord",
+      "title": "CoRE MOF record"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 1171
+    }
+  },
+  {
+    "route": "literature-doi-10.1039%2Fd2ta04485d",
+    "entry": {
+      "containers": [
+        {
+          "animation": "none",
+          "name": "priority-research-page",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-page-intro",
+          "opacity": "1"
+        },
+        {
+          "animation": "none",
+          "name": "priority-record-detail",
+          "opacity": "1"
+        }
+      ],
+      "tab": "literatureRecord",
+      "title": "Evolution of bismuth-based metal-organic frameworks for efficient electroreduction of CO2"
+    },
+    "lower": {
+      "opacity": [
+        "1",
+        "1",
+        "1"
+      ],
+      "scroll": 1277.5
+    }
+  }
+]

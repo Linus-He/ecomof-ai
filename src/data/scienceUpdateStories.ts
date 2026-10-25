@@ -1,5 +1,73 @@
 export const scienceUpdateStories = [
 {
+  "hash": "update-science-forecasts",
+  "version": "v3.5.8",
+  "date": "2026-10-25",
+  "image": 0,
+  "title": [
+    "科学预测专题与全局页面显示修复",
+    "Science Forecasts and reliable secondary pages"
+  ],
+  "intro": [
+    "将预测市场扩展为科学预测统一入口，保留诺奖档案，新增电池、超导与碳捕集的可核验技术事件，并修复二级页面正文发灰。",
+    "A unified Science Forecasts entry preserves Nobel archives and adds source-backed battery, superconductor and carbon-capture events, with a global fix for faded secondary pages."
+  ],
+  "sections": [
+    {
+      "title": [
+        "从一个入口进入四个专题",
+        "Four topics in one place"
+      ],
+      "body": [
+        "首页、菜单和页脚统一改为“科学预测”。诺奖市场成为独立专题，原有七份年度／平台记录与旧链接继续可用；新增全固态电池、超导材料、碳捕集与 MOF 三个技术专题。",
+        "Home, menu and footer now use Science Forecasts. Nobel markets retain all seven year/source editions and legacy links as a dedicated topic, alongside batteries, superconductors and carbon capture / MOFs."
+      ]
+    },
+    {
+      "title": [
+        "具体事件与真实成交",
+        "Specific events and actual trades"
+      ],
+      "body": [
+        "从 Manifold 公共 API 收录 19 个具体事件、7,803 个真实成交后采样点，分别标明虚拟积分、存档概率、停盘前成交及平台判定。六条规则冲突或不足单独提示，取消不视为 No。",
+        "Public Manifold API records supply 19 specific events and 7,803 actual post-trade observations. Play money, archived snapshots, pre-close trades and resolution are distinct. Six rule issues are flagged; cancellation is not No."
+      ]
+    },
+    {
+      "title": [
+        "查规则，也查机构",
+        "Explore rules and institutions"
+      ],
+      "body": [
+        "专题提供搜索、阶段与状态筛选、排序、本机关注、事件目录与历史 CSV 下载。事件详情按需加载，包含规则摘要、判定边界、真实历史曲线及中英机构简介和官方图标。",
+        "Topics offer search, stage/status filters, sorting, device-local watchlists and CSV exports. Event details load on demand with rule summaries, resolution boundaries, actual history and bilingual institution profiles with official icons."
+      ]
+    },
+    {
+      "title": [
+        "证据不代替赔率",
+        "Evidence and market prices"
+      ],
+      "body": [
+        "补充 VTT 测量说明、LK-99 实验论文及 Svante／BASF 的 MOF 材料供应资料。市场预测与科学证据分别呈现；未找到可核验的 MOF 产业专属市场，不以其他碳捕集路线的概率代替。",
+        "Evidence links cover VTT measurements, an LK-99 experimental paper and Svante/BASF MOF supply documents. Market prices and evidence remain separate; other capture pathways do not stand in for an unverified MOF industry market."
+      ]
+    },
+    {
+      "title": [
+        "二级页面保持清晰",
+        "Readable secondary pages"
+      ],
+      "body": [
+        "移除全局正文容器的滚动透明度动画，二级页面在进入、滚动及异步加载后保持完整显示。致谢同步说明 Manifold 的新增数据用途；本轮提交记录与动态详情保持一致。",
+        "Global content containers no longer use scroll-driven opacity, keeping secondary pages readable on entry, scroll and lazy loading. Acknowledgements cover the expanded Manifold use; release and update stories describe the same completed work."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "依据公开 API 存档、机构原始资料与本轮已完成的界面修复编写；存档不代表实时行情。"
+},
+{
   "hash": "update-methodology-reader",
   "version": "v3.5.7",
   "date": "2026-10-25",
