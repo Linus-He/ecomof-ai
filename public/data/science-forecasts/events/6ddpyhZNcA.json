@@ -1,0 +1,502 @@
+{
+  "id": "6ddpyhZNcA",
+  "topicId": "battery-scale-storage",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MikhailTal/will-us-production-of-batterygrade",
+  "originalTitle": "Will U.S. production of battery-grade lithium exceed 10% of global supply by the end of 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.5519531318798201,
+  "volume": 1117.7709097217544,
+  "participants": 18,
+  "createdTime": 1765372046334,
+  "closeTime": 1924991940000,
+  "resolutionTime": null,
+  "observedAt": 1793013889917,
+  "historyCutoff": 1793013889917,
+  "points": [
+    {
+      "t": 1765373173473,
+      "p": 0.5475113122171946
+    },
+    {
+      "t": 1765373492556,
+      "p": 0.49547520576552984
+    },
+    {
+      "t": 1765373715893,
+      "p": 0.4484138748888233
+    },
+    {
+      "t": 1765374943690,
+      "p": 0.4752357014597434
+    },
+    {
+      "t": 1765376691947,
+      "p": 0.3714533431614867
+    },
+    {
+      "t": 1765376744756,
+      "p": 0.2936825411782906
+    },
+    {
+      "t": 1765378539710,
+      "p": 0.32558932716618827
+    },
+    {
+      "t": 1765379718358,
+      "p": 0.29680656482139023
+    },
+    {
+      "t": 1765380550817,
+      "p": 0.35980323562479144
+    },
+    {
+      "t": 1765380979784,
+      "p": 0.3272168407643318
+    },
+    {
+      "t": 1765385621808,
+      "p": 0.44608217371950437
+    },
+    {
+      "t": 1765387453879,
+      "p": 0.5463373019876469
+    },
+    {
+      "t": 1765389423324,
+      "p": 0.5683181034866988
+    },
+    {
+      "t": 1765390130697,
+      "p": 0.5212185003364816
+    },
+    {
+      "t": 1765396616486,
+      "p": 0.5445173103335101
+    },
+    {
+      "t": 1765397313142,
+      "p": 0.49275443001412417
+    },
+    {
+      "t": 1765400212909,
+      "p": 0.5174893098170925
+    },
+    {
+      "t": 1765410832852,
+      "p": 0.5409799717879398
+    },
+    {
+      "t": 1765414471873,
+      "p": 0.5632454278141481
+    },
+    {
+      "t": 1765465680293,
+      "p": 0.5576819910022508
+    },
+    {
+      "t": 1765481970123,
+      "p": 0.5521664002422457
+    },
+    {
+      "t": 1765482623154,
+      "p": 0.5466990591894753
+    },
+    {
+      "t": 1765483030674,
+      "p": 0.5412803244178352
+    },
+    {
+      "t": 1765483499827,
+      "p": 0.5359105073225059
+    },
+    {
+      "t": 1765484663567,
+      "p": 0.5305898759842811
+    },
+    {
+      "t": 1765486561191,
+      "p": 0.5534020388920087
+    },
+    {
+      "t": 1765610334727,
+      "p": 0.8305182620897305
+    },
+    {
+      "t": 1765612859989,
+      "p": 0.9129552543192475
+    },
+    {
+      "t": 1765615993457,
+      "p": 0.8859579452652875
+    },
+    {
+      "t": 1765617228193,
+      "p": 0.8261203570635415
+    },
+    {
+      "t": 1765619563145,
+      "p": 0.7943725463081259
+    },
+    {
+      "t": 1765621133752,
+      "p": 0.7976602886351364
+    },
+    {
+      "t": 1765621202264,
+      "p": 0.8008762764384499
+    },
+    {
+      "t": 1765621252759,
+      "p": 0.804022364432712
+    },
+    {
+      "t": 1765623165919,
+      "p": 0.7718329223651115
+    },
+    {
+      "t": 1765630355931,
+      "p": 0.7393781616206996
+    },
+    {
+      "t": 1765632403916,
+      "p": 0.7439016788266544
+    },
+    {
+      "t": 1765632762926,
+      "p": 0.7483215327814733
+    },
+    {
+      "t": 1765633587909,
+      "p": 0.7526403746727512
+    },
+    {
+      "t": 1765633907372,
+      "p": 0.7461453182923814
+    },
+    {
+      "t": 1765648569363,
+      "p": 0.7568805449672336
+    },
+    {
+      "t": 1765652057294,
+      "p": 0.7244339688489569
+    },
+    {
+      "t": 1765703482570,
+      "p": 0.7293017164181043
+    },
+    {
+      "t": 1765782871632,
+      "p": 0.69750753483723
+    },
+    {
+      "t": 1765869271717,
+      "p": 0.6786387330275494
+    },
+    {
+      "t": 1765933552113,
+      "p": 0.273909328513915
+    },
+    {
+      "t": 1765933691307,
+      "p": 0.48177846319465245
+    },
+    {
+      "t": 1765933830315,
+      "p": 0.587817103846031
+    },
+    {
+      "t": 1765933957018,
+      "p": 0.5013104692890185
+    },
+    {
+      "t": 1765934729489,
+      "p": 0.4536693935847959
+    },
+    {
+      "t": 1765937254925,
+      "p": 0.3726891431352363
+    },
+    {
+      "t": 1765937380856,
+      "p": 0.4641966758015901
+    },
+    {
+      "t": 1766203990615,
+      "p": 0.6786387330275494
+    },
+    {
+      "t": 1766216433373,
+      "p": 0.61683987923033
+    },
+    {
+      "t": 1770680156185,
+      "p": 0.5931840045423259
+    },
+    {
+      "t": 1770681471958,
+      "p": 0.6126082308750808
+    },
+    {
+      "t": 1772184916774,
+      "p": 0.4501468997457344
+    },
+    {
+      "t": 1772186404683,
+      "p": 0.47689109308334754
+    },
+    {
+      "t": 1772193558290,
+      "p": 0.502395484864403
+    },
+    {
+      "t": 1772200795854,
+      "p": 0.5266514896466385
+    },
+    {
+      "t": 1772204364760,
+      "p": 0.5496689415546158
+    },
+    {
+      "t": 1772207978341,
+      "p": 0.5714718192979212
+    },
+    {
+      "t": 1772224578379,
+      "p": 0.34894069437558173
+    },
+    {
+      "t": 1772225943054,
+      "p": 0.37952464757312865
+    },
+    {
+      "t": 1772229572076,
+      "p": 0.40911501883280904
+    },
+    {
+      "t": 1772272376178,
+      "p": 0.3503273207390133
+    },
+    {
+      "t": 1772283474623,
+      "p": 0.38086989019586637
+    },
+    {
+      "t": 1772290688374,
+      "p": 0.4104128594970483
+    },
+    {
+      "t": 1773277191709,
+      "p": 0.43884374856609115
+    },
+    {
+      "t": 1773280781140,
+      "p": 0.46608793195295517
+    },
+    {
+      "t": 1773385215668,
+      "p": 0.49210227310531085
+    },
+    {
+      "t": 1773389030922,
+      "p": 0.5168692494839787
+    },
+    {
+      "t": 1773399819227,
+      "p": 0.540391708439364
+    },
+    {
+      "t": 1773403740331,
+      "p": 0.5626883094130893
+    },
+    {
+      "t": 1779773179902,
+      "p": 0.3437888034965302
+    },
+    {
+      "t": 1779773186520,
+      "p": 0.5626883094130893
+    },
+    {
+      "t": 1779773194720,
+      "p": 0.40000000000000013
+    },
+    {
+      "t": 1780054520037,
+      "p": 0.3809560835350653
+    },
+    {
+      "t": 1780054520446,
+      "p": 0.39880814404856696
+    },
+    {
+      "t": 1780058444519,
+      "p": 0.4
+    },
+    {
+      "t": 1780097297481,
+      "p": 0.4
+    },
+    {
+      "t": 1780129641353,
+      "p": 0.4251063972895628
+    },
+    {
+      "t": 1780144190873,
+      "p": 0.452937203304635
+    },
+    {
+      "t": 1780321076305,
+      "p": 0.4795556786606153
+    },
+    {
+      "t": 1780324689620,
+      "p": 0.5049324907989532
+    },
+    {
+      "t": 1780328505797,
+      "p": 0.5290611536249404
+    },
+    {
+      "t": 1780331872503,
+      "p": 0.5519531318798201
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5519531318798201,
+  "lastTradeAt": 1780331872503,
+  "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+  "provenance": {
+    "marketSha256": "1e5ba7f714b7c22d9016fe1f5859bcee9958d3ed0aeed1575d9cf35795429523",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=6ddpyhZNcA&limit=1000",
+        "sha256": "80ef799cda9bb6b26fc7053f286c39b6a5a8e786d73c71e471528146f236966d",
+        "rows": 127
+      }
+    ],
+    "fetchedTradeRows": 127,
+    "acceptedTradeRows": 87,
+    "excludedTradeRows": 40
+  },
+  "stage": "engineering",
+  "title": [
+    "美国电池级锂供应份额会在 2030 年底前超过 10% 吗？",
+    "Will US battery-grade lithium supply exceed 10% by 2030?"
+  ],
+  "rules": [
+    [
+      "最迟 2031-02-01，有可靠来源确认 2030 年或更早某年，美国来源电池级锂产出占全球同口径供应 >10%。",
+      "By 1 February 2031, credible evidence must establish >10% of global battery-grade supply from US-sourced production in 2030 or an earlier year."
+    ],
+    [
+      "规则含本土矿山、回收和新加工设施，并用电池级 LCE；资料缺失或含糊则 No。",
+      "The body includes domestic mines, recycling and processing, using battery-grade LCE; missing or ambiguous data resolves No."
+    ]
+  ],
+  "interpretation": [
+    "本题的范围比标题更宽：此前年度也可满足。矿山含锂量与电池级 LCE 不同；要逐项解释美国来源、精炼与回收，避免跨供应环节重复相加。",
+    "The body accepts earlier years as well as 2030. Mine-contained lithium differs from battery-grade LCE; US sourcing, refining and recycling must be reconciled without double counting."
+  ],
+  "entities": [],
+  "evidence": [
+    "usgs-lithium-series",
+    "iea-batteries-2026"
+  ],
+  "briefing": {
+    "contextId": "lithium-supply",
+    "summary": [
+      "本题的范围比标题更宽：此前年度也可满足。矿山含锂量与电池级 LCE 不同；要逐项解释美国来源、精炼与回收，避免跨供应环节重复相加。",
+      "The body accepts earlier years as well as 2030. Mine-contained lithium differs from battery-grade LCE; US sourcing, refining and recycling must be reconciled without double counting."
+    ],
+    "checklist": [
+      [
+        "记录满足门槛的年份与证据发布日期。",
+        "Record qualifying year and evidence publication date."
+      ],
+      [
+        "核对美国分子与全球分母的单位和等级。",
+        "Match units and grade in US numerator and global denominator."
+      ],
+      [
+        "区分实际产出、在建产能与资源储量。",
+        "Separate output, construction capacity and resources."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "dNy8QLslNU",
+    "S2ghII2gLd"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "usgs-lithium-series",
+      "iea-batteries-2026"
+    ],
+    "stage": [
+      "开采／回收 → 精炼认证 → 同口径供应份额",
+      "Extraction/recycling → refining/qualification → supply share"
+    ],
+    "impact": [
+      "资源多寡和精炼工厂投产计划都只是供应链的一部分。USGS 的矿产统计能帮助定位原料与产出范围，但本题还要有电池级等级和全球同口径分母；一个美国厂区的总产能不能自动满足份额条件，回收和精炼同一批原料也不应算两次。",
+      "Resources and refinery plans cover only parts of the supply chain. USGS helps locate material and output definitions, but battery-grade qualification and a matched global denominator remain necessary. Facility capacity alone establishes no share, and recycled/refined feed must not be counted twice."
+    ],
+    "gap": [
+      "USGS 主表未必直接给出题目定义的全球电池级 LCE 总量；若数据无法匹配，须保留缺口。",
+      "A USGS main table may not provide the contract’s global battery-grade LCE denominator; unmatched data remains a gap."
+    ]
+  },
+  "context": {
+    "id": "lithium-supply",
+    "title": [
+      "电池级锂份额：矿山、精炼与回收的连接",
+      "Battery-grade lithium share: mining, refining and recycling"
+    ],
+    "principle": [
+      "电池级锂盐需要满足杂质控制和客户认证。矿山开采地、精炼所在地和原料来源可能不同；同一批锂从矿到盐再到电池不能重复相加。以 LCE 计量也不能直接同锂金属吨数相除。",
+      "Battery-grade salts require impurity control and customer qualification. Mining origin, refining location and feedstock origin can differ; material passing through stages must not be counted repeatedly. LCE and contained-lithium tonnes cannot be mixed in a share."
+    ],
+    "example": [
+      "原题标题写 2030 年，细则允许 2030 年或之前任何一年的份额，并将确认期限延至 2031 年 2 月 1 日。核对时须记录年份、美国来源定义、全球分母与回收边界，产能规划不能充当实际合格产出。",
+      "The title says 2030, while the body accepts 2030 or an earlier year and confirmation by 1 February 2031. Track year, US sourcing, global denominator and recycling boundaries. Planned capacity is not qualified output."
+    ],
+    "evidence": [
+      "usgs-lithium-series",
+      "iea-batteries-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1765373173473,
+      "p": 0.5475113122171946
+    },
+    "last": {
+      "t": 1780331872503,
+      "p": 0.5519531318798201
+    },
+    "change": 0.4441819662625468,
+    "low": 0.273909328513915,
+    "high": 0.9129552543192475,
+    "staleDays": 146.78260895833333
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "年份与供应分母",
+        "Year and supply denominator"
+      ],
+      "detail": [
+        "标题指 2030 年，正文允许此前年度；电池级 LCE 与矿山金属含量不得混算。",
+        "The body accepts earlier years; battery-grade LCE and contained-metal mining data need matched denominators."
+      ]
+    }
+  ],
+  "tradePoints": 87,
+  "detailFile": "events/6ddpyhZNcA.json"
+}

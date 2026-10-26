@@ -1,0 +1,342 @@
+{
+  "id": "2jB7TGwgwPJMiIgnWdce",
+  "topicId": "carbon-capture",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/citrinitas/will-terraform-industries-begin-to",
+  "originalTitle": "Will Terraform Industries begin to commercialize in 2024?",
+  "status": "resolved",
+  "resolution": "NO",
+  "resolutionProbability": 0.049315861171358485,
+  "snapshotProbability": null,
+  "volume": 8789.242530913485,
+  "participants": 23,
+  "createdTime": 1678695869377,
+  "closeTime": 1735718340000,
+  "resolutionTime": 1735859896891,
+  "observedAt": 1793013898033,
+  "historyCutoff": 1735718340000,
+  "points": [
+    {
+      "t": 1678704307217,
+      "p": 0.3378378378378379
+    },
+    {
+      "t": 1678704966597,
+      "p": 0.49934076594747606
+    },
+    {
+      "t": 1678718963101,
+      "p": 0.3733581917092462
+    },
+    {
+      "t": 1678727193538,
+      "p": 0.43970879974790883
+    },
+    {
+      "t": 1679575879095,
+      "p": 0.6119893723194441
+    },
+    {
+      "t": 1679588625008,
+      "p": 0.7387887817262573
+    },
+    {
+      "t": 1685723943298,
+      "p": 0.7783076273385705
+    },
+    {
+      "t": 1687811782206,
+      "p": 0.8304278436277794
+    },
+    {
+      "t": 1687812298584,
+      "p": 0.6962640838131072
+    },
+    {
+      "t": 1687814293989,
+      "p": 0.7690224382892089
+    },
+    {
+      "t": 1687823132496,
+      "p": 0.7818701081592098
+    },
+    {
+      "t": 1687827082812,
+      "p": 0.7413480876537044
+    },
+    {
+      "t": 1687833292031,
+      "p": 0.4678809820173966
+    },
+    {
+      "t": 1687849364446,
+      "p": 0.7425718536651086
+    },
+    {
+      "t": 1687849661724,
+      "p": 0.7504980174240166
+    },
+    {
+      "t": 1687850546488,
+      "p": 0.7453589939975368
+    },
+    {
+      "t": 1687850556708,
+      "p": 0.6981808063278444
+    },
+    {
+      "t": 1687851001377,
+      "p": 0.7042324193996975
+    },
+    {
+      "t": 1687851002580,
+      "p": 0.7042324193996975
+    },
+    {
+      "t": 1687859548275,
+      "p": 0.6896628058742894
+    },
+    {
+      "t": 1687871185235,
+      "p": 0.4598132019581051
+    },
+    {
+      "t": 1687896974448,
+      "p": 0.606104195365052
+    },
+    {
+      "t": 1687920402043,
+      "p": 0.584295173371802
+    },
+    {
+      "t": 1687934395584,
+      "p": 0.75
+    },
+    {
+      "t": 1687934395777,
+      "p": 0.75
+    },
+    {
+      "t": 1687934482388,
+      "p": 0.75
+    },
+    {
+      "t": 1687936706391,
+      "p": 0.7567832558603783
+    },
+    {
+      "t": 1688096684266,
+      "p": 0.7567832558603783
+    },
+    {
+      "t": 1688096688834,
+      "p": 0.7632952940094859
+    },
+    {
+      "t": 1688450023350,
+      "p": 0.565559940666523
+    },
+    {
+      "t": 1688501043861,
+      "p": 0.6956517669504798
+    },
+    {
+      "t": 1688506344964,
+      "p": 0.750331647450253
+    },
+    {
+      "t": 1688506348477,
+      "p": 0.7317666939043792
+    },
+    {
+      "t": 1688506354010,
+      "p": 0.7480828740803257
+    },
+    {
+      "t": 1688543121732,
+      "p": 0.7541949650357692
+    },
+    {
+      "t": 1688980227546,
+      "p": 0.7571676250355008
+    },
+    {
+      "t": 1689770501260,
+      "p": 0.7386809158791163
+    },
+    {
+      "t": 1689776156912,
+      "p": 0.7625831388265804
+    },
+    {
+      "t": 1711996478032,
+      "p": 0.7096021234923974
+    },
+    {
+      "t": 1712030183917,
+      "p": 0.7602345268582431
+    },
+    {
+      "t": 1712244421511,
+      "p": 0.7436060439303522
+    },
+    {
+      "t": 1725441892363,
+      "p": 0.20535985545052493
+    },
+    {
+      "t": 1725441903266,
+      "p": 0.1089190003116667
+    },
+    {
+      "t": 1726324577294,
+      "p": 0.20508949066675367
+    },
+    {
+      "t": 1730066272546,
+      "p": 0.1781769144035292
+    },
+    {
+      "t": 1731426070036,
+      "p": 0.16624403317918818
+    },
+    {
+      "t": 1734980673353,
+      "p": 0.0493158611713585
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.0493158611713585,
+  "lastTradeAt": 1734980673353,
+  "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+  "provenance": {
+    "marketSha256": "f1cdfbf73f078fe126c8bd5ee1b33047e506c7217cbb1673c6259579c3d94e99",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=2jB7TGwgwPJMiIgnWdce&limit=1000",
+        "sha256": "3ffecd2d13173b26ba86a5c102db319c0361fb70f6285a6766f99b79010dd7d7",
+        "rows": 80
+      }
+    ],
+    "fetchedTradeRows": 80,
+    "acceptedTradeRows": 47,
+    "excludedTradeRows": 33
+  },
+  "stage": "engineering",
+  "title": [
+    "Terraform 会在 2024 年底前签订电转烃设备销售合同吗？",
+    "Would Terraform contract power-to-hydrocarbon equipment sales in 2024?"
+  ],
+  "rules": [
+    [
+      "2024 年底前出售或签约出售/租售电转烃反应器或完整碳浓缩器，买方用途须为以烃储存太阳能；不要求当年交付。",
+      "By end-2024, sale/contract/leasing of a power-to-hydrocarbon reactor or complete concentrator for storing solar energy as hydrocarbons qualifies; delivery need not occur that year."
+    ],
+    [
+      "只卖甲烷不算设备商业化；规则也允许 2023 年提前满足，原平台判 No。",
+      "Methane-only sales do not count; earlier qualification in 2023 was allowed. The platform resolved No."
+    ]
+  ],
+  "interpretation": [
+    "本题商业化指设备合同，不是首次合成甲烷或燃料销售。公司的 2024 年示范公告可说明工艺集成，但没有直接证明规则要求的机器交易。",
+    "Commercialization here means an equipment contract, not first methane or fuel sales. The 2024 demonstration explains integration without directly establishing the required machine transaction."
+  ],
+  "entities": [],
+  "evidence": [
+    "terraform-demo-2024",
+    "doe-carbon-negative-2032"
+  ],
+  "briefing": {
+    "contextId": "carbon-utilization-fuels",
+    "summary": [
+      "本题商业化指设备合同，不是首次合成甲烷或燃料销售。公司的 2024 年示范公告可说明工艺集成，但没有直接证明规则要求的机器交易。",
+      "Commercialization here means an equipment contract, not first methane or fuel sales. The 2024 demonstration explains integration without directly establishing the required machine transaction."
+    ],
+    "checklist": [
+      [
+        "辨别合同标的是燃料还是完整设备。",
+        "Identify fuel versus qualifying equipment in the contract."
+      ],
+      [
+        "核对交易双方、用途与合同时间。",
+        "Check counterparties, purpose and contract date."
+      ],
+      [
+        "分别记录示范运行、合同与实际交付。",
+        "Separate demonstration, contracting and delivery."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "HB3a6kWAhptJg8Ill8yT",
+    "u1hCf24lNpTqWYEpM2Uq"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "terraform-demo-2024",
+      "doe-carbon-negative-2032"
+    ],
+    "stage": [
+      "工艺集成 → 设备订单 → 制造交付",
+      "Process integration → equipment order → delivery"
+    ],
+    "impact": [
+      "Sabatier 系统将电解氢与空气捕集 CO₂ 连成甲烷生产，属于碳利用与储能路线。企业披露的系统运行、产品纯度和成本可用于理解工艺，但只有符合原规则的设备合同才对应此市场；甲烷燃烧会释放碳，也不能将该路线的销售或曲线解释成 MOF 永久碳移除进展。",
+      "Electrolytic hydrogen and air-captured CO₂ feed Sabatier methane synthesis, a utilization/energy-storage route. Company operating, purity and cost claims explain the process; only qualifying equipment contracts meet this market. Combustion releases carbon, so neither sales nor odds establish MOF-based durable removal."
+    ],
+    "gap": [
+      "原文允许签约未交付，且只接受特定大部件；示范系统、产品销售与设备销售需要独立核验。",
+      "Contracting without delivery is allowed only for specified major components; demonstration, fuel and equipment sales need separate verification."
+    ]
+  },
+  "context": {
+    "id": "carbon-utilization-fuels",
+    "title": [
+      "Sabatier 甲烷化：碳利用与永久移除",
+      "Sabatier methanation: utilization and durable removal"
+    ],
+    "principle": [
+      "Sabatier 反应可写作 CO₂ + 4H₂ → CH₄ + 2H₂O。把空气中的碳变成甲烷可储存电能，但燃烧会使碳回到大气；全生命周期是否减排，还取决于供电、甲烷泄漏与设备运行。",
+      "The Sabatier reaction is CO₂ + 4H₂ → CH₄ + 2H₂O. Methane stores energy, but combustion returns carbon to the atmosphere; lifecycle emissions depend on power, leakage and operation."
+    ],
+    "example": [
+      "Terraform 2024 年披露的是系统接通、运行与成本主张。本题只接受反应器或完整碳浓缩器的大部件销售/租售合同，不要求当年交付，且明确排除仅卖甲烷的情况；因此示范成功与平台 No 可以同时成立。",
+      "Terraform’s 2024 post reports an integrated demonstration and costs. This contract instead needs sales/leasing of the reactor or complete concentrator, allows contracting without delivery, and excludes methane-only sales. A successful demonstration can coexist with platform No."
+    ],
+    "evidence": [
+      "terraform-demo-2024",
+      "doe-carbon-negative-2032"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1678704307217,
+      "p": 0.3378378378378379
+    },
+    "last": {
+      "t": 1734980673353,
+      "p": 0.0493158611713585
+    },
+    "change": -28.85219766664794,
+    "low": 0.0493158611713585,
+    "high": 0.8304278436277794,
+    "staleDays": 8.537808414351852
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "设备合同并非燃料销售",
+        "Equipment contract versus fuel sale"
+      ],
+      "detail": [
+        "只计符合用途的设备或完整大部件合同；允许签约未交付。",
+        "Only qualifying equipment/major-component contracts count; contracting without delivery is allowed."
+      ]
+    }
+  ],
+  "tradePoints": 47,
+  "detailFile": "events/2jB7TGwgwPJMiIgnWdce.json"
+}

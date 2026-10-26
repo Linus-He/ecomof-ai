@@ -47,6 +47,7 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-verified-trade-curves", hash:"update-verified-trade-curves", label:label("更多科学事件与真实成交曲线","More scientific events with genuine trade curves") },
       { id:"update-organic-chemistry-topics", hash:"update-organic-chemistry-topics", label:label("有机化学专题与反应证据","Organic chemistry topics and reaction evidence") },
       { id:"update-battery-chemistry-data", hash:"update-battery-chemistry-data", label:label("电池体系扩充与化学专题数据","Expanded battery chemistries and chemistry data") },
       { id:"update-science-topic-expansion", hash:"update-science-topic-expansion", label:label("科学预测扩充与阅读顺序调整","More science topics and a history-first reading order") },

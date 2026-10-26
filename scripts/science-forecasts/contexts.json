@@ -416,5 +416,176 @@
       "svante-redwood",
       "olivine-noaa"
     ]
+  },
+  "sodium-pricing": {
+    "id": "sodium-pricing",
+    "title": [
+      "钠离子成本：报价分母与交付层级",
+      "Sodium-ion cost: price denominators and product levels"
+    ],
+    "principle": [
+      "钠元素资源丰富并不直接决定电芯售价。正负极、集流体、电解液、制造良率和质保都影响成品成本。用美元/kWh 比较时，电芯、模组与整包必须分别注明，能量按题目要求用标称值。",
+      "Abundant sodium does not alone set cell prices. Electrodes, collectors, electrolyte, yield and warranty contribute. State cell/module/pack level and use the contract’s nominal-energy denominator for $/kWh."
+    ],
+    "example": [
+      "一件 1 kWh 产品只有在可下单价格不高于 10 美元且满足规则的存档、汇率和排除条件时才进入本题判定。CATL 2021 年的 160 Wh/kg 是比能量，不是 160 美元/kWh；本题背景中的廉价电池说法不代替厂家价目表。",
+      "A 1 kWh product needs a qualifying orderable price no higher than $10, with the required archive, exchange rate and exclusions. CATL’s historical 160 Wh/kg is specific energy, not price; the contract’s background assertion does not replace a manufacturer quotation."
+    ],
+    "evidence": [
+      "catl-sodium-2021",
+      "catl-naxtra-vehicle"
+    ]
+  },
+  "vanadium-supply": {
+    "id": "vanadium-supply",
+    "title": [
+      "钒供应：元素吨与电解液不是同一数量",
+      "Vanadium supply: contained tonnes and electrolyte volume"
+    ],
+    "principle": [
+      "钒既用于钢铁合金，也用于液流电池电解液。全球钒产量不能全部视为电池可用材料；进入电解液还涉及纯化、价态配置和供应分配。统计中的 V 元素吨与 V₂O₅ 吨数须按化学组成区分。",
+      "Vanadium supplies steel and flow-battery electrolytes. Global output is not all battery-ready: purification, oxidation-state control and allocation intervene. Contained-V tonnes differ from tonnes of V₂O₅."
+    ],
+    "example": [
+      "本题问 2027 年 ≥140,000 吨 V，并给出 USGS 优先、备用来源中位数和 2029 年数据等待期。市场背景的两种 2024 基数不一致，本站保留提示；不把钢铁副产供给直接换算成液流储能 GWh。",
+      "The contract asks for ≥140,000 t V in 2027, prioritizes USGS, specifies a fallback median and waits for data through 2029. Its inconsistent 2024 baselines remain flagged; steel co-product output is not converted to flow-storage GWh."
+    ],
+    "evidence": [
+      "usgs-vanadium-series",
+      "vanadium-electrolyte"
+    ]
+  },
+  "lithium-supply": {
+    "id": "lithium-supply",
+    "title": [
+      "电池级锂份额：矿山、精炼与回收的连接",
+      "Battery-grade lithium share: mining, refining and recycling"
+    ],
+    "principle": [
+      "电池级锂盐需要满足杂质控制和客户认证。矿山开采地、精炼所在地和原料来源可能不同；同一批锂从矿到盐再到电池不能重复相加。以 LCE 计量也不能直接同锂金属吨数相除。",
+      "Battery-grade salts require impurity control and customer qualification. Mining origin, refining location and feedstock origin can differ; material passing through stages must not be counted repeatedly. LCE and contained-lithium tonnes cannot be mixed in a share."
+    ],
+    "example": [
+      "原题标题写 2030 年，细则允许 2030 年或之前任何一年的份额，并将确认期限延至 2031 年 2 月 1 日。核对时须记录年份、美国来源定义、全球分母与回收边界，产能规划不能充当实际合格产出。",
+      "The title says 2030, while the body accepts 2030 or an earlier year and confirmation by 1 February 2031. Track year, US sourcing, global denominator and recycling boundaries. Planned capacity is not qualified output."
+    ],
+    "evidence": [
+      "usgs-lithium-series",
+      "iea-batteries-2026"
+    ]
+  },
+  "nuclear-hydrogen": {
+    "id": "nuclear-hydrogen",
+    "title": [
+      "核能制氢：热源、示范与年产量",
+      "Nuclear hydrogen: heat source, demonstration and annual output"
+    ],
+    "principle": [
+      "核反应堆可以通过供电或供热参与制氢；低排放属性还受电源、热源和工艺边界影响。连接反应堆与化工设施需要许可、安全隔离和连续运行证据，出口温度只描述供热条件。",
+      "Reactors can supply electricity or heat to hydrogen production. Emissions depend on the full process boundary; coupling requires licensing, isolation and sustained operation. Outlet temperature describes heat conditions, not output."
+    ],
+    "example": [
+      "HTTR 的 950°C 和 2030 年目标说明高温路线与开发日程。本题另要求每年至少 10,000 吨，并由至少两份独立可靠来源确认，不能只用许可申请或短时首次产氢判 Yes。",
+      "HTTR’s reported 950°C and 2030 target describe the route and schedule. This contract additionally requires at least 10,000 t/year and two independent credible confirmations; an application or first short hydrogen run cannot establish Yes."
+    ],
+    "evidence": [
+      "jaea-httr-2025",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "hydrogen-transport": {
+    "id": "hydrogen-transport",
+    "title": [
+      "输氢管线：获批长度与运营长度",
+      "Hydrogen pipelines: approved and operating length"
+    ],
+    "principle": [
+      "专用输氢需要处理材料相容性、密封、压缩与气体纯度。天然气管线改造后只有完成转换并投入氢气运输服务才计入本题；天然气掺氢和厂内短管不算独立运营网络。",
+      "Dedicated hydrogen transport requires material compatibility, sealing, compression and gas purity. Repurposed gas lines count only after conversion and entry into hydrogen service; blending and internal plant piping are excluded."
+    ],
+    "example": [
+      "德国 9,040 km 获批网络超过本题 5,000 km 数值，但获批不等于投运。本题要求 2033 年 1 月 1 日前欧洲指定国家内专用氢管线的实际路线长度 >5,000 km，每个物理管段只计一次。",
+      "Germany’s 9,040 km approval exceeds 5,000 numerically but is not operating mileage. The contract requires >5,000 route-km in specified European countries before 1 January 2033, counting each physical segment once."
+    ],
+    "evidence": [
+      "bnetza-hydrogen-core",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "fusion-target-gain": {
+    "id": "fusion-target-gain",
+    "title": [
+      "靶增益：输出能量与净增量",
+      "Target gain: output ratio and net increment"
+    ],
+    "principle": [
+      "靶增益常用聚变输出除以到靶激光能量；工程净增益还要计入激光、冷却和其他设施耗电。输出为输入的 200% 与净增加 200% 分别对应约 2 倍和 3 倍，不能只按标题里的百分号理解。",
+      "Target gain divides fusion output by on-target laser energy; engineering gain includes laser, cooling and other electricity. Output at 200% of input means about 2×, whereas a 200% net increase means about 3×."
+    ],
+    "example": [
+      "本题背景把 2022 年约 150% 和 2023 年约 190% 并列，倾向按输出/到靶输入阅读，但正文没有完整公式。本站标注歧义并保留平台 No；历史能量数据和市场判定分别列出，不把 NIF 结果当作聚变电站已送电。",
+      "The background’s roughly 150% and 190% examples suggest output/input, but it supplies no complete formula. The ambiguity is flagged and platform No preserved. Historical energies do not establish grid delivery."
+    ],
+    "evidence": [
+      "nif-2023-gain",
+      "fusion-ignition"
+    ]
+  },
+  "quantum-parallel-gates": {
+    "id": "quantum-parallel-gates",
+    "title": [
+      "并行双比特门：保真度、串扰与测试对象",
+      "Parallel two-qubit gates: fidelity, crosstalk and measurement"
+    ],
+    "principle": [
+      "双比特门需要在两个量子比特之间建立纠缠。独立门的最优数值与多对门同时运行时的平均表现不同；串扰、泄漏及状态制备和读出误差会影响测试解释。单比特门的高保真度不能替代双比特门数据。",
+      "A two-qubit gate entangles a pair. An isolated best gate differs from averages across concurrent pairs; crosstalk, leakage and state-preparation/readout errors affect interpretation. Single-qubit fidelity cannot substitute for two-qubit data."
+    ],
+    "example": [
+      "2023 年论文的 99.5% 与最多 60 个原子是清晰的实验参照，但本题要求企业团队在 2024 年 2 月前报告至少两组同时运行的双比特门，平均保真度至少 99.9%。正文对专家可信性审查和 SPAM 处理留有裁量，必须连同数字阅读。",
+      "The 2023 study’s 99.5% on up to 60 atoms is a useful reference. This contract asks for corporate reporting of at least two simultaneous two-qubit gates at ≥99.9% before February 2024, with discretion around expert credibility and SPAM handling."
+    ],
+    "evidence": [
+      "parallel-gates-2023",
+      "quantum-willow"
+    ]
+  },
+  "ai-tool-attribution": {
+    "id": "ai-tool-attribution",
+    "title": [
+      "药物工具归因：计算结果与上市证据",
+      "Drug-tool attribution: computational results and approval"
+    ],
+    "principle": [
+      "早期药物工具可能参与靶点选择、分子设计或实验排程。证明工具被使用，与证明它显著改变研发路径，需要不同材料；最后还要对应到具体分子的临床和监管结果。",
+      "Early tools may inform target selection, molecular design or experiment planning. Use and material influence require different evidence, followed by molecule-specific clinical and regulatory results."
+    ],
+    "example": [
+      "本题要求 FDA 或 EMA 批准以及来自工具供应商之外的贡献说明，也将公司退出早期发现业务列为即时 No 情形。已有 rentosertib IIa 期结果只是另一条研发实例，不证明 markov.bio 的使用、贡献或上市。",
+      "The contract requires FDA/EMA approval and contribution evidence outside the tool vendor; leaving early discovery can trigger immediate No. The separate rentosertib Phase IIa example verifies neither markov.bio involvement nor approval."
+    ],
+    "evidence": [
+      "fda-clinical-phases",
+      "rentosertib-phase2"
+    ]
+  },
+  "carbon-utilization-fuels": {
+    "id": "carbon-utilization-fuels",
+    "title": [
+      "Sabatier 甲烷化：碳利用与永久移除",
+      "Sabatier methanation: utilization and durable removal"
+    ],
+    "principle": [
+      "Sabatier 反应可写作 CO₂ + 4H₂ → CH₄ + 2H₂O。把空气中的碳变成甲烷可储存电能，但燃烧会使碳回到大气；全生命周期是否减排，还取决于供电、甲烷泄漏与设备运行。",
+      "The Sabatier reaction is CO₂ + 4H₂ → CH₄ + 2H₂O. Methane stores energy, but combustion returns carbon to the atmosphere; lifecycle emissions depend on power, leakage and operation."
+    ],
+    "example": [
+      "Terraform 2024 年披露的是系统接通、运行与成本主张。本题只接受反应器或完整碳浓缩器的大部件销售/租售合同，不要求当年交付，且明确排除仅卖甲烷的情况；因此示范成功与平台 No 可以同时成立。",
+      "Terraform’s 2024 post reports an integrated demonstration and costs. This contract instead needs sales/leasing of the reactor or complete concentrator, allows contracting without delivery, and excludes methane-only sales. A successful demonstration can coexist with platform No."
+    ],
+    "evidence": [
+      "terraform-demo-2024",
+      "doe-carbon-negative-2032"
+    ]
   }
 }

@@ -1,0 +1,189 @@
+{
+  "id": "RhLLCEhdPs",
+  "topicId": "perovskite-solar",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MikhailTal/will-any-manufacturer-ship-1-gw-or-gs9suAS8qR",
+  "originalTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2030?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.5569470020149596,
+  "volume": 21.31898410539096,
+  "participants": 2,
+  "createdTime": 1775499811717,
+  "closeTime": 1924923600000,
+  "resolutionTime": null,
+  "observedAt": 1793013895661,
+  "historyCutoff": 1793013895661,
+  "points": [
+    {
+      "t": 1775501776674,
+      "p": 0.4769543132605115
+    },
+    {
+      "t": 1775606837900,
+      "p": 0.5027823973044439
+    },
+    {
+      "t": 1775614125827,
+      "p": 0.527450220836906
+    },
+    {
+      "t": 1775617647029,
+      "p": 0.5509446805138168
+    },
+    {
+      "t": 1787413340106,
+      "p": 0.5569470020149596
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5569470020149596,
+  "lastTradeAt": 1787413340106,
+  "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+  "provenance": {
+    "marketSha256": "3a29e6a06127d88105c8a70b564ea2b2db5b6fb8335b8fa06c8e1a0d72df8538",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=RhLLCEhdPs&limit=1000",
+        "sha256": "ca72ceb281264761fbe3de5b3d97929e3a7e15ff8b06bc0cddc5a069ae73b0f5",
+        "rows": 5
+      }
+    ],
+    "fetchedTradeRows": 5,
+    "acceptedTradeRows": 5,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "2030 年底前单厂商钙钛矿组件年出货会达到 1 GW 吗？",
+    "Will a manufacturer ship 1 GW of perovskite modules in a year by 2030?"
+  ],
+  "rules": [
+    [
+      "任一厂商在 2026–2030 某一日历年商业出货钙钛矿或钙钛矿/硅叠层组件 ≥1,000 MW，须有可融资认可的质保。",
+      "One manufacturer must commercially ship ≥1,000 MW of perovskite or perovskite/silicon tandem modules in one calendar year during 2026–2030, with bankable warranties."
+    ],
+    [
+      "研究组件、试验项目和缺少上述质保的室内光伏不算；合计多年或名义工厂产能不算年度出货。",
+      "Research, pilots and indoor PV without bankable warranties are excluded; multi-year totals and nameplate capacity are not annual shipments."
+    ]
+  ],
+  "interpretation": [
+    "题目看单一厂商、单一年度和有效出货，不是开工或产线设计能力。标题写“2030 年前”，细则又将可计年份限定为 2026–2030，读曲线时须保留这一范围。",
+    "This asks for one manufacturer, one year and qualifying shipments, not announced factory capacity. The title’s broad deadline is narrowed by the body to calendar years 2026–2030."
+  ],
+  "entities": [
+    "oxfordpv"
+  ],
+  "evidence": [
+    "oxford-first-shipment",
+    "perovskite-doe"
+  ],
+  "briefing": {
+    "contextId": "perovskite-scale",
+    "summary": [
+      "题目看单一厂商、单一年度和有效出货，不是开工或产线设计能力。标题写“2030 年前”，细则又将可计年份限定为 2026–2030，读曲线时须保留这一范围。",
+      "This asks for one manufacturer, one year and qualifying shipments, not announced factory capacity. The title’s broad deadline is narrowed by the body to calendar years 2026–2030."
+    ],
+    "checklist": [
+      [
+        "核对厂商年度净出货及组件技术。",
+        "Verify manufacturer-year shipped volume and technology."
+      ],
+      [
+        "查看质保、客户验收与商业用途证据。",
+        "Review warranties, customer acceptance and commercial use."
+      ],
+      [
+        "剔除试验线产能、多年累计与重复申报。",
+        "Exclude pilot capacity, multi-year totals and duplicates."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "88clPLgu5E",
+    "8n2qAmtSKflVQ7kypyu8"
+  ],
+  "industry": {
+    "entities": [
+      "oxfordpv"
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ],
+    "stage": [
+      "试验线 → 可质保产品 → 单年商业出货",
+      "Pilot line → warrantied product → annual shipment"
+    ],
+    "impact": [
+      "首批商业出货说明产品已进入客户应用，却未披露符合本题的年度 1 GW 总量。组件效率、年产能和实际出货各有独立证据；长期质保又涉及湿热、紫外和封装可靠性。把这些阶段分开，才能判断扩产新闻是否真正跨过市场设置的交付门槛。",
+      "First commercial shipment establishes customer use but not 1 GW in a qualifying year. Efficiency, capacity and shipments need separate evidence; warranties add damp-heat, UV and encapsulation reliability requirements. Expansion news alone does not establish the delivery threshold."
+    ],
+    "gap": [
+      "市场参与较少，且 bankable warranties 未规定具体年限；不把出货传闻直接计入总量。",
+      "Participation is low and bankable-warranty duration is unspecified; shipment rumours do not enter the total."
+    ]
+  },
+  "context": {
+    "id": "perovskite-scale",
+    "title": [
+      "叠层效率、制造产能与实际出货",
+      "Tandem efficiency, factory capacity and shipments"
+    ],
+    "principle": [
+      "钙钛矿层与硅层吸收不同波段，以提高入射光的利用率。电池效率经过互联、封装和有效面积损失后，才形成组件效率。制造线的额定能力还要经过良率与利用率，才能转为可销售出货。",
+      "Perovskite and silicon absorb different spectral bands. Module efficiency includes interconnection, encapsulation and area losses; nameplate factory capacity becomes sales only through yield and utilization."
+    ],
+    "example": [
+      "Oxford PV 首批商业组件的 24.5% 效率说明了产品性能，年度 1 GW 则考查累计交付的额定功率。全球多数部署使用哪种材料，还需要统计整个行业的年度装机。",
+      "Oxford PV’s first modules had 24.5% efficiency; annual 1 GW concerns cumulative delivered rated power. A global-majority contract needs industry-wide annual deployment data."
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1775501776674,
+      "p": 0.4769543132605115
+    },
+    "last": {
+      "t": 1787413340106,
+      "p": 0.5569470020149596
+    },
+    "change": 7.999268875444809,
+    "low": 0.4769543132605115,
+    "high": 0.5569470020149596,
+    "staleDays": 64.82124484953704
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "可计年份与质保",
+        "Eligible years and warranty"
+      ],
+      "detail": [
+        "正文限定 2026–2030 年，且未明确 bankable warranties 的年限。",
+        "The body limits eligible years to 2026–2030 and leaves bankable-warranty duration undefined."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 5,
+  "detailFile": "events/RhLLCEhdPs.json"
+}

@@ -66,8 +66,8 @@ it('gives every event a specific brief, technology explanation, industry pathway
 it('keeps new topics source-backed with country basis and no synthetic resolution',()=>{
  for(const id of ['fusion-energy','quantum-computing','perovskite-solar']){
   const topic=index.topics.find(t=>t.id===id)
-  expect(topic.marketCount).toBe(2)
-  expect(topic.sections).toHaveLength(2)
+  expect(topic.marketCount).toBeGreaterThanOrEqual(3)
+  expect(topic.sections.length).toBeGreaterThanOrEqual(3)
   expect(topic.evidenceIds.length).toBeGreaterThanOrEqual(2)
  }
  for(const entity of index.entities){
@@ -96,8 +96,8 @@ it('verifies indicator types, source scope and topic coverage against actual his
    expect(source?.topics).toContain(topic.id)
   }
  }
- expect(ids.size).toBe(50)
- expect(index.events.filter(e=>['solid-state-batteries','sodium-ion-batteries','battery-scale-storage'].includes(e.topicId))).toHaveLength(19)
+ expect(ids.size).toBe(71)
+ expect(index.events.filter(e=>['solid-state-batteries','sodium-ion-batteries','battery-scale-storage'].includes(e.topicId))).toHaveLength(23)
  expect(index.events.find(e=>e.id==='S2ghII2gLd').quality.some(q=>q.code==='rules')).toBe(true)
  expect(index.events.find(e=>e.id==='jcYZt1lNCMgX4LHHqgoq').quality.some(q=>q.code==='rules')).toBe(true)
  const hydrogen=index.topics.find(t=>t.id==='clean-hydrogen')
@@ -121,8 +121,8 @@ it('keeps organic literature separate from forecasts and joins every reported re
   }
  }
  expect(seen.size).toBe(9)
- expect(index.events).toHaveLength(41)
- expect(index.method.points).toBe(11011)
+ expect(index.events).toHaveLength(54)
+ expect(index.method.points).toBe(12793)
  const da=literature.find(t=>t.id==='asymmetric-organocatalysis').reactionCases.find(c=>c.id==='iminium-diels-alder')
  expect(da.outcome[0]).toContain('exo:endo 1.3:1');expect(da.outcome[0]).toContain('exo 为 93% ee')
  expect(audit.organicDiscoveryReview.acceptedNewMarkets).toBe(0)

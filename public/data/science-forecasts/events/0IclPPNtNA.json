@@ -1,0 +1,197 @@
+{
+  "id": "0IclPPNtNA",
+  "topicId": "sodium-ion-batteries",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/WilliamGunn/sodium-ion-battery-for-10kwh-by-eoy",
+  "originalTitle": "Sodium ion battery for $10/kWh by EOY 2026?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.13693578532681258,
+  "volume": 180.94835206632416,
+  "participants": 5,
+  "createdTime": 1757284580970,
+  "closeTime": 1798761540000,
+  "resolutionTime": null,
+  "observedAt": 1793013887097,
+  "historyCutoff": 1793013887097,
+  "points": [
+    {
+      "t": 1757284582133,
+      "p": 0.44800860176515395
+    },
+    {
+      "t": 1757288681607,
+      "p": 0.4058276855647093
+    },
+    {
+      "t": 1757288688077,
+      "p": 0.3864584943577061
+    },
+    {
+      "t": 1757293347224,
+      "p": 0.35092644581695687
+    },
+    {
+      "t": 1757326595155,
+      "p": 0.26626903823623405
+    },
+    {
+      "t": 1757457421585,
+      "p": 0.3047238256045333
+    },
+    {
+      "t": 1767017391986,
+      "p": 0.13693578532681258
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.13693578532681258,
+  "lastTradeAt": 1767017391986,
+  "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+  "provenance": {
+    "marketSha256": "98949d5f0befdb4fde392b92207aa14c4a578b3eb855cbf5c941f7b063011c59",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=0IclPPNtNA&limit=1000",
+        "sha256": "29d627965daeb0ccda2d8e725df132b6f2a2b7d8b0f359a7b20615b491f11f59",
+        "rows": 7
+      }
+    ],
+    "fetchedTradeRows": 7,
+    "acceptedTradeRows": 7,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "2026 年底前会有 ≤10 美元/kWh 的可下单钠离子电池吗？",
+    "Will an orderable sodium-ion battery cost ≤$10/kWh by end-2026?"
+  ],
+  "rules": [
+    [
+      "2026-12-31 23:59:59 UTC 前，新可充钠离子电芯、模组或整包的价格/标称电量须 ≤10 美元/kWh；不含税、关税和运费。",
+      "By 23:59:59 UTC on 31 December 2026, a new rechargeable sodium-ion cell, module or pack must be offered/sold at ≤$10 per nominal kWh, excluding taxes, duties and shipping."
+    ],
+    [
+      "网页证据须有截止日前 Wayback 存档；非美元按报价日 ECB 汇率。排除二手、原型、隐性补贴和无法拆分的捆绑报价。",
+      "Web evidence needs a pre-deadline Wayback capture; non-USD prices use the listing-date ECB rate. Used/prototype, undisclosed-rebate and inseparable bundle prices are excluded."
+    ]
+  ],
+  "interpretation": [
+    "本题允许电芯、模组或整包，价格分母是标称电量。材料便宜、厂商发布或预估成本都还不是可下单成交依据；还需核对存档日与汇率。",
+    "The product may be a cell, module or pack, using nominal energy. Cheap feedstock, launches and estimated costs are not orderable quotations; archive date and exchange-rate evidence still matter."
+  ],
+  "entities": [
+    "catl"
+  ],
+  "evidence": [
+    "catl-sodium-2021",
+    "catl-naxtra-vehicle"
+  ],
+  "briefing": {
+    "contextId": "sodium-pricing",
+    "summary": [
+      "本题允许电芯、模组或整包，价格分母是标称电量。材料便宜、厂商发布或预估成本都还不是可下单成交依据；还需核对存档日与汇率。",
+      "The product may be a cell, module or pack, using nominal energy. Cheap feedstock, launches and estimated costs are not orderable quotations; archive date and exchange-rate evidence still matter."
+    ],
+    "checklist": [
+      [
+        "核对型号、可订购状态、单价与标称 Wh。",
+        "Match model, availability, unit price and nominal Wh."
+      ],
+      [
+        "保存同日报价、网页存档与 ECB 汇率。",
+        "Keep quotation, archive and ECB rate for the relevant date."
+      ],
+      [
+        "区分已披露性能与未经厂家报价支持的低价背景。",
+        "Separate reported performance from unsupported low-price background claims."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "hnzy6pqlNZ",
+    "gLKepA3Jdl3lmiRXc32K"
+  ],
+  "industry": {
+    "entities": [
+      "catl"
+    ],
+    "evidence": [
+      "catl-sodium-2021",
+      "catl-naxtra-vehicle"
+    ],
+    "stage": [
+      "材料降本 → 制造成品 → 可核验报价",
+      "Materials → manufactured product → verifiable quotation"
+    ],
+    "impact": [
+      "钠离子的材料和制造选择会影响比能量、循环与成本，但报价必须覆盖同一层级成品。CATL 第一代公告可用于了解普鲁士白与硬碳路线，以及室温快充的披露口径；它没有证实这个极低价格门槛，不能将发布会性能数据作为价格达成证据。",
+      "Materials and manufacturing affect energy, cycling and cost, but price must match the same product level. CATL’s first-generation release explains the Prussian-white/hard-carbon route and charging claims; it does not establish this exceptionally low price threshold."
+    ],
+    "gap": [
+      "原市场背景称 CATL 将推出低价电池，本站未将该句作为厂商定价事实；最终需符合规则的产品报价。",
+      "The contract background’s low-price assertion is not treated as manufacturer pricing; qualifying product documentation is still needed."
+    ]
+  },
+  "context": {
+    "id": "sodium-pricing",
+    "title": [
+      "钠离子成本：报价分母与交付层级",
+      "Sodium-ion cost: price denominators and product levels"
+    ],
+    "principle": [
+      "钠元素资源丰富并不直接决定电芯售价。正负极、集流体、电解液、制造良率和质保都影响成品成本。用美元/kWh 比较时，电芯、模组与整包必须分别注明，能量按题目要求用标称值。",
+      "Abundant sodium does not alone set cell prices. Electrodes, collectors, electrolyte, yield and warranty contribute. State cell/module/pack level and use the contract’s nominal-energy denominator for $/kWh."
+    ],
+    "example": [
+      "一件 1 kWh 产品只有在可下单价格不高于 10 美元且满足规则的存档、汇率和排除条件时才进入本题判定。CATL 2021 年的 160 Wh/kg 是比能量，不是 160 美元/kWh；本题背景中的廉价电池说法不代替厂家价目表。",
+      "A 1 kWh product needs a qualifying orderable price no higher than $10, with the required archive, exchange rate and exclusions. CATL’s historical 160 Wh/kg is specific energy, not price; the contract’s background assertion does not replace a manufacturer quotation."
+    ],
+    "evidence": [
+      "catl-sodium-2021",
+      "catl-naxtra-vehicle"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1757284582133,
+      "p": 0.44800860176515395
+    },
+    "last": {
+      "t": 1767017391986,
+      "p": 0.13693578532681258
+    },
+    "change": -31.10728164383414,
+    "low": 0.13693578532681258,
+    "high": 0.44800860176515395,
+    "staleDays": 300.8853600810185
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "背景低价说法未验证",
+        "Unverified low-price background"
+      ],
+      "detail": [
+        "背景中的 CATL 低价说法不作为厂商报价；报价日、存档与成品层级必须符合正文。",
+        "The background CATL assertion is not manufacturer pricing; listing date, archive and product level must satisfy the body."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 7,
+  "detailFile": "events/0IclPPNtNA.json"
+}

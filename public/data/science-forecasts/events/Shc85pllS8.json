@@ -319,7 +319,8 @@
     "powerco"
   ],
   "evidence": [
-    "qs-eagle"
+    "qs-eagle",
+    "qs-endurance-2024"
   ],
   "briefing": {
     "contextId": "qs",
@@ -353,7 +354,8 @@
       "powerco"
     ],
     "evidence": [
-      "qs-eagle"
+      "qs-eagle",
+      "qs-endurance-2024"
     ],
     "stage": [
       "工艺设备 → 样品 → 客户格式确认",

@@ -1,0 +1,197 @@
+{
+  "id": "23EEgMHJGu7TVzZyOCqT",
+  "topicId": "clean-hydrogen",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/RemNi/will-japan-produce-hydrogen-with-nu",
+  "originalTitle": "Will Japan produce hydrogen with nuclear power before 2031?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.6130400021641796,
+  "volume": 164.5252153305946,
+  "participants": 4,
+  "createdTime": 1715284933769,
+  "closeTime": 1930517940000,
+  "resolutionTime": null,
+  "observedAt": 1793013892859,
+  "historyCutoff": 1793013892859,
+  "points": [
+    {
+      "t": 1715291310579,
+      "p": 0.6250404508790228
+    },
+    {
+      "t": 1720000039295,
+      "p": 0.7151171005743051
+    },
+    {
+      "t": 1756193285537,
+      "p": 0.7802600353903295
+    },
+    {
+      "t": 1756204280772,
+      "p": 0.7151171005743051
+    },
+    {
+      "t": 1756204284050,
+      "p": 0.5355977376332604
+    },
+    {
+      "t": 1756206406498,
+      "p": 0.5581473032897308
+    },
+    {
+      "t": 1756796928978,
+      "p": 0.5703380516925348
+    },
+    {
+      "t": 1756824088439,
+      "p": 0.6130400021641796
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.6130400021641796,
+  "lastTradeAt": 1756824088439,
+  "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+  "provenance": {
+    "marketSha256": "f3c95333b0c599d984c8e8246f49d598f94ee4fc507e940da671b8b345dcdb1f",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=23EEgMHJGu7TVzZyOCqT&limit=1000",
+        "sha256": "78fc776d793404efabb07ca6d741d0df43a93820596eb9221098bbf66f9853ac",
+        "rows": 8
+      }
+    ],
+    "fetchedTradeRows": 8,
+    "acceptedTradeRows": 8,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "日本会在 2031 年前用核能年产至少 1 万吨氢吗？",
+    "Will Japan produce at least 10,000 t/year of nuclear hydrogen before 2031?"
+  ],
+  "rules": [
+    [
+      "2031-01-01 前，日本用核能直接制氢，年产量至少 10,000 吨。",
+      "Before 1 January 2031, Japan must produce at least 10,000 t hydrogen annually directly using nuclear power."
+    ],
+    [
+      "传统或先进核反应堆均可，至少两份独立可靠来源核实产量。",
+      "Conventional or advanced reactors may qualify; at least two independent credible sources must verify production."
+    ]
+  ],
+  "interpretation": [
+    "HTTR 的连接许可与 2030 年制氢目标尚不等于本题年产门槛。要核对核能输入、实际产量与独立确认，短时产氢或热源温度不能直接替代。",
+    "HTTR’s connection application and 2030 target do not establish annual output. Nuclear input, actual production and independent confirmation are required; a short run or heat-source temperature is insufficient."
+  ],
+  "entities": [],
+  "evidence": [
+    "jaea-httr-2025",
+    "iea-hydrogen-2026"
+  ],
+  "briefing": {
+    "contextId": "nuclear-hydrogen",
+    "summary": [
+      "HTTR 的连接许可与 2030 年制氢目标尚不等于本题年产门槛。要核对核能输入、实际产量与独立确认，短时产氢或热源温度不能直接替代。",
+      "HTTR’s connection application and 2030 target do not establish annual output. Nuclear input, actual production and independent confirmation are required; a short run or heat-source temperature is insufficient."
+    ],
+    "checklist": [
+      [
+        "识别制氢设施与核能供电／供热连接。",
+        "Identify the hydrogen facility and nuclear energy link."
+      ],
+      [
+        "核对年产量而非额定容量或短时速率。",
+        "Check annual output rather than nameplate capacity or short-run rate."
+      ],
+      [
+        "至少两份独立来源确认，留存统计年份。",
+        "Retain at least two independent confirmations and reference year."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "jcYZt1lNCMgX4LHHqgoq",
+    "LpIUh0hQ2z"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "jaea-httr-2025",
+      "iea-hydrogen-2026"
+    ],
+    "stage": [
+      "许可 → 核热耦合示范 → 年度生产",
+      "Licensing → coupled demonstration → annual production"
+    ],
+    "impact": [
+      "JAEA 的申请说明反应堆与化工设施连接仍需监管和工程工作，高温供热具有明确的技术用途。公告中的 950°C 和 2030 年目标可以解释路线选择，却没有提供每年一万吨实测氢产量；读市场时应把许可、首次产氢和稳定规模化生产分成不同证据阶段。",
+      "JAEA’s application shows the licensing and engineering work behind coupling a reactor to hydrogen production. The reported 950°C and 2030 target explain the route but do not establish 10,000 measured tonnes annually. Licensing, first hydrogen and sustained production remain distinct stages."
+    ],
+    "gap": [
+      "“年产量”是否允许按短期运行外推，原文未细化；不能自行将额定产能认定为实际全年产出。",
+      "The body does not define extrapolation from short runs; nameplate output must not silently become actual annual production."
+    ]
+  },
+  "context": {
+    "id": "nuclear-hydrogen",
+    "title": [
+      "核能制氢：热源、示范与年产量",
+      "Nuclear hydrogen: heat source, demonstration and annual output"
+    ],
+    "principle": [
+      "核反应堆可以通过供电或供热参与制氢；低排放属性还受电源、热源和工艺边界影响。连接反应堆与化工设施需要许可、安全隔离和连续运行证据，出口温度只描述供热条件。",
+      "Reactors can supply electricity or heat to hydrogen production. Emissions depend on the full process boundary; coupling requires licensing, isolation and sustained operation. Outlet temperature describes heat conditions, not output."
+    ],
+    "example": [
+      "HTTR 的 950°C 和 2030 年目标说明高温路线与开发日程。本题另要求每年至少 10,000 吨，并由至少两份独立可靠来源确认，不能只用许可申请或短时首次产氢判 Yes。",
+      "HTTR’s reported 950°C and 2030 target describe the route and schedule. This contract additionally requires at least 10,000 t/year and two independent credible confirmations; an application or first short hydrogen run cannot establish Yes."
+    ],
+    "evidence": [
+      "jaea-httr-2025",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1715291310579,
+      "p": 0.6250404508790228
+    },
+    "last": {
+      "t": 1756824088439,
+      "p": 0.6130400021641796
+    },
+    "change": -1.2000448714843182,
+    "low": 0.5355977376332604,
+    "high": 0.7802600353903295,
+    "staleDays": 418.86347708333335
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "年产量口径",
+        "Annual-output definition"
+      ],
+      "detail": [
+        "原文未说明如何从短期运行外推年产量；研发目标不是实测产出。",
+        "The rule does not specify short-run annualization; development targets are not measured production."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 8,
+  "detailFile": "events/23EEgMHJGu7TVzZyOCqT.json"
+}

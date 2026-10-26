@@ -1,5 +1,73 @@
 export const scienceUpdateStories = [
 {
+  "hash": "update-verified-trade-curves",
+  "version": "v3.5.13",
+  "date": "2026-10-26",
+  "image": 0,
+  "title": [
+    "更多科学事件与真实成交曲线",
+    "More scientific events with genuine trade curves"
+  ],
+  "intro": [
+    "新增 13 个有真实成交历史的事件，扩充电池、制氢、碳利用、聚变、量子计算、钙钛矿和药物研发的规则、技术与来源阅读。",
+    "Thirteen events with genuine trade histories extend battery, hydrogen, carbon-utilization, fusion, quantum, perovskite and drug-development reading."
+  ],
+  "sections": [
+    {
+      "title": [
+        "先核对曲线，再收录事件",
+        "Verify curves before admission"
+      ],
+      "body": [
+        "新增 13 个 Manifold 二元市场，完整分页后得到 1,782 个有效成交时点；总计 54 个事件、12,793 个 UTC 历史时点。每个新增市场至少有 5 个有效时点，不以初始报价、结算价或插值代替成交。MANA 虚拟积分属性继续明示。",
+        "Thirteen Manifold binary markets add 1,782 accepted observations after full pagination, bringing totals to 54 events and 12,793 UTC observations. Each addition has at least five observations; initial quotes, settlement prices and interpolation do not replace trades. MANA remains labelled play money."
+      ]
+    },
+    {
+      "title": [
+        "扩充已有曲线的专题",
+        "Deepen topics that already have curves"
+      ],
+      "body": [
+        "九个专题加入新事件，十个已有曲线的技术专题补充解读。内容包括钠离子可订购价格、中国储能功率、钒与电池级锂供应、核能制氢、专用输氢管线、NIF 靶增益、并行双比特门、商业光伏效率与年出货，以及 AI 工具贡献归因。另补充固态电芯的 A 样耐久测试。",
+        "Nine topics receive new events and ten existing curve-backed technical topics gain reading: orderable sodium-ion prices, Chinese storage power, vanadium/battery-grade lithium, nuclear hydrogen, dedicated pipelines, NIF gain, parallel gates, commercial PV and AI-tool attribution, plus solid-state A-sample endurance."
+      ]
+    },
+    {
+      "title": [
+        "数字保留适用条件",
+        "Keep numbers with their conditions"
+      ],
+      "body": [
+        "新增 11 份论文、机构统计和企业原始资料，以及 21 项指标；资料总计 63 份、指标 71 项。区分 GW 与 GWh、V 与 V₂O₅、矿山含锂与电池级 LCE、获批规划与实际投运、靶能量与电站净电量、原子数与门对数、组件纪录与商品效率、燃料销售与设备合同。",
+        "Eleven papers/institutional/company sources and 21 indicators bring totals to 63 documents and 71 indicators. GW/GWh, V/V₂O₅, mine lithium/battery-grade LCE, approval/operation, target energy/net electricity, atoms/gate pairs, records/products and fuel/equipment sales remain distinct."
+      ]
+    },
+    {
+      "title": [
+        "规则缺口与来源状态",
+        "Rule gaps and source status"
+      ],
+      "body": [
+        "保留 NIF 百分比定义、量子门 SPAM 裁量、钒产量基数冲突、商业光伏范围和 AI 工具贡献标准等提示。封盘未判定继续保持未判定，cancellation 与 No 分开；价格变化不归因于某一公告，也不合并成技术成功率。",
+        "Flags retain ambiguous NIF percentages, quantum SPAM discretion, conflicting vanadium baselines, commercial-PV scope and AI attribution. Closed/unresolved remains unresolved; cancellation is separate from No. Price changes are not attributed to announcements or pooled into technical-success probabilities."
+      ]
+    },
+    {
+      "title": [
+        "收录门槛与旧资料保留",
+        "Admission checks and preserved archives"
+      ],
+      "body": [
+        "发布前校验每个预测至少两个不同的真实成交时点、完整分页、截止边界及收录记录。原有 41 个市场的来源元数据和成交历史以校验摘要保护；既有四个文献专题保留，本轮不新增无曲线专题，也不把无关市场借给文献页。诺奖原有七份年度／平台记录保留。",
+        "Pre-publication checks require at least two distinct actual-trade timestamps, complete pagination, cutoffs and reviewed admission. Digests protect all 41 prior source snapshots. Four existing literature topics remain, with no new curve-free topics or unrelated proxy markets; seven Nobel editions are preserved."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "公共 Manifold 只读 API 元数据与完整分页成交记录；技术资料分别链接原始论文、政府/监管机构、实验室及企业公告。企业成本与研发目标分别标注，原始规则的含糊之处保留。"
+},
+{
   "hash": "update-organic-chemistry-topics",
   "version": "v3.5.12",
   "date": "2026-10-25",

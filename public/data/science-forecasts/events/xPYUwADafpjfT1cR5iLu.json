@@ -1,0 +1,229 @@
+{
+  "id": "xPYUwADafpjfT1cR5iLu",
+  "topicId": "ai-drug-discovery",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/CamillePerrin/will-the-markovbio-ai-copilot-for-d",
+  "originalTitle": "Will the markov.bio AI copilot for drug discovery be influential in the R&D of a marketed drug? (Before 2030)",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.08,
+  "volume": 570.3293973630546,
+  "participants": 9,
+  "createdTime": 1694432236718,
+  "closeTime": 1893538740000,
+  "resolutionTime": null,
+  "observedAt": 1793013896730,
+  "historyCutoff": 1793013896730,
+  "points": [
+    {
+      "t": 1694432897779,
+      "p": 0.5291015257110565
+    },
+    {
+      "t": 1694433304064,
+      "p": 0.3680167623869636
+    },
+    {
+      "t": 1694436265250,
+      "p": 0.12746100132974245
+    },
+    {
+      "t": 1694438503571,
+      "p": 0.15807891405899988
+    },
+    {
+      "t": 1694445269332,
+      "p": 0.1800838519947019
+    },
+    {
+      "t": 1694457725568,
+      "p": 0.14775060307158172
+    },
+    {
+      "t": 1696669341327,
+      "p": 0.1518442301334526
+    },
+    {
+      "t": 1696669360836,
+      "p": 0.15038047353885758
+    },
+    {
+      "t": 1696669365070,
+      "p": 0.14775060307158164
+    },
+    {
+      "t": 1696669376419,
+      "p": 0.14362035169584725
+    },
+    {
+      "t": 1718531710684,
+      "p": 0.11808959649810138
+    },
+    {
+      "t": 1734163845001,
+      "p": 0.12083865634247058
+    },
+    {
+      "t": 1736008837272,
+      "p": 0.24031918469379693
+    },
+    {
+      "t": 1736008890402,
+      "p": 0.21969664830695532
+    },
+    {
+      "t": 1741173949131,
+      "p": 0.08
+    },
+    {
+      "t": 1741173986776,
+      "p": 0.08
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.08,
+  "lastTradeAt": 1741173986776,
+  "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+  "provenance": {
+    "marketSha256": "6949ce0ce559da402d5e5eb35fbaf4a8cf02ee3810d9f2043c342c44131b68e0",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=xPYUwADafpjfT1cR5iLu&limit=1000",
+        "sha256": "05ced31be6b2654b2512d3ecd59563eaada1cea4001927a4879bf79fac867366",
+        "rows": 22
+      }
+    ],
+    "fetchedTradeRows": 22,
+    "acceptedTradeRows": 16,
+    "excludedTradeRows": 6
+  },
+  "stage": "engineering",
+  "title": [
+    "2030 年前获批药物研发会明确归功于 markov.bio 吗？",
+    "Will a drug approved before 2030 credit markov.bio’s contribution?"
+  ],
+  "rules": [
+    [
+      "药物须获 FDA 或 EMA 人用批准，并有非 markov.bio 自身的可靠材料说明该工具对早期研发有重要贡献。",
+      "A drug needs FDA/EMA human-use approval and reliable evidence outside markov.bio attributing material early-development influence to the tool."
+    ],
+    [
+      "重要贡献含关键发现、显著提速或降本；公司退出早期药物发现业务可即时 No，归因不明确保留 N/A 裁量。",
+      "Influence includes an essential discovery or substantial speed/cost improvement. Leaving early discovery can trigger No; attribution ambiguity permits N/A at creator discretion."
+    ]
+  ],
+  "interpretation": [
+    "这是获批与工具贡献的联合条件，还含企业持续经营风险。计算分数、论文使用记录或 II 期临床结果均不能单独判 Yes，必须连接到具体获批分子和独立贡献说明。",
+    "This combines approval, material tool contribution and business continuity. Scores, a paper’s use of software or Phase II results alone cannot establish Yes; molecule-specific approval and external attribution are needed."
+  ],
+  "entities": [],
+  "evidence": [
+    "fda-clinical-phases",
+    "rentosertib-phase2"
+  ],
+  "briefing": {
+    "contextId": "ai-tool-attribution",
+    "summary": [
+      "这是获批与工具贡献的联合条件，还含企业持续经营风险。计算分数、论文使用记录或 II 期临床结果均不能单独判 Yes，必须连接到具体获批分子和独立贡献说明。",
+      "This combines approval, material tool contribution and business continuity. Scores, a paper’s use of software or Phase II results alone cannot establish Yes; molecule-specific approval and external attribution are needed."
+    ],
+    "checklist": [
+      [
+        "核对获批药物、适应证和监管日期。",
+        "Match drug, indication and regulatory date."
+      ],
+      [
+        "寻找供应商之外的研发贡献说明。",
+        "Find development-contribution evidence outside the tool vendor."
+      ],
+      [
+        "保留经营终止与归因歧义条款。",
+        "Retain business-exit and attribution-ambiguity clauses."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "fHSDwgZnxcJ7wTAw5AiR",
+    "AvggE9WsHv51pVkA26wx"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "fda-clinical-phases",
+      "rentosertib-phase2"
+    ],
+    "stage": [
+      "计算辅助 → 实验与临床 → 批准与贡献归因",
+      "Computational assistance → experiments/trials → approval and attribution"
+    ],
+    "impact": [
+      "FDA 的临床阶段说明可以帮助区分实验发现、临床读数与上市批准，rentosertib 研究则提供另一项有明确分子和试验设计的实例。它们都没有验证 markov.bio 对某个药物的贡献，因此这页将企业工具归因与药物本身的证据分开，并保留原规则中的企业退出条件。",
+      "FDA’s development phases separate discovery, trial results and approval; rentosertib supplies a distinct molecule-specific study. Neither verifies markov.bio’s influence. Tool attribution and drug evidence remain separate, including the source’s business-exit condition."
+    ],
+    "gap": [
+      "“显著提速/降本”没有统一量化界限，原创建者保留裁量；此曲线不是 AI 药物研发总体成功率。",
+      "Material speed/cost effects have no common numeric threshold and creator discretion remains; this is not an overall AI-discovery success rate."
+    ]
+  },
+  "context": {
+    "id": "ai-tool-attribution",
+    "title": [
+      "药物工具归因：计算结果与上市证据",
+      "Drug-tool attribution: computational results and approval"
+    ],
+    "principle": [
+      "早期药物工具可能参与靶点选择、分子设计或实验排程。证明工具被使用，与证明它显著改变研发路径，需要不同材料；最后还要对应到具体分子的临床和监管结果。",
+      "Early tools may inform target selection, molecular design or experiment planning. Use and material influence require different evidence, followed by molecule-specific clinical and regulatory results."
+    ],
+    "example": [
+      "本题要求 FDA 或 EMA 批准以及来自工具供应商之外的贡献说明，也将公司退出早期发现业务列为即时 No 情形。已有 rentosertib IIa 期结果只是另一条研发实例，不证明 markov.bio 的使用、贡献或上市。",
+      "The contract requires FDA/EMA approval and contribution evidence outside the tool vendor; leaving early discovery can trigger immediate No. The separate rentosertib Phase IIa example verifies neither markov.bio involvement nor approval."
+    ],
+    "evidence": [
+      "fda-clinical-phases",
+      "rentosertib-phase2"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1694432897779,
+      "p": 0.5291015257110565
+    },
+    "last": {
+      "t": 1741173986776,
+      "p": 0.08
+    },
+    "change": -44.91015257110565,
+    "low": 0.08,
+    "high": 0.5291015257110565,
+    "staleDays": 599.998957800926
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "贡献归因与企业退出",
+        "Attribution and business exit"
+      ],
+      "detail": [
+        "重要贡献保留主观裁量，且公司退出可触发 No；不等于纯技术成功率。",
+        "Material influence remains discretionary and business exit can trigger No; this is not a pure technical-success probability."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 16,
+  "detailFile": "events/xPYUwADafpjfT1cR5iLu.json"
+}

@@ -114,6 +114,16 @@
             "新增钠离子及动力电池与规模储能专题，单独讨论载流离子、正极份额、单体性能、整包成本和液流电解液。不同体系按各自来源和测试条件查阅。",
             "New sodium-ion and EV/grid-storage topics separately cover charge carriers, cathode share, cells, pack costs and flow electrolytes under their own source conditions."
           ]
+        },
+        {
+          "title": [
+            "A 样耐久性与量产交付",
+            "A-sample durability and production delivery"
+          ],
+          "body": [
+            "PowerCo 披露的 >1,000 次循环、>95% 容量与 24 层结构应配对阅读，属于同一 A 样阶段的合作伙伴测试。样品性能之后还要看良率、压力与温度窗口、整包集成及客户验收；既有市场的 1 GWh 产能、汽车交付和商品可买分别有不同门槛。",
+            "Read PowerCo’s >1,000 cycles, >95% retention and 24 layers as one partner-tested A-sample stage. Yield, operating pressure/temperature, pack integration and acceptance follow. Capacity, vehicle delivery and retail availability remain separate contract thresholds."
+          ]
         }
       ],
       "metrics": [
@@ -200,6 +210,69 @@
           ],
           "evidenceId": "donut-elements",
           "kind": "measurement"
+        },
+        {
+          "id": "qs-cycle-count",
+          "label": [
+            "A 样电芯循环数",
+            "A-sample charging cycles"
+          ],
+          "value": [
+            ">1,000 次",
+            ">1,000 cycles"
+          ],
+          "period": [
+            "2024-01-03 披露",
+            "Reported 2024-01-03"
+          ],
+          "scope": [
+            "PowerCo 实验室的合作伙伴测试，非量产车队统计。",
+            "Partner laboratory test, not production-fleet statistics."
+          ],
+          "kind": "company",
+          "evidenceId": "qs-endurance-2024"
+        },
+        {
+          "id": "qs-retention",
+          "label": [
+            "测试后容量保持率",
+            "Post-test capacity retention"
+          ],
+          "value": [
+            ">95%",
+            ">95%"
+          ],
+          "period": [
+            "2024-01-03 披露",
+            "Reported 2024-01-03"
+          ],
+          "scope": [
+            "与同次 >1,000 次循环记录配对；充放电全部条件查原文，不作为跨材料统一排名。",
+            "Paired with the >1,000-cycle record; consult the original for conditions, not a cross-material ranking."
+          ],
+          "kind": "company",
+          "evidenceId": "qs-endurance-2024"
+        },
+        {
+          "id": "qs-layer-count",
+          "label": [
+            "受测电芯层数",
+            "Tested cell layers"
+          ],
+          "value": [
+            "24 层",
+            "24 layers"
+          ],
+          "period": [
+            "2024-01-03 披露",
+            "Reported 2024-01-03"
+          ],
+          "scope": [
+            "A 样电芯结构；层数本身不证明良率或客户交付。",
+            "A-sample structure; layer count establishes neither yield nor delivery."
+          ],
+          "kind": "company",
+          "evidenceId": "qs-endurance-2024"
         }
       ],
       "family": "battery",
@@ -217,7 +290,8 @@
         "toyota-sulfide",
         "toyota-roadmap",
         "apple-battery",
-        "catl-condensed"
+        "catl-condensed",
+        "qs-endurance-2024"
       ],
       "coverage": {
         "historyPoints": 4917,
@@ -280,10 +354,20 @@
             "高温超导线材已有低温应用，室温市场则通常另有温度与压力门槛。短样、连续线材和整机产品的制造要求不同，不能把已有低温产品当作常温商业化的完成证明。",
             "HTS conductors have cryogenic applications; ambient-temperature contracts impose different thresholds. Short samples, long tapes and complete devices also need different manufacturing evidence."
           ]
+        },
+        {
+          "title": [
+            "复现次数与延期条款",
+            "Replication counts and extension clauses"
+          ],
+          "body": [
+            "新增历史市场要求两次独立复现，并在可信度争议时允许等待期刊发表。读曲线时可沿成交日期回看预印本、独立样品与杂相解释，但不能把上涨、悬浮演示或某一个电阻突变替代成完整超导证据。",
+            "The added archive requires two independent replications and permits a publication extension in a credibility dispute. Compare trade dates with preprints, independent samples and impurity explanations; price moves, levitation or one resistance anomaly are not full superconducting evidence."
+          ]
         }
       ],
       "family": "physics",
-      "marketCount": 7,
+      "marketCount": 8,
       "evidenceIds": [
         "lk99-replication",
         "superconductivity-doe",
@@ -291,10 +375,10 @@
         "superpower-products"
       ],
       "coverage": {
-        "historyPoints": 2876,
-        "marketsWithHistory": 7,
+        "historyPoints": 4004,
+        "marketsWithHistory": 8,
         "thinMarkets": 0,
-        "ruleFlagMarkets": 1,
+        "ruleFlagMarkets": 2,
         "firstTradeAt": 1690392537790,
         "lastTradeAt": 1790666910351
       }
@@ -351,6 +435,16 @@
             "CALF-20 的供应合作可用于了解吸附剂如何进入制造链。材料放大之后，还需要结构化、循环再生、耐湿和装置运行资料；本专题其他路线的预测概率不代表 MOF 本身的成功率。",
             "CALF-20 supply agreements show manufacturing integration. Scale-up additionally needs forming, cyclic regeneration, humidity resistance and plant operation; probabilities for other routes do not estimate MOF success."
           ]
+        },
+        {
+          "title": [
+            "碳利用、净移除与设备商业化",
+            "Utilization, net removal and equipment sales"
+          ],
+          "body": [
+            "CO₂ 制甲烷市场补充电解—空气捕集—Sabatier 工艺，预测的是设备合同。燃烧后返回大气的碳不能记成永久移除；企业捕集成本也不能直接与含安全储存和 MRV 的每净吨目标比较。本站将这一利用路线与 MOF 分离材料、酶膜和矿化分别说明。",
+            "The added CO₂-to-methane market follows electrolysis, DAC and Sabatier integration but asks about equipment contracts. Fuel carbon returns to the atmosphere; capture-only cost differs from net-removal cost including storage/MRV. This route stays distinct from MOF separation, enzyme membranes and mineralization."
+          ]
         }
       ],
       "metrics": [
@@ -395,13 +489,97 @@
           ],
           "evidenceId": "climeworks-mammoth",
           "kind": "company"
+        },
+        {
+          "id": "terraform-methane-content",
+          "label": [
+            "示范产品甲烷含量",
+            "Demonstrator methane content"
+          ],
+          "value": [
+            ">97% CH₄",
+            ">97% CH₄"
+          ],
+          "period": [
+            "2024-04-01 企业披露",
+            "Company post 2024-04-01"
+          ],
+          "scope": [
+            "企业称产品为管道级天然气；不是本市场设备交易证明或净移除量。",
+            "Company-described pipeline-grade gas; not equipment-sale evidence or net removal."
+          ],
+          "kind": "company",
+          "evidenceId": "terraform-demo-2024"
+        },
+        {
+          "id": "terraform-hydrogen-cost",
+          "label": [
+            "企业披露制氢成本",
+            "Company-disclosed hydrogen cost"
+          ],
+          "value": [
+            "<2.50 美元/kg H₂",
+            "<$2.50/kg H₂"
+          ],
+          "period": [
+            "2024-04-01 企业披露",
+            "Company post 2024-04-01"
+          ],
+          "scope": [
+            "同文假设光伏直流电价 20 美元/MWh，非独立审计或最终客户报价。",
+            "The post assumes $20/MWh solar DC; not independent audit or an end-customer quotation."
+          ],
+          "kind": "company",
+          "evidenceId": "terraform-demo-2024"
+        },
+        {
+          "id": "terraform-dac-cost",
+          "label": [
+            "企业披露空气捕集成本",
+            "Company-disclosed DAC cost"
+          ],
+          "value": [
+            "<250 美元/t CO₂",
+            "<$250/t CO₂"
+          ],
+          "period": [
+            "2024-04-01 企业披露",
+            "Company post 2024-04-01"
+          ],
+          "scope": [
+            "仅该企业捕集口径，不是含永久储存的每净吨成本。",
+            "Company capture boundary, not cost per net tonne including permanent storage."
+          ],
+          "kind": "company",
+          "evidenceId": "terraform-demo-2024"
+        },
+        {
+          "id": "doe-net-removal-goal",
+          "label": [
+            "Carbon Negative Shot 净移除成本目标",
+            "Carbon Negative Shot net-removal cost goal"
+          ],
+          "value": [
+            "<100 美元/净吨 CO₂e",
+            "<$100/net t CO₂e"
+          ],
+          "period": [
+            "目标 2032；2024-10-18 公告",
+            "Target 2032; notice 2024-10-18"
+          ],
+          "scope": [
+            "组合研发目标，包含安全储存与 MRV，不是已测得的行业均价。",
+            "Portfolio development goal including storage and MRV, not an observed industry average."
+          ],
+          "kind": "target",
+          "evidenceId": "doe-carbon-negative-2032"
         }
       ],
       "family": "chemistry",
       "relatedTopicIds": [
         "clean-hydrogen"
       ],
-      "marketCount": 3,
+      "marketCount": 4,
       "evidenceIds": [
         "mof-supply",
         "mof-manufacturer",
@@ -412,13 +590,15 @@
         "svante-redwood",
         "saipem-enzyme",
         "vesta-pilots",
-        "climeworks-mammoth"
+        "climeworks-mammoth",
+        "terraform-demo-2024",
+        "doe-carbon-negative-2032"
       ],
       "coverage": {
-        "historyPoints": 508,
-        "marketsWithHistory": 3,
+        "historyPoints": 555,
+        "marketsWithHistory": 4,
         "thinMarkets": 2,
-        "ruleFlagMarkets": 2,
+        "ruleFlagMarkets": 3,
         "firstTradeAt": 1655346177064,
         "lastTradeAt": 1783281894629
       }
@@ -475,19 +655,74 @@
             "前者是特定供应商的客户交付，后者是全行业在美国供电中的份额。装机功率不等于年度发电量；长期占比题目的统计口径不足之处保留在规则核查中。",
             "One concerns delivery by a named supplier; the other concerns an industry’s share of US electricity. Capacity differs from annual energy; missing definitions remain flagged."
           ]
+        },
+        {
+          "title": [
+            "靶增益与电站净输出",
+            "Target gain and net electrical output"
+          ],
+          "body": [
+            "新增 NIF 历史曲线围绕 2023 年实验能量，补上到靶输入与聚变输出的成对数据。原题“net gain >200%”存在定义歧义，保留平台判定；商业购电市场仍要求符合自身的交付功率、期限和设施条件，两者不合成统一聚变成功率。",
+            "The NIF archive pairs 2023 on-target input and fusion output, retaining the source outcome and its ambiguous net-gain percentage. Power-purchase markets retain separate power, deadline and facility requirements; no pooled fusion-success probability is calculated."
+          ]
         }
       ],
       "family": "physics",
-      "marketCount": 2,
+      "metrics": [
+        {
+          "id": "nif-july23-input",
+          "label": [
+            "NIF 到靶激光能量",
+            "NIF on-target laser energy"
+          ],
+          "value": [
+            "2.05 MJ",
+            "2.05 MJ"
+          ],
+          "period": [
+            "2023-07-30 实验",
+            "2023-07-30 shot"
+          ],
+          "scope": [
+            "一次惯性约束实验的输入；不含整个设施耗电。",
+            "Input to one inertial-confinement shot; excludes whole-facility electricity."
+          ],
+          "kind": "measurement",
+          "evidenceId": "nif-2023-gain"
+        },
+        {
+          "id": "nif-july23-output",
+          "label": [
+            "NIF 聚变输出能量",
+            "NIF fusion energy output"
+          ],
+          "value": [
+            "3.88 MJ",
+            "3.88 MJ"
+          ],
+          "period": [
+            "2023-07-30 实验",
+            "2023-07-30 shot"
+          ],
+          "scope": [
+            "与 2.05 MJ 到靶输入配对；不是输出电能、全年最高值或持续发电能力。",
+            "Paired with 2.05 MJ on-target input; not electricity, a full-year maximum or continuous generation."
+          ],
+          "kind": "measurement",
+          "evidenceId": "nif-2023-gain"
+        }
+      ],
+      "marketCount": 3,
       "evidenceIds": [
         "fusion-ignition",
-        "helion-ppa"
+        "helion-ppa",
+        "nif-2023-gain"
       ],
       "coverage": {
-        "historyPoints": 204,
-        "marketsWithHistory": 2,
+        "historyPoints": 470,
+        "marketsWithHistory": 3,
         "thinMarkets": 0,
-        "ruleFlagMarkets": 1,
+        "ruleFlagMarkets": 2,
         "firstTradeAt": 1653685879106,
         "lastTradeAt": 1789063824213
       }
@@ -544,20 +779,75 @@
             "产品上线、付费访问条件、用户能运行的任务和独立使用记录，比路线图更接近“可用”的含义。规则没有写明的性能阈值不能由本站补造；停盘未判定的事件继续保留未判定状态。",
             "Product access terms, runnable tasks and independent usage matter beyond roadmaps. We do not invent absent performance thresholds, and closed unresolved contracts remain unresolved."
           ]
+        },
+        {
+          "title": [
+            "从物理门到逻辑纠错",
+            "From physical gates to logical correction"
+          ],
+          "body": [
+            "并行双比特门市场补充硬件层证据：门对数、平均保真度、串扰和 SPAM 处理。中性原子论文的 60 个原子与 99.5% 不能换写成 60 个逻辑比特或 ≥99.9%。逻辑纠错市场仍需看随码距增大时的逻辑错误变化，而不是只看某次物理门峰值。",
+            "The parallel-gate archive adds pairs, mean fidelity, crosstalk and SPAM boundaries. Sixty atoms at 99.5% does not mean sixty logical qubits or ≥99.9%. Error-correction contracts instead need logical-error scaling with code distance, not a best physical gate."
+          ]
         }
       ],
       "family": "physics",
-      "marketCount": 2,
+      "metrics": [
+        {
+          "id": "neutral-atom-parallel-fidelity",
+          "label": [
+            "并行双比特纠缠门保真度",
+            "Parallel two-qubit entangling fidelity"
+          ],
+          "value": [
+            "99.5%",
+            "99.5%"
+          ],
+          "period": [
+            "2023 年论文",
+            "2023 study"
+          ],
+          "scope": [
+            "中性原子实验，多种重复门评估；低于本市场 99.9% 门槛。",
+            "Neutral-atom experiment using repeated-gate benchmarks; below the contract’s 99.9%."
+          ],
+          "kind": "measurement",
+          "evidenceId": "parallel-gates-2023"
+        },
+        {
+          "id": "neutral-atom-parallel-size",
+          "label": [
+            "并行门操作的原子规模",
+            "Atoms involved in parallel operation"
+          ],
+          "value": [
+            "最多 60 个原子",
+            "Up to 60 atoms"
+          ],
+          "period": [
+            "2023 年论文",
+            "2023 study"
+          ],
+          "scope": [
+            "原子数量，不是 60 对门或 60 个逻辑量子比特。",
+            "Atom count, not sixty gate pairs or logical qubits."
+          ],
+          "kind": "measurement",
+          "evidenceId": "parallel-gates-2023"
+        }
+      ],
+      "marketCount": 3,
       "evidenceIds": [
         "quantum-willow",
-        "quantum-google-explanation"
+        "quantum-google-explanation",
+        "parallel-gates-2023"
       ],
       "coverage": {
-        "historyPoints": 20,
-        "marketsWithHistory": 2,
+        "historyPoints": 171,
+        "marketsWithHistory": 3,
         "thinMarkets": 1,
-        "ruleFlagMarkets": 2,
-        "firstTradeAt": 1710172244525,
+        "ruleFlagMarkets": 3,
+        "firstTradeAt": 1675392175898,
         "lastTradeAt": 1723594797763
       }
     },
@@ -613,20 +903,74 @@
             "核对的是单一制造商在一个日历年实际商业交付的组件功率，并对照原题质保条件。计划产能、累计多年销量和试验组件应分别处理；全球部署多数则需要另一套行业统计。",
             "Check actual commercial module power delivered by one manufacturer in one calendar year, with the contract’s warranty conditions. Planned capacity, multiyear totals and pilots differ, as does global deployment share."
           ]
+        },
+        {
+          "title": [
+            "效率、产能与年度出货",
+            "Efficiency, capacity and annual shipments"
+          ],
+          "body": [
+            "新增 >30% 商业效率与 1 GW 单年出货两条曲线。首发产品 24.5% 组件效率、同文纪录 26.9%、GW 级规划产能与有质保的年度出货是四种记录。湿热、紫外、封装和寿命资料影响质保判断，不把单个实验室效率纪录作为全部商业条件。",
+            "Two added curves concern >30% commercial efficiency and 1 GW annual shipment. The 24.5% shipped module, 26.9% record, planned capacity and warrantied shipments are four records. Damp heat, UV, encapsulation and lifetime inform warranties; a record alone establishes no complete commercial case."
+          ]
         }
       ],
       "family": "chemistry",
-      "marketCount": 2,
+      "metrics": [
+        {
+          "id": "oxford-shipped-module-efficiency",
+          "label": [
+            "首批商业组件效率",
+            "First commercial-module efficiency"
+          ],
+          "value": [
+            "24.5%",
+            "24.5%"
+          ],
+          "period": [
+            "2024-09-05 公告",
+            "2024-09-05 announcement"
+          ],
+          "scope": [
+            "Oxford PV 72 片叠层组件的企业披露，不是单片电池效率。",
+            "Company-reported 72-cell tandem module efficiency, not a single-cell efficiency."
+          ],
+          "kind": "company",
+          "evidenceId": "oxford-first-shipment"
+        },
+        {
+          "id": "oxford-record-module-efficiency",
+          "label": [
+            "同公告提及的组件纪录",
+            "Module record cited in the same announcement"
+          ],
+          "value": [
+            "26.9%",
+            "26.9%"
+          ],
+          "period": [
+            "2024-09-05 公告回顾",
+            "Recalled in 2024-09-05 announcement"
+          ],
+          "scope": [
+            "组件纪录与首发产品 24.5% 分开，不能把纪录标为出货产品效率。",
+            "Keep the record distinct from the 24.5% shipped product."
+          ],
+          "kind": "company",
+          "evidenceId": "oxford-first-shipment"
+        }
+      ],
+      "marketCount": 4,
       "evidenceIds": [
         "oxford-first-shipment",
         "perovskite-doe"
       ],
       "coverage": {
-        "historyPoints": 24,
-        "marketsWithHistory": 2,
-        "thinMarkets": 1,
-        "ruleFlagMarkets": 1,
-        "firstTradeAt": 1706599813471,
+        "historyPoints": 38,
+        "marketsWithHistory": 4,
+        "thinMarkets": 3,
+        "ruleFlagMarkets": 3,
+        "firstTradeAt": 1690642412871,
         "lastTradeAt": 1787413340276
       }
     },
@@ -691,6 +1035,16 @@
           "body": [
             "容量保持率需说明参照温度、倍率和截止电压；低温瞬时功率不能代替长周期容量保持。企业公告未给出的完整测试协议继续列为待核查事项。",
             "Retention needs a reference temperature, rate and cutoff voltage. Cold peak power does not replace cycle retention, and protocols absent from company releases remain unverified."
+          ]
+        },
+        {
+          "title": [
+            "性能发布与可订购价格",
+            "Performance releases and orderable prices"
+          ],
+          "body": [
+            "新增 ≤10 美元/kWh 市场把单价、标称能量、汇率和网页存档放在同一判定链。2021 年第一代产品的比能量与快充条件仅作历史材料参照；不把市场背景的廉价电池说法作为厂家报价，也不与不同代产品的密度数值拼成“最佳电池”。",
+            "The ≤$10/kWh contract links unit price, nominal energy, exchange rates and web archives. Historical first-generation performance is a materials reference, not a manufacturer quotation or a composite best battery assembled from different generations."
           ]
         }
       ],
@@ -757,6 +1111,48 @@
           ],
           "evidenceId": "catl-naxtra-vehicle",
           "kind": "company"
+        },
+        {
+          "id": "catl-firstgen-specific-energy",
+          "label": [
+            "第一代钠离子单体比能量",
+            "First-generation sodium-ion specific energy"
+          ],
+          "value": [
+            "最高 160 Wh/kg",
+            "Up to 160 Wh/kg"
+          ],
+          "period": [
+            "2021-07-29 发布",
+            "Released 2021-07-29"
+          ],
+          "scope": [
+            "CATL 当年电芯发布口径，不是整包数据，也不是价格。",
+            "Historical CATL cell claim, not pack-level energy or price."
+          ],
+          "kind": "company",
+          "evidenceId": "catl-sodium-2021"
+        },
+        {
+          "id": "catl-firstgen-charge",
+          "label": [
+            "第一代钠离子快充披露",
+            "First-generation sodium-ion charging claim"
+          ],
+          "value": [
+            "15 分钟至 80% SOC",
+            "To 80% SOC in 15 min"
+          ],
+          "period": [
+            "2021-07-29 发布",
+            "Released 2021-07-29"
+          ],
+          "scope": [
+            "室温；公告此句未提供完整起始 SOC 与充电曲线，非所有产品统一能力。",
+            "Room temperature; this statement lacks a full starting-SOC/charging curve and is not universal to all products."
+          ],
+          "kind": "company",
+          "evidenceId": "catl-sodium-2021"
         }
       ],
       "family": "battery",
@@ -764,17 +1160,18 @@
         "solid-state-batteries",
         "battery-scale-storage"
       ],
-      "marketCount": 4,
+      "marketCount": 5,
       "evidenceIds": [
         "catl-naxtra-vehicle",
         "catl-sodium-safety",
-        "iea-batteries-2026"
+        "iea-batteries-2026",
+        "catl-sodium-2021"
       ],
       "coverage": {
-        "historyPoints": 623,
-        "marketsWithHistory": 4,
-        "thinMarkets": 1,
-        "ruleFlagMarkets": 2,
+        "historyPoints": 630,
+        "marketsWithHistory": 5,
+        "thinMarkets": 2,
+        "ruleFlagMarkets": 3,
         "firstTradeAt": 1671424719694,
         "lastTradeAt": 1791229510033
       }
@@ -840,6 +1237,16 @@
           "body": [
             "全钒液流通过不同价态电解液反应储能，储罐和电堆分别影响能量与功率。用钒份额须按钒元素含量核算，并区分电解液库存、当年消费与钢铁等其他用途。",
             "Vanadium flow stores energy through redox couples; tanks and stacks affect energy and power differently. Consumption shares need contained-V accounting and separation of inventory, annual use and non-battery applications."
+          ]
+        },
+        {
+          "title": [
+            "部署规模与关键原料供应",
+            "Deployment and critical-material supply"
+          ],
+          "body": [
+            "新增中国新型储能功率、全球钒产量和美国电池级锂份额三类市场。功率 GW、能量 GWh、元素吨与电池级 LCE 属于不同单位和供应环节。统计版次、年份和回收重复计量会改变对比，未来设计能力与真实合格产出分列。",
+            "New contracts cover Chinese storage power, global vanadium output and US battery-grade lithium share. GW, GWh, contained-metal tonnes and battery-grade LCE describe different units/stages. Editions, years and recycling double counting matter; design capacity is not qualified output."
           ]
         }
       ],
@@ -1011,6 +1418,48 @@
           ],
           "evidenceId": "catl-condensed",
           "kind": "company"
+        },
+        {
+          "id": "china-storage-power-2024",
+          "label": [
+            "中国新型储能投运功率",
+            "China operating new-type storage power"
+          ],
+          "value": [
+            "73.76 GW",
+            "73.76 GW"
+          ],
+          "period": [
+            "截至 2024 年底；2025-07-31 发布",
+            "End-2024; reported 2025-07-31"
+          ],
+          "scope": [
+            "已建成投运的新型储能，包含多技术路线；不是产线年产能。",
+            "Operational aggregate across technologies, not annual manufacturing capacity."
+          ],
+          "kind": "reported",
+          "evidenceId": "nea-storage-2024"
+        },
+        {
+          "id": "china-storage-energy-2024",
+          "label": [
+            "中国新型储能投运能量",
+            "China operating new-type storage energy"
+          ],
+          "value": [
+            "168 GWh",
+            "168 GWh"
+          ],
+          "period": [
+            "截至 2024 年底；2025-07-31 发布",
+            "End-2024; reported 2025-07-31"
+          ],
+          "scope": [
+            "原文 1.68 亿 kWh 的单位换算；与 73.76 GW 功率分列。",
+            "Converted from the source’s 168 million kWh; separate from 73.76 GW power."
+          ],
+          "kind": "reported",
+          "evidenceId": "nea-storage-2024"
         }
       ],
       "family": "battery",
@@ -1018,20 +1467,23 @@
         "solid-state-batteries",
         "sodium-ion-batteries"
       ],
-      "marketCount": 5,
+      "marketCount": 8,
       "evidenceIds": [
         "catl-naxtra-vehicle",
         "catl-condensed",
         "doe-pack-cost",
         "iea-batteries-2026",
         "eia-storage-2024",
-        "vanadium-electrolyte"
+        "vanadium-electrolyte",
+        "nea-storage-2024",
+        "usgs-vanadium-series",
+        "usgs-lithium-series"
       ],
       "coverage": {
-        "historyPoints": 1592,
-        "marketsWithHistory": 5,
-        "thinMarkets": 2,
-        "ruleFlagMarkets": 3,
+        "historyPoints": 1730,
+        "marketsWithHistory": 8,
+        "thinMarkets": 4,
+        "ruleFlagMarkets": 6,
         "firstTradeAt": 1682210541807,
         "lastTradeAt": 1792321749831
       }
@@ -1097,6 +1549,16 @@
           "body": [
             "DOE 资料中的 2031 年成本目标，与原题的 2030 年价格判定分别保留。政策目标、工程模型和观察到的价格各有用途，不能在结算时互相替代。",
             "DOE’s 2031 cost target and the contract’s 2030 price deadline remain distinct. Policy goals, engineering models and observed prices serve different purposes."
+          ]
+        },
+        {
+          "title": [
+            "从制氢设施到专用输氢网络",
+            "From hydrogen facilities to dedicated networks"
+          ],
+          "body": [
+            "新增日本核能制氢与欧洲专用管线市场，分别要求年产量和实际运营长度。HTTR 许可、出口温度和研发日程不能代替产氢统计；德国获批核心网络不能当作已运营欧洲总长度。原有绿氢成本与电解装机市场继续按各自单位和电源条件阅读。",
+            "Nuclear-hydrogen and pipeline contracts require annual output and operating mileage. HTTR licensing, temperature and targets are not production statistics; Germany’s approved network is not operating European length. Existing green-hydrogen cost/electrolyser contracts keep their units and power boundaries."
           ]
         }
       ],
@@ -1184,22 +1646,108 @@
           ],
           "evidenceId": "doe-hydrogen-shot",
           "kind": "target"
+        },
+        {
+          "id": "httr-outlet-temperature",
+          "label": [
+            "HTTR 报告出口温度",
+            "Reported HTTR outlet temperature"
+          ],
+          "value": [
+            "950°C",
+            "950°C"
+          ],
+          "period": [
+            "2025-03-27 公告回顾",
+            "Recalled in 2025-03-27 notice"
+          ],
+          "scope": [
+            "热源性能，既不是氢产率，也不证明年度规模化生产。",
+            "Heat-source performance, not hydrogen yield or annual production."
+          ],
+          "kind": "reported",
+          "evidenceId": "jaea-httr-2025"
+        },
+        {
+          "id": "httr-hydrogen-target",
+          "label": [
+            "HTTR 核热制氢目标",
+            "HTTR reactor-heat hydrogen target"
+          ],
+          "value": [
+            "争取 2030 年",
+            "Aim: 2030"
+          ],
+          "period": [
+            "2025-03-27 计划",
+            "Plan announced 2025-03-27"
+          ],
+          "scope": [
+            "受监管审查及设施连接等条件约束，不是完成时间。",
+            "Subject to regulatory review and facility coupling, not a completion date."
+          ],
+          "kind": "target",
+          "evidenceId": "jaea-httr-2025"
+        },
+        {
+          "id": "german-core-planned-length",
+          "label": [
+            "德国获批氢核心管网长度",
+            "Approved German hydrogen-core length"
+          ],
+          "value": [
+            "9,040 km",
+            "9,040 km"
+          ],
+          "period": [
+            "2024-10-22 获批；规划至 2032",
+            "Approved 2024-10-22; planned through 2032"
+          ],
+          "scope": [
+            "获批方案范围，不是当时已运营长度，也不是欧洲总计。",
+            "Approved plan, not operating mileage or a Europe-wide total."
+          ],
+          "kind": "target",
+          "evidenceId": "bnetza-hydrogen-core"
+        },
+        {
+          "id": "german-core-conversion-share",
+          "label": [
+            "获批方案天然气管线转换占比",
+            "Repurposed-gas share of approved plan"
+          ],
+          "value": [
+            "约 60%",
+            "About 60%"
+          ],
+          "period": [
+            "2024-10-22 方案",
+            "2024-10-22 plan"
+          ],
+          "scope": [
+            "方案内拟改造比例，不意味着这些管段已完成氢气投运。",
+            "Planned repurposing share, not evidence those segments already operate with hydrogen."
+          ],
+          "kind": "target",
+          "evidenceId": "bnetza-hydrogen-core"
         }
       ],
       "family": "chemistry",
       "relatedTopicIds": [
         "carbon-capture"
       ],
-      "marketCount": 2,
+      "marketCount": 4,
       "evidenceIds": [
         "doe-hydrogen-shot",
-        "iea-hydrogen-2026"
+        "iea-hydrogen-2026",
+        "jaea-httr-2025",
+        "bnetza-hydrogen-core"
       ],
       "coverage": {
-        "historyPoints": 17,
-        "marketsWithHistory": 2,
-        "thinMarkets": 1,
-        "ruleFlagMarkets": 1,
+        "historyPoints": 32,
+        "marketsWithHistory": 4,
+        "thinMarkets": 3,
+        "ruleFlagMarkets": 2,
         "firstTradeAt": 1684720399185,
         "lastTradeAt": 1791738206602
       }
@@ -1265,6 +1813,16 @@
           "body": [
             "原市场写作 INS018_055，所引论文写作 ISM001-055／rentosertib；检索时保留拼写差别与来源。进入临床、完成 I 期和 FDA 批准各按原题核对，平台 Yes 不作为监管结论。",
             "The market spells INS018_055 while the paper uses ISM001-055/rentosertib; source spellings are retained. Clinical entry, phase-I completion and FDA approval remain distinct, and a platform Yes is not a regulatory finding."
+          ]
+        },
+        {
+          "title": [
+            "工具参与、重要贡献与批准",
+            "Tool use, material influence and approval"
+          ],
+          "body": [
+            "新增 markov.bio 联合条件市场，要求独立的早期研发贡献说明与 FDA/EMA 人用批准，还包含企业退出和归因歧义条款。论文里使用过某工具与工具对上市药物作出重要贡献是不同证据；已有 IIa 期临床数据也不能自动跨到批准。",
+            "The added markov.bio contract requires external material-contribution evidence and FDA/EMA approval, plus business-exit and attribution clauses. A paper’s tool use differs from influential development of an approved drug; Phase IIa evidence does not automatically become approval."
           ]
         }
       ],
@@ -1360,16 +1918,16 @@
         "click-bioorthogonal",
         "asymmetric-organocatalysis"
       ],
-      "marketCount": 4,
+      "marketCount": 5,
       "evidenceIds": [
         "fda-clinical-phases",
         "rentosertib-phase2"
       ],
       "coverage": {
-        "historyPoints": 230,
-        "marketsWithHistory": 4,
-        "thinMarkets": 1,
-        "ruleFlagMarkets": 2,
+        "historyPoints": 246,
+        "marketsWithHistory": 5,
+        "thinMarkets": 2,
+        "ruleFlagMarkets": 3,
         "firstTradeAt": 1643783662068,
         "lastTradeAt": 1766138127107
       }
@@ -3120,7 +3678,8 @@
         "powerco"
       ],
       "evidence": [
-        "qs-eagle"
+        "qs-eagle",
+        "qs-endurance-2024"
       ],
       "briefing": {
         "contextId": "qs",
@@ -6576,6 +7135,1408 @@
       ],
       "tradePoints": 498,
       "detailFile": "events/HB3a6kWAhptJg8Ill8yT.json"
+    },
+    {
+      "id": "0IclPPNtNA",
+      "topicId": "sodium-ion-batteries",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/WilliamGunn/sodium-ion-battery-for-10kwh-by-eoy",
+      "originalTitle": "Sodium ion battery for $10/kWh by EOY 2026?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.13693578532681258,
+      "volume": 180.94835206632416,
+      "participants": 5,
+      "createdTime": 1757284580970,
+      "closeTime": 1798761540000,
+      "resolutionTime": null,
+      "observedAt": 1793013887097,
+      "historyCutoff": 1793013887097,
+      "historyComplete": true,
+      "lastTradeProbability": 0.13693578532681258,
+      "lastTradeAt": 1767017391986,
+      "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+      "stage": "engineering",
+      "title": [
+        "2026 年底前会有 ≤10 美元/kWh 的可下单钠离子电池吗？",
+        "Will an orderable sodium-ion battery cost ≤$10/kWh by end-2026?"
+      ],
+      "rules": [
+        [
+          "2026-12-31 23:59:59 UTC 前，新可充钠离子电芯、模组或整包的价格/标称电量须 ≤10 美元/kWh；不含税、关税和运费。",
+          "By 23:59:59 UTC on 31 December 2026, a new rechargeable sodium-ion cell, module or pack must be offered/sold at ≤$10 per nominal kWh, excluding taxes, duties and shipping."
+        ],
+        [
+          "网页证据须有截止日前 Wayback 存档；非美元按报价日 ECB 汇率。排除二手、原型、隐性补贴和无法拆分的捆绑报价。",
+          "Web evidence needs a pre-deadline Wayback capture; non-USD prices use the listing-date ECB rate. Used/prototype, undisclosed-rebate and inseparable bundle prices are excluded."
+        ]
+      ],
+      "interpretation": [
+        "本题允许电芯、模组或整包，价格分母是标称电量。材料便宜、厂商发布或预估成本都还不是可下单成交依据；还需核对存档日与汇率。",
+        "The product may be a cell, module or pack, using nominal energy. Cheap feedstock, launches and estimated costs are not orderable quotations; archive date and exchange-rate evidence still matter."
+      ],
+      "entities": [
+        "catl"
+      ],
+      "evidence": [
+        "catl-sodium-2021",
+        "catl-naxtra-vehicle"
+      ],
+      "briefing": {
+        "contextId": "sodium-pricing",
+        "summary": [
+          "本题允许电芯、模组或整包，价格分母是标称电量。材料便宜、厂商发布或预估成本都还不是可下单成交依据；还需核对存档日与汇率。",
+          "The product may be a cell, module or pack, using nominal energy. Cheap feedstock, launches and estimated costs are not orderable quotations; archive date and exchange-rate evidence still matter."
+        ],
+        "checklist": [
+          [
+            "核对型号、可订购状态、单价与标称 Wh。",
+            "Match model, availability, unit price and nominal Wh."
+          ],
+          [
+            "保存同日报价、网页存档与 ECB 汇率。",
+            "Keep quotation, archive and ECB rate for the relevant date."
+          ],
+          [
+            "区分已披露性能与未经厂家报价支持的低价背景。",
+            "Separate reported performance from unsupported low-price background claims."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "hnzy6pqlNZ",
+        "gLKepA3Jdl3lmiRXc32K"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1757284582133,
+          "p": 0.44800860176515395
+        },
+        "last": {
+          "t": 1767017391986,
+          "p": 0.13693578532681258
+        },
+        "change": -31.10728164383414,
+        "low": 0.13693578532681258,
+        "high": 0.44800860176515395,
+        "staleDays": 300.8853600810185
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "背景低价说法未验证",
+            "Unverified low-price background"
+          ],
+          "detail": [
+            "背景中的 CATL 低价说法不作为厂商报价；报价日、存档与成品层级必须符合正文。",
+            "The background CATL assertion is not manufacturer pricing; listing date, archive and product level must satisfy the body."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 7,
+      "detailFile": "events/0IclPPNtNA.json"
+    },
+    {
+      "id": "9UgA28yIAn",
+      "topicId": "battery-scale-storage",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/china-achieves-over-180-gw-of-newty",
+      "originalTitle": "China achieves over 180 GW of new-type energy storage capacity by end of 2027?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.724158602509924,
+      "volume": 249,
+      "participants": 6,
+      "createdTime": 1764128039599,
+      "closeTime": 1830297540000,
+      "resolutionTime": null,
+      "observedAt": 1793013888334,
+      "historyCutoff": 1793013888334,
+      "historyComplete": true,
+      "lastTradeProbability": 0.724158602509924,
+      "lastTradeAt": 1782552335742,
+      "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+      "stage": "engineering",
+      "title": [
+        "中国 2027 年底新型储能装机会超过 180 GW 吗？",
+        "Will China exceed 180 GW of installed new-type storage by end-2027?"
+      ],
+      "rules": [
+        [
+          "按国家能源局等官方数据，中国 2027 年底已安装新型储能功率须 >180 GW。",
+          "Official NEA or equivalent data must show >180 GW installed new-type storage power at end-2027."
+        ],
+        [
+          "统计对象是新型储能功率，不是 GWh 能量、在建项目或抽水蓄能。",
+          "The measure is new-type storage power, not GWh, construction pipeline or pumped hydro."
+        ]
+      ],
+      "interpretation": [
+        "本题以功率规模判定。国家能源局披露的 2024 年底 73.76 GW／168 GWh 为不同单位的基准；未来政策目标不应当作提前完成的投运数据。",
+        "This contract measures power. NEA’s end-2024 73.76 GW/168 GWh baseline uses two different units; a future policy target is not completed operational deployment."
+      ],
+      "entities": [],
+      "evidence": [
+        "eia-storage-2024",
+        "iea-batteries-2026",
+        "nea-storage-2024"
+      ],
+      "briefing": {
+        "contextId": "storage-energy",
+        "summary": [
+          "本题以功率规模判定。国家能源局披露的 2024 年底 73.76 GW／168 GWh 为不同单位的基准；未来政策目标不应当作提前完成的投运数据。",
+          "This contract measures power. NEA’s end-2024 73.76 GW/168 GWh baseline uses two different units; a future policy target is not completed operational deployment."
+        ],
+        "checklist": [
+          [
+            "确认统计时点为 2027 年底。",
+            "Check the end-2027 reference period."
+          ],
+          [
+            "区分功率、能量和投运状态。",
+            "Separate power, energy and operating status."
+          ],
+          [
+            "保留官方统计定义，避免把全部储能归为某一化学体系。",
+            "Retain the official definition rather than assigning every project to one chemistry."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "hOt5P568Iz",
+        "02b1E538uZEMM5tv6i0H"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1764129201539,
+          "p": 0.5243757431629013
+        },
+        "last": {
+          "t": 1782552335742,
+          "p": 0.724158602509924
+        },
+        "change": 19.978285934702278,
+        "low": 0.5243757431629013,
+        "high": 0.8220816423938361,
+        "staleDays": 121.08278462962963
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "严格大于的功率门槛",
+            "Strict power threshold"
+          ],
+          "detail": [
+            "原规则要求 >180 GW；不要与政策“以上”、GWh 能量或在建产能混用。",
+            "The rule is >180 GW, distinct from policy wording, GWh and construction capacity."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 20,
+      "detailFile": "events/9UgA28yIAn.json"
+    },
+    {
+      "id": "dNy8QLslNU",
+      "topicId": "battery-scale-storage",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/will-global-vanadium-production-min",
+      "originalTitle": "Will global vanadium production (mine + co-product, contained V) in 2027 be at least 140,000 tonnes of V?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.5716361714045183,
+      "volume": 632.0000000000001,
+      "participants": 9,
+      "createdTime": 1764135366248,
+      "closeTime": 1837983540000,
+      "resolutionTime": null,
+      "observedAt": 1793013888646,
+      "historyCutoff": 1793013888646,
+      "historyComplete": true,
+      "lastTradeProbability": 0.5716361714045183,
+      "lastTradeAt": 1791393821775,
+      "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+      "stage": "engineering",
+      "title": [
+        "2027 年全球钒产量会达到 14 万吨 V 吗？",
+        "Will global vanadium production reach 140,000 t V in 2027?"
+      ],
+      "rules": [
+        [
+          "2027 年全球矿产与副产的钒元素含量产出 ≥140,000 吨为 Yes，优先 USGS。",
+          "Yes requires ≥140,000 t contained V in global mine/co-product output in 2027, prioritizing USGS."
+        ],
+        [
+          "USGS 缺失或明显不一致时，按至少两个可靠行业来源的中位数；2029-12-31 仍无 2027 数据则 N/A。",
+          "If USGS is unavailable or clearly inconsistent, use the median of at least two credible sources; no 2027 figure by 31 December 2029 resolves N/A."
+        ]
+      ],
+      "interpretation": [
+        "这是供应量门槛，不是电池消耗量。要核对元素 V、年度和统计版次；原题的 2024 年基数有冲突，不能据此计算可靠增长率。",
+        "This is a supply threshold, not battery consumption. Match contained-V units, year and edition; conflicting contract baselines prevent a reliable growth calculation."
+      ],
+      "entities": [],
+      "evidence": [
+        "usgs-vanadium-series",
+        "vanadium-electrolyte"
+      ],
+      "briefing": {
+        "contextId": "vanadium-supply",
+        "summary": [
+          "这是供应量门槛，不是电池消耗量。要核对元素 V、年度和统计版次；原题的 2024 年基数有冲突，不能据此计算可靠增长率。",
+          "This is a supply threshold, not battery consumption. Match contained-V units, year and edition; conflicting contract baselines prevent a reliable growth calculation."
+        ],
+        "checklist": [
+          [
+            "读取 2027 年世界产量与表注。",
+            "Read the 2027 world-production figure and notes."
+          ],
+          [
+            "说明副产、再生与 V₂O₅ 的处理。",
+            "Document co-products, recycling and V₂O₅ treatment."
+          ],
+          [
+            "若采用备用来源，保存各值与中位数计算。",
+            "Retain fallback values and median calculation."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "02b1E538uZEMM5tv6i0H",
+        "6ddpyhZNcA"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1764136377920,
+          "p": 0.5024937500777353
+        },
+        "last": {
+          "t": 1791393821775,
+          "p": 0.5716361714045183
+        },
+        "change": 6.914242132678295,
+        "low": 0.4350371168259296,
+        "high": 0.5716361714045184,
+        "staleDays": 18.750773969907407
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "基数冲突与统计范围",
+            "Baseline conflict and scope"
+          ],
+          "detail": [
+            "背景的 2024 基数出现约 119 kt 与 109 kt；优先目标年度正式统计及表注。",
+            "The background gives about 119 kt and 109 kt for 2024; prioritize target-year statistics and notes."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 31,
+      "detailFile": "events/dNy8QLslNU.json"
+    },
+    {
+      "id": "6ddpyhZNcA",
+      "topicId": "battery-scale-storage",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/will-us-production-of-batterygrade",
+      "originalTitle": "Will U.S. production of battery-grade lithium exceed 10% of global supply by the end of 2030?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.5519531318798201,
+      "volume": 1117.7709097217544,
+      "participants": 18,
+      "createdTime": 1765372046334,
+      "closeTime": 1924991940000,
+      "resolutionTime": null,
+      "observedAt": 1793013889917,
+      "historyCutoff": 1793013889917,
+      "historyComplete": true,
+      "lastTradeProbability": 0.5519531318798201,
+      "lastTradeAt": 1780331872503,
+      "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+      "stage": "engineering",
+      "title": [
+        "美国电池级锂供应份额会在 2030 年底前超过 10% 吗？",
+        "Will US battery-grade lithium supply exceed 10% by 2030?"
+      ],
+      "rules": [
+        [
+          "最迟 2031-02-01，有可靠来源确认 2030 年或更早某年，美国来源电池级锂产出占全球同口径供应 >10%。",
+          "By 1 February 2031, credible evidence must establish >10% of global battery-grade supply from US-sourced production in 2030 or an earlier year."
+        ],
+        [
+          "规则含本土矿山、回收和新加工设施，并用电池级 LCE；资料缺失或含糊则 No。",
+          "The body includes domestic mines, recycling and processing, using battery-grade LCE; missing or ambiguous data resolves No."
+        ]
+      ],
+      "interpretation": [
+        "本题的范围比标题更宽：此前年度也可满足。矿山含锂量与电池级 LCE 不同；要逐项解释美国来源、精炼与回收，避免跨供应环节重复相加。",
+        "The body accepts earlier years as well as 2030. Mine-contained lithium differs from battery-grade LCE; US sourcing, refining and recycling must be reconciled without double counting."
+      ],
+      "entities": [],
+      "evidence": [
+        "usgs-lithium-series",
+        "iea-batteries-2026"
+      ],
+      "briefing": {
+        "contextId": "lithium-supply",
+        "summary": [
+          "本题的范围比标题更宽：此前年度也可满足。矿山含锂量与电池级 LCE 不同；要逐项解释美国来源、精炼与回收，避免跨供应环节重复相加。",
+          "The body accepts earlier years as well as 2030. Mine-contained lithium differs from battery-grade LCE; US sourcing, refining and recycling must be reconciled without double counting."
+        ],
+        "checklist": [
+          [
+            "记录满足门槛的年份与证据发布日期。",
+            "Record qualifying year and evidence publication date."
+          ],
+          [
+            "核对美国分子与全球分母的单位和等级。",
+            "Match units and grade in US numerator and global denominator."
+          ],
+          [
+            "区分实际产出、在建产能与资源储量。",
+            "Separate output, construction capacity and resources."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "dNy8QLslNU",
+        "S2ghII2gLd"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1765373173473,
+          "p": 0.5475113122171946
+        },
+        "last": {
+          "t": 1780331872503,
+          "p": 0.5519531318798201
+        },
+        "change": 0.4441819662625468,
+        "low": 0.273909328513915,
+        "high": 0.9129552543192475,
+        "staleDays": 146.78260895833333
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "年份与供应分母",
+            "Year and supply denominator"
+          ],
+          "detail": [
+            "标题指 2030 年，正文允许此前年度；电池级 LCE 与矿山金属含量不得混算。",
+            "The body accepts earlier years; battery-grade LCE and contained-metal mining data need matched denominators."
+          ]
+        }
+      ],
+      "tradePoints": 87,
+      "detailFile": "events/6ddpyhZNcA.json"
+    },
+    {
+      "id": "23EEgMHJGu7TVzZyOCqT",
+      "topicId": "clean-hydrogen",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/RemNi/will-japan-produce-hydrogen-with-nu",
+      "originalTitle": "Will Japan produce hydrogen with nuclear power before 2031?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.6130400021641796,
+      "volume": 164.5252153305946,
+      "participants": 4,
+      "createdTime": 1715284933769,
+      "closeTime": 1930517940000,
+      "resolutionTime": null,
+      "observedAt": 1793013892859,
+      "historyCutoff": 1793013892859,
+      "historyComplete": true,
+      "lastTradeProbability": 0.6130400021641796,
+      "lastTradeAt": 1756824088439,
+      "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+      "stage": "engineering",
+      "title": [
+        "日本会在 2031 年前用核能年产至少 1 万吨氢吗？",
+        "Will Japan produce at least 10,000 t/year of nuclear hydrogen before 2031?"
+      ],
+      "rules": [
+        [
+          "2031-01-01 前，日本用核能直接制氢，年产量至少 10,000 吨。",
+          "Before 1 January 2031, Japan must produce at least 10,000 t hydrogen annually directly using nuclear power."
+        ],
+        [
+          "传统或先进核反应堆均可，至少两份独立可靠来源核实产量。",
+          "Conventional or advanced reactors may qualify; at least two independent credible sources must verify production."
+        ]
+      ],
+      "interpretation": [
+        "HTTR 的连接许可与 2030 年制氢目标尚不等于本题年产门槛。要核对核能输入、实际产量与独立确认，短时产氢或热源温度不能直接替代。",
+        "HTTR’s connection application and 2030 target do not establish annual output. Nuclear input, actual production and independent confirmation are required; a short run or heat-source temperature is insufficient."
+      ],
+      "entities": [],
+      "evidence": [
+        "jaea-httr-2025",
+        "iea-hydrogen-2026"
+      ],
+      "briefing": {
+        "contextId": "nuclear-hydrogen",
+        "summary": [
+          "HTTR 的连接许可与 2030 年制氢目标尚不等于本题年产门槛。要核对核能输入、实际产量与独立确认，短时产氢或热源温度不能直接替代。",
+          "HTTR’s connection application and 2030 target do not establish annual output. Nuclear input, actual production and independent confirmation are required; a short run or heat-source temperature is insufficient."
+        ],
+        "checklist": [
+          [
+            "识别制氢设施与核能供电／供热连接。",
+            "Identify the hydrogen facility and nuclear energy link."
+          ],
+          [
+            "核对年产量而非额定容量或短时速率。",
+            "Check annual output rather than nameplate capacity or short-run rate."
+          ],
+          [
+            "至少两份独立来源确认，留存统计年份。",
+            "Retain at least two independent confirmations and reference year."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "jcYZt1lNCMgX4LHHqgoq",
+        "LpIUh0hQ2z"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1715291310579,
+          "p": 0.6250404508790228
+        },
+        "last": {
+          "t": 1756824088439,
+          "p": 0.6130400021641796
+        },
+        "change": -1.2000448714843182,
+        "low": 0.5355977376332604,
+        "high": 0.7802600353903295,
+        "staleDays": 418.86347708333335
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "年产量口径",
+            "Annual-output definition"
+          ],
+          "detail": [
+            "原文未说明如何从短期运行外推年产量；研发目标不是实测产出。",
+            "The rule does not specify short-run annualization; development targets are not measured production."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 8,
+      "detailFile": "events/23EEgMHJGu7TVzZyOCqT.json"
+    },
+    {
+      "id": "LpIUh0hQ2z",
+      "topicId": "clean-hydrogen",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/deletedaccount001/europe-builds-5000-km-of-operationa",
+      "originalTitle": "Europe builds 5,000 km of operational hydrogen pipelines by 2033?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.43892399911809493,
+      "volume": 162.20703304490993,
+      "participants": 6,
+      "createdTime": 1765530967505,
+      "closeTime": 1988150340000,
+      "resolutionTime": null,
+      "observedAt": 1793013890244,
+      "historyCutoff": 1793013890244,
+      "historyComplete": true,
+      "lastTradeProbability": 0.43892399911809493,
+      "lastTradeAt": 1789932964241,
+      "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+      "stage": "engineering",
+      "title": [
+        "2033 年前欧洲已投运专用输氢管线会超过 5,000 km 吗？",
+        "Will operating dedicated European hydrogen pipelines exceed 5,000 km before 2033?"
+      ],
+      "rules": [
+        [
+          "2033-01-01 前，EU-27、英国、挪威、瑞士、冰岛与列支敦士登内专用氢管线运营路线长度须 >5,000 km。",
+          "Before 1 January 2033, operating dedicated hydrogen route-length must exceed 5,000 km within EU-27, UK, Norway, Switzerland, Iceland and Liechtenstein."
+        ],
+        [
+          "允许已转换投运的天然气管线；排除掺氢天然气、厂内管线及仅规划/获批/在建项目，各物理段只计一次。",
+          "Converted gas lines count once operating; blending, internal plant piping and planned/approved/construction projects are excluded. Count each physical segment once."
+        ]
+      ],
+      "interpretation": [
+        "德国 9,040 km 获批规划与本题运营门槛不能直接比较。要按物理管段、投运状态和专用气体服务汇总，不以地图上的全部规划长度判定。",
+        "Germany’s 9,040 km approved plan is not operating mileage. Sum physical segments by commissioning status and dedicated service rather than every line drawn on a plan."
+      ],
+      "entities": [],
+      "evidence": [
+        "bnetza-hydrogen-core",
+        "iea-hydrogen-2026"
+      ],
+      "briefing": {
+        "contextId": "hydrogen-transport",
+        "summary": [
+          "德国 9,040 km 获批规划与本题运营门槛不能直接比较。要按物理管段、投运状态和专用气体服务汇总，不以地图上的全部规划长度判定。",
+          "Germany’s 9,040 km approved plan is not operating mileage. Sum physical segments by commissioning status and dedicated service rather than every line drawn on a plan."
+        ],
+        "checklist": [
+          [
+            "保存运营商或监管机构的投运日期。",
+            "Retain operator/regulator commissioning dates."
+          ],
+          [
+            "确认专用氢服务并排除掺氢、厂内管道。",
+            "Confirm dedicated service and exclude blends/internal piping."
+          ],
+          [
+            "按路线长度去重，并裁切欧洲定义外的管段。",
+            "Deduplicate route length and exclude segments outside the defined area."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "23EEgMHJGu7TVzZyOCqT",
+        "CqS0hc8NOI"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1765532792162,
+          "p": 0.3378378378378378
+        },
+        "last": {
+          "t": 1789932964241,
+          "p": 0.43892399911809493
+        },
+        "change": 10.108616128025716,
+        "low": 0.24163601177946972,
+        "high": 0.43892399911809493,
+        "staleDays": 35.658865775462964
+      },
+      "quality": [
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 7,
+      "detailFile": "events/LpIUh0hQ2z.json"
+    },
+    {
+      "id": "dY0K6jGiZl7cPBkkWV74",
+      "topicId": "fusion-energy",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/JamesBills/will-scientists-at-the-nif-produce",
+      "originalTitle": "Will Scientists at the NIF produce a net energy gain > 200% from a fusion reaction in 2023?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.04,
+      "snapshotProbability": null,
+      "volume": 10725.614812444943,
+      "participants": 60,
+      "createdTime": 1691400283960,
+      "closeTime": 1704027540000,
+      "resolutionTime": 1704589475705,
+      "observedAt": 1793013893776,
+      "historyCutoff": 1704027540000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.04430472434111568,
+      "lastTradeAt": 1704003243876,
+      "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+      "stage": "validation",
+      "title": [
+        "NIF 在 2023 年的聚变能量比会超过原题“200%”门槛吗？",
+        "Did NIF cross the contract’s “200%” fusion-energy threshold in 2023?"
+      ],
+      "rules": [
+        [
+          "原题限定 NIF 的 2023 年实验；背景以约 150% 和约 190% 的输出/到靶输入比较说明。",
+          "The source asks about NIF in 2023 and cites roughly 150% and 190% output/on-target-input examples."
+        ],
+        [
+          "标题用 net energy gain >200%，正文未给完整计算公式；保留原平台 No，不自行重新结算。",
+          "The title says net energy gain >200% without a complete formula. Preserve platform No rather than re-resolving it."
+        ]
+      ],
+      "interpretation": [
+        "本题适合对照靶增益与工程增益的差别。标题的“净增益”与背景的百分比表达存在歧义，本站保留原判定，同时展示可核对的历史输入输出。",
+        "This archive illustrates target versus engineering gain. The title’s net-gain wording and background percentages are ambiguous; the platform outcome stays separate from documented historical input/output."
+      ],
+      "entities": [
+        "doe"
+      ],
+      "evidence": [
+        "nif-2023-gain",
+        "fusion-ignition"
+      ],
+      "briefing": {
+        "contextId": "fusion-target-gain",
+        "summary": [
+          "本题适合对照靶增益与工程增益的差别。标题的“净增益”与背景的百分比表达存在歧义，本站保留原判定，同时展示可核对的历史输入输出。",
+          "This archive illustrates target versus engineering gain. The title’s net-gain wording and background percentages are ambiguous; the platform outcome stays separate from documented historical input/output."
+        ],
+        "checklist": [
+          [
+            "确认实验日期与公布日期属于规则要求。",
+            "Check experiment and announcement dates against the rule."
+          ],
+          [
+            "明确分母是到靶激光还是设施耗电。",
+            "Specify on-target laser input versus facility electricity."
+          ],
+          [
+            "保留百分比定义歧义与平台结算。",
+            "Retain percentage-definition ambiguity and source settlement."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "jqEkQKsK0FxFNXDN0lBy",
+        "BGT0eBN2kmD6FmsXEvFt"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1691400404551,
+          "p": 0.23584905660377364
+        },
+        "last": {
+          "t": 1704003243876,
+          "p": 0.04430472434111568
+        },
+        "change": -19.154433226265795,
+        "low": 0.04430472434111568,
+        "high": 0.5896302602516942,
+        "staleDays": 0.2812051388888889
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "净增益与百分比歧义",
+            "Net-gain percentage ambiguity"
+          ],
+          "detail": [
+            "标题的 net gain 与背景 output/input 百分比不完全一致；保留平台 No。",
+            "Net-gain wording and output/input examples differ; preserve platform No."
+          ]
+        }
+      ],
+      "tradePoints": 266,
+      "detailFile": "events/dY0K6jGiZl7cPBkkWV74.json"
+    },
+    {
+      "id": "LDrguWkJhkpRIzXMT4d7",
+      "topicId": "quantum-computing",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/QuantumObserver/will-any-quantum-computing-company",
+      "originalTitle": "Will any corporate quantum computing team publicly report the implementation of 2 or more simultaneous 2-qubit gates with average gate fidelity of at least 99.9% before Feb 2024?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.02,
+      "snapshotProbability": null,
+      "volume": 12202.967391025697,
+      "participants": 92,
+      "createdTime": 1675387504084,
+      "closeTime": 1706763540000,
+      "resolutionTime": 1706790021557,
+      "observedAt": 1793013893896,
+      "historyCutoff": 1706763540000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.0155886112945924,
+      "lastTradeAt": 1706705565824,
+      "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+      "stage": "validation",
+      "title": [
+        "企业团队会在 2024 年 2 月前实现 ≥99.9% 的并行双比特门吗？",
+        "Did a corporate team report ≥99.9% parallel two-qubit gates before February 2024?"
+      ],
+      "rules": [
+        [
+          "企业量子计算团队须在 2024 年 2 月前公开报告至少两组同时运行的双比特门，平均保真度 ≥99.9%。",
+          "Before February 2024, a corporate team must publicly report at least two simultaneous two-qubit gates averaging ≥99.9% fidelity."
+        ],
+        [
+          "正文采用专家可信性判断，对 SPAM 是否可忽略保留未决表述；原平台已判 No。",
+          "The body uses expert credibility assessment and leaves SPAM treatment tentative; the source resolved No."
+        ]
+      ],
+      "interpretation": [
+        "不能把单门峰值、单比特门或没有同时运行的测试当作本题达标。原文的企业范围和测试口径另需核查；现有 99.5% 中性原子论文只是比较材料。",
+        "An isolated peak, single-qubit result or nonconcurrent test cannot meet this contract. Corporate scope and benchmark definitions require review; the 99.5% neutral-atom study is comparison evidence."
+      ],
+      "entities": [],
+      "evidence": [
+        "parallel-gates-2023",
+        "quantum-willow"
+      ],
+      "briefing": {
+        "contextId": "quantum-parallel-gates",
+        "summary": [
+          "不能把单门峰值、单比特门或没有同时运行的测试当作本题达标。原文的企业范围和测试口径另需核查；现有 99.5% 中性原子论文只是比较材料。",
+          "An isolated peak, single-qubit result or nonconcurrent test cannot meet this contract. Corporate scope and benchmark definitions require review; the 99.5% neutral-atom study is comparison evidence."
+        ],
+        "checklist": [
+          [
+            "核对至少两对双比特门同时运行。",
+            "Verify at least two two-qubit pairs operating concurrently."
+          ],
+          [
+            "检查平均值、误差条及 SPAM/泄漏处理。",
+            "Review averages, error bars and SPAM/leakage treatment."
+          ],
+          [
+            "区分学术作者与企业团队，并核对时间。",
+            "Match corporate versus academic attribution and dates."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "cwtbzjfk9j",
+        "oocJB7zxHwURka0HYfbo"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1675392175898,
+          "p": 0.45015420672809936
+        },
+        "last": {
+          "t": 1706705565824,
+          "p": 0.0155886112945924
+        },
+        "change": -43.4565595433507,
+        "low": 0.0155886112945924,
+        "high": 0.8444375312678493,
+        "staleDays": 0.6709974074074074
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "专家判断与测试口径",
+            "Expert discretion and benchmark scope"
+          ],
+          "detail": [
+            "正文对专家可信性审查与 SPAM 是否忽略保留裁量。",
+            "Expert credibility review and treatment of SPAM remain discretionary."
+          ]
+        }
+      ],
+      "tradePoints": 151,
+      "detailFile": "events/LDrguWkJhkpRIzXMT4d7.json"
+    },
+    {
+      "id": "8n2qAmtSKflVQ7kypyu8",
+      "topicId": "perovskite-solar",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/casualPhysicsEnjoyer/will-we-see-any-commercial-solar-ce",
+      "originalTitle": "Will we see any commercial solar cells with an efficiency >30% by the end of 2024?",
+      "status": "closed",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": null,
+      "volume": 245,
+      "participants": 8,
+      "createdTime": 1690642079001,
+      "closeTime": 1735689540000,
+      "resolutionTime": null,
+      "observedAt": 1793013894325,
+      "historyCutoff": 1735689540000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.09403674986538234,
+      "lastTradeAt": 1734716461948,
+      "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+      "stage": "engineering",
+      "title": [
+        "2024 年底前会有商业太阳能电池效率超过 30% 吗？",
+        "Were commercial solar cells above 30% efficiency available by end-2024?"
+      ],
+      "rules": [
+        [
+          "原题问 2024 年底前商业太阳能电池效率 >30%；正文指出叠层和钙钛矿是候选路线。",
+          "The source asks for commercial solar cells above 30% by end-2024, naming tandem/perovskite as likely routes."
+        ],
+        [
+          "正文未明确“商业可得”的交付尺度、面积与测试口径；封盘未判定仍保留未判定。",
+          "The body leaves commercial scale, area and test conditions underspecified; closed/unresolved remains unresolved."
+        ]
+      ],
+      "interpretation": [
+        "本题没有把单片电池和组件效率解释清楚。Oxford PV 2024 年首发组件的 24.5% 不能写成 >30% 商业组件；实验室纪录也不自动满足商业条件。",
+        "The body does not resolve cell versus module boundaries. Oxford PV’s 24.5% shipped module is not >30%; a laboratory record is not automatically commercial availability."
+      ],
+      "entities": [
+        "oxfordpv"
+      ],
+      "evidence": [
+        "oxford-first-shipment",
+        "perovskite-doe"
+      ],
+      "briefing": {
+        "contextId": "perovskite-scale",
+        "summary": [
+          "本题没有把单片电池和组件效率解释清楚。Oxford PV 2024 年首发组件的 24.5% 不能写成 >30% 商业组件；实验室纪录也不自动满足商业条件。",
+          "The body does not resolve cell versus module boundaries. Oxford PV’s 24.5% shipped module is not >30%; a laboratory record is not automatically commercial availability."
+        ],
+        "checklist": [
+          [
+            "确认电池或组件、面积与稳态测试口径。",
+            "Identify cell/module, area and stabilized testing."
+          ],
+          [
+            "核对可供货证据，区分纪录与产品。",
+            "Separate certified records from available products."
+          ],
+          [
+            "保留截止与封盘未判定状态。",
+            "Preserve the deadline and closed/unresolved status."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "88clPLgu5E",
+        "RhLLCEhdPs"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1690642412871,
+          "p": 0.509900019603999
+        },
+        "last": {
+          "t": 1734716461948,
+          "p": 0.09403674986538234
+        },
+        "change": -41.58632697386167,
+        "low": 0.09403674986538234,
+        "high": 0.509900019603999,
+        "staleDays": 11.262477453703704
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "商业范围与效率口径",
+            "Commercial and efficiency scope"
+          ],
+          "detail": [
+            "原文未定义商业数量、有效面积及测试标准；保留封盘未判定。",
+            "Commercial volume, area and testing are undefined; closed/unresolved remains unresolved."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 9,
+      "detailFile": "events/8n2qAmtSKflVQ7kypyu8.json"
+    },
+    {
+      "id": "RhLLCEhdPs",
+      "topicId": "perovskite-solar",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/MikhailTal/will-any-manufacturer-ship-1-gw-or-gs9suAS8qR",
+      "originalTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2030?",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.5569470020149596,
+      "volume": 21.31898410539096,
+      "participants": 2,
+      "createdTime": 1775499811717,
+      "closeTime": 1924923600000,
+      "resolutionTime": null,
+      "observedAt": 1793013895661,
+      "historyCutoff": 1793013895661,
+      "historyComplete": true,
+      "lastTradeProbability": 0.5569470020149596,
+      "lastTradeAt": 1787413340106,
+      "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+      "stage": "engineering",
+      "title": [
+        "2030 年底前单厂商钙钛矿组件年出货会达到 1 GW 吗？",
+        "Will a manufacturer ship 1 GW of perovskite modules in a year by 2030?"
+      ],
+      "rules": [
+        [
+          "任一厂商在 2026–2030 某一日历年商业出货钙钛矿或钙钛矿/硅叠层组件 ≥1,000 MW，须有可融资认可的质保。",
+          "One manufacturer must commercially ship ≥1,000 MW of perovskite or perovskite/silicon tandem modules in one calendar year during 2026–2030, with bankable warranties."
+        ],
+        [
+          "研究组件、试验项目和缺少上述质保的室内光伏不算；合计多年或名义工厂产能不算年度出货。",
+          "Research, pilots and indoor PV without bankable warranties are excluded; multi-year totals and nameplate capacity are not annual shipments."
+        ]
+      ],
+      "interpretation": [
+        "题目看单一厂商、单一年度和有效出货，不是开工或产线设计能力。标题写“2030 年前”，细则又将可计年份限定为 2026–2030，读曲线时须保留这一范围。",
+        "This asks for one manufacturer, one year and qualifying shipments, not announced factory capacity. The title’s broad deadline is narrowed by the body to calendar years 2026–2030."
+      ],
+      "entities": [
+        "oxfordpv"
+      ],
+      "evidence": [
+        "oxford-first-shipment",
+        "perovskite-doe"
+      ],
+      "briefing": {
+        "contextId": "perovskite-scale",
+        "summary": [
+          "题目看单一厂商、单一年度和有效出货，不是开工或产线设计能力。标题写“2030 年前”，细则又将可计年份限定为 2026–2030，读曲线时须保留这一范围。",
+          "This asks for one manufacturer, one year and qualifying shipments, not announced factory capacity. The title’s broad deadline is narrowed by the body to calendar years 2026–2030."
+        ],
+        "checklist": [
+          [
+            "核对厂商年度净出货及组件技术。",
+            "Verify manufacturer-year shipped volume and technology."
+          ],
+          [
+            "查看质保、客户验收与商业用途证据。",
+            "Review warranties, customer acceptance and commercial use."
+          ],
+          [
+            "剔除试验线产能、多年累计与重复申报。",
+            "Exclude pilot capacity, multi-year totals and duplicates."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "88clPLgu5E",
+        "8n2qAmtSKflVQ7kypyu8"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1775501776674,
+          "p": 0.4769543132605115
+        },
+        "last": {
+          "t": 1787413340106,
+          "p": 0.5569470020149596
+        },
+        "change": 7.999268875444809,
+        "low": 0.4769543132605115,
+        "high": 0.5569470020149596,
+        "staleDays": 64.82124484953704
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "可计年份与质保",
+            "Eligible years and warranty"
+          ],
+          "detail": [
+            "正文限定 2026–2030 年，且未明确 bankable warranties 的年限。",
+            "The body limits eligible years to 2026–2030 and leaves bankable-warranty duration undefined."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 5,
+      "detailFile": "events/RhLLCEhdPs.json"
+    },
+    {
+      "id": "rctqd0ZaxeeiHP93VP5n",
+      "topicId": "superconductors",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/jack/will-the-room-temp-superconductor-p",
+      "originalTitle": "Will the room temp superconductor paper replicate in 2023?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.02,
+      "snapshotProbability": null,
+      "volume": 81026.49362800537,
+      "participants": 132,
+      "createdTime": 1690393054885,
+      "closeTime": 1704085140000,
+      "resolutionTime": 1704135830080,
+      "observedAt": 1793013904118,
+      "historyCutoff": 1704085140000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.024454924243239765,
+      "lastTradeAt": 1702845406698,
+      "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+      "stage": "validation",
+      "title": [
+        "LK-99 的结果会在 2023 年内得到两次独立复现吗？",
+        "Would LK-99 receive two independent replications in 2023?"
+      ],
+      "rules": [
+        [
+          "2023-12-31 23:59 美东时间前，须有至少两次与原作者无关联研究者的独立复现，可信来源与专家确认。",
+          "At least two independent replications unaffiliated with the authors were required by 23:59 ET on 31 December 2023, verified by credible sources/experts."
+        ],
+        [
+          "有可信度争议时可延至 2024-07-31 23:59 美东时间等待期刊结果；一份符合条件的期刊发表足以触发 Yes，原平台判 No。",
+          "Ambiguity can extend review to 23:59 ET on 31 July 2024; one qualifying journal publication can then establish Yes. The source resolved No."
+        ]
+      ],
+      "interpretation": [
+        "本题复现次数、作者独立性和延期条款比“样品会悬浮”更严格。曲线记录当时的交易判断；原平台 No 与具体样品的磁性、电阻和相纯度分别阅读。",
+        "Replication count, author independence and the extension are stricter than observing levitation. The curve records trading judgments; platform No is distinct from sample-specific magnetism, resistance and phase purity."
+      ],
+      "entities": [
+        "casphysics"
+      ],
+      "evidence": [
+        "lk99-replication",
+        "lk99-impurity",
+        "superconductivity-doe"
+      ],
+      "briefing": {
+        "contextId": "lk99",
+        "summary": [
+          "本题复现次数、作者独立性和延期条款比“样品会悬浮”更严格。曲线记录当时的交易判断；原平台 No 与具体样品的磁性、电阻和相纯度分别阅读。",
+          "Replication count, author independence and the extension are stricter than observing levitation. The curve records trading judgments; platform No is distinct from sample-specific magnetism, resistance and phase purity."
+        ],
+        "checklist": [
+          [
+            "核对样品合成、相结构与杂相。",
+            "Review synthesis, phase structure and impurities."
+          ],
+          [
+            "确认独立作者与电输运/磁性证据组合。",
+            "Verify independent authors and combined transport/magnetic evidence."
+          ],
+          [
+            "按原截止、延期与发表条件读取平台判定。",
+            "Read the original deadlines, extension and publication rule."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "kphkIrlmHjGcCssSiHdi",
+        "8m2QavDR1KYRdV3g8aDf"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1690393064810,
+          "p": 0.3378378378378379
+        },
+        "last": {
+          "t": 1702845406698,
+          "p": 0.024454924243239765
+        },
+        "change": -31.338291359459813,
+        "low": 0.01979687072910483,
+        "high": 0.7955768893549447,
+        "staleDays": 14.348765069444445
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "复现与延期发表条件",
+            "Replication and publication extension"
+          ],
+          "detail": [
+            "原始条件为两次独立复现；延期条款允许一份符合条件的期刊发表。",
+            "The initial rule requires two replications; the extension permits one qualifying journal publication."
+          ]
+        }
+      ],
+      "tradePoints": 1128,
+      "detailFile": "events/rctqd0ZaxeeiHP93VP5n.json"
+    },
+    {
+      "id": "xPYUwADafpjfT1cR5iLu",
+      "topicId": "ai-drug-discovery",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/CamillePerrin/will-the-markovbio-ai-copilot-for-d",
+      "originalTitle": "Will the markov.bio AI copilot for drug discovery be influential in the R&D of a marketed drug? (Before 2030)",
+      "status": "open",
+      "resolution": null,
+      "resolutionProbability": null,
+      "snapshotProbability": 0.08,
+      "volume": 570.3293973630546,
+      "participants": 9,
+      "createdTime": 1694432236718,
+      "closeTime": 1893538740000,
+      "resolutionTime": null,
+      "observedAt": 1793013896730,
+      "historyCutoff": 1793013896730,
+      "historyComplete": true,
+      "lastTradeProbability": 0.08,
+      "lastTradeAt": 1741173986776,
+      "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+      "stage": "engineering",
+      "title": [
+        "2030 年前获批药物研发会明确归功于 markov.bio 吗？",
+        "Will a drug approved before 2030 credit markov.bio’s contribution?"
+      ],
+      "rules": [
+        [
+          "药物须获 FDA 或 EMA 人用批准，并有非 markov.bio 自身的可靠材料说明该工具对早期研发有重要贡献。",
+          "A drug needs FDA/EMA human-use approval and reliable evidence outside markov.bio attributing material early-development influence to the tool."
+        ],
+        [
+          "重要贡献含关键发现、显著提速或降本；公司退出早期药物发现业务可即时 No，归因不明确保留 N/A 裁量。",
+          "Influence includes an essential discovery or substantial speed/cost improvement. Leaving early discovery can trigger No; attribution ambiguity permits N/A at creator discretion."
+        ]
+      ],
+      "interpretation": [
+        "这是获批与工具贡献的联合条件，还含企业持续经营风险。计算分数、论文使用记录或 II 期临床结果均不能单独判 Yes，必须连接到具体获批分子和独立贡献说明。",
+        "This combines approval, material tool contribution and business continuity. Scores, a paper’s use of software or Phase II results alone cannot establish Yes; molecule-specific approval and external attribution are needed."
+      ],
+      "entities": [],
+      "evidence": [
+        "fda-clinical-phases",
+        "rentosertib-phase2"
+      ],
+      "briefing": {
+        "contextId": "ai-tool-attribution",
+        "summary": [
+          "这是获批与工具贡献的联合条件，还含企业持续经营风险。计算分数、论文使用记录或 II 期临床结果均不能单独判 Yes，必须连接到具体获批分子和独立贡献说明。",
+          "This combines approval, material tool contribution and business continuity. Scores, a paper’s use of software or Phase II results alone cannot establish Yes; molecule-specific approval and external attribution are needed."
+        ],
+        "checklist": [
+          [
+            "核对获批药物、适应证和监管日期。",
+            "Match drug, indication and regulatory date."
+          ],
+          [
+            "寻找供应商之外的研发贡献说明。",
+            "Find development-contribution evidence outside the tool vendor."
+          ],
+          [
+            "保留经营终止与归因歧义条款。",
+            "Retain business-exit and attribution-ambiguity clauses."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "fHSDwgZnxcJ7wTAw5AiR",
+        "AvggE9WsHv51pVkA26wx"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1694432897779,
+          "p": 0.5291015257110565
+        },
+        "last": {
+          "t": 1741173986776,
+          "p": 0.08
+        },
+        "change": -44.91015257110565,
+        "low": 0.08,
+        "high": 0.5291015257110565,
+        "staleDays": 599.998957800926
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "贡献归因与企业退出",
+            "Attribution and business exit"
+          ],
+          "detail": [
+            "重要贡献保留主观裁量，且公司退出可触发 No；不等于纯技术成功率。",
+            "Material influence remains discretionary and business exit can trigger No; this is not a pure technical-success probability."
+          ]
+        },
+        {
+          "code": "thin",
+          "label": [
+            "参与较少",
+            "Few participants"
+          ],
+          "detail": [
+            "概率来自少量参与者；查看成交数量与原始规则。",
+            "Few participants contribute; review activity and source rules."
+          ]
+        }
+      ],
+      "tradePoints": 16,
+      "detailFile": "events/xPYUwADafpjfT1cR5iLu.json"
+    },
+    {
+      "id": "2jB7TGwgwPJMiIgnWdce",
+      "topicId": "carbon-capture",
+      "source": "Manifold",
+      "currency": "MANA",
+      "url": "https://manifold.markets/citrinitas/will-terraform-industries-begin-to",
+      "originalTitle": "Will Terraform Industries begin to commercialize in 2024?",
+      "status": "resolved",
+      "resolution": "NO",
+      "resolutionProbability": 0.049315861171358485,
+      "snapshotProbability": null,
+      "volume": 8789.242530913485,
+      "participants": 23,
+      "createdTime": 1678695869377,
+      "closeTime": 1735718340000,
+      "resolutionTime": 1735859896891,
+      "observedAt": 1793013898033,
+      "historyCutoff": 1735718340000,
+      "historyComplete": true,
+      "lastTradeProbability": 0.0493158611713585,
+      "lastTradeAt": 1734980673353,
+      "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+      "stage": "engineering",
+      "title": [
+        "Terraform 会在 2024 年底前签订电转烃设备销售合同吗？",
+        "Would Terraform contract power-to-hydrocarbon equipment sales in 2024?"
+      ],
+      "rules": [
+        [
+          "2024 年底前出售或签约出售/租售电转烃反应器或完整碳浓缩器，买方用途须为以烃储存太阳能；不要求当年交付。",
+          "By end-2024, sale/contract/leasing of a power-to-hydrocarbon reactor or complete concentrator for storing solar energy as hydrocarbons qualifies; delivery need not occur that year."
+        ],
+        [
+          "只卖甲烷不算设备商业化；规则也允许 2023 年提前满足，原平台判 No。",
+          "Methane-only sales do not count; earlier qualification in 2023 was allowed. The platform resolved No."
+        ]
+      ],
+      "interpretation": [
+        "本题商业化指设备合同，不是首次合成甲烷或燃料销售。公司的 2024 年示范公告可说明工艺集成，但没有直接证明规则要求的机器交易。",
+        "Commercialization here means an equipment contract, not first methane or fuel sales. The 2024 demonstration explains integration without directly establishing the required machine transaction."
+      ],
+      "entities": [],
+      "evidence": [
+        "terraform-demo-2024",
+        "doe-carbon-negative-2032"
+      ],
+      "briefing": {
+        "contextId": "carbon-utilization-fuels",
+        "summary": [
+          "本题商业化指设备合同，不是首次合成甲烷或燃料销售。公司的 2024 年示范公告可说明工艺集成，但没有直接证明规则要求的机器交易。",
+          "Commercialization here means an equipment contract, not first methane or fuel sales. The 2024 demonstration explains integration without directly establishing the required machine transaction."
+        ],
+        "checklist": [
+          [
+            "辨别合同标的是燃料还是完整设备。",
+            "Identify fuel versus qualifying equipment in the contract."
+          ],
+          [
+            "核对交易双方、用途与合同时间。",
+            "Check counterparties, purpose and contract date."
+          ],
+          [
+            "分别记录示范运行、合同与实际交付。",
+            "Separate demonstration, contracting and delivery."
+          ]
+        ]
+      },
+      "relatedIds": [
+        "HB3a6kWAhptJg8Ill8yT",
+        "u1hCf24lNpTqWYEpM2Uq"
+      ],
+      "historySummary": {
+        "first": {
+          "t": 1678704307217,
+          "p": 0.3378378378378379
+        },
+        "last": {
+          "t": 1734980673353,
+          "p": 0.0493158611713585
+        },
+        "change": -28.85219766664794,
+        "low": 0.0493158611713585,
+        "high": 0.8304278436277794,
+        "staleDays": 8.537808414351852
+      },
+      "quality": [
+        {
+          "code": "rules",
+          "label": [
+            "设备合同并非燃料销售",
+            "Equipment contract versus fuel sale"
+          ],
+          "detail": [
+            "只计符合用途的设备或完整大部件合同；允许签约未交付。",
+            "Only qualifying equipment/major-component contracts count; contracting without delivery is allowed."
+          ]
+        }
+      ],
+      "tradePoints": 47,
+      "detailFile": "events/2jB7TGwgwPJMiIgnWdce.json"
     }
   ],
   "entities": [
@@ -8732,6 +10693,243 @@
         "CARBIOS Sustainability Report 2024，2025 年发布文件。",
         "CARBIOS Sustainability Report 2024, file published in 2025."
       ]
+    },
+    {
+      "id": "qs-endurance-2024",
+      "topics": [
+        "solid-state-batteries"
+      ],
+      "title": [
+        "PowerCo：24 层 A 样电芯的耐久测试",
+        "PowerCo: endurance testing of a 24-layer A-sample"
+      ],
+      "kind": [
+        "企业原始公告 · 测试结果",
+        "Company announcement · test results"
+      ],
+      "url": "https://www.volkswagen-group.com/en/press-releases/powerco-confirms-results-quantumscapes-solid-state-cell-passes-first-endurance-test-18031",
+      "entities": [
+        "powerco",
+        "quantumscape"
+      ],
+      "body": [
+        "PowerCo 于 2024 年 1 月披露，QuantumScape 的 24 层 A 样电芯经超过 1,000 次充电循环后仍有超过 95% 容量。测试在 PowerCo 实验室进行，属于合作伙伴披露；大众也是 QuantumScape 的投资方。样品耐久性没有给出制造良率、整包成本或批量交付数量。",
+        "PowerCo reported a 24-layer QuantumScape A-sample retaining over 95% capacity after more than 1,000 charging cycles. This is partner-reported laboratory testing; Volkswagen is also an investor. It does not establish manufacturing yield, pack cost or delivered volume."
+      ],
+      "publishedDate": "2024-01-03"
+    },
+    {
+      "id": "catl-sodium-2021",
+      "topics": [
+        "sodium-ion-batteries"
+      ],
+      "title": [
+        "CATL：第一代钠离子电芯与快充条件",
+        "CATL: first-generation sodium-ion cells and charging conditions"
+      ],
+      "kind": [
+        "企业原始公告 · 材料与性能",
+        "Company announcement · materials and performance"
+      ],
+      "url": "https://www.catl.com/en/news/665.html",
+      "entities": [
+        "catl"
+      ],
+      "body": [
+        "2021 年发布介绍普鲁士白正极与硬碳负极，单体比能量最高 160 Wh/kg，并称室温下 15 分钟可充至 80% SOC。这些是当时发布的性能口径，没有提供本轮市场所需的 10 美元/kWh 可下单报价，也不能作为后续 Naxtra 产品的同批测试。",
+        "The 2021 release describes a Prussian-white cathode and hard-carbon anode, up to 160 Wh/kg at cell level, and charging to 80% SOC in 15 minutes at room temperature. These historical performance claims supply neither a $10/kWh orderable quotation nor a test of a later Naxtra batch."
+      ],
+      "publishedDate": "2021-07-29"
+    },
+    {
+      "id": "nea-storage-2024",
+      "topics": [
+        "battery-scale-storage"
+      ],
+      "title": [
+        "国家能源局：2024 年底新型储能投运规模",
+        "NEA: operational new-type storage at end-2024"
+      ],
+      "kind": [
+        "政府机构统计 · 已投运",
+        "Government statistics · operational"
+      ],
+      "url": "https://www.nea.gov.cn/20250731/9ad7fc718ced41eea903c25443c9b8c2/c.html",
+      "entities": [],
+      "body": [
+        "2025 年 7 月发布会给出截至 2024 年底的已建成投运规模：73.76 GW／168 GWh。前者为功率、后者为储能量；两者不能互换。统计覆盖新型储能的多种技术路线，不能全部称为钠离子或液流电池，也不能把已公布的未来目标列为已投运容量。",
+        "The July 2025 briefing reports 73.76 GW and 168 GWh operational at end-2024. Power and stored energy are different measures. The aggregate includes multiple new-type storage technologies, not just sodium-ion or flow batteries; announced targets are not operational capacity."
+      ],
+      "publishedDate": "2025-07-31"
+    },
+    {
+      "id": "usgs-vanadium-series",
+      "topics": [
+        "battery-scale-storage"
+      ],
+      "title": [
+        "USGS：钒生产、消费与统计系列",
+        "USGS: vanadium production, consumption and statistical series"
+      ],
+      "kind": [
+        "政府机构统计入口",
+        "Government statistical series"
+      ],
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/vanadium-statistics-and-information",
+      "entities": [],
+      "body": [
+        "USGS 提供钒的年度与月度统计入口。核对本题应采用同一年度、同一版次和钒元素含量口径，并查看表注是否包含副产与再生来源。原市场背景同时出现约 119 kt 和 109 kt 的 2024 基数，本站不把其中任何一句改写成已核定的世界产量。",
+        "USGS links annual and monthly vanadium statistics. Match year, edition, contained-V units and treatment of co-product/recycled sources. The contract background gives conflicting 2024 baselines of about 119 kt and 109 kt; neither is adopted here as a verified world total."
+      ]
+    },
+    {
+      "id": "usgs-lithium-series",
+      "topics": [
+        "battery-scale-storage"
+      ],
+      "title": [
+        "USGS：锂矿产统计与供应链资料",
+        "USGS: lithium statistics and supply-chain information"
+      ],
+      "kind": [
+        "政府机构统计入口",
+        "Government statistical series"
+      ],
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/lithium-statistics-and-information",
+      "entities": [],
+      "body": [
+        "矿山锂金属含量、锂盐精炼量、电池级碳酸锂当量和回收产出属于不同统计环节。本题把美国矿山、精炼与回收都纳入候选来源；需要避免重复计量，并与全球同口径供应量配对。仅有资源储量或已规划精炼产能不足以判定 10% 份额。",
+        "Contained lithium in mine output, refining, battery-grade LCE and recycling measure different stages. The contract includes US mines, processing and recycling: avoid double counting and match the global denominator. Resources or planned refinery capacity do not establish the 10% share."
+      ]
+    },
+    {
+      "id": "jaea-httr-2025",
+      "topics": [
+        "clean-hydrogen"
+      ],
+      "title": [
+        "JAEA：HTTR 制氢设施的许可申请与目标",
+        "JAEA: HTTR hydrogen-facility application and target"
+      ],
+      "kind": [
+        "研究机构原始公告 · 许可与研发",
+        "Institutional announcement · application and development"
+      ],
+      "url": "https://www.jaea.go.jp/english/news/press/2025/032701/",
+      "entities": [],
+      "body": [
+        "JAEA 于 2025 年 3 月申请修改 HTTR 设施许可，计划连接制氢设施并在监管审查后争取 2030 年利用反应堆热制氢。公告提及 HTTR 曾达到 950°C 出口温度；这是热源性能，不是年产氢量。该公告没有证明日本已经达到市场的每年 10,000 吨门槛。",
+        "JAEA applied in March 2025 to modify the HTTR installation for an attached hydrogen facility, aiming for reactor-heat hydrogen by 2030 after regulatory review. Its reported 950°C outlet temperature describes the heat source, not hydrogen output; the notice does not verify the contract’s 10,000 t/year threshold."
+      ],
+      "publishedDate": "2025-03-27"
+    },
+    {
+      "id": "bnetza-hydrogen-core",
+      "topics": [
+        "clean-hydrogen"
+      ],
+      "title": [
+        "德国联邦网络局：获批氢核心管网与投运规划",
+        "Bundesnetzagentur: approved hydrogen core network and schedule"
+      ],
+      "kind": [
+        "监管机构公告 · 获批规划",
+        "Regulator announcement · approved plan"
+      ],
+      "url": "https://www.bundesnetzagentur.de/EN/Areas/Energy/HydrogenCoreNetwork/start.html",
+      "entities": [],
+      "body": [
+        "2024 年 10 月获批方案包括 9,040 km 管线，约 60% 拟由天然气管线改造，计划于 2032 年前分步投入运营。这是德国获批规划，既不是当时已投运长度，也不是整个欧洲的运营总量。天然气掺氢与仍未转换投运的管段不满足本轮市场的专用氢管线定义。",
+        "The October 2024 approval covers 9,040 km, about 60% converted from gas pipelines, for phased operation by 2032. This is an approved German plan, not operating mileage or a Europe-wide total. Blending and segments awaiting hydrogen conversion do not meet the contract definition."
+      ],
+      "publishedDate": "2024-10-22"
+    },
+    {
+      "id": "nif-2023-gain",
+      "topics": [
+        "fusion-energy"
+      ],
+      "title": [
+        "LLNL：2023 年 NIF 靶增益的实验能量",
+        "LLNL: measured energies for NIF target gain in 2023"
+      ],
+      "kind": [
+        "国家实验室年度报告",
+        "National laboratory annual report"
+      ],
+      "url": "https://annual.llnl.gov/fy-2023/national-ignition-facility-2023",
+      "entities": [
+        "doe"
+      ],
+      "body": [
+        "年度报告记录 2023 年 7 月 30 日一次实验：到靶激光 2.05 MJ，聚变输出 3.88 MJ。按披露值相除约 1.89；分母不含激光设施全部用电。这组历史数据说明如何读靶增益，不代表 2023 年所有实验的最大值，也不能推出电站净发电。",
+        "The report records 2.05 MJ delivered laser energy and 3.88 MJ fusion output for the 30 July 2023 shot: about 1.89 by division. The denominator excludes whole-facility electricity. This historical shot illustrates target gain, not the maximum of every 2023 shot or net electrical generation."
+      ]
+    },
+    {
+      "id": "parallel-gates-2023",
+      "topics": [
+        "quantum-computing"
+      ],
+      "title": [
+        "Evered 等：并行中性原子双比特纠缠门",
+        "Evered et al.: parallel neutral-atom entangling gates"
+      ],
+      "kind": [
+        "原始研究 · Nature / arXiv",
+        "Original research · Nature / arXiv"
+      ],
+      "url": "https://arxiv.org/abs/2304.05420",
+      "entities": [],
+      "body": [
+        "论文报告在最多 60 个原子上并行实现双比特纠缠门，保真度 99.5%，并以多种重复门测试评估误差。60 指原子数，不是 60 对双比特门；99.5% 也低于本市场 99.9% 的门槛。学术论文结果还需与题目指定的企业团队和截止时间分别对应。",
+        "The study reports 99.5% two-qubit entangling fidelity on up to 60 atoms in parallel, benchmarked using repeated-gate methods. Sixty denotes atoms, not sixty gate pairs. The value is below the contract’s 99.9%; corporate-team attribution and the deadline remain separate requirements."
+      ],
+      "publishedDate": "2023-04-11"
+    },
+    {
+      "id": "terraform-demo-2024",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "Terraform Industries：电转气示范系统",
+        "Terraform Industries: integrated power-to-gas demonstrator"
+      ],
+      "kind": [
+        "企业原始披露 · 示范与成本口径",
+        "Company disclosure · demonstration and stated costs"
+      ],
+      "url": "https://terraformindustries.wordpress.com/2024/04/01/terraform-makes-carbon-neutral-natural-gas/",
+      "entities": [],
+      "body": [
+        "公司称于 2024 年 3 月 27 日接通电解、直接空气捕集与甲烷化系统，产品甲烷含量 >97%。其 <2.50 美元/kg 制氢与 <250 美元/t 空气捕集成本是企业披露，前者同时给出 20 美元/MWh 直流光伏电价假设。示范运行和甲烷销售均未直接证明本题要求的设备销售；燃料使用后碳会重新释放，不能按永久移除记账。",
+        "The company reports commissioning electrolysis, DAC and methanation on 27 March 2024, producing >97% methane. Disclosed costs of <$2.50/kg H₂ and <$250/t captured CO₂ are company claims; the hydrogen calculation cites $20/MWh solar DC electricity. Demonstration or methane sales do not establish equipment sales. Fuel carbon is later released, rather than durably removed."
+      ],
+      "publishedDate": "2024-04-01"
+    },
+    {
+      "id": "doe-carbon-negative-2032",
+      "topics": [
+        "carbon-capture"
+      ],
+      "title": [
+        "DOE：Carbon Negative Shot 的净移除成本目标",
+        "DOE: Carbon Negative Shot net-removal cost target"
+      ],
+      "kind": [
+        "政府研发目标 · 2024 年公告",
+        "Government development target · 2024 notice"
+      ],
+      "url": "https://www.energy.gov/hgeo/funding-notice-carbon-negative-shot-pilots",
+      "entities": [
+        "doe"
+      ],
+      "body": [
+        "2024 年 10 月公告将 2032 年组合目标表述为每净吨 CO₂ 当量移除与安全储存成本低于 100 美元，并强调测量、报告与核验。它是研发目标；与只计算捕集的企业报价、名义工厂吞吐量、合成燃料产量不在同一核算边界。",
+        "The October 2024 notice sets a portfolio goal below $100 per net tonne CO₂-equivalent by 2032, including secure storage and robust MRV. This is a development target, with a different boundary from capture-only cost, nameplate throughput or synthetic-fuel output."
+      ],
+      "publishedDate": "2024-10-18"
     }
   ],
   "nobel": {
@@ -8790,12 +10988,12 @@
     "currency": "MANA",
     "apiDocs": "https://docs.manifold.markets/api",
     "history": "actual-trades-before-close-and-resolution",
-    "points": 11011,
+    "points": 12793,
     "counts": {
-      "markets": 41,
-      "resolved": 15,
+      "markets": 54,
+      "resolved": 19,
       "cancelled": 1,
-      "ruleFlags": 20
+      "ruleFlags": 32
     },
     "discoveryQueries": [
       "solid state battery",
@@ -8837,6 +11035,11 @@
       "PET recycling",
       "biodegradable plastic",
       "AI chemist"
-    ]
+    ],
+    "curveAdmission": {
+      "minimumTradePoints": 2,
+      "requiresCompleteHistory": true,
+      "reviewedAt": "2026-10-26"
+    }
   }
 }

@@ -1,0 +1,289 @@
+{
+  "id": "dNy8QLslNU",
+  "topicId": "battery-scale-storage",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MikhailTal/will-global-vanadium-production-min",
+  "originalTitle": "Will global vanadium production (mine + co-product, contained V) in 2027 be at least 140,000 tonnes of V?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.5716361714045183,
+  "volume": 632.0000000000001,
+  "participants": 9,
+  "createdTime": 1764135366248,
+  "closeTime": 1837983540000,
+  "resolutionTime": null,
+  "observedAt": 1793013888646,
+  "historyCutoff": 1793013888646,
+  "points": [
+    {
+      "t": 1764136377920,
+      "p": 0.5024937500777353
+    },
+    {
+      "t": 1764165475214,
+      "p": 0.5049750012375623
+    },
+    {
+      "t": 1764169973530,
+      "p": 0.4569724244176747
+    },
+    {
+      "t": 1764415880849,
+      "p": 0.46396423190217206
+    },
+    {
+      "t": 1764422498180,
+      "p": 0.47087292929438346
+    },
+    {
+      "t": 1765390157317,
+      "p": 0.4813383220518354
+    },
+    {
+      "t": 1765621283792,
+      "p": 0.4808575680705169
+    },
+    {
+      "t": 1765881861790,
+      "p": 0.4818940960791384
+    },
+    {
+      "t": 1772184570173,
+      "p": 0.4676703563869964
+    },
+    {
+      "t": 1772224411222,
+      "p": 0.4498431985591058
+    },
+    {
+      "t": 1772225980900,
+      "p": 0.4525740511150141
+    },
+    {
+      "t": 1772271633258,
+      "p": 0.44720266970628897
+    },
+    {
+      "t": 1772272711105,
+      "p": 0.4499451695000623
+    },
+    {
+      "t": 1772276293031,
+      "p": 0.45267557044042517
+    },
+    {
+      "t": 1783250377029,
+      "p": 0.4350371168259296
+    },
+    {
+      "t": 1783257873012,
+      "p": 0.43783207111804723
+    },
+    {
+      "t": 1783290785104,
+      "p": 0.44061515345540603
+    },
+    {
+      "t": 1783294650515,
+      "p": 0.4433863069200358
+    },
+    {
+      "t": 1783298273196,
+      "p": 0.4461454776951515
+    },
+    {
+      "t": 1783301825632,
+      "p": 0.4488926150039276
+    },
+    {
+      "t": 1783305289969,
+      "p": 0.4516276710488194
+    },
+    {
+      "t": 1783359224631,
+      "p": 0.4493862059656637
+    },
+    {
+      "t": 1783362950432,
+      "p": 0.45211908081763363
+    },
+    {
+      "t": 1784169070570,
+      "p": 0.4498749586066759
+    },
+    {
+      "t": 1784173221171,
+      "p": 0.4526056705161174
+    },
+    {
+      "t": 1788063600446,
+      "p": 0.4503589189352364
+    },
+    {
+      "t": 1791393821067,
+      "p": 0.5716361714045184
+    },
+    {
+      "t": 1791393821218,
+      "p": 0.5671252283462546
+    },
+    {
+      "t": 1791393821272,
+      "p": 0.5626443984187157
+    },
+    {
+      "t": 1791393821730,
+      "p": 0.5671719270647851
+    },
+    {
+      "t": 1791393821775,
+      "p": 0.5716361714045183
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.5716361714045183,
+  "lastTradeAt": 1791393821775,
+  "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+  "provenance": {
+    "marketSha256": "a453077340b3f82260719d4cc246db02e8748ebb1363c9c449fec6c7e7eb10c6",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=dNy8QLslNU&limit=1000",
+        "sha256": "417639471d14ae14456bf06706559ce3455f42aeb885f625918dcc6c639144af",
+        "rows": 39
+      }
+    ],
+    "fetchedTradeRows": 39,
+    "acceptedTradeRows": 31,
+    "excludedTradeRows": 8
+  },
+  "stage": "engineering",
+  "title": [
+    "2027 年全球钒产量会达到 14 万吨 V 吗？",
+    "Will global vanadium production reach 140,000 t V in 2027?"
+  ],
+  "rules": [
+    [
+      "2027 年全球矿产与副产的钒元素含量产出 ≥140,000 吨为 Yes，优先 USGS。",
+      "Yes requires ≥140,000 t contained V in global mine/co-product output in 2027, prioritizing USGS."
+    ],
+    [
+      "USGS 缺失或明显不一致时，按至少两个可靠行业来源的中位数；2029-12-31 仍无 2027 数据则 N/A。",
+      "If USGS is unavailable or clearly inconsistent, use the median of at least two credible sources; no 2027 figure by 31 December 2029 resolves N/A."
+    ]
+  ],
+  "interpretation": [
+    "这是供应量门槛，不是电池消耗量。要核对元素 V、年度和统计版次；原题的 2024 年基数有冲突，不能据此计算可靠增长率。",
+    "This is a supply threshold, not battery consumption. Match contained-V units, year and edition; conflicting contract baselines prevent a reliable growth calculation."
+  ],
+  "entities": [],
+  "evidence": [
+    "usgs-vanadium-series",
+    "vanadium-electrolyte"
+  ],
+  "briefing": {
+    "contextId": "vanadium-supply",
+    "summary": [
+      "这是供应量门槛，不是电池消耗量。要核对元素 V、年度和统计版次；原题的 2024 年基数有冲突，不能据此计算可靠增长率。",
+      "This is a supply threshold, not battery consumption. Match contained-V units, year and edition; conflicting contract baselines prevent a reliable growth calculation."
+    ],
+    "checklist": [
+      [
+        "读取 2027 年世界产量与表注。",
+        "Read the 2027 world-production figure and notes."
+      ],
+      [
+        "说明副产、再生与 V₂O₅ 的处理。",
+        "Document co-products, recycling and V₂O₅ treatment."
+      ],
+      [
+        "若采用备用来源，保存各值与中位数计算。",
+        "Retain fallback values and median calculation."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "02b1E538uZEMM5tv6i0H",
+    "6ddpyhZNcA"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "usgs-vanadium-series",
+      "vanadium-electrolyte"
+    ],
+    "stage": [
+      "矿产／副产 → 可用钒 → 电解液供应",
+      "Mine/co-product → usable V → electrolyte supply"
+    ],
+    "impact": [
+      "USGS 统计系列可以追踪世界供应，但钢铁仍是重要用途中间环节，电池级电解液并不等于全部钒产量。把元素吨口径、重复计量及纯化步骤说明后，读者才有依据判断供应扩张与液流电池材料之间的关系，而不是把矿产预测直接换成储能规模。",
+      "USGS tracks world supply, while steel use and electrolyte purification separate total output from battery-ready material. Contained-metal units, double counting and processing boundaries are necessary before relating a supply forecast to flow-battery deployment."
+    ],
+    "gap": [
+      "市场背景的约 119 kt 与 109 kt 基数不一致；回收量是否被主表覆盖仍需查目标年度表注。",
+      "The background’s roughly 119 kt and 109 kt baselines conflict; recycling coverage needs the target-year notes."
+    ]
+  },
+  "context": {
+    "id": "vanadium-supply",
+    "title": [
+      "钒供应：元素吨与电解液不是同一数量",
+      "Vanadium supply: contained tonnes and electrolyte volume"
+    ],
+    "principle": [
+      "钒既用于钢铁合金，也用于液流电池电解液。全球钒产量不能全部视为电池可用材料；进入电解液还涉及纯化、价态配置和供应分配。统计中的 V 元素吨与 V₂O₅ 吨数须按化学组成区分。",
+      "Vanadium supplies steel and flow-battery electrolytes. Global output is not all battery-ready: purification, oxidation-state control and allocation intervene. Contained-V tonnes differ from tonnes of V₂O₅."
+    ],
+    "example": [
+      "本题问 2027 年 ≥140,000 吨 V，并给出 USGS 优先、备用来源中位数和 2029 年数据等待期。市场背景的两种 2024 基数不一致，本站保留提示；不把钢铁副产供给直接换算成液流储能 GWh。",
+      "The contract asks for ≥140,000 t V in 2027, prioritizes USGS, specifies a fallback median and waits for data through 2029. Its inconsistent 2024 baselines remain flagged; steel co-product output is not converted to flow-storage GWh."
+    ],
+    "evidence": [
+      "usgs-vanadium-series",
+      "vanadium-electrolyte"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1764136377920,
+      "p": 0.5024937500777353
+    },
+    "last": {
+      "t": 1791393821775,
+      "p": 0.5716361714045183
+    },
+    "change": 6.914242132678295,
+    "low": 0.4350371168259296,
+    "high": 0.5716361714045184,
+    "staleDays": 18.750773969907407
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "基数冲突与统计范围",
+        "Baseline conflict and scope"
+      ],
+      "detail": [
+        "背景的 2024 基数出现约 119 kt 与 109 kt；优先目标年度正式统计及表注。",
+        "The background gives about 119 kt and 109 kt for 2024; prioritize target-year statistics and notes."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 31,
+  "detailFile": "events/dNy8QLslNU.json"
+}

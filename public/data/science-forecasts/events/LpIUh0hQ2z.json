@@ -1,0 +1,182 @@
+{
+  "id": "LpIUh0hQ2z",
+  "topicId": "clean-hydrogen",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/deletedaccount001/europe-builds-5000-km-of-operationa",
+  "originalTitle": "Europe builds 5,000 km of operational hydrogen pipelines by 2033?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.43892399911809493,
+  "volume": 162.20703304490993,
+  "participants": 6,
+  "createdTime": 1765530967505,
+  "closeTime": 1988150340000,
+  "resolutionTime": null,
+  "observedAt": 1793013890244,
+  "historyCutoff": 1793013890244,
+  "points": [
+    {
+      "t": 1765532792162,
+      "p": 0.3378378378378378
+    },
+    {
+      "t": 1765533399800,
+      "p": 0.37000000000000005
+    },
+    {
+      "t": 1765534845479,
+      "p": 0.428758402882197
+    },
+    {
+      "t": 1765550964412,
+      "p": 0.37000000000000005
+    },
+    {
+      "t": 1765555139298,
+      "p": 0.24163601177946972
+    },
+    {
+      "t": 1773483430834,
+      "p": 0.25462516580437894
+    },
+    {
+      "t": 1789932964241,
+      "p": 0.43892399911809493
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.43892399911809493,
+  "lastTradeAt": 1789932964241,
+  "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+  "provenance": {
+    "marketSha256": "a54c48023a837d2f1e0582a90604abfab69f40a189d76a96e09ac7bc34dfc488",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=LpIUh0hQ2z&limit=1000",
+        "sha256": "de3fb688fb0c8e9df4c8f5a0733434c3e420b026c301ed9eca14a61b37558187",
+        "rows": 7
+      }
+    ],
+    "fetchedTradeRows": 7,
+    "acceptedTradeRows": 7,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "2033 年前欧洲已投运专用输氢管线会超过 5,000 km 吗？",
+    "Will operating dedicated European hydrogen pipelines exceed 5,000 km before 2033?"
+  ],
+  "rules": [
+    [
+      "2033-01-01 前，EU-27、英国、挪威、瑞士、冰岛与列支敦士登内专用氢管线运营路线长度须 >5,000 km。",
+      "Before 1 January 2033, operating dedicated hydrogen route-length must exceed 5,000 km within EU-27, UK, Norway, Switzerland, Iceland and Liechtenstein."
+    ],
+    [
+      "允许已转换投运的天然气管线；排除掺氢天然气、厂内管线及仅规划/获批/在建项目，各物理段只计一次。",
+      "Converted gas lines count once operating; blending, internal plant piping and planned/approved/construction projects are excluded. Count each physical segment once."
+    ]
+  ],
+  "interpretation": [
+    "德国 9,040 km 获批规划与本题运营门槛不能直接比较。要按物理管段、投运状态和专用气体服务汇总，不以地图上的全部规划长度判定。",
+    "Germany’s 9,040 km approved plan is not operating mileage. Sum physical segments by commissioning status and dedicated service rather than every line drawn on a plan."
+  ],
+  "entities": [],
+  "evidence": [
+    "bnetza-hydrogen-core",
+    "iea-hydrogen-2026"
+  ],
+  "briefing": {
+    "contextId": "hydrogen-transport",
+    "summary": [
+      "德国 9,040 km 获批规划与本题运营门槛不能直接比较。要按物理管段、投运状态和专用气体服务汇总，不以地图上的全部规划长度判定。",
+      "Germany’s 9,040 km approved plan is not operating mileage. Sum physical segments by commissioning status and dedicated service rather than every line drawn on a plan."
+    ],
+    "checklist": [
+      [
+        "保存运营商或监管机构的投运日期。",
+        "Retain operator/regulator commissioning dates."
+      ],
+      [
+        "确认专用氢服务并排除掺氢、厂内管道。",
+        "Confirm dedicated service and exclude blends/internal piping."
+      ],
+      [
+        "按路线长度去重，并裁切欧洲定义外的管段。",
+        "Deduplicate route length and exclude segments outside the defined area."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "23EEgMHJGu7TVzZyOCqT",
+    "CqS0hc8NOI"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "bnetza-hydrogen-core",
+      "iea-hydrogen-2026"
+    ],
+    "stage": [
+      "规划获批 → 改造／新建 → 专用输氢投运",
+      "Approval → conversion/new build → hydrogen service"
+    ],
+    "impact": [
+      "联邦网络局的德国核心网络方案显示改造天然气管线在建设计划中占重要位置，但管材适配、压缩和转换运行仍有独立步骤。获批总长只是项目范围；只有符合本题地理范围与运营状态的实际管段才进入累计，不能把国家计划相加成欧洲已运营长度。",
+      "Germany’s regulator shows the role of repurposed gas infrastructure, with compatibility, compression and conversion still required. Approved length defines a project, while only operating segments within the contract geography enter the total; summing national plans does not establish operating mileage."
+    ],
+    "gap": [
+      "公开地图可能同时列出运营、在建和计划项目，须保存状态字段与截点，避免重复计数。",
+      "Maps can mix operating, construction and planned segments; preserve status/date fields and prevent duplicates."
+    ]
+  },
+  "context": {
+    "id": "hydrogen-transport",
+    "title": [
+      "输氢管线：获批长度与运营长度",
+      "Hydrogen pipelines: approved and operating length"
+    ],
+    "principle": [
+      "专用输氢需要处理材料相容性、密封、压缩与气体纯度。天然气管线改造后只有完成转换并投入氢气运输服务才计入本题；天然气掺氢和厂内短管不算独立运营网络。",
+      "Dedicated hydrogen transport requires material compatibility, sealing, compression and gas purity. Repurposed gas lines count only after conversion and entry into hydrogen service; blending and internal plant piping are excluded."
+    ],
+    "example": [
+      "德国 9,040 km 获批网络超过本题 5,000 km 数值，但获批不等于投运。本题要求 2033 年 1 月 1 日前欧洲指定国家内专用氢管线的实际路线长度 >5,000 km，每个物理管段只计一次。",
+      "Germany’s 9,040 km approval exceeds 5,000 numerically but is not operating mileage. The contract requires >5,000 route-km in specified European countries before 1 January 2033, counting each physical segment once."
+    ],
+    "evidence": [
+      "bnetza-hydrogen-core",
+      "iea-hydrogen-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1765532792162,
+      "p": 0.3378378378378378
+    },
+    "last": {
+      "t": 1789932964241,
+      "p": 0.43892399911809493
+    },
+    "change": 10.108616128025716,
+    "low": 0.24163601177946972,
+    "high": 0.43892399911809493,
+    "staleDays": 35.658865775462964
+  },
+  "quality": [
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 7,
+  "detailFile": "events/LpIUh0hQ2z.json"
+}

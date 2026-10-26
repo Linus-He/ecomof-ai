@@ -5,6 +5,19 @@ import argparse,concurrent.futures,datetime,hashlib,json,pathlib,time,urllib.par
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 CACHE=pathlib.Path('/tmp/science-forecasts-source');CACHE.mkdir(exist_ok=True)
 SELECTED={
+ '0IclPPNtNA':'sodium-ion-batteries',
+ '9UgA28yIAn':'battery-scale-storage',
+ 'dNy8QLslNU':'battery-scale-storage',
+ '6ddpyhZNcA':'battery-scale-storage',
+ '23EEgMHJGu7TVzZyOCqT':'clean-hydrogen',
+ 'LpIUh0hQ2z':'clean-hydrogen',
+ 'dY0K6jGiZl7cPBkkWV74':'fusion-energy',
+ 'LDrguWkJhkpRIzXMT4d7':'quantum-computing',
+ '8n2qAmtSKflVQ7kypyu8':'perovskite-solar',
+ 'RhLLCEhdPs':'perovskite-solar',
+ 'rctqd0ZaxeeiHP93VP5n':'superconductors',
+ 'xPYUwADafpjfT1cR5iLu':'ai-drug-discovery',
+ '2jB7TGwgwPJMiIgnWdce':'carbon-capture',
  'hnzy6pqlNZ':'sodium-ion-batteries',
  'e3ah02wnqsS2hwQYTgQs':'sodium-ion-batteries',
  'xLCfrvBWLH5BBYsgA4TX':'sodium-ion-batteries',
@@ -74,6 +87,7 @@ def collect(pair):
  pointsByTime={}
  for b in sorted(usable,key=lambda b:(b['createdTime'],b['id'])):pointsByTime[int(b['createdTime'])]=float(b['probAfter'])
  points=[{'t':t,'p':p} for t,p in sorted(pointsByTime.items())]
+ if len(points)<2:raise ValueError('A market requires at least two genuine pre-cutoff trade timestamps: '+id)
  status='resolved' if market.get('isResolved') else 'closed' if market.get('closeTime',now+1)<=now else 'open'
  data={'id':id,'topicId':topic,'source':'Manifold','currency':'MANA','url':market['url'],'originalTitle':market['question'],'status':status,'resolution':market.get('resolution'),'resolutionProbability':market.get('resolutionProbability'),'snapshotProbability':market.get('probability') if status=='open' else None,'volume':market.get('volume',0),'participants':market.get('uniqueBettorCount',0),'createdTime':market['createdTime'],'closeTime':market.get('closeTime'),'resolutionTime':market.get('resolutionTime'),'observedAt':now,'historyCutoff':cutoff,'points':points,'historyComplete':True,'lastTradeProbability':points[-1]['p'] if points else None,'lastTradeAt':points[-1]['t'] if points else None,'sourceApi':url,'provenance':{'marketSha256':hashlib.sha256(raw).hexdigest(),'historyPages':pages,'fetchedTradeRows':len(bets),'acceptedTradeRows':len(usable),'excludedTradeRows':len(bets)-len(usable)}}
  (CACHE/(id+'-projected.json')).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
@@ -81,6 +95,11 @@ def collect(pair):
  print(id,topic,status,market.get('resolution'),len(points),'history points',flush=True)
  return data
 if __name__=='__main__':
- with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:records=list(pool.map(collect,SELECTED.items()))
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--ids',nargs='+',choices=SELECTED.keys(),help='Capture only these curated markets; merge with preserved projections before building.')
+ parser.add_argument('--output',type=pathlib.Path,default=CACHE,help='Local capture directory; raw identities must never be published.')
+ args=parser.parse_args();CACHE=args.output;CACHE.mkdir(parents=True,exist_ok=True)
+ selected={id:SELECTED[id] for id in args.ids} if args.ids else SELECTED
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:records=list(pool.map(collect,selected.items()))
  (CACHE/'collected.json').write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n')
  print('Captured',len(records),'public binary markets; raw identities excluded from projections.')

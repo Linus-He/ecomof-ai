@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.12",
-  "generatedAt": "2026-10-25",
+  "currentAppVersion": "v3.5.13",
+  "generatedAt": "2026-10-26",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
@@ -9,9 +9,9 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.11",
-    "developmentVersion": "v3.5.12",
-    "recordedAt": "2026-10-25",
+    "baseAppVersion": "v3.5.12",
+    "developmentVersion": "v3.5.13",
+    "recordedAt": "2026-10-26",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
@@ -22,35 +22,35 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "新增不对称有机催化、可见光光氧化还原、点击与生物正交、PET 解聚四个文献专题，补充反应条件、选择性数据与来源。",
-      "en": "Four literature topics add asymmetric organocatalysis, visible-light photoredox, click/bioorthogonal chemistry and PET depolymerization with conditions, selectivity and sources."
+      "zh": "新增 13 个有真实成交历史的事件，扩充电池、制氢、碳利用、聚变、量子计算、钙钛矿和药物研发的规则、技术与来源阅读。",
+      "en": "Thirteen events with genuine trade histories extend battery, hydrogen, carbon-utilization, fusion, quantum, perovskite and drug-development reading."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "有机化学专题与反应证据",
-          "en": "Organic chemistry topics and reaction evidence"
+          "zh": "更多科学事件与真实成交曲线",
+          "en": "More scientific events with genuine trade curves"
         },
         "changes": [
           {
-            "zh": "新增四个文献专题、9 个代表反应和 25 项数据：覆盖烯胺与亚胺离子活化、光氧化还原／有机协同催化、染料路线、CuAAC、SPAAC 及 PET 酯键水解与再聚合。每个反应分别列出转化、催化体系、条件摘要、结果、适用范围与原文位置。",
-            "en": "Four literature topics add nine reaction cases and 25 indicators covering enamine/iminium activation, dual photoredox, dyes, CuAAC, SPAAC and PET hydrolysis/repolymerization. Each case lists transformation, catalyst, conditions, outcome, scope and source location."
+            "zh": "新增 13 个 Manifold 二元市场，完整分页后得到 1,782 个有效成交时点；总计 54 个事件、12,793 个 UTC 历史时点。每个新增市场至少有 5 个有效时点，不以初始报价、结算价或插值代替成交。MANA 虚拟积分属性继续明示。",
+            "en": "Thirteen Manifold binary markets add 1,782 accepted observations after full pagination, bringing totals to 54 events and 12,793 UTC observations. Each addition has at least five observations; initial quotes, settlement prices and interpolation do not replace trades. MANA remains labelled play money."
           },
           {
-            "zh": "保留收率、ee、er、exo:endo、实验规模、灯泡功率、酶质量用量、底物形态与预处理差别。Diels–Alder 的 exo 93% ee 不写成非对映比；15 W 灯泡不写成光子通量；PET 投料 g/kg 不擅自换成 g/L。反应与指标均支持带来源的 CSV 下载。",
-            "en": "Yield, ee, er, exo:endo, scale, lamp power, enzyme dose, feed morphology and pretreatment remain distinct. Exo 93% ee is not a diastereomer ratio; 15 W is not photon flux; g/kg is not silently converted to g/L. Reactions and indicators export with sources."
+            "zh": "九个专题加入新事件，十个已有曲线的技术专题补充解读。内容包括钠离子可订购价格、中国储能功率、钒与电池级锂供应、核能制氢、专用输氢管线、NIF 靶增益、并行双比特门、商业光伏效率与年出货，以及 AI 工具贡献归因。另补充固态电芯的 A 样耐久测试。",
+            "en": "Nine topics receive new events and ten existing curve-backed technical topics gain reading: orderable sodium-ion prices, Chinese storage power, vanadium/battery-grade lithium, nuclear hydrogen, dedicated pipelines, NIF gain, parallel gates, commercial PV and AI-tool attribution, plus solid-state A-sample endurance."
           },
           {
-            "zh": "本轮检索未选入直接对应、规则适当的有机反应预测市场，记录八组公共 API 检索范围。新增专题显示文献数据与反应，不补造概率或成交曲线；原有 41 个事件和 11,011 个 UTC 历史采样保持不变，取消仍与 No 分开。",
-            "en": "Eight public-API searches selected no suitable directly matching organic-reaction contracts. New topics show literature evidence without invented probabilities; the existing 41 events and 11,011 UTC observations remain unchanged, with cancellation separate from No."
+            "zh": "新增 11 份论文、机构统计和企业原始资料，以及 21 项指标；资料总计 63 份、指标 71 项。区分 GW 与 GWh、V 与 V₂O₅、矿山含锂与电池级 LCE、获批规划与实际投运、靶能量与电站净电量、原子数与门对数、组件纪录与商品效率、燃料销售与设备合同。",
+            "en": "Eleven papers/institutional/company sources and 21 indicators bring totals to 63 documents and 71 indicators. GW/GWh, V/V₂O₅, mine lithium/battery-grade LCE, approval/operation, target energy/net electricity, atoms/gate pairs, records/products and fuel/equipment sales remain distinct."
           },
           {
-            "zh": "新增 13 份原始论文与官方资料，资料总数增至 52 份；专题共 15 个，指标共 50 项。论文时期机构与任职地点分别核对；CARBIOS 50 kt/年保留为历史项目目标，并附后续报告中的暂停建设记录，不称为当前实测产量或最新施工状态。",
-            "en": "Thirteen papers/official documents bring sources to 52, topics to 15 and indicators to 50. Historical affiliations are checked. CARBIOS 50 kt/year remains a historical project target, with a later suspension record, not measured output or the latest construction status."
+            "zh": "保留 NIF 百分比定义、量子门 SPAM 裁量、钒产量基数冲突、商业光伏范围和 AI 工具贡献标准等提示。封盘未判定继续保持未判定，cancellation 与 No 分开；价格变化不归因于某一公告，也不合并成技术成功率。",
+            "en": "Flags retain ambiguous NIF percentages, quantum SPAM discretion, conflicting vanadium baselines, commercial-PV scope and AI attribution. Closed/unresolved remains unresolved; cancellation is separate from No. Price changes are not attributed to announcements or pooled into technical-success probabilities."
           },
           {
-            "zh": "目录增加有机化学筛选，连到四个新专题和已有药物化学；文献页不显示空市场筛选。构建时检查双语反应字段、指标与反应的来源关联、编号唯一性及文献／市场类型，修复连续切换专题时反应与数据区重复的问题，保留手机与深色排版。",
-            "en": "An organic filter connects four new topics and existing medicinal chemistry; literature pages omit empty market filters. Build checks validate bilingual cases, source joins, unique identifiers and literature/market types, fixing duplicate reaction/data sections during consecutive topic navigation and preserving phone/dark layouts."
+            "zh": "发布前校验每个预测至少两个不同的真实成交时点、完整分页、截止边界及收录记录。原有 41 个市场的来源元数据和成交历史以校验摘要保护；既有四个文献专题保留，本轮不新增无曲线专题，也不把无关市场借给文献页。诺奖原有七份年度／平台记录保留。",
+            "en": "Pre-publication checks require at least two distinct actual-trade timestamps, complete pagination, cutoffs and reviewed admission. Digests protect all 41 prior source snapshots. Four existing literature topics remain, with no new curve-free topics or unrelated proxy markets; seven Nobel editions are preserved."
           }
         ]
       }
@@ -191,6 +191,48 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.13",
+      "date": "2026-10-26",
+      "headline": {
+        "zh": "更多科学事件与真实成交曲线",
+        "en": "More scientific events with genuine trade curves"
+      },
+      "summary": {
+        "zh": "新增 13 个有真实成交历史的事件，扩充电池、制氢、碳利用、聚变、量子计算、钙钛矿和药物研发的规则、技术与来源阅读。",
+        "en": "Thirteen events with genuine trade histories extend battery, hydrogen, carbon-utilization, fusion, quantum, perovskite and drug-development reading."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "更多科学事件与真实成交曲线",
+            "en": "More scientific events with genuine trade curves"
+          },
+          "changes": [
+            {
+              "zh": "新增 13 个 Manifold 二元市场，完整分页后得到 1,782 个有效成交时点；总计 54 个事件、12,793 个 UTC 历史时点。每个新增市场至少有 5 个有效时点，不以初始报价、结算价或插值代替成交。MANA 虚拟积分属性继续明示。",
+              "en": "Thirteen Manifold binary markets add 1,782 accepted observations after full pagination, bringing totals to 54 events and 12,793 UTC observations. Each addition has at least five observations; initial quotes, settlement prices and interpolation do not replace trades. MANA remains labelled play money."
+            },
+            {
+              "zh": "九个专题加入新事件，十个已有曲线的技术专题补充解读。内容包括钠离子可订购价格、中国储能功率、钒与电池级锂供应、核能制氢、专用输氢管线、NIF 靶增益、并行双比特门、商业光伏效率与年出货，以及 AI 工具贡献归因。另补充固态电芯的 A 样耐久测试。",
+              "en": "Nine topics receive new events and ten existing curve-backed technical topics gain reading: orderable sodium-ion prices, Chinese storage power, vanadium/battery-grade lithium, nuclear hydrogen, dedicated pipelines, NIF gain, parallel gates, commercial PV and AI-tool attribution, plus solid-state A-sample endurance."
+            },
+            {
+              "zh": "新增 11 份论文、机构统计和企业原始资料，以及 21 项指标；资料总计 63 份、指标 71 项。区分 GW 与 GWh、V 与 V₂O₅、矿山含锂与电池级 LCE、获批规划与实际投运、靶能量与电站净电量、原子数与门对数、组件纪录与商品效率、燃料销售与设备合同。",
+              "en": "Eleven papers/institutional/company sources and 21 indicators bring totals to 63 documents and 71 indicators. GW/GWh, V/V₂O₅, mine lithium/battery-grade LCE, approval/operation, target energy/net electricity, atoms/gate pairs, records/products and fuel/equipment sales remain distinct."
+            },
+            {
+              "zh": "保留 NIF 百分比定义、量子门 SPAM 裁量、钒产量基数冲突、商业光伏范围和 AI 工具贡献标准等提示。封盘未判定继续保持未判定，cancellation 与 No 分开；价格变化不归因于某一公告，也不合并成技术成功率。",
+              "en": "Flags retain ambiguous NIF percentages, quantum SPAM discretion, conflicting vanadium baselines, commercial-PV scope and AI attribution. Closed/unresolved remains unresolved; cancellation is separate from No. Price changes are not attributed to announcements or pooled into technical-success probabilities."
+            },
+            {
+              "zh": "发布前校验每个预测至少两个不同的真实成交时点、完整分页、截止边界及收录记录。原有 41 个市场的来源元数据和成交历史以校验摘要保护；既有四个文献专题保留，本轮不新增无曲线专题，也不把无关市场借给文献页。诺奖原有七份年度／平台记录保留。",
+              "en": "Pre-publication checks require at least two distinct actual-trade timestamps, complete pagination, cutoffs and reviewed admission. Digests protect all 41 prior source snapshots. Four existing literature topics remain, with no new curve-free topics or unrelated proxy markets; seven Nobel editions are preserved."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.12",
       "date": "2026-10-25",

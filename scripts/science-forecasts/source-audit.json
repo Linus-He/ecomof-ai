@@ -1,25 +1,652 @@
 {
   "schemaVersion": "1.0",
+  "curveAdmissionReview": {
+    "reviewedAt": "2026-10-26",
+    "policy": "New forecasts require at least two distinct actual pre-cutoff trade timestamps, complete history pagination, reviewed rules and technical/source relevance. No synthetic or settlement history.",
+    "minimumTradePoints": 2,
+    "acceptedNewMarkets": 13,
+    "newTradePoints": 1782,
+    "legacyLiteratureTopicIds": [
+      "asymmetric-organocatalysis",
+      "visible-light-organic",
+      "click-bioorthogonal",
+      "pet-enzymatic-recycling"
+    ],
+    "preservedExistingMarkets": 41,
+    "preservedExistingPoints": 11011,
+    "markets": [
+      {
+        "id": "0IclPPNtNA",
+        "topicId": "sodium-ion-batteries",
+        "points": 7,
+        "first": {
+          "t": 1757284582133,
+          "p": 0.44800860176515395
+        },
+        "last": {
+          "t": 1767017391986,
+          "p": 0.13693578532681258
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+        "historyPages": 1
+      },
+      {
+        "id": "9UgA28yIAn",
+        "topicId": "battery-scale-storage",
+        "points": 20,
+        "first": {
+          "t": 1764129201539,
+          "p": 0.5243757431629013
+        },
+        "last": {
+          "t": 1782552335742,
+          "p": 0.724158602509924
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+        "historyPages": 1
+      },
+      {
+        "id": "dNy8QLslNU",
+        "topicId": "battery-scale-storage",
+        "points": 31,
+        "first": {
+          "t": 1764136377920,
+          "p": 0.5024937500777353
+        },
+        "last": {
+          "t": 1791393821775,
+          "p": 0.5716361714045183
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+        "historyPages": 1
+      },
+      {
+        "id": "6ddpyhZNcA",
+        "topicId": "battery-scale-storage",
+        "points": 87,
+        "first": {
+          "t": 1765373173473,
+          "p": 0.5475113122171946
+        },
+        "last": {
+          "t": 1780331872503,
+          "p": 0.5519531318798201
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+        "historyPages": 1
+      },
+      {
+        "id": "23EEgMHJGu7TVzZyOCqT",
+        "topicId": "clean-hydrogen",
+        "points": 8,
+        "first": {
+          "t": 1715291310579,
+          "p": 0.6250404508790228
+        },
+        "last": {
+          "t": 1756824088439,
+          "p": 0.6130400021641796
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+        "historyPages": 1
+      },
+      {
+        "id": "LpIUh0hQ2z",
+        "topicId": "clean-hydrogen",
+        "points": 7,
+        "first": {
+          "t": 1765532792162,
+          "p": 0.3378378378378378
+        },
+        "last": {
+          "t": 1789932964241,
+          "p": 0.43892399911809493
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+        "historyPages": 1
+      },
+      {
+        "id": "dY0K6jGiZl7cPBkkWV74",
+        "topicId": "fusion-energy",
+        "points": 266,
+        "first": {
+          "t": 1691400404551,
+          "p": 0.23584905660377364
+        },
+        "last": {
+          "t": 1704003243876,
+          "p": 0.04430472434111568
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+        "historyPages": 1
+      },
+      {
+        "id": "LDrguWkJhkpRIzXMT4d7",
+        "topicId": "quantum-computing",
+        "points": 151,
+        "first": {
+          "t": 1675392175898,
+          "p": 0.45015420672809936
+        },
+        "last": {
+          "t": 1706705565824,
+          "p": 0.0155886112945924
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+        "historyPages": 1
+      },
+      {
+        "id": "8n2qAmtSKflVQ7kypyu8",
+        "topicId": "perovskite-solar",
+        "points": 9,
+        "first": {
+          "t": 1690642412871,
+          "p": 0.509900019603999
+        },
+        "last": {
+          "t": 1734716461948,
+          "p": 0.09403674986538234
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+        "historyPages": 1
+      },
+      {
+        "id": "RhLLCEhdPs",
+        "topicId": "perovskite-solar",
+        "points": 5,
+        "first": {
+          "t": 1775501776674,
+          "p": 0.4769543132605115
+        },
+        "last": {
+          "t": 1787413340106,
+          "p": 0.5569470020149596
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+        "historyPages": 1
+      },
+      {
+        "id": "rctqd0ZaxeeiHP93VP5n",
+        "topicId": "superconductors",
+        "points": 1128,
+        "first": {
+          "t": 1690393064810,
+          "p": 0.3378378378378379
+        },
+        "last": {
+          "t": 1702845406698,
+          "p": 0.024454924243239765
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+        "historyPages": 3
+      },
+      {
+        "id": "xPYUwADafpjfT1cR5iLu",
+        "topicId": "ai-drug-discovery",
+        "points": 16,
+        "first": {
+          "t": 1694432897779,
+          "p": 0.5291015257110565
+        },
+        "last": {
+          "t": 1741173986776,
+          "p": 0.08
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+        "historyPages": 1
+      },
+      {
+        "id": "2jB7TGwgwPJMiIgnWdce",
+        "topicId": "carbon-capture",
+        "points": 47,
+        "first": {
+          "t": 1678704307217,
+          "p": 0.3378378378378379
+        },
+        "last": {
+          "t": 1734980673353,
+          "p": 0.0493158611713585
+        },
+        "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+        "historyPages": 1
+      }
+    ],
+    "excluded": [
+      {
+        "id": "r4b4Ze4Rr3WPDoSNQuug",
+        "reason": "No descriptive resolution criteria for solid-state classification/delivery beyond the title."
+      },
+      {
+        "id": "q1xWj6FAko6wbfTeeDOZ",
+        "reason": "Empty description; commercial availability and solid-state definition not specified."
+      },
+      {
+        "id": "8mYjdH7l4TEDCkn6RbUO",
+        "reason": "One participant, very limited activity and poorly specified automated chemistry scope; not promoted to a literature-topic proxy."
+      },
+      {
+        "scope": "carbon dioxide concentration, politics, sports, litigation, unrelated search matches",
+        "reason": "Do not measure the requested technical pathway; excluded regardless of trading volume."
+      }
+    ],
+    "queries": [
+      {
+        "term": "AI designed drug",
+        "url": "https://api.manifold.markets/v0/search-markets?term=AI+designed+drug&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 11,
+        "responseSha256": "3e4a270a70d11ddb0c22f7cef891ab883839657c61470a3333a233088df6fb3e"
+      },
+      {
+        "term": "AI discovered drug",
+        "url": "https://api.manifold.markets/v0/search-markets?term=AI+discovered+drug&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 2,
+        "responseSha256": "e81ff2da8d6e8bac0da0923b7adaf3ec084200486b80a54a1289be262a029218"
+      },
+      {
+        "term": "AI drug FDA",
+        "url": "https://api.manifold.markets/v0/search-markets?term=AI+drug+FDA&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 8,
+        "responseSha256": "aa12932a1ade6625b8b63287a30a404678565f87f13f29756e4f973d1fba3c71"
+      },
+      {
+        "term": "AI drug",
+        "url": "https://api.manifold.markets/v0/search-markets?term=AI+drug&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "82044660108aec98fc6828442f7aac47332442e4a81669df71db5994ae34f530"
+      },
+      {
+        "term": "Climeworks",
+        "url": "https://api.manifold.markets/v0/search-markets?term=Climeworks&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 0,
+        "responseSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "term": "DAC carbon",
+        "url": "https://api.manifold.markets/v0/search-markets?term=DAC+carbon&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 2,
+        "responseSha256": "b9c6bd3334bd6a3fbe87527b4ce613d89503afa46ad12c405f14a684cdd057c1"
+      },
+      {
+        "term": "DAC",
+        "url": "https://api.manifold.markets/v0/search-markets?term=DAC&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "9c9f0ea1b91d816a8fcbf967619f815edc51de7f8d17f7966754d8dc292d0af1"
+      },
+      {
+        "term": "Insilico",
+        "url": "https://api.manifold.markets/v0/search-markets?term=Insilico&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 1,
+        "responseSha256": "3e6aea891e2184191a52d6c99610250c261e567b72b7befe9a0ba108b61b8bde"
+      },
+      {
+        "term": "ammonia",
+        "url": "https://api.manifold.markets/v0/search-markets?term=ammonia&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 5,
+        "responseSha256": "ec95716a3f419fb1b26edc5d36a73591ea19fd798b52da3321e91572502ccb0c"
+      },
+      {
+        "term": "battery recycling",
+        "url": "https://api.manifold.markets/v0/search-markets?term=battery+recycling&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 2,
+        "responseSha256": "ac5c112a8c510ad1828b11e939a197ae39b694c1f09367e0d1049bf6cf1dac9d"
+      },
+      {
+        "term": "carbon capture storage",
+        "url": "https://api.manifold.markets/v0/search-markets?term=carbon+capture+storage&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 5,
+        "responseSha256": "88b43ad8a624ae461444f2ff79aafa925495a371e2f6603e9ae2eebd360a3d56"
+      },
+      {
+        "term": "carbon capture",
+        "url": "https://api.manifold.markets/v0/search-markets?term=carbon+capture&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 25,
+        "responseSha256": "3792521ce2b167b0abe7a1c7d13554d07ac568f837771ae37ee265b63521f9e3"
+      },
+      {
+        "term": "carbon dioxide",
+        "url": "https://api.manifold.markets/v0/search-markets?term=carbon+dioxide&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "ac31b31de852a300a84a8d8e96d8299e21835229713f4ab97ab1df6ff7f7a8aa"
+      },
+      {
+        "term": "carbon removal million",
+        "url": "https://api.manifold.markets/v0/search-markets?term=carbon+removal+million&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 1,
+        "responseSha256": "ecb6c561f4bf55ad4ce36be1c1d1b2f601b3a1510582000eccfba27eb30c0455"
+      },
+      {
+        "term": "carbon removal",
+        "url": "https://api.manifold.markets/v0/search-markets?term=carbon+removal&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 27,
+        "responseSha256": "6884c7e7265cc607d659b7bf48ab8231cc64ad9582cc8915a3fe21a2de8c2f24"
+      },
+      {
+        "term": "chemical synthesis",
+        "url": "https://api.manifold.markets/v0/search-markets?term=chemical+synthesis&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 8,
+        "responseSha256": "5d785c8613824cb410d4d3c49150072bf1d4e174eec5c8c30aeb530acb20c8ac"
+      },
+      {
+        "term": "desalination",
+        "url": "https://api.manifold.markets/v0/search-markets?term=desalination&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 10,
+        "responseSha256": "ef6fbf24c20cc6a0c81c50d02e602775e3e881b1eeac8c8cba32717c425fb43e"
+      },
+      {
+        "term": "direct air capture",
+        "url": "https://api.manifold.markets/v0/search-markets?term=direct+air+capture&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 8,
+        "responseSha256": "6361958ac25d209c2480e76da92021a8837ce1ff7145b396a169088368bd73fe"
+      },
+      {
+        "term": "electrolysis",
+        "url": "https://api.manifold.markets/v0/search-markets?term=electrolysis&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 2,
+        "responseSha256": "71a83a5ac9c1f85aa96ab54e64d690ed0b1a286f127ceca03909054a3863c98c"
+      },
+      {
+        "term": "fusion",
+        "url": "https://api.manifold.markets/v0/search-markets?term=fusion&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "b25841681a8677b0acfa595bf2ea53e25c8704ffa4a936ef885a16a1070fe5e2"
+      },
+      {
+        "term": "hydrogen production",
+        "url": "https://api.manifold.markets/v0/search-markets?term=hydrogen+production&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 9,
+        "responseSha256": "c656ca167d532d2802117f2d90d088376e06cd63292b2ea3021e9544cbfbb158"
+      },
+      {
+        "term": "hydrogen",
+        "url": "https://api.manifold.markets/v0/search-markets?term=hydrogen&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "39ee7649e0cc53a6f0d90fe158de4c3b78f23666f69734d7078d8d143f251a36"
+      },
+      {
+        "term": "lithium sulfur",
+        "url": "https://api.manifold.markets/v0/search-markets?term=lithium+sulfur&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 1,
+        "responseSha256": "8582cb12a543050602dccf6cc25c88d7d0e68d6fe9d2a8014a20905b797192c0"
+      },
+      {
+        "term": "perovskite",
+        "url": "https://api.manifold.markets/v0/search-markets?term=perovskite&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 4,
+        "responseSha256": "4f73204493dd65246b7f00be901a2d7ccf3f84ce002e2375877ece3286f19066"
+      },
+      {
+        "term": "plastic recycling",
+        "url": "https://api.manifold.markets/v0/search-markets?term=plastic+recycling&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 8,
+        "responseSha256": "9f36d6caa5b4feac4d56feba356c76d63b873d99cd86bda1cc5499e9003af911"
+      },
+      {
+        "term": "protein design",
+        "url": "https://api.manifold.markets/v0/search-markets?term=protein+design&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 12,
+        "responseSha256": "3381800e61dfed332b58d5f0d6144d987768ced1c3987de02b643bcab2bc2364"
+      },
+      {
+        "term": "quantum computing",
+        "url": "https://api.manifold.markets/v0/search-markets?term=quantum+computing&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "e0b23aa39f12bc44ab9e6dc200ee13eb6e419cab9eb190c0be943f355ddc8ef3"
+      },
+      {
+        "term": "sodium ion",
+        "url": "https://api.manifold.markets/v0/search-markets?term=sodium+ion&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 8,
+        "responseSha256": "56467303434228dcfafcefdb2ee823dcc6518cf1d86a7c071b53c8ecb30f6837"
+      },
+      {
+        "term": "solid state battery",
+        "url": "https://api.manifold.markets/v0/search-markets?term=solid+state+battery&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 28,
+        "responseSha256": "59e182895703606e54f4faa67f3898ed93fdfa62248f05620016c87f91a4f033"
+      },
+      {
+        "term": "solid state smartphone",
+        "url": "https://api.manifold.markets/v0/search-markets?term=solid+state+smartphone&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 0,
+        "responseSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "term": "superconductor",
+        "url": "https://api.manifold.markets/v0/search-markets?term=superconductor&limit=30&sort=liquidity&filter=all",
+        "returnedCount": 30,
+        "responseSha256": "0200200c305b2a35d42362eb6e75d7d6d7c8d99a8d927ff3f5fcda3c08e9d6c9"
+      }
+    ],
+    "preservedMarketIds": [
+      "SAIUNdCI8U",
+      "URnpyLNL6s",
+      "5yR6nLsLlu",
+      "E6A6gylOZq",
+      "hznAd5Sh0S",
+      "Shc85pllS8",
+      "yTnpOcsEjYIa0GcasRVg",
+      "jVXPWByYV1uHFNzjULf6",
+      "n0dowx6m17",
+      "2UE5OE8cAwOnRANIwyGi",
+      "8m2QavDR1KYRdV3g8aDf",
+      "tV8TUnUEXherIZzyoywQ",
+      "kphkIrlmHjGcCssSiHdi",
+      "S1JzUyhBphhmBZF6UTLr",
+      "GJf5q3WjqIIiArUkpxbl",
+      "H5nCcUUDsH556qedFoUn",
+      "xsHh9WCTD1PRuvZwTYqA",
+      "u1hCf24lNpTqWYEpM2Uq",
+      "f6jHUqoKdt8YmpXQjGlO",
+      "jqEkQKsK0FxFNXDN0lBy",
+      "BGT0eBN2kmD6FmsXEvFt",
+      "cwtbzjfk9j",
+      "oocJB7zxHwURka0HYfbo",
+      "88clPLgu5E",
+      "mH5EaioxqUT22N2MZg7B",
+      "hnzy6pqlNZ",
+      "e3ah02wnqsS2hwQYTgQs",
+      "xLCfrvBWLH5BBYsgA4TX",
+      "gLKepA3Jdl3lmiRXc32K",
+      "S2ghII2gLd",
+      "b2npwzsZCGtn8aQ47PNO",
+      "CP0dnApyhU",
+      "hOt5P568Iz",
+      "02b1E538uZEMM5tv6i0H",
+      "jcYZt1lNCMgX4LHHqgoq",
+      "CqS0hc8NOI",
+      "fHSDwgZnxcJ7wTAw5AiR",
+      "mkMY7rbB02MWY1MKf9Vu",
+      "cy4il0tvgl",
+      "AvggE9WsHv51pVkA26wx",
+      "HB3a6kWAhptJg8Ill8yT"
+    ],
+    "preservedSnapshots": [
+      {
+        "id": "SAIUNdCI8U",
+        "sha256": "58ecc5f1ae2a87296bd17afe71b988e4d783865695436af9b84ef252a3be7555"
+      },
+      {
+        "id": "URnpyLNL6s",
+        "sha256": "961b957d074c27e94ace5acc660547386f6545c990522fc35ec7a8201b5c3e8c"
+      },
+      {
+        "id": "5yR6nLsLlu",
+        "sha256": "90f29fa8fd14328cbdab71037aec884d8d5f36eee34fe50200bfe1fa86d27a86"
+      },
+      {
+        "id": "E6A6gylOZq",
+        "sha256": "25b498d87c12de32453ab2f5372288f70a97d5ff3ce26ab9df02f066ae25d6bc"
+      },
+      {
+        "id": "hznAd5Sh0S",
+        "sha256": "8d1209eb9e74412c7e9d6a4423cb4f6de31b0b56d5a17cb672c0f46f819408a9"
+      },
+      {
+        "id": "Shc85pllS8",
+        "sha256": "7fd9d93c8f5c37ec950e3a8cb64d2b11560caa60e1c2970f7983c48c55f52a1d"
+      },
+      {
+        "id": "yTnpOcsEjYIa0GcasRVg",
+        "sha256": "709a1a6ab770da3fedfc39fe5b0e892fc3685610d7cdde1a4dabc52092cfcbdc"
+      },
+      {
+        "id": "jVXPWByYV1uHFNzjULf6",
+        "sha256": "061fbfc0046f1ca979e40c7ca95221743abcb844761c5202b09b2f129ec060db"
+      },
+      {
+        "id": "n0dowx6m17",
+        "sha256": "ec2b30b70e53f5f71593a84423e72f3a1eeee7bfc917a72c8bfe3bd510ac8acb"
+      },
+      {
+        "id": "2UE5OE8cAwOnRANIwyGi",
+        "sha256": "058270d3d4741c613b0218301857623b0ef6d1354f28d88f788c774f231bc50f"
+      },
+      {
+        "id": "8m2QavDR1KYRdV3g8aDf",
+        "sha256": "637158a72b2181c09d2da5dd4a74ce6f3eaecf59b62072f7efaeda962d62466b"
+      },
+      {
+        "id": "tV8TUnUEXherIZzyoywQ",
+        "sha256": "7a1dffa4c832fa7cc664142a339edec1e106f3b5d5805bc2748a1f3f51e96036"
+      },
+      {
+        "id": "kphkIrlmHjGcCssSiHdi",
+        "sha256": "e3a02b65cf2d562caa7735f09b904f7f42f2b24348a354b99c143ad8fb67f106"
+      },
+      {
+        "id": "S1JzUyhBphhmBZF6UTLr",
+        "sha256": "030543ac0b7926499676feaec21595c2776651951a5eb7b15ddbeec0725ed5c8"
+      },
+      {
+        "id": "GJf5q3WjqIIiArUkpxbl",
+        "sha256": "7a290eac8066235e9f3a9fa22e9d0c61495da74e1f504228f559b85e5daefdb0"
+      },
+      {
+        "id": "H5nCcUUDsH556qedFoUn",
+        "sha256": "a8dac290216d2b6703fd331daeaafe34f7cb156fcc80debbffa73b8f48704288"
+      },
+      {
+        "id": "xsHh9WCTD1PRuvZwTYqA",
+        "sha256": "949ef6187587f91b2683a0cb4562aadfc4928cdcdadd76b1c04126efd8474bd1"
+      },
+      {
+        "id": "u1hCf24lNpTqWYEpM2Uq",
+        "sha256": "df5f59395d1093db75c427f3596107872148b249d6507aab6090171b64e6c0df"
+      },
+      {
+        "id": "f6jHUqoKdt8YmpXQjGlO",
+        "sha256": "0a14749df330456806856572cb559694ff243e2501cdb4c81842bda5cbc6bfd8"
+      },
+      {
+        "id": "jqEkQKsK0FxFNXDN0lBy",
+        "sha256": "8cfc5d82e5c23b7fe1917fe56995174e32ebc0e84facf3578ca70597f3bc6d23"
+      },
+      {
+        "id": "BGT0eBN2kmD6FmsXEvFt",
+        "sha256": "15e6547b5e430f0a2a2d91e0e889b53315d7234d84bb02be4bba5339ce85d312"
+      },
+      {
+        "id": "cwtbzjfk9j",
+        "sha256": "bea08ac2dadca3dec50ed4989111490e9ac46cb5599face8f310e0392a6f6fc3"
+      },
+      {
+        "id": "oocJB7zxHwURka0HYfbo",
+        "sha256": "8133041a806ed77e19a27edcaeac9f1a47db3693d6072d1ba7429575e70b9bd2"
+      },
+      {
+        "id": "88clPLgu5E",
+        "sha256": "66f927cc2f7cbae9969da8ab210c3a1bcfa5b132dc0cedd07eb757112fad3e80"
+      },
+      {
+        "id": "mH5EaioxqUT22N2MZg7B",
+        "sha256": "b9bfd148a88b070e00e30e1bd54e3152b0322304d9ffc20b1a37f74fa6b5ff96"
+      },
+      {
+        "id": "hnzy6pqlNZ",
+        "sha256": "b33e93808c8d8fc13250b48c35268448de928349b7f7b8b156ffb1f04f0ce4e7"
+      },
+      {
+        "id": "e3ah02wnqsS2hwQYTgQs",
+        "sha256": "a059f8a88396d3726d3141f5a9ac6eae285bcae595fdb2e97846c5273aa76377"
+      },
+      {
+        "id": "xLCfrvBWLH5BBYsgA4TX",
+        "sha256": "7b4b01517e53a64b8ac2d6914842b9ad685ea2a6cb8fa4468f9023e7ff09a9bf"
+      },
+      {
+        "id": "gLKepA3Jdl3lmiRXc32K",
+        "sha256": "167640b565e997eba5d55360ab1c58efe532ba2bea40434e2878d4ccb7a8a5f2"
+      },
+      {
+        "id": "S2ghII2gLd",
+        "sha256": "5c94b1cd2a7f7e6350aa4d580b47584ef78cf86b7e4034bc716ab96f8e394e59"
+      },
+      {
+        "id": "b2npwzsZCGtn8aQ47PNO",
+        "sha256": "51ce3e7146f082b375f19d84265f083e12188e1d57da1e2b43fd9b221a689874"
+      },
+      {
+        "id": "CP0dnApyhU",
+        "sha256": "2ac63c2cd415d142fd846d6a44de8459502e36d0e584f2c892367de17eb437d5"
+      },
+      {
+        "id": "hOt5P568Iz",
+        "sha256": "2b122ee3ed762052afdda7e834d3455ebd0f999608366c0be81af91d400a4074"
+      },
+      {
+        "id": "02b1E538uZEMM5tv6i0H",
+        "sha256": "88a54d49411cf248a84e0000d4eae79d90a609b6a520951cdc337c1b6841e399"
+      },
+      {
+        "id": "jcYZt1lNCMgX4LHHqgoq",
+        "sha256": "79ee76b155a766632c72a551fb59446f4d601d2b81eb44c43ab618788e308814"
+      },
+      {
+        "id": "CqS0hc8NOI",
+        "sha256": "066ef51ee6a33acb112bfe9d2506bb9ad376e752a817b2529b43c5297b29123e"
+      },
+      {
+        "id": "fHSDwgZnxcJ7wTAw5AiR",
+        "sha256": "a7e362854020c260e6d06d9dc8b947ccb0bf5d3f9348112c0aebf4667d68412a"
+      },
+      {
+        "id": "mkMY7rbB02MWY1MKf9Vu",
+        "sha256": "1583848b3bbba9d2a0a4ed96443792fcdaa4378bfdc8475d037bb8ace184962f"
+      },
+      {
+        "id": "cy4il0tvgl",
+        "sha256": "a0d17bac4071c6a0f008fc7308e4a0604db449fac436b9fa1aaed0ae0140fda3"
+      },
+      {
+        "id": "AvggE9WsHv51pVkA26wx",
+        "sha256": "f97110cd172746d64f9f3836214d763332abfa009dae5b0060e82dae3986fe56"
+      },
+      {
+        "id": "HB3a6kWAhptJg8Ill8yT",
+        "sha256": "765c7952f84610fa64b3a6f19d4158ba198276b5ab2fe9bfd0c6d2bf4becd53c"
+      }
+    ]
+  },
   "editorialReview": {
-    "eventBriefs": 41,
-    "industryCases": 41,
-    "evidenceCount": 52,
-    "contexts": 22,
+    "eventBriefs": 54,
+    "industryCases": 54,
+    "evidenceCount": 63,
+    "contexts": 31,
     "literatureTopics": 4,
     "reactionCases": 9,
-    "topicIndicators": 50,
+    "topicIndicators": 71,
     "sourceFiles": [
       {
         "file": "scripts/science-forecasts/curation.json",
-        "sha256": "b66e9f058460fb5c7dd0c645990621fd45019c519c11ecb2ea5ee39bf3744e80"
+        "sha256": "31e9e20dd884d93c50417e20bdd5f4649f21abf4ae392b069a8e8e47ad5dc35e"
       },
       {
         "file": "scripts/science-forecasts/contexts.json",
-        "sha256": "fdec3efd6ac55379468639906e9e6cbee71d1131daa39a84179024e8494f4478"
+        "sha256": "3bc13a98b9db6a46af58120d221d2bc44d5ca160a66f8a44bb995bcad2365f93"
       },
       {
         "file": "scripts/science-forecasts/topics.json",
-        "sha256": "5fcf34ddd04c4255b7d74874c174b5a7173091bd2e43ec64e478847488d0cd9f"
+        "sha256": "cc01588f23ee5fde9619487eaabf79678836369658018cc6ec3c81f99be22e28"
       }
     ]
   },
@@ -80,9 +707,12 @@
     ]
   },
   "grain": "one source market; one observation per distinct actual-trade timestamp",
-  "marketCount": 41,
-  "pointCount": 11011,
+  "marketCount": 54,
+  "pointCount": 12793,
   "checks": [
+    "at least two genuine pre-cutoff trade timestamps per forecast",
+    "complete history pagination",
+    "no new literature-only topic admission",
     "unique market ids",
     "strictly increasing timestamps",
     "finite probabilities in [0,1]",
@@ -93,7 +723,7 @@
     "logo checksums",
     "no account identities in public projection"
   ],
-  "sourceProjectionSha256": "b4a11071185ca14fb5b7c4610fd996c2fa9f3a875711b20406b9a1460f7b3a64",
+  "sourceProjectionSha256": "878ea55b6074a16cde435179df76b8e99aafa2405ba79c9bc6b2040c1a98c6b5",
   "markets": [
     {
       "id": "SAIUNdCI8U",
@@ -1074,6 +1704,276 @@
       "fetchedTradeRows": 668,
       "acceptedTradeRows": 498,
       "excludedTradeRows": 170
+    },
+    {
+      "id": "0IclPPNtNA",
+      "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013887097,
+      "observedAt": 1793013887097,
+      "points": 7,
+      "marketSha256": "98949d5f0befdb4fde392b92207aa14c4a578b3eb855cbf5c941f7b063011c59",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=0IclPPNtNA&limit=1000",
+          "sha256": "29d627965daeb0ccda2d8e725df132b6f2a2b7d8b0f359a7b20615b491f11f59",
+          "rows": 7
+        }
+      ],
+      "fetchedTradeRows": 7,
+      "acceptedTradeRows": 7,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "9UgA28yIAn",
+      "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013888334,
+      "observedAt": 1793013888334,
+      "points": 20,
+      "marketSha256": "f968b1c2c7c7564b7d00d538836b6de21f1aa1d13fa08d39a8f53ce0557b9335",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=9UgA28yIAn&limit=1000",
+          "sha256": "b79b4a67a803b81ee9185c5a1e10212ebc6f3844b9a23fe7eff6e177bfbc4610",
+          "rows": 26
+        }
+      ],
+      "fetchedTradeRows": 26,
+      "acceptedTradeRows": 20,
+      "excludedTradeRows": 6
+    },
+    {
+      "id": "dNy8QLslNU",
+      "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013888646,
+      "observedAt": 1793013888646,
+      "points": 31,
+      "marketSha256": "a453077340b3f82260719d4cc246db02e8748ebb1363c9c449fec6c7e7eb10c6",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=dNy8QLslNU&limit=1000",
+          "sha256": "417639471d14ae14456bf06706559ce3455f42aeb885f625918dcc6c639144af",
+          "rows": 39
+        }
+      ],
+      "fetchedTradeRows": 39,
+      "acceptedTradeRows": 31,
+      "excludedTradeRows": 8
+    },
+    {
+      "id": "6ddpyhZNcA",
+      "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013889917,
+      "observedAt": 1793013889917,
+      "points": 87,
+      "marketSha256": "1e5ba7f714b7c22d9016fe1f5859bcee9958d3ed0aeed1575d9cf35795429523",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=6ddpyhZNcA&limit=1000",
+          "sha256": "80ef799cda9bb6b26fc7053f286c39b6a5a8e786d73c71e471528146f236966d",
+          "rows": 127
+        }
+      ],
+      "fetchedTradeRows": 127,
+      "acceptedTradeRows": 87,
+      "excludedTradeRows": 40
+    },
+    {
+      "id": "23EEgMHJGu7TVzZyOCqT",
+      "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013892859,
+      "observedAt": 1793013892859,
+      "points": 8,
+      "marketSha256": "f3c95333b0c599d984c8e8246f49d598f94ee4fc507e940da671b8b345dcdb1f",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=23EEgMHJGu7TVzZyOCqT&limit=1000",
+          "sha256": "78fc776d793404efabb07ca6d741d0df43a93820596eb9221098bbf66f9853ac",
+          "rows": 8
+        }
+      ],
+      "fetchedTradeRows": 8,
+      "acceptedTradeRows": 8,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "LpIUh0hQ2z",
+      "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013890244,
+      "observedAt": 1793013890244,
+      "points": 7,
+      "marketSha256": "a54c48023a837d2f1e0582a90604abfab69f40a189d76a96e09ac7bc34dfc488",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=LpIUh0hQ2z&limit=1000",
+          "sha256": "de3fb688fb0c8e9df4c8f5a0733434c3e420b026c301ed9eca14a61b37558187",
+          "rows": 7
+        }
+      ],
+      "fetchedTradeRows": 7,
+      "acceptedTradeRows": 7,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "dY0K6jGiZl7cPBkkWV74",
+      "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1704027540000,
+      "observedAt": 1793013893776,
+      "points": 266,
+      "marketSha256": "ff7cf1cefbd8beb7d672de071ce879cc4ebf86fbcdaace199644fb046246f4ef",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=dY0K6jGiZl7cPBkkWV74&limit=1000",
+          "sha256": "6b926c3d7757653a5895e1642e0c44693fa8295c0f065cff0c7ae4c7310d058e",
+          "rows": 409
+        }
+      ],
+      "fetchedTradeRows": 409,
+      "acceptedTradeRows": 266,
+      "excludedTradeRows": 143
+    },
+    {
+      "id": "LDrguWkJhkpRIzXMT4d7",
+      "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1706763540000,
+      "observedAt": 1793013893896,
+      "points": 151,
+      "marketSha256": "b2a8579913e3ddc1710060d952f08119939bb21ea8795d2e069d774adf0a0363",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=LDrguWkJhkpRIzXMT4d7&limit=1000",
+          "sha256": "2d4c9f03c1b371701e433c44bac6b0b3ea20f256cf1f12b4795b69c0cd418e8b",
+          "rows": 207
+        }
+      ],
+      "fetchedTradeRows": 207,
+      "acceptedTradeRows": 151,
+      "excludedTradeRows": 56
+    },
+    {
+      "id": "8n2qAmtSKflVQ7kypyu8",
+      "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+      "status": "closed",
+      "resolution": null,
+      "historyCutoff": 1735689540000,
+      "observedAt": 1793013894325,
+      "points": 9,
+      "marketSha256": "1c669dc1002ce79ec8a07635d27ab50826bef7fe3d78f5cb21c372c37e16e7cb",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=8n2qAmtSKflVQ7kypyu8&limit=1000",
+          "sha256": "321a86bdb6a9a6206959f528a7893659eae8ee016410b8038116c329e4a0c688",
+          "rows": 9
+        }
+      ],
+      "fetchedTradeRows": 9,
+      "acceptedTradeRows": 9,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "RhLLCEhdPs",
+      "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013895661,
+      "observedAt": 1793013895661,
+      "points": 5,
+      "marketSha256": "3a29e6a06127d88105c8a70b564ea2b2db5b6fb8335b8fa06c8e1a0d72df8538",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=RhLLCEhdPs&limit=1000",
+          "sha256": "ca72ceb281264761fbe3de5b3d97929e3a7e15ff8b06bc0cddc5a069ae73b0f5",
+          "rows": 5
+        }
+      ],
+      "fetchedTradeRows": 5,
+      "acceptedTradeRows": 5,
+      "excludedTradeRows": 0
+    },
+    {
+      "id": "rctqd0ZaxeeiHP93VP5n",
+      "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1704085140000,
+      "observedAt": 1793013904118,
+      "points": 1128,
+      "marketSha256": "3b373142fbf499eb813bb52f0f08842f7946f3022afdf14411b7b771def05014",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000",
+          "sha256": "922317b1ab9abbd84d248e9d0de4758b86df8e21724cd9ddf2bf2d304927a849",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000&before=zkgiRyAaetYvvEz3WcXq",
+          "sha256": "599c4989aa61e42ee2c2fd91fcb01170c01319cd52f42606bb6cd7aa155b7da0",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000&before=B8GS5drhvaro0wAmYGvO",
+          "sha256": "8fdd6119c5ab7f25ef3f8771ce9484afd8901defad57713911ff0ab34a7b04d2",
+          "rows": 176
+        }
+      ],
+      "fetchedTradeRows": 2176,
+      "acceptedTradeRows": 1128,
+      "excludedTradeRows": 1048
+    },
+    {
+      "id": "xPYUwADafpjfT1cR5iLu",
+      "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+      "status": "open",
+      "resolution": null,
+      "historyCutoff": 1793013896730,
+      "observedAt": 1793013896730,
+      "points": 16,
+      "marketSha256": "6949ce0ce559da402d5e5eb35fbaf4a8cf02ee3810d9f2043c342c44131b68e0",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=xPYUwADafpjfT1cR5iLu&limit=1000",
+          "sha256": "05ced31be6b2654b2512d3ecd59563eaada1cea4001927a4879bf79fac867366",
+          "rows": 22
+        }
+      ],
+      "fetchedTradeRows": 22,
+      "acceptedTradeRows": 16,
+      "excludedTradeRows": 6
+    },
+    {
+      "id": "2jB7TGwgwPJMiIgnWdce",
+      "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+      "status": "resolved",
+      "resolution": "NO",
+      "historyCutoff": 1735718340000,
+      "observedAt": 1793013898033,
+      "points": 47,
+      "marketSha256": "f1cdfbf73f078fe126c8bd5ee1b33047e506c7217cbb1673c6259579c3d94e99",
+      "historyPages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=2jB7TGwgwPJMiIgnWdce&limit=1000",
+          "sha256": "3ffecd2d13173b26ba86a5c102db319c0361fb70f6285a6766f99b79010dd7d7",
+          "rows": 80
+        }
+      ],
+      "fetchedTradeRows": 80,
+      "acceptedTradeRows": 47,
+      "excludedTradeRows": 33
     }
   ],
   "discovery": [

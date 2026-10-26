@@ -56,7 +56,7 @@ it('places topic history ahead of the guide and retains related reading',async()
  const history=screen.getByRole('region',{name:'专题市场曲线'})
  const guide=document.querySelector('.science-topic-intro')!
  expect(history.compareDocumentPosition(guide)&Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
- expect(screen.getByRole('combobox',{name:'选择市场'}).querySelectorAll('option')).toHaveLength(2)
+ expect(screen.getByRole('combobox',{name:'选择市场'}).querySelectorAll('option')).toHaveLength(index.events.filter(e=>e.topicId==='fusion-energy').length)
  expect(screen.getByRole('heading',{name:'专题解读'})).toBeTruthy()
 })
 it('orders event history, criteria, announcements, references and related events consistently',async()=>{
@@ -87,8 +87,8 @@ it('shows scoped source data and labels development targets separately',async()=
  expect(screen.getByRole('rowheader',{name:/Hydrogen Shot 成本目标/})).toHaveTextContent('研发目标')
  expect(screen.getByText('目标 2031；2023-12-05 资料')).toBeTruthy()
  const table=screen.getByRole('table',{name:'关键数据与条件'})
- expect(table.querySelectorAll('tbody tr')).toHaveLength(4)
- expect(table.querySelectorAll('tbody a[href^="https://"]')).toHaveLength(4)
+ expect(table.querySelectorAll('tbody tr')).toHaveLength(index.topics.find(t=>t.id==='clean-hydrogen')!.metrics!.length)
+ expect(table.querySelectorAll('tbody a[href^="https://"]')).toHaveLength(index.topics.find(t=>t.id==='clean-hydrogen')!.metrics!.length)
  expect(screen.getByRole('button',{name:'下载指标与来源'})).toBeTruthy()
 })
 

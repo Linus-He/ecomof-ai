@@ -1,0 +1,205 @@
+{
+  "id": "8n2qAmtSKflVQ7kypyu8",
+  "topicId": "perovskite-solar",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/casualPhysicsEnjoyer/will-we-see-any-commercial-solar-ce",
+  "originalTitle": "Will we see any commercial solar cells with an efficiency >30% by the end of 2024?",
+  "status": "closed",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": null,
+  "volume": 245,
+  "participants": 8,
+  "createdTime": 1690642079001,
+  "closeTime": 1735689540000,
+  "resolutionTime": null,
+  "observedAt": 1793013894325,
+  "historyCutoff": 1735689540000,
+  "points": [
+    {
+      "t": 1690642412871,
+      "p": 0.509900019603999
+    },
+    {
+      "t": 1690700886381,
+      "p": 0.4998039600153756
+    },
+    {
+      "t": 1690744091047,
+      "p": 0.4334602793531644
+    },
+    {
+      "t": 1700166451699,
+      "p": 0.3493830599157926
+    },
+    {
+      "t": 1711871592849,
+      "p": 0.33477294412051445
+    },
+    {
+      "t": 1714967105831,
+      "p": 0.263449688904945
+    },
+    {
+      "t": 1715138359354,
+      "p": 0.27988112834787326
+    },
+    {
+      "t": 1726154469223,
+      "p": 0.14127735790165216
+    },
+    {
+      "t": 1734716461948,
+      "p": 0.09403674986538234
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.09403674986538234,
+  "lastTradeAt": 1734716461948,
+  "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+  "provenance": {
+    "marketSha256": "1c669dc1002ce79ec8a07635d27ab50826bef7fe3d78f5cb21c372c37e16e7cb",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=8n2qAmtSKflVQ7kypyu8&limit=1000",
+        "sha256": "321a86bdb6a9a6206959f528a7893659eae8ee016410b8038116c329e4a0c688",
+        "rows": 9
+      }
+    ],
+    "fetchedTradeRows": 9,
+    "acceptedTradeRows": 9,
+    "excludedTradeRows": 0
+  },
+  "stage": "engineering",
+  "title": [
+    "2024 年底前会有商业太阳能电池效率超过 30% 吗？",
+    "Were commercial solar cells above 30% efficiency available by end-2024?"
+  ],
+  "rules": [
+    [
+      "原题问 2024 年底前商业太阳能电池效率 >30%；正文指出叠层和钙钛矿是候选路线。",
+      "The source asks for commercial solar cells above 30% by end-2024, naming tandem/perovskite as likely routes."
+    ],
+    [
+      "正文未明确“商业可得”的交付尺度、面积与测试口径；封盘未判定仍保留未判定。",
+      "The body leaves commercial scale, area and test conditions underspecified; closed/unresolved remains unresolved."
+    ]
+  ],
+  "interpretation": [
+    "本题没有把单片电池和组件效率解释清楚。Oxford PV 2024 年首发组件的 24.5% 不能写成 >30% 商业组件；实验室纪录也不自动满足商业条件。",
+    "The body does not resolve cell versus module boundaries. Oxford PV’s 24.5% shipped module is not >30%; a laboratory record is not automatically commercial availability."
+  ],
+  "entities": [
+    "oxfordpv"
+  ],
+  "evidence": [
+    "oxford-first-shipment",
+    "perovskite-doe"
+  ],
+  "briefing": {
+    "contextId": "perovskite-scale",
+    "summary": [
+      "本题没有把单片电池和组件效率解释清楚。Oxford PV 2024 年首发组件的 24.5% 不能写成 >30% 商业组件；实验室纪录也不自动满足商业条件。",
+      "The body does not resolve cell versus module boundaries. Oxford PV’s 24.5% shipped module is not >30%; a laboratory record is not automatically commercial availability."
+    ],
+    "checklist": [
+      [
+        "确认电池或组件、面积与稳态测试口径。",
+        "Identify cell/module, area and stabilized testing."
+      ],
+      [
+        "核对可供货证据，区分纪录与产品。",
+        "Separate certified records from available products."
+      ],
+      [
+        "保留截止与封盘未判定状态。",
+        "Preserve the deadline and closed/unresolved status."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "88clPLgu5E",
+    "RhLLCEhdPs"
+  ],
+  "industry": {
+    "entities": [
+      "oxfordpv"
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ],
+    "stage": [
+      "效率纪录 → 产品认证 → 商业交付",
+      "Efficiency record → product qualification → delivery"
+    ],
+    "impact": [
+      "Oxford PV 首批商业组件与公司提到的 26.9% 组件纪录可以帮助分开“卖出的是什么”和“纪录测的是什么”。两者都不能直接满足 >30% 门槛；更不能把电池片纪录写成组件效率。原题仍需其指定范围的产品交付与测量证据，本站不根据后续报道自动改写结算。",
+      "Oxford PV’s first shipped modules and its reported 26.9% record distinguish a sale from a record. Neither establishes >30%, and a cell record is not module efficiency. Product and measurement evidence must match the contract; subsequent reporting does not auto-resolve it."
+    ],
+    "gap": [
+      "“商业”没有数量或客户定义，且未规定认证面积与测试标准，按原文保留提示。",
+      "Commercial volume/customer, certified area and test standards are unspecified and remain flagged."
+    ]
+  },
+  "context": {
+    "id": "perovskite-scale",
+    "title": [
+      "叠层效率、制造产能与实际出货",
+      "Tandem efficiency, factory capacity and shipments"
+    ],
+    "principle": [
+      "钙钛矿层与硅层吸收不同波段，以提高入射光的利用率。电池效率经过互联、封装和有效面积损失后，才形成组件效率。制造线的额定能力还要经过良率与利用率，才能转为可销售出货。",
+      "Perovskite and silicon absorb different spectral bands. Module efficiency includes interconnection, encapsulation and area losses; nameplate factory capacity becomes sales only through yield and utilization."
+    ],
+    "example": [
+      "Oxford PV 首批商业组件的 24.5% 效率说明了产品性能，年度 1 GW 则考查累计交付的额定功率。全球多数部署使用哪种材料，还需要统计整个行业的年度装机。",
+      "Oxford PV’s first modules had 24.5% efficiency; annual 1 GW concerns cumulative delivered rated power. A global-majority contract needs industry-wide annual deployment data."
+    ],
+    "evidence": [
+      "oxford-first-shipment",
+      "perovskite-doe"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1690642412871,
+      "p": 0.509900019603999
+    },
+    "last": {
+      "t": 1734716461948,
+      "p": 0.09403674986538234
+    },
+    "change": -41.58632697386167,
+    "low": 0.09403674986538234,
+    "high": 0.509900019603999,
+    "staleDays": 11.262477453703704
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "商业范围与效率口径",
+        "Commercial and efficiency scope"
+      ],
+      "detail": [
+        "原文未定义商业数量、有效面积及测试标准；保留封盘未判定。",
+        "Commercial volume, area and testing are undefined; closed/unresolved remains unresolved."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 9,
+  "detailFile": "events/8n2qAmtSKflVQ7kypyu8.json"
+}

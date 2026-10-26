@@ -1,0 +1,247 @@
+{
+  "id": "9UgA28yIAn",
+  "topicId": "battery-scale-storage",
+  "source": "Manifold",
+  "currency": "MANA",
+  "url": "https://manifold.markets/MikhailTal/china-achieves-over-180-gw-of-newty",
+  "originalTitle": "China achieves over 180 GW of new-type energy storage capacity by end of 2027?",
+  "status": "open",
+  "resolution": null,
+  "resolutionProbability": null,
+  "snapshotProbability": 0.724158602509924,
+  "volume": 249,
+  "participants": 6,
+  "createdTime": 1764128039599,
+  "closeTime": 1830297540000,
+  "resolutionTime": null,
+  "observedAt": 1793013888334,
+  "historyCutoff": 1793013888334,
+  "points": [
+    {
+      "t": 1764129201539,
+      "p": 0.5243757431629013
+    },
+    {
+      "t": 1764136421482,
+      "p": 0.5475113122171945
+    },
+    {
+      "t": 1764140142621,
+      "p": 0.5694294940796555
+    },
+    {
+      "t": 1764546066454,
+      "p": 0.6097560975609755
+    },
+    {
+      "t": 1765067842297,
+      "p": 0.5524861878453037
+    },
+    {
+      "t": 1772184598928,
+      "p": 0.7218884120171672
+    },
+    {
+      "t": 1772224464051,
+      "p": 0.8167420814479638
+    },
+    {
+      "t": 1772226016951,
+      "p": 0.7847783435959587
+    },
+    {
+      "t": 1772271826126,
+      "p": 0.8220816423938361
+    },
+    {
+      "t": 1773698723976,
+      "p": 0.7902354657169706
+    },
+    {
+      "t": 1779772698581,
+      "p": 0.8209049205500761
+    },
+    {
+      "t": 1780033449675,
+      "p": 0.7890316299463951
+    },
+    {
+      "t": 1780033450303,
+      "p": 0.8053274508133855
+    },
+    {
+      "t": 1780040625590,
+      "p": 0.7731577781344647
+    },
+    {
+      "t": 1780040626090,
+      "p": 0.7911264136967097
+    },
+    {
+      "t": 1780044482941,
+      "p": 0.758780944157859
+    },
+    {
+      "t": 1780044483507,
+      "p": 0.7782865747406976
+    },
+    {
+      "t": 1782412457003,
+      "p": 0.7458526881036444
+    },
+    {
+      "t": 1782534421614,
+      "p": 0.7566043152093684
+    },
+    {
+      "t": 1782552335742,
+      "p": 0.724158602509924
+    }
+  ],
+  "historyComplete": true,
+  "lastTradeProbability": 0.724158602509924,
+  "lastTradeAt": 1782552335742,
+  "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+  "provenance": {
+    "marketSha256": "f968b1c2c7c7564b7d00d538836b6de21f1aa1d13fa08d39a8f53ce0557b9335",
+    "historyPages": [
+      {
+        "url": "https://api.manifold.markets/v0/bets?contractId=9UgA28yIAn&limit=1000",
+        "sha256": "b79b4a67a803b81ee9185c5a1e10212ebc6f3844b9a23fe7eff6e177bfbc4610",
+        "rows": 26
+      }
+    ],
+    "fetchedTradeRows": 26,
+    "acceptedTradeRows": 20,
+    "excludedTradeRows": 6
+  },
+  "stage": "engineering",
+  "title": [
+    "中国 2027 年底新型储能装机会超过 180 GW 吗？",
+    "Will China exceed 180 GW of installed new-type storage by end-2027?"
+  ],
+  "rules": [
+    [
+      "按国家能源局等官方数据，中国 2027 年底已安装新型储能功率须 >180 GW。",
+      "Official NEA or equivalent data must show >180 GW installed new-type storage power at end-2027."
+    ],
+    [
+      "统计对象是新型储能功率，不是 GWh 能量、在建项目或抽水蓄能。",
+      "The measure is new-type storage power, not GWh, construction pipeline or pumped hydro."
+    ]
+  ],
+  "interpretation": [
+    "本题以功率规模判定。国家能源局披露的 2024 年底 73.76 GW／168 GWh 为不同单位的基准；未来政策目标不应当作提前完成的投运数据。",
+    "This contract measures power. NEA’s end-2024 73.76 GW/168 GWh baseline uses two different units; a future policy target is not completed operational deployment."
+  ],
+  "entities": [],
+  "evidence": [
+    "eia-storage-2024",
+    "iea-batteries-2026",
+    "nea-storage-2024"
+  ],
+  "briefing": {
+    "contextId": "storage-energy",
+    "summary": [
+      "本题以功率规模判定。国家能源局披露的 2024 年底 73.76 GW／168 GWh 为不同单位的基准；未来政策目标不应当作提前完成的投运数据。",
+      "This contract measures power. NEA’s end-2024 73.76 GW/168 GWh baseline uses two different units; a future policy target is not completed operational deployment."
+    ],
+    "checklist": [
+      [
+        "确认统计时点为 2027 年底。",
+        "Check the end-2027 reference period."
+      ],
+      [
+        "区分功率、能量和投运状态。",
+        "Separate power, energy and operating status."
+      ],
+      [
+        "保留官方统计定义，避免把全部储能归为某一化学体系。",
+        "Retain the official definition rather than assigning every project to one chemistry."
+      ]
+    ]
+  },
+  "relatedIds": [
+    "hOt5P568Iz",
+    "02b1E538uZEMM5tv6i0H"
+  ],
+  "industry": {
+    "entities": [],
+    "evidence": [
+      "eia-storage-2024",
+      "iea-batteries-2026",
+      "nea-storage-2024"
+    ],
+    "stage": [
+      "项目建设 → 并网投运 → 官方装机统计",
+      "Construction → commissioning → installed-capacity statistics"
+    ],
+    "impact": [
+      "国家能源局的已投运统计提供可追踪基准，比各企业产能相加更适合本题。锂离子、液流、压缩空气等路线都可能进入新型储能合计，市场价格反映的是总装机门槛，不能用来比较单独某一种正极、电解液或电池材料的成功率。",
+      "NEA operating statistics provide a traceable baseline, unlike adding manufacturers’ capacities. Lithium-ion, flow and compressed-air systems may all contribute. This is a deployment threshold, not a success probability for a cathode, electrolyte or chemistry."
+    ],
+    "gap": [
+      "细则写超过 180 GW，精确等于 180 GW 不自动满足；政策目标与市场严格不等号须分别核对。",
+      "The contract says strictly over 180 GW; a policy goal or exactly 180 GW is not automatically sufficient."
+    ]
+  },
+  "context": {
+    "id": "storage-energy",
+    "title": [
+      "电池储能的 GW 与 GWh",
+      "Battery storage in GW and GWh"
+    ],
+    "principle": [
+      "电堆或变流器限制功率，电极或电解液总量影响能量。并网储能统计还需区分公用事业级与住宅工商等范围，不能把功率与能量相加。",
+      "Stacks and converters limit power while electrode or electrolyte inventory affects energy. Statistics distinguish utility and distributed sectors; power and energy are not additive."
+    ],
+    "example": [
+      "EIA 记录的超过 26 GW 是公用事业级功率，市场 260 GWh 则是多部门能量阈值，原题固定的 130 GWh 只作为规则常数显示。",
+      "EIA’s over 26 GW measures utility-scale power; the market’s 260 GWh is a multisector energy threshold, with 130 GWh retained solely as a rule constant."
+    ],
+    "evidence": [
+      "eia-storage-2024",
+      "iea-batteries-2026"
+    ]
+  },
+  "historySummary": {
+    "first": {
+      "t": 1764129201539,
+      "p": 0.5243757431629013
+    },
+    "last": {
+      "t": 1782552335742,
+      "p": 0.724158602509924
+    },
+    "change": 19.978285934702278,
+    "low": 0.5243757431629013,
+    "high": 0.8220816423938361,
+    "staleDays": 121.08278462962963
+  },
+  "quality": [
+    {
+      "code": "rules",
+      "label": [
+        "严格大于的功率门槛",
+        "Strict power threshold"
+      ],
+      "detail": [
+        "原规则要求 >180 GW；不要与政策“以上”、GWh 能量或在建产能混用。",
+        "The rule is >180 GW, distinct from policy wording, GWh and construction capacity."
+      ]
+    },
+    {
+      "code": "thin",
+      "label": [
+        "参与较少",
+        "Few participants"
+      ],
+      "detail": [
+        "概率来自少量参与者；查看成交数量与原始规则。",
+        "Few participants contribute; review activity and source rules."
+      ]
+    }
+  ],
+  "tradePoints": 20,
+  "detailFile": "events/9UgA28yIAn.json"
+}

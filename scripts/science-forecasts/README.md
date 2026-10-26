@@ -65,3 +65,15 @@ Each case includes bilingual transformation, catalyst, reported conditions, outc
 The source review keeps scope ranges distinct from single experiments, er from ee, exo/endo ratios from exo ee, lamp wattage from photon flux, mass-based PET loading from concentration per litre, and enzyme mass from catalyst mole fraction. Current-looking project pages do not replace dated historical disclosures. Experimental summaries point to original papers/SI rather than presenting a complete laboratory protocol.
 
 The new navigation is within Science Forecasts. The independent Catalysis/Organic Acid workspace remains separate. Author affiliations follow the publication period (e.g., Berkeley for the 2000 Diels–Alder study; Princeton for the 2008 photoredox study).
+
+## October 26: admission requires an actual trade curve
+
+Thirteen additional binary markets add 1,782 accepted observations in nine existing topics. Ten curve-backed technical topics gain reading; eleven new source documents and 21 indicators bring the archive to 54 markets, 12,793 observations, 63 documents and 71 indicators. The four previously published literature topics and seven Nobel editions are preserved; no new curve-free topic was admitted.
+
+`curve-admission-review.json` records accepted IDs, first/last observations, history page counts, search response hashes and excluded candidates. Empty-rule delivery/phone contracts and unrelated search matches were not used as filler. Small-participation markets are visibly labelled; having a curve does not imply liquid or reliable consensus.
+
+`curveAdmission.mjs` runs **before any output is written**. It requires at least two distinct actual pre-cutoff timestamps, full pagination, valid probabilities, reviewed records and a curve for every non-literature technical topic. New literature-only topic IDs are rejected. The 41 original source snapshots are protected with digests over source metadata/provenance/observations, allowing authored reading to evolve without silently refreshing prices.
+
+Use `collect-manifold.py --ids ID ... --output /tmp/your-capture` to capture a reviewed subset. Merge the new projections with preserved event source records before the build. A refresh of an earlier market requires explicit review and updated snapshot digests; do not automatically replace historical source records. Raw responses and user identities remain local to the temporary capture directory.
+
+New interpretation keeps nuclear hydrogen output separate from reactor heat, approved German pipelines separate from operating European routes, contained V and LCE separate from other material units, NIF target gain separate from net electrical gain, and fuel utilization separate from durable removal. Company costs and product claims are labelled as company disclosures; scientific/context sources do not independently settle a platform contract.
