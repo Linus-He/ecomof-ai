@@ -31,6 +31,7 @@
         ]
       ],
       "family": "awards",
+      "relatedTopicIds": [],
       "marketCount": 0,
       "evidenceIds": [],
       "coverage": {
@@ -367,6 +368,7 @@
         }
       ],
       "family": "physics",
+      "relatedTopicIds": [],
       "marketCount": 8,
       "evidenceIds": [
         "lk99-replication",
@@ -712,6 +714,7 @@
           "evidenceId": "nif-2023-gain"
         }
       ],
+      "relatedTopicIds": [],
       "marketCount": 3,
       "evidenceIds": [
         "fusion-ignition",
@@ -719,7 +722,7 @@
         "nif-2023-gain"
       ],
       "coverage": {
-        "historyPoints": 470,
+        "historyPoints": 471,
         "marketsWithHistory": 3,
         "thinMarkets": 0,
         "ruleFlagMarkets": 2,
@@ -836,6 +839,7 @@
           "evidenceId": "parallel-gates-2023"
         }
       ],
+      "relatedTopicIds": [],
       "marketCount": 3,
       "evidenceIds": [
         "quantum-willow",
@@ -960,6 +964,7 @@
           "evidenceId": "oxford-first-shipment"
         }
       ],
+      "relatedTopicIds": [],
       "marketCount": 4,
       "evidenceIds": [
         "oxford-first-shipment",
@@ -1914,10 +1919,7 @@
       ],
       "family": "chemistry",
       "organic": true,
-      "relatedTopicIds": [
-        "click-bioorthogonal",
-        "asymmetric-organocatalysis"
-      ],
+      "relatedTopicIds": [],
       "marketCount": 5,
       "evidenceIds": [
         "fda-clinical-phases",
@@ -1930,1221 +1932,6 @@
         "ruleFlagMarkets": 3,
         "firstTradeAt": 1643783662068,
         "lastTradeAt": 1766138127107
-      }
-    },
-    {
-      "id": "asymmetric-organocatalysis",
-      "mode": "literature",
-      "family": "chemistry",
-      "organic": true,
-      "category": [
-        "有机化学",
-        "Organic chemistry"
-      ],
-      "title": [
-        "不对称有机催化",
-        "Asymmetric organocatalysis"
-      ],
-      "deck": [
-        "从烯胺与亚胺离子活化，读到收率、er、ee 与非对映比。",
-        "From enamine/iminium activation to yield, er, ee and diastereomeric ratios."
-      ],
-      "about": [
-        "有机小分子可通过与底物暂时成键或非共价作用控制反应。这里以直接 aldol 和 Diels–Alder 为代表，逐项说明活化方式、底物范围与立体选择性。",
-        "Small organic molecules can control reactions through temporary covalent bonding or noncovalent interactions. Direct aldol and Diels–Alder examples connect activation, scope and stereoselectivity."
-      ],
-      "questions": [
-        [
-          "催化剂活化的是亲核体还是亲电体？",
-          "Does the catalyst activate a nucleophile or electrophile?"
-        ],
-        [
-          "收率、ee、er 和 exo:endo 各描述什么？",
-          "What do yield, ee, er and exo:endo describe?"
-        ],
-        [
-          "范围数据和放大实验能否对应到同一条件？",
-          "Do scope and scale-up records share conditions?"
-        ]
-      ],
-      "reactionCases": [
-        {
-          "id": "proline-aldol",
-          "title": [
-            "脯氨酸催化的直接 aldol",
-            "Direct proline-catalyzed aldol"
-          ],
-          "transformation": [
-            "丙酮 + 醛 → 手性 β-羟基酮",
-            "Acetone + aldehyde → chiral β-hydroxy ketone"
-          ],
-          "catalyst": [
-            "L-脯氨酸；经烯胺形成提高亲核性。",
-            "L-proline; enamine formation increases nucleophilicity."
-          ],
-          "conditions": [
-            "官方范围图：30 mol%、DMSO，6 个底物示例；逐个底物条件以原文为准。",
-            "Official scope figure: 30 mol%, DMSO, six examples; substrate-specific conditions follow the original paper."
-          ],
-          "outcome": [
-            "图示范围 54–97% 收率，er 80:20–98:2。",
-            "Scope ranges: 54–97% yield, 80:20–98:2 er."
-          ],
-          "limits": [
-            "范围端点不一定来自同一底物；er 不写成 ee。",
-            "Range endpoints may come from different substrates; er is not reported as ee."
-          ],
-          "evidenceIds": [
-            "organic-nobel2021",
-            "proline-aldol-2000"
-          ],
-          "locator": [
-            "诺奖科学背景印刷第 4 页式 2；原始论文及 SI。",
-            "Nobel background printed p. 4, equation 2; original paper/SI."
-          ]
-        },
-        {
-          "id": "iminium-diels-alder",
-          "title": [
-            "亚胺离子活化的 Diels–Alder",
-            "Iminium-activated Diels–Alder"
-          ],
-          "transformation": [
-            "肉桂醛 + 环戊二烯 → 手性环加成产物",
-            "Cinnamaldehyde + cyclopentadiene → chiral cycloadducts"
-          ],
-          "catalyst": [
-            "论文催化剂 7，5 mol%；可逆形成亚胺离子。",
-            "Paper catalyst 7, 5 mol%; reversible iminium formation."
-          ],
-          "conditions": [
-            "表 1 条目 5：8 h；另有 50 mmol 制备规模实验。",
-            "Table 1 entry 5: 8 h; a separate 50 mmol preparation is reported."
-          ],
-          "outcome": [
-            "99% 收率；exo:endo 1.3:1；exo 为 93% ee。放大段落得 12 g。",
-            "99% yield; 1.3:1 exo:endo; exo 93% ee. Preparative paragraph reports 12 g."
-          ],
-          "limits": [
-            "总收率、非对映比和 exo ee 分别记录；实验室放大不等于工业生产。",
-            "Yield, diastereomeric ratio and exo ee remain separate; laboratory scale is not industrial output."
-          ],
-          "evidenceIds": [
-            "iminium-da-2000"
-          ],
-          "locator": [
-            "JACS 表 1 条目 5；正文制备应用段落。",
-            "JACS Table 1 entry 5; preparative-utility paragraph."
-          ]
-        }
-      ],
-      "metrics": [
-        {
-          "id": "proline-load",
-          "label": [
-            "脯氨酸用量",
-            "Proline loading"
-          ],
-          "value": [
-            "30 mol%",
-            "30 mol%"
-          ],
-          "period": [
-            "2000 年工作；2021 官方汇总",
-            "2000 work; 2021 official summary"
-          ],
-          "scope": [
-            "式 2 的 6 个范围示例；DMSO。",
-            "Equation 2, six scope examples; DMSO."
-          ],
-          "evidenceId": "organic-nobel2021",
-          "kind": "reported"
-        },
-        {
-          "id": "proline-scope-count",
-          "label": [
-            "官方范围图示例数",
-            "Examples in official scope figure"
-          ],
-          "value": [
-            "6",
-            "6"
-          ],
-          "period": [
-            "2021 官方科学背景",
-            "2021 official scientific background"
-          ],
-          "scope": [
-            "只统计式 2 所示范围，非完整文献总数。",
-            "Equation 2 only, not all literature examples."
-          ],
-          "evidenceId": "organic-nobel2021",
-          "kind": "reported"
-        },
-        {
-          "id": "proline-yield",
-          "label": [
-            "aldol 收率范围",
-            "Aldol yield range"
-          ],
-          "value": [
-            "54–97%",
-            "54–97%"
-          ],
-          "period": [
-            "2000 年工作；2021 官方汇总",
-            "2000 work; 2021 official summary"
-          ],
-          "scope": [
-            "范围图不同底物，不能与最佳 er 拼成单一纪录。",
-            "Different substrates; not a combined optimum with best er."
-          ],
-          "evidenceId": "organic-nobel2021",
-          "kind": "reported"
-        },
-        {
-          "id": "proline-er",
-          "label": [
-            "aldol 对映体比例",
-            "Aldol enantiomeric ratio"
-          ],
-          "value": [
-            "80:20–98:2 er",
-            "80:20–98:2 er"
-          ],
-          "period": [
-            "2000 年工作；2021 官方汇总",
-            "2000 work; 2021 official summary"
-          ],
-          "scope": [
-            "er，非 ee；与具体底物匹配。",
-            "er, not ee; match individual substrate."
-          ],
-          "evidenceId": "organic-nobel2021",
-          "kind": "reported"
-        },
-        {
-          "id": "da-loading",
-          "label": [
-            "Diels–Alder 催化剂 7 用量",
-            "Diels–Alder catalyst-7 loading"
-          ],
-          "value": [
-            "5 mol%",
-            "5 mol%"
-          ],
-          "period": [
-            "2000；表 1 条目 5",
-            "2000; Table 1 entry 5"
-          ],
-          "scope": [
-            "肉桂醛／环戊二烯；该条目 8 h。",
-            "Cinnamaldehyde/cyclopentadiene; 8 h."
-          ],
-          "evidenceId": "iminium-da-2000",
-          "kind": "measurement"
-        },
-        {
-          "id": "da-yield",
-          "label": [
-            "Diels–Alder 总收率",
-            "Diels–Alder total yield"
-          ],
-          "value": [
-            "99%",
-            "99%"
-          ],
-          "period": [
-            "2000；表 1 条目 5",
-            "2000; Table 1 entry 5"
-          ],
-          "scope": [
-            "exo:endo 为 1.3:1，不是单一非对映体收率。",
-            "exo:endo 1.3:1; not single-diastereomer yield."
-          ],
-          "evidenceId": "iminium-da-2000",
-          "kind": "measurement"
-        },
-        {
-          "id": "da-exo-ee",
-          "label": [
-            "exo 产物对映体过量",
-            "Exo product enantiomeric excess"
-          ],
-          "value": [
-            "93% ee",
-            "93% ee"
-          ],
-          "period": [
-            "2000；表 1 条目 5",
-            "2000; Table 1 entry 5"
-          ],
-          "scope": [
-            "仅 exo 组分；不与 endo 混为总体 ee。",
-            "Exo fraction only; not a pooled endo/exo ee."
-          ],
-          "evidenceId": "iminium-da-2000",
-          "kind": "measurement"
-        },
-        {
-          "id": "da-scale",
-          "label": [
-            "实验室制备投料规模",
-            "Laboratory preparative scale"
-          ],
-          "value": [
-            "50 mmol",
-            "50 mmol"
-          ],
-          "period": [
-            "2000；正文放大段落",
-            "2000; preparative paragraph"
-          ],
-          "scope": [
-            "与表 1 筛选条目分开记录。",
-            "Separate preparative run from screening entry."
-          ],
-          "evidenceId": "iminium-da-2000",
-          "kind": "measurement"
-        },
-        {
-          "id": "da-mass",
-          "label": [
-            "制备实验产物质量",
-            "Preparative product mass"
-          ],
-          "value": [
-            "12 g",
-            "12 g"
-          ],
-          "period": [
-            "2000；正文放大段落",
-            "2000; preparative paragraph"
-          ],
-          "scope": [
-            "原文同时报告 99% 收率与 exo 93% ee，非工厂产量。",
-            "Also reports 99% yield/exo 93% ee; not factory output."
-          ],
-          "evidenceId": "iminium-da-2000",
-          "kind": "measurement"
-        }
-      ],
-      "sections": [
-        {
-          "title": [
-            "烯胺与亚胺离子",
-            "Enamines and iminium ions"
-          ],
-          "body": [
-            "烯胺形成可提高羰基 α 位的亲核性；不饱和亚胺离子形成可增强亲电反应性。这是活化模式说明，具体中间体和过渡态证据仍以原文研究为准。",
-            "Enamine formation increases α-carbon nucleophilicity, while unsaturated iminium formation enhances electrophilic reactivity. Specific intermediate/transition-state evidence remains source-dependent."
-          ]
-        },
-        {
-          "title": [
-            "立体选择性要分层阅读",
-            "Separate stereochemical metrics"
-          ],
-          "body": [
-            "ee = |R−S|/(R+S)×100%，er 是两对映体的比例；非对映体比例另用 dr 或 exo:endo。Diels–Alder 例的 exo 93% ee 与 1.3:1 非对映比可以同时成立。",
-            "ee is |R−S|/(R+S)×100%, er is an enantiomer ratio, and diastereomers need dr or exo:endo. Exo 93% ee and a 1.3:1 diastereomeric ratio can coexist."
-          ]
-        },
-        {
-          "title": [
-            "从反应方法到过程评价",
-            "From method to process assessment"
-          ],
-          "body": [
-            "催化剂摩尔分数、溶剂、分离步骤和底物范围都会影响实用性。无金属有机催化不自动代表更低的过程能耗、溶剂消耗或废物量。",
-            "Loading, solvent, workup and scope affect practical use. Metal-free organocatalysis alone does not establish lower energy, solvent use or waste."
-          ]
-        }
-      ],
-      "marketNote": [
-        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
-        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
-      ],
-      "relatedTopicIds": [
-        "visible-light-organic",
-        "click-bioorthogonal",
-        "pet-enzymatic-recycling"
-      ],
-      "marketCount": 0,
-      "evidenceIds": [
-        "organic-nobel2021",
-        "proline-aldol-2000",
-        "iminium-da-2000"
-      ],
-      "coverage": {
-        "historyPoints": 0,
-        "marketsWithHistory": 0,
-        "thinMarkets": 0,
-        "ruleFlagMarkets": 0,
-        "firstTradeAt": null,
-        "lastTradeAt": null
-      }
-    },
-    {
-      "id": "visible-light-organic",
-      "mode": "literature",
-      "family": "chemistry",
-      "organic": true,
-      "category": [
-        "有机化学",
-        "Organic chemistry"
-      ],
-      "title": [
-        "可见光光氧化还原合成",
-        "Visible-light photoredox synthesis"
-      ],
-      "deck": [
-        "自由基生成、手性控制与光反应条件分别核对。",
-        "Inspect radical generation, stereocontrol and illumination conditions separately."
-      ],
-      "about": [
-        "光激发可改变催化剂的单电子转移能力，有机催化则可提供底物活化与手性环境。本专题比较 Ru／胺双催化与有机染料路线，保留各自条件。",
-        "Photoexcitation changes single-electron-transfer capability while organocatalysts activate substrates and provide stereocontrol. Ru/amine and organic-dye routes retain their distinct conditions."
-      ],
-      "questions": [
-        [
-          "光催化剂和有机催化剂分别承担什么作用？",
-          "What roles do the photo- and organocatalysts play?"
-        ],
-        [
-          "光源功率、波长、几何和反应温度是否同时记录？",
-          "Are power, spectrum, geometry and temperature documented?"
-        ],
-        [
-          "收率与 ee 是否来自同一底物和条件？",
-          "Do yield and ee refer to the same substrate and conditions?"
-        ]
-      ],
-      "reactionCases": [
-        {
-          "id": "dual-alpha-alkylation",
-          "title": [
-            "双催化醛 α-烷基化",
-            "Dual-catalytic aldehyde α-alkylation"
-          ],
-          "transformation": [
-            "辛醛 + 溴代丙二酸二乙酯 → α-取代醛",
-            "Octanal + diethyl bromomalonate → α-alkylated aldehyde"
-          ],
-          "catalyst": [
-            "Ru(bpy)₃Cl₂ 0.5 mol% + 手性有机催化剂 6 20 mol%。",
-            "0.5 mol% Ru(bpy)₃Cl₂ + 20 mol% chiral organocatalyst 6."
-          ],
-          "conditions": [
-            "DMF、2,6-lutidine、23 °C、15 W 荧光灯；表 1 通用图示。",
-            "DMF, 2,6-lutidine, 23 °C, 15 W fluorescent lamp; Table 1 conditions."
-          ],
-          "outcome": [
-            "同一条目 1：93% 收率、90% ee。",
-            "Same entry 1: 93% yield and 90% ee."
-          ],
-          "limits": [
-            "灯泡瓦数不等于有效照射强度；其他底物条目的例外催化剂用量不被覆盖。",
-            "Lamp wattage is not irradiance; exceptions in other substrate entries are not overwritten."
-          ],
-          "evidenceIds": [
-            "dual-photoredox-2008"
-          ],
-          "locator": [
-            "Science 表 1 条目 1、催化剂组合图及脚注。",
-            "Science Table 1 entry 1, catalyst box and footnotes."
-          ]
-        },
-        {
-          "id": "rose-bengal-alpha",
-          "title": [
-            "染料介导的无过渡金属 α-烷基化",
-            "Dye-mediated transition-metal-free α-alkylation"
-          ],
-          "transformation": [
-            "醛 + 烷基化试剂 → 对映富集 α-烷基化产物",
-            "Aldehyde + alkylating reagent → enantioenriched α-alkylated product"
-          ],
-          "catalyst": [
-            "Rose Bengal + 咪唑烷酮有机催化剂；另有亲电助催化剂。",
-            "Rose Bengal + imidazolidinone, with an electrophilic cocatalyst."
-          ],
-          "conditions": [
-            "可见光体系；完整溶剂、剂量和底物条件见原文及 SI。",
-            "Visible-light system; exact solvent, dose and substrate conditions follow the paper/SI."
-          ],
-          "outcome": [
-            "原文报告直接对映选择性 α-烷基化；本页不填入未逐项核对的产率。",
-            "The source reports direct enantioselective α-alkylation; unverified individual yields are not inserted."
-          ],
-          "limits": [
-            "不把 Ru 体系数据移植至染料体系；无过渡金属不是全流程环境评价。",
-            "Ru-system data are not transferred; transition-metal-free is not a lifecycle assessment."
-          ],
-          "evidenceIds": [
-            "rose-bengal-2012"
-          ],
-          "locator": [
-            "Green Chemistry 正文与补充材料。",
-            "Green Chemistry article and SI."
-          ]
-        }
-      ],
-      "metrics": [
-        {
-          "id": "photo-ru-loading",
-          "label": [
-            "Ru 光催化剂用量",
-            "Ru photocatalyst loading"
-          ],
-          "value": [
-            "0.5 mol%",
-            "0.5 mol%"
-          ],
-          "period": [
-            "2008；表 1 条目 1",
-            "2008; Table 1 entry 1"
-          ],
-          "scope": [
-            "与 20 mol% 有机催化剂协同；不是无金属体系。",
-            "Combined with 20 mol% organocatalyst; not metal-free."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        },
-        {
-          "id": "photo-amine-loading",
-          "label": [
-            "有机催化剂用量",
-            "Organocatalyst loading"
-          ],
-          "value": [
-            "20 mol%",
-            "20 mol%"
-          ],
-          "period": [
-            "2008；表 1 通用条件",
-            "2008; Table 1 general conditions"
-          ],
-          "scope": [
-            "条目 1；其他条目如有脚注例外需另查。",
-            "Entry 1; exceptions require footnote review."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        },
-        {
-          "id": "photo-lamp",
-          "label": [
-            "荧光灯额定功率",
-            "Fluorescent-lamp rated power"
-          ],
-          "value": [
-            "15 W",
-            "15 W"
-          ],
-          "period": [
-            "2008；表 1 光源图",
-            "2008; Table 1 photon-source box"
-          ],
-          "scope": [
-            "灯泡功率，非光通量、光子通量或量子产率。",
-            "Lamp rating, not flux or quantum yield."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        },
-        {
-          "id": "photo-temperature",
-          "label": [
-            "反应温度",
-            "Reaction temperature"
-          ],
-          "value": [
-            "23 °C",
-            "23 °C"
-          ],
-          "period": [
-            "2008；表 1 通用条件",
-            "2008; Table 1 general conditions"
-          ],
-          "scope": [
-            "DMF、荧光灯体系；不推广到所有光反应。",
-            "DMF/fluorescent-lamp system, not all photoreactions."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        },
-        {
-          "id": "photo-entry1-yield",
-          "label": [
-            "辛醛 α-烷基化收率",
-            "Octanal α-alkylation yield"
-          ],
-          "value": [
-            "93%",
-            "93%"
-          ],
-          "period": [
-            "2008；表 1 条目 1",
-            "2008; Table 1 entry 1"
-          ],
-          "scope": [
-            "溴代丙二酸二乙酯体系；与相邻行 ee 同一条目。",
-            "Diethyl bromomalonate system; same entry as the adjacent ee."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        },
-        {
-          "id": "photo-entry1-ee",
-          "label": [
-            "辛醛 α-烷基化 ee",
-            "Octanal α-alkylation ee"
-          ],
-          "value": [
-            "90% ee",
-            "90% ee"
-          ],
-          "period": [
-            "2008；表 1 条目 1",
-            "2008; Table 1 entry 1"
-          ],
-          "scope": [
-            "对应 93% 收率条目；不是全部底物平均值。",
-            "Same entry as 93% yield; not a scope average."
-          ],
-          "evidenceId": "dual-photoredox-2008",
-          "kind": "measurement"
-        }
-      ],
-      "sections": [
-        {
-          "title": [
-            "单电子转移与两电子反应",
-            "Single-electron and two-electron chemistry"
-          ],
-          "body": [
-            "自由基生成提供不同的成键路径，但反应是否成功仍取决于电子转移、催化循环和底物匹配。机理图表示研究提出的过程，不能仅凭高产率证明每个中间体。",
-            "Radical generation enables different bond-forming paths, but electron transfer, turnover and substrate matching still matter. A proposed mechanism is not established solely by high yield."
-          ]
-        },
-        {
-          "title": [
-            "光反应的可比条件",
-            "Comparable photochemical conditions"
-          ],
-          "body": [
-            "波长分布、灯到样品距离、容器、搅拌、溶液吸收和温度都影响结果。只报告 15 W 灯泡不能完整重现有效光剂量，也不能计算量子产率。",
-            "Spectrum, distance, vessel, mixing, absorption and temperature influence results. A 15 W rating does not reproduce absorbed light dose or determine quantum yield."
-          ]
-        },
-        {
-          "title": [
-            "绿色主张要核算全流程",
-            "Assess the whole process"
-          ],
-          "body": [
-            "可见光或无过渡金属是技术属性。环境比较还需溶剂、助试剂、分离、能源和产物量的共同口径。",
-            "Visible-light and transition-metal-free describe methods; environmental comparisons also need solvent, reagents, isolation, energy and product-scale accounting."
-          ]
-        }
-      ],
-      "marketNote": [
-        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
-        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
-      ],
-      "relatedTopicIds": [
-        "asymmetric-organocatalysis",
-        "click-bioorthogonal",
-        "pet-enzymatic-recycling"
-      ],
-      "marketCount": 0,
-      "evidenceIds": [
-        "dual-photoredox-2008",
-        "rose-bengal-2012"
-      ],
-      "coverage": {
-        "historyPoints": 0,
-        "marketsWithHistory": 0,
-        "thinMarkets": 0,
-        "ruleFlagMarkets": 0,
-        "firstTradeAt": null,
-        "lastTradeAt": null
-      }
-    },
-    {
-      "id": "click-bioorthogonal",
-      "mode": "literature",
-      "family": "chemistry",
-      "organic": true,
-      "category": [
-        "有机化学",
-        "Organic chemistry"
-      ],
-      "title": [
-        "点击与生物正交化学",
-        "Click & bioorthogonal chemistry"
-      ],
-      "deck": [
-        "从 CuAAC 的区域选择性，到无铜连接与成像读出。",
-        "From CuAAC regioselectivity to copper-free ligation and imaging readouts."
-      ],
-      "about": [
-        "点击化学强调可靠的分子连接，生物正交还要求反应在复杂生物环境中尽量避免干扰原有过程。这里分别展示固相、溶液 CuAAC 与应变促进路线。",
-        "Click chemistry emphasizes reliable molecular connection, while bioorthogonality adds compatibility with complex biological environments. Solid-phase/solution CuAAC and strain-promoted routes are distinguished."
-      ],
-      "questions": [
-        [
-          "连接的是哪些官能团，形成哪种区域异构体？",
-          "Which functional groups connect and which regioisomer forms?"
-        ],
-        [
-          "催化剂、介质和生物相容性怎样对应？",
-          "How do catalyst, medium and biological compatibility relate?"
-        ],
-        [
-          "检测信号是否能直接代表化学转化？",
-          "Does the detection signal directly measure chemical conversion?"
-        ]
-      ],
-      "reactionCases": [
-        {
-          "id": "cuaac-solid",
-          "title": [
-            "固相 CuAAC 肽连接",
-            "Solid-phase CuAAC peptide ligation"
-          ],
-          "transformation": [
-            "树脂连接末端炔 + 有机叠氮 → 1,4-取代三唑",
-            "Resin-bound terminal alkyne + organic azide → 1,4-substituted triazole"
-          ],
-          "catalyst": [
-            "Cu(I) 催化；极性固相载体。",
-            "Cu(I) catalysis on a polar solid support."
-          ],
-          "conditions": [
-            "官方图 6a：碱、THF、25 °C；具体试剂量见原研究。",
-            "Official Figure 6a: base, THF, 25 °C; amounts follow the original study."
-          ],
-          "outcome": [
-            "构建肽骨架或侧链三唑，研究多类叠氮底物。",
-            "Constructs peptide backbone/side-chain triazoles across azide classes."
-          ],
-          "limits": [
-            "不把树脂负载、区域选择性和分离收率混为一项数值。",
-            "Resin loading, regioselectivity and isolated yield remain separate."
-          ],
-          "evidenceIds": [
-            "cuaac-solid-2002",
-            "click-nobel2022"
-          ],
-          "locator": [
-            "JOC 原研究；诺奖科学背景图 6a。",
-            "JOC original study; Nobel background Figure 6a."
-          ]
-        },
-        {
-          "id": "cuaac-solution",
-          "title": [
-            "溶液中原位生成 Cu(I) 的连接",
-            "Solution ligation with in-situ Cu(I)"
-          ],
-          "transformation": [
-            "有机叠氮 + 末端炔 → 1,4-二取代 1,2,3-三唑",
-            "Organic azide + terminal alkyne → 1,4-disubstituted 1,2,3-triazole"
-          ],
-          "catalyst": [
-            "CuSO₄·5H₂O／抗坏血酸钠，原位形成 Cu(I)。",
-            "CuSO₄·5H₂O/sodium ascorbate generates Cu(I)."
-          ],
-          "conditions": [
-            "官方图 6b：水／叔丁醇、25 °C。",
-            "Official Figure 6b: water/tert-butanol, 25 °C."
-          ],
-          "outcome": [
-            "选择性形成所示 1,4-取代产物；本页不将“高收率”改写成统一百分比。",
-            "Selective 1,4-product formation; qualitative high yield is not assigned an invented percentage."
-          ],
-          "limits": [
-            "水相有机合成与活细胞相容性不是同一要求。",
-            "Aqueous synthesis and live-cell compatibility impose different requirements."
-          ],
-          "evidenceIds": [
-            "click-nobel2022"
-          ],
-          "locator": [
-            "诺奖科学背景印刷第 7 页图 6b。",
-            "Nobel background printed p. 7, Figure 6b."
-          ]
-        },
-        {
-          "id": "spaac-ligation",
-          "title": [
-            "环张力促进的生物正交连接",
-            "Strain-promoted bioorthogonal ligation"
-          ],
-          "transformation": [
-            "环辛炔类探针 + 叠氮标记生物分子 → 共价连接产物",
-            "Cyclooctyne probe + azide-labelled biomolecule → covalent conjugate"
-          ],
-          "catalyst": [
-            "环张力驱动；无需铜催化剂。",
-            "Ring strain drives reaction; no copper catalyst."
-          ],
-          "conditions": [
-            "2004 生理条件化学；2007 活体系成像是后续独立工作。",
-            "Physiological-condition chemistry in 2004; live-system imaging in 2007 is separate follow-up."
-          ],
-          "outcome": [
-            "展示选择性连接与成像应用，不把荧光读出当作分离收率。",
-            "Selective ligation and imaging are shown without treating fluorescence as isolated yield."
-          ],
-          "limits": [
-            "反应速率、背景和探针相容性依赖具体结构与环境。",
-            "Rate, background and compatibility depend on probe and environment."
-          ],
-          "evidenceIds": [
-            "spaac-2004",
-            "copperfree-imaging-2007"
-          ],
-          "locator": [
-            "JACS 2004 与 PNAS 2007 原文。",
-            "JACS 2004 and PNAS 2007 originals."
-          ]
-        }
-      ],
-      "metrics": [
-        {
-          "id": "click-early-yield",
-          "label": [
-            "早期固相 CuAAC 收率范围",
-            "Early solid-phase CuAAC yield range"
-          ],
-          "value": [
-            "80–95%",
-            "80–95%"
-          ],
-          "period": [
-            "2001 会议工作；2022 官方汇总",
-            "2001 conference work; 2022 official summary"
-          ],
-          "scope": [
-            "官方印刷第 6 页；不冒充 2002 全底物统一结果。",
-            "Printed p. 6; not a universal 2002 scope result."
-          ],
-          "evidenceId": "click-nobel2022",
-          "kind": "reported"
-        },
-        {
-          "id": "click-solid-temp",
-          "label": [
-            "固相 CuAAC 图示温度",
-            "Solid-phase CuAAC illustrated temperature"
-          ],
-          "value": [
-            "25 °C",
-            "25 °C"
-          ],
-          "period": [
-            "2022 图 6a 汇总历史研究",
-            "2022 Figure 6a, historical work"
-          ],
-          "scope": [
-            "Cu(I)、碱、THF；其余参数以原研究为准。",
-            "Cu(I), base, THF; remaining details in original study."
-          ],
-          "evidenceId": "click-nobel2022",
-          "kind": "reported"
-        },
-        {
-          "id": "click-solution-temp",
-          "label": [
-            "溶液 CuAAC 图示温度",
-            "Solution CuAAC illustrated temperature"
-          ],
-          "value": [
-            "25 °C",
-            "25 °C"
-          ],
-          "period": [
-            "2022 图 6b 汇总历史研究",
-            "2022 Figure 6b, historical work"
-          ],
-          "scope": [
-            "CuSO₄／抗坏血酸钠；水／叔丁醇。",
-            "CuSO₄/ascorbate; water/tert-butanol."
-          ],
-          "evidenceId": "click-nobel2022",
-          "kind": "reported"
-        }
-      ],
-      "sections": [
-        {
-          "title": [
-            "区域选择性与原子连接",
-            "Regioselectivity and connectivity"
-          ],
-          "body": [
-            "末端炔与有机叠氮可形成三唑。CuAAC 选择性形成 1,4-取代产物；非催化热反应与不同金属体系可能有不同的区域选择性。",
-            "Terminal alkynes and azides form triazoles. CuAAC favors the 1,4-product, whereas uncatalyzed thermal or other metal systems can differ."
-          ]
-        },
-        {
-          "title": [
-            "生物正交是额外要求",
-            "Bioorthogonality adds requirements"
-          ],
-          "body": [
-            "在有机溶剂中高收率连接，并不自动满足细胞中的速率、选择性和相容性。无铜路线仍须检查探针结构、非特异背景与实际反应环境。",
-            "High-yield organic-solvent ligation does not automatically meet cellular rate, selectivity or compatibility requirements. Copper-free probes still need background and context checks."
-          ]
-        },
-        {
-          "title": [
-            "从标记到读数",
-            "From labelling to readout"
-          ],
-          "body": [
-            "标记反应与显影过程涉及浓度、孵育、清洗、定位及仪器设置。荧光强度的变化需要适当对照，不能未经校准就称为分离产率。",
-            "Labelling/readout depends on concentration, incubation, washing, localization and instruments. Fluorescence changes need controls and are not uncalibrated isolated yields."
-          ]
-        }
-      ],
-      "marketNote": [
-        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
-        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
-      ],
-      "relatedTopicIds": [
-        "asymmetric-organocatalysis",
-        "visible-light-organic",
-        "pet-enzymatic-recycling"
-      ],
-      "marketCount": 0,
-      "evidenceIds": [
-        "click-nobel2022",
-        "cuaac-solid-2002",
-        "spaac-2004",
-        "copperfree-imaging-2007"
-      ],
-      "coverage": {
-        "historyPoints": 0,
-        "marketsWithHistory": 0,
-        "thinMarkets": 0,
-        "ruleFlagMarkets": 0,
-        "firstTradeAt": null,
-        "lastTradeAt": null
-      }
-    },
-    {
-      "id": "pet-enzymatic-recycling",
-      "mode": "literature",
-      "family": "chemistry",
-      "organic": true,
-      "category": [
-        "有机化学",
-        "Organic chemistry"
-      ],
-      "title": [
-        "PET 解聚与酶催化循环",
-        "PET depolymerization & enzymatic recycling"
-      ],
-      "deck": [
-        "把酯键水解、单体回收、再聚合和工厂处理能力分别计量。",
-        "Measure ester hydrolysis, monomer recovery, repolymerization and plant throughput separately."
-      ],
-      "about": [
-        "PET 属于聚酯，酶催化可以断裂其酯键并回收单体。材料结晶度、预处理和传质影响反应，实验解聚与商品级单体分离、再聚合仍是不同环节。",
-        "PET is a polyester whose ester bonds can be hydrolyzed enzymatically. Crystallinity, pretreatment and transport affect reaction; laboratory depolymerization, commercial monomer separation and repolymerization are distinct steps."
-      ],
-      "questions": [
-        [
-          "底物是薄片、热成型产品还是经处理的瓶体？",
-          "Is the feed a film, thermoformed product or treated bottle?"
-        ],
-        [
-          "解聚、单体分离和再聚合各自的物料衡算是什么？",
-          "What are the mass balances for depolymerization, separation and repolymerization?"
-        ],
-        [
-          "工厂数据是设计能力、进料量还是实际产品量？",
-          "Is a plant figure design capacity, feed or measured output?"
-        ]
-      ],
-      "reactionCases": [
-        {
-          "id": "pet-lcc",
-          "title": [
-            "工程化水解酶回收 PET 单体",
-            "Engineered hydrolase recovers PET monomers"
-          ],
-          "transformation": [
-            "PET 酯键水解 → 对苯二甲酸类产物与乙二醇",
-            "PET ester hydrolysis → terephthalate and ethylene glycol"
-          ],
-          "catalyst": [
-            "2020 年研究的工程化 PET 水解酶。",
-            "Engineered PET hydrolase from the 2020 study."
-          ],
-          "conditions": [
-            "摘要：200 g PET/kg 悬浮液，3 mg 酶/g PET，10 h；完整预处理、pH 与温度见原文。",
-            "Abstract: 200 g PET/kg suspension, 3 mg enzyme/g PET, 10 h; full pretreatment, pH and temperature follow the paper."
-          ],
-          "outcome": [
-            "至少 90% 解聚；16.7 g 对苯二甲酸类产物·L⁻¹·h⁻¹；展示再聚合。",
-            "At least 90% depolymerization; 16.7 g terephthalate·L⁻¹·h⁻¹, with repolymerization."
-          ],
-          "limits": [
-            "解聚率、单体回收率与再聚合总收率不同；不适用于所有塑料。",
-            "Depolymerization, monomer recovery and overall repolymerization yield differ; not all plastics qualify."
-          ],
-          "evidenceIds": [
-            "pet-lcc-2020"
-          ],
-          "locator": [
-            "Nature 2020 原文摘要与实验部分。",
-            "Nature 2020 abstract and experimental sections."
-          ]
-        },
-        {
-          "id": "fast-petase",
-          "title": [
-            "FAST-PETase 与不同 PET 形态",
-            "FAST-PETase across PET forms"
-          ],
-          "transformation": [
-            "消费后 PET → 可回收单体；再合成 PET",
-            "Post-consumer PET → recoverable monomers and resynthesized PET"
-          ],
-          "catalyst": [
-            "机器学习辅助改造的 FAST-PETase。",
-            "Machine-learning-aided FAST-PETase variant."
-          ],
-          "conditions": [
-            "51 种未处理热成型产品：一周内；水瓶无定形部分与热处理整瓶另在 50 °C 下研究。",
-            "51 untreated thermoformed products: within a week; bottle amorphous regions and pretreated whole bottles separately at 50 °C."
-          ],
-          "outcome": [
-            "所测热成型产品近乎完全解聚，并展示回收单体后的闭环。",
-            "Near-complete depolymerization of tested thermoformed products and a recovered-monomer loop."
-          ],
-          "limits": [
-            "热成型样品与高结晶瓶体、热预处理整瓶不能混为相同底物条件。",
-            "Thermoformed material, crystalline bottles and pretreated whole bottles are distinct conditions."
-          ],
-          "evidenceIds": [
-            "fast-petase-2022"
-          ],
-          "locator": [
-            "Nature 2022 摘要、图 3–4。",
-            "Nature 2022 abstract, Figures 3–4."
-          ]
-        }
-      ],
-      "metrics": [
-        {
-          "id": "pet-lcc-rate",
-          "label": [
-            "PET 解聚率与反应时间",
-            "PET depolymerization and time"
-          ],
-          "value": [
-            "≥90% · 10 h",
-            "≥90% · 10 h"
-          ],
-          "period": [
-            "2020 年研究摘要",
-            "2020 research abstract"
-          ],
-          "scope": [
-            "对应下列投料与酶用量；不是环境降解半衰期。",
-            "At the stated loading/enzyme dose; not environmental half-life."
-          ],
-          "evidenceId": "pet-lcc-2020",
-          "kind": "measurement"
-        },
-        {
-          "id": "pet-lcc-productivity",
-          "label": [
-            "对苯二甲酸类产物生产率",
-            "Terephthalate productivity"
-          ],
-          "value": [
-            "16.7 g·L⁻¹·h⁻¹",
-            "16.7 g·L⁻¹·h⁻¹"
-          ],
-          "period": [
-            "2020 年研究摘要",
-            "2020 research abstract"
-          ],
-          "scope": [
-            "以对苯二甲酸类产物质量计，非总单体或净循环收益。",
-            "Terephthalate mass, not total monomer or net circular benefit."
-          ],
-          "evidenceId": "pet-lcc-2020",
-          "kind": "measurement"
-        },
-        {
-          "id": "pet-lcc-loading",
-          "label": [
-            "悬浮液 PET 投料",
-            "PET loading in suspension"
-          ],
-          "value": [
-            "200 g PET/kg",
-            "200 g PET/kg"
-          ],
-          "period": [
-            "2020 年研究摘要",
-            "2020 research abstract"
-          ],
-          "scope": [
-            "分母为悬浮液质量，不擅自换成 g/L。",
-            "Per kg suspension, not silently converted to g/L."
-          ],
-          "evidenceId": "pet-lcc-2020",
-          "kind": "measurement"
-        },
-        {
-          "id": "pet-lcc-enzyme",
-          "label": [
-            "酶质量用量",
-            "Enzyme mass loading"
-          ],
-          "value": [
-            "3 mg/g PET",
-            "3 mg/g PET"
-          ],
-          "period": [
-            "2020 年研究摘要",
-            "2020 research abstract"
-          ],
-          "scope": [
-            "以 PET 质量为分母，不是催化剂 mol%。",
-            "Per mass of PET, not catalyst mol%."
-          ],
-          "evidenceId": "pet-lcc-2020",
-          "kind": "measurement"
-        },
-        {
-          "id": "fast-petase-products",
-          "label": [
-            "热成型消费后样品数",
-            "Post-consumer thermoformed products"
-          ],
-          "value": [
-            "51",
-            "51"
-          ],
-          "period": [
-            "2022 年研究",
-            "2022 study"
-          ],
-          "scope": [
-            "所测未处理热成型产品，一周内近乎完全解聚。",
-            "Tested untreated thermoformed products, near-complete within one week."
-          ],
-          "evidenceId": "fast-petase-2022",
-          "kind": "measurement"
-        },
-        {
-          "id": "fast-petase-bottle-temp",
-          "label": [
-            "水瓶相关试验温度",
-            "Bottle-experiment temperature"
-          ],
-          "value": [
-            "50 °C",
-            "50 °C"
-          ],
-          "period": [
-            "2022 年研究",
-            "2022 study"
-          ],
-          "scope": [
-            "未处理无定形部分与热处理整瓶分别研究，非任意未处理整瓶。",
-            "Amorphous regions and thermally pretreated whole bottles separately; not any untreated bottle."
-          ],
-          "evidenceId": "fast-petase-2022",
-          "kind": "measurement"
-        },
-        {
-          "id": "carbios-design-feed",
-          "label": [
-            "工厂设计废料处理能力",
-            "Plant design waste-processing capacity"
-          ],
-          "value": [
-            "50,000 吨/年",
-            "50,000 t/year"
-          ],
-          "period": [
-            "2024-04-25 历史开工公告",
-            "Historical groundbreaking release 2024-04-25"
-          ],
-          "scope": [
-            "满负荷项目目标；后续报告记录 2024-12 暂停建设，不推断当前状态。",
-            "Full-operation target; later report records December 2024 suspension, without inferring current status."
-          ],
-          "evidenceId": "carbios-groundbreaking-2024",
-          "kind": "target"
-        }
-      ],
-      "sections": [
-        {
-          "title": [
-            "酯键水解与塑料类别",
-            "Ester hydrolysis and polymer class"
-          ],
-          "body": [
-            "PET 水解涉及酯键断裂，不是直接切断任意聚合物的碳—碳主链。PET 研究不能推广到聚乙烯、聚丙烯等不同化学结构的塑料。",
-            "PET hydrolysis cleaves ester bonds rather than arbitrary C–C polymer backbones; results do not automatically extend to polyethylene or polypropylene."
-          ]
-        },
-        {
-          "title": [
-            "形态与预处理影响反应",
-            "Morphology and pretreatment"
-          ],
-          "body": [
-            "结晶度、比表面积、粒径和热处理影响酶与聚合物接触。不同形态的数据应保留预处理条件，避免把易解聚薄片结果用作所有水瓶的表现。",
-            "Crystallinity, area, size and heat treatment affect enzyme–polymer contact. Preserve pretreatment so accessible films do not stand in for all bottles."
-          ]
-        },
-        {
-          "title": [
-            "闭环不只是一项高转化率",
-            "A loop needs more than high conversion"
-          ],
-          "body": [
-            "闭环还需回收纯度、损失、再聚合质量和能源物料核算。论文与项目历史分别记录；早期 50 kt/年目标不写成已实现的稳定吞吐量。",
-            "A loop also needs purity, losses, repolymerized quality and resource accounting. Papers and project history remain separate; an early 50 kt/year target is not measured steady throughput."
-          ]
-        }
-      ],
-      "marketNote": [
-        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
-        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
-      ],
-      "relatedTopicIds": [
-        "asymmetric-organocatalysis",
-        "visible-light-organic",
-        "click-bioorthogonal"
-      ],
-      "marketCount": 0,
-      "evidenceIds": [
-        "pet-lcc-2020",
-        "fast-petase-2022",
-        "carbios-groundbreaking-2024",
-        "carbios-sustainability-2024"
-      ],
-      "coverage": {
-        "historyPoints": 0,
-        "marketsWithHistory": 0,
-        "thinMarkets": 0,
-        "ruleFlagMarkets": 0,
-        "firstTradeAt": null,
-        "lastTradeAt": null
       }
     }
   ],
@@ -5128,13 +3915,13 @@
           "p": 0.1840488020569319
         },
         "last": {
-          "t": 1776479042167,
+          "t": 1783658837289,
           "p": 0.35643725224478695
         },
         "change": 17.238845018785508,
         "low": 0.14510071436553335,
         "high": 0.5738505067904532,
-        "staleDays": 190.3891625
+        "staleDays": 107.28968192129629
       },
       "quality": [
         {
@@ -5149,7 +3936,7 @@
           ]
         }
       ],
-      "tradePoints": 139,
+      "tradePoints": 140,
       "detailFile": "events/BGT0eBN2kmD6FmsXEvFt.json"
     },
     {
@@ -9295,87 +8082,6 @@
       "logo": "images/science-forecasts/insilico-shanghai.ico",
       "assetSource": "https://insilico.com/favicon.ico",
       "sha256": "bbff5b1bb1a1be9847ec026f4e80dc704edc42c214ec53ce34bd59d365fd60ce"
-    },
-    {
-      "id": "scripps",
-      "name": [
-        "斯克里普斯研究所",
-        "Scripps Research"
-      ],
-      "intro": [
-        "所引 2000 年脯氨酸 aldol 论文的作者机构；机构归属按论文时期标注。",
-        "Author affiliation of the 2000 proline aldol paper, identified at the time of that work."
-      ],
-      "country": {
-        "code": "US",
-        "name": [
-          "美国",
-          "United States"
-        ],
-        "basis": [
-          "论文时期机构所在地",
-          "Institution location at publication"
-        ],
-        "source": "https://magazine.scripps.edu/"
-      },
-      "url": "https://magazine.scripps.edu/",
-      "logo": "images/nobel/organizations/scripps.ico",
-      "assetSource": "https://magazine.scripps.edu/favicon.ico",
-      "sha256": "4060e9554d87c445f771d9eb6cacedd32a6f49842c5a6fff1a97bef5220a8f08"
-    },
-    {
-      "id": "princeton",
-      "name": [
-        "普林斯顿大学",
-        "Princeton University"
-      ],
-      "intro": [
-        "所引 2008 年光氧化还原／有机协同催化论文的作者机构；同时提供作者公开论文入口。",
-        "Author institution of the 2008 dual-catalysis paper and host of openly posted author papers."
-      ],
-      "country": {
-        "code": "US",
-        "name": [
-          "美国",
-          "United States"
-        ],
-        "basis": [
-          "论文时期机构所在地",
-          "Institution location at publication"
-        ],
-        "source": "https://www.princeton.edu/"
-      },
-      "url": "https://www.princeton.edu/",
-      "logo": "images/nobel/organizations/princeton.ico",
-      "assetSource": "https://www.princeton.edu/favicon.ico",
-      "sha256": "1e2986170bb3fa068b571d9816dddf263135d1122a9e8113d88705dc0b050307"
-    },
-    {
-      "id": "berkeley",
-      "name": [
-        "加州大学伯克利分校",
-        "University of California, Berkeley"
-      ],
-      "intro": [
-        "所引 2000 年亚胺离子催化与早期生物正交工作的论文时期机构，不用后来的任职替代。",
-        "Historical affiliation for the 2000 iminium-catalysis and early bioorthogonal work, rather than later appointments."
-      ],
-      "country": {
-        "code": "US",
-        "name": [
-          "美国",
-          "United States"
-        ],
-        "basis": [
-          "论文时期机构所在地",
-          "Institution location at publication"
-        ],
-        "source": "https://chemistry.berkeley.edu/"
-      },
-      "url": "https://chemistry.berkeley.edu/",
-      "logo": "images/nobel/organizations/berkeley.svg",
-      "assetSource": "https://chemistry.berkeley.edu/",
-      "sha256": "e26edfb8ff8828026ebc7eb8a2fe1353c9d459021c703f159dc3dbce5116fab5"
     }
   ],
   "evidence": [
@@ -9400,7 +8106,15 @@
       "body": [
         "VTT 说明其接受委托，在实验室测量 Donut Lab 所提供电池的性能。核对时应回到具体报告：测了什么、由谁提供样品、哪些结论没有涵盖；测试机构名称不等于对企业全部产品主张的认证。\n\n查阅测量时应先核对委托范围、样品数量、温度、充放电程序和报告签发时间。受委托开展的测试可以提供独立测量，但测试机构的参与并不自动覆盖公司对材料体系、寿命或量产能力的全部表述。",
         "VTT describes commissioned laboratory measurements on customer-supplied batteries. Read each report for its measurements, sample provenance and scope; the institution’s name does not certify every product claim.\n\nReview the commissioned scope, sample count, temperature, cycling protocol and report date. Independent measurements on submitted samples do not cover every company claim about chemistry, lifetime or production."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "lk99-replication",
@@ -9427,7 +8141,16 @@
       "citation": [
         "arXiv:2308.03823v2 (2023). DOI: 10.48550/arXiv.2308.03823。完整作者和机构见论文。",
         "arXiv:2308.03823v2 (2023). DOI: 10.48550/arXiv.2308.03823. Full authors and affiliations are in the paper."
-      ]
+      ],
+      "publicationReview": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      }
     },
     {
       "id": "mof-supply",
@@ -9450,7 +8173,15 @@
       "body": [
         "Svante 公告与 BASF 签订 CALF-20 MOF 吸附材料商业供应协议，支持其结构化吸附过滤器路线。供应与制造规模是这一公告的重点；计划中的装置、未来产能和实际运行捕集量仍应分别核查。\n\n这项合作对应吸附剂供应链：BASF 负责材料生产，Svante 将其用于结构化过滤器。读者还需区分吸附剂吨数、过滤器数量与下游 CO₂ 捕集量；它们不能按同一口径相加。",
         "Svante reports a BASF commercial supply agreement for CALF-20 MOF sorbent used in structured filters. Material supply and manufacturing are distinct from planned facilities, future capacity and measured operating capture.\n\nThe collaboration concerns a sorbent supply chain: BASF manufactures materials and Svante integrates structured filters. Sorbent mass, filter output and downstream CO₂ capture are different quantities."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "mof-manufacturer",
@@ -9472,7 +8203,15 @@
       "body": [
         "BASF 的资料说明其 MOF 放大与生产工作及 Svante 合作关系。材料制造能力有助于讨论工程放大；若要比较过程成本、寿命或减排量，还需要对应装置和工况的独立数据。\n\n从粉体到装置还需要成型、传热传质和循环再生。判断工程价值，应继续查找湿度、杂质、再生能耗和长期循环下的材料损耗，而不只比较一次吸附容量。",
         "BASF describes MOF scale-up and its Svante relationship. Manufacturing capability informs scale-up assessment; process cost, lifetime and avoided emissions require plant-specific operating data.\n\nPowder-to-plant deployment also requires forming, transport and cyclic regeneration. Humidity, impurities, regeneration energy and long-term material loss matter alongside single-cycle capacity."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "donut-elements",
@@ -9534,7 +8273,16 @@
       "citation": [
         "Intertek Wilton, IWTN/W000020339RLM002。原文件由送检企业公开；公开日期依据另链接的企业披露。",
         "Intertek Wilton, IWTN/W000020339RLM002. Original file published by the customer; public-release date follows the separately linked company disclosure."
-      ]
+      ],
+      "publicationReview": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://www.donutlab.com/elemental-analysis-announcement/"
+      }
     },
     {
       "id": "donut-energy",
@@ -9594,7 +8342,15 @@
       "citation": [
         "VTT-CR-00391-26，Donut Battery V1.5 Energy Density Test。报告签发日不代表首次公开日。",
         "VTT-CR-00391-26, Donut Battery V1.5 Energy Density Test. Report date is not treated as the first public-release date."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "llzo-interface",
@@ -9622,7 +8378,15 @@
       "citation": [
         "Communications Chemistry 7, 257 (2024). DOI: 10.1038/s42004-024-01350-9。作者机构：ETH Zürich、Empa。",
         "Communications Chemistry 7, 257 (2024). DOI: 10.1038/s42004-024-01350-9. Affiliations: ETH Zürich and Empa."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "qs-eagle",
@@ -9646,7 +8410,15 @@
         "公司公告称已安装用于提高 QSE-5 电芯产量的关键设备，Eagle Line 结合 Cobra 隔膜工艺和自动化电芯生产。公告把它定位为中试线，以及未来许可伙伴放大的基础。它不是“PowerCo Unified Cell 格式样品已得到双方确认”的同义说法，也不代表已达到吉瓦时商业产量。\n\n设备安装完成属于产线建设节点。判断样品能否进入客户验证，还需看设备联调、稳定产出、电芯规格、批次一致性和客户接收记录；产线启用时间也不能直接当作量产汽车交付日期。",
         "QS reports installing equipment for higher-volume QSE-5 production, combining Cobra separators and automation in a pilot line. It describes a basis for future licensee scale-up, not proof of a jointly confirmed PowerCo Unified Cell sample or gigawatt-hour commercial output.\n\nEquipment installation is a line-building milestone. Commissioning, stable output, cell specifications, batch consistency and customer receipt are subsequent checks; line inauguration is not a vehicle-delivery date."
       ],
-      "publishedDate": "2025-12-09"
+      "publishedDate": "2025-12-09",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "toyota-sulfide",
@@ -9670,7 +8442,15 @@
         "双方合作以硫化物固体电解质为重点：先完善材料和大型中试准备，再推进中试制造及车型开发，最后研究全面量产。材料软、易黏附有利于加工，但循环中的界面开裂与耐久性仍是工程问题。公告中的 2027–2028 目标是计划，不是客户已收车的记录。\n\n合作内容涉及电解质开发、小型试验设施到更大规模示范的衔接，以及后续供应链建设。公告中的 2027–2028 年商业化目标是当时的计划；判断整车事件仍须核对车型、固态体系、测试工况与客户实际收车。",
         "The partnership focuses on sulfide electrolytes, progressing from material/pilot preparation to pilot manufacturing and vehicle development, then full-scale production studies. Interfacial durability remains an engineering issue. Its 2027–2028 target is a plan rather than a retail delivery record.\n\nThe partnership connects electrolyte development, pilot work, scale-up demonstration and supply-chain preparation. The announced 2027–2028 commercialization window is a target, while vehicle contracts need model-specific tests and actual customer delivery."
       ],
-      "publishedDate": "2023-10-12"
+      "publishedDate": "2023-10-12",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "toyota-roadmap",
@@ -9693,7 +8473,15 @@
         "路线图同时讨论液态与固态方案。“约 1000 km”等整车目标还受车辆效率影响，快充目标则注明荷电状态区间。比较原市场的 1000 km 与少于 15 分钟条件，需要确认同一车型、同一电池路线和充电区间，不能把不同方案的最佳数字拼到一起。",
         "The roadmap covers liquid and solid electrolytes. Range also depends on vehicle efficiency; charge-time targets specify a state-of-charge interval. The contract’s range and charging conditions must apply to the same vehicle and chemistry, not a mixture of targets from different programs."
       ],
-      "publishedDate": "2023-09-14"
+      "publishedDate": "2023-09-14",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "apple-battery",
@@ -9715,7 +8503,15 @@
       "body": [
         "Apple 的说明使用锂离子电池框架，并解释快充至约 80% 后转为较慢充电。快充、循环优化或更高能量密度本身都不能证明手机换用了固态电解质。判断这一市场要查具体发布产品的电池技术资料；这份说明不是对所有未来型号的承诺。",
         "Apple explains lithium-ion charging, including a fast phase followed by slower charging around 80%. Faster charging and better endurance alone do not establish solid electrolytes. The market requires product-specific battery evidence; this general page does not promise every future model’s chemistry."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "superconductivity-doe",
@@ -9737,7 +8533,15 @@
       "body": [
         "超导体在临界温度以下可无直流电阻地传输电流，并呈现排磁行为；超过临界电流会破坏超导态。已经应用于 MRI 等装置的超导体并不因此满足“常压、0 °C 以上、无需主动冷却”的合同条件。材料发现与可销售器件是两道门槛。",
         "Superconductors have zero DC resistance and field-expulsion behavior below critical conditions; excessive current destroys the state. Existing MRI applications do not satisfy a contract requiring ambient pressure, above 0 °C and no active cooling. Material discovery and a saleable device are separate milestones."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "lk99-impurity",
@@ -9764,7 +8568,16 @@
       "citation": [
         "arXiv:2308.04353 (2023)；Matter 6, 4401 (2023). DOI: 10.1016/j.matt.2023.11.001。",
         "arXiv:2308.04353 (2023); Matter 6, 4401 (2023). DOI: 10.1016/j.matt.2023.11.001."
-      ]
+      ],
+      "publicationReview": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      }
     },
     {
       "id": "enzyme-membrane",
@@ -9791,7 +8604,15 @@
       "citation": [
         "Nature Communications 9, 990 (2018). DOI: 10.1038/s41467-018-03285-x。完整合作机构见原文。",
         "Nature Communications 9, 990 (2018). DOI: 10.1038/s41467-018-03285-x. Full collaborating affiliations are in the paper."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "alphafold-role",
@@ -9813,7 +8634,15 @@
       "body": [
         "AlphaFold 用于预测生物分子结构及相互作用。结构预测可以为酶的实验设计提供起点，但催化速率、溶剂稳定性和捕集过程的能耗仍需实验或过程数据。仅在论文中使用一次模型，与原市场所说的“参与领先空气捕集方法”，不是相同证据门槛。",
         "AlphaFold predicts biomolecular structures and interactions. That can guide enzyme experiments, but catalytic rates, solvent stability and process energy still require measurements or process data. A single model use is not the same as the contract’s leading-DAC criterion."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "olivine-noaa",
@@ -9835,7 +8664,15 @@
       "body": [
         "海洋增碱改变海水化学，使其有能力吸收更多空气 CO₂；碱度变化与已经发生的净大气移除需要分别测量。NOAA 将可扩展性、成本、生态影响等列为研究问题。因此，橄榄石溶解、矿物投放量和每年净移除十亿吨并不是同一个量。",
         "Ocean alkalinity enhancement increases seawater’s capacity to absorb atmospheric CO₂. Alkalinity change and realized net atmospheric removal require separate measurement. NOAA identifies scale, cost and ecological effects as research questions; mineral dissolution or deployment tonnage is not annual net carbon removal."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "olivine-ecology",
@@ -9857,7 +8694,15 @@
       "body": [
         "短期实验观察到海水碱度和 pH 增加，未见浮游植物过量积累重金属；同时发现矿物带来的氮需要控制。报道明确保留长期生态效应的不确定性。这里的样品和实验范围不能外推成全球部署规模或长期安全结论。",
         "The short-term experiment observed higher alkalinity and pH without excess heavy-metal accumulation in phytoplankton, while identifying nitrogen addition as a concern. Long-term effects remain unresolved. These experimental conditions do not establish global deployment or long-term safety."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "svante-redwood",
@@ -9881,7 +8726,15 @@
         "Svante 宣布 Redwood 过滤器制造设施完成调试，称其年产过滤器可支持最高约 1000 万吨 CO₂ 的年捕集能力。这是按过滤器用途表述的制造能力，不是工厂自身每年已经从空气移除了 1000 万吨。要核实减排或碳移除，需要下游装置的运行量、能源与永久封存记录。\n\n制造设施的利用率与下游装置的开工时间会影响最终捕集规模。公告中的能力指标适合追踪供应准备情况；核算净减排还应计入吸附剂生产、再生热源、压缩运输及封存环节。",
         "Svante reports commissioning Redwood and describes annual filter output sufficient to support up to 10 million tonnes of annual CO₂ capture capacity. That is filter-manufacturing capacity, not CO₂ already removed by the factory. Downstream operation, energy and permanent-storage records are needed for removal claims.\n\nFactory utilization and downstream commissioning affect realized capture. Manufacturing capacity tracks supply readiness; net abatement additionally depends on material production, regeneration heat, compression, transport and storage."
       ],
-      "publishedDate": "2025-05-13"
+      "publishedDate": "2025-05-13",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "superpower-products",
@@ -9903,7 +8756,15 @@
       "body": [
         "公司供应第二代高温超导线材，官网说明的运行例子仍在 77 K、30 K、4.2 K 等低温条件下。“高温超导”是相对传统超导体的术语，并不表示高于 0 °C。该产品说明既有制造和应用链条，但不是 LK-99 被采用或原题常温商品条件已经实现的证据。\n\n线材应用还取决于磁场、温度、电流方向及机械载荷。工程比较需要查看对应条件下的临界电流和线材长度，区分短样测试、可供货线材和装入设备后的系统表现。",
         "The supplier describes second-generation HTS conductors operating at cryogenic temperatures such as 77 K, 30 K and 4.2 K. High-temperature does not mean above 0 °C. Its product establishes an existing manufacturing chain, not LK-99 adoption or satisfaction of these ambient-temperature contracts.\n\nConductor performance also depends on field, temperature, current orientation and strain. Compare critical current and length under specified conditions, distinguishing short samples, delivered tape and complete devices."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "saipem-enzyme",
@@ -9925,7 +8786,15 @@
       "body": [
         "Saipem 介绍以碳酸盐溶剂和酶为基础的工业排放捕集技术，并讨论余热利用与过程集成。这是判断“酶法有没有工程应用”的一份企业资料。页面没有据此证明 AlphaFold 的参与，也没有将其定义为从空气中移除 CO₂ 的领先方法，不能替原题补齐这两个条件。\n\n这类流程利用酶加快 CO₂ 与溶剂之间的转化，吸收与再生仍需要完整的工艺系统。对照其他技术时，应在相近进气浓度、捕集率和热源条件下比较，而非把工业烟气结果直接用于低浓度空气。",
         "Saipem describes enzyme/carbonate-solvent capture of industrial emissions and process integration. It supplies industrial context for enzymes, without establishing AlphaFold involvement or leadership in direct air capture. Those extra contract conditions remain separate.\n\nEnzymes accelerate CO₂/solvent conversion within an absorption/regeneration system. Comparisons require similar inlet concentration, capture fraction and heat supply; industrial-flue results do not directly describe ambient-air capture."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "vesta-pilots",
@@ -9947,7 +8816,15 @@
       "body": [
         "Vesta 的科学资料介绍沿岸增强风化试验，目标包括测量天然条件下的橄榄石溶解速率、碳移除效率与生态影响。公开试验说明路线在实地研究，并不等于已实现原题要求的每年十亿吨。公司提出的长期愿景与实际项目监测结果须分开读。\n\n实地监测需要将背景海水变化与投放后的变化分开，并追踪矿物溶解与海气 CO₂ 交换的时间差。年度净移除还需要完整的物料与排放核算，不能仅由投放量推算。",
         "Vesta describes coastal trials studying olivine dissolution, carbon-removal efficiency and ecology. A field pilot shows research under natural conditions, not achievement of the contract’s annual gigatonne threshold. Ambition and measured project results remain separate.\n\nField monitoring must separate background variability and deployment effects, including delays between dissolution and air–sea exchange. Annual net removal needs mass and emissions accounting beyond mineral deployment."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "fusion-ignition",
@@ -9970,7 +8847,16 @@
         "美国能源部于 2022 年 12 月 13 日公布：NIF 在 12 月 5 日的实验中，以 2.05 MJ 激光能量驱动靶丸，产生 3.15 MJ 聚变能量。这个结果比较的是到靶激光与聚变产能，不是设施从电网取电与送回电网的电量。它是惯性约束聚变实验进展，不能直接作为 Helion 不同技术路线已实现净发电的证明。",
         "DOE announced on 13 December 2022 that the 5 December NIF shot delivered 2.05 MJ of laser energy and produced 3.15 MJ of fusion energy. The comparison excludes whole-facility electricity consumption. This inertial-confinement result does not verify net electricity from Helion’s different approach."
       ],
-      "publishedDate": "2022-12-13"
+      "publishedDate": "2022-12-13",
+      "publicationReview": {
+        "status": "conflicting-dates",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "DOE 现页面标注 2022-12-12，NNSA 发布会资料标注 2022-12-13；首次公开时刻未确定，不计算前后价差。",
+          "DOE currently labels 2022-12-12 while NNSA conference material labels 2022-12-13. First public availability is unresolved; no before/after difference is computed."
+        ],
+        "source": "https://www.energy.gov/nnsa/articles/nnsa-administrator-hrubys-remarks-nif-press-conference"
+      }
     },
     {
       "id": "helion-ppa",
@@ -9993,7 +8879,15 @@
         "Helion 在 2023 年 5 月 10 日宣布与 Microsoft 签订供电协议，由 Constellation 负责电力营销与输送管理。公告计划在 2028 年上线，并在一年的爬坡期后达到至少 50 MW。协议说明了客户与目标规模，未提供已实现净发电或已向客户交付的计量结果。原市场要求在 2029 年前交付 50 MW，核对时尤其要注意爬坡时间与交付期限的差别。",
         "On 10 May 2023 Helion announced a Microsoft agreement with Constellation managing power marketing and transmission. It targeted operation in 2028 and at least 50 MW after a one-year ramp. The agreement establishes a customer and target, not measured net generation or completed delivery; the market’s pre-2029 deadline needs separate review."
       ],
-      "publishedDate": "2023-05-10"
+      "publishedDate": "2023-05-10",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "quantum-willow",
@@ -10020,7 +8914,15 @@
       "citation": [
         "Nature 638, 920–926 (2025). DOI: 10.1038/s41586-024-08449-y。在线发表于 2024-12-09。",
         "Nature 638, 920–926 (2025). DOI: 10.1038/s41586-024-08449-y. Published online 2024-12-09."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "quantum-google-explanation",
@@ -10043,7 +8945,16 @@
         "Google 的技术说明解释了为什么必须先低于物理错误阈值，扩大纠错编码才可能降低逻辑错误。它将处理器、重复测量与解码过程放在同一个实验中讨论，便于理解逻辑存储结果。评估长程序还需核对逻辑门、测量与控制的完整过程，不能只用芯片物理比特数判断可运行算法的规模。",
         "Google explains why physical errors must be below a threshold before increasing code size suppresses logical errors. Its memory demonstration combines the processor, repeated measurements and decoding. Long algorithms additionally need verified logical operations and controls; physical qubit counts alone do not establish computational scale."
       ],
-      "publishedDate": "2024-12-09"
+      "publishedDate": "2024-12-09",
+      "publicationReview": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://research.google/blog/making-quantum-error-correction-work/"
+      }
     },
     {
       "id": "oxford-first-shipment",
@@ -10066,7 +8977,15 @@
         "Oxford PV 于 2024 年 9 月 5 日宣布向美国客户首次商业出货。公告介绍的 72 电池片组件采用钙钛矿／硅叠层结构，首批产品组件效率为 24.5%，电池来自德国勃兰登堡的 MW 级试验线。实际出货比效率纪录更接近商业交付，但这一公告没有给出单一制造商年度 1 GW 的出货证明。后续 GW 级工厂仍是该公告中的扩产计划。",
         "On 5 September 2024 Oxford PV announced its first commercial shipment to a US customer. Its 72-cell perovskite/silicon modules had 24.5% module efficiency, using cells from a MW-scale pilot line in Brandenburg, Germany. A first shipment is commercial evidence, but does not establish annual 1 GW delivery; future GW-scale manufacturing was a plan."
       ],
-      "publishedDate": "2024-09-05"
+      "publishedDate": "2024-09-05",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "perovskite-doe",
@@ -10088,7 +9007,15 @@
       "body": [
         "美国能源部将长期稳定性、放大后的效率、可制造性及技术验证与融资认可列为商业化挑战。叠层结构通过不同吸收层利用不同波段，效率优势需要在完整组件上保持。评价商品还应核对封装、户外衰减、批次一致性与质保；实验室小电池的纪录无法直接回答年度商业出货或全球部署占比。",
         "DOE identifies durability, efficiency at scale, manufacturability and validation/bankability as commercialization challenges. Tandem absorbers use different spectral bands, but gains must survive module integration. Encapsulation, outdoor degradation, batch consistency and warranties matter beyond small-cell efficiency records."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "catl-naxtra-vehicle",
@@ -10112,7 +9039,15 @@
         "2026 年 2 月 5 日公告介绍 Naxtra 钠离子乘用车，电池比能量最高 175 Wh/kg，车辆纯电续航超过 400 km，并称 −40 °C 容量保持率超过 90%。这些是企业披露的性能，续航还受车型与工况影响。公告写的是发布及计划在 2026 年中上市，不能仅凭该页面判定已经向零售客户交车。",
         "The 5 February 2026 release reports up to 175 Wh/kg, over 400 km vehicle range and over 90% capacity retention at −40 °C. These are company-reported claims; range depends on vehicle and conditions. A launch with a planned mid-2026 market introduction is not a customer delivery record."
       ],
-      "publishedDate": "2026-02-05"
+      "publishedDate": "2026-02-05",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "catl-sodium-safety",
@@ -10135,7 +9070,15 @@
         "CATL 在 2025 年 9 月 8 日公告称，Naxtra 于 9 月 5 日通过 GB 38031-2025 对应认证，测试涉及电芯和电池包。这里记录企业对第三方测试的披露；标准测试结果、商业产量和实际交付是不同证据。完整项目与适用范围应继续查阅原认证文件。",
         "On 8 September 2025 CATL reported Naxtra certification on 5 September, covering cell and pack tests under GB 38031-2025. This records the company’s disclosure of testing, not commercial output or delivery; the original certification defines the full scope."
       ],
-      "publishedDate": "2025-09-08"
+      "publishedDate": "2025-09-08",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "catl-condensed",
@@ -10159,7 +9102,15 @@
         "2023 年 4 月 19 日发布的凝聚态电池公告提出最高 500 Wh/kg 的单体比能量，涉及电解质、正负极与制造工艺。单体性能不能直接换算为整包表现；技术发布也不等于可购买产品已达到相同指标。此路线不在本站被直接归为“全固态”。",
         "The 19 April 2023 announcement states up to 500 Wh/kg at cell level, involving electrolytes, electrodes and manufacturing. Cell performance is not pack performance, and a launch is not proof of a purchasable product at that value. This archive does not automatically classify it as all-solid-state."
       ],
-      "publishedDate": "2023-04-19"
+      "publishedDate": "2023-04-19",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "doe-pack-cost",
@@ -10182,7 +9133,15 @@
         "DOE 以 2023 年不变美元估计，轻型车锂离子电池包成本从 2008 年的 1,415 美元/kWh 降至 2023 年的 139 美元/kWh。分母是可用能量，2023 年假设年产至少 10 万套。它是规模制造模型估计，不能当作某个地区的零售价、单体报价或未来成交价格。",
         "DOE estimates light-duty lithium-ion pack costs of $1,415/kWh in 2008 and $139/kWh in 2023, in constant 2023 dollars and per usable energy. The 2023 case assumes at least 100,000 packs/year. These modeled manufacturing costs are not retail or cell prices."
       ],
-      "publishedDate": "2024-08-05"
+      "publishedDate": "2024-08-05",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "iea-batteries-2026",
@@ -10205,7 +9164,15 @@
       "body": [
         "报告整理 2025 年 EV 电池部署为 1.2 TWh、LFP 占部署量超过 55%，并区分超过 4 TWh 的锂离子电池名义制造能力。LFP 分类包含磷酸锰铁锂，份额以新注册电动车的电池容量计算。因此不能直接代替原市场“乘用及轻型商用车生产出货 GWh”的 2026 年分母。",
         "The report records 1.2 TWh of EV battery deployment in 2025, an LFP deployment share over 55%, and over 4 TWh of lithium-ion nameplate manufacturing capacity. LFP includes LMFP and share uses battery capacity in newly registered EVs, differing from the market’s 2026 passenger/light-commercial production-shipment denominator."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "eia-storage-2024",
@@ -10228,7 +9195,15 @@
         "2025 年 3 月 12 日文章依据 2025 年 1 月初步清单，记录 2024 年美国公用事业级电池功率超过 26 GW，当年新增 10.4 GW。GW 是功率，不是 GWh 能量；公用事业级范围也不等于全行业。该历史版本保留原统计时点，不与后续修订拼接为同一序列。",
         "Using the January 2025 preliminary inventory, EIA’s 12 March article records over 26 GW of US utility-scale battery power in 2024 and 10.4 GW added that year. Power is not GWh energy; utility-scale is not all sectors. This dated edition is not spliced with later revisions."
       ],
-      "publishedDate": "2025-03-12"
+      "publishedDate": "2025-03-12",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "vanadium-electrolyte",
@@ -10248,7 +9223,15 @@
       "body": [
         "该研究给出利用紫外—可见光谱测量钒电解液总浓度和荷电状态的方法与开放数据。全钒液流体系的负极侧涉及 V(II)/V(III)，正极侧涉及 V(IV)/V(V)。电解液需求量与装机能量有关，但全球用钒占比仍需要按钒元素质量核对供应、库存与消费统计，不能由电池数量直接推算。",
         "The study provides UV–visible methods and open data for vanadium concentration and state of charge. All-vanadium electrolytes involve V(II)/V(III) and V(IV)/V(V) couples. Electrolyte demand relates to energy capacity, but global use shares need contained-V consumption, supply and inventory accounting."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "doe-hydrogen-shot",
@@ -10271,7 +9254,15 @@
         "2023 年 12 月 5 日 DOE 资料将 Hydrogen Shot 表述为到 2031 年把清洁氢成本降至 1 美元/kg，降幅 80%。这是研发与部署目标，且清洁氢并不只包含可再生电解制氢。原市场采用 2030 年、可再生氢价格指数的条件，不能将官方目标年份或路径直接替换进其规则。",
         "DOE’s 5 December 2023 release targets $1/kg clean hydrogen by 2031, an 80% reduction. This is a development target covering more than renewable electrolysis. The market instead uses 2030 and a renewable-hydrogen price index; its rules remain distinct."
       ],
-      "publishedDate": "2023-12-05"
+      "publishedDate": "2023-12-05",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "iea-hydrogen-2026",
@@ -10293,7 +9284,15 @@
       "body": [
         "报告记载 2025 年全球已安装电解容量超过 4 GW，低排放氢产量接近 100 万吨；另有超过 2.5 GW 电解容量在建。已投运、在建、制造商年产能与已宣布项目不是同一指标。低排放氢也包含配套碳捕集的化石路线，不能把该产量全部归为绿氢。",
         "The report records over 4 GW installed electrolysis in 2025 and almost 1 Mt of low-emissions hydrogen, with over 2.5 GW under construction. Installed, under-construction, manufacturing and announced capacity differ. Low-emissions output also includes fossil pathways with capture, not only green hydrogen."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "fda-clinical-phases",
@@ -10313,7 +9312,15 @@
       "body": [
         "FDA 将早期临床的安全性与剂量、后续的有效性及不良反应研究区分。完成 I 期、进入 II 期、获得突破性疗法认定和获得上市批准并不等同。AI 工具的参与需要独立证据；不能根据试验阶段或市场结算推断一种药物已获批准。",
         "FDA distinguishes early safety/dose studies from later efficacy and adverse-event research. Completing phase I, entering phase II, receiving a designation and marketing approval are different milestones. AI involvement also needs evidence; trial stage or market resolution does not imply approval."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "rentosertib-phase2",
@@ -10340,7 +9347,15 @@
       "citation": [
         "Xu 等，Nature Medicine 31, 2602–2610 (2025). DOI: 10.1038/s41591-025-03743-2；NCT05938920。完整作者与合作机构见原文。",
         "Xu et al., Nature Medicine 31, 2602–2610 (2025). DOI: 10.1038/s41591-025-03743-2; NCT05938920. Full authors and affiliations are in the paper."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "climeworks-mammoth",
@@ -10361,338 +9376,15 @@
         "2024 年 5 月 8 日启动公告给出最高 36,000 吨 CO₂/年的设计捕集能力，当时已安装 72 个计划收集模块中的 12 个。该值是名义能力，不是已交付的净移除量。比较气候作用时，还需运行量、能源排放、封存与核证；后续扩建和改进不能倒写为启动当年的完成结果。",
         "The 8 May 2024 startup release states up to 36,000 tCO₂/year nameplate capture, with 12 of 72 planned collectors then installed. Nameplate is not delivered net removal. Climate evaluation needs operation, energy emissions, storage and verification; later improvements are not backdated."
       ],
-      "publishedDate": "2024-05-08"
-    },
-    {
-      "id": "organic-nobel2021",
-      "topics": [
-        "asymmetric-organocatalysis"
-      ],
-      "title": [
-        "有机催化：2021 年诺奖科学背景中的反应范围",
-        "Organocatalysis: reaction scopes in the 2021 Nobel scientific background"
-      ],
-      "kind": [
-        "诺奖官方科学背景 · 历史汇总",
-        "Official Nobel scientific background · historical synthesis"
-      ],
-      "url": "https://www.nobelprize.org/uploads/2021/10/advanced-chemistryprize2021-2.pdf",
-      "entities": [],
-      "body": [
-        "官方背景的印刷第 4 页、式 2 汇总脯氨酸催化 aldol 的 6 个示例：30 mol% 催化剂、54–97% 收率、er 80:20 至 98:2。数值对应图示底物范围，不是同一底物的一条最优记录。文件同时区分烯胺提高亲核性与亚胺离子提高亲电性的活化方式。",
-        "Printed page 4, equation 2 summarizes six proline-aldol examples: 30 mol% loading, 54–97% yields and 80:20–98:2 er. These are substrate-scope ranges, not a combined optimum for one substrate. Enamine and iminium activation are distinguished."
-      ],
-      "citation": [
-        "Royal Swedish Academy of Sciences, Enamine and iminium ion-mediated organocatalysis (2021)，印刷第 4 页式 2。",
-        "Royal Swedish Academy of Sciences, Enamine and iminium ion-mediated organocatalysis (2021), printed p. 4, equation 2."
-      ],
-      "publishedDate": "2021-10-06"
-    },
-    {
-      "id": "proline-aldol-2000",
-      "topics": [
-        "asymmetric-organocatalysis"
-      ],
-      "title": [
-        "List、Lerner 与 Barbas：脯氨酸直接不对称 aldol",
-        "List, Lerner and Barbas: direct asymmetric proline aldol"
-      ],
-      "kind": [
-        "原始研究 · JACS",
-        "Original research · JACS"
-      ],
-      "url": "https://pubs.acs.org/doi/10.1021/ja994280y",
-      "entities": [
-        "scripps"
-      ],
-      "body": [
-        "2000 年论文提出以 L-脯氨酸催化未预活化羰基底物的直接分子间 aldol。催化剂与底物可逆成键，形成参与碳—碳成键的烯胺。底物范围及分析须回到正文和补充材料；本页的范围数字另标明取自诺奖官方图示汇总。",
-        "The 2000 paper describes direct intermolecular aldol catalysis with L-proline and unmodified carbonyl substrates. Reversible catalyst–substrate bonding forms an enamine for C–C formation. Scope and analysis belong to the paper/SI; displayed scope numbers separately identify the Nobel summary."
-      ],
-      "citation": [
-        "List, Lerner & Barbas III, J. Am. Chem. Soc. 122, 2395–2396 (2000). DOI: 10.1021/ja994280y。",
-        "List, Lerner & Barbas III, J. Am. Chem. Soc. 122, 2395–2396 (2000). DOI: 10.1021/ja994280y."
-      ],
-      "publishedDate": "2000-02-26"
-    },
-    {
-      "id": "iminium-da-2000",
-      "topics": [
-        "asymmetric-organocatalysis"
-      ],
-      "title": [
-        "Ahrendt 等：首个高对映选择性有机催化 Diels–Alder",
-        "Ahrendt et al.: enantioselective organocatalytic Diels–Alder"
-      ],
-      "kind": [
-        "原始研究 · 作者公开论文",
-        "Original research · author-posted paper"
-      ],
-      "url": "https://macmillan.princeton.edu/wp-content/uploads/Diels-Alder.pdf",
-      "entities": [
-        "berkeley"
-      ],
-      "body": [
-        "表 1 条目 5 以催化剂 7（5 mol%）使肉桂醛与环戊二烯反应：8 h、99% 收率、exo:endo 1.3:1，exo 产物 93% ee。正文另报告 50 mmol 制备得到 12 g、99% 收率与 exo 93% ee。93% ee 只属于所分析的 exo 组分，不表示非对映选择性很高。",
-        "Table 1 entry 5 uses catalyst 7 at 5 mol%: 8 h, 99% yield, 1.3:1 exo:endo and 93% ee for exo. A separate 50 mmol preparation gives 12 g, 99% yield and exo 93% ee. Exo ee is not the diastereomeric ratio."
-      ],
-      "citation": [
-        "Ahrendt, Borths & MacMillan, JACS 122, 4243–4244 (2000). DOI: 10.1021/ja000092s；表 1 条目 5 与制备规模段落。",
-        "Ahrendt, Borths & MacMillan, JACS 122, 4243–4244 (2000). DOI: 10.1021/ja000092s; Table 1 entry 5 and preparative-scale paragraph."
-      ],
-      "publishedDate": "2000-04-15"
-    },
-    {
-      "id": "dual-photoredox-2008",
-      "topics": [
-        "visible-light-organic"
-      ],
-      "title": [
-        "Nicewicz／MacMillan：醛的不对称 α-烷基化",
-        "Nicewicz/MacMillan: asymmetric aldehyde α-alkylation"
-      ],
-      "kind": [
-        "原始研究 · Science · 作者公开论文",
-        "Original research · Science · author-posted paper"
-      ],
-      "url": "https://macmillan.princeton.edu/wp-content/uploads/photoredox.pdf",
-      "entities": [
-        "princeton"
-      ],
-      "body": [
-        "表 1 将 Ru(bpy)₃Cl₂ 光氧化还原与手性胺协同使用。条目 1 为辛醛和溴代丙二酸二乙酯体系，93% 收率、90% ee。图示通用条件是 20 mol% 有机催化剂、0.5 mol% Ru、15 W 荧光灯、DMF、23 °C；其他条目的例外依脚注保留。15 W 是灯泡额定功率，不是吸收光子通量或量子产率。",
-        "Table 1 combines Ru(bpy)₃Cl₂ photoredox with a chiral amine. Entry 1 gives 93% yield and 90% ee for octanal/diethyl bromomalonate. General conditions list 20 mol% organocatalyst, 0.5 mol% Ru, a 15 W lamp, DMF and 23 °C; exceptions remain in footnotes. Lamp wattage is not photon flux or quantum yield."
-      ],
-      "citation": [
-        "Nicewicz & MacMillan, Science 322, 77–80 (2008). DOI: 10.1126/science.1161976；表 1 条目 1。",
-        "Nicewicz & MacMillan, Science 322, 77–80 (2008). DOI: 10.1126/science.1161976; Table 1 entry 1."
-      ],
-      "publishedDate": "2008-10-03"
-    },
-    {
-      "id": "rose-bengal-2012",
-      "topics": [
-        "visible-light-organic"
-      ],
-      "title": [
-        "Rose Bengal：无过渡金属光氧化还原有机催化",
-        "Rose Bengal: transition-metal-free photoredox organocatalysis"
-      ],
-      "kind": [
-        "原始研究 · Green Chemistry",
-        "Original research · Green Chemistry"
-      ],
-      "url": "https://pubs.rsc.org/en/content/articlelanding/2012/gc/c2gc35118h",
-      "entities": [],
-      "body": [
-        "论文以 Rose Bengal 染料作为可见光敏化剂，配合咪唑烷酮有机催化剂和亲电助催化剂进行醛的直接对映选择性 α-烷基化。它提供了与 Ru 协同体系不同的催化组成；不能把 2008 年 Ru 体系的收率、ee 或光源参数移植到本体系。完整配方和具体底物结果见补充材料。",
-        "Rose Bengal acts as a visible-light sensitizer with an imidazolidinone and electrophilic cocatalyst for aldehyde α-alkylation. This differs from the Ru system; the earlier yields, ee and lighting conditions are not transferred. Full substrate-specific details are in the SI."
-      ],
-      "citation": [
-        "Fidaly et al., Green Chem. 14, 1293–1297 (2012). DOI: 10.1039/C2GC35118H。",
-        "Fidaly et al., Green Chem. 14, 1293–1297 (2012). DOI: 10.1039/C2GC35118H."
-      ],
-      "publishedDate": "2012-03-06"
-    },
-    {
-      "id": "click-nobel2022",
-      "topics": [
-        "click-bioorthogonal"
-      ],
-      "title": [
-        "点击反应：2022 年诺奖科学背景的条件与区域选择性",
-        "Click reactions: conditions and regioselectivity in the 2022 Nobel background"
-      ],
-      "kind": [
-        "诺奖官方科学背景 · 历史汇总",
-        "Official Nobel scientific background · historical synthesis"
-      ],
-      "url": "https://www.nobelprize.org/uploads/2022/10/advanced-chemistryprize2022.pdf",
-      "entities": [],
-      "body": [
-        "印刷第 6–7 页介绍早期 CuAAC 固相工作与溶液反应。早期会议工作的收率为 80–95%；图 6a 为固相末端炔与叠氮，Cu(I)、碱、THF、25 °C；图 6b 以 CuSO₄／抗坏血酸钠在水／叔丁醇、25 °C 生成 Cu(I)。这些条件分别对应不同示例。",
-        "Printed pp. 6–7 describe early solid-phase and solution CuAAC. The early conference work is summarized as 80–95% yield. Figure 6a uses Cu(I), base, THF and 25 °C; 6b uses CuSO₄/ascorbate in water/tert-butanol at 25 °C. These belong to distinct examples."
-      ],
-      "citation": [
-        "Royal Swedish Academy of Sciences, Click chemistry and bioorthogonal chemistry (2022)，印刷第 6–7 页、图 6。",
-        "Royal Swedish Academy of Sciences, Click chemistry and bioorthogonal chemistry (2022), printed pp. 6–7, Figure 6."
-      ],
-      "publishedDate": "2022-10-05"
-    },
-    {
-      "id": "cuaac-solid-2002",
-      "topics": [
-        "click-bioorthogonal"
-      ],
-      "title": [
-        "Tornøe 等：固相肽中的 CuAAC 三唑连接",
-        "Tornøe et al.: solid-phase CuAAC peptidotriazoles"
-      ],
-      "kind": [
-        "原始研究 · Journal of Organic Chemistry",
-        "Original research · Journal of Organic Chemistry"
-      ],
-      "url": "https://pubs.acs.org/doi/10.1021/jo011148j",
-      "entities": [],
-      "body": [
-        "该研究以铜(I)催化末端炔和有机叠氮的区域专一环加成，在固相肽骨架或侧链构建 1,4-取代三唑。工作展示了多类叠氮底物及固相肽合成兼容性。区域选择性、分离收率和树脂负载效率是不同指标，应按各自条目分析。",
-        "This study uses Cu(I)-catalyzed regioselective terminal-alkyne/azide cycloaddition to build 1,4-substituted triazoles on peptide backbones or side chains. Substrate scope and solid-phase compatibility do not collapse regioselectivity, isolated yield and resin loading into one metric."
-      ],
-      "citation": [
-        "Tornøe, Christensen & Meldal, J. Org. Chem. 67, 3057–3064 (2002). DOI: 10.1021/jo011148j。",
-        "Tornøe, Christensen & Meldal, J. Org. Chem. 67, 3057–3064 (2002). DOI: 10.1021/jo011148j."
-      ]
-    },
-    {
-      "id": "spaac-2004",
-      "topics": [
-        "click-bioorthogonal"
-      ],
-      "title": [
-        "Agard 等：应变促进的无铜叠氮—炔环加成",
-        "Agard et al.: strain-promoted copper-free cycloaddition"
-      ],
-      "kind": [
-        "原始研究 · JACS",
-        "Original research · JACS"
-      ],
-      "url": "https://pubs.acs.org/doi/10.1021/ja044996f",
-      "entities": [
-        "berkeley"
-      ],
-      "body": [
-        "该研究利用环辛炔的环张力，使其与叠氮在生理条件下发生环加成，无需铜催化剂。无铜消除了这一金属催化步骤，但不意味着所有探针对所有细胞都无毒；溶解性、背景反应和实际生物环境仍需逐项验证。",
-        "Cyclooctyne strain enables azide cycloaddition under physiological conditions without a copper catalyst. Removing copper does not establish universal probe compatibility; solubility, background reactivity and biological context remain relevant."
-      ],
-      "citation": [
-        "Agard, Prescher & Bertozzi, JACS 126, 15046–15047 (2004). DOI: 10.1021/ja044996f。",
-        "Agard, Prescher & Bertozzi, JACS 126, 15046–15047 (2004). DOI: 10.1021/ja044996f."
-      ]
-    },
-    {
-      "id": "copperfree-imaging-2007",
-      "topics": [
-        "click-bioorthogonal"
-      ],
-      "title": [
-        "Baskin 等：无铜点击用于活细胞动态成像",
-        "Baskin et al.: copper-free click for dynamic live-cell imaging"
-      ],
-      "kind": [
-        "原始研究 · PNAS",
-        "Original research · PNAS"
-      ],
-      "url": "https://pubmed.ncbi.nlm.nih.gov/17942682/",
-      "entities": [
-        "berkeley"
-      ],
-      "body": [
-        "研究将改造的环辛炔探针用于活体系中叠氮标记糖链的快速、选择性显影。选择性标签的化学反应与检测信号需要分开理解：荧光强度同时受探针进入、洗涤、背景和成像设置影响，不能直接等同于化学收率。",
-        "Modified cyclooctyne probes label azide-bearing glycans in living systems. Chemical ligation and imaging readout differ: fluorescence depends on access, washing, background and acquisition, not solely reaction yield."
-      ],
-      "citation": [
-        "Baskin et al., PNAS 104, 16793–16797 (2007). DOI: 10.1073/pnas.0707090104。",
-        "Baskin et al., PNAS 104, 16793–16797 (2007). DOI: 10.1073/pnas.0707090104."
-      ]
-    },
-    {
-      "id": "pet-lcc-2020",
-      "topics": [
-        "pet-enzymatic-recycling"
-      ],
-      "title": [
-        "Tournier 等：工程化 PET 水解酶与单体回收",
-        "Tournier et al.: engineered PET hydrolase and monomer recovery"
-      ],
-      "kind": [
-        "原始研究 · Nature",
-        "Original research · Nature"
-      ],
-      "url": "https://pubmed.ncbi.nlm.nih.gov/32269349/",
-      "entities": [],
-      "body": [
-        "论文摘要报告 10 h 内至少 90% PET 解聚，生产率为 16.7 g 对苯二甲酸类产物·L⁻¹·h⁻¹；条件包括 200 g PET/kg 悬浮液及 3 mg 酶/g PET。该指标针对预处理废 PET 体系，不是任意聚合物或自然环境中的降解速率。正文进一步展示单体回收后的 PET 再合成。",
-        "The abstract reports at least 90% PET depolymerization over 10 h and 16.7 g terephthalate·L⁻¹·h⁻¹, at 200 g PET/kg suspension and 3 mg enzyme/g PET. This concerns the studied PET system, not arbitrary polymers or environmental degradation, and includes repolymerization from recovered monomers."
-      ],
-      "citation": [
-        "Tournier et al., Nature 580, 216–219 (2020). DOI: 10.1038/s41586-020-2149-4；PMID 32269349。",
-        "Tournier et al., Nature 580, 216–219 (2020). DOI: 10.1038/s41586-020-2149-4; PMID 32269349."
-      ],
-      "publishedDate": "2020-04-08"
-    },
-    {
-      "id": "fast-petase-2022",
-      "topics": [
-        "pet-enzymatic-recycling"
-      ],
-      "title": [
-        "Lu 等：FAST-PETase 的底物范围与预处理",
-        "Lu et al.: FAST-PETase scope and pretreatment"
-      ],
-      "kind": [
-        "原始研究 · Nature",
-        "Original research · Nature"
-      ],
-      "url": "https://www.nature.com/articles/s41586-022-04599-z",
-      "entities": [],
-      "body": [
-        "FAST-PETase 在 30–50 °C 显示活性改善，论文测试的 51 种未经处理的消费后热成型 PET 产品可在一周内近乎完全解聚。商业水瓶的无定形部分与经热处理的整个水瓶在 50 °C 下另行研究。不同材料形态和预处理不能合并为“所有 PET 一周内全部分解”。",
-        "FAST-PETase improves activity across 30–50 °C. The 51 tested untreated post-consumer thermoformed PET products nearly fully depolymerize within a week. Bottle amorphous regions and a thermally pretreated whole bottle are studied separately at 50 °C; this is not a universal PET claim."
-      ],
-      "citation": [
-        "Lu et al., Nature 604, 662–667 (2022). DOI: 10.1038/s41586-022-04599-z；PMID 35478237。",
-        "Lu et al., Nature 604, 662–667 (2022). DOI: 10.1038/s41586-022-04599-z; PMID 35478237."
-      ],
-      "publishedDate": "2022-04-27"
-    },
-    {
-      "id": "carbios-groundbreaking-2024",
-      "topics": [
-        "pet-enzymatic-recycling"
-      ],
-      "title": [
-        "CARBIOS：Longlaville 工厂开工时的设计能力",
-        "CARBIOS: Longlaville design capacity at groundbreaking"
-      ],
-      "kind": [
-        "企业历史公告 · 项目目标",
-        "Historical company announcement · project target"
-      ],
-      "url": "https://www.carbios.com/newsroom/en/carbios-celebrates-the-groundbreaking-of-its-pet-biorecycling-plant/",
-      "entities": [],
-      "body": [
-        "2024 年 4 月 25 日开工公告给出工厂满负荷时每年处理 50 kt 已准备废料的目标。它是当时的设计处理能力，不是已运行年份的实测吞吐量，也不是净单体产量。工厂进度须结合后续披露，不从早期目标推断当前投运。",
-        "The 25 April 2024 groundbreaking release targets 50 kt/year of prepared waste at full operation. This is design feed-processing capacity, not measured annual throughput or recovered-monomer output; later disclosures are required for project status."
-      ],
-      "citation": [
-        "CARBIOS，2024-04-25 项目开工公告。",
-        "CARBIOS groundbreaking announcement, 2024-04-25."
-      ],
-      "publishedDate": "2024-04-25"
-    },
-    {
-      "id": "carbios-sustainability-2024",
-      "topics": [
-        "pet-enzymatic-recycling"
-      ],
-      "title": [
-        "CARBIOS：2024 可持续发展报告中的项目暂停记录",
-        "CARBIOS: project suspension recorded in the 2024 sustainability report"
-      ],
-      "kind": [
-        "企业年度报告 · 指定历史版本",
-        "Company annual report · dated edition"
-      ],
-      "url": "https://www.carbios.com/wp-content/uploads/2025/12/carbios_rd_2024_a4_en_vdef.pdf",
-      "entities": [],
-      "body": [
-        "该报告记录 2024 年 12 月因需要进一步融资而暂时暂停 Longlaville 建设。它补充了早期开工公告的后续历史，说明开工、设计能力、建设状态与稳定运行必须分别核对；此条不被表述为 2026 年最新施工状态。",
-        "The report records a temporary December 2024 construction suspension pending additional financing. It supplies later historical context to groundbreaking, while not representing the latest 2026 construction status. Design, construction and stable operation remain distinct."
-      ],
-      "citation": [
-        "CARBIOS Sustainability Report 2024，2025 年发布文件。",
-        "CARBIOS Sustainability Report 2024, file published in 2025."
-      ]
+      "publishedDate": "2024-05-08",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "qs-endurance-2024",
@@ -10716,7 +9408,15 @@
         "PowerCo 于 2024 年 1 月披露，QuantumScape 的 24 层 A 样电芯经超过 1,000 次充电循环后仍有超过 95% 容量。测试在 PowerCo 实验室进行，属于合作伙伴披露；大众也是 QuantumScape 的投资方。样品耐久性没有给出制造良率、整包成本或批量交付数量。",
         "PowerCo reported a 24-layer QuantumScape A-sample retaining over 95% capacity after more than 1,000 charging cycles. This is partner-reported laboratory testing; Volkswagen is also an investor. It does not establish manufacturing yield, pack cost or delivered volume."
       ],
-      "publishedDate": "2024-01-03"
+      "publishedDate": "2024-01-03",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "catl-sodium-2021",
@@ -10739,7 +9439,15 @@
         "2021 年发布介绍普鲁士白正极与硬碳负极，单体比能量最高 160 Wh/kg，并称室温下 15 分钟可充至 80% SOC。这些是当时发布的性能口径，没有提供本轮市场所需的 10 美元/kWh 可下单报价，也不能作为后续 Naxtra 产品的同批测试。",
         "The 2021 release describes a Prussian-white cathode and hard-carbon anode, up to 160 Wh/kg at cell level, and charging to 80% SOC in 15 minutes at room temperature. These historical performance claims supply neither a $10/kWh orderable quotation nor a test of a later Naxtra batch."
       ],
-      "publishedDate": "2021-07-29"
+      "publishedDate": "2021-07-29",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "nea-storage-2024",
@@ -10760,7 +9468,15 @@
         "2025 年 7 月发布会给出截至 2024 年底的已建成投运规模：73.76 GW／168 GWh。前者为功率、后者为储能量；两者不能互换。统计覆盖新型储能的多种技术路线，不能全部称为钠离子或液流电池，也不能把已公布的未来目标列为已投运容量。",
         "The July 2025 briefing reports 73.76 GW and 168 GWh operational at end-2024. Power and stored energy are different measures. The aggregate includes multiple new-type storage technologies, not just sodium-ion or flow batteries; announced targets are not operational capacity."
       ],
-      "publishedDate": "2025-07-31"
+      "publishedDate": "2025-07-31",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "usgs-vanadium-series",
@@ -10780,7 +9496,15 @@
       "body": [
         "USGS 提供钒的年度与月度统计入口。核对本题应采用同一年度、同一版次和钒元素含量口径，并查看表注是否包含副产与再生来源。原市场背景同时出现约 119 kt 和 109 kt 的 2024 基数，本站不把其中任何一句改写成已核定的世界产量。",
         "USGS links annual and monthly vanadium statistics. Match year, edition, contained-V units and treatment of co-product/recycled sources. The contract background gives conflicting 2024 baselines of about 119 kt and 109 kt; neither is adopted here as a verified world total."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "usgs-lithium-series",
@@ -10800,7 +9524,15 @@
       "body": [
         "矿山锂金属含量、锂盐精炼量、电池级碳酸锂当量和回收产出属于不同统计环节。本题把美国矿山、精炼与回收都纳入候选来源；需要避免重复计量，并与全球同口径供应量配对。仅有资源储量或已规划精炼产能不足以判定 10% 份额。",
         "Contained lithium in mine output, refining, battery-grade LCE and recycling measure different stages. The contract includes US mines, processing and recycling: avoid double counting and match the global denominator. Resources or planned refinery capacity do not establish the 10% share."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "jaea-httr-2025",
@@ -10821,7 +9553,15 @@
         "JAEA 于 2025 年 3 月申请修改 HTTR 设施许可，计划连接制氢设施并在监管审查后争取 2030 年利用反应堆热制氢。公告提及 HTTR 曾达到 950°C 出口温度；这是热源性能，不是年产氢量。该公告没有证明日本已经达到市场的每年 10,000 吨门槛。",
         "JAEA applied in March 2025 to modify the HTTR installation for an attached hydrogen facility, aiming for reactor-heat hydrogen by 2030 after regulatory review. Its reported 950°C outlet temperature describes the heat source, not hydrogen output; the notice does not verify the contract’s 10,000 t/year threshold."
       ],
-      "publishedDate": "2025-03-27"
+      "publishedDate": "2025-03-27",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "bnetza-hydrogen-core",
@@ -10842,7 +9582,15 @@
         "2024 年 10 月获批方案包括 9,040 km 管线，约 60% 拟由天然气管线改造，计划于 2032 年前分步投入运营。这是德国获批规划，既不是当时已投运长度，也不是整个欧洲的运营总量。天然气掺氢与仍未转换投运的管段不满足本轮市场的专用氢管线定义。",
         "The October 2024 approval covers 9,040 km, about 60% converted from gas pipelines, for phased operation by 2032. This is an approved German plan, not operating mileage or a Europe-wide total. Blending and segments awaiting hydrogen conversion do not meet the contract definition."
       ],
-      "publishedDate": "2024-10-22"
+      "publishedDate": "2024-10-22",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "nif-2023-gain",
@@ -10864,7 +9612,15 @@
       "body": [
         "年度报告记录 2023 年 7 月 30 日一次实验：到靶激光 2.05 MJ，聚变输出 3.88 MJ。按披露值相除约 1.89；分母不含激光设施全部用电。这组历史数据说明如何读靶增益，不代表 2023 年所有实验的最大值，也不能推出电站净发电。",
         "The report records 2.05 MJ delivered laser energy and 3.88 MJ fusion output for the 30 July 2023 shot: about 1.89 by division. The denominator excludes whole-facility electricity. This historical shot illustrates target gain, not the maximum of every 2023 shot or net electrical generation."
-      ]
+      ],
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "parallel-gates-2023",
@@ -10885,7 +9641,15 @@
         "论文报告在最多 60 个原子上并行实现双比特纠缠门，保真度 99.5%，并以多种重复门测试评估误差。60 指原子数，不是 60 对双比特门；99.5% 也低于本市场 99.9% 的门槛。学术论文结果还需与题目指定的企业团队和截止时间分别对应。",
         "The study reports 99.5% two-qubit entangling fidelity on up to 60 atoms in parallel, benchmarked using repeated-gate methods. Sixty denotes atoms, not sixty gate pairs. The value is below the contract’s 99.9%; corporate-team attribution and the deadline remain separate requirements."
       ],
-      "publishedDate": "2023-04-11"
+      "publishedDate": "2023-04-11",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "terraform-demo-2024",
@@ -10906,7 +9670,15 @@
         "公司称于 2024 年 3 月 27 日接通电解、直接空气捕集与甲烷化系统，产品甲烷含量 >97%。其 <2.50 美元/kg 制氢与 <250 美元/t 空气捕集成本是企业披露，前者同时给出 20 美元/MWh 直流光伏电价假设。示范运行和甲烷销售均未直接证明本题要求的设备销售；燃料使用后碳会重新释放，不能按永久移除记账。",
         "The company reports commissioning electrolysis, DAC and methanation on 27 March 2024, producing >97% methane. Disclosed costs of <$2.50/kg H₂ and <$250/t captured CO₂ are company claims; the hydrogen calculation cites $20/MWh solar DC electricity. Demonstration or methane sales do not establish equipment sales. Fuel carbon is later released, rather than durably removed."
       ],
-      "publishedDate": "2024-04-01"
+      "publishedDate": "2024-04-01",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     },
     {
       "id": "doe-carbon-negative-2032",
@@ -10929,7 +9701,15 @@
         "2024 年 10 月公告将 2032 年组合目标表述为每净吨 CO₂ 当量移除与安全储存成本低于 100 美元，并强调测量、报告与核验。它是研发目标；与只计算捕集的企业报价、名义工厂吞吐量、合成燃料产量不在同一核算边界。",
         "The October 2024 notice sets a portfolio goal below $100 per net tonne CO₂-equivalent by 2032, including secure storage and robust MRV. This is a development target, with a different boundary from capture-only cost, nameplate throughput or synthetic-fuel output."
       ],
-      "publishedDate": "2024-10-18"
+      "publishedDate": "2024-10-18",
+      "publicationReview": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      }
     }
   ],
   "nobel": {
@@ -10988,7 +9768,7 @@
     "currency": "MANA",
     "apiDocs": "https://docs.manifold.markets/api",
     "history": "actual-trades-before-close-and-resolution",
-    "points": 12793,
+    "points": 12794,
     "counts": {
       "markets": 54,
       "resolved": 19,

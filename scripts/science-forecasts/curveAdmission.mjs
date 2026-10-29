@@ -26,8 +26,7 @@ export function validateCurveAdmission(records, topics, review) {
  }
  for (const id of [...preserved, ...accepted.keys()]) if (!ids.has(id)) throw Error('Reviewed market missing: ' + id)
  for (const topic of topics) {
-  if (topic.mode === 'literature') {
-   if (!review.legacyLiteratureTopicIds.includes(topic.id)) throw Error('New topics require genuine trade curves: ' + topic.id)
-  } else if (topic.id !== 'nobel' && !records.some(r => r.topicId === topic.id)) throw Error('Forecast topic without a trade curve: ' + topic.id)
+  if (topic.mode === 'literature') throw Error('New topics require genuine trade curves: ' + topic.id)
+  else if (topic.id !== 'nobel' && !records.some(r => r.topicId === topic.id)) throw Error('Forecast topic without a trade curve: ' + topic.id)
  }
 }

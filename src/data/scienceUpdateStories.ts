@@ -1,5 +1,64 @@
 export const scienceUpdateStories = [
 {
+  "hash": "update-trade-verification",
+  "version": "v3.5.15",
+  "date": "2026-10-29",
+  "image": 0,
+  "title": [
+    "交易数据复核与节点解释修正",
+    "Trade verification and corrected node interpretation"
+  ],
+  "intro": [
+    "复核既有交易来源，补回 1 个遗漏成交点，移除 4 个没有交易数据的专题，并停止用提交日期或冲突日期解释价格变化。",
+    "Existing sources were rechecked, one omitted trade restored, four curve-free topics removed, and submission/conflicting dates blocked from price comparisons."
+  ],
+  "sections": [
+    {
+      "title": [
+        "交易节点逐点核对",
+        "Point-by-point trade review"
+      ],
+      "body": [
+        "54 个技术市场重新分页核对：53 个完全匹配；一个聚变市场补回原截止时间内的 1 个有效成交点，历史总数由 12,793 更正为 12,794。不改原截止边界、不用结算值补价，也没有证据确定原遗漏的具体原因。",
+        "Of 54 technical markets, 53 matched exactly; one fusion archive was corrected by restoring one qualifying pre-cutoff point, changing the total from 12,793 to 12,794. Original cutoffs remain; settlement values are not substituted and the omission’s cause is undetermined."
+      ]
+    },
+    {
+      "title": [
+        "移除无交易数据专题",
+        "Remove topics without trading data"
+      ],
+      "body": [
+        "从目录和导航移除不对称有机催化、可见光光氧化还原、点击与生物正交、PET 酶解四个文献专题，并清理其专属来源、指标和关联入口。科学预测保留 11 个专题；不再保留文献专题的收录豁免。历史更新日志保留原记录。",
+        "Four literature-only topics—asymmetric organocatalysis, photoredox, click/bioorthogonal chemistry and PET enzymes—were removed with exclusive sources, indicators and links. Eleven forecast topics remain, without literature exemptions. Historical release records are preserved."
+      ]
+    },
+    {
+      "title": [
+        "日期不能自动解释成交",
+        "Dates do not establish trade causation"
+      ],
+      "body": [
+        "arXiv 提交日不再作为首次公开日期；DOE 点火页面日期与官方发布会日期不一致，停止生成价差。仅经复核的公开日期可参与比较；日期无时区时排除 UTC±14 小时覆盖的完整时段。修正七日窗口右端多算一个边界时点的问题；邻近成交只描述差异，不作因果归因。",
+        "arXiv submission dates are not first-publication dates; conflicting DOE page/conference dates suppress comparison. Only reviewed release dates qualify, excluding the full UTC±14-hour envelope for timezone-unknown dates. The seven-day upper bound is exclusive. Nearby trades describe differences, never causation."
+      ]
+    },
+    {
+      "title": [
+        "诺奖来源与核验边界",
+        "Nobel sources and verification limits"
+      ],
+      "body": [
+        "诺奖 Manifold 的 53 条候选序列与 Kalshi 的 18 条有成交量蜡烛序列已回读匹配。Polymarket 的 30 条候选历史接口返回 403，保留已有价格采样，并在页面显示重新核验未完成。三种平台口径不合并，不把价格采样称为逐笔成交。",
+        "Fifty-three Nobel Manifold candidate series and eighteen Kalshi traded-candle series matched source records. Thirty Polymarket candidate history requests returned 403; existing price samples remain with a visible unverified notice. Platform grains remain distinct."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "依据原存档截止时间重新回读公开交易 API；日期依据 arXiv 提交历史、Donut Lab、Google Research、DOE/NNSA 原始页面。核验记录包含未通过与不可回读项，不代表所有来源均已完成在线核验。"
+},
+
+{
   "hash": "update-verified-trade-curves",
   "version": "v3.5.13",
   "date": "2026-10-26",

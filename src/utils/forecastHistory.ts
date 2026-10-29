@@ -36,13 +36,16 @@ export function historyWindow(points: ForecastPoint[], cutoff: number, hours: nu
   return { points: invalid ? [] : valid.filter(p => p.t >= lower && p.t <= upper), start: lower, end: upper, invalid }
 }
 
-/** Date-only publication comparison: exclude the entire publication day. */
+/** Conservative UTC envelope for a verified calendar date whose source timezone is unknown. */
 export function publicationNeighbors(points: ForecastPoint[], publicationDate: string, cutoff: number) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(publicationDate)) return null
   const day = Date.parse(`${publicationDate}T00:00:00Z`)
-  if (!Number.isFinite(day)) return null
-  const before = points.filter(p => p.t >= day - 7 * DAY && p.t < day && p.t < cutoff)
-  const after = points.filter(p => p.t >= day + DAY && p.t <= day + 8 * DAY && p.t < cutoff)
+  if (!Number.isFinite(day) || new Date(day).toISOString().slice(0,10) !== publicationDate) return null
+  const earliest = day - 14 * 3_600_000, latest = day + DAY + 14 * 3_600_000
+  const valid = points.filter(p=>Number.isFinite(p.t)&&Number.isFinite(p.p)&&p.p>=0&&p.p<=1&&p.t<cutoff).sort((a,b)=>a.t-b.t)
+  const before = valid.filter(p => p.t >= earliest - 7 * DAY && p.t < earliest)
+  const after = valid.filter(p => p.t >= latest && p.t < latest + 7 * DAY)
   return { before: before[before.length - 1] ?? null, after: after[0] ?? null,
-    afterCutoff: day >= cutoff, beforeHistory: !!points.length && day < points[0].t,
-    delta: before.length && after.length ? (after[0].p - before[before.length - 1].p) * 100 : null }
+    afterCutoff: earliest >= cutoff, beforeHistory: !!valid.length && latest <= valid[0].t,
+    delta: before.length && after.length ? (after[0].p - before[before.length - 1]!.p) * 100 : null }
 }

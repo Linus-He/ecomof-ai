@@ -21,9 +21,16 @@ describe('observable forecast history',()=>{
  })
  it('excludes the entire publication day, applies a bounded neighbor window and leaves missing prices null',()=>{
   const result=publicationNeighbors(points,'2026-01-03',day(31))!
-  expect(result.before).toEqual(points[0]);expect(result.after).toEqual(points[2]);expect(result.delta).toBeCloseTo(10)
+  expect(result.before).toEqual(points[0]);expect(result.after).toEqual(points[3]);expect(result.delta).toBeCloseTo(30)
   expect(publicationNeighbors(points,'2026-01-25',day(31))?.delta).toBeNull()
   expect(publicationNeighbors(points,'2026-02-01',day(31))?.afterCutoff).toBe(true)
   expect(publicationNeighbors(points,'2025-12-01',day(31))?.beforeHistory).toBe(true)
  })
+})
+
+it('rejects impossible calendar dates and excludes timezone-ambiguous times and the eighth search day',()=>{
+ expect(publicationNeighbors(points,'2026-02-30',day(31))).toBeNull()
+ const end=day(3)+DAY+14*3600000
+ const result=publicationNeighbors([{t:day(2)+20*3600000,p:.1},{t:day(4),p:.2},{t:end,p:.3},{t:end+7*DAY,p:.9}],'2026-01-03',day(31))!
+ expect(result.before).toBeNull();expect(result.after?.p).toBe(.3);expect(result.delta).toBeNull()
 })

@@ -1,17 +1,12 @@
 {
   "reviewedAt": "2026-10-26",
-  "policy": "New forecasts require at least two distinct actual pre-cutoff trade timestamps, complete history pagination, reviewed rules and technical/source relevance. No synthetic or settlement history.",
+  "policy": "All forecast topics require actual trade histories; no literature-only exemptions.",
   "minimumTradePoints": 2,
   "acceptedNewMarkets": 13,
   "newTradePoints": 1782,
-  "legacyLiteratureTopicIds": [
-    "asymmetric-organocatalysis",
-    "visible-light-organic",
-    "click-bioorthogonal",
-    "pet-enzymatic-recycling"
-  ],
+  "legacyLiteratureTopicIds": [],
   "preservedExistingMarkets": 41,
-  "preservedExistingPoints": 11011,
+  "preservedExistingPoints": 11012,
   "markets": [
     {
       "id": "0IclPPNtNA",
@@ -541,7 +536,7 @@
     },
     {
       "id": "BGT0eBN2kmD6FmsXEvFt",
-      "sha256": "15e6547b5e430f0a2a2d91e0e889b53315d7234d84bb02be4bba5339ce85d312"
+      "sha256": "417f25987567f3e03ec841846726097763f86c4a894c99b3c77f81430e36633f"
     },
     {
       "id": "cwtbzjfk9j",
@@ -623,5 +618,10 @@
       "id": "HB3a6kWAhptJg8Ill8yT",
       "sha256": "765c7952f84610fa64b3a6f19d4158ba198276b5ab2fe9bfd0c6d2bf4becd53c"
     }
-  ]
+  ],
+  "snapshotCorrection": {
+    "checkedAt": "2026-10-29",
+    "id": "BGT0eBN2kmD6FmsXEvFt",
+    "addedTimestamp": 1783658837289
+  }
 }

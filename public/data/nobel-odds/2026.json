@@ -35411,5 +35411,13 @@
         "Tokyo University of Science"
       ]
     }
-  ]
+  ],
+  "verification": {
+    "checkedAt": "2026-10-29",
+    "status": "unavailable",
+    "note": [
+      "2026-10-29 源历史接口返回 403，尚未重新核验；保留既有价格采样存档，不代表实时或逐笔成交。",
+      "Historical API returned 403 on 2026-10-29; re-verification unavailable. Existing price samples are archived, not live or trade-level data."
+    ]
+  }
 }

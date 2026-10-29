@@ -1,17 +1,17 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.13",
-  "generatedAt": "2026-10-26",
+  "currentAppVersion": "v3.5.15",
+  "generatedAt": "2026-10-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
     "derivedFrom": "public/data/version_evolution_records.json",
     "generatingScript": "scripts/build-app-release-log.mjs",
-    "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative source: src/data/recentUpdateStories.ts."
+    "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative sources: src/data/recentUpdateStories.ts and src/data/scienceUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.12",
-    "developmentVersion": "v3.5.13",
-    "recordedAt": "2026-10-26",
+    "baseAppVersion": "v3.5.13",
+    "developmentVersion": "v3.5.15",
+    "recordedAt": "2026-10-29",
     "status": "archived",
     "statusLabel": {
       "zh": "已归档",
@@ -22,35 +22,31 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "新增 13 个有真实成交历史的事件，扩充电池、制氢、碳利用、聚变、量子计算、钙钛矿和药物研发的规则、技术与来源阅读。",
-      "en": "Thirteen events with genuine trade histories extend battery, hydrogen, carbon-utilization, fusion, quantum, perovskite and drug-development reading."
+      "zh": "复核既有交易来源，补回 1 个遗漏成交点，移除 4 个没有交易数据的专题，并停止用提交日期或冲突日期解释价格变化。",
+      "en": "Existing sources were rechecked, one omitted trade restored, four curve-free topics removed, and submission/conflicting dates blocked from price comparisons."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "更多科学事件与真实成交曲线",
-          "en": "More scientific events with genuine trade curves"
+          "zh": "交易数据复核与节点解释修正",
+          "en": "Trade verification and corrected node interpretation"
         },
         "changes": [
           {
-            "zh": "新增 13 个 Manifold 二元市场，完整分页后得到 1,782 个有效成交时点；总计 54 个事件、12,793 个 UTC 历史时点。每个新增市场至少有 5 个有效时点，不以初始报价、结算价或插值代替成交。MANA 虚拟积分属性继续明示。",
-            "en": "Thirteen Manifold binary markets add 1,782 accepted observations after full pagination, bringing totals to 54 events and 12,793 UTC observations. Each addition has at least five observations; initial quotes, settlement prices and interpolation do not replace trades. MANA remains labelled play money."
+            "zh": "54 个技术市场重新分页核对：53 个完全匹配；一个聚变市场补回原截止时间内的 1 个有效成交点，历史总数由 12,793 更正为 12,794。不改原截止边界、不用结算值补价，也没有证据确定原遗漏的具体原因。",
+            "en": "Of 54 technical markets, 53 matched exactly; one fusion archive was corrected by restoring one qualifying pre-cutoff point, changing the total from 12,793 to 12,794. Original cutoffs remain; settlement values are not substituted and the omission’s cause is undetermined."
           },
           {
-            "zh": "九个专题加入新事件，十个已有曲线的技术专题补充解读。内容包括钠离子可订购价格、中国储能功率、钒与电池级锂供应、核能制氢、专用输氢管线、NIF 靶增益、并行双比特门、商业光伏效率与年出货，以及 AI 工具贡献归因。另补充固态电芯的 A 样耐久测试。",
-            "en": "Nine topics receive new events and ten existing curve-backed technical topics gain reading: orderable sodium-ion prices, Chinese storage power, vanadium/battery-grade lithium, nuclear hydrogen, dedicated pipelines, NIF gain, parallel gates, commercial PV and AI-tool attribution, plus solid-state A-sample endurance."
+            "zh": "从目录和导航移除不对称有机催化、可见光光氧化还原、点击与生物正交、PET 酶解四个文献专题，并清理其专属来源、指标和关联入口。科学预测保留 11 个专题；不再保留文献专题的收录豁免。历史更新日志保留原记录。",
+            "en": "Four literature-only topics—asymmetric organocatalysis, photoredox, click/bioorthogonal chemistry and PET enzymes—were removed with exclusive sources, indicators and links. Eleven forecast topics remain, without literature exemptions. Historical release records are preserved."
           },
           {
-            "zh": "新增 11 份论文、机构统计和企业原始资料，以及 21 项指标；资料总计 63 份、指标 71 项。区分 GW 与 GWh、V 与 V₂O₅、矿山含锂与电池级 LCE、获批规划与实际投运、靶能量与电站净电量、原子数与门对数、组件纪录与商品效率、燃料销售与设备合同。",
-            "en": "Eleven papers/institutional/company sources and 21 indicators bring totals to 63 documents and 71 indicators. GW/GWh, V/V₂O₅, mine lithium/battery-grade LCE, approval/operation, target energy/net electricity, atoms/gate pairs, records/products and fuel/equipment sales remain distinct."
+            "zh": "arXiv 提交日不再作为首次公开日期；DOE 点火页面日期与官方发布会日期不一致，停止生成价差。仅经复核的公开日期可参与比较；日期无时区时排除 UTC±14 小时覆盖的完整时段。修正七日窗口右端多算一个边界时点的问题；邻近成交只描述差异，不作因果归因。",
+            "en": "arXiv submission dates are not first-publication dates; conflicting DOE page/conference dates suppress comparison. Only reviewed release dates qualify, excluding the full UTC±14-hour envelope for timezone-unknown dates. The seven-day upper bound is exclusive. Nearby trades describe differences, never causation."
           },
           {
-            "zh": "保留 NIF 百分比定义、量子门 SPAM 裁量、钒产量基数冲突、商业光伏范围和 AI 工具贡献标准等提示。封盘未判定继续保持未判定，cancellation 与 No 分开；价格变化不归因于某一公告，也不合并成技术成功率。",
-            "en": "Flags retain ambiguous NIF percentages, quantum SPAM discretion, conflicting vanadium baselines, commercial-PV scope and AI attribution. Closed/unresolved remains unresolved; cancellation is separate from No. Price changes are not attributed to announcements or pooled into technical-success probabilities."
-          },
-          {
-            "zh": "发布前校验每个预测至少两个不同的真实成交时点、完整分页、截止边界及收录记录。原有 41 个市场的来源元数据和成交历史以校验摘要保护；既有四个文献专题保留，本轮不新增无曲线专题，也不把无关市场借给文献页。诺奖原有七份年度／平台记录保留。",
-            "en": "Pre-publication checks require at least two distinct actual-trade timestamps, complete pagination, cutoffs and reviewed admission. Digests protect all 41 prior source snapshots. Four existing literature topics remain, with no new curve-free topics or unrelated proxy markets; seven Nobel editions are preserved."
+            "zh": "诺奖 Manifold 的 53 条候选序列与 Kalshi 的 18 条有成交量蜡烛序列已回读匹配。Polymarket 的 30 条候选历史接口返回 403，保留已有价格采样，并在页面显示重新核验未完成。三种平台口径不合并，不把价格采样称为逐笔成交。",
+            "en": "Fifty-three Nobel Manifold candidate series and eighteen Kalshi traded-candle series matched source records. Thirty Polymarket candidate history requests returned 403; existing price samples remain with a visible unverified notice. Platform grains remain distinct."
           }
         ]
       }
@@ -191,6 +187,44 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.15",
+      "date": "2026-10-29",
+      "headline": {
+        "zh": "交易数据复核与节点解释修正",
+        "en": "Trade verification and corrected node interpretation"
+      },
+      "summary": {
+        "zh": "复核既有交易来源，补回 1 个遗漏成交点，移除 4 个没有交易数据的专题，并停止用提交日期或冲突日期解释价格变化。",
+        "en": "Existing sources were rechecked, one omitted trade restored, four curve-free topics removed, and submission/conflicting dates blocked from price comparisons."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "交易数据复核与节点解释修正",
+            "en": "Trade verification and corrected node interpretation"
+          },
+          "changes": [
+            {
+              "zh": "54 个技术市场重新分页核对：53 个完全匹配；一个聚变市场补回原截止时间内的 1 个有效成交点，历史总数由 12,793 更正为 12,794。不改原截止边界、不用结算值补价，也没有证据确定原遗漏的具体原因。",
+              "en": "Of 54 technical markets, 53 matched exactly; one fusion archive was corrected by restoring one qualifying pre-cutoff point, changing the total from 12,793 to 12,794. Original cutoffs remain; settlement values are not substituted and the omission’s cause is undetermined."
+            },
+            {
+              "zh": "从目录和导航移除不对称有机催化、可见光光氧化还原、点击与生物正交、PET 酶解四个文献专题，并清理其专属来源、指标和关联入口。科学预测保留 11 个专题；不再保留文献专题的收录豁免。历史更新日志保留原记录。",
+              "en": "Four literature-only topics—asymmetric organocatalysis, photoredox, click/bioorthogonal chemistry and PET enzymes—were removed with exclusive sources, indicators and links. Eleven forecast topics remain, without literature exemptions. Historical release records are preserved."
+            },
+            {
+              "zh": "arXiv 提交日不再作为首次公开日期；DOE 点火页面日期与官方发布会日期不一致，停止生成价差。仅经复核的公开日期可参与比较；日期无时区时排除 UTC±14 小时覆盖的完整时段。修正七日窗口右端多算一个边界时点的问题；邻近成交只描述差异，不作因果归因。",
+              "en": "arXiv submission dates are not first-publication dates; conflicting DOE page/conference dates suppress comparison. Only reviewed release dates qualify, excluding the full UTC±14-hour envelope for timezone-unknown dates. The seven-day upper bound is exclusive. Nearby trades describe differences, never causation."
+            },
+            {
+              "zh": "诺奖 Manifold 的 53 条候选序列与 Kalshi 的 18 条有成交量蜡烛序列已回读匹配。Polymarket 的 30 条候选历史接口返回 403，保留已有价格采样，并在页面显示重新核验未完成。三种平台口径不合并，不把价格采样称为逐笔成交。",
+              "en": "Fifty-three Nobel Manifold candidate series and eighteen Kalshi traded-candle series matched source records. Thirty Polymarket candidate history requests returned 403; existing price samples remain with a visible unverified notice. Platform grains remain distinct."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.13",
       "date": "2026-10-26",

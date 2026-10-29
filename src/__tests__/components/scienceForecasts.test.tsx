@@ -92,38 +92,20 @@ it('shows scoped source data and labels development targets separately',async()=
  expect(screen.getByRole('button',{name:'下载指标与来源'})).toBeTruthy()
 })
 
-it('shows organic literature cases without an empty or fabricated market panel',async()=>{
- const fetcher=vi.mocked(fetch)
- render(<ScienceForecastsPage hash="science-forecasts-asymmetric-organocatalysis"/>)
- await screen.findByRole('heading',{name:'不对称有机催化'})
- expect(screen.getByRole('heading',{name:'代表反应与实验条件'})).toBeTruthy()
- expect(document.querySelectorAll('.science-reaction-cases>article')).toHaveLength(2)
- expect(document.querySelectorAll('.science-topic-data tbody tr')).toHaveLength(9)
- expect(screen.queryByRole('heading',{name:'具体事件'})).toBeNull()
- expect(screen.queryByText('没有匹配事件。')).toBeNull()
- expect(document.querySelector('.forecast-probability-chart')).toBeNull()
- expect(fetcher.mock.calls.some(([url])=>String(url).includes('/events/'))).toBe(false)
- expect(screen.getByRole('button',{name:'下载反应与来源'})).toBeTruthy()
-})
-it('filters organic chemistry topics and preserves their literature entry links',async()=>{
- render(<ScienceForecastsPage hash="science-forecasts"/>)
- await screen.findByRole('heading',{name:'科学预测'})
- fireEvent.click(screen.getByRole('button',{name:'有机化学'}))
- expect(document.querySelectorAll('.science-topics>a')).toHaveLength(5)
- expect(within(screen.getByRole('region',{name:'科学预测专题'})).getByRole('link',{name:/点击与生物正交化学/})).toHaveAttribute('href','#science-forecasts-click-bioorthogonal')
-})
-
-it('replaces topic sections cleanly when navigating and rerendering',async()=>{
+it('removes curve-free literature entries and leaves removed URLs recoverable',async()=>{
  const {rerender}=render(<ScienceForecastsPage hash="science-forecasts"/>)
  await screen.findByRole('heading',{name:'科学预测'})
- for(const id of ['asymmetric-organocatalysis','visible-light-organic','click-bioorthogonal','pet-enzymatic-recycling','asymmetric-organocatalysis']){
-  rerender(<ScienceForecastsPage hash={`science-forecasts-${id}`}/>)
-  const topic=index.topics.find(t=>t.id===id)!
-  await screen.findByRole('heading',{name:topic.title[0]})
-  expect(document.querySelectorAll('.science-reaction-cases')).toHaveLength(1)
-  expect(document.querySelectorAll('.science-reaction-cases>article')).toHaveLength(topic.reactionCases?.length||0)
-  expect(document.querySelectorAll('.science-topic-data')).toHaveLength(1)
- }
+ expect(document.querySelectorAll('.science-topics>a')).toHaveLength(11)
+ fireEvent.click(screen.getByRole('button',{name:'有机化学'}))
+ expect(document.querySelectorAll('.science-topics>a')).toHaveLength(1)
  rerender(<ScienceForecastsPage hash="science-forecasts-asymmetric-organocatalysis"/>)
- expect(document.querySelectorAll('.science-reaction-cases')).toHaveLength(1)
+ await screen.findByRole('heading',{name:'没有这个专题'})
+ expect(screen.getByRole('link',{name:'返回科学预测'})).toBeTruthy()
+})
+
+it('does not use arXiv submission dates to generate trade explanations',async()=>{
+ render(<ScienceForecastsPage hash={`science-forecasts-event-${cancelled.id}`}/>)
+ await screen.findByRole('heading',{name:cancelled.title[0]})
+ expect(document.querySelectorAll('.forecast-news-delta')).toHaveLength(0)
+ expect(screen.getAllByText(/arXiv 提交日期/).length).toBeGreaterThan(0)
 })

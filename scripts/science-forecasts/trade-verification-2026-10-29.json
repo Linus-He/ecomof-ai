@@ -1,0 +1,4570 @@
+{
+  "checkedAt": "2026-10-29",
+  "method": "Re-fetch public market metadata and every bets page; reconstruct at each original archived cutoff, with filled/non-redemption/share filters and identical timestamp collapse. No current trades backfilled beyond cutoff.",
+  "markets": [
+    {
+      "id": "SAIUNdCI8U",
+      "sourceApi": "https://api.manifold.markets/v0/market/SAIUNdCI8U",
+      "marketSha256": "22172b4151545a2fe75ba91c859d63c15b897848bbba0ddc2273c47517763c58",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000",
+          "sha256": "dbd9bf74195e4e0ce5dbc9918cf9fb71b405f38f830f2e800a838daca69cdbe6",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=Stdy8gIQ9yPU",
+          "sha256": "5ebdab1dbff506365f5fae223f16f4a50bf8d05d053e23f26bc0c851bf48ed52",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=O58ylPsppnu9",
+          "sha256": "b8c9aa6974e76e800be8ae0faed249912a06faeb71ea9afaa39d15173d029831",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=sg2NNSO28Cz6",
+          "sha256": "3856293fa5c1895bbf0e0bbeceec52adf0633c86a91e62501e4f4f9a9b9ebaac",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=SlLhtOy9Eh9C",
+          "sha256": "ccf8472d793038456edda515b9c91e72a20ae08bc6f1c4f8e97768e80d49c135",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=y8NnuL0SzgyU",
+          "sha256": "4a0ec549374700f9a71eddadc942a243dd451806cf2d75aa987551f1ede49a0c",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=Np6uL6gzPCRy",
+          "sha256": "c1eb7af117e721abfa58b2425304a8703d1606578b8b9eaf65e524c6849c99f2",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=lzE2IPphuPAQ",
+          "sha256": "ae5bc7c0d0e69566d5316d7668f867fd99a5b862de8fb3b0678e09ffa13a9ce1",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=nPRQut9hUOpE",
+          "sha256": "4c4eeac9986d021f9e2e78ce7c5a9b6596674bcfd0da4bc8bd59d72288a2e645",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=tNpRZEz8OACR",
+          "sha256": "ecec03e43d8d65b3fd32aa73ff8cd713d14495be267d346374affe631c4b34d3",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=CcIIIs9zSUn5",
+          "sha256": "5c2e345ce7d9fb66e7254e9c90b133335ac79aae04ea1df965f5b9472f75d1cc",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=Cst5EnuqPnhU",
+          "sha256": "4a4aed18dce4f02ee82775d7cf0d8a99ed4f165e80c296eb7e59ca7bb64d608e",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=uPqqZd88sq96",
+          "sha256": "a69166318df0a6919241f1d754f2bca1f15cecb7d231737d1cf676370bb9d0e6",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=PlILlyRAtSPO",
+          "sha256": "c8f17404ff073fd0e766221dad8b6596673b3d694208be83bbef109e009777b4",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=I6EI8Z8PphZ5",
+          "sha256": "3def9f97c9b956d5f389172cff291d63735542a728133307571fee3138d89f53",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=6SzIUZqpNccs",
+          "sha256": "5043ad5c5a0ce83dc9d8a6c7a137d6ab574ddf8bf70950b655213fbc382583ae",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=2pEAU2Z59tPl",
+          "sha256": "3da077b48eb272d709e20492d57e8bfba394f88864ddedf050b1a07ed6e2c952",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=h6ynpUAuPycN",
+          "sha256": "fa62c8779c28de9d68031ad4bcc6eb7c5abff972db3951980fe5d358da0f771e",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=ONqLhtdsOl8u",
+          "sha256": "87e82e976781012cb4d8c92654609fa9c82795bd37b4652ae5eb2f761fa0a303",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=RC6t55ZgQ6l0",
+          "sha256": "9d0e7fa9d2730db3b40e88de404bcdf0fb8fa01abc474b1ab3aa3b495574f9cb",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=RP5ZpOusRNnR",
+          "sha256": "581a580ef389d49890110216d598bace24ce64cac7bddd5d430ebda78f0fbcb9",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=dlC8NlAgU0qN",
+          "sha256": "006ef65f8cb3e7323ffb9d474228223b737e651b2bdcf0b0ad21f25a0f48dc17",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=OEc8UNu8A2Sp",
+          "sha256": "17611aab5f41d6de0085b7614eca85630c336d02cf178f1579377b705262b592",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=Ns8UCd8S5yAR",
+          "sha256": "76d2071cdc66c85524b455237f7d8426d817803c296a98a4f75c905ce33a170e",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=5Elqhp9qpQAz",
+          "sha256": "4da2755fc69a88e84056edcf73bc38d51b31a65063de5f2a63797bb19acb89d4",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=hOIUSNAOcdPy",
+          "sha256": "8de99e25bc5e82bddc749872d991ed6b464869a5270f7a1c301547395edcb43d",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=hQtQ6tLIl9OP",
+          "sha256": "121aafc541abaf50635486ad47b0f02d0258dabab7476610870bd8686247b4ab",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=lnhZEpzNluNZ",
+          "sha256": "67595ca909c40c76537d7333c46b07d87c49dc16175c0fa42eea91f03ebeede3",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=SAIUNdCI8U&limit=1000&before=qAUUPP02yQgu",
+          "sha256": "23005f1a85930665af706c8ff1eb8ac3552e6021adae47ba5d853ca2d458c234",
+          "rows": 47
+        }
+      ],
+      "archivedPoints": 4164,
+      "reconstructedPoints": 4164,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909983562,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 28047
+    },
+    {
+      "id": "URnpyLNL6s",
+      "sourceApi": "https://api.manifold.markets/v0/market/URnpyLNL6s",
+      "marketSha256": "84c06732dcc85ab89719d66d377715a023a81fa472956aed12c24e8bbd35b4d9",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=URnpyLNL6s&limit=1000",
+          "sha256": "073e19d1ccc391039cd0171f48a5176df0b6e6edee11b4a67e49cbb335ad06d1",
+          "rows": 495
+        }
+      ],
+      "archivedPoints": 485,
+      "reconstructedPoints": 485,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909899997,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 495
+    },
+    {
+      "id": "5yR6nLsLlu",
+      "sourceApi": "https://api.manifold.markets/v0/market/5yR6nLsLlu",
+      "marketSha256": "c820b0e097c02e651f9b511afee6efc710d8b8eb71d43a3c585291544a1de460",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=5yR6nLsLlu&limit=1000",
+          "sha256": "782102b4b8338c5f9352625b71980fc748d4745a9e7eea6c0e864145d0eefe3f",
+          "rows": 8
+        }
+      ],
+      "archivedPoints": 8,
+      "reconstructedPoints": 8,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909896537,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 8
+    },
+    {
+      "id": "E6A6gylOZq",
+      "sourceApi": "https://api.manifold.markets/v0/market/E6A6gylOZq",
+      "marketSha256": "2ef8ffbd8fef996cb448884d781c86b57f2c413bc8c0b47bfc36425cc3101933",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=E6A6gylOZq&limit=1000",
+          "sha256": "d223b31c5d7fcd0135bea499e34233c40bb43e219895b5f2f417ed6d8726737c",
+          "rows": 74
+        }
+      ],
+      "archivedPoints": 59,
+      "reconstructedPoints": 59,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909898804,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 74
+    },
+    {
+      "id": "hznAd5Sh0S",
+      "sourceApi": "https://api.manifold.markets/v0/market/hznAd5Sh0S",
+      "marketSha256": "7955e3bfe6b52884f7336b1a00d931d73a8a2d924058579f6309b4407562eb21",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hznAd5Sh0S&limit=1000",
+          "sha256": "591bac58f186c3ba0343d086ed9afb52a71a95c94bd2e20f73c2e816e5134f6c",
+          "rows": 95
+        }
+      ],
+      "archivedPoints": 79,
+      "reconstructedPoints": 79,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909901939,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 95
+    },
+    {
+      "id": "Shc85pllS8",
+      "sourceApi": "https://api.manifold.markets/v0/market/Shc85pllS8",
+      "marketSha256": "4e1dd02c86863b05a16f7a997cb8633ee47ad3f01b24db34742d985d9eba39dd",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=Shc85pllS8&limit=1000",
+          "sha256": "047b03ea74a9e91c1930066333a79be46515f7463245ce6ceff09e8aa1ab442c",
+          "rows": 92
+        }
+      ],
+      "archivedPoints": 66,
+      "reconstructedPoints": 66,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909902431,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 92
+    },
+    {
+      "id": "yTnpOcsEjYIa0GcasRVg",
+      "sourceApi": "https://api.manifold.markets/v0/market/yTnpOcsEjYIa0GcasRVg",
+      "marketSha256": "6033959ac0443e9a443ababbe55518fb71147d1afb2d8655fc12a4d9940946a5",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=yTnpOcsEjYIa0GcasRVg&limit=1000",
+          "sha256": "00eee7a8038bf2e14cbd7d66c05ceb3fa265c747777f4c37823f09cb1a60ae7d",
+          "rows": 33
+        }
+      ],
+      "archivedPoints": 25,
+      "reconstructedPoints": 25,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735657140000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 33
+    },
+    {
+      "id": "jVXPWByYV1uHFNzjULf6",
+      "sourceApi": "https://api.manifold.markets/v0/market/jVXPWByYV1uHFNzjULf6",
+      "marketSha256": "4acb440fab6256f7348e3ddbdb10344458f07b1a7dd56816db4a3eac7ebf50fa",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=jVXPWByYV1uHFNzjULf6&limit=1000",
+          "sha256": "c4c10c84e44701a65f9ef5521cef8c39d432e8ef560ccc9719ae2461617c94ea",
+          "rows": 11
+        }
+      ],
+      "archivedPoints": 11,
+      "reconstructedPoints": 11,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735718340000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 11
+    },
+    {
+      "id": "n0dowx6m17",
+      "sourceApi": "https://api.manifold.markets/v0/market/n0dowx6m17",
+      "marketSha256": "ae1d19f3aba48dd99f2c199ffefecd8e0e11d1ab261193cfe323ec4e562fcb2b",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=n0dowx6m17&limit=1000",
+          "sha256": "b4f814e9ffd518b8a62db6ab8f8f34e23844cbb5d7c72ce4f2d4095a1d64514a",
+          "rows": 13
+        }
+      ],
+      "archivedPoints": 13,
+      "reconstructedPoints": 13,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909908466,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 13
+    },
+    {
+      "id": "2UE5OE8cAwOnRANIwyGi",
+      "sourceApi": "https://api.manifold.markets/v0/market/2UE5OE8cAwOnRANIwyGi",
+      "marketSha256": "385593f88c16ddefd1c394c9f005acd0534d6eed2263fca3e202d42209ebf5a5",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=2UE5OE8cAwOnRANIwyGi&limit=1000",
+          "sha256": "4413b4cc4caf18995dacebc1bfe2d0a4743e027b4e08657e8920452b04a0af47",
+          "rows": 11
+        }
+      ],
+      "archivedPoints": 7,
+      "reconstructedPoints": 7,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909906974,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 11
+    },
+    {
+      "id": "8m2QavDR1KYRdV3g8aDf",
+      "sourceApi": "https://api.manifold.markets/v0/market/8m2QavDR1KYRdV3g8aDf",
+      "marketSha256": "9bd20cb2fca49a192a70dd39ae0f5b72b43400b99a25131b74bb1ee8362b994c",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=8m2QavDR1KYRdV3g8aDf&limit=1000",
+          "sha256": "582cb0f1500f34d5c86dacb5425977aeefbb54b08628cc0b90a81c7722f167f8",
+          "rows": 804
+        }
+      ],
+      "archivedPoints": 533,
+      "reconstructedPoints": 533,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909911669,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 804
+    },
+    {
+      "id": "tV8TUnUEXherIZzyoywQ",
+      "sourceApi": "https://api.manifold.markets/v0/market/tV8TUnUEXherIZzyoywQ",
+      "marketSha256": "a5689c7c346eb7d6ddb03ad0807931b7348268ed45d3cec7ece0ba6c80553d50",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=tV8TUnUEXherIZzyoywQ&limit=1000",
+          "sha256": "ff80086580f86ea8939890b31a52a92e0b5f95611e26c59eb23354bf8559853d",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=tV8TUnUEXherIZzyoywQ&limit=1000&before=w4ulzt07Ve6HvsYszzBJ",
+          "sha256": "08484236e3a0dd2df244de12757c85615e9a401301fac1370651353dbd459cb5",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=tV8TUnUEXherIZzyoywQ&limit=1000&before=oxocBD8PmhrTCKPPlhN3",
+          "sha256": "28e3a2a3c49a5ec695a1231aac01f81f3d723e9cd32d42c9ec5706c2cf250af7",
+          "rows": 189
+        }
+      ],
+      "archivedPoints": 1500,
+      "reconstructedPoints": 1500,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1692046740000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 2189
+    },
+    {
+      "id": "kphkIrlmHjGcCssSiHdi",
+      "sourceApi": "https://api.manifold.markets/v0/market/kphkIrlmHjGcCssSiHdi",
+      "marketSha256": "e013e354baa061bef152205c698e7f77ffe99baf8967f13063ac7052d3814c2a",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=kphkIrlmHjGcCssSiHdi&limit=1000",
+          "sha256": "cced129fe61c8d636fad20338b16f484bb1080d870cac8ebc96b0bf216be9a2c",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=kphkIrlmHjGcCssSiHdi&limit=1000&before=P9WpArof6OFjK13MZEUY",
+          "sha256": "3a8c2aaeb8ac40c6852fc46ecd91dc05998308184a2dc9566debb9efc727eb40",
+          "rows": 34
+        }
+      ],
+      "archivedPoints": 557,
+      "reconstructedPoints": 557,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1704171540000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 1034
+    },
+    {
+      "id": "S1JzUyhBphhmBZF6UTLr",
+      "sourceApi": "https://api.manifold.markets/v0/market/S1JzUyhBphhmBZF6UTLr",
+      "marketSha256": "cd8ce01d6328378816c6e5780b8b2c6dae984af8a0b963353e43a59e86624bf0",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=S1JzUyhBphhmBZF6UTLr&limit=1000",
+          "sha256": "4ff7ff986773c421cc58328a3646f0e3a8a72361de8a2e5c0ecaa01ea9a3e9aa",
+          "rows": 179
+        }
+      ],
+      "archivedPoints": 102,
+      "reconstructedPoints": 102,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1690855572137,
+      "currentResolution": "YES",
+      "archivedResolution": "YES",
+      "rawRows": 179
+    },
+    {
+      "id": "GJf5q3WjqIIiArUkpxbl",
+      "sourceApi": "https://api.manifold.markets/v0/market/GJf5q3WjqIIiArUkpxbl",
+      "marketSha256": "98f37653303ac17026e08ab667c32698407badec966ff69cd5653e9f4162e035",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=GJf5q3WjqIIiArUkpxbl&limit=1000",
+          "sha256": "9f9be0e6622b7e8a090759e070a76c5f968c6a9aa3f88c9c4fd58d4b5eb18fcf",
+          "rows": 41
+        }
+      ],
+      "archivedPoints": 27,
+      "reconstructedPoints": 27,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909922706,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 41
+    },
+    {
+      "id": "H5nCcUUDsH556qedFoUn",
+      "sourceApi": "https://api.manifold.markets/v0/market/H5nCcUUDsH556qedFoUn",
+      "marketSha256": "d26b9dcb79cb6cfabdc149f54058a31272757614f30a7f1994899e07a1096e97",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=H5nCcUUDsH556qedFoUn&limit=1000",
+          "sha256": "55a6254607f64658396371cf8ba721cb969125863dd4306fff82532b5f0e1bc5",
+          "rows": 164
+        }
+      ],
+      "archivedPoints": 110,
+      "reconstructedPoints": 110,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735793940000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 164
+    },
+    {
+      "id": "xsHh9WCTD1PRuvZwTYqA",
+      "sourceApi": "https://api.manifold.markets/v0/market/xsHh9WCTD1PRuvZwTYqA",
+      "marketSha256": "0ec9cade30159da89af42095fb9dba142dbd64fa7100070b045447b864b09d23",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=xsHh9WCTD1PRuvZwTYqA&limit=1000",
+          "sha256": "37db212acf9725358634bb44b95bb49a7f8a5bdb94646817494ca4f4e364c34b",
+          "rows": 111
+        }
+      ],
+      "archivedPoints": 47,
+      "reconstructedPoints": 47,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1749438405759,
+      "currentResolution": "CANCEL",
+      "archivedResolution": "CANCEL",
+      "rawRows": 111
+    },
+    {
+      "id": "u1hCf24lNpTqWYEpM2Uq",
+      "sourceApi": "https://api.manifold.markets/v0/market/u1hCf24lNpTqWYEpM2Uq",
+      "marketSha256": "eeff2bd9d5f251089ae82516c3763d2b7d8a50398b33e263c0796df0f05b0638",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=u1hCf24lNpTqWYEpM2Uq&limit=1000",
+          "sha256": "98b3b8ed82a2a784a4acf1b2e7498a6fbd0ae4f01580ccf62f82bc627e509c16",
+          "rows": 8
+        }
+      ],
+      "archivedPoints": 8,
+      "reconstructedPoints": 8,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1782943140000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 8
+    },
+    {
+      "id": "f6jHUqoKdt8YmpXQjGlO",
+      "sourceApi": "https://api.manifold.markets/v0/market/f6jHUqoKdt8YmpXQjGlO",
+      "marketSha256": "d1f27af32826c821e19a62e3a10667f4987c3c1f2441a0da15b721ae001e4f4b",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=f6jHUqoKdt8YmpXQjGlO&limit=1000",
+          "sha256": "0aa0399bed8ce17eed4185b8ceb6f88f59e443a6a8152ff08ba8be8abf9ef16b",
+          "rows": 2
+        }
+      ],
+      "archivedPoints": 2,
+      "reconstructedPoints": 2,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792909926791,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 2
+    },
+    {
+      "id": "jqEkQKsK0FxFNXDN0lBy",
+      "sourceApi": "https://api.manifold.markets/v0/market/jqEkQKsK0FxFNXDN0lBy",
+      "marketSha256": "a1b2274473eee565d7a486ee3e3f231b4ac44a577d81b887a8090b7a27dc9ed7",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=jqEkQKsK0FxFNXDN0lBy&limit=1000",
+          "sha256": "9af6b7cc8b7f8370bc97470f0ef46bd5e642611fe06700f4dfb0ffa5e3f2051b",
+          "rows": 80
+        }
+      ],
+      "archivedPoints": 65,
+      "reconstructedPoints": 65,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792928664459,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 80
+    },
+    {
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "sourceApi": "https://api.manifold.markets/v0/market/BGT0eBN2kmD6FmsXEvFt",
+      "marketSha256": "2b9ffef940f85b3400832ac259151d6ecb9a85cba933e4ea00f2f5b4db901a42",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=BGT0eBN2kmD6FmsXEvFt&limit=1000",
+          "sha256": "e5cf9afa424e18e238dcadc64c7a01384b01c4393e09d5353d60b0aac94475dc",
+          "rows": 418
+        }
+      ],
+      "archivedPoints": 139,
+      "reconstructedPoints": 140,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [
+        1783658837289
+      ],
+      "verified": false,
+      "archiveCutoff": 1792928665807,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 418
+    },
+    {
+      "id": "cwtbzjfk9j",
+      "sourceApi": "https://api.manifold.markets/v0/market/cwtbzjfk9j",
+      "marketSha256": "ab718d8898c4bf5d277d4a542be759180ca173f12e0bf938db0b8cb19f945cec",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=cwtbzjfk9j&limit=1000",
+          "sha256": "2f96e3ac8f9f1036875acc63207bfe6fe8ac0180dc6ef68ca39f7825eb9ffb43",
+          "rows": 5
+        }
+      ],
+      "archivedPoints": 4,
+      "reconstructedPoints": 4,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792928664898,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 5
+    },
+    {
+      "id": "oocJB7zxHwURka0HYfbo",
+      "sourceApi": "https://api.manifold.markets/v0/market/oocJB7zxHwURka0HYfbo",
+      "marketSha256": "1c11ae59d53e061e63cdc4aea3cca9c5816c5b49d8d0127e48d6cb81f36ebbb3",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=oocJB7zxHwURka0HYfbo&limit=1000",
+          "sha256": "e13ba583937bce6aed4ad106c75f37e9c8fe5f9d1e78aa4c3847aa3bc31ff470",
+          "rows": 17
+        }
+      ],
+      "archivedPoints": 16,
+      "reconstructedPoints": 16,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1712786340000,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 17
+    },
+    {
+      "id": "88clPLgu5E",
+      "sourceApi": "https://api.manifold.markets/v0/market/88clPLgu5E",
+      "marketSha256": "145901b29b496d8db12c5d1185d9152d967571b17ad2bd23a19dfc586d3944de",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=88clPLgu5E&limit=1000",
+          "sha256": "884858ec2499873793076700c1cc35007713ae8961072a8f544e8116d02905f4",
+          "rows": 15
+        }
+      ],
+      "archivedPoints": 13,
+      "reconstructedPoints": 13,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792928667800,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 15
+    },
+    {
+      "id": "mH5EaioxqUT22N2MZg7B",
+      "sourceApi": "https://api.manifold.markets/v0/market/mH5EaioxqUT22N2MZg7B",
+      "marketSha256": "541cb147657a6fcf7023a637f02cfd5a84b252723a70a6b9cd691acbcf9249bb",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=mH5EaioxqUT22N2MZg7B&limit=1000",
+          "sha256": "e6390cfd20ecdd8680b732a31d19c15d07f8bc9bb42c4894bf0c7b83f449f6ad",
+          "rows": 12
+        }
+      ],
+      "archivedPoints": 11,
+      "reconstructedPoints": 11,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792928668862,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 12
+    },
+    {
+      "id": "hnzy6pqlNZ",
+      "sourceApi": "https://api.manifold.markets/v0/market/hnzy6pqlNZ",
+      "marketSha256": "609bad1f52e780eaea6c03e4c7f5f9c075288ab61ba4951959269da677ac8298",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hnzy6pqlNZ&limit=1000",
+          "sha256": "36325a03ae677ee83211a6de95533cca4949728becf6caf1527d4d985129b850",
+          "rows": 902
+        }
+      ],
+      "archivedPoints": 525,
+      "reconstructedPoints": 525,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930012852,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 902
+    },
+    {
+      "id": "e3ah02wnqsS2hwQYTgQs",
+      "sourceApi": "https://api.manifold.markets/v0/market/e3ah02wnqsS2hwQYTgQs",
+      "marketSha256": "d3470e097cfeeadc11abd165da4d338d9eedc7cf6efcb877d6eed1a1bcc381d6",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=e3ah02wnqsS2hwQYTgQs&limit=1000",
+          "sha256": "30e8bc45cfff60b776da78681ce8a59b1c622ce99270e3bdf8776c9475bee391",
+          "rows": 106
+        }
+      ],
+      "archivedPoints": 75,
+      "reconstructedPoints": 75,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735718340000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 106
+    },
+    {
+      "id": "xLCfrvBWLH5BBYsgA4TX",
+      "sourceApi": "https://api.manifold.markets/v0/market/xLCfrvBWLH5BBYsgA4TX",
+      "marketSha256": "8e20d2419af0c88590be8a470dd087fba792f25985dfb1fbea59fb3e1773d155",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=xLCfrvBWLH5BBYsgA4TX&limit=1000",
+          "sha256": "be8168877604b9221f2427c2013850bab8aac8956da4311a78455051f0a07160",
+          "rows": 15
+        }
+      ],
+      "archivedPoints": 7,
+      "reconstructedPoints": 7,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1704663440833,
+      "currentResolution": "YES",
+      "archivedResolution": "YES",
+      "rawRows": 15
+    },
+    {
+      "id": "gLKepA3Jdl3lmiRXc32K",
+      "sourceApi": "https://api.manifold.markets/v0/market/gLKepA3Jdl3lmiRXc32K",
+      "marketSha256": "81d12e9ca7ae7bf472ef9052bae23bbdbe64e6113dae612e7cec8bd16eaae383",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=gLKepA3Jdl3lmiRXc32K&limit=1000",
+          "sha256": "2da2e8d4084342d981d00e4b632eef0ac9097c516a4d9cc3867bb1175c310764",
+          "rows": 43
+        }
+      ],
+      "archivedPoints": 16,
+      "reconstructedPoints": 16,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1716574992984,
+      "currentResolution": "YES",
+      "archivedResolution": "YES",
+      "rawRows": 43
+    },
+    {
+      "id": "S2ghII2gLd",
+      "sourceApi": "https://api.manifold.markets/v0/market/S2ghII2gLd",
+      "marketSha256": "65c53dcafa9b0439129d59ee5720812c0f93736760606414e3208c9a920c6b61",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=S2ghII2gLd&limit=1000",
+          "sha256": "5f94008a570ac657ea0ffa9510b2179aff47ff3251679081ad483e6b496f757e",
+          "rows": 564
+        }
+      ],
+      "archivedPoints": 558,
+      "reconstructedPoints": 558,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930014675,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 564
+    },
+    {
+      "id": "b2npwzsZCGtn8aQ47PNO",
+      "sourceApi": "https://api.manifold.markets/v0/market/b2npwzsZCGtn8aQ47PNO",
+      "marketSha256": "20e56fbb681e1852c457a1ac6855cf87f581372d3766834b01fb765c9bb40da2",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=b2npwzsZCGtn8aQ47PNO&limit=1000",
+          "sha256": "c194e9e80de4f31c2dbe4efb406356e976bce88c8ec66a2086e73b984afffc30",
+          "rows": 256
+        }
+      ],
+      "archivedPoints": 220,
+      "reconstructedPoints": 220,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930014360,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 256
+    },
+    {
+      "id": "CP0dnApyhU",
+      "sourceApi": "https://api.manifold.markets/v0/market/CP0dnApyhU",
+      "marketSha256": "eaeb88aa9bd31fe95d36c08bdc3e19e19747a4ff8a3db8e56f9035d6f58b5ba8",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=CP0dnApyhU&limit=1000",
+          "sha256": "c2e3c865899c5e21e0fb9e47e28d7b126bbe63ffe1b5e7d55240250992ca48ed",
+          "rows": 7
+        }
+      ],
+      "archivedPoints": 7,
+      "reconstructedPoints": 7,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930014680,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 7
+    },
+    {
+      "id": "hOt5P568Iz",
+      "sourceApi": "https://api.manifold.markets/v0/market/hOt5P568Iz",
+      "marketSha256": "0bf47df3cfd62ea60ee798f8cd75ced9bcadd0cf0e22e5928de4dbf12688a690",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hOt5P568Iz&limit=1000",
+          "sha256": "3787851cd2bc6424865c04050e552fd27fe343f870816cdd98ef136c08f3fc58",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=hOt5P568Iz&limit=1000&before=Il9llSCuyu92",
+          "sha256": "b5f1286bd6ca1322089f8f29ed0442f62d02c411ad062991fc6c835dda0f089a",
+          "rows": 437
+        }
+      ],
+      "archivedPoints": 799,
+      "reconstructedPoints": 799,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930018101,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 1437
+    },
+    {
+      "id": "02b1E538uZEMM5tv6i0H",
+      "sourceApi": "https://api.manifold.markets/v0/market/02b1E538uZEMM5tv6i0H",
+      "marketSha256": "afd2abdd87e53b786e196d687697081775fd44cc92885b999c973cbf674ca030",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=02b1E538uZEMM5tv6i0H&limit=1000",
+          "sha256": "05c47548d70d0332aa06e015098ee42258d7571c56be00abf79e70b7bd1dca23",
+          "rows": 8
+        }
+      ],
+      "archivedPoints": 8,
+      "reconstructedPoints": 8,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1704078090740,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 8
+    },
+    {
+      "id": "jcYZt1lNCMgX4LHHqgoq",
+      "sourceApi": "https://api.manifold.markets/v0/market/jcYZt1lNCMgX4LHHqgoq",
+      "marketSha256": "0c9bbea4e3066610d05af3afa3905a38d3a496981182c585ef473178be6a8650",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=jcYZt1lNCMgX4LHHqgoq&limit=1000",
+          "sha256": "161392d52bee1b427686723fe47c371a6fdd96ae3b91dc53793218501064ba9c",
+          "rows": 24
+        }
+      ],
+      "archivedPoints": 13,
+      "reconstructedPoints": 13,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930016961,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 24
+    },
+    {
+      "id": "CqS0hc8NOI",
+      "sourceApi": "https://api.manifold.markets/v0/market/CqS0hc8NOI",
+      "marketSha256": "a34838a0d769173a95ae813a2a14a83ac0b5095a0fb58763719dcdcecbc24a6f",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=CqS0hc8NOI&limit=1000",
+          "sha256": "39014b9103a974bac204ee3e5ef24568cb502b2233d4671f927d38b1f539fae2",
+          "rows": 4
+        }
+      ],
+      "archivedPoints": 4,
+      "reconstructedPoints": 4,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930018276,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 4
+    },
+    {
+      "id": "fHSDwgZnxcJ7wTAw5AiR",
+      "sourceApi": "https://api.manifold.markets/v0/market/fHSDwgZnxcJ7wTAw5AiR",
+      "marketSha256": "85069a09f80f3b3cb446797e1c535f8ff99d739031ad63536abc270e64f94565",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=fHSDwgZnxcJ7wTAw5AiR&limit=1000",
+          "sha256": "2f5fd26084f357e08e714d68c34015511e62aba5bc94f10a502998eb41439109",
+          "rows": 267
+        }
+      ],
+      "archivedPoints": 68,
+      "reconstructedPoints": 68,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1672552740000,
+      "currentResolution": "YES",
+      "archivedResolution": "YES",
+      "rawRows": 267
+    },
+    {
+      "id": "mkMY7rbB02MWY1MKf9Vu",
+      "sourceApi": "https://api.manifold.markets/v0/market/mkMY7rbB02MWY1MKf9Vu",
+      "marketSha256": "ed503adcec367c0ade94ba92b01a619977ee2ffe280a9fb2de4c6b3e30815a9c",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=mkMY7rbB02MWY1MKf9Vu&limit=1000",
+          "sha256": "3a72fc1f2398d2a819a923cfbc0cd22bf2b1c8abbf1d673cbe695624554a1264",
+          "rows": 57
+        }
+      ],
+      "archivedPoints": 44,
+      "reconstructedPoints": 44,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1767243540000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 57
+    },
+    {
+      "id": "cy4il0tvgl",
+      "sourceApi": "https://api.manifold.markets/v0/market/cy4il0tvgl",
+      "marketSha256": "ca84c6f7f4e684806374ad09632723cf0a87b8038039a923a7768430317ab50d",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=cy4il0tvgl&limit=1000",
+          "sha256": "ffbeff7dc162539902acaef82a74c9044341f372f0eb5f804d3ffb893212c0af",
+          "rows": 120
+        }
+      ],
+      "archivedPoints": 115,
+      "reconstructedPoints": 115,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1765799298654,
+      "currentResolution": "YES",
+      "archivedResolution": "YES",
+      "rawRows": 120
+    },
+    {
+      "id": "AvggE9WsHv51pVkA26wx",
+      "sourceApi": "https://api.manifold.markets/v0/market/AvggE9WsHv51pVkA26wx",
+      "marketSha256": "0cd23ab7ef2248616013692105a5876d3fe267b0b607bedc8b3676dcecab6cc3",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=AvggE9WsHv51pVkA26wx&limit=1000",
+          "sha256": "d547d348bf9638adfdfa3ace554ef9117936160ddee63537beea454d73df3793",
+          "rows": 4
+        }
+      ],
+      "archivedPoints": 3,
+      "reconstructedPoints": 3,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930019964,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 4
+    },
+    {
+      "id": "HB3a6kWAhptJg8Ill8yT",
+      "sourceApi": "https://api.manifold.markets/v0/market/HB3a6kWAhptJg8Ill8yT",
+      "marketSha256": "2effe8c53198be3d7683aee8ee202ce8c23df955719c5f853da3048e6abf9d06",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=HB3a6kWAhptJg8Ill8yT&limit=1000",
+          "sha256": "c35d4bf8c82ad279a011553a868282f518f804e7a9c9c2373e8e898b0208373f",
+          "rows": 668
+        }
+      ],
+      "archivedPoints": 498,
+      "reconstructedPoints": 498,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1792930022816,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 668
+    },
+    {
+      "id": "0IclPPNtNA",
+      "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+      "marketSha256": "98949d5f0befdb4fde392b92207aa14c4a578b3eb855cbf5c941f7b063011c59",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=0IclPPNtNA&limit=1000",
+          "sha256": "29d627965daeb0ccda2d8e725df132b6f2a2b7d8b0f359a7b20615b491f11f59",
+          "rows": 7
+        }
+      ],
+      "archivedPoints": 7,
+      "reconstructedPoints": 7,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013887097,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 7
+    },
+    {
+      "id": "9UgA28yIAn",
+      "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+      "marketSha256": "f968b1c2c7c7564b7d00d538836b6de21f1aa1d13fa08d39a8f53ce0557b9335",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=9UgA28yIAn&limit=1000",
+          "sha256": "b79b4a67a803b81ee9185c5a1e10212ebc6f3844b9a23fe7eff6e177bfbc4610",
+          "rows": 26
+        }
+      ],
+      "archivedPoints": 20,
+      "reconstructedPoints": 20,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013888334,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 26
+    },
+    {
+      "id": "dNy8QLslNU",
+      "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+      "marketSha256": "a453077340b3f82260719d4cc246db02e8748ebb1363c9c449fec6c7e7eb10c6",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=dNy8QLslNU&limit=1000",
+          "sha256": "417639471d14ae14456bf06706559ce3455f42aeb885f625918dcc6c639144af",
+          "rows": 39
+        }
+      ],
+      "archivedPoints": 31,
+      "reconstructedPoints": 31,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013888646,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 39
+    },
+    {
+      "id": "6ddpyhZNcA",
+      "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+      "marketSha256": "1e5ba7f714b7c22d9016fe1f5859bcee9958d3ed0aeed1575d9cf35795429523",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=6ddpyhZNcA&limit=1000",
+          "sha256": "80ef799cda9bb6b26fc7053f286c39b6a5a8e786d73c71e471528146f236966d",
+          "rows": 127
+        }
+      ],
+      "archivedPoints": 87,
+      "reconstructedPoints": 87,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013889917,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 127
+    },
+    {
+      "id": "23EEgMHJGu7TVzZyOCqT",
+      "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+      "marketSha256": "f3c95333b0c599d984c8e8246f49d598f94ee4fc507e940da671b8b345dcdb1f",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=23EEgMHJGu7TVzZyOCqT&limit=1000",
+          "sha256": "78fc776d793404efabb07ca6d741d0df43a93820596eb9221098bbf66f9853ac",
+          "rows": 8
+        }
+      ],
+      "archivedPoints": 8,
+      "reconstructedPoints": 8,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013892859,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 8
+    },
+    {
+      "id": "LpIUh0hQ2z",
+      "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+      "marketSha256": "a54c48023a837d2f1e0582a90604abfab69f40a189d76a96e09ac7bc34dfc488",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=LpIUh0hQ2z&limit=1000",
+          "sha256": "de3fb688fb0c8e9df4c8f5a0733434c3e420b026c301ed9eca14a61b37558187",
+          "rows": 7
+        }
+      ],
+      "archivedPoints": 7,
+      "reconstructedPoints": 7,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013890244,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 7
+    },
+    {
+      "id": "dY0K6jGiZl7cPBkkWV74",
+      "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+      "marketSha256": "ff7cf1cefbd8beb7d672de071ce879cc4ebf86fbcdaace199644fb046246f4ef",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=dY0K6jGiZl7cPBkkWV74&limit=1000",
+          "sha256": "6b926c3d7757653a5895e1642e0c44693fa8295c0f065cff0c7ae4c7310d058e",
+          "rows": 409
+        }
+      ],
+      "archivedPoints": 266,
+      "reconstructedPoints": 266,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1704027540000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 409
+    },
+    {
+      "id": "LDrguWkJhkpRIzXMT4d7",
+      "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+      "marketSha256": "b2a8579913e3ddc1710060d952f08119939bb21ea8795d2e069d774adf0a0363",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=LDrguWkJhkpRIzXMT4d7&limit=1000",
+          "sha256": "2d4c9f03c1b371701e433c44bac6b0b3ea20f256cf1f12b4795b69c0cd418e8b",
+          "rows": 207
+        }
+      ],
+      "archivedPoints": 151,
+      "reconstructedPoints": 151,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1706763540000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 207
+    },
+    {
+      "id": "8n2qAmtSKflVQ7kypyu8",
+      "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+      "marketSha256": "1c669dc1002ce79ec8a07635d27ab50826bef7fe3d78f5cb21c372c37e16e7cb",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=8n2qAmtSKflVQ7kypyu8&limit=1000",
+          "sha256": "321a86bdb6a9a6206959f528a7893659eae8ee016410b8038116c329e4a0c688",
+          "rows": 9
+        }
+      ],
+      "archivedPoints": 9,
+      "reconstructedPoints": 9,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735689540000,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 9
+    },
+    {
+      "id": "RhLLCEhdPs",
+      "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+      "marketSha256": "3a29e6a06127d88105c8a70b564ea2b2db5b6fb8335b8fa06c8e1a0d72df8538",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=RhLLCEhdPs&limit=1000",
+          "sha256": "ca72ceb281264761fbe3de5b3d97929e3a7e15ff8b06bc0cddc5a069ae73b0f5",
+          "rows": 5
+        }
+      ],
+      "archivedPoints": 5,
+      "reconstructedPoints": 5,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013895661,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 5
+    },
+    {
+      "id": "rctqd0ZaxeeiHP93VP5n",
+      "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+      "marketSha256": "3b373142fbf499eb813bb52f0f08842f7946f3022afdf14411b7b771def05014",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000",
+          "sha256": "922317b1ab9abbd84d248e9d0de4758b86df8e21724cd9ddf2bf2d304927a849",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000&before=zkgiRyAaetYvvEz3WcXq",
+          "sha256": "599c4989aa61e42ee2c2fd91fcb01170c01319cd52f42606bb6cd7aa155b7da0",
+          "rows": 1000
+        },
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=rctqd0ZaxeeiHP93VP5n&limit=1000&before=B8GS5drhvaro0wAmYGvO",
+          "sha256": "8fdd6119c5ab7f25ef3f8771ce9484afd8901defad57713911ff0ab34a7b04d2",
+          "rows": 176
+        }
+      ],
+      "archivedPoints": 1128,
+      "reconstructedPoints": 1128,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1704085140000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 2176
+    },
+    {
+      "id": "xPYUwADafpjfT1cR5iLu",
+      "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+      "marketSha256": "6949ce0ce559da402d5e5eb35fbaf4a8cf02ee3810d9f2043c342c44131b68e0",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=xPYUwADafpjfT1cR5iLu&limit=1000",
+          "sha256": "05ced31be6b2654b2512d3ecd59563eaada1cea4001927a4879bf79fac867366",
+          "rows": 22
+        }
+      ],
+      "archivedPoints": 16,
+      "reconstructedPoints": 16,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1793013896730,
+      "currentResolution": null,
+      "archivedResolution": null,
+      "rawRows": 22
+    },
+    {
+      "id": "2jB7TGwgwPJMiIgnWdce",
+      "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+      "marketSha256": "f1cdfbf73f078fe126c8bd5ee1b33047e506c7217cbb1673c6259579c3d94e99",
+      "pages": [
+        {
+          "url": "https://api.manifold.markets/v0/bets?contractId=2jB7TGwgwPJMiIgnWdce&limit=1000",
+          "sha256": "3ffecd2d13173b26ba86a5c102db319c0361fb70f6285a6766f99b79010dd7d7",
+          "rows": 80
+        }
+      ],
+      "archivedPoints": 47,
+      "reconstructedPoints": 47,
+      "missingTimestamps": [],
+      "changedTimestamps": [],
+      "extraTimestamps": [],
+      "verified": true,
+      "archiveCutoff": 1735718340000,
+      "currentResolution": "NO",
+      "archivedResolution": "NO",
+      "rawRows": 80
+    }
+  ],
+  "exactMatchesBeforeRepair": 53,
+  "repairs": [
+    {
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "timestamp": 1783658837289,
+      "oldCount": 139,
+      "newCount": 140,
+      "reason": "One additional qualifying pre-cutoff observation returned by the current source. No existing probability changed; origin of the historical omission is undetermined."
+    }
+  ],
+  "removedTopics": [
+    "click-bioorthogonal",
+    "pet-enzymatic-recycling",
+    "visible-light-organic",
+    "asymmetric-organocatalysis"
+  ],
+  "publicationPolicy": "Only verified public-release dates permit comparison. Submission dates and conflicting dates are blocked; day-only timezone unknown excludes UTC±14h envelope. Differences are descriptive, never causal.",
+  "nobelVerification": [
+    {
+      "file": "2022.json",
+      "id": "a070c86e92f2",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2022.json",
+      "id": "27c0f3db6fd3",
+      "source": "Manifold",
+      "archivedPoints": 7,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "matched": 7,
+      "verified": true,
+      "remotePoints": 7
+    },
+    {
+      "file": "2022.json",
+      "id": "49032f9d66af",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=X3nCLJkHitSmK0mukqGx&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2023.json",
+      "id": "c2af6f284835",
+      "source": "Manifold",
+      "archivedPoints": 21,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 21,
+      "verified": true,
+      "remotePoints": 21
+    },
+    {
+      "file": "2023.json",
+      "id": "c4940060ea11",
+      "source": "Manifold",
+      "archivedPoints": 14,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 14,
+      "verified": true,
+      "remotePoints": 14
+    },
+    {
+      "file": "2023.json",
+      "id": "ebca1db21091",
+      "source": "Manifold",
+      "archivedPoints": 6,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 6,
+      "verified": true,
+      "remotePoints": 6
+    },
+    {
+      "file": "2023.json",
+      "id": "c9fa117578fc",
+      "source": "Manifold",
+      "archivedPoints": 6,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 6,
+      "verified": true,
+      "remotePoints": 6
+    },
+    {
+      "file": "2023.json",
+      "id": "f8f8efe086ff",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2023.json",
+      "id": "8cf8d4485197",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2023.json",
+      "id": "92adbfa077f5",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2023.json",
+      "id": "bd414341ba38",
+      "source": "Manifold",
+      "archivedPoints": 6,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=wLN9dUY4NH2gm72IdlM1&limit=1000",
+      "matched": 6,
+      "verified": true,
+      "remotePoints": 6
+    },
+    {
+      "file": "2024.json",
+      "id": "080c91549bfa",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2024.json",
+      "id": "ad0cbe8d4a6e",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2024.json",
+      "id": "1ba2a18ec582",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2024.json",
+      "id": "e00821d2cced",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "641317857c4f",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "c78f54c5259e",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2024.json",
+      "id": "627f6658e4e4",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "d829451a99bf",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "bebf68c25ed6",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "7a68786157f9",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "da84d827362b",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "0162c2e60c25",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "0ba1ddd5969c",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2024.json",
+      "id": "92eae49d8eff",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=PSBYwxvrI53eVr01PO9L&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2025.json",
+      "id": "Pp000nRptz",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2025.json",
+      "id": "ggNcZsuqzQ",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2025.json",
+      "id": "q8tysqydUs",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2025.json",
+      "id": "lLgdugNIgq",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "P9hnA5lnE5",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "NRdSA9Sgny",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "6CuPZRRyyQ",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "p5AushdQ59",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "n65PuA5SZP",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "2z8pNAPPPQ",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "9UPscl8C6t",
+      "source": "Manifold",
+      "archivedPoints": 1,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2025.json",
+      "id": "AOpOchRtPR",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2025.json",
+      "id": "cLuL2lPd9q",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2025.json",
+      "id": "n6PCcyOzg2",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=0ElAsn8LS9&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "hnutsAEZ5u",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "QL8qPPAluy",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "hyASpySL5L",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "Olg2h5Pn6E",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "LLPysEsSdn",
+      "source": "Manifold",
+      "archivedPoints": 2,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "lgQ0q9gd58",
+      "source": "Manifold",
+      "archivedPoints": 4,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 4,
+      "verified": true,
+      "remotePoints": 4
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "RIQgZpZhpt",
+      "source": "Manifold",
+      "archivedPoints": 4,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 4,
+      "verified": true,
+      "remotePoints": 4
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "g0PlZNcEO8",
+      "source": "Manifold",
+      "archivedPoints": 5,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "pPEqytP05l",
+      "source": "Manifold",
+      "archivedPoints": 4,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 4,
+      "verified": true,
+      "remotePoints": 4
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "uRd5hPC9S8",
+      "source": "Manifold",
+      "archivedPoints": 4,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 4,
+      "verified": true,
+      "remotePoints": 4
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "sPRdsI2ALh",
+      "source": "Manifold",
+      "archivedPoints": 3,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "QhNZNA2A85",
+      "source": "Manifold",
+      "archivedPoints": 5,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "pgULq8A2OR",
+      "source": "Manifold",
+      "archivedPoints": 5,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    },
+    {
+      "file": "2026-manifold.json",
+      "id": "p9ZugzphuU",
+      "source": "Manifold",
+      "archivedPoints": 5,
+      "historySource": "https://api.manifold.markets/v0/bets?contractId=zLAczO2CsI&limit=1000",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    },
+    {
+      "file": "2026.json",
+      "id": "5371216",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=80596130308211600279615364809424938710366217151599335518194682722310129823000&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371201",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=29983658826602674414591180328088482403415822990037446636674396911292259213623&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371199",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=105530725898008202342637567184277744810352862768875849197022889985690141457671&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371222",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=46134322421610379018867072806584114163203684731848342577910813849520302153143&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371213",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=70572962950404436318533509926168639459007297361434033828185764667190178513695&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371223",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=30400329086893476804922230806503708802069643811301496551695353072429491665277&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371184",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=22564212798053579577092386307348424853064754758110945269154396555407420238914&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371186",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=41036184810102328952912462600462329873652373772302754557385883667740838299945&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371192",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=69036868654639394404622028932555494762552039830108078937788846296433295018391&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371221",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=50414065312862832627528361766682832579150261030746288953672019432299701165136&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371208",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=72716139922920404213702850726221814322001290410285310864841975723234299528193&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371212",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=91776987169154190772011787306703269348832625190656926430506887956247720904425&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371207",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=96374707743212014458268060273330694772045757282218834695938125017962052905888&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371195",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=114385851310071571400698020329587962969695645675308541424710371115333862591452&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371211",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=71956299211850329030716614639332185248105760974135838598518087398081324415815&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371181",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=35757666898934902302896226988409356812779439125080470087178700820510117988627&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371189",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=57348361630945008882814735587850958086299227594548430943495560492823736244746&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371217",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=61887183646830205765262595595562075146870167291892751991790742943259195026169&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371219",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=89129808960599050967356516841187328389674408901477350790216883045834582606126&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371179",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=91149279256109889735182522950867389818978298819476258109995513763257765815420&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371224",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=54119673360946298702330617799463348547405320171412802838201009721201052678834&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371205",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=77931743100316035364847095337294452102357887006233890718732274025561147641604&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371210",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=69767524530126653812281591685590238550312890276117327185130098388479036437522&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371215",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=75187119846633672847323366025893771994764874488850196711014385368351587953124&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371197",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=104036254167240317093018441278344824291228100495173218809415160698163667536301&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371214",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=98271464820747517942008049106457514452305182456750637527064313118376890583107&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371202",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=16193349873083439995942569081973004910400245872038732682926144024777569865207&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371218",
+      "source": "Polymarket",
+      "archivedPoints": 287,
+      "historySource": "https://clob.polymarket.com/prices-history?market=54434208066601285517987530526646224998979080892564769228219556662783113421122&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371209",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=75609862966638809295446202525111696504284941675257786437298660587499058774646&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026.json",
+      "id": "5371220",
+      "source": "Polymarket",
+      "archivedPoints": 288,
+      "historySource": "https://clob.polymarket.com/prices-history?market=3340000779259119948380561753860660987719559142028822852842557748606257458493&startTs=1791279900&endTs=1791366299&fidelity=5",
+      "verified": false,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-TZHA",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-TZHA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-SBAL",
+      "source": "Kalshi",
+      "archivedPoints": 33,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SBAL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "verified": true,
+      "matched": 33,
+      "remotePoints": 33
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-HGRA",
+      "source": "Kalshi",
+      "archivedPoints": 10,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HGRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 10,
+      "verified": true,
+      "remotePoints": 10
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-KMAT",
+      "source": "Kalshi",
+      "archivedPoints": 3,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-KMAT/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 3,
+      "verified": true,
+      "remotePoints": 3
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-DLIU",
+      "source": "Kalshi",
+      "archivedPoints": 14,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DLIU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 14,
+      "verified": true,
+      "remotePoints": 14
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-CWON",
+      "source": "Kalshi",
+      "archivedPoints": 5,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CWON/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-CCRE",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CCRE/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-DALL",
+      "source": "Kalshi",
+      "archivedPoints": 13,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-DALL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 13,
+      "verified": true,
+      "remotePoints": 13
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-MPAR",
+      "source": "Kalshi",
+      "archivedPoints": 4,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MPAR/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 4,
+      "verified": true,
+      "remotePoints": 4
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-SBUC",
+      "source": "Kalshi",
+      "archivedPoints": 2,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-SBUC/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-MGRA",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-MGRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-PSCH",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-PSCH/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-HSNA",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-HSNA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-BBAS",
+      "source": "Kalshi",
+      "archivedPoints": 2,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-BBAS/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-PCUL",
+      "source": "Kalshi",
+      "archivedPoints": 2,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-PCUL/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-JYU",
+      "source": "Kalshi",
+      "archivedPoints": 2,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JYU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 2,
+      "verified": true,
+      "remotePoints": 2
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-CBRA",
+      "source": "Kalshi",
+      "archivedPoints": 1,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-CBRA/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 1,
+      "verified": true,
+      "remotePoints": 1
+    },
+    {
+      "file": "2026-kalshi.json",
+      "id": "KXNOBELCHEM-26-JSTU",
+      "source": "Kalshi",
+      "archivedPoints": 5,
+      "historySource": "https://api.elections.kalshi.com/trade-api/v2/series/KXNOBELCHEM/markets/KXNOBELCHEM-26-JSTU/candlesticks?start_ts=1791279900&end_ts=1791366299&period_interval=1",
+      "matched": 5,
+      "verified": true,
+      "remotePoints": 5
+    }
+  ],
+  "finalTechnicalMarkets": 54,
+  "finalTechnicalPoints": 12794,
+  "publicationNodes": [
+    {
+      "marketId": "SAIUNdCI8U",
+      "evidenceId": "donut-elements",
+      "date": "2026-09-23",
+      "review": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://www.donutlab.com/elemental-analysis-announcement/"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "observed-neighbors",
+      "before": {
+        "t": 1790020024999,
+        "p": 0.15408628850736183
+      },
+      "after": {
+        "t": 1790284716191,
+        "p": 0.15349583014326856
+      },
+      "deltaPercentagePoints": -0.059045836409327146,
+      "excludedUtcInterval": [
+        1790071200000,
+        1790258400000
+      ]
+    },
+    {
+      "marketId": "SAIUNdCI8U",
+      "evidenceId": "donut-energy",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "URnpyLNL6s",
+      "evidenceId": "donut-elements",
+      "date": "2026-09-23",
+      "review": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://www.donutlab.com/elemental-analysis-announcement/"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "insufficient-neighbors",
+      "before": null,
+      "after": {
+        "t": 1790518239200,
+        "p": 0.08941020255397115
+      },
+      "deltaPercentagePoints": null,
+      "excludedUtcInterval": [
+        1790071200000,
+        1790258400000
+      ]
+    },
+    {
+      "marketId": "URnpyLNL6s",
+      "evidenceId": "donut-energy",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "5yR6nLsLlu",
+      "evidenceId": "donut-elements",
+      "date": "2026-09-23",
+      "review": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://www.donutlab.com/elemental-analysis-announcement/"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "insufficient-neighbors",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null,
+      "excludedUtcInterval": [
+        1790071200000,
+        1790258400000
+      ]
+    },
+    {
+      "marketId": "5yR6nLsLlu",
+      "evidenceId": "donut-energy",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "E6A6gylOZq",
+      "evidenceId": "llzo-interface",
+      "date": "2024-11-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "E6A6gylOZq",
+      "evidenceId": "qs-eagle",
+      "date": "2025-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hznAd5Sh0S",
+      "evidenceId": "llzo-interface",
+      "date": "2024-11-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hznAd5Sh0S",
+      "evidenceId": "qs-eagle",
+      "date": "2025-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "Shc85pllS8",
+      "evidenceId": "qs-eagle",
+      "date": "2025-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "Shc85pllS8",
+      "evidenceId": "qs-endurance-2024",
+      "date": "2024-01-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "yTnpOcsEjYIa0GcasRVg",
+      "evidenceId": "donut-energy",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "yTnpOcsEjYIa0GcasRVg",
+      "evidenceId": "toyota-sulfide",
+      "date": "2023-10-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jVXPWByYV1uHFNzjULf6",
+      "evidenceId": "donut-energy",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jVXPWByYV1uHFNzjULf6",
+      "evidenceId": "toyota-sulfide",
+      "date": "2023-10-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "n0dowx6m17",
+      "evidenceId": "apple-battery",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "2UE5OE8cAwOnRANIwyGi",
+      "evidenceId": "toyota-sulfide",
+      "date": "2023-10-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "2UE5OE8cAwOnRANIwyGi",
+      "evidenceId": "toyota-roadmap",
+      "date": "2023-09-14",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "8m2QavDR1KYRdV3g8aDf",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "8m2QavDR1KYRdV3g8aDf",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "8m2QavDR1KYRdV3g8aDf",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "tV8TUnUEXherIZzyoywQ",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "tV8TUnUEXherIZzyoywQ",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "tV8TUnUEXherIZzyoywQ",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "kphkIrlmHjGcCssSiHdi",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "kphkIrlmHjGcCssSiHdi",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "kphkIrlmHjGcCssSiHdi",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "S1JzUyhBphhmBZF6UTLr",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "S1JzUyhBphhmBZF6UTLr",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "S1JzUyhBphhmBZF6UTLr",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "GJf5q3WjqIIiArUkpxbl",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "GJf5q3WjqIIiArUkpxbl",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "GJf5q3WjqIIiArUkpxbl",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "H5nCcUUDsH556qedFoUn",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "H5nCcUUDsH556qedFoUn",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "H5nCcUUDsH556qedFoUn",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xsHh9WCTD1PRuvZwTYqA",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xsHh9WCTD1PRuvZwTYqA",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xsHh9WCTD1PRuvZwTYqA",
+      "evidenceId": "superpower-products",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "u1hCf24lNpTqWYEpM2Uq",
+      "evidenceId": "enzyme-membrane",
+      "date": "2018-03-07",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "u1hCf24lNpTqWYEpM2Uq",
+      "evidenceId": "alphafold-role",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "u1hCf24lNpTqWYEpM2Uq",
+      "evidenceId": "saipem-enzyme",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "f6jHUqoKdt8YmpXQjGlO",
+      "evidenceId": "olivine-ecology",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "f6jHUqoKdt8YmpXQjGlO",
+      "evidenceId": "svante-redwood",
+      "date": "2025-05-13",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "f6jHUqoKdt8YmpXQjGlO",
+      "evidenceId": "vesta-pilots",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jqEkQKsK0FxFNXDN0lBy",
+      "evidenceId": "fusion-ignition",
+      "date": "2022-12-13",
+      "review": {
+        "status": "conflicting-dates",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "DOE 现页面标注 2022-12-12，NNSA 发布会资料标注 2022-12-13；首次公开时刻未确定，不计算前后价差。",
+          "DOE currently labels 2022-12-12 while NNSA conference material labels 2022-12-13. First public availability is unresolved; no before/after difference is computed."
+        ],
+        "source": "https://www.energy.gov/nnsa/articles/nnsa-administrator-hrubys-remarks-nif-press-conference"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jqEkQKsK0FxFNXDN0lBy",
+      "evidenceId": "helion-ppa",
+      "date": "2023-05-10",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "BGT0eBN2kmD6FmsXEvFt",
+      "evidenceId": "fusion-ignition",
+      "date": "2022-12-13",
+      "review": {
+        "status": "conflicting-dates",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "DOE 现页面标注 2022-12-12，NNSA 发布会资料标注 2022-12-13；首次公开时刻未确定，不计算前后价差。",
+          "DOE currently labels 2022-12-12 while NNSA conference material labels 2022-12-13. First public availability is unresolved; no before/after difference is computed."
+        ],
+        "source": "https://www.energy.gov/nnsa/articles/nnsa-administrator-hrubys-remarks-nif-press-conference"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "BGT0eBN2kmD6FmsXEvFt",
+      "evidenceId": "helion-ppa",
+      "date": "2023-05-10",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "cwtbzjfk9j",
+      "evidenceId": "quantum-willow",
+      "date": "2024-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "cwtbzjfk9j",
+      "evidenceId": "quantum-google-explanation",
+      "date": "2024-12-09",
+      "review": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://research.google/blog/making-quantum-error-correction-work/"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "insufficient-neighbors",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null,
+      "excludedUtcInterval": [
+        1733652000000,
+        1733839200000
+      ]
+    },
+    {
+      "marketId": "oocJB7zxHwURka0HYfbo",
+      "evidenceId": "quantum-willow",
+      "date": "2024-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "oocJB7zxHwURka0HYfbo",
+      "evidenceId": "quantum-google-explanation",
+      "date": "2024-12-09",
+      "review": {
+        "status": "verified-date-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "已核对来源页面的日期；没有可靠的公开时刻与时区，比较排除日期在 UTC±14 小时下覆盖的全部时间。",
+          "The source date is checked. Without reliable publication time/zone, comparisons exclude the entire possible day across UTC±14 hours."
+        ],
+        "source": "https://research.google/blog/making-quantum-error-correction-work/"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "after-cutoff",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null,
+      "excludedUtcInterval": [
+        1733652000000,
+        1733839200000
+      ]
+    },
+    {
+      "marketId": "88clPLgu5E",
+      "evidenceId": "oxford-first-shipment",
+      "date": "2024-09-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "88clPLgu5E",
+      "evidenceId": "perovskite-doe",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "mH5EaioxqUT22N2MZg7B",
+      "evidenceId": "oxford-first-shipment",
+      "date": "2024-09-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "mH5EaioxqUT22N2MZg7B",
+      "evidenceId": "perovskite-doe",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hnzy6pqlNZ",
+      "evidenceId": "catl-naxtra-vehicle",
+      "date": "2026-02-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hnzy6pqlNZ",
+      "evidenceId": "catl-sodium-safety",
+      "date": "2025-09-08",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "e3ah02wnqsS2hwQYTgQs",
+      "evidenceId": "catl-naxtra-vehicle",
+      "date": "2026-02-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "e3ah02wnqsS2hwQYTgQs",
+      "evidenceId": "catl-sodium-safety",
+      "date": "2025-09-08",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xLCfrvBWLH5BBYsgA4TX",
+      "evidenceId": "catl-naxtra-vehicle",
+      "date": "2026-02-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xLCfrvBWLH5BBYsgA4TX",
+      "evidenceId": "catl-sodium-safety",
+      "date": "2025-09-08",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "gLKepA3Jdl3lmiRXc32K",
+      "evidenceId": "catl-naxtra-vehicle",
+      "date": "2026-02-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "gLKepA3Jdl3lmiRXc32K",
+      "evidenceId": "catl-sodium-safety",
+      "date": "2025-09-08",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "S2ghII2gLd",
+      "evidenceId": "doe-pack-cost",
+      "date": "2024-08-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "S2ghII2gLd",
+      "evidenceId": "iea-batteries-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "b2npwzsZCGtn8aQ47PNO",
+      "evidenceId": "doe-pack-cost",
+      "date": "2024-08-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "b2npwzsZCGtn8aQ47PNO",
+      "evidenceId": "iea-batteries-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "CP0dnApyhU",
+      "evidenceId": "iea-batteries-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "CP0dnApyhU",
+      "evidenceId": "eia-storage-2024",
+      "date": "2025-03-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hOt5P568Iz",
+      "evidenceId": "eia-storage-2024",
+      "date": "2025-03-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "hOt5P568Iz",
+      "evidenceId": "vanadium-electrolyte",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "02b1E538uZEMM5tv6i0H",
+      "evidenceId": "catl-condensed",
+      "date": "2023-04-19",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "02b1E538uZEMM5tv6i0H",
+      "evidenceId": "doe-pack-cost",
+      "date": "2024-08-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jcYZt1lNCMgX4LHHqgoq",
+      "evidenceId": "doe-hydrogen-shot",
+      "date": "2023-12-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "jcYZt1lNCMgX4LHHqgoq",
+      "evidenceId": "iea-hydrogen-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "CqS0hc8NOI",
+      "evidenceId": "doe-hydrogen-shot",
+      "date": "2023-12-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "CqS0hc8NOI",
+      "evidenceId": "iea-hydrogen-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "fHSDwgZnxcJ7wTAw5AiR",
+      "evidenceId": "fda-clinical-phases",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "fHSDwgZnxcJ7wTAw5AiR",
+      "evidenceId": "rentosertib-phase2",
+      "date": "2025-06-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "mkMY7rbB02MWY1MKf9Vu",
+      "evidenceId": "fda-clinical-phases",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "mkMY7rbB02MWY1MKf9Vu",
+      "evidenceId": "rentosertib-phase2",
+      "date": "2025-06-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "cy4il0tvgl",
+      "evidenceId": "fda-clinical-phases",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "cy4il0tvgl",
+      "evidenceId": "rentosertib-phase2",
+      "date": "2025-06-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "AvggE9WsHv51pVkA26wx",
+      "evidenceId": "fda-clinical-phases",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "AvggE9WsHv51pVkA26wx",
+      "evidenceId": "rentosertib-phase2",
+      "date": "2025-06-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "HB3a6kWAhptJg8Ill8yT",
+      "evidenceId": "olivine-noaa",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "HB3a6kWAhptJg8Ill8yT",
+      "evidenceId": "svante-redwood",
+      "date": "2025-05-13",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "HB3a6kWAhptJg8Ill8yT",
+      "evidenceId": "climeworks-mammoth",
+      "date": "2024-05-08",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "0IclPPNtNA",
+      "evidenceId": "catl-naxtra-vehicle",
+      "date": "2026-02-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "0IclPPNtNA",
+      "evidenceId": "catl-sodium-2021",
+      "date": "2021-07-29",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "9UgA28yIAn",
+      "evidenceId": "iea-batteries-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "9UgA28yIAn",
+      "evidenceId": "eia-storage-2024",
+      "date": "2025-03-12",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "9UgA28yIAn",
+      "evidenceId": "nea-storage-2024",
+      "date": "2025-07-31",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "dNy8QLslNU",
+      "evidenceId": "vanadium-electrolyte",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "dNy8QLslNU",
+      "evidenceId": "usgs-vanadium-series",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "6ddpyhZNcA",
+      "evidenceId": "iea-batteries-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "6ddpyhZNcA",
+      "evidenceId": "usgs-lithium-series",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "23EEgMHJGu7TVzZyOCqT",
+      "evidenceId": "iea-hydrogen-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "23EEgMHJGu7TVzZyOCqT",
+      "evidenceId": "jaea-httr-2025",
+      "date": "2025-03-27",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "LpIUh0hQ2z",
+      "evidenceId": "iea-hydrogen-2026",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "LpIUh0hQ2z",
+      "evidenceId": "bnetza-hydrogen-core",
+      "date": "2024-10-22",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "dY0K6jGiZl7cPBkkWV74",
+      "evidenceId": "fusion-ignition",
+      "date": "2022-12-13",
+      "review": {
+        "status": "conflicting-dates",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "DOE 现页面标注 2022-12-12，NNSA 发布会资料标注 2022-12-13；首次公开时刻未确定，不计算前后价差。",
+          "DOE currently labels 2022-12-12 while NNSA conference material labels 2022-12-13. First public availability is unresolved; no before/after difference is computed."
+        ],
+        "source": "https://www.energy.gov/nnsa/articles/nnsa-administrator-hrubys-remarks-nif-press-conference"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "dY0K6jGiZl7cPBkkWV74",
+      "evidenceId": "nif-2023-gain",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "LDrguWkJhkpRIzXMT4d7",
+      "evidenceId": "quantum-willow",
+      "date": "2024-12-09",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "LDrguWkJhkpRIzXMT4d7",
+      "evidenceId": "parallel-gates-2023",
+      "date": "2023-04-11",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "8n2qAmtSKflVQ7kypyu8",
+      "evidenceId": "oxford-first-shipment",
+      "date": "2024-09-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "8n2qAmtSKflVQ7kypyu8",
+      "evidenceId": "perovskite-doe",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "RhLLCEhdPs",
+      "evidenceId": "oxford-first-shipment",
+      "date": "2024-09-05",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "RhLLCEhdPs",
+      "evidenceId": "perovskite-doe",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "rctqd0ZaxeeiHP93VP5n",
+      "evidenceId": "lk99-replication",
+      "date": "2023-08-07",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.03823"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "rctqd0ZaxeeiHP93VP5n",
+      "evidenceId": "superconductivity-doe",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "rctqd0ZaxeeiHP93VP5n",
+      "evidenceId": "lk99-impurity",
+      "date": "2023-08-08",
+      "review": {
+        "status": "submission-only",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+          "The arXiv record labels a submission date, not first public availability; it is not used to explain price nodes."
+        ],
+        "source": "https://arxiv.org/abs/2308.04353"
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xPYUwADafpjfT1cR5iLu",
+      "evidenceId": "fda-clinical-phases",
+      "date": null,
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "xPYUwADafpjfT1cR5iLu",
+      "evidenceId": "rentosertib-phase2",
+      "date": "2025-06-03",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "2jB7TGwgwPJMiIgnWdce",
+      "evidenceId": "terraform-demo-2024",
+      "date": "2024-04-01",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    },
+    {
+      "marketId": "2jB7TGwgwPJMiIgnWdce",
+      "evidenceId": "doe-carbon-negative-2032",
+      "date": "2024-10-18",
+      "review": {
+        "status": "unreviewed",
+        "checkedAt": "2026-10-29",
+        "note": [
+          "未完成公开日期独立复核，不将此日期用于成交前后解释。",
+          "Public-release date has not been independently reviewed; no trade comparison is generated."
+        ]
+      },
+      "interpretation": "No causal attribution; factual technical context is separate from observed price differences.",
+      "comparisonStatus": "blocked-unreviewed-date",
+      "before": null,
+      "after": null,
+      "deltaPercentagePoints": null
+    }
+  ],
+  "publicationReviewCounts": {
+    "verified-date-only": 5,
+    "unreviewed": 95,
+    "submission-only": 16,
+    "conflicting-dates": 3
+  }
+}

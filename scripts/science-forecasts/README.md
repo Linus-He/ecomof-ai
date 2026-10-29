@@ -77,3 +77,11 @@ Thirteen additional binary markets add 1,782 accepted observations in nine exist
 Use `collect-manifold.py --ids ID ... --output /tmp/your-capture` to capture a reviewed subset. Merge the new projections with preserved event source records before the build. A refresh of an earlier market requires explicit review and updated snapshot digests; do not automatically replace historical source records. Raw responses and user identities remain local to the temporary capture directory.
 
 New interpretation keeps nuclear hydrogen output separate from reactor heat, approved German pipelines separate from operating European routes, contained V and LCE separate from other material units, NIF target gain separate from net electrical gain, and fuel utilization separate from durable removal. Company costs and product claims are labelled as company disclosures; scientific/context sources do not independently settle a platform contract.
+
+## October 29 verification and removal
+
+Four curve-free literature topics are removed; eleven topics remain. Historical sections above describe previous releases, not current catalogue size. There are now 54 technical markets and 12,794 genuine pre-cutoff observations. One formerly missing observation was added to BGT0eBN2kmD6FmsXEvFt; the source of the earlier omission is not established. The original archive cutoff is unchanged and the reviewed digest was deliberately updated.
+
+`trade-verification-2026-10-29.json` records all technical comparisons, the correction, Nobel series and publication-node reviews. `verify-trades.py` and `verify-nobel.py` repeat the public read-only checks into local temporary directories. Nobel Manifold trades and Kalshi traded candles matched; Polymarket returned 403 and remains explicitly unverified on re-fetch.
+
+Only `publicationReview.status=verified-date-only` sources permit before/after comparisons. Submission dates, conflicting dates and unreviewed dates do not. A timezone-unknown calendar date excludes a conservative UTC +/-14-hour envelope; adjacent seven-day windows use an exclusive right bound. Differences are descriptive and do not identify a cause.

@@ -96,7 +96,7 @@ it('verifies indicator types, source scope and topic coverage against actual his
    expect(source?.topics).toContain(topic.id)
   }
  }
- expect(ids.size).toBe(71)
+ expect(ids.size).toBe(46)
  expect(index.events.filter(e=>['solid-state-batteries','sodium-ion-batteries','battery-scale-storage'].includes(e.topicId))).toHaveLength(23)
  expect(index.events.find(e=>e.id==='S2ghII2gLd').quality.some(q=>q.code==='rules')).toBe(true)
  expect(index.events.find(e=>e.id==='jcYZt1lNCMgX4LHHqgoq').quality.some(q=>q.code==='rules')).toBe(true)
@@ -105,26 +105,10 @@ it('verifies indicator types, source scope and topic coverage against actual his
  expect(index.topics.find(t=>t.id==='battery-scale-storage').metrics.find(m=>m.id==='eia-bess-power').value[0]).toContain('GW')
 })
 
-it('keeps organic literature separate from forecasts and joins every reported reaction to its sources',()=>{
- const literature=index.topics.filter(t=>t.mode==='literature')
- expect(literature).toHaveLength(4)
- const seen=new Set()
- for(const topic of literature){
-  expect(topic.marketCount).toBe(0)
-  expect(topic.coverage.historyPoints).toBe(0)
-  expect(topic.marketNote).toHaveLength(2)
-  expect(topic.metrics.length).toBeGreaterThan(0)
-  for(const reaction of topic.reactionCases){
-   expect(seen.has(reaction.id)).toBe(false);seen.add(reaction.id)
-   for(const key of ['title','transformation','catalyst','conditions','outcome','limits','locator'])expect(reaction[key].length===2&&reaction[key].every(s=>s.trim())).toBe(true)
-   for(const id of reaction.evidenceIds)expect(index.evidence.find(e=>e.id===id)?.topics).toContain(topic.id)
-  }
- }
- expect(seen.size).toBe(9)
- expect(index.events).toHaveLength(54)
- expect(index.method.points).toBe(12793)
- const da=literature.find(t=>t.id==='asymmetric-organocatalysis').reactionCases.find(c=>c.id==='iminium-diels-alder')
- expect(da.outcome[0]).toContain('exo:endo 1.3:1');expect(da.outcome[0]).toContain('exo 为 93% ee')
- expect(audit.organicDiscoveryReview.acceptedNewMarkets).toBe(0)
- expect(audit.organicDiscoveryReview.queries).toHaveLength(8)
+it('contains only topics with trading data and has no orphan source associations',()=>{
+ expect(index.topics).toHaveLength(11)
+ expect(index.topics.some(t=>t.mode==='literature')).toBe(false)
+ for(const t of index.topics.filter(t=>t.id!=='nobel'))expect(t.coverage.marketsWithHistory).toBeGreaterThan(0)
+ for(const e of index.evidence)for(const id of e.topics)expect(index.topics.some(t=>t.id===id)).toBe(true)
+ expect(index.method.points).toBe(12794)
 })

@@ -5,7 +5,7 @@ import index from '../../../public/data/science-forecasts/index.json'
 import review from '../../../scripts/science-forecasts/curve-admission-review.json'
 const records=index.events.map(e=>JSON.parse(readFileSync(`public/data/science-forecasts/${e.detailFile}`,'utf8')))
 const validate=(rows,topics=index.topics)=>validateCurveAdmission(rows,topics,review)
-it('admits only the 13 reviewed genuine curves and preserves all 41 original source snapshots',()=>{
+it('admits only the 13 reviewed genuine curves and validates 41 reviewed source snapshots including the documented correction',()=>{
  expect(()=>validate(records)).not.toThrow()
  expect(review.markets).toHaveLength(13)
  expect(review.newTradePoints).toBe(1782)
@@ -23,7 +23,7 @@ it.each(['one-point','incomplete','unpaginated','same-time','settlement-time','u
  if(kind==='changed-old-snapshot')rows.find(e=>e.id===review.preservedMarketIds[0]).points[0].p=0.123456
  expect(()=>validate(rows)).toThrow()
 })
-it('rejects new literature-only or curve-free topics while retaining the four pre-existing literature archives',()=>{
+it('rejects new literature-only or curve-free topics without literature exemptions',()=>{
  expect(()=>validate(records,[...index.topics,{id:'new-literature',mode:'literature'}])).toThrow(/New topics require/)
  expect(()=>validate(records,[...index.topics,{id:'new-forecast'}])).toThrow(/without a trade curve/)
  expect(index.topics.filter(t=>t.mode==='literature').map(t=>t.id)).toEqual(review.legacyLiteratureTopicIds)

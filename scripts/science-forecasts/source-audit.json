@@ -2,18 +2,13 @@
   "schemaVersion": "1.0",
   "curveAdmissionReview": {
     "reviewedAt": "2026-10-26",
-    "policy": "New forecasts require at least two distinct actual pre-cutoff trade timestamps, complete history pagination, reviewed rules and technical/source relevance. No synthetic or settlement history.",
+    "policy": "All forecast topics require actual trade histories; no literature-only exemptions.",
     "minimumTradePoints": 2,
     "acceptedNewMarkets": 13,
     "newTradePoints": 1782,
-    "legacyLiteratureTopicIds": [
-      "asymmetric-organocatalysis",
-      "visible-light-organic",
-      "click-bioorthogonal",
-      "pet-enzymatic-recycling"
-    ],
+    "legacyLiteratureTopicIds": [],
     "preservedExistingMarkets": 41,
-    "preservedExistingPoints": 11011,
+    "preservedExistingPoints": 11012,
     "markets": [
       {
         "id": "0IclPPNtNA",
@@ -543,7 +538,7 @@
       },
       {
         "id": "BGT0eBN2kmD6FmsXEvFt",
-        "sha256": "15e6547b5e430f0a2a2d91e0e889b53315d7234d84bb02be4bba5339ce85d312"
+        "sha256": "417f25987567f3e03ec841846726097763f86c4a894c99b3c77f81430e36633f"
       },
       {
         "id": "cwtbzjfk9j",
@@ -625,16 +620,21 @@
         "id": "HB3a6kWAhptJg8Ill8yT",
         "sha256": "765c7952f84610fa64b3a6f19d4158ba198276b5ab2fe9bfd0c6d2bf4becd53c"
       }
-    ]
+    ],
+    "snapshotCorrection": {
+      "checkedAt": "2026-10-29",
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "addedTimestamp": 1783658837289
+    }
   },
   "editorialReview": {
     "eventBriefs": 54,
     "industryCases": 54,
-    "evidenceCount": 63,
+    "evidenceCount": 50,
     "contexts": 31,
-    "literatureTopics": 4,
-    "reactionCases": 9,
-    "topicIndicators": 71,
+    "literatureTopics": 0,
+    "reactionCases": 0,
+    "topicIndicators": 46,
     "sourceFiles": [
       {
         "file": "scripts/science-forecasts/curation.json",
@@ -646,7 +646,7 @@
       },
       {
         "file": "scripts/science-forecasts/topics.json",
-        "sha256": "cc01588f23ee5fde9619487eaabf79678836369658018cc6ec3c81f99be22e28"
+        "sha256": "004aaaa637c2ed970ee4dc147067cdfeab29b094e2d07fb24940c349b5ffd2ab"
       }
     ]
   },
@@ -708,7 +708,7 @@
   },
   "grain": "one source market; one observation per distinct actual-trade timestamp",
   "marketCount": 54,
-  "pointCount": 12793,
+  "pointCount": 12794,
   "checks": [
     "at least two genuine pre-cutoff trade timestamps per forecast",
     "complete history pagination",
@@ -723,7 +723,7 @@
     "logo checksums",
     "no account identities in public projection"
   ],
-  "sourceProjectionSha256": "878ea55b6074a16cde435179df76b8e99aafa2405ba79c9bc6b2040c1a98c6b5",
+  "sourceProjectionSha256": "b934e336176ee91beaee129a349d5f174c1377a5d3ff94b6eef8f16b6e094d06",
   "markets": [
     {
       "id": "SAIUNdCI8U",
@@ -1287,18 +1287,19 @@
       "resolution": null,
       "historyCutoff": 1792928665807,
       "observedAt": 1792928665807,
-      "points": 139,
+      "points": 140,
       "marketSha256": "9dc72245b04aa77d69d656bda7252c83495738d73162fb8ec5ca099099b6bd58",
       "historyPages": [
         {
           "url": "https://api.manifold.markets/v0/bets?contractId=BGT0eBN2kmD6FmsXEvFt&limit=1000",
-          "sha256": "714d6e7559ae66707f3dad9f2547c6bbd5bfe3dcb8db2c1ef60c9536973e65ba",
-          "rows": 412
+          "sha256": "e5cf9afa424e18e238dcadc64c7a01384b01c4393e09d5353d60b0aac94475dc",
+          "rows": 418
         }
       ],
-      "fetchedTradeRows": 412,
-      "acceptedTradeRows": 139,
-      "excludedTradeRows": 273
+      "fetchedTradeRows": 418,
+      "acceptedTradeRows": 140,
+      "excludedTradeRows": 278,
+      "reverifiedAt": "2026-10-29"
     },
     {
       "id": "cwtbzjfk9j",

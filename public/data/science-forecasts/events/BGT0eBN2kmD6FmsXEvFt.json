@@ -572,6 +572,10 @@
     {
       "t": 1776479042167,
       "p": 0.35643725224478695
+    },
+    {
+      "t": 1783658837289,
+      "p": 0.35643725224478695
     }
   ],
   "historyComplete": true,
@@ -583,13 +587,14 @@
     "historyPages": [
       {
         "url": "https://api.manifold.markets/v0/bets?contractId=BGT0eBN2kmD6FmsXEvFt&limit=1000",
-        "sha256": "714d6e7559ae66707f3dad9f2547c6bbd5bfe3dcb8db2c1ef60c9536973e65ba",
-        "rows": 412
+        "sha256": "e5cf9afa424e18e238dcadc64c7a01384b01c4393e09d5353d60b0aac94475dc",
+        "rows": 418
       }
     ],
-    "fetchedTradeRows": 412,
-    "acceptedTradeRows": 139,
-    "excludedTradeRows": 273
+    "fetchedTradeRows": 418,
+    "acceptedTradeRows": 140,
+    "excludedTradeRows": 278,
+    "reverifiedAt": "2026-10-29"
   },
   "stage": "engineering",
   "title": [
@@ -685,13 +690,13 @@
       "p": 0.1840488020569319
     },
     "last": {
-      "t": 1776479042167,
+      "t": 1783658837289,
       "p": 0.35643725224478695
     },
     "change": 17.238845018785508,
     "low": 0.14510071436553335,
     "high": 0.5738505067904532,
-    "staleDays": 190.3891625
+    "staleDays": 107.28968192129629
   },
   "quality": [
     {
@@ -706,6 +711,6 @@
       ]
     }
   ],
-  "tradePoints": 139,
+  "tradePoints": 140,
   "detailFile": "events/BGT0eBN2kmD6FmsXEvFt.json"
 }

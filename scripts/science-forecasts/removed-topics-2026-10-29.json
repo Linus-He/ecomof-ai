@@ -1,0 +1,1164 @@
+{
+  "removedAt": "2026-10-29",
+  "reason": "No trading records; removed from the forecast catalogue at user request.",
+  "topics": [
+    {
+      "id": "asymmetric-organocatalysis",
+      "mode": "literature",
+      "family": "chemistry",
+      "organic": true,
+      "category": [
+        "有机化学",
+        "Organic chemistry"
+      ],
+      "title": [
+        "不对称有机催化",
+        "Asymmetric organocatalysis"
+      ],
+      "deck": [
+        "从烯胺与亚胺离子活化，读到收率、er、ee 与非对映比。",
+        "From enamine/iminium activation to yield, er, ee and diastereomeric ratios."
+      ],
+      "about": [
+        "有机小分子可通过与底物暂时成键或非共价作用控制反应。这里以直接 aldol 和 Diels–Alder 为代表，逐项说明活化方式、底物范围与立体选择性。",
+        "Small organic molecules can control reactions through temporary covalent bonding or noncovalent interactions. Direct aldol and Diels–Alder examples connect activation, scope and stereoselectivity."
+      ],
+      "questions": [
+        [
+          "催化剂活化的是亲核体还是亲电体？",
+          "Does the catalyst activate a nucleophile or electrophile?"
+        ],
+        [
+          "收率、ee、er 和 exo:endo 各描述什么？",
+          "What do yield, ee, er and exo:endo describe?"
+        ],
+        [
+          "范围数据和放大实验能否对应到同一条件？",
+          "Do scope and scale-up records share conditions?"
+        ]
+      ],
+      "reactionCases": [
+        {
+          "id": "proline-aldol",
+          "title": [
+            "脯氨酸催化的直接 aldol",
+            "Direct proline-catalyzed aldol"
+          ],
+          "transformation": [
+            "丙酮 + 醛 → 手性 β-羟基酮",
+            "Acetone + aldehyde → chiral β-hydroxy ketone"
+          ],
+          "catalyst": [
+            "L-脯氨酸；经烯胺形成提高亲核性。",
+            "L-proline; enamine formation increases nucleophilicity."
+          ],
+          "conditions": [
+            "官方范围图：30 mol%、DMSO，6 个底物示例；逐个底物条件以原文为准。",
+            "Official scope figure: 30 mol%, DMSO, six examples; substrate-specific conditions follow the original paper."
+          ],
+          "outcome": [
+            "图示范围 54–97% 收率，er 80:20–98:2。",
+            "Scope ranges: 54–97% yield, 80:20–98:2 er."
+          ],
+          "limits": [
+            "范围端点不一定来自同一底物；er 不写成 ee。",
+            "Range endpoints may come from different substrates; er is not reported as ee."
+          ],
+          "evidenceIds": [
+            "organic-nobel2021",
+            "proline-aldol-2000"
+          ],
+          "locator": [
+            "诺奖科学背景印刷第 4 页式 2；原始论文及 SI。",
+            "Nobel background printed p. 4, equation 2; original paper/SI."
+          ]
+        },
+        {
+          "id": "iminium-diels-alder",
+          "title": [
+            "亚胺离子活化的 Diels–Alder",
+            "Iminium-activated Diels–Alder"
+          ],
+          "transformation": [
+            "肉桂醛 + 环戊二烯 → 手性环加成产物",
+            "Cinnamaldehyde + cyclopentadiene → chiral cycloadducts"
+          ],
+          "catalyst": [
+            "论文催化剂 7，5 mol%；可逆形成亚胺离子。",
+            "Paper catalyst 7, 5 mol%; reversible iminium formation."
+          ],
+          "conditions": [
+            "表 1 条目 5：8 h；另有 50 mmol 制备规模实验。",
+            "Table 1 entry 5: 8 h; a separate 50 mmol preparation is reported."
+          ],
+          "outcome": [
+            "99% 收率；exo:endo 1.3:1；exo 为 93% ee。放大段落得 12 g。",
+            "99% yield; 1.3:1 exo:endo; exo 93% ee. Preparative paragraph reports 12 g."
+          ],
+          "limits": [
+            "总收率、非对映比和 exo ee 分别记录；实验室放大不等于工业生产。",
+            "Yield, diastereomeric ratio and exo ee remain separate; laboratory scale is not industrial output."
+          ],
+          "evidenceIds": [
+            "iminium-da-2000"
+          ],
+          "locator": [
+            "JACS 表 1 条目 5；正文制备应用段落。",
+            "JACS Table 1 entry 5; preparative-utility paragraph."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "id": "proline-load",
+          "label": [
+            "脯氨酸用量",
+            "Proline loading"
+          ],
+          "value": [
+            "30 mol%",
+            "30 mol%"
+          ],
+          "period": [
+            "2000 年工作；2021 官方汇总",
+            "2000 work; 2021 official summary"
+          ],
+          "scope": [
+            "式 2 的 6 个范围示例；DMSO。",
+            "Equation 2, six scope examples; DMSO."
+          ],
+          "evidenceId": "organic-nobel2021",
+          "kind": "reported"
+        },
+        {
+          "id": "proline-scope-count",
+          "label": [
+            "官方范围图示例数",
+            "Examples in official scope figure"
+          ],
+          "value": [
+            "6",
+            "6"
+          ],
+          "period": [
+            "2021 官方科学背景",
+            "2021 official scientific background"
+          ],
+          "scope": [
+            "只统计式 2 所示范围，非完整文献总数。",
+            "Equation 2 only, not all literature examples."
+          ],
+          "evidenceId": "organic-nobel2021",
+          "kind": "reported"
+        },
+        {
+          "id": "proline-yield",
+          "label": [
+            "aldol 收率范围",
+            "Aldol yield range"
+          ],
+          "value": [
+            "54–97%",
+            "54–97%"
+          ],
+          "period": [
+            "2000 年工作；2021 官方汇总",
+            "2000 work; 2021 official summary"
+          ],
+          "scope": [
+            "范围图不同底物，不能与最佳 er 拼成单一纪录。",
+            "Different substrates; not a combined optimum with best er."
+          ],
+          "evidenceId": "organic-nobel2021",
+          "kind": "reported"
+        },
+        {
+          "id": "proline-er",
+          "label": [
+            "aldol 对映体比例",
+            "Aldol enantiomeric ratio"
+          ],
+          "value": [
+            "80:20–98:2 er",
+            "80:20–98:2 er"
+          ],
+          "period": [
+            "2000 年工作；2021 官方汇总",
+            "2000 work; 2021 official summary"
+          ],
+          "scope": [
+            "er，非 ee；与具体底物匹配。",
+            "er, not ee; match individual substrate."
+          ],
+          "evidenceId": "organic-nobel2021",
+          "kind": "reported"
+        },
+        {
+          "id": "da-loading",
+          "label": [
+            "Diels–Alder 催化剂 7 用量",
+            "Diels–Alder catalyst-7 loading"
+          ],
+          "value": [
+            "5 mol%",
+            "5 mol%"
+          ],
+          "period": [
+            "2000；表 1 条目 5",
+            "2000; Table 1 entry 5"
+          ],
+          "scope": [
+            "肉桂醛／环戊二烯；该条目 8 h。",
+            "Cinnamaldehyde/cyclopentadiene; 8 h."
+          ],
+          "evidenceId": "iminium-da-2000",
+          "kind": "measurement"
+        },
+        {
+          "id": "da-yield",
+          "label": [
+            "Diels–Alder 总收率",
+            "Diels–Alder total yield"
+          ],
+          "value": [
+            "99%",
+            "99%"
+          ],
+          "period": [
+            "2000；表 1 条目 5",
+            "2000; Table 1 entry 5"
+          ],
+          "scope": [
+            "exo:endo 为 1.3:1，不是单一非对映体收率。",
+            "exo:endo 1.3:1; not single-diastereomer yield."
+          ],
+          "evidenceId": "iminium-da-2000",
+          "kind": "measurement"
+        },
+        {
+          "id": "da-exo-ee",
+          "label": [
+            "exo 产物对映体过量",
+            "Exo product enantiomeric excess"
+          ],
+          "value": [
+            "93% ee",
+            "93% ee"
+          ],
+          "period": [
+            "2000；表 1 条目 5",
+            "2000; Table 1 entry 5"
+          ],
+          "scope": [
+            "仅 exo 组分；不与 endo 混为总体 ee。",
+            "Exo fraction only; not a pooled endo/exo ee."
+          ],
+          "evidenceId": "iminium-da-2000",
+          "kind": "measurement"
+        },
+        {
+          "id": "da-scale",
+          "label": [
+            "实验室制备投料规模",
+            "Laboratory preparative scale"
+          ],
+          "value": [
+            "50 mmol",
+            "50 mmol"
+          ],
+          "period": [
+            "2000；正文放大段落",
+            "2000; preparative paragraph"
+          ],
+          "scope": [
+            "与表 1 筛选条目分开记录。",
+            "Separate preparative run from screening entry."
+          ],
+          "evidenceId": "iminium-da-2000",
+          "kind": "measurement"
+        },
+        {
+          "id": "da-mass",
+          "label": [
+            "制备实验产物质量",
+            "Preparative product mass"
+          ],
+          "value": [
+            "12 g",
+            "12 g"
+          ],
+          "period": [
+            "2000；正文放大段落",
+            "2000; preparative paragraph"
+          ],
+          "scope": [
+            "原文同时报告 99% 收率与 exo 93% ee，非工厂产量。",
+            "Also reports 99% yield/exo 93% ee; not factory output."
+          ],
+          "evidenceId": "iminium-da-2000",
+          "kind": "measurement"
+        }
+      ],
+      "sections": [
+        {
+          "title": [
+            "烯胺与亚胺离子",
+            "Enamines and iminium ions"
+          ],
+          "body": [
+            "烯胺形成可提高羰基 α 位的亲核性；不饱和亚胺离子形成可增强亲电反应性。这是活化模式说明，具体中间体和过渡态证据仍以原文研究为准。",
+            "Enamine formation increases α-carbon nucleophilicity, while unsaturated iminium formation enhances electrophilic reactivity. Specific intermediate/transition-state evidence remains source-dependent."
+          ]
+        },
+        {
+          "title": [
+            "立体选择性要分层阅读",
+            "Separate stereochemical metrics"
+          ],
+          "body": [
+            "ee = |R−S|/(R+S)×100%，er 是两对映体的比例；非对映体比例另用 dr 或 exo:endo。Diels–Alder 例的 exo 93% ee 与 1.3:1 非对映比可以同时成立。",
+            "ee is |R−S|/(R+S)×100%, er is an enantiomer ratio, and diastereomers need dr or exo:endo. Exo 93% ee and a 1.3:1 diastereomeric ratio can coexist."
+          ]
+        },
+        {
+          "title": [
+            "从反应方法到过程评价",
+            "From method to process assessment"
+          ],
+          "body": [
+            "催化剂摩尔分数、溶剂、分离步骤和底物范围都会影响实用性。无金属有机催化不自动代表更低的过程能耗、溶剂消耗或废物量。",
+            "Loading, solvent, workup and scope affect practical use. Metal-free organocatalysis alone does not establish lower energy, solvent use or waste."
+          ]
+        }
+      ],
+      "marketNote": [
+        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
+        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
+      ],
+      "relatedTopicIds": [
+        "visible-light-organic",
+        "click-bioorthogonal",
+        "pet-enzymatic-recycling"
+      ]
+    },
+    {
+      "id": "visible-light-organic",
+      "mode": "literature",
+      "family": "chemistry",
+      "organic": true,
+      "category": [
+        "有机化学",
+        "Organic chemistry"
+      ],
+      "title": [
+        "可见光光氧化还原合成",
+        "Visible-light photoredox synthesis"
+      ],
+      "deck": [
+        "自由基生成、手性控制与光反应条件分别核对。",
+        "Inspect radical generation, stereocontrol and illumination conditions separately."
+      ],
+      "about": [
+        "光激发可改变催化剂的单电子转移能力，有机催化则可提供底物活化与手性环境。本专题比较 Ru／胺双催化与有机染料路线，保留各自条件。",
+        "Photoexcitation changes single-electron-transfer capability while organocatalysts activate substrates and provide stereocontrol. Ru/amine and organic-dye routes retain their distinct conditions."
+      ],
+      "questions": [
+        [
+          "光催化剂和有机催化剂分别承担什么作用？",
+          "What roles do the photo- and organocatalysts play?"
+        ],
+        [
+          "光源功率、波长、几何和反应温度是否同时记录？",
+          "Are power, spectrum, geometry and temperature documented?"
+        ],
+        [
+          "收率与 ee 是否来自同一底物和条件？",
+          "Do yield and ee refer to the same substrate and conditions?"
+        ]
+      ],
+      "reactionCases": [
+        {
+          "id": "dual-alpha-alkylation",
+          "title": [
+            "双催化醛 α-烷基化",
+            "Dual-catalytic aldehyde α-alkylation"
+          ],
+          "transformation": [
+            "辛醛 + 溴代丙二酸二乙酯 → α-取代醛",
+            "Octanal + diethyl bromomalonate → α-alkylated aldehyde"
+          ],
+          "catalyst": [
+            "Ru(bpy)₃Cl₂ 0.5 mol% + 手性有机催化剂 6 20 mol%。",
+            "0.5 mol% Ru(bpy)₃Cl₂ + 20 mol% chiral organocatalyst 6."
+          ],
+          "conditions": [
+            "DMF、2,6-lutidine、23 °C、15 W 荧光灯；表 1 通用图示。",
+            "DMF, 2,6-lutidine, 23 °C, 15 W fluorescent lamp; Table 1 conditions."
+          ],
+          "outcome": [
+            "同一条目 1：93% 收率、90% ee。",
+            "Same entry 1: 93% yield and 90% ee."
+          ],
+          "limits": [
+            "灯泡瓦数不等于有效照射强度；其他底物条目的例外催化剂用量不被覆盖。",
+            "Lamp wattage is not irradiance; exceptions in other substrate entries are not overwritten."
+          ],
+          "evidenceIds": [
+            "dual-photoredox-2008"
+          ],
+          "locator": [
+            "Science 表 1 条目 1、催化剂组合图及脚注。",
+            "Science Table 1 entry 1, catalyst box and footnotes."
+          ]
+        },
+        {
+          "id": "rose-bengal-alpha",
+          "title": [
+            "染料介导的无过渡金属 α-烷基化",
+            "Dye-mediated transition-metal-free α-alkylation"
+          ],
+          "transformation": [
+            "醛 + 烷基化试剂 → 对映富集 α-烷基化产物",
+            "Aldehyde + alkylating reagent → enantioenriched α-alkylated product"
+          ],
+          "catalyst": [
+            "Rose Bengal + 咪唑烷酮有机催化剂；另有亲电助催化剂。",
+            "Rose Bengal + imidazolidinone, with an electrophilic cocatalyst."
+          ],
+          "conditions": [
+            "可见光体系；完整溶剂、剂量和底物条件见原文及 SI。",
+            "Visible-light system; exact solvent, dose and substrate conditions follow the paper/SI."
+          ],
+          "outcome": [
+            "原文报告直接对映选择性 α-烷基化；本页不填入未逐项核对的产率。",
+            "The source reports direct enantioselective α-alkylation; unverified individual yields are not inserted."
+          ],
+          "limits": [
+            "不把 Ru 体系数据移植至染料体系；无过渡金属不是全流程环境评价。",
+            "Ru-system data are not transferred; transition-metal-free is not a lifecycle assessment."
+          ],
+          "evidenceIds": [
+            "rose-bengal-2012"
+          ],
+          "locator": [
+            "Green Chemistry 正文与补充材料。",
+            "Green Chemistry article and SI."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "id": "photo-ru-loading",
+          "label": [
+            "Ru 光催化剂用量",
+            "Ru photocatalyst loading"
+          ],
+          "value": [
+            "0.5 mol%",
+            "0.5 mol%"
+          ],
+          "period": [
+            "2008；表 1 条目 1",
+            "2008; Table 1 entry 1"
+          ],
+          "scope": [
+            "与 20 mol% 有机催化剂协同；不是无金属体系。",
+            "Combined with 20 mol% organocatalyst; not metal-free."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        },
+        {
+          "id": "photo-amine-loading",
+          "label": [
+            "有机催化剂用量",
+            "Organocatalyst loading"
+          ],
+          "value": [
+            "20 mol%",
+            "20 mol%"
+          ],
+          "period": [
+            "2008；表 1 通用条件",
+            "2008; Table 1 general conditions"
+          ],
+          "scope": [
+            "条目 1；其他条目如有脚注例外需另查。",
+            "Entry 1; exceptions require footnote review."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        },
+        {
+          "id": "photo-lamp",
+          "label": [
+            "荧光灯额定功率",
+            "Fluorescent-lamp rated power"
+          ],
+          "value": [
+            "15 W",
+            "15 W"
+          ],
+          "period": [
+            "2008；表 1 光源图",
+            "2008; Table 1 photon-source box"
+          ],
+          "scope": [
+            "灯泡功率，非光通量、光子通量或量子产率。",
+            "Lamp rating, not flux or quantum yield."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        },
+        {
+          "id": "photo-temperature",
+          "label": [
+            "反应温度",
+            "Reaction temperature"
+          ],
+          "value": [
+            "23 °C",
+            "23 °C"
+          ],
+          "period": [
+            "2008；表 1 通用条件",
+            "2008; Table 1 general conditions"
+          ],
+          "scope": [
+            "DMF、荧光灯体系；不推广到所有光反应。",
+            "DMF/fluorescent-lamp system, not all photoreactions."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        },
+        {
+          "id": "photo-entry1-yield",
+          "label": [
+            "辛醛 α-烷基化收率",
+            "Octanal α-alkylation yield"
+          ],
+          "value": [
+            "93%",
+            "93%"
+          ],
+          "period": [
+            "2008；表 1 条目 1",
+            "2008; Table 1 entry 1"
+          ],
+          "scope": [
+            "溴代丙二酸二乙酯体系；与相邻行 ee 同一条目。",
+            "Diethyl bromomalonate system; same entry as the adjacent ee."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        },
+        {
+          "id": "photo-entry1-ee",
+          "label": [
+            "辛醛 α-烷基化 ee",
+            "Octanal α-alkylation ee"
+          ],
+          "value": [
+            "90% ee",
+            "90% ee"
+          ],
+          "period": [
+            "2008；表 1 条目 1",
+            "2008; Table 1 entry 1"
+          ],
+          "scope": [
+            "对应 93% 收率条目；不是全部底物平均值。",
+            "Same entry as 93% yield; not a scope average."
+          ],
+          "evidenceId": "dual-photoredox-2008",
+          "kind": "measurement"
+        }
+      ],
+      "sections": [
+        {
+          "title": [
+            "单电子转移与两电子反应",
+            "Single-electron and two-electron chemistry"
+          ],
+          "body": [
+            "自由基生成提供不同的成键路径，但反应是否成功仍取决于电子转移、催化循环和底物匹配。机理图表示研究提出的过程，不能仅凭高产率证明每个中间体。",
+            "Radical generation enables different bond-forming paths, but electron transfer, turnover and substrate matching still matter. A proposed mechanism is not established solely by high yield."
+          ]
+        },
+        {
+          "title": [
+            "光反应的可比条件",
+            "Comparable photochemical conditions"
+          ],
+          "body": [
+            "波长分布、灯到样品距离、容器、搅拌、溶液吸收和温度都影响结果。只报告 15 W 灯泡不能完整重现有效光剂量，也不能计算量子产率。",
+            "Spectrum, distance, vessel, mixing, absorption and temperature influence results. A 15 W rating does not reproduce absorbed light dose or determine quantum yield."
+          ]
+        },
+        {
+          "title": [
+            "绿色主张要核算全流程",
+            "Assess the whole process"
+          ],
+          "body": [
+            "可见光或无过渡金属是技术属性。环境比较还需溶剂、助试剂、分离、能源和产物量的共同口径。",
+            "Visible-light and transition-metal-free describe methods; environmental comparisons also need solvent, reagents, isolation, energy and product-scale accounting."
+          ]
+        }
+      ],
+      "marketNote": [
+        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
+        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
+      ],
+      "relatedTopicIds": [
+        "asymmetric-organocatalysis",
+        "click-bioorthogonal",
+        "pet-enzymatic-recycling"
+      ]
+    },
+    {
+      "id": "click-bioorthogonal",
+      "mode": "literature",
+      "family": "chemistry",
+      "organic": true,
+      "category": [
+        "有机化学",
+        "Organic chemistry"
+      ],
+      "title": [
+        "点击与生物正交化学",
+        "Click & bioorthogonal chemistry"
+      ],
+      "deck": [
+        "从 CuAAC 的区域选择性，到无铜连接与成像读出。",
+        "From CuAAC regioselectivity to copper-free ligation and imaging readouts."
+      ],
+      "about": [
+        "点击化学强调可靠的分子连接，生物正交还要求反应在复杂生物环境中尽量避免干扰原有过程。这里分别展示固相、溶液 CuAAC 与应变促进路线。",
+        "Click chemistry emphasizes reliable molecular connection, while bioorthogonality adds compatibility with complex biological environments. Solid-phase/solution CuAAC and strain-promoted routes are distinguished."
+      ],
+      "questions": [
+        [
+          "连接的是哪些官能团，形成哪种区域异构体？",
+          "Which functional groups connect and which regioisomer forms?"
+        ],
+        [
+          "催化剂、介质和生物相容性怎样对应？",
+          "How do catalyst, medium and biological compatibility relate?"
+        ],
+        [
+          "检测信号是否能直接代表化学转化？",
+          "Does the detection signal directly measure chemical conversion?"
+        ]
+      ],
+      "reactionCases": [
+        {
+          "id": "cuaac-solid",
+          "title": [
+            "固相 CuAAC 肽连接",
+            "Solid-phase CuAAC peptide ligation"
+          ],
+          "transformation": [
+            "树脂连接末端炔 + 有机叠氮 → 1,4-取代三唑",
+            "Resin-bound terminal alkyne + organic azide → 1,4-substituted triazole"
+          ],
+          "catalyst": [
+            "Cu(I) 催化；极性固相载体。",
+            "Cu(I) catalysis on a polar solid support."
+          ],
+          "conditions": [
+            "官方图 6a：碱、THF、25 °C；具体试剂量见原研究。",
+            "Official Figure 6a: base, THF, 25 °C; amounts follow the original study."
+          ],
+          "outcome": [
+            "构建肽骨架或侧链三唑，研究多类叠氮底物。",
+            "Constructs peptide backbone/side-chain triazoles across azide classes."
+          ],
+          "limits": [
+            "不把树脂负载、区域选择性和分离收率混为一项数值。",
+            "Resin loading, regioselectivity and isolated yield remain separate."
+          ],
+          "evidenceIds": [
+            "cuaac-solid-2002",
+            "click-nobel2022"
+          ],
+          "locator": [
+            "JOC 原研究；诺奖科学背景图 6a。",
+            "JOC original study; Nobel background Figure 6a."
+          ]
+        },
+        {
+          "id": "cuaac-solution",
+          "title": [
+            "溶液中原位生成 Cu(I) 的连接",
+            "Solution ligation with in-situ Cu(I)"
+          ],
+          "transformation": [
+            "有机叠氮 + 末端炔 → 1,4-二取代 1,2,3-三唑",
+            "Organic azide + terminal alkyne → 1,4-disubstituted 1,2,3-triazole"
+          ],
+          "catalyst": [
+            "CuSO₄·5H₂O／抗坏血酸钠，原位形成 Cu(I)。",
+            "CuSO₄·5H₂O/sodium ascorbate generates Cu(I)."
+          ],
+          "conditions": [
+            "官方图 6b：水／叔丁醇、25 °C。",
+            "Official Figure 6b: water/tert-butanol, 25 °C."
+          ],
+          "outcome": [
+            "选择性形成所示 1,4-取代产物；本页不将“高收率”改写成统一百分比。",
+            "Selective 1,4-product formation; qualitative high yield is not assigned an invented percentage."
+          ],
+          "limits": [
+            "水相有机合成与活细胞相容性不是同一要求。",
+            "Aqueous synthesis and live-cell compatibility impose different requirements."
+          ],
+          "evidenceIds": [
+            "click-nobel2022"
+          ],
+          "locator": [
+            "诺奖科学背景印刷第 7 页图 6b。",
+            "Nobel background printed p. 7, Figure 6b."
+          ]
+        },
+        {
+          "id": "spaac-ligation",
+          "title": [
+            "环张力促进的生物正交连接",
+            "Strain-promoted bioorthogonal ligation"
+          ],
+          "transformation": [
+            "环辛炔类探针 + 叠氮标记生物分子 → 共价连接产物",
+            "Cyclooctyne probe + azide-labelled biomolecule → covalent conjugate"
+          ],
+          "catalyst": [
+            "环张力驱动；无需铜催化剂。",
+            "Ring strain drives reaction; no copper catalyst."
+          ],
+          "conditions": [
+            "2004 生理条件化学；2007 活体系成像是后续独立工作。",
+            "Physiological-condition chemistry in 2004; live-system imaging in 2007 is separate follow-up."
+          ],
+          "outcome": [
+            "展示选择性连接与成像应用，不把荧光读出当作分离收率。",
+            "Selective ligation and imaging are shown without treating fluorescence as isolated yield."
+          ],
+          "limits": [
+            "反应速率、背景和探针相容性依赖具体结构与环境。",
+            "Rate, background and compatibility depend on probe and environment."
+          ],
+          "evidenceIds": [
+            "spaac-2004",
+            "copperfree-imaging-2007"
+          ],
+          "locator": [
+            "JACS 2004 与 PNAS 2007 原文。",
+            "JACS 2004 and PNAS 2007 originals."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "id": "click-early-yield",
+          "label": [
+            "早期固相 CuAAC 收率范围",
+            "Early solid-phase CuAAC yield range"
+          ],
+          "value": [
+            "80–95%",
+            "80–95%"
+          ],
+          "period": [
+            "2001 会议工作；2022 官方汇总",
+            "2001 conference work; 2022 official summary"
+          ],
+          "scope": [
+            "官方印刷第 6 页；不冒充 2002 全底物统一结果。",
+            "Printed p. 6; not a universal 2002 scope result."
+          ],
+          "evidenceId": "click-nobel2022",
+          "kind": "reported"
+        },
+        {
+          "id": "click-solid-temp",
+          "label": [
+            "固相 CuAAC 图示温度",
+            "Solid-phase CuAAC illustrated temperature"
+          ],
+          "value": [
+            "25 °C",
+            "25 °C"
+          ],
+          "period": [
+            "2022 图 6a 汇总历史研究",
+            "2022 Figure 6a, historical work"
+          ],
+          "scope": [
+            "Cu(I)、碱、THF；其余参数以原研究为准。",
+            "Cu(I), base, THF; remaining details in original study."
+          ],
+          "evidenceId": "click-nobel2022",
+          "kind": "reported"
+        },
+        {
+          "id": "click-solution-temp",
+          "label": [
+            "溶液 CuAAC 图示温度",
+            "Solution CuAAC illustrated temperature"
+          ],
+          "value": [
+            "25 °C",
+            "25 °C"
+          ],
+          "period": [
+            "2022 图 6b 汇总历史研究",
+            "2022 Figure 6b, historical work"
+          ],
+          "scope": [
+            "CuSO₄／抗坏血酸钠；水／叔丁醇。",
+            "CuSO₄/ascorbate; water/tert-butanol."
+          ],
+          "evidenceId": "click-nobel2022",
+          "kind": "reported"
+        }
+      ],
+      "sections": [
+        {
+          "title": [
+            "区域选择性与原子连接",
+            "Regioselectivity and connectivity"
+          ],
+          "body": [
+            "末端炔与有机叠氮可形成三唑。CuAAC 选择性形成 1,4-取代产物；非催化热反应与不同金属体系可能有不同的区域选择性。",
+            "Terminal alkynes and azides form triazoles. CuAAC favors the 1,4-product, whereas uncatalyzed thermal or other metal systems can differ."
+          ]
+        },
+        {
+          "title": [
+            "生物正交是额外要求",
+            "Bioorthogonality adds requirements"
+          ],
+          "body": [
+            "在有机溶剂中高收率连接，并不自动满足细胞中的速率、选择性和相容性。无铜路线仍须检查探针结构、非特异背景与实际反应环境。",
+            "High-yield organic-solvent ligation does not automatically meet cellular rate, selectivity or compatibility requirements. Copper-free probes still need background and context checks."
+          ]
+        },
+        {
+          "title": [
+            "从标记到读数",
+            "From labelling to readout"
+          ],
+          "body": [
+            "标记反应与显影过程涉及浓度、孵育、清洗、定位及仪器设置。荧光强度的变化需要适当对照，不能未经校准就称为分离产率。",
+            "Labelling/readout depends on concentration, incubation, washing, localization and instruments. Fluorescence changes need controls and are not uncalibrated isolated yields."
+          ]
+        }
+      ],
+      "marketNote": [
+        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
+        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
+      ],
+      "relatedTopicIds": [
+        "asymmetric-organocatalysis",
+        "visible-light-organic",
+        "pet-enzymatic-recycling"
+      ]
+    },
+    {
+      "id": "pet-enzymatic-recycling",
+      "mode": "literature",
+      "family": "chemistry",
+      "organic": true,
+      "category": [
+        "有机化学",
+        "Organic chemistry"
+      ],
+      "title": [
+        "PET 解聚与酶催化循环",
+        "PET depolymerization & enzymatic recycling"
+      ],
+      "deck": [
+        "把酯键水解、单体回收、再聚合和工厂处理能力分别计量。",
+        "Measure ester hydrolysis, monomer recovery, repolymerization and plant throughput separately."
+      ],
+      "about": [
+        "PET 属于聚酯，酶催化可以断裂其酯键并回收单体。材料结晶度、预处理和传质影响反应，实验解聚与商品级单体分离、再聚合仍是不同环节。",
+        "PET is a polyester whose ester bonds can be hydrolyzed enzymatically. Crystallinity, pretreatment and transport affect reaction; laboratory depolymerization, commercial monomer separation and repolymerization are distinct steps."
+      ],
+      "questions": [
+        [
+          "底物是薄片、热成型产品还是经处理的瓶体？",
+          "Is the feed a film, thermoformed product or treated bottle?"
+        ],
+        [
+          "解聚、单体分离和再聚合各自的物料衡算是什么？",
+          "What are the mass balances for depolymerization, separation and repolymerization?"
+        ],
+        [
+          "工厂数据是设计能力、进料量还是实际产品量？",
+          "Is a plant figure design capacity, feed or measured output?"
+        ]
+      ],
+      "reactionCases": [
+        {
+          "id": "pet-lcc",
+          "title": [
+            "工程化水解酶回收 PET 单体",
+            "Engineered hydrolase recovers PET monomers"
+          ],
+          "transformation": [
+            "PET 酯键水解 → 对苯二甲酸类产物与乙二醇",
+            "PET ester hydrolysis → terephthalate and ethylene glycol"
+          ],
+          "catalyst": [
+            "2020 年研究的工程化 PET 水解酶。",
+            "Engineered PET hydrolase from the 2020 study."
+          ],
+          "conditions": [
+            "摘要：200 g PET/kg 悬浮液，3 mg 酶/g PET，10 h；完整预处理、pH 与温度见原文。",
+            "Abstract: 200 g PET/kg suspension, 3 mg enzyme/g PET, 10 h; full pretreatment, pH and temperature follow the paper."
+          ],
+          "outcome": [
+            "至少 90% 解聚；16.7 g 对苯二甲酸类产物·L⁻¹·h⁻¹；展示再聚合。",
+            "At least 90% depolymerization; 16.7 g terephthalate·L⁻¹·h⁻¹, with repolymerization."
+          ],
+          "limits": [
+            "解聚率、单体回收率与再聚合总收率不同；不适用于所有塑料。",
+            "Depolymerization, monomer recovery and overall repolymerization yield differ; not all plastics qualify."
+          ],
+          "evidenceIds": [
+            "pet-lcc-2020"
+          ],
+          "locator": [
+            "Nature 2020 原文摘要与实验部分。",
+            "Nature 2020 abstract and experimental sections."
+          ]
+        },
+        {
+          "id": "fast-petase",
+          "title": [
+            "FAST-PETase 与不同 PET 形态",
+            "FAST-PETase across PET forms"
+          ],
+          "transformation": [
+            "消费后 PET → 可回收单体；再合成 PET",
+            "Post-consumer PET → recoverable monomers and resynthesized PET"
+          ],
+          "catalyst": [
+            "机器学习辅助改造的 FAST-PETase。",
+            "Machine-learning-aided FAST-PETase variant."
+          ],
+          "conditions": [
+            "51 种未处理热成型产品：一周内；水瓶无定形部分与热处理整瓶另在 50 °C 下研究。",
+            "51 untreated thermoformed products: within a week; bottle amorphous regions and pretreated whole bottles separately at 50 °C."
+          ],
+          "outcome": [
+            "所测热成型产品近乎完全解聚，并展示回收单体后的闭环。",
+            "Near-complete depolymerization of tested thermoformed products and a recovered-monomer loop."
+          ],
+          "limits": [
+            "热成型样品与高结晶瓶体、热预处理整瓶不能混为相同底物条件。",
+            "Thermoformed material, crystalline bottles and pretreated whole bottles are distinct conditions."
+          ],
+          "evidenceIds": [
+            "fast-petase-2022"
+          ],
+          "locator": [
+            "Nature 2022 摘要、图 3–4。",
+            "Nature 2022 abstract, Figures 3–4."
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "id": "pet-lcc-rate",
+          "label": [
+            "PET 解聚率与反应时间",
+            "PET depolymerization and time"
+          ],
+          "value": [
+            "≥90% · 10 h",
+            "≥90% · 10 h"
+          ],
+          "period": [
+            "2020 年研究摘要",
+            "2020 research abstract"
+          ],
+          "scope": [
+            "对应下列投料与酶用量；不是环境降解半衰期。",
+            "At the stated loading/enzyme dose; not environmental half-life."
+          ],
+          "evidenceId": "pet-lcc-2020",
+          "kind": "measurement"
+        },
+        {
+          "id": "pet-lcc-productivity",
+          "label": [
+            "对苯二甲酸类产物生产率",
+            "Terephthalate productivity"
+          ],
+          "value": [
+            "16.7 g·L⁻¹·h⁻¹",
+            "16.7 g·L⁻¹·h⁻¹"
+          ],
+          "period": [
+            "2020 年研究摘要",
+            "2020 research abstract"
+          ],
+          "scope": [
+            "以对苯二甲酸类产物质量计，非总单体或净循环收益。",
+            "Terephthalate mass, not total monomer or net circular benefit."
+          ],
+          "evidenceId": "pet-lcc-2020",
+          "kind": "measurement"
+        },
+        {
+          "id": "pet-lcc-loading",
+          "label": [
+            "悬浮液 PET 投料",
+            "PET loading in suspension"
+          ],
+          "value": [
+            "200 g PET/kg",
+            "200 g PET/kg"
+          ],
+          "period": [
+            "2020 年研究摘要",
+            "2020 research abstract"
+          ],
+          "scope": [
+            "分母为悬浮液质量，不擅自换成 g/L。",
+            "Per kg suspension, not silently converted to g/L."
+          ],
+          "evidenceId": "pet-lcc-2020",
+          "kind": "measurement"
+        },
+        {
+          "id": "pet-lcc-enzyme",
+          "label": [
+            "酶质量用量",
+            "Enzyme mass loading"
+          ],
+          "value": [
+            "3 mg/g PET",
+            "3 mg/g PET"
+          ],
+          "period": [
+            "2020 年研究摘要",
+            "2020 research abstract"
+          ],
+          "scope": [
+            "以 PET 质量为分母，不是催化剂 mol%。",
+            "Per mass of PET, not catalyst mol%."
+          ],
+          "evidenceId": "pet-lcc-2020",
+          "kind": "measurement"
+        },
+        {
+          "id": "fast-petase-products",
+          "label": [
+            "热成型消费后样品数",
+            "Post-consumer thermoformed products"
+          ],
+          "value": [
+            "51",
+            "51"
+          ],
+          "period": [
+            "2022 年研究",
+            "2022 study"
+          ],
+          "scope": [
+            "所测未处理热成型产品，一周内近乎完全解聚。",
+            "Tested untreated thermoformed products, near-complete within one week."
+          ],
+          "evidenceId": "fast-petase-2022",
+          "kind": "measurement"
+        },
+        {
+          "id": "fast-petase-bottle-temp",
+          "label": [
+            "水瓶相关试验温度",
+            "Bottle-experiment temperature"
+          ],
+          "value": [
+            "50 °C",
+            "50 °C"
+          ],
+          "period": [
+            "2022 年研究",
+            "2022 study"
+          ],
+          "scope": [
+            "未处理无定形部分与热处理整瓶分别研究，非任意未处理整瓶。",
+            "Amorphous regions and thermally pretreated whole bottles separately; not any untreated bottle."
+          ],
+          "evidenceId": "fast-petase-2022",
+          "kind": "measurement"
+        },
+        {
+          "id": "carbios-design-feed",
+          "label": [
+            "工厂设计废料处理能力",
+            "Plant design waste-processing capacity"
+          ],
+          "value": [
+            "50,000 吨/年",
+            "50,000 t/year"
+          ],
+          "period": [
+            "2024-04-25 历史开工公告",
+            "Historical groundbreaking release 2024-04-25"
+          ],
+          "scope": [
+            "满负荷项目目标；后续报告记录 2024-12 暂停建设，不推断当前状态。",
+            "Full-operation target; later report records December 2024 suspension, without inferring current status."
+          ],
+          "evidenceId": "carbios-groundbreaking-2024",
+          "kind": "target"
+        }
+      ],
+      "sections": [
+        {
+          "title": [
+            "酯键水解与塑料类别",
+            "Ester hydrolysis and polymer class"
+          ],
+          "body": [
+            "PET 水解涉及酯键断裂，不是直接切断任意聚合物的碳—碳主链。PET 研究不能推广到聚乙烯、聚丙烯等不同化学结构的塑料。",
+            "PET hydrolysis cleaves ester bonds rather than arbitrary C–C polymer backbones; results do not automatically extend to polyethylene or polypropylene."
+          ]
+        },
+        {
+          "title": [
+            "形态与预处理影响反应",
+            "Morphology and pretreatment"
+          ],
+          "body": [
+            "结晶度、比表面积、粒径和热处理影响酶与聚合物接触。不同形态的数据应保留预处理条件，避免把易解聚薄片结果用作所有水瓶的表现。",
+            "Crystallinity, area, size and heat treatment affect enzyme–polymer contact. Preserve pretreatment so accessible films do not stand in for all bottles."
+          ]
+        },
+        {
+          "title": [
+            "闭环不只是一项高转化率",
+            "A loop needs more than high conversion"
+          ],
+          "body": [
+            "闭环还需回收纯度、损失、再聚合质量和能源物料核算。论文与项目历史分别记录；早期 50 kt/年目标不写成已实现的稳定吞吐量。",
+            "A loop also needs purity, losses, repolymerized quality and resource accounting. Papers and project history remain separate; an early 50 kt/year target is not measured steady throughput."
+          ]
+        }
+      ],
+      "marketNote": [
+        "本次检索未收录直接对应、可核验的预测市场；本专题展示文献中的实验与项目资料。",
+        "This search added no directly matching verified forecast contracts; this topic presents literature experiments and project records."
+      ],
+      "relatedTopicIds": [
+        "asymmetric-organocatalysis",
+        "visible-light-organic",
+        "click-bioorthogonal"
+      ]
+    }
+  ]
+}

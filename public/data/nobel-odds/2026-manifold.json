@@ -467,5 +467,13 @@
         "Tokyo University of Science"
       ]
     }
-  ]
+  ],
+  "verification": {
+    "checkedAt": "2026-10-29",
+    "status": "verified",
+    "note": [
+      "已按原截止时间回读源数据匹配；Manifold 为直接成交，Kalshi 为有成交量的蜡烛。",
+      "Matched source records at the archived cutoff; Manifold direct trades and Kalshi traded candles remain distinct."
+    ]
+  }
 }

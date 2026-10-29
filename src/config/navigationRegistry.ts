@@ -22,10 +22,6 @@ export const NAVIGATION_ROUTES = [
     {id:"scienceForecastsBatteryScale",hash:"science-forecasts-battery-scale-storage",label:label("动力电池与规模储能","EV batteries & grid storage")},
     {id:"scienceForecastsHydrogen",hash:"science-forecasts-clean-hydrogen",label:label("清洁制氢与电解水","Clean hydrogen & electrolysis")},
     {id:"scienceForecastsDrugDiscovery",hash:"science-forecasts-ai-drug-discovery",label:label("AI 药物研发与临床验证","AI drug discovery & clinical validation")},
-    {id:"scienceOrganicCatalysis",hash:"science-forecasts-asymmetric-organocatalysis",label:label("不对称有机催化","Asymmetric organocatalysis")},
-    {id:"scienceOrganicPhotoredox",hash:"science-forecasts-visible-light-organic",label:label("可见光光氧化还原合成","Visible-light photoredox synthesis")},
-    {id:"scienceOrganicClick",hash:"science-forecasts-click-bioorthogonal",label:label("点击与生物正交化学","Click & bioorthogonal chemistry")},
-    {id:"scienceOrganicPet",hash:"science-forecasts-pet-enzymatic-recycling",label:label("PET 解聚与酶催化循环","PET depolymerization & enzymatic recycling")},
   ] },
   {
     id: "nobelChemistry", tabId: "nobelChemistry", primary: false, domainId: "research", hash: "nobel-chemistry-2026", aliases: ["nobel-chemistry"],
@@ -47,6 +43,7 @@ export const NAVIGATION_ROUTES = [
     label:label("研究进展专题", "Research progress"), meta:meta("研究进展 | EcoMOF-AI", "版本变化、前后对比与研究体验。"),
     component:{ strategy:"lazy", exportName:"UpdateStoryPage", load:() => import("../components/pages/UpdateStoryPage") },
     children:[
+      { id:"update-trade-verification", hash:"update-trade-verification", label:label("交易数据复核与节点解释修正","Trade verification and corrected node interpretation") },
       { id:"update-verified-trade-curves", hash:"update-verified-trade-curves", label:label("更多科学事件与真实成交曲线","More scientific events with genuine trade curves") },
       { id:"update-organic-chemistry-topics", hash:"update-organic-chemistry-topics", label:label("有机化学专题与反应证据","Organic chemistry topics and reaction evidence") },
       { id:"update-battery-chemistry-data", hash:"update-battery-chemistry-data", label:label("电池体系扩充与化学专题数据","Expanded battery chemistries and chemistry data") },
