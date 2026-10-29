@@ -174,5 +174,34 @@
     }
   ],
   "tradePoints": 3,
-  "detailFile": "events/AvggE9WsHv51pVkA26wx.json"
+  "detailFile": "events/AvggE9WsHv51pVkA26wx.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "AvggE9WsHv51pVkA26wx",
+    "sourceApi": "https://api.manifold.markets/v0/market/AvggE9WsHv51pVkA26wx",
+    "sha256": "0cd23ab7ef2248616013692105a5876d3fe267b0b607bedc8b3676dcecab6cc3",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1699992471707,
+        "current": 1699992471707,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893473940000,
+        "current": 1893473940000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "💊Will INS018_055 be FDA-approved by 2030?"
+  }
 }

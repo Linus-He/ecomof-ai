@@ -194,5 +194,34 @@
     }
   ],
   "tradePoints": 8,
-  "detailFile": "events/u1hCf24lNpTqWYEpM2Uq.json"
+  "detailFile": "events/u1hCf24lNpTqWYEpM2Uq.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "u1hCf24lNpTqWYEpM2Uq",
+    "sourceApi": "https://api.manifold.markets/v0/market/u1hCf24lNpTqWYEpM2Uq",
+    "sha256": "eeff2bd9d5f251089ae82516c3763d2b7d8a50398b33e263c0796df0f05b0638",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1717360429017,
+        "current": 1717360429017,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1782943140000,
+        "current": 1782943140000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1782955558414,
+        "current": 1782955558414,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Alphafold involved in a SOTA C02 direct air capture method by mid 2026 ?"
+  }
 }

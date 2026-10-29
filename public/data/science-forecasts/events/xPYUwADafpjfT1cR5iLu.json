@@ -225,5 +225,34 @@
     }
   ],
   "tradePoints": 16,
-  "detailFile": "events/xPYUwADafpjfT1cR5iLu.json"
+  "detailFile": "events/xPYUwADafpjfT1cR5iLu.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "xPYUwADafpjfT1cR5iLu",
+    "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+    "sha256": "6949ce0ce559da402d5e5eb35fbaf4a8cf02ee3810d9f2043c342c44131b68e0",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1694432236718,
+        "current": 1694432236718,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893538740000,
+        "current": 1893538740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will the markov.bio AI copilot for drug discovery be influential in the R&D of a marketed drug? (Before 2030)"
+  }
 }

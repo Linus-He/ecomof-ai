@@ -213,5 +213,34 @@
     }
   ],
   "tradePoints": 16,
-  "detailFile": "events/oocJB7zxHwURka0HYfbo.json"
+  "detailFile": "events/oocJB7zxHwURka0HYfbo.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "oocJB7zxHwURka0HYfbo",
+    "sourceApi": "https://api.manifold.markets/v0/market/oocJB7zxHwURka0HYfbo",
+    "sha256": "1c11ae59d53e061e63cdc4aea3cca9c5816c5b49d8d0127e48d6cb81f36ebbb3",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1710170964564,
+        "current": 1710170964564,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1712786340000,
+        "current": 1712786340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "An error-correcting quantum computer will be commercially available by 2025."
+  }
 }

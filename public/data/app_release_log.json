@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "currentAppVersion": "v3.5.15",
+  "currentAppVersion": "v3.5.17",
   "generatedAt": "2026-10-29",
   "authority": "Single unified EcoMOF-AI Web release log. One Web version manages the platform; historical module versions remain preserved in pre-Web history.",
   "provenance": {
@@ -9,8 +9,8 @@
     "note": "Historical versions are preserved. v3.5.2 retrospectively records commit 8e0baba; v3.5.3 records the research editorial upgrade. Narrative sources: src/data/recentUpdateStories.ts and src/data/scienceUpdateStories.ts."
   },
   "developmentLog": {
-    "baseAppVersion": "v3.5.13",
-    "developmentVersion": "v3.5.15",
+    "baseAppVersion": "v3.5.15",
+    "developmentVersion": "v3.5.17",
     "recordedAt": "2026-10-29",
     "status": "archived",
     "statusLabel": {
@@ -22,31 +22,35 @@
       "en": "Records completed work only; a local commit does not imply push or deployment."
     },
     "releaseBoundary": {
-      "zh": "复核既有交易来源，补回 1 个遗漏成交点，移除 4 个没有交易数据的专题，并停止用提交日期或冲突日期解释价格变化。",
-      "en": "Existing sources were rechecked, one omitted trade restored, four curve-free topics removed, and submission/conflicting dates blocked from price comparisons."
+      "zh": "逐项核对 54 个事件和 50 份来源，补充来源标识与日期依据；收紧来源栏，隐藏具体核验时间，并修复逐笔成交定位。",
+      "en": "Reviewed 54 events and 50 source documents, added publisher identities and date evidence, compacted citation rows, hid review timestamps and fixed trade location."
     },
     "modules": {
       "ui": {
         "summary": {
-          "zh": "交易数据复核与节点解释修正",
-          "en": "Trade verification and corrected node interpretation"
+          "zh": "事件日期与来源整理，修复成交定位",
+          "en": "Event dates, source citations and trade location"
         },
         "changes": [
           {
-            "zh": "54 个技术市场重新分页核对：53 个完全匹配；一个聚变市场补回原截止时间内的 1 个有效成交点，历史总数由 12,793 更正为 12,794。不改原截止边界、不用结算值补价，也没有证据确定原遗漏的具体原因。",
-            "en": "Of 54 technical markets, 53 matched exactly; one fusion archive was corrected by restoring one qualifying pre-cutoff point, changing the total from 12,793 to 12,794. Original cutoffs remain; settlement values are not substituted and the omission’s cause is undetermined."
+            "zh": "54 个技术事件的原题及创建、截止、结算日期共 162 个字段与原平台 API 一致；逐项保存来源链接与比对记录。50 份资料分别标注新闻或论文发布、预印本提交、事件发生、报告期、持续更新与日期冲突，不把提交日或更新后的页面当作首次公开日。",
+            "en": "Original titles and 162 creation, closing and resolution date fields across 54 technical events match the source API. Each retains its source and review record. Fifty documents distinguish news/paper release, preprint submission, event date, reporting period, maintained pages and date conflicts. Submission dates and updated pages are not first-publication dates."
           },
           {
-            "zh": "从目录和导航移除不对称有机催化、可见光光氧化还原、点击与生物正交、PET 酶解四个文献专题，并清理其专属来源、指标和关联入口。科学预测保留 11 个专题；不再保留文献专题的收录豁免。历史更新日志保留原记录。",
-            "en": "Four literature-only topics—asymmetric organocatalysis, photoredox, click/bioorthogonal chemistry and PET enzymes—were removed with exclusive sources, indicators and links. Eleven forecast topics remain, without literature exemptions. Historical release records are preserved."
+            "zh": "登记 33 个来源主体，其中 32 个使用真实官方图标或原站缓存图标，并记录下载来源和校验值。国家能源局统计保留官方原文，并附第一财经同口径报道及新闻标识。IEA 电池章节和 SuperPower 页面访问受限，单列限制；未能确认的日期不补造，不用于成交前后比较。",
+            "en": "Thirty-three publisher identities are registered; 32 use authentic official or cached site icons with provenance and checksums. NEA statistics retain the official source alongside matching Yicai reporting and its news identity. The IEA battery chapter and SuperPower page have access limits; unresolved dates are not invented or used for before/after trade comparisons."
           },
           {
-            "zh": "arXiv 提交日不再作为首次公开日期；DOE 点火页面日期与官方发布会日期不一致，停止生成价差。仅经复核的公开日期可参与比较；日期无时区时排除 UTC±14 小时覆盖的完整时段。修正七日窗口右端多算一个边界时点的问题；邻近成交只描述差异，不作因果归因。",
-            "en": "arXiv submission dates are not first-publication dates; conflicting DOE page/conference dates suppress comparison. Only reviewed release dates qualify, excluding the full UTC±14-hour envelope for timezone-unknown dates. The seven-day upper bound is exclusive. Nearby trades describe differences, never causation."
+            "zh": "来源 logo、名称、资料日期、日期说明和完整条目入口在桌面端集中于一排，手机端按宽度换行。具体核验时间从页面隐藏；日期依据按需展开。缺少邻近成交时只显示简短状态，取消空白的双列比较区；真实发表日与事件日期继续显示。",
+            "en": "Publisher logos, names, document dates, date details and reference links share one desktop row and wrap on mobile. Review timestamps are hidden; date evidence expands on demand. Missing nearby trades receive a brief status instead of empty comparison columns. Actual publication and event dates remain visible."
           },
           {
-            "zh": "诺奖 Manifold 的 53 条候选序列与 Kalshi 的 18 条有成交量蜡烛序列已回读匹配。Polymarket 的 30 条候选历史接口返回 403，保留已有价格采样，并在页面显示重新核验未完成。三种平台口径不合并，不把价格采样称为逐笔成交。",
-            "en": "Fifty-three Nobel Manifold candidate series and eighteen Kalshi traded-candle series matched source records. Thirty Polymarket candidate history requests returned 403; existing price samples remain with a visible unverified notice. Platform grains remain distinct."
+            "zh": "逐笔明细翻页后点击“查看此笔”，会滚动到曲线、标记对应成交，并显示时间、概率和序号；鼠标经过与主题切换不再覆盖固定点，可主动取消固定。最大相邻变化入口同步修复，保留减少动态效果与移动端使用。本轮保留 11 个专题、54 条市场曲线及 12,794 个历史点，不刷新既有价格。",
+            "en": "After pagination, Inspect trade scrolls to the curve, pins the matching observation and displays its date, probability and index. Hover and theme changes preserve the pin until released. Largest-move links use the same behavior, with reduced-motion and mobile support. Eleven topics, 54 curves and 12,794 historical points remain; archived prices are not refreshed."
+          },
+          {
+            "zh": "开源许可页补充 Manifold、Polymarket Gamma/CLOB、Kalshi、Nobel Prize、PubChem PUG REST、Crossref、OpenAlex 七类数据接口，逐项说明本站用途、官方文档与数据使用边界；缓存图标服务另行说明。Kalshi 依官方开发者协议标注再分发授权未确认，不把公开接口当作开放数据许可。",
+            "en": "The licensing page now covers seven data services: Manifold, Polymarket Gamma/CLOB, Kalshi, Nobel Prize, PubChem PUG REST, Crossref and OpenAlex. Each states its actual use, official documentation and data-use boundaries, with icon caches explained separately. Kalshi redistribution permission remains unconfirmed under its official developer agreement; public endpoints are not treated as an open-data license."
           }
         ]
       }
@@ -187,6 +191,48 @@
     }
   },
   "releases": [
+    {
+      "appVersion": "v3.5.17",
+      "date": "2026-10-29",
+      "headline": {
+        "zh": "事件日期与来源整理，修复成交定位",
+        "en": "Event dates, source citations and trade location"
+      },
+      "summary": {
+        "zh": "逐项核对 54 个事件和 50 份来源，补充来源标识与日期依据；收紧来源栏，隐藏具体核验时间，并修复逐笔成交定位。",
+        "en": "Reviewed 54 events and 50 source documents, added publisher identities and date evidence, compacted citation rows, hid review timestamps and fixed trade location."
+      },
+      "modules": {
+        "ui": {
+          "summary": {
+            "zh": "事件日期与来源整理，修复成交定位",
+            "en": "Event dates, source citations and trade location"
+          },
+          "changes": [
+            {
+              "zh": "54 个技术事件的原题及创建、截止、结算日期共 162 个字段与原平台 API 一致；逐项保存来源链接与比对记录。50 份资料分别标注新闻或论文发布、预印本提交、事件发生、报告期、持续更新与日期冲突，不把提交日或更新后的页面当作首次公开日。",
+              "en": "Original titles and 162 creation, closing and resolution date fields across 54 technical events match the source API. Each retains its source and review record. Fifty documents distinguish news/paper release, preprint submission, event date, reporting period, maintained pages and date conflicts. Submission dates and updated pages are not first-publication dates."
+            },
+            {
+              "zh": "登记 33 个来源主体，其中 32 个使用真实官方图标或原站缓存图标，并记录下载来源和校验值。国家能源局统计保留官方原文，并附第一财经同口径报道及新闻标识。IEA 电池章节和 SuperPower 页面访问受限，单列限制；未能确认的日期不补造，不用于成交前后比较。",
+              "en": "Thirty-three publisher identities are registered; 32 use authentic official or cached site icons with provenance and checksums. NEA statistics retain the official source alongside matching Yicai reporting and its news identity. The IEA battery chapter and SuperPower page have access limits; unresolved dates are not invented or used for before/after trade comparisons."
+            },
+            {
+              "zh": "来源 logo、名称、资料日期、日期说明和完整条目入口在桌面端集中于一排，手机端按宽度换行。具体核验时间从页面隐藏；日期依据按需展开。缺少邻近成交时只显示简短状态，取消空白的双列比较区；真实发表日与事件日期继续显示。",
+              "en": "Publisher logos, names, document dates, date details and reference links share one desktop row and wrap on mobile. Review timestamps are hidden; date evidence expands on demand. Missing nearby trades receive a brief status instead of empty comparison columns. Actual publication and event dates remain visible."
+            },
+            {
+              "zh": "逐笔明细翻页后点击“查看此笔”，会滚动到曲线、标记对应成交，并显示时间、概率和序号；鼠标经过与主题切换不再覆盖固定点，可主动取消固定。最大相邻变化入口同步修复，保留减少动态效果与移动端使用。本轮保留 11 个专题、54 条市场曲线及 12,794 个历史点，不刷新既有价格。",
+              "en": "After pagination, Inspect trade scrolls to the curve, pins the matching observation and displays its date, probability and index. Hover and theme changes preserve the pin until released. Largest-move links use the same behavior, with reduced-motion and mobile support. Eleven topics, 54 curves and 12,794 historical points remain; archived prices are not refreshed."
+            },
+            {
+              "zh": "开源许可页补充 Manifold、Polymarket Gamma/CLOB、Kalshi、Nobel Prize、PubChem PUG REST、Crossref、OpenAlex 七类数据接口，逐项说明本站用途、官方文档与数据使用边界；缓存图标服务另行说明。Kalshi 依官方开发者协议标注再分发授权未确认，不把公开接口当作开放数据许可。",
+              "en": "The licensing page now covers seven data services: Manifold, Polymarket Gamma/CLOB, Kalshi, Nobel Prize, PubChem PUG REST, Crossref and OpenAlex. Each states its actual use, official documentation and data-use boundaries, with icon caches explained separately. Kalshi redistribution permission remains unconfirmed under its official developer agreement; public endpoints are not treated as an open-data license."
+            }
+          ]
+        }
+      }
+    },
     {
       "appVersion": "v3.5.15",
       "date": "2026-10-29",

@@ -22,3 +22,22 @@ it('keeps inspection, date filters, empty state and exports on the same observed
  fireEvent.click(screen.getByText(/逐笔历史明细/))
  expect(screen.getByRole('table')).toBeTruthy()
 })
+it('locates a paginated trade on the plot and keeps the selected timestamp visible',()=>{
+ const descriptor=Object.getOwnPropertyDescriptor(HTMLElement.prototype,'scrollIntoView'),scroll=vi.fn()
+ Object.defineProperty(HTMLElement.prototype,'scrollIntoView',{value:scroll,configurable:true})
+ try{
+  const observed=Array.from({length:13},(_,i)=>({t:day(i+1),p:(i+1)/100}))
+  const {rerender}=render(<ForecastHistoryChart id="pagination" points={observed} cutoff={day(31)} snapshot={null} zh sourceUrl="https://manifold.markets/" apiUrl="https://api.manifold.markets/" onDownload={vi.fn()}/>)
+  fireEvent.click(screen.getByText(/逐笔历史明细/))
+  fireEvent.click(screen.getByRole('button',{name:'下一页'}))
+  fireEvent.click(screen.getAllByRole('button',{name:'查看此笔'})[1])
+  expect(screen.getByRole('status')).toHaveTextContent('2026-01-02 00:00:00 UTC · Yes 2.00% · 2/13')
+  expect(document.querySelector('.forecast-location-target')).toHaveAttribute('data-selected-time',String(day(2)))
+  expect(scroll).toHaveBeenCalledWith(expect.objectContaining({block:'start'}))
+  rerender(<ForecastHistoryChart id="pagination" points={observed.map(p=>({...p}))} cutoff={day(31)} snapshot={null} zh sourceUrl="https://manifold.markets/" apiUrl="https://api.manifold.markets/" onDownload={vi.fn()}/>)
+  expect(screen.getByRole('status')).toHaveTextContent('2026-01-02 00:00:00 UTC')
+  expect(screen.getAllByRole('button',{name:'查看此笔'})[1]).toHaveAttribute('aria-pressed','true')
+  fireEvent.click(screen.getByRole('button',{name:'取消固定'}))
+  expect(screen.queryByRole('status')).toBeNull()
+ }finally{if(descriptor)Object.defineProperty(HTMLElement.prototype,'scrollIntoView',descriptor);else Reflect.deleteProperty(HTMLElement.prototype,'scrollIntoView')}
+})

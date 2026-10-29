@@ -399,5 +399,34 @@
   },
   "quality": [],
   "tradePoints": 65,
-  "detailFile": "events/jqEkQKsK0FxFNXDN0lBy.json"
+  "detailFile": "events/jqEkQKsK0FxFNXDN0lBy.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "jqEkQKsK0FxFNXDN0lBy",
+    "sourceApi": "https://api.manifold.markets/v0/market/jqEkQKsK0FxFNXDN0lBy",
+    "sha256": "a1b2274473eee565d7a486ee3e3f231b4ac44a577d81b887a8090b7a27dc9ed7",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1683751952565,
+        "current": 1683751952565,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1861948800000,
+        "current": 1861948800000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Helion Energy deliver 50 MW of fusion-generated electricity to Microsoft before 2029?"
+  }
 }

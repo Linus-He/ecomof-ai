@@ -553,5 +553,34 @@
   },
   "quality": [],
   "tradePoints": 102,
-  "detailFile": "events/S1JzUyhBphhmBZF6UTLr.json"
+  "detailFile": "events/S1JzUyhBphhmBZF6UTLr.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "S1JzUyhBphhmBZF6UTLr",
+    "sourceApi": "https://api.manifold.markets/v0/market/S1JzUyhBphhmBZF6UTLr",
+    "sha256": "cd8ce01d6328378816c6e5780b8b2c6dae984af8a0b963353e43a59e86624bf0",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1690392124225,
+        "current": 1690392124225,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1690855572137,
+        "current": 1690855572137,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1690859213470,
+        "current": 1690859213470,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will another lab post results testing superconductivity (or lack of superconductivity) in LK-99 within a week?"
+  }
 }

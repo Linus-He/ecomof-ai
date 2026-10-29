@@ -201,5 +201,34 @@
     }
   ],
   "tradePoints": 9,
-  "detailFile": "events/8n2qAmtSKflVQ7kypyu8.json"
+  "detailFile": "events/8n2qAmtSKflVQ7kypyu8.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "8n2qAmtSKflVQ7kypyu8",
+    "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+    "sha256": "1c669dc1002ce79ec8a07635d27ab50826bef7fe3d78f5cb21c372c37e16e7cb",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1690642079001,
+        "current": 1690642079001,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1735689540000,
+        "current": 1735689540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will we see any commercial solar cells with an efficiency >30% by the end of 2024?"
+  }
 }

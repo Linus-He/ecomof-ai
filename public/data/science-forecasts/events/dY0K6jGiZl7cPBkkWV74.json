@@ -1218,5 +1218,34 @@
     }
   ],
   "tradePoints": 266,
-  "detailFile": "events/dY0K6jGiZl7cPBkkWV74.json"
+  "detailFile": "events/dY0K6jGiZl7cPBkkWV74.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "dY0K6jGiZl7cPBkkWV74",
+    "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+    "sha256": "ff7cf1cefbd8beb7d672de071ce879cc4ebf86fbcdaace199644fb046246f4ef",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1691400283960,
+        "current": 1691400283960,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1704027540000,
+        "current": 1704027540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1704589475705,
+        "current": 1704589475705,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Scientists at the NIF produce a net energy gain > 200% from a fusion reaction in 2023?"
+  }
 }

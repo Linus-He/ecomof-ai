@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest"
 import log from "../../../public/data/app_release_log.json"
+import { updateStories } from "../../data/updateStories"
+import { resolveTabForHash } from "../../config/navigationRegistry"
 
 describe("app_release_log unified version source", () => {
   it("defines a single current Web version with v3.0.0 as the first unified release", () => {
-    expect(log.currentAppVersion).toBe("v3.5.15")
+    expect(log.currentAppVersion).toBe("v3.5.17")
     expect(log.releases.length).toBeGreaterThanOrEqual(1)
     // releases are newest-first; v3.0.0 remains the first unified platform release
-    expect(log.releases[0].appVersion).toBe("v3.5.15")
+    expect(log.releases[0].appVersion).toBe("v3.5.17")
     expect(log.releases.map(r => r.appVersion)).toContain("v3.1.0")
     expect(log.releases.map(r => r.appVersion)).toContain("v3.0.0")
     expect(log.authority).toMatch(/single unified/i)
@@ -113,17 +115,36 @@ describe("app_release_log unified version source", () => {
     expect(log.provenance.generatingScript).toMatch(/build-app-release-log/)
   })
 
+  it("keeps the current source/date story and release metadata in sync", () => {
+    const current = log.releases[0]
+    const story = updateStories.find(row => row.version === current.appVersion)
+    expect(story).toBeTruthy()
+    expect(story.date).toBe(current.date)
+    expect(story.title).toEqual([current.headline.zh, current.headline.en])
+    expect(story.intro).toEqual([current.summary.zh, current.summary.en])
+    expect(resolveTabForHash(story.hash)).toBe("updateStory")
+  })
+
+  it("preserves the preceding trade-review record and its verification limits", () => {
+    const previous = log.releases.find(row => row.appVersion === "v3.5.15")
+    expect(previous).toBeTruthy()
+    expect(JSON.stringify(previous.modules)).toMatch(/12,794/)
+    expect(JSON.stringify(previous.modules)).toMatch(/403/)
+    expect(JSON.stringify(previous.modules)).toMatch(/UTC/)
+    expect(JSON.stringify(previous.modules)).toMatch(/causation/)
+  })
+
   it("records completed work in the current concrete patch developer log", () => {
-    expect(log.currentAppVersion).toBe("v3.5.15")
+    expect(log.currentAppVersion).toBe("v3.5.17")
     expect(log.developmentLog.baseAppVersion).toBe(log.releases[1].appVersion)
-    expect(log.developmentLog.developmentVersion).toBe("v3.5.15")
+    expect(log.developmentLog.developmentVersion).toBe("v3.5.17")
     expect(log.developmentLog.status).toBe("archived")
     expect(log.developmentLog.logPolicy.zh).toMatch(/已完成|计划写成已完成/)
     expect(log.developmentLog.modules).toEqual(log.releases[0].modules)
+    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/162/)
+    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/访问受限|access limits/)
     expect(JSON.stringify(log.developmentLog.modules)).toMatch(/12,794/)
-    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/403/)
-    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/UTC/)
-    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/causation/)
+    expect(JSON.stringify(log.developmentLog.modules)).toMatch(/固定|pin/)
     expect(JSON.stringify(log.developmentLog)).not.toMatch(/下一版更新预告|Next Release Preview|待发布|pending release/)
   })
 })

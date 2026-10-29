@@ -1,0 +1,268 @@
+[
+  {
+    "id": "apple",
+    "name": "Apple",
+    "url": "https://www.apple.com/",
+    "logo": "images/science-forecasts/apple.ico",
+    "assetSource": "https://www.apple.com/favicon.ico",
+    "sha256": "5493c61cf725cf3a1d63cd9d07de75b0d6faa5564e772f7d0a6074f341442938"
+  },
+  {
+    "id": "arxiv",
+    "name": "arXiv",
+    "url": "https://arxiv.org/",
+    "logo": "images/science-publishers/arxiv.png",
+    "assetSource": "https://arxiv.org/static/browse/0.3.4/images/icons/apple-touch-icon.png",
+    "sha256": "a5dd952e72f45dd00688057fe1fc258a41563d57376747c92612b93c0e1981b4"
+  },
+  {
+    "id": "basf",
+    "name": "BASF",
+    "url": "https://www.basf.com/",
+    "logo": "images/nobel/organizations/basf.svg",
+    "assetSource": "https://www.basf.com/",
+    "sha256": "8571563d82b8628e75be39908efea7012d1ed8a85c99b384b05bc92d46b60ba4"
+  },
+  {
+    "id": "bnetza",
+    "name": "Bundesnetzagentur",
+    "url": "https://www.bundesnetzagentur.de/",
+    "logo": "images/science-publishers/bnetza.ico",
+    "assetSource": "https://www.bundesnetzagentur.de/SiteGlobals/StyleBundles/Bilder/favicon.ico?__blob=normal&v=1",
+    "sha256": "5209455c98386f26c59263e26bcc0e43ec6bbb3d8b3cf0dfd73f356268e3a945"
+  },
+  {
+    "id": "catl",
+    "name": "宁德时代 CATL",
+    "url": "https://www.catl.com/en/",
+    "logo": "images/science-forecasts/catl.ico",
+    "assetSource": "https://www.catl.com/favicon.ico",
+    "sha256": "5391100e6de4db5323f4d985996cf6b812126a074dff269e7b26ad66690d0b62"
+  },
+  {
+    "id": "climeworks",
+    "name": "Climeworks",
+    "url": "https://climeworks.com/",
+    "logo": "images/science-publishers/climeworks-favicon.png",
+    "assetSource": "https://www.google.com/s2/favicons?domain=climeworks.com&sz=128",
+    "brandSource": "https://climeworks.com/",
+    "sha256": "853dcf9909bc15c54f7bdf02431e02a7239fad2fde801513b298e38a4cff4623",
+    "assetNote": "Public cache of site favicon; visible identity checked."
+  },
+  {
+    "id": "deepmind",
+    "name": "Google DeepMind",
+    "url": "https://deepmind.google/science/alphafold/",
+    "logo": "images/nobel/organizations/DeepMind.ico",
+    "assetSource": "https://deepmind.google/science/alphafold/",
+    "sha256": "0683e96941bf43306bdf6a3b7e59d239dfad03296c11ce54ae5be3a6d3063b4f"
+  },
+  {
+    "id": "doe",
+    "name": "美国能源部",
+    "url": "https://www.energy.gov/",
+    "logo": "images/science-forecasts/doe.ico",
+    "assetSource": "https://www.energy.gov/themes/custom/energy_gov/favicon.ico",
+    "sha256": "13844b27e01aaa1d91d082bbb35ebbfd5d5957ed39056a1f4d9b3d3c8418b1ca"
+  },
+  {
+    "id": "donutlab",
+    "name": "Donut Lab",
+    "url": "https://www.donutlab.com/",
+    "logo": "images/science-forecasts/donutlab.png",
+    "assetSource": "https://mlaygxxmuaqg.i.optimole.com/w:32/h:32/q:mauto/f:best/dpr:2/https://www.donutlab.com/wp-content/uploads/2025/09/cropped-cropped-DonutLab-Logo-Symbol-contrast.png",
+    "sha256": "870747b06f92e0b836ddad5cd2f12f2cd5d897f167e735e479a2f651b30aa783"
+  },
+  {
+    "id": "eia",
+    "name": "美国能源信息署",
+    "url": "https://www.eia.gov/",
+    "logo": "images/science-forecasts/eia.ico",
+    "assetSource": "https://www.eia.gov/favicon.ico",
+    "sha256": "9f6c640f1d856d682b33c43270e486ad481508bda3a39438185cb8a3508b8df5"
+  },
+  {
+    "id": "fda",
+    "name": "FDA",
+    "url": "https://www.fda.gov/",
+    "logo": "images/science-publishers/fda.ico",
+    "assetSource": "https://www.fda.gov/favicon.ico",
+    "sha256": "ec34858a4b25d89868b910dfcb8feaf90c7e406f284e7c86a0d4e99b7ce41039"
+  },
+  {
+    "id": "googlequantum",
+    "name": "Google Research / Quantum AI",
+    "url": "https://quantumai.google/",
+    "logo": "images/science-forecasts/googlequantum.png",
+    "assetSource": "https://www.gstatic.com/devrel-devsite/prod/v5a0f9ff8b593048661361a49e11ab98a8b1ac025e19e60e6189f2b56796f8a43/quantum/images/favicon.png",
+    "sha256": "b8b50837a11ba0ef28d5e55f6937043f10d5ff812f77a25e7909dee4995c4645"
+  },
+  {
+    "id": "helion",
+    "name": "Helion Energy",
+    "url": "https://www.helionenergy.com/",
+    "logo": "images/science-forecasts/helion.png",
+    "assetSource": "https://cdn.prod.website-files.com/6995dc80c8af0e2cfe2a7e86/699cba3ba161166f540b1b2f_helion_transparent_favicon_32x32%201.png",
+    "sha256": "a9c28c868d6cadceb4fff10396d9b2a5b5192a2deb13bb146be59ace36bc2b2f"
+  },
+  {
+    "id": "iea",
+    "name": "国际能源署 IEA",
+    "url": "https://www.iea.org/",
+    "logo": "images/science-forecasts/iea.ico",
+    "assetSource": "https://www.iea.org/assets/front/images/favicon.ico",
+    "sha256": "a9f24d3b341f4ef6e6d346833b54d09423a2af74447969ab7c782b10aa03f4e3"
+  },
+  {
+    "id": "jaea",
+    "name": "JAEA",
+    "url": "https://www.jaea.go.jp/",
+    "logo": "images/science-publishers/jaea.ico",
+    "assetSource": "https://www.jaea.go.jp/favicon.ico",
+    "sha256": "90dc94a17f7c8f563c5e2d5dbf62990b2461179ff6f4dbed581aab1fb33d19d1"
+  },
+  {
+    "id": "llnl",
+    "name": "Lawrence Livermore National Laboratory",
+    "url": "https://www.llnl.gov/",
+    "logo": "images/science-publishers/llnl.png",
+    "assetSource": "https://annual.llnl.gov/themes/custom/sierra/favicon.ico",
+    "sha256": "ae1480d0097aba3dbb0fcc6f18b5b51ea1dd9fee149ecd01391a0f711164302f"
+  },
+  {
+    "id": "manifold",
+    "name": "Manifold",
+    "url": "https://manifold.markets/",
+    "logo": "images/nobel/organizations/manifold.ico",
+    "assetSource": "https://manifold.markets/favicon.ico",
+    "sha256": "07b42fd8b571552c02a47dd27c582fa3966232b0ba05caf3340c28989da80a58"
+  },
+  {
+    "id": "nature",
+    "name": "Nature Portfolio",
+    "url": "https://www.nature.com/",
+    "logo": "images/science-publishers/nature.ico",
+    "assetSource": "https://www.nature.com/static/images/favicons/nature/favicon.ico",
+    "sha256": "1316c3b488eb2f47f3bcea859edab205d97271925eb1b671a820cd4679642a06"
+  },
+  {
+    "id": "nea",
+    "name": "国家能源局",
+    "url": "https://www.nea.gov.cn/",
+    "assetNote": "No verified site logo found; the linked Yicai report supplies its own media logo. No substitute agency/company logo is used."
+  },
+  {
+    "id": "noaa",
+    "name": "美国国家海洋和大气管理局",
+    "url": "https://www.noaa.gov/",
+    "logo": "images/science-forecasts/noaa.png",
+    "assetSource": "https://oceanacidification.noaa.gov/wp-content/uploads/2023/01/NOAA_FavIcon.png",
+    "sha256": "22823b27356998d730b889dfa439437d98e5b252191aead79cf10c5201a1e9fc"
+  },
+  {
+    "id": "oxfordpv",
+    "name": "Oxford PV",
+    "url": "https://www.oxfordpv.com/",
+    "logo": "images/science-forecasts/oxfordpv.png",
+    "assetSource": "https://cdn.prod.website-files.com/6889d6b022777c95d667f7cb/6889df31076b290e05a77497_Favicon.png",
+    "sha256": "e6695d0d23559084e2dc85ce5de20640788c7b78050bb778b165f6ccabb90fc0"
+  },
+  {
+    "id": "powerco",
+    "name": "PowerCo · Volkswagen Group",
+    "url": "https://www.powerco.de/en.html",
+    "logo": "images/science-forecasts/powerco.png",
+    "assetSource": "https://static-p131402-e1278943.adobeaemcloud.com/6faa1a4f9f24521ba487565406681abba07ca9cccd464a6f62af036778c572c1/resources/images/favicon.png",
+    "sha256": "09ae0620b3886890fc1e27a05b55944e5c1b70d28ce7b05d68ab5c45301997ac"
+  },
+  {
+    "id": "pubmed",
+    "name": "PubMed · NLM",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/",
+    "logo": "images/science-publishers/pubmed.ico",
+    "assetSource": "https://cdn.ncbi.nlm.nih.gov/coreutils/nwds/img/favicons/favicon.ico",
+    "sha256": "7b1fb2c8ab022de9ae05d90fbd106a606abc728db1b7c356842e0fd892f2bc85"
+  },
+  {
+    "id": "quantumscape",
+    "name": "QuantumScape",
+    "url": "https://www.quantumscape.com/",
+    "logo": "images/science-forecasts/quantumscape.png",
+    "assetSource": "https://www.quantumscape.com/wp-content/uploads/2021/10/cropped-qs-bug-new-blk-32x32.png",
+    "sha256": "7745adfe5c9f855a9ec73e51f95775e8e52c4b0818a853f6b9e0c88f650dd8c7"
+  },
+  {
+    "id": "saipem",
+    "name": "Saipem",
+    "url": "https://www.saipem.com/en/",
+    "logo": "images/science-forecasts/saipem.ico",
+    "assetSource": "https://www.saipem.com/themes/custom/saipem_theme/favicon.ico",
+    "sha256": "ab763556dbbedc5b4a3d861b696908905ff1cda75b7012f3ea9554386e005dc6"
+  },
+  {
+    "id": "superpower",
+    "name": "SuperPower",
+    "url": "https://www.superpower-inc.com/",
+    "logo": "images/science-forecasts/superpower.svg",
+    "assetSource": "https://uhrxvhovvmfwhbchjbab.supabase.co/storage/v1/object/public/company-logos/cand_85d1ce90ffcc57e39dd9131ddf6ec2ed/38252f14e855ee95264221071d2fd6fcdf76f0b17d4f83a07ca5b1e1b1940aa1.svg",
+    "sha256": "38252f14e855ee95264221071d2fd6fcdf76f0b17d4f83a07ca5b1e1b1940aa1"
+  },
+  {
+    "id": "svante",
+    "name": "Svante",
+    "url": "https://www.svanteinc.com/",
+    "logo": "images/nobel/organizations/svante.svg",
+    "assetSource": "https://www.svanteinc.com/",
+    "sha256": "8ed7fb5415b2cdd01afec6e3a306158193a8784a4a2a82a4587628406d27743a"
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform Industries",
+    "url": "https://terraformindustries.com/",
+    "logo": "images/science-publishers/terraform.png",
+    "assetSource": "https://terraformindustries.wordpress.com/wp-content/uploads/2022/07/cropped-screenshot-from-2022-07-24-13-01-27.png?w=32",
+    "sha256": "c329dcc01ab84a0fca1a769d1fc5352f6ad9a3441fc772c44cb9b7ae94a34930"
+  },
+  {
+    "id": "toyota",
+    "name": "Toyota",
+    "url": "https://global.toyota/en/",
+    "logo": "images/science-forecasts/toyota.png",
+    "assetSource": "https://global.toyota/apple-touch-icon-precomposed.png",
+    "sha256": "bf2771b5efcb96aa89d775d120f19a087691c948b4b77f35d851bd934ae65990"
+  },
+  {
+    "id": "usgs",
+    "name": "USGS",
+    "url": "https://www.usgs.gov/",
+    "logo": "images/science-publishers/usgs-cached.ico",
+    "assetSource": "https://icons.duckduckgo.com/ip3/www.usgs.gov.ico",
+    "brandSource": "https://www.usgs.gov/",
+    "assetNote": "Cached site favicon; verify visible identity before use.",
+    "sha256": "745e4ea68d0e045066defc5f5dc74407b2781d323bb9e55523ca9ca5b821af22"
+  },
+  {
+    "id": "vesta",
+    "name": "Vesta",
+    "url": "https://www.projectvesta.org/",
+    "logo": "images/science-forecasts/vesta.png",
+    "assetSource": "https://cdn.prod.website-files.com/62cdeb1bba413b560d960de7/62cdeb1bba413b7530960ef8_Vesta%20Browser%20Icon.png",
+    "sha256": "17f12b24cfc89fbbe80245675189bb6fea7e904dd44e7b98f5250f81bf8b3cb0"
+  },
+  {
+    "id": "vtt",
+    "name": "芬兰 VTT 技术研究中心",
+    "url": "https://www.vttresearch.com/en",
+    "logo": "images/science-forecasts/vtt.png",
+    "assetSource": "https://www.vttresearch.com/themes/custom/vtt/images/favicons/favicon-16x16.png",
+    "sha256": "b5c34537ea150fa0561022e964f68ab556bd922d42e956465b4123d842720635"
+  },
+  {
+    "id": "yicai",
+    "name": "第一财经",
+    "url": "https://www.yicai.com/",
+    "logo": "images/science-publishers/yicai.ico",
+    "assetSource": "https://www.yicai.com/favicon.ico",
+    "sha256": "35bcbf74f978273ae6f6fe56df18062be193df01400ddf27d204c81316f38101"
+  }
+]

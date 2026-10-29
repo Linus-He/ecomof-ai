@@ -498,5 +498,34 @@
     }
   ],
   "tradePoints": 87,
-  "detailFile": "events/6ddpyhZNcA.json"
+  "detailFile": "events/6ddpyhZNcA.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "6ddpyhZNcA",
+    "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+    "sha256": "1e5ba7f714b7c22d9016fe1f5859bcee9958d3ed0aeed1575d9cf35795429523",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1765372046334,
+        "current": 1765372046334,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1924991940000,
+        "current": 1924991940000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will U.S. production of battery-grade lithium exceed 10% of global supply by the end of 2030?"
+  }
 }

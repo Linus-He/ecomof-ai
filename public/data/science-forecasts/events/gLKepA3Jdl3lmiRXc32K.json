@@ -203,5 +203,34 @@
   },
   "quality": [],
   "tradePoints": 16,
-  "detailFile": "events/gLKepA3Jdl3lmiRXc32K.json"
+  "detailFile": "events/gLKepA3Jdl3lmiRXc32K.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "gLKepA3Jdl3lmiRXc32K",
+    "sourceApi": "https://api.manifold.markets/v0/market/gLKepA3Jdl3lmiRXc32K",
+    "sha256": "81d12e9ca7ae7bf472ef9052bae23bbdbe64e6113dae612e7cec8bd16eaae383",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1700841253642,
+        "current": 1700841253642,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1716574992984,
+        "current": 1716574992984,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1716574992984,
+        "current": 1716574992984,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will sodium-ion batteries be commercially available before the end of 2024?"
+  }
 }

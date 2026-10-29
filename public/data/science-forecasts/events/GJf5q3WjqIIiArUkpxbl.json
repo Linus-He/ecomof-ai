@@ -249,5 +249,34 @@
   },
   "quality": [],
   "tradePoints": 27,
-  "detailFile": "events/GJf5q3WjqIIiArUkpxbl.json"
+  "detailFile": "events/GJf5q3WjqIIiArUkpxbl.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "GJf5q3WjqIIiArUkpxbl",
+    "sourceApi": "https://api.manifold.markets/v0/market/GJf5q3WjqIIiArUkpxbl",
+    "sha256": "98f37653303ac17026e08ab667c32698407badec966ff69cd5653e9f4162e035",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1691047537239,
+        "current": 1691047537239,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893560340000,
+        "current": 1893560340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2030?"
+  }
 }

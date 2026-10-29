@@ -176,5 +176,34 @@
     }
   ],
   "tradePoints": 4,
-  "detailFile": "events/cwtbzjfk9j.json"
+  "detailFile": "events/cwtbzjfk9j.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "cwtbzjfk9j",
+    "sourceApi": "https://api.manifold.markets/v0/market/cwtbzjfk9j",
+    "sha256": "ab718d8898c4bf5d277d4a542be759180ca173f12e0bf938db0b8cb19f945cec",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1722605625314,
+        "current": 1722605625314,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893481140000,
+        "current": 1893481140000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will a fully error corrected quantum computer capable of running 100 million gates be created before 2030?"
+  }
 }

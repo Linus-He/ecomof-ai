@@ -3340,5 +3340,34 @@
   },
   "quality": [],
   "tradePoints": 799,
-  "detailFile": "events/hOt5P568Iz.json"
+  "detailFile": "events/hOt5P568Iz.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "hOt5P568Iz",
+    "sourceApi": "https://api.manifold.markets/v0/market/hOt5P568Iz",
+    "sha256": "0bf47df3cfd62ea60ee798f8cd75ced9bcadd0cf0e22e5928de4dbf12688a690",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1764135991551,
+        "current": 1764135991551,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893455940000,
+        "current": 1893455940000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Vanadium in VRFBs reach 20% of global vanadium consumption by 2030?"
+  }
 }

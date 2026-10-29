@@ -2147,5 +2147,34 @@
     }
   ],
   "tradePoints": 498,
-  "detailFile": "events/HB3a6kWAhptJg8Ill8yT.json"
+  "detailFile": "events/HB3a6kWAhptJg8Ill8yT.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "HB3a6kWAhptJg8Ill8yT",
+    "sourceApi": "https://api.manifold.markets/v0/market/HB3a6kWAhptJg8Ill8yT",
+    "sha256": "2effe8c53198be3d7683aee8ee202ce8c23df955719c5f853da3048e6abf9d06",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1655346007355,
+        "current": 1655346007355,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 2524636800000,
+        "current": 2524636800000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will carbon removal be pivotal in mitigating climate change?"
+  }
 }

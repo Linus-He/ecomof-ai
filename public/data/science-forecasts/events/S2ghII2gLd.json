@@ -2383,5 +2383,34 @@
     }
   ],
   "tradePoints": 558,
-  "detailFile": "events/S2ghII2gLd.json"
+  "detailFile": "events/S2ghII2gLd.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "S2ghII2gLd",
+    "sourceApi": "https://api.manifold.markets/v0/market/S2ghII2gLd",
+    "sha256": "65c53dcafa9b0439129d59ee5720812c0f93736760606414e3208c9a920c6b61",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1774059803571,
+        "current": 1774059803571,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1830229200000,
+        "current": 1830229200000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will LFP batteries account for more than 65% of global electric vehicle battery production (by GWh) in 2026?"
+  }
 }

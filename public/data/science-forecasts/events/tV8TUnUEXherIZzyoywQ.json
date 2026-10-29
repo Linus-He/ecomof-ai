@@ -6155,5 +6155,34 @@
   },
   "quality": [],
   "tradePoints": 1500,
-  "detailFile": "events/tV8TUnUEXherIZzyoywQ.json"
+  "detailFile": "events/tV8TUnUEXherIZzyoywQ.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "tV8TUnUEXherIZzyoywQ",
+    "sourceApi": "https://api.manifold.markets/v0/market/tV8TUnUEXherIZzyoywQ",
+    "sha256": "a5689c7c346eb7d6ddb03ad0807931b7348268ed45d3cec7ece0ba6c80553d50",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1690399840171,
+        "current": 1690399840171,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1692046740000,
+        "current": 1692046740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1692067957056,
+        "current": 1692067957056,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before August 15, 2023?"
+  }
 }

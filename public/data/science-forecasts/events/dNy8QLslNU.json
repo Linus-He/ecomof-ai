@@ -285,5 +285,34 @@
     }
   ],
   "tradePoints": 31,
-  "detailFile": "events/dNy8QLslNU.json"
+  "detailFile": "events/dNy8QLslNU.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "dNy8QLslNU",
+    "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+    "sha256": "a453077340b3f82260719d4cc246db02e8748ebb1363c9c449fec6c7e7eb10c6",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1764135366248,
+        "current": 1764135366248,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1837983540000,
+        "current": 1837983540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will global vanadium production (mine + co-product, contained V) in 2027 be at least 140,000 tonnes of V?"
+  }
 }

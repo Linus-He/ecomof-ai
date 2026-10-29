@@ -423,5 +423,34 @@
     }
   ],
   "tradePoints": 68,
-  "detailFile": "events/fHSDwgZnxcJ7wTAw5AiR.json"
+  "detailFile": "events/fHSDwgZnxcJ7wTAw5AiR.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "fHSDwgZnxcJ7wTAw5AiR",
+    "sourceApi": "https://api.manifold.markets/v0/market/fHSDwgZnxcJ7wTAw5AiR",
+    "sha256": "85069a09f80f3b3cb446797e1c535f8ff99d739031ad63536abc270e64f94565",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1643783662068,
+        "current": 1643783662068,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1672552740000,
+        "current": 1672552740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1672606581434,
+        "current": 1672606581434,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will AI will discover a new drug promising enough for clinical trials in 2022?"
+  }
 }

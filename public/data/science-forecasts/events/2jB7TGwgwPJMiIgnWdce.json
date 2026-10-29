@@ -338,5 +338,34 @@
     }
   ],
   "tradePoints": 47,
-  "detailFile": "events/2jB7TGwgwPJMiIgnWdce.json"
+  "detailFile": "events/2jB7TGwgwPJMiIgnWdce.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "2jB7TGwgwPJMiIgnWdce",
+    "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+    "sha256": "f1cdfbf73f078fe126c8bd5ee1b33047e506c7217cbb1673c6259579c3d94e99",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1678695869377,
+        "current": 1678695869377,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1735718340000,
+        "current": 1735718340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1735859896891,
+        "current": 1735859896891,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Terraform Industries begin to commercialize in 2024?"
+  }
 }

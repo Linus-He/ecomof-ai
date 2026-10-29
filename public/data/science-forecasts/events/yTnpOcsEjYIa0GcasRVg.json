@@ -237,5 +237,34 @@
   },
   "quality": [],
   "tradePoints": 25,
-  "detailFile": "events/yTnpOcsEjYIa0GcasRVg.json"
+  "detailFile": "events/yTnpOcsEjYIa0GcasRVg.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "yTnpOcsEjYIa0GcasRVg",
+    "sourceApi": "https://api.manifold.markets/v0/market/yTnpOcsEjYIa0GcasRVg",
+    "sha256": "6033959ac0443e9a443ababbe55518fb71147d1afb2d8655fc12a4d9940946a5",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1700027089950,
+        "current": 1700027089950,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1735657140000,
+        "current": 1735657140000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1737825108651,
+        "current": 1737825108651,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will a new solid-state battery with an energy density exceeding 400 Wh/kg be commercially released by the end of 2024?"
+  }
 }

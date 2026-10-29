@@ -167,5 +167,34 @@
     }
   ],
   "tradePoints": 4,
-  "detailFile": "events/CqS0hc8NOI.json"
+  "detailFile": "events/CqS0hc8NOI.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "CqS0hc8NOI",
+    "sourceApi": "https://api.manifold.markets/v0/market/CqS0hc8NOI",
+    "sha256": "a34838a0d769173a95ae813a2a14a83ac0b5095a0fb58763719dcdcecbc24a6f",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1765644044583,
+        "current": 1765644044583,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1988150340000,
+        "current": 1988150340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "100GW of hydrogen electrolyzer capacity by 2033?"
+  }
 }

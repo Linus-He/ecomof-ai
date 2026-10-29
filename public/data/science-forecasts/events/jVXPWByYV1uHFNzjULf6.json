@@ -204,5 +204,34 @@
     }
   ],
   "tradePoints": 11,
-  "detailFile": "events/jVXPWByYV1uHFNzjULf6.json"
+  "detailFile": "events/jVXPWByYV1uHFNzjULf6.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "jVXPWByYV1uHFNzjULf6",
+    "sourceApi": "https://api.manifold.markets/v0/market/jVXPWByYV1uHFNzjULf6",
+    "sha256": "4acb440fab6256f7348e3ddbdb10344458f07b1a7dd56816db4a3eac7ebf50fa",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1706129440350,
+        "current": 1706129440350,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1735718340000,
+        "current": 1735718340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1738024529935,
+        "current": 1738024529935,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will any car or truck with a solid state battery be delivered in the US before EOY 2024"
+  }
 }

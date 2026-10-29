@@ -203,5 +203,34 @@
     }
   ],
   "tradePoints": 13,
-  "detailFile": "events/88clPLgu5E.json"
+  "detailFile": "events/88clPLgu5E.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "88clPLgu5E",
+    "sourceApi": "https://api.manifold.markets/v0/market/88clPLgu5E",
+    "sha256": "145901b29b496d8db12c5d1185d9152d967571b17ad2bd23a19dfc586d3944de",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1775499787060,
+        "current": 1775499787060,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1861851600000,
+        "current": 1861851600000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2028?"
+  }
 }

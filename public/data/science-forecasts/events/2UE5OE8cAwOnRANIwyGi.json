@@ -188,5 +188,34 @@
     }
   ],
   "tradePoints": 7,
-  "detailFile": "events/2UE5OE8cAwOnRANIwyGi.json"
+  "detailFile": "events/2UE5OE8cAwOnRANIwyGi.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "2UE5OE8cAwOnRANIwyGi",
+    "sourceApi": "https://api.manifold.markets/v0/market/2UE5OE8cAwOnRANIwyGi",
+    "sha256": "385593f88c16ddefd1c394c9f005acd0534d6eed2263fca3e202d42209ebf5a5",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1688539333250,
+        "current": 1688539333250,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798876740000,
+        "current": 1798876740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Before 2030, Toyota will be selling cars with solid-state batteries with a >=1000km range chargeable in under 15 minutes"
+  }
 }

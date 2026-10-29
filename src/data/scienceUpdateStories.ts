@@ -1,5 +1,73 @@
 export const scienceUpdateStories = [
 {
+  "hash": "update-source-dates-location",
+  "version": "v3.5.17",
+  "date": "2026-10-29",
+  "image": 0,
+  "title": [
+    "事件日期与来源整理，修复成交定位",
+    "Event dates, source citations and trade location"
+  ],
+  "intro": [
+    "逐项核对 54 个事件和 50 份来源，补充来源标识与日期依据；收紧来源栏，隐藏具体核验时间，并修复逐笔成交定位。",
+    "Reviewed 54 events and 50 source documents, added publisher identities and date evidence, compacted citation rows, hid review timestamps and fixed trade location."
+  ],
+  "sections": [
+    {
+      "title": [
+        "逐个核对事件与日期",
+        "Review each event and date"
+      ],
+      "body": [
+        "54 个技术事件的原题及创建、截止、结算日期共 162 个字段与原平台 API 一致；逐项保存来源链接与比对记录。50 份资料分别标注新闻或论文发布、预印本提交、事件发生、报告期、持续更新与日期冲突，不把提交日或更新后的页面当作首次公开日。",
+        "Original titles and 162 creation, closing and resolution date fields across 54 technical events match the source API. Each retains its source and review record. Fifty documents distinguish news/paper release, preprint submission, event date, reporting period, maintained pages and date conflicts. Submission dates and updated pages are not first-publication dates."
+      ]
+    },
+    {
+      "title": [
+        "来源有标识，依据可展开",
+        "Publisher identities and inspectable evidence"
+      ],
+      "body": [
+        "登记 33 个来源主体，其中 32 个使用真实官方图标或原站缓存图标，并记录下载来源和校验值。国家能源局统计保留官方原文，并附第一财经同口径报道及新闻标识。IEA 电池章节和 SuperPower 页面访问受限，单列限制；未能确认的日期不补造，不用于成交前后比较。",
+        "Thirty-three publisher identities are registered; 32 use authentic official or cached site icons with provenance and checksums. NEA statistics retain the official source alongside matching Yicai reporting and its news identity. The IEA battery chapter and SuperPower page have access limits; unresolved dates are not invented or used for before/after trade comparisons."
+      ]
+    },
+    {
+      "title": [
+        "来源栏尽量放在一排",
+        "Compact citation rows"
+      ],
+      "body": [
+        "来源 logo、名称、资料日期、日期说明和完整条目入口在桌面端集中于一排，手机端按宽度换行。具体核验时间从页面隐藏；日期依据按需展开。缺少邻近成交时只显示简短状态，取消空白的双列比较区；真实发表日与事件日期继续显示。",
+        "Publisher logos, names, document dates, date details and reference links share one desktop row and wrap on mobile. Review timestamps are hidden; date evidence expands on demand. Missing nearby trades receive a brief status instead of empty comparison columns. Actual publication and event dates remain visible."
+      ]
+    },
+    {
+      "title": [
+        "查看此笔返回曲线并固定",
+        "Locate and pin an actual trade"
+      ],
+      "body": [
+        "逐笔明细翻页后点击“查看此笔”，会滚动到曲线、标记对应成交，并显示时间、概率和序号；鼠标经过与主题切换不再覆盖固定点，可主动取消固定。最大相邻变化入口同步修复，保留减少动态效果与移动端使用。本轮保留 11 个专题、54 条市场曲线及 12,794 个历史点，不刷新既有价格。",
+        "After pagination, Inspect trade scrolls to the curve, pins the matching observation and displays its date, probability and index. Hover and theme changes preserve the pin until released. Largest-move links use the same behavior, with reduced-motion and mobile support. Eleven topics, 54 curves and 12,794 historical points remain; archived prices are not refreshed."
+      ]
+    },
+    {
+      "title": [
+        "近期数据接口补入许可页",
+        "Register recent data APIs"
+      ],
+      "body": [
+        "开源许可页补充 Manifold、Polymarket Gamma/CLOB、Kalshi、Nobel Prize、PubChem PUG REST、Crossref、OpenAlex 七类数据接口，逐项说明本站用途、官方文档与数据使用边界；缓存图标服务另行说明。Kalshi 依官方开发者协议标注再分发授权未确认，不把公开接口当作开放数据许可。",
+        "The licensing page now covers seven data services: Manifold, Polymarket Gamma/CLOB, Kalshi, Nobel Prize, PubChem PUG REST, Crossref and OpenAlex. Each states its actual use, official documentation and data-use boundaries, with icon caches explained separately. Kalshi redistribution permission remains unconfirmed under its official developer agreement; public endpoints are not treated as an open-data license."
+      ]
+    }
+  ],
+  "comparison": [],
+  "source": "原始来源：Manifold 各市场 API、50 份论文或机构/企业资料及第一财经对应报道。来源日期分类、访问限制、原站图标来源与校验值保存在科学预测来源记录中；邻近成交差异不代表新闻造成价格变化。"
+},
+{
   "hash": "update-trade-verification",
   "version": "v3.5.15",
   "date": "2026-10-29",

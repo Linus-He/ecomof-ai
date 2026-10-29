@@ -16940,5 +16940,34 @@
   },
   "quality": [],
   "tradePoints": 4164,
-  "detailFile": "events/SAIUNdCI8U.json"
+  "detailFile": "events/SAIUNdCI8U.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "SAIUNdCI8U",
+    "sourceApi": "https://api.manifold.markets/v0/market/SAIUNdCI8U",
+    "sha256": "22172b4151545a2fe75ba91c859d63c15b897848bbba0ddc2273c47517763c58",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1772593247994,
+        "current": 1772593247994,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798775400000,
+        "current": 1798775400000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Donut Battery is essentially Lithium free?"
+  }
 }

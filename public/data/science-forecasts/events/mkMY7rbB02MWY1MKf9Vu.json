@@ -315,5 +315,34 @@
   },
   "quality": [],
   "tradePoints": 44,
-  "detailFile": "events/mkMY7rbB02MWY1MKf9Vu.json"
+  "detailFile": "events/mkMY7rbB02MWY1MKf9Vu.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "mkMY7rbB02MWY1MKf9Vu",
+    "sourceApi": "https://api.manifold.markets/v0/market/mkMY7rbB02MWY1MKf9Vu",
+    "sha256": "ed503adcec367c0ade94ba92b01a619977ee2ffe280a9fb2de4c6b3e30815a9c",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1696769351094,
+        "current": 1696769351094,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1767243540000,
+        "current": 1767243540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1767401312932,
+        "current": 1767401312932,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will an AI-designed drug get FDA approval by the end of 2025?"
+  }
 }

@@ -196,5 +196,34 @@
     }
   ],
   "tradePoints": 13,
-  "detailFile": "events/n0dowx6m17.json"
+  "detailFile": "events/n0dowx6m17.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "n0dowx6m17",
+    "sourceApi": "https://api.manifold.markets/v0/market/n0dowx6m17",
+    "sha256": "ae1d19f3aba48dd99f2c199ffefecd8e0e11d1ab261193cfe323ec4e562fcb2b",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1719268228256,
+        "current": 1719268228256,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798779540000,
+        "current": 1798779540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Apple release an iPhone that uses a solid-state battery by the end of 2026?"
+  }
 }

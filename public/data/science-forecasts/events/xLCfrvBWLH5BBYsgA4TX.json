@@ -190,5 +190,34 @@
     }
   ],
   "tradePoints": 7,
-  "detailFile": "events/xLCfrvBWLH5BBYsgA4TX.json"
+  "detailFile": "events/xLCfrvBWLH5BBYsgA4TX.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "xLCfrvBWLH5BBYsgA4TX",
+    "sourceApi": "https://api.manifold.markets/v0/market/xLCfrvBWLH5BBYsgA4TX",
+    "sha256": "8e20d2419af0c88590be8a470dd087fba792f25985dfb1fbea59fb3e1773d155",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1701609579585,
+        "current": 1701609579585,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1704663440833,
+        "current": 1704663440833,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1704663440833,
+        "current": 1704663440833,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will the first EVs using sodium-ion battery technology ship in 2024?"
+  }
 }

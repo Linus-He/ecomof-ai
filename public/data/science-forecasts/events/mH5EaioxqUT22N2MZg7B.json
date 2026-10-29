@@ -195,5 +195,34 @@
     }
   ],
   "tradePoints": 11,
-  "detailFile": "events/mH5EaioxqUT22N2MZg7B.json"
+  "detailFile": "events/mH5EaioxqUT22N2MZg7B.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "mH5EaioxqUT22N2MZg7B",
+    "sourceApi": "https://api.manifold.markets/v0/market/mH5EaioxqUT22N2MZg7B",
+    "sha256": "541cb147657a6fcf7023a637f02cfd5a84b252723a70a6b9cd691acbcf9249bb",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1706593725214,
+        "current": 1706593725214,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1925049540000,
+        "current": 1925049540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will perovskite or silicon-peroskite pairs be the most common material for solar panels by 2030?"
+  }
 }

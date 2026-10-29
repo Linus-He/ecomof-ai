@@ -712,5 +712,34 @@
     }
   ],
   "tradePoints": 140,
-  "detailFile": "events/BGT0eBN2kmD6FmsXEvFt.json"
+  "detailFile": "events/BGT0eBN2kmD6FmsXEvFt.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "BGT0eBN2kmD6FmsXEvFt",
+    "sourceApi": "https://api.manifold.markets/v0/market/BGT0eBN2kmD6FmsXEvFt",
+    "sha256": "2b9ffef940f85b3400832ac259151d6ecb9a85cba933e4ea00f2f5b4db901a42",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1653685822274,
+        "current": 1653685822274,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 2524590660000,
+        "current": 2524590660000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will fusion provide >2% of US electrical power before 2050?"
+  }
 }

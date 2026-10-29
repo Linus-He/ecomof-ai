@@ -388,5 +388,34 @@
     }
   ],
   "tradePoints": 59,
-  "detailFile": "events/E6A6gylOZq.json"
+  "detailFile": "events/E6A6gylOZq.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "E6A6gylOZq",
+    "sourceApi": "https://api.manifold.markets/v0/market/E6A6gylOZq",
+    "sha256": "2ef8ffbd8fef996cb448884d781c86b57f2c413bc8c0b47bfc36425cc3101933",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1775573809691,
+        "current": 1775573809691,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893387600000,
+        "current": 1893387600000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will any OEM be producing LLZO solid-state battery packs at commercial scale (≥1 GWh/year) by December 31, 2029?"
+  }
 }

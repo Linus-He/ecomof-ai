@@ -2251,5 +2251,34 @@
     }
   ],
   "tradePoints": 525,
-  "detailFile": "events/hnzy6pqlNZ.json"
+  "detailFile": "events/hnzy6pqlNZ.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "hnzy6pqlNZ",
+    "sourceApi": "https://api.manifold.markets/v0/market/hnzy6pqlNZ",
+    "sha256": "609bad1f52e780eaea6c03e4c7f5f9c075288ab61ba4951959269da677ac8298",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1767667088727,
+        "current": 1767667088727,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1801371540000,
+        "current": 1801371540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "EV powered by CATL's Naxtra sodium-ion battery to ship commercially by EOY 2026?"
+  }
 }

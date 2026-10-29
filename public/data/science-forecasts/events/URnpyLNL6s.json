@@ -2082,5 +2082,34 @@
   },
   "quality": [],
   "tradePoints": 485,
-  "detailFile": "events/URnpyLNL6s.json"
+  "detailFile": "events/URnpyLNL6s.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "URnpyLNL6s",
+    "sourceApi": "https://api.manifold.markets/v0/market/URnpyLNL6s",
+    "sha256": "84c06732dcc85ab89719d66d377715a023a81fa472956aed12c24e8bbd35b4d9",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1767665801472,
+        "current": 1767665801472,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1927688340000,
+        "current": 1927688340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Donut Battery powered car delivered by EOY 2030?"
+  }
 }

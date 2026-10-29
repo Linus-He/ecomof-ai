@@ -1,0 +1,1517 @@
+{
+  "checkedAt": "2026-10-29",
+  "markets": [
+    {
+      "id": "SAIUNdCI8U",
+      "sourceApi": "https://api.manifold.markets/v0/market/SAIUNdCI8U",
+      "sha256": "22172b4151545a2fe75ba91c859d63c15b897848bbba0ddc2273c47517763c58",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1772593247994,
+          "current": 1772593247994,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798775400000,
+          "current": 1798775400000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Donut Battery is essentially Lithium free?"
+    },
+    {
+      "id": "URnpyLNL6s",
+      "sourceApi": "https://api.manifold.markets/v0/market/URnpyLNL6s",
+      "sha256": "84c06732dcc85ab89719d66d377715a023a81fa472956aed12c24e8bbd35b4d9",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1767665801472,
+          "current": 1767665801472,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1927688340000,
+          "current": 1927688340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Donut Battery powered car delivered by EOY 2030?"
+    },
+    {
+      "id": "5yR6nLsLlu",
+      "sourceApi": "https://api.manifold.markets/v0/market/5yR6nLsLlu",
+      "sha256": "c820b0e097c02e651f9b511afee6efc710d8b8eb71d43a3c585291544a1de460",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1767658103646,
+          "current": 1767658103646,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798790340000,
+          "current": 1798790340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "By the end of 2026, will it be possible to purchase a motorcycle with a solid state battery for <$50k"
+    },
+    {
+      "id": "E6A6gylOZq",
+      "sourceApi": "https://api.manifold.markets/v0/market/E6A6gylOZq",
+      "sha256": "2ef8ffbd8fef996cb448884d781c86b57f2c413bc8c0b47bfc36425cc3101933",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1775573809691,
+          "current": 1775573809691,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893387600000,
+          "current": 1893387600000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any OEM be producing LLZO solid-state battery packs at commercial scale (≥1 GWh/year) by December 31, 2029?"
+    },
+    {
+      "id": "hznAd5Sh0S",
+      "sourceApi": "https://api.manifold.markets/v0/market/hznAd5Sh0S",
+      "sha256": "7955e3bfe6b52884f7336b1a00d931d73a8a2d924058579f6309b4407562eb21",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1775573809571,
+          "current": 1775573809571,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1830229200000,
+          "current": 1830229200000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any OEM be producing LLZO solid-state battery packs at commercial scale (≥1 GWh/year) by December 31, 2027?"
+    },
+    {
+      "id": "Shc85pllS8",
+      "sourceApi": "https://api.manifold.markets/v0/market/Shc85pllS8",
+      "sha256": "4e1dd02c86863b05a16f7a997cb8633ee47ad3f01b24db34742d985d9eba39dd",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1766340961977,
+          "current": 1766340961977,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798761540000,
+          "current": 1798761540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Quantumscape & PowerCo confirm initial sample production of QS-enabled Unified Cell in 2026?"
+    },
+    {
+      "id": "yTnpOcsEjYIa0GcasRVg",
+      "sourceApi": "https://api.manifold.markets/v0/market/yTnpOcsEjYIa0GcasRVg",
+      "sha256": "6033959ac0443e9a443ababbe55518fb71147d1afb2d8655fc12a4d9940946a5",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1700027089950,
+          "current": 1700027089950,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735657140000,
+          "current": 1735657140000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1737825108651,
+          "current": 1737825108651,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will a new solid-state battery with an energy density exceeding 400 Wh/kg be commercially released by the end of 2024?"
+    },
+    {
+      "id": "jVXPWByYV1uHFNzjULf6",
+      "sourceApi": "https://api.manifold.markets/v0/market/jVXPWByYV1uHFNzjULf6",
+      "sha256": "4acb440fab6256f7348e3ddbdb10344458f07b1a7dd56816db4a3eac7ebf50fa",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1706129440350,
+          "current": 1706129440350,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735718340000,
+          "current": 1735718340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1738024529935,
+          "current": 1738024529935,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any car or truck with a solid state battery be delivered in the US before EOY 2024"
+    },
+    {
+      "id": "n0dowx6m17",
+      "sourceApi": "https://api.manifold.markets/v0/market/n0dowx6m17",
+      "sha256": "ae1d19f3aba48dd99f2c199ffefecd8e0e11d1ab261193cfe323ec4e562fcb2b",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1719268228256,
+          "current": 1719268228256,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798779540000,
+          "current": 1798779540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Apple release an iPhone that uses a solid-state battery by the end of 2026?"
+    },
+    {
+      "id": "2UE5OE8cAwOnRANIwyGi",
+      "sourceApi": "https://api.manifold.markets/v0/market/2UE5OE8cAwOnRANIwyGi",
+      "sha256": "385593f88c16ddefd1c394c9f005acd0534d6eed2263fca3e202d42209ebf5a5",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1688539333250,
+          "current": 1688539333250,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798876740000,
+          "current": 1798876740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Before 2030, Toyota will be selling cars with solid-state batteries with a >=1000km range chargeable in under 15 minutes"
+    },
+    {
+      "id": "8m2QavDR1KYRdV3g8aDf",
+      "sourceApi": "https://api.manifold.markets/v0/market/8m2QavDR1KYRdV3g8aDf",
+      "sha256": "9bd20cb2fca49a192a70dd39ae0f5b72b43400b99a25131b74bb1ee8362b994c",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1704474745339,
+          "current": 1704474745339,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1993330740000,
+          "current": 1993330740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will we get room temperature superconductors before 2033?"
+    },
+    {
+      "id": "tV8TUnUEXherIZzyoywQ",
+      "sourceApi": "https://api.manifold.markets/v0/market/tV8TUnUEXherIZzyoywQ",
+      "sha256": "a5689c7c346eb7d6ddb03ad0807931b7348268ed45d3cec7ece0ba6c80553d50",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690399840171,
+          "current": 1690399840171,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1692046740000,
+          "current": 1692046740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1692067957056,
+          "current": 1692067957056,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before August 15, 2023?"
+    },
+    {
+      "id": "kphkIrlmHjGcCssSiHdi",
+      "sourceApi": "https://api.manifold.markets/v0/market/kphkIrlmHjGcCssSiHdi",
+      "sha256": "e013e354baa061bef152205c698e7f77ffe99baf8967f13063ac7052d3814c2a",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690903753245,
+          "current": 1690903753245,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1704171540000,
+          "current": 1704171540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1704175365667,
+          "current": 1704175365667,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "(M1000 SUBSIDY) Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before 2024?"
+    },
+    {
+      "id": "S1JzUyhBphhmBZF6UTLr",
+      "sourceApi": "https://api.manifold.markets/v0/market/S1JzUyhBphhmBZF6UTLr",
+      "sha256": "cd8ce01d6328378816c6e5780b8b2c6dae984af8a0b963353e43a59e86624bf0",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690392124225,
+          "current": 1690392124225,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1690855572137,
+          "current": 1690855572137,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1690859213470,
+          "current": 1690859213470,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will another lab post results testing superconductivity (or lack of superconductivity) in LK-99 within a week?"
+    },
+    {
+      "id": "GJf5q3WjqIIiArUkpxbl",
+      "sourceApi": "https://api.manifold.markets/v0/market/GJf5q3WjqIIiArUkpxbl",
+      "sha256": "98f37653303ac17026e08ab667c32698407badec966ff69cd5653e9f4162e035",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1691047537239,
+          "current": 1691047537239,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893560340000,
+          "current": 1893560340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2030?"
+    },
+    {
+      "id": "H5nCcUUDsH556qedFoUn",
+      "sourceApi": "https://api.manifold.markets/v0/market/H5nCcUUDsH556qedFoUn",
+      "sha256": "d26b9dcb79cb6cfabdc149f54058a31272757614f30a7f1994899e07a1096e97",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690698898288,
+          "current": 1690698898288,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735793940000,
+          "current": 1735793940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1735850975468,
+          "current": 1735850975468,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will a commercially available device incorporate a room-temperature, ambient pressure superconductor by 2025?"
+    },
+    {
+      "id": "xsHh9WCTD1PRuvZwTYqA",
+      "sourceApi": "https://api.manifold.markets/v0/market/xsHh9WCTD1PRuvZwTYqA",
+      "sha256": "0ec9cade30159da89af42095fb9dba142dbd64fa7100070b045447b864b09d23",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1691259454204,
+          "current": 1691259454204,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1749438405759,
+          "current": 1749438405759,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1749438405759,
+          "current": 1749438405759,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Conditional on LK-99 replicating, will a RTSC be used commercially by 2026?"
+    },
+    {
+      "id": "u1hCf24lNpTqWYEpM2Uq",
+      "sourceApi": "https://api.manifold.markets/v0/market/u1hCf24lNpTqWYEpM2Uq",
+      "sha256": "eeff2bd9d5f251089ae82516c3763d2b7d8a50398b33e263c0796df0f05b0638",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1717360429017,
+          "current": 1717360429017,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1782943140000,
+          "current": 1782943140000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1782955558414,
+          "current": 1782955558414,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Alphafold involved in a SOTA C02 direct air capture method by mid 2026 ?"
+    },
+    {
+      "id": "f6jHUqoKdt8YmpXQjGlO",
+      "sourceApi": "https://api.manifold.markets/v0/market/f6jHUqoKdt8YmpXQjGlO",
+      "sha256": "d1f27af32826c821e19a62e3a10667f4987c3c1f2441a0da15b721ae001e4f4b",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1691628659001,
+          "current": 1691628659001,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 2524636740000,
+          "current": 2524636740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Anthropogenic olivine-based direct air capture of CO2 at >10^9 tons CO2/year before 2050?"
+    },
+    {
+      "id": "jqEkQKsK0FxFNXDN0lBy",
+      "sourceApi": "https://api.manifold.markets/v0/market/jqEkQKsK0FxFNXDN0lBy",
+      "sha256": "a1b2274473eee565d7a486ee3e3f231b4ac44a577d81b887a8090b7a27dc9ed7",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1683751952565,
+          "current": 1683751952565,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1861948800000,
+          "current": 1861948800000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Helion Energy deliver 50 MW of fusion-generated electricity to Microsoft before 2029?"
+    },
+    {
+      "id": "BGT0eBN2kmD6FmsXEvFt",
+      "sourceApi": "https://api.manifold.markets/v0/market/BGT0eBN2kmD6FmsXEvFt",
+      "sha256": "2b9ffef940f85b3400832ac259151d6ecb9a85cba933e4ea00f2f5b4db901a42",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1653685822274,
+          "current": 1653685822274,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 2524590660000,
+          "current": 2524590660000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will fusion provide >2% of US electrical power before 2050?"
+    },
+    {
+      "id": "cwtbzjfk9j",
+      "sourceApi": "https://api.manifold.markets/v0/market/cwtbzjfk9j",
+      "sha256": "ab718d8898c4bf5d277d4a542be759180ca173f12e0bf938db0b8cb19f945cec",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1722605625314,
+          "current": 1722605625314,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893481140000,
+          "current": 1893481140000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will a fully error corrected quantum computer capable of running 100 million gates be created before 2030?"
+    },
+    {
+      "id": "oocJB7zxHwURka0HYfbo",
+      "sourceApi": "https://api.manifold.markets/v0/market/oocJB7zxHwURka0HYfbo",
+      "sha256": "1c11ae59d53e061e63cdc4aea3cca9c5816c5b49d8d0127e48d6cb81f36ebbb3",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1710170964564,
+          "current": 1710170964564,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1712786340000,
+          "current": 1712786340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "An error-correcting quantum computer will be commercially available by 2025."
+    },
+    {
+      "id": "88clPLgu5E",
+      "sourceApi": "https://api.manifold.markets/v0/market/88clPLgu5E",
+      "sha256": "145901b29b496d8db12c5d1185d9152d967571b17ad2bd23a19dfc586d3944de",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1775499787060,
+          "current": 1775499787060,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1861851600000,
+          "current": 1861851600000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2028?"
+    },
+    {
+      "id": "mH5EaioxqUT22N2MZg7B",
+      "sourceApi": "https://api.manifold.markets/v0/market/mH5EaioxqUT22N2MZg7B",
+      "sha256": "541cb147657a6fcf7023a637f02cfd5a84b252723a70a6b9cd691acbcf9249bb",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1706593725214,
+          "current": 1706593725214,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1925049540000,
+          "current": 1925049540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will perovskite or silicon-peroskite pairs be the most common material for solar panels by 2030?"
+    },
+    {
+      "id": "hnzy6pqlNZ",
+      "sourceApi": "https://api.manifold.markets/v0/market/hnzy6pqlNZ",
+      "sha256": "609bad1f52e780eaea6c03e4c7f5f9c075288ab61ba4951959269da677ac8298",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1767667088727,
+          "current": 1767667088727,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1801371540000,
+          "current": 1801371540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "EV powered by CATL's Naxtra sodium-ion battery to ship commercially by EOY 2026?"
+    },
+    {
+      "id": "e3ah02wnqsS2hwQYTgQs",
+      "sourceApi": "https://api.manifold.markets/v0/market/e3ah02wnqsS2hwQYTgQs",
+      "sha256": "d3470e097cfeeadc11abd165da4d338d9eedc7cf6efcb877d6eed1a1bcc381d6",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1671423577628,
+          "current": 1671423577628,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735718340000,
+          "current": 1735718340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1735859921430,
+          "current": 1735859921430,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will someone sell a non-lithium EV before 2025?"
+    },
+    {
+      "id": "xLCfrvBWLH5BBYsgA4TX",
+      "sourceApi": "https://api.manifold.markets/v0/market/xLCfrvBWLH5BBYsgA4TX",
+      "sha256": "8e20d2419af0c88590be8a470dd087fba792f25985dfb1fbea59fb3e1773d155",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1701609579585,
+          "current": 1701609579585,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1704663440833,
+          "current": 1704663440833,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1704663440833,
+          "current": 1704663440833,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will the first EVs using sodium-ion battery technology ship in 2024?"
+    },
+    {
+      "id": "gLKepA3Jdl3lmiRXc32K",
+      "sourceApi": "https://api.manifold.markets/v0/market/gLKepA3Jdl3lmiRXc32K",
+      "sha256": "81d12e9ca7ae7bf472ef9052bae23bbdbe64e6113dae612e7cec8bd16eaae383",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1700841253642,
+          "current": 1700841253642,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1716574992984,
+          "current": 1716574992984,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1716574992984,
+          "current": 1716574992984,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will sodium-ion batteries be commercially available before the end of 2024?"
+    },
+    {
+      "id": "S2ghII2gLd",
+      "sourceApi": "https://api.manifold.markets/v0/market/S2ghII2gLd",
+      "sha256": "65c53dcafa9b0439129d59ee5720812c0f93736760606414e3208c9a920c6b61",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1774059803571,
+          "current": 1774059803571,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1830229200000,
+          "current": 1830229200000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will LFP batteries account for more than 65% of global electric vehicle battery production (by GWh) in 2026?"
+    },
+    {
+      "id": "b2npwzsZCGtn8aQ47PNO",
+      "sourceApi": "https://api.manifold.markets/v0/market/b2npwzsZCGtn8aQ47PNO",
+      "sha256": "20e56fbb681e1852c457a1ac6855cf87f581372d3766834b01fb765c9bb40da2",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1705930178994,
+          "current": 1705930178994,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893513540000,
+          "current": 1893513540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will EV batteries cost less than 1000 USD in 2030?"
+    },
+    {
+      "id": "CP0dnApyhU",
+      "sourceApi": "https://api.manifold.markets/v0/market/CP0dnApyhU",
+      "sha256": "eaeb88aa9bd31fe95d36c08bdc3e19e19747a4ff8a3db8e56f9035d6f58b5ba8",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1764517802944,
+          "current": 1764517802944,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893455940000,
+          "current": 1893455940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "US battery energy storage doubles over 2025–2029?"
+    },
+    {
+      "id": "hOt5P568Iz",
+      "sourceApi": "https://api.manifold.markets/v0/market/hOt5P568Iz",
+      "sha256": "0bf47df3cfd62ea60ee798f8cd75ced9bcadd0cf0e22e5928de4dbf12688a690",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1764135991551,
+          "current": 1764135991551,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893455940000,
+          "current": 1893455940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Vanadium in VRFBs reach 20% of global vanadium consumption by 2030?"
+    },
+    {
+      "id": "02b1E538uZEMM5tv6i0H",
+      "sourceApi": "https://api.manifold.markets/v0/market/02b1E538uZEMM5tv6i0H",
+      "sha256": "afd2abdd87e53b786e196d687697081775fd44cc92885b999c973cbf674ca030",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1682207546360,
+          "current": 1682207546360,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1704078090740,
+          "current": 1704078090740,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1704078090740,
+          "current": 1704078090740,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will CATL's new 500 Wh/kg battery be commercially available in 2023?"
+    },
+    {
+      "id": "jcYZt1lNCMgX4LHHqgoq",
+      "sourceApi": "https://api.manifold.markets/v0/market/jcYZt1lNCMgX4LHHqgoq",
+      "sha256": "0c9bbea4e3066610d05af3afa3905a38d3a496981182c585ef473178be6a8650",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1684720396751,
+          "current": 1684720396751,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1925020740000,
+          "current": 1925020740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will the DOE Hydrogen Shot Succeed in Reducing the Price of Renewable Hydrogen to $1/kg by 2030?"
+    },
+    {
+      "id": "CqS0hc8NOI",
+      "sourceApi": "https://api.manifold.markets/v0/market/CqS0hc8NOI",
+      "sha256": "a34838a0d769173a95ae813a2a14a83ac0b5095a0fb58763719dcdcecbc24a6f",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1765644044583,
+          "current": 1765644044583,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1988150340000,
+          "current": 1988150340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "100GW of hydrogen electrolyzer capacity by 2033?"
+    },
+    {
+      "id": "fHSDwgZnxcJ7wTAw5AiR",
+      "sourceApi": "https://api.manifold.markets/v0/market/fHSDwgZnxcJ7wTAw5AiR",
+      "sha256": "85069a09f80f3b3cb446797e1c535f8ff99d739031ad63536abc270e64f94565",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1643783662068,
+          "current": 1643783662068,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1672552740000,
+          "current": 1672552740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1672606581434,
+          "current": 1672606581434,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will AI will discover a new drug promising enough for clinical trials in 2022?"
+    },
+    {
+      "id": "mkMY7rbB02MWY1MKf9Vu",
+      "sourceApi": "https://api.manifold.markets/v0/market/mkMY7rbB02MWY1MKf9Vu",
+      "sha256": "ed503adcec367c0ade94ba92b01a619977ee2ffe280a9fb2de4c6b3e30815a9c",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1696769351094,
+          "current": 1696769351094,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1767243540000,
+          "current": 1767243540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1767401312932,
+          "current": 1767401312932,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will an AI-designed drug get FDA approval by the end of 2025?"
+    },
+    {
+      "id": "cy4il0tvgl",
+      "sourceApi": "https://api.manifold.markets/v0/market/cy4il0tvgl",
+      "sha256": "ca84c6f7f4e684806374ad09632723cf0a87b8038039a923a7768430317ab50d",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1725591638473,
+          "current": 1725591638473,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1765799298654,
+          "current": 1765799298654,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1765799298654,
+          "current": 1765799298654,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will a drug designed with significant contribution from an AlphaFold-like system pass a Phase I trial by end of 2025?"
+    },
+    {
+      "id": "AvggE9WsHv51pVkA26wx",
+      "sourceApi": "https://api.manifold.markets/v0/market/AvggE9WsHv51pVkA26wx",
+      "sha256": "0cd23ab7ef2248616013692105a5876d3fe267b0b607bedc8b3676dcecab6cc3",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1699992471707,
+          "current": 1699992471707,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893473940000,
+          "current": 1893473940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "💊Will INS018_055 be FDA-approved by 2030?"
+    },
+    {
+      "id": "HB3a6kWAhptJg8Ill8yT",
+      "sourceApi": "https://api.manifold.markets/v0/market/HB3a6kWAhptJg8Ill8yT",
+      "sha256": "2effe8c53198be3d7683aee8ee202ce8c23df955719c5f853da3048e6abf9d06",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1655346007355,
+          "current": 1655346007355,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 2524636800000,
+          "current": 2524636800000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will carbon removal be pivotal in mitigating climate change?"
+    },
+    {
+      "id": "0IclPPNtNA",
+      "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+      "sha256": "98949d5f0befdb4fde392b92207aa14c4a578b3eb855cbf5c941f7b063011c59",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1757284580970,
+          "current": 1757284580970,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1798761540000,
+          "current": 1798761540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Sodium ion battery for $10/kWh by EOY 2026?"
+    },
+    {
+      "id": "9UgA28yIAn",
+      "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+      "sha256": "f968b1c2c7c7564b7d00d538836b6de21f1aa1d13fa08d39a8f53ce0557b9335",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1764128039599,
+          "current": 1764128039599,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1830297540000,
+          "current": 1830297540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "China achieves over 180 GW of new-type energy storage capacity by end of 2027?"
+    },
+    {
+      "id": "dNy8QLslNU",
+      "sourceApi": "https://api.manifold.markets/v0/market/dNy8QLslNU",
+      "sha256": "a453077340b3f82260719d4cc246db02e8748ebb1363c9c449fec6c7e7eb10c6",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1764135366248,
+          "current": 1764135366248,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1837983540000,
+          "current": 1837983540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will global vanadium production (mine + co-product, contained V) in 2027 be at least 140,000 tonnes of V?"
+    },
+    {
+      "id": "6ddpyhZNcA",
+      "sourceApi": "https://api.manifold.markets/v0/market/6ddpyhZNcA",
+      "sha256": "1e5ba7f714b7c22d9016fe1f5859bcee9958d3ed0aeed1575d9cf35795429523",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1765372046334,
+          "current": 1765372046334,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1924991940000,
+          "current": 1924991940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will U.S. production of battery-grade lithium exceed 10% of global supply by the end of 2030?"
+    },
+    {
+      "id": "23EEgMHJGu7TVzZyOCqT",
+      "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+      "sha256": "f3c95333b0c599d984c8e8246f49d598f94ee4fc507e940da671b8b345dcdb1f",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1715284933769,
+          "current": 1715284933769,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1930517940000,
+          "current": 1930517940000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Japan produce hydrogen with nuclear power before 2031?"
+    },
+    {
+      "id": "LpIUh0hQ2z",
+      "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+      "sha256": "a54c48023a837d2f1e0582a90604abfab69f40a189d76a96e09ac7bc34dfc488",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1765530967505,
+          "current": 1765530967505,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1988150340000,
+          "current": 1988150340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Europe builds 5,000 km of operational hydrogen pipelines by 2033?"
+    },
+    {
+      "id": "dY0K6jGiZl7cPBkkWV74",
+      "sourceApi": "https://api.manifold.markets/v0/market/dY0K6jGiZl7cPBkkWV74",
+      "sha256": "ff7cf1cefbd8beb7d672de071ce879cc4ebf86fbcdaace199644fb046246f4ef",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1691400283960,
+          "current": 1691400283960,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1704027540000,
+          "current": 1704027540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1704589475705,
+          "current": 1704589475705,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Scientists at the NIF produce a net energy gain > 200% from a fusion reaction in 2023?"
+    },
+    {
+      "id": "LDrguWkJhkpRIzXMT4d7",
+      "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+      "sha256": "b2a8579913e3ddc1710060d952f08119939bb21ea8795d2e069d774adf0a0363",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1675387504084,
+          "current": 1675387504084,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1706763540000,
+          "current": 1706763540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1706790021557,
+          "current": 1706790021557,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any corporate quantum computing team publicly report the implementation of 2 or more simultaneous 2-qubit gates with average gate fidelity of at least 99.9% before Feb 2024?"
+    },
+    {
+      "id": "8n2qAmtSKflVQ7kypyu8",
+      "sourceApi": "https://api.manifold.markets/v0/market/8n2qAmtSKflVQ7kypyu8",
+      "sha256": "1c669dc1002ce79ec8a07635d27ab50826bef7fe3d78f5cb21c372c37e16e7cb",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690642079001,
+          "current": 1690642079001,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735689540000,
+          "current": 1735689540000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will we see any commercial solar cells with an efficiency >30% by the end of 2024?"
+    },
+    {
+      "id": "RhLLCEhdPs",
+      "sourceApi": "https://api.manifold.markets/v0/market/RhLLCEhdPs",
+      "sha256": "3a29e6a06127d88105c8a70b564ea2b2db5b6fb8335b8fa06c8e1a0d72df8538",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1775499811717,
+          "current": 1775499811717,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1924923600000,
+          "current": 1924923600000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will any manufacturer ship 1 GW or more of perovskite solar modules in a single calendar year by December 31, 2030?"
+    },
+    {
+      "id": "rctqd0ZaxeeiHP93VP5n",
+      "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+      "sha256": "3b373142fbf499eb813bb52f0f08842f7946f3022afdf14411b7b771def05014",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1690393054885,
+          "current": 1690393054885,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1704085140000,
+          "current": 1704085140000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1704135830080,
+          "current": 1704135830080,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will the room temp superconductor paper replicate in 2023?"
+    },
+    {
+      "id": "xPYUwADafpjfT1cR5iLu",
+      "sourceApi": "https://api.manifold.markets/v0/market/xPYUwADafpjfT1cR5iLu",
+      "sha256": "6949ce0ce559da402d5e5eb35fbaf4a8cf02ee3810d9f2043c342c44131b68e0",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1694432236718,
+          "current": 1694432236718,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1893538740000,
+          "current": 1893538740000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": null,
+          "current": null,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will the markov.bio AI copilot for drug discovery be influential in the R&D of a marketed drug? (Before 2030)"
+    },
+    {
+      "id": "2jB7TGwgwPJMiIgnWdce",
+      "sourceApi": "https://api.manifold.markets/v0/market/2jB7TGwgwPJMiIgnWdce",
+      "sha256": "f1cdfbf73f078fe126c8bd5ee1b33047e506c7217cbb1673c6259579c3d94e99",
+      "dates": [
+        {
+          "field": "createdTime",
+          "archived": 1678695869377,
+          "current": 1678695869377,
+          "matches": true
+        },
+        {
+          "field": "closeTime",
+          "archived": 1735718340000,
+          "current": 1735718340000,
+          "matches": true
+        },
+        {
+          "field": "resolutionTime",
+          "archived": 1735859896891,
+          "current": 1735859896891,
+          "matches": true
+        }
+      ],
+      "originalTitleMatches": true,
+      "resolutionMatches": true,
+      "currentTitle": "Will Terraform Industries begin to commercialize in 2024?"
+    }
+  ]
+}

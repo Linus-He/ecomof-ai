@@ -2273,5 +2273,34 @@
   },
   "quality": [],
   "tradePoints": 533,
-  "detailFile": "events/8m2QavDR1KYRdV3g8aDf.json"
+  "detailFile": "events/8m2QavDR1KYRdV3g8aDf.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "8m2QavDR1KYRdV3g8aDf",
+    "sourceApi": "https://api.manifold.markets/v0/market/8m2QavDR1KYRdV3g8aDf",
+    "sha256": "9bd20cb2fca49a192a70dd39ae0f5b72b43400b99a25131b74bb1ee8362b994c",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1704474745339,
+        "current": 1704474745339,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1993330740000,
+        "current": 1993330740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will we get room temperature superconductors before 2033?"
+  }
 }

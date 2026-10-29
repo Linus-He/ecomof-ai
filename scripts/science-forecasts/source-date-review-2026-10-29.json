@@ -1,0 +1,1010 @@
+{
+  "checkedAt": "2026-10-29",
+  "sources": [
+    {
+      "id": "battery-testing",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2026-02-20",
+      "source": "https://www.vttresearch.com/en/news-and-ideas/donut-lab-commissioned-vtt-carry-out-battery-measurements-support-its-product",
+      "basis": [
+        "原文 News 日期栏：20.02.2026 09:00 EET。",
+        "News date line: 20 February 2026, 09:00 EET."
+      ],
+      "responseSha256": "6561af2f9f3dbf3bbc5f8a685453296932c1fd0c2637b2817ded9173f1538cdd",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "vtt",
+      "responseUrl": "https://www.vttresearch.com/en/news-and-ideas/donut-lab-commissioned-vtt-carry-out-battery-measurements-support-its-product"
+    },
+    {
+      "id": "lk99-replication",
+      "checkedAt": "2026-10-29",
+      "status": "submission-only",
+      "dateKind": [
+        "预印本提交",
+        "Preprint submission"
+      ],
+      "dateValue": "2023-08-07",
+      "source": "https://arxiv.org/abs/2308.03823",
+      "basis": [
+        "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+        "The record labels an arXiv submission date, not first public availability; it does not explain a trading node."
+      ],
+      "responseSha256": "54afba739418f5eaac5cc7f05b7fcb5684e710ceaedb599f935d1adfbb01a755",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "arxiv",
+      "responseUrl": "https://arxiv.org/abs/2308.03823"
+    },
+    {
+      "id": "mof-supply",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-10-10",
+      "source": "https://www.svanteinc.com/press-releases/svante-secures-commercial-supply-of-mof-advanced-sorbent-materials-with-basf-for-carbon-capture-market/",
+      "basis": [
+        "原文标题下日期及 article:published_time 一致。",
+        "Visible dateline matches article publication metadata."
+      ],
+      "responseSha256": "ea28c932d10bf8cd68a2c1fe2f674145c5ae076906fc160f8d047129af11e66c",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "svante",
+      "responseUrl": "https://www.svanteinc.com/press-releases/svante-secures-commercial-supply-of-mof-advanced-sorbent-materials-with-basf-for-carbon-capture-market/"
+    },
+    {
+      "id": "mof-manufacturer",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-10-10",
+      "source": "https://www.basf.com/global/en/media/news-releases/2023/10/p-23-327",
+      "basis": [
+        "BASF 原文页首 Trade News 日期。",
+        "BASF Trade News dateline."
+      ],
+      "responseSha256": "27279da67ca850784fcbe5c5ad2c97868b7fbbd98cb2de673c629d4caa2e3716",
+      "accessNote": "[Errno 2] No such file or directory: 'pdftotext'",
+      "contentStatus": "checked",
+      "publisherId": "basf",
+      "responseUrl": "https://www.basf.com/dam/jcr%3A8a7014d3-f79a-37e4-bcb2-3cc73b80833b/basf/www/global/documents/en/news-and-media/news-releases/2023/10/P327e_MOFs_Svante.pdf"
+    },
+    {
+      "id": "donut-elements",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "企业公开",
+        "Company release"
+      ],
+      "dateValue": "2026-09-23",
+      "source": "https://www.donutlab.com/elemental-analysis-announcement/",
+      "basis": [
+        "企业公告 23/09/2026；报告签发日期另记，不混用。",
+        "Company dateline 23 September 2026; report issuance is a separate date."
+      ],
+      "responseSha256": "2c0c6f4227e7910e26490f27f912c56effef68fa340bb607ad03e5b8a0c61500",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "donutlab",
+      "responseUrl": "https://www.donutlab.com/elemental-analysis-announcement/"
+    },
+    {
+      "id": "donut-energy",
+      "checkedAt": "2026-10-29",
+      "status": "verified-report-date",
+      "dateKind": [
+        "报告签发",
+        "Report issuance"
+      ],
+      "dateValue": "2026-09-01",
+      "source": "https://pub-01c7ea9972fc472b971b53522518cfc0.r2.dev/VTT-CR-00391-26_Energy_Density_Test.pdf",
+      "basis": [
+        "PDF 首页 Version 与正文 Espoo 1.9.2026；首次公开日未确认。",
+        "PDF version/issuance is 1 September 2026; first public availability is unconfirmed."
+      ],
+      "responseSha256": "8fa78b40399663bd84cd729593ed07991d0a8d0a62c3887aca3570c308fc51d6",
+      "accessNote": "[Errno 2] No such file or directory: 'pdftotext'",
+      "contentStatus": "checked",
+      "publisherId": "vtt",
+      "responseUrl": "https://pub-01c7ea9972fc472b971b53522518cfc0.r2.dev/VTT-CR-00391-26_Energy_Density_Test.pdf"
+    },
+    {
+      "id": "llzo-interface",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "论文在线发表",
+        "Online publication"
+      ],
+      "dateValue": "2024-11-09",
+      "source": "https://www.nature.com/articles/s42004-024-01350-9",
+      "basis": [
+        "期刊页 Published: 09 November 2024；文章类型为 Comment。",
+        "Journal Published date; article type is Comment."
+      ],
+      "responseSha256": "b335ea865e2f3a02e37b1278b75ca577e5693cd0cd97920938d079bf106e8ace",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "nature",
+      "responseUrl": "https://www.nature.com/articles/s42004-024-01350-9?error=cookies_not_supported&code=1daeeedc-ce62-4b6e-a2d5-26667f43387e"
+    },
+    {
+      "id": "qs-eagle",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2025-12-09",
+      "source": "https://www.quantumscape.com/quantumscape-announces-completion-of-key-annual-goal-and-inauguration-event-for-eagle-line/",
+      "basis": [
+        "可见日期与 article:published_time 一致；不采用 2026 修改日期。",
+        "Dateline and publication metadata agree; the 2026 modified date is excluded."
+      ],
+      "responseSha256": "a7e0ca160241ea0ac61ca5dbcbbc7a9c33b478f9fae0b8c14f6a91bcdd30a44c",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "quantumscape",
+      "responseUrl": "https://www.quantumscape.com/quantumscape-announces-completion-of-key-annual-goal-and-inauguration-event-for-eagle-line/"
+    },
+    {
+      "id": "toyota-sulfide",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-10-12",
+      "source": "https://global.toyota/en/newsroom/corporate/39865919.html",
+      "basis": [
+        "Toyota 新闻页 Oct. 12, 2023。",
+        "Toyota newsroom dateline, 12 October 2023."
+      ],
+      "responseSha256": "b767e725a16a59e21dbeebc48d183f4b857be8a871c1aeb05c22f4b0eef8616c",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "toyota",
+      "responseUrl": "https://global.toyota/en/newsroom/corporate/39865919.html"
+    },
+    {
+      "id": "toyota-roadmap",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-09-14",
+      "source": "https://newsroom.toyota.eu/toyotas-advanced-battery-technology-roadmap/",
+      "basis": [
+        "欧洲新闻页发布日期；后续更新时间不作首发日。",
+        "European newsroom release date, distinct from later updating."
+      ],
+      "responseSha256": "67905296379090194827805daff8a91c43f0d89b6f455525464fe3310b81911d",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "toyota",
+      "responseUrl": "https://newsroom.toyota.eu/toyotas-advanced-battery-technology-roadmap/"
+    },
+    {
+      "id": "apple-battery",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.apple.com/batteries/why-lithium-ion/",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "0c2f85064d27f7c333341d246a8120fa7d73345f95ba8d92c31eb770107ad042",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "apple",
+      "responseUrl": "https://www.apple.com/batteries/why-lithium-ion/"
+    },
+    {
+      "id": "superconductivity-doe",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.energy.gov/science/doe-explainssuperconductivity",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "5a1a91976c26c883979545a84b0c7a5c3a04d36eb45a769961c56b92850e37a9",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/science/doe-explainssuperconductivity"
+    },
+    {
+      "id": "lk99-impurity",
+      "checkedAt": "2026-10-29",
+      "status": "submission-only",
+      "dateKind": [
+        "预印本提交",
+        "Preprint submission"
+      ],
+      "dateValue": "2023-08-08",
+      "source": "https://arxiv.org/abs/2308.04353",
+      "basis": [
+        "原页面标明的是 arXiv 提交日期，不是首次公开时刻；停止用提交日解释价格节点。",
+        "The record labels an arXiv submission date, not first public availability; it does not explain a trading node."
+      ],
+      "responseSha256": "129e60ecea3ad56496672d1b53cd5b837ab03e916addf60c918dc091209e64d6",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "arxiv",
+      "responseUrl": "https://arxiv.org/abs/2308.04353"
+    },
+    {
+      "id": "enzyme-membrane",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "论文在线发表",
+        "Online publication"
+      ],
+      "dateValue": "2018-03-07",
+      "source": "https://www.nature.com/articles/s41467-018-03285-x",
+      "basis": [
+        "期刊 Published/online date 为 7 March 2018。",
+        "Journal online publication date: 7 March 2018."
+      ],
+      "responseSha256": "af0ba424aa9ebe05eb65679848788aefef343c431886d0f18f7dd4016e65dde6",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "nature",
+      "responseUrl": "https://www.nature.com/articles/s41467-018-03285-x?error=cookies_not_supported&code=cf003ac8-a905-4b30-9f18-83856bc8d8e9"
+    },
+    {
+      "id": "alphafold-role",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://deepmind.google/science/alphafold/",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "40a05a7a371a1793dfb269c30c93da525cc2aa5a0ca1af5d785b08da9c5f3b62",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "deepmind",
+      "responseUrl": "https://deepmind.google/science/alphafold/"
+    },
+    {
+      "id": "olivine-noaa",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://oceanacidification.noaa.gov/carbon-dioxide-removal/",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "b397a1d661fc96adf5cc025451b32b1311d6e26517f7d53894d835bd180bf473",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "noaa",
+      "responseUrl": "https://oceanacidification.noaa.gov/carbon-dioxide-removal/"
+    },
+    {
+      "id": "olivine-ecology",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "机构新闻",
+        "Institutional news"
+      ],
+      "dateValue": "2026-10-05",
+      "source": "https://www.fisheries.noaa.gov/science-blog/collaborating-canadian-scientists-marine-carbon-dioxide-removal-research",
+      "basis": [
+        "NOAA Fisheries 博客日期 October 05, 2026。",
+        "NOAA Fisheries blog dateline, 5 October 2026."
+      ],
+      "responseSha256": "849910c83a3ea5430815292119edc23ce843500bf797b88f73f910e2648d1e74",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "noaa",
+      "responseUrl": "https://www.fisheries.noaa.gov/science-blog/collaborating-canadian-scientists-marine-carbon-dioxide-removal-research"
+    },
+    {
+      "id": "svante-redwood",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2025-05-13",
+      "source": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/",
+      "basis": [
+        "原文首发 2025-05-13；2026-08-05 为修改时间。",
+        "Released 13 May 2025; 5 August 2026 is modification metadata."
+      ],
+      "responseSha256": "2cea887f30abd5d70c49de7cb809b03c3be37620cd9013776308c7df7f8a77fc",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "svante",
+      "responseUrl": "https://www.svanteinc.com/press-releases/svante-launches-worlds-first-commercial-gigafactory-for-carbon-capture-removal-filters/"
+    },
+    {
+      "id": "superpower-products",
+      "checkedAt": "2026-10-29",
+      "status": "limited-access",
+      "dateKind": [
+        "产品资料",
+        "Product information"
+      ],
+      "dateValue": "未确认 / Unconfirmed",
+      "source": "https://www.superpower-inc.com/",
+      "basis": [
+        "官网 TLS 证书过期，本轮无法重核；保留已有产品资料，不作日期节点。",
+        "Expired site TLS certificate prevents rechecking; archived product context is not a dated node."
+      ],
+      "responseSha256": null,
+      "accessNote": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>",
+      "contentStatus": "limited",
+      "publisherId": "superpower"
+    },
+    {
+      "id": "saipem-enzyme",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.saipem.com/en/solutions-energy-transition/reduce-co2-emissions/co2-capture-storage/carbon-capture/co2-solutions",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "d0c4878582a36310151bd035472fa7dd052d4a9ec1caaee62e46008db301dfa3",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "saipem",
+      "responseUrl": "https://www.saipem.com/en/solutions-energy-transition/reduce-co2-emissions/co2-capture-storage/carbon-capture/co2-solutions"
+    },
+    {
+      "id": "vesta-pilots",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.projectvesta.org/science",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "0e2f09f6aedb206f69bfbe548ff96caaf7d6aa0eab87768545cfdfaa87456b59",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "vesta",
+      "responseUrl": "https://www.projectvesta.org/science"
+    },
+    {
+      "id": "fusion-ignition",
+      "checkedAt": "2026-10-29",
+      "status": "conflicting-dates",
+      "dateKind": [
+        "页面标注／发布会",
+        "Page label / press conference"
+      ],
+      "dateValue": "2022-12-12 / 2022-12-13",
+      "source": "https://www.energy.gov/articles/doe-national-laboratory-makes-history-achieving-fusion-ignition",
+      "basis": [
+        "DOE 页面标注 12 月 12 日，NNSA 发布会资料为 12 月 13 日；存在时区和首次公开时间疑义，价差停用。",
+        "DOE labels 12 December while NNSA dates the conference 13 December; timezone/first-release uncertainty blocks comparison."
+      ],
+      "responseSha256": "4243c447673fce2f850df498d5e5bec9472f222b428e10332fc337fb34c540c6",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/articles/doe-national-laboratory-makes-history-achieving-fusion-ignition"
+    },
+    {
+      "id": "helion-ppa",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-05-10",
+      "source": "https://www.helionenergy.com/newsroom/helion-announces-worlds-first-fusion-ppa-with-microsoft",
+      "basis": [
+        "原文购电协议新闻发布日期；2028 为项目目标。",
+        "PPA release dateline; 2028 is a project target."
+      ],
+      "responseSha256": "b8f20e87ed21c117b681510fefda8014a43906113168fc9ae070a8b5c12c1e2d",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "helion",
+      "responseUrl": "https://www.helionenergy.com/newsroom/helion-announces-worlds-first-fusion-ppa-with-microsoft"
+    },
+    {
+      "id": "quantum-willow",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "论文在线发表",
+        "Online publication"
+      ],
+      "dateValue": "2024-12-09",
+      "source": "https://www.nature.com/articles/s41586-024-08449-y",
+      "basis": [
+        "期刊 dc.date 与在线日期一致。",
+        "Journal dc.date matches online publication."
+      ],
+      "responseSha256": "02d3cc132cc7adb7ab077772035092e4a7525e38a9d6c0032019b4cefd5b1c7a",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "nature",
+      "responseUrl": "https://www.nature.com/articles/s41586-024-08449-y?error=cookies_not_supported&code=a6602ba6-6b40-4729-b480-c91897e11275"
+    },
+    {
+      "id": "quantum-google-explanation",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "机构新闻",
+        "Institutional news"
+      ],
+      "dateValue": "2024-12-09",
+      "source": "https://research.google/blog/making-quantum-error-correction-work/",
+      "basis": [
+        "Google Research 原文 December 9, 2024。",
+        "Google Research dateline, 9 December 2024."
+      ],
+      "responseSha256": "55cc3715d233c155e70b10015d7bb27fe790d734c5e78caf12c4dbb3cb26a6a8",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "googlequantum",
+      "responseUrl": "https://research.google/blog/making-quantum-error-correction-work/"
+    },
+    {
+      "id": "oxford-first-shipment",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2024-09-05",
+      "source": "https://www.oxfordpv.com/press-releases/oxford-pv-solar-technology-patent",
+      "basis": [
+        "原文正文及标题下均为 5 September 2024。",
+        "Both header and release text date it 5 September 2024."
+      ],
+      "responseSha256": "694f932ce2b90f1234a308cc88c149afe185f13171702e3cc0b26f850dfb2bc1",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "oxfordpv",
+      "responseUrl": "https://www.oxfordpv.com/press-releases/oxford-pv-solar-technology-patent"
+    },
+    {
+      "id": "perovskite-doe",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.energy.gov/cmei/systems/perovskite-solar-cells",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "29427b4db0c2815582e54d41474855f4040d9bfddf94e11154bdf4f47c83d2dd",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/cmei/systems/perovskite-solar-cells"
+    },
+    {
+      "id": "catl-naxtra-vehicle",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2026-02-05",
+      "source": "https://www.catl.com/en/news/6720.html",
+      "basis": [
+        "CATL 新闻页日期；产品指标是企业披露。",
+        "CATL newsroom date; specifications remain company claims."
+      ],
+      "responseSha256": "10b321a7576fed27c55e179a5e499627e37fd015737af964d35b6b63e9080c1a",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "catl",
+      "responseUrl": "https://www.catl.com/en/news/6720.html"
+    },
+    {
+      "id": "catl-sodium-safety",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2025-09-08",
+      "source": "https://www.catl.com/en/news/6563.html",
+      "basis": [
+        "CATL 新闻页 2025-09-08。",
+        "CATL newsroom dateline, 8 September 2025."
+      ],
+      "responseSha256": "395dc52b2035859ea2d4404130332f713de915befdde035e45c14e95616e9492",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "catl",
+      "responseUrl": "https://www.catl.com/en/news/6563.html"
+    },
+    {
+      "id": "catl-condensed",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-04-19",
+      "source": "https://www.catl.com/en/news/6015.html",
+      "basis": [
+        "CATL 原文 April 19 发布；不是后续量产交付日。",
+        "CATL release dated 19 April, not a later delivery date."
+      ],
+      "responseSha256": "1a82c248f496d4085f34e8c0effddd0156a6367256ac759fa868c763f3217b4a",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "catl",
+      "responseUrl": "https://www.catl.com/en/news/6015.html"
+    },
+    {
+      "id": "doe-pack-cost",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2024-08-05",
+      "source": "https://www.energy.gov/cmei/vehicles/articles/fotw-1354-august-5-2024-electric-vehicle-battery-pack-costs-light-duty",
+      "basis": [
+        "FOTW #1354 原文及发布时间元数据；2026 为页面修改。",
+        "FOTW #1354 date and publication metadata; 2026 denotes modification."
+      ],
+      "responseSha256": "ceca348b74bad2a6ef5a2778d045604797a113e23a43f12a32a7a1be45034da5",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/cmei/vehicles/articles/fotw-1354-august-5-2024-electric-vehicle-battery-pack-costs-light-duty"
+    },
+    {
+      "id": "iea-batteries-2026",
+      "checkedAt": "2026-10-29",
+      "status": "limited-access",
+      "dateKind": [
+        "报告发布",
+        "Report release"
+      ],
+      "dateValue": "2026-05-20",
+      "source": "https://www.iea.org/reports/global-ev-outlook-2026/",
+      "basis": [
+        "报告总页给出 20 May 2026；本轮章节访问受限，正文指标未重新核实。",
+        "The report landing page dates release to 20 May 2026; chapter access is restricted, so indicators were not rechecked."
+      ],
+      "responseSha256": null,
+      "accessNote": "HTTP Error 403: Forbidden",
+      "contentStatus": "limited",
+      "publisherId": "iea"
+    },
+    {
+      "id": "eia-storage-2024",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "统计新闻",
+        "Statistical news"
+      ],
+      "dateValue": "2025-03-12",
+      "source": "https://www.eia.gov/todayinenergy/detail.php?id=64705",
+      "basis": [
+        "Today in Energy 原文 March 12, 2025；数据参考年为 2024。",
+        "Today in Energy dateline 12 March 2025; data reference year is 2024."
+      ],
+      "responseSha256": "5987ca22901f1fc38bc9ca0164b2f15a2dbe5420caf543d454a4faccd7f33a82",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "eia",
+      "responseUrl": "https://www.eia.gov/todayinenergy/detail.php?id=64705"
+    },
+    {
+      "id": "vanadium-electrolyte",
+      "checkedAt": "2026-10-29",
+      "status": "submission-only",
+      "dateKind": [
+        "预印本提交",
+        "Preprint submission"
+      ],
+      "dateValue": "2023-07-27",
+      "source": "https://arxiv.org/abs/2307.15009",
+      "basis": [
+        "arXiv Submission history 与 citation_date 记录提交日。",
+        "arXiv submission history and citation_date describe submission."
+      ],
+      "responseSha256": "4f7a547b2252e3c02c879d9305934b492c65e32cef80f1416681821f823a30f3",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "arxiv",
+      "responseUrl": "https://arxiv.org/abs/2307.15009"
+    },
+    {
+      "id": "doe-hydrogen-shot",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2023-12-05",
+      "source": "https://www.energy.gov/articles/doe-releases-first-series-reports-highlighting-pathways-toward-clean-hydrogen-earthshot",
+      "basis": [
+        "DOE 原文 2023-12-05，article:published_time 一致。",
+        "DOE dateline matches article publication metadata."
+      ],
+      "responseSha256": "12e1f15b9552cd20fd68f398fb553ff43f03c28069de0507e0db1d07fb84d7ca",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/articles/doe-releases-first-series-reports-highlighting-pathways-toward-clean-hydrogen-earthshot"
+    },
+    {
+      "id": "iea-hydrogen-2026",
+      "checkedAt": "2026-10-29",
+      "status": "verified-report-year",
+      "dateKind": [
+        "报告年度",
+        "Report year"
+      ],
+      "dateValue": "2026",
+      "source": "https://www.iea.org/reports/global-hydrogen-review-2026/production",
+      "basis": [
+        "章节内容已核对；2026 是报告年度，未取得独立的精确首发日期。",
+        "Chapter text checked; 2026 is the report year, with no independently confirmed exact release date."
+      ],
+      "responseSha256": null,
+      "accessNote": "HTTP Error 403: Forbidden",
+      "contentStatus": "checked",
+      "publisherId": "iea"
+    },
+    {
+      "id": "fda-clinical-phases",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.fda.gov/patients/drug-development-process/step-3-clinical-research",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": null,
+      "accessNote": "HTTP Error 404: Not Found",
+      "contentStatus": "checked",
+      "publisherId": "fda"
+    },
+    {
+      "id": "rentosertib-phase2",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "论文在线发表",
+        "Online publication"
+      ],
+      "dateValue": "2025-06-03",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/40461817/",
+      "basis": [
+        "PubMed 标明 Epub 2025 Jun 3；2025 Aug 是卷期日期。",
+        "PubMed lists Epub 3 June 2025; August is the issue date."
+      ],
+      "responseSha256": "baff9072276faa2b22b6de1473245e25ace5cc76fba9dded21c9d1257275bc06",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "pubmed",
+      "responseUrl": "https://pubmed.ncbi.nlm.nih.gov/40461817/"
+    },
+    {
+      "id": "climeworks-mammoth",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2024-05-08",
+      "source": "https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth/",
+      "basis": [
+        "原文地点日期栏：Hellisheiði, Iceland, 8 May 2024。",
+        "Release dateline: Hellisheiði, Iceland, 8 May 2024."
+      ],
+      "responseSha256": null,
+      "accessNote": "HTTP Error 403: Forbidden",
+      "contentStatus": "checked",
+      "publisherId": "climeworks"
+    },
+    {
+      "id": "qs-endurance-2024",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2024-01-03",
+      "source": "https://www.volkswagen-group.com/en/press-releases/powerco-confirms-results-quantumscapes-solid-state-cell-passes-first-endurance-test-18031",
+      "basis": [
+        "Volkswagen Group/PowerCo 原文 03 January 2024。",
+        "Volkswagen Group/PowerCo release, 3 January 2024."
+      ],
+      "responseSha256": "9df87e56808ee82f30c4d6ac54b3b6e2354292b75479e17264d40af9e9ee38ec",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "powerco",
+      "responseUrl": "https://www.volkswagen-group.com/en/press-releases/powerco-confirms-results-quantumscapes-solid-state-cell-passes-first-endurance-test-18031"
+    },
+    {
+      "id": "catl-sodium-2021",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2021-07-29",
+      "source": "https://www.catl.com/en/news/665.html",
+      "basis": [
+        "CATL 原文 2021-07-29；与后续代际分开。",
+        "CATL dateline 29 July 2021, separate from later generations."
+      ],
+      "responseSha256": "5463e4a4b934e903f6a21d02f68183a9b2d9d7b3f55fde69b4cdc9a75f0bb7ef",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "catl",
+      "responseUrl": "https://www.catl.com/en/news/665.html"
+    },
+    {
+      "id": "nea-storage-2024",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2025-07-31",
+      "source": "https://www.nea.gov.cn/20250731/9ad7fc718ced41eea903c25443c9b8c2/c.html",
+      "basis": [
+        "国家能源局发布时间；第一财经当日 10:37 快讯交叉核对。",
+        "NEA publication date, corroborated by Yicai’s 10:37 same-day bulletin."
+      ],
+      "responseSha256": null,
+      "accessNote": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>",
+      "contentStatus": "checked",
+      "publisherId": "nea"
+    },
+    {
+      "id": "usgs-vanadium-series",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.usgs.gov/centers/national-minerals-information-center/vanadium-statistics-and-information",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "6487a9661bc3a86e6dd379a47ffe05d5133fda3e1f283a98456256787741bb28",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "usgs",
+      "responseUrl": "https://www.usgs.gov/centers/national-minerals-information-center/vanadium-statistics-and-information"
+    },
+    {
+      "id": "usgs-lithium-series",
+      "checkedAt": "2026-10-29",
+      "status": "verified-background",
+      "dateKind": [
+        "科普／资料入口",
+        "Background / reference"
+      ],
+      "dateValue": "持续更新 / Maintained",
+      "source": "https://www.usgs.gov/centers/national-minerals-information-center/lithium-statistics-and-information",
+      "basis": [
+        "已核对资料页面；没有可作为单次事件节点的固定公开日期。",
+        "Reference page checked; no fixed publication date establishes a discrete event node."
+      ],
+      "responseSha256": "ef4c51d8507490891fbd3633e5f2f4c4b7571eba6251c2af9e65f64daccf60f5",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "usgs",
+      "responseUrl": "https://www.usgs.gov/centers/national-minerals-information-center/lithium-statistics-and-information"
+    },
+    {
+      "id": "jaea-httr-2025",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "机构新闻",
+        "Institutional news"
+      ],
+      "dateValue": "2025-03-27",
+      "source": "https://www.jaea.go.jp/english/news/press/2025/032701/",
+      "basis": [
+        "JAEA Press Releases 标明 Mar. 27, 2025；2030 是研发计划。",
+        "JAEA press dateline 27 March 2025; 2030 is a development plan."
+      ],
+      "responseSha256": "70c9dffa37cb7298b08c6e7ebcd9d3fc690f7a96c582405c853b9e94f87b27b4",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "jaea",
+      "responseUrl": "https://www.jaea.go.jp/english/news/press/2025/032701/"
+    },
+    {
+      "id": "bnetza-hydrogen-core",
+      "checkedAt": "2026-10-29",
+      "status": "verified-event-date",
+      "dateKind": [
+        "审批发生日",
+        "Approval date"
+      ],
+      "dateValue": "2024-10-22",
+      "source": "https://www.bundesnetzagentur.de/EN/Areas/Energy/HydrogenCoreNetwork/start.html",
+      "basis": [
+        "正文记录批准日期，不是该持续更新页面的首次公开日期。",
+        "The text dates approval, not first publication of this maintained page."
+      ],
+      "responseSha256": "0adafa27668c48792e75a9c2e292bbec1d1f87a4172726e0d50ce383f98502d3",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "bnetza",
+      "responseUrl": "https://www.bundesnetzagentur.de/EN/Areas/Energy/HydrogenCoreNetwork/start.html"
+    },
+    {
+      "id": "nif-2023-gain",
+      "checkedAt": "2026-10-29",
+      "status": "verified-event-date",
+      "dateKind": [
+        "实验发生日",
+        "Experiment date"
+      ],
+      "dateValue": "2023-07-30",
+      "source": "https://annual.llnl.gov/fy-2023/national-ignition-facility-2023",
+      "basis": [
+        "FY2023 年报正文记录实验日；网页 content-updated 不是实验或发布日。",
+        "FY2023 report records the shot date; page content-updated is neither experiment nor publication time."
+      ],
+      "responseSha256": "8b3b5a6169ddae2142dce5f1c44bf27a1224fb019af68a3d5b74027e3043d1b7",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "llnl",
+      "responseUrl": "https://annual.llnl.gov/fy-2023/national-ignition-facility-2023"
+    },
+    {
+      "id": "parallel-gates-2023",
+      "checkedAt": "2026-10-29",
+      "status": "submission-only",
+      "dateKind": [
+        "预印本提交",
+        "Preprint submission"
+      ],
+      "dateValue": "2023-04-11",
+      "source": "https://arxiv.org/abs/2304.05420",
+      "basis": [
+        "原文为 arXiv 提交日期；后续 Nature 在线发表为 2023-10-11。",
+        "arXiv submission date; later Nature online publication is 11 October 2023."
+      ],
+      "responseSha256": "6ec4b55d016530abc6a9aa1a3bffffcfd72d6f0537084d90e725810b8722bae6",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "arxiv",
+      "responseUrl": "https://arxiv.org/abs/2304.05420"
+    },
+    {
+      "id": "terraform-demo-2024",
+      "checkedAt": "2026-10-29",
+      "status": "verified-date-only",
+      "dateKind": [
+        "新闻发布",
+        "News release"
+      ],
+      "dateValue": "2024-04-01",
+      "source": "https://terraformindustries.wordpress.com/2024/04/01/terraform-makes-carbon-neutral-natural-gas/",
+      "basis": [
+        "文章发布于 4 月 1 日，正文称示范接通于 3 月 27 日，两日期分开。",
+        "Published 1 April; commissioning is separately dated 27 March."
+      ],
+      "responseSha256": "f05171d35e1b944c2ab068976578df06dbc2882fac2f8866803dd42df45ad7f3",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "terraform",
+      "responseUrl": "https://terraformindustries.wordpress.com/2024/04/01/terraform-makes-carbon-neutral-natural-gas/"
+    },
+    {
+      "id": "doe-carbon-negative-2032",
+      "checkedAt": "2026-10-29",
+      "status": "updated-page",
+      "dateKind": [
+        "页面初建／后续更新",
+        "Page creation / subsequent update"
+      ],
+      "dateValue": "2023-08-10 / 2024-10-18",
+      "source": "https://www.energy.gov/hgeo/funding-notice-carbon-negative-shot-pilots",
+      "basis": [
+        "元数据首建 2023-08-10；遴选与最后更新为 2024-10-18。不能将当前正文回溯为首建时已知。",
+        "Metadata dates creation to 10 August 2023; selection/update is 18 October 2024. Current text is not backdated to page creation."
+      ],
+      "responseSha256": "a47f0db2c45d46f4aeafc1e43620d05a5c3b8805d60ea7789b2d71f2bbda7bb0",
+      "accessNote": null,
+      "contentStatus": "checked",
+      "publisherId": "doe",
+      "responseUrl": "https://www.energy.gov/hgeo/funding-notice-carbon-negative-shot-pilots"
+    }
+  ],
+  "counts": {
+    "verified-date-only": 28,
+    "submission-only": 4,
+    "verified-report-date": 1,
+    "verified-background": 10,
+    "limited-access": 2,
+    "conflicting-dates": 1,
+    "verified-report-year": 1,
+    "verified-event-date": 2,
+    "updated-page": 1
+  }
+}

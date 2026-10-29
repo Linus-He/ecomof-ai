@@ -203,5 +203,34 @@
     }
   ],
   "tradePoints": 13,
-  "detailFile": "events/jcYZt1lNCMgX4LHHqgoq.json"
+  "detailFile": "events/jcYZt1lNCMgX4LHHqgoq.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "jcYZt1lNCMgX4LHHqgoq",
+    "sourceApi": "https://api.manifold.markets/v0/market/jcYZt1lNCMgX4LHHqgoq",
+    "sha256": "0c9bbea4e3066610d05af3afa3905a38d3a496981182c585ef473178be6a8650",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1684720396751,
+        "current": 1684720396751,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1925020740000,
+        "current": 1925020740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will the DOE Hydrogen Shot Succeed in Reducing the Price of Renewable Hydrogen to $1/kg by 2030?"
+  }
 }

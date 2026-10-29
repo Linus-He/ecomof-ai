@@ -197,5 +197,34 @@
     }
   ],
   "tradePoints": 8,
-  "detailFile": "events/5yR6nLsLlu.json"
+  "detailFile": "events/5yR6nLsLlu.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "5yR6nLsLlu",
+    "sourceApi": "https://api.manifold.markets/v0/market/5yR6nLsLlu",
+    "sha256": "c820b0e097c02e651f9b511afee6efc710d8b8eb71d43a3c585291544a1de460",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1767658103646,
+        "current": 1767658103646,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798790340000,
+        "current": 1798790340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "By the end of 2026, will it be possible to purchase a motorcycle with a solid state battery for <$50k"
+  }
 }

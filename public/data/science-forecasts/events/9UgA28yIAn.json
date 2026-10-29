@@ -243,5 +243,34 @@
     }
   ],
   "tradePoints": 20,
-  "detailFile": "events/9UgA28yIAn.json"
+  "detailFile": "events/9UgA28yIAn.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "9UgA28yIAn",
+    "sourceApi": "https://api.manifold.markets/v0/market/9UgA28yIAn",
+    "sha256": "f968b1c2c7c7564b7d00d538836b6de21f1aa1d13fa08d39a8f53ce0557b9335",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1764128039599,
+        "current": 1764128039599,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1830297540000,
+        "current": 1830297540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "China achieves over 180 GW of new-type energy storage capacity by end of 2027?"
+  }
 }

@@ -605,5 +605,34 @@
   },
   "quality": [],
   "tradePoints": 115,
-  "detailFile": "events/cy4il0tvgl.json"
+  "detailFile": "events/cy4il0tvgl.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "cy4il0tvgl",
+    "sourceApi": "https://api.manifold.markets/v0/market/cy4il0tvgl",
+    "sha256": "ca84c6f7f4e684806374ad09632723cf0a87b8038039a923a7768430317ab50d",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1725591638473,
+        "current": 1725591638473,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1765799298654,
+        "current": 1765799298654,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1765799298654,
+        "current": 1765799298654,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will a drug designed with significant contribution from an AlphaFold-like system pass a Phase I trial by end of 2025?"
+  }
 }

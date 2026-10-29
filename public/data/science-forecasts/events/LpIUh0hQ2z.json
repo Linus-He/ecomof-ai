@@ -178,5 +178,34 @@
     }
   ],
   "tradePoints": 7,
-  "detailFile": "events/LpIUh0hQ2z.json"
+  "detailFile": "events/LpIUh0hQ2z.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "LpIUh0hQ2z",
+    "sourceApi": "https://api.manifold.markets/v0/market/LpIUh0hQ2z",
+    "sha256": "a54c48023a837d2f1e0582a90604abfab69f40a189d76a96e09ac7bc34dfc488",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1765530967505,
+        "current": 1765530967505,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1988150340000,
+        "current": 1988150340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Europe builds 5,000 km of operational hydrogen pipelines by 2033?"
+  }
 }

@@ -646,7 +646,19 @@
       },
       {
         "file": "scripts/science-forecasts/topics.json",
-        "sha256": "004aaaa637c2ed970ee4dc147067cdfeab29b094e2d07fb24940c349b5ffd2ab"
+        "sha256": "e503c2085a42256c85fe1797385b333559ef5970bd37fddb602064179b9fa278"
+      },
+      {
+        "file": "scripts/science-forecasts/publishers.json",
+        "sha256": "8e0b606fd5ef3838f4ed83d3a5d85cc2c6b5fd40576be00e926a79b265300ac9"
+      },
+      {
+        "file": "scripts/science-forecasts/event-date-review-2026-10-29.json",
+        "sha256": "e9982016895838b52dfac3eb4293e2da080901004bfab5da7a2181c4683bb2d8"
+      },
+      {
+        "file": "scripts/science-forecasts/source-date-review-2026-10-29.json",
+        "sha256": "d122f2c17ef6ad9f1f45077ff99ae8909d74046de07929440362ae79fb92823d"
       }
     ]
   },
@@ -723,7 +735,7 @@
     "logo checksums",
     "no account identities in public projection"
   ],
-  "sourceProjectionSha256": "b934e336176ee91beaee129a349d5f174c1377a5d3ff94b6eef8f16b6e094d06",
+  "sourceProjectionSha256": "981b7ef745c1849a77805e0f26b9ee616a054c9a58c447acc3bc98b0022c3c53",
   "markets": [
     {
       "id": "SAIUNdCI8U",

@@ -118,6 +118,79 @@ const dataLicenses = [
   },
 ]
 
+const apiServices = [
+  {
+    name: "Manifold API",
+    termsZh: "平台服务条款；不按项目 MIT 再授权",
+    termsEn: "Platform terms; not relicensed under project MIT",
+    scopeZh: "科学预测与诺奖历史：公开市场检索、原题与日期字段、分页 bets 记录中的成交后概率。采集和核对在构建期进行，页面读取本地存档；不接入交易或用户账户。",
+    scopeEn: "Science and Nobel archives: public market search, original questions and dates, and post-trade probabilities from paginated bets. Collection and review happen outside page entry; readers use local snapshots without trading or account access.",
+    boundaryZh: "遵守官方 API 使用规范、限流和服务条款。公开投影不包含账户标识；MANA 为虚拟币。接口可访问不等于数据获得开源再分发许可。",
+    boundaryEn: "Follow API guidelines, rate limits and service terms. Public projections omit account identities; MANA is play money. API accessibility does not itself grant an open redistribution license.",
+    docs: "https://docs.manifold.markets/api", terms: "https://docs.manifold.markets/terms",
+  },
+  {
+    name: "Polymarket Gamma / CLOB APIs",
+    termsZh: "平台数据与服务条款；非统一开放数据许可",
+    termsEn: "Platform data and service terms; no blanket open-data license",
+    scopeZh: "诺奖候选市场检索与 Yes token 历史价格采样，分别来自 Gamma public-search 和 CLOB prices-history；不是逐笔成交档案，也不是实时行情。",
+    scopeEn: "Nobel market discovery and historical Yes-token price samples use Gamma public-search and CLOB prices-history. These are sampled prices, not trade-by-trade records or a live feed.",
+    boundaryZh: "保留市场与 token 来源、截止时间和采样口径。部分历史接口复查返回 403，页面保留未完成复核说明；不绕过访问限制，不把本项目代码许可扩展到平台数据。",
+    boundaryEn: "Retain market/token provenance, cutoffs and sampling grain. Some re-fetches return 403 and remain visibly unverified; access restrictions are not bypassed and project code licensing does not extend to platform data.",
+    docs: "https://docs.polymarket.com/api-reference/markets/get-prices-history", terms: "https://polymarket.com/tos",
+  },
+  {
+    name: "Kalshi Trade API v2",
+    termsZh: "Developer Agreement / Data Terms；再分发授权未确认",
+    termsEn: "Developer Agreement / Data Terms; redistribution permission unconfirmed",
+    scopeZh: "既有诺奖存档使用公开事件信息及有成交量的一分钟蜡烛收盘价。蜡烛结束时间是聚合边界，不是精确成交时刻；没有接入下单或个人账户。",
+    scopeEn: "Existing Nobel snapshots use public event information and one-minute candle closes with positive traded volume. Candle ends are aggregation boundaries, not exact trade times. No order placement or personal accounts are connected.",
+    boundaryZh: "官方开发者协议限制非自身交易目的的数据缓存与共享，向第三方共享需事先书面授权。本项目未登记该授权，不将已有存档声明为可自由再分发的开放数据；接口可读不能代替授权。",
+    boundaryEn: "The official developer agreement restricts caching beyond a member’s own trading and requires prior written authorization for third-party sharing. No such authorization is registered here. Existing snapshots are not declared freely redistributable open data; readable endpoints do not establish permission.",
+    docs: "https://docs.kalshi.com/api-reference/market/get-market-candlesticks", terms: "https://kalshi-public-docs.s3.amazonaws.com/Kalshi-Developer-Agreement.pdf",
+  },
+  {
+    name: "Nobel Prize API",
+    termsZh: "官方开放数据说明；图像单独判断",
+    termsEn: "Official open-data guidance; separate image rights",
+    scopeZh: "诺奖化学年度与获奖者基础信息。当前构建脚本使用 api.nobelprize.org/v1/prize.json 的 chemistry 分类，保存成站内年度数据；官方文档建议新接入使用 v2。",
+    scopeEn: "Annual Chemistry awards and basic laureate metadata. The current build uses the chemistry category of api.nobelprize.org/v1/prize.json and stores annual records locally; official guidance recommends v2 for new integrations.",
+    boundaryZh: "官方说明 API 数据可免费使用；获奖者肖像、奖章、网页图文和商标不随元数据一并取得授权，仍保留图片来源、署名和对应使用条款。",
+    boundaryEn: "Official guidance makes API data free to use. Portraits, medals, site text/images and marks do not inherit metadata permissions; their source, credit and applicable terms remain separate.",
+    docs: "https://nobelprize.readme.io/reference/getting-started", terms: "https://www.nobelprize.org/about/terms-of-use/",
+  },
+  {
+    name: "PubChem PUG REST",
+    termsZh: "按 PubChem 与贡献者的记录级说明使用",
+    termsEn: "PubChem and contributor record-level terms",
+    scopeZh: "读取 CID 的分子连接、分子式与立体化学字段，为 RDKit 构建期绘图提供依据。连接记录、二维布局与计算构象分开标注，保留 CID 和实际请求链接。",
+    scopeEn: "CID connectivity, formulas and stereochemistry support build-time RDKit figures. Recorded connectivity, 2D layouts and computed conformers are labelled separately, with CID and actual request links retained.",
+    boundaryZh: "PubChem 汇集多个贡献来源，复用时仍需查看原记录的来源与许可说明；接口数据、计算绘图和企业未公开配方不相互替代。PUG REST 是数据服务，不是随仓库分发的软件依赖。",
+    boundaryEn: "PubChem aggregates multiple contributors; reuse remains subject to record provenance and source terms. API records, computed drawings and undisclosed company formulations are distinct. PUG REST is a data service, not a bundled software dependency.",
+    docs: "https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest", terms: "https://www.ncbi.nlm.nih.gov/home/about/policies/",
+  },
+  {
+    name: "Crossref REST API",
+    termsZh: "开放书目元数据；摘要与全文另有权利",
+    termsEn: "Open bibliographic metadata; separate abstract/full-text rights",
+    scopeZh: "催化文献检索、DOI 单条元数据核对，以及题名、期刊、年份、许可链接和更新关系记录。核对论文身份不等于已核对全部实验数值或科学结论。",
+    scopeEn: "Catalysis literature discovery and single-DOI checks of title, journal, year, license links and update relations. Article identity checks do not verify every experimental value or scientific conclusion.",
+    boundaryZh: "官方说明绝大多数元数据可用于任意目的，部分摘要仍可能受出版方或作者版权约束。本站不缓存发现流程中的摘要或全文；保留 DOI、请求来源与 polite-pool 联系方式配置。",
+    boundaryEn: "Official guidance permits broad reuse of almost all metadata, while some abstracts may retain publisher or author copyright. Discovery stores neither abstracts nor full text; DOI, request provenance and polite-pool contact configuration are preserved.",
+    docs: "https://www.crossref.org/documentation/retrieve-metadata/rest-api/", terms: "https://www.crossref.org/documentation/retrieve-metadata/rest-api/",
+  },
+  {
+    name: "OpenAlex API",
+    termsZh: "OpenAlex 元数据 CC0；链接内容另按来源许可",
+    termsEn: "OpenAlex metadata CC0; linked content retains source terms",
+    scopeZh: "催化候选文献发现与 Crossref 交叉检索，通过 DOI 合并书目元数据。候选与正式反应记录分开，未经人工核对不会自动成为已验证证据。",
+    scopeEn: "Catalysis candidate discovery cross-checks Crossref and merges bibliographic metadata by DOI. Candidates remain separate from formal reaction records and are not automatically promoted to verified evidence.",
+    boundaryZh: "OpenAlex 元数据按官方 CC0 说明使用；论文开放获取标记、许可链接与被链接的全文是不同对象，不把 CC0 扩展到论文正文、图片或出版方内容。",
+    boundaryEn: "OpenAlex metadata uses the official CC0 dedication. Open-access flags, license links and linked full text are distinct; CC0 does not extend to papers, figures or publisher content.",
+    docs: "https://help.openalex.org/api/", terms: "https://help.openalex.org/api/",
+  },
+]
+
 const reviewRules = [
   {
     titleZh: "代码与数据分开判断",
@@ -158,8 +231,8 @@ export function OpenSourceLicensesPage() {
         <h1>{text(lang, "开源许可", "Open Source Licenses")}</h1>
         <p>{text(
           lang,
-          "本页集中说明 EcoMOF-AI 当前 Web 仓库的自有代码许可、主要开源依赖、Swift 生态边界，以及第三方科研数据和文献材料不能被项目源码许可重新授权的范围。",
-          "This page summarizes the current EcoMOF-AI web repository's source-code license, major open-source dependencies, Swift ecosystem boundary, and the limits that prevent third-party research data or literature material from being relicensed by the project's source-code license.",
+          "本页集中说明 EcoMOF-AI 当前 Web 仓库的自有代码许可、主要开源依赖、Swift 生态边界、近期数据 API，以及第三方科研数据和文献材料不能被项目源码许可重新授权的范围。",
+          "This page summarizes the current EcoMOF-AI web repository's source-code license, major open-source dependencies, Swift ecosystem boundary, recent data APIs, and the limits that prevent third-party research data or literature material from being relicensed by the project's source-code license.",
         )}</p>
       </header>
 
@@ -232,6 +305,22 @@ export function OpenSourceLicensesPage() {
       <section className="license-section">
         <header>
           <span>03</span>
+          <h2>{text(lang, "近期使用的数据 API 与服务", "Recently used data APIs and services")}</h2>
+          <p>{text(lang, "以下接口用于数据采集、历史复核与文献整理，页面读取已保存的数据。数据接口的服务条款与软件开源许可分别列出；公开可读不代表可以任意再分发。", "These APIs support collection, historical review and literature curation; pages read saved data. Service terms are separate from software licenses, and public readability does not imply unrestricted redistribution.")}</p>
+        </header>
+        <div className="license-ledger">
+          {apiServices.map(item => <article key={item.name} className="license-ledger-row">
+            <div className="license-ledger-title"><strong>{item.name}</strong><ExternalLink href={item.docs}>{text(lang, "官方接口文档", "Official API documentation")}</ExternalLink><ExternalLink href={item.terms}>{text(lang, "条款与许可依据", "Terms and licensing basis")}</ExternalLink></div>
+            <div><span>{text(lang, "本站用途", "Use on this site")}</span><p>{text(lang, item.scopeZh, item.scopeEn)}</p></div>
+            <div><span>{text(lang, item.termsZh, item.termsEn)}</span><p>{text(lang, item.boundaryZh, item.boundaryEn)}</p></div>
+          </article>)}
+        </div>
+        <p>{text(lang, "来源标识另有说明：少量站点图标通过 Google S2 favicon 或 DuckDuckGo 图标缓存取得，下载来源和校验值随来源登记；图标在构建期保存，页面不向这些服务发送读者请求。缓存服务不授予商标或图像再授权。PubMed、期刊、新闻与机构网页按原始资料链接引用，未列为已接入 API。", "Publisher identities are separate: a few site icons came from Google S2 favicon or DuckDuckGo caches, with retrieval URLs and checksums registered. Assets are stored before page entry, so readers do not request these services. Caching does not relicense trademarks or images. PubMed, journals, news and institution pages are cited as source pages rather than claimed API integrations.")}</p>
+      </section>
+
+      <section className="license-section">
+        <header>
+          <span>04</span>
           <h2>{text(lang, "复用前检查规则", "Reuse review rules")}</h2>
         </header>
         <div className="license-review-rules">

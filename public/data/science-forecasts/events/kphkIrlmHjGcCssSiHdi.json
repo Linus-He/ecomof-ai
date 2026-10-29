@@ -2390,5 +2390,34 @@
     }
   ],
   "tradePoints": 557,
-  "detailFile": "events/kphkIrlmHjGcCssSiHdi.json"
+  "detailFile": "events/kphkIrlmHjGcCssSiHdi.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "kphkIrlmHjGcCssSiHdi",
+    "sourceApi": "https://api.manifold.markets/v0/market/kphkIrlmHjGcCssSiHdi",
+    "sha256": "e013e354baa061bef152205c698e7f77ffe99baf8967f13063ac7052d3814c2a",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1690903753245,
+        "current": 1690903753245,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1704171540000,
+        "current": 1704171540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1704175365667,
+        "current": 1704175365667,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "(M1000 SUBSIDY) Will the LK-99 room temp, ambient pressure superconductivity pre-print replicate before 2024?"
+  }
 }

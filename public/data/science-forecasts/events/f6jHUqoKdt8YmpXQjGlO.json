@@ -159,5 +159,34 @@
     }
   ],
   "tradePoints": 2,
-  "detailFile": "events/f6jHUqoKdt8YmpXQjGlO.json"
+  "detailFile": "events/f6jHUqoKdt8YmpXQjGlO.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "f6jHUqoKdt8YmpXQjGlO",
+    "sourceApi": "https://api.manifold.markets/v0/market/f6jHUqoKdt8YmpXQjGlO",
+    "sha256": "d1f27af32826c821e19a62e3a10667f4987c3c1f2441a0da15b721ae001e4f4b",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1691628659001,
+        "current": 1691628659001,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 2524636740000,
+        "current": 2524636740000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Anthropogenic olivine-based direct air capture of CO2 at >10^9 tons CO2/year before 2050?"
+  }
 }

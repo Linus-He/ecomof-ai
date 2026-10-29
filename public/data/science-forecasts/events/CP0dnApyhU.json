@@ -181,5 +181,34 @@
     }
   ],
   "tradePoints": 7,
-  "detailFile": "events/CP0dnApyhU.json"
+  "detailFile": "events/CP0dnApyhU.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "CP0dnApyhU",
+    "sourceApi": "https://api.manifold.markets/v0/market/CP0dnApyhU",
+    "sha256": "eaeb88aa9bd31fe95d36c08bdc3e19e19747a4ff8a3db8e56f9035d6f58b5ba8",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1764517802944,
+        "current": 1764517802944,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893455940000,
+        "current": 1893455940000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "US battery energy storage doubles over 2025–2029?"
+  }
 }

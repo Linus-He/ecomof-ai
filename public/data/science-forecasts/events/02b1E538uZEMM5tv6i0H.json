@@ -194,5 +194,34 @@
     }
   ],
   "tradePoints": 8,
-  "detailFile": "events/02b1E538uZEMM5tv6i0H.json"
+  "detailFile": "events/02b1E538uZEMM5tv6i0H.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "02b1E538uZEMM5tv6i0H",
+    "sourceApi": "https://api.manifold.markets/v0/market/02b1E538uZEMM5tv6i0H",
+    "sha256": "afd2abdd87e53b786e196d687697081775fd44cc92885b999c973cbf674ca030",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1682207546360,
+        "current": 1682207546360,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1704078090740,
+        "current": 1704078090740,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1704078090740,
+        "current": 1704078090740,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will CATL's new 500 Wh/kg battery be commercially available in 2023?"
+  }
 }

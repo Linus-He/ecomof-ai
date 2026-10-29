@@ -4679,5 +4679,34 @@
     }
   ],
   "tradePoints": 1128,
-  "detailFile": "events/rctqd0ZaxeeiHP93VP5n.json"
+  "detailFile": "events/rctqd0ZaxeeiHP93VP5n.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "rctqd0ZaxeeiHP93VP5n",
+    "sourceApi": "https://api.manifold.markets/v0/market/rctqd0ZaxeeiHP93VP5n",
+    "sha256": "3b373142fbf499eb813bb52f0f08842f7946f3022afdf14411b7b771def05014",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1690393054885,
+        "current": 1690393054885,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1704085140000,
+        "current": 1704085140000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1704135830080,
+        "current": 1704135830080,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will the room temp superconductor paper replicate in 2023?"
+  }
 }

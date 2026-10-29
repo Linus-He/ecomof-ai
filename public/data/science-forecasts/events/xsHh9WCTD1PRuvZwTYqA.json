@@ -331,5 +331,34 @@
   },
   "quality": [],
   "tradePoints": 47,
-  "detailFile": "events/xsHh9WCTD1PRuvZwTYqA.json"
+  "detailFile": "events/xsHh9WCTD1PRuvZwTYqA.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "xsHh9WCTD1PRuvZwTYqA",
+    "sourceApi": "https://api.manifold.markets/v0/market/xsHh9WCTD1PRuvZwTYqA",
+    "sha256": "0ec9cade30159da89af42095fb9dba142dbd64fa7100070b045447b864b09d23",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1691259454204,
+        "current": 1691259454204,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1749438405759,
+        "current": 1749438405759,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1749438405759,
+        "current": 1749438405759,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Conditional on LK-99 replicating, will a RTSC be used commercially by 2026?"
+  }
 }

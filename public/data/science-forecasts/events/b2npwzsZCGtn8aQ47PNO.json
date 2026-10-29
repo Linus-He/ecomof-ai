@@ -1033,5 +1033,34 @@
     }
   ],
   "tradePoints": 220,
-  "detailFile": "events/b2npwzsZCGtn8aQ47PNO.json"
+  "detailFile": "events/b2npwzsZCGtn8aQ47PNO.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "b2npwzsZCGtn8aQ47PNO",
+    "sourceApi": "https://api.manifold.markets/v0/market/b2npwzsZCGtn8aQ47PNO",
+    "sha256": "20e56fbb681e1852c457a1ac6855cf87f581372d3766834b01fb765c9bb40da2",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1705930178994,
+        "current": 1705930178994,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1893513540000,
+        "current": 1893513540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will EV batteries cost less than 1000 USD in 2030?"
+  }
 }

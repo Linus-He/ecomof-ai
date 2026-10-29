@@ -416,5 +416,34 @@
     }
   ],
   "tradePoints": 66,
-  "detailFile": "events/Shc85pllS8.json"
+  "detailFile": "events/Shc85pllS8.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "Shc85pllS8",
+    "sourceApi": "https://api.manifold.markets/v0/market/Shc85pllS8",
+    "sha256": "4e1dd02c86863b05a16f7a997cb8633ee47ad3f01b24db34742d985d9eba39dd",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1766340961977,
+        "current": 1766340961977,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798761540000,
+        "current": 1798761540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Quantumscape & PowerCo confirm initial sample production of QS-enabled Unified Cell in 2026?"
+  }
 }

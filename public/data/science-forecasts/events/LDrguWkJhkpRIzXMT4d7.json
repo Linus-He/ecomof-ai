@@ -754,5 +754,34 @@
     }
   ],
   "tradePoints": 151,
-  "detailFile": "events/LDrguWkJhkpRIzXMT4d7.json"
+  "detailFile": "events/LDrguWkJhkpRIzXMT4d7.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "LDrguWkJhkpRIzXMT4d7",
+    "sourceApi": "https://api.manifold.markets/v0/market/LDrguWkJhkpRIzXMT4d7",
+    "sha256": "b2a8579913e3ddc1710060d952f08119939bb21ea8795d2e069d774adf0a0363",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1675387504084,
+        "current": 1675387504084,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1706763540000,
+        "current": 1706763540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1706790021557,
+        "current": 1706790021557,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will any corporate quantum computing team publicly report the implementation of 2 or more simultaneous 2-qubit gates with average gate fidelity of at least 99.9% before Feb 2024?"
+  }
 }

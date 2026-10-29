@@ -193,5 +193,34 @@
     }
   ],
   "tradePoints": 8,
-  "detailFile": "events/23EEgMHJGu7TVzZyOCqT.json"
+  "detailFile": "events/23EEgMHJGu7TVzZyOCqT.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "23EEgMHJGu7TVzZyOCqT",
+    "sourceApi": "https://api.manifold.markets/v0/market/23EEgMHJGu7TVzZyOCqT",
+    "sha256": "f3c95333b0c599d984c8e8246f49d598f94ee4fc507e940da671b8b345dcdb1f",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1715284933769,
+        "current": 1715284933769,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1930517940000,
+        "current": 1930517940000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will Japan produce hydrogen with nuclear power before 2031?"
+  }
 }

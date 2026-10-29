@@ -439,5 +439,34 @@
   },
   "quality": [],
   "tradePoints": 75,
-  "detailFile": "events/e3ah02wnqsS2hwQYTgQs.json"
+  "detailFile": "events/e3ah02wnqsS2hwQYTgQs.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "e3ah02wnqsS2hwQYTgQs",
+    "sourceApi": "https://api.manifold.markets/v0/market/e3ah02wnqsS2hwQYTgQs",
+    "sha256": "d3470e097cfeeadc11abd165da4d338d9eedc7cf6efcb877d6eed1a1bcc381d6",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1671423577628,
+        "current": 1671423577628,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1735718340000,
+        "current": 1735718340000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": 1735859921430,
+        "current": 1735859921430,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Will someone sell a non-lithium EV before 2025?"
+  }
 }

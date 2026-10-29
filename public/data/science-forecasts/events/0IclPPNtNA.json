@@ -193,5 +193,34 @@
     }
   ],
   "tradePoints": 7,
-  "detailFile": "events/0IclPPNtNA.json"
+  "detailFile": "events/0IclPPNtNA.json",
+  "dateReview": {
+    "checkedAt": "2026-10-29",
+    "id": "0IclPPNtNA",
+    "sourceApi": "https://api.manifold.markets/v0/market/0IclPPNtNA",
+    "sha256": "98949d5f0befdb4fde392b92207aa14c4a578b3eb855cbf5c941f7b063011c59",
+    "dates": [
+      {
+        "field": "createdTime",
+        "archived": 1757284580970,
+        "current": 1757284580970,
+        "matches": true
+      },
+      {
+        "field": "closeTime",
+        "archived": 1798761540000,
+        "current": 1798761540000,
+        "matches": true
+      },
+      {
+        "field": "resolutionTime",
+        "archived": null,
+        "current": null,
+        "matches": true
+      }
+    ],
+    "originalTitleMatches": true,
+    "resolutionMatches": true,
+    "currentTitle": "Sodium ion battery for $10/kWh by EOY 2026?"
+  }
 }
